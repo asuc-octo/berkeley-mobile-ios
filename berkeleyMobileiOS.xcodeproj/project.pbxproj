@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		05F5310B1DBDADC700392D7D /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 05F5310A1DBDADC700392D7D /* Home.storyboard */; };
+		05F531101DBDB30B00392D7D /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F5310F1DBDB30B00392D7D /* HomeViewController.swift */; };
+		05F531121DBDB62800392D7D /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F531111DBDB62800392D7D /* HomeTableViewCell.swift */; };
+		05F531141DBDB80200392D7D /* HomeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F531131DBDB80200392D7D /* HomeCollectionViewCell.swift */; };
 		41E8438E1DAB3FE80096C049 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E8438D1DAB3FE80096C049 /* AppDelegate.swift */; };
 		41E843901DAB3FE80096C049 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E8438F1DAB3FE80096C049 /* ViewController.swift */; };
 		41E843931DAB3FE80096C049 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41E843911DAB3FE80096C049 /* Main.storyboard */; };
@@ -15,6 +19,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		05F5310A1DBDADC700392D7D /* Home.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
+		05F5310F1DBDB30B00392D7D /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		05F531111DBDB62800392D7D /* HomeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
+		05F531131DBDB80200392D7D /* HomeCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewCell.swift; sourceTree = "<group>"; };
 		41E8438A1DAB3FE80096C049 /* berkeleyMobileiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = berkeleyMobileiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		41E8438D1DAB3FE80096C049 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		41E8438F1DAB3FE80096C049 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -57,6 +65,10 @@
 				41E8438D1DAB3FE80096C049 /* AppDelegate.swift */,
 				41E8438F1DAB3FE80096C049 /* ViewController.swift */,
 				41E843911DAB3FE80096C049 /* Main.storyboard */,
+				05F5310A1DBDADC700392D7D /* Home.storyboard */,
+				05F5310F1DBDB30B00392D7D /* HomeViewController.swift */,
+				05F531111DBDB62800392D7D /* HomeTableViewCell.swift */,
+				05F531131DBDB80200392D7D /* HomeCollectionViewCell.swift */,
 				41E843941DAB3FE80096C049 /* Assets.xcassets */,
 				41E843961DAB3FE80096C049 /* LaunchScreen.storyboard */,
 				41E843991DAB3FE80096C049 /* Info.plist */,
@@ -126,6 +138,7 @@
 				41E843981DAB3FE80096C049 /* LaunchScreen.storyboard in Resources */,
 				41E843951DAB3FE80096C049 /* Assets.xcassets in Resources */,
 				41E843931DAB3FE80096C049 /* Main.storyboard in Resources */,
+				05F5310B1DBDADC700392D7D /* Home.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -136,8 +149,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05F531141DBDB80200392D7D /* HomeCollectionViewCell.swift in Sources */,
 				41E843901DAB3FE80096C049 /* ViewController.swift in Sources */,
 				41E8438E1DAB3FE80096C049 /* AppDelegate.swift in Sources */,
+				05F531121DBDB62800392D7D /* HomeTableViewCell.swift in Sources */,
+				05F531101DBDB30B00392D7D /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,6 +315,7 @@
 				41E8439E1DAB3FE80096C049 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
