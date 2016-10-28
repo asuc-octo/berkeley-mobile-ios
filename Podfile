@@ -7,4 +7,6 @@ target 'berkeleyMobileiOS' do
 
   # Pods for berkeleyMobileiOS
 pod ‘Alamofire’, ‘~> 4.0’
+pod 'Material', '~> 2.0'
+pod 'SwiftyJSON'
 end
