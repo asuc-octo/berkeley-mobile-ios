@@ -8,11 +8,18 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class launchViewController: UIViewController {
 
+    @IBOutlet weak var centerYLabel: NSLayoutConstraint!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        self.centerYLabel.constant = 0
+        UIView.animate(withDuration: 2, animations: {
+            self.view.layoutIfNeeded()
+        })
     }
 
     override func didReceiveMemoryWarning() {
