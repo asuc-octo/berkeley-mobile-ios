@@ -17,7 +17,7 @@ class launchViewController: UIViewController {
     }
     override func viewDidAppear(_ animated: Bool) {
         self.centerYLabel.constant = 0
-        UIView.animate(withDuration: 2, animations: {
+        UIView.animate(withDuration: 1.2, animations: {
             self.view.layoutIfNeeded()
         })
     }

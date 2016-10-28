@@ -1,12 +1,20 @@
 PODS:
   - Alamofire (4.0.1)
+  - Material (2.2.5):
+    - Material/Core (= 2.2.5)
+  - Material/Core (2.2.5)
+  - SwiftyJSON (3.1.1)
 
 DEPENDENCIES:
   - Alamofire (~> 4.0)
+  - Material (~> 2.0)
+  - SwiftyJSON
 
 SPEC CHECKSUMS:
   Alamofire: 7682d43245de14874acd142ec137b144aa1dd335
+  Material: 9d1d084759d908a5bddc37e6e9d22874da296621
+  SwiftyJSON: f0be2e604f83e8405a624e9f891898bf6ed4e019
 
-PODFILE CHECKSUM: 056f99fdf7530abc7eb72f190c89f10a254bdce2
+PODFILE CHECKSUM: 4ad08b16f048b9ee9ac1c8e673c9b40d40cceabf
 
 COCOAPODS: 1.1.1
