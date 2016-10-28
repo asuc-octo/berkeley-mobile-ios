@@ -8,20 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		41E8438E1DAB3FE80096C049 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E8438D1DAB3FE80096C049 /* AppDelegate.swift */; };
-		41E843901DAB3FE80096C049 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E8438F1DAB3FE80096C049 /* ViewController.swift */; };
+		41E843901DAB3FE80096C049 /* launchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E8438F1DAB3FE80096C049 /* launchViewController.swift */; };
 		41E843931DAB3FE80096C049 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41E843911DAB3FE80096C049 /* Main.storyboard */; };
 		41E843951DAB3FE80096C049 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41E843941DAB3FE80096C049 /* Assets.xcassets */; };
 		41E843981DAB3FE80096C049 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41E843961DAB3FE80096C049 /* LaunchScreen.storyboard */; };
+		615CD1A174160A31DE6165FB /* Pods_berkeleyMobileiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CDB2604FFE493341212DD8A /* Pods_berkeleyMobileiOS.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3CDB2604FFE493341212DD8A /* Pods_berkeleyMobileiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_berkeleyMobileiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		41E8438A1DAB3FE80096C049 /* berkeleyMobileiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = berkeleyMobileiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		41E8438D1DAB3FE80096C049 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		41E8438F1DAB3FE80096C049 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		41E8438F1DAB3FE80096C049 /* launchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = launchViewController.swift; sourceTree = "<group>"; };
 		41E843921DAB3FE80096C049 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		41E843941DAB3FE80096C049 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		41E843971DAB3FE80096C049 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		41E843991DAB3FE80096C049 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7BC35364DDC70E5590C55CCF /* Pods-berkeleyMobileiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeleyMobileiOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-berkeleyMobileiOS/Pods-berkeleyMobileiOS.release.xcconfig"; sourceTree = "<group>"; };
+		9D72D6DF911EDC0F04EE307F /* Pods-berkeleyMobileiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeleyMobileiOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-berkeleyMobileiOS/Pods-berkeleyMobileiOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +33,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				615CD1A174160A31DE6165FB /* Pods_berkeleyMobileiOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +45,8 @@
 			children = (
 				41E8438C1DAB3FE80096C049 /* berkeleyMobileiOS */,
 				41E8438B1DAB3FE80096C049 /* Products */,
+				93BD09A1D2E78ACB866AE8D4 /* Pods */,
+				BADAC15CCD681293C4FD4336 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -55,13 +62,30 @@
 			isa = PBXGroup;
 			children = (
 				41E8438D1DAB3FE80096C049 /* AppDelegate.swift */,
-				41E8438F1DAB3FE80096C049 /* ViewController.swift */,
+				41E8438F1DAB3FE80096C049 /* launchViewController.swift */,
 				41E843911DAB3FE80096C049 /* Main.storyboard */,
 				41E843941DAB3FE80096C049 /* Assets.xcassets */,
 				41E843961DAB3FE80096C049 /* LaunchScreen.storyboard */,
 				41E843991DAB3FE80096C049 /* Info.plist */,
 			);
 			path = berkeleyMobileiOS;
+			sourceTree = "<group>";
+		};
+		93BD09A1D2E78ACB866AE8D4 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9D72D6DF911EDC0F04EE307F /* Pods-berkeleyMobileiOS.debug.xcconfig */,
+				7BC35364DDC70E5590C55CCF /* Pods-berkeleyMobileiOS.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		BADAC15CCD681293C4FD4336 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3CDB2604FFE493341212DD8A /* Pods_berkeleyMobileiOS.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,9 +95,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 41E8439C1DAB3FE80096C049 /* Build configuration list for PBXNativeTarget "berkeleyMobileiOS" */;
 			buildPhases = (
+				A2A9E27ACE9FBC567AF40778 /* [CP] Check Pods Manifest.lock */,
 				41E843861DAB3FE80096C049 /* Sources */,
 				41E843871DAB3FE80096C049 /* Frameworks */,
 				41E843881DAB3FE80096C049 /* Resources */,
+				870E1645707A169312C5FB2C /* [CP] Embed Pods Frameworks */,
+				72F272B633396CA43BAB0E06 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -96,6 +123,8 @@
 				TargetAttributes = {
 					41E843891DAB3FE80096C049 = {
 						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = PJDHFMJJZL;
+						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -131,12 +160,60 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		72F272B633396CA43BAB0E06 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-berkeleyMobileiOS/Pods-berkeleyMobileiOS-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		870E1645707A169312C5FB2C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-berkeleyMobileiOS/Pods-berkeleyMobileiOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A2A9E27ACE9FBC567AF40778 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		41E843861DAB3FE80096C049 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				41E843901DAB3FE80096C049 /* ViewController.swift in Sources */,
+				41E843901DAB3FE80096C049 /* launchViewController.swift in Sources */,
 				41E8438E1DAB3FE80096C049 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -258,8 +335,10 @@
 		};
 		41E8439D1DAB3FE80096C049 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9D72D6DF911EDC0F04EE307F /* Pods-berkeleyMobileiOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = PJDHFMJJZL;
 				INFOPLIST_FILE = berkeleyMobileiOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.berkeleyMobile.berkeleyMobileiOS;
@@ -270,8 +349,10 @@
 		};
 		41E8439E1DAB3FE80096C049 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7BC35364DDC70E5590C55CCF /* Pods-berkeleyMobileiOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = PJDHFMJJZL;
 				INFOPLIST_FILE = berkeleyMobileiOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.berkeleyMobile.berkeleyMobileiOS;
@@ -299,6 +380,7 @@
 				41E8439E1DAB3FE80096C049 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
