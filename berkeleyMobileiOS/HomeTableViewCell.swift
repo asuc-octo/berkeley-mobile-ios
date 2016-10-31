@@ -13,7 +13,7 @@ class HomeTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollection
     @IBOutlet weak var homeCollectionView: UICollectionView!
     
     // Hardcode
-    let gyms = ["RSF", "Memorial Stadium", "Yolo"]
+    var collectionCellNames = ["RSF", "Memorial Stadium", "Yolo"]
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -22,7 +22,7 @@ class HomeTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollection
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return collectionCellNames.count
     }
     
     
@@ -30,7 +30,7 @@ class HomeTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollection
         self.homeCollectionView.delegate = self
         self.homeCollectionView.dataSource = self
         let cell = homeCollectionView.dequeueReusableCell(withReuseIdentifier: "homeCollectionViewCell", for: indexPath) as! HomeCollectionViewCell
-        cell.nameLabel.text = gyms[indexPath.row]
+        cell.nameLabel.text = collectionCellNames[indexPath.row]
         return cell
     }
 
