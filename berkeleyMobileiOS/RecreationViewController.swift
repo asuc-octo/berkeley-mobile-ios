@@ -13,9 +13,8 @@ class RecreationViewController: BaseViewController {
     override func viewDidLoad() {
         self.sectionNames = ["RSF", "Memorial Stadium"]
         self.baseTitleLabel.text = "Recreation"
-        DispatchQueue.main.async{
-            self.baseTableView.reloadData()
-        }
+        self.baseTableView.reloadData()
+
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
