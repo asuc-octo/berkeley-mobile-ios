@@ -20,7 +20,12 @@ class HomeViewController: BaseViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = baseTableView.dequeueReusableCell(withIdentifier: "HomeTableViewCell")! as! HomeTableViewCell
-        cell.collectionCellNames = ["swag", "Dope"]
+        if indexPath.section == 0 {
+            cell.collectionCellNames = ["swag", "Dope"]
+        } else {
+            cell.collectionCellNames = ["yolo"]
+        }
+        
         if let layout = cell.homeCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .horizontal
         }
