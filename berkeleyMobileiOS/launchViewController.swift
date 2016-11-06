@@ -7,9 +7,8 @@
 //
 
 import UIKit
-
+import Material
 class launchViewController: UIViewController {
-
     @IBOutlet weak var centerYLabel: NSLayoutConstraint!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,13 +19,18 @@ class launchViewController: UIViewController {
         UIView.animate(withDuration: 1.2, animations: {
             self.view.layoutIfNeeded()
         })
-    }
+        _ = Timer.scheduledTimer(timeInterval: 2, target:self, selector: #selector(launchViewController.presentMainViewController), userInfo: nil, repeats: false)
 
+    }
+    //After launch animation, present the actual workflow. All tabs should be in this init statement.
+    func presentMainViewController() {
+        let indexViewController: UIViewController  = TabBarController(viewControllers: [UIStoryboard.viewController(identifier: "wellness") as! RecreationViewController, UIStoryboard.viewController(identifier: "academics") as! AcademicsViewController,UIStoryboard.viewController(identifier: "dining") as! DiningHallsViewController,UIStoryboard.viewController(identifier: "beartransit") as! BearTransitViewController], selectedIndex: 0)
+        indexViewController.modalTransitionStyle = .crossDissolve
+        self.present(indexViewController, animated: true, completion: nil)
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
 }
 
