@@ -21,15 +21,7 @@ class DiningHallsViewController: BaseViewController {
     }
     //Make sure tab bar is highlighted properly
     override func viewDidAppear(_ animated: Bool) {
-        for vc in (pageTabBarController?.viewControllers)! {
-            if (vc == self)   {
-                vc.pageTabBarItem.imageView?.tintColor = Color.blue.base
-            } else {
-                vc.pageTabBarItem.imageView?.tintColor = Color.grey.base
-                
-            }
-            
-        }
+        ConvenienceMethods.setCurrentTabStyle(pageTabBarVC: pageTabBarController!, ForSelectedViewController: self)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

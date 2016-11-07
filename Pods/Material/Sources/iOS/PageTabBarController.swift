@@ -36,8 +36,6 @@ private var PageTabBarItemKey: UInt8 = 0
 open class PageTabBarItem: FlatButton {
     open override func prepare() {
         super.prepare()
-        pulseAnimation = .pointWithBacking
-        pulseColor = Color.blue.lighten2
     }
 }
 
