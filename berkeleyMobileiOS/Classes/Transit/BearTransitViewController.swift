@@ -31,7 +31,6 @@ class BearTransitViewController: UIViewController {
     private func preparePageTabBarItem() {
         pageTabBarItem.image = #imageLiteral(resourceName: "50x50-BearTransit_32x32")
         pageTabBarItem.image = pageTabBarItem.image!.withRenderingMode(.alwaysTemplate)
-        pageTabBarItem.imageEdgeInsets = UIEdgeInsetsMake(6,6,6,6)
         pageTabBarItem.imageView?.contentMode = .scaleAspectFit
     }
 }
