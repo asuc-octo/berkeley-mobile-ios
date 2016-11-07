@@ -95,9 +95,9 @@
 		4E5CAED81DD02BC700ECAF8E /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				4E5CAED91DD02BC700ECAF8E /* Academics */,
 				4E5CAEDB1DD02BC700ECAF8E /* Base */,
 				4E5CAEDD1DD02BC700ECAF8E /* Home */,
+				4E5CAED91DD02BC700ECAF8E /* Academics */,
 				4E5CAEE11DD02BC700ECAF8E /* Recreation */,
 			);
 			path = Classes;
