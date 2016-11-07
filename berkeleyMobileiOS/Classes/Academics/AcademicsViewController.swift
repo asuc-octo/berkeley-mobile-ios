@@ -37,7 +37,6 @@ class AcademicsViewController: BaseViewController {
     private func preparePageTabBarItem() {
         pageTabBarItem.image = #imageLiteral(resourceName: "library")
         pageTabBarItem.image = pageTabBarItem.image!.withRenderingMode(.alwaysTemplate)
-        pageTabBarItem.imageEdgeInsets = UIEdgeInsetsMake(6,6,6,6)
         pageTabBarItem.imageView?.contentMode = .scaleAspectFit
     }
 
