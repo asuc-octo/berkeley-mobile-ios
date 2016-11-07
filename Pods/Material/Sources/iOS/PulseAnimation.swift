@@ -57,7 +57,6 @@ internal extension Animation {
         guard .none != pulse.animation else {
             return
         }
-        
         let n = .center == pulse.animation ? width < height ? width : height : width < height ? height : width
         
         let bLayer = CAShapeLayer()
@@ -68,12 +67,12 @@ internal extension Animation {
         visualLayer.addSublayer(bLayer)
         bLayer.zPosition = 0
         pLayer.zPosition = 0
-        
         visualLayer.masksToBounds = !(.centerRadialBeyondBounds == pulse.animation || .radialBeyondBounds == pulse.animation)
+        visualLayer.masksToBounds = false
         
         Animation.animationDisabled(animations: { [visualLayer = visualLayer, pulse = pulse] in
-            bLayer.frame = visualLayer.bounds
-            pLayer.bounds = CGRect(x: 0, y: 0, width: n, height: n)
+            bLayer.frame = CGRect(x: 0, y: 0, width: n + 19, height: height)
+            pLayer.bounds = CGRect(x: 0, y: 0, width: n + 19, height: height)
             
             switch pulse.animation {
             case .center, .centerWithBacking, .centerRadialBeyondBounds:
@@ -82,14 +81,14 @@ internal extension Animation {
                 pLayer.position = point
             }
             
-            pLayer.cornerRadius = n / 2
+            pLayer.cornerRadius = 20
             pLayer.backgroundColor = pulse.color.withAlphaComponent(pulse.opacity).cgColor
             pLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransform(scaleX: 0, y: 0))
         })
         
         bLayer.setValue(false, forKey: "animated")
         
-        let duration: CFTimeInterval = .center == pulse.animation ? 0.16125 : 0.325
+        let duration: CFTimeInterval = .center == pulse.animation ? 0.16125 : 0.16125
         
         switch pulse.animation {
         case .centerWithBacking, .backing, .pointWithBacking:
@@ -128,7 +127,7 @@ internal extension Animation {
                 return
             }
             
-            let duration = 0.325
+            let duration = 0.0
             
             switch pulse.animation {
             case .centerWithBacking, .backing, .pointWithBacking:

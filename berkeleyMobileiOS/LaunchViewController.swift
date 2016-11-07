@@ -8,7 +8,7 @@
 
 import UIKit
 import Material
-class launchViewController: UIViewController {
+class LaunchViewController: UIViewController {
     @IBOutlet weak var centerYLabel: NSLayoutConstraint!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,7 +19,7 @@ class launchViewController: UIViewController {
         UIView.animate(withDuration: 1.2, animations: {
             self.view.layoutIfNeeded()
         })
-        _ = Timer.scheduledTimer(timeInterval: 2, target:self, selector: #selector(launchViewController.presentMainViewController), userInfo: nil, repeats: false)
+        _ = Timer.scheduledTimer(timeInterval: 2, target:self, selector: #selector(LaunchViewController.presentMainViewController), userInfo: nil, repeats: false)
 
     }
     //After launch animation, present the actual workflow. All tabs should be in this init statement.

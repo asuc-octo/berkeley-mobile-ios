@@ -10,7 +10,7 @@
         <!--Launch View Controller-->
         <scene sceneID="Skx-KE-AbB">
             <objects>
-                <viewController storyboardIdentifier="launch" id="xNT-jW-KZS" customClass="launchViewController" customModule="berkeleyMobileiOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="launch" id="xNT-jW-KZS" customClass="LaunchViewController" customModule="berkeleyMobileiOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="IBo-FC-YjQ"/>
                         <viewControllerLayoutGuide type="bottom" id="VoL-3X-MbO"/>

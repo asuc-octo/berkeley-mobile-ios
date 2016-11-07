@@ -21,7 +21,7 @@ class TabBarController: PageTabBarController {
         self.pageTabBar.lineColor = Color.white
         self.pageTabBar.lineHeight = 0
         pageTabBar.lineAlignment = .bottom
-        pageTabBarItem.pulseAnimation = .pointWithBacking
+        pageTabBarItem.pulseAnimation = .center
         pageTabBarItem.pulseColor = Color.blue.lighten2
     }
 }

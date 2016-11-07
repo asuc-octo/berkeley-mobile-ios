@@ -18,11 +18,11 @@
 		41661D0C1DCF13C20044E7B4 /* DiningHallsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41661D0B1DCF13C20044E7B4 /* DiningHallsViewController.swift */; };
 		41661D0E1DCF13E50044E7B4 /* BearTransitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41661D0D1DCF13E50044E7B4 /* BearTransitViewController.swift */; };
 		41E8438E1DAB3FE80096C049 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E8438D1DAB3FE80096C049 /* AppDelegate.swift */; };
-		41E843901DAB3FE80096C049 /* launchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E8438F1DAB3FE80096C049 /* launchViewController.swift */; };
+		41E843901DAB3FE80096C049 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E8438F1DAB3FE80096C049 /* LaunchViewController.swift */; };
 		41E843931DAB3FE80096C049 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41E843911DAB3FE80096C049 /* Main.storyboard */; };
 		41E843951DAB3FE80096C049 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41E843941DAB3FE80096C049 /* Assets.xcassets */; };
 		41E843981DAB3FE80096C049 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41E843961DAB3FE80096C049 /* LaunchScreen.storyboard */; };
-		615CD1A174160A31DE6165FB /* (null) in Frameworks */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (Required, ); }; };
+		41F022881DD0420D001B7FCA /* ConvenienceMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F022871DD0420C001B7FCA /* ConvenienceMethods.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,11 +38,12 @@
 		41661D0D1DCF13E50044E7B4 /* BearTransitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BearTransitViewController.swift; sourceTree = "<group>"; };
 		41E8438A1DAB3FE80096C049 /* berkeleyMobileiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = berkeleyMobileiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		41E8438D1DAB3FE80096C049 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		41E8438F1DAB3FE80096C049 /* launchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = launchViewController.swift; sourceTree = "<group>"; };
+		41E8438F1DAB3FE80096C049 /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		41E843921DAB3FE80096C049 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		41E843941DAB3FE80096C049 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		41E843971DAB3FE80096C049 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		41E843991DAB3FE80096C049 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		41F022871DD0420C001B7FCA /* ConvenienceMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvenienceMethods.swift; sourceTree = "<group>"; };
 		7BC35364DDC70E5590C55CCF /* Pods-berkeleyMobileiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeleyMobileiOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-berkeleyMobileiOS/Pods-berkeleyMobileiOS.release.xcconfig"; sourceTree = "<group>"; };
 		9D72D6DF911EDC0F04EE307F /* Pods-berkeleyMobileiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeleyMobileiOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-berkeleyMobileiOS/Pods-berkeleyMobileiOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -53,7 +54,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				41661D0A1DCEFC760044E7B4 /* Material.framework in Frameworks */,
-				615CD1A174160A31DE6165FB /* (null) in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,12 +83,13 @@
 			children = (
 				41E8438D1DAB3FE80096C049 /* AppDelegate.swift */,
 				41661D001DCEE43A0044E7B4 /* TabBarController.swift */,
-				41E8438F1DAB3FE80096C049 /* launchViewController.swift */,
+				41E8438F1DAB3FE80096C049 /* LaunchViewController.swift */,
 				41E843911DAB3FE80096C049 /* Main.storyboard */,
 				0526DD8B1DC6CF640063D827 /* BaseViewController.swift */,
 				05F5310F1DBDB30B00392D7D /* HomeViewController.swift */,
 				41661D0B1DCF13C20044E7B4 /* DiningHallsViewController.swift */,
 				41661D0D1DCF13E50044E7B4 /* BearTransitViewController.swift */,
+				41F022871DD0420C001B7FCA /* ConvenienceMethods.swift */,
 				0526DD871DC6CC060063D827 /* RecreationViewController.swift */,
 				0526DD891DC6CF020063D827 /* AcademicsViewController.swift */,
 				05F531111DBDB62800392D7D /* HomeTableViewCell.swift */,
@@ -244,12 +245,13 @@
 			files = (
 				0526DD881DC6CC060063D827 /* RecreationViewController.swift in Sources */,
 				05F531141DBDB80200392D7D /* HomeCollectionViewCell.swift in Sources */,
-				41E843901DAB3FE80096C049 /* launchViewController.swift in Sources */,
+				41E843901DAB3FE80096C049 /* LaunchViewController.swift in Sources */,
 				41661D011DCEE43A0044E7B4 /* TabBarController.swift in Sources */,
 				41E8438E1DAB3FE80096C049 /* AppDelegate.swift in Sources */,
 				05F531121DBDB62800392D7D /* HomeTableViewCell.swift in Sources */,
 				0526DD8C1DC6CF640063D827 /* BaseViewController.swift in Sources */,
 				0526DD8A1DC6CF030063D827 /* AcademicsViewController.swift in Sources */,
+				41F022881DD0420D001B7FCA /* ConvenienceMethods.swift in Sources */,
 				41661D0C1DCF13C20044E7B4 /* DiningHallsViewController.swift in Sources */,
 				41661D0E1DCF13E50044E7B4 /* BearTransitViewController.swift in Sources */,
 				05F531101DBDB30B00392D7D /* HomeViewController.swift in Sources */,

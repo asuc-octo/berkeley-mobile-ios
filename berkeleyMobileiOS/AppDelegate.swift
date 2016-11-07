@@ -18,15 +18,9 @@ extension UIStoryboard {
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    lazy var launchViewController: launchViewController = {
-        return UIStoryboard.viewController(identifier: "launch") as! launchViewController
-    }()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-//        window = UIWindow(frame: UIScreen.main.bounds)
-//        window!.rootViewController = TabBarController(viewControllers: [launchViewController], selectedIndex: 0)
-//        window!.makeKeyAndVisible()
         return true
     }
 
