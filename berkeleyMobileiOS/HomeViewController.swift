@@ -42,7 +42,7 @@ class HomeViewController: BaseViewController {
     private func preparePageTabBarItem() {
         pageTabBarItem.image = #imageLiteral(resourceName: "home-icon")
         pageTabBarItem.image = pageTabBarItem.image!.withRenderingMode(.alwaysTemplate)
-        pageTabBarItem.imageEdgeInsets = UIEdgeInsetsMake(6,6,6,6)
+//        pageTabBarItem.imageEdgeInsets = UIEdgeInsetsMake(6,6,6,6)
         pageTabBarItem.imageView?.contentMode = .scaleAspectFit
     }
     
