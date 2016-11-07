@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="xNT-jW-KZS">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Launch View Controller-->
+        <scene sceneID="Skx-KE-AbB">
+            <objects>
+                <viewController id="xNT-jW-KZS" customClass="launchViewController" customModule="berkeleyMobileiOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="IBo-FC-YjQ"/>
+                        <viewControllerLayoutGuide type="bottom" id="VoL-3X-MbO"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="bR2-ZT-PRJ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_image" translatesAutoresizingMaskIntoConstraints="NO" id="cO5-WS-9Dn"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Berkeley Mobile v3.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vD8-T4-yZE">
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="343" id="CiN-is-aqa"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                <color key="textColor" red="0.89660772519999998" green="0.89227628690000005" blue="0.90093916350000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="cO5-WS-9Dn" firstAttribute="top" secondItem="bR2-ZT-PRJ" secondAttribute="top" id="9cx-a6-lw0"/>
+                            <constraint firstItem="VoL-3X-MbO" firstAttribute="top" secondItem="cO5-WS-9Dn" secondAttribute="bottom" id="etm-tq-6EC"/>
+                            <constraint firstItem="cO5-WS-9Dn" firstAttribute="leading" secondItem="bR2-ZT-PRJ" secondAttribute="leading" id="fFg-nf-SKH"/>
+                            <constraint firstAttribute="trailing" secondItem="cO5-WS-9Dn" secondAttribute="trailing" id="jhM-Xq-Ig4"/>
+                            <constraint firstItem="vD8-T4-yZE" firstAttribute="centerX" secondItem="bR2-ZT-PRJ" secondAttribute="centerX" id="mBq-1i-Yj3"/>
+                            <constraint firstItem="vD8-T4-yZE" firstAttribute="centerY" secondItem="bR2-ZT-PRJ" secondAttribute="centerY" constant="220" id="rF3-DT-Sg0"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="centerYLabel" destination="rF3-DT-Sg0" id="Nl9-kT-UQO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Dwt-aW-kGu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="589.60000000000002" y="-716.49175412293857"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="background_image" width="640" height="1136"/>
+    </resources>
+</document>
