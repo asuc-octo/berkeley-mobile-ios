@@ -8,8 +8,6 @@
 
 import UIKit
 
-import UIKit
-
 class BaseViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var baseTitleLabel: UILabel!
