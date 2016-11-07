@@ -18,6 +18,7 @@ class TabBarController: PageTabBarController {
         
     }
     private func preparePageTabBar() {
+        pageTabBar.height = 60
         self.pageTabBar.lineColor = Color.white
         self.pageTabBar.lineHeight = 0
         pageTabBar.lineAlignment = .bottom
@@ -27,8 +28,5 @@ class TabBarController: PageTabBarController {
 }
 extension TabBarController: PageTabBarControllerDelegate {
     func pageTabBarController(pageTabBarController: PageTabBarController, didTransitionTo viewController: UIViewController) {
-
-        
-        print(pageTabBarController.pageTabBar.lineColor)
     }
 }

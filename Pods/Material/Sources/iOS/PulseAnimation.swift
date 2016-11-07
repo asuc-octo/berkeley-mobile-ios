@@ -88,7 +88,7 @@ internal extension Animation {
         
         bLayer.setValue(false, forKey: "animated")
         
-        let duration: CFTimeInterval = .center == pulse.animation ? 0.16125 : 0.16125
+        let duration: CFTimeInterval = .center == pulse.animation ? 0.30 : 0.30
         
         switch pulse.animation {
         case .centerWithBacking, .backing, .pointWithBacking:
@@ -122,7 +122,7 @@ internal extension Animation {
             return
         }
         
-        Animation.delay(time: animated ? 0 : 0.15) { [pulse = pulse] in
+        Animation.delay(time: animated ? 0 : 0.30) { [pulse = pulse] in
             guard let pLayer = bLayer.sublayers?.first as? CAShapeLayer else {
                 return
             }
