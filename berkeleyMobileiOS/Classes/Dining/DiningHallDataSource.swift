@@ -8,55 +8,36 @@
 
 import UIKit
 import Foundation
+
+import Alamofire
 import SwiftyJSON
+
+fileprivate let kDiningHallsEndpoint = "https://asuc-mobile-development.herokuapp.com/api/dining_halls"
 
 /**
  * Static class that fetches the DiningHall related data.
- * - Note: temporary until a single unified fetch handler/manager made. 
  */
 class DiningHallDataSource: NSObject
 {
-    static let kEndPointDiningHall = "https://asuc-mobile-development.herokuapp.com/api/dining_halls"
+    typealias completionHandler = (_ halls: [DiningHall]?) -> Void
     
-    typealias completionHandler = (_ halls: [DiningHall]?, _ error: Error?) -> Void
-    
-    /* Fetch the list of dining halls and report back to the completionHandler. */
+    // Fetch the list of dining halls and report back to the completionHandler.
     static func fetchDiningHalls(_ completion: @escaping completionHandler)
     {
-        // Create URL
-        guard let url = URL(string: kEndPointDiningHall) else
-        {
-            print("[Error @ DiningHallDataSource.getDiningHalls()]: cannot create URL")
-            return
-        }
-        
-        // Handle API call.
-        let session = URLSession(configuration: .default)
-        session.dataTask(with: url)
-        { (data: Data?, response: URLResponse?, error: Error?) in
+        Alamofire.request(kDiningHallsEndpoint).responseJSON
+        { response in
             
-            if (error != nil) || (data == nil) || (response == nil)
-            {
-                // Complete with error.
-                completion(nil, error)
+            if response.result.isFailure {
+                print("[Error @ DiningHallDataSource.getDiningHalls()]: request failed")
                 return
             }
-
-            let json = JSON(data: data!)["dining_halls"]
-
-            var halls: [DiningHall] = []
-            for (_, subjson) in json
-            {
-                halls += [parseDiningHall(subjson)]
-            }
             
-            // Complete successfully.
-            completion(halls, nil)
+            let halls = JSON(data: response.data!)["dining_halls"].map { (_, child) in parseDiningHall(child) }
+            completion(halls)
         }
-        .resume()
     }
     
-    /* Return a DiningHall object parsed from JSON. */
+    // Return a DiningHall object parsed from JSON.
     private static func parseDiningHall(_ json: JSON) -> DiningHall
     {
         let hall = DiningHall(name: json["name"].stringValue, imageLink: json["image_link"].stringValue)
@@ -69,18 +50,17 @@ class DiningHallDataSource: NSObject
         return hall
     }
     
-    /* Parse data related to a type of meal for a DiningHall. */
+    // Parse data related to a type of meal for a DiningHall.
     private static func parseMeal(_ json: JSON, _ hall: DiningHall, _ type: String, _ menu: inout [DiningMenu], _ open: inout Date?, _ close: inout Date?)
     {
         let formatter = sharedDateFormatter()
         open  = formatter.date(from: json[type + "_open" ].string ?? "")?.sameTimeToday()
         close = formatter.date(from: json[type + "_close"].string ?? "")?.sameTimeToday()
-        for (_, subjson) in json[type + "_menu"] {
-            menu += [parseDiningMenu(subjson, hall)]
-        }
+        
+        menu = json[type + "_menu"].map{ (_, child) in parseDiningMenu(child, hall) }
     }
     
-    /* Return a DiningMenu object parsed from JSON. */
+    // Return a DiningMenu object parsed from JSON.
     private static func parseDiningMenu(_ json: JSON, _ hall: DiningHall) -> DiningMenu
     {
         let name = json["name"].stringValue

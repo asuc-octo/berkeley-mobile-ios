@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		41661D0A1DCEFC760044E7B4 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41661D021DCEFC110044E7B4 /* Material.framework */; };
-		41B56A381DD06E7D00BC3DD2 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41B56A371DD06E7D00BC3DD2 /* Alamofire.framework */; };
-		41B56A3A1DD06E9500BC3DD2 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41B56A391DD06E9500BC3DD2 /* SwiftyJSON.framework */; };
 		41E8438E1DAB3FE80096C049 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E8438D1DAB3FE80096C049 /* AppDelegate.swift */; };
 		41E843951DAB3FE80096C049 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41E843941DAB3FE80096C049 /* Assets.xcassets */; };
 		4E505D3F1DD05A65004AC6C9 /* AcademicsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E505D2E1DD05A65004AC6C9 /* AcademicsViewController.swift */; };
@@ -34,9 +31,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		41661D021DCEFC110044E7B4 /* Material.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Material.framework; path = "../../Library/Developer/Xcode/DerivedData/berkeleyMobileiOS-fqwsgytduwzwkifixxlmawnrvtwq/Build/Products/Debug-iphonesimulator/Material/Material.framework"; sourceTree = "<group>"; };
-		41B56A371DD06E7D00BC3DD2 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "Pods/../build/Debug-iphoneos/Alamofire/Alamofire.framework"; sourceTree = "<group>"; };
-		41B56A391DD06E9500BC3DD2 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = "Pods/../build/Debug-iphoneos/SwiftyJSON/SwiftyJSON.framework"; sourceTree = "<group>"; };
 		41E8438A1DAB3FE80096C049 /* berkeleyMobileiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = berkeleyMobileiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		41E8438D1DAB3FE80096C049 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		41E843941DAB3FE80096C049 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -69,9 +63,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				41B56A3A1DD06E9500BC3DD2 /* SwiftyJSON.framework in Frameworks */,
-				41B56A381DD06E7D00BC3DD2 /* Alamofire.framework in Frameworks */,
-				41661D0A1DCEFC760044E7B4 /* Material.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -191,8 +182,8 @@
 		4E5CAED11DD02B5C00ECAF8E /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
-				4E64B55F1DD1343D00DA5E73 /* Dining.storyboard */,
 				4E5CAED41DD02B5C00ECAF8E /* Main.storyboard */,
+				4E64B55F1DD1343D00DA5E73 /* Dining.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -209,9 +200,6 @@
 		BADAC15CCD681293C4FD4336 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				41B56A391DD06E9500BC3DD2 /* SwiftyJSON.framework */,
-				41B56A371DD06E7D00BC3DD2 /* Alamofire.framework */,
-				41661D021DCEFC110044E7B4 /* Material.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -467,11 +455,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 33VXG65XJB;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/build/Debug-iphoneos/Alamofire",
-					"$(PROJECT_DIR)/build/Debug-iphoneos/SwiftyJSON",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = berkeleyMobileiOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.asucberkeleymobile.berkeleyMobileiOS;
