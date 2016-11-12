@@ -69,11 +69,11 @@ class DiningHallsViewController: UIViewController, UITableViewDelegate, UITableV
         // Fetch data.
         self.activityIndicator.startAnimating()
         DiningHallDataSource.fetchDiningHalls()
-        { (halls: [DiningHall]?, error: Error?) in
+        { (_ halls: [DiningHall]?) in
         
             self.stopActivityIndicator()
         
-            if error != nil
+            if halls.isNil
             {
                 // Show some error screen.
                 print("[ERROR @ DiningHallTableViewController] failed to fetch DiningHalls")
