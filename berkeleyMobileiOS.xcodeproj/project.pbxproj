@@ -12,7 +12,6 @@
 		4E505D3F1DD05A65004AC6C9 /* AcademicsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E505D2E1DD05A65004AC6C9 /* AcademicsViewController.swift */; };
 		4E505D401DD05A65004AC6C9 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E505D301DD05A65004AC6C9 /* BaseViewController.swift */; };
 		4E505D411DD05A65004AC6C9 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E505D311DD05A65004AC6C9 /* TabBarController.swift */; };
-		4E505D421DD05A65004AC6C9 /* DiningHallsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E505D331DD05A65004AC6C9 /* DiningHallsViewController.swift */; };
 		4E505D431DD05A65004AC6C9 /* HomeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E505D351DD05A65004AC6C9 /* HomeCollectionViewCell.swift */; };
 		4E505D441DD05A65004AC6C9 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E505D361DD05A65004AC6C9 /* HomeTableViewCell.swift */; };
 		4E505D451DD05A65004AC6C9 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E505D371DD05A65004AC6C9 /* HomeViewController.swift */; };
@@ -21,11 +20,14 @@
 		4E505D481DD05A65004AC6C9 /* BearTransitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E505D3C1DD05A65004AC6C9 /* BearTransitViewController.swift */; };
 		4E505D491DD05A65004AC6C9 /* ConvenienceMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E505D3E1DD05A65004AC6C9 /* ConvenienceMethods.swift */; };
 		4E5CAED71DD02B5C00ECAF8E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E5CAED41DD02B5C00ECAF8E /* Main.storyboard */; };
+		4E62CFDF1DD7E38900B19722 /* DiningData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E62CFDA1DD7E38900B19722 /* DiningData.swift */; };
+		4E62CFE01DD7E38900B19722 /* DiningDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E62CFDB1DD7E38900B19722 /* DiningDataSource.swift */; };
+		4E62CFE11DD7E38900B19722 /* DiningHallCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E62CFDC1DD7E38900B19722 /* DiningHallCell.swift */; };
+		4E62CFE21DD7E38900B19722 /* DiningHallListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E62CFDD1DD7E38900B19722 /* DiningHallListViewController.swift */; };
+		4E62CFE31DD7E38900B19722 /* DiningHallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E62CFDE1DD7E38900B19722 /* DiningHallViewController.swift */; };
+		4E62CFE51DD85A1000B19722 /* DiningMenuListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E62CFE41DD85A1000B19722 /* DiningMenuListViewController.swift */; };
+		4E62CFE71DD87CFB00B19722 /* UINavigationBar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E62CFE61DD87CFB00B19722 /* UINavigationBar+Extension.swift */; };
 		4E64B5601DD1343D00DA5E73 /* Dining.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E64B55F1DD1343D00DA5E73 /* Dining.storyboard */; };
-		4E64B5661DD1345000DA5E73 /* DiningHallCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E64B5611DD1345000DA5E73 /* DiningHallCell.swift */; };
-		4E64B5671DD1345000DA5E73 /* DiningHallData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E64B5621DD1345000DA5E73 /* DiningHallData.swift */; };
-		4E64B5681DD1345000DA5E73 /* DiningHallDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E64B5631DD1345000DA5E73 /* DiningHallDataSource.swift */; };
-		4E64B56A1DD1345000DA5E73 /* DiningHallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E64B5651DD1345000DA5E73 /* DiningHallViewController.swift */; };
 		4E64B56E1DD134EB00DA5E73 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E64B56D1DD134EB00DA5E73 /* DateExtension.swift */; };
 		4E64B5701DD134F800DA5E73 /* OptionalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E64B56F1DD134F800DA5E73 /* OptionalExtension.swift */; };
 /* End PBXBuildFile section */
@@ -38,7 +40,6 @@
 		4E505D2E1DD05A65004AC6C9 /* AcademicsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcademicsViewController.swift; sourceTree = "<group>"; };
 		4E505D301DD05A65004AC6C9 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		4E505D311DD05A65004AC6C9 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
-		4E505D331DD05A65004AC6C9 /* DiningHallsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningHallsViewController.swift; sourceTree = "<group>"; };
 		4E505D351DD05A65004AC6C9 /* HomeCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewCell.swift; sourceTree = "<group>"; };
 		4E505D361DD05A65004AC6C9 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
 		4E505D371DD05A65004AC6C9 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -47,11 +48,14 @@
 		4E505D3C1DD05A65004AC6C9 /* BearTransitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BearTransitViewController.swift; sourceTree = "<group>"; };
 		4E505D3E1DD05A65004AC6C9 /* ConvenienceMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvenienceMethods.swift; sourceTree = "<group>"; };
 		4E5CAED41DD02B5C00ECAF8E /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		4E62CFDA1DD7E38900B19722 /* DiningData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningData.swift; sourceTree = "<group>"; };
+		4E62CFDB1DD7E38900B19722 /* DiningDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningDataSource.swift; sourceTree = "<group>"; };
+		4E62CFDC1DD7E38900B19722 /* DiningHallCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningHallCell.swift; sourceTree = "<group>"; };
+		4E62CFDD1DD7E38900B19722 /* DiningHallListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningHallListViewController.swift; sourceTree = "<group>"; };
+		4E62CFDE1DD7E38900B19722 /* DiningHallViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningHallViewController.swift; sourceTree = "<group>"; };
+		4E62CFE41DD85A1000B19722 /* DiningMenuListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningMenuListViewController.swift; sourceTree = "<group>"; };
+		4E62CFE61DD87CFB00B19722 /* UINavigationBar+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+Extension.swift"; sourceTree = "<group>"; };
 		4E64B55F1DD1343D00DA5E73 /* Dining.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Dining.storyboard; sourceTree = "<group>"; };
-		4E64B5611DD1345000DA5E73 /* DiningHallCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningHallCell.swift; sourceTree = "<group>"; };
-		4E64B5621DD1345000DA5E73 /* DiningHallData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningHallData.swift; sourceTree = "<group>"; };
-		4E64B5631DD1345000DA5E73 /* DiningHallDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningHallDataSource.swift; sourceTree = "<group>"; };
-		4E64B5651DD1345000DA5E73 /* DiningHallViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningHallViewController.swift; sourceTree = "<group>"; };
 		4E64B56D1DD134EB00DA5E73 /* DateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		4E64B56F1DD134F800DA5E73 /* OptionalExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionalExtension.swift; sourceTree = "<group>"; };
 		7BC35364DDC70E5590C55CCF /* Pods-berkeleyMobileiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeleyMobileiOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-berkeleyMobileiOS/Pods-berkeleyMobileiOS.release.xcconfig"; sourceTree = "<group>"; };
@@ -105,10 +109,10 @@
 				4E505D381DD05A65004AC6C9 /* LaunchViewController.swift */,
 				4E505D2D1DD05A65004AC6C9 /* Academics */,
 				4E505D2F1DD05A65004AC6C9 /* Base */,
-				4E505D321DD05A65004AC6C9 /* Dining */,
 				4E505D341DD05A65004AC6C9 /* Home */,
 				4E505D391DD05A65004AC6C9 /* Recreation */,
 				4E505D3B1DD05A65004AC6C9 /* Transit */,
+				4E62CFD91DD7E38900B19722 /* Dining */,
 				4E505D3D1DD05A65004AC6C9 /* Util */,
 			);
 			path = Classes;
@@ -129,18 +133,6 @@
 				4E505D311DD05A65004AC6C9 /* TabBarController.swift */,
 			);
 			path = Base;
-			sourceTree = "<group>";
-		};
-		4E505D321DD05A65004AC6C9 /* Dining */ = {
-			isa = PBXGroup;
-			children = (
-				4E64B5611DD1345000DA5E73 /* DiningHallCell.swift */,
-				4E64B5621DD1345000DA5E73 /* DiningHallData.swift */,
-				4E64B5631DD1345000DA5E73 /* DiningHallDataSource.swift */,
-				4E64B5651DD1345000DA5E73 /* DiningHallViewController.swift */,
-				4E505D331DD05A65004AC6C9 /* DiningHallsViewController.swift */,
-			);
-			path = Dining;
 			sourceTree = "<group>";
 		};
 		4E505D341DD05A65004AC6C9 /* Home */ = {
@@ -175,6 +167,7 @@
 				4E64B56D1DD134EB00DA5E73 /* DateExtension.swift */,
 				4E64B56F1DD134F800DA5E73 /* OptionalExtension.swift */,
 				4E505D3E1DD05A65004AC6C9 /* ConvenienceMethods.swift */,
+				4E62CFE61DD87CFB00B19722 /* UINavigationBar+Extension.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -186,6 +179,19 @@
 				4E64B55F1DD1343D00DA5E73 /* Dining.storyboard */,
 			);
 			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		4E62CFD91DD7E38900B19722 /* Dining */ = {
+			isa = PBXGroup;
+			children = (
+				4E62CFDA1DD7E38900B19722 /* DiningData.swift */,
+				4E62CFDB1DD7E38900B19722 /* DiningDataSource.swift */,
+				4E62CFDC1DD7E38900B19722 /* DiningHallCell.swift */,
+				4E62CFDD1DD7E38900B19722 /* DiningHallListViewController.swift */,
+				4E62CFDE1DD7E38900B19722 /* DiningHallViewController.swift */,
+				4E62CFE41DD85A1000B19722 /* DiningMenuListViewController.swift */,
+			);
+			path = Dining;
 			sourceTree = "<group>";
 		};
 		93BD09A1D2E78ACB866AE8D4 /* Pods */ = {
@@ -329,24 +335,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E62CFDF1DD7E38900B19722 /* DiningData.swift in Sources */,
+				4E62CFE21DD7E38900B19722 /* DiningHallListViewController.swift in Sources */,
 				41E8438E1DAB3FE80096C049 /* AppDelegate.swift in Sources */,
 				4E505D411DD05A65004AC6C9 /* TabBarController.swift in Sources */,
 				4E505D441DD05A65004AC6C9 /* HomeTableViewCell.swift in Sources */,
 				4E505D451DD05A65004AC6C9 /* HomeViewController.swift in Sources */,
 				4E505D3F1DD05A65004AC6C9 /* AcademicsViewController.swift in Sources */,
-				4E64B5681DD1345000DA5E73 /* DiningHallDataSource.swift in Sources */,
-				4E505D421DD05A65004AC6C9 /* DiningHallsViewController.swift in Sources */,
 				4E64B5701DD134F800DA5E73 /* OptionalExtension.swift in Sources */,
-				4E64B56A1DD1345000DA5E73 /* DiningHallViewController.swift in Sources */,
 				4E505D401DD05A65004AC6C9 /* BaseViewController.swift in Sources */,
-				4E64B5671DD1345000DA5E73 /* DiningHallData.swift in Sources */,
+				4E62CFE51DD85A1000B19722 /* DiningMenuListViewController.swift in Sources */,
 				4E505D461DD05A65004AC6C9 /* LaunchViewController.swift in Sources */,
+				4E62CFE11DD7E38900B19722 /* DiningHallCell.swift in Sources */,
 				4E505D491DD05A65004AC6C9 /* ConvenienceMethods.swift in Sources */,
+				4E62CFE71DD87CFB00B19722 /* UINavigationBar+Extension.swift in Sources */,
 				4E64B56E1DD134EB00DA5E73 /* DateExtension.swift in Sources */,
 				4E505D471DD05A65004AC6C9 /* RecreationViewController.swift in Sources */,
-				4E64B5661DD1345000DA5E73 /* DiningHallCell.swift in Sources */,
+				4E62CFE31DD7E38900B19722 /* DiningHallViewController.swift in Sources */,
 				4E505D481DD05A65004AC6C9 /* BearTransitViewController.swift in Sources */,
 				4E505D431DD05A65004AC6C9 /* HomeCollectionViewCell.swift in Sources */,
+				4E62CFE01DD7E38900B19722 /* DiningDataSource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

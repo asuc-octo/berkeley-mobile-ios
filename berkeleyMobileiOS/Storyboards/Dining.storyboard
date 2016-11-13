@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="MAv-rR-2aR">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="wTD-Jj-3nN">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -9,30 +9,26 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Dining-->
-        <scene sceneID="ZxK-cX-bNY">
+        <!--Navigation Controller-->
+        <scene sceneID="oU9-EL-jTa">
             <objects>
-                <navigationController storyboardIdentifier="dining_nav" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="MAv-rR-2aR" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Dining" image="50x50-DiningHall_32x32.png" id="s2B-gG-5F5"/>
-                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="375" height="667"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="zXM-ga-NLu">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uHV-ue-ma6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController id="wTD-Jj-3nN" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="aAD-Bc-b42">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="tOb-Hw-bcd" kind="relationship" relationship="rootViewController" id="gnG-JB-HaJ"/>
+                        <segue destination="tOb-Hw-bcd" kind="relationship" relationship="rootViewController" id="MKa-xj-Zqk"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="vaJ-3q-TLv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-585" y="-1272"/>
+            <point key="canvasLocation" x="-626" y="-1272"/>
         </scene>
         <!--Halls-->
         <scene sceneID="yMh-rR-rnl">
             <objects>
-                <viewController storyboardIdentifier="halls" useStoryboardIdentifierAsRestorationIdentifier="YES" id="tOb-Hw-bcd" userLabel="Halls" customClass="DiningHallsViewController" customModule="berkeleyMobileiOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="halls" useStoryboardIdentifierAsRestorationIdentifier="YES" id="tOb-Hw-bcd" userLabel="Halls" customClass="DiningHallListViewController" customModule="berkeleyMobileiOS" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" title="Dining" id="U62-qA-T1A"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="667"/>
@@ -57,7 +53,4 @@
             <point key="canvasLocation" x="892" y="-1272"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="50x50-DiningHall_32x32.png" width="32" height="32"/>
-    </resources>
 </document>
