@@ -8,12 +8,12 @@
 
 import UIKit
 
-fileprivate let kColorNavy = UIColor.init(red: 23/255.0, green: 85/255.0, blue: 122/255.0, alpha: 1)
+fileprivate let kColorNavy = UIColor(red: 23/255.0, green: 85/255.0, blue: 122/255.0, alpha: 1)
 
 /**
  * ViewController that shows the list of all DiningHalls.
  */
-class DiningHallsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource
+class DiningHallListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource
 {
     private let DiningHallCellID = "DiningHallCell"
     private let DiningHallSegue = "DiningHallSegue"
@@ -68,7 +68,7 @@ class DiningHallsViewController: UIViewController, UITableViewDelegate, UITableV
         
         // Fetch data.
         self.activityIndicator.startAnimating()
-        DiningHallDataSource.fetchDiningHalls()
+        DiningDataSource.fetchDiningHalls()
         { (_ halls: [DiningHall]?) in
         
             self.stopActivityIndicator()

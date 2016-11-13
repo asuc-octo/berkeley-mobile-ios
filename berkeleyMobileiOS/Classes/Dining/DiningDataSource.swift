@@ -17,7 +17,7 @@ fileprivate let kDiningHallsEndpoint = "https://asuc-mobile-development.herokuap
 /**
  * Static class that fetches the DiningHall related data.
  */
-class DiningHallDataSource: NSObject
+class DiningDataSource: NSObject
 {
     typealias completionHandler = (_ halls: [DiningHall]?) -> Void
     

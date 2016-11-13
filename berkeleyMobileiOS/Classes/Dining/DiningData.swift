@@ -8,7 +8,7 @@
 
 import Foundation 
 
-enum MealType {
+enum MealType: String {
     case Breakfast
     case Lunch
     case Dinner
