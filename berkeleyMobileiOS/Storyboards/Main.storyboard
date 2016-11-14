@@ -524,6 +524,82 @@
             </objects>
             <point key="canvasLocation" x="3508" y="-716"/>
         </scene>
+        <!--Libraries List View Controller-->
+        <scene sceneID="wqd-1F-XKH">
+            <objects>
+                <viewController id="bSn-cF-TkF" customClass="LibrariesListViewController" customModule="berkeleyMobileiOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="PmE-8T-kC3"/>
+                        <viewControllerLayoutGuide type="bottom" id="qtp-Sb-yFX"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="fUV-89-qvO">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="geJ-CF-W1k">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JJK-6b-3o6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1031" y="194"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="MxS-MD-C7e">
+            <objects>
+                <viewController id="Thf-MD-33Y" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="pTc-6e-OMX"/>
+                        <viewControllerLayoutGuide type="bottom" id="sKZ-cL-e1A"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="2Cs-JN-eMo">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GYp-5F-Xl1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1055" y="876"/>
+        </scene>
+        <!--Library Detail View Controller-->
+        <scene sceneID="xkp-pa-fDj">
+            <objects>
+                <viewController id="zfi-iu-H96" customClass="LibraryDetailViewController" customModule="berkeleyMobileiOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="cls-7r-kVN"/>
+                        <viewControllerLayoutGuide type="bottom" id="OMt-5S-Mf6"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="nMF-29-kgU">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ers-lk-eDM">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="245"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Zxe-FL-gdi">
+                                <rect key="frame" x="0.0" y="241" width="375" height="426"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="libraryDetailTableView" destination="Zxe-FL-gdi" id="QZr-yN-Wwa"/>
+                        <outlet property="libraryImage" destination="ers-lk-eDM" id="Yzk-cF-eih"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Pef-39-Uwo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2784.8000000000002" y="-26.53673163418291"/>
+        </scene>
         <!--Dining Hall Detail View Controller-->
         <scene sceneID="st8-83-jbX">
             <objects>
