@@ -1,10 +1,11 @@
 
-import Foundation
-import UIKit
-
-extension UIViewController
+/**
+ * Specifies that conforming class requires data of DataType,
+ * otherwise object may error or not behave properly.
+ */
+protocol RequiresData
 {
-    var storyboardID: String {
-        get { return "\(type(of: self))" }
-    }
+    associatedtype DataType
+    
+    mutating func setData(_ data: DataType)
 }

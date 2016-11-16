@@ -31,6 +31,7 @@
 		4ED0D35B1DDCE1C600956F9E /* DiningHallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED0D3551DDCE1C600956F9E /* DiningHallViewController.swift */; };
 		4ED0D35C1DDCE1C600956F9E /* DiningMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED0D3571DDCE1C600956F9E /* DiningMenuCell.swift */; };
 		4ED0D35D1DDCE1C600956F9E /* DiningMenuListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED0D3581DDCE1C600956F9E /* DiningMenuListViewController.swift */; };
+		4ED0D35F1DDCE9FA00956F9E /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED0D35E1DDCE9FA00956F9E /* Protocols.swift */; };
 		4EE89F261DDBEF9F00AC4EF7 /* NetworkUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE89F251DDBEF9F00AC4EF7 /* NetworkUtils.swift */; };
 		4EEF90471DDBC7D0002CF7E4 /* Dining.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4EEF90461DDBC7D0002CF7E4 /* Dining.storyboard */; };
 		F31E935730F8A79555F3F457 /* Pods_berkeleyMobileiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB034802C6B616B145951320 /* Pods_berkeleyMobileiOS.framework */; };
@@ -63,6 +64,7 @@
 		4ED0D3551DDCE1C600956F9E /* DiningHallViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningHallViewController.swift; sourceTree = "<group>"; };
 		4ED0D3571DDCE1C600956F9E /* DiningMenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningMenuCell.swift; sourceTree = "<group>"; };
 		4ED0D3581DDCE1C600956F9E /* DiningMenuListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningMenuListViewController.swift; sourceTree = "<group>"; };
+		4ED0D35E1DDCE9FA00956F9E /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		4EE89F251DDBEF9F00AC4EF7 /* NetworkUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkUtils.swift; sourceTree = "<group>"; };
 		4EEF90461DDBC7D0002CF7E4 /* Dining.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Dining.storyboard; sourceTree = "<group>"; };
 		4EF0D9AF1DDBC08C003C18FA /* Pods_berkeleyMobileiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods_berkeleyMobileiOS.framework; path = "Pods/../build/Debug-iphoneos/Pods_berkeleyMobileiOS.framework"; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				4E487A351DDBB59A0001F8CF /* Utils.swift */,
+				4ED0D35E1DDCE9FA00956F9E /* Protocols.swift */,
 				4EE89F251DDBEF9F00AC4EF7 /* NetworkUtils.swift */,
 				4E64B56D1DD134EB00DA5E73 /* DateExtension.swift */,
 				4E64B56F1DD134F800DA5E73 /* OptionalExtension.swift */,
@@ -381,6 +384,7 @@
 				4ED0D35D1DDCE1C600956F9E /* DiningMenuListViewController.swift in Sources */,
 				4E505D491DD05A65004AC6C9 /* ConvenienceMethods.swift in Sources */,
 				4E62CFE71DD87CFB00B19722 /* UINavigationBar+Extension.swift in Sources */,
+				4ED0D35F1DDCE9FA00956F9E /* Protocols.swift in Sources */,
 				4E64B56E1DD134EB00DA5E73 /* DateExtension.swift in Sources */,
 				4ED0D35B1DDCE1C600956F9E /* DiningHallViewController.swift in Sources */,
 				4ED0D35A1DDCE1C600956F9E /* DiningHallListViewController.swift in Sources */,
