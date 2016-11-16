@@ -7,14 +7,14 @@ import Foundation
 extension Optional
 {
     var isNil: Bool
-        {
+    {
         get {
             return self == nil
         }
     }
     
     var notNil: Bool
-        {
+    {
         get {
             return self != nil
         }

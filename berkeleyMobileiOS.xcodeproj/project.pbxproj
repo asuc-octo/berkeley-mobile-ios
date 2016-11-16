@@ -30,6 +30,7 @@
 		4E62CFE71DD87CFB00B19722 /* UINavigationBar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E62CFE61DD87CFB00B19722 /* UINavigationBar+Extension.swift */; };
 		4E64B56E1DD134EB00DA5E73 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E64B56D1DD134EB00DA5E73 /* DateExtension.swift */; };
 		4E64B5701DD134F800DA5E73 /* OptionalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E64B56F1DD134F800DA5E73 /* OptionalExtension.swift */; };
+		4EE89F261DDBEF9F00AC4EF7 /* NetworkUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE89F251DDBEF9F00AC4EF7 /* NetworkUtils.swift */; };
 		4EEF90471DDBC7D0002CF7E4 /* Dining.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4EEF90461DDBC7D0002CF7E4 /* Dining.storyboard */; };
 		F31E935730F8A79555F3F457 /* Pods_berkeleyMobileiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB034802C6B616B145951320 /* Pods_berkeleyMobileiOS.framework */; };
 /* End PBXBuildFile section */
@@ -60,6 +61,7 @@
 		4E62CFE61DD87CFB00B19722 /* UINavigationBar+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+Extension.swift"; sourceTree = "<group>"; };
 		4E64B56D1DD134EB00DA5E73 /* DateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		4E64B56F1DD134F800DA5E73 /* OptionalExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionalExtension.swift; sourceTree = "<group>"; };
+		4EE89F251DDBEF9F00AC4EF7 /* NetworkUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkUtils.swift; sourceTree = "<group>"; };
 		4EEF90461DDBC7D0002CF7E4 /* Dining.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Dining.storyboard; sourceTree = "<group>"; };
 		4EF0D9AF1DDBC08C003C18FA /* Pods_berkeleyMobileiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods_berkeleyMobileiOS.framework; path = "Pods/../build/Debug-iphoneos/Pods_berkeleyMobileiOS.framework"; sourceTree = "<group>"; };
 		7BC35364DDC70E5590C55CCF /* Pods-berkeleyMobileiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeleyMobileiOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-berkeleyMobileiOS/Pods-berkeleyMobileiOS.release.xcconfig"; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				4E487A351DDBB59A0001F8CF /* Utils.swift */,
+				4EE89F251DDBEF9F00AC4EF7 /* NetworkUtils.swift */,
 				4E64B56D1DD134EB00DA5E73 /* DateExtension.swift */,
 				4E64B56F1DD134F800DA5E73 /* OptionalExtension.swift */,
 				4E505D3E1DD05A65004AC6C9 /* ConvenienceMethods.swift */,
@@ -350,6 +353,7 @@
 				4E505D411DD05A65004AC6C9 /* TabBarController.swift in Sources */,
 				4E505D441DD05A65004AC6C9 /* HomeTableViewCell.swift in Sources */,
 				4E505D451DD05A65004AC6C9 /* HomeViewController.swift in Sources */,
+				4EE89F261DDBEF9F00AC4EF7 /* NetworkUtils.swift in Sources */,
 				4E505D3F1DD05A65004AC6C9 /* AcademicsViewController.swift in Sources */,
 				4E64B5701DD134F800DA5E73 /* OptionalExtension.swift in Sources */,
 				4E505D401DD05A65004AC6C9 /* BaseViewController.swift in Sources */,

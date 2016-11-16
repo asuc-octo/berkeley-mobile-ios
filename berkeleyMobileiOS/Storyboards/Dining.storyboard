@@ -69,6 +69,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="Jmq-Iv-Yin"/>
                     <connections>
+                        <outlet property="banner" destination="Y9P-TL-r63" id="aTm-6O-jKo"/>
                         <outlet property="navItem" destination="Jmq-Iv-Yin" id="FGe-5R-jyu"/>
                     </connections>
                 </viewController>

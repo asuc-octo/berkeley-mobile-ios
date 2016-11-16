@@ -40,7 +40,7 @@ class DiningDataSource: NSObject
     // Return a DiningHall object parsed from JSON.
     private static func parseDiningHall(_ json: JSON) -> DiningHall
     {
-        let hall = DiningHall(name: json["name"].stringValue, imageLink: json["image_link"].stringValue)
+        let hall = DiningHall(name: json["name"].stringValue, url: json["image_link"].stringValue)
         
         parseMeal(json, hall, "breakfast",  &hall.breakfastMenu, &hall.breakfastOpen, &hall.breakfastClose)
         parseMeal(json, hall, "lunch",      &hall.lunchMenu,     &hall.lunchOpen,     &hall.lunchClose)

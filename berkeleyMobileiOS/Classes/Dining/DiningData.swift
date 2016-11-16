@@ -32,7 +32,7 @@ enum MealType: String
 class DiningHall
 {
     let name: String
-    let imageURL: URL
+    let imageURL: String
     
     var breakfastMenu: [DiningMenu]  = []
     var breakfastOpen: Date?         = nil
@@ -50,10 +50,10 @@ class DiningHall
     var lateNightOpen: Date?         = nil
     var lateNightClose: Date?        = nil
     
-    init(name: String, imageLink: String)
+    init(name: String, url: String)
     {
         self.name = name
-        self.imageURL = URL(string: imageLink)!
+        self.imageURL = url
     }
     
     var description: String
