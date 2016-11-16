@@ -19,10 +19,10 @@ class DiningHallListViewController: UIViewController, UITableViewDelegate, UITab
     private let DiningHallSegue = "DiningHallSegue"
 
     // MARK: UI
+    override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
+    
     var tableView: UITableView!
     var activityIndicator: UIActivityIndicatorView!
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
     
     
     // MARK: Data
@@ -43,6 +43,7 @@ class DiningHallListViewController: UIViewController, UITableViewDelegate, UITab
         
         // Navbar settings.
         let navbar = self.navigationController!.navigationBar
+        self.navigationController!.statusBarStyle = .lightContent
         navbar.barStyle = .black
         navbar.isTranslucent = false
         navbar.tintColor = UIColor.white
@@ -87,6 +88,12 @@ class DiningHallListViewController: UIViewController, UITableViewDelegate, UITab
                 self.tableView.reloadData()
             }
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool)
+    {
+        super.viewWillAppear(animated);
+        setStatusBarStyle(self.preferredStatusBarStyle)
     }
     
     

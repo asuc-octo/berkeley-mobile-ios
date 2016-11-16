@@ -39,6 +39,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Dining" id="mNf-aK-Tow"/>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <connections>
                         <segue destination="vwX-1f-TP7" kind="show" identifier="DiningHallSegue" id="zOi-Jp-Lt6"/>
                     </connections>
@@ -66,6 +67,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="Jmq-Iv-Yin"/>
+                    <connections>
+                        <outlet property="navItem" destination="Jmq-Iv-Yin" id="FGe-5R-jyu"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O5g-7M-nOt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -89,7 +94,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9EV-VZ-jqv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1935" y="282"/>
+            <point key="canvasLocation" x="1982" y="281"/>
         </scene>
     </scenes>
 </document>

@@ -14,26 +14,33 @@ fileprivate let kColorNavy = UIColor(red: 23/255.0, green: 85/255.0, blue: 122/2
  */
 class DiningHallViewController: UIViewController
 {
-    // Data
-    var diningHall: DiningHall? = nil
-    
     // UI
+    override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
+
+    @IBOutlet weak var navItem: UINavigationItem?
     @IBOutlet weak var backdrop: UIImageView?
     
     private var menuTabController: PageTabBarController? 
     private var menuTabView: UIView?
+    
+    // Data
+    var diningHall: DiningHall? = nil
+    
 
     // MARK: - UIViewController
     override func viewDidLoad()
     {
         super.viewDidLoad()
         
+        self.title = self.diningHall?.name
         self.setupMenuTabView()
     }
     
     override func viewWillAppear(_ animated: Bool)
     {
         super.viewWillAppear(animated)
+        
+        setStatusBarStyle(self.preferredStatusBarStyle)
         self.navigationController?.navigationBar.hideHairline = true
     }
     
