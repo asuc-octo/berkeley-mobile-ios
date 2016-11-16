@@ -29,8 +29,8 @@
 		4ED0D3591DDCE1C600956F9E /* DiningHallCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED0D3531DDCE1C600956F9E /* DiningHallCell.swift */; };
 		4ED0D35A1DDCE1C600956F9E /* DiningHallListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED0D3541DDCE1C600956F9E /* DiningHallListViewController.swift */; };
 		4ED0D35B1DDCE1C600956F9E /* DiningHallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED0D3551DDCE1C600956F9E /* DiningHallViewController.swift */; };
-		4ED0D35C1DDCE1C600956F9E /* DiningMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED0D3571DDCE1C600956F9E /* DiningMenuCell.swift */; };
-		4ED0D35D1DDCE1C600956F9E /* DiningMenuListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED0D3581DDCE1C600956F9E /* DiningMenuListViewController.swift */; };
+		4ED0D35C1DDCE1C600956F9E /* DiningItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED0D3571DDCE1C600956F9E /* DiningItemCell.swift */; };
+		4ED0D35D1DDCE1C600956F9E /* DiningMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED0D3581DDCE1C600956F9E /* DiningMenuViewController.swift */; };
 		4ED0D35F1DDCE9FA00956F9E /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED0D35E1DDCE9FA00956F9E /* Protocols.swift */; };
 		4EE89F261DDBEF9F00AC4EF7 /* NetworkUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE89F251DDBEF9F00AC4EF7 /* NetworkUtils.swift */; };
 		4EEF90471DDBC7D0002CF7E4 /* Dining.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4EEF90461DDBC7D0002CF7E4 /* Dining.storyboard */; };
@@ -62,8 +62,8 @@
 		4ED0D3531DDCE1C600956F9E /* DiningHallCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningHallCell.swift; sourceTree = "<group>"; };
 		4ED0D3541DDCE1C600956F9E /* DiningHallListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningHallListViewController.swift; sourceTree = "<group>"; };
 		4ED0D3551DDCE1C600956F9E /* DiningHallViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningHallViewController.swift; sourceTree = "<group>"; };
-		4ED0D3571DDCE1C600956F9E /* DiningMenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningMenuCell.swift; sourceTree = "<group>"; };
-		4ED0D3581DDCE1C600956F9E /* DiningMenuListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningMenuListViewController.swift; sourceTree = "<group>"; };
+		4ED0D3571DDCE1C600956F9E /* DiningItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningItemCell.swift; sourceTree = "<group>"; };
+		4ED0D3581DDCE1C600956F9E /* DiningMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningMenuViewController.swift; sourceTree = "<group>"; };
 		4ED0D35E1DDCE9FA00956F9E /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		4EE89F251DDBEF9F00AC4EF7 /* NetworkUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkUtils.swift; sourceTree = "<group>"; };
 		4EEF90461DDBC7D0002CF7E4 /* Dining.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Dining.storyboard; sourceTree = "<group>"; };
@@ -220,8 +220,8 @@
 		4ED0D3561DDCE1C600956F9E /* DiningMenu */ = {
 			isa = PBXGroup;
 			children = (
-				4ED0D3581DDCE1C600956F9E /* DiningMenuListViewController.swift */,
-				4ED0D3571DDCE1C600956F9E /* DiningMenuCell.swift */,
+				4ED0D3581DDCE1C600956F9E /* DiningMenuViewController.swift */,
+				4ED0D3571DDCE1C600956F9E /* DiningItemCell.swift */,
 			);
 			path = DiningMenu;
 			sourceTree = "<group>";
@@ -380,8 +380,8 @@
 				4E64B5701DD134F800DA5E73 /* OptionalExtension.swift in Sources */,
 				4E505D401DD05A65004AC6C9 /* BaseViewController.swift in Sources */,
 				4E505D461DD05A65004AC6C9 /* LaunchViewController.swift in Sources */,
-				4ED0D35C1DDCE1C600956F9E /* DiningMenuCell.swift in Sources */,
-				4ED0D35D1DDCE1C600956F9E /* DiningMenuListViewController.swift in Sources */,
+				4ED0D35C1DDCE1C600956F9E /* DiningItemCell.swift in Sources */,
+				4ED0D35D1DDCE1C600956F9E /* DiningMenuViewController.swift in Sources */,
 				4E505D491DD05A65004AC6C9 /* ConvenienceMethods.swift in Sources */,
 				4E62CFE71DD87CFB00B19722 /* UINavigationBar+Extension.swift in Sources */,
 				4ED0D35F1DDCE9FA00956F9E /* Protocols.swift in Sources */,
