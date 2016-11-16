@@ -1,21 +1,11 @@
 
 import UIKit
 
+
+
 class DiningMenuListViewController: UIViewController
 {
-
     var menu: [DiningMenu] = []
-
-    /**
-     * 
-     */
-    init(type: MealType, menu: [DiningMenu] = [])
-    {        
-        super.init(nibName: nil, bundle: nil)
-        
-        self.setMenu(menu)
-        pageTabBarItem.title = type.rawValue
-    }
     
     required init?(coder aDecoder: NSCoder)
     {
@@ -28,10 +18,23 @@ class DiningMenuListViewController: UIViewController
     }
     
     
+    // MARK: - Setup
     /**
      *
      */
-    func setMenu(_ menu: [DiningMenu])
+    public func setData(type: MealType, menu: [DiningMenu])
+    {
+        let item = self.pageTabBarItem
+        
+        item.title = type.name
+        item.tintColor = UIColor.white
+    }
+    
+    
+    /**
+     *
+     */
+    private func setMenu(_ menu: [DiningMenu])
     {
         
     }

@@ -3,7 +3,11 @@ import UIKit
 import Material
 
 
+// Const
+fileprivate let kMenuTabSegue = "MenuTabSegue"
+
 fileprivate let kColorNavy = UIColor(red: 23/255.0, green: 85/255.0, blue: 122/255.0, alpha: 1)
+
 
 /**
  * ViewController for a specific DiningHall.
@@ -14,17 +18,17 @@ class DiningHallViewController: UIViewController
     var diningHall: DiningHall? = nil
     
     // UI
-    var backdrop: UIImageView = UIImageView()
+    @IBOutlet weak var backdrop: UIImageView?
     
-    var tabController: PageTabBarController? = nil
-
+    private var menuTabController: PageTabBarController? 
+    private var menuTabView: UIView?
 
     // MARK: - UIViewController
     override func viewDidLoad()
     {
         super.viewDidLoad()
         
-        setupTabs()
+        self.setupMenuTabView()
     }
     
     override func viewWillAppear(_ animated: Bool)
@@ -45,36 +49,55 @@ class DiningHallViewController: UIViewController
         
         let viewSize = self.view.bounds.size
         
-        if let tabView = self.tabController?.view
+        if let menuTabView = self.menuTabView
         {
-            var tabFrame = CGRect.zero
-            tabFrame.size = viewSize
-            tabView.frame = tabFrame 
+            var tabViewFrame = CGRect.zero
+            tabViewFrame.size = viewSize
+            menuTabView.frame = tabViewFrame 
         }
     }
     
     
     // MARK: - Setup
-    func setupTabs()
+    /**
+     *
+     */
+    private func setupMenuTabView()
     {
-        let breakfastVC = DiningMenuListViewController(type: MealType.Breakfast, menu: diningHall!.breakfastMenu)
-        let lunchVC     = DiningMenuListViewController(type: MealType.Lunch,     menu: diningHall!.lunchMenu)
-        let dinnerVC    = DiningMenuListViewController(type: MealType.Dinner,    menu: diningHall!.dinnerMenu)
-        let lateNightVC = DiningMenuListViewController(type: MealType.LateNight, menu: diningHall!.lateNightMenu)
-        
-        self.tabController = PageTabBarController(viewControllers: [breakfastVC, lunchVC, dinnerVC, lateNightVC], selectedIndex: 0)
-        guard let tabController = self.tabController else {
+        guard 
+            let storyboard = self.storyboard,
+            let diningHall = self.diningHall 
+        else {
             return
         }
+    
+        // 
+        let menuListVCs: [UIViewController] = MealType.allValues.map
+        { type in 
+            
+            let vc = storyboard.instantiateViewController(withIdentifier: "DiningMenuListViewController") as! DiningMenuListViewController
+            vc.setData(type: type, menu: diningHall.menuForType(type))
+            
+            return vc
+        }
         
-        self.addChildViewController(tabController)
-        self.view.addSubview(tabController.view!)
-        tabController.pageTabBarAlignment = .top
+        // Programmatically initialize PageTabBarController
+        // External Bug: VCs written in Swift with @objc shows 'Unknown class <Class> in Interface Builder file' when used in storyboards
+        let menuTabController = PageTabBarController(viewControllers: menuListVCs, selectedIndex: 0)
+        menuTabController.pageTabBarAlignment = .top
         
-        let tabbar = tabController.pageTabBar
-        tabbar.backgroundColor = kColorNavy
-        tabbar.lineColor = UIColor.white
-        tabbar.lineAlignment = .bottom
-        tabbar.divider.thickness = 0
+        let menuTabView = menuTabController.view!
+        
+        let tab = menuTabController.pageTabBar
+        tab.backgroundColor = kColorNavy
+        tab.lineColor = UIColor.white
+        tab.lineAlignment = .bottom
+        tab.divider.thickness = 0
+        
+        self.addChildViewController(menuTabController)
+        self.view.addSubview(menuTabView)
+        
+        self.menuTabController = menuTabController
+        self.menuTabView = menuTabController.view
     }
 }

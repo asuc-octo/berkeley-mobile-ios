@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="wTD-Jj-3nN">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="gpR-Ae-kh1">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -10,47 +10,86 @@
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
-        <scene sceneID="oU9-EL-jTa">
+        <scene sceneID="lvQ-Ns-9VD">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="uHV-ue-ma6" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <navigationController id="wTD-Jj-3nN" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="aAD-Bc-b42">
+                <navigationController id="gpR-Ae-kh1" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="mcz-uM-SW4">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="tOb-Hw-bcd" kind="relationship" relationship="rootViewController" id="MKa-xj-Zqk"/>
+                        <segue destination="Hvd-uh-LDl" kind="relationship" relationship="rootViewController" id="cHA-QS-6u4"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qdt-G8-a6a" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-626" y="-1272"/>
+            <point key="canvasLocation" x="-356" y="162"/>
         </scene>
-        <!--Halls-->
-        <scene sceneID="yMh-rR-rnl">
+        <!--Dining-->
+        <scene sceneID="ttS-M3-zv2">
             <objects>
-                <viewController storyboardIdentifier="halls" useStoryboardIdentifierAsRestorationIdentifier="YES" id="tOb-Hw-bcd" userLabel="Halls" customClass="DiningHallListViewController" customModule="berkeleyMobileiOS" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" title="Dining" id="U62-qA-T1A"/>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="375" height="667"/>
+                <viewController title="Dining" id="Hvd-uh-LDl" customClass="DiningHallListViewController" customModule="berkeleyMobileiOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Dog-ze-Fqg"/>
+                        <viewControllerLayoutGuide type="bottom" id="MJI-7A-Fti"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="EKs-2m-bcd">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Dining" id="mNf-aK-Tow"/>
                     <connections>
-                        <segue destination="3Rc-vR-dgJ" kind="show" identifier="DiningHallSegue" id="Kc5-N2-wk6"/>
+                        <segue destination="vwX-1f-TP7" kind="show" identifier="DiningHallSegue" id="zOi-Jp-Lt6"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ZVs-MZ-e5r" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="r4Q-sZ-aRe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="159" y="-1272"/>
+            <point key="canvasLocation" x="418" y="161"/>
         </scene>
-        <!--Info-->
-        <scene sceneID="KFR-HI-DfB">
+        <!--Dining Hall View Controller-->
+        <scene sceneID="NkK-uR-zc3">
             <objects>
-                <viewController storyboardIdentifier="hall_info" useStoryboardIdentifierAsRestorationIdentifier="YES" id="3Rc-vR-dgJ" userLabel="Info" customClass="DiningHallViewController" customModule="berkeleyMobileiOS" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" title="Crossroads" id="IMW-uz-PkV"/>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="375" height="667"/>
+                <viewController id="vwX-1f-TP7" customClass="DiningHallViewController" customModule="berkeleyMobileiOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="BAH-LM-gjf"/>
+                        <viewControllerLayoutGuide type="bottom" id="lSD-mi-SVc"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="nts-dQ-ta8">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Y9P-TL-r63">
+                                <rect key="frame" x="0.0" y="64" width="375" height="177"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="yUM-fV-C9t" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="O5g-7M-nOt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="892" y="-1272"/>
+            <point key="canvasLocation" x="1181.5999999999999" y="160.56971514242881"/>
+        </scene>
+        <!--Dining Menu List View Controller-->
+        <scene sceneID="AJk-Sj-7sh">
+            <objects>
+                <viewController storyboardIdentifier="DiningMenuListViewController" id="dgL-QH-eH8" customClass="DiningMenuListViewController" customModule="berkeleyMobileiOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="pX9-Bn-WEA"/>
+                        <viewControllerLayoutGuide type="bottom" id="ImE-YK-H4m"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="KFh-y7-tni">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="400"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="400"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9EV-VZ-jqv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1935" y="282"/>
         </scene>
     </scenes>
 </document>

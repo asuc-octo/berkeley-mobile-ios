@@ -68,11 +68,11 @@ class DiningDataSource: NSObject
         var type: MealType
         switch json["meal"].stringValue 
         {
-            case "Breakfast":   type = .Breakfast
-            case "Lunch":       type = .Lunch
-            case "Dinner":      type = .Dinner
-            case "Late Night":  type = .LateNight
-            default:            type = .Breakfast
+            case "Breakfast":   type = .breakfast
+            case "Lunch":       type = .lunch
+            case "Dinner":      type = .dinner
+            case "Late Night":  type = .lateNight
+            default:            type = .breakfast
         }
         
         return DiningMenu(name: name, type: type, hall: hall)

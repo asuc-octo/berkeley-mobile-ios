@@ -8,11 +8,22 @@
 
 import Foundation 
 
-enum MealType: String {
-    case Breakfast
-    case Lunch
-    case Dinner
-    case LateNight
+enum MealType: String
+{
+    case 
+        breakfast = "breakfast", 
+        lunch     = "lunch", 
+        dinner    = "dinner", 
+        lateNight = "late_night"
+    
+    static let allValues = [breakfast, lunch, dinner, lateNight]
+    
+    var name: String
+    {
+        get {
+            return (self == .lateNight) ? "Late Night" : self.rawValue.capitalized
+        }
+    }
 }
 
 /**
@@ -45,6 +56,11 @@ class DiningHall
         self.imageURL = URL(string: imageLink)!
     }
     
+    var description: String
+    {
+        return "DiningHall \(self.name)"
+    }
+    
     var isOpen: Bool
     {
         get {
@@ -58,9 +74,15 @@ class DiningHall
         }
     }
     
-    var description: String
+    public func menuForType(_ type: MealType) -> [DiningMenu]
     {
-        return "DiningHall \(self.name)"
+        switch type
+        {
+            case .breakfast: return self.breakfastMenu
+            case .lunch:     return self.lunchMenu
+            case .dinner:    return self.dinnerMenu
+            case .lateNight: return self.lateNightMenu
+        }
     }
 }
 

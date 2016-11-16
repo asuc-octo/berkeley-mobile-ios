@@ -120,6 +120,8 @@ class DiningHallListViewController: UIViewController, UITableViewDelegate, UITab
         self.performSegue(withIdentifier: DiningHallSegue, sender: diningHall)
     }
     
+    
+    // MARK: - Navigation
     /**
      *
      */
@@ -130,6 +132,7 @@ class DiningHallListViewController: UIViewController, UITableViewDelegate, UITab
             (segue.destination as! DiningHallViewController).diningHall = (sender as! DiningHall)
         }
     }
+    
     
     // MARK: - Helpers
     func stopActivityIndicator()
