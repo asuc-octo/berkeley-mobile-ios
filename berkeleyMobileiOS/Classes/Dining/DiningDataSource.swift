@@ -51,17 +51,17 @@ class DiningDataSource: NSObject
     }
     
     // Parse data related to a type of meal for a DiningHall.
-    private static func parseMeal(_ json: JSON, _ hall: DiningHall, _ type: String, _ menu: inout [DiningMenu], _ open: inout Date?, _ close: inout Date?)
+    private static func parseMeal(_ json: JSON, _ hall: DiningHall, _ type: String, _ menu: inout DiningMenu, _ open: inout Date?, _ close: inout Date?)
     {
         let formatter = sharedDateFormatter()
         open  = formatter.date(from: json[type + "_open" ].string ?? "")?.sameTimeToday()
         close = formatter.date(from: json[type + "_close"].string ?? "")?.sameTimeToday()
         
-        menu = json[type + "_menu"].map{ (_, child) in parseDiningMenu(child, hall) }
+        menu = json[type + "_menu"].map{ (_, child) in parseDiningItem(child, hall) }
     }
     
     // Return a DiningMenu object parsed from JSON.
-    private static func parseDiningMenu(_ json: JSON, _ hall: DiningHall) -> DiningMenu
+    private static func parseDiningItem(_ json: JSON, _ hall: DiningHall) -> DiningItem
     {
         let name = json["name"].stringValue
         
@@ -75,7 +75,7 @@ class DiningDataSource: NSObject
             default:            type = .breakfast
         }
         
-        return DiningMenu(name: name, type: type, hall: hall)
+        return DiningItem(name: name, type: type, hall: hall)
     }
     
     private static func sharedDateFormatter() -> DateFormatter

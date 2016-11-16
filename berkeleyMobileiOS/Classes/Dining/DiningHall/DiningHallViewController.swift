@@ -109,7 +109,7 @@ class DiningHallViewController: UIViewController
         let menuListVCs: [UIViewController] = MealType.allValues.map
         { type in 
             
-            let vc = storyboard.instantiateViewController(withIdentifier: "DiningMenuListViewController") as! DiningMenuListViewController
+            let vc = storyboard.instantiateViewController(withIdentifier: "DiningMenuViewController") as! DiningMenuViewController
             vc.setData(type: type, menu: diningHall.menuForType(type))
             
             return vc

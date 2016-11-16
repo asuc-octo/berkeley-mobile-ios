@@ -4,21 +4,21 @@ import UIKit
 /**
  * TableViewCell to represent a single DiningMenu item. 
  */
-class DiningMenuCell: UITableViewCell, RequiresData
+class DiningItemCell: UITableViewCell, RequiresData
 {
     // UI
     @IBOutlet weak var label: UILabel?
     @IBOutlet weak var button: UIButton?
     
     // Data
-    var menu: DiningMenu?
+    var item: DiningItem?
     
     
     // MARK: - RequiresData
-    typealias DataType = DiningMenu
+    typealias DataType = DiningItem
     
-    func setData(_ data: DiningMenu)
+    func setData(_ data: DiningItem)
     {
-        self.menu = data
+        self.item = data
     }
 }
