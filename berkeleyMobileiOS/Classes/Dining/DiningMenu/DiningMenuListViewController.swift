@@ -4,7 +4,7 @@ import UIKit
 /**
  * ViewController to display list of menus of one MealType at a certain DiningHall.
  */
-class DiningMenuListViewController: UIViewController, UITableViewDataSource
+class DiningMenuListViewController: UIViewController, RequiresData, UITableViewDataSource
 {
     // Data
     private var menu: [DiningMenu] = []
@@ -26,17 +26,16 @@ class DiningMenuListViewController: UIViewController, UITableViewDataSource
     }
     
     
-    // MARK: - Setup
-    /**
-     *
-     */
-    public func setData(type: MealType, menu: [DiningMenu])
+    // MARK: - RequestsData
+    typealias DataType = (type: MealType, menu: [DiningMenu])
+    
+    public func setData(_ data: DataType)
     {
         let item = self.pageTabBarItem
-        item.title = type.name
+        item.title = data.type.name
         item.tintColor = UIColor.white
         
-        self.menu = menu
+        self.menu = data.menu
     }
     
     
@@ -53,6 +52,9 @@ class DiningMenuListViewController: UIViewController, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
+        let cell = tableView.dequeueReusableCell(withIdentifier: className(DiningMenuCell.self)) as! DiningMenuCell
+        cell.setData(menu[indexPath.row])
+        
         return UITableViewCell()
     }
 }
