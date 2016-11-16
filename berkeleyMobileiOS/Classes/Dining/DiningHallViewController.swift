@@ -7,10 +7,13 @@ import Material
 fileprivate let kMenuTabSegue = "MenuTabSegue"
 
 fileprivate let kColorNavy = UIColor(red: 23/255.0, green: 85/255.0, blue: 122/255.0, alpha: 1)
+fileprivate let kBannerRatio: CGFloat = 16/9
 
 
 /**
- * ViewController for a specific DiningHall.
+ * ViewController for a specific DiningHall, which includes:
+ * - Banner image of the location
+ * - Tabbed MealTypes containing TableView of DiningMenu 
  */
 class DiningHallViewController: UIViewController
 {
@@ -18,7 +21,7 @@ class DiningHallViewController: UIViewController
     override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
 
     @IBOutlet weak var navItem: UINavigationItem?
-    @IBOutlet weak var backdrop: UIImageView?
+    @IBOutlet weak var banner: UIImageView?
     
     private var menuTabController: PageTabBarController? 
     private var menuTabView: UIView?
@@ -32,7 +35,7 @@ class DiningHallViewController: UIViewController
     {
         super.viewDidLoad()
         
-        self.title = self.diningHall?.name
+        self.setupHeader()
         self.setupMenuTabView()
     }
     
@@ -50,24 +53,48 @@ class DiningHallViewController: UIViewController
         self.navigationController?.navigationBar.hideHairline = false
     }
     
+    /**
+     * Layout components after defaults have been applied
+     */
     override func viewDidLayoutSubviews()
     {
         super.viewDidLayoutSubviews()
         
         let viewSize = self.view.bounds.size
         
-        if let menuTabView = self.menuTabView
-        {
-            var tabViewFrame = CGRect.zero
-            tabViewFrame.size = viewSize
-            menuTabView.frame = tabViewFrame 
-        }
+        // layout banner image
+        var bannerFrame = CGRect.zero
+        bannerFrame.size = CGSize(width: viewSize.width, height: viewSize.width / kBannerRatio)
+        self.banner?.frame = bannerFrame
+        
+        // layout MenuTabView
+        var tabViewFrame = CGRect.zero
+        tabViewFrame.origin.y = bannerFrame.maxY
+        tabViewFrame.size.width = viewSize.width
+        tabViewFrame.size.height = viewSize.height - bannerFrame.size.height
+        self.menuTabView?.frame = tabViewFrame 
     }
     
     
     // MARK: - Setup
     /**
-     *
+     * Setup the header part of the view, including navbar and banner image.
+     */
+    private func setupHeader()
+    {
+        guard 
+            let diningHall = self.diningHall,
+            let banner = self.banner 
+        else {
+            return
+        }
+    
+        self.title = diningHall.name
+        banner.load(url: diningHall.imageURL)
+    }
+    
+    /**
+     * Setup the MenuTabView to display all MealTypes.
      */
     private func setupMenuTabView()
     {
@@ -78,7 +105,7 @@ class DiningHallViewController: UIViewController
             return
         }
     
-        // 
+        // Create a DiningMenuListVC for each MealType, and set it's data.
         let menuListVCs: [UIViewController] = MealType.allValues.map
         { type in 
             
