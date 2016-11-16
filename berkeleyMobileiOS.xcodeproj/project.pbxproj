@@ -23,13 +23,14 @@
 		4E5CAED71DD02B5C00ECAF8E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E5CAED41DD02B5C00ECAF8E /* Main.storyboard */; };
 		4E62CFDF1DD7E38900B19722 /* DiningData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E62CFDA1DD7E38900B19722 /* DiningData.swift */; };
 		4E62CFE01DD7E38900B19722 /* DiningDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E62CFDB1DD7E38900B19722 /* DiningDataSource.swift */; };
-		4E62CFE11DD7E38900B19722 /* DiningHallCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E62CFDC1DD7E38900B19722 /* DiningHallCell.swift */; };
-		4E62CFE21DD7E38900B19722 /* DiningHallListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E62CFDD1DD7E38900B19722 /* DiningHallListViewController.swift */; };
-		4E62CFE31DD7E38900B19722 /* DiningHallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E62CFDE1DD7E38900B19722 /* DiningHallViewController.swift */; };
-		4E62CFE51DD85A1000B19722 /* DiningMenuListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E62CFE41DD85A1000B19722 /* DiningMenuListViewController.swift */; };
 		4E62CFE71DD87CFB00B19722 /* UINavigationBar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E62CFE61DD87CFB00B19722 /* UINavigationBar+Extension.swift */; };
 		4E64B56E1DD134EB00DA5E73 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E64B56D1DD134EB00DA5E73 /* DateExtension.swift */; };
 		4E64B5701DD134F800DA5E73 /* OptionalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E64B56F1DD134F800DA5E73 /* OptionalExtension.swift */; };
+		4ED0D3591DDCE1C600956F9E /* DiningHallCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED0D3531DDCE1C600956F9E /* DiningHallCell.swift */; };
+		4ED0D35A1DDCE1C600956F9E /* DiningHallListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED0D3541DDCE1C600956F9E /* DiningHallListViewController.swift */; };
+		4ED0D35B1DDCE1C600956F9E /* DiningHallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED0D3551DDCE1C600956F9E /* DiningHallViewController.swift */; };
+		4ED0D35C1DDCE1C600956F9E /* DiningMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED0D3571DDCE1C600956F9E /* DiningMenuCell.swift */; };
+		4ED0D35D1DDCE1C600956F9E /* DiningMenuListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED0D3581DDCE1C600956F9E /* DiningMenuListViewController.swift */; };
 		4EE89F261DDBEF9F00AC4EF7 /* NetworkUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE89F251DDBEF9F00AC4EF7 /* NetworkUtils.swift */; };
 		4EEF90471DDBC7D0002CF7E4 /* Dining.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4EEF90461DDBC7D0002CF7E4 /* Dining.storyboard */; };
 		F31E935730F8A79555F3F457 /* Pods_berkeleyMobileiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB034802C6B616B145951320 /* Pods_berkeleyMobileiOS.framework */; };
@@ -54,13 +55,14 @@
 		4E5CAED41DD02B5C00ECAF8E /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		4E62CFDA1DD7E38900B19722 /* DiningData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningData.swift; sourceTree = "<group>"; };
 		4E62CFDB1DD7E38900B19722 /* DiningDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningDataSource.swift; sourceTree = "<group>"; };
-		4E62CFDC1DD7E38900B19722 /* DiningHallCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningHallCell.swift; sourceTree = "<group>"; };
-		4E62CFDD1DD7E38900B19722 /* DiningHallListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningHallListViewController.swift; sourceTree = "<group>"; };
-		4E62CFDE1DD7E38900B19722 /* DiningHallViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningHallViewController.swift; sourceTree = "<group>"; };
-		4E62CFE41DD85A1000B19722 /* DiningMenuListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningMenuListViewController.swift; sourceTree = "<group>"; };
 		4E62CFE61DD87CFB00B19722 /* UINavigationBar+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+Extension.swift"; sourceTree = "<group>"; };
 		4E64B56D1DD134EB00DA5E73 /* DateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		4E64B56F1DD134F800DA5E73 /* OptionalExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionalExtension.swift; sourceTree = "<group>"; };
+		4ED0D3531DDCE1C600956F9E /* DiningHallCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningHallCell.swift; sourceTree = "<group>"; };
+		4ED0D3541DDCE1C600956F9E /* DiningHallListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningHallListViewController.swift; sourceTree = "<group>"; };
+		4ED0D3551DDCE1C600956F9E /* DiningHallViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningHallViewController.swift; sourceTree = "<group>"; };
+		4ED0D3571DDCE1C600956F9E /* DiningMenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningMenuCell.swift; sourceTree = "<group>"; };
+		4ED0D3581DDCE1C600956F9E /* DiningMenuListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningMenuListViewController.swift; sourceTree = "<group>"; };
 		4EE89F251DDBEF9F00AC4EF7 /* NetworkUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkUtils.swift; sourceTree = "<group>"; };
 		4EEF90461DDBC7D0002CF7E4 /* Dining.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Dining.storyboard; sourceTree = "<group>"; };
 		4EF0D9AF1DDBC08C003C18FA /* Pods_berkeleyMobileiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods_berkeleyMobileiOS.framework; path = "Pods/../build/Debug-iphoneos/Pods_berkeleyMobileiOS.framework"; sourceTree = "<group>"; };
@@ -196,12 +198,29 @@
 			children = (
 				4E62CFDA1DD7E38900B19722 /* DiningData.swift */,
 				4E62CFDB1DD7E38900B19722 /* DiningDataSource.swift */,
-				4E62CFDC1DD7E38900B19722 /* DiningHallCell.swift */,
-				4E62CFDD1DD7E38900B19722 /* DiningHallListViewController.swift */,
-				4E62CFDE1DD7E38900B19722 /* DiningHallViewController.swift */,
-				4E62CFE41DD85A1000B19722 /* DiningMenuListViewController.swift */,
+				4ED0D3521DDCE1C600956F9E /* DiningHall */,
+				4ED0D3561DDCE1C600956F9E /* DiningMenu */,
 			);
 			path = Dining;
+			sourceTree = "<group>";
+		};
+		4ED0D3521DDCE1C600956F9E /* DiningHall */ = {
+			isa = PBXGroup;
+			children = (
+				4ED0D3541DDCE1C600956F9E /* DiningHallListViewController.swift */,
+				4ED0D3531DDCE1C600956F9E /* DiningHallCell.swift */,
+				4ED0D3551DDCE1C600956F9E /* DiningHallViewController.swift */,
+			);
+			path = DiningHall;
+			sourceTree = "<group>";
+		};
+		4ED0D3561DDCE1C600956F9E /* DiningMenu */ = {
+			isa = PBXGroup;
+			children = (
+				4ED0D3581DDCE1C600956F9E /* DiningMenuListViewController.swift */,
+				4ED0D3571DDCE1C600956F9E /* DiningMenuCell.swift */,
+			);
+			path = DiningMenu;
 			sourceTree = "<group>";
 		};
 		93BD09A1D2E78ACB866AE8D4 /* Pods */ = {
@@ -348,23 +367,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E62CFDF1DD7E38900B19722 /* DiningData.swift in Sources */,
-				4E62CFE21DD7E38900B19722 /* DiningHallListViewController.swift in Sources */,
 				41E8438E1DAB3FE80096C049 /* AppDelegate.swift in Sources */,
 				4E505D411DD05A65004AC6C9 /* TabBarController.swift in Sources */,
+				4ED0D3591DDCE1C600956F9E /* DiningHallCell.swift in Sources */,
 				4E505D441DD05A65004AC6C9 /* HomeTableViewCell.swift in Sources */,
 				4E505D451DD05A65004AC6C9 /* HomeViewController.swift in Sources */,
 				4EE89F261DDBEF9F00AC4EF7 /* NetworkUtils.swift in Sources */,
 				4E505D3F1DD05A65004AC6C9 /* AcademicsViewController.swift in Sources */,
 				4E64B5701DD134F800DA5E73 /* OptionalExtension.swift in Sources */,
 				4E505D401DD05A65004AC6C9 /* BaseViewController.swift in Sources */,
-				4E62CFE51DD85A1000B19722 /* DiningMenuListViewController.swift in Sources */,
 				4E505D461DD05A65004AC6C9 /* LaunchViewController.swift in Sources */,
-				4E62CFE11DD7E38900B19722 /* DiningHallCell.swift in Sources */,
+				4ED0D35C1DDCE1C600956F9E /* DiningMenuCell.swift in Sources */,
+				4ED0D35D1DDCE1C600956F9E /* DiningMenuListViewController.swift in Sources */,
 				4E505D491DD05A65004AC6C9 /* ConvenienceMethods.swift in Sources */,
 				4E62CFE71DD87CFB00B19722 /* UINavigationBar+Extension.swift in Sources */,
 				4E64B56E1DD134EB00DA5E73 /* DateExtension.swift in Sources */,
+				4ED0D35B1DDCE1C600956F9E /* DiningHallViewController.swift in Sources */,
+				4ED0D35A1DDCE1C600956F9E /* DiningHallListViewController.swift in Sources */,
 				4E505D471DD05A65004AC6C9 /* RecreationViewController.swift in Sources */,
-				4E62CFE31DD7E38900B19722 /* DiningHallViewController.swift in Sources */,
 				4E487A361DDBB59A0001F8CF /* Utils.swift in Sources */,
 				4E505D481DD05A65004AC6C9 /* BearTransitViewController.swift in Sources */,
 				4E505D431DD05A65004AC6C9 /* HomeCollectionViewCell.swift in Sources */,
