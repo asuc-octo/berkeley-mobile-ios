@@ -16,7 +16,6 @@ class RecreationViewController: BaseViewController {
     }
     override func viewDidLoad() {
         self.sectionNames = ["RSF", "Memorial Stadium"]
-        self.baseTitleLabel.text = "Recreation"
         self.baseTableView.reloadData()
 
     }
