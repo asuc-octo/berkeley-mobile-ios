@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import MapKit
+import CoreLocation
 
 class LibraryMapViewController: UIViewController {
     
     @IBOutlet var librariesTableView: UITableView!
-    
+    @IBOutlet var librariesMapView: MKMapView!
     
 
     override func viewDidLoad() {
