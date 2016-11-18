@@ -586,17 +586,22 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="TWl-tq-uyf">
+                                <rect key="frame" x="0.0" y="56" width="375" height="306"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="librariesMapView" destination="TWl-tq-uyf" id="9t8-5q-cHW"/>
                         <outlet property="librariesTableView" destination="4gS-ys-n83" id="8qD-Ns-Scg"/>
                         <segue destination="bSn-cF-TkF" kind="presentation" identifier="mapToList" modalTransitionStyle="flipHorizontal" id="T7i-NG-LaA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GYp-5F-Xl1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="194" y="257"/>
+            <point key="canvasLocation" x="192.80000000000001" y="256.82158920539734"/>
         </scene>
         <!--Library Detail View Controller-->
         <scene sceneID="xkp-pa-fDj">
