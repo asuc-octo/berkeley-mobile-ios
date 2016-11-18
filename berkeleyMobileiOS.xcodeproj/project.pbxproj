@@ -11,6 +11,7 @@
 		28037E601DD970B100935E62 /* DiningHallItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28037E5F1DD970B100935E62 /* DiningHallItemCell.swift */; };
 		28037E621DD9798C00935E62 /* LibraryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28037E611DD9798C00935E62 /* LibraryDetailViewController.swift */; };
 		28037E641DD97DF600935E62 /* LibrariesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28037E631DD97DF600935E62 /* LibrariesListViewController.swift */; };
+		286D90241DDE9D86001DCBB6 /* LibraryMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286D90231DDE9D86001DCBB6 /* LibraryMapViewController.swift */; };
 		41661D0A1DCEFC760044E7B4 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41661D021DCEFC110044E7B4 /* Material.framework */; };
 		41B56A381DD06E7D00BC3DD2 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41B56A371DD06E7D00BC3DD2 /* Alamofire.framework */; };
 		41B56A3A1DD06E9500BC3DD2 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41B56A391DD06E9500BC3DD2 /* SwiftyJSON.framework */; };
@@ -34,7 +35,8 @@
 		28037E5D1DD96C7F00935E62 /* DiningHallDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningHallDetailViewController.swift; sourceTree = "<group>"; };
 		28037E5F1DD970B100935E62 /* DiningHallItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningHallItemCell.swift; sourceTree = "<group>"; };
 		28037E611DD9798C00935E62 /* LibraryDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LibraryDetailViewController.swift; path = Academics/LibraryDetailViewController.swift; sourceTree = "<group>"; };
-		28037E631DD97DF600935E62 /* LibrariesListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LibrariesListViewController.swift; path = Academics/LibrariesListViewController.swift; sourceTree = "<group>"; };
+		28037E631DD97DF600935E62 /* LibrariesListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibrariesListViewController.swift; sourceTree = "<group>"; };
+		286D90231DDE9D86001DCBB6 /* LibraryMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryMapViewController.swift; sourceTree = "<group>"; };
 		41661D021DCEFC110044E7B4 /* Material.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Material.framework; path = "../../Library/Developer/Xcode/DerivedData/berkeleyMobileiOS-fqwsgytduwzwkifixxlmawnrvtwq/Build/Products/Debug-iphonesimulator/Material/Material.framework"; sourceTree = "<group>"; };
 		41B56A371DD06E7D00BC3DD2 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "Pods/../build/Debug-iphoneos/Alamofire/Alamofire.framework"; sourceTree = "<group>"; };
 		41B56A391DD06E9500BC3DD2 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = "Pods/../build/Debug-iphoneos/SwiftyJSON/SwiftyJSON.framework"; sourceTree = "<group>"; };
@@ -114,7 +116,6 @@
 				4E505D3B1DD05A65004AC6C9 /* Transit */,
 				4E505D3D1DD05A65004AC6C9 /* Util */,
 				28037E611DD9798C00935E62 /* LibraryDetailViewController.swift */,
-				28037E631DD97DF600935E62 /* LibrariesListViewController.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -122,7 +123,9 @@
 		4E505D2D1DD05A65004AC6C9 /* Academics */ = {
 			isa = PBXGroup;
 			children = (
+				28037E631DD97DF600935E62 /* LibrariesListViewController.swift */,
 				4E505D2E1DD05A65004AC6C9 /* AcademicsViewController.swift */,
+				286D90231DDE9D86001DCBB6 /* LibraryMapViewController.swift */,
 			);
 			path = Academics;
 			sourceTree = "<group>";
@@ -341,6 +344,7 @@
 				28037E601DD970B100935E62 /* DiningHallItemCell.swift in Sources */,
 				28037E5E1DD96C7F00935E62 /* DiningHallDetailViewController.swift in Sources */,
 				4E505D401DD05A65004AC6C9 /* BaseViewController.swift in Sources */,
+				286D90241DDE9D86001DCBB6 /* LibraryMapViewController.swift in Sources */,
 				4E505D461DD05A65004AC6C9 /* LaunchViewController.swift in Sources */,
 				4E505D491DD05A65004AC6C9 /* ConvenienceMethods.swift in Sources */,
 				28037E641DD97DF600935E62 /* LibrariesListViewController.swift in Sources */,

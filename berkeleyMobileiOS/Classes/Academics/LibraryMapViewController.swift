@@ -1,16 +1,17 @@
 //
-//  LibrariesListViewController.swift
+//  LibraryMapViewController.swift
 //  berkeleyMobileiOS
 //
-//  Created by Sampath Duddu on 11/13/16.
+//  Created by Sampath Duddu on 11/17/16.
 //  Copyright © 2016 org.berkeleyMobile. All rights reserved.
 //
 
 import UIKit
 
-class LibrariesListViewController: UIViewController {
+class LibraryMapViewController: UIViewController {
     
     @IBOutlet var librariesTableView: UITableView!
+    
     
 
     override func viewDidLoad() {
@@ -24,11 +25,10 @@ class LibrariesListViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func switchMapView(_ sender: Any) {
+    @IBAction func toListView(_ sender: Any) {
         
-        self.performSegue(withIdentifier: "listToMap", sender: self)
+        self.performSegue(withIdentifier: "mapToList", sender: self)
     }
-    
-    
+
 
 }
