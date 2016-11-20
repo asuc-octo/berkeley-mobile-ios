@@ -33,9 +33,11 @@
 		4E505D481DD05A65004AC6C9 /* BearTransitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E505D3C1DD05A65004AC6C9 /* BearTransitViewController.swift */; };
 		4E505D491DD05A65004AC6C9 /* ConvenienceMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E505D3E1DD05A65004AC6C9 /* ConvenienceMethods.swift */; };
 		4E5CAED71DD02B5C00ECAF8E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E5CAED41DD02B5C00ECAF8E /* Main.storyboard */; };
+		F1831570400BC13F0EDD243E /* Pods_berkeleyMobileiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2145738E109E31684887C5EE /* Pods_berkeleyMobileiOS.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2145738E109E31684887C5EE /* Pods_berkeleyMobileiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_berkeleyMobileiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		28037E5D1DD96C7F00935E62 /* DiningHallDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningHallDetailViewController.swift; sourceTree = "<group>"; };
 		28037E5F1DD970B100935E62 /* DiningHallItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningHallItemCell.swift; sourceTree = "<group>"; };
 		28037E611DD9798C00935E62 /* LibraryDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LibraryDetailViewController.swift; path = Academics/LibraryDetailViewController.swift; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 				41B56A3A1DD06E9500BC3DD2 /* SwiftyJSON.framework in Frameworks */,
 				41B56A381DD06E7D00BC3DD2 /* Alamofire.framework in Frameworks */,
 				41661D0A1DCEFC760044E7B4 /* Material.framework in Frameworks */,
+				F1831570400BC13F0EDD243E /* Pods_berkeleyMobileiOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -218,6 +221,7 @@
 				41B56A391DD06E9500BC3DD2 /* SwiftyJSON.framework */,
 				41B56A371DD06E7D00BC3DD2 /* Alamofire.framework */,
 				41661D021DCEFC110044E7B4 /* Material.framework */,
+				2145738E109E31684887C5EE /* Pods_berkeleyMobileiOS.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -472,7 +476,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9D72D6DF911EDC0F04EE307F /* Pods-berkeleyMobileiOS.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 33VXG65XJB;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -492,7 +496,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7BC35364DDC70E5590C55CCF /* Pods-berkeleyMobileiOS.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 33VXG65XJB;
 				FRAMEWORK_SEARCH_PATHS = (

@@ -9,4 +9,5 @@ target 'berkeleyMobileiOS' do
 pod ‘Alamofire’, ‘~> 4.0’
 pod 'Material', '~> 2.0'
 pod 'SwiftyJSON'
+pod 'GoogleMaps'
 end
