@@ -36,13 +36,7 @@ class LibrariesListViewController: UIViewController {
     
     @IBAction func returnList(_ sender: Any) {
         
-//        let vc = AcademicsViewController()
-        
-        
         self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
-
-        
-        
         
     }
 
