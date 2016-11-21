@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Thf-MD-33Y">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="xNT-jW-KZS">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -406,7 +406,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="t0O-Vk-Z1y">
-                                                    <rect key="frame" x="8" y="8" width="359" height="184"/>
+                                                    <rect key="frame" x="8" y="8" width="359" height="183"/>
                                                     <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="20" id="EQm-qX-xYI">
                                                         <size key="itemSize" width="160" height="180"/>
@@ -506,6 +506,7 @@
                     <navigationItem key="navigationItem" title="Academics" id="qR6-NL-zTB"/>
                     <connections>
                         <outlet property="baseTableView" destination="ZDo-p4-HsB" id="2fh-74-Ram"/>
+                        <segue destination="Thf-MD-33Y" kind="presentation" identifier="toLibraryMapView" id="OXe-7W-MFb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="drQ-aQ-9vu" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -531,7 +532,7 @@
             </objects>
             <point key="canvasLocation" x="3044" y="-716"/>
         </scene>
-        <!--Libraries List View Controller-->
+        <!--Title-->
         <scene sceneID="wqd-1F-XKH">
             <objects>
                 <viewController id="bSn-cF-TkF" customClass="LibrariesListViewController" customModule="berkeleyMobileiOS" customModuleProvider="target" sceneMemberID="viewController">
@@ -544,21 +545,36 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="geJ-CF-W1k">
-                                <rect key="frame" x="0.0" y="67" width="375" height="600"/>
+                                <rect key="frame" x="0.0" y="99" width="375" height="521"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d6i-Y9-PSx">
-                                <rect key="frame" x="313" y="28" width="46" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WnR-y7-Yzu">
+                                <rect key="frame" x="24" y="13" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="X"/>
                                 <connections>
-                                    <action selector="switchMapView:" destination="bSn-cF-TkF" eventType="touchUpInside" id="8m7-uJ-zsf"/>
+                                    <action selector="returnList:" destination="bSn-cF-TkF" eventType="touchUpInside" id="YhB-UJ-5gA"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rte-MT-U0G">
+                                <rect key="frame" x="313" y="12" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="X" image="mapicon"/>
+                                <connections>
+                                    <action selector="switchMap:" destination="bSn-cF-TkF" eventType="touchUpInside" id="DG3-yw-h96"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Title" id="e5g-9x-mLl">
+                        <barButtonItem key="rightBarButtonItem" image="mapicon" id="ehQ-WV-nNZ">
+                            <connections>
+                                <action selector="switchMapView:" destination="bSn-cF-TkF" id="4PB-2M-PmM"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="librariesTableView" destination="geJ-CF-W1k" id="O1W-OV-SNW"/>
                         <segue destination="Thf-MD-33Y" kind="presentation" identifier="listToMap" modalTransitionStyle="flipHorizontal" id="QXP-sl-Mlg"/>
@@ -566,11 +582,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JJK-6b-3o6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1329" y="246"/>
+            <point key="canvasLocation" x="1973.5999999999999" y="2.2488755622188905"/>
         </scene>
         <!--Library Map View Controller-->
         <scene sceneID="MxS-MD-C7e">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GYp-5F-Xl1" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="Thf-MD-33Y" customClass="LibraryMapViewController" customModule="berkeleyMobileiOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="pTc-6e-OMX"/>
@@ -580,35 +597,37 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kDe-yq-y01">
-                                <rect key="frame" x="301" y="20" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <action selector="toListView:" destination="Thf-MD-33Y" eventType="touchUpInside" id="3Bm-9b-GGc"/>
-                                </connections>
-                            </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4gS-ys-n83">
-                                <rect key="frame" x="0.0" y="361" width="375" height="306"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </tableView>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i90-oq-ShV" customClass="GMSMapView">
-                                <rect key="frame" x="0.0" y="59" width="375" height="300"/>
+                                <rect key="frame" x="0.0" y="58" width="375" height="608"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fpx-61-qkB">
+                                <rect key="frame" x="16" y="11" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="X"/>
+                                <connections>
+                                    <action selector="dismissMap:" destination="Thf-MD-33Y" eventType="touchUpInside" id="Own-fM-QXS"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TMi-3q-j5h">
+                                <rect key="frame" x="306" y="20" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button" image="list-icon"/>
+                                <connections>
+                                    <action selector="switchToList:" destination="Thf-MD-33Y" eventType="touchUpInside" id="f7L-9S-fSN"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <toolbarItems/>
                     <connections>
                         <outlet property="librariesMapView" destination="i90-oq-ShV" id="GoU-hb-26y"/>
-                        <outlet property="librariesTableView" destination="4gS-ys-n83" id="8qD-Ns-Scg"/>
                         <segue destination="bSn-cF-TkF" kind="presentation" identifier="mapToList" modalTransitionStyle="flipHorizontal" id="T7i-NG-LaA"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="GYp-5F-Xl1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="192.80000000000001" y="256.82158920539734"/>
+            <point key="canvasLocation" x="812" y="3.1484257871064472"/>
         </scene>
         <!--Library Detail View Controller-->
         <scene sceneID="xkp-pa-fDj">
@@ -833,5 +852,10 @@
     </scenes>
     <resources>
         <image name="background_image" width="640" height="1136"/>
+        <image name="list-icon" width="30" height="30"/>
+        <image name="mapicon" width="18" height="30"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="QXP-sl-Mlg"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -36,7 +36,7 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate {
 //        self.librariesMapView = GMSMapView.map(withFrame: self.view.frame, camera: camera)
         
         self.librariesMapView.camera = camera
-//        self.librariesMapView.frame = .zero
+        self.librariesMapView.frame = self.view.frame
 //        librariesMapView.delegate = self
         
         
@@ -66,10 +66,18 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func toListView(_ sender: Any) {
-        
+    @IBAction func switchToList(_ sender: Any) {
         self.performSegue(withIdentifier: "mapToList", sender: self)
+        
     }
+    
+    
+    @IBAction func dismissMap(_ sender: Any) {
+        
+        self.dismiss(animated: false, completion: nil)
+    }
+    
+    
 
 
 }
