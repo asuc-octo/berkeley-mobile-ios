@@ -11,6 +11,7 @@
 		28037E601DD970B100935E62 /* DiningHallItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28037E5F1DD970B100935E62 /* DiningHallItemCell.swift */; };
 		28037E621DD9798C00935E62 /* LibraryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28037E611DD9798C00935E62 /* LibraryDetailViewController.swift */; };
 		28037E641DD97DF600935E62 /* LibrariesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28037E631DD97DF600935E62 /* LibrariesListViewController.swift */; };
+		280389501DE2C11E00F04FCA /* LibraryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2803894F1DE2C11E00F04FCA /* LibraryCell.swift */; };
 		286D90241DDE9D86001DCBB6 /* LibraryMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286D90231DDE9D86001DCBB6 /* LibraryMapViewController.swift */; };
 		41101F9D1DDEC5AD00D8D741 /* AcademicsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41101F9C1DDEC5AD00D8D741 /* AcademicsNavigationController.swift */; };
 		41101F9F1DDEC5CF00D8D741 /* RecreationNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41101F9E1DDEC5CF00D8D741 /* RecreationNavigationController.swift */; };
@@ -42,6 +43,7 @@
 		28037E5F1DD970B100935E62 /* DiningHallItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningHallItemCell.swift; sourceTree = "<group>"; };
 		28037E611DD9798C00935E62 /* LibraryDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LibraryDetailViewController.swift; path = Academics/LibraryDetailViewController.swift; sourceTree = "<group>"; };
 		28037E631DD97DF600935E62 /* LibrariesListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibrariesListViewController.swift; sourceTree = "<group>"; };
+		2803894F1DE2C11E00F04FCA /* LibraryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryCell.swift; sourceTree = "<group>"; };
 		286D90231DDE9D86001DCBB6 /* LibraryMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryMapViewController.swift; sourceTree = "<group>"; };
 		41101F9C1DDEC5AD00D8D741 /* AcademicsNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcademicsNavigationController.swift; sourceTree = "<group>"; };
 		41101F9E1DDEC5CF00D8D741 /* RecreationNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecreationNavigationController.swift; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 				28037E631DD97DF600935E62 /* LibrariesListViewController.swift */,
 				4E505D2E1DD05A65004AC6C9 /* AcademicsViewController.swift */,
 				286D90231DDE9D86001DCBB6 /* LibraryMapViewController.swift */,
+				2803894F1DE2C11E00F04FCA /* LibraryCell.swift */,
 			);
 			path = Academics;
 			sourceTree = "<group>";
@@ -351,6 +354,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				41E8438E1DAB3FE80096C049 /* AppDelegate.swift in Sources */,
+				280389501DE2C11E00F04FCA /* LibraryCell.swift in Sources */,
 				4E505D411DD05A65004AC6C9 /* TabBarController.swift in Sources */,
 				41101F9D1DDEC5AD00D8D741 /* AcademicsNavigationController.swift in Sources */,
 				28037E621DD9798C00935E62 /* LibraryDetailViewController.swift in Sources */,
