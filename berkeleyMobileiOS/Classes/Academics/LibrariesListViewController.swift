@@ -28,7 +28,15 @@ class LibrariesListViewController: UIViewController {
         
         self.performSegue(withIdentifier: "listToMap", sender: self)
     }
+
+    @IBAction func switchMap(_ sender: Any) {
+        
+        self.dismiss(animated: false, completion: nil)
+    }
     
-    
+    @IBAction func returnList(_ sender: Any) {
+        
+        self.view.window!.rootViewController?.dismiss(animated: false, completion: nil)
+    }
 
 }

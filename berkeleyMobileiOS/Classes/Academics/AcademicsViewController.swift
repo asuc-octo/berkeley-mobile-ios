@@ -24,5 +24,11 @@ class AcademicsViewController: BaseViewController {
         cell.homeCollectionView.dataSource = cell
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if (indexPath.row == 0) && (indexPath.section == 0){
+            self.performSegue(withIdentifier: "toLibraryMapView", sender: self)
+        }
+    }
 
 }
