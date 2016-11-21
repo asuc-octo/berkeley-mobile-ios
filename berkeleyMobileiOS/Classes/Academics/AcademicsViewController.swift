@@ -25,10 +25,25 @@ class AcademicsViewController: BaseViewController {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let v = UITableViewHeaderFooterView()
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(AcademicsViewController.moveToMapView))
+        tapGesture.numberOfTouchesRequired = 1;
+        tapGesture.numberOfTapsRequired = 1;
+    
+        v.addGestureRecognizer(tapGesture)
+        
+        return v
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (indexPath.row == 0) && (indexPath.section == 0){
-            self.performSegue(withIdentifier: "toLibraryMapView", sender: self)
-        }
+
+    }
+    
+    func moveToMapView() {
+        self.performSegue(withIdentifier: "toLibraryMapView", sender: self)
     }
 
 }
