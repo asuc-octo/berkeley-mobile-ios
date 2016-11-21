@@ -10,8 +10,6 @@ import UIKit
 import Material
 class RecreationViewController: BaseViewController {
     
-    let recDict = 
-    
     //Sets up initial tab look for this class
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)

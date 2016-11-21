@@ -21,10 +21,13 @@ class HomeTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollection
         // Configure the view for the selected state
     }
     
+    override func prepareForReuse() {
+        self.homeCollectionView.reloadData()
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return collectionCellNames.count
     }
-    
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         self.homeCollectionView.delegate = self
