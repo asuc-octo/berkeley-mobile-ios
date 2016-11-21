@@ -25,22 +25,12 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        librariesMapView.delegate = self
-        
         librariesMapView.delegate = self
-        
-        
-        
         librariesMapView.isMyLocationEnabled = true
         let camera = GMSCameraPosition.camera(withLatitude: 37.871853, longitude: -122.258423, zoom: 12)
-//        self.librariesMapView = GMSMapView.map(withFrame: self.view.frame, camera: camera)
-        
         self.librariesMapView.camera = camera
         self.librariesMapView.frame = self.view.frame
-//        librariesMapView.delegate = self
-        
-        
-        
+
         plotLibraries()
         
         // Do any additional setup after loading the view.
