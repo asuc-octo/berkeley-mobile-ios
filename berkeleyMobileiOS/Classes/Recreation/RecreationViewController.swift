@@ -9,7 +9,15 @@
 import UIKit
 import Material
 class RecreationViewController: BaseViewController {
-    
+
+    var recDict = [
+        0 : ["RSF", "Stadium", "Edwards Track"],
+        1 : ["Field House", "RSF Gold", "RSF Blue", "Golden Bear", "Hearst"],
+        2 : ["Gold Bear", "Hearst", "Spieker", "Strawberry Canyon"],
+        3 : ["Underhill", "Maxwell"],
+        4 : ["All Around", "Aqua", "Cardio", "Core", "Dance", "Mind/Body", "Strength"],
+    ]
+
     //Sets up initial tab look for this class
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -27,18 +35,7 @@ class RecreationViewController: BaseViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = baseTableView.dequeueReusableCell(withIdentifier: "HomeTableViewCell")! as! HomeTableViewCell
-        if indexPath.section == 0 {
-            cell.collectionCellNames = ["RSF", "Stadium", "Edwards Track"]
-        } else if indexPath.section == 1 {
-            cell.collectionCellNames = ["Field House", "RSF Gold", "RSF Blue", "Golden Bear", "Hearst"]
-        } else if indexPath.section == 2 {
-            cell.collectionCellNames = ["Gold Bear", "Hearst", "Spieker", "Strawberry Canyon"]
-        } else if indexPath.section == 3 {
-            cell.collectionCellNames = ["Underhill", "Maxwell"]
-        } else {
-            cell.collectionCellNames = ["All Around", "Aqua", "Cardio", "Core", "Dance", "Mind/Body", "Strength"]
-        }
-        print(indexPath.section)
+        cell.collectionCellNames = recDict[indexPath.section]!
         if let layout = cell.homeCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .horizontal
         }
@@ -48,7 +45,6 @@ class RecreationViewController: BaseViewController {
         
     }
 
-    
     //Customize Tab Bar Presence
     private func preparePageTabBarItem() {
         pageTabBarItem.image = #imageLiteral(resourceName: "50x50-Gym_32x32")
