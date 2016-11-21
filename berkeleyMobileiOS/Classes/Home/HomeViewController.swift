@@ -18,6 +18,7 @@ class HomeViewController: BaseViewController {
         self.sectionNames = ["Gyms and Pools", "Libraries"]
         self.baseTitleLabel.text = "Home"
         self.baseTableView.reloadData()
+        self.baseTableView.allowsSelection = false
     }
     //Make sure tab bar is highlighted properly
     override func viewDidAppear(_ animated: Bool) {

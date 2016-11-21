@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		055100461DE2A3AB00D040BC /* RecClassesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055100451DE2A3AB00D040BC /* RecClassesListViewController.swift */; };
+		0551004A1DE2B64300D040BC /* DummyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055100491DE2B64300D040BC /* DummyViewController.swift */; };
 		28037E5E1DD96C7F00935E62 /* DiningHallDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28037E5D1DD96C7F00935E62 /* DiningHallDetailViewController.swift */; };
 		28037E601DD970B100935E62 /* DiningHallItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28037E5F1DD970B100935E62 /* DiningHallItemCell.swift */; };
-		28037E621DD9798C00935E62 /* LibraryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28037E611DD9798C00935E62 /* LibraryDetailViewController.swift */; };
+		28037E621DD9798C00935E62 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28037E611DD9798C00935E62 /* DetailViewController.swift */; };
 		28037E641DD97DF600935E62 /* LibrariesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28037E631DD97DF600935E62 /* LibrariesListViewController.swift */; };
 		286D90241DDE9D86001DCBB6 /* LibraryMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286D90231DDE9D86001DCBB6 /* LibraryMapViewController.swift */; };
 		41101F9D1DDEC5AD00D8D741 /* AcademicsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41101F9C1DDEC5AD00D8D741 /* AcademicsNavigationController.swift */; };
@@ -37,10 +39,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		055100451DE2A3AB00D040BC /* RecClassesListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecClassesListViewController.swift; sourceTree = "<group>"; };
+		055100491DE2B64300D040BC /* DummyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DummyViewController.swift; sourceTree = "<group>"; };
 		2145738E109E31684887C5EE /* Pods_berkeleyMobileiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_berkeleyMobileiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		28037E5D1DD96C7F00935E62 /* DiningHallDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningHallDetailViewController.swift; sourceTree = "<group>"; };
 		28037E5F1DD970B100935E62 /* DiningHallItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningHallItemCell.swift; sourceTree = "<group>"; };
-		28037E611DD9798C00935E62 /* LibraryDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LibraryDetailViewController.swift; path = Academics/LibraryDetailViewController.swift; sourceTree = "<group>"; };
+		28037E611DD9798C00935E62 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DetailViewController.swift; path = Academics/DetailViewController.swift; sourceTree = "<group>"; };
 		28037E631DD97DF600935E62 /* LibrariesListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibrariesListViewController.swift; sourceTree = "<group>"; };
 		286D90231DDE9D86001DCBB6 /* LibraryMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryMapViewController.swift; sourceTree = "<group>"; };
 		41101F9C1DDEC5AD00D8D741 /* AcademicsNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcademicsNavigationController.swift; sourceTree = "<group>"; };
@@ -126,7 +130,7 @@
 				4E505D391DD05A65004AC6C9 /* Recreation */,
 				4E505D3B1DD05A65004AC6C9 /* Transit */,
 				4E505D3D1DD05A65004AC6C9 /* Util */,
-				28037E611DD9798C00935E62 /* LibraryDetailViewController.swift */,
+				28037E611DD9798C00935E62 /* DetailViewController.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -145,6 +149,7 @@
 		4E505D2F1DD05A65004AC6C9 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				055100491DE2B64300D040BC /* DummyViewController.swift */,
 				4E505D301DD05A65004AC6C9 /* BaseViewController.swift */,
 				4E505D311DD05A65004AC6C9 /* TabBarController.swift */,
 			);
@@ -177,6 +182,7 @@
 			children = (
 				41101F9E1DDEC5CF00D8D741 /* RecreationNavigationController.swift */,
 				4E505D3A1DD05A65004AC6C9 /* RecreationViewController.swift */,
+				055100451DE2A3AB00D040BC /* RecClassesListViewController.swift */,
 			);
 			path = Recreation;
 			sourceTree = "<group>";
@@ -353,8 +359,9 @@
 				41E8438E1DAB3FE80096C049 /* AppDelegate.swift in Sources */,
 				4E505D411DD05A65004AC6C9 /* TabBarController.swift in Sources */,
 				41101F9D1DDEC5AD00D8D741 /* AcademicsNavigationController.swift in Sources */,
-				28037E621DD9798C00935E62 /* LibraryDetailViewController.swift in Sources */,
+				28037E621DD9798C00935E62 /* DetailViewController.swift in Sources */,
 				41101F9F1DDEC5CF00D8D741 /* RecreationNavigationController.swift in Sources */,
+				0551004A1DE2B64300D040BC /* DummyViewController.swift in Sources */,
 				41101FA11DDEC60400D8D741 /* DiningHallsNavigationController.swift in Sources */,
 				4E505D441DD05A65004AC6C9 /* HomeTableViewCell.swift in Sources */,
 				4E505D451DD05A65004AC6C9 /* HomeViewController.swift in Sources */,
@@ -370,6 +377,7 @@
 				4E505D471DD05A65004AC6C9 /* RecreationViewController.swift in Sources */,
 				41101FA31DDEC62900D8D741 /* BearTransitNavigationController.swift in Sources */,
 				4E505D481DD05A65004AC6C9 /* BearTransitViewController.swift in Sources */,
+				055100461DE2A3AB00D040BC /* RecClassesListViewController.swift in Sources */,
 				4E505D431DD05A65004AC6C9 /* HomeCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

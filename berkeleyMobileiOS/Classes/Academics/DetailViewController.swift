@@ -1,5 +1,5 @@
 //
-//  LibraryDetailViewController.swift
+//  DetailViewController.swift
 //  berkeleyMobileiOS
 //
 //  Created by Sampath Duddu on 11/13/16.
@@ -8,10 +8,7 @@
 
 import UIKit
 
-class LibraryDetailViewController: UIViewController {
-    
-    @IBOutlet var libraryImage: UIImageView!
-    @IBOutlet var libraryDetailTableView: UITableView!
+class DetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
