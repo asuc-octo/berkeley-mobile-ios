@@ -11,7 +11,6 @@ import UIKit
 class HomeTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource {
 
     @IBOutlet weak var homeCollectionView: UICollectionView!
-    var parentViewController: UIViewController? = nil
     
     // Hardcode
     var collectionCellNames = ["RSF", "Memorial Stadium", "Yolo"]
@@ -36,10 +35,6 @@ class HomeTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollection
         let cell = homeCollectionView.dequeueReusableCell(withReuseIdentifier: "homeCollectionViewCell", for: indexPath) as! HomeCollectionViewCell
         cell.nameLabel.text = collectionCellNames[indexPath.row]
         return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("selected")
     }
 
 }
