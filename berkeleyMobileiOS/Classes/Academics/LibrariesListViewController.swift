@@ -31,12 +31,19 @@ class LibrariesListViewController: UIViewController {
 
     @IBAction func switchMap(_ sender: Any) {
         
-        self.dismiss(animated: false, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func returnList(_ sender: Any) {
         
-        self.view.window!.rootViewController?.dismiss(animated: false, completion: nil)
+//        let vc = AcademicsViewController()
+        
+        
+        self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+
+        
+        
+        
     }
 
 }
