@@ -9,17 +9,56 @@
 import UIKit
 import MapKit
 import CoreLocation
+import GoogleMaps
 
-class LibraryMapViewController: UIViewController {
+class LibraryMapViewController: UIViewController, GMSMapViewDelegate {
     
     @IBOutlet var librariesTableView: UITableView!
-    @IBOutlet var librariesMapView: MKMapView!
-    
 
+    @IBOutlet var librariesMapView: GMSMapView!
+    
+    var libraries = [CLLocation(latitude: 37.871856, longitude: -122.258423),
+        CLLocation(latitude: 37.872545, longitude: -122.256423)
+                     ]
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+//        librariesMapView.delegate = self
+        
+        librariesMapView.delegate = self
+        
+        
+        
+        librariesMapView.isMyLocationEnabled = true
+        let camera = GMSCameraPosition.camera(withLatitude: 37.871853, longitude: -122.258423, zoom: 12)
+//        self.librariesMapView = GMSMapView.map(withFrame: self.view.frame, camera: camera)
+        
+        self.librariesMapView.camera = camera
+//        self.librariesMapView.frame = .zero
+//        librariesMapView.delegate = self
+        
+        
+        
+        plotLibraries()
+        
         // Do any additional setup after loading the view.
+    }
+    
+    func plotLibraries() {
+        
+        for library in libraries {
+            
+            let marker = GMSMarker()
+            marker.position = CLLocationCoordinate2D(latitude: library.coordinate.latitude, longitude: library.coordinate.longitude)
+            marker.title = "Sydney"
+            marker.snippet = "Australia"
+            
+            marker.map = self.librariesMapView
+        
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {
