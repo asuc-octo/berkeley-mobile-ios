@@ -4,25 +4,23 @@ import UIKit
 /**
  * ViewController to display list of menus of one MealType at a certain DiningHall.
  */
-class DiningMenuViewController: UIViewController, RequiresData, UITableViewDataSource
+class DiningMenuViewController: UIViewController, RequiresData, UITableViewDataSource, UITableViewDelegate
 {
     // Data
     private var menu: DiningMenu = []
     
     
     //UI
-    @IBOutlet weak var tableView: UITableView?
+    @IBOutlet private(set) weak var tableView: UITableView!
     
     
     // MARK: - UIViewController
-    required init?(coder aDecoder: NSCoder)
-    {
-        super.init(coder: aDecoder)
-    }
-    
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
+        self.tableView.dataSource = self
+        self.tableView.delegate = self
     }
     
     
@@ -52,9 +50,9 @@ class DiningMenuViewController: UIViewController, RequiresData, UITableViewDataS
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        let cell = tableView.dequeueReusableCell(withIdentifier: className(DiningItemCell.self)) as! DiningItemCell
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: "DiningItemCell") as! DiningItemCell
         cell.setData(menu[indexPath.row])
         
-        return UITableViewCell()
+        return cell
     }
 }

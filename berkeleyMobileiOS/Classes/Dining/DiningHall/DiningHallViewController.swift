@@ -15,16 +15,16 @@ fileprivate let kBannerRatio: CGFloat = 16/9
  * - Banner image of the location
  * - Tabbed MealTypes containing TableView of DiningMenu 
  */
-class DiningHallViewController: UIViewController
+class DiningHallViewController: UIViewController, PageTabBarControllerDelegate
 {
     // UI
     override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
 
-    @IBOutlet weak var navItem: UINavigationItem?
-    @IBOutlet weak var banner: UIImageView?
+    @IBOutlet private weak var banner: UIImageView!
     
-    private var menuTabController: PageTabBarController? 
-    private var menuTabView: UIView?
+    private var menuTabController: PageTabBarController! 
+    private var menuTabView: UIView!
+    private var menuTabBar: UIView!
     
     // Data
     var diningHall: DiningHall? = nil
@@ -65,14 +65,14 @@ class DiningHallViewController: UIViewController
         // layout banner image
         var bannerFrame = CGRect.zero
         bannerFrame.size = CGSize(width: viewSize.width, height: viewSize.width / kBannerRatio)
-        self.banner?.frame = bannerFrame
+        self.banner.frame = bannerFrame
         
         // layout MenuTabView
         var tabViewFrame = CGRect.zero
         tabViewFrame.origin.y = bannerFrame.maxY
         tabViewFrame.size.width = viewSize.width
         tabViewFrame.size.height = viewSize.height - bannerFrame.size.height
-        self.menuTabView?.frame = tabViewFrame 
+        self.menuTabView.frame = tabViewFrame 
     }
     
     
@@ -95,6 +95,8 @@ class DiningHallViewController: UIViewController
     
     /**
      * Setup the MenuTabView to display all MealTypes.
+     * - note: PageTabBarController is initialized programmatically due to iOS bug. 
+     *         ViewControllers written in Swift that use @objc throw an "Unknown class <Class> in Interface Builder file" when used in storyboards. 
      */
     private func setupMenuTabView()
     {
@@ -115,23 +117,43 @@ class DiningHallViewController: UIViewController
             return vc
         }
         
-        // Programmatically initialize PageTabBarController
-        // External Bug: VCs written in Swift with @objc shows 'Unknown class <Class> in Interface Builder file' when used in storyboards
-        let menuTabController = PageTabBarController(viewControllers: menuListVCs, selectedIndex: 0)
-        menuTabController.pageTabBarAlignment = .top
+        // Initialize PageTabBarController and configure look.
+        let tabController = PageTabBarController(viewControllers: menuListVCs, selectedIndex: 0)
+        tabController.pageTabBarAlignment = .top
+        tabController.delegate = self
         
-        let menuTabView = menuTabController.view!
+        let tabBar = tabController.pageTabBar
+        tabBar.backgroundColor = kColorNavy
+        tabBar.lineColor = UIColor.white
+        tabBar.lineAlignment = .bottom
+        tabBar.divider.thickness = 0
         
-        let tab = menuTabController.pageTabBar
-        tab.backgroundColor = kColorNavy
-        tab.lineColor = UIColor.white
-        tab.lineAlignment = .bottom
-        tab.divider.thickness = 0
+        // Store references and add to hierarchy
+        self.menuTabController = tabController
+        self.menuTabView = tabController.view
+        self.menuTabBar = tabBar
         
-        self.addChildViewController(menuTabController)
-        self.view.addSubview(menuTabView)
+        self.addChildViewController(self.menuTabController)
+        self.view.addSubview(self.menuTabView)
         
-        self.menuTabController = menuTabController
-        self.menuTabView = menuTabController.view
+        
+        // Manually call initial transition event.
+        self.pageTabBarController(pageTabBarController: self.menuTabController, didTransitionTo: menuListVCs.first!)
+    }
+    
+    // MARK: - PageTabBarControllerDelegate
+    /**
+     * Called when the menuTabControlle switches to a different DiningMenuViewController.
+     */
+    func pageTabBarController(pageTabBarController: PageTabBarController, didTransitionTo viewController: UIViewController)
+    {
+        guard
+            pageTabBarController == self.menuTabController,
+            let menuVC = viewController as? DiningMenuViewController
+        else {
+            return
+        }
+        
+        
     }
 }
