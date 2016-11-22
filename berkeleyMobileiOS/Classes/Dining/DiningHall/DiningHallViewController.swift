@@ -15,19 +15,23 @@ fileprivate let kBannerRatio: CGFloat = 16/9
  * - Banner image of the location
  * - Tabbed MealTypes containing TableView of DiningMenu 
  */
-class DiningHallViewController: UIViewController, PageTabBarControllerDelegate
+class DiningHallViewController: UIViewController, UIScrollViewDelegate, PageTabBarControllerDelegate
 {
+    // Data
+    var diningHall: DiningHall? = nil
+    
+
     // UI
     override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
 
     @IBOutlet private weak var banner: UIImageView!
     
+    private var scrollView: UIScrollView!
+    private var childScrollView: UIScrollView!
+    
     private var menuTabController: PageTabBarController! 
     private var menuTabView: UIView!
     private var menuTabBar: UIView!
-    
-    // Data
-    var diningHall: DiningHall? = nil
     
 
     // MARK: - UIViewController
@@ -36,6 +40,7 @@ class DiningHallViewController: UIViewController, PageTabBarControllerDelegate
         super.viewDidLoad()
         
         self.setupHeader()
+        self.setupScrollView()
         self.setupMenuTabView()
     }
     
@@ -60,19 +65,22 @@ class DiningHallViewController: UIViewController, PageTabBarControllerDelegate
     {
         super.viewDidLayoutSubviews()
         
-        let viewSize = self.view.bounds.size
+        let bounds = self.view.bounds
+        let size = bounds.size
         
         // layout banner image
         var bannerFrame = CGRect.zero
-        bannerFrame.size = CGSize(width: viewSize.width, height: viewSize.width / kBannerRatio)
+        bannerFrame.size = CGSize(width: size.width, height: round(size.width / kBannerRatio))
         self.banner.frame = bannerFrame
         
         // layout MenuTabView
-        var tabViewFrame = CGRect.zero
-        tabViewFrame.origin.y = bannerFrame.maxY
-        tabViewFrame.size.width = viewSize.width
-        tabViewFrame.size.height = viewSize.height - bannerFrame.size.height
-        self.menuTabView.frame = tabViewFrame 
+        self.menuTabView.frame = bounds
+        
+        
+        // scrollView
+        self.scrollView.frame = bounds
+        self.scrollView.contentInset = UIEdgeInsetsMake(self.banner.height, 0, 0, 0)
+        self.scrollView.contentSize = CGSize(width: size.width, height: self.menuTabBar.height + self.childScrollView.contentSize.height)
     }
     
     
@@ -93,10 +101,21 @@ class DiningHallViewController: UIViewController, PageTabBarControllerDelegate
         banner.load(url: diningHall.imageURL)
     }
     
+    private func setupScrollView()
+    {
+        self.scrollView = UIScrollView()
+        self.scrollView.delegate = self
+        self.scrollView.autoresizesSubviews = false
+        
+        self.view.addSubview(self.scrollView)
+    }
+    
     /**
      * Setup the MenuTabView to display all MealTypes.
-     * - note: PageTabBarController is initialized programmatically due to iOS bug. 
-     *         ViewControllers written in Swift that use @objc throw an "Unknown class <Class> in Interface Builder file" when used in storyboards. 
+     * 
+     * - NOTE
+     * PageTabBarController is initialized programmatically due to iOS bug. 
+     * ViewControllers written in Swift that use @objc throw an "Unknown class <Class> in Interface Builder file" when used in storyboards. 
      */
     private func setupMenuTabView()
     {
@@ -134,7 +153,7 @@ class DiningHallViewController: UIViewController, PageTabBarControllerDelegate
         self.menuTabBar = tabBar
         
         self.addChildViewController(self.menuTabController)
-        self.view.addSubview(self.menuTabView)
+        self.scrollView.addSubview(self.menuTabView)
         
         
         // Manually call initial transition event.
@@ -154,6 +173,15 @@ class DiningHallViewController: UIViewController, PageTabBarControllerDelegate
             return
         }
         
-        
+        self.childScrollView = menuVC.tableView
+        self.childScrollView.isScrollEnabled = false
+        self.view.setNeedsLayout()
+    }
+    
+    
+    // MARK: - UIScrollViewDelegate
+    func scrollViewDidScroll(_ scrollView: UIScrollView)
+    {
+        print(scrollView.contentOffset.y)
     }
 }
