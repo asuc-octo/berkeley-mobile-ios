@@ -10,13 +10,25 @@ import UIKit
 import Material
 class RecreationViewController: BaseViewController {
     //Sets up initial tab look for this class
+    var gyms: [Gym]?
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         preparePageTabBarItem()
     }
     override func viewDidLoad() {
+        
         self.sectionNames = ["RSF", "Memorial Stadium"]
         self.baseTableView.reloadData()
+        
+        GymDataSource.fetchGyms { (_ gyms: [Gym]?) in
+            if gyms == nil
+            {
+                print("[ERROR @ RecreationViewController] failed to fetch Gyms")
+            }
+            self.gyms = gyms
+            print(self.gyms ?? "couldn't print gyms")
+        }
+        
 
     }
     //Make sure tab bar is highlighted properly

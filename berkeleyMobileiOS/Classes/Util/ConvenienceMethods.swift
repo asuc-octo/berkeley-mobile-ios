@@ -8,7 +8,7 @@
 
 import Foundation
 import Material
-
+let kAPIURL = "https://asuc-mobile-development.herokuapp.com/api/"
 class ConvenienceMethods: NSObject {
     static func setCurrentTabStyle(pageTabBarVC: PageTabBarController, ForSelectedViewController selectedViewController: UIViewController) {
         var count = 0
