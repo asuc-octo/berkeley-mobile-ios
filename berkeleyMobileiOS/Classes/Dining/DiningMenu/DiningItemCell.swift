@@ -1,14 +1,17 @@
 
 import UIKit
 
+
+fileprivate let kCellPadding: CGFloat = 16.0
+
 /**
  * TableViewCell to represent a single DiningMenu item. 
  */
 class DiningItemCell: UITableViewCell, RequiresData
 {
     // UI
-    @IBOutlet weak var label: UILabel?
-    @IBOutlet weak var button: UIButton?
+    @IBOutlet private weak var label: UILabel!
+    @IBOutlet private weak var button: UIButton!
     
     // Data
     var item: DiningItem?
@@ -20,5 +23,8 @@ class DiningItemCell: UITableViewCell, RequiresData
     func setData(_ data: DiningItem)
     {
         self.item = data
+        
+        self.label.text = data.name
+//        self.button.setTitle(data.name, for: .normal)
     }
 }

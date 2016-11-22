@@ -70,7 +70,6 @@
                     <navigationItem key="navigationItem" id="Jmq-Iv-Yin"/>
                     <connections>
                         <outlet property="banner" destination="Y9P-TL-r63" id="aTm-6O-jKo"/>
-                        <outlet property="navItem" destination="Jmq-Iv-Yin" id="FGe-5R-jyu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O5g-7M-nOt" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -101,22 +100,20 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rPT-Tx-NyQ">
-                                                    <rect key="frame" x="26" y="7" width="46" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <state key="normal" title="Button"/>
-                                                </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Just a meal bro" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Yh-nk-XE9">
-                                                    <rect key="frame" x="89" y="12" width="133" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Just a meal item bro" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Yh-nk-XE9">
+                                                    <rect key="frame" x="16" y="11" width="346" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="0Yh-nk-XE9" firstAttribute="centerY" secondItem="N53-Ez-ztG" secondAttribute="centerY" id="LPe-5t-rSX"/>
+                                                <constraint firstAttribute="trailing" secondItem="0Yh-nk-XE9" secondAttribute="trailing" constant="13" id="LyS-rT-OSc"/>
+                                                <constraint firstItem="0Yh-nk-XE9" firstAttribute="leading" secondItem="N53-Ez-ztG" secondAttribute="leading" constant="16" id="iZZ-ys-Th7"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="button" destination="rPT-Tx-NyQ" id="y2j-Kp-zW0"/>
                                             <outlet property="label" destination="0Yh-nk-XE9" id="cTD-k7-Rjo"/>
                                         </connections>
                                     </tableViewCell>
