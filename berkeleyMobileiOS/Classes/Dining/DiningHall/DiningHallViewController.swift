@@ -15,26 +15,43 @@ fileprivate let kBannerRatio: CGFloat = 16/9
  * - Banner image of the location
  * - Tabbed MealTypes containing TableView of DiningMenu 
  */
-class DiningHallViewController: UIViewController, UIScrollViewDelegate, PageTabBarControllerDelegate
+class DiningHallViewController: UIViewController, RequiresData, UIScrollViewDelegate, PageTabBarControllerDelegate
 {
     // Data
-    var diningHall: DiningHall? = nil
+    typealias DataType = DiningHall
+    private var diningHall: DiningHall!
     
 
     // UI
     override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
 
     @IBOutlet private weak var banner: UIImageView!
+    private var bannerHeight: CGFloat!
     
-    private var scrollView: UIScrollView!
-    private var childScrollView: UIScrollView!
+    @IBOutlet private weak var scrollView: UIScrollView!
+    private var nestedScrollView: UIScrollView!
     
     private var menuTabController: PageTabBarController! 
     private var menuTabView: UIView!
     private var menuTabBar: UIView!
     
+    
+    // ========================================
+    // MARK: - RequiresData
+    // ========================================
+    
+    func setData(_ data: DiningHall)
+    {
+        self.diningHall = data
+    }
 
+
+    // ========================================
     // MARK: - UIViewController
+    // ========================================
+    /**
+     * Setup and configure subcomponents.
+     */
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -50,6 +67,10 @@ class DiningHallViewController: UIViewController, UIScrollViewDelegate, PageTabB
         
         setStatusBarStyle(self.preferredStatusBarStyle)
         self.navigationController?.navigationBar.hideHairline = true
+        
+        // Manually call initial transition event.
+        self.pageTabBarController(pageTabBarController: self.menuTabController, 
+                                       didTransitionTo: self.menuTabController.viewControllers.first!)
     }
     
     override func viewDidDisappear(_ animated: Bool)
@@ -65,26 +86,27 @@ class DiningHallViewController: UIViewController, UIScrollViewDelegate, PageTabB
     {
         super.viewDidLayoutSubviews()
         
-        let bounds = self.view.bounds
-        let size = bounds.size
+        let viewBounds = self.view.bounds
+        let viewSize = viewBounds.size
         
-        // layout banner image
-        var bannerFrame = CGRect.zero
-        bannerFrame.size = CGSize(width: size.width, height: round(size.width / kBannerRatio))
-        self.banner.frame = bannerFrame
-        
-        // layout MenuTabView
-        self.menuTabView.frame = bounds
-        
+        // header
+        self.bannerHeight = round(viewSize.width / kBannerRatio)
+        self.banner.frame = CGRect(x: 0, y: 0, width: viewSize.width, height: self.bannerHeight)
         
         // scrollView
-        self.scrollView.frame = bounds
-        self.scrollView.contentInset = UIEdgeInsetsMake(self.banner.height, 0, 0, 0)
-        self.scrollView.contentSize = CGSize(width: size.width, height: self.menuTabBar.height + self.childScrollView.contentSize.height)
+        self.scrollView.frame = viewBounds
+        self.scrollView.contentInset.top = self.bannerHeight
+        self.scrollView.contentSize = CGSize(width: viewSize.width, 
+                                            height: self.menuTabBar.height + self.nestedScrollView.contentSize.height)
+        
+        // menuTabView
+        self.menuTabView.frame = viewBounds
     }
     
     
+    // ========================================
     // MARK: - Setup
+    // ========================================
     /**
      * Setup the header part of the view, including navbar and banner image.
      */
@@ -98,16 +120,22 @@ class DiningHallViewController: UIViewController, UIScrollViewDelegate, PageTabB
         }
     
         self.title = diningHall.name
+        
+        banner.contentMode = .scaleAspectFill
         banner.load(url: diningHall.imageURL)
     }
     
+    /**
+     * Setup the scrollView that will contain the menuTabView
+     */
     private func setupScrollView()
     {
-        self.scrollView = UIScrollView()
-        self.scrollView.delegate = self
-        self.scrollView.autoresizesSubviews = false
+        let scrollView = UIScrollView()
+        scrollView.autoresizesSubviews = false
+        scrollView.delegate = self
         
-        self.view.addSubview(self.scrollView)
+        self.view.addSubview(scrollView)
+        self.scrollView = scrollView
     }
     
     /**
@@ -122,9 +150,7 @@ class DiningHallViewController: UIViewController, UIScrollViewDelegate, PageTabB
         guard 
             let storyboard = self.storyboard,
             let diningHall = self.diningHall 
-        else {
-            return
-        }
+        else { return }
     
         // Create a DiningMenuListVC for each MealType, and set it's data.
         let menuListVCs: [UIViewController] = MealType.allValues.map
@@ -154,34 +180,45 @@ class DiningHallViewController: UIViewController, UIScrollViewDelegate, PageTabB
         
         self.addChildViewController(self.menuTabController)
         self.scrollView.addSubview(self.menuTabView)
-        
-        
-        // Manually call initial transition event.
-        self.pageTabBarController(pageTabBarController: self.menuTabController, didTransitionTo: menuListVCs.first!)
     }
     
+    
+    // ========================================
     // MARK: - PageTabBarControllerDelegate
+    // ========================================
     /**
      * Called when the menuTabControlle switches to a different DiningMenuViewController.
      */
     func pageTabBarController(pageTabBarController: PageTabBarController, didTransitionTo viewController: UIViewController)
     {
         guard
-            pageTabBarController == self.menuTabController,
-            let menuVC = viewController as? DiningMenuViewController
-        else {
-            return
-        }
+            let menuVC = viewController as? DiningMenuViewController,
+            pageTabBarController == self.menuTabController
+        else 
+        { return }
         
-        self.childScrollView = menuVC.tableView
-        self.childScrollView.isScrollEnabled = false
+        self.nestedScrollView = menuVC.tableView
         self.view.setNeedsLayout()
     }
     
     
+    // ========================================
     // MARK: - UIScrollViewDelegate
+    // ========================================
+    /**
+     * Adjust the subcomponent frames and offsets depending on the outer scrollView. 
+     */
     func scrollViewDidScroll(_ scrollView: UIScrollView)
     {
-        print(scrollView.contentOffset.y)
+        let inset = scrollView.contentInset.top
+        let offsetY = scrollView.contentOffset.y
+        
+        // If scrollView is pulled down, increase banner height accordingly.
+        let pulled = -(inset + offsetY)
+        self.banner.height = self.bannerHeight + (pulled > 0 ? pulled : 0)
+        
+        let adjustedOffset = (offsetY < 0) ? 0 : offsetY
+        self.menuTabView.y = adjustedOffset
+        self.nestedScrollView.contentOffset.y = adjustedOffset
     }
 }

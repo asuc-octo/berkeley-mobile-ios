@@ -14,44 +14,59 @@ class DiningMenuViewController: UIViewController, RequiresData, UITableViewDataS
     @IBOutlet private(set) weak var tableView: UITableView!
     
     
-    // MARK: - UIViewController
-    override func viewDidLoad()
-    {
-        super.viewDidLoad()
-        
-        self.tableView.dataSource = self
-        self.tableView.delegate = self
-    }
-    
-    
-    // MARK: - RequestsData
+    // ========================================
+    // MARK: - RequiresData
+    // ========================================
     typealias DataType = (type: MealType, menu: DiningMenu)
     
     public func setData(_ data: DataType)
     {
-        let item = self.pageTabBarItem
-        item.title = data.type.name
-        item.tintColor = UIColor.white
-        
         self.menu = data.menu
+        self.pageTabBarItem.title = data.type.name
     }
     
     
-    // MARK: - UITableViewDataSource
-    func numberOfSections(in tableView: UITableView) -> Int
+    // ========================================
+    // MARK: - UIViewController
+    // ========================================
+    /**
+     * 
+     */
+    override func viewDidLoad()
     {
-        return 1
+        super.viewDidLoad()
+        
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        self.tableView.isScrollEnabled = false
+        
+        self.pageTabBarItem.tintColor = UIColor.white
     }
     
+    override func viewDidLayoutSubviews()
+    {
+        super.viewDidLayoutSubviews()
+        
+        let viewSize = self.view.bounds.size
+        self.tableView.frame = CGRect(origin: CGPoint.zero, size: viewSize)
+    }
+    
+    
+    // ========================================
+    // MARK: - UITableViewDataSource
+    // ========================================
+    
+    // Return the number of menu items.
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         return menu.count
     }
     
+    // Get a reuseable cell and set the data.
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "DiningItemCell") as! DiningItemCell
-        cell.setData(menu[indexPath.row])
+        cell.setData(self.menu[indexPath.row])
         
         return cell
     }
