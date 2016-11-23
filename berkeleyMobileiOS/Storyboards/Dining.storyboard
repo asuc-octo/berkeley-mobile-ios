@@ -13,7 +13,7 @@
         <scene sceneID="lvQ-Ns-9VD">
             <objects>
                 <navigationController id="gpR-Ae-kh1" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="mcz-uM-SW4">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="mcz-uM-SW4">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -60,6 +60,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nWB-PA-si9">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </scrollView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Y9P-TL-r63">
                                 <rect key="frame" x="0.0" y="64" width="375" height="177"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -70,6 +74,7 @@
                     <navigationItem key="navigationItem" id="Jmq-Iv-Yin"/>
                     <connections>
                         <outlet property="banner" destination="Y9P-TL-r63" id="aTm-6O-jKo"/>
+                        <outlet property="scrollView" destination="nWB-PA-si9" id="KMG-vS-hiE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O5g-7M-nOt" userLabel="First Responder" sceneMemberID="firstResponder"/>

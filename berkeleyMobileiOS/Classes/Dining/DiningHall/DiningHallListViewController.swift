@@ -8,25 +8,25 @@
 
 import UIKit
 
+private let DiningHallCellID = "DiningHallCell"
+private let DiningHallSegue = "DiningHallSegue"
+
 fileprivate let kColorNavy = UIColor(red: 23/255.0, green: 85/255.0, blue: 122/255.0, alpha: 1)
+
 
 /**
  * ViewController that shows the list of all DiningHalls.
  */
 class DiningHallListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource
 {
-    private let DiningHallCellID = "DiningHallCell"
-    private let DiningHallSegue = "DiningHallSegue"
+    // Data
+    var halls: [DiningHall] = []
 
-    // MARK: UI
+    // UI
     override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
     
     var tableView: UITableView!
     var activityIndicator: UIActivityIndicatorView!
-    
-    
-    // MARK: Data
-    var halls: [DiningHall] = []
     
     
     // MARK: - UIViewController
@@ -72,7 +72,9 @@ class DiningHallListViewController: UIViewController, UITableViewDelegate, UITab
         DiningDataSource.fetchDiningHalls()
         { (_ halls: [DiningHall]?) in
         
-            self.stopActivityIndicator()
+            DispatchQueue.main.async {
+                self.activityIndicator.stopAnimating()
+            }
         
             if halls.isNil
             {
@@ -97,55 +99,47 @@ class DiningHallListViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     
+    // ========================================
     // MARK: - UITableViewDataSource    
-    /**
-     * Return the number of DiningHalls.
-     */
+    // ========================================
+    
+    // Return the number of dining hall locations.
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         return self.halls.count
     }
     
-    /**
-     *
-     */
+    // Set the corresponding DiningHall for the cell.
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         let cell = tableView.dequeueReusableCell(withIdentifier: DiningHallCellID) as! DiningHallCell
         cell.diningHall = halls[indexPath.row]
+        
         return cell
     }
     
 
     // MARK: - UITableViewDelegate
     /**
-     * 
+     * When a DiningHallCell is selected, perform segue to a DiningHallVC with the corresponding DiningHall object.
      */
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
-        let diningHall = halls[indexPath.row]
-        self.performSegue(withIdentifier: DiningHallSegue, sender: diningHall)
+        performSegue(withIdentifier: DiningHallSegue, sender: halls[indexPath.row])
     }
     
     
     // MARK: - Navigation
     /**
-     *
+     * Pass the DiningHall data to the DiningHallVC. 
      */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
-        if segue.identifier == DiningHallSegue
+        if segue.identifier == DiningHallSegue,
+        let diningHall   = sender as? DiningHall,
+        let diningHallVC = segue.destination as? DiningHallViewController
         {
-            (segue.destination as! DiningHallViewController).diningHall = (sender as! DiningHall)
-        }
-    }
-    
-    
-    // MARK: - Helpers
-    func stopActivityIndicator()
-    {
-        DispatchQueue.main.async {
-            self.activityIndicator.stopAnimating()
+            diningHallVC.setData(diningHall)
         }
     }
 }

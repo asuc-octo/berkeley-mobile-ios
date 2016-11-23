@@ -17,7 +17,9 @@ class DiningItemCell: UITableViewCell, RequiresData
     var item: DiningItem?
     
     
+    // ========================================
     // MARK: - RequiresData
+    // ========================================
     typealias DataType = DiningItem
     
     func setData(_ data: DiningItem)
