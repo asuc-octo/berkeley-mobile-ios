@@ -52,9 +52,7 @@ class DiningHallViewController: UIViewController, RequiresData, UIScrollViewDele
     // ========================================
     // MARK: - UIViewController
     // ========================================
-    /**
-     * Setup and configure subcomponents.
-     */
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -70,10 +68,15 @@ class DiningHallViewController: UIViewController, RequiresData, UIScrollViewDele
         
         setStatusBarStyle(self.preferredStatusBarStyle)
         self.navigationController?.navigationBar.hideHairline = true
+    }
+    
+    override func viewDidAppear(_ animated: Bool)
+    {
+        super.viewDidAppear(animated)
         
         // Manually call initial transition event.
         self.pageTabBarController(pageTabBarController: self.menuTabController, 
-                                       didTransitionTo: self.menuTabController.viewControllers.first!)
+                                  didTransitionTo: self.menuTabController.viewControllers.first!)
     }
     
     override func viewDidDisappear(_ animated: Bool)
@@ -82,12 +85,11 @@ class DiningHallViewController: UIViewController, RequiresData, UIScrollViewDele
         self.navigationController?.navigationBar.hideHairline = false
     }
     
-    /**
-     * Layout components after defaults have been applied
-     */
+    // Layout the subcomponents.
     override func viewDidLayoutSubviews()
     {
         super.viewDidLayoutSubviews()
+        print("viewDidLayout")
         
         let viewBounds = self.view.bounds
         let viewSize = viewBounds.size
@@ -102,17 +104,14 @@ class DiningHallViewController: UIViewController, RequiresData, UIScrollViewDele
         // scrollView
         self.scrollView.frame = viewBounds
         self.scrollView.contentInset.top = self.bannerHeight
-        self.scrollView.contentSize = CGSize(width: viewSize.width, 
-                                            height: self.menuTabBar.height + self.nestedScrollView.contentSize.height)
     }
     
     
     // ========================================
     // MARK: - Setup
     // ========================================
-    /**
-     * Setup the header part of the view, including navbar and banner image.
-     */
+    
+    // Setup the header part of the view, including navbar and banner image.
     private func setupHeader()
     {
         guard 
@@ -128,9 +127,7 @@ class DiningHallViewController: UIViewController, RequiresData, UIScrollViewDele
         banner.load(url: diningHall.imageURL)
     }
     
-    /**
-     * Setup the scrollView that will contain the menuTabView
-     */
+    // Setup the scrollView that will contain the menuTabView.
     private func setupScrollView()
     {
         let scrollView = UIScrollView()
@@ -143,6 +140,7 @@ class DiningHallViewController: UIViewController, RequiresData, UIScrollViewDele
     
     /**
      * Setup the MenuTabView to display all MealTypes.
+     * Must be called after scrollView has be initialized.
      * 
      * - NOTE
      * PageTabBarController is initialized programmatically due to iOS bug. 
@@ -153,7 +151,8 @@ class DiningHallViewController: UIViewController, RequiresData, UIScrollViewDele
         guard 
             let storyboard = self.storyboard,
             let diningHall = self.diningHall 
-        else { return }
+        else 
+        { return }
     
         // Create a DiningMenuListVC for each MealType, and set it's data.
         let menuListVCs: [UIViewController] = MealType.allValues.map
@@ -189,9 +188,8 @@ class DiningHallViewController: UIViewController, RequiresData, UIScrollViewDele
     // ========================================
     // MARK: - PageTabBarControllerDelegate
     // ========================================
-    /**
-     * Called when the menuTabControlle switches to a different DiningMenuViewController.
-     */
+    
+    // Called when the menuTabControlle switches to a different DiningMenuViewController.
     func pageTabBarController(pageTabBarController: PageTabBarController, didTransitionTo viewController: UIViewController)
     {
         guard
@@ -200,8 +198,26 @@ class DiningHallViewController: UIViewController, RequiresData, UIScrollViewDele
         else 
         { return }
         
+        // Reset offset of previous inner scrollView (if any), and set new one.
+        self.nestedScrollView?.contentOffset = CGPoint.zero
         self.nestedScrollView = menuVC.tableView
-        self.view.setNeedsLayout()
+        
+        let inset = self.scrollView.contentInset.top
+        let offsetY = self.scrollView.contentOffset.y
+        
+        // Calculate new offset and contentSize.
+        let finalY = (offsetY < 0) ? -inset : 0;
+        var contentHeight =  self.menuTabBar.height + self.nestedScrollView.contentSize.height
+        
+        if (contentHeight == self.menuTabBar.height) && (offsetY >= 0)
+        {
+            // But if there is no nested content and tabBar is already sticked to top,
+            // give enough height to be scrollable down. 
+            contentHeight = self.menuTabView.height
+        }
+        
+        self.scrollView.contentSize = CGSize(width: self.view.width, height: contentHeight)
+        self.scrollView.contentOffset = CGPoint(x: 0, y: finalY)
     }
     
     
@@ -228,7 +244,7 @@ class DiningHallViewController: UIViewController, RequiresData, UIScrollViewDele
         
         let adjustedOffset = (offsetY < 0) ? 0 : offsetY
         self.menuTabView.y = adjustedOffset
-        self.nestedScrollView.contentOffset.y = adjustedOffset
+        self.nestedScrollView?.contentOffset.y = adjustedOffset
         
 
         // Detect end of scrolling (http://stackoverflow.com/a/1857162)
@@ -236,7 +252,15 @@ class DiningHallViewController: UIViewController, RequiresData, UIScrollViewDele
         self.perform(#selector(scrollViewDidEndScrollingAnimation(_:)), with: scrollView, afterDelay: 0.2)
     }
     
-    // If scrolling ends within header area, scroll back or to top depending on direction of scroll.
+    /**
+     * Called when the scrollView has completely stopped scrolling. 
+     * Any scrolling done within this method will cause it be called again.
+     * 
+     * - If scroll ended within the header, snap it to the top or bottom depending on the scroll direction.
+     * - Adjust contentSize if banner is showing. 
+     *       When the menu page is changed while scrolled up, it should stay scrolled up for usability.
+     *       But after scrolling down, should not be able to scroll back up if not enough content.
+     */
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView)
     {
         NSObject.cancelPreviousPerformRequests(withTarget: self)
@@ -244,15 +268,24 @@ class DiningHallViewController: UIViewController, RequiresData, UIScrollViewDele
         let inset = scrollView.contentInset.top
         let offsetY = scrollView.contentOffset.y
         
+        // If within header, snap to top or bottom.
         if (-inset < offsetY && offsetY < 0)
         {
             let finalY = (offsetY > self.startingOffsetY) ? 0 : -inset
             let duration = kAnimationDuration * Double( abs((finalY - offsetY) / inset) ) 
             
+            // Animation duration depends on the the distance.
             UIView.animate(withDuration: duration)
             {
                 scrollView.contentOffset = CGPoint(x: 0, y: finalY)
             }
+        }
+        
+        // If scrolled to bottom and no content, adjust parent scrollView's contentSize.
+        let contentHeight = self.nestedScrollView?.contentSize.height
+        if (offsetY == -inset) && (contentHeight == 0)
+        {
+            self.scrollView.contentSize.height = self.menuTabBar.height
         }
     }
 }
