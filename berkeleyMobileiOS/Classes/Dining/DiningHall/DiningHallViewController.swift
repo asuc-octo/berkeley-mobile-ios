@@ -9,6 +9,9 @@ fileprivate let kMenuTabSegue = "MenuTabSegue"
 fileprivate let kColorNavy = UIColor(red: 23/255.0, green: 85/255.0, blue: 122/255.0, alpha: 1)
 fileprivate let kBannerRatio: CGFloat = 16/9
 
+fileprivate let kScrollStickRatio: CGFloat = 3/4
+fileprivate let kAnimationDuration: TimeInterval = 0.25
+
 
 /**
  * ViewController for a specific DiningHall, which includes:
@@ -18,7 +21,6 @@ fileprivate let kBannerRatio: CGFloat = 16/9
 class DiningHallViewController: UIViewController, RequiresData, UIScrollViewDelegate, PageTabBarControllerDelegate
 {
     // Data
-    typealias DataType = DiningHall
     private var diningHall: DiningHall!
     
 
@@ -39,6 +41,7 @@ class DiningHallViewController: UIViewController, RequiresData, UIScrollViewDele
     // ========================================
     // MARK: - RequiresData
     // ========================================
+    typealias DataType = DiningHall
     
     func setData(_ data: DiningHall)
     {
@@ -93,14 +96,14 @@ class DiningHallViewController: UIViewController, RequiresData, UIScrollViewDele
         self.bannerHeight = round(viewSize.width / kBannerRatio)
         self.banner.frame = CGRect(x: 0, y: 0, width: viewSize.width, height: self.bannerHeight)
         
+        // menuTabView
+        self.menuTabView.frame = viewBounds
+        
         // scrollView
         self.scrollView.frame = viewBounds
         self.scrollView.contentInset.top = self.bannerHeight
         self.scrollView.contentSize = CGSize(width: viewSize.width, 
                                             height: self.menuTabBar.height + self.nestedScrollView.contentSize.height)
-        
-        // menuTabView
-        self.menuTabView.frame = viewBounds
     }
     
     
@@ -205,9 +208,15 @@ class DiningHallViewController: UIViewController, RequiresData, UIScrollViewDele
     // ========================================
     // MARK: - UIScrollViewDelegate
     // ========================================
-    /**
-     * Adjust the subcomponent frames and offsets depending on the outer scrollView. 
-     */
+    private var startingOffsetY: CGFloat = 0
+    
+    // Store the offset at the start of scroll.
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView)
+    {
+        self.startingOffsetY = scrollView.contentOffset.y
+    }
+    
+    // Adjust the subcomponent frames and offsets depending on the outer scrollView. 
     func scrollViewDidScroll(_ scrollView: UIScrollView)
     {
         let inset = scrollView.contentInset.top
@@ -215,10 +224,35 @@ class DiningHallViewController: UIViewController, RequiresData, UIScrollViewDele
         
         // If scrollView is pulled down, increase banner height accordingly.
         let pulled = -(inset + offsetY)
-        self.banner.height = self.bannerHeight + (pulled > 0 ? pulled : 0)
+        self.banner.height = inset + (pulled > 0 ? pulled : 0)
         
         let adjustedOffset = (offsetY < 0) ? 0 : offsetY
         self.menuTabView.y = adjustedOffset
         self.nestedScrollView.contentOffset.y = adjustedOffset
+        
+
+        // Detect end of scrolling (http://stackoverflow.com/a/1857162)
+        NSObject.cancelPreviousPerformRequests(withTarget: self)
+        self.perform(#selector(scrollViewDidEndScrollingAnimation(_:)), with: scrollView, afterDelay: 0.2)
+    }
+    
+    // If scrolling ends within header area, scroll back or to top depending on direction of scroll.
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView)
+    {
+        NSObject.cancelPreviousPerformRequests(withTarget: self)
+        
+        let inset = scrollView.contentInset.top
+        let offsetY = scrollView.contentOffset.y
+        
+        if (-inset < offsetY && offsetY < 0)
+        {
+            let finalY = (offsetY > self.startingOffsetY) ? 0 : -inset
+            let duration = kAnimationDuration * Double( abs((finalY - offsetY) / inset) ) 
+            
+            UIView.animate(withDuration: duration)
+            {
+                scrollView.contentOffset = CGPoint(x: 0, y: finalY)
+            }
+        }
     }
 }
