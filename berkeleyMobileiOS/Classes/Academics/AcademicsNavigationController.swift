@@ -21,23 +21,6 @@ class AcademicsNavigationController: UINavigationController {
             }
             print(libraries ?? "couldn't print libraries")
         }
-        
-        // Do any additional setup after loading the view.
-        LibraryDataSource.fetchLibraries { (_ libraries: [Library]?) in
-            if libraries == nil
-            {
-                print("ERROR @ AcademicsNavigationController failed to fetch Libraries")
-            }
-            print(libraries ?? "couldn't print libraries")
-        }
-        
-        CampusResourceDataSource.fetchCampusResources { (_ campusResources: [CampusResource]?) in
-            if campusResources == nil
-            {
-                print("ERROR @ CAmpusresouce")
-            }
-            print(campusResources ?? "can't priint resouce");
-        }
     }
 
     override func didReceiveMemoryWarning() {
