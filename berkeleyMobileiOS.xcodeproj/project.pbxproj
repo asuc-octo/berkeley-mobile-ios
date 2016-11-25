@@ -37,6 +37,8 @@
 		B5F25D1F1DE2A38E0084A5C7 /* Gym.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F25D1E1DE2A38E0084A5C7 /* Gym.swift */; };
 		B5F25D211DE2B6DF0084A5C7 /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F25D201DE2B6DF0084A5C7 /* Library.swift */; };
 		B5F25D231DE2B6ED0084A5C7 /* LibraryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F25D221DE2B6ED0084A5C7 /* LibraryDataSource.swift */; };
+		B5F25D251DE8BFC60084A5C7 /* CampusResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F25D241DE8BFC60084A5C7 /* CampusResource.swift */; };
+		B5F25D271DE8BFD50084A5C7 /* CampusResourceDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F25D261DE8BFD50084A5C7 /* CampusResourceDataSource.swift */; };
 		F1831570400BC13F0EDD243E /* Pods_berkeleyMobileiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2145738E109E31684887C5EE /* Pods_berkeleyMobileiOS.framework */; };
 /* End PBXBuildFile section */
 
@@ -76,6 +78,8 @@
 		B5F25D1E1DE2A38E0084A5C7 /* Gym.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gym.swift; sourceTree = "<group>"; };
 		B5F25D201DE2B6DF0084A5C7 /* Library.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Library.swift; sourceTree = "<group>"; };
 		B5F25D221DE2B6ED0084A5C7 /* LibraryDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryDataSource.swift; sourceTree = "<group>"; };
+		B5F25D241DE8BFC60084A5C7 /* CampusResource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CampusResource.swift; sourceTree = "<group>"; };
+		B5F25D261DE8BFD50084A5C7 /* CampusResourceDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CampusResourceDataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +149,8 @@
 				41101F9C1DDEC5AD00D8D741 /* AcademicsNavigationController.swift */,
 				28037E631DD97DF600935E62 /* LibrariesListViewController.swift */,
 				B5F25D201DE2B6DF0084A5C7 /* Library.swift */,
+				B5F25D261DE8BFD50084A5C7 /* CampusResourceDataSource.swift */,
+				B5F25D241DE8BFC60084A5C7 /* CampusResource.swift */,
 				B5F25D221DE2B6ED0084A5C7 /* LibraryDataSource.swift */,
 				4E505D2E1DD05A65004AC6C9 /* AcademicsViewController.swift */,
 				286D90231DDE9D86001DCBB6 /* LibraryMapViewController.swift */,
@@ -368,6 +374,7 @@
 				41101F9D1DDEC5AD00D8D741 /* AcademicsNavigationController.swift in Sources */,
 				28037E621DD9798C00935E62 /* LibraryDetailViewController.swift in Sources */,
 				B5F25D211DE2B6DF0084A5C7 /* Library.swift in Sources */,
+				B5F25D251DE8BFC60084A5C7 /* CampusResource.swift in Sources */,
 				41101F9F1DDEC5CF00D8D741 /* RecreationNavigationController.swift in Sources */,
 				41101FA11DDEC60400D8D741 /* DiningHallsNavigationController.swift in Sources */,
 				4E505D441DD05A65004AC6C9 /* HomeTableViewCell.swift in Sources */,
@@ -386,6 +393,7 @@
 				B5F25D1D1DE2A1EA0084A5C7 /* GymDataSource.swift in Sources */,
 				41101FA31DDEC62900D8D741 /* BearTransitNavigationController.swift in Sources */,
 				4E505D481DD05A65004AC6C9 /* BearTransitViewController.swift in Sources */,
+				B5F25D271DE8BFD50084A5C7 /* CampusResourceDataSource.swift in Sources */,
 				4E505D431DD05A65004AC6C9 /* HomeCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
