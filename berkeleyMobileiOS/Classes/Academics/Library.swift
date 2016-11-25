@@ -39,5 +39,4 @@ class Library: NSObject {
         //        return now.isBetween(self.openingTimeToday, closingTimeToday)
         
     }
-
 }
