@@ -22,7 +22,7 @@ class GymDataSource: NSObject {
             { response in
                 
                 if response.result.isFailure {
-                    print("[Error @ DiningHallDataSource.getDiningHalls()]: request failed")
+                    print("[Error @ GymDataSource.fetchGyms()]: request failed")
                     return
                 }
                 

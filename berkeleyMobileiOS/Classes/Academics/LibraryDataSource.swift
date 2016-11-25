@@ -31,7 +31,7 @@ class LibraryDataSource: NSObject {
         }
     }
     
-    // Return a Gym object parsed from JSON.
+    // Return a Library object parsed from JSON.
     private static func parseLibrary(_ json: JSON) -> Library
     {
         let formatter = sharedDateFormatter()
