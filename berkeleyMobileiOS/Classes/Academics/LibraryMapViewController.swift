@@ -43,22 +43,53 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
         self.librariesMapView.frame = self.view.frame
 
         plotLibraries()
+        
     }
     
     //Plots the location of libraries on map view
     func plotLibraries() {
+
+        var minLat = 1000.0
+        var maxLat = -1000.0
+        var minLon = 1000.0
+        var maxLon = -1000.0
         
         for library in libraries {
             
             let marker = GMSMarker()
-            marker.position = CLLocationCoordinate2D(latitude: library.coordinate.latitude, longitude: library.coordinate.longitude)
+            let lat = library.coordinate.latitude
+            let lon = library.coordinate.longitude
+            
+            marker.position = CLLocationCoordinate2D(latitude: lat, longitude: lon)
             marker.title = "Sydney"
             marker.snippet = "Australia"
             
             marker.map = self.librariesMapView
-        
+            
+            if (lat < minLat) {
+                minLat = lat
+            }
+            
+            if (lat > maxLat) {
+                maxLat = lat
+            }
+            
+            if (lon < minLon) {
+                minLon = lon
+            }
+            
+            if (lon > maxLon) {
+                maxLon = lon
+            }
+
         }
         
+        //Sets the bounds of the map based on the coordinates
+        let southWest = CLLocationCoordinate2DMake(minLat,minLon)
+        let northEast = CLLocationCoordinate2DMake(maxLat,maxLon)
+        let bounds = GMSCoordinateBounds(coordinate: northEast, coordinate: southWest)
+        librariesMapView.animate(with: GMSCameraUpdate.fit(bounds, withPadding: 50.0))
+
     }
 
     override func didReceiveMemoryWarning() {
