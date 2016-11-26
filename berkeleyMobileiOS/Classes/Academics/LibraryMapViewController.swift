@@ -38,7 +38,7 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
         //Setting up map view
         librariesMapView.delegate = self
         librariesMapView.isMyLocationEnabled = true
-        let camera = GMSCameraPosition.camera(withLatitude: 37.871853, longitude: -122.258423, zoom: 12)
+        let camera = GMSCameraPosition.camera(withLatitude: 37.871853, longitude: -122.258423, zoom: 15)
         self.librariesMapView.camera = camera
         self.librariesMapView.frame = self.view.frame
 
@@ -85,9 +85,9 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
         
         //Create a segmented control to use on the navigation bar
         let segment: UISegmentedControl = UISegmentedControl(items:
-            [" Map ", " List "])
+            [" Map ", "List "])
         segment.sizeToFit()
-        segment.tintColor = UIColor(red:0.99, green:0.00, blue:0.25, alpha:1.00)
+        segment.tintColor = UIColor.blue
         segment.selectedSegmentIndex = 0
         segment.addTarget(self, action: #selector(LibraryMapViewController.segmentControlValueChanged), for:.valueChanged)
         self.navigationItem.titleView = segment
