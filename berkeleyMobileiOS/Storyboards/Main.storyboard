@@ -506,7 +506,7 @@
                     <navigationItem key="navigationItem" title="Academics" id="qR6-NL-zTB"/>
                     <connections>
                         <outlet property="baseTableView" destination="ZDo-p4-HsB" id="2fh-74-Ram"/>
-                        <segue destination="Thf-MD-33Y" kind="presentation" identifier="toLibraryMapView" id="OXe-7W-MFb"/>
+                        <segue destination="Thf-MD-33Y" kind="show" identifier="toLibraryMapView" id="OXe-7W-MFb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="drQ-aQ-9vu" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -634,7 +634,6 @@
         <!--Library Map View Controller-->
         <scene sceneID="MxS-MD-C7e">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="GYp-5F-Xl1" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="Thf-MD-33Y" customClass="LibraryMapViewController" customModule="berkeleyMobileiOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="pTc-6e-OMX"/>
@@ -648,22 +647,6 @@
                                 <rect key="frame" x="0.0" y="58" width="375" height="608"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fpx-61-qkB">
-                                <rect key="frame" x="16" y="11" width="30" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="X"/>
-                                <connections>
-                                    <action selector="dismissMap:" destination="Thf-MD-33Y" eventType="touchUpInside" id="Own-fM-QXS"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TMi-3q-j5h">
-                                <rect key="frame" x="306" y="20" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button" image="list-icon"/>
-                                <connections>
-                                    <action selector="switchToList:" destination="Thf-MD-33Y" eventType="touchUpInside" id="f7L-9S-fSN"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -673,6 +656,7 @@
                         <segue destination="bSn-cF-TkF" kind="presentation" identifier="mapToList" modalTransitionStyle="flipHorizontal" id="T7i-NG-LaA"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GYp-5F-Xl1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="812" y="3.1484257871064472"/>
         </scene>
@@ -899,10 +883,9 @@
     </scenes>
     <resources>
         <image name="background_image" width="640" height="1136"/>
-        <image name="list-icon" width="30" height="30"/>
         <image name="mapicon" width="18" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="QXP-sl-Mlg"/>
+        <segue reference="OXe-7W-MFb"/>
     </inferredMetricsTieBreakers>
 </document>
