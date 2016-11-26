@@ -35,6 +35,7 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
         librariesTableView.delegate = self
         librariesTableView.dataSource = self
         
+        //Setting up map view
         librariesMapView.delegate = self
         librariesMapView.isMyLocationEnabled = true
         let camera = GMSCameraPosition.camera(withLatitude: 37.871853, longitude: -122.258423, zoom: 12)
@@ -42,10 +43,9 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
         self.librariesMapView.frame = self.view.frame
 
         plotLibraries()
-        
-        // Do any additional setup after loading the view.
     }
     
+    //Plots the location of libraries on map view
     func plotLibraries() {
         
         for library in libraries {
@@ -81,23 +81,19 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
     
     
     //Segmented control methods
-    
     func setSegmentedControl() {
         
+        //Create a segmented control to use on the navigation bar
         let segment: UISegmentedControl = UISegmentedControl(items:
-            
-            
             [" Map ", " List "])
         segment.sizeToFit()
         segment.tintColor = UIColor(red:0.99, green:0.00, blue:0.25, alpha:1.00)
-        
         segment.selectedSegmentIndex = 0
-        
         segment.addTarget(self, action: #selector(LibraryMapViewController.segmentControlValueChanged), for:.valueChanged)
-
         self.navigationItem.titleView = segment
     }
     
+    //Hide map and list dependent on selected value
     func segmentControlValueChanged(sender: UISegmentedControl!) {
         
         if sender.selectedSegmentIndex == 0 {
@@ -112,16 +108,6 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
         
     }
     
-    //    @IBAction func switchToList(_ sender: Any) {
-    //        self.performSegue(withIdentifier: "mapToList", sender: self)
-    //
-    //    }
-    //
-    //
-    //    @IBAction func dismissMap(_ sender: Any) {
-    //
-    //        self.dismiss(animated: false, completion: nil)
-    //    }
 
     
     
