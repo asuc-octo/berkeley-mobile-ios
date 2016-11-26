@@ -11,10 +11,11 @@ import MapKit
 import CoreLocation
 import GoogleMaps
 
-class LibraryMapViewController: UIViewController, GMSMapViewDelegate {
+class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet var librariesTableView: UITableView!
 
+    @IBOutlet var librariesSearchBar: UISearchBar!
     @IBOutlet var librariesMapView: GMSMapView!
     
     var libraries = [CLLocation(latitude: 37.871856, longitude: -122.258423),
@@ -26,6 +27,13 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate {
         super.viewDidLoad()
         
         setSegmentedControl()
+        
+        librariesSearchBar.isHidden = true
+        librariesTableView.isHidden = true
+        librariesMapView.isHidden = false
+        
+        librariesTableView.delegate = self
+        librariesTableView.dataSource = self
         
         librariesMapView.delegate = self
         librariesMapView.isMyLocationEnabled = true
@@ -58,16 +66,21 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func switchToList(_ sender: Any) {
-        self.performSegue(withIdentifier: "mapToList", sender: self)
-        
+    //Table View Methods
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "library") as! LibraryCell
+        cell.libraryName.text = "Doe Library"
+        cell.libraryStatus.text = "OPEN"
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 3
     }
     
     
-    @IBAction func dismissMap(_ sender: Any) {
-        
-        self.dismiss(animated: false, completion: nil)
-    }
+    //Segmented control methods
     
     func setSegmentedControl() {
         
@@ -80,10 +93,6 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate {
         
         segment.selectedSegmentIndex = 0
         
-//        segment.addTarget(self, action: Selector(("segmentedControlValueChanged:")), for:.allEvents)
-        
- 
-        
         segment.addTarget(self, action: #selector(LibraryMapViewController.segmentControlValueChanged), for:.valueChanged)
 
         self.navigationItem.titleView = segment
@@ -92,12 +101,28 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate {
     func segmentControlValueChanged(sender: UISegmentedControl!) {
         
         if sender.selectedSegmentIndex == 0 {
-            print("zero")
+            librariesSearchBar.isHidden = true
+            librariesTableView.isHidden = true
+            librariesMapView.isHidden = false
         } else {
-            print("one")
+            librariesSearchBar.isHidden = false
+            librariesTableView.isHidden = false
+            librariesMapView.isHidden = true
         }
         
     }
+    
+    //    @IBAction func switchToList(_ sender: Any) {
+    //        self.performSegue(withIdentifier: "mapToList", sender: self)
+    //
+    //    }
+    //
+    //
+    //    @IBAction func dismissMap(_ sender: Any) {
+    //
+    //        self.dismiss(animated: false, completion: nil)
+    //    }
+
     
     
 

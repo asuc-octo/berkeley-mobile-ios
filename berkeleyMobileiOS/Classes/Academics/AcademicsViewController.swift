@@ -40,5 +40,13 @@ class AcademicsViewController: BaseViewController {
     func moveToMapView() {
         self.performSegue(withIdentifier: "toLibraryMapView", sender: self)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "toLibraryMapView") {
+            let backItem = UIBarButtonItem()
+            backItem.title = ""
+            navigationItem.backBarButtonItem = backItem
+        }
+    }
 
 }
