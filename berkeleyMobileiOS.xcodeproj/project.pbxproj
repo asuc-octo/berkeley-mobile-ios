@@ -41,7 +41,7 @@
 		2145738E109E31684887C5EE /* Pods_berkeleyMobileiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_berkeleyMobileiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		28037E5D1DD96C7F00935E62 /* DiningHallDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningHallDetailViewController.swift; sourceTree = "<group>"; };
 		28037E5F1DD970B100935E62 /* DiningHallItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningHallItemCell.swift; sourceTree = "<group>"; };
-		28037E611DD9798C00935E62 /* LibraryDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LibraryDetailViewController.swift; path = Academics/LibraryDetailViewController.swift; sourceTree = "<group>"; };
+		28037E611DD9798C00935E62 /* LibraryDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryDetailViewController.swift; sourceTree = "<group>"; };
 		28037E631DD97DF600935E62 /* LibrariesListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibrariesListViewController.swift; sourceTree = "<group>"; };
 		2803894F1DE2C11E00F04FCA /* LibraryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryCell.swift; sourceTree = "<group>"; };
 		286D90231DDE9D86001DCBB6 /* LibraryMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryMapViewController.swift; sourceTree = "<group>"; };
@@ -128,7 +128,6 @@
 				4E505D391DD05A65004AC6C9 /* Recreation */,
 				4E505D3B1DD05A65004AC6C9 /* Transit */,
 				4E505D3D1DD05A65004AC6C9 /* Util */,
-				28037E611DD9798C00935E62 /* LibraryDetailViewController.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -136,6 +135,7 @@
 		4E505D2D1DD05A65004AC6C9 /* Academics */ = {
 			isa = PBXGroup;
 			children = (
+				28037E611DD9798C00935E62 /* LibraryDetailViewController.swift */,
 				41101F9C1DDEC5AD00D8D741 /* AcademicsNavigationController.swift */,
 				28037E631DD97DF600935E62 /* LibrariesListViewController.swift */,
 				4E505D2E1DD05A65004AC6C9 /* AcademicsViewController.swift */,
