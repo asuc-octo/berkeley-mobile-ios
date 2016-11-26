@@ -25,6 +25,8 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setSegmentedControl()
+        
         librariesMapView.delegate = self
         librariesMapView.isMyLocationEnabled = true
         let camera = GMSCameraPosition.camera(withLatitude: 37.871853, longitude: -122.258423, zoom: 12)
@@ -65,6 +67,36 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate {
     @IBAction func dismissMap(_ sender: Any) {
         
         self.dismiss(animated: false, completion: nil)
+    }
+    
+    func setSegmentedControl() {
+        
+        let segment: UISegmentedControl = UISegmentedControl(items:
+            
+            
+            [" Map ", " List "])
+        segment.sizeToFit()
+        segment.tintColor = UIColor(red:0.99, green:0.00, blue:0.25, alpha:1.00)
+        
+        segment.selectedSegmentIndex = 0
+        
+//        segment.addTarget(self, action: Selector(("segmentedControlValueChanged:")), for:.allEvents)
+        
+ 
+        
+        segment.addTarget(self, action: #selector(LibraryMapViewController.segmentControlValueChanged), for:.valueChanged)
+
+        self.navigationItem.titleView = segment
+    }
+    
+    func segmentControlValueChanged(sender: UISegmentedControl!) {
+        
+        if sender.selectedSegmentIndex == 0 {
+            print("zero")
+        } else {
+            print("one")
+        }
+        
     }
     
     
