@@ -26,7 +26,6 @@ class RecreationViewController: BaseViewController {
                 print("[ERROR @ RecreationViewController] failed to fetch Gyms")
             }
             self.gyms = gyms
-            print(self.gyms ?? "couldn't print gyms")
         }
         
 

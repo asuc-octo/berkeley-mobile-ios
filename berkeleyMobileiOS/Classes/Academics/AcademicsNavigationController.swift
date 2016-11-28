@@ -12,15 +12,6 @@ class AcademicsNavigationController: UINavigationController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        LibraryDataSource.fetchLibraries { (_ libraries: [Library]?) in
-            if libraries == nil
-            {
-                print("ERROR @ AcademicsNavigationController failed to fetch Libraries")
-            }
-            print(libraries ?? "couldn't print libraries")
-        }
     }
 
     override func didReceiveMemoryWarning() {
