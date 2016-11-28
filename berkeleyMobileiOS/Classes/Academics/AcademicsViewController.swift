@@ -24,5 +24,29 @@ class AcademicsViewController: BaseViewController {
         cell.homeCollectionView.dataSource = cell
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let sectionHeader = UITableViewHeaderFooterView()
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(AcademicsViewController.moveToMapView))
+        tapGesture.numberOfTouchesRequired = 1;
+        tapGesture.numberOfTapsRequired = 1;
+    
+        sectionHeader.addGestureRecognizer(tapGesture)
+        return sectionHeader
+    }
+    
+    func moveToMapView() {
+        self.performSegue(withIdentifier: "toLibraryMapView", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "toLibraryMapView") {
+            let backItem = UIBarButtonItem()
+            backItem.title = ""
+            navigationItem.backBarButtonItem = backItem
+        }
+    }
 
 }
