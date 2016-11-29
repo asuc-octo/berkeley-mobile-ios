@@ -134,14 +134,10 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         let location = locations.last
-        
         let camera = GMSCameraPosition.camera(withLatitude: (location?.coordinate.latitude)!, longitude: (location?.coordinate.longitude)!, zoom: 17.0)
-        
         self.librariesMapView?.animate(to: camera)
-        
         //Finally stop updating location otherwise it will come again and again in this delegate
         self.locationManager.stopUpdatingLocation()
-        
     }
     
     
