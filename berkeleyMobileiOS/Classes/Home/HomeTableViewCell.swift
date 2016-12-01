@@ -13,7 +13,8 @@ class HomeTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollection
     @IBOutlet weak var homeCollectionView: UICollectionView!
     
     // Hardcode
-    var collectionCellNames = ["RSF", "Memorial Stadium", "Yolo"]
+    var collectionCellNames = [String]()
+    var collectionCellImageURLs = [URL?]()
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -31,6 +32,9 @@ class HomeTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollection
         self.homeCollectionView.dataSource = self
         let cell = homeCollectionView.dequeueReusableCell(withReuseIdentifier: "homeCollectionViewCell", for: indexPath) as! HomeCollectionViewCell
         cell.nameLabel.text = collectionCellNames[indexPath.row]
+        if collectionCellImageURLs[indexPath.row] != nil {
+            cell.imageView.image = UIImage(data: Data(contentsOf:collectionCellImageURLs[indexPath.row]!))
+        }
         return cell
     }
 
