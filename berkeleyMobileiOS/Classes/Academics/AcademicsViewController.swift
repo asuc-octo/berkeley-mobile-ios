@@ -8,15 +8,41 @@
 
 import UIKit
 import Material
+fileprivate let kLibraries = "Libraries"
+fileprivate let kCampusResources = "Campus Resources"
 class AcademicsViewController: BaseViewController {
     //Sets up initial tab look for this class
+    var resources = [String:[Resource]]()
+    let sectionNamesByIndex : [Int:String] = [0:kLibraries, 1:kCampusResources]
+    
     override func viewDidLoad() {
-        self.sectionNames = ["Doe", "Main Stacks"]
-        self.baseTableView.reloadData()
+        LibraryDataSource.fetchLibraries { (_ libraries: [Library]?) in
+            if libraries == nil
+            {
+                print("[ERROR @ AcademicsViewController] failed to fetch Libraries")
+            }
+            self.resources[kLibraries] = libraries!
+            self.sectionNames = [String](self.resources.keys)
+            self.baseTableView.reloadData()
+        }
+        CampusResourceDataSource.fetchCampusResources { (_ campusResources: [CampusResource]?) in
+            if campusResources == nil
+            {
+                print("[ERROR @ AcademicsViewController] failed to fetch Campus Resources")
+            }
+            self.resources[kCampusResources] = campusResources!
+            self.sectionNames = [String](self.resources.keys)
+            self.baseTableView.reloadData()
+        }
     }
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = baseTableView.dequeueReusableCell(withIdentifier: "HomeTableViewCell")! as! HomeTableViewCell
-        cell.collectionCellNames = ["aaa", "bbb", "ccc"]
+        let sectionName = sectionNamesByIndex[indexPath.row]!
+        let res = self.resources[sectionName]!
+        cell.collectionCellNames = res.map { (resource) in resource.name }
+        cell.collectionCellImageURLs = res.map { (resource) in resource.imageURL }
+
         if let layout = cell.homeCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .horizontal
         }
