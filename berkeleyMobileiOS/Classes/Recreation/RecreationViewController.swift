@@ -21,23 +21,21 @@ class RecreationViewController: BaseViewController {
         sectionNamesByIndex = [0:kGyms]
         sectionNames = [kGyms]
         
-        let activityView = UIActivityIndicatorView.init(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
-        self.view.addSubview(activityView)
-        activityView.center=self.view.center;
-        activityView.startAnimating()
+        let loadScreen = LoadingScreen.sharedInstance.getLoadingScreen()
+        self.view.addSubview(loadScreen)
         
         GymDataSource.fetchGyms { (_ gyms: [Gym]?) in
             if gyms == nil
             {
                 print("[ERROR @ RecreationViewController] failed to fetch Gyms")
-                activityView.stopAnimating()
+                LoadingScreen.sharedInstance.removeLoadingScreen()
             }
             self.resources[kGyms] = gyms!
             self.baseTableView.reloadData()
             
             if self.resources.count == self.sectionNames.count
             {
-                activityView.stopAnimating()
+                LoadingScreen.sharedInstance.removeLoadingScreen()
             }
         }
     }
