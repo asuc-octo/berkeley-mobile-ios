@@ -21,13 +21,24 @@ class RecreationViewController: BaseViewController {
         sectionNamesByIndex = [0:kGyms]
         sectionNames = [kGyms]
         
+        let activityView = UIActivityIndicatorView.init(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+        self.view.addSubview(activityView)
+        activityView.center=self.view.center;
+        activityView.startAnimating()
+        
         GymDataSource.fetchGyms { (_ gyms: [Gym]?) in
             if gyms == nil
             {
                 print("[ERROR @ RecreationViewController] failed to fetch Gyms")
+                activityView.stopAnimating()
             }
             self.resources[kGyms] = gyms!
             self.baseTableView.reloadData()
+            
+            if self.resources.count == self.sectionNames.count
+            {
+                activityView.stopAnimating()
+            }
         }
     }
     //Make sure tab bar is highlighted properly

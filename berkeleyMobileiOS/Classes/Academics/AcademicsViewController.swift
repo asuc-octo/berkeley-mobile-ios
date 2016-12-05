@@ -17,19 +17,34 @@ class AcademicsViewController: BaseViewController {
         sectionNamesByIndex = [0:kLibraries, 1:kCampusResources]
         sectionNames = [kLibraries, kCampusResources]
         
+        let activityView = UIActivityIndicatorView.init(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+        self.view.addSubview(activityView)
+        activityView.center=self.view.center;
+        activityView.startAnimating()
+        
         LibraryDataSource.fetchLibraries { (_ libraries: [Library]?) in
             if libraries == nil {
                 print("[ERROR @ AcademicsViewController] failed to fetch Libraries")
+                activityView.stopAnimating()
             }
             self.resources[kLibraries] = libraries!
             self.baseTableView.reloadData()
+            
+            if self.resources.count == self.sectionNames.count {
+                activityView.stopAnimating()
+            }
         }
         CampusResourceDataSource.fetchCampusResources { (_ campusResources: [CampusResource]?) in
             if campusResources == nil {
                 print("[ERROR @ AcademicsViewController] failed to fetch Campus Resources")
+                activityView.stopAnimating()
             }
             self.resources[kCampusResources] = campusResources!
             self.baseTableView.reloadData()
+            
+            if self.resources.count == self.sectionNames.count {
+                activityView.stopAnimating()
+            }
         }
     }
     
