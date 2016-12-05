@@ -20,7 +20,6 @@ class LoadingScreen: NSObject {
     }
     
     // return loading screen
-    
     func getLoadingScreen() -> UIView {
         activityView.isHidden = false;
         let height = UIScreen.main.bounds.size.height / 2;
