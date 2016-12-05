@@ -8,35 +8,25 @@
 
 import UIKit
 
-class Library: NSObject {
-    let name: String
+class Library: Resource {
     let campusLocation: String?
     let phoneNumber: String?
     var weeklyOpeningTimes:[Date?]
     var weeklyClosingTimes:[Date?]
     var weeklyByAppointment:[Bool]
-    let imageURL: URL?
     let latitude: Double?
     let longitude: Double?
     
     init(name: String, campusLocation: String?, phoneNumber: String?, weeklyOpeningTimes:[Date?], weeklyClosingTimes:[Date?], weeklyByAppointment:[Bool], imageLink: String?, latitude: Double?, longitude: Double?) {
-        self.name = name
         self.campusLocation = campusLocation
         self.phoneNumber = phoneNumber
         self.weeklyOpeningTimes = weeklyOpeningTimes
         self.weeklyClosingTimes = weeklyClosingTimes
         self.weeklyByAppointment = weeklyByAppointment
-        self.imageURL = URL(string: imageLink ?? "")
         self.latitude = latitude
         self.longitude = longitude
+        super.init(name: name, imageLink: imageLink)
     }
     
-    var isOpen: Bool
-    {
-        return true
-        // TODO: uncomment after Dennis merges the Date extension
-        //        let now = Date()
-        //        return now.isBetween(self.openingTimeToday, closingTimeToday)
-        
-    }
+
 }
