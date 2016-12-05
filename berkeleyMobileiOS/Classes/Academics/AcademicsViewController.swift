@@ -26,7 +26,7 @@ class AcademicsViewController: BaseViewController {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
+
         let sectionHeader = UITableViewHeaderFooterView()
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(AcademicsViewController.moveToMapView))
