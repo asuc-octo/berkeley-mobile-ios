@@ -8,8 +8,7 @@
 
 import UIKit
 
-class CampusResource: NSObject {
-    let name: String
+class CampusResource: Resource {
     let campusLocation: String?
     let phoneNumber: String?
     let alternatePhoneNumber: String?
@@ -20,7 +19,6 @@ class CampusResource: NSObject {
     let notes: String?
     
     init(name: String, campusLocation: String?, phoneNumber: String?, alternatePhoneNumber: String?, email: String?, hours: String?, latitude: Double?, longitude: Double?, notes: String?) {
-        self.name = name
         self.campusLocation = campusLocation
         self.phoneNumber = phoneNumber
         self.alternatePhoneNumber = alternatePhoneNumber
@@ -29,5 +27,6 @@ class CampusResource: NSObject {
         self.latitude = latitude
         self.longitude = longitude
         self.notes = notes
+        super.init(name: name, imageLink: nil)
     }
 }
