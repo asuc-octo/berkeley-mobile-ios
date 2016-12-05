@@ -8,28 +8,18 @@
 
 import Foundation
 
-class Gym: NSObject {
+class Gym: Resource {
     
-    let name: String
     let address: String
-    let imageURL: URL
     
     var openingTimeToday: Date? = nil
     var closingTimeToday: Date? = nil
     
     init(name: String, address: String, imageLink: String, openingTimeToday: Date?, closingTimeToday: Date?) {
-        self.name = name
         self.address = address
-        self.imageURL = URL(string: imageLink)!
         self.openingTimeToday = openingTimeToday
         self.closingTimeToday = closingTimeToday
+        super.init(name: name, imageLink: imageLink)
     }
-    
-    var isOpen: Bool
-    {
-        return true
-        // TODO: uncomment after Dennis merges the Date extension
-//        let now = Date()
-//        return now.isBetween(self.openingTimeToday, closingTimeToday)
-    }
+
 }
