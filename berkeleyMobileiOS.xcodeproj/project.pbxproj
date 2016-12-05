@@ -40,6 +40,7 @@
 		B5F25D251DE8BFC60084A5C7 /* CampusResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F25D241DE8BFC60084A5C7 /* CampusResource.swift */; };
 		B5F25D271DE8BFD50084A5C7 /* CampusResourceDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F25D261DE8BFD50084A5C7 /* CampusResourceDataSource.swift */; };
 		B5F25D291DED11880084A5C7 /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F25D281DED11880084A5C7 /* Resource.swift */; };
+		B5F25D2B1DF519890084A5C7 /* LoadingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F25D2A1DF519890084A5C7 /* LoadingScreen.swift */; };
 		F1831570400BC13F0EDD243E /* Pods_berkeleyMobileiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2145738E109E31684887C5EE /* Pods_berkeleyMobileiOS.framework */; };
 /* End PBXBuildFile section */
 
@@ -82,6 +83,7 @@
 		B5F25D241DE8BFC60084A5C7 /* CampusResource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CampusResource.swift; sourceTree = "<group>"; };
 		B5F25D261DE8BFD50084A5C7 /* CampusResourceDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CampusResourceDataSource.swift; sourceTree = "<group>"; };
 		B5F25D281DED11880084A5C7 /* Resource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
+		B5F25D2A1DF519890084A5C7 /* LoadingScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingScreen.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				4E505D301DD05A65004AC6C9 /* BaseViewController.swift */,
+				B5F25D2A1DF519890084A5C7 /* LoadingScreen.swift */,
 				4E505D311DD05A65004AC6C9 /* TabBarController.swift */,
 				B5F25D281DED11880084A5C7 /* Resource.swift */,
 			);
@@ -371,6 +374,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5F25D2B1DF519890084A5C7 /* LoadingScreen.swift in Sources */,
 				41E8438E1DAB3FE80096C049 /* AppDelegate.swift in Sources */,
 				B5F25D1F1DE2A38E0084A5C7 /* Gym.swift in Sources */,
 				280389501DE2C11E00F04FCA /* LibraryCell.swift in Sources */,
