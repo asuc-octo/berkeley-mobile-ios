@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		05ED0E911DF52327007F5241 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05ED0E901DF52327007F5241 /* DetailsViewController.swift */; };
 		28037E5E1DD96C7F00935E62 /* DiningHallDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28037E5D1DD96C7F00935E62 /* DiningHallDetailViewController.swift */; };
 		28037E601DD970B100935E62 /* DiningHallItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28037E5F1DD970B100935E62 /* DiningHallItemCell.swift */; };
 		28037E621DD9798C00935E62 /* LibraryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28037E611DD9798C00935E62 /* LibraryDetailViewController.swift */; };
@@ -43,6 +44,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		05ED0E901DF52327007F5241 /* DetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		2145738E109E31684887C5EE /* Pods_berkeleyMobileiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_berkeleyMobileiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		28037E5D1DD96C7F00935E62 /* DiningHallDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningHallDetailViewController.swift; sourceTree = "<group>"; };
 		28037E5F1DD970B100935E62 /* DiningHallItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningHallItemCell.swift; sourceTree = "<group>"; };
@@ -161,6 +163,7 @@
 		4E505D2F1DD05A65004AC6C9 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				05ED0E901DF52327007F5241 /* DetailsViewController.swift */,
 				4E505D301DD05A65004AC6C9 /* BaseViewController.swift */,
 				4E505D311DD05A65004AC6C9 /* TabBarController.swift */,
 			);
@@ -379,6 +382,7 @@
 				41101F9F1DDEC5CF00D8D741 /* RecreationNavigationController.swift in Sources */,
 				41101FA11DDEC60400D8D741 /* DiningHallsNavigationController.swift in Sources */,
 				4E505D441DD05A65004AC6C9 /* HomeTableViewCell.swift in Sources */,
+				05ED0E911DF52327007F5241 /* DetailsViewController.swift in Sources */,
 				4E505D451DD05A65004AC6C9 /* HomeViewController.swift in Sources */,
 				4E505D3F1DD05A65004AC6C9 /* AcademicsViewController.swift in Sources */,
 				4E505D421DD05A65004AC6C9 /* DiningHallsViewController.swift in Sources */,
