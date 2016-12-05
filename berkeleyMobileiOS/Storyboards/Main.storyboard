@@ -96,6 +96,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="EYa-GI-pya">
+                                                    <rect key="frame" x="8" y="8" width="359" height="184"/>
                                                     <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="20" id="dGc-tC-iTM">
                                                         <size key="itemSize" width="160" height="180"/>
@@ -216,6 +217,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="n4j-V8-szx">
+                                                    <rect key="frame" x="8" y="8" width="359" height="183"/>
                                                     <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="20" id="gvh-aN-Avp">
                                                         <size key="itemSize" width="160" height="180"/>
@@ -322,7 +324,7 @@
         <scene sceneID="eKW-59-5as">
             <objects>
                 <navigationController storyboardIdentifier="recreationNav" id="ix2-1f-IJ1" customClass="RecreationNavigationController" customModule="berkeleyMobileiOS" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="kBT-9R-2P5">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="kBT-9R-2P5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -338,7 +340,7 @@
         <scene sceneID="kW4-8q-gbL">
             <objects>
                 <navigationController storyboardIdentifier="academicsNav" id="9g0-1w-urd" customClass="AcademicsNavigationController" customModule="berkeleyMobileiOS" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="jCC-by-hvx">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="jCC-by-hvx">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -354,7 +356,7 @@
         <scene sceneID="DIj-Hz-O8r">
             <objects>
                 <navigationController storyboardIdentifier="diningNav" id="zt7-mu-9td" customClass="DiningHallsNavigationController" customModule="berkeleyMobileiOS" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="foS-kv-z4C">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="foS-kv-z4C">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -513,7 +515,7 @@
         <!--Detail View-->
         <scene sceneID="kLJ-ea-KGy">
             <objects>
-                <viewController id="YpB-PX-m0q" userLabel="Detail View" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="main" id="bSn-cF-TkF" customClass="LibrariesListViewController" customModule="berkeleyMobileiOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="EpU-qx-Wui"/>
                         <viewControllerLayoutGuide type="bottom" id="Hgm-QH-yBk"/>
@@ -1026,7 +1028,7 @@
         <scene sceneID="gjk-Wv-6dM">
             <objects>
                 <navigationController storyboardIdentifier="beartransitNav" id="AGj-ct-NfJ" customClass="BearTransitNavigationController" customModule="berkeleyMobileiOS" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="wGm-X2-pud">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="wGm-X2-pud">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
