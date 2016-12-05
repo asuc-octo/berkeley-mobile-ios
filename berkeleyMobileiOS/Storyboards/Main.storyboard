@@ -89,14 +89,13 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="HomeTableViewCell" rowHeight="200" id="JII-DU-UQT" customClass="HomeTableViewCell" customModule="berkeleyMobileiOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="200"/>
+                                        <rect key="frame" x="0.0" y="28" width="1000" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JII-DU-UQT" id="neO-yK-g06">
-                                            <frame key="frameInset" width="375" height="199"/>
+                                            <frame key="frameInset" width="1000" height="199"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="EYa-GI-pya">
-                                                    <rect key="frame" x="8" y="8" width="359" height="184"/>
                                                     <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="20" id="dGc-tC-iTM">
                                                         <size key="itemSize" width="160" height="180"/>
@@ -150,10 +149,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="test" id="Col-JU-gXW">
-                                        <rect key="frame" x="0.0" y="228" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="228" width="1000" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Col-JU-gXW" id="kN3-YP-Nro">
-                                            <frame key="frameInset" width="375" height="43"/>
+                                            <frame key="frameInset" width="1000" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="THIS IS A TEST CELL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gk9-Fg-oxF">
@@ -217,7 +216,6 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="n4j-V8-szx">
-                                                    <rect key="frame" x="8" y="8" width="359" height="183"/>
                                                     <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="20" id="gvh-aN-Avp">
                                                         <size key="itemSize" width="160" height="180"/>
@@ -313,7 +311,6 @@
                     <navigationItem key="navigationItem" title="Recreation" id="09q-w3-epz"/>
                     <connections>
                         <outlet property="baseTableView" destination="iZL-Qk-IGT" id="QJG-ah-8iX"/>
-                        <segue destination="YpB-PX-m0q" kind="push" id="noY-Bt-6EN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b1n-v9-LLd" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -512,7 +509,7 @@
             </objects>
             <point key="canvasLocation" x="3044" y="-716"/>
         </scene>
-        <!--Detail View-->
+        <!--Detail Name-->
         <scene sceneID="kLJ-ea-KGy">
             <objects>
                 <viewController storyboardIdentifier="main" id="bSn-cF-TkF" customClass="LibrariesListViewController" customModule="berkeleyMobileiOS" customModuleProvider="target" sceneMemberID="viewController">
