@@ -8,21 +8,41 @@
 
 import UIKit
 import Material
+fileprivate let kLibraries = "Libraries"
+fileprivate let kCampusResources = "Campus Resources"
 class AcademicsViewController: BaseViewController {
     //Sets up initial tab look for this class
+    
     override func viewDidLoad() {
-        self.sectionNames = ["Doe", "Main Stacks"]
-        self.baseTableView.reloadData()
-    }
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = baseTableView.dequeueReusableCell(withIdentifier: "HomeTableViewCell")! as! HomeTableViewCell
-        cell.collectionCellNames = ["aaa", "bbb", "ccc"]
-        if let layout = cell.homeCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.scrollDirection = .horizontal
+        sectionNamesByIndex = [0:kLibraries, 1:kCampusResources]
+        sectionNames = [kLibraries, kCampusResources]
+        let loadScreen = LoadingScreen.sharedInstance.getLoadingScreen()
+        self.view.addSubview(loadScreen)
+        
+        LibraryDataSource.fetchLibraries { (_ libraries: [Library]?) in
+            if libraries == nil {
+                print("[ERROR @ AcademicsViewController] failed to fetch Libraries")
+                LoadingScreen.sharedInstance.removeLoadingScreen()
+            }
+            self.resources[kLibraries] = libraries!
+            self.baseTableView.reloadData()
+            
+            if self.resources.count == self.sectionNames.count {
+                LoadingScreen.sharedInstance.removeLoadingScreen()
+            }
         }
-        cell.homeCollectionView.delegate = cell
-        cell.homeCollectionView.dataSource = cell
-        return cell
+        CampusResourceDataSource.fetchCampusResources { (_ campusResources: [CampusResource]?) in
+            if campusResources == nil {
+                print("[ERROR @ AcademicsViewController] failed to fetch Campus Resources")
+                LoadingScreen.sharedInstance.removeLoadingScreen()
+            }
+            self.resources[kCampusResources] = campusResources!
+            self.baseTableView.reloadData()
+            
+            if self.resources.count == self.sectionNames.count {
+                LoadingScreen.sharedInstance.removeLoadingScreen()
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
