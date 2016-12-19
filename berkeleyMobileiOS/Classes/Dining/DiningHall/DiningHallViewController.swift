@@ -18,7 +18,7 @@ fileprivate let kAnimationDuration: TimeInterval = 0.25
  * - Banner image of the location
  * - Tabbed MealTypes containing TableView of DiningMenu 
  */
-class DiningHallViewController: UIViewController, RequiresData, UIScrollViewDelegate, PageTabBarControllerDelegate
+class DiningHallViewController: UIViewController, RequiresData, PageTabBarControllerDelegate, UIScrollViewDelegate
 {
     // Data
     private var diningHall: DiningHall!
@@ -89,7 +89,6 @@ class DiningHallViewController: UIViewController, RequiresData, UIScrollViewDele
     override func viewDidLayoutSubviews()
     {
         super.viewDidLayoutSubviews()
-        print("viewDidLayout")
         
         let viewBounds = self.view.bounds
         let viewSize = viewBounds.size
@@ -170,8 +169,9 @@ class DiningHallViewController: UIViewController, RequiresData, UIScrollViewDele
         tabController.delegate = self
         
         let tabBar = tabController.pageTabBar
-        tabBar.backgroundColor = kColorNavy
-        tabBar.lineColor = UIColor.white
+        tabBar.backgroundColor = UIColor.white//kColorNavy
+        tabBar.lineColor = kColorNavy//UIColor.white
+        tabBar.lineHeight = 1
         tabBar.lineAlignment = .bottom
         tabBar.divider.thickness = 0
         
