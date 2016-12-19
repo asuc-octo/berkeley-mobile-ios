@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -13,7 +14,7 @@
         <scene sceneID="lvQ-Ns-9VD">
             <objects>
                 <navigationController id="gpR-Ae-kh1" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="mcz-uM-SW4">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="mcz-uM-SW4">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -105,21 +106,39 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Just a meal item bro" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Yh-nk-XE9">
-                                                    <rect key="frame" x="16" y="11" width="346" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="meal item" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Yh-nk-XE9">
+                                                    <rect key="frame" x="52" y="0.0" width="307" height="44"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.20000000000000001" green="0.37647058823529411" blue="0.47843137254901957" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kfw-4Q-1f4">
+                                                    <rect key="frame" x="4" y="0.0" width="44" height="44"/>
+                                                    <state key="normal" image="heart_empty"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="width">
+                                                            <real key="value" value="44"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="favoritePressed" destination="AyS-aB-Gph" eventType="touchUpInside" id="UrR-oW-CEx"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="0Yh-nk-XE9" firstAttribute="centerY" secondItem="N53-Ez-ztG" secondAttribute="centerY" id="LPe-5t-rSX"/>
-                                                <constraint firstAttribute="trailing" secondItem="0Yh-nk-XE9" secondAttribute="trailing" constant="13" id="LyS-rT-OSc"/>
-                                                <constraint firstItem="0Yh-nk-XE9" firstAttribute="leading" secondItem="N53-Ez-ztG" secondAttribute="leading" constant="16" id="iZZ-ys-Th7"/>
+                                                <constraint firstItem="Kfw-4Q-1f4" firstAttribute="top" secondItem="N53-Ez-ztG" secondAttribute="top" id="Cdm-qN-F4T"/>
+                                                <constraint firstAttribute="bottom" secondItem="0Yh-nk-XE9" secondAttribute="bottom" id="FnP-A6-Xuf"/>
+                                                <constraint firstItem="Kfw-4Q-1f4" firstAttribute="width" secondItem="N53-Ez-ztG" secondAttribute="height" multiplier="1:1" id="OaR-2B-2Qe"/>
+                                                <constraint firstItem="Kfw-4Q-1f4" firstAttribute="leading" secondItem="N53-Ez-ztG" secondAttribute="leading" constant="4" id="So4-vH-efQ"/>
+                                                <constraint firstAttribute="trailing" secondItem="0Yh-nk-XE9" secondAttribute="trailing" constant="16" id="WEh-QE-Kj4"/>
+                                                <constraint firstItem="Kfw-4Q-1f4" firstAttribute="height" secondItem="N53-Ez-ztG" secondAttribute="height" id="ee2-bp-l2k"/>
+                                                <constraint firstItem="0Yh-nk-XE9" firstAttribute="leading" secondItem="Kfw-4Q-1f4" secondAttribute="trailing" constant="4" id="gG9-GJ-D6k"/>
+                                                <constraint firstItem="0Yh-nk-XE9" firstAttribute="top" secondItem="N53-Ez-ztG" secondAttribute="top" id="rkR-CP-jKq"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="label" destination="0Yh-nk-XE9" id="cTD-k7-Rjo"/>
+                                            <outlet property="favoriteButton" destination="Kfw-4Q-1f4" id="QKO-vA-bya"/>
+                                            <outlet property="nameLabel" destination="0Yh-nk-XE9" id="z55-Dj-3xt"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -138,4 +157,7 @@
             <point key="canvasLocation" x="1981.5999999999999" y="280.65967016491754"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="heart_empty" width="32" height="32"/>
+    </resources>
 </document>

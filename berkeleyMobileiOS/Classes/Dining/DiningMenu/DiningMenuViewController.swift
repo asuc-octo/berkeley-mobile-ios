@@ -1,6 +1,8 @@
 
 import UIKit
 
+fileprivate let kColorNavy = UIColor(red: 23/255.0, green: 85/255.0, blue: 122/255.0, alpha: 1)
+
 /**
  * ViewController to display list of menus of one MealType at a certain DiningHall.
  */
@@ -23,6 +25,8 @@ class DiningMenuViewController: UIViewController, RequiresData, UITableViewDataS
     {
         self.menu = data.menu
         self.pageTabBarItem.title = data.type.name
+        self.pageTabBarItem.titleColor = kColorNavy
+        self.pageTabBarItem.pulseColor = kColorNavy
     }
     
     
@@ -40,7 +44,8 @@ class DiningMenuViewController: UIViewController, RequiresData, UITableViewDataS
         self.tableView.dataSource = self
         self.tableView.isScrollEnabled = false
         
-        self.pageTabBarItem.tintColor = UIColor.white
+        self.pageTabBarItem.titleColor = kColorNavy
+        self.pageTabBarItem.pulseColor = kColorNavy//UIColor.white
     }
     
     override func viewDidLayoutSubviews()
@@ -69,5 +74,15 @@ class DiningMenuViewController: UIViewController, RequiresData, UITableViewDataS
         cell.setData(self.menu[indexPath.row])
         
         return cell
+    }
+    
+    
+    // ========================================
+    // MARK: - UITableViewDataSource
+    // ========================================
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
+    {
+        return DiningItemCell.sizeForData( self.menu[indexPath.row] ).height
     }
 }
