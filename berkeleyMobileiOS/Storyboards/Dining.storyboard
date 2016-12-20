@@ -14,7 +14,7 @@
         <scene sceneID="lvQ-Ns-9VD">
             <objects>
                 <navigationController id="gpR-Ae-kh1" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="mcz-uM-SW4">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="mcz-uM-SW4">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -49,10 +49,10 @@
             </objects>
             <point key="canvasLocation" x="418" y="161"/>
         </scene>
-        <!--Dining Hall View Controller-->
+        <!--Crossroads-->
         <scene sceneID="NkK-uR-zc3">
             <objects>
-                <viewController id="vwX-1f-TP7" customClass="DiningHallViewController" customModule="berkeleyMobileiOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Crossroads" id="vwX-1f-TP7" customClass="DiningHallViewController" customModule="berkeleyMobileiOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="BAH-LM-gjf"/>
                         <viewControllerLayoutGuide type="bottom" id="lSD-mi-SVc"/>
@@ -72,7 +72,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Jmq-Iv-Yin"/>
+                    <navigationItem key="navigationItem" title="Crossroads" id="Jmq-Iv-Yin"/>
                     <connections>
                         <outlet property="banner" destination="Y9P-TL-r63" id="aTm-6O-jKo"/>
                         <outlet property="scrollView" destination="nWB-PA-si9" id="KMG-vS-hiE"/>
