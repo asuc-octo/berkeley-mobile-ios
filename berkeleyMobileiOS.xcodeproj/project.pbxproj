@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		41E8438E1DAB3FE80096C049 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E8438D1DAB3FE80096C049 /* AppDelegate.swift */; };
 		41E843951DAB3FE80096C049 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41E843941DAB3FE80096C049 /* Assets.xcassets */; };
+		4E254F9B1E08D235007BB22C /* foothill.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4E254F991E08D235007BB22C /* foothill.jpg */; };
+		4E254F9C1E08D235007BB22C /* dining_halls_sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 4E254F9A1E08D235007BB22C /* dining_halls_sample.json */; };
 		4E487A361DDBB59A0001F8CF /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E487A351DDBB59A0001F8CF /* Utils.swift */; };
 		4E505D3F1DD05A65004AC6C9 /* AcademicsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E505D2E1DD05A65004AC6C9 /* AcademicsViewController.swift */; };
 		4E505D401DD05A65004AC6C9 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E505D301DD05A65004AC6C9 /* BaseViewController.swift */; };
@@ -42,6 +44,8 @@
 		41E8438D1DAB3FE80096C049 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		41E843941DAB3FE80096C049 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		41E843991DAB3FE80096C049 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4E254F991E08D235007BB22C /* foothill.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = foothill.jpg; path = ../../../../../../Downloads/foothill.jpg; sourceTree = "<group>"; };
+		4E254F9A1E08D235007BB22C /* dining_halls_sample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = dining_halls_sample.json; path = ../../../../../../Downloads/dining_halls_sample.json; sourceTree = "<group>"; };
 		4E487A351DDBB59A0001F8CF /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		4E505D2E1DD05A65004AC6C9 /* AcademicsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcademicsViewController.swift; sourceTree = "<group>"; };
 		4E505D301DD05A65004AC6C9 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
@@ -106,6 +110,8 @@
 		41E8438C1DAB3FE80096C049 /* berkeleyMobileiOS */ = {
 			isa = PBXGroup;
 			children = (
+				4E254F991E08D235007BB22C /* foothill.jpg */,
+				4E254F9A1E08D235007BB22C /* dining_halls_sample.json */,
 				41E8438D1DAB3FE80096C049 /* AppDelegate.swift */,
 				4E505D2C1DD05A65004AC6C9 /* Classes */,
 				4E5CAED11DD02B5C00ECAF8E /* Storyboards */,
@@ -308,6 +314,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E254F9B1E08D235007BB22C /* foothill.jpg in Resources */,
+				4E254F9C1E08D235007BB22C /* dining_halls_sample.json in Resources */,
 				4EEF90471DDBC7D0002CF7E4 /* Dining.storyboard in Resources */,
 				41E843951DAB3FE80096C049 /* Assets.xcassets in Resources */,
 				4E5CAED71DD02B5C00ECAF8E /* Main.storyboard in Resources */,
