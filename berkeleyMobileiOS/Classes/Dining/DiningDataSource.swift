@@ -24,16 +24,27 @@ class DiningDataSource: NSObject
     // Fetch the list of dining halls and report back to the completionHandler.
     static func fetchDiningHalls(_ completion: @escaping completionHandler)
     {
-        Alamofire.request(kDiningHallsEndpoint).responseJSON
-        { response in
-            
-            if response.result.isFailure {
-                print("[Error @ DiningHallDataSource.getDiningHalls()]: request failed")
-                return
-            }
-            
-            let halls = JSON(data: response.data!)["dining_halls"].map { (_, child) in parseDiningHall(child) }
+//        Alamofire.request(kDiningHallsEndpoint).responseJSON
+//        { response in
+//            
+//            if response.result.isFailure {
+//                print("[Error @ DiningHallDataSource.getDiningHalls()]: request failed")
+//                return
+//            }
+//            
+//            let halls = JSON(data: response.data!)["dining_halls"].map { (_, child) in parseDiningHall(child) }
+//            completion(halls)
+//        }
+
+        do
+        {
+            let url = Bundle.main.url(forResource: "dining_halls_sample", withExtension: "json")!
+            let halls = JSON(data: try Data(contentsOf: url))["dining_halls"].map { (_, child) in parseDiningHall(child) }
             completion(halls)
+        }
+        catch
+        {
+            //error
         }
     }
     
