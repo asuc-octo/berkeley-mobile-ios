@@ -1,53 +1,51 @@
 
 import UIKit
 
+fileprivate let kColorRed = UIColor.red
+fileprivate let kColorNavy = UIColor(red: 0, green: 51/255.0, blue: 102/255.0, alpha: 1)
+fileprivate let kColorGreen = UIColor(red: 16/255.0, green: 161/255.0, blue: 0, alpha:1)
 
-fileprivate let kCellPadding: CGFloat = 12.0
-fileprivate let kContentHeight: CGFloat = 44.0
-
-fileprivate let kImageSize: CGFloat = 22.0
+fileprivate let kImageSize: CGFloat = 28.0
 fileprivate let kHeartEmpty = "heart_emtpy"
 fileprivate let kHeartFilled = "heart_filled"
 
 
 /**
- * TableViewCell to represent a single DiningMenu item. 
+ *
  */
-class DiningItemCell: UITableViewCell, RequiresData
+class LocationTile: UICollectionViewCell, RequiresData
 {
-    // UI
+    @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var nameLabel: UILabel!
-    @IBOutlet private weak var favoriteButton: UIButton!
-    
-    // Data
-    var item: DiningItem?
+    @IBOutlet private weak var statusLabel: UILabel!
+    @IBOutlet private weak var favoriteButton: UIButton! 
     
     
-    // ========================================
-    // MARK: - Setup
-    // ========================================
-    /**
-     *
-     */
     override func awakeFromNib()
     {
+        self.clipsToBounds = true
+        self.imageView.clipsToBounds = true
+        
         self.favoriteButton.setImage(UIImage(named: "heart_empty"), for: .normal)
         self.favoriteButton.setImage(UIImage(named: "heart_filled"), for: .selected)
-        
-        // TODO: ask DiningDataStore if item is already favorited. 
     }
-    
     
     // ========================================
     // MARK: - RequiresData
     // ========================================
-    typealias DataType = DiningItem
+    typealias DataType = DiningHall
     
-    func setData(_ data: DiningItem)
+    public func setData(_ data: DataType)
     {
-        self.item = data
+        let hall = data
+        self.nameLabel.text = hall.name
         
-        self.nameLabel.text = data.name
+        let status = hall.isOpen ? ("OPEN", kColorGreen) : ("CLOSED", kColorRed)
+        self.statusLabel.text = status.0
+        self.statusLabel.textColor = status.1
+        
+        imageView.contentMode = .scaleAspectFill
+        imageView.load(url: hall.imageURL)
     }
     
     
@@ -64,6 +62,7 @@ class DiningItemCell: UITableViewCell, RequiresData
         let imageInset = round((self.favoriteButton.frame.height - kImageSize) / 2)
         self.favoriteButton.imageEdgeInsets = UIEdgeInsetsMake(imageInset, imageInset, imageInset, imageInset)
     }
+    
     
     @IBAction func favoritePressed()
     {
