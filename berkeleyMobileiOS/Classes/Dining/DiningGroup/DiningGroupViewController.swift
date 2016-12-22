@@ -8,7 +8,7 @@
 
 import UIKit
 
-private let DiningHallCellID = "DiningHallCell"
+private let DiningGroupCellID = "DiningGroupCell"
 private let DiningHallSegue = "DiningHallSegue"
 
 fileprivate let kColorNavy = UIColor(red: 23/255.0, green: 85/255.0, blue: 122/255.0, alpha: 1)
@@ -17,7 +17,7 @@ fileprivate let kColorNavy = UIColor(red: 23/255.0, green: 85/255.0, blue: 122/2
 /**
  * ViewController that shows the list of all DiningHalls.
  */
-class DiningHallListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource
+class DiningGroupViewController: UIViewController, UITableViewDelegate, UITableViewDataSource
 {
     // Data
     var halls: [DiningHall] = []
@@ -25,7 +25,7 @@ class DiningHallListViewController: UIViewController, UITableViewDelegate, UITab
     // UI
     override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
     
-    var tableView: UITableView!
+    @IBOutlet private weak var tableView: UITableView!
     var activityIndicator: UIActivityIndicatorView!
     
     
@@ -52,13 +52,9 @@ class DiningHallListViewController: UIViewController, UITableViewDelegate, UITab
         self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "", style: .plain, target: nil, action: nil)
         
         // Add tableView.
-        self.tableView = UITableView(frame: screen, style: .plain)
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.separatorStyle = .none
-        self.tableView.rowHeight = DiningHallCell.height
-        self.tableView.register(DiningHallCell.self, forCellReuseIdentifier: DiningHallCellID)
-        self.view.addSubview(self.tableView)
         
         // Activity Indicator
         self.activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
@@ -103,17 +99,17 @@ class DiningHallListViewController: UIViewController, UITableViewDelegate, UITab
     // MARK: - UITableViewDataSource    
     // ========================================
     
-    // Return the number of dining hall locations.
+    // 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return self.halls.count
+        return 1
     }
     
-    // Set the corresponding DiningHall for the cell.
+    // 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        let cell = tableView.dequeueReusableCell(withIdentifier: DiningHallCellID) as! DiningHallCell
-        cell.diningHall = halls[indexPath.row]
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: DiningGroupCellID) as! DiningGroupCell
+        cell.setData((name: "Dining Halls", halls: self.halls))
         
         return cell
     }

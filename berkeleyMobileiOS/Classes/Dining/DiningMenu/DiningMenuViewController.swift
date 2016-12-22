@@ -75,14 +75,4 @@ class DiningMenuViewController: UIViewController, RequiresData, UITableViewDataS
         
         return cell
     }
-    
-    
-    // ========================================
-    // MARK: - UITableViewDataSource
-    // ========================================
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
-    {
-        return DiningItemCell.sizeForData( self.menu[indexPath.row] ).height
-    }
 }
