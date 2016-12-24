@@ -91,16 +91,13 @@
                                                                             <constraint firstAttribute="height" constant="132" id="T7v-Xq-Jkp"/>
                                                                         </constraints>
                                                                     </imageView>
-                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xdF-vH-PwV">
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xdF-vH-PwV" customClass="SaveButton" customModule="berkeleyMobileiOS" customModuleProvider="target">
                                                                         <rect key="frame" x="148" y="148" width="36" height="36"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="36" id="qHS-nP-dcI"/>
                                                                             <constraint firstAttribute="width" secondItem="xdF-vH-PwV" secondAttribute="height" multiplier="1:1" id="wrC-NI-juZ"/>
                                                                         </constraints>
                                                                         <state key="normal" title="Button" image="heart_empty"/>
-                                                                        <connections>
-                                                                            <action selector="favoritePressed" destination="LwM-E6-aZC" eventType="touchUpInside" id="KQv-aq-2wh"/>
-                                                                        </connections>
                                                                     </button>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jn9-Oa-lPF">
                                                                         <rect key="frame" x="16" y="172" width="116" height="12"/>
@@ -246,7 +243,7 @@
                                                     <color key="textColor" red="0.20000000000000001" green="0.37647058823529411" blue="0.47843137254901957" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kfw-4Q-1f4">
+                                                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kfw-4Q-1f4" customClass="SaveButton" customModule="berkeleyMobileiOS" customModuleProvider="target">
                                                     <rect key="frame" x="4" y="0.0" width="44" height="44"/>
                                                     <state key="normal" image="heart_empty"/>
                                                     <userDefinedRuntimeAttributes>

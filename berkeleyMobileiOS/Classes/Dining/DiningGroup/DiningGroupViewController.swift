@@ -29,7 +29,9 @@ class DiningGroupViewController: UIViewController, UITableViewDelegate, UITableV
     var activityIndicator: UIActivityIndicatorView!
     
     
+    // ========================================
     // MARK: - UIViewController
+    // ========================================
     /**
      * Called after view is loaded.
      * Configure navbar, add the tableView, and load DiningHall data.

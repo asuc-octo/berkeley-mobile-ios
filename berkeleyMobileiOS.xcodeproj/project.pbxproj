@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		41E8438E1DAB3FE80096C049 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E8438D1DAB3FE80096C049 /* AppDelegate.swift */; };
 		41E843951DAB3FE80096C049 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41E843941DAB3FE80096C049 /* Assets.xcassets */; };
+		4E075DCB1E0CDDD200B84693 /* SaveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E075DCA1E0CDDD200B84693 /* SaveButton.swift */; };
 		4E254F9C1E08D235007BB22C /* dining_halls_sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 4E254F9A1E08D235007BB22C /* dining_halls_sample.json */; };
 		4E254F9F1E08DE26007BB22C /* DiningGroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E254F9E1E08DE26007BB22C /* DiningGroupCell.swift */; };
 		4E254FA11E08DE3D007BB22C /* DiningGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E254FA01E08DE3D007BB22C /* DiningGroupViewController.swift */; };
@@ -57,6 +58,7 @@
 		41E8438D1DAB3FE80096C049 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		41E843941DAB3FE80096C049 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		41E843991DAB3FE80096C049 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4E075DCA1E0CDDD200B84693 /* SaveButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveButton.swift; sourceTree = "<group>"; };
 		4E254F9A1E08D235007BB22C /* dining_halls_sample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = dining_halls_sample.json; path = ../../../../../../Downloads/dining_halls_sample.json; sourceTree = "<group>"; };
 		4E254F9E1E08DE26007BB22C /* DiningGroupCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DiningGroupCell.swift; path = DiningGroup/DiningGroupCell.swift; sourceTree = "<group>"; };
 		4E254FA01E08DE3D007BB22C /* DiningGroupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DiningGroupViewController.swift; path = DiningGroup/DiningGroupViewController.swift; sourceTree = "<group>"; };
@@ -147,6 +149,15 @@
 			path = berkeleyMobileiOS;
 			sourceTree = "<group>";
 		};
+		4E075DC91E0CDD9200B84693 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				4E075DCA1E0CDDD200B84693 /* SaveButton.swift */,
+			);
+			name = Components;
+			path = UI;
+			sourceTree = "<group>";
+		};
 		4E254F9D1E08DD01007BB22C /* DiningGroup */ = {
 			isa = PBXGroup;
 			children = (
@@ -185,6 +196,7 @@
 			children = (
 				4E505D301DD05A65004AC6C9 /* BaseViewController.swift */,
 				4E505D311DD05A65004AC6C9 /* TabBarController.swift */,
+				4E075DC91E0CDD9200B84693 /* Components */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -453,6 +465,7 @@
 			files = (
 				4E254F9F1E08DE26007BB22C /* DiningGroupCell.swift in Sources */,
 				4E62CFDF1DD7E38900B19722 /* DiningData.swift in Sources */,
+				4E075DCB1E0CDDD200B84693 /* SaveButton.swift in Sources */,
 				41E8438E1DAB3FE80096C049 /* AppDelegate.swift in Sources */,
 				4E505D411DD05A65004AC6C9 /* TabBarController.swift in Sources */,
 				4ED0D3591DDCE1C600956F9E /* DiningHallCell.swift in Sources */,
