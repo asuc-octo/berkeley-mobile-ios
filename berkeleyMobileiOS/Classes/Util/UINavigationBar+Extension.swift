@@ -1,10 +1,3 @@
-//
-//  UINavigationBar+Extension.swift
-//  berkeleyMobileiOS
-//
-//  Created by Bohui Moon on 11/13/16.
-//  Copyright © 2016 org.berkeleyMobile. All rights reserved.
-//
 
 import Foundation
 import UIKit
@@ -13,6 +6,10 @@ fileprivate let kHairlineKey = "hidesShadow"
 
 extension UINavigationBar
 {
+    /**
+     * UINavigationBar by default has a 1px drop shadow,
+     * which can only be hidden through KVO means.
+     */
     open var hideHairline: Bool
     {
         set { self.setValue(newValue, forKey: kHairlineKey) }
