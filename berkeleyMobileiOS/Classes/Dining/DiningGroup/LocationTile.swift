@@ -18,7 +18,7 @@ class LocationTile: UICollectionViewCell, RequiresData
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var nameLabel: UILabel!
     @IBOutlet private weak var statusLabel: UILabel!
-    @IBOutlet private weak var favoriteButton: UIButton! 
+    @IBOutlet private weak var favoriteButton: ToggleButton! 
     
     
     override func awakeFromNib()

@@ -5,8 +5,6 @@ import UIKit
 fileprivate let kCellPadding: CGFloat = 12.0
 fileprivate let kContentHeight: CGFloat = 44.0
 
-fileprivate let kImageSize: CGFloat = 22.0
-
 
 /**
  * TableViewCell to represent a single DiningMenu item. 
@@ -15,7 +13,7 @@ class DiningItemCell: UITableViewCell, RequiresData
 {
     // UI
     @IBOutlet private weak var nameLabel: UILabel!
-    @IBOutlet private weak var saveButton: SaveButton!
+    @IBOutlet private weak var favoriteButton: ToggleButton!
     
     // Data
     var item: DiningItem?
