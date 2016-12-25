@@ -57,6 +57,7 @@ class DiningGroupViewController: UIViewController, UITableViewDelegate, UITableV
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.separatorStyle = .none
+        self.tableView.allowsSelection = false
         
         // Activity Indicator
         self.activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
@@ -101,36 +102,36 @@ class DiningGroupViewController: UIViewController, UITableViewDelegate, UITableV
     // MARK: - UITableViewDataSource    
     // ========================================
     
-    // 
+    /// Return the number of groups/categories for Dining.
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
+        // TODO: temp returning 1, while backend is not up to date.
         return 1
     }
     
-    // 
+    /// 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        let cell = self.tableView.dequeueReusableCell(withIdentifier: DiningGroupCellID) as! DiningGroupCell
-        cell.setData((name: "Dining Halls", halls: self.halls))
+        // TODO: currently only shows dining halls on campus.
+        let data = ("Dining Halls", halls, Optional(didSelectDiningHall))
         
+        let cell = tableView.dequeueReusableCell(withIdentifier: DiningGroupCellID) as! DiningGroupCell
+        cell.setData(data)
         return cell
     }
     
-
-    // MARK: - UITableViewDelegate
-    /**
-     * When a DiningHallCell is selected, perform segue to a DiningHallVC with the corresponding DiningHall object.
-     */
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+    /// Called when LocationTitle within DiningGroupCell is selected (tapped).
+    func didSelectDiningHall(_ hall: DiningHall)
     {
-        performSegue(withIdentifier: DiningHallSegue, sender: halls[indexPath.row])
+        self.performSegue(withIdentifier: DiningHallSegue, sender: hall)
     }
     
     
+    // ========================================
     // MARK: - Navigation
-    /**
-     * Pass the DiningHall data to the DiningHallVC. 
-     */
+    // ========================================
+
+    /// Pass the DiningHall data to the DiningHallVC.
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         if segue.identifier == DiningHallSegue,

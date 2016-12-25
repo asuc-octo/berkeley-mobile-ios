@@ -39,4 +39,6 @@ class DiningItemCell: UITableViewCell, RequiresData
         
         self.nameLabel.text = data.name
     }
+    
+    
 }
