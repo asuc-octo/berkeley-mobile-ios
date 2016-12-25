@@ -13,9 +13,6 @@
         <array key="Roboto-Bold.ttf">
             <string>Roboto-Bold</string>
         </array>
-        <array key="Roboto-Medium.ttf">
-            <string>Roboto-Medium</string>
-        </array>
         <array key="Roboto-Regular.ttf">
             <string>Roboto-Regular</string>
         </array>
@@ -49,7 +46,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="260" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="k1R-c4-AQd">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="260" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="k1R-c4-AQd">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -69,18 +66,18 @@
                                                     <color key="textColor" red="0.090196078431372548" green="0.33333333333333331" blue="0.47843137254901957" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yIn-pi-G39">
-                                                    <rect key="frame" x="16" y="44" width="343" height="200"/>
+                                                <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yIn-pi-G39">
+                                                    <rect key="frame" x="0.0" y="44" width="375" height="200"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="8" minimumInteritemSpacing="8" id="DUc-C4-7IK">
                                                         <size key="itemSize" width="200" height="200"/>
                                                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                         <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                        <inset key="sectionInset" minX="16" minY="0.0" maxX="16" maxY="0.0"/>
                                                     </collectionViewFlowLayout>
                                                     <cells>
-                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="LocationTile" id="LwM-E6-aZC" userLabel="Location Tile" customClass="LocationTile" customModule="berkeleyMobileiOS" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                                                        <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="LocationTile" id="LwM-E6-aZC" userLabel="Location Tile" customClass="LocationTile" customModule="berkeleyMobileiOS" customModuleProvider="target">
+                                                            <rect key="frame" x="16" y="0.0" width="200" height="200"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                                 <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
@@ -98,7 +95,7 @@
                                                                             <constraint firstAttribute="height" constant="36" id="qHS-nP-dcI"/>
                                                                             <constraint firstAttribute="width" secondItem="xdF-vH-PwV" secondAttribute="height" multiplier="1:1" id="wrC-NI-juZ"/>
                                                                         </constraints>
-                                                                        <inset key="imageEdgeInsets" minX="2" minY="2" maxX="2" maxY="2"/>
+                                                                        <inset key="imageEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
                                                                         <state key="normal" title="Button" image="heart_empty"/>
                                                                         <state key="selected" image="heart_filled"/>
                                                                     </button>
@@ -116,7 +113,7 @@
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="16" id="7i3-gY-7qS"/>
                                                                         </constraints>
-                                                                        <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="16"/>
+                                                                        <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
@@ -151,15 +148,15 @@
                                                     </cells>
                                                 </collectionView>
                                             </subviews>
-                                            <color key="backgroundColor" red="0.97254901960784312" green="0.97254901960784312" blue="0.97254901960784312" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="yIn-pi-G39" secondAttribute="bottom" constant="16" id="8QV-J9-Leo"/>
                                                 <constraint firstItem="yIn-pi-G39" firstAttribute="top" secondItem="0L1-20-vTi" secondAttribute="bottom" constant="8" id="DaW-Xy-8ML"/>
-                                                <constraint firstAttribute="trailing" secondItem="yIn-pi-G39" secondAttribute="trailing" constant="16" id="d3e-tF-7RG"/>
+                                                <constraint firstAttribute="trailing" secondItem="yIn-pi-G39" secondAttribute="trailing" id="d3e-tF-7RG"/>
                                                 <constraint firstItem="0L1-20-vTi" firstAttribute="top" secondItem="d19-uh-Thv" secondAttribute="top" constant="16" id="g7x-r4-GFu"/>
                                                 <constraint firstItem="0L1-20-vTi" firstAttribute="leading" secondItem="d19-uh-Thv" secondAttribute="leading" constant="16" id="h6V-kA-3Mo"/>
                                                 <constraint firstAttribute="trailing" secondItem="0L1-20-vTi" secondAttribute="trailing" constant="16" id="phz-CZ-iXp"/>
-                                                <constraint firstItem="yIn-pi-G39" firstAttribute="leading" secondItem="d19-uh-Thv" secondAttribute="leading" constant="16" id="vFm-NB-ELN"/>
+                                                <constraint firstItem="yIn-pi-G39" firstAttribute="leading" secondItem="d19-uh-Thv" secondAttribute="leading" id="vFm-NB-ELN"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -170,7 +167,7 @@
                                 </prototypes>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" red="0.97254901960784312" green="0.97254901960784312" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="k1R-c4-AQd" firstAttribute="leading" secondItem="EKs-2m-bcd" secondAttribute="leading" id="FZq-xY-N81"/>
                             <constraint firstAttribute="trailing" secondItem="k1R-c4-AQd" secondAttribute="trailing" id="R9s-o3-6Zm"/>
@@ -187,7 +184,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r4Q-sZ-aRe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="416.80000000000001" y="160.56971514242881"/>
+            <point key="canvasLocation" x="430" y="161"/>
         </scene>
         <!--Crossroads-->
         <scene sceneID="NkK-uR-zc3">
@@ -220,7 +217,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O5g-7M-nOt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1814" y="161"/>
+            <point key="canvasLocation" x="1226" y="161"/>
         </scene>
         <!--Dining Menu View Controller-->
         <scene sceneID="AJk-Sj-7sh">
@@ -256,9 +253,6 @@
                                                             <real key="value" value="44"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
-                                                    <connections>
-                                                        <action selector="favoritePressed" destination="AyS-aB-Gph" eventType="touchUpInside" id="UrR-oW-CEx"/>
-                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="meal item" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Yh-nk-XE9">
                                                     <rect key="frame" x="52" y="0.0" width="307" height="44"/>
@@ -296,7 +290,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9EV-VZ-jqv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2558" y="281"/>
+            <point key="canvasLocation" x="1970" y="280"/>
         </scene>
     </scenes>
     <resources>

@@ -2,12 +2,9 @@
 import UIKit
 
 fileprivate let kColorRed = UIColor.red
+fileprivate let kColorGray = UIColor(white: 189/255.0, alpha: 1)
 fileprivate let kColorNavy = UIColor(red: 0, green: 51/255.0, blue: 102/255.0, alpha: 1)
 fileprivate let kColorGreen = UIColor(red: 16/255.0, green: 161/255.0, blue: 0, alpha:1)
-
-fileprivate let kImageSize: CGFloat = 28.0
-fileprivate let kHeartEmpty = "heart_emtpy"
-fileprivate let kHeartFilled = "heart_filled"
 
 
 /**
@@ -23,11 +20,16 @@ class LocationTile: UICollectionViewCell, RequiresData
     
     override func awakeFromNib()
     {
-        self.clipsToBounds = true
         self.imageView.clipsToBounds = true
         
-        self.favoriteButton.setImage(UIImage(named: "heart_empty"), for: .normal)
-        self.favoriteButton.setImage(UIImage(named: "heart_filled"), for: .selected)
+        // Border and shadow
+        let layer = self.layer
+        layer.borderWidth = 1
+        layer.borderColor = kColorGray.cgColor
+        
+        layer.shadowRadius = 2.0
+        layer.shadowOpacity = 0.2
+        layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
     }
     
     // ========================================
@@ -46,26 +48,5 @@ class LocationTile: UICollectionViewCell, RequiresData
         
         imageView.contentMode = .scaleAspectFill
         imageView.load(url: hall.imageURL)
-    }
-    
-    
-    // ========================================
-    // MARK: - Layout
-    // ========================================    
-    /**
-     *
-     */
-    override func layoutSubviews()
-    {
-        super.layoutSubviews()
-        
-        let imageInset = round((self.favoriteButton.frame.height - kImageSize) / 2)
-        self.favoriteButton.imageEdgeInsets = UIEdgeInsetsMake(imageInset, imageInset, imageInset, imageInset)
-    }
-    
-    
-    @IBAction func favoritePressed()
-    {
-        self.favoriteButton.isSelected = !self.favoriteButton.isSelected
     }
 }
