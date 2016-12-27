@@ -1,10 +1,3 @@
-//
-//  DiningHallListViewController.swift
-//  BerkeleyMobile iOS
-//
-//  Bohui Moon (@bohuim) | 2016.10.14
-//  Copyright © 2016 org.berkeleyMobile. All rights reserved.
-//
 
 import UIKit
 

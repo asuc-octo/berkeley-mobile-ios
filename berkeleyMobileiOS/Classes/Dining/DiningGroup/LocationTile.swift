@@ -8,7 +8,8 @@ fileprivate let kColorGreen = UIColor(red: 16/255.0, green: 161/255.0, blue: 0, 
 
 
 /**
- *
+ * LocationTile represents a single DiningHall.
+ * It shows a thumbnail image, name, open status, and a save/favorite button.
  */
 class LocationTile: UICollectionViewCell, RequiresData
 {
@@ -17,12 +18,11 @@ class LocationTile: UICollectionViewCell, RequiresData
     @IBOutlet private weak var statusLabel: UILabel!
     @IBOutlet private weak var favoriteButton: ToggleButton! 
     
-    
+    /**
+     * Configure the border and shadow, which can't be set in the interface builder.
+     */
     override func awakeFromNib()
     {
-        self.imageView.clipsToBounds = true
-        
-        // Border and shadow
         let layer = self.layer
         layer.borderWidth = 1
         layer.borderColor = kColorGray.cgColor
@@ -37,6 +37,9 @@ class LocationTile: UICollectionViewCell, RequiresData
     // ========================================
     typealias DataType = DiningHall
     
+    /**
+     * Setting the DiningHall
+     */
     public func setData(_ data: DataType)
     {
         let hall = data

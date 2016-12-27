@@ -5,7 +5,7 @@ fileprivate let kLocationTileID = "LocationTile"
 
 /**
  * GroupCell shows a carousel of locations as a CollectionView of LocationTiles.
- *  
+ * Whenever a LocationTile is selected (tapped), the handler specified through setData() is called.
  */
 class DiningGroupCell: UITableViewCell, RequiresData, UICollectionViewDataSource, UICollectionViewDelegate
 {
@@ -32,6 +32,10 @@ class DiningGroupCell: UITableViewCell, RequiresData, UICollectionViewDataSource
     // ========================================
     typealias DataType = (name: String, halls: [DiningHall], selectionHandler: HandlerType?)
     
+    /**
+     * Set the name, dining halls, and selection callback handler.
+     * The carousel collectionView is reloaded.
+     */
     public func setData(_ data: DataType)
     {
         self.halls = data.halls
@@ -45,21 +49,24 @@ class DiningGroupCell: UITableViewCell, RequiresData, UICollectionViewDataSource
     // ========================================
     // MARK: - UICollectionViewDataSource
     // ========================================
+    
+    /// Carousel only has 1 section.
     func numberOfSections(in collectionView: UICollectionView) -> Int
     {
         return 1
     }
     
+    /// Return the number of halls/tiles in the group.
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
         return halls.count
     }
     
+    /// Get a LocationTile and pass it the corresponding DiningHall.
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: kLocationTileID, for: indexPath) as! LocationTile
-        cell.setData(halls[indexPath.item])
-        
+        cell.setData( halls[indexPath.item] )
         return cell
     }
     

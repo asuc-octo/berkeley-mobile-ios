@@ -22,7 +22,7 @@
         <scene sceneID="lvQ-Ns-9VD">
             <objects>
                 <navigationController id="gpR-Ae-kh1" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="mcz-uM-SW4">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="mcz-uM-SW4">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -83,7 +83,7 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
-                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5bR-px-lPe">
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5bR-px-lPe">
                                                                         <rect key="frame" x="0.0" y="0.0" width="200" height="132"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="132" id="T7v-Xq-Jkp"/>
@@ -209,7 +209,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Crossroads" id="Jmq-Iv-Yin"/>
+                    <navigationItem key="navigationItem" id="Jmq-Iv-Yin"/>
                     <connections>
                         <outlet property="banner" destination="Y9P-TL-r63" id="aTm-6O-jKo"/>
                         <outlet property="scrollView" destination="nWB-PA-si9" id="KMG-vS-hiE"/>
