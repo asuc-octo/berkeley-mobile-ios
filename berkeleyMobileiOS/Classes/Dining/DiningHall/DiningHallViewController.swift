@@ -26,7 +26,8 @@ class DiningHallViewController: UIViewController, RequiresData, PageTabBarContro
 
     // UI
     override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
-
+    private weak var navbar: UINavigationBar?
+    
     @IBOutlet private weak var banner: UIImageView!
     private var bannerHeight: CGFloat!
     
@@ -60,6 +61,8 @@ class DiningHallViewController: UIViewController, RequiresData, PageTabBarContro
         self.setupHeader()
         self.setupScrollView()
         self.setupMenuTabView()
+        
+        self.navbar = self.navigationController?.navigationBar
     }
     
     override func viewWillAppear(_ animated: Bool)
@@ -67,7 +70,8 @@ class DiningHallViewController: UIViewController, RequiresData, PageTabBarContro
         super.viewWillAppear(animated)
         
         setStatusBarStyle(self.preferredStatusBarStyle)
-        self.navigationController?.navigationBar.hideHairline = true
+        self.navbar?.hideHairline = true
+        self.navbar?.setTransparent(true)
     }
     
     override func viewDidAppear(_ animated: Bool)
@@ -82,7 +86,9 @@ class DiningHallViewController: UIViewController, RequiresData, PageTabBarContro
     override func viewDidDisappear(_ animated: Bool)
     {
         super.viewDidDisappear(animated)
-        self.navigationController?.navigationBar.hideHairline = false
+        
+        self.navbar?.hideHairline = false
+        self.navbar?.setTransparent(false)
     }
     
     // Layout the subcomponents.
