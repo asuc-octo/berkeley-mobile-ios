@@ -28,6 +28,7 @@ class DiningHallViewController: UIViewController, RequiresData, PageTabBarContro
     override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
 
     @IBOutlet private weak var banner: UIImageView!
+    private var imageGradient: CAGradientLayer!
     private var bannerHeight: CGFloat!
     
     @IBOutlet private weak var scrollView: UIScrollView!
@@ -85,7 +86,7 @@ class DiningHallViewController: UIViewController, RequiresData, PageTabBarContro
         self.navigationController?.navigationBar.hideHairline = false
     }
     
-    // Layout the subcomponents.
+    /// Layout the subcomponents.
     override func viewDidLayoutSubviews()
     {
         super.viewDidLayoutSubviews()
@@ -94,8 +95,9 @@ class DiningHallViewController: UIViewController, RequiresData, PageTabBarContro
         let viewSize = viewBounds.size
         
         // header
-        self.bannerHeight = round(viewSize.width / kBannerRatio)
+        self.bannerHeight = round(viewSize.width / kBannerRatio) + 56
         self.banner.frame = CGRect(x: 0, y: 0, width: viewSize.width, height: self.bannerHeight)
+        self.imageGradient.frame = self.banner.bounds
         
         // menuTabView
         self.menuTabView.frame = viewBounds
@@ -110,23 +112,20 @@ class DiningHallViewController: UIViewController, RequiresData, PageTabBarContro
     // MARK: - Setup
     // ========================================
     
-    // Setup the header part of the view, including navbar and banner image.
+    /// Setup the header part of the view, including navbar and banner image.
     private func setupHeader()
     {
-        guard 
-            let diningHall = self.diningHall,
-            let banner = self.banner 
-        else {
-            return
-        }
+        self.banner.load(url: self.diningHall.imageURL)
     
-        self.title = diningHall.name
+        let gradient = CAGradientLayer()
+        gradient.locations = [0, 0.5]
+        gradient.colors = [UIColor(white: 0, alpha: 0.75).cgColor, UIColor.clear.cgColor]
         
-        banner.contentMode = .scaleAspectFill
-        banner.load(url: diningHall.imageURL)
+        self.imageGradient = gradient
+        self.banner.layer.addSublayer(gradient)
     }
     
-    // Setup the scrollView that will contain the menuTabView.
+    /// Setup the scrollView that will contain the menuTabView.
     private func setupScrollView()
     {
         let scrollView = UIScrollView()
@@ -189,7 +188,7 @@ class DiningHallViewController: UIViewController, RequiresData, PageTabBarContro
     // MARK: - PageTabBarControllerDelegate
     // ========================================
     
-    // Called when the menuTabControlle switches to a different DiningMenuViewController.
+    /// Called when the menuTabControlle switches to a different DiningMenuViewController.
     func pageTabBarController(pageTabBarController: PageTabBarController, didTransitionTo viewController: UIViewController)
     {
         guard
@@ -226,13 +225,13 @@ class DiningHallViewController: UIViewController, RequiresData, PageTabBarContro
     // ========================================
     private var startingOffsetY: CGFloat = 0
     
-    // Store the offset at the start of scroll.
+    /// Store the offset at the start of scroll.
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView)
     {
         self.startingOffsetY = scrollView.contentOffset.y
     }
     
-    // Adjust the subcomponent frames and offsets depending on the outer scrollView. 
+    /// Adjust the subcomponent frames and offsets depending on the outer scrollView. 
     func scrollViewDidScroll(_ scrollView: UIScrollView)
     {
         let inset = scrollView.contentInset.top

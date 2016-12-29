@@ -188,10 +188,10 @@
             </objects>
             <point key="canvasLocation" x="430" y="161"/>
         </scene>
-        <!--Crossroads-->
+        <!--Dining Hall View Controller-->
         <scene sceneID="NkK-uR-zc3">
             <objects>
-                <viewController title="Crossroads" id="vwX-1f-TP7" customClass="DiningHallViewController" customModule="berkeleyMobileiOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController extendedLayoutIncludesOpaqueBars="YES" id="vwX-1f-TP7" customClass="DiningHallViewController" customModule="berkeleyMobileiOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="BAH-LM-gjf"/>
                         <viewControllerLayoutGuide type="bottom" id="lSD-mi-SVc"/>
@@ -204,7 +204,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </scrollView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Y9P-TL-r63">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Y9P-TL-r63">
                                 <rect key="frame" x="0.0" y="64" width="375" height="177"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
