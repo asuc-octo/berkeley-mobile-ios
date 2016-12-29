@@ -8,7 +8,7 @@ fileprivate let kColorNavy = UIColor(red: 23/255.0, green: 85/255.0, blue: 122/2
 
 
 /**
- * ViewController that shows the list of all DiningHalls.
+ * Presents all DiningHalls with each category as a row of carousel tiles. 
  */
 class DiningGroupViewController: UIViewController, UITableViewDelegate, UITableViewDataSource
 {
@@ -23,6 +23,48 @@ class DiningGroupViewController: UIViewController, UITableViewDelegate, UITableV
     
     
     // ========================================
+    // MARK: - Setup
+    // ========================================
+    
+    /**
+     * Makes the original UINavigationBar clear and inserts another view with solid color.
+     * This is to prevent strage transitions when pushing/popping ViewControllers with clear navbar.
+     * TODO: find a solution for  
+     */
+    private func setupNavigationBar()
+    {
+        guard 
+            let navbar = self.navigationController?.navigationBar 
+        else
+        { return }
+        
+        // White content
+        navbar.tintColor = .white
+        navbar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "", style: .plain, target: nil, action: nil)
+        
+        // Clear background
+        navbar.setBackgroundImage(UIImage(), for: .default)
+        navbar.shadowImage = UIImage()
+        navbar.isTranslucent = true
+        
+        // Insert a pseudo-background
+        let height = navbar.height + 20
+        let bgView = UIView(frame: CGRect(x: 0, y: -height, width: navbar.width, height: height))
+        bgView.backgroundColor = kColorNavy
+        self.view!.addSubview(bgView)
+    }
+    
+    /// Configure and add the ActivityIndicator.
+    private func setupActivityIndicator()
+    {
+        self.activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        self.activityIndicator.hidesWhenStopped = true
+        self.view.addSubview(self.activityIndicator)
+    }
+    
+    
+    // ========================================
     // MARK: - UIViewController
     // ========================================
     /**
@@ -33,34 +75,14 @@ class DiningGroupViewController: UIViewController, UITableViewDelegate, UITableV
     {
         super.viewDidLoad()
         
-        let screen = UIScreen.main.bounds
-        let screenSize = screen.size
+        setupNavigationBar()
+        setupActivityIndicator()
         
-        // Navbar settings.
-        let navbar = self.navigationController!.navigationBar
-        self.navigationController!.statusBarStyle = .lightContent
-        navbar.barStyle = .black
-        navbar.isTranslucent = false
-        navbar.tintColor = UIColor.white
-        navbar.barTintColor = kColorNavy
-        navbar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
-        self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "", style: .plain, target: nil, action: nil)
-        
-        // Add tableView.
+        // Connect tableView and load data
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        self.tableView.separatorStyle = .none
-        self.tableView.allowsSelection = false
-        
-        // Activity Indicator
-        self.activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-        self.activityIndicator.center = CGPoint(x: screenSize.width/2, y: screenSize.height * 1/3)
-        self.activityIndicator.hidesWhenStopped = true
-        self.view.addSubview(self.activityIndicator)
-        
-        
-        // Fetch data.
         self.activityIndicator.startAnimating()
+        
         DiningDataSource.fetchDiningHalls()
         { (_ halls: [DiningHall]?) in
         
@@ -102,7 +124,7 @@ class DiningGroupViewController: UIViewController, UITableViewDelegate, UITableV
         return 1
     }
     
-    /// 
+    /// Pass the DiningGroupCell a name for the category, a list of halls, and a callback handler.
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         // TODO: currently only shows dining halls on campus.
@@ -113,7 +135,14 @@ class DiningGroupViewController: UIViewController, UITableViewDelegate, UITableV
         return cell
     }
     
-    /// Called when LocationTitle within DiningGroupCell is selected (tapped).
+    // ========================================
+    // MARK: - UITableViewDelegate
+    // ========================================
+    
+    /**
+     * Called by DiningGroupCell when a DiningHall (LocationTile) is tapped.
+     * Perform the DiningHallSegue. 
+     */
     func didSelectDiningHall(_ hall: DiningHall)
     {
         self.performSegue(withIdentifier: DiningHallSegue, sender: hall)

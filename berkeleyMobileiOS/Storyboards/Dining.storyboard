@@ -43,11 +43,11 @@
                         <viewControllerLayoutGuide type="bottom" id="MJI-7A-Fti"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="EKs-2m-bcd">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="260" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="k1R-c4-AQd">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="test" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="DiningGroupCell" id="YLQ-qa-4VU" customClass="DiningGroupCell" customModule="berkeleyMobileiOS" customModuleProvider="target">
@@ -148,7 +148,7 @@
                                                     </cells>
                                                 </collectionView>
                                             </subviews>
-                                            <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="yIn-pi-G39" secondAttribute="bottom" constant="16" id="8QV-J9-Leo"/>
                                                 <constraint firstItem="yIn-pi-G39" firstAttribute="top" secondItem="0L1-20-vTi" secondAttribute="bottom" constant="8" id="DaW-Xy-8ML"/>
@@ -159,6 +159,7 @@
                                                 <constraint firstItem="yIn-pi-G39" firstAttribute="leading" secondItem="d19-uh-Thv" secondAttribute="leading" id="vFm-NB-ELN"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <outlet property="collectionView" destination="yIn-pi-G39" id="4LM-kl-fbu"/>
                                             <outlet property="groupLabel" destination="0L1-20-vTi" id="4rL-oX-FKt"/>
@@ -175,6 +176,7 @@
                             <constraint firstItem="k1R-c4-AQd" firstAttribute="top" secondItem="Dog-ze-Fqg" secondAttribute="bottom" id="nr5-fO-yqp"/>
                         </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="Dining" id="mNf-aK-Tow"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <connections>
@@ -186,10 +188,10 @@
             </objects>
             <point key="canvasLocation" x="430" y="161"/>
         </scene>
-        <!--Crossroads-->
+        <!--Dining Hall View Controller-->
         <scene sceneID="NkK-uR-zc3">
             <objects>
-                <viewController title="Crossroads" id="vwX-1f-TP7" customClass="DiningHallViewController" customModule="berkeleyMobileiOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController extendedLayoutIncludesOpaqueBars="YES" id="vwX-1f-TP7" customClass="DiningHallViewController" customModule="berkeleyMobileiOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="BAH-LM-gjf"/>
                         <viewControllerLayoutGuide type="bottom" id="lSD-mi-SVc"/>
@@ -202,7 +204,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </scrollView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Y9P-TL-r63">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Y9P-TL-r63">
                                 <rect key="frame" x="0.0" y="64" width="375" height="177"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
