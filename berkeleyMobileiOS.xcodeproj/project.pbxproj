@@ -288,7 +288,7 @@
 				TargetAttributes = {
 					41E843891DAB3FE80096C049 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 33VXG65XJB;
+						DevelopmentTeam = X7G58M3DW4;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 					};
@@ -514,7 +514,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 33VXG65XJB;
+				DEVELOPMENT_TEAM = X7G58M3DW4;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/build/Debug-iphoneos/Alamofire",
@@ -522,7 +522,7 @@
 				);
 				INFOPLIST_FILE = berkeleyMobileiOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = org.asucberkeleymobile.berkeleyMobileiOS;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sampathduddu.Berkeley;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -534,7 +534,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 33VXG65XJB;
+				DEVELOPMENT_TEAM = X7G58M3DW4;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/build/Debug-iphoneos/Alamofire",
@@ -542,7 +542,7 @@
 				);
 				INFOPLIST_FILE = berkeleyMobileiOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = org.asucberkeleymobile.berkeleyMobileiOS;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sampathduddu.Berkeley;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
