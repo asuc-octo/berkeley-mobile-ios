@@ -50,5 +50,30 @@ class RecreationViewController: BaseViewController {
         pageTabBarItem.image = pageTabBarItem.image!.withRenderingMode(.alwaysTemplate)
         pageTabBarItem.imageView?.contentMode = .scaleAspectFit
     }
+    
+    //Moving to Gym Map View
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let sectionHeader = UITableViewHeaderFooterView()
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(RecreationViewController.moveToMapView))
+        tapGesture.numberOfTouchesRequired = 1;
+        tapGesture.numberOfTapsRequired = 1;
+        
+        sectionHeader.addGestureRecognizer(tapGesture)
+        return sectionHeader
+    }
+    
+    func moveToMapView() {
+        self.performSegue(withIdentifier: "toGymMapView", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "toGymMapView") {
+            let backItem = UIBarButtonItem()
+            backItem.title = ""
+            navigationItem.backBarButtonItem = backItem
+        }
+    }
 
 }
