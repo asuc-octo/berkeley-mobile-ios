@@ -178,5 +178,5 @@ class GymsMapListViewController: UIViewController, GMSMapViewDelegate, CLLocatio
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return gyms.count
     }
-
+    
 }
