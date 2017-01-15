@@ -6,7 +6,9 @@ target 'berkeleyMobileiOS' do
   use_frameworks!
 
   # Pods for berkeleyMobileiOS
-pod ‘Alamofire’, ‘~> 4.0’
+pod 'Alamofire', '~> 4.0'
 pod 'Material', '~> 2.0'
 pod 'SwiftyJSON'
+pod 'GoogleMaps'
+pod 'SDWebImage', '~>3.8'
 end

@@ -26,6 +26,16 @@ class DiningGroupViewController: UIViewController, UITableViewDelegate, UITableV
     // MARK: - Setup
     // ========================================
     
+    required init?(coder aDecoder: NSCoder)
+    {
+        super.init(coder: aDecoder)
+        
+        // TODO: this should be set in LaunchViewController.
+        let item = self.navigationController?.pageTabBarItem
+        item?.image = UIImage(named: "icon_dining")?.withRenderingMode(.alwaysTemplate)
+        item?.imageView?.contentMode = .scaleAspectFit
+    }
+    
     /**
      * Makes the original UINavigationBar clear and inserts another view with solid color.
      * This is to prevent strage transitions when pushing/popping ViewControllers with clear navbar.
@@ -110,6 +120,11 @@ class DiningGroupViewController: UIViewController, UITableViewDelegate, UITableV
     {
         super.viewWillAppear(animated);
         setStatusBarStyle(self.preferredStatusBarStyle)
+        
+        if let nc = self.navigationController 
+        {
+            ConvenienceMethods.setCurrentTabStyle(pageTabBarVC: pageTabBarController!, ForSelectedViewController: nc)
+        }
     }
     
     

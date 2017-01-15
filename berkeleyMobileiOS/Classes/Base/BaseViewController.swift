@@ -14,7 +14,9 @@ class BaseViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var baseTableView: UITableView!
     
     // HARD CODE
-    var sectionNames = ["Gyms", "Dining"]
+    var sectionNames = [String!]()
+    var resources = [String:[Resource]]()
+    var sectionNamesByIndex = [Int:String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +37,14 @@ class BaseViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = baseTableView.dequeueReusableCell(withIdentifier: "HomeTableViewCell")! as! HomeTableViewCell
+        
+        let sectionName = sectionNamesByIndex[indexPath.section]!
+        if self.resources[sectionName] != nil {
+            let res = self.resources[sectionName]!
+            cell.collectionCellNames = res.map { (resource) in resource.name }
+            cell.collectionCellImageURLs = res.map { (resource) in resource.imageURL }
+        }
+        
         if let layout = cell.homeCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .horizontal
         }

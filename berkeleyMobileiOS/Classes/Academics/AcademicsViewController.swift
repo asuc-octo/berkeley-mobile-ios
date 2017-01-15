@@ -8,36 +8,65 @@
 
 import UIKit
 import Material
+fileprivate let kLibraries = "Libraries"
+fileprivate let kCampusResources = "Campus Resources"
 class AcademicsViewController: BaseViewController {
     //Sets up initial tab look for this class
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        preparePageTabBarItem()
-    }
+    
     override func viewDidLoad() {
-        self.sectionNames = ["Doe", "Main Stacks"]
-        self.baseTitleLabel.text = "Academics"
-        self.baseTableView.reloadData()
-    }
-    //Make sure tab bar is highlighted properly
-    override func viewDidAppear(_ animated: Bool) {
-        ConvenienceMethods.setCurrentTabStyle(pageTabBarVC: pageTabBarController!, ForSelectedViewController: self)
-    }
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = baseTableView.dequeueReusableCell(withIdentifier: "HomeTableViewCell")! as! HomeTableViewCell
-        cell.collectionCellNames = ["aaa", "bbb", "ccc"]
-        if let layout = cell.homeCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.scrollDirection = .horizontal
+        sectionNamesByIndex = [0:kLibraries, 1:kCampusResources]
+        sectionNames = [kLibraries, kCampusResources]
+        let loadScreen = LoadingScreen.sharedInstance.getLoadingScreen()
+        self.view.addSubview(loadScreen)
+        
+        LibraryDataSource.fetchLibraries { (_ libraries: [Library]?) in
+            if libraries == nil {
+                print("[ERROR @ AcademicsViewController] failed to fetch Libraries")
+                LoadingScreen.sharedInstance.removeLoadingScreen()
+            }
+            self.resources[kLibraries] = libraries!
+            self.baseTableView.reloadData()
+            
+            if self.resources.count == self.sectionNames.count {
+                LoadingScreen.sharedInstance.removeLoadingScreen()
+            }
         }
-        cell.homeCollectionView.delegate = cell
-        cell.homeCollectionView.dataSource = cell
-        return cell
+        CampusResourceDataSource.fetchCampusResources { (_ campusResources: [CampusResource]?) in
+            if campusResources == nil {
+                print("[ERROR @ AcademicsViewController] failed to fetch Campus Resources")
+                LoadingScreen.sharedInstance.removeLoadingScreen()
+            }
+            self.resources[kCampusResources] = campusResources!
+            self.baseTableView.reloadData()
+            
+            if self.resources.count == self.sectionNames.count {
+                LoadingScreen.sharedInstance.removeLoadingScreen()
+            }
+        }
     }
-    //Customize Tab Bar Presence
-    private func preparePageTabBarItem() {
-        pageTabBarItem.image = #imageLiteral(resourceName: "library")
-        pageTabBarItem.image = pageTabBarItem.image!.withRenderingMode(.alwaysTemplate)
-        pageTabBarItem.imageView?.contentMode = .scaleAspectFit
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+
+        let sectionHeader = UITableViewHeaderFooterView()
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(AcademicsViewController.moveToMapView))
+        tapGesture.numberOfTouchesRequired = 1;
+        tapGesture.numberOfTapsRequired = 1;
+    
+        sectionHeader.addGestureRecognizer(tapGesture)
+        return sectionHeader
+    }
+    
+    func moveToMapView() {
+        self.performSegue(withIdentifier: "toLibraryMapView", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "toLibraryMapView") {
+            let backItem = UIBarButtonItem()
+            backItem.title = ""
+            navigationItem.backBarButtonItem = backItem
+        }
     }
 
 }
