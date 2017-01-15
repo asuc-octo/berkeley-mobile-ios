@@ -38,8 +38,7 @@ class RecreationViewController: BaseViewController {
                 LoadingScreen.sharedInstance.removeLoadingScreen()
             }
         }
-        
-//        print(self.resources[kGyms])
+
     }
     //Make sure tab bar is highlighted properly
     override func viewDidAppear(_ animated: Bool) {
