@@ -23,6 +23,8 @@ class GymsMapListViewController: UIViewController, GMSMapViewDelegate, CLLocatio
                      CLLocation(latitude: 37.872545, longitude: -122.256423)
     ]
     
+    var gymsMain = [Gym]()
+    
     var locationManager = CLLocationManager()
     
 
@@ -83,42 +85,56 @@ class GymsMapListViewController: UIViewController, GMSMapViewDelegate, CLLocatio
         var minLon = 1000.0
         var maxLon = -1000.0
         
-        for gym in gyms {
+        for gym in gymsMain {
             
             let marker = GMSMarker()
-            let lat = gym.coordinate.latitude
-            let lon = gym.coordinate.longitude
+            var lat = 0.0
+            var lon = 0.0
             
-            marker.position = CLLocationCoordinate2D(latitude: lat, longitude: lon)
-            marker.title = "Sydney"
-            marker.snippet = "Australia"
-            
-            marker.map = self.gymsMapView
-            
-            if (lat < minLat) {
-                minLat = lat
+            let geocoder = CLGeocoder()
+            geocoder.geocodeAddressString(gym.address) { (placemarks, error) in
+                if let placemarks = placemarks {
+                    if placemarks.count != 0 {
+                        
+                        //Getting coordinates from geocoder
+                        let coordinates = placemarks.first!.location
+                        lat = (coordinates?.coordinate.latitude)!
+                        lon = (coordinates?.coordinate.longitude)!
+                        
+                        // Setting attributes of marker
+                        marker.position = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+                        marker.title = gym.name
+                        var status = "OPEN"
+                        if (gym.closingTimeToday!.compare(NSDate() as Date) == .orderedAscending) {
+                            status = "CLOSED"
+                        }
+                        
+                        marker.snippet = status
+                        marker.map = self.gymsMapView
+                        
+                        //Helps to adjust map at the end of plotting
+                        if (lat < minLat) {
+                            minLat = lat
+                        }
+                        if (lat > maxLat) {
+                            maxLat = lat
+                        }
+                        if (lon < minLon) {
+                            minLon = lon
+                        }
+                        if (lon > maxLon) {
+                            maxLon = lon
+                        }
+                    }
+                    
+                    //Sets the bounds of the map based on the coordinates plotted
+                    let southWest = CLLocationCoordinate2DMake(minLat,minLon)
+                    let northEast = CLLocationCoordinate2DMake(maxLat,maxLon)
+                    let bounds = GMSCoordinateBounds(coordinate: northEast, coordinate: southWest)
+                    self.gymsMapView.animate(with: GMSCameraUpdate.fit(bounds, withPadding: 50.0))
+                }
             }
-            
-            if (lat > maxLat) {
-                maxLat = lat
-            }
-            
-            if (lon < minLon) {
-                minLon = lon
-            }
-            
-            if (lon > maxLon) {
-                maxLon = lon
-            }
-            
         }
-        
-        //Sets the bounds of the map based on the coordinates
-        let southWest = CLLocationCoordinate2DMake(minLat,minLon)
-        let northEast = CLLocationCoordinate2DMake(maxLat,maxLon)
-        let bounds = GMSCoordinateBounds(coordinate: northEast, coordinate: southWest)
-        gymsMapView.animate(with: GMSCameraUpdate.fit(bounds, withPadding: 50.0))
-        
     }
 
     //Segmented control methods
@@ -153,14 +169,25 @@ class GymsMapListViewController: UIViewController, GMSMapViewDelegate, CLLocatio
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "gym") as! GymCell
-        cell.gymName.text = "Hearst Gym"
-        cell.gymStatus.text = "OPEN"
+        print(indexPath.row)
+        let gym = gymsMain[indexPath.row]
+        cell.gymName.text = gym.name
+        var status = "OPEN"
+        if (gym.closingTimeToday!.compare(NSDate() as Date) == .orderedAscending) {
+            status = "CLOSED"
+        }
+        cell.gymStatus.text = status
+        if (status == "OPEN") {
+            cell.gymStatus.textColor = UIColor.green
+        } else {
+            cell.gymStatus.textColor = UIColor.red
+        }
+
         return cell
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return gymsMain.count
     }
-    
 
 }
