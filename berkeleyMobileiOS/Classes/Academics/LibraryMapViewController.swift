@@ -14,14 +14,13 @@ import GoogleMaps
 class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
     
     @IBOutlet var librariesTableView: UITableView!
-
     @IBOutlet var librariesSearchBar: UISearchBar!
     @IBOutlet var librariesMapView: GMSMapView!
     
     var libraries = [CLLocation(latitude: 37.871856, longitude: -122.258423),
         CLLocation(latitude: 37.872545, longitude: -122.256423)
                      ]
-    
+    var libariesMain = [Library]()
     var locationManager = CLLocationManager()
     
     override func viewDidLoad() {
@@ -74,16 +73,36 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
         var minLon = 1000.0
         var maxLon = -1000.0
         
-        for library in libraries {
+        print(libariesMain.count)
+        
+        
+        for library in libariesMain {
             
             let marker = GMSMarker()
-            let lat = library.coordinate.latitude
-            let lon = library.coordinate.longitude
+            if ((library.latitude == nil) || (library.longitude == nil)) {
+                continue
+            }
+            let lat = library.latitude!
+            let lon = library.longitude!
             
             marker.position = CLLocationCoordinate2D(latitude: lat, longitude: lon)
-            marker.title = "Sydney"
-            marker.snippet = "Australia"
+            marker.title = library.name
             
+            let todayDate = NSDate()
+            let myCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
+            let myComponents = myCalendar.components(.weekday, from: todayDate as Date)
+            let weekDay = myComponents.weekday! - 1
+            
+            if (library.weeklyClosingTimes[weekDay] == nil) {
+                continue
+            }
+            var status = "OPEN"
+            
+            if (library.weeklyClosingTimes[weekDay]!.compare(todayDate as Date) == .orderedAscending) {
+                status = "CLOSED"
+            }
+        
+            marker.snippet = status
             marker.map = self.librariesMapView
             
             if (lat < minLat) {
@@ -121,13 +140,37 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "library") as! LibraryCell
-        cell.libraryName.text = "Doe Library"
-        cell.libraryStatus.text = "OPEN"
+        
+        let library = libariesMain[indexPath.row]
+        cell.libraryName.text = library.name
+        
+        let todayDate = NSDate()
+        let myCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
+        let myComponents = myCalendar.components(.weekday, from: todayDate as Date)
+        let weekDay = myComponents.weekday! - 1
+        
+        if (library.weeklyClosingTimes[weekDay] == nil) {
+            cell.height = 0.0
+            print("here")
+            return cell
+        }
+        var status = "OPEN"
+        if (library.weeklyClosingTimes[weekDay]!.compare(todayDate as Date) == .orderedAscending) {
+            status = "CLOSED"
+        }
+        
+        cell.libraryStatus.text = status
+        if (status == "OPEN") {
+            cell.libraryStatus.textColor = UIColor.green
+        } else {
+            cell.libraryStatus.textColor = UIColor.red
+        }
+
         return cell
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return libariesMain.count
     }
     
     //Location Manager delegates

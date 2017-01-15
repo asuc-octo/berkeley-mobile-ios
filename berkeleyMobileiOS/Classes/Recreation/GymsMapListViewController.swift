@@ -14,20 +14,12 @@ import GoogleMaps
 class GymsMapListViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDelegate, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet var gymsMapView: GMSMapView!
-    
     @IBOutlet var gymsTableView: UITableView!
-    
     @IBOutlet var gymsSearchBar: UISearchBar!
     
-    var gyms = [CLLocation(latitude: 37.871856, longitude: -122.258423),
-                     CLLocation(latitude: 37.872545, longitude: -122.256423)
-    ]
-    
     var gymsMain = [Gym]()
-    
     var locationManager = CLLocationManager()
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -67,8 +59,6 @@ class GymsMapListViewController: UIViewController, GMSMapViewDelegate, CLLocatio
         }
         
          plotLibraries()
-
-
         // Do any additional setup after loading the view.
     }
 
@@ -169,7 +159,6 @@ class GymsMapListViewController: UIViewController, GMSMapViewDelegate, CLLocatio
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "gym") as! GymCell
-        print(indexPath.row)
         let gym = gymsMain[indexPath.row]
         cell.gymName.text = gym.name
         var status = "OPEN"
