@@ -8,29 +8,20 @@
 
 import UIKit
 import Material
+import GoogleMaps
 class BearTransitViewController: UIViewController {
     //Sets up initial tab look for this class
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        preparePageTabBarItem()
-    }
+    @IBOutlet weak var mapView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        let camera = GMSCameraPosition.camera(withLatitude: 1.285, longitude: 103.848, zoom: 12)
+        let MV = GMSMapView.map(withFrame: .zero, camera: camera)
+        self.mapView = MV
         // Do any additional setup after loading the view.
     }
-    //Make sure tab bar is highlighted properly
-    override func viewDidAppear(_ animated: Bool) {
-            ConvenienceMethods.setCurrentTabStyle(pageTabBarVC: pageTabBarController!, ForSelectedViewController: self)
-    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    //Customize Tab Bar Presence
-    private func preparePageTabBarItem() {
-        pageTabBarItem.image = #imageLiteral(resourceName: "50x50-BearTransit_32x32")
-        pageTabBarItem.image = pageTabBarItem.image!.withRenderingMode(.alwaysTemplate)
-        pageTabBarItem.imageView?.contentMode = .scaleAspectFit
     }
 }

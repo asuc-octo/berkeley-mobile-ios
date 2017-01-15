@@ -8,33 +8,42 @@
 
 import UIKit
 import Material
+
+fileprivate let kGyms = "Gyms"
 class RecreationViewController: BaseViewController {
     //Sets up initial tab look for this class
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         preparePageTabBarItem()
     }
     override func viewDidLoad() {
-        self.sectionNames = ["RSF", "Memorial Stadium"]
-        self.baseTitleLabel.text = "Recreation"
-        self.baseTableView.reloadData()
-
+        sectionNamesByIndex = [0:kGyms]
+        sectionNames = [kGyms]
+        
+        let loadScreen = LoadingScreen.sharedInstance.getLoadingScreen()
+        self.view.addSubview(loadScreen)
+        
+        GymDataSource.fetchGyms { (_ gyms: [Gym]?) in
+            if gyms == nil
+            {
+                print("[ERROR @ RecreationViewController] failed to fetch Gyms")
+                LoadingScreen.sharedInstance.removeLoadingScreen()
+            }
+            self.resources[kGyms] = gyms!
+            self.baseTableView.reloadData()
+            
+            if self.resources.count == self.sectionNames.count
+            {
+                LoadingScreen.sharedInstance.removeLoadingScreen()
+            }
+        }
     }
     //Make sure tab bar is highlighted properly
     override func viewDidAppear(_ animated: Bool) {
         ConvenienceMethods.setCurrentTabStyle(pageTabBarVC: pageTabBarController!, ForSelectedViewController: self)
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = baseTableView.dequeueReusableCell(withIdentifier: "HomeTableViewCell")! as! HomeTableViewCell
-        cell.collectionCellNames = ["Doge", "Doggo", "Yapper"]
-        if let layout = cell.homeCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.scrollDirection = .horizontal
-        }
-        cell.homeCollectionView.delegate = cell
-        cell.homeCollectionView.dataSource = cell
-        return cell
-    }
     //Customize Tab Bar Presence
     private func preparePageTabBarItem() {
         pageTabBarItem.image = #imageLiteral(resourceName: "50x50-Gym_32x32")
