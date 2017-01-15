@@ -78,7 +78,7 @@ class RecreationViewController: BaseViewController {
             
             let gymMapVC = segue.destination as! GymsMapListViewController
             
-            gymMapVC.gymsMain = self.resources[kGyms]! as! [Gym]
+            gymMapVC.gyms = self.resources[kGyms]! as! [Gym]
             
         }
     }
