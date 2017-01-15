@@ -69,7 +69,7 @@ class AcademicsViewController: BaseViewController {
             
             let libraryMapVC = segue.destination as! LibraryMapViewController
             
-            libraryMapVC.libariesMain = self.resources[kLibraries]! as! [Library]
+            libraryMapVC.libraries = self.resources[kLibraries]! as! [Library]
         }
     }
 

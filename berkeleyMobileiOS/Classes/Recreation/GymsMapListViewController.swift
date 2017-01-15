@@ -17,7 +17,7 @@ class GymsMapListViewController: UIViewController, GMSMapViewDelegate, CLLocatio
     @IBOutlet var gymsTableView: UITableView!
     @IBOutlet var gymsSearchBar: UISearchBar!
     
-    var gymsMain = [Gym]()
+    var gyms = [Gym]()
     var locationManager = CLLocationManager()
     
     override func viewDidLoad() {
@@ -75,7 +75,7 @@ class GymsMapListViewController: UIViewController, GMSMapViewDelegate, CLLocatio
         var minLon = 1000.0
         var maxLon = -1000.0
         
-        for gym in gymsMain {
+        for gym in gyms {
             
             let marker = GMSMarker()
             var lat = 0.0
@@ -159,7 +159,7 @@ class GymsMapListViewController: UIViewController, GMSMapViewDelegate, CLLocatio
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "gym") as! GymCell
-        let gym = gymsMain[indexPath.row]
+        let gym = gyms[indexPath.row]
         cell.gymName.text = gym.name
         var status = "OPEN"
         if (gym.closingTimeToday!.compare(NSDate() as Date) == .orderedAscending) {
@@ -176,7 +176,7 @@ class GymsMapListViewController: UIViewController, GMSMapViewDelegate, CLLocatio
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return gymsMain.count
+        return gyms.count
     }
 
 }

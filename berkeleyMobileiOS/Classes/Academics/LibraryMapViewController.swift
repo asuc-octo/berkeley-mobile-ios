@@ -16,11 +16,8 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
     @IBOutlet var librariesTableView: UITableView!
     @IBOutlet var librariesSearchBar: UISearchBar!
     @IBOutlet var librariesMapView: GMSMapView!
-    
-    var libraries = [CLLocation(latitude: 37.871856, longitude: -122.258423),
-        CLLocation(latitude: 37.872545, longitude: -122.256423)
-                     ]
-    var libariesMain = [Library]()
+
+    var libraries = [Library]()
     var locationManager = CLLocationManager()
     
     override func viewDidLoad() {
@@ -73,10 +70,7 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
         var minLon = 1000.0
         var maxLon = -1000.0
         
-        print(libariesMain.count)
-        
-        
-        for library in libariesMain {
+        for library in libraries {
             
             let marker = GMSMarker()
             if ((library.latitude == nil) || (library.longitude == nil)) {
@@ -88,6 +82,7 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
             marker.position = CLLocationCoordinate2D(latitude: lat, longitude: lon)
             marker.title = library.name
             
+            //Determining status of libary
             let todayDate = NSDate()
             let myCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
             let myComponents = myCalendar.components(.weekday, from: todayDate as Date)
@@ -96,12 +91,10 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
             if (library.weeklyClosingTimes[weekDay] == nil) {
                 continue
             }
-            var status = "OPEN"
-            
+            var status = "CLOSED"
             if (library.weeklyClosingTimes[weekDay]!.compare(todayDate as Date) == .orderedAscending) {
-                status = "CLOSED"
+                status = "OPEN"
             }
-        
             marker.snippet = status
             marker.map = self.librariesMapView
             
@@ -120,10 +113,9 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
             if (lon > maxLon) {
                 maxLon = lon
             }
-
         }
         
-        //Sets the bounds of the map based on the coordinates
+        //Sets the bounds of the map based on the coordinates plotted
         let southWest = CLLocationCoordinate2DMake(minLat,minLon)
         let northEast = CLLocationCoordinate2DMake(maxLat,maxLon)
         let bounds = GMSCoordinateBounds(coordinate: northEast, coordinate: southWest)
@@ -141,9 +133,10 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "library") as! LibraryCell
         
-        let library = libariesMain[indexPath.row]
+        let library = libraries[indexPath.row]
         cell.libraryName.text = library.name
         
+        //Determining Status of library
         let todayDate = NSDate()
         let myCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
         let myComponents = myCalendar.components(.weekday, from: todayDate as Date)
@@ -154,9 +147,9 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
             print("here")
             return cell
         }
-        var status = "OPEN"
+        var status = "CLOSED"
         if (library.weeklyClosingTimes[weekDay]!.compare(todayDate as Date) == .orderedAscending) {
-            status = "CLOSED"
+            status = "OPEN"
         }
         
         cell.libraryStatus.text = status
@@ -170,7 +163,7 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return libariesMain.count
+        return libraries.count
     }
     
     //Location Manager delegates
@@ -182,7 +175,6 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
         //Finally stop updating location otherwise it will come again and again in this delegate
         self.locationManager.stopUpdatingLocation()
     }
-    
     
     //Segmented control methods
     func setSegmentedControl() {
