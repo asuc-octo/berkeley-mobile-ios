@@ -99,6 +99,12 @@ class GymsMapListViewController: UIViewController, GMSMapViewDelegate, CLLocatio
                             status = "CLOSED"
                         }
                         
+                        if (status == "OPEN") {
+                            marker.icon = GMSMarker.markerImage(with: .green)
+                        } else {
+                            marker.icon = GMSMarker.markerImage(with: .red)
+                        }
+                        
                         marker.snippet = status
                         marker.map = self.gymsMapView
                         

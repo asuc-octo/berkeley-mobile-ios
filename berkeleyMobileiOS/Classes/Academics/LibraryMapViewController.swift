@@ -83,8 +83,10 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
             marker.title = library.name
             
             let status = getLibraryStatus(library: library)
-            if (status == "NIL") {
-                continue
+            if (status == "OPEN") {
+                marker.icon = GMSMarker.markerImage(with: .green)
+            } else {
+                marker.icon = GMSMarker.markerImage(with: .red)
             }
             
             marker.snippet = status
@@ -129,10 +131,6 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
         cell.libraryName.text = library.name
         
         let status = getLibraryStatus(library: library)
-        if (status == "NIL") {
-            cell.height = 0.0
-            return cell
-        }
         
         cell.libraryStatus.text = status
         if (status == "OPEN") {
@@ -190,16 +188,13 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
         
         //Determining Status of library
         let todayDate = NSDate()
-        let myCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
-        let myComponents = myCalendar.components(.weekday, from: todayDate as Date)
-        let weekDay = myComponents.weekday! - 1
         
-        if (library.weeklyClosingTimes[weekDay] == nil) {
-            return "NIL"
+        if (library.weeklyClosingTimes[0] == nil) {
+            return "CLOSED"
         }
         
         var status = "CLOSED"
-        if (library.weeklyClosingTimes[weekDay]!.compare(todayDate as Date) == .orderedAscending) {
+        if (library.weeklyClosingTimes[0]!.compare(todayDate as Date) == .orderedAscending) {
             status = "OPEN"
         }
         
