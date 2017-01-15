@@ -82,19 +82,11 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
             marker.position = CLLocationCoordinate2D(latitude: lat, longitude: lon)
             marker.title = library.name
             
-            //Determining status of libary
-            let todayDate = NSDate()
-            let myCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
-            let myComponents = myCalendar.components(.weekday, from: todayDate as Date)
-            let weekDay = myComponents.weekday! - 1
-            
-            if (library.weeklyClosingTimes[weekDay] == nil) {
+            let status = getLibraryStatus(library: library)
+            if (status == "NIL") {
                 continue
             }
-            var status = "CLOSED"
-            if (library.weeklyClosingTimes[weekDay]!.compare(todayDate as Date) == .orderedAscending) {
-                status = "OPEN"
-            }
+            
             marker.snippet = status
             marker.map = self.librariesMapView
             
@@ -136,20 +128,10 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
         let library = libraries[indexPath.row]
         cell.libraryName.text = library.name
         
-        //Determining Status of library
-        let todayDate = NSDate()
-        let myCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
-        let myComponents = myCalendar.components(.weekday, from: todayDate as Date)
-        let weekDay = myComponents.weekday! - 1
-        
-        if (library.weeklyClosingTimes[weekDay] == nil) {
+        let status = getLibraryStatus(library: library)
+        if (status == "NIL") {
             cell.height = 0.0
-            print("here")
             return cell
-        }
-        var status = "CLOSED"
-        if (library.weeklyClosingTimes[weekDay]!.compare(todayDate as Date) == .orderedAscending) {
-            status = "OPEN"
         }
         
         cell.libraryStatus.text = status
@@ -202,6 +184,26 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
             librariesMapView.isHidden = true
         }
         
+    }
+    
+    func getLibraryStatus(library: Library) -> String {
+        
+        //Determining Status of library
+        let todayDate = NSDate()
+        let myCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
+        let myComponents = myCalendar.components(.weekday, from: todayDate as Date)
+        let weekDay = myComponents.weekday! - 1
+        
+        if (library.weeklyClosingTimes[weekDay] == nil) {
+            return "NIL"
+        }
+        
+        var status = "CLOSED"
+        if (library.weeklyClosingTimes[weekDay]!.compare(todayDate as Date) == .orderedAscending) {
+            status = "OPEN"
+        }
+        
+        return status
     }
     
 
