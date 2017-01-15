@@ -14,14 +14,10 @@ import GoogleMaps
 class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
     
     @IBOutlet var librariesTableView: UITableView!
-
     @IBOutlet var librariesSearchBar: UISearchBar!
     @IBOutlet var librariesMapView: GMSMapView!
-    
-    var libraries = [CLLocation(latitude: 37.871856, longitude: -122.258423),
-        CLLocation(latitude: 37.872545, longitude: -122.256423)
-                     ]
-    
+
+    var libraries = [Library]()
     var locationManager = CLLocationManager()
     
     override func viewDidLoad() {
@@ -77,13 +73,23 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
         for library in libraries {
             
             let marker = GMSMarker()
-            let lat = library.coordinate.latitude
-            let lon = library.coordinate.longitude
+            if ((library.latitude == nil) || (library.longitude == nil)) {
+                continue
+            }
+            let lat = library.latitude!
+            let lon = library.longitude!
             
             marker.position = CLLocationCoordinate2D(latitude: lat, longitude: lon)
-            marker.title = "Sydney"
-            marker.snippet = "Australia"
+            marker.title = library.name
             
+            let status = getLibraryStatus(library: library)
+            if (status == "OPEN") {
+                marker.icon = GMSMarker.markerImage(with: .green)
+            } else {
+                marker.icon = GMSMarker.markerImage(with: .red)
+            }
+            
+            marker.snippet = status
             marker.map = self.librariesMapView
             
             if (lat < minLat) {
@@ -101,10 +107,9 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
             if (lon > maxLon) {
                 maxLon = lon
             }
-
         }
         
-        //Sets the bounds of the map based on the coordinates
+        //Sets the bounds of the map based on the coordinates plotted
         let southWest = CLLocationCoordinate2DMake(minLat,minLon)
         let northEast = CLLocationCoordinate2DMake(maxLat,maxLon)
         let bounds = GMSCoordinateBounds(coordinate: northEast, coordinate: southWest)
@@ -121,13 +126,24 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "library") as! LibraryCell
-        cell.libraryName.text = "Doe Library"
-        cell.libraryStatus.text = "OPEN"
+        
+        let library = libraries[indexPath.row]
+        cell.libraryName.text = library.name
+        
+        let status = getLibraryStatus(library: library)
+        
+        cell.libraryStatus.text = status
+        if (status == "OPEN") {
+            cell.libraryStatus.textColor = UIColor.green
+        } else {
+            cell.libraryStatus.textColor = UIColor.red
+        }
+
         return cell
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return libraries.count
     }
     
     //Location Manager delegates
@@ -139,7 +155,6 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
         //Finally stop updating location otherwise it will come again and again in this delegate
         self.locationManager.stopUpdatingLocation()
     }
-    
     
     //Segmented control methods
     func setSegmentedControl() {
@@ -167,6 +182,23 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
             librariesMapView.isHidden = true
         }
         
+    }
+    
+    func getLibraryStatus(library: Library) -> String {
+        
+        //Determining Status of library
+        let todayDate = NSDate()
+        
+        if (library.weeklyClosingTimes[0] == nil) {
+            return "CLOSED"
+        }
+        
+        var status = "CLOSED"
+        if (library.weeklyClosingTimes[0]!.compare(todayDate as Date) == .orderedAscending) {
+            status = "OPEN"
+        }
+        
+        return status
     }
     
 

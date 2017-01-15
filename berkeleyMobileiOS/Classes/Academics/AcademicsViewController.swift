@@ -66,6 +66,10 @@ class AcademicsViewController: BaseViewController {
             let backItem = UIBarButtonItem()
             backItem.title = ""
             navigationItem.backBarButtonItem = backItem
+            
+            let libraryMapVC = segue.destination as! LibraryMapViewController
+            
+            libraryMapVC.libraries = self.resources[kLibraries]! as! [Library]
         }
     }
 
