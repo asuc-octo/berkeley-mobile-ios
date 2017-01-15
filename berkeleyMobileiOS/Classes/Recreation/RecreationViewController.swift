@@ -38,6 +38,8 @@ class RecreationViewController: BaseViewController {
                 LoadingScreen.sharedInstance.removeLoadingScreen()
             }
         }
+        
+//        print(self.resources[kGyms])
     }
     //Make sure tab bar is highlighted properly
     override func viewDidAppear(_ animated: Bool) {
@@ -73,6 +75,11 @@ class RecreationViewController: BaseViewController {
             let backItem = UIBarButtonItem()
             backItem.title = ""
             navigationItem.backBarButtonItem = backItem
+            
+            let gymMapVC = segue.destination as! GymsMapListViewController
+            
+            gymMapVC.gymsMain = self.resources[kGyms]! as! [Gym]
+            
         }
     }
 
