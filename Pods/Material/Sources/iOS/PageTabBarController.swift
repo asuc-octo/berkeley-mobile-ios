@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.io>.
+ * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,6 +36,7 @@ private var PageTabBarItemKey: UInt8 = 0
 open class PageTabBarItem: FlatButton {
     open override func prepare() {
         super.prepare()
+        pulseAnimation = .none
     }
 }
 
@@ -100,9 +101,10 @@ public protocol PageTabBarControllerDelegate {
 @objc(PageTabBarController)
 open class PageTabBarController: RootController {
     /// Reference to the PageTabBar.
-    open private(set) lazy var pageTabBar: PageTabBar = PageTabBar()
+    @IBInspectable
+    open let pageTabBar = PageTabBar()
     
-    /// A boolean that indicates whether bounds is enabled.
+    /// A boolean that indicates whether bounce is enabled.
     open var isBounceEnabled: Bool {
         didSet {
             scrollView?.bounces = isBounceEnabled
@@ -113,7 +115,7 @@ open class PageTabBarController: RootController {
     open internal(set) var isTabSelectedAnimation = false
     
     /// The currently selected UIViewController.
-    open internal(set) var selectedIndex: Int = 0
+    open internal(set) var selectedIndex = 0
     
     /// PageTabBar alignment setting.
     open var pageTabBarAlignment = PageTabBarAlignment.bottom
@@ -158,7 +160,7 @@ open class PageTabBarController: RootController {
         prepare()
     }
     
-    public init(viewControllers: [UIViewController], selectedIndex: Int) {
+    public init(viewControllers: [UIViewController], selectedIndex: Int = 0) {
         isBounceEnabled = true
         super.init(rootViewController: UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil))
         self.selectedIndex = selectedIndex

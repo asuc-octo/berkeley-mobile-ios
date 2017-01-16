@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.io>.
+ * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -91,7 +91,7 @@ extension UIViewController {
 
 open class SnackbarController: RootController {
     /// Reference to the Snackbar.
-    open private(set) lazy var snackbar: Snackbar = Snackbar()
+    open let snackbar = Snackbar()
     
     /// A boolean indicating if the Snacbar is animating.
     open internal(set) var isAnimating = false
@@ -102,13 +102,28 @@ open class SnackbarController: RootController {
     /// Snackbar alignment setting.
     open var snackbarAlignment = SnackbarAlignment.bottom
     
+    /// A preset wrapper around snackbarEdgeInsets.
+    open var snackbarEdgeInsetsPreset = EdgeInsetsPreset.none {
+        didSet {
+            snackbarEdgeInsets = EdgeInsetsPresetToValue(preset: snackbarEdgeInsetsPreset)
+        }
+    }
+    
+    /// A reference to snackbarEdgeInsets.
+    @IBInspectable
+    open var snackbarEdgeInsets = EdgeInsets.zero {
+        didSet {
+            layoutSubviews()
+        }
+    }
+    
     /**
      Animates to a SnackbarStatus.
      - Parameter status: A SnackbarStatus enum value.
      */
     @discardableResult
-    open func animate(snackbar status: SnackbarStatus, delay: TimeInterval = 0, animations: ((Snackbar) -> Void)? = nil, completion: ((Snackbar) -> Void)? = nil) -> AnimationDelayCancelBlock? {
-        return Animation.delay(time: delay) { [weak self, status = status, animations = animations, completion = completion] in
+    open func animate(snackbar status: SnackbarStatus, delay: TimeInterval = 0, animations: ((Snackbar) -> Void)? = nil, completion: ((Snackbar) -> Void)? = nil) -> MotionDelayCancelBlock? {
+        return Motion.delay(time: delay) { [weak self, status = status, animations = animations, completion = completion] in
             guard let s = self else {
                 return
             }
@@ -167,7 +182,9 @@ open class SnackbarController: RootController {
     
     /// Reloads the view.
     open func reload() {
-        snackbar.width = view.width
+        snackbar.x = snackbarEdgeInsets.left
+        snackbar.width = view.width - snackbarEdgeInsets.left - snackbarEdgeInsets.right
+        rootViewController.view.frame = view.bounds
         layoutSnackbar(status: snackbar.status)
     }
     
@@ -195,9 +212,9 @@ open class SnackbarController: RootController {
      */
     private func layoutSnackbar(status: SnackbarStatus) {
         if .bottom == snackbarAlignment {
-            snackbar.y = .visible == status ? view.height - snackbar.height : view.height
+            snackbar.y = .visible == status ? view.height - snackbar.height - snackbarEdgeInsets.bottom : view.height
         } else {
-            snackbar.y = .visible == status ? 0 : -snackbar.height
+            snackbar.y = .visible == status ? snackbarEdgeInsets.top : -snackbar.height
         }
     }
 }

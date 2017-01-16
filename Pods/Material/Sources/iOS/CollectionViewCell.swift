@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.io>.
+ * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -31,17 +31,17 @@
 import UIKit
 
 @objc(CollectionViewCell)
-open class CollectionViewCell: UICollectionViewCell {
+open class CollectionViewCell: UICollectionViewCell, Pulseable {
     /**
      A CAShapeLayer used to manage elements that would be affected by
      the clipToBounds property of the backing layer. For example, this
      allows the dropshadow effect on the backing layer, while clipping
      the image to a desired shape within the visualLayer.
      */
-    open private(set) lazy var visualLayer = CAShapeLayer()
-	
+    open let visualLayer = CAShapeLayer()
+    
     /// A Pulse reference.
-    internal private(set) lazy var pulse: Pulse = Pulse()
+    fileprivate var pulse: Pulse!
     
     /// PulseAnimation value.
     open var pulseAnimation: PulseAnimation {
@@ -120,7 +120,7 @@ open class CollectionViewCell: UICollectionViewCell {
 	/**
      A floating point value that defines a ratio between the pixel
      dimensions of the visualLayer's contents property and the size
-     of the view. By default, this value is set to the Device.scale.
+     of the view. By default, this value is set to the Screen.scale.
      */
 	@IBInspectable
     open var contentsScale: CGFloat {
@@ -147,45 +147,6 @@ open class CollectionViewCell: UICollectionViewCell {
 		}
 		set(value) {
 			visualLayer.contentsGravity = value
-		}
-	}
-	
-	/// A preset wrapper around contentEdgeInsets.
-	public var contentEdgeInsetsPreset: EdgeInsetsPreset {
-		get {
-			return contentView.grid.contentEdgeInsetsPreset
-		}
-		set(value) {
-			contentView.grid.contentEdgeInsetsPreset = value
-		}
-	}
-	
-	/// A reference to EdgeInsets.
-	@IBInspectable
-    open var contentEdgeInsets: EdgeInsets {
-		get {
-			return contentView.grid.contentEdgeInsets
-		}
-		set(value) {
-			contentView.grid.contentEdgeInsets = value
-		}
-	}
-	
-	/// A preset wrapper around interimSpace.
-	open var interimSpacePreset = InterimSpacePreset.none {
-		didSet {
-            interimSpace = InterimSpacePresetToValue(preset: interimSpacePreset)
-		}
-	}
-	
-	/// A wrapper around grid.interimSpace.
-	@IBInspectable
-    open var interimSpace: InterimSpace {
-		get {
-			return contentView.grid.interimSpace
-		}
-		set(value) {
-			contentView.grid.interimSpace = value
 		}
 	}
 	
@@ -224,19 +185,11 @@ open class CollectionViewCell: UICollectionViewCell {
 		self.init(frame: .zero)
 	}
 	
-	open override func layoutSublayers(of layer: CALayer) {
-		super.layoutSublayers(of: layer)
-        guard self.layer == layer else {
-            return
-        }
-        
-        layoutShape()
-        layoutVisualLayer()
-	}
-	
 	open override func layoutSubviews() {
 		super.layoutSubviews()
-		layoutShadowPath()
+        layoutShape()
+        layoutVisualLayer()
+        layoutShadowPath()
 	}
 	
     /**
@@ -245,13 +198,11 @@ open class CollectionViewCell: UICollectionViewCell {
      from the center.
      */
     open func pulse(point: CGPoint? = nil) {
-        let p: CGPoint = nil == point ? CGPoint(x: CGFloat(width / 2), y: CGFloat(height / 2)) : point!
-        Animation.pulseExpandAnimation(layer: layer, visualLayer: visualLayer, point: p, width: width, height: height, pulse: &pulse)
-        Animation.delay(time: 0.35) { [weak self] in
-            guard let s = self else {
-                return
-            }
-            Animation.pulseContractAnimation(layer: s.layer, visualLayer: s.visualLayer, pulse: &s.pulse)
+        let p = point ?? center
+        
+        pulse.expandAnimation(point: p)
+        Motion.delay(time: 0.35) { [weak self] in
+            self?.pulse.contractAnimation()
         }
     }
     
@@ -263,7 +214,7 @@ open class CollectionViewCell: UICollectionViewCell {
      */
     open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        Animation.pulseExpandAnimation(layer: layer, visualLayer: visualLayer, point: layer.convert(touches.first!.location(in: self), from: layer), width: width, height: height, pulse: &pulse)
+        pulse.expandAnimation(point: layer.convert(touches.first!.location(in: self), from: layer))
     }
     
     /**
@@ -274,7 +225,7 @@ open class CollectionViewCell: UICollectionViewCell {
      */
     open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
-        Animation.pulseContractAnimation(layer: layer, visualLayer: visualLayer, pulse: &pulse)
+        pulse.contractAnimation()
     }
     
     /**
@@ -285,7 +236,7 @@ open class CollectionViewCell: UICollectionViewCell {
      */
     open override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesCancelled(touches, with: event)
-        Animation.pulseContractAnimation(layer: layer, visualLayer: visualLayer, pulse: &pulse)
+        pulse.contractAnimation()
     }
 	
 	/**
@@ -296,20 +247,30 @@ open class CollectionViewCell: UICollectionViewCell {
      when subclassing.
      */
 	open func prepare() {
-		contentScaleFactor = Device.scale
+		contentScaleFactor = Screen.scale
 		prepareVisualLayer()
+        preparePulse()
 	}
-	
-	/// Prepares the visualLayer property.
-	internal func prepareVisualLayer() {
-		visualLayer.zPosition = 0
-		visualLayer.masksToBounds = true
-		layer.addSublayer(visualLayer)
-	}
-	
-	/// Manages the layout for the visualLayer property.
-	internal func layoutVisualLayer() {
-		visualLayer.frame = bounds
-		visualLayer.cornerRadius = cornerRadius
-	}
+}
+
+extension CollectionViewCell {
+    /// Prepares the pulse motion.
+    fileprivate func preparePulse() {
+        pulse = Pulse(pulseView: self, pulseLayer: visualLayer)
+    }
+    
+    /// Prepares the visualLayer property.
+    fileprivate func prepareVisualLayer() {
+        visualLayer.zPosition = 0
+        visualLayer.masksToBounds = true
+        layer.addSublayer(visualLayer)
+    }
+}
+
+extension CollectionViewCell {
+    /// Manages the layout for the visualLayer property.
+    fileprivate func layoutVisualLayer() {
+        visualLayer.frame = bounds
+        visualLayer.cornerRadius = cornerRadius
+    }
 }

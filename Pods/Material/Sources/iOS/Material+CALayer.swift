@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.io>.
+ * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -30,36 +30,36 @@
 
 import UIKit
 
-internal class MaterialLayer {
+fileprivate struct MaterialLayer {
     /// A reference to the CALayer.
-    internal weak var layer: CALayer?
+    fileprivate weak var layer: CALayer?
     
     /// A property that sets the height of the layer's frame.
-    internal var heightPreset = HeightPreset.default {
+    fileprivate var heightPreset = HeightPreset.default {
         didSet {
             layer?.height = CGFloat(heightPreset.rawValue)
         }
     }
     
     /// A property that sets the cornerRadius of the backing layer.
-    internal var cornerRadiusPreset = CornerRadiusPreset.none {
+    fileprivate var cornerRadiusPreset = CornerRadiusPreset.none {
         didSet {
             layer?.cornerRadius = CornerRadiusPresetToValue(preset: cornerRadiusPreset)
         }
     }
     
     /// A preset property to set the borderWidth.
-    internal var borderWidthPreset = BorderWidthPreset.none {
+    fileprivate var borderWidthPreset = BorderWidthPreset.none {
         didSet {
             layer?.borderWidth = BorderWidthPresetToValue(preset: borderWidthPreset)
         }
     }
     
     /// A preset property to set the shape.
-    internal var shapePreset = ShapePreset.none
+    fileprivate var shapePreset = ShapePreset.none
     
     /// A preset value for Depth.
-    internal var depthPreset: DepthPreset {
+    fileprivate var depthPreset: DepthPreset {
         get {
             return depth.preset
         }
@@ -69,7 +69,7 @@ internal class MaterialLayer {
     }
     
     /// Grid reference.
-    internal var depth = Depth.zero {
+    fileprivate var depth = Depth.zero {
         didSet {
             guard let v = layer else {
                 return
@@ -83,24 +83,24 @@ internal class MaterialLayer {
     }
     
     /// Enables automatic shadowPath sizing.
-    internal var isShadowPathAutoSizing = false
+    fileprivate var isShadowPathAutoSizing = false
     
     /**
      Initializer that takes in a CALayer.
      - Parameter view: A CALayer reference.
      */
-    internal init(layer: CALayer?) {
+    fileprivate init(layer: CALayer?) {
         self.layer = layer
     }
 }
 
 /// A memory reference to the MaterialLayer instance for CALayer extensions.
-private var MaterialLayerKey: UInt8 = 0
+fileprivate var MaterialLayerKey: UInt8 = 0
 
 /// Grid extension for UIView.
 extension CALayer {
     /// MaterialLayer Reference.
-    internal var materialLayer: MaterialLayer {
+    fileprivate var materialLayer: MaterialLayer {
         get {
             return AssociatedObject(base: self, key: &MaterialLayerKey) {
                 return MaterialLayer(layer: self)
@@ -253,10 +253,13 @@ extension CALayer {
      view's backing layer.
      - Parameter animation: A CAAnimation instance.
      */
-    open func animate(animation: CAAnimation) {
+    open func animate(animation: CAAnimation) {        
+        animation.delegate = self
+        
         if let a = animation as? CABasicAnimation {
-            a.fromValue = (nil == presentation() ? self : presentation()!).value(forKeyPath: a.keyPath!)
+            a.fromValue = (presentation() ?? self).value(forKeyPath: a.keyPath!)
         }
+        
         if let a = animation as? CAPropertyAnimation {
             add(a, forKey: a.keyPath!)
         } else if let a = animation as? CAAnimationGroup {
@@ -275,39 +278,50 @@ extension CALayer {
      if interrupted.
      */
     open func animationDidStop(_ animation: CAAnimation, finished flag: Bool) {
-        if let a = animation as? CAPropertyAnimation {
-            if let b = a as? CABasicAnimation {
-                if let v = b.toValue {
-                    if let k = b.keyPath {
-                        setValue(v, forKeyPath: k)
-                        removeAnimation(forKey: k)
-                    }
+        guard let a = animation as? CAPropertyAnimation else {
+            if let a = (animation as? CAAnimationGroup)?.animations {
+                for x in a {
+                    animationDidStop(x, finished: true)
                 }
             }
-        } else if let a = animation as? CAAnimationGroup {
-            for x in a.animations! {
-                animationDidStop(x, finished: true)
-            }
+            return
         }
+        
+        guard let b = a as? CABasicAnimation else {
+            return
+        }
+        
+        guard let v = b.toValue else {
+            return
+        }
+        
+        guard let k = b.keyPath else {
+            return
+        }
+        
+        setValue(v, forKeyPath: k)
+        removeAnimation(forKey: k)
     }
     
     /// Manages the layout for the shape of the view instance.
     open func layoutShape() {
-        guard 0 < width, 0 < height else {
+        guard .none != shapePreset else {
             return
         }
         
-        if .none != shapePreset {
-            if width < height {
-                frame.size.width = height
-            } else if width > height {
-                frame.size.height = width
-            }
+        if 0 == frame.width {
+            frame.size.width = frame.height
+        }
+            
+        if 0 == frame.height {
+            frame.size.height = frame.width
         }
         
-        if .circle == shapePreset {
-            cornerRadius = width / 2
+        guard .circle == shapePreset else {
+            return
         }
+        
+        cornerRadius = bounds.size.width / 2
     }
     
     /// Sets the shadow path.
@@ -321,9 +335,12 @@ extension CALayer {
         } else if nil == shadowPath {
             shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath
         } else {
-            let a = Animation.shadowPath(path: UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath)
+            let a = Motion.shadowPath(to: UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath)
             a.fromValue = shadowPath
             animate(animation: a)
         }
     }
 }
+
+@available(iOS 10, *)
+extension CALayer: CAAnimationDelegate {}

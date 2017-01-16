@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.io>.
+ * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -37,81 +37,51 @@ public enum GridAxisDirection: Int {
     case vertical
 }
 
-public class GridAxis {
-    /// Grid reference.
-    unowned var grid: Grid
-    
+public struct GridAxis {
     /// The direction the grid lays its views out.
-    open var direction: GridAxisDirection = .horizontal {
-        didSet {
-            grid.reload()
-        }
-    }
+    public var direction = GridAxisDirection.horizontal
     
     /// The rows size.
-    public var rows: Int {
-        didSet {
-            grid.reload()
-        }
-    }
+    public var rows: Int
     
     /// The columns size.
-    public var columns: Int {
-        didSet {
-            grid.reload()
-        }
-    }
+    public var columns: Int
     
     /**
      Initializer.
-     - Parameter grid: The Grid reference used for offset values.
      - Parameter rows: The number of rows, vertical axis the grid will use.
      - Parameter columns: The number of columns, horizontal axis the grid will use.
      */
-    public init(grid: Grid, rows: Int = 12, columns: Int = 12) {
-        self.grid = grid
+    internal init(rows: Int = 12, columns: Int = 12) {
         self.rows = rows
         self.columns = columns
     }
 }
 
-public class GridOffset {
-    /// Grid reference.
-    unowned var grid: Grid
-    
+public struct GridOffset {
     /// The rows size.
-    public var rows: Int {
-        didSet {
-            grid.reload()
-        }
-    }
+    public var rows: Int
     
     /// The columns size.
-    public var columns: Int {
-        didSet {
-            grid.reload()
-        }
-    }
+    public var columns: Int
     
     /**
      Initializer.
-     - Parameter grid: The Grid reference used for offset values.
      - Parameter rows: The number of rows, vertical axis the grid will use.
      - Parameter columns: The number of columns, horizontal axis the grid will use.
      */
-    public init(grid: Grid, rows: Int = 0, columns: Int = 0) {
-        self.grid = grid
+    internal init(rows: Int = 0, columns: Int = 0) {
         self.rows = rows
         self.columns = columns
     }
 }
 
-public class Grid {
-    /// Defer the calculation.
-    public var deferred = false
-    
+public struct Grid {
     /// Context view.
     internal weak var context: UIView?
+    
+    /// Defer the calculation.
+    public var deferred = false
     
     /// Number of rows.
     public var rows: Int {
@@ -128,10 +98,18 @@ public class Grid {
     }
     
     /// Offsets for rows and columns.
-    public private(set) var offset: GridOffset!
+    public var offset = GridOffset() {
+        didSet {
+            reload()
+        }
+    }
     
     /// The axis in which the Grid is laying out its views.
-    public private(set) var axis: GridAxis!
+    public var axis = GridAxis() {
+        didSet {
+            reload()
+        }
+    }
     
     /// Preset inset value for grid.
     public var layoutEdgeInsetsPreset = EdgeInsetsPreset.none {
@@ -178,6 +156,9 @@ public class Grid {
     /// An Array of UIButtons.
     public var views = [UIView]() {
         didSet {
+            for v in oldValue {
+                v.removeFromSuperview()
+            }
             reload()
         }
     }
@@ -188,22 +169,20 @@ public class Grid {
      - Parameter columns: The number of columns, horizontal axis the grid will use.
      - Parameter interimSpace: The interim space between rows or columns.
      */
-    public init(context: UIView?, rows: Int = 0, columns: Int = 0, interimSpace: InterimSpace = 0) {
+    internal init(context: UIView?, rows: Int = 0, columns: Int = 0, interimSpace: InterimSpace = 0) {
         self.context = context
         self.rows = rows
         self.columns = columns
         self.interimSpace = interimSpace
-        offset = GridOffset(grid: self)
-        axis = GridAxis(grid: self)
     }
     
     /// Begins a deferred block.
-    public func begin() {
+    public mutating func begin() {
         deferred = true
     }
     
     /// Completes a deferred block.
-    public func commit() {
+    public mutating func commit() {
         deferred = false
         reload()
     }
@@ -214,29 +193,31 @@ public class Grid {
             return
         }
         
+        guard let canvas = context else {
+            return
+        }
+        
+        for v in views {
+            if canvas != v.superview {
+                v.removeFromSuperview()
+                canvas.addSubview(v)
+            }
+        }
+        
         let count = views.count
         
         guard 0 < count else {
             return
         }
         
-        var n: Int = 0
-        var i: Int = 0
+        guard 0 < canvas.width && 0 < canvas.height else {
+            return
+        }
+        
+        var n = 0
+        var i = 0
         
         for v in views {
-            guard let canvas = context else {
-                return
-            }
-            
-            guard 0 < canvas.width && 0 < canvas.height else {
-                return
-            }
-            
-            if canvas != v.superview {
-                v.removeFromSuperview()
-                canvas.addSubview(v)
-            }
-            
             // Forces the view to adjust accordingly to size changes, ie: UILabel.
             (v as? UILabel)?.sizeToFit()
             
@@ -290,7 +271,7 @@ private var GridKey: UInt8 = 0
 /// Grid extension for UIView.
 extension UIView {
     /// Grid reference.
-    public private(set) var grid: Grid {
+    public var grid: Grid {
         get {
             return AssociatedObject(base: self, key: &GridKey) {
                 return Grid(context: self)

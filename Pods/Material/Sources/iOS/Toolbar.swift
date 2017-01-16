@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.io>.
+ * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -33,8 +33,9 @@ import UIKit
 private var ToolbarContext: UInt8 = 0
 
 open class Toolbar: Bar {
-	/// A convenience property to set the titleLabel text.
-	open var title: String? {
+	/// A convenience property to set the titleLabel.text.
+	@IBInspectable
+    open var title: String? {
 		get {
 			return titleLabel.text
 		}
@@ -45,10 +46,12 @@ open class Toolbar: Bar {
 	}
 	
 	/// Title label.
-    open internal(set) lazy var titleLabel = UILabel()
+    @IBInspectable
+    open let titleLabel = UILabel()
     
-	/// A convenience property to set the detailLabel text.
-	open var detail: String? {
+	/// A convenience property to set the detailLabel.text.
+	@IBInspectable
+    open var detail: String? {
 		get {
 			return detailLabel.text
 		}
@@ -59,7 +62,8 @@ open class Toolbar: Bar {
 	}
 	
 	/// Detail label.
-    open internal(set) lazy var detailLabel = UILabel()
+    @IBInspectable
+    open let detailLabel = UILabel()
 	
     deinit {
         removeObserver(self, forKeyPath: "titleLabel.textAlignment")
@@ -83,22 +87,12 @@ open class Toolbar: Bar {
 		super.init(frame: frame)
 	}
 	
-	/**
-     A convenience initializer with parameter settings.
-     - Parameter leftViews: An Array of UIViews that go on the left side.
-     - Parameter rightViews: An Array of UIViews that go on the right side.
-     - Parameter centerViews: An Array of UIViews that go in the center.
-     */
-    public override init(leftViews: [UIView]? = nil, rightViews: [UIView]? = nil, centerViews: [UIView]? = nil) {
-        super.init(leftViews: leftViews, rightViews: rightViews, centerViews: centerViews)
-	}
-	
     open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         guard "titleLabel.textAlignment" == keyPath else {
             super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
             return
         }
-        contentViewAlignment = .center == titleLabel.textAlignment ? .center : .any
+        contentViewAlignment = .center == titleLabel.textAlignment ? .center : .full
     }
     
     /// Reloads the view.
@@ -148,26 +142,27 @@ open class Toolbar: Bar {
      */
 	open override func prepare() {
 		super.prepare()
-        zPosition = 1000
         contentViewAlignment = .center
 		prepareTitleLabel()
 		prepareDetailLabel()
 	}
-	
-	/// Prepares the titleLabel.
-    private func prepareTitleLabel() {
+}
+
+extension Toolbar {
+    /// Prepares the titleLabel.
+    fileprivate func prepareTitleLabel() {
         titleLabel.textAlignment = .center
-        titleLabel.contentScaleFactor = Device.scale
-		titleLabel.font = RobotoFont.medium(with: 17)
+        titleLabel.contentScaleFactor = Screen.scale
+        titleLabel.font = RobotoFont.medium(with: 17)
         titleLabel.textColor = Color.darkText.primary
         addObserver(self, forKeyPath: "titleLabel.textAlignment", options: [], context: &ToolbarContext)
-	}
-	
-	/// Prepares the detailLabel.
-	private func prepareDetailLabel() {
+    }
+    
+    /// Prepares the detailLabel.
+    fileprivate func prepareDetailLabel() {
         detailLabel.textAlignment = .center
-        detailLabel.contentScaleFactor = Device.scale
-		detailLabel.font = RobotoFont.regular(with: 12)
+        detailLabel.contentScaleFactor = Screen.scale
+        detailLabel.font = RobotoFont.regular(with: 12)
         detailLabel.textColor = Color.darkText.secondary
-	}
+    }
 }

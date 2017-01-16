@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.io>.
+ * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -31,17 +31,17 @@
 import UIKit
 
 @objc(CollectionReusableView)
-open class CollectionReusableView: UICollectionReusableView {
-	/**
+open class CollectionReusableView: UICollectionReusableView, Pulseable {
+    /**
      A CAShapeLayer used to manage elements that would be affected by
      the clipToBounds property of the backing layer. For example, this
      allows the dropshadow effect on the backing layer, while clipping
      the image to a desired shape within the visualLayer.
      */
-	open private(set) lazy var visualLayer = CAShapeLayer()
-	
+    open let visualLayer = CAShapeLayer()
+    
     /// A Pulse reference.
-    internal private(set) lazy var pulse: Pulse = Pulse()
+    fileprivate var pulse: Pulse!
     
     /// PulseAnimation value.
     open var pulseAnimation: PulseAnimation {
@@ -74,7 +74,7 @@ open class CollectionReusableView: UICollectionReusableView {
             pulse.opacity = value
         }
     }
-	
+    
 	/**
      A property that manages an image for the visualLayer's contents
      property. Images should not be set to the backing layer's contents
@@ -93,7 +93,8 @@ open class CollectionReusableView: UICollectionReusableView {
      much greater flexibility than the contentsGravity property in
      terms of how the image is cropped and stretched.
      */
-	@IBInspectable open var contentsRect: CGRect {
+	@IBInspectable
+    open var contentsRect: CGRect {
 		get {
 			return visualLayer.contentsRect
 		}
@@ -106,7 +107,8 @@ open class CollectionReusableView: UICollectionReusableView {
      A CGRect that defines a stretchable region inside the visualLayer
      with a fixed border around the edge.
      */
-	@IBInspectable open var contentsCenter: CGRect {
+	@IBInspectable
+    open var contentsCenter: CGRect {
 		get {
 			return visualLayer.contentsCenter
 		}
@@ -118,9 +120,10 @@ open class CollectionReusableView: UICollectionReusableView {
 	/**
      A floating point value that defines a ratio between the pixel
      dimensions of the visualLayer's contents property and the size
-     of the view. By default, this value is set to the Device.scale.
+     of the view. By default, this value is set to the Screen.scale.
      */
-	@IBInspectable open var contentsScale: CGFloat {
+	@IBInspectable
+    open var contentsScale: CGFloat {
 		get {
 			return visualLayer.contentsScale
 		}
@@ -137,7 +140,8 @@ open class CollectionReusableView: UICollectionReusableView {
 	}
 	
 	/// Determines how content should be aligned within the visualLayer's bounds.
-	@IBInspectable open var contentsGravity: String {
+	@IBInspectable
+    open var contentsGravity: String {
 		get {
 			return visualLayer.contentsGravity
 		}
@@ -157,7 +161,8 @@ open class CollectionReusableView: UICollectionReusableView {
 	}
 	
 	/// A reference to EdgeInsets.
-	@IBInspectable open var contentEdgeInsets: UIEdgeInsets {
+	@IBInspectable
+    open var contentEdgeInsets: UIEdgeInsets {
 		get {
 			return grid.contentEdgeInsets
 		}
@@ -167,14 +172,18 @@ open class CollectionReusableView: UICollectionReusableView {
 	}
 	
 	/// A preset wrapper around interimSpace.
-	open var interimSpacePreset = InterimSpacePreset.none {
-		didSet {
-            interimSpace = InterimSpacePresetToValue(preset: interimSpacePreset)
-		}
-	}
+    open var interimSpacePreset: InterimSpacePreset {
+        get {
+            return grid.interimSpacePreset
+        }
+        set(value) {
+            grid.interimSpacePreset = value
+        }
+    }
 	
 	/// A wrapper around grid.interimSpace.
-	@IBInspectable open var interimSpace: InterimSpace {
+	@IBInspectable
+    open var interimSpace: InterimSpace {
 		get {
 			return grid.interimSpace
 		}
@@ -184,7 +193,8 @@ open class CollectionReusableView: UICollectionReusableView {
 	}
 	
 	/// A property that accesses the backing layer's background
-	@IBInspectable open override var backgroundColor: UIColor? {
+	@IBInspectable
+    open override var backgroundColor: UIColor? {
 		didSet {
 			layer.backgroundColor = backgroundColor?.cgColor
 		}
@@ -217,19 +227,11 @@ open class CollectionReusableView: UICollectionReusableView {
 		self.init(frame: .zero)
 	}
 	
-	open override func layoutSublayers(of layer: CALayer) {
-		super.layoutSublayers(of: layer)
-        guard self.layer == layer else {
-            return
-        }
-        
-        layoutShape()
-        layoutVisualLayer()
-	}
-	
 	open override func layoutSubviews() {
 		super.layoutSubviews()
-		layoutShadowPath()
+        layoutShape()
+        layoutVisualLayer()
+        layoutShadowPath()
 	}
 	
     /**
@@ -238,13 +240,11 @@ open class CollectionReusableView: UICollectionReusableView {
      from the center.
      */
     open func pulse(point: CGPoint? = nil) {
-        let p: CGPoint = nil == point ? CGPoint(x: CGFloat(width / 2), y: CGFloat(height / 2)) : point!
-        Animation.pulseExpandAnimation(layer: layer, visualLayer: visualLayer, point: p, width: width, height: height, pulse: &pulse)
-        Animation.delay(time: 0.35) { [weak self] in
-            guard let s = self else {
-                return
-            }
-            Animation.pulseContractAnimation(layer: s.layer, visualLayer: s.visualLayer, pulse: &s.pulse)
+        let p = point ?? center
+        
+        pulse.expandAnimation(point: p)
+        Motion.delay(time: 0.35) { [weak self] in
+            self?.pulse.contractAnimation()
         }
     }
     
@@ -256,7 +256,7 @@ open class CollectionReusableView: UICollectionReusableView {
      */
     open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        Animation.pulseExpandAnimation(layer: layer, visualLayer: visualLayer, point: layer.convert(touches.first!.location(in: self), from: layer), width: width, height: height, pulse: &pulse)
+        pulse.expandAnimation(point: layer.convert(touches.first!.location(in: self), from: layer))
     }
     
     /**
@@ -267,7 +267,7 @@ open class CollectionReusableView: UICollectionReusableView {
      */
     open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
-        Animation.pulseContractAnimation(layer: layer, visualLayer: visualLayer, pulse: &pulse)
+        pulse.contractAnimation()
     }
     
     /**
@@ -278,7 +278,7 @@ open class CollectionReusableView: UICollectionReusableView {
      */
     open override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesCancelled(touches, with: event)
-        Animation.pulseContractAnimation(layer: layer, visualLayer: visualLayer, pulse: &pulse)
+        pulse.contractAnimation()
     }
 	
 	/**
@@ -289,21 +289,31 @@ open class CollectionReusableView: UICollectionReusableView {
      when subclassing.
      */
 	open func prepare() {
-		contentScaleFactor = Device.scale
-		pulseAnimation = .none
+		contentScaleFactor = Screen.scale
 		prepareVisualLayer()
-	}
-	
-	/// Prepares the visualLayer property.
-	internal func prepareVisualLayer() {
-		visualLayer.zPosition = 0
-		visualLayer.masksToBounds = true
-		layer.addSublayer(visualLayer)
-	}
-	
-	/// Manages the layout for the visualLayer property.
-	internal func layoutVisualLayer() {
-		visualLayer.frame = bounds
-		visualLayer.cornerRadius = cornerRadius
-	}
+        preparePulse()
+    }
+}
+
+extension CollectionReusableView {
+    /// Prepares the pulse motion.
+    fileprivate func preparePulse() {
+        pulse = Pulse(pulseView: self, pulseLayer: visualLayer)
+        pulseAnimation = .none
+    }
+    
+    /// Prepares the visualLayer property.
+    fileprivate func prepareVisualLayer() {
+        visualLayer.zPosition = 0
+        visualLayer.masksToBounds = true
+        layer.addSublayer(visualLayer)
+    }
+}
+
+extension CollectionReusableView {
+    /// Manages the layout for the visualLayer property.
+    fileprivate func layoutVisualLayer() {
+        visualLayer.frame = bounds
+        visualLayer.cornerRadius = cornerRadius
+    }
 }
