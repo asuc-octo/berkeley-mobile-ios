@@ -11,13 +11,14 @@ import MapKit
 import CoreLocation
 import GoogleMaps
 
-class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
+class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, UISearchBarDelegate {
     
     @IBOutlet var librariesTableView: UITableView!
     @IBOutlet var librariesSearchBar: UISearchBar!
     @IBOutlet var librariesMapView: GMSMapView!
 
     var libraries = [Library]()
+    var displayedLibraries = [Library]()
     var locationManager = CLLocationManager()
     
     override func viewDidLoad() {
@@ -31,6 +32,8 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
         
         librariesTableView.delegate = self
         librariesTableView.dataSource = self
+        librariesSearchBar.delegate = self
+        displayedLibraries = libraries
         
         //Setting up map view
         librariesMapView.delegate = self
@@ -127,7 +130,7 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "library") as! LibraryCell
         
-        let library = libraries[indexPath.row]
+        let library = displayedLibraries[indexPath.row]
         cell.libraryName.text = library.name
         
         let status = getLibraryStatus(library: library)
@@ -143,7 +146,7 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return libraries.count
+        return displayedLibraries.count
     }
     
     //Location Manager delegates
@@ -184,6 +187,42 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
         
     }
     
+    //Search bar methods
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        searchBar.showsCancelButton = false
+        searchBar.text = ""
+        displayedLibraries = libraries
+        librariesTableView.reloadData()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        filterList(searchBar.text)
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        filterList(searchText)
+    }
+    
+    func filterList(_ searchText: String?) {
+        if searchText == nil || searchText! == "" {
+            displayedLibraries = libraries
+        }
+        else {
+            displayedLibraries  = libraries.filter({ lib in lib.name.contains(searchText!) })
+        }
+        librariesTableView.reloadData()
+    }
+    
     func getLibraryStatus(library: Library) -> String {
         
         //Determining Status of library
@@ -200,10 +239,4 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
         
         return status
     }
-    
-
-    
-    
-
-
 }
