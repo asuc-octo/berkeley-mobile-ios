@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.io>.
+ * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -31,16 +31,6 @@
 import UIKit
 
 open class RootController: UIViewController {
-	/// Device status bar style.
-	open var statusBarStyle: UIStatusBarStyle {
-		get {
-			return Device.statusBarStyle
-		}
-		set(value) {
-			Device.statusBarStyle = value
-		}
-	}
-	
 	/**
      A Boolean property used to enable and disable interactivity
      with the rootViewController.
@@ -61,7 +51,7 @@ open class RootController: UIViewController {
      is recommended to use the transitionFromRootViewController
      helper method.
      */
-	open internal(set) var rootViewController: UIViewController!
+	open fileprivate(set) var rootViewController: UIViewController!
 	
 	/**
      An initializer that initializes the object with a NSCoder object.
@@ -116,7 +106,7 @@ open class RootController: UIViewController {
 	open func transition(to viewController: UIViewController, duration: TimeInterval = 0.5, options: UIViewAnimationOptions = [], animations: (() -> Void)? = nil, completion: ((Bool) -> Void)? = nil) {
 		rootViewController.willMove(toParentViewController: nil)
 		addChildViewController(viewController)
-		viewController.view.frame = rootViewController.view.bounds
+		viewController.view.frame = rootViewController.view.frame
         transition(from: rootViewController,
             to: viewController,
 			duration: duration,
@@ -131,7 +121,8 @@ open class RootController: UIViewController {
                 s.rootViewController = viewController
                 s.rootViewController.view.clipsToBounds = true
                 s.rootViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-                s.rootViewController.view.contentScaleFactor = Device.scale
+                s.rootViewController.view.contentScaleFactor = Screen.scale
+                s.view.sendSubview(toBack: s.rootViewController.view)
                 completion?(result)
 			}
 	}
@@ -153,16 +144,18 @@ open class RootController: UIViewController {
 	open func prepare() {
         view.clipsToBounds = true
         view.backgroundColor = .white
-        view.contentScaleFactor = Device.scale
+        view.contentScaleFactor = Screen.scale
         prepareRootViewController()
 	}
-	
-	/// A method that prepares the rootViewController.
-	internal func prepareRootViewController() {
-		prepare(viewController: rootViewController, withContainer: view)
-	}
-	
-	/**
+}
+
+extension RootController {
+    /// A method that prepares the rootViewController.
+    internal func prepareRootViewController() {
+        prepare(viewController: rootViewController, withContainer: view)
+    }
+    
+    /**
      A method that adds the passed in controller as a child of
      the BarController within the passed in
      container view.
@@ -170,7 +163,7 @@ open class RootController: UIViewController {
      - Parameter withContainer container: A UIView that is the parent of the
      passed in controller view within the view hierarchy.
      */
-	internal func prepare(viewController: UIViewController?, withContainer container: UIView) {
+    internal func prepare(viewController: UIViewController?, withContainer container: UIView) {
         guard let v = viewController else {
             return
         }
@@ -178,8 +171,9 @@ open class RootController: UIViewController {
         addChildViewController(v)
         container.addSubview(v.view)
         v.didMove(toParentViewController: self)
+        v.view.frame = container.bounds
         v.view.clipsToBounds = true
         v.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        v.view.contentScaleFactor = Device.scale
-	}
+        v.view.contentScaleFactor = Screen.scale
+    }
 }

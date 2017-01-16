@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.io>.
+ * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -49,7 +49,8 @@ open class Snackbar: Bar {
     }
     
     /// Text label.
-    public internal(set) lazy var textLabel = UILabel()
+    @IBInspectable
+    open let textLabel = UILabel()
     
     open override var intrinsicContentSize: CGSize {
         return CGSize(width: width, height: 49)
@@ -59,14 +60,6 @@ open class Snackbar: Bar {
     open internal(set) var status = SnackbarStatus.hidden
     
     open override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        /**
-         Since the subviews will be outside the bounds of this view,
-         we need to look at the subviews to see if we have a hit.
-         */
-        guard !isHidden else {
-            return nil
-        }
-        
         for v in subviews {
             let p = v.convert(point, from: self)
             if v.bounds.contains(p) {
@@ -104,10 +97,10 @@ open class Snackbar: Bar {
     
     /// Prepares the textLabel.
     private func prepareTextLabel() {
-        textLabel.contentScaleFactor = Device.scale
+        textLabel.contentScaleFactor = Screen.scale
         textLabel.font = RobotoFont.medium(with: 14)
         textLabel.textAlignment = .left
-        textLabel.textColor = Color.white
+        textLabel.textColor = .white
         textLabel.numberOfLines = 0
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.io>.
+ * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -30,18 +30,18 @@
 
 import UIKit
 
-open class Button: UIButton {
-	/**
+open class Button: UIButton, Pulseable {
+    /**
      A CAShapeLayer used to manage elements that would be affected by
      the clipToBounds property of the backing layer. For example, this
      allows the dropshadow effect on the backing layer, while clipping
      the image to a desired shape within the visualLayer.
      */
-	open private(set) lazy var visualLayer = CAShapeLayer()
-	
+	open let visualLayer = CAShapeLayer()
+
     /// A Pulse reference.
-    internal private(set) lazy var pulse: Pulse = Pulse()
-	
+    fileprivate var pulse: Pulse!
+    
     /// PulseAnimation value.
     open var pulseAnimation: PulseAnimation {
         get {
@@ -104,6 +104,16 @@ open class Button: UIButton {
         didSet {
             setTitle(title, for: .normal)
             setTitle(title, for: .highlighted)
+            
+            guard nil != title else {
+                return
+            }
+            
+            guard nil == titleColor else {
+                return
+            }
+            
+            titleColor = Color.blue.base
         }
     }
     
@@ -122,6 +132,7 @@ open class Button: UIButton {
      */
 	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
+        tintColor = Color.blue.base
 		prepare()
 	}
 	
@@ -133,6 +144,7 @@ open class Button: UIButton {
      */
 	public override init(frame: CGRect) {
 		super.init(frame: frame)
+        tintColor = Color.blue.base
 		prepare()
 	}
 	
@@ -163,18 +175,10 @@ open class Button: UIButton {
         prepare()
     }
 	
-    open override func layoutSublayers(of layer: CALayer) {
-        super.layoutSublayers(of: layer)
-        guard self.layer == layer else {
-            return
-        }
-        
-        layoutShape()
-        layoutVisualLayer()
-    }
-    
     open override func layoutSubviews() {
         super.layoutSubviews()
+        layoutShape()
+        layoutVisualLayer()
         layoutShadowPath()
     }
 	
@@ -184,16 +188,12 @@ open class Button: UIButton {
      from the center.
      */
     open func pulse(point: CGPoint? = nil) {
-        let p: CGPoint = nil == point ? CGPoint(x: CGFloat(width / 2), y: CGFloat(height / 2)) : point!
-        Animation.pulseExpandAnimation(layer: layer, visualLayer: visualLayer, point: p, width: width, height: height, pulse: &pulse)
-        Animation.delay(time: 0.35) { [weak self] in
-            guard let s = self else {
-                return
-            }
-            Animation.pulseContractAnimation(layer: s.layer, visualLayer: s.visualLayer, pulse: &s.pulse)
-        }
+        let p = point ?? center
         
-        bringImageViewToFront()
+        pulse.expandAnimation(point: p)
+        Motion.delay(time: 0.35) { [weak self] in
+            self?.pulse.contractAnimation()
+        }
     }
     
     /**
@@ -204,9 +204,7 @@ open class Button: UIButton {
      */
     open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        Animation.pulseExpandAnimation(layer: layer, visualLayer: visualLayer, point: layer.convert(touches.first!.location(in: self), from: layer), width: width, height: height, pulse: &pulse)
-        
-        bringImageViewToFront()
+        pulse.expandAnimation(point: layer.convert(touches.first!.location(in: self), from: layer))
     }
     
     /**
@@ -217,7 +215,7 @@ open class Button: UIButton {
      */
     open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
-        Animation.pulseContractAnimation(layer: layer, visualLayer: visualLayer, pulse: &pulse)
+        pulse.contractAnimation()
     }
     
     /**
@@ -228,9 +226,9 @@ open class Button: UIButton {
      */
     open override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesCancelled(touches, with: event)
-        Animation.pulseContractAnimation(layer: layer, visualLayer: visualLayer, pulse: &pulse)
+        pulse.contractAnimation()
     }
-	
+    
     open func bringImageViewToFront() {
         guard let v = imageView else {
             return
@@ -247,30 +245,31 @@ open class Button: UIButton {
      when subclassing.
      */
 	open func prepare() {
-        contentScaleFactor = Device.scale
-        contentEdgeInsetsPreset = .none
+        contentScaleFactor = Screen.scale
         prepareVisualLayer()
+        preparePulse()
 	}
-	
-	/// Prepares the visualLayer property.
-	internal func prepareVisualLayer() {
+}
+
+extension Button {
+    /// Prepares the visualLayer property.
+    fileprivate func prepareVisualLayer() {
         visualLayer.zPosition = 0
-		visualLayer.masksToBounds = true
-		layer.addSublayer(visualLayer)
-	}
-	
-	/// Manages the layout for the visualLayer property.
-	internal func layoutVisualLayer() {
-		visualLayer.frame = bounds
-		visualLayer.cornerRadius = cornerRadius
-	}
+        visualLayer.masksToBounds = true
+        layer.addSublayer(visualLayer)
+    }
+    
+    /// Prepares the pulse motion.
+    fileprivate func preparePulse() {
+        pulse = Pulse(pulseView: self, pulseLayer: visualLayer)
+    }
     
     /**
      Prepares the Button with an image and tint
      - Parameter image: A UIImage.
      - Parameter tintColor: A UI
      */
-    private func prepare(with image: UIImage?, tintColor: UIColor) {
+    fileprivate func prepare(with image: UIImage?, tintColor: UIColor) {
         self.image = image
         self.tintColor = tintColor
     }
@@ -280,8 +279,16 @@ open class Button: UIButton {
      - Parameter title: A String.
      - Parameter titleColor: A UI
      */
-    private func prepare(with title: String?, titleColor: UIColor) {
+    fileprivate func prepare(with title: String?, titleColor: UIColor) {
         self.title = title
         self.titleColor = titleColor
+    }
+}
+
+extension Button {
+    /// Manages the layout for the visualLayer property.
+    fileprivate func layoutVisualLayer() {
+        visualLayer.frame = bounds
+        visualLayer.cornerRadius = cornerRadius
     }
 }

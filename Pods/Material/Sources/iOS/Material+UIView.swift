@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.io>.
+ * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -110,7 +110,7 @@ extension UIView {
         }
     }
     
-    /// Grid reference.
+    /// Depth reference.
     open var depth: Depth {
         get {
             return layer.depth
@@ -275,18 +275,6 @@ extension UIView {
      */
     open func animate(animation: CAAnimation) {
         layer.animate(animation: animation)
-    }
-    
-    /**
-     A delegation method that is executed when the backing layer stops
-     running an animation.
-     - Parameter animation: The CAAnimation instance that stopped running.
-     - Parameter flag: A boolean that indicates if the animation stopped
-     because it was completed or interrupted. True if completed, false
-     if interrupted.
-     */
-    open func animationDidStop(_ animation: CAAnimation, finished flag: Bool) {
-        layer.animationDidStop(animation, finished: flag)
     }
     
     /// Manages the layout for the shape of the view instance.

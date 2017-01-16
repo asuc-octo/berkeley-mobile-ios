@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.io>.
+ * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -43,7 +43,8 @@ open class BottomTabBar: UITabBar {
     }
     
     /// Automatically aligns the BottomNavigationBar to the superview.
-	open var isAlignedToParentAutomatically = true
+	@IBInspectable
+    open var isAlignedToParentAutomatically = true
 	
 	/// A property that accesses the backing layer's background
 	@IBInspectable
@@ -74,17 +75,9 @@ open class BottomTabBar: UITabBar {
         prepare()
     }
 	
-    open override func layoutSublayers(of layer: CALayer) {
-        super.layoutSublayers(of: layer)
-        guard self.layer == layer else {
-            return
-        }
-        
-        layoutShape()
-    }
-    
-	open override func layoutSubviews() {
+    open override func layoutSubviews() {
 		super.layoutSubviews()
+        layoutShape()
         layoutShadowPath()
         
 		if let v = items {
@@ -131,7 +124,7 @@ open class BottomTabBar: UITabBar {
 		heightPreset = .normal
         depthPreset = .depth1
         dividerAlignment = .top
-		contentScaleFactor = Device.scale
+		contentScaleFactor = Screen.scale
 		backgroundColor = .white
         let image = UIImage.image(with: .clear, size: CGSize(width: 1, height: 1))
 		shadowImage = image
