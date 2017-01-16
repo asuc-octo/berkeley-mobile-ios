@@ -26,7 +26,7 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        getSetFavoriteLibraries()
+        getAndSetFavoriteLibraries()
         librariesTableView.reloadData()
         setSegmentedControl()
         
@@ -144,12 +144,12 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
             cell.libraryStatus.textColor = UIColor.red
         }
         
+        // For favoriting
         if (library.favorited == true) {
             cell.favoriteButton.setImage(UIImage(named:"heart-filled"), for: .normal)
         } else {
             cell.favoriteButton.setImage(UIImage(named:"heart"), for: .normal)
         }
-
         cell.favoriteButton.tag = indexPath.row
         cell.favoriteButton.addTarget(self, action: #selector(self.toggleLibraryFavoriting(sender:)), for: .touchUpInside)
         return cell
@@ -194,7 +194,6 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
             librariesTableView.isHidden = false
             librariesMapView.isHidden = true
         }
-        
     }
     
     func toggleLibraryFavoriting(sender: UIButton) {
@@ -204,7 +203,7 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
         selectedLibrary.favorited = !selectedLibrary.favorited!
         self.librariesTableView.reloadData()
         
-        //Realm adding and deleting
+        //Realm adding and deleting favorite libraries
         let favLibrary = FavoriteLibrary()
         favLibrary.name = selectedLibrary.name
         
@@ -221,11 +220,7 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
                     }
                 }
             }
-            
-            
-
         }
-        
     }
     
     func getLibraryStatus(library: Library) -> String {
@@ -245,7 +240,7 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
         return status
     }
     
-    func getSetFavoriteLibraries() {
+    func getAndSetFavoriteLibraries() {
         let libraries = realm.objects(FavoriteLibrary.self)
         for library in libraries {
             self.favoriteLibraries.append(library.name)
@@ -256,17 +251,9 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
                 library.favorited = true
             }
         }
-        
     }
-    
-
-    
-    
-
-
 }
 
 class FavoriteLibrary: Object {
     dynamic var name = ""
-
 }

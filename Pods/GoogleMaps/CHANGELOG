@@ -1,3 +1,17 @@
+Version 2.1.1 - November 2016
+=============================
+Resolved Issues:
+  - Fixed an issue which caused many Road Shields to not be displayed when
+    custom styling is active even if the custom styling didn't attempt to style
+    them.
+  - Renamed some symbols which could cause duplicate symbols when using all_load
+    and Firebase.
+  - Resolved a problem where changing any property of polygon, polyline or
+    ground overlay in between taps would cause tap cycling to break.  This could
+    make it seem impossible to tap through to items underneath.
+  - Fixed cameraForBounds:insets: to respect the currently set min and max zoom
+    restrictions.
+
 Version 2.1.0 - September 2016
 ==============================
 Features:

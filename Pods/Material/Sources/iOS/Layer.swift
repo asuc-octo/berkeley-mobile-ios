@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.io>.
+ * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -38,7 +38,7 @@ open class Layer: CAShapeLayer {
      allows the dropshadow effect on the backing layer, while clipping
      the image to a desired shape within the visualLayer.
      */
-	open private(set) lazy var visualLayer = CAShapeLayer()
+	open let visualLayer = CAShapeLayer()
 	
 	/**
      A property that manages an image for the visualLayer's contents
@@ -77,7 +77,7 @@ open class Layer: CAShapeLayer {
 	/**
      A floating point value that defines a ratio between the pixel
      dimensions of the visualLayer's contents property and the size
-     of the layer. By default, this value is set to the Device.scale.
+     of the layer. By default, this value is set to the Screen.scale.
      */
 	@IBInspectable
     open override var contentsScale: CGFloat {
@@ -113,9 +113,7 @@ open class Layer: CAShapeLayer {
     open override var cornerRadius: CGFloat {
 		didSet {
 			layoutShadowPath()
-			if .circle == shapePreset {
-				shapePreset = .none
-			}
+			shapePreset = .none
 		}
 	}
 	
@@ -136,7 +134,7 @@ open class Layer: CAShapeLayer {
      */
 	public override init(layer: Any) {
 		contentsGravityPreset = .resizeAspectFill
-		super.init()
+        super.init(layer: layer)
 		prepareVisualLayer()
 	}
 	

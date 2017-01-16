@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.io>.
+ * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -32,7 +32,7 @@ import UIKit
 
 @objc(ContentViewAlignment)
 public enum ContentViewAlignment: Int {
-    case any
+    case full
     case center
 }
 
@@ -47,7 +47,7 @@ open class Bar: View {
     }
     
     /// Should center the contentView.
-    open var contentViewAlignment = ContentViewAlignment.any {
+    open var contentViewAlignment = ContentViewAlignment.full {
         didSet {
             layoutSubviews()
         }
@@ -75,9 +75,12 @@ open class Bar: View {
     }
     
     /// A preset wrapper around interimSpace.
-    open var interimSpacePreset = InterimSpacePreset.none {
-        didSet {
-            interimSpace = InterimSpacePresetToValue(preset: interimSpacePreset)
+    open var interimSpacePreset: InterimSpacePreset {
+        get {
+            return grid.interimSpacePreset
+        }
+        set(value) {
+            grid.interimSpacePreset = value
         }
     }
     
@@ -102,10 +105,10 @@ open class Bar: View {
     }
     
     /// ContentView that holds the any desired subviews.
-    open private(set) lazy var contentView = View()
+    open let contentView = UIView()
     
     /// Left side UIViews.
-    open var leftViews = [UIView]() {
+    open var leftViews: [UIView] {
         didSet {
             for v in oldValue {
                 v.removeFromSuperview()
@@ -115,7 +118,7 @@ open class Bar: View {
     }
     
     /// Right side UIViews.
-    open var rightViews = [UIView]() {
+    open var rightViews: [UIView] {
         didSet {
             for v in oldValue {
                 v.removeFromSuperview()
@@ -130,9 +133,6 @@ open class Bar: View {
             return contentView.grid.views
         }
         set(value) {
-            for v in contentView.grid.views {
-                v.removeFromSuperview()
-            }
             contentView.grid.views = value
         }
     }
@@ -142,6 +142,8 @@ open class Bar: View {
      - Parameter aDecoder: A NSCoder instance.
      */
     public required init?(coder aDecoder: NSCoder) {
+        leftViews = []
+        rightViews = []
         super.init(coder: aDecoder)
     }
     
@@ -152,13 +154,14 @@ open class Bar: View {
      - Parameter frame: A CGRect instance.
      */
     public override init(frame: CGRect) {
+        leftViews = []
+        rightViews = []
         super.init(frame: frame)
     }
     
-    /// Basic initializer.
-    public init() {
-        super.init(frame: .zero)
-        frame.size = intrinsicContentSize
+    /// Convenience initializer.
+    public convenience init() {
+        self.init(frame: .zero)
     }
     
     /**
@@ -167,17 +170,20 @@ open class Bar: View {
      - Parameter rightViews: An Array of UIViews that go on the right side.
      - Parameter centerViews: An Array of UIViews that go in the center.
      */
-    public init(leftViews: [UIView]? = nil, rightViews: [UIView]? = nil, centerViews: [UIView]? = nil) {
-        super.init(frame: .zero)
+    public convenience init(leftViews: [UIView]? = nil, rightViews: [UIView]? = nil, centerViews: [UIView]? = nil) {
+        self.init()
         self.leftViews = leftViews ?? []
         self.rightViews = rightViews ?? []
         self.centerViews = centerViews ?? []
-        frame.size = intrinsicContentSize
     }
     
     open override func layoutSubviews() {
         super.layoutSubviews()
         guard willLayout else {
+            return
+        }
+        
+        guard !grid.deferred else {
             return
         }
         
@@ -188,14 +194,9 @@ open class Bar: View {
     open func reload() {
         var lc = 0
         var rc = 0
-        let l = (CGFloat(leftViews.count) * interimSpace)
-        let r = (CGFloat(rightViews.count) * interimSpace)
-        let p = width - l - r - contentEdgeInsets.left - contentEdgeInsets.right
-        let columns = Int(ceil(p / gridFactor))
         
         grid.begin()
         grid.views.removeAll()
-        grid.axis.columns = columns
         
         for v in leftViews {
             if let b = v as? UIButton {
@@ -230,6 +231,23 @@ open class Bar: View {
         }
         
         contentView.grid.begin()
+        contentView.grid.offset.columns = 0
+        
+        var l: CGFloat = 0
+        var r: CGFloat = 0
+        
+        if .center == contentViewAlignment {
+            if leftViews.count < rightViews.count {
+                r = CGFloat(rightViews.count) * interimSpace
+                l = r
+            } else {
+                l = CGFloat(leftViews.count) * interimSpace
+                r = l
+            }
+        }
+        
+        let p = width - l - r - contentEdgeInsets.left - contentEdgeInsets.right
+        let columns = Int(ceil(p / gridFactor))
         
         if .center == contentViewAlignment {
             if lc < rc {
@@ -237,13 +255,13 @@ open class Bar: View {
                 contentView.grid.offset.columns = rc - lc
             } else {
                 contentView.grid.columns = columns - 2 * lc
-                contentView.grid.offset.columns = 0
                 rightViews.first?.grid.offset.columns = lc - rc
             }
         } else {
             contentView.grid.columns = columns - lc - rc
         }
         
+        grid.axis.columns = columns
         grid.commit()
         contentView.grid.commit()
         
@@ -263,11 +281,5 @@ open class Bar: View {
         autoresizingMask = .flexibleWidth
         interimSpacePreset = .interimSpace3
         contentEdgeInsetsPreset = .square1
-        prepareContentView()
-    }
-    
-    /// Prepares the contentView.
-    private func prepareContentView() {
-        contentView.backgroundColor = nil
     }
 }
