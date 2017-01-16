@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.io>.
+ * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -31,13 +31,17 @@
 import UIKit
 
 open class View: UIView {
-	/**
+    open override var intrinsicContentSize: CGSize {
+        return CGSize(width: width, height: height)
+    }
+    
+    /**
      A CAShapeLayer used to manage elements that would be affected by
      the clipToBounds property of the backing layer. For example, this
      allows the dropshadow effect on the backing layer, while clipping
      the image to a desired shape within the visualLayer.
      */
-	open private(set) lazy var visualLayer = CAShapeLayer()
+	open let visualLayer = CAShapeLayer()
 	
 	/**
      A property that manages an image for the visualLayer's contents
@@ -46,9 +50,16 @@ open class View: UIView {
      */
 	@IBInspectable
     open var image: UIImage? {
-		didSet {
-            visualLayer.contents = image?.cgImage
-		}
+        get {
+            guard let v = visualLayer.contents else {
+                return nil
+            }
+            
+            return UIImage(cgImage: v as! CGImage)
+        }
+        set(value) {
+            visualLayer.contents = value?.cgImage
+        }
 	}
 	
 	/**
@@ -84,7 +95,7 @@ open class View: UIView {
 	/**
      A floating point value that defines a ratio between the pixel
      dimensions of the visualLayer's contents property and the size
-     of the view. By default, this value is set to the Device.scale.
+     of the view. By default, this value is set to the Screen.scale.
      */
 	@IBInspectable
     open var contentsScale: CGFloat {
@@ -128,7 +139,7 @@ open class View: UIView {
      - Parameter aDecoder: A NSCoder instance.
      */
 	public required init?(coder aDecoder: NSCoder) {
-		contentsGravityPreset = .resizeAspectFill
+        contentsGravityPreset = .resizeAspectFill
 		super.init(coder: aDecoder)
 		prepare()
 	}
@@ -141,27 +152,20 @@ open class View: UIView {
      */
 	public override init(frame: CGRect) {
 		contentsGravityPreset = .resizeAspectFill
-		super.init(frame: frame)
+        super.init(frame: frame)
 		prepare()
 	}
-	
-	/// A convenience initializer.
-	public convenience init() {
-		self.init(frame: .zero)
-	}
-	
-	open override func layoutSublayers(of layer: CALayer) {
-		super.layoutSublayers(of: layer)
-        guard self.layer == layer else {
-            return
-        }
-        
-        layoutShape()
-        layoutVisualLayer()
-	}
+    
+    /// Convenience initializer.
+    public convenience init() {
+        self.init(frame: .zero)
+        prepare()
+    }
 	
 	open override func layoutSubviews() {
 		super.layoutSubviews()
+        layoutShape()
+        layoutVisualLayer()
         layoutShadowPath()
 	}
 	
@@ -173,21 +177,25 @@ open class View: UIView {
      when subclassing.
      */
 	open func prepare() {
-		contentScaleFactor = Device.scale
-		backgroundColor = Color.white
+		contentScaleFactor = Screen.scale
+		backgroundColor = .white
 		prepareVisualLayer()
 	}
-	
-	/// Prepares the visualLayer property.
-	internal func prepareVisualLayer() {
-		visualLayer.zPosition = 0
-		visualLayer.masksToBounds = true
-		layer.addSublayer(visualLayer)
-	}
-	
-	/// Manages the layout for the visualLayer property.
-	internal func layoutVisualLayer() {
-		visualLayer.frame = bounds
-		visualLayer.cornerRadius = cornerRadius
-	}
+}
+
+extension View {
+    /// Prepares the visualLayer property.
+    fileprivate func prepareVisualLayer() {
+        visualLayer.zPosition = 0
+        visualLayer.masksToBounds = true
+        layer.addSublayer(visualLayer)
+    }
+}
+
+extension View {
+    /// Manages the layout for the visualLayer property.
+    fileprivate func layoutVisualLayer() {
+        visualLayer.frame = bounds
+        visualLayer.cornerRadius = cornerRadius
+    }
 }

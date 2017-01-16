@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.io>.
+ * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,7 +36,7 @@ extension UIWindow {
      - Returns: An optional UIImage.
      */
     open func capture() -> UIImage? {
-        UIGraphicsBeginImageContextWithOptions(frame.size, isOpaque, Device.scale)
+        UIGraphicsBeginImageContextWithOptions(frame.size, isOpaque, Screen.scale)
         layer.render(in: UIGraphicsGetCurrentContext()!)
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()

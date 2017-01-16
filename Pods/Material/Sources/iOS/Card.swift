@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.io>.
+ * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -31,13 +31,8 @@
 import UIKit
 
 open class Card: PulseView {
-    /// Will layout the view.
-    open var willLayout: Bool {
-        return 0 < width && nil != superview
-    }
-    
     /// A container view for subviews.
-    open private(set) lazy var container = UIView()
+    open let container = UIView()
     
     @IBInspectable
     open override var cornerRadiusPreset: CornerRadiusPreset {
@@ -182,12 +177,7 @@ open class Card: PulseView {
     
     open override func layoutSubviews() {
         super.layoutSubviews()
-        guard willLayout else {
-            return
-        }
-        
         container.width = width
-        
         reload()
     }
     
@@ -195,12 +185,20 @@ open class Card: PulseView {
     open func reload() {
         var h: CGFloat = 0
         
-        h = prepare(view: toolbar, with: toolbarEdgeInsets, from: h)
-        h = prepare(view: contentView, with: contentViewEdgeInsets, from: h)
-        h = prepare(view: bottomBar, with: bottomBarEdgeInsets, from: h)
+        if let v = toolbar {
+            h = prepare(view: v, with: toolbarEdgeInsets, from: h)
+        }
+        
+        if let v = contentView {
+            h = prepare(view: v, with: contentViewEdgeInsets, from: h)
+        }
+        
+        if let v = bottomBar {
+            h = prepare(view: v, with: bottomBarEdgeInsets, from: h)
+        }
         
         container.height = h
-        bounds.size.height = h
+        height = h
     }
     
     /**
@@ -226,28 +224,24 @@ open class Card: PulseView {
      - Returns: A CGFloat.
      */
     @discardableResult
-    open func prepare(view: UIView?, with insets: EdgeInsets, from top: CGFloat) -> CGFloat {
-        guard let v = view else {
-            return top
-        }
+    open func prepare(view: UIView, with insets: EdgeInsets, from top: CGFloat) -> CGFloat {
+        let y = insets.top + top
         
-        let t = insets.top + top
-        
-        v.y = t
-        v.x = insets.left
+        view.y = y
+        view.x = insets.left
         
         let w = container.width - insets.left - insets.right
-        var h = v.height
+        var h = view.height
         
         if 0 == h {
-            (v as? UILabel)?.sizeToFit()
-            h = v.sizeThatFits(CGSize(width: w, height: CGFloat.greatestFiniteMagnitude)).height
+            (view as? UILabel)?.sizeToFit()
+            h = view.sizeThatFits(CGSize(width: w, height: CGFloat.greatestFiniteMagnitude)).height
         }
         
-        v.width = w
-        v.height = h
+        view.width = w
+        view.height = h
         
-        return t + h + insets.bottom
+        return y + h + insets.bottom
     }
     
     /**

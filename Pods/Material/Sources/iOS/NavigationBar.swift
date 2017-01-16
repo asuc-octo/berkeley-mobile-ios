@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.io>.
+ * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -37,7 +37,7 @@ open class NavigationBar: UINavigationBar {
     }
     
     open override var intrinsicContentSize: CGSize {
-        return CGSize(width: Device.width, height: height)
+        return CGSize(width: width, height: height)
     }
 	
 	/// A preset wrapper around contentEdgeInsets.
@@ -132,17 +132,9 @@ open class NavigationBar: UINavigationBar {
 		return intrinsicContentSize
 	}
     
-    open override func layoutSublayers(of layer: CALayer) {
-        super.layoutSublayers(of: layer)
-        guard self.layer == layer else {
-            return
-        }
-        
-        layoutShape()
-    }
-	
 	open override func layoutSubviews() {
 		super.layoutSubviews()
+        layoutShape()
         layoutShadowPath()
 		
         if let v = topItem {
@@ -178,14 +170,9 @@ open class NavigationBar: UINavigationBar {
 
         var lc = 0
         var rc = 0
-        let l = (CGFloat(item.leftViews.count) * interimSpace)
-        let r = (CGFloat(item.rightViews.count) * interimSpace)
-        let p = width - l - r - contentEdgeInsets.left - contentEdgeInsets.right
-        let columns = Int(ceil(p / gridFactor))
         
         item.titleView!.grid.begin()
         item.titleView!.grid.views.removeAll()
-        item.titleView!.grid.axis.columns = columns
         
         for v in item.leftViews {
             if let b = v as? UIButton {
@@ -220,6 +207,23 @@ open class NavigationBar: UINavigationBar {
         }
         
         item.contentView.grid.begin()
+        item.contentView.grid.offset.columns = 0
+        
+        var l: CGFloat = 0
+        var r: CGFloat = 0
+        
+        if .center == item.contentViewAlignment {
+            if item.leftViews.count < item.rightViews.count {
+                r = CGFloat(item.rightViews.count) * interimSpace
+                l = r
+            } else {
+                l = CGFloat(item.leftViews.count) * interimSpace
+                r = l
+            }
+        }
+        
+        let p = width - l - r - contentEdgeInsets.left - contentEdgeInsets.right
+        let columns = Int(ceil(p / gridFactor))
         
         if .center == item.contentViewAlignment {
             if lc < rc {
@@ -227,13 +231,13 @@ open class NavigationBar: UINavigationBar {
                 item.contentView.grid.offset.columns = rc - lc
             } else {
                 item.contentView.grid.columns = columns - 2 * lc
-                item.contentView.grid.offset.columns = 0
                 item.rightViews.first?.grid.offset.columns = lc - rc
             }
         } else {
             item.contentView.grid.columns = columns - lc - rc
         }
         
+        item.titleView!.grid.axis.columns = columns
         item.titleView!.grid.interimSpace = interimSpace
         item.titleView!.grid.contentEdgeInsets = contentEdgeInsets
         item.titleView!.grid.commit()
@@ -287,7 +291,7 @@ open class NavigationBar: UINavigationBar {
         depthPreset = .depth1
         interimSpacePreset = .interimSpace3
         contentEdgeInsetsPreset = .square1
-        contentScaleFactor = Device.scale
+        contentScaleFactor = Screen.scale
 		backButtonImage = Icon.cm.arrowBack
         let image = UIImage.image(with: .clear, size: CGSize(width: 1, height: 1))
 		shadowImage = image

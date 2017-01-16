@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.io>.
+ * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -80,9 +80,6 @@ public class NavigationItem: NSObject {
             return contentView.grid.views
         }
         set(value) {
-            for v in contentView.grid.views {
-                v.removeFromSuperview()
-            }
             contentView.grid.views = value
         }
     }
@@ -96,7 +93,7 @@ public class NavigationItem: NSObject {
             super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
             return
         }
-        contentViewAlignment = .center == titleLabel.textAlignment ? .center : .any
+        contentViewAlignment = .center == titleLabel.textAlignment ? .center : .full
     }
     
     deinit {
@@ -118,7 +115,7 @@ public class NavigationItem: NSObject {
 	/// Prepares the titleLabel.
     private func prepareTitleLabel() {
         titleLabel.textAlignment = .center
-		titleLabel.contentScaleFactor = Device.scale
+		titleLabel.contentScaleFactor = Screen.scale
         titleLabel.font = RobotoFont.medium(with: 17)
         titleLabel.textColor = Color.darkText.primary
         addObserver(self, forKeyPath: "titleLabel.textAlignment", options: [], context: &NavigationItemContext)
@@ -127,7 +124,7 @@ public class NavigationItem: NSObject {
 	/// Prepares the detailLabel.
     private func prepareDetailLabel() {
         detailLabel.textAlignment = .center
-        titleLabel.contentScaleFactor = Device.scale
+        titleLabel.contentScaleFactor = Screen.scale
 		detailLabel.font = RobotoFont.regular(with: 12)
 		detailLabel.textColor = Color.darkText.secondary
 	}
@@ -148,7 +145,12 @@ extension UINavigationItem {
     
     /// Should center the contentView.
     public var contentViewAlignment: ContentViewAlignment {
-        return navigationItem.contentViewAlignment
+        get {
+            return navigationItem.contentViewAlignment
+        }
+        set(value) {
+            navigationItem.contentViewAlignment = value
+        }
     }
 	
     /// Content View.
