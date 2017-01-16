@@ -899,7 +899,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Insitute for Science and Mathematics Higher Learning" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xpg-IO-VQu">
-                                                    <rect key="frame" x="23" y="17" width="344" height="31"/>
+                                                    <rect key="frame" x="23" y="17" width="286" height="31"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="31" id="0ry-7I-bOw"/>
                                                     </constraints>
@@ -907,6 +907,14 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rSx-V9-NdM">
+                                                    <rect key="frame" x="315" y="35" width="30" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="3sR-Lq-fme"/>
+                                                        <constraint firstAttribute="width" constant="30" id="5CZ-xO-Z1z"/>
+                                                    </constraints>
+                                                    <state key="normal" image="heart"/>
+                                                </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OPEN" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qz9-Wg-VGA">
                                                     <rect key="frame" x="22" y="44" width="41" height="31"/>
                                                     <constraints>
@@ -920,13 +928,16 @@
                                             <constraints>
                                                 <constraint firstAttribute="bottomMargin" secondItem="qz9-Wg-VGA" secondAttribute="bottom" constant="16" id="GrI-Qu-BOB"/>
                                                 <constraint firstItem="qz9-Wg-VGA" firstAttribute="leading" secondItem="ZsN-x6-Dyv" secondAttribute="leadingMargin" constant="14" id="In3-Z1-q0n"/>
-                                                <constraint firstItem="Xpg-IO-VQu" firstAttribute="trailing" secondItem="ZsN-x6-Dyv" secondAttribute="trailingMargin" id="O2W-o8-czK"/>
+                                                <constraint firstItem="Xpg-IO-VQu" firstAttribute="trailing" secondItem="ZsN-x6-Dyv" secondAttribute="trailingMargin" constant="-58" id="O2W-o8-czK"/>
                                                 <constraint firstItem="qz9-Wg-VGA" firstAttribute="top" secondItem="ZsN-x6-Dyv" secondAttribute="topMargin" constant="36" id="Ufm-ID-5ib"/>
+                                                <constraint firstItem="rSx-V9-NdM" firstAttribute="centerY" secondItem="ZsN-x6-Dyv" secondAttribute="centerY" id="bSI-Ae-EWr"/>
                                                 <constraint firstItem="Xpg-IO-VQu" firstAttribute="leading" secondItem="ZsN-x6-Dyv" secondAttribute="leadingMargin" constant="15" id="gEY-tM-WNK"/>
                                                 <constraint firstItem="Xpg-IO-VQu" firstAttribute="top" secondItem="ZsN-x6-Dyv" secondAttribute="topMargin" constant="9" id="o6Y-yV-9gP"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="rSx-V9-NdM" secondAttribute="trailing" constant="22" id="q39-az-DHs"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="favoriteButton" destination="rSx-V9-NdM" id="70C-ga-Mgg"/>
                                             <outlet property="libraryName" destination="Xpg-IO-VQu" id="Mv0-cL-WtM"/>
                                             <outlet property="libraryStatus" destination="qz9-Wg-VGA" id="aId-cE-ul0"/>
                                         </connections>
@@ -1190,5 +1201,6 @@
         <image name="background_image" width="640" height="1136"/>
         <image name="default_dining" width="580" height="455"/>
         <image name="default_marker.png" width="21" height="38"/>
+        <image name="heart" width="32" height="32"/>
     </resources>
 </document>

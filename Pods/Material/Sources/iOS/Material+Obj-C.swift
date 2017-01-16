@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.io>.
+ * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,11 +36,11 @@
  - Returns: The associated reference for the initializer object.
  */
 internal func AssociatedObject<T: Any>(base: Any, key: UnsafePointer<UInt8>, initializer: () -> T) -> T {
-    if let v: T = objc_getAssociatedObject(base, key) as? T {
+    if let v = objc_getAssociatedObject(base, key) as? T {
         return v
     }
     
-    let v: T = initializer()
+    let v = initializer()
     objc_setAssociatedObject(base, key, v, .OBJC_ASSOCIATION_RETAIN)
     return v
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.io>.
+ * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -74,17 +74,26 @@ open class ImageCard: Card {
     open override func reload() {
         var h: CGFloat = 0
         
-        h = prepare(view: imageView, with: imageViewEdgeInsets, from: h)
+        if let v = imageView {
+            h = prepare(view: v, with: imageViewEdgeInsets, from: h)
+            container.sendSubview(toBack: v)
+        }
         
         if let v = toolbar {
             prepare(view: v, with: toolbarEdgeInsets, from: h)
             v.y = .top == toolbarAlignment ? toolbarEdgeInsets.top : h - v.height - toolbarEdgeInsets.bottom
+            container.bringSubview(toFront: v)
         }
         
-        h = prepare(view: contentView, with: contentViewEdgeInsets, from: h)
-        h = prepare(view: bottomBar, with: bottomBarEdgeInsets, from: h)
+        if let v = contentView {
+            h = prepare(view: v, with: contentViewEdgeInsets, from: h)
+        }
+        
+        if let v = bottomBar {
+            h = prepare(view: v, with: bottomBarEdgeInsets, from: h)
+        }
         
         container.height = h
-        bounds.size.height = h
+        height = h
     }
 }

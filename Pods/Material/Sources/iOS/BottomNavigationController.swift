@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.io>.
+ * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -140,8 +140,8 @@ open class BottomNavigationController: UITabBarController, UITabBarControllerDel
      */
 	open func prepare() {
 		view.clipsToBounds = true
-		view.contentScaleFactor = Device.scale
-		view.backgroundColor = Color.white
+		view.contentScaleFactor = Screen.scale
+		view.backgroundColor = .white
         delegate = self
         prepareTabBar()
 	}
@@ -164,6 +164,6 @@ open class BottomNavigationController: UITabBarController, UITabBarControllerDel
         let image = UIImage.image(with: Color.clear, size: CGSize(width: 1, height: 1))
 		tabBar.shadowImage = image
 		tabBar.backgroundImage = image
-		tabBar.backgroundColor = Color.white
+		tabBar.backgroundColor = .white
 	}
 }
