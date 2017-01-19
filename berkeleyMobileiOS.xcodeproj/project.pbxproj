@@ -14,6 +14,9 @@
 		280389501DE2C11E00F04FCA /* LibraryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2803894F1DE2C11E00F04FCA /* LibraryCell.swift */; };
 		280741591E1B15E3009C303B /* GymsMapListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280741581E1B15E3009C303B /* GymsMapListViewController.swift */; };
 		2807415B1E1B2653009C303B /* GymCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2807415A1E1B2653009C303B /* GymCell.swift */; };
+		284A3C811E31671300685A01 /* GymDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284A3C801E31671300685A01 /* GymDetailViewController.swift */; };
+		284A3C831E3168F800685A01 /* GymTimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284A3C821E3168F800685A01 /* GymTimeCell.swift */; };
+		284A3C851E316F1F00685A01 /* AddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284A3C841E316F1F00685A01 /* AddressCell.swift */; };
 		286D90241DDE9D86001DCBB6 /* LibraryMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286D90231DDE9D86001DCBB6 /* LibraryMapViewController.swift */; };
 		41101F9D1DDEC5AD00D8D741 /* AcademicsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41101F9C1DDEC5AD00D8D741 /* AcademicsNavigationController.swift */; };
 		41101F9F1DDEC5CF00D8D741 /* RecreationNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41101F9E1DDEC5CF00D8D741 /* RecreationNavigationController.swift */; };
@@ -56,6 +59,9 @@
 		2803894F1DE2C11E00F04FCA /* LibraryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryCell.swift; sourceTree = "<group>"; };
 		280741581E1B15E3009C303B /* GymsMapListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GymsMapListViewController.swift; sourceTree = "<group>"; };
 		2807415A1E1B2653009C303B /* GymCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GymCell.swift; sourceTree = "<group>"; };
+		284A3C801E31671300685A01 /* GymDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GymDetailViewController.swift; sourceTree = "<group>"; };
+		284A3C821E3168F800685A01 /* GymTimeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GymTimeCell.swift; sourceTree = "<group>"; };
+		284A3C841E316F1F00685A01 /* AddressCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressCell.swift; sourceTree = "<group>"; };
 		286D90231DDE9D86001DCBB6 /* LibraryMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryMapViewController.swift; sourceTree = "<group>"; };
 		41101F9C1DDEC5AD00D8D741 /* AcademicsNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcademicsNavigationController.swift; sourceTree = "<group>"; };
 		41101F9E1DDEC5CF00D8D741 /* RecreationNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecreationNavigationController.swift; sourceTree = "<group>"; };
@@ -204,6 +210,8 @@
 		4E505D391DD05A65004AC6C9 /* Recreation */ = {
 			isa = PBXGroup;
 			children = (
+				284A3C821E3168F800685A01 /* GymTimeCell.swift */,
+				284A3C801E31671300685A01 /* GymDetailViewController.swift */,
 				280741581E1B15E3009C303B /* GymsMapListViewController.swift */,
 				41101F9E1DDEC5CF00D8D741 /* RecreationNavigationController.swift */,
 				B5F25D1C1DE2A1EA0084A5C7 /* GymDataSource.swift */,
@@ -226,6 +234,7 @@
 		4E505D3D1DD05A65004AC6C9 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				284A3C841E316F1F00685A01 /* AddressCell.swift */,
 				4E505D3E1DD05A65004AC6C9 /* ConvenienceMethods.swift */,
 			);
 			path = Util;
@@ -383,6 +392,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				284A3C831E3168F800685A01 /* GymTimeCell.swift in Sources */,
+				284A3C851E316F1F00685A01 /* AddressCell.swift in Sources */,
 				B5F25D2B1DF519890084A5C7 /* LoadingScreen.swift in Sources */,
 				41E8438E1DAB3FE80096C049 /* AppDelegate.swift in Sources */,
 				B5F25D1F1DE2A38E0084A5C7 /* Gym.swift in Sources */,
@@ -395,6 +406,7 @@
 				B5F25D251DE8BFC60084A5C7 /* CampusResource.swift in Sources */,
 				41101F9F1DDEC5CF00D8D741 /* RecreationNavigationController.swift in Sources */,
 				41101FA11DDEC60400D8D741 /* DiningHallsNavigationController.swift in Sources */,
+				284A3C811E31671300685A01 /* GymDetailViewController.swift in Sources */,
 				4E505D441DD05A65004AC6C9 /* HomeTableViewCell.swift in Sources */,
 				05ED0E911DF52327007F5241 /* DetailsViewController.swift in Sources */,
 				4E505D451DD05A65004AC6C9 /* HomeViewController.swift in Sources */,

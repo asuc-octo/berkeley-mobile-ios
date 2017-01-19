@@ -185,4 +185,28 @@ class GymsMapListViewController: UIViewController, GMSMapViewDelegate, CLLocatio
         return gyms.count
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "toGymDetail", sender: indexPath.row)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if (segue.identifier == "toGymDetail") {
+            let selectedIndex = sender as! Int
+            let selectedGym = self.gyms[selectedIndex]
+            
+            let backItem = UIBarButtonItem()
+            backItem.title = ""
+            navigationItem.backBarButtonItem = backItem
+            navigationItem.title = selectedGym.name
+            
+            let gymDetailVC = segue.destination as! GymDetailViewController
+            
+            gymDetailVC.gym = selectedGym
+            
+        }
+
+
+    }
+    
 }
