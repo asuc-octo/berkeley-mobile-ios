@@ -1020,7 +1020,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9:00 AM to 10:00 PM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SWK-lm-40l">
-                                                    <rect key="frame" x="105" y="45" width="230" height="21"/>
+                                                    <rect key="frame" x="105" y="45" width="253" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1033,13 +1033,13 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailingMargin" secondItem="SWK-lm-40l" secondAttribute="trailing" constant="32" id="Ctc-7a-gEi"/>
                                                 <constraint firstItem="7kc-rY-o3x" firstAttribute="top" secondItem="ybX-T6-2x8" secondAttribute="topMargin" constant="22" id="GSk-mr-bHa"/>
                                                 <constraint firstItem="SWK-lm-40l" firstAttribute="leading" secondItem="7kc-rY-o3x" secondAttribute="trailing" constant="33" id="HYH-Jl-lys"/>
                                                 <constraint firstItem="iZj-Mf-RBD" firstAttribute="top" secondItem="SWK-lm-40l" secondAttribute="bottom" constant="5" id="VO4-yX-ITR"/>
                                                 <constraint firstItem="Kuv-jC-8gt" firstAttribute="leading" secondItem="7kc-rY-o3x" secondAttribute="trailing" constant="33" id="XH0-JS-XQb"/>
                                                 <constraint firstItem="7kc-rY-o3x" firstAttribute="leading" secondItem="ybX-T6-2x8" secondAttribute="leadingMargin" constant="14" id="eM4-DF-sbh"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="7kc-rY-o3x" secondAttribute="bottom" constant="23" id="fvN-Nh-I2F"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="SWK-lm-40l" secondAttribute="trailing" constant="9" id="icf-Pq-8IN"/>
                                                 <constraint firstItem="SWK-lm-40l" firstAttribute="top" secondItem="Kuv-jC-8gt" secondAttribute="bottom" constant="5" id="mej-Z9-o9M"/>
                                                 <constraint firstItem="iZj-Mf-RBD" firstAttribute="leading" secondItem="7kc-rY-o3x" secondAttribute="trailing" constant="33" id="wOd-Zk-A7Y"/>
                                                 <constraint firstItem="SWK-lm-40l" firstAttribute="centerY" secondItem="ybX-T6-2x8" secondAttribute="centerY" id="y5j-Te-an8"/>
