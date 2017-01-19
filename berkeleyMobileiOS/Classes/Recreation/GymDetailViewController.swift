@@ -37,7 +37,7 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
 //            cell.gymStartEndTime.text = self.gym?.openingTimeToday
             
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "HH:mm a"
+            dateFormatter.dateFormat = "h:mm a"
             dateFormatter.amSymbol = "AM"
             dateFormatter.pmSymbol = "PM"
             dateFormatter.timeZone = TimeZone(abbreviation: "PST")
