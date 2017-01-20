@@ -93,7 +93,7 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
             marker.title = library.name
             
             let status = getLibraryStatus(library: library)
-            if (status == "OPEN") {
+            if (status == "Open") {
                 marker.icon = GMSMarker.markerImage(with: .green)
             } else {
                 marker.icon = GMSMarker.markerImage(with: .red)
@@ -143,7 +143,7 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
         let status = getLibraryStatus(library: library)
         
         cell.libraryStatus.text = status
-        if (status == "OPEN") {
+        if (status == "Open") {
             cell.libraryStatus.textColor = UIColor.green
         } else {
             cell.libraryStatus.textColor = UIColor.red
@@ -239,12 +239,12 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
         let todayDate = NSDate()
         
         if (library.weeklyClosingTimes[0] == nil) {
-            return "CLOSED"
+            return "Closed"
         }
         
-        var status = "CLOSED"
+        var status = "Open"
         if (library.weeklyClosingTimes[0]!.compare(todayDate as Date) == .orderedAscending) {
-            status = "OPEN"
+            status = "Closed"
         }
         
         return status
