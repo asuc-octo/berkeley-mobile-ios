@@ -99,7 +99,6 @@ class LibraryDetailViewController: UIViewController, UITableViewDataSource, UITa
         if let url = URL(string: "telprompt://\(number)") {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
-        
     }
 
     @IBAction func favoriteLibrary(_ sender: Any) {
@@ -122,21 +121,14 @@ class LibraryDetailViewController: UIViewController, UITableViewDataSource, UITa
             }
         } else {
             let libraries = realm.objects(FavoriteLibrary.self)
-            print(libraries)
-            print(libraries.count)
             for lib in libraries {
                 if lib.name == library?.name {
                     try! realm.write {
                         realm.delete(lib)
-                        let libraries = realm.objects(FavoriteLibrary.self)
-                        print(libraries)
-                        print(libraries.count)
-        
                     }
                 }
             }
         }
-
     }
 
     @IBAction func viewLibraryMap(_ sender: Any) {
@@ -145,7 +137,6 @@ class LibraryDetailViewController: UIViewController, UITableViewDataSource, UITa
         let lon = library?.longitude!
         
         UIApplication.shared.open(NSURL(string: "https://www.google.com/maps/dir/Current+Location/" + String(describing: lat!) + "," + String(describing: lon!))! as URL,  options: [:], completionHandler: nil)
-        
-        
+
     }
 }
