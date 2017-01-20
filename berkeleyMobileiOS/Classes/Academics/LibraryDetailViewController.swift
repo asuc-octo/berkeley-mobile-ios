@@ -81,5 +81,19 @@ class LibraryDetailViewController: UIViewController, UITableViewDataSource, UITa
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 112
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if (indexPath.row == 2) {
+            let numberArray = self.library?.phoneNumber?.components(separatedBy: NSCharacterSet.decimalDigits.inverted)
+            var number = ""
+            for n in numberArray! {
+                number += n
+            }
+            
+            if let url = URL(string: "telprompt://\(number)") {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }
+    }
 
 }
