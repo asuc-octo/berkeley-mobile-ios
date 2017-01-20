@@ -1,5 +1,5 @@
 //
-//  LibraryPhoneCell.swift
+//  LibraryOptionsCell.swift
 //  berkeleyMobileiOS
 //
 //  Created by Sampath Duddu on 1/19/17.
@@ -8,10 +8,10 @@
 
 import UIKit
 
-class LibraryPhoneCell: UITableViewCell {
+class LibraryOptionsCell: UITableViewCell {
 
     @IBOutlet var libraryCallButton: UIButton!
-    @IBOutlet var libraryLikeButton: UIButton!
+    @IBOutlet var libraryFavoriteButton: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()

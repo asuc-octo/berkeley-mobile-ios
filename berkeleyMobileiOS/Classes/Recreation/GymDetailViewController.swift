@@ -38,39 +38,33 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if (indexPath.row == 0) {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "gymTime") as! GymTimeCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "gymTime") as! GymTimeCell
 
-            //Determining opening and closing times in PST
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "h:mm a"
-            dateFormatter.amSymbol = "AM"
-            dateFormatter.pmSymbol = "PM"
-            dateFormatter.timeZone = TimeZone(abbreviation: "PST")
+        //Determining opening and closing times in PST
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "h:mm a"
+        dateFormatter.amSymbol = "AM"
+        dateFormatter.pmSymbol = "PM"
+        dateFormatter.timeZone = TimeZone(abbreviation: "PST")
 
-            let localOpeningTime = dateFormatter.string(from: (self.gym?.openingTimeToday)!)
-            let localClosingTime = dateFormatter.string(from: (self.gym?.closingTimeToday)!)
-            
-            cell.gymStartEndTime.text = localOpeningTime + " to " + localClosingTime
+        let localOpeningTime = dateFormatter.string(from: (self.gym?.openingTimeToday)!)
+        let localClosingTime = dateFormatter.string(from: (self.gym?.closingTimeToday)!)
+        
+        cell.gymStartEndTime.text = localOpeningTime + " to " + localClosingTime
 
-            var status = "Open"
-            if (self.gym?.closingTimeToday!.compare(NSDate() as Date) == .orderedAscending) {
-                status = "Closed"
-            }
-            cell.gymStatus.text = status
-            if (status == "Open") {
-                cell.gymStatus.textColor = UIColor.green
-            } else {
-                cell.gymStatus.textColor = UIColor.red
-            }
-
-            return cell
-        } else {
-            
-            let cell = tableView.dequeueReusableCell(withIdentifier: "address") as! AddressCell
-            cell.address.text = self.gym?.address
-            return cell
+        var status = "Open"
+        if (self.gym?.closingTimeToday!.compare(NSDate() as Date) == .orderedAscending) {
+            status = "Closed"
         }
+        cell.gymStatus.text = status
+        if (status == "Open") {
+            cell.gymStatus.textColor = UIColor.green
+        } else {
+            cell.gymStatus.textColor = UIColor.red
+        }
+
+        return cell
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
