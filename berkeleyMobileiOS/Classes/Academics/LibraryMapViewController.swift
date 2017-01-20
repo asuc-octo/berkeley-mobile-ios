@@ -273,8 +273,7 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
             libraryDetailVC.library = selectedLibrary
             
         }
-        
-        
+    
     }
 }
 

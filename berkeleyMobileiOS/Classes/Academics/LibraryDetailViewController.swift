@@ -22,8 +22,6 @@ class LibraryDetailViewController: UIViewController, UITableViewDataSource, UITa
         libraryDetailTableView.dataSource = self
         self.title = library?.name
         
-
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
@@ -36,8 +34,8 @@ class LibraryDetailViewController: UIViewController, UITableViewDataSource, UITa
         
         if (indexPath.row == 0) {
             let cell = tableView.dequeueReusableCell(withIdentifier: "libraryTime") as! LibraryTimeCell
-            //            cell.gymStartEndTime.text = self.gym?.openingTimeToday
             
+            //Converting the date to Pacific time and displaying
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "h:mm a"
             dateFormatter.amSymbol = "AM"
@@ -49,6 +47,7 @@ class LibraryDetailViewController: UIViewController, UITableViewDataSource, UITa
             
             cell.libraryStartEndTime.text = localOpeningTime + " to " + localClosingTime
             
+            //Calculating whether the library is open or not
             var status = "OPEN"
             if (self.library?.weeklyClosingTimes[0]?.compare(NSDate() as Date) == .orderedAscending) {
                 status = "CLOSED"
@@ -62,16 +61,14 @@ class LibraryDetailViewController: UIViewController, UITableViewDataSource, UITa
             
             return cell
         } else if (indexPath.row == 1){
+            
             let cell = tableView.dequeueReusableCell(withIdentifier: "address") as! AddressCell
-
             cell.address.text = self.library?.campusLocation
-            
-            
-            
             return cell
-        } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "libraryPhone") as! LibraryPhoneCell
             
+        } else {
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "libraryPhone") as! LibraryPhoneCell
             cell.phoneNumber.text = self.library?.phoneNumber
             return cell
         }
