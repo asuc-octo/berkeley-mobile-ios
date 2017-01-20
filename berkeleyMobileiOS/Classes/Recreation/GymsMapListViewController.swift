@@ -204,10 +204,7 @@ class GymsMapListViewController: UIViewController, GMSMapViewDelegate, CLLocatio
             let gymDetailVC = segue.destination as! GymDetailViewController
             
             gymDetailVC.gym = selectedGym
-            
         }
-
-
     }
     
 }

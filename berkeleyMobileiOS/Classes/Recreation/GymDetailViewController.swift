@@ -22,7 +22,6 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
         gymInformationTable.dataSource = self
         gymInformationTable.allowsSelection = false
         self.title = gym?.name
-
         // Do any additional setup after loading the view.
     }
 
@@ -35,8 +34,8 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
         
         if (indexPath.row == 0) {
             let cell = tableView.dequeueReusableCell(withIdentifier: "gymTime") as! GymTimeCell
-//            cell.gymStartEndTime.text = self.gym?.openingTimeToday
-            
+
+            //Determining opening and closing times in PST
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "h:mm a"
             dateFormatter.amSymbol = "AM"
@@ -61,8 +60,8 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
 
             return cell
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "address") as! AddressCell
             
+            let cell = tableView.dequeueReusableCell(withIdentifier: "address") as! AddressCell
             cell.address.text = self.gym?.address
             return cell
         }
