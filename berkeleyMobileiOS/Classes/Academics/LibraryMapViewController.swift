@@ -159,6 +159,11 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
         return libraries.count
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "toLibraryDetail", sender: indexPath.row)
+        self.librariesTableView.deselectRow(at: indexPath, animated: true)
+    }
+    
     //Location Manager delegates
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
@@ -251,6 +256,25 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
                 library.favorited = true
             }
         }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if (segue.identifier == "toLibraryDetail") {
+            let selectedIndex = sender as! Int
+            let selectedLibrary = self.libraries[selectedIndex]
+            
+            let backItem = UIBarButtonItem()
+            backItem.title = ""
+            navigationItem.backBarButtonItem = backItem
+            
+            let libraryDetailVC = segue.destination as! LibraryDetailViewController
+            
+            libraryDetailVC.library = selectedLibrary
+            
+        }
+        
+        
     }
 }
 
