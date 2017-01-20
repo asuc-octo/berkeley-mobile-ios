@@ -78,10 +78,13 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     @IBAction func openMap(_ sender: Any) {
+        let lat = gym?.latitude!
+        let lon = gym?.longitude!
         
-        UIApplication.shared.openURL(NSURL(string: "https://www.google.com/maps/dir/Current+Location/" + String(1.0) + "," + String(1.0))! as URL)
+        UIApplication.shared.open(NSURL(string: "https://www.google.com/maps/dir/Current+Location/" + String(describing: lat!) + "," + String(describing: lon!))! as URL,  options: [:], completionHandler: nil)
         
     }
 
+    
 
 }
