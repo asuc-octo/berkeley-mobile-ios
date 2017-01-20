@@ -50,6 +50,13 @@ class LibraryDetailViewController: UIViewController, UITableViewDataSource, UITa
             dateFormatter.pmSymbol = "PM"
             dateFormatter.timeZone = TimeZone(abbreviation: "PST")
             
+            if (self.library?.weeklyClosingTimes[0] == nil) {
+                cell.libraryStartEndTime.text = ""
+                cell.libraryStatus.text = "Closed"
+                cell.libraryStatus.textColor = UIColor.red
+                return cell
+            }
+            
             let localOpeningTime = dateFormatter.string(from: (self.library?.weeklyOpeningTimes[0])!)
             let localClosingTime = dateFormatter.string(from: (self.library?.weeklyClosingTimes[0])!)
             

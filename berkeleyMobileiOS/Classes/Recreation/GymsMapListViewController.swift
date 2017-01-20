@@ -97,12 +97,12 @@ class GymsMapListViewController: UIViewController, GMSMapViewDelegate, CLLocatio
                         // Setting attributes of marker
                         marker.position = CLLocationCoordinate2D(latitude: lat, longitude: lon)
                         marker.title = gym.name
-                        var status = "OPEN"
+                        var status = "Open"
                         if (gym.closingTimeToday!.compare(NSDate() as Date) == .orderedAscending) {
-                            status = "CLOSED"
+                            status = "Closed"
                         }
                         
-                        if (status == "OPEN") {
+                        if (status == "Open") {
                             marker.icon = GMSMarker.markerImage(with: .green)
                         } else {
                             marker.icon = GMSMarker.markerImage(with: .red)
@@ -170,12 +170,12 @@ class GymsMapListViewController: UIViewController, GMSMapViewDelegate, CLLocatio
         let cell = tableView.dequeueReusableCell(withIdentifier: "gym") as! GymCell
         let gym = gyms[indexPath.row]
         cell.gymName.text = gym.name
-        var status = "OPEN"
+        var status = "Open"
         if (gym.closingTimeToday!.compare(NSDate() as Date) == .orderedAscending) {
-            status = "CLOSED"
+            status = "Closed"
         }
         cell.gymStatus.text = status
-        if (status == "OPEN") {
+        if (status == "Open") {
             cell.gymStatus.textColor = UIColor.green
         } else {
             cell.gymStatus.textColor = UIColor.red
