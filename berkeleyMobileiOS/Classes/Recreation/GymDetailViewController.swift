@@ -12,6 +12,10 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
     
     @IBOutlet var gymImage: UIImageView!
     @IBOutlet var gymInformationTable: UITableView!
+    
+    @IBOutlet var gymName: UILabel!
+    @IBOutlet var gymAddress: UIButton!
+    
     var gym: Gym?
 
     override func viewDidLoad() {
@@ -22,6 +26,8 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
         gymInformationTable.dataSource = self
         gymInformationTable.allowsSelection = false
         self.title = gym?.name
+        gymName.text = gym?.name
+        gymAddress.setTitle(gym?.address, for: .normal)
         // Do any additional setup after loading the view.
     }
 
@@ -47,12 +53,12 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
             
             cell.gymStartEndTime.text = localOpeningTime + " to " + localClosingTime
 
-            var status = "OPEN"
+            var status = "Open"
             if (self.gym?.closingTimeToday!.compare(NSDate() as Date) == .orderedAscending) {
-                status = "CLOSED"
+                status = "Closed"
             }
             cell.gymStatus.text = status
-            if (status == "OPEN") {
+            if (status == "Open") {
                 cell.gymStatus.textColor = UIColor.green
             } else {
                 cell.gymStatus.textColor = UIColor.red
@@ -68,8 +74,14 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return 1
     }
     
+    @IBAction func openMap(_ sender: Any) {
+        
+        UIApplication.shared.openURL(NSURL(string: "https://www.google.com/maps/dir/Current+Location/" + String(1.0) + "," + String(1.0))! as URL)
+        
+    }
+
 
 }
