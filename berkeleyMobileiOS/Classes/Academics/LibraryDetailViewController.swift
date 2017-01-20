@@ -7,12 +7,18 @@
 //
 
 import UIKit
+import RealmSwift
 
 class LibraryDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet var libraryImage: UIImageView!
     @IBOutlet var libraryDetailTableView: UITableView!
+    
+    @IBOutlet var libraryName: UILabel!
+    @IBOutlet var libraryAddress: UIButton!
+    
     var library:Library?
+    var realm = try! Realm()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +27,8 @@ class LibraryDetailViewController: UIViewController, UITableViewDataSource, UITa
         libraryDetailTableView.delegate = self
         libraryDetailTableView.dataSource = self
         self.title = library?.name
+        libraryName.text = library?.name
+        libraryAddress.setTitle(library?.campusLocation, for: .normal)
         
     }
 
@@ -48,52 +56,96 @@ class LibraryDetailViewController: UIViewController, UITableViewDataSource, UITa
             cell.libraryStartEndTime.text = localOpeningTime + " to " + localClosingTime
             
             //Calculating whether the library is open or not
-            var status = "OPEN"
+            var status = "Open"
             if (self.library?.weeklyClosingTimes[0]?.compare(NSDate() as Date) == .orderedAscending) {
-                status = "CLOSED"
+                status = "Closed"
             }
             cell.libraryStatus.text = status
-            if (status == "OPEN") {
+            if (status == "Open") {
                 cell.libraryStatus.textColor = UIColor.green
             } else {
                 cell.libraryStatus.textColor = UIColor.red
             }
             
             return cell
-        } else if (indexPath.row == 1){
-            
-            let cell = tableView.dequeueReusableCell(withIdentifier: "address") as! AddressCell
-            cell.address.text = self.library?.campusLocation
-            return cell
-            
         } else {
             
-            let cell = tableView.dequeueReusableCell(withIdentifier: "libraryPhone") as! LibraryPhoneCell
-            cell.phoneNumber.text = self.library?.phoneNumber
+            let cell = tableView.dequeueReusableCell(withIdentifier: "libraryOption") as! LibraryOptionsCell
+            // For favoriting
+            if (library?.favorited == true) {
+                cell.libraryFavoriteButton.setImage(UIImage(named:"heart-large-filled"), for: .normal)
+            } else {
+                cell.libraryFavoriteButton.setImage(UIImage(named:"heart-large"), for: .normal)
+            }
             return cell
         }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 2
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 112
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (indexPath.row == 2) {
-            let numberArray = self.library?.phoneNumber?.components(separatedBy: NSCharacterSet.decimalDigits.inverted)
-            var number = ""
-            for n in numberArray! {
-                number += n
-            }
-            
-            if let url = URL(string: "telprompt://\(number)") {
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            }
+    @IBAction func callLibrary(_ sender: Any) {
+        let numberArray = self.library?.phoneNumber?.components(separatedBy: NSCharacterSet.decimalDigits.inverted)
+        var number = ""
+        for n in numberArray! {
+            number += n
         }
+        
+        if let url = URL(string: "telprompt://\(number)") {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+        
     }
 
+    @IBAction func favoriteLibrary(_ sender: Any) {
+        
+        library?.favorited = !(library?.favorited!)!
+        
+        //Realm adding and deleting favorite libraries
+        let favLibrary = FavoriteLibrary()
+        favLibrary.name = (library?.name)!
+        
+        if (library?.favorited == true) {
+            (sender as! UIButton).setImage(UIImage(named:"heart-large-filled"), for: .normal)
+        } else {
+            (sender as! UIButton).setImage(UIImage(named:"heart-large"), for: .normal)
+        }
+        
+        if (library?.favorited)! {
+            try! realm.write {
+                realm.add(favLibrary)
+            }
+        } else {
+            let libraries = realm.objects(FavoriteLibrary.self)
+            print(libraries)
+            print(libraries.count)
+            for lib in libraries {
+                if lib.name == library?.name {
+                    try! realm.write {
+                        realm.delete(lib)
+                        let libraries = realm.objects(FavoriteLibrary.self)
+                        print(libraries)
+                        print(libraries.count)
+        
+                    }
+                }
+            }
+        }
+
+    }
+
+    @IBAction func viewLibraryMap(_ sender: Any) {
+        
+        let lat = library?.latitude!
+        let lon = library?.longitude!
+        
+        UIApplication.shared.open(NSURL(string: "https://www.google.com/maps/dir/Current+Location/" + String(describing: lat!) + "," + String(describing: lon!))! as URL,  options: [:], completionHandler: nil)
+        
+        
+    }
 }

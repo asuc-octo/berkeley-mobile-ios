@@ -26,8 +26,8 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        getAndSetFavoriteLibraries()
-        librariesTableView.reloadData()
+//        getAndSetFavoriteLibraries()
+//        librariesTableView.reloadData()
         setSegmentedControl()
         
         librariesSearchBar.isHidden = true
@@ -65,6 +65,11 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
 
         plotLibraries()
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        getAndSetFavoriteLibraries()
+        librariesTableView.reloadData()
     }
     
     //Plots the location of libraries on map view
@@ -246,6 +251,7 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
     }
     
     func getAndSetFavoriteLibraries() {
+        self.favoriteLibraries.removeAll()
         let libraries = realm.objects(FavoriteLibrary.self)
         for library in libraries {
             self.favoriteLibraries.append(library.name)
