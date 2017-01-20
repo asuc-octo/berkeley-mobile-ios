@@ -20,6 +20,7 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
         gymImage.sd_setImage(with: gym?.imageURL!)
         gymInformationTable.delegate = self
         gymInformationTable.dataSource = self
+        gymInformationTable.allowsSelection = false
         self.title = gym?.name
 
         // Do any additional setup after loading the view.
