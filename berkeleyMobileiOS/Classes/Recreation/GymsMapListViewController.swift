@@ -91,6 +91,9 @@ class GymsMapListViewController: UIViewController, GMSMapViewDelegate, CLLocatio
                         lat = (coordinates?.coordinate.latitude)!
                         lon = (coordinates?.coordinate.longitude)!
                         
+                        gym.latitude = lat
+                        gym.longitude = lon
+                        
                         // Setting attributes of marker
                         marker.position = CLLocationCoordinate2D(latitude: lat, longitude: lon)
                         marker.title = gym.name
