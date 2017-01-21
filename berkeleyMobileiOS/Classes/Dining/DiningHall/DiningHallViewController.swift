@@ -27,6 +27,7 @@ class DiningHallViewController: UIViewController, RequiresData, PageTabBarContro
     // UI
     override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
     private weak var navbar: UINavigationBar?
+    private var pseudoNavbar: UIView!
     
     @IBOutlet private weak var banner: UIImageView!
     private var imageGradient: CAGradientLayer!
@@ -45,9 +46,10 @@ class DiningHallViewController: UIViewController, RequiresData, PageTabBarContro
     // ========================================
     typealias DataType = DiningHall
     
-    func setData(_ data: DiningHall)
+    func setData(_ hall: DiningHall)
     {
-        self.diningHall = data
+        self.diningHall = hall
+        self.title = hall.name
     }
 
 
@@ -111,6 +113,13 @@ class DiningHallViewController: UIViewController, RequiresData, PageTabBarContro
         // scrollView
         self.scrollView.frame = viewBounds
         self.scrollView.contentInset.top = self.bannerHeight
+        
+        // pseduo navbar
+        if self.navbar.notNil
+        {
+            self.pseudoNavbar.frame = self.navbar!.bounds
+            self.pseudoNavbar.height += 20
+        }
     }
     
     
@@ -129,6 +138,11 @@ class DiningHallViewController: UIViewController, RequiresData, PageTabBarContro
         
         self.imageGradient = gradient
         self.banner.layer.addSublayer(gradient)
+        
+        // Pseudo navbar background.
+        self.pseudoNavbar = UIView()
+        self.pseudoNavbar.backgroundColor = kColorNavy.withAlphaComponent(0)
+        self.view!.addSubview(self.pseudoNavbar)
     }
     
     /// Setup the scrollView that will contain the menuTabView.
