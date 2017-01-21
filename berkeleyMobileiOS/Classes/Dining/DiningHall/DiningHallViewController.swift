@@ -139,7 +139,7 @@ class DiningHallViewController: UIViewController, RequiresData, PageTabBarContro
         
         // Pseudo navbar background.
         self.pseudoNavbar = UIView()
-        self.pseudoNavbar.backgroundColor = kColorNavy.withAlphaComponent(0)
+        self.pseudoNavbar.backgroundColor = kColorNavy
         self.view!.addSubview(self.pseudoNavbar)
     }
     
@@ -263,6 +263,8 @@ class DiningHallViewController: UIViewController, RequiresData, PageTabBarContro
         self.menuTabView.y = nestedOffset
         self.nestedScrollView?.contentOffset.y = nestedOffset
         
+        // When scrolled up, make the pseudoNavbar opaque.
+        self.pseudoNavbar.alpha = min(inset + offsetY, inset) / inset        
 
         // Detect end of scrolling (http://stackoverflow.com/a/1857162)
         NSObject.cancelPreviousPerformRequests(withTarget: self)
