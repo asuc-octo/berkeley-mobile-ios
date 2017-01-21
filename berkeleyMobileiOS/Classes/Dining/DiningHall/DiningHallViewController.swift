@@ -104,7 +104,7 @@ class DiningHallViewController: UIViewController, RequiresData, PageTabBarContro
         
         // navbar
         let navbarMaxY = self.navbar?.frame.maxY ?? 0
-        self.pseudoNavbar.frame = CGRect(x: 0, y: 0, width: view.width, height: navbarMaxY)
+        self.pseudoNavbar.frame = CGRect(x: 0, y: self.scrollView.contentOffset.y, width: view.width, height: navbarMaxY)
         
         // header
         self.banner.frame = CGRect(x: 0, y: 0, width: view.width, height: round(view.width / kBannerRatio) + navbarMaxY)
@@ -263,8 +263,9 @@ class DiningHallViewController: UIViewController, RequiresData, PageTabBarContro
         self.menuTabView.y = nestedOffset
         self.nestedScrollView?.contentOffset.y = nestedOffset
         
-        // When scrolled up, make the pseudoNavbar opaque.
-        self.pseudoNavbar.alpha = min(inset + offsetY, inset) / inset        
+        // When scrolled up, pseudoNavbar shows itself
+        self.pseudoNavbar.y = min(offsetY, 0) // slide down from top
+//        self.pseudoNavbar.alpha = min(inset + offsetY, inset) / inset // clear -> opaque
 
         // Detect end of scrolling (http://stackoverflow.com/a/1857162)
         NSObject.cancelPreviousPerformRequests(withTarget: self)
