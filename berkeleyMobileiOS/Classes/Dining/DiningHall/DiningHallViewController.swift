@@ -28,6 +28,7 @@ class DiningHallViewController: UIViewController, RequiresData, PageTabBarContro
     override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
     private weak var navbar: UINavigationBar?
     private var pseudoNavbar: UIView!
+    private var scrollMinY: CGFloat! = 0
     
     @IBOutlet private weak var banner: UIImageView!
     private var imageGradient: CAGradientLayer!
@@ -99,27 +100,24 @@ class DiningHallViewController: UIViewController, RequiresData, PageTabBarContro
     {
         super.viewDidLayoutSubviews()
         
-        let viewBounds = self.view.bounds
-        let viewSize = viewBounds.size
+        let view = self.view!
+        
+        // navbar
+        let navbarMaxY = self.navbar?.frame.maxY ?? 0
+        self.pseudoNavbar.frame = CGRect(x: 0, y: 0, width: view.width, height: navbarMaxY)
         
         // header
-        self.bannerHeight = round(viewSize.width / kBannerRatio) + 56
-        self.banner.frame = CGRect(x: 0, y: 0, width: viewSize.width, height: self.bannerHeight)
+        self.banner.frame = CGRect(x: 0, y: 0, width: view.width, height: round(view.width / kBannerRatio) + navbarMaxY)
         self.imageGradient.frame = self.banner.bounds
         
-        // menuTabView
-        self.menuTabView.frame = viewBounds
+        // menuTabView (inside scrollView)
+        var frame = CGRect(x: 0, y: 0, width: view.width, height: view.height - navbarMaxY)
+        self.menuTabView.frame = frame
         
         // scrollView
-        self.scrollView.frame = viewBounds
-        self.scrollView.contentInset.top = self.bannerHeight
-        
-        // pseduo navbar
-        if self.navbar.notNil
-        {
-            self.pseudoNavbar.frame = self.navbar!.bounds
-            self.pseudoNavbar.height += 20
-        }
+        frame.origin.y = navbarMaxY
+        self.scrollView.frame = frame
+        self.scrollView.contentInset.top = self.banner.height - navbarMaxY
     }
     
     
@@ -259,11 +257,11 @@ class DiningHallViewController: UIViewController, RequiresData, PageTabBarContro
         
         // If scrollView is pulled down, increase banner height accordingly.
         let pulled = -(inset + offsetY)
-        self.banner.height = inset + (pulled > 0 ? pulled : 0)
+        self.banner.height = inset + (pulled > 0 ? pulled : 0) + (self.navbar?.frame.maxY ?? 0)
         
-        let adjustedOffset = (offsetY < 0) ? 0 : offsetY
-        self.menuTabView.y = adjustedOffset
-        self.nestedScrollView?.contentOffset.y = adjustedOffset
+        let nestedOffset = (offsetY < 0) ? 0 : offsetY
+        self.menuTabView.y = nestedOffset
+        self.nestedScrollView?.contentOffset.y = nestedOffset
         
 
         // Detect end of scrolling (http://stackoverflow.com/a/1857162)
