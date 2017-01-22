@@ -190,7 +190,9 @@ class DiningHallViewController: UIViewController, RequiresData, PageTabBarContro
         tabBar.lineColor = kColorNavy//UIColor.white
         tabBar.lineHeight = 1
         tabBar.lineAlignment = .bottom
-        tabBar.divider.thickness = 0
+        tabBar.layer.shadowRadius = 3
+        tabBar.layer.shadowOpacity = 0.3
+        tabBar.layer.shadowOffset = CGSize(width: 0, height: 3)
         
         // Store references and add to hierarchy
         self.menuTabController = tabController
@@ -262,6 +264,8 @@ class DiningHallViewController: UIViewController, RequiresData, PageTabBarContro
         let nestedOffset = (offsetY < 0) ? 0 : offsetY
         self.menuTabView.y = nestedOffset
         self.nestedScrollView?.contentOffset.y = nestedOffset
+        self.showMenuTabBarShadow = nestedOffset > 0
+        
         
         // When scrolled up, pseudoNavbar shows itself
         self.pseudoNavbar.y = min(offsetY, 0) // slide down from top
@@ -306,6 +310,19 @@ class DiningHallViewController: UIViewController, RequiresData, PageTabBarContro
         if (offsetY == -inset) && (contentHeight == 0)
         {
             self.scrollView.contentSize.height = self.menuTabBar.height
+        }
+    }
+    
+    
+    // ========================================
+    // MARK: - Private
+    // ========================================
+    
+    private var showMenuTabBarShadow: Bool = false
+    {
+        didSet {
+            let tabBar = self.menuTabController.pageTabBar
+            tabBar.layer.shadowColor = (showMenuTabBarShadow ? UIColor.black : UIColor.clear).cgColor
         }
     }
 }
