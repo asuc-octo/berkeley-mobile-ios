@@ -32,7 +32,6 @@ class DiningHallViewController: UIViewController, RequiresData, PageTabBarContro
     
     @IBOutlet private weak var banner: UIImageView!
     private var imageGradient: CAGradientLayer!
-    private var bannerHeight: CGFloat!
     
     @IBOutlet private weak var scrollView: UIScrollView!
     private var nestedScrollView: UIScrollView!
@@ -318,9 +317,11 @@ class DiningHallViewController: UIViewController, RequiresData, PageTabBarContro
     // MARK: - Private
     // ========================================
     
+    /// Sets MenuTabBar's shadow to black to show, and clear to hide.
     private var showMenuTabBarShadow: Bool = false
     {
-        didSet {
+        didSet 
+        {
             let tabBar = self.menuTabController.pageTabBar
             tabBar.layer.shadowColor = (showMenuTabBarShadow ? UIColor.black : UIColor.clear).cgColor
         }
