@@ -7,9 +7,13 @@ import Alamofire
 
 extension UIImageView
 {
-    func load(url: URLConvertible)
+    func load(url: URLConvertible?)
     {
-        Alamofire.request(url).responseData
+        if url == nil {
+            return
+        }
+    
+        Alamofire.request(url!).responseData
         { response in
             
             guard let data = response.data else {

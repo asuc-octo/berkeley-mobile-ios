@@ -40,24 +40,20 @@ class DiningDataSource: NSObject
     // Return a DiningHall object parsed from JSON.
     private static func parseDiningHall(_ json: JSON) -> DiningHall
     {
-        let hall = DiningHall(name: json["name"].stringValue, url: json["image_link"].stringValue)
-        
-        parseMeal(json, hall, "breakfast",  &hall.breakfastMenu, &hall.breakfastOpen, &hall.breakfastClose)
-        parseMeal(json, hall, "lunch",      &hall.lunchMenu,     &hall.lunchOpen,     &hall.lunchClose)
-        parseMeal(json, hall, "dinner",     &hall.dinnerMenu,    &hall.dinnerOpen,    &hall.dinnerClose)
-        parseMeal(json, hall, "late_night", &hall.lateNightMenu, &hall.lateNightOpen, &hall.lateNightClose)
-    
-        return hall
-    }
-    
-    // Parse data related to a type of meal for a DiningHall.
-    private static func parseMeal(_ json: JSON, _ hall: DiningHall, _ type: String, _ menu: inout DiningMenu, _ open: inout Date?, _ close: inout Date?)
-    {
         let formatter = sharedDateFormatter()
-        open  = formatter.date(from: json[type + "_open" ].string ?? "")?.sameTimeToday()
-        close = formatter.date(from: json[type + "_close"].string ?? "")?.sameTimeToday()
+        let hall = DiningHall(name: json["name"].stringValue, url: json["image_link"].stringValue)
+
+        for type in MealType.allValues
+        {
+            let key = type.rawValue
+            var shift = hall.meals[type]!
+            
+            shift.menu  = json[key + "_menu"].map{ (_, child) in parseDiningItem(child, hall) }
+            shift.open  = formatter.date(from: json[key + "_open" ].string ?? "")?.sameTimeToday()
+            shift.close = formatter.date(from: json[key + "_close"].string ?? "")?.sameTimeToday()
+        }
         
-        menu = json[type + "_menu"].map{ (_, child) in parseDiningItem(child, hall) }
+        return hall
     }
     
     // Return a DiningMenu object parsed from JSON.
