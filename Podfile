@@ -11,4 +11,5 @@ pod 'Material', '~> 2.0'
 pod 'SwiftyJSON'
 pod 'GoogleMaps'
 pod 'SDWebImage', '~>3.8'
+pod 'RealmSwift', :git => 'https://github.com/realm/realm-cocoa.git', :branch => 'master', submodules: true
 end
