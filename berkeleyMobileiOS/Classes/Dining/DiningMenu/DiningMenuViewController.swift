@@ -9,24 +9,28 @@ fileprivate let kColorNavy = UIColor(red: 23/255.0, green: 85/255.0, blue: 122/2
 class DiningMenuViewController: UIViewController, RequiresData, UITableViewDataSource, UITableViewDelegate
 {
     // Data
-    private var menu: DiningMenu = []
+    private var shift: MealShift!
     
     
     //UI
+    @IBOutlet private weak var hoursView: UIView!
+    @IBOutlet private weak var hoursLabel: UILabel!
+    
     @IBOutlet private(set) weak var tableView: UITableView!
     
     
     // ========================================
     // MARK: - RequiresData
     // ========================================
-    typealias DataType = (type: MealType, menu: DiningMenu)
+    typealias DataType = (type: MealType, shift: MealShift)
     
     public func setData(_ data: DataType)
     {
-        self.menu = data.menu
+        self.shift = data.shift
+        
         self.pageTabBarItem.title = data.type.name
         self.pageTabBarItem.titleColor = kColorNavy
-        self.pageTabBarItem.pulseColor = kColorNavy
+        self.pageTabBarItem.pulseColor = kColorNavy//UIColor.white
     }
     
     
@@ -44,16 +48,18 @@ class DiningMenuViewController: UIViewController, RequiresData, UITableViewDataS
         self.tableView.dataSource = self
         self.tableView.isScrollEnabled = false
         
-        self.pageTabBarItem.titleColor = kColorNavy
-        self.pageTabBarItem.pulseColor = kColorNavy//UIColor.white
-    }
-    
-    override func viewDidLayoutSubviews()
-    {
-        super.viewDidLayoutSubviews()
+        // Display the open hours.
+        if self.shift.open.isNil || self.shift.close.isNil {
+            self.hoursLabel.text = "CLOSED"
+            return
+        }
         
-        let viewSize = self.view.bounds.size
-        self.tableView.frame = CGRect(origin: CGPoint.zero, size: viewSize)
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        
+        let open  = formatter.string(from: self.shift.open!)
+        let close = formatter.string(from: self.shift.close!)
+        self.hoursLabel.text = open + " ~ " + close
     }
     
     
@@ -64,14 +70,14 @@ class DiningMenuViewController: UIViewController, RequiresData, UITableViewDataS
     // Return the number of menu items.
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return menu.count
+        return self.shift.menu.count
     }
     
     // Get a reuseable cell and set the data.
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "DiningItemCell") as! DiningItemCell
-        cell.setData(self.menu[indexPath.row])
+        cell.setData( self.shift.menu[indexPath.row] )
         
         return cell
     }

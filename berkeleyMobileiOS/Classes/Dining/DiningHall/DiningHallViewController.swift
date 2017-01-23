@@ -167,7 +167,7 @@ class DiningHallViewController: UIViewController, RequiresData, PageTabBarContro
         { type in 
             
             let vc = storyboard.instantiateViewController(withIdentifier: "DiningMenuViewController") as! DiningMenuViewController
-            vc.setData(type: type, menu: diningHall.menuForType(type))
+            vc.setData(type: type, shift: diningHall.meals[type]!)
             
             return vc
         }
