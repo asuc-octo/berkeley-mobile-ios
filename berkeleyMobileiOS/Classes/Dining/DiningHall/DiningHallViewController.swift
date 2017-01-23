@@ -72,9 +72,9 @@ class DiningHallViewController: UIViewController, RequiresData, PageTabBarContro
     {
         super.viewWillAppear(animated)
         
-        setStatusBarStyle(self.preferredStatusBarStyle)
         self.navbar?.hideHairline = true
         self.navbar?.setTransparent(true)
+        setStatusBarStyle(self.preferredStatusBarStyle)
     }
     
     override func viewDidAppear(_ animated: Bool)
@@ -86,14 +86,6 @@ class DiningHallViewController: UIViewController, RequiresData, PageTabBarContro
                                   didTransitionTo: self.menuTabController.viewControllers.first!)
     }
     
-    override func viewDidDisappear(_ animated: Bool)
-    {
-        super.viewDidDisappear(animated)
-        
-        self.navbar?.hideHairline = false
-        self.navbar?.setTransparent(false)
-    }
-    
     /// Layout the subcomponents.
     override func viewDidLayoutSubviews()
     {
@@ -101,9 +93,10 @@ class DiningHallViewController: UIViewController, RequiresData, PageTabBarContro
         
         let view = self.view!
         
-        // navbar
+        // Reset the navbar's Y to scrollView's offset. 
         let navbarMaxY = self.navbar?.frame.maxY ?? 0
-        self.pseudoNavbar.frame = CGRect(x: 0, y: self.scrollView.contentOffset.y, width: view.width, height: navbarMaxY)
+        let navbarY = min(self.scrollView.contentOffset.y, 0)
+        self.pseudoNavbar.frame = CGRect(x: 0, y: navbarY, width: view.width, height: navbarMaxY)
         
         // header
         self.banner.frame = CGRect(x: 0, y: 0, width: view.width, height: round(view.width / kBannerRatio) + navbarMaxY)

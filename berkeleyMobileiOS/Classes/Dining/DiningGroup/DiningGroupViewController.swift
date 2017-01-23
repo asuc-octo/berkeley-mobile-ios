@@ -17,13 +17,15 @@ class DiningGroupViewController: UIViewController, UITableViewDelegate, UITableV
 
     // UI
     override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
+    private weak var navbar: UINavigationBar?
+    private var pseudoNavbar: UIView!
     
     @IBOutlet private weak var tableView: UITableView!
-    var activityIndicator: UIActivityIndicatorView!
+    private var activityIndicator: UIActivityIndicatorView!
     
-    
+
     // ========================================
-    // MARK: - Setup
+    // MARK: - UIViewController
     // ========================================
     
     required init?(coder aDecoder: NSCoder)
@@ -37,47 +39,6 @@ class DiningGroupViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     /**
-     * Makes the original UINavigationBar clear and inserts another view with solid color.
-     * This is to prevent strage transitions when pushing/popping ViewControllers with clear navbar.
-     * TODO: find a solution for  
-     */
-    private func setupNavigationBar()
-    {
-        guard 
-            let navbar = self.navigationController?.navigationBar 
-        else
-        { return }
-        
-        // White content
-        navbar.tintColor = .white
-        navbar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
-        self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "", style: .plain, target: nil, action: nil)
-        
-        // Clear background
-        navbar.setBackgroundImage(UIImage(), for: .default)
-        navbar.shadowImage = UIImage()
-        navbar.isTranslucent = true
-        
-        // Insert a pseudo-background
-        let height = navbar.height + 20
-        let bgView = UIView(frame: CGRect(x: 0, y: -height, width: navbar.width, height: height))
-        bgView.backgroundColor = kColorNavy
-        self.view!.addSubview(bgView)
-    }
-    
-    /// Configure and add the ActivityIndicator.
-    private func setupActivityIndicator()
-    {
-        self.activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-        self.activityIndicator.hidesWhenStopped = true
-        self.view.addSubview(self.activityIndicator)
-    }
-    
-    
-    // ========================================
-    // MARK: - UIViewController
-    // ========================================
-    /**
      * Called after view is loaded.
      * Configure navbar, add the tableView, and load DiningHall data.
      */
@@ -85,8 +46,8 @@ class DiningGroupViewController: UIViewController, UITableViewDelegate, UITableV
     {
         super.viewDidLoad()
         
-        setupNavigationBar()
-        setupActivityIndicator()
+        self.setupNavigationBar()
+        self.setupActivityIndicator()
         
         // Connect tableView and load data
         self.tableView.delegate = self
@@ -119,12 +80,64 @@ class DiningGroupViewController: UIViewController, UITableViewDelegate, UITableV
     override func viewWillAppear(_ animated: Bool)
     {
         super.viewWillAppear(animated);
+        
+        self.navbar?.hideHairline = true
+        self.navbar?.setTransparent(true)
         setStatusBarStyle(self.preferredStatusBarStyle)
         
         if let nc = self.navigationController 
         {
             ConvenienceMethods.setCurrentTabStyle(pageTabBarVC: pageTabBarController!, ForSelectedViewController: nc)
         }
+    }
+    
+    override func viewDidLayoutSubviews()
+    {
+        super.viewDidLayoutSubviews()
+        
+        let view = self.view!
+        
+        let navbarMaxY = self.navbar?.frame.maxY ?? 0
+        self.pseudoNavbar.frame = CGRect(x: 0, y: -navbarMaxY, width: view.width, height: navbarMaxY)
+    }
+    
+    
+    // ========================================
+    // MARK: - Setup
+    // ========================================
+    /**
+     * Makes the original UINavigationBar clear and inserts another view with solid color.
+     * This is to prevent strage transitions when pushing/popping ViewControllers with clear navbar.
+     * TODO: find a solution for  
+     */
+    private func setupNavigationBar()
+    {
+        // Insert a pseudo-background
+        self.pseudoNavbar = UIView()
+        self.pseudoNavbar.backgroundColor = kColorNavy
+        self.view!.addSubview(self.pseudoNavbar)
+        
+    
+        // Configure the navigationBar.
+        self.navbar = self.navigationController?.navigationBar
+        guard let navbar = self.navbar else {
+            return
+        } 
+        
+        // White content
+        navbar.tintColor = .white
+        navbar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "", style: .plain, target: nil, action: nil)
+    }
+    
+    /// Configure and add the ActivityIndicator.
+    private func setupActivityIndicator()
+    {
+        self.activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        self.activityIndicator.hidesWhenStopped = true
+        self.activityIndicator.center = self.view!.center
+        self.activityIndicator.autoresizingMask = [.flexibleRightMargin, .flexibleBottomMargin]
+        self.view.addSubview(self.activityIndicator)
     }
     
     
