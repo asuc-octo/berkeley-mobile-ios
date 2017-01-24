@@ -329,6 +329,7 @@
                     <connections>
                         <outlet property="baseTableView" destination="iZL-Qk-IGT" id="QJG-ah-8iX"/>
                         <segue destination="3hM-gG-31P" kind="show" identifier="toGymMapView" id="t5n-de-v2r"/>
+                        <segue destination="8DD-UM-IbS" kind="show" identifier="toGymDetail" id="11Y-zN-yB2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b1n-v9-LLd" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -508,6 +509,7 @@
                     <connections>
                         <outlet property="baseTableView" destination="ZDo-p4-HsB" id="2fh-74-Ram"/>
                         <segue destination="Thf-MD-33Y" kind="show" identifier="toLibraryMapView" id="OXe-7W-MFb"/>
+                        <segue destination="zfi-iu-H96" kind="show" identifier="toLibraryDetail" id="QHM-f7-uBR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="drQ-aQ-9vu" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1124,7 +1126,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wxP-R4-ifI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1432.8" y="745.27736131934034"/>
+            <point key="canvasLocation" x="1406" y="745"/>
         </scene>
         <!--Library Detail View Controller-->
         <scene sceneID="xkp-pa-fDj">
@@ -1315,7 +1317,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pef-39-Uwo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2077.5999999999999" y="756.97151424287858"/>
+            <point key="canvasLocation" x="2220" y="756"/>
         </scene>
         <!--Dining Hall Detail View Controller-->
         <scene sceneID="st8-83-jbX">
@@ -1516,4 +1518,8 @@
         <image name="phone" width="50" height="50"/>
         <image name="white-map-icon" width="30" height="30"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="11Y-zN-yB2"/>
+        <segue reference="QHM-f7-uBR"/>
+    </inferredMetricsTieBreakers>
 </document>
