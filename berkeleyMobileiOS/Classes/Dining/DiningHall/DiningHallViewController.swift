@@ -34,7 +34,7 @@ class DiningHallViewController: UIViewController, RequiresData, PageTabBarContro
     private var imageGradient: CAGradientLayer!
     
     @IBOutlet private weak var scrollView: UIScrollView!
-    private var nestedScrollView: UIScrollView!
+    private var nestedScrollView: DelegatesScroll!
     
     private var menuTabController: PageTabBarController! 
     private var menuTabView: UIView!
@@ -46,6 +46,7 @@ class DiningHallViewController: UIViewController, RequiresData, PageTabBarContro
     // ========================================
     typealias DataType = DiningHall
     
+    /// Store the DiningHall and set the name.
     func setData(_ hall: DiningHall)
     {
         self.diningHall = hall
@@ -57,6 +58,7 @@ class DiningHallViewController: UIViewController, RequiresData, PageTabBarContro
     // MARK: - UIViewController
     // ========================================
     
+    /// Call all necessary setup methods and store a reference to the UINavigationBar.
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -68,6 +70,7 @@ class DiningHallViewController: UIViewController, RequiresData, PageTabBarContro
         self.navbar = self.navigationController?.navigationBar
     }
     
+    /// Configure the UINavigationBar.
     override func viewWillAppear(_ animated: Bool)
     {
         super.viewWillAppear(animated)
@@ -77,11 +80,11 @@ class DiningHallViewController: UIViewController, RequiresData, PageTabBarContro
         setStatusBarStyle(self.preferredStatusBarStyle)
     }
     
+    /// Manually call the initial pageTabBar transition callback.
     override func viewDidAppear(_ animated: Bool)
     {
         super.viewDidAppear(animated)
         
-        // Manually call initial transition event.
         self.pageTabBarController(pageTabBarController: self.menuTabController, 
                                   didTransitionTo: self.menuTabController.viewControllers.first!)
     }
@@ -182,9 +185,6 @@ class DiningHallViewController: UIViewController, RequiresData, PageTabBarContro
         tabBar.lineColor = kColorNavy//UIColor.white
         tabBar.lineHeight = 1
         tabBar.lineAlignment = .bottom
-        tabBar.layer.shadowRadius = 3
-        tabBar.layer.shadowOpacity = 0.3
-        tabBar.layer.shadowOffset = CGSize(width: 0, height: 3)
         
         // Store references and add to hierarchy
         self.menuTabController = tabController
@@ -204,14 +204,14 @@ class DiningHallViewController: UIViewController, RequiresData, PageTabBarContro
     func pageTabBarController(pageTabBarController: PageTabBarController, didTransitionTo viewController: UIViewController)
     {
         guard
-            let menuVC = viewController as? DiningMenuViewController,
+            let containsScroll = viewController as? DelegatesScroll,
             pageTabBarController == self.menuTabController
         else 
         { return }
         
         // Reset offset of previous inner scrollView (if any), and set new one.
         self.nestedScrollView?.contentOffset = CGPoint.zero
-        self.nestedScrollView = menuVC.tableView
+        self.nestedScrollView = containsScroll
         
         let inset = self.scrollView.contentInset.top
         let offsetY = self.scrollView.contentOffset.y
@@ -253,10 +253,10 @@ class DiningHallViewController: UIViewController, RequiresData, PageTabBarContro
         let pulled = -(inset + offsetY)
         self.banner.height = inset + (pulled > 0 ? pulled : 0) + (self.navbar?.frame.maxY ?? 0)
         
+        // Scroll up until offset 0, then sticky the menuTabView and scroll the nested scrollView instead. 
         let nestedOffset = (offsetY < 0) ? 0 : offsetY
         self.menuTabView.y = nestedOffset
         self.nestedScrollView?.contentOffset.y = nestedOffset
-        self.showMenuTabBarShadow = nestedOffset > 0
         
         
         // When scrolled up, pseudoNavbar shows itself
@@ -302,21 +302,6 @@ class DiningHallViewController: UIViewController, RequiresData, PageTabBarContro
         if (offsetY == -inset) && (contentHeight == 0)
         {
             self.scrollView.contentSize.height = self.menuTabBar.height
-        }
-    }
-    
-    
-    // ========================================
-    // MARK: - Private
-    // ========================================
-    
-    /// Sets MenuTabBar's shadow to black to show, and clear to hide.
-    private var showMenuTabBarShadow: Bool = false
-    {
-        didSet 
-        {
-            let tabBar = self.menuTabController.pageTabBar
-            tabBar.layer.shadowColor = (showMenuTabBarShadow ? UIColor.black : UIColor.clear).cgColor
         }
     }
 }
