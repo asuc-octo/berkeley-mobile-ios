@@ -137,6 +137,12 @@ class LibraryDetailViewController: UIViewController, UITableViewDataSource, UITa
             }
         }
     }
+    
+    @IBAction func viewLibraryWebsite(_ sender: Any) {
+        
+        UIApplication.shared.open(NSURL(string: "http://www.lib.berkeley.edu/libraries/main-stacks")! as URL,  options: [:], completionHandler: nil)
+    }
+    
 
     @IBAction func viewLibraryMap(_ sender: Any) {
         

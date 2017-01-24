@@ -1245,38 +1245,77 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="111"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xhr-ML-ABL">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xhr-ML-ABL">
                                                     <rect key="frame" x="109" y="45" width="135" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dQq-I3-mPP">
-                                                    <rect key="frame" x="216" y="30" width="104" height="50"/>
-                                                    <state key="normal" image="heart-large"/>
+                                                    <rect key="frame" x="135" y="23" width="104" height="50"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="50" id="AF4-7N-9up"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <inset key="titleEdgeInsets" minX="-79" minY="80" maxX="-37" maxY="0.0"/>
+                                                    <inset key="imageEdgeInsets" minX="30" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                    <state key="normal" title="FAVORITE" image="heart-large">
+                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
                                                     <connections>
                                                         <action selector="favoriteLibrary:" destination="zfi-iu-H96" eventType="touchUpInside" id="ASU-dT-wzn"/>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="awC-c6-thB">
-                                                    <rect key="frame" x="61" y="30" width="104" height="50"/>
-                                                    <state key="normal" image="phone"/>
+                                                    <rect key="frame" x="23" y="23" width="104" height="50"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="50" id="CBo-v4-10M"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <inset key="titleEdgeInsets" minX="-79" minY="80" maxX="-40" maxY="0.0"/>
+                                                    <inset key="imageEdgeInsets" minX="25" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                    <state key="normal" title="PHONE" image="phone">
+                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
                                                     <connections>
                                                         <action selector="callLibrary:" destination="zfi-iu-H96" eventType="touchUpInside" id="Kwu-zb-6ek"/>
                                                     </connections>
                                                 </button>
+                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6DC-IB-iTR">
+                                                    <rect key="frame" x="256" y="11" width="104" height="73"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="73" id="XVU-Ex-s2y"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <inset key="titleEdgeInsets" minX="-79" minY="80" maxX="-17" maxY="0.0"/>
+                                                    <inset key="imageEdgeInsets" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                    <state key="normal" title="WEBSITE" image="website">
+                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="viewLibraryWebsite:" destination="zfi-iu-H96" eventType="touchUpInside" id="8yL-Bt-wTi"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailingMargin" secondItem="dQq-I3-mPP" secondAttribute="trailing" constant="47" id="7O6-hr-dtU"/>
-                                                <constraint firstItem="awC-c6-thB" firstAttribute="leading" secondItem="bTy-oh-SdK" secondAttribute="leadingMargin" constant="53" id="Kag-QR-vtn"/>
-                                                <constraint firstItem="awC-c6-thB" firstAttribute="centerY" secondItem="bTy-oh-SdK" secondAttribute="centerY" id="Wzm-qC-433"/>
-                                                <constraint firstItem="xhr-ML-ABL" firstAttribute="centerY" secondItem="bTy-oh-SdK" secondAttribute="centerY" id="ic5-pF-xtq"/>
-                                                <constraint firstItem="dQq-I3-mPP" firstAttribute="centerY" secondItem="bTy-oh-SdK" secondAttribute="centerY" id="meb-xc-Edf"/>
+                                                <constraint firstItem="awC-c6-thB" firstAttribute="width" secondItem="dQq-I3-mPP" secondAttribute="width" id="4fz-3h-XL4"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="dQq-I3-mPP" secondAttribute="bottom" constant="30" id="9Rl-pL-m4E"/>
+                                                <constraint firstItem="dQq-I3-mPP" firstAttribute="top" secondItem="bTy-oh-SdK" secondAttribute="topMargin" constant="15" id="LGW-4M-G2T"/>
+                                                <constraint firstItem="awC-c6-thB" firstAttribute="top" secondItem="bTy-oh-SdK" secondAttribute="topMargin" constant="15" id="P3N-TK-aGi"/>
+                                                <constraint firstItem="dQq-I3-mPP" firstAttribute="centerX" secondItem="bTy-oh-SdK" secondAttribute="centerX" id="QQ1-Fk-Avr"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="6DC-IB-iTR" secondAttribute="bottom" constant="19" id="RrM-5X-3I2"/>
+                                                <constraint firstItem="6DC-IB-iTR" firstAttribute="top" secondItem="bTy-oh-SdK" secondAttribute="topMargin" constant="3" id="e2E-WM-WUd"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="awC-c6-thB" secondAttribute="bottom" constant="30" id="eyK-qf-SCL"/>
+                                                <constraint firstItem="dQq-I3-mPP" firstAttribute="width" secondItem="6DC-IB-iTR" secondAttribute="width" id="id9-Ll-n7v"/>
+                                                <constraint firstItem="dQq-I3-mPP" firstAttribute="leading" secondItem="awC-c6-thB" secondAttribute="trailing" constant="8" id="sid-0o-vuW"/>
+                                                <constraint firstItem="6DC-IB-iTR" firstAttribute="leading" secondItem="dQq-I3-mPP" secondAttribute="trailing" constant="17" id="xz7-r3-bGm"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="libraryCallButton" destination="awC-c6-thB" id="B0h-Ad-7Wh"/>
                                             <outlet property="libraryFavoriteButton" destination="dQq-I3-mPP" id="VfU-Ai-fUE"/>
+                                            <outlet property="libraryWebsiteButton" destination="6DC-IB-iTR" id="tkE-pl-6X4"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -1317,7 +1356,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pef-39-Uwo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2220" y="756"/>
+            <point key="canvasLocation" x="2220" y="755.17241379310349"/>
         </scene>
         <!--Dining Hall Detail View Controller-->
         <scene sceneID="st8-83-jbX">
@@ -1516,6 +1555,7 @@
         <image name="icon_hours" width="95" height="95"/>
         <image name="library_temp" width="3264" height="2448"/>
         <image name="phone" width="50" height="50"/>
+        <image name="website" width="50" height="50"/>
         <image name="white-map-icon" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
