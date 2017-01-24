@@ -8,16 +8,18 @@
 
 import UIKit
 import RealmSwift
+import GoogleMaps
 
-class LibraryDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class LibraryDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, GMSMapViewDelegate, CLLocationManagerDelegate {
     
     @IBOutlet var libraryImage: UIImageView!
     @IBOutlet var libraryDetailTableView: UITableView!
-    
+    @IBOutlet var libraryMapView: GMSMapView!
     @IBOutlet var libraryName: UILabel!
     @IBOutlet var libraryAddress: UIButton!
     
     var library:Library?
+    var locationManager = CLLocationManager()
     var realm = try! Realm()
 
     override func viewDidLoad() {
@@ -29,9 +31,10 @@ class LibraryDetailViewController: UIViewController, UITableViewDataSource, UITa
         self.title = library?.name
         libraryName.text = library?.name
         libraryAddress.setTitle(library?.campusLocation, for: .normal)
+        setUpMap()
         
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -152,4 +155,70 @@ class LibraryDetailViewController: UIViewController, UITableViewDataSource, UITa
         UIApplication.shared.open(NSURL(string: "https://www.google.com/maps/dir/Current+Location/" + String(describing: lat!) + "," + String(describing: lon!))! as URL,  options: [:], completionHandler: nil)
 
     }
+    
+    func setUpMap() {
+        //Setting up map view
+        libraryMapView.delegate = self
+        libraryMapView.isMyLocationEnabled = true
+        let camera = GMSCameraPosition.camera(withLatitude: 37.871853, longitude: -122.258423, zoom: 15)
+        self.libraryMapView.camera = camera
+        self.libraryMapView.frame = self.view.frame
+        self.libraryMapView.isMyLocationEnabled = true
+        self.libraryMapView.delegate = self
+        self.locationManager.startUpdatingLocation()
+        
+        let kMapStyle =
+            "[" +
+                "{ \"featureType\": \"administrative\", \"elementType\": \"geometry\", \"stylers\": [ {  \"visibility\": \"off\" } ] }, " +
+                "{ \"featureType\": \"poi\", \"stylers\": [ {  \"visibility\": \"off\" } ] }, " +
+                "{ \"featureType\": \"road\", \"elementType\": \"labels.icon\", \"stylers\": [ {  \"visibility\": \"off\" } ] }, " +
+                "{ \"featureType\": \"transit\", \"stylers\": [ {  \"visibility\": \"off\" } ] } " +
+        "]"
+        
+        do {
+            // Set the map style by passing a valid JSON string.
+            self.libraryMapView.mapStyle = try GMSMapStyle(jsonString: kMapStyle)
+        } catch {
+            NSLog("The style definition could not be loaded: \(error)")
+//            print(error)
+        }
+        
+        let lat = library?.latitude!
+        let lon = library?.longitude!
+        let marker = GMSMarker()
+        
+        marker.position = CLLocationCoordinate2D(latitude: lat!, longitude: lon!)
+        marker.title = library?.name
+        
+        let status = getLibraryStatus(library: library!)
+        if (status == "Open") {
+            marker.icon = GMSMarker.markerImage(with: .green)
+        } else {
+            marker.icon = GMSMarker.markerImage(with: .red)
+        }
+        
+        marker.snippet = status
+        marker.map = self.libraryMapView
+
+    }
+    
+    func getLibraryStatus(library: Library) -> String {
+        
+        //Determining Status of library
+        let todayDate = NSDate()
+        
+        if (library.weeklyClosingTimes[0] == nil) {
+            return "Closed"
+        }
+        
+        var status = "Open"
+        if (library.weeklyClosingTimes[0]!.compare(todayDate as Date) == .orderedAscending) {
+            status = "Closed"
+        }
+        
+        return status
+    }
+    
+    
+    
 }
