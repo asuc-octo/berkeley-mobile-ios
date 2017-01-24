@@ -55,7 +55,7 @@ class BaseViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("hello")
+//        print("hello")
 //        let index = indexPath.row
 //        self.performSegue(withIdentifier: "toGymDetail", sender: index)
     }
