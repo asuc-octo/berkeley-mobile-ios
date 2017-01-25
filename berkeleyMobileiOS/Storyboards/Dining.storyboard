@@ -46,15 +46,15 @@
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="260" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="k1R-c4-AQd">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="278" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="k1R-c4-AQd">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="test" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="DiningGroupCell" id="YLQ-qa-4VU" customClass="DiningGroupCell" customModule="berkeleyMobileiOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="260"/>
+                                        <rect key="frame" x="0.0" y="28" width="375" height="278"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YLQ-qa-4VU" id="d19-uh-Thv">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="260"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="278"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dining Group" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0L1-20-vTi">
@@ -67,30 +67,27 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yIn-pi-G39">
-                                                    <rect key="frame" x="0.0" y="44" width="375" height="200"/>
+                                                    <rect key="frame" x="0.0" y="44" width="375" height="218"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="8" minimumInteritemSpacing="8" id="DUc-C4-7IK">
-                                                        <size key="itemSize" width="200" height="200"/>
+                                                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="12" minimumInteritemSpacing="12" id="DUc-C4-7IK">
+                                                        <size key="itemSize" width="200" height="218"/>
                                                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                         <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                                         <inset key="sectionInset" minX="16" minY="0.0" maxX="16" maxY="0.0"/>
                                                     </collectionViewFlowLayout>
                                                     <cells>
                                                         <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="LocationTile" id="LwM-E6-aZC" userLabel="Location Tile" customClass="LocationTile" customModule="berkeleyMobileiOS" customModuleProvider="target">
-                                                            <rect key="frame" x="16" y="0.0" width="200" height="200"/>
+                                                            <rect key="frame" x="16" y="0.0" width="200" height="218"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                                                <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="200" height="218"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5bR-px-lPe">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="200" height="132"/>
-                                                                        <constraints>
-                                                                            <constraint firstAttribute="height" constant="132" id="T7v-Xq-Jkp"/>
-                                                                        </constraints>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="200" height="150"/>
                                                                     </imageView>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xdF-vH-PwV" customClass="ToggleButton" customModule="berkeleyMobileiOS" customModuleProvider="target">
-                                                                        <rect key="frame" x="148" y="148" width="36" height="36"/>
+                                                                        <rect key="frame" x="148" y="166" width="36" height="36"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="36" id="qHS-nP-dcI"/>
                                                                             <constraint firstAttribute="width" secondItem="xdF-vH-PwV" secondAttribute="height" multiplier="1:1" id="wrC-NI-juZ"/>
@@ -100,7 +97,7 @@
                                                                         <state key="selected" image="heart_filled"/>
                                                                     </button>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jn9-Oa-lPF">
-                                                                        <rect key="frame" x="16" y="172" width="116" height="12"/>
+                                                                        <rect key="frame" x="16" y="190" width="29" height="12"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="12" id="zpl-Nv-pFL"/>
                                                                         </constraints>
@@ -109,7 +106,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ubd-m3-OWc">
-                                                                        <rect key="frame" x="16" y="148" width="116" height="16"/>
+                                                                        <rect key="frame" x="16" y="166" width="39" height="16"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="16" id="7i3-gY-7qS"/>
                                                                         </constraints>
@@ -126,11 +123,11 @@
                                                                 <constraint firstAttribute="trailing" secondItem="xdF-vH-PwV" secondAttribute="trailing" constant="16" id="EvQ-P8-f9k"/>
                                                                 <constraint firstItem="5bR-px-lPe" firstAttribute="top" secondItem="LwM-E6-aZC" secondAttribute="top" id="GlH-h0-stY"/>
                                                                 <constraint firstAttribute="bottom" secondItem="jn9-Oa-lPF" secondAttribute="bottom" constant="16" id="HmO-3x-wK3"/>
-                                                                <constraint firstItem="xdF-vH-PwV" firstAttribute="leading" secondItem="ubd-m3-OWc" secondAttribute="trailing" constant="16" id="Mkk-HQ-giw"/>
-                                                                <constraint firstItem="ubd-m3-OWc" firstAttribute="top" secondItem="5bR-px-lPe" secondAttribute="bottom" constant="16" id="Oms-UC-iWL"/>
+                                                                <constraint firstItem="jn9-Oa-lPF" firstAttribute="top" secondItem="ubd-m3-OWc" secondAttribute="bottom" constant="8" id="NV3-ec-xL3"/>
+                                                                <constraint firstAttribute="bottom" secondItem="5bR-px-lPe" secondAttribute="bottom" constant="68" id="Npr-P2-mJX"/>
+                                                                <constraint firstAttribute="trailing" secondItem="xdF-vH-PwV" secondAttribute="trailing" constant="16" id="Tcs-T8-d87"/>
                                                                 <constraint firstAttribute="trailing" secondItem="5bR-px-lPe" secondAttribute="trailing" id="aKU-N7-g49"/>
-                                                                <constraint firstItem="xdF-vH-PwV" firstAttribute="leading" secondItem="jn9-Oa-lPF" secondAttribute="trailing" constant="16" id="fes-iN-P5T"/>
-                                                                <constraint firstItem="xdF-vH-PwV" firstAttribute="top" secondItem="5bR-px-lPe" secondAttribute="bottom" constant="16" id="hR4-lp-eLU"/>
+                                                                <constraint firstAttribute="bottom" secondItem="xdF-vH-PwV" secondAttribute="bottom" constant="16" id="mTB-2e-yu1"/>
                                                                 <constraint firstItem="jn9-Oa-lPF" firstAttribute="leading" secondItem="LwM-E6-aZC" secondAttribute="leading" constant="16" id="zsB-of-F6B"/>
                                                             </constraints>
                                                             <userDefinedRuntimeAttributes>
