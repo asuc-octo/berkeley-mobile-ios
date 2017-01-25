@@ -9,6 +9,10 @@
 import UIKit
 
 class GymOptionsCell: UITableViewCell {
+    
+    @IBOutlet var gymPhoneButton: UIButton!
+    @IBOutlet var gymDirectionsButton: UIButton!
+    @IBOutlet var gymWebsiteButton: UIButton!
 
     override func awakeFromNib() {
         super.awakeFromNib()
