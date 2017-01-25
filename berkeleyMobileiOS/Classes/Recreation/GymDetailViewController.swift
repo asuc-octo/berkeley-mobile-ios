@@ -13,7 +13,6 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
     
     @IBOutlet var gymImage: UIImageView!
     @IBOutlet var gymInformationTable: UITableView!
-    
     @IBOutlet var gymName: UILabel!
     @IBOutlet var gymAddress: UIButton!
     @IBOutlet var gymMap: GMSMapView!
@@ -25,7 +24,6 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
         super.viewDidLoad()
         
         setUpMap()
-        
         gymImage.sd_setImage(with: gym?.imageURL!)
         gymInformationTable.delegate = self
         gymInformationTable.dataSource = self
@@ -75,20 +73,10 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
             
             return cell
         }
-    
-        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 2
-    }
-    
-    @IBAction func openMap(_ sender: UIButton) {
-        let lat = gym?.latitude!
-        let lon = gym?.longitude!
-    
-        UIApplication.shared.open(NSURL(string: "https://www.google.com/maps/dir/Current+Location/" + String(describing: lat!) + "," + String(describing: lon!))! as URL,  options: [:], completionHandler: nil)
-        
     }
     
     func setUpMap() {
@@ -129,7 +117,7 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
         if (self.gym?.closingTimeToday!.compare(NSDate() as Date) == .orderedAscending) {
             status = "Closed"
         }
-
+        
         if (status == "Open") {
             marker.icon = GMSMarker.markerImage(with: .green)
         } else {
@@ -141,6 +129,15 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
         
     }
     
+    
+    @IBAction func openMap(_ sender: UIButton) {
+        let lat = gym?.latitude!
+        let lon = gym?.longitude!
+    
+        UIApplication.shared.open(NSURL(string: "https://www.google.com/maps/dir/Current+Location/" + String(describing: lat!) + "," + String(describing: lon!))! as URL,  options: [:], completionHandler: nil)
+    }
+    
+
     @IBAction func callGym(_ sender: Any) {
         
         var number = ""
