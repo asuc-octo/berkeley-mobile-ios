@@ -15,43 +15,43 @@ class FavoriteStore
     // Singleton
     static let sharedInstance = FavoriteStore()
     private init() {}
-
-    
-    // Definition
-    let realm = try! Realm()
     
     func add(type: AnyClass, name: String)
     {
-        write(type, name, true)
+        let item = FavoriteItem(value: ["type": String(describing: type), "name": name])
+        
+        try! realm.write
+        {
+            realm.add(item)
+        }
     }
     
     func remove(type: AnyClass, name: String)
     {
-        write(type, name, false)
+        let result = realm.objects(FavoriteItem.self).filter("type = '\( String(describing: type) )' and name = '\(name)'")
+        
+        if result.count == 1
+        {
+            try! realm.write {
+                realm.delete(result.first!)
+            }
+        }
     }
     
     /// Return a String array containing all favorited items of the specified class. 
     func allItemsOfType(_ type: AnyClass) -> [String]
     {
-        let result = realm.objects(Item.self).filter("type = '\( String(describing: type) )'")
+        let result = realm.objects(FavoriteItem.self).filter("type = '\( String(describing: type) )'")
         return result.map { return $0.name }
-    }
-    
-    
-    private func write(_ type: AnyClass, _ name: String, _ add: Bool)
-    {
-        let item = Item(value: ["type": String(describing: type), "name": name])
-        
-        try! realm.write
-        {
-            add ? realm.add(item) : realm.delete(item)
-        }
     }
 }
 
 
+/// Global, but private, Realm.
+fileprivate let realm = try! Realm()
+
 /// Represents a single favorited item (or location).
-fileprivate class Item: RealmSwift.Object
+class FavoriteItem: RealmSwift.Object
 {
     dynamic var type: String = ""
     dynamic var name: String = ""

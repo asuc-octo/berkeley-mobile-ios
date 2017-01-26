@@ -10,6 +10,8 @@ class DiningMenuViewController: UIViewController, RequiresData, DelegatesScroll,
 {
     // Data
     private var shift: MealShift!
+    private var favoritedItems: [String]!
+    
     
     //UI
     @IBOutlet private weak var hoursView: UIView!
@@ -52,9 +54,15 @@ class DiningMenuViewController: UIViewController, RequiresData, DelegatesScroll,
         self.view!.clipsToBounds = true
         self.view!.sendSubview(toBack: self.tableView)
         
+        // Configure tableView.
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.isScrollEnabled = false
+        
+        
+        // Get list of favorited items.
+         self.favoritedItems = FavoriteStore.sharedInstance.allItemsOfType(DiningItem.self)
+        
         
         // Display the open hours.
         let hoursLayer = self.hoursView.layer
@@ -81,19 +89,30 @@ class DiningMenuViewController: UIViewController, RequiresData, DelegatesScroll,
     // MARK: - UITableViewDataSource
     // ========================================
     
-    // Return the number of menu items.
+    /// Return the number of menu items.
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         return self.shift.menu.count
     }
     
-    // Get a reuseable cell and set the data.
+    /// Get a reuseable cell and set the data.
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
+        let item = self.shift.menu[indexPath.row]
+        let favorited = self.favoritedItems.first(where: { $0 == item.name }).notNil
+    
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "DiningItemCell") as! DiningItemCell
-        cell.setData( self.shift.menu[indexPath.row] )
+        cell.setData( (item, favorited, Optional(favoriteStateChanged)) )
         
         return cell
+    }
+    
+    /// Called when the favorite button of a DiningItemCell is toggled.
+    func favoriteStateChanged(name: String, favorited: Bool)
+    {
+        let store = FavoriteStore.sharedInstance
+        let action = (favorited ? store.add : store.remove)
+        action(DiningItem.self, name)
     }
     
     
