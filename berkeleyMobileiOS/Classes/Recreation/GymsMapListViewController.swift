@@ -91,15 +91,18 @@ class GymsMapListViewController: UIViewController, GMSMapViewDelegate, CLLocatio
                         lat = (coordinates?.coordinate.latitude)!
                         lon = (coordinates?.coordinate.longitude)!
                         
+                        gym.latitude = lat
+                        gym.longitude = lon
+                        
                         // Setting attributes of marker
                         marker.position = CLLocationCoordinate2D(latitude: lat, longitude: lon)
                         marker.title = gym.name
-                        var status = "OPEN"
+                        var status = "Open"
                         if (gym.closingTimeToday!.compare(NSDate() as Date) == .orderedAscending) {
-                            status = "CLOSED"
+                            status = "Closed"
                         }
                         
-                        if (status == "OPEN") {
+                        if (status == "Open") {
                             marker.icon = GMSMarker.markerImage(with: .green)
                         } else {
                             marker.icon = GMSMarker.markerImage(with: .red)
@@ -167,12 +170,12 @@ class GymsMapListViewController: UIViewController, GMSMapViewDelegate, CLLocatio
         let cell = tableView.dequeueReusableCell(withIdentifier: "gym") as! GymCell
         let gym = gyms[indexPath.row]
         cell.gymName.text = gym.name
-        var status = "OPEN"
+        var status = "Open"
         if (gym.closingTimeToday!.compare(NSDate() as Date) == .orderedAscending) {
-            status = "CLOSED"
+            status = "Closed"
         }
         cell.gymStatus.text = status
-        if (status == "OPEN") {
+        if (status == "Open") {
             cell.gymStatus.textColor = UIColor.green
         } else {
             cell.gymStatus.textColor = UIColor.red
@@ -183,6 +186,28 @@ class GymsMapListViewController: UIViewController, GMSMapViewDelegate, CLLocatio
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return gyms.count
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "toGymDetail", sender: indexPath.row)
+        self.gymsTableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if (segue.identifier == "toGymDetail") {
+            let selectedIndex = sender as! Int
+            let selectedGym = self.gyms[selectedIndex]
+            
+            let backItem = UIBarButtonItem()
+            backItem.title = ""
+            navigationItem.backBarButtonItem = backItem
+            navigationItem.title = selectedGym.name
+            
+            let gymDetailVC = segue.destination as! GymDetailViewController
+            
+            gymDetailVC.gym = selectedGym
+        }
     }
     
 }

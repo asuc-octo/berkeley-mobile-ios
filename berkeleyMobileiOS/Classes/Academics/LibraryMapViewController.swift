@@ -26,8 +26,8 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        getAndSetFavoriteLibraries()
-        librariesTableView.reloadData()
+//        getAndSetFavoriteLibraries()
+//        librariesTableView.reloadData()
         setSegmentedControl()
         
         librariesSearchBar.isHidden = true
@@ -67,6 +67,11 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
         
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        getAndSetFavoriteLibraries()
+        librariesTableView.reloadData()
+    }
+    
     //Plots the location of libraries on map view
     func plotLibraries() {
 
@@ -88,7 +93,7 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
             marker.title = library.name
             
             let status = getLibraryStatus(library: library)
-            if (status == "OPEN") {
+            if (status == "Open") {
                 marker.icon = GMSMarker.markerImage(with: .green)
             } else {
                 marker.icon = GMSMarker.markerImage(with: .red)
@@ -138,7 +143,7 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
         let status = getLibraryStatus(library: library)
         
         cell.libraryStatus.text = status
-        if (status == "OPEN") {
+        if (status == "Open") {
             cell.libraryStatus.textColor = UIColor.green
         } else {
             cell.libraryStatus.textColor = UIColor.red
@@ -157,6 +162,11 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return libraries.count
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "toLibraryDetail", sender: indexPath.row)
+        self.librariesTableView.deselectRow(at: indexPath, animated: true)
     }
     
     //Location Manager delegates
@@ -229,18 +239,19 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
         let todayDate = NSDate()
         
         if (library.weeklyClosingTimes[0] == nil) {
-            return "CLOSED"
+            return "Closed"
         }
         
-        var status = "CLOSED"
+        var status = "Open"
         if (library.weeklyClosingTimes[0]!.compare(todayDate as Date) == .orderedAscending) {
-            status = "OPEN"
+            status = "Closed"
         }
         
         return status
     }
     
     func getAndSetFavoriteLibraries() {
+        self.favoriteLibraries.removeAll()
         let libraries = realm.objects(FavoriteLibrary.self)
         for library in libraries {
             self.favoriteLibraries.append(library.name)
@@ -251,6 +262,24 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
                 library.favorited = true
             }
         }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if (segue.identifier == "toLibraryDetail") {
+            let selectedIndex = sender as! Int
+            let selectedLibrary = self.libraries[selectedIndex]
+            
+            let backItem = UIBarButtonItem()
+            backItem.title = ""
+            navigationItem.backBarButtonItem = backItem
+            
+            let libraryDetailVC = segue.destination as! LibraryDetailViewController
+            
+            libraryDetailVC.library = selectedLibrary
+            
+        }
+    
     }
 }
 
