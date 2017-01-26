@@ -65,21 +65,30 @@ class RecreationViewController: BaseViewController {
         return sectionHeader
     }
     
+    
     func moveToMapView() {
         self.performSegue(withIdentifier: "toGymMapView", sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        let backItem = UIBarButtonItem()
+        backItem.title = ""
+        navigationItem.backBarButtonItem = backItem
+        
         if (segue.identifier == "toGymMapView") {
-            let backItem = UIBarButtonItem()
-            backItem.title = ""
-            navigationItem.backBarButtonItem = backItem
-            
             let gymMapVC = segue.destination as! GymsMapListViewController
-            
             gymMapVC.gyms = self.resources[kGyms]! as! [Gym]
-            
+        }
+        
+        if (segue.identifier == "toGymDetail") {
+            let index = sender as! Int!
+            let gymDetailVC = segue.destination as! GymDetailViewController
+            gymDetailVC.gym = self.resources[kGyms]![index!] as? Gym
+
         }
     }
+    
+    
 
 }
