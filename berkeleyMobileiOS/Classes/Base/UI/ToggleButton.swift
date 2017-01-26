@@ -8,6 +8,7 @@ import UIKit
  */
 class ToggleButton: UIButton
 {
+    var callback: ((Bool) -> Void)? = nil
 
     /// Call toggle() when a touchUpInside event occurs.
     override func awakeFromNib()
@@ -20,5 +21,6 @@ class ToggleButton: UIButton
     func toggle()
     {
         self.isSelected = !self.isSelected
+        callback?(self.isSelected)
     }
 }

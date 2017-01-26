@@ -18,9 +18,7 @@ class LocationTile: UICollectionViewCell, RequiresData
     @IBOutlet private weak var statusLabel: UILabel!
     @IBOutlet private weak var favoriteButton: ToggleButton! 
     
-    /**
-     * Configure the border and shadow, which can't be set in the interface builder.
-     */
+    /// Configure the border and shadow, which can't be set in the interface builder.
     override func awakeFromNib()
     {
         let layer = self.layer
@@ -37,9 +35,7 @@ class LocationTile: UICollectionViewCell, RequiresData
     // ========================================
     typealias DataType = DiningHall
     
-    /**
-     * Setting the DiningHall
-     */
+    /// Receive DiningHall to represent, and connect all data.
     public func setData(_ data: DataType)
     {
         let hall = data

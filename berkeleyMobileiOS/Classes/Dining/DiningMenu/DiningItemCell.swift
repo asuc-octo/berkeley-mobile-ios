@@ -16,7 +16,8 @@ class DiningItemCell: UITableViewCell, RequiresData
     @IBOutlet private weak var favoriteButton: ToggleButton!
     
     // Data
-    var item: DiningItem?
+    private var item: DiningItem!
+    private var callback: ((String, Bool) -> Void)?
     
     
     // ========================================
@@ -24,21 +25,29 @@ class DiningItemCell: UITableViewCell, RequiresData
     // ========================================
     override func awakeFromNib()
     {
-        // TODO: ask DiningDataStore if item is already favorited. 
+        super.awakeFromNib()
+        
+        self.favoriteButton.callback = self.toggled
     }
     
     
     // ========================================
     // MARK: - RequiresData
     // ========================================
-    typealias DataType = DiningItem
+    typealias DataType = (item: DiningItem, favorited: Bool, toggled: ((String, Bool) -> Void)?)
     
-    func setData(_ data: DiningItem)
+    func setData(_ data: DataType)
     {
-        self.item = data
+        self.item = data.item
+        self.nameLabel.text = data.item.name
         
-        self.nameLabel.text = data.name
+        self.callback = data.toggled
+        self.favoriteButton.isSelected = data.favorited
     }
     
     
+    func toggled(selected: Bool)
+    {
+        callback?(self.item.name, selected)
+    }
 }
