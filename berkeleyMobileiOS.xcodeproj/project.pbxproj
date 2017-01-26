@@ -54,6 +54,7 @@
 		4E8E0D931E0C08380052CC10 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E8E0D871E0C08380052CC10 /* Roboto-Regular.ttf */; };
 		4E8E0D941E0C08380052CC10 /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E8E0D881E0C08380052CC10 /* Roboto-Thin.ttf */; };
 		4E8E0D951E0C08380052CC10 /* Roboto-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E8E0D891E0C08380052CC10 /* Roboto-ThinItalic.ttf */; };
+		4EC537951E39758600F7C212 /* FavoriteStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC537941E39758600F7C212 /* FavoriteStore.swift */; };
 		4ED0D3591DDCE1C600956F9E /* DiningHallCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED0D3531DDCE1C600956F9E /* DiningHallCell.swift */; };
 		4ED0D35B1DDCE1C600956F9E /* DiningHallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED0D3551DDCE1C600956F9E /* DiningHallViewController.swift */; };
 		4ED0D35C1DDCE1C600956F9E /* DiningItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED0D3571DDCE1C600956F9E /* DiningItemCell.swift */; };
@@ -124,6 +125,7 @@
 		4E8E0D871E0C08380052CC10 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		4E8E0D881E0C08380052CC10 /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
 		4E8E0D891E0C08380052CC10 /* Roboto-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-ThinItalic.ttf"; sourceTree = "<group>"; };
+		4EC537941E39758600F7C212 /* FavoriteStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteStore.swift; sourceTree = "<group>"; };
 		4ED0D3531DDCE1C600956F9E /* DiningHallCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningHallCell.swift; sourceTree = "<group>"; };
 		4ED0D3551DDCE1C600956F9E /* DiningHallViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningHallViewController.swift; sourceTree = "<group>"; };
 		4ED0D3571DDCE1C600956F9E /* DiningItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningItemCell.swift; sourceTree = "<group>"; };
@@ -297,6 +299,7 @@
 				4E64B56F1DD134F800DA5E73 /* OptionalExtension.swift */,
 				4E505D3E1DD05A65004AC6C9 /* ConvenienceMethods.swift */,
 				4E62CFE61DD87CFB00B19722 /* UINavigationBar+Extension.swift */,
+				4EC537941E39758600F7C212 /* FavoriteStore.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -554,6 +557,7 @@
 				4E505D461DD05A65004AC6C9 /* LaunchViewController.swift in Sources */,
 				4ED0D35C1DDCE1C600956F9E /* DiningItemCell.swift in Sources */,
 				4ED0D35D1DDCE1C600956F9E /* DiningMenuViewController.swift in Sources */,
+				4EC537951E39758600F7C212 /* FavoriteStore.swift in Sources */,
 				4E505D491DD05A65004AC6C9 /* ConvenienceMethods.swift in Sources */,
 				4E62CFE71DD87CFB00B19722 /* UINavigationBar+Extension.swift in Sources */,
 				4E254FA11E08DE3D007BB22C /* DiningGroupViewController.swift in Sources */,
