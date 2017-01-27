@@ -38,6 +38,8 @@ class HomeViewController: BaseViewController {
         cell.homeCollectionView.dataSource = cell
         return cell
     }
+
+    
     //Customize Tab Bar Presence
     private func preparePageTabBarItem() {
         pageTabBarItem.image = #imageLiteral(resourceName: "home-icon")

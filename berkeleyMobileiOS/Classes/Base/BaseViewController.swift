@@ -52,6 +52,14 @@ class BaseViewController: UIViewController, UITableViewDelegate, UITableViewData
         cell.homeCollectionView.dataSource = cell
         return cell
     }
+
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        print("hello")
+//        let index = indexPath.row
+//        self.performSegue(withIdentifier: "toGymDetail", sender: index)
+    }
+    
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return sectionNames.count
