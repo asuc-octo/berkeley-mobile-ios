@@ -46,7 +46,7 @@ class DiningDataSource: NSObject
         for type in MealType.allValues
         {
             let key = type.rawValue
-            var shift = hall.meals[type]!
+            let shift = hall.meals[type]!
             
             shift.menu  = json[key + "_menu"].map{ (_, child) in parseDiningItem(child, hall) }
             shift.open  = formatter.date(from: json[key + "_open" ].string ?? "")?.sameTimeToday()
