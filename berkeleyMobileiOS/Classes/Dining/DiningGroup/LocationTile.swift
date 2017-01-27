@@ -11,14 +11,19 @@ fileprivate let kColorGreen = UIColor(red: 16/255.0, green: 161/255.0, blue: 0, 
  * LocationTile represents a single DiningHall.
  * It shows a thumbnail image, name, open status, and a save/favorite button.
  */
-class LocationTile: UICollectionViewCell, RequiresData
+class LocationTile: UICollectionViewCell, RequiresData, ToggleButtonDelegate
 {
+    // Data
+    private var hall: DiningHall! // TODO: Update to handle any Location.
+
+    // UI
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var nameLabel: UILabel!
     @IBOutlet private weak var statusLabel: UILabel!
     @IBOutlet private weak var favoriteButton: ToggleButton! 
     
-    /// Configure the border and shadow, which can't be set in the interface builder.
+    
+    /// Configure any visual elements that does not require data.
     override func awakeFromNib()
     {
         let layer = self.layer
@@ -33,19 +38,34 @@ class LocationTile: UICollectionViewCell, RequiresData
     // ========================================
     // MARK: - RequiresData
     // ========================================
-    typealias DataType = DiningHall
+    typealias DataType = (hall: DiningHall, favorited: Bool)
     
     /// Receive DiningHall to represent, and connect all data.
     public func setData(_ data: DataType)
     {
-        let hall = data
-        self.nameLabel.text = hall.name
+        self.hall = data.hall
+        self.nameLabel.text = self.hall.name
         
-        let status = hall.isOpen ? ("OPEN", kColorGreen) : ("CLOSED", kColorRed)
+        let status = self.hall.isOpen ? ("OPEN", kColorGreen) : ("CLOSED", kColorRed)
         self.statusLabel.text = status.0
         self.statusLabel.textColor = status.1
         
-        imageView.contentMode = .scaleAspectFill
-        imageView.load(url: hall.imageURL)
+        self.imageView.load(url: hall.imageURL)
+        self.favoriteButton.isSelected = data.favorited
+    }
+    
+    
+    // ========================================
+    // MARK: - ToggleButtonDelegate
+    // ========================================
+    /**
+     * Called when the favoriteButton on the tile is toggled.
+     * Pass the event through the FavoriteCallback. 
+     */
+    func buttonDidToggle(_ button: ToggleButton)
+    {
+        let store = FavoriteStore.sharedInstance
+        let action = (button.isSelected ? store.add : store.remove)
+        action(DiningHall.self, hall.name)
     }
 }
