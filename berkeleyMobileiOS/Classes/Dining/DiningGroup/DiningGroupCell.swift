@@ -29,7 +29,6 @@ class DiningGroupCell: UITableViewCell, RequiresData, UICollectionViewDataSource
     typealias DataType = (name: String, halls: [DiningHall], selectionHandler: HandlerType?)
     
     private var halls: [DiningHall]!
-    private var favoritedHalls: [String]!
     private var selectionHandler: HandlerType?
     
     /**
@@ -42,7 +41,6 @@ class DiningGroupCell: UITableViewCell, RequiresData, UICollectionViewDataSource
         self.groupLabel.text = data.name
         self.selectionHandler = data.selectionHandler
         
-        self.favoritedHalls = FavoriteStore.sharedInstance.allItemsOfType(DiningHall.self)
         self.collectionView.reloadData()
     }
     
@@ -67,7 +65,7 @@ class DiningGroupCell: UITableViewCell, RequiresData, UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
         let hall = halls[indexPath.item]
-        let favorited = self.favoritedHalls.first(where: { $0 == hall.name }).notNil
+        let favorited = FavoriteStore.sharedInstance.contains(type: DiningHall.self, name: hall.name)
     
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: kLocationTileID, for: indexPath) as! LocationTile
         cell.setData( (hall, favorited) )

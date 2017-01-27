@@ -60,10 +60,6 @@ class DiningMenuViewController: UIViewController, RequiresData, DelegatesScroll,
         self.tableView.isScrollEnabled = false
         
         
-        // Get list of favorited items.
-         self.favoritedItems = FavoriteStore.sharedInstance.allItemsOfType(DiningItem.self)
-        
-        
         // Display the open hours.
         let hoursLayer = self.hoursView.layer
         hoursLayer.shadowRadius = 2
@@ -99,7 +95,7 @@ class DiningMenuViewController: UIViewController, RequiresData, DelegatesScroll,
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         let item = self.shift.menu[indexPath.row]
-        let favorited = self.favoritedItems.first(where: { $0 == item.name }).notNil
+        let favorited = FavoriteStore.sharedInstance.contains(type: DiningItem.self, name: item.name)
     
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "DiningItemCell") as! DiningItemCell
         cell.setData( (item, favorited) )
