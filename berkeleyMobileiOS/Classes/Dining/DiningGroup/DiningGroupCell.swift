@@ -9,11 +9,6 @@ fileprivate let kLocationTileID = "LocationTile"
  */
 class DiningGroupCell: UITableViewCell, RequiresData, UICollectionViewDataSource, UICollectionViewDelegate
 {
-    typealias HandlerType = (DiningHall) -> Void
-
-    private var halls: [DiningHall]!
-    private var selectionHandler: HandlerType?
-    
     @IBOutlet private weak var groupLabel: UILabel!
     @IBOutlet private weak var collectionView: UICollectionView!
     
@@ -30,7 +25,12 @@ class DiningGroupCell: UITableViewCell, RequiresData, UICollectionViewDataSource
     // ========================================
     // MARK: - RequiresData
     // ========================================
+    typealias HandlerType = (DiningHall) -> Void
     typealias DataType = (name: String, halls: [DiningHall], selectionHandler: HandlerType?)
+    
+    private var halls: [DiningHall]!
+    private var favoritedHalls: [String]!
+    private var selectionHandler: HandlerType?
     
     /**
      * Set the name, dining halls, and selection callback handler.
@@ -42,6 +42,7 @@ class DiningGroupCell: UITableViewCell, RequiresData, UICollectionViewDataSource
         self.groupLabel.text = data.name
         self.selectionHandler = data.selectionHandler
         
+        self.favoritedHalls = FavoriteStore.sharedInstance.allItemsOfType(DiningHall.self)
         self.collectionView.reloadData()
     }
     
@@ -65,10 +66,15 @@ class DiningGroupCell: UITableViewCell, RequiresData, UICollectionViewDataSource
     /// Get a LocationTile and pass it the corresponding DiningHall.
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
+        let hall = halls[indexPath.item]
+        let favorited = self.favoritedHalls.first(where: { $0 == hall.name }).notNil
+    
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: kLocationTileID, for: indexPath) as! LocationTile
-        cell.setData( halls[indexPath.item] )
+        cell.setData( (hall, favorited) )
+        
         return cell
     }
+    
     
     
     // ========================================

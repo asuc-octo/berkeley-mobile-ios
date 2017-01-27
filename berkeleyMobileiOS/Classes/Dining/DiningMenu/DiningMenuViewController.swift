@@ -102,17 +102,9 @@ class DiningMenuViewController: UIViewController, RequiresData, DelegatesScroll,
         let favorited = self.favoritedItems.first(where: { $0 == item.name }).notNil
     
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "DiningItemCell") as! DiningItemCell
-        cell.setData( (item, favorited, Optional(favoriteStateChanged)) )
+        cell.setData( (item, favorited) )
         
         return cell
-    }
-    
-    /// Called when the favorite button of a DiningItemCell is toggled.
-    func favoriteStateChanged(name: String, favorited: Bool)
-    {
-        let store = FavoriteStore.sharedInstance
-        let action = (favorited ? store.add : store.remove)
-        action(DiningItem.self, name)
     }
     
     
