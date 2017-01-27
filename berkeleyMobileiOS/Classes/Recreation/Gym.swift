@@ -14,6 +14,8 @@ class Gym: Resource {
     
     var openingTimeToday: Date? = nil
     var closingTimeToday: Date? = nil
+    var latitude: Double? = nil
+    var longitude: Double? = nil
     
     init(name: String, address: String, imageLink: String, openingTimeToday: Date?, closingTimeToday: Date?) {
         self.address = address
