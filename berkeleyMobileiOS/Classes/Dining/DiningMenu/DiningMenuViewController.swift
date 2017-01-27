@@ -10,6 +10,8 @@ class DiningMenuViewController: UIViewController, RequiresData, DelegatesScroll,
 {
     // Data
     private var shift: MealShift!
+    private var favoritedItems: [String]!
+    
     
     //UI
     @IBOutlet private weak var hoursView: UIView!
@@ -52,9 +54,11 @@ class DiningMenuViewController: UIViewController, RequiresData, DelegatesScroll,
         self.view!.clipsToBounds = true
         self.view!.sendSubview(toBack: self.tableView)
         
+        // Configure tableView.
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.isScrollEnabled = false
+        
         
         // Display the open hours.
         let hoursLayer = self.hoursView.layer
@@ -81,17 +85,20 @@ class DiningMenuViewController: UIViewController, RequiresData, DelegatesScroll,
     // MARK: - UITableViewDataSource
     // ========================================
     
-    // Return the number of menu items.
+    /// Return the number of menu items.
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         return self.shift.menu.count
     }
     
-    // Get a reuseable cell and set the data.
+    /// Get a reuseable cell and set the data.
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
+        let item = self.shift.menu[indexPath.row]
+        let favorited = FavoriteStore.sharedInstance.contains(type: DiningItem.self, name: item.name)
+    
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "DiningItemCell") as! DiningItemCell
-        cell.setData( self.shift.menu[indexPath.row] )
+        cell.setData( (item, favorited) )
         
         return cell
     }

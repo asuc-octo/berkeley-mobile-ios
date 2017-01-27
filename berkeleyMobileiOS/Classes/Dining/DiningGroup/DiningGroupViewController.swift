@@ -77,6 +77,7 @@ class DiningGroupViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
     
+    /// Configure statusBar, navigationBar, and highlight the tab icon. 
     override func viewWillAppear(_ animated: Bool)
     {
         super.viewWillAppear(animated);
@@ -85,12 +86,13 @@ class DiningGroupViewController: UIViewController, UITableViewDelegate, UITableV
         self.navbar?.setTransparent(true)
         setStatusBarStyle(self.preferredStatusBarStyle)
         
-        if let nc = self.navigationController 
+        if let navController = self.navigationController 
         {
-            ConvenienceMethods.setCurrentTabStyle(pageTabBarVC: pageTabBarController!, ForSelectedViewController: nc)
+            ConvenienceMethods.setCurrentTabStyle(pageTabBarVC: pageTabBarController!, ForSelectedViewController: navController)
         }
     }
     
+    /// Place the pseudoNavbar backdrop behind the navbar.
     override func viewDidLayoutSubviews()
     {
         super.viewDidLayoutSubviews()
@@ -108,7 +110,9 @@ class DiningGroupViewController: UIViewController, UITableViewDelegate, UITableV
     /**
      * Makes the original UINavigationBar clear and inserts another view with solid color.
      * This is to prevent strage transitions when pushing/popping ViewControllers with clear navbar.
-     * TODO: find a solution for  
+     * 
+     * - Attention: Transparent UINavigationBar and pseudoNavbar backdrop is a temporary solution.
+     *      NavigationController and bar should be reworked into a custom class.
      */
     private func setupNavigationBar()
     {
@@ -163,10 +167,10 @@ class DiningGroupViewController: UIViewController, UITableViewDelegate, UITableV
         return cell
     }
     
+    
     // ========================================
     // MARK: - UITableViewDelegate
     // ========================================
-    
     /**
      * Called by DiningGroupCell when a DiningHall (LocationTile) is tapped.
      * Perform the DiningHallSegue. 
