@@ -24,7 +24,12 @@ class LaunchViewController: UIViewController {
     }
     //After launch animation, present the actual workflow. All tabs should be in this init statement.
     func presentMainViewController() {
-        let indexViewController: UIViewController  = TabBarController(viewControllers: [UIStoryboard.viewController(identifier: "recreationNav") as! RecreationNavigationController, UIStoryboard.viewController(identifier: "academicsNav") as! AcademicsNavigationController,UIStoryboard.viewController(identifier: "diningNav") as! DiningHallsNavigationController,UIStoryboard.viewController(identifier: "beartransitNav") as! BearTransitNavigationController], selectedIndex: 0)
+        let indexViewController: UIViewController  = TabBarController(viewControllers: [
+                UIStoryboard.viewController(identifier: "recreationNav") as! RecreationNavigationController, 
+                UIStoryboard.viewController(identifier: "academicsNav") as! AcademicsNavigationController,
+                UIStoryboard(name: "Dining", bundle: nil).instantiateInitialViewController()!,
+                UIStoryboard.viewController(identifier: "beartransitNav") as! BearTransitNavigationController
+            ], selectedIndex: 0)
         indexViewController.modalTransitionStyle = .crossDissolve
         self.present(indexViewController, animated: true, completion: nil)
     }

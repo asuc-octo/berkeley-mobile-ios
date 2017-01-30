@@ -39,6 +39,9 @@ CHECKOUT OPTIONS:
     :submodules: true
 
 SPEC CHECKSUMS:
+  Alamofire: 856a113053a7bc9cbe5d6367a555d773fc5cfef7
+  GoogleMaps: a5b5bbe47734e2443bde781a6aa64e69fdb6d785
+  Material: 09b50565d8f824bd74881eba12d7c549b41f510d
   Alamofire: aa2e09d871c9160ac53c90e83c68064a94e3dfbe
   GoogleMaps: a5b5bbe47734e2443bde781a6aa64e69fdb6d785
   Material: ef1e6da2e242d582205c87847a5346138894a633
