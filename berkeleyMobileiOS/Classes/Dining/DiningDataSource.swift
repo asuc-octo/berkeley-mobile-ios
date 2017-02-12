@@ -12,36 +12,34 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
-fileprivate let kDiningHallsEndpoint = "https://asuc-mobile-development.herokuapp.com/api/dining_halls"
+fileprivate let kDiningHallsEndpoint = kAPIURL + "dining_halls"
 
-/**
- * Static class that fetches the DiningHall related data.
- */
-class DiningDataSource: NSObject
+class DiningDataSource: ResourceDataSource
 {
-    typealias completionHandler = (_ halls: [DiningHall]?) -> Void
+    typealias ResourceType = DiningHall
     
     // Fetch the list of dining halls and report back to the completionHandler.
-    static func fetchDiningHalls(_ completion: @escaping completionHandler)
+    class func fetchResources(_ completion: @escaping (([Resource]?) -> Void)) 
     {
         Alamofire.request(kDiningHallsEndpoint).responseJSON
         { response in
             
-            if response.result.isFailure {
+            if response.result.isFailure 
+            {
                 print("[Error @ DiningHallDataSource.getDiningHalls()]: request failed")
                 return
             }
             
             let halls = JSON(data: response.data!)["dining_halls"].map { (_, child) in parseDiningHall(child) }
             completion(halls)
-        }
+        } 
     }
     
     // Return a DiningHall object parsed from JSON.
     private static func parseDiningHall(_ json: JSON) -> DiningHall
     {
         let formatter = sharedDateFormatter()
-        let hall = DiningHall(name: json["name"].stringValue, url: json["image_link"].stringValue)
+        let hall = DiningHall(name: json["name"].stringValue, imageLink: json["image_link"].stringValue)
 
         for type in MealType.allValues
         {

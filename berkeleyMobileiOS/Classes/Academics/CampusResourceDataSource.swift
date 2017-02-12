@@ -12,20 +12,24 @@ import SwiftyJSON
 
 fileprivate let kCampusResourcesEndpoint = kAPIURL + "/resources"
 
-class CampusResourceDataSource: NSObject {
-    typealias completionHandler = (_ halls: [CampusResource]?) -> Void
+class CampusResourceDataSource: ResourceDataSource 
+{
+    typealias ResourceType = CampusResource
     
     // Fetch the list of campus resources and report back to the completionHandler.
-    static func fetchCampusResources(_ completion: @escaping completionHandler)
+    static func fetchResources(_ completion: @escaping ([Resource]?) -> Void)
     {
         Alamofire.request(kCampusResourcesEndpoint).responseJSON
-            { response in
-                if response.result.isFailure {
-                    print("[Error @ CampusResourceDataSource.fetchCampusResources()]: request failed")
-                    return
-                }
-                let campusResources = JSON(data: response.data!)["resources"].map { (_, child) in parseCampusResource(child) }
-                completion(campusResources)
+        { response in
+            
+            if response.result.isFailure 
+            {
+                print("[Error @ CampusResourceDataSource.fetchCampusResources()]: request failed")
+                return
+            }
+            
+            let campusResources = JSON(data: response.data!)["resources"].map { (_, child) in parseCampusResource(child) }
+            completion(campusResources)
         }
     }
     

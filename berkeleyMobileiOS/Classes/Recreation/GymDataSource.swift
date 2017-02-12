@@ -12,22 +12,24 @@ import SwiftyJSON
 
 fileprivate let kGymsEndpoint = kAPIURL + "/gyms"
 
-class GymDataSource: NSObject {
-    typealias completionHandler = (_ halls: [Gym]?) -> Void
+class GymDataSource: ResourceDataSource 
+{
+    typealias ResourceType = Gym
     
     // Fetch the list of gyms and report back to the completionHandler.
-    static func fetchGyms(_ completion: @escaping completionHandler)
+    static func fetchResources(_ completion: @escaping ([Resource]?) -> Void)
     {
         Alamofire.request(kGymsEndpoint).responseJSON
-            { response in
-                
-                if response.result.isFailure {
-                    print("[Error @ GymDataSource.fetchGyms()]: request failed")
-                    return
-                }
-                
-                let gyms = JSON(data: response.data!)["gyms"].map { (_, child) in parseGym(child) }
-                completion(gyms)
+        { response in
+            
+            if response.result.isFailure
+            {
+                print("[Error @ GymDataSource.fetchGyms()]: request failed")
+                return
+            }
+            
+            let gyms = JSON(data: response.data!)["gyms"].map { (_, child) in parseGym(child) }
+            completion(gyms)
         }
     }
     

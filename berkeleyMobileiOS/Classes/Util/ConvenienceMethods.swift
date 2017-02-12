@@ -26,3 +26,23 @@ class ConvenienceMethods: NSObject {
         }
     }
 }
+
+
+extension PageTabBarController
+{
+    func highlightSelectedTabBarItem()
+    {
+        let controllers = self.viewControllers
+         
+        controllers.forEach 
+        { 
+            let item = $0.pageTabBarItem
+            item.imageView?.tintColor = Color.grey.base
+            item.imageEdgeInsets = UIEdgeInsetsMake(3, 3, 3, 3)
+        }
+        
+        let selectedItem = controllers[self.selectedIndex].pageTabBarItem
+        selectedItem.imageView?.tintColor = Color.blue.base
+        selectedItem.imageEdgeInsets = UIEdgeInsetsMake(6, 6, 6, 6)
+    }
+}
