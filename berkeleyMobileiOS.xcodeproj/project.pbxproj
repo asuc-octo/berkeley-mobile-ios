@@ -52,8 +52,8 @@
 		4E62CFDF1DD7E38900B19722 /* DiningData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E62CFDA1DD7E38900B19722 /* DiningData.swift */; };
 		4E62CFE01DD7E38900B19722 /* DiningDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E62CFDB1DD7E38900B19722 /* DiningDataSource.swift */; };
 		4E62CFE71DD87CFB00B19722 /* UINavigationBar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E62CFE61DD87CFB00B19722 /* UINavigationBar+Extension.swift */; };
-		4E64B56E1DD134EB00DA5E73 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E64B56D1DD134EB00DA5E73 /* DateExtension.swift */; };
-		4E64B5701DD134F800DA5E73 /* OptionalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E64B56F1DD134F800DA5E73 /* OptionalExtension.swift */; };
+		4E64B56E1DD134EB00DA5E73 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E64B56D1DD134EB00DA5E73 /* Date+Extension.swift */; };
+		4E64B5701DD134F800DA5E73 /* Optional+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E64B56F1DD134F800DA5E73 /* Optional+Extension.swift */; };
 		4E8E0D8A1E0C08380052CC10 /* Roboto-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E8E0D7E1E0C08380052CC10 /* Roboto-Black.ttf */; };
 		4E8E0D8B1E0C08380052CC10 /* Roboto-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E8E0D7F1E0C08380052CC10 /* Roboto-BlackItalic.ttf */; };
 		4E8E0D8C1E0C08380052CC10 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E8E0D801E0C08380052CC10 /* Roboto-Bold.ttf */; };
@@ -71,7 +71,7 @@
 		4ED0D35C1DDCE1C600956F9E /* DiningItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED0D3571DDCE1C600956F9E /* DiningItemCell.swift */; };
 		4ED0D35D1DDCE1C600956F9E /* DiningMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED0D3581DDCE1C600956F9E /* DiningMenuViewController.swift */; };
 		4ED0D35F1DDCE9FA00956F9E /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED0D35E1DDCE9FA00956F9E /* Protocols.swift */; };
-		4EE89F261DDBEF9F00AC4EF7 /* NetworkUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE89F251DDBEF9F00AC4EF7 /* NetworkUtils.swift */; };
+		4EE89F261DDBEF9F00AC4EF7 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE89F251DDBEF9F00AC4EF7 /* UIImageView+Extension.swift */; };
 		4EEF90471DDBC7D0002CF7E4 /* Dining.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4EEF90461DDBC7D0002CF7E4 /* Dining.storyboard */; };
 		B5F25D1D1DE2A1EA0084A5C7 /* GymDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F25D1C1DE2A1EA0084A5C7 /* GymDataSource.swift */; };
 		B5F25D1F1DE2A38E0084A5C7 /* Gym.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F25D1E1DE2A38E0084A5C7 /* Gym.swift */; };
@@ -133,8 +133,8 @@
 		4E62CFDA1DD7E38900B19722 /* DiningData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningData.swift; sourceTree = "<group>"; };
 		4E62CFDB1DD7E38900B19722 /* DiningDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningDataSource.swift; sourceTree = "<group>"; };
 		4E62CFE61DD87CFB00B19722 /* UINavigationBar+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+Extension.swift"; sourceTree = "<group>"; };
-		4E64B56D1DD134EB00DA5E73 /* DateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
-		4E64B56F1DD134F800DA5E73 /* OptionalExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionalExtension.swift; sourceTree = "<group>"; };
+		4E64B56D1DD134EB00DA5E73 /* Date+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
+		4E64B56F1DD134F800DA5E73 /* Optional+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Optional+Extension.swift"; sourceTree = "<group>"; };
 		4E8E0D7E1E0C08380052CC10 /* Roboto-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Black.ttf"; sourceTree = "<group>"; };
 		4E8E0D7F1E0C08380052CC10 /* Roboto-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-BlackItalic.ttf"; sourceTree = "<group>"; };
 		4E8E0D801E0C08380052CC10 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
@@ -152,7 +152,7 @@
 		4ED0D3571DDCE1C600956F9E /* DiningItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningItemCell.swift; sourceTree = "<group>"; };
 		4ED0D3581DDCE1C600956F9E /* DiningMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningMenuViewController.swift; sourceTree = "<group>"; };
 		4ED0D35E1DDCE9FA00956F9E /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
-		4EE89F251DDBEF9F00AC4EF7 /* NetworkUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkUtils.swift; sourceTree = "<group>"; };
+		4EE89F251DDBEF9F00AC4EF7 /* UIImageView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
 		4EEF90461DDBC7D0002CF7E4 /* Dining.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Dining.storyboard; sourceTree = "<group>"; };
 		4EF0D9AF1DDBC08C003C18FA /* Pods_berkeleyMobileiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods_berkeleyMobileiOS.framework; path = "Pods/../build/Debug-iphoneos/Pods_berkeleyMobileiOS.framework"; sourceTree = "<group>"; };
 		7BC35364DDC70E5590C55CCF /* Pods-berkeleyMobileiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeleyMobileiOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-berkeleyMobileiOS/Pods-berkeleyMobileiOS.release.xcconfig"; sourceTree = "<group>"; };
@@ -332,11 +332,11 @@
 			children = (
 				4E487A351DDBB59A0001F8CF /* Utils.swift */,
 				4ED0D35E1DDCE9FA00956F9E /* Protocols.swift */,
-				4EE89F251DDBEF9F00AC4EF7 /* NetworkUtils.swift */,
-				4E64B56D1DD134EB00DA5E73 /* DateExtension.swift */,
-				4E64B56F1DD134F800DA5E73 /* OptionalExtension.swift */,
+				4E64B56D1DD134EB00DA5E73 /* Date+Extension.swift */,
+				4E64B56F1DD134F800DA5E73 /* Optional+Extension.swift */,
 				284A3C841E316F1F00685A01 /* AddressCell.swift */,
 				4E505D3E1DD05A65004AC6C9 /* ConvenienceMethods.swift */,
+				4EE89F251DDBEF9F00AC4EF7 /* UIImageView+Extension.swift */,
 				4E62CFE61DD87CFB00B19722 /* UINavigationBar+Extension.swift */,
 			);
 			path = Util;
@@ -592,10 +592,10 @@
 				4E505D441DD05A65004AC6C9 /* HomeTableViewCell.swift in Sources */,
 				05ED0E911DF52327007F5241 /* DetailsViewController.swift in Sources */,
 				4E505D451DD05A65004AC6C9 /* HomeViewController.swift in Sources */,
-				4EE89F261DDBEF9F00AC4EF7 /* NetworkUtils.swift in Sources */,
+				4EE89F261DDBEF9F00AC4EF7 /* UIImageView+Extension.swift in Sources */,
 				4E505D3F1DD05A65004AC6C9 /* AcademicsViewController.swift in Sources */,
 				4E4EC14C1E5118C9000C63ED /* FavoriteStore.swift in Sources */,
-				4E64B5701DD134F800DA5E73 /* OptionalExtension.swift in Sources */,
+				4E64B5701DD134F800DA5E73 /* Optional+Extension.swift in Sources */,
 				28437CA51E31E97700075116 /* LibraryOptionsCell.swift in Sources */,
 				4E505D401DD05A65004AC6C9 /* BaseViewController.swift in Sources */,
 				2807415B1E1B2653009C303B /* GymCell.swift in Sources */,
@@ -609,7 +609,7 @@
 				4E62CFE71DD87CFB00B19722 /* UINavigationBar+Extension.swift in Sources */,
 				4E4EC1471E504710000C63ED /* ResourceTile.swift in Sources */,
 				4ED0D35F1DDCE9FA00956F9E /* Protocols.swift in Sources */,
-				4E64B56E1DD134EB00DA5E73 /* DateExtension.swift in Sources */,
+				4E64B56E1DD134EB00DA5E73 /* Date+Extension.swift in Sources */,
 				4ED0D35B1DDCE1C600956F9E /* DiningHallViewController.swift in Sources */,
 				4E2FC8471E2B0D7400B3A28B /* RecreationViewController.swift in Sources */,
 				4E487A361DDBB59A0001F8CF /* Utils.swift in Sources */,
