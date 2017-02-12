@@ -178,7 +178,9 @@ class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDe
      */
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
-        
+        let ref = self.resourceType.rawValue + "MapListSegue"
+        self.performSegue(withIdentifier: ref, sender: nil)
+        // TODO: sender should be the group/category.
     }
     
     /**
@@ -187,7 +189,8 @@ class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDe
      */
     func didSelectResource(_ resource: Resource)
     {
-        
+        let ref = self.resourceType.rawValue + "DetailSegue"
+        self.performSegue(withIdentifier: ref, sender: resource)
     }
     
     
@@ -195,14 +198,26 @@ class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDe
     // MARK: - Navigation
     // ========================================
     
-    /// Pass the DiningHall data to the DiningHallVC.
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
-        if segue.identifier == DiningHallSegue,
-            let diningHall   = sender as? DiningHall,
-            let diningHallVC = segue.destination as? DiningHallViewController
+        // TODO: Create a parent Resource(Detail)ViewController to clean this junk up.
+        
+        let destination = segue.destination
+        if let vc = destination as? DiningHallViewController
         {
-            diningHallVC.setData(diningHall)
+            vc.setData(sender as! DiningHall)
+        }
+        else if let vc = destination as? GymsMapListViewController
+        {
+            vc.gyms = self.resources as! [Gym]
+        } 
+        else if let vc = destination as? GymDetailViewController
+        {
+            vc.gym = sender as? Gym
+        }
+        else if let vc = destination as? LibraryMapViewController
+        {
+            vc.libraries = self.resources as! [Library]
         }
     }
 }

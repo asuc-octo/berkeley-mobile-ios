@@ -20,7 +20,7 @@ class ResourceNavigationController: UINavigationController, RequiresData
     {
         super.viewWillAppear(animated)
         
-        self.pageTabBarController?.highlightSelectedTabBarItem()
+        self.pageTabBarController?.highlightTabItem(of: self)
     }
     
     
