@@ -29,15 +29,18 @@
 		41E8438E1DAB3FE80096C049 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E8438D1DAB3FE80096C049 /* AppDelegate.swift */; };
 		41E843951DAB3FE80096C049 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41E843941DAB3FE80096C049 /* Assets.xcassets */; };
 		4E17C1D21E46623C00B9A6B8 /* ToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E17C1D11E46623C00B9A6B8 /* ToggleButton.swift */; };
-		4E17C1D41E46626100B9A6B8 /* ResourceTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E17C1D31E46626100B9A6B8 /* ResourceTile.swift */; };
 		4E17C1D61E46658800B9A6B8 /* Favorable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E17C1D51E46658800B9A6B8 /* Favorable.swift */; };
-		4E17C1D81E466B9F00B9A6B8 /* ResourceGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E17C1D71E466B9F00B9A6B8 /* ResourceGroupViewController.swift */; };
-		4E17C1DA1E466DBE00B9A6B8 /* ResourceDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E17C1D91E466DBE00B9A6B8 /* ResourceDataSource.swift */; };
 		4E254F9F1E08DE26007BB22C /* DiningGroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E254F9E1E08DE26007BB22C /* DiningGroupCell.swift */; };
 		4E254FA11E08DE3D007BB22C /* DiningGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E254FA01E08DE3D007BB22C /* DiningGroupViewController.swift */; };
 		4E254FA31E08E848007BB22C /* LocationTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E254FA21E08E848007BB22C /* LocationTile.swift */; };
 		4E2FC8471E2B0D7400B3A28B /* RecreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E505D3A1DD05A65004AC6C9 /* RecreationViewController.swift */; };
 		4E487A361DDBB59A0001F8CF /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E487A351DDBB59A0001F8CF /* Utils.swift */; };
+		4E4EC1421E50470F000C63ED /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4EC13C1E50470F000C63ED /* Resource.swift */; };
+		4E4EC1431E504710000C63ED /* ResourceDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4EC13D1E50470F000C63ED /* ResourceDataSource.swift */; };
+		4E4EC1441E504710000C63ED /* ResourceGroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4EC13E1E50470F000C63ED /* ResourceGroupCell.swift */; };
+		4E4EC1451E504710000C63ED /* ResourceGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4EC13F1E50470F000C63ED /* ResourceGroupViewController.swift */; };
+		4E4EC1461E504710000C63ED /* ResourceNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4EC1401E50470F000C63ED /* ResourceNavigationController.swift */; };
+		4E4EC1471E504710000C63ED /* ResourceTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4EC1411E50470F000C63ED /* ResourceTile.swift */; };
 		4E505D3F1DD05A65004AC6C9 /* AcademicsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E505D2E1DD05A65004AC6C9 /* AcademicsViewController.swift */; };
 		4E505D401DD05A65004AC6C9 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E505D301DD05A65004AC6C9 /* BaseViewController.swift */; };
 		4E505D411DD05A65004AC6C9 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E505D311DD05A65004AC6C9 /* TabBarController.swift */; };
@@ -73,15 +76,12 @@
 		4ED0D35F1DDCE9FA00956F9E /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED0D35E1DDCE9FA00956F9E /* Protocols.swift */; };
 		4EE89F261DDBEF9F00AC4EF7 /* NetworkUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE89F251DDBEF9F00AC4EF7 /* NetworkUtils.swift */; };
 		4EEF90471DDBC7D0002CF7E4 /* Dining.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4EEF90461DDBC7D0002CF7E4 /* Dining.storyboard */; };
-		4EF7DD471E4684A300C185DE /* ResourceGroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF7DD461E4684A300C185DE /* ResourceGroupCell.swift */; };
-		4EF7DD491E468EBC00C185DE /* ResourceNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF7DD481E468EBC00C185DE /* ResourceNavigationController.swift */; };
 		B5F25D1D1DE2A1EA0084A5C7 /* GymDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F25D1C1DE2A1EA0084A5C7 /* GymDataSource.swift */; };
 		B5F25D1F1DE2A38E0084A5C7 /* Gym.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F25D1E1DE2A38E0084A5C7 /* Gym.swift */; };
 		B5F25D211DE2B6DF0084A5C7 /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F25D201DE2B6DF0084A5C7 /* Library.swift */; };
 		B5F25D231DE2B6ED0084A5C7 /* LibraryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F25D221DE2B6ED0084A5C7 /* LibraryDataSource.swift */; };
 		B5F25D251DE8BFC60084A5C7 /* CampusResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F25D241DE8BFC60084A5C7 /* CampusResource.swift */; };
 		B5F25D271DE8BFD50084A5C7 /* CampusResourceDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F25D261DE8BFD50084A5C7 /* CampusResourceDataSource.swift */; };
-		B5F25D291DED11880084A5C7 /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F25D281DED11880084A5C7 /* Resource.swift */; };
 		B5F25D2B1DF519890084A5C7 /* LoadingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F25D2A1DF519890084A5C7 /* LoadingScreen.swift */; };
 		F1831570400BC13F0EDD243E /* Pods_berkeleyMobileiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2145738E109E31684887C5EE /* Pods_berkeleyMobileiOS.framework */; };
 		F31E935730F8A79555F3F457 /* Pods_berkeleyMobileiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB034802C6B616B145951320 /* Pods_berkeleyMobileiOS.framework */; };
@@ -113,14 +113,17 @@
 		41E843941DAB3FE80096C049 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		41E843991DAB3FE80096C049 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4E17C1D11E46623C00B9A6B8 /* ToggleButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToggleButton.swift; sourceTree = "<group>"; };
-		4E17C1D31E46626100B9A6B8 /* ResourceTile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ResourceTile.swift; path = ResourceGroup/ResourceTile.swift; sourceTree = "<group>"; };
 		4E17C1D51E46658800B9A6B8 /* Favorable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Favorable.swift; sourceTree = "<group>"; };
-		4E17C1D71E466B9F00B9A6B8 /* ResourceGroupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ResourceGroupViewController.swift; path = ResourceGroup/ResourceGroupViewController.swift; sourceTree = "<group>"; };
-		4E17C1D91E466DBE00B9A6B8 /* ResourceDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceDataSource.swift; sourceTree = "<group>"; };
 		4E254F9E1E08DE26007BB22C /* DiningGroupCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DiningGroupCell.swift; path = DiningGroup/DiningGroupCell.swift; sourceTree = "<group>"; };
 		4E254FA01E08DE3D007BB22C /* DiningGroupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DiningGroupViewController.swift; path = DiningGroup/DiningGroupViewController.swift; sourceTree = "<group>"; };
 		4E254FA21E08E848007BB22C /* LocationTile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocationTile.swift; path = DiningGroup/LocationTile.swift; sourceTree = "<group>"; };
 		4E487A351DDBB59A0001F8CF /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		4E4EC13C1E50470F000C63ED /* Resource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
+		4E4EC13D1E50470F000C63ED /* ResourceDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceDataSource.swift; sourceTree = "<group>"; };
+		4E4EC13E1E50470F000C63ED /* ResourceGroupCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceGroupCell.swift; sourceTree = "<group>"; };
+		4E4EC13F1E50470F000C63ED /* ResourceGroupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceGroupViewController.swift; sourceTree = "<group>"; };
+		4E4EC1401E50470F000C63ED /* ResourceNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceNavigationController.swift; sourceTree = "<group>"; };
+		4E4EC1411E50470F000C63ED /* ResourceTile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceTile.swift; sourceTree = "<group>"; };
 		4E505D2E1DD05A65004AC6C9 /* AcademicsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcademicsViewController.swift; sourceTree = "<group>"; };
 		4E505D301DD05A65004AC6C9 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		4E505D311DD05A65004AC6C9 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -158,8 +161,6 @@
 		4EE89F251DDBEF9F00AC4EF7 /* NetworkUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkUtils.swift; sourceTree = "<group>"; };
 		4EEF90461DDBC7D0002CF7E4 /* Dining.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Dining.storyboard; sourceTree = "<group>"; };
 		4EF0D9AF1DDBC08C003C18FA /* Pods_berkeleyMobileiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods_berkeleyMobileiOS.framework; path = "Pods/../build/Debug-iphoneos/Pods_berkeleyMobileiOS.framework"; sourceTree = "<group>"; };
-		4EF7DD461E4684A300C185DE /* ResourceGroupCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ResourceGroupCell.swift; path = ResourceGroup/ResourceGroupCell.swift; sourceTree = "<group>"; };
-		4EF7DD481E468EBC00C185DE /* ResourceNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceNavigationController.swift; sourceTree = "<group>"; };
 		7BC35364DDC70E5590C55CCF /* Pods-berkeleyMobileiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeleyMobileiOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-berkeleyMobileiOS/Pods-berkeleyMobileiOS.release.xcconfig"; sourceTree = "<group>"; };
 		9D72D6DF911EDC0F04EE307F /* Pods-berkeleyMobileiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeleyMobileiOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-berkeleyMobileiOS/Pods-berkeleyMobileiOS.debug.xcconfig"; sourceTree = "<group>"; };
 		B5F25D1C1DE2A1EA0084A5C7 /* GymDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GymDataSource.swift; sourceTree = "<group>"; };
@@ -168,7 +169,6 @@
 		B5F25D221DE2B6ED0084A5C7 /* LibraryDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryDataSource.swift; sourceTree = "<group>"; };
 		B5F25D241DE8BFC60084A5C7 /* CampusResource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CampusResource.swift; sourceTree = "<group>"; };
 		B5F25D261DE8BFD50084A5C7 /* CampusResourceDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CampusResourceDataSource.swift; sourceTree = "<group>"; };
-		B5F25D281DED11880084A5C7 /* Resource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
 		B5F25D2A1DF519890084A5C7 /* LoadingScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingScreen.swift; sourceTree = "<group>"; };
 		FB034802C6B616B145951320 /* Pods_berkeleyMobileiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_berkeleyMobileiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -220,16 +220,6 @@
 			path = berkeleyMobileiOS;
 			sourceTree = "<group>";
 		};
-		4E17C1CF1E4661D200B9A6B8 /* ResourceGroup */ = {
-			isa = PBXGroup;
-			children = (
-				4E17C1D71E466B9F00B9A6B8 /* ResourceGroupViewController.swift */,
-				4EF7DD461E4684A300C185DE /* ResourceGroupCell.swift */,
-				4E17C1D31E46626100B9A6B8 /* ResourceTile.swift */,
-			);
-			name = ResourceGroup;
-			sourceTree = "<group>";
-		};
 		4E17C1D01E46623C00B9A6B8 /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -248,12 +238,26 @@
 			name = DiningGroup;
 			sourceTree = "<group>";
 		};
+		4E4EC13B1E50470F000C63ED /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				4E4EC13C1E50470F000C63ED /* Resource.swift */,
+				4E4EC13D1E50470F000C63ED /* ResourceDataSource.swift */,
+				4E4EC13E1E50470F000C63ED /* ResourceGroupCell.swift */,
+				4E4EC13F1E50470F000C63ED /* ResourceGroupViewController.swift */,
+				4E4EC1401E50470F000C63ED /* ResourceNavigationController.swift */,
+				4E4EC1411E50470F000C63ED /* ResourceTile.swift */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
 		4E505D2C1DD05A65004AC6C9 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
 				4E505D381DD05A65004AC6C9 /* LaunchViewController.swift */,
-				4E505D2D1DD05A65004AC6C9 /* Academics */,
 				4E505D2F1DD05A65004AC6C9 /* Base */,
+				4E4EC13B1E50470F000C63ED /* Resource */,
+				4E505D2D1DD05A65004AC6C9 /* Academics */,
 				4E505D341DD05A65004AC6C9 /* Home */,
 				4E505D391DD05A65004AC6C9 /* Recreation */,
 				4E505D3B1DD05A65004AC6C9 /* Transit */,
@@ -290,10 +294,6 @@
 				B5F25D2A1DF519890084A5C7 /* LoadingScreen.swift */,
 				4E505D311DD05A65004AC6C9 /* TabBarController.swift */,
 				4E17C1D51E46658800B9A6B8 /* Favorable.swift */,
-				B5F25D281DED11880084A5C7 /* Resource.swift */,
-				4E17C1D91E466DBE00B9A6B8 /* ResourceDataSource.swift */,
-				4EF7DD481E468EBC00C185DE /* ResourceNavigationController.swift */,
-				4E17C1CF1E4661D200B9A6B8 /* ResourceGroup */,
 				4E17C1D01E46623C00B9A6B8 /* Components */,
 			);
 			path = Base;
@@ -583,10 +583,12 @@
 				28F7EAB61E375D9D00B558B0 /* GymOptionsCell.swift in Sources */,
 				B5F25D2B1DF519890084A5C7 /* LoadingScreen.swift in Sources */,
 				41E8438E1DAB3FE80096C049 /* AppDelegate.swift in Sources */,
+				4E4EC1451E504710000C63ED /* ResourceGroupViewController.swift in Sources */,
+				4E4EC1461E504710000C63ED /* ResourceNavigationController.swift in Sources */,
 				B5F25D1F1DE2A38E0084A5C7 /* Gym.swift in Sources */,
+				4E4EC1441E504710000C63ED /* ResourceGroupCell.swift in Sources */,
 				280741591E1B15E3009C303B /* GymsMapListViewController.swift in Sources */,
 				280389501DE2C11E00F04FCA /* LibraryCell.swift in Sources */,
-				4EF7DD491E468EBC00C185DE /* ResourceNavigationController.swift in Sources */,
 				4E505D411DD05A65004AC6C9 /* TabBarController.swift in Sources */,
 				4ED0D3591DDCE1C600956F9E /* DiningHallCell.swift in Sources */,
 				284A3C891E318A3E00685A01 /* LibraryTimeCell.swift in Sources */,
@@ -594,22 +596,20 @@
 				28037E621DD9798C00935E62 /* LibraryDetailViewController.swift in Sources */,
 				B5F25D211DE2B6DF0084A5C7 /* Library.swift in Sources */,
 				B5F25D251DE8BFC60084A5C7 /* CampusResource.swift in Sources */,
+				4E4EC1431E504710000C63ED /* ResourceDataSource.swift in Sources */,
 				41101F9F1DDEC5CF00D8D741 /* RecreationNavigationController.swift in Sources */,
-				4E17C1D41E46626100B9A6B8 /* ResourceTile.swift in Sources */,
 				284A3C811E31671300685A01 /* GymDetailViewController.swift in Sources */,
 				4E505D441DD05A65004AC6C9 /* HomeTableViewCell.swift in Sources */,
-				4E17C1DA1E466DBE00B9A6B8 /* ResourceDataSource.swift in Sources */,
 				05ED0E911DF52327007F5241 /* DetailsViewController.swift in Sources */,
 				4E505D451DD05A65004AC6C9 /* HomeViewController.swift in Sources */,
 				4EE89F261DDBEF9F00AC4EF7 /* NetworkUtils.swift in Sources */,
 				4E505D3F1DD05A65004AC6C9 /* AcademicsViewController.swift in Sources */,
 				4E64B5701DD134F800DA5E73 /* OptionalExtension.swift in Sources */,
-				B5F25D291DED11880084A5C7 /* Resource.swift in Sources */,
 				28437CA51E31E97700075116 /* LibraryOptionsCell.swift in Sources */,
-				4E17C1D81E466B9F00B9A6B8 /* ResourceGroupViewController.swift in Sources */,
 				4E505D401DD05A65004AC6C9 /* BaseViewController.swift in Sources */,
 				2807415B1E1B2653009C303B /* GymCell.swift in Sources */,
 				286D90241DDE9D86001DCBB6 /* LibraryMapViewController.swift in Sources */,
+				4E4EC1421E50470F000C63ED /* Resource.swift in Sources */,
 				4E505D461DD05A65004AC6C9 /* LaunchViewController.swift in Sources */,
 				4ED0D35C1DDCE1C600956F9E /* DiningItemCell.swift in Sources */,
 				4ED0D35D1DDCE1C600956F9E /* DiningMenuViewController.swift in Sources */,
@@ -618,13 +618,13 @@
 				4E62CFE71DD87CFB00B19722 /* UINavigationBar+Extension.swift in Sources */,
 				4E17C1D61E46658800B9A6B8 /* Favorable.swift in Sources */,
 				4E254FA11E08DE3D007BB22C /* DiningGroupViewController.swift in Sources */,
+				4E4EC1471E504710000C63ED /* ResourceTile.swift in Sources */,
 				4ED0D35F1DDCE9FA00956F9E /* Protocols.swift in Sources */,
 				4E64B56E1DD134EB00DA5E73 /* DateExtension.swift in Sources */,
 				4ED0D35B1DDCE1C600956F9E /* DiningHallViewController.swift in Sources */,
 				4E2FC8471E2B0D7400B3A28B /* RecreationViewController.swift in Sources */,
 				4E487A361DDBB59A0001F8CF /* Utils.swift in Sources */,
 				B5F25D231DE2B6ED0084A5C7 /* LibraryDataSource.swift in Sources */,
-				4EF7DD471E4684A300C185DE /* ResourceGroupCell.swift in Sources */,
 				B5F25D1D1DE2A1EA0084A5C7 /* GymDataSource.swift in Sources */,
 				284A3C8B1E318A5900685A01 /* LibraryPhoneCell.swift in Sources */,
 				41101FA31DDEC62900D8D741 /* BearTransitNavigationController.swift in Sources */,
