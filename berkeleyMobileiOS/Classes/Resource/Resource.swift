@@ -1,7 +1,9 @@
 
 import UIKit
 
-
+/**
+ * Enum of all available `Resource` types.
+ */
 enum ResourceType: String
 {
     case Gym
@@ -27,8 +29,6 @@ enum ResourceType: String
  */
 class Resource: Favorable
 {
-    typealias DataSourceType = ResourceDataSource
-
     var name: String
     var imageURL: URL? // TODO: consider an array/collection of images.
     

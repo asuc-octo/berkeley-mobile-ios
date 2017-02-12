@@ -1,14 +1,12 @@
 
 import UIKit
 
-private let DiningHallSegue = "DiningHallSegue"
-
 fileprivate let kColorNavy = UIColor(red: 23/255.0, green: 85/255.0, blue: 122/255.0, alpha: 1)
 
 
 /**
- * `ResourceGroupViewController` displays a table of a single `Resource` type separate groups.
- * Each cell contains a side-scrolling carousel of `Resources` as tiles.  
+ * Displays a single `Resource` type as rows of separate groups/categories.
+ * Each row is a horizontally scrolling carousel of tiles representing one `Resource` instance. 
  */
 class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDelegate, UITableViewDataSource
 {
@@ -167,10 +165,8 @@ class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDe
     // ========================================
     // MARK: - UITableViewDelegate
     // ========================================
-    /**
-     * Called when an entire category row is tapped.
-     * Present the corresponding list of resources.
-     */
+    
+    /// When a row (not tile) is tapped, present the corresponding `ResourceMapListViewController`.
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
         let ref = self.resourceType.rawValue + "MapListSegue"
@@ -178,10 +174,7 @@ class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDe
         // TODO: sender should be the group/category.
     }
     
-    /**
-     * Called by ResourceGroupCell when a ResourceTile is tapped.
-     * Presen the corresponding detail view of the resource.
-     */
+    /// When a tile is tapped, present the corresponding `ResourceDetailViewController`.
     func didSelectResource(_ resource: Resource)
     {
         let ref = self.resourceType.rawValue + "DetailSegue"
@@ -192,12 +185,15 @@ class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDe
     // ========================================
     // MARK: - Navigation
     // ========================================
-    
+    /**
+     * Cast the Resource to the corresponding type for each segue.
+     * 
+     * TODO: Create a parent Resource(Detail)ViewController to clean this junk up.
+     */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
-        // TODO: Create a parent Resource(Detail)ViewController to clean this junk up.
-        
         let destination = segue.destination
+        
         if let vc = destination as? DiningHallViewController
         {
             vc.setData(sender as! DiningHall)

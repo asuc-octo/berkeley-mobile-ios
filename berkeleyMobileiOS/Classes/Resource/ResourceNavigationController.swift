@@ -2,7 +2,7 @@
 import UIKit
 
 /**
- *
+ * Base navigation controller for a single type of `Resource`.
  */
 class ResourceNavigationController: UINavigationController, RequiresData
 {    
@@ -29,6 +29,7 @@ class ResourceNavigationController: UINavigationController, RequiresData
     // ========================================
     typealias DataType = ResourceType
     
+    /// Requires the `ResourceType` to display.
     func setData(_ type: DataType)
     {
         let name = type.rawValue.lowercased()
