@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="gpR-Ae-kh1">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vwX-1f-TP7">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -10,185 +10,15 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="Roboto-Bold.ttf">
-            <string>Roboto-Bold</string>
-        </array>
         <array key="Roboto-Regular.ttf">
             <string>Roboto-Regular</string>
         </array>
     </customFonts>
     <scenes>
-        <!--Navigation Controller-->
-        <scene sceneID="lvQ-Ns-9VD">
-            <objects>
-                <navigationController id="gpR-Ae-kh1" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="mcz-uM-SW4">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="Hvd-uh-LDl" kind="relationship" relationship="rootViewController" id="cHA-QS-6u4"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Qdt-G8-a6a" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-356" y="162"/>
-        </scene>
-        <!--Dining-->
-        <scene sceneID="ttS-M3-zv2">
-            <objects>
-                <viewController title="Dining" automaticallyAdjustsScrollViewInsets="NO" id="Hvd-uh-LDl" customClass="DiningGroupViewController" customModule="berkeleyMobileiOS" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Dog-ze-Fqg"/>
-                        <viewControllerLayoutGuide type="bottom" id="MJI-7A-Fti"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="EKs-2m-bcd">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="278" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="k1R-c4-AQd">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="test" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="DiningGroupCell" id="YLQ-qa-4VU" customClass="DiningGroupCell" customModule="berkeleyMobileiOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="278"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YLQ-qa-4VU" id="d19-uh-Thv">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="278"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dining Group" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0L1-20-vTi">
-                                                    <rect key="frame" x="16" y="16" width="343" height="20"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="20" id="2wR-FM-F2e"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="16"/>
-                                                    <color key="textColor" red="0.090196078431372548" green="0.33333333333333331" blue="0.47843137254901957" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yIn-pi-G39">
-                                                    <rect key="frame" x="0.0" y="44" width="375" height="218"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="12" minimumInteritemSpacing="12" id="DUc-C4-7IK">
-                                                        <size key="itemSize" width="200" height="218"/>
-                                                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                                        <inset key="sectionInset" minX="16" minY="0.0" maxX="16" maxY="0.0"/>
-                                                    </collectionViewFlowLayout>
-                                                    <cells>
-                                                        <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="LocationTile" id="LwM-E6-aZC" userLabel="Location Tile" customClass="LocationTile" customModule="berkeleyMobileiOS" customModuleProvider="target">
-                                                            <rect key="frame" x="16" y="0.0" width="200" height="218"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                                                <rect key="frame" x="0.0" y="0.0" width="200" height="218"/>
-                                                                <autoresizingMask key="autoresizingMask"/>
-                                                                <subviews>
-                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5bR-px-lPe">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="200" height="150"/>
-                                                                    </imageView>
-                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xdF-vH-PwV" customClass="ToggleButton" customModule="berkeleyMobileiOS" customModuleProvider="target">
-                                                                        <rect key="frame" x="148" y="166" width="36" height="36"/>
-                                                                        <constraints>
-                                                                            <constraint firstAttribute="height" constant="36" id="qHS-nP-dcI"/>
-                                                                            <constraint firstAttribute="width" secondItem="xdF-vH-PwV" secondAttribute="height" multiplier="1:1" id="wrC-NI-juZ"/>
-                                                                        </constraints>
-                                                                        <inset key="imageEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
-                                                                        <state key="normal" title="Button" image="heart_empty"/>
-                                                                        <state key="selected" image="heart_filled"/>
-                                                                    </button>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jn9-Oa-lPF">
-                                                                        <rect key="frame" x="16" y="190" width="29" height="12"/>
-                                                                        <constraints>
-                                                                            <constraint firstAttribute="height" constant="12" id="zpl-Nv-pFL"/>
-                                                                        </constraints>
-                                                                        <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="12"/>
-                                                                        <nil key="textColor"/>
-                                                                        <nil key="highlightedColor"/>
-                                                                    </label>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ubd-m3-OWc">
-                                                                        <rect key="frame" x="16" y="166" width="39" height="16"/>
-                                                                        <constraints>
-                                                                            <constraint firstAttribute="height" constant="16" id="7i3-gY-7qS"/>
-                                                                        </constraints>
-                                                                        <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
-                                                                        <nil key="textColor"/>
-                                                                        <nil key="highlightedColor"/>
-                                                                    </label>
-                                                                </subviews>
-                                                            </view>
-                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                            <constraints>
-                                                                <constraint firstItem="5bR-px-lPe" firstAttribute="leading" secondItem="LwM-E6-aZC" secondAttribute="leading" id="A03-Ul-DYa"/>
-                                                                <constraint firstItem="ubd-m3-OWc" firstAttribute="leading" secondItem="LwM-E6-aZC" secondAttribute="leading" constant="16" id="BWY-q6-5Xk"/>
-                                                                <constraint firstAttribute="trailing" secondItem="xdF-vH-PwV" secondAttribute="trailing" constant="16" id="EvQ-P8-f9k"/>
-                                                                <constraint firstItem="5bR-px-lPe" firstAttribute="top" secondItem="LwM-E6-aZC" secondAttribute="top" id="GlH-h0-stY"/>
-                                                                <constraint firstAttribute="bottom" secondItem="jn9-Oa-lPF" secondAttribute="bottom" constant="16" id="HmO-3x-wK3"/>
-                                                                <constraint firstItem="jn9-Oa-lPF" firstAttribute="top" secondItem="ubd-m3-OWc" secondAttribute="bottom" constant="8" id="NV3-ec-xL3"/>
-                                                                <constraint firstAttribute="bottom" secondItem="5bR-px-lPe" secondAttribute="bottom" constant="68" id="Npr-P2-mJX"/>
-                                                                <constraint firstAttribute="trailing" secondItem="xdF-vH-PwV" secondAttribute="trailing" constant="16" id="Tcs-T8-d87"/>
-                                                                <constraint firstAttribute="trailing" secondItem="5bR-px-lPe" secondAttribute="trailing" id="aKU-N7-g49"/>
-                                                                <constraint firstAttribute="bottom" secondItem="xdF-vH-PwV" secondAttribute="bottom" constant="16" id="mTB-2e-yu1"/>
-                                                                <constraint firstItem="jn9-Oa-lPF" firstAttribute="leading" secondItem="LwM-E6-aZC" secondAttribute="leading" constant="16" id="zsB-of-F6B"/>
-                                                            </constraints>
-                                                            <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="dividerThickness">
-                                                                    <real key="value" value="0.0"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                            </userDefinedRuntimeAttributes>
-                                                            <connections>
-                                                                <outlet property="favoriteButton" destination="xdF-vH-PwV" id="QMy-JK-iGs"/>
-                                                                <outlet property="imageView" destination="5bR-px-lPe" id="UgS-i8-OGU"/>
-                                                                <outlet property="nameLabel" destination="ubd-m3-OWc" id="Few-l5-f1X"/>
-                                                                <outlet property="statusLabel" destination="jn9-Oa-lPF" id="na5-WU-C3I"/>
-                                                            </connections>
-                                                        </collectionViewCell>
-                                                    </cells>
-                                                </collectionView>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                            <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="yIn-pi-G39" secondAttribute="bottom" constant="16" id="8QV-J9-Leo"/>
-                                                <constraint firstItem="yIn-pi-G39" firstAttribute="top" secondItem="0L1-20-vTi" secondAttribute="bottom" constant="8" id="DaW-Xy-8ML"/>
-                                                <constraint firstAttribute="trailing" secondItem="yIn-pi-G39" secondAttribute="trailing" id="d3e-tF-7RG"/>
-                                                <constraint firstItem="0L1-20-vTi" firstAttribute="top" secondItem="d19-uh-Thv" secondAttribute="top" constant="16" id="g7x-r4-GFu"/>
-                                                <constraint firstItem="0L1-20-vTi" firstAttribute="leading" secondItem="d19-uh-Thv" secondAttribute="leading" constant="16" id="h6V-kA-3Mo"/>
-                                                <constraint firstAttribute="trailing" secondItem="0L1-20-vTi" secondAttribute="trailing" constant="16" id="phz-CZ-iXp"/>
-                                                <constraint firstItem="yIn-pi-G39" firstAttribute="leading" secondItem="d19-uh-Thv" secondAttribute="leading" id="vFm-NB-ELN"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <connections>
-                                            <outlet property="collectionView" destination="yIn-pi-G39" id="4LM-kl-fbu"/>
-                                            <outlet property="groupLabel" destination="0L1-20-vTi" id="4rL-oX-FKt"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstItem="k1R-c4-AQd" firstAttribute="leading" secondItem="EKs-2m-bcd" secondAttribute="leading" id="FZq-xY-N81"/>
-                            <constraint firstAttribute="trailing" secondItem="k1R-c4-AQd" secondAttribute="trailing" id="R9s-o3-6Zm"/>
-                            <constraint firstItem="MJI-7A-Fti" firstAttribute="top" secondItem="k1R-c4-AQd" secondAttribute="bottom" id="jSd-Wz-ZqK"/>
-                            <constraint firstItem="k1R-c4-AQd" firstAttribute="top" secondItem="Dog-ze-Fqg" secondAttribute="bottom" id="nr5-fO-yqp"/>
-                        </constraints>
-                    </view>
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
-                    <navigationItem key="navigationItem" title="Dining" id="mNf-aK-Tow"/>
-                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
-                    <connections>
-                        <outlet property="tableView" destination="k1R-c4-AQd" id="iEJ-KM-i9U"/>
-                        <segue destination="vwX-1f-TP7" kind="show" identifier="DiningHallSegue" id="zOi-Jp-Lt6"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="r4Q-sZ-aRe" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="430" y="161"/>
-        </scene>
         <!--Dining Hall View Controller-->
         <scene sceneID="NkK-uR-zc3">
             <objects>
-                <viewController extendedLayoutIncludesOpaqueBars="YES" id="vwX-1f-TP7" customClass="DiningHallViewController" customModule="berkeleyMobileiOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DiningHallViewController" extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="vwX-1f-TP7" customClass="DiningHallViewController" customModule="berkeleyMobileiOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="BAH-LM-gjf"/>
                         <viewControllerLayoutGuide type="bottom" id="lSD-mi-SVc"/>

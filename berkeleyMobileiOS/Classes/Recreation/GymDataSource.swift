@@ -46,6 +46,9 @@ class GymDataSource: ResourceDataSource
                       openingTimeToday: open,
                       closingTimeToday: close)
         
+        gym.latitude = json["latitude"].doubleValue
+        gym.longitude = json["longitude"].doubleValue
+        
         return gym
     }
     
