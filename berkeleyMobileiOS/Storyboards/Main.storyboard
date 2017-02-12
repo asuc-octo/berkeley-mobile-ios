@@ -219,7 +219,7 @@
                 <viewControllerPlaceholder storyboardIdentifier="diningRef" storyboardName="Dining" referencedIdentifier="DiningHallViewController" id="PLc-Oo-zoo" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ah4-1S-JSE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3421" y="-331"/>
+            <point key="canvasLocation" x="3422" y="-334"/>
         </scene>
         <!--Detail Name-->
         <scene sceneID="kLJ-ea-KGy">
@@ -1273,7 +1273,7 @@
         <scene sceneID="XMU-sw-3QZ">
             <objects>
                 <navigationController storyboardIdentifier="ResourceNavigationController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="OKA-zV-SA1" customClass="ResourceNavigationController" customModule="berkeleyMobileiOS" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="rT5-1v-gIH">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="rT5-1v-gIH">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1289,7 +1289,7 @@
         <scene sceneID="gjk-Wv-6dM">
             <objects>
                 <navigationController storyboardIdentifier="beartransitNav" id="AGj-ct-NfJ" customClass="BearTransitNavigationController" customModule="berkeleyMobileiOS" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="wGm-X2-pud">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="wGm-X2-pud">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1313,7 +1313,7 @@
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="278" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3pf-v0-a3Y">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="278" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3pf-v0-a3Y">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>

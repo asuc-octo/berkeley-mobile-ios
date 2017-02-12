@@ -87,11 +87,6 @@ class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDe
         self.navbar?.hideHairline = true
         self.navbar?.setTransparent(true)
         setStatusBarStyle(self.preferredStatusBarStyle)
-        
-        if let navController = self.navigationController 
-        {
-            ConvenienceMethods.setCurrentTabStyle(pageTabBarVC: pageTabBarController!, ForSelectedViewController: navController)
-        }
     }
     
     /// Place the pseudoNavbar backdrop behind the navbar.
@@ -218,6 +213,10 @@ class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDe
         else if let vc = destination as? LibraryMapViewController
         {
             vc.libraries = self.resources as! [Library]
+        }
+        else if let vc = destination as? LibraryDetailViewController
+        {
+            vc.library = sender as? Library
         }
     }
 }
