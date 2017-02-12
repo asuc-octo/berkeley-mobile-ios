@@ -1,20 +1,22 @@
 
 import UIKit
 
-private let DiningGroupCellID = "DiningGroupCell"
 private let DiningHallSegue = "DiningHallSegue"
 
 fileprivate let kColorNavy = UIColor(red: 23/255.0, green: 85/255.0, blue: 122/255.0, alpha: 1)
 
 
 /**
- * Presents all DiningHalls with each category as a row of carousel tiles. 
+ * `ResourceGroupViewController` displays a table of a single `Resource` type separate groups.
+ * Each cell contains a side-scrolling carousel of `Resources` as tiles.  
  */
-class DiningGroupViewController: UIViewController, UITableViewDelegate, UITableViewDataSource
+class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDelegate, UITableViewDataSource
 {
     // Data
-    var halls: [DiningHall] = []
-
+    var resourceType: ResourceType!
+    var resources: [Resource] = []
+    
+    
     // UI
     override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
     private weak var navbar: UINavigationBar?
@@ -23,24 +25,26 @@ class DiningGroupViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet private weak var tableView: UITableView!
     private var activityIndicator: UIActivityIndicatorView!
     
-
+    
+    // ========================================
+    // MARK: - RequiresData
+    // ========================================
+    typealias DataType = ResourceType
+    
+    func setData(_ type: DataType)
+    {
+        self.resourceType = type
+        
+        self.title = type.rawValue
+    }
+    
+    
     // ========================================
     // MARK: - UIViewController
     // ========================================
-    
-    required init?(coder aDecoder: NSCoder)
-    {
-        super.init(coder: aDecoder)
-        
-        // TODO: this should be set in LaunchViewController.
-        let item = self.navigationController?.pageTabBarItem
-        item?.image = UIImage(named: "icon_dining")?.withRenderingMode(.alwaysTemplate)
-        item?.imageView?.contentMode = .scaleAspectFit
-    }
-    
     /**
-     * Called after view is loaded.
-     * Configure navbar, add the tableView, and load DiningHall data.
+     * Setup any remaining UI components not done in IB,
+     * and fetch resources to display.
      */
     override func viewDidLoad()
     {
@@ -54,23 +58,21 @@ class DiningGroupViewController: UIViewController, UITableViewDelegate, UITableV
         self.tableView.dataSource = self
         self.activityIndicator.startAnimating()
         
-        DiningDataSource.fetchResources
+        self.resourceType.dataSourceType.fetchResources
         { (_ resources: [Resource]?) in
-        
+            
             DispatchQueue.main.async {
                 self.activityIndicator.stopAnimating()
             }
-        
-            guard let halls = resources as? [DiningHall] else
+            
+            if resources.isNil
             {
-                // Show some error screen.
-                print("[ERROR @ DiningHallTableViewController] failed to fetch DiningHalls")
+                // Error
                 return
             }
             
-            self.halls = halls
+            self.resources = resources!
             
-            // Reload in main thread.
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
@@ -121,7 +123,7 @@ class DiningGroupViewController: UIViewController, UITableViewDelegate, UITableV
         self.pseudoNavbar.backgroundColor = kColorNavy
         self.view!.addSubview(self.pseudoNavbar)
         
-    
+        
         // Configure the navigationBar.
         self.navbar = self.navigationController?.navigationBar
         guard let navbar = self.navbar else {
@@ -159,10 +161,9 @@ class DiningGroupViewController: UIViewController, UITableViewDelegate, UITableV
     /// Pass the DiningGroupCell a name for the category, a list of halls, and a callback handler.
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        // TODO: currently only shows dining halls on campus.
-        let data = ("Dining Halls", halls, Optional(didSelectDiningHall))
+        let data = (self.resourceType.rawValue, self.resources, Optional(didSelectResource))
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: DiningGroupCellID) as! DiningGroupCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: className(ResourceGroupCell.self)) as! ResourceGroupCell
         cell.setData(data)
         return cell
     }
@@ -172,25 +173,34 @@ class DiningGroupViewController: UIViewController, UITableViewDelegate, UITableV
     // MARK: - UITableViewDelegate
     // ========================================
     /**
-     * Called by DiningGroupCell when a DiningHall (LocationTile) is tapped.
-     * Perform the DiningHallSegue. 
+     * Called when an entire category row is tapped.
+     * Present the corresponding list of resources.
      */
-    func didSelectDiningHall(_ hall: DiningHall)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
-        self.performSegue(withIdentifier: DiningHallSegue, sender: hall)
+        
+    }
+    
+    /**
+     * Called by ResourceGroupCell when a ResourceTile is tapped.
+     * Presen the corresponding detail view of the resource.
+     */
+    func didSelectResource(_ resource: Resource)
+    {
+        
     }
     
     
     // ========================================
     // MARK: - Navigation
     // ========================================
-
+    
     /// Pass the DiningHall data to the DiningHallVC.
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         if segue.identifier == DiningHallSegue,
-        let diningHall   = sender as? DiningHall,
-        let diningHallVC = segue.destination as? DiningHallViewController
+            let diningHall   = sender as? DiningHall,
+            let diningHallVC = segue.destination as? DiningHallViewController
         {
             diningHallVC.setData(diningHall)
         }

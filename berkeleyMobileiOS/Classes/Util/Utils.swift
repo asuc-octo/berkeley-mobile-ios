@@ -3,9 +3,9 @@ import UIKit
 
 
 /// Get class name of obj as string.
-func className(_ obj: AnyObject) -> String
+func className(_ c: AnyClass) -> String
 {
-    return "\(type(of: obj))"
+    return String(describing: c)
 }
 
 /// Globally set the status bar style/color.

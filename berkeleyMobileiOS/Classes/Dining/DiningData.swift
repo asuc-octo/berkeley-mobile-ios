@@ -7,7 +7,13 @@
 
 import Foundation 
 
-/// Types of meals include: breakfast, lunch, dinner, and late night.
+/**
+ * `MealType` is one of four: 
+ * - Breakfast
+ * - Lunch
+ * - Dinner
+ * - Late night
+ */
 enum MealType: String
 {
     case 
@@ -23,7 +29,9 @@ enum MealType: String
     }
 }
 
-/// MealShift contains the menu and hours of a specific MealType.
+/** 
+ * `MealShift` contains the menu and hours of a specific MealType.
+ */
 class MealShift
 {
     var menu: DiningMenu = []
@@ -33,15 +41,11 @@ class MealShift
 
 
 /**
- * DiningHall represents a single physical dining location.
- * Each hall contains the DiningMenu, Open & Close times for every MealType.
+ * `DiningHall` represents a single physical dining location.
+ * Each hall contains the `DiningMenu`, Open & Close times for every `MealType`.
  */
-class DiningHall
+class DiningHall: Resource
 {
-    let name: String
-    let imageURL: String?
-    
-    
     // Map of MealType to MealShift, which inclues the menu and opening & closing times.  
     typealias MealMap = [MealType : MealShift]
     
@@ -52,23 +56,9 @@ class DiningHall
         dict[type] = MealShift()
         return dict
     }
-
-    
-    /// Initialize DiningHall with a name and optional image URL string. 
-    init(name: String, url: String?)
-    {
-        self.name = name
-        self.imageURL = url
-    }
-    
-    /// String description is simply "DiningHall <name>"
-    var description: String
-    {
-        return "DiningHall \(self.name)"
-    }
     
     /// Returns whether the hall is currently open.
-    public var isOpen: Bool
+    override var isOpen: Bool
     {
         let now = Date()
         
@@ -93,17 +83,24 @@ class DiningHall
 typealias DiningMenu = [DiningItem]
 
 
-/// DiningHall represents a single dish/item. 
-class DiningItem
+/** 
+ * `DiningItem` represents a single dish/item.
+ * Contains a refernce to the `DiningHall` and `MealType` of where and when this item is served.
+ */ 
+class DiningItem: Favorable
 {
     var name: String
     var mealType: MealType
     weak var hall: DiningHall?
     
-    init(name: String, type: MealType, hall: DiningHall?)
+    var isFavorited: Bool
+    
+    init(name: String, type: MealType, hall: DiningHall?, favorited: Bool = false)
     {
         self.name = name
         self.mealType = type
         self.hall = hall
+        
+        self.isFavorited = favorited
     }
 }

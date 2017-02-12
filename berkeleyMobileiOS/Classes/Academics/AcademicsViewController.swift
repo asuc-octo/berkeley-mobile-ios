@@ -19,19 +19,24 @@ class AcademicsViewController: BaseViewController {
         let loadScreen = LoadingScreen.sharedInstance.getLoadingScreen()
         self.view.addSubview(loadScreen)
         
-        LibraryDataSource.fetchLibraries { (_ libraries: [Library]?) in
-            if libraries == nil {
+        LibraryDataSource.fetchResources
+        { (_ resources: [Resource]?) in
+        
+            guard let libraries = resources as? [Library] else
+            {
                 print("[ERROR @ AcademicsViewController] failed to fetch Libraries")
                 LoadingScreen.sharedInstance.removeLoadingScreen()
+                return
             }
-            self.resources[kLibraries] = libraries!
+            
+            self.resources[kLibraries] = libraries
             self.baseTableView.reloadData()
             
             if self.resources.count == self.sectionNames.count {
                 LoadingScreen.sharedInstance.removeLoadingScreen()
             }
         }
-        CampusResourceDataSource.fetchCampusResources { (_ campusResources: [CampusResource]?) in
+        CampusResourceDataSource.fetchResources { (_ campusResources: [Resource]?) in
             if campusResources == nil {
                 print("[ERROR @ AcademicsViewController] failed to fetch Campus Resources")
                 LoadingScreen.sharedInstance.removeLoadingScreen()

@@ -1,28 +1,57 @@
-//
-//  Resource.swift
-//  berkeleyMobileiOS
-//
-//  Created by Maya Reddy on 11/28/16.
-//  Copyright © 2016 org.berkeleyMobile. All rights reserved.
-//
 
 import UIKit
 
-class Resource: NSObject {
-    let name: String
-    let imageURL: URL?
-    
-    public init(name: String, imageLink: String?) {
-        self.name = name
-        self.imageURL = URL(string: imageLink ?? "")
-    }
 
+enum ResourceType: String
+{
+    case Gym
+    case Library
+    case DiningHall
+    
+    static let allValues = [Gym, Library, DiningHall]
+    
+    var dataSourceType: ResourceDataSource.Type
+    {
+        switch self 
+        {
+            case .Gym: return GymDataSource.self
+            case .Library: return LibraryDataSource.self
+            case .DiningHall: return DiningDataSource.self
+        }
+    }
+}
+
+
+/**
+ * A physical resource (e.g. libraries, dining halls) available to students.
+ */
+class Resource: Favorable
+{
+    typealias DataSourceType = ResourceDataSource
+
+    var name: String
+    var imageURL: URL? // TODO: consider an array/collection of images.
+    
+    var isFavorited: Bool
+    
+    // TODO: Move properties of `CampusResource` here
+    
+    // TODO: consider a protocol approach.
     var isOpen: Bool
     {
-        return true
-        // TODO: uncomment after Dennis merges the Date extension
-        //        let now = Date()
-        //        return now.isBetween(self.openingTimeToday, closingTimeToday)
-        
+        return false
+    }
+    
+    /// String description is simply "DiningHall <name>"
+    var description: String
+    {
+        return "\( type(of: self) ): \(self.name)"
+    }
+    
+    init(name: String, imageLink: String?, favorited: Bool = false)
+    {
+        self.name = name
+        self.imageURL = URL(string: imageLink ?? "")
+        self.isFavorited = favorited
     }
 }
