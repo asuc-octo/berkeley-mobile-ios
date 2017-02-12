@@ -4,7 +4,7 @@ import UIKit
 fileprivate let kResourceTileID = "ResourceTile"
 
 /**
- *
+ * 
  */
 class ResourceGroupCell: UITableViewCell, RequiresData, UICollectionViewDataSource, UICollectionViewDelegate
 {
@@ -58,13 +58,13 @@ class ResourceGroupCell: UITableViewCell, RequiresData, UICollectionViewDataSour
         return 1
     }
     
-    /// Return the number of halls/tiles in the group.
+    /// Return the number of tiles in the group.
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
         return resources.count
     }
     
-    /// Get a LocationTile and pass it the corresponding DiningHall.
+    /// Get a ResourceTile and pass it the corresponding Resource.
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: kResourceTileID, for: indexPath) as! ResourceTile
@@ -79,7 +79,7 @@ class ResourceGroupCell: UITableViewCell, RequiresData, UICollectionViewDataSour
     // MARK: - UICollectionViewDelegate
     // ========================================
     
-    /// When a ResourceTile is selected (tapped), call the selectionHandler with the DinigHall.
+    /// When a ResourceTile is selected (tapped), call the selectionHandler with the Resource.
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
         self.selectionHandler?( self.resources[indexPath.item] )
