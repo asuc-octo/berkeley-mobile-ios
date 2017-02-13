@@ -39,23 +39,29 @@ class DiningDataSource: ResourceDataSource
     private static func parseDiningHall(_ json: JSON) -> DiningHall
     {
         let formatter = sharedDateFormatter()
-        let hall = DiningHall(name: json["name"].stringValue, imageLink: json["image_link"].stringValue)
-
-        for type in MealType.allValues
-        {
-            let key = type.rawValue
-            let shift = hall.meals[type]!
+        
+        let name = json["name"].stringValue
+        let link = json["image_link"].string
+        
+        let meals = MealType.allValues.reduce(MealMap()) 
+        { (map, type) -> MealMap in
             
-            shift.menu  = json[key + "_menu"].map{ (_, child) in parseDiningItem(child, hall) }
-            shift.open  = formatter.date(from: json[key + "_open" ].string ?? "")?.sameTimeToday()
-            shift.close = formatter.date(from: json[key + "_close"].string ?? "")?.sameTimeToday()
+            let key   = type.rawValue
+            let menu   = json[key + "_menu"].map{ (_, child) in parseDiningItem(child) }
+            let open  = formatter.date(from: json[key + "_open" ].string ?? "")
+            let close = formatter.date(from: json[key + "_close"].string ?? "")
+            let shift = MealShift(menu: menu, hours: DateRange(start: open, end: close))
+            
+            var map = map
+            map[type] = shift
+            return map
         }
         
-        return hall
+        return DiningHall(name: name, imageLink: link, shifts: meals)
     }
     
     // Return a DiningMenu object parsed from JSON.
-    private static func parseDiningItem(_ json: JSON, _ hall: DiningHall) -> DiningItem
+    private static func parseDiningItem(_ json: JSON) -> DiningItem
     {
         let name = json["name"].stringValue
         
@@ -69,7 +75,7 @@ class DiningDataSource: ResourceDataSource
             default:            type = .breakfast
         }
         
-        return DiningItem(name: name, type: type, hall: hall)
+        return DiningItem(name: name, type: type)
     }
     
     private static func sharedDateFormatter() -> DateFormatter
