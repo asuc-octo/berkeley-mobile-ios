@@ -29,15 +29,25 @@ enum MealType: String
     }
 }
 
-/** 
- * `MealShift` contains the menu and hours of a specific MealType.
- */
-class MealShift
+/// Represents a single meal slot with a `DiningMenu` and open hours as `DateRange`.
+struct MealShift
 {
-    var menu: DiningMenu = []
-    var open: Date? = nil
-    var close: Date? = nil
+    let menu: DiningMenu
+    let hours: DateRange?
+    
+    init(menu: DiningMenu, hours: DateRange?)
+    {
+        self.menu = menu
+        self.hours = hours
+    }
+    
+    var isOpen: Bool
+    {
+        return !menu.isEmpty && (hours?.isActive ?? false)
+    }
 }
+
+typealias MealMap = [MealType : MealShift]
 
 
 /**
@@ -46,33 +56,22 @@ class MealShift
  */
 class DiningHall: Resource
 {
-    // Map of MealType to MealShift, which inclues the menu and opening & closing times.  
-    typealias MealMap = [MealType : MealShift]
+    let meals: MealMap
     
-    let meals: MealMap = MealType.allValues.reduce(MealMap())
-    { (dict, type) -> MealMap in
-        
-        var dict = dict
-        dict[type] = MealShift()
-        return dict
+    init(name: String, imageLink: String?, shifts: MealMap)
+    {
+        self.meals = shifts
+        super.init(name: name, imageLink: imageLink)
     }
     
     /// Returns whether the hall is currently open.
     override var isOpen: Bool
     {
-        let now = Date()
-        
-        for (_, shift) in meals
-        {
-            if !shift.menu.isEmpty && now.isBetween(shift.open, shift.close) {
-                return true
-            }
-        }
-        return false
+        return meals.reduce(false){ $0 || $1.value.isOpen }
     }
     
     /// Returns the DiningMenu for the given MealType.
-    public func menuForType(_ type: MealType) -> DiningMenu
+    func menuForType(_ type: MealType) -> DiningMenu
     {
         return meals[type]!.menu
     }
@@ -89,17 +88,16 @@ typealias DiningMenu = [DiningItem]
  */ 
 class DiningItem: Favorable
 {
-    var name: String
-    var mealType: MealType
-    weak var hall: DiningHall?
+    let name: String
+    let mealType: MealType
+    //weak var hall: DiningHall?
     
     var isFavorited: Bool
     
-    init(name: String, type: MealType, hall: DiningHall?, favorited: Bool = false)
+    init(name: String, type: MealType, favorited: Bool = false)
     {
         self.name = name
         self.mealType = type
-        self.hall = hall
         
         self.isFavorited = favorited
     }

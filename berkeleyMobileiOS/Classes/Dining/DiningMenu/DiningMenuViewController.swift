@@ -67,7 +67,8 @@ class DiningMenuViewController: UIViewController, RequiresData, DelegatesScroll,
         hoursLayer.shadowColor = UIColor.clear.cgColor
         hoursLayer.shadowOffset = CGSize(width: 0, height: 2)
         
-        if self.shift.open.isNil || self.shift.close.isNil {
+        if self.shift.hours.isNil
+        {
             self.hoursLabel.text = "CLOSED"
             return
         }
@@ -75,9 +76,7 @@ class DiningMenuViewController: UIViewController, RequiresData, DelegatesScroll,
         let formatter = DateFormatter()
         formatter.timeStyle = .short
         
-        let open  = formatter.string(from: self.shift.open!)
-        let close = formatter.string(from: self.shift.close!)
-        self.hoursLabel.text = open + " ~ " + close
+        self.hoursLabel.text = self.shift.hours?.description(withFormatter: formatter)
     }
     
     
