@@ -1,18 +1,18 @@
 PODS:
-  - Alamofire (4.2.0)
+  - Alamofire (4.3.0)
   - GoogleMaps (2.1.1):
     - GoogleMaps/Maps (= 2.1.1)
   - GoogleMaps/Base (2.1.1)
   - GoogleMaps/Maps (2.1.1):
     - GoogleMaps/Base
-  - Material (2.4.10):
-    - Material/Core (= 2.4.10)
-  - Material/Core (2.4.10)
-  - Realm (2.2.0):
-    - Realm/Headers (= 2.2.0)
-  - Realm/Headers (2.2.0)
-  - RealmSwift (2.2.0):
-    - Realm (= 2.2.0)
+  - Material (2.4.12):
+    - Material/Core (= 2.4.12)
+  - Material/Core (2.4.12)
+  - Realm (2.4.2):
+    - Realm/Headers (= 2.4.2)
+  - Realm/Headers (2.4.2)
+  - RealmSwift (2.4.2):
+    - Realm (= 2.4.2)
   - SDWebImage (3.8.2):
     - SDWebImage/Core (= 3.8.2)
   - SDWebImage/Core (3.8.2)
@@ -34,19 +34,16 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   RealmSwift:
-    :commit: 2f91b9418f0ae016d21b5ddc94fae7c5c192db2b
+    :commit: 718db3718a9215a678d40fb00a10b54d85462aca
     :git: https://github.com/realm/realm-cocoa.git
     :submodules: true
 
 SPEC CHECKSUMS:
   Alamofire: 856a113053a7bc9cbe5d6367a555d773fc5cfef7
   GoogleMaps: a5b5bbe47734e2443bde781a6aa64e69fdb6d785
-  Material: 09b50565d8f824bd74881eba12d7c549b41f510d
-  Alamofire: aa2e09d871c9160ac53c90e83c68064a94e3dfbe
-  GoogleMaps: a5b5bbe47734e2443bde781a6aa64e69fdb6d785
-  Material: ef1e6da2e242d582205c87847a5346138894a633
-  Realm: d95b8fb34c83f1e764b66d319277a62c2b6e4bf5
-  RealmSwift: 5b03c36e4b68156551b228d61dcc830b2b61e853
+  Material: e9e6f09e2057309a52b9700f056be55b69d90af7
+  Realm: d27b758e12d62a3371879a065d4c40aa212c5a54
+  RealmSwift: a2485af6fd62369e7126ce0af43ff5430de1e77a
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
