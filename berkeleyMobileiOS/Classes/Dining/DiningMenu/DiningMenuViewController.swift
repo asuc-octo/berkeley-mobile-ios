@@ -96,7 +96,7 @@ class DiningMenuViewController: UIViewController, RequiresData, DelegatesScroll,
         let item = self.shift.menu[indexPath.row]
         let favorited = FavoriteStore.sharedInstance.contains(type: DiningItem.self, name: item.name)
     
-        let cell = self.tableView.dequeueReusableCell(withIdentifier: "DiningItemCell") as! DiningItemCell
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: className(DiningItemCell.self)) as! DiningItemCell
         cell.setData( (item, favorited) )
         
         return cell
