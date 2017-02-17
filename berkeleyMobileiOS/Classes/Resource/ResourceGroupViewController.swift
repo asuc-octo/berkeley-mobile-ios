@@ -248,8 +248,17 @@ class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDe
     /// When a tile is tapped, present the corresponding `ResourceDetailViewController`.
     func didSelectResource(_ resource: Resource)
     {
-        let ref = resource.type.rawValue + "DetailSegue"
-        self.performSegue(withIdentifier: ref, sender: resource)
+//        let ref = self.resourceType.rawValue + "DetailSegue"
+//        self.performSegue(withIdentifier: ref, sender: resource)
+
+        
+        let id = className(ResourceDetailViewController.self)
+        let vc = storyboard?.instantiateViewController(withIdentifier: id)
+        if let rdvc = vc as? ResourceDetailViewController
+        {
+            rdvc.setData(resource)
+            self.present(rdvc, animated: true, completion: nil)
+        }
     }
 
     
