@@ -141,12 +141,8 @@ class DiningHallViewController: UIViewController, RequiresData, PageTabBarContro
     /// Setup the scrollView that will contain the menuTabView.
     private func setupScrollView()
     {
-        let scrollView = UIScrollView()
         scrollView.autoresizesSubviews = false
         scrollView.delegate = self
-        
-        self.view.addSubview(scrollView)
-        self.scrollView = scrollView
     }
     
     /**
