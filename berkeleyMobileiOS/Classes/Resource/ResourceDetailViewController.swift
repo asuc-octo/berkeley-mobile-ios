@@ -97,7 +97,7 @@ class ResourceDetailViewController: UIViewController, RequiresData, UIScrollView
         toolbar.autoresizingMask = [.flexibleWidth, .flexibleBottomMargin]
         toolbar.frame = CGRect(x: 0, y: kStatusBarHeight, width: view.width, height: kToolBarHeight)
         
-        toolbar.fadeLength = 10.0
+        toolbar.fadeLength = 20.0
         
         
         // Buttons
@@ -152,7 +152,7 @@ class ResourceDetailViewController: UIViewController, RequiresData, UIScrollView
         
         
         // InfoPanel
-        infoPanel.curtainHeight = offset
+        infoPanel.curtainCover = offset
         infoPanel.y = max(0, offset - infoPanel.height)
         
         toolbar.reveal = (offset - toolbar.height) / (infoPanel.height - toolbar.height)
