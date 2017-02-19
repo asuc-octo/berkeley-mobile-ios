@@ -59,6 +59,7 @@
 		4E2FC8471E2B0D7400B3A28B /* RecreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E505D3A1DD05A65004AC6C9 /* RecreationViewController.swift */; };
 		4E487A361DDBB59A0001F8CF /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E487A351DDBB59A0001F8CF /* Utils.swift */; };
 		4E4D30AD1E56F2D900E418B8 /* FadeTitleToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4D30AC1E56F2D900E418B8 /* FadeTitleToolbar.swift */; };
+		4E4D30AF1E57922600E418B8 /* CATransaction+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4D30AE1E57922600E418B8 /* CATransaction+Extension.swift */; };
 		4E4EC1421E50470F000C63ED /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4EC13C1E50470F000C63ED /* Resource.swift */; };
 		4E4EC1431E504710000C63ED /* ResourceDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4EC13D1E50470F000C63ED /* ResourceDataSource.swift */; };
 		4E4EC1441E504710000C63ED /* ResourceGroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4EC13E1E50470F000C63ED /* ResourceGroupCell.swift */; };
@@ -170,6 +171,7 @@
 		4E17C1D11E46623C00B9A6B8 /* ToggleButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToggleButton.swift; sourceTree = "<group>"; };
 		4E487A351DDBB59A0001F8CF /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		4E4D30AC1E56F2D900E418B8 /* FadeTitleToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FadeTitleToolbar.swift; sourceTree = "<group>"; };
+		4E4D30AE1E57922600E418B8 /* CATransaction+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CATransaction+Extension.swift"; sourceTree = "<group>"; };
 		4E4EC13C1E50470F000C63ED /* Resource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
 		4E4EC13D1E50470F000C63ED /* ResourceDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceDataSource.swift; sourceTree = "<group>"; };
 		4E4EC13E1E50470F000C63ED /* ResourceGroupCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceGroupCell.swift; sourceTree = "<group>"; };
@@ -430,6 +432,7 @@
 				4E62CFE61DD87CFB00B19722 /* UINavigationBar+Extension.swift */,
 				4E4EC14D1E51195E000C63ED /* DateRange.swift */,
 				2852AEDA1E90B4FD00092070 /* OptionsCell.swift */,
+				4E4D30AE1E57922600E418B8 /* CATransaction+Extension.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -714,6 +717,7 @@
 				4EE89F261DDBEF9F00AC4EF7 /* UIImageView+Extension.swift in Sources */,
 				282A4EEE1E63B1E100480201 /* GymClassCategory.swift in Sources */,
 				41B0B5961E8CDC6200DA9297 /* RouteViewController.swift in Sources */,
+				4E4D30AF1E57922600E418B8 /* CATransaction+Extension.swift in Sources */,
 				4E505D3F1DD05A65004AC6C9 /* AcademicsViewController.swift in Sources */,
 				41B0B5971E8CDC6200DA9297 /* timeCell.swift in Sources */,
 				282A4EEC1E63859900480201 /* GymClassDataSource.swift in Sources */,
