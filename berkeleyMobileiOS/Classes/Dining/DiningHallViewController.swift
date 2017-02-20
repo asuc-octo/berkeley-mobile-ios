@@ -7,7 +7,7 @@ fileprivate let kColorNavy = UIColor(red: 23/255.0, green: 85/255.0, blue: 122/2
 /**
  *
  */
-class DiningHallViewController: UIViewController, ResourceDetailProvider, RequiresData
+class DiningHallViewController: UIViewController, RequiresData, ResourceDetailProvider, PageTabBarControllerDelegate
 {
     private var hall: DiningHall!
     
@@ -16,6 +16,9 @@ class DiningHallViewController: UIViewController, ResourceDetailProvider, Requir
     {
         return menuTabController.pageTabBar
     }
+    
+    private var selectedScroll: DelegatesScroll!
+    
     
     // ========================================
     // MARK: - RequiresData
@@ -41,23 +44,29 @@ class DiningHallViewController: UIViewController, ResourceDetailProvider, Requir
     
     var buttons: [UIButton]
     {
-        let sort = IconButton(image: #imageLiteral(resourceName: "ic_sort_white"), tintColor: .white)
+        let sort = IconButton(image: #imageLiteral(resourceName: "ic_sort_white"))
         sort.addTarget(self, action: #selector(sortTapped), for: .touchUpInside)
         
         return [sort]
     }
     
-    var contentSize: CGSize = CGSize.zero
+    var contentSize: CGSize
+    {
+        return selectedScroll.contentSize
+    }
+    
     var contentOffset: CGPoint
     {
-        get { return CGPoint.zero }
+        get { return selectedScroll.contentOffset }
         set { setContentOffset(newValue, animated: false) }
     }
     
     func setContentOffset(_ offset: CGPoint, animated: Bool)
     {
-        
+        selectedScroll?.setContentOffset(offset, animated: false)
     }
+    
+    var contentSizeChangeHandler: ((ResourceDetailProvider) -> Void)?
     
     
     // ========================================
@@ -71,12 +80,29 @@ class DiningHallViewController: UIViewController, ResourceDetailProvider, Requir
         setupMenus()
     }
     
-    override func viewWillLayoutSubviews()
+    override func viewWillAppear(_ animated: Bool)
     {
-        super.viewWillLayoutSubviews()
+        super.viewWillAppear(animated)
         
+        // TODO: Check open hours, and appear on nearest meal.
+        pageTabBarController(pageTabBarController: menuTabController, didTransitionTo: menuTabController.viewControllers.first!)
     }
     
+    
+    // ========================================
+    // MARK: - PageTabBarControllerDelegate
+    // ========================================
+    
+    func pageTabBarController(pageTabBarController: PageTabBarController, didTransitionTo viewController: UIViewController)
+    {
+        guard let scroll = viewController as? DelegatesScroll else
+        {
+            return
+        } 
+    
+        selectedScroll = scroll
+        contentSizeChangeHandler?(self)
+    }
     
     
     // ========================================
@@ -95,14 +121,17 @@ class DiningHallViewController: UIViewController, ResourceDetailProvider, Requir
             let barItem = vc.pageTabBarItem
             barItem.titleColor = kColorNavy
             barItem.pulseColor = kColorNavy//UIColor.white
+            
             barItem.title = type.name
+            barItem.titleLabel?.font = RobotoFont.regular(with: 16)
             
             return vc
         }
         
+        
         menuTabController = PageTabBarController(viewControllers: viewControllers, selectedIndex: 0)
         menuTabController.pageTabBarAlignment = .top
-        //menuTabController.delegate = self
+        menuTabController.delegate = self
         
         let tabBar = menuTabController.pageTabBar
         tabBar.backgroundColor = UIColor.white//kColorNavy

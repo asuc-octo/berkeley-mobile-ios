@@ -13,7 +13,7 @@ import UIKit
  * It can also optionally implement `UIScrollViewDelegate` methods, 
  * which will be called after the containing module has handled it first.
  */
-protocol ResourceDetailProvider: DelegatesScroll
+protocol ResourceDetailProvider: class, DelegatesScroll
 {
     var viewController: UIViewController { get }
 
@@ -21,4 +21,10 @@ protocol ResourceDetailProvider: DelegatesScroll
     var text2: String? { get }
     var imageURL: URL? { get }
     var buttons: [UIButton] { get }
+    
+    /**
+     * Handler to be called by implementing module when underlying `contentSize` changes.
+     * Whoever is receiving the event will determine the new scroll size and offset. 
+     */
+    var contentSizeChangeHandler: ((ResourceDetailProvider) -> Void)? { get set }
 }
