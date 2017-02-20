@@ -169,6 +169,10 @@ class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDe
     /// When a row (not tile) is tapped, present the corresponding `ResourceMapListViewController`.
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
+        guard resourceType != .DiningHall else {
+            return
+        }
+    
         let ref = self.resourceType.rawValue + "MapListSegue"
         self.performSegue(withIdentifier: ref, sender: nil)
         // TODO: sender should be the group/category.
