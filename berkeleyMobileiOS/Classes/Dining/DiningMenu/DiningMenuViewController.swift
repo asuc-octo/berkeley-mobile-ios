@@ -28,23 +28,12 @@ class DiningMenuViewController: UIViewController, RequiresData, DelegatesScroll,
     public func setData(_ data: DataType)
     {
         self.shift = data.shift
-        
-        self.pageTabBarItem.title = data.type.name
     }
     
     
     // ========================================
     // MARK: - UIViewController
     // ========================================
-    
-    /// Configure the pageTabItem. 
-    required init?(coder aDecoder: NSCoder)
-    {
-        super.init(coder: aDecoder)
-        
-        self.pageTabBarItem.titleColor = kColorNavy
-        self.pageTabBarItem.pulseColor = kColorNavy//UIColor.white
-    }
     
     /// Configure the tableView and open hours label. 
     override func viewDidLoad()

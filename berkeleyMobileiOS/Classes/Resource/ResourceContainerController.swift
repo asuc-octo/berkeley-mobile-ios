@@ -8,59 +8,73 @@ fileprivate let kStatusBarHeight: CGFloat = 20.0
 fileprivate let kBannerRatio: CGFloat = 16/7
 
 
+
+
 /**
- * Base class for showing a detailed view of a single `Resource`.
- * Contains and handles all 
+ * 
  */
-class ResourceDetailViewController: UIViewController, RequiresData, UIScrollViewDelegate
-{
-    // Data
-    internal var resource: Resource!
-    
+class ResourceContainerController: UIViewController, RequiresData, UIScrollViewDelegate
+{    
     // UI
-    internal let toolbar = FadeTitleToolbar()
+    private let toolbar = FadeTitleToolbar()
     
-    @IBOutlet internal var banner: UIImageView!
+    @IBOutlet private var banner: UIImageView!
     private let bannerGradient = CAGradientLayer()
-    
-    @IBOutlet internal var infoPanel: InfoPanel!
-    @IBOutlet internal var scrollView: UIScrollView!
-    private let scrollGradient = CAGradientLayer()
-    
+
+    @IBOutlet private var scrollView: UIScrollView!
+    @IBOutlet private var infoPanel: InfoPanel!
     
     
     // ========================================
     // MARK: - RequiresData
     // ========================================
-    typealias DataType = Resource
+    typealias DataType = ResourceDetailProvider
     
-    func setData(_ data: DataType)
+    func setData(_ data: ResourceDetailProvider)
     {
-        resource = data
-        
-        toolbar.title = resource.name
+        provider = data
+    }
+    
+    
+    // ========================================
+    // MARK: - ResourceDetail
+    // ========================================
+    private var provider: ResourceDetailProvider!
+    
+    private var detailViewController: UIViewController 
+    { 
+        return provider.viewController 
+    }
+    
+    private var detailView: UIView
+    { 
+        return provider.viewController.view
     }
     
     
     // ========================================
     // MARK: - UIViewController
     // ========================================
-    override func awakeFromNib()
-    {
-        
-    }
     
+    /// Call all necessary setup methods.
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        view.clipsToBounds = true
         
         setupToolbar()
         setupBanner()
         setupScrollView()
         
-        view.clipsToBounds = true
+        toolbar.title = detailViewController.title
+        banner.load(url: provider.imageURL)
+        
+        infoPanel.title = detailViewController.title
+        infoPanel.text1 = "1234 Telegraph" //provider.text1
+        infoPanel.text2 = "OPEN"//provider.text2
     }
     
+    /// Adjust the banner image according to the width, and layout `scrollView` inset below.
     override func viewDidLayoutSubviews()
     {
         super.viewDidLayoutSubviews()
@@ -73,20 +87,18 @@ class ResourceDetailViewController: UIViewController, RequiresData, UIScrollView
         scrollView.frame = CGRect(x: 0, y: toolbarBottom, width: view.width, height: view.height - toolbarBottom)
         scrollView.contentInset.top = banner.frame.maxY - toolbarBottom
         scrollView.contentSize = CGSize(width: view.width, height: infoPanel.height + scrollView.height)
-    }
-    
-    override func viewWillAppear(_ animated: Bool)
-    {
-        super.viewWillAppear(animated)
         
-        fillInfoPanel()
+        infoPanel.frame = CGRect(origin: CGPoint.zero, size: infoPanel.sizeThatFits(view.frame.size))
+        detailView.frame = CGRect(x: 0, y: infoPanel.height, width: view.width, height: scrollView.height - infoPanel.height)
     }
     
     
     // ========================================
     // MARK: - Setup
     // ========================================
-    internal func setupToolbar()
+    
+    /// Configure the toolbar.
+    private func setupToolbar()
     {
         let view = self.view!
         view.addSubview(self.toolbar)
@@ -94,6 +106,7 @@ class ResourceDetailViewController: UIViewController, RequiresData, UIScrollView
         // Toolbar
         toolbar.backgroundColor = .clear
         toolbar.titleLabel.textColor = .white
+        toolbar.titleLabel.textAlignment = .left
         toolbar.autoresizingMask = [.flexibleWidth, .flexibleBottomMargin]
         toolbar.frame = CGRect(x: 0, y: kStatusBarHeight, width: view.width, height: kToolBarHeight)
         
@@ -109,29 +122,24 @@ class ResourceDetailViewController: UIViewController, RequiresData, UIScrollView
         toolbar.leftViews = [backButton]
     }
     
-    internal func setupBanner()
+    /// Configure the banner image and add a gradient.
+    private func setupBanner()
     {
-        banner.load(url: resource.imageURL)
         banner.clipsToBounds = true
-        
-        bannerGradient.locations = [0, 0.5]
-        bannerGradient.colors = [UIColor(white: 0, alpha: 0.75).cgColor, UIColor(white: 1, alpha: 0).cgColor]
         banner.layer.addSublayer(bannerGradient)
+        
+        bannerGradient.colors = [UIColor(white: 0, alpha: 0.75).cgColor, UIColor.clear.cgColor]
     }
     
-    internal func setupScrollView()
+    /// Configure the `scrollView` and add subviews infoPanel & provier's view.
+    private func setupScrollView()
     {
         scrollView.delegate = self
+        scrollView.clipsToBounds = false
         scrollView.autoresizesSubviews = false
         
         scrollView.addSubview(infoPanel)
-    }
-    
-    internal func fillInfoPanel()
-    {
-        infoPanel.title = resource.name
-        infoPanel.text1 = nil //address
-        infoPanel.text2 = nil //open/close status
+        scrollView.addSubview(detailView)
     }
     
     
@@ -139,29 +147,33 @@ class ResourceDetailViewController: UIViewController, RequiresData, UIScrollView
     // MARK: - UIScrollViewDelegate
     // ========================================
     
+    /// Perform scroll dependent animations, and adjust the provider's nested offset.
     func scrollViewDidScroll(_ scrollView: UIScrollView)
     {
         let inset = scrollView.contentInset.top
         let offset = scrollView.contentOffset.y
         let toolbarMaxY = toolbar.frame.maxY
         
-        
         // If scrollView is pulled down, increase banner height accordingly.
         let pulled = -(inset + offset)
         banner.height = inset + (pulled > 0 ? pulled : 0) + toolbarMaxY
         
-        
-        // InfoPanel
+        // infoPanel & titleLabel reveal.
         infoPanel.curtainCover = offset
         infoPanel.y = max(0, offset - infoPanel.height)
-        
         toolbar.reveal = (offset - toolbar.height) / (infoPanel.height - toolbar.height)
+        
+        // detailView netsted offset.
+        let nestedOffset = max(offset, infoPanel.height)
+        detailView.y = nestedOffset
+        provider.contentOffset.y = nestedOffset
     }
     
     // ========================================
     // MARK: - Callbacks
     // ========================================
     
+    /// When the back button is tapped, dismiss this view appropriately.
     func backButtonTapped()
     {
         if let vc = self.presentingViewController
