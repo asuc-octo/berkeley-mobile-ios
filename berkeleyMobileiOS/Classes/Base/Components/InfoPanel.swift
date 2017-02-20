@@ -23,7 +23,7 @@ class InfoPanel: UIView
     private let curtain = CAGradientLayer()
     
     /// Fixed intrinsic height for all `InfoPanel`s.
-    static let panelHeight: CGFloat = (2 * kPanelMargin) + (3 * kLargeMargin) + kLargeMargin + kSmallMargin
+    static let panelHeight: CGFloat = (2 * kPanelMargin) + (3 * kLabelHeight) + kLargeMargin + kSmallMargin
     
     
     /// Title (main text) of the panel.
@@ -68,6 +68,7 @@ class InfoPanel: UIView
         curtain.colors = [UIColor.clear.cgColor, UIColor.white.cgColor]
         curtain.startPoint = CGPoint(x: 0.5, y: 0.0)
         curtain.endPoint = CGPoint(x: 0.5, y: 1.0)
+        curtain.position = CGPoint.zero
         
         let start = Float(kFadeLength / InfoPanel.panelHeight)
         curtain.locations = [0, NSNumber(value: start)]
@@ -110,9 +111,9 @@ class InfoPanel: UIView
         self.text2Label.frame = CGRect(origin: labelOrigin, size: labelSize)
         
         
-        // Curtain        
+        // Curtain
         curtain.width = self.width
-        curtain.height = self.height - kFadeLength
+        curtain.height = self.height
         layoutCurtain()
     }
     

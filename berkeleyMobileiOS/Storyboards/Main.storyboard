@@ -68,7 +68,7 @@
                 <viewControllerPlaceholder storyboardIdentifier="diningRef" storyboardName="Dining" referencedIdentifier="DiningHallViewController" id="PLc-Oo-zoo" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ah4-1S-JSE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3369" y="-288"/>
+            <point key="canvasLocation" x="3337" y="-241"/>
         </scene>
         <!--Detail Name-->
         <scene sceneID="kLJ-ea-KGy">
@@ -515,15 +515,15 @@
             </objects>
             <point key="canvasLocation" x="2330" y="69"/>
         </scene>
-        <!--Resource Detail View Controller-->
+        <!--Resource Container Controller-->
         <scene sceneID="Zj7-Fn-fFh">
             <objects>
-                <viewController storyboardIdentifier="ResourceDetailViewController" id="5GX-As-iyw" customClass="ResourceDetailViewController" customModule="berkeleyMobileiOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ResourceContainerController" id="5GX-As-iyw" customClass="ResourceContainerController" customModule="berkeleyMobileiOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="gZQ-YA-p1i"/>
                         <viewControllerLayoutGuide type="bottom" id="jVt-11-X7x"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="B41-xg-HD1">
+                    <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="B41-xg-HD1">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -557,14 +557,14 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" red="0.40535223479999999" green="0.61873531339999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.035294117647058823" green="0.33725490196078434" blue="0.49803921568627452" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <outlet property="text1Label" destination="Hzg-rU-Dwa" id="tvH-oc-KGe"/>
                                     <outlet property="text2Label" destination="O8G-aV-eFr" id="kro-xJ-ILp"/>
                                     <outlet property="titleLabel" destination="ftu-ua-6PA" id="uSW-zN-crV"/>
                                 </connections>
                             </view>
-                            <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vzn-jq-1OE">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vzn-jq-1OE">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </scrollView>
@@ -580,7 +580,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UWO-Ip-c5w" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="559.20000000000005" y="902.69865067466276"/>
+            <point key="canvasLocation" x="590" y="900"/>
         </scene>
         <!--Gym Detail View Controller-->
         <scene sceneID="7qB-fg-WrO">
@@ -1279,7 +1279,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v1G-bD-c0v">
-                                                                        <rect key="frame" x="16" y="190" width="29" height="12"/>
+                                                                        <rect key="frame" x="16" y="190" width="30" height="12"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="12" id="8IU-G7-0UE"/>
                                                                         </constraints>

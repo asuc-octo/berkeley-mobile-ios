@@ -180,14 +180,20 @@ class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDe
 //        let ref = self.resourceType.rawValue + "DetailSegue"
 //        self.performSegue(withIdentifier: ref, sender: resource)
 
-        
-        let id = className(ResourceDetailViewController.self)
-        let vc = storyboard?.instantiateViewController(withIdentifier: id)
-        if let rdvc = vc as? ResourceDetailViewController
+        guard let hall = resource as? DiningHall else
         {
-            rdvc.setData(resource)
-            self.present(rdvc, animated: true, completion: nil)
+            return
         }
+        
+        let detailID = className(DiningHallViewController.self)
+        let detail = UIStoryboard(name: "Dining", bundle: nil).instantiateViewController(withIdentifier: detailID) as! DiningHallViewController
+        detail.setData(hall)
+        
+        let containerID = className(ResourceContainerController.self)
+        let container = storyboard!.instantiateViewController(withIdentifier: containerID) as! ResourceContainerController
+        container.setData(detail)
+        
+        present(container, animated: true, completion: nil)
     }
     
     
@@ -203,11 +209,7 @@ class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDe
     {
         let destination = segue.destination
         
-        if let vc = destination as? DiningHallViewController
-        {
-            vc.setData(sender as! DiningHall)
-        }
-        else if let vc = destination as? GymsMapListViewController
+        if let vc = destination as? GymsMapListViewController
         {
             vc.gyms = self.resources as! [Gym]
         } 

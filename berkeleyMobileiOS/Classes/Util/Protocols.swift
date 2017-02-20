@@ -10,6 +10,8 @@ protocol RequiresData
     associatedtype DataType
     
     mutating func setData(_ data: DataType)
+    
+    // TODO: Add boolean property `isDataReady` to see if instance is ready. 
 }
 
 
