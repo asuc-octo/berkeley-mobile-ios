@@ -240,7 +240,11 @@ class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDe
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
         
     {
-        let ref = (ResourceType.connections[self.resourceType]?[indexPath.row].rawValue)! + "MapListSegue"
+        guard resourceType != .DiningHall else {
+            return
+        }
+    
+        let ref = self.resourceType.rawValue + "MapListSegue"
         self.performSegue(withIdentifier: ref, sender: nil)
         // TODO: sender should be the group/category.
     }

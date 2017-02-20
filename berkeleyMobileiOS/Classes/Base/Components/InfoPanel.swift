@@ -23,7 +23,7 @@ class InfoPanel: UIView
     private let curtain = CAGradientLayer()
     
     /// Fixed intrinsic height for all `InfoPanel`s.
-    static let panelHeight: CGFloat = (2 * kPanelMargin) + (3 * kLabelHeight) + kLargeMargin + kSmallMargin
+    static let fixedHeight: CGFloat = (2 * kPanelMargin) + (3 * kLabelHeight) + kLargeMargin + kSmallMargin
     
     
     /// Title (main text) of the panel.
@@ -70,7 +70,7 @@ class InfoPanel: UIView
         curtain.endPoint = CGPoint(x: 0.5, y: 1.0)
         curtain.position = CGPoint.zero
         
-        let start = Float(kFadeLength / InfoPanel.panelHeight)
+        let start = Float(kFadeLength / InfoPanel.fixedHeight)
         curtain.locations = [0, NSNumber(value: start)]
         
         
@@ -90,7 +90,7 @@ class InfoPanel: UIView
     /// Returns a size with the same given with but constant height for the labels and paddings.
     override func sizeThatFits(_ size: CGSize) -> CGSize 
     {
-        return CGSize(width: size.width, height: InfoPanel.panelHeight)
+        return CGSize(width: size.width, height: InfoPanel.fixedHeight)
     }
     
     /// Readjust label widths according to the view width, and re-layout the curtain.
