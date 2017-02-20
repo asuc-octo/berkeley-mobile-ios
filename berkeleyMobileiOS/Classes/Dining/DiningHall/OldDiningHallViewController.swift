@@ -18,7 +18,7 @@ fileprivate let kAnimationDuration: TimeInterval = 0.25
  * - Banner image of the location
  * - Tabbed MealTypes containing TableView of DiningMenu 
  */
-class DiningHallViewController: UIViewController, RequiresData, PageTabBarControllerDelegate, UIScrollViewDelegate
+class OldDiningHallViewController: UIViewController, RequiresData, PageTabBarControllerDelegate, UIScrollViewDelegate
 {
     // Data
     private var diningHall: DiningHall!
