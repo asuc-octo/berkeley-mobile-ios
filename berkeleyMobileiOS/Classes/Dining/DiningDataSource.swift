@@ -12,52 +12,56 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
-fileprivate let kDiningHallsEndpoint = "https://asuc-mobile-development.herokuapp.com/api/dining_halls"
+fileprivate let kDiningHallsEndpoint = kAPIURL + "dining_halls"
 
-/**
- * Static class that fetches the DiningHall related data.
- */
-class DiningDataSource: NSObject
+class DiningDataSource: ResourceDataSource
 {
-    typealias completionHandler = (_ halls: [DiningHall]?) -> Void
+    typealias ResourceType = DiningHall
     
     // Fetch the list of dining halls and report back to the completionHandler.
-    static func fetchDiningHalls(_ completion: @escaping completionHandler)
+    class func fetchResources(_ completion: @escaping (([Resource]?) -> Void)) 
     {
         Alamofire.request(kDiningHallsEndpoint).responseJSON
         { response in
             
-            if response.result.isFailure {
+            if response.result.isFailure 
+            {
                 print("[Error @ DiningHallDataSource.getDiningHalls()]: request failed")
                 return
             }
             
             let halls = JSON(data: response.data!)["dining_halls"].map { (_, child) in parseDiningHall(child) }
             completion(halls)
-        }
+        } 
     }
     
     // Return a DiningHall object parsed from JSON.
     private static func parseDiningHall(_ json: JSON) -> DiningHall
     {
         let formatter = sharedDateFormatter()
-        let hall = DiningHall(name: json["name"].stringValue, url: json["image_link"].stringValue)
-
-        for type in MealType.allValues
-        {
-            let key = type.rawValue
-            let shift = hall.meals[type]!
+        
+        let name = json["name"].stringValue
+        let link = json["image_link"].string
+        
+        let meals = MealType.allValues.reduce(MealMap()) 
+        { (map, type) -> MealMap in
             
-            shift.menu  = json[key + "_menu"].map{ (_, child) in parseDiningItem(child, hall) }
-            shift.open  = formatter.date(from: json[key + "_open" ].string ?? "")?.sameTimeToday()
-            shift.close = formatter.date(from: json[key + "_close"].string ?? "")?.sameTimeToday()
+            let key   = type.rawValue
+            let menu   = json[key + "_menu"].map{ (_, child) in parseDiningItem(child) }
+            let open  = formatter.date(from: json[key + "_open" ].string ?? "")
+            let close = formatter.date(from: json[key + "_close"].string ?? "")
+            let shift = MealShift(menu: menu, hours: DateRange(start: open, end: close))
+            
+            var map = map
+            map[type] = shift
+            return map
         }
         
-        return hall
+        return DiningHall(name: name, imageLink: link, shifts: meals)
     }
     
     // Return a DiningMenu object parsed from JSON.
-    private static func parseDiningItem(_ json: JSON, _ hall: DiningHall) -> DiningItem
+    private static func parseDiningItem(_ json: JSON) -> DiningItem
     {
         let name = json["name"].stringValue
         
@@ -71,7 +75,7 @@ class DiningDataSource: NSObject
             default:            type = .breakfast
         }
         
-        return DiningItem(name: name, type: type, hall: hall)
+        return DiningItem(name: name, type: type)
     }
     
     private static func sharedDateFormatter() -> DateFormatter

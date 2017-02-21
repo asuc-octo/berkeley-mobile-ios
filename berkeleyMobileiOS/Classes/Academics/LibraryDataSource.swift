@@ -12,22 +12,23 @@ import SwiftyJSON
 
 fileprivate let kLibrariesEndpoint = kAPIURL + "/weekly_libraries"
 
-class LibraryDataSource: NSObject {
-    typealias completionHandler = (_ halls: [Library]?) -> Void
+class LibraryDataSource: ResourceDataSource {
+    
+    typealias ResourceType = Library
     
     // Fetch the list of libraries and report back to the completionHandler.
-    static func fetchLibraries(_ completion: @escaping completionHandler)
+    static func fetchResources(_ completion: @escaping ([Resource]?) -> Void) 
     {
         Alamofire.request(kLibrariesEndpoint).responseJSON
-            { response in
-                
-                if response.result.isFailure {
-                    print("[Error @ LibraryDataSource.fetchLibraries()]: request failed")
-                    return
-                }
-                
-                let libraries = JSON(data: response.data!)["libraries"].map { (_, child) in parseLibrary(child) }
-                completion(libraries)
+        { response in
+            
+            if response.result.isFailure {
+                print("[Error @ LibraryDataSource.fetchLibraries()]: request failed")
+                return
+            }
+            
+            let libraries = JSON(data: response.data!)["libraries"].map { (_, child) in parseLibrary(child) }
+            completion(libraries)
         }
     }
     

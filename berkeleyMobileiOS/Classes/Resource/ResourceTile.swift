@@ -11,11 +11,11 @@ fileprivate let kColorGreen = UIColor(red: 16/255.0, green: 161/255.0, blue: 0, 
  * LocationTile represents a single DiningHall.
  * It shows a thumbnail image, name, open status, and a save/favorite button.
  */
-class LocationTile: UICollectionViewCell, RequiresData, ToggleButtonDelegate
+class ResourceTile: UICollectionViewCell, RequiresData, ToggleButtonDelegate
 {
     // Data
-    private var hall: DiningHall! // TODO: Update to handle any Location.
-
+    private var resource: Resource!
+    
     // UI
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var nameLabel: UILabel!
@@ -38,20 +38,20 @@ class LocationTile: UICollectionViewCell, RequiresData, ToggleButtonDelegate
     // ========================================
     // MARK: - RequiresData
     // ========================================
-    typealias DataType = (hall: DiningHall, favorited: Bool)
+    typealias DataType = Resource
     
     /// Receive DiningHall to represent, and connect all data.
-    public func setData(_ data: DataType)
+    public func setData(_ resource: DataType)
     {
-        self.hall = data.hall
-        self.nameLabel.text = self.hall.name
+        self.resource = resource
+        self.nameLabel.text = resource.name
         
-        let status = self.hall.isOpen ? ("OPEN", kColorGreen) : ("CLOSED", kColorRed)
+        let status = self.resource.isOpen ? ("OPEN", kColorGreen) : ("CLOSED", kColorRed)
         self.statusLabel.text = status.0
         self.statusLabel.textColor = status.1
         
-        self.imageView.load(url: hall.imageURL)
-        self.favoriteButton.isSelected = data.favorited
+        self.imageView.load(url: resource.imageURL)
+        self.favoriteButton.isSelected = resource.isFavorited
     }
     
     
@@ -66,6 +66,6 @@ class LocationTile: UICollectionViewCell, RequiresData, ToggleButtonDelegate
     {
         let store = FavoriteStore.sharedInstance
         let action = (button.isSelected ? store.add : store.remove)
-        action(DiningHall.self, hall.name)
+        action(DiningHall.self, self.resource.name)
     }
 }

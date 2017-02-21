@@ -24,13 +24,17 @@ class RecreationViewController: BaseViewController {
         let loadScreen = LoadingScreen.sharedInstance.getLoadingScreen()
         self.view.addSubview(loadScreen)
         
-        GymDataSource.fetchGyms { (_ gyms: [Gym]?) in
-            if gyms == nil
+        GymDataSource.fetchResources
+        { (_ resources: [Resource]?) in
+            
+            guard let gyms = resources as? [Gym] else
             {
                 print("[ERROR @ RecreationViewController] failed to fetch Gyms")
                 LoadingScreen.sharedInstance.removeLoadingScreen()
+                return
             }
-            self.resources[kGyms] = gyms!
+            
+            self.resources[kGyms] = gyms
             self.baseTableView.reloadData()
             
             if self.resources.count == self.sectionNames.count

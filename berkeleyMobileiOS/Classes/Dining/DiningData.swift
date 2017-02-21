@@ -7,7 +7,13 @@
 
 import Foundation 
 
-/// Types of meals include: breakfast, lunch, dinner, and late night.
+/**
+ * `MealType` is one of four: 
+ * - Breakfast
+ * - Lunch
+ * - Dinner
+ * - Late night
+ */
 enum MealType: String
 {
     case 
@@ -23,66 +29,49 @@ enum MealType: String
     }
 }
 
-/// MealShift contains the menu and hours of a specific MealType.
-class MealShift
+/// Represents a single meal slot with a `DiningMenu` and open hours as `DateRange`.
+struct MealShift
 {
-    var menu: DiningMenu = []
-    var open: Date? = nil
-    var close: Date? = nil
+    let menu: DiningMenu
+    let hours: DateRange?
+    
+    init(menu: DiningMenu, hours: DateRange?)
+    {
+        self.menu = menu
+        self.hours = hours
+    }
+    
+    var isOpen: Bool
+    {
+        return !menu.isEmpty && (hours?.isActive ?? false)
+    }
 }
+
+typealias MealMap = [MealType : MealShift]
 
 
 /**
- * DiningHall represents a single physical dining location.
- * Each hall contains the DiningMenu, Open & Close times for every MealType.
+ * `DiningHall` represents a single physical dining location.
+ * Each hall contains the `DiningMenu`, Open & Close times for every `MealType`.
  */
-class DiningHall
+class DiningHall: Resource
 {
-    let name: String
-    let imageURL: String?
+    let meals: MealMap
     
-    
-    // Map of MealType to MealShift, which inclues the menu and opening & closing times.  
-    typealias MealMap = [MealType : MealShift]
-    
-    let meals: MealMap = MealType.allValues.reduce(MealMap())
-    { (dict, type) -> MealMap in
-        
-        var dict = dict
-        dict[type] = MealShift()
-        return dict
-    }
-
-    
-    /// Initialize DiningHall with a name and optional image URL string. 
-    init(name: String, url: String?)
+    init(name: String, imageLink: String?, shifts: MealMap)
     {
-        self.name = name
-        self.imageURL = url
-    }
-    
-    /// String description is simply "DiningHall <name>"
-    var description: String
-    {
-        return "DiningHall \(self.name)"
+        self.meals = shifts
+        super.init(name: name, imageLink: imageLink)
     }
     
     /// Returns whether the hall is currently open.
-    public var isOpen: Bool
+    override var isOpen: Bool
     {
-        let now = Date()
-        
-        for (_, shift) in meals
-        {
-            if !shift.menu.isEmpty && now.isBetween(shift.open, shift.close) {
-                return true
-            }
-        }
-        return false
+        return meals.reduce(false){ $0 || $1.value.isOpen }
     }
     
     /// Returns the DiningMenu for the given MealType.
-    public func menuForType(_ type: MealType) -> DiningMenu
+    func menuForType(_ type: MealType) -> DiningMenu
     {
         return meals[type]!.menu
     }
@@ -93,17 +82,23 @@ class DiningHall
 typealias DiningMenu = [DiningItem]
 
 
-/// DiningHall represents a single dish/item. 
-class DiningItem
+/** 
+ * `DiningItem` represents a single dish/item.
+ * Contains a refernce to the `DiningHall` and `MealType` of where and when this item is served.
+ */ 
+class DiningItem: Favorable
 {
-    var name: String
-    var mealType: MealType
-    weak var hall: DiningHall?
+    let name: String
+    let mealType: MealType
+    //weak var hall: DiningHall?
     
-    init(name: String, type: MealType, hall: DiningHall?)
+    var isFavorited: Bool
+    
+    init(name: String, type: MealType, favorited: Bool = false)
     {
         self.name = name
         self.mealType = type
-        self.hall = hall
+        
+        self.isFavorited = favorited
     }
 }
