@@ -1,16 +1,23 @@
 
 import UIKit
 
-fileprivate let kLocationTileID = "LocationTile"
+fileprivate let kResourceTileID = "ResourceTile"
 
 /**
- * GroupCell shows a carousel of locations as a CollectionView of LocationTiles.
- * Whenever a LocationTile is selected (tapped), the handler specified through setData() is called.
+ * 
  */
-class DiningGroupCell: UITableViewCell, RequiresData, UICollectionViewDataSource, UICollectionViewDelegate
+class ResourceGroupCell: UITableViewCell, RequiresData, UICollectionViewDataSource, UICollectionViewDelegate
 {
+    typealias SelectionHandler = (Resource) -> Void
+    
+    // Data
+    private var resources: [Resource]!
+    private var selectionHandler: SelectionHandler?
+
+    // UI
     @IBOutlet private weak var groupLabel: UILabel!
     @IBOutlet private weak var collectionView: UICollectionView!
+    
     
     /// Configure the collectionView.
     override func awakeFromNib()
@@ -21,15 +28,11 @@ class DiningGroupCell: UITableViewCell, RequiresData, UICollectionViewDataSource
         self.collectionView.showsHorizontalScrollIndicator = false
     }
     
-
+    
     // ========================================
     // MARK: - RequiresData
     // ========================================
-    typealias HandlerType = (DiningHall) -> Void
-    typealias DataType = (name: String, halls: [DiningHall], selectionHandler: HandlerType?)
-    
-    private var halls: [DiningHall]!
-    private var selectionHandler: HandlerType?
+    typealias DataType = (name: String, resources: [Resource], handler: SelectionHandler?)
     
     /**
      * Set the name, dining halls, and selection callback handler.
@@ -37,9 +40,9 @@ class DiningGroupCell: UITableViewCell, RequiresData, UICollectionViewDataSource
      */
     public func setData(_ data: DataType)
     {
-        self.halls = data.halls
+        self.resources = data.resources
         self.groupLabel.text = data.name
-        self.selectionHandler = data.selectionHandler
+        self.selectionHandler = data.handler
         
         self.collectionView.reloadData()
     }
@@ -55,20 +58,17 @@ class DiningGroupCell: UITableViewCell, RequiresData, UICollectionViewDataSource
         return 1
     }
     
-    /// Return the number of halls/tiles in the group.
+    /// Return the number of tiles in the group.
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
-        return halls.count
+        return resources.count
     }
     
-    /// Get a LocationTile and pass it the corresponding DiningHall.
+    /// Get a ResourceTile and pass it the corresponding Resource.
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
-        let hall = halls[indexPath.item]
-        let favorited = FavoriteStore.sharedInstance.contains(type: DiningHall.self, name: hall.name)
-    
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: kLocationTileID, for: indexPath) as! LocationTile
-        cell.setData( (hall, favorited) )
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: kResourceTileID, for: indexPath) as! ResourceTile
+        cell.setData( self.resources[indexPath.item] )
         
         return cell
     }
@@ -79,9 +79,9 @@ class DiningGroupCell: UITableViewCell, RequiresData, UICollectionViewDataSource
     // MARK: - UICollectionViewDelegate
     // ========================================
     
-    /// When a LocationTile is selected (tapped), call the selectionHandler with the DinigHall.
+    /// When a ResourceTile is selected (tapped), call the selectionHandler with the Resource.
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
-        self.selectionHandler?( self.halls[indexPath.item] )
+        self.selectionHandler?( self.resources[indexPath.item] )
     }
 }
