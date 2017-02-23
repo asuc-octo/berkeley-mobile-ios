@@ -54,6 +54,7 @@
 		41CE36AD1E95776000C86899 /* testView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CE36AC1E95776000C86899 /* testView.swift */; };
 		41E8438E1DAB3FE80096C049 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E8438D1DAB3FE80096C049 /* AppDelegate.swift */; };
 		41E843951DAB3FE80096C049 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41E843941DAB3FE80096C049 /* Assets.xcassets */; };
+		4E06A05A1E5E9DE8007B946F /* ListMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E06A0591E5E9DE8007B946F /* ListMenuItem.swift */; };
 		4E143C0C1E5489B100B77D08 /* InfoPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E143C0B1E5489B100B77D08 /* InfoPanel.swift */; };
 		4E17C1D21E46623C00B9A6B8 /* ToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E17C1D11E46623C00B9A6B8 /* ToggleButton.swift */; };
 		4E2FC8471E2B0D7400B3A28B /* RecreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E505D3A1DD05A65004AC6C9 /* RecreationViewController.swift */; };
@@ -62,6 +63,8 @@
 		4E4D30AF1E57922600E418B8 /* CATransaction+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4D30AE1E57922600E418B8 /* CATransaction+Extension.swift */; };
 		4E4E7D0A1E5A6ACA00A45586 /* ResourceDetailProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4E7D091E5A6ACA00A45586 /* ResourceDetailProvider.swift */; };
 		4E4E7D0C1E5A7ED000A45586 /* DiningHallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4E7D0B1E5A7ED000A45586 /* DiningHallViewController.swift */; };
+		4E4E7D131E5CBD6F00A45586 /* ListMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4E7D121E5CBD6F00A45586 /* ListMenuController.swift */; };
+		4E4E7D151E5CBD8900A45586 /* ListMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4E7D141E5CBD8900A45586 /* ListMenuCell.swift */; };
 		4E4EC1421E50470F000C63ED /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4EC13C1E50470F000C63ED /* Resource.swift */; };
 		4E4EC1431E504710000C63ED /* ResourceDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4EC13D1E50470F000C63ED /* ResourceDataSource.swift */; };
 		4E4EC1441E504710000C63ED /* ResourceGroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4EC13E1E50470F000C63ED /* ResourceGroupCell.swift */; };
@@ -168,6 +171,7 @@
 		41E8438D1DAB3FE80096C049 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		41E843941DAB3FE80096C049 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		41E843991DAB3FE80096C049 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4E06A0591E5E9DE8007B946F /* ListMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListMenuItem.swift; sourceTree = "<group>"; };
 		4E143C0B1E5489B100B77D08 /* InfoPanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoPanel.swift; sourceTree = "<group>"; };
 		4E17C1D11E46623C00B9A6B8 /* ToggleButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToggleButton.swift; sourceTree = "<group>"; };
 		4E487A351DDBB59A0001F8CF /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
@@ -175,6 +179,8 @@
 		4E4D30AE1E57922600E418B8 /* CATransaction+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CATransaction+Extension.swift"; sourceTree = "<group>"; };
 		4E4E7D091E5A6ACA00A45586 /* ResourceDetailProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceDetailProvider.swift; sourceTree = "<group>"; };
 		4E4E7D0B1E5A7ED000A45586 /* DiningHallViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningHallViewController.swift; sourceTree = "<group>"; };
+		4E4E7D121E5CBD6F00A45586 /* ListMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListMenuController.swift; sourceTree = "<group>"; };
+		4E4E7D141E5CBD8900A45586 /* ListMenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListMenuCell.swift; sourceTree = "<group>"; };
 		4E4EC13C1E50470F000C63ED /* Resource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
 		4E4EC13D1E50470F000C63ED /* ResourceDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceDataSource.swift; sourceTree = "<group>"; };
 		4E4EC13E1E50470F000C63ED /* ResourceGroupCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceGroupCell.swift; sourceTree = "<group>"; };
@@ -291,6 +297,16 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		4E4E7D111E5CBD6F00A45586 /* ListMenu */ = {
+			isa = PBXGroup;
+			children = (
+				4E4E7D121E5CBD6F00A45586 /* ListMenuController.swift */,
+				4E06A0591E5E9DE8007B946F /* ListMenuItem.swift */,
+				4E4E7D141E5CBD8900A45586 /* ListMenuCell.swift */,
+			);
+			path = ListMenu;
+			sourceTree = "<group>";
+		};
 		4E4EC13B1E50470F000C63ED /* Resource */ = {
 			isa = PBXGroup;
 			children = (
@@ -359,6 +375,7 @@
 				4E505D301DD05A65004AC6C9 /* BaseViewController.swift */,
 				B5F25D2A1DF519890084A5C7 /* LoadingScreen.swift */,
 				4E505D311DD05A65004AC6C9 /* TabBarController.swift */,
+				4E4E7D111E5CBD6F00A45586 /* ListMenu */,
 				4E17C1D01E46623C00B9A6B8 /* Components */,
 			);
 			path = Base;
@@ -702,6 +719,7 @@
 				B5CAF4E41E637BD200F0B7EA /* SearchItem.swift in Sources */,
 				4E4EC14E1E51195E000C63ED /* DateRange.swift in Sources */,
 				4EE63BA41E5464B800FE3F9E /* ResourceContainerController.swift in Sources */,
+				4E4E7D131E5CBD6F00A45586 /* ListMenuController.swift in Sources */,
 				284A3C811E31671300685A01 /* GymDetailViewController.swift in Sources */,
 				41B0B58B1E8CD95D00DA9297 /* NearestBusesTableViewCell.swift in Sources */,
 				4E505D441DD05A65004AC6C9 /* HomeTableViewCell.swift in Sources */,
@@ -732,6 +750,7 @@
 				4E505D491DD05A65004AC6C9 /* ConvenienceMethods.swift in Sources */,
 				282A4EF21E63BAE400480201 /* GymClassViewController.swift in Sources */,
 				282A4EF61E63BC9000480201 /* GymClassCell.swift in Sources */,
+				4E06A05A1E5E9DE8007B946F /* ListMenuItem.swift in Sources */,
 				4E4EC14B1E5118C9000C63ED /* Favorable.swift in Sources */,
 				4E62CFE71DD87CFB00B19722 /* UINavigationBar+Extension.swift in Sources */,
 				4E4D30AD1E56F2D900E418B8 /* FadeTitleToolbar.swift in Sources */,
@@ -752,6 +771,10 @@
 				282A4EEA1E63839200480201 /* GymClass.swift in Sources */,
 				285991AF1E7D209300317995 /* CampusResourceCell.swift in Sources */,
 				2852AEDB1E90B4FD00092070 /* OptionsCell.swift in Sources */,
+				4E4E7D151E5CBD8900A45586 /* ListMenuCell.swift in Sources */,
+				284A3C8B1E318A5900685A01 /* LibraryPhoneCell.swift in Sources */,
+				41101FA31DDEC62900D8D741 /* BearTransitNavigationController.swift in Sources */,
+				4E505D481DD05A65004AC6C9 /* BearTransitViewController.swift in Sources */,
 				B5F25D271DE8BFD50084A5C7 /* CampusResourceDataSource.swift in Sources */,
 				4E505D431DD05A65004AC6C9 /* HomeCollectionViewCell.swift in Sources */,
 				4E62CFE01DD7E38900B19722 /* DiningDataSource.swift in Sources */,
