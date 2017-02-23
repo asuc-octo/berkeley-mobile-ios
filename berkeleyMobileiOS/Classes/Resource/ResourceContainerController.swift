@@ -33,6 +33,7 @@ class ResourceContainerController: UIViewController, RequiresData, UIScrollViewD
     func setData(_ data: ResourceDetailProvider)
     {
         provider = data
+        addChildViewController(detailViewController)
     }
     
     
