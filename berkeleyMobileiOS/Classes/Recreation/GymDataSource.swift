@@ -53,6 +53,8 @@ class GymDataSource: ResourceDataSource
         gym.latitude = json["latitude"].doubleValue
         gym.longitude = json["longitude"].doubleValue
         
+        FavoriteStore.shared.restoreState(for: gym)
+        
         return gym
     }
     

@@ -64,8 +64,8 @@ class ResourceTile: UICollectionViewCell, RequiresData, ToggleButtonDelegate
      */
     func buttonDidToggle(_ button: ToggleButton)
     {
-        let store = FavoriteStore.sharedInstance
+        let store = FavoriteStore.shared
         let action = (button.isSelected ? store.add : store.remove)
-        action(DiningHall.self, self.resource.name)
+        action(resource)
     }
 }
