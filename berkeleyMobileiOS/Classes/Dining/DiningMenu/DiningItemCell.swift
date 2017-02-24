@@ -47,8 +47,8 @@ class DiningItemCell: UITableViewCell, RequiresData, ToggleButtonDelegate
      */
     func buttonDidToggle(_ button: ToggleButton)
     {
-        let store = FavoriteStore.sharedInstance
+        let store = FavoriteStore.shared
         let action = (button.isSelected ? store.add : store.remove)
-        action(DiningItem.self, item.name)
+        action(item)
     }
 }

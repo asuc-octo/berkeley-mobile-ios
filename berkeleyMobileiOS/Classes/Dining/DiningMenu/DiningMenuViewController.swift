@@ -83,7 +83,7 @@ class DiningMenuViewController: UIViewController, RequiresData, DelegatesScroll,
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         let item = self.shift.menu[indexPath.row]
-        let favorited = FavoriteStore.sharedInstance.contains(type: DiningItem.self, name: item.name)
+        let favorited = FavoriteStore.shared.contains(item)
     
         let cell = self.tableView.dequeueReusableCell(withIdentifier: className(DiningItemCell.self)) as! DiningItemCell
         cell.setData( (item, favorited) )

@@ -42,6 +42,8 @@ class LibraryDataSource: ResourceDataSource {
         
         let library = Library(name: json["name"].stringValue, campusLocation: json["campus_location"].string, phoneNumber: json["phone_number"].string, weeklyOpeningTimes: weeklyOpeningTimes, weeklyClosingTimes: weeklyClosingTimes, weeklyByAppointment: weeklyByAppointment, imageLink: json["image_link"].string, latitude: json["latitude"].double, longitude: json["longitude"].double)
         
+        FavoriteStore.shared.restoreState(for: library)
+        
         return library
     }
     
