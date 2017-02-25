@@ -22,6 +22,9 @@ protocol ResourceDetailProvider: class, DelegatesScroll
     var imageURL: URL? { get }
     var buttons: [UIButton] { get }
     
+    /// Whether the receiving container should reset content offset when content size is changed.
+    var resetOffsetOnSizeChanged: Bool { get }
+    
     /**
      * Handler to be called by implementing module when underlying `contentSize` changes.
      * Whoever is receiving the event will determine the new scroll size and offset. 

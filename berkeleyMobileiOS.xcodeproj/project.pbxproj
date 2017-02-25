@@ -63,6 +63,7 @@
 		4E62CFE71DD87CFB00B19722 /* UINavigationBar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E62CFE61DD87CFB00B19722 /* UINavigationBar+Extension.swift */; };
 		4E64B56E1DD134EB00DA5E73 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E64B56D1DD134EB00DA5E73 /* Date+Extension.swift */; };
 		4E64B5701DD134F800DA5E73 /* Optional+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E64B56F1DD134F800DA5E73 /* Optional+Extension.swift */; };
+		4E7F32AB1E6214E700D781B2 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7F32AA1E6214E700D781B2 /* UIViewController+Extension.swift */; };
 		4E8E0D8A1E0C08380052CC10 /* Roboto-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E8E0D7E1E0C08380052CC10 /* Roboto-Black.ttf */; };
 		4E8E0D8B1E0C08380052CC10 /* Roboto-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E8E0D7F1E0C08380052CC10 /* Roboto-BlackItalic.ttf */; };
 		4E8E0D8C1E0C08380052CC10 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E8E0D801E0C08380052CC10 /* Roboto-Bold.ttf */; };
@@ -153,6 +154,7 @@
 		4E62CFE61DD87CFB00B19722 /* UINavigationBar+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+Extension.swift"; sourceTree = "<group>"; };
 		4E64B56D1DD134EB00DA5E73 /* Date+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		4E64B56F1DD134F800DA5E73 /* Optional+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Optional+Extension.swift"; sourceTree = "<group>"; };
+		4E7F32AA1E6214E700D781B2 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		4E8E0D7E1E0C08380052CC10 /* Roboto-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Black.ttf"; sourceTree = "<group>"; };
 		4E8E0D7F1E0C08380052CC10 /* Roboto-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-BlackItalic.ttf"; sourceTree = "<group>"; };
 		4E8E0D801E0C08380052CC10 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
@@ -373,6 +375,7 @@
 				4E62CFE61DD87CFB00B19722 /* UINavigationBar+Extension.swift */,
 				4E4EC14D1E51195E000C63ED /* DateRange.swift */,
 				4E4D30AE1E57922600E418B8 /* CATransaction+Extension.swift */,
+				4E7F32AA1E6214E700D781B2 /* UIViewController+Extension.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -646,6 +649,7 @@
 				4ED0D35F1DDCE9FA00956F9E /* Protocols.swift in Sources */,
 				4E64B56E1DD134EB00DA5E73 /* Date+Extension.swift in Sources */,
 				4ED0D35B1DDCE1C600956F9E /* OldDiningHallViewController.swift in Sources */,
+				4E7F32AB1E6214E700D781B2 /* UIViewController+Extension.swift in Sources */,
 				4E2FC8471E2B0D7400B3A28B /* RecreationViewController.swift in Sources */,
 				4E487A361DDBB59A0001F8CF /* Utils.swift in Sources */,
 				B5F25D231DE2B6ED0084A5C7 /* LibraryDataSource.swift in Sources */,

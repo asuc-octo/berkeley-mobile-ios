@@ -84,23 +84,35 @@ class ResourceContainerController: UIViewController, RequiresData, UIScrollViewD
         provider.contentSizeChangeHandler = contentSizeDidChange
     }
     
-    /// Adjust the banner image according to the width, and layout `scrollView` inset below.
+    /**
+     * By the time view want's to layout its subviews, the bounds is correct.
+     * Before calling layoutSubviews() on each child, give it the correct size.
+     */
+    override func viewWillLayoutSubviews()
+    {
+        super.viewWillLayoutSubviews()
+        
+        let size = view.bounds.size
+        let toolbarBottom = statusBarHeight + kToolBarHeight
+        
+        // Banner goes under the status and toolbars. 
+        let bannerHeight = toolbarBottom + round(size.width / kBannerRatio) 
+        banner.frame = CGRect(x: 0, y: 0, width: size.width, height: bannerHeight)
+        bannerGradient.frame = banner.bounds
+        
+        scrollView.frame = CGRect(x: 0, y: toolbarBottom, width: size.width, height: size.height - toolbarBottom)
+        scrollView.contentInset.top = banner.frame.maxY - toolbarBottom
+        
+        infoPanel.frame = CGRect(x: 0, y: 0, width: size.width, height: InfoPanel.fixedHeight)
+        detailView.frame = CGRect(x: 0, y: InfoPanel.fixedHeight, width: size.width, height: scrollView.bounds.height)
+    }
+    
+    /// After all the subviews have been laid out, adjust the content size.
     override func viewDidLayoutSubviews()
     {
         super.viewDidLayoutSubviews()
         
-        let toolbarBottom = toolbar.frame.maxY
-        let infoHeight = InfoPanel.fixedHeight
-        
-        banner.frame = CGRect(x: 0, y: 0, width: view.width, height: round(view.width / kBannerRatio) + toolbarBottom)
-        bannerGradient.frame = banner.bounds
-        
-        scrollView.frame = CGRect(x: 0, y: toolbarBottom, width: view.width, height: view.height - toolbarBottom)
-        scrollView.contentInset.top = banner.frame.maxY - toolbarBottom
-        contentSizeDidChange(provider)
-        
-        infoPanel.frame = CGRect(x: 0, y: 0, width: scrollView.width, height: infoHeight)
-        detailView.frame = CGRect(x: 0, y: infoHeight, width: view.width, height: scrollView.height)
+        scrollView.contentSize.height = infoPanel.bounds.height + provider.contentSize.height
     }
     
     
@@ -160,11 +172,15 @@ class ResourceContainerController: UIViewController, RequiresData, UIScrollViewD
     /// Perform scroll dependent animations, and adjust the provider's nested offset.
     func scrollViewDidScroll(_ scrollView: UIScrollView)
     {
+        guard scrollView === self.scrollView else {
+            return
+        }
+    
         let inset = scrollView.contentInset.top
         let offset = scrollView.contentOffset.y
         
         let toolbarMaxY = toolbar.frame.maxY
-        let infoHeight = infoPanel.height
+        let infoHeight = InfoPanel.fixedHeight
         
         // If scrollView is pulled down, increase banner height accordingly.
         let pulled = -(inset + offset)
@@ -225,7 +241,7 @@ class ResourceContainerController: UIViewController, RequiresData, UIScrollViewD
     
     func contentSizeDidChange(_ provider: ResourceDetailProvider)
     {
-        guard self.provider === provider else
+        guard self.provider === provider && provider.resetOffsetOnSizeChanged else
         {
             return
         }
@@ -236,14 +252,12 @@ class ResourceContainerController: UIViewController, RequiresData, UIScrollViewD
         
         
         // New content height is InfoPanel plus internal content height.
-        let contentHeight = infoHeight + provider.contentSize.height
+        scrollView.contentSize.height = infoHeight + provider.contentSize.height
         
-        // Final offset is clamped to either inset or InfoHeight.
-        let finalOffset = (offset < infoHeight) ? -inset : infoHeight;
-        
-        scrollView.contentSize = CGSize(width: view.width, height: contentHeight)
-        scrollView.contentOffset = CGPoint(x: 0, y: finalOffset)
-    } 
+        // Offset is clamped to either inset or InfoHeight.
+        scrollView.contentOffset.y = (offset < infoHeight) ? -inset : infoHeight
+        scrollViewDidScroll(scrollView)
+    }
     
     /// When the back button is tapped, dismiss this view appropriately.
     func backButtonTapped()

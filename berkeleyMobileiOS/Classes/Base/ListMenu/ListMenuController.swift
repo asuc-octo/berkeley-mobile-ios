@@ -17,13 +17,15 @@ class ListMenuController: UIViewController, UITableViewDataSource, UITableViewDe
     // Private
     private var items = [ListMenuItem]()
     
-    private var overlay = UIView()
+    private var overlay = CALayer()//UIView()
     private var tableView = UITableView()
     
     
     // Public
     var message: String?
     var dismissHandler: (() -> Void)? = nil
+    
+    var clearOnNewSelection: Bool = true
     
     override var modalPresentationStyle: UIModalPresentationStyle 
     {  
@@ -68,7 +70,7 @@ class ListMenuController: UIViewController, UITableViewDataSource, UITableViewDe
         setupDismissTap()
         
         view.backgroundColor = .clear
-        overlay.backgroundColor = .black
+        overlay.backgroundColor = UIColor.black.cgColor
     }
     
     override func viewDidLayoutSubviews()
@@ -90,14 +92,14 @@ class ListMenuController: UIViewController, UITableViewDataSource, UITableViewDe
             return
         }
         
-        let container = presenter.view!
-        container.addSubview(overlay)
+        let container = presenter.view.layer
+        container.addSublayer(overlay)
         overlay.frame = container.bounds
-        overlay.backgroundColor = UIColor(white: 0, alpha: 0)
-        
+        overlay.backgroundColor = UIColor(white: 0, alpha: 0.5).cgColor
+     
         transitionCoordinator?.animate(
             alongsideTransition: { _ in
-                self.overlay.backgroundColor = UIColor(white: 0, alpha: 0.5) 
+                self.overlay.backgroundColor = UIColor(white: 0, alpha: 0.5).cgColor
             }, 
             completion: nil)
     }
@@ -108,10 +110,10 @@ class ListMenuController: UIViewController, UITableViewDataSource, UITableViewDe
         
         transitionCoordinator?.animate(
             alongsideTransition: { _ in
-                self.overlay.backgroundColor = UIColor(white: 0, alpha: 0) 
+                self.overlay.backgroundColor = UIColor(white: 0, alpha: 0).cgColor
             }, 
             completion: { _ in
-                self.overlay.removeFromSuperview()
+                self.overlay.removeFromSuperlayer()
             })
     }
     
@@ -175,7 +177,7 @@ class ListMenuController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     @discardableResult
-    public func setItem(_ item: ListMenuItem, selected: Bool, clearOthers: Bool = false) -> Bool
+    public func setItem(_ item: ListMenuItem, selected: Bool) -> Bool
     {
         guard let index = (items.index { $0 === item }) else
         {
@@ -183,7 +185,7 @@ class ListMenuController: UIViewController, UITableViewDataSource, UITableViewDe
             return false
         }
         
-        if clearOthers {
+        if clearOnNewSelection {
             clearAllSelections()
         }
         
