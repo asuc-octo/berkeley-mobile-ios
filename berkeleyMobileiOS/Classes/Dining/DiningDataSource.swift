@@ -82,7 +82,10 @@ class DiningDataSource: ResourceDataSource
             default:            type = .breakfast
         }
         
-        return DiningItem(name: name, type: type)
+        let item = DiningItem(name: name, type: type)
+        FavoriteStore.shared.restoreState(for: item)
+        
+        return item
     }
     
     private static func sharedDateFormatter() -> DateFormatter

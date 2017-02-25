@@ -13,3 +13,8 @@ func setStatusBarStyle(_ style: UIStatusBarStyle)
 {
     UIApplication.shared.statusBarStyle = style
 }
+
+func logFunc(_ caller: Any, _ name: String = #function)
+{
+    print("\( type(of: caller) ).\(name)")
+}

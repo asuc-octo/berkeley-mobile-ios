@@ -32,7 +32,7 @@ enum MealType: String
 /// Represents a single meal slot with a `DiningMenu` and open hours as `DateRange`.
 struct MealShift
 {
-    let menu: DiningMenu
+    var menu: DiningMenu
     let hours: DateRange?
     
     init(menu: DiningMenu, hours: DateRange?)
@@ -79,7 +79,7 @@ class DiningHall: Resource
 
 
 /// DiningMenu is a typealias for an array of DiningItems.
-typealias DiningMenu = [DiningItem]
+typealias DiningMenu = Array<DiningItem>
 
 
 /** 
