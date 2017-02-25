@@ -64,7 +64,14 @@ class FavoriteStore
         return result.map { return $0.name }
     }
     
-    /// Restores the favorited state for given `Favorable` item.
+    /// Update the store reflect to the item's state.
+    func update(_ item: Favorable)
+    {
+        let action = item.isFavorited ? add : remove
+        action(item)
+    }
+    
+    /// Upate the item's state to reflect the store.
     func restoreState(for item: Favorable)
     {
         var item = item
