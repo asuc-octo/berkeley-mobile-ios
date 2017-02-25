@@ -15,13 +15,18 @@ class DiningHallViewController: UIViewController, RequiresData, ResourceDetailPr
     private var hall: DiningHall!
     
     private let sortMenuController = ListMenuController()
-    private var menuTabController: PageTabBarController!
-    private var menuTabBar: PageTabBar
+    
+    private var menuControllers: [DiningMenuViewController]!
+    private var pageController: PageTabBarController!
+    private var pageTabBar: PageTabBar
     {
-        return menuTabController.pageTabBar
+        return pageController.pageTabBar
     }
     
-    private var selectedScroll: DelegatesScroll!
+    private var selectedScroll: DelegatesScroll
+    {
+        return menuControllers[ pageController.selectedIndex ]
+    }
     
     
     // ========================================
@@ -58,7 +63,8 @@ class DiningHallViewController: UIViewController, RequiresData, ResourceDetailPr
     /// Content size of the current menu tab page.
     var contentSize: CGSize
     {
-        return selectedScroll.contentSize
+        let size = selectedScroll.contentSize
+        return CGSize(width: size.width, height: size.height + pageTabBar.bounds.height)
     }
     
     /// Scroll for the current menu tab page not animated.
@@ -71,8 +77,11 @@ class DiningHallViewController: UIViewController, RequiresData, ResourceDetailPr
     /// Set the scroll for the currently selected menu tab page.
     func setContentOffset(_ offset: CGPoint, animated: Bool)
     {
-        selectedScroll?.setContentOffset(offset, animated: false)
+        selectedScroll.setContentOffset(offset, animated: false)
     }
+    
+    /// Whether the receiving container should reset content offset when content size is changed.
+    var resetOffsetOnSizeChanged: Bool { return true }
     
     /// Callback for when the internal `contentSize` has changed.
     var contentSizeChangeHandler: ((ResourceDetailProvider) -> Void)?
@@ -96,8 +105,17 @@ class DiningHallViewController: UIViewController, RequiresData, ResourceDetailPr
     {
         super.viewWillAppear(animated)
         
+        logFunc(self)
+        
         // TODO: Check open hours, and appear on nearest meal.
-        pageTabBarController(pageTabBarController: menuTabController, didTransitionTo: menuTabController.viewControllers.first!)
+        // pageTabBarController(pageTabBarController: pageController, didTransitionTo: pageController.viewControllers.first!)
+    }
+    
+    override func viewDidLayoutSubviews()
+    {
+        super.viewDidLayoutSubviews()
+        
+        logFunc(self)
     }
     
     
@@ -108,12 +126,7 @@ class DiningHallViewController: UIViewController, RequiresData, ResourceDetailPr
     /// When the page changes, set a new scroll, and call the `contentSizeChangeHandler`.
     func pageTabBarController(pageTabBarController: PageTabBarController, didTransitionTo viewController: UIViewController)
     {
-        guard let scroll = viewController as? DelegatesScroll else
-        {
-            return
-        } 
-    
-        selectedScroll = scroll
+        logFunc(self)
         contentSizeChangeHandler?(self)
     }
     
@@ -126,7 +139,8 @@ class DiningHallViewController: UIViewController, RequiresData, ResourceDetailPr
     private func setupMenus()
     {
         let menuID = className(DiningMenuViewController.self)
-        let viewControllers: [UIViewController] = MealType.allValues.map
+        
+        menuControllers = MealType.allValues.map
         { type in
             
             let vc = storyboard!.instantiateViewController(withIdentifier: menuID) as! DiningMenuViewController
@@ -142,44 +156,40 @@ class DiningHallViewController: UIViewController, RequiresData, ResourceDetailPr
             return vc
         }
         
+        pageController = PageTabBarController(viewControllers: menuControllers, selectedIndex: 0)
+        pageController.pageTabBarAlignment = .top
+        pageController.delegate = self
         
-        menuTabController = PageTabBarController(viewControllers: viewControllers, selectedIndex: 0)
-        menuTabController.pageTabBarAlignment = .top
-        menuTabController.delegate = self
-        
-        let tabBar = menuTabController.pageTabBar
+        let tabBar = pageController.pageTabBar
         tabBar.backgroundColor = UIColor.white//kColorNavy
         tabBar.lineColor = kColorNavy//UIColor.white
         tabBar.lineHeight = 1
         tabBar.lineAlignment = .bottom
         
-        let menus = menuTabController.view!
+        let menus = pageController.view!
         menus.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
-        addChildViewController(menuTabController)
+        addChildViewController(pageController)
         view.addSubview(menus)
     }
     
     /// Intialize and configure the modal `ListMenuController` for sorting options.
     private func setupSortMenu()
     {
-        typealias handlerType = (ListMenuItem) -> Void
-    
         let menu = sortMenuController
         menu.message = "Sort by"
+        menu.clearOnNewSelection = true
         
-        let dismissMenu: handlerType = { (_) in
+        let handler = { (item: ListMenuItem, order: FavorableSortBy) in
+            
+            menu.setItem(item, selected: true)
+            self.menuControllers.forEach { $0.sortBy = order }
             self.dismiss(animated: true, completion: nil)
         }
         
-        let selected: handlerType = {
-            menu.setItem($0, selected: true, clearOthers: true)
-            dismissMenu($0)
-        }
-        
-        sortMenuController.addItem(ListMenuItem(text: "Alphabetical", icon: #imageLiteral(resourceName: "ic_sort_by_alpha"), tint: Color.blue.darken1, selected: false, handler: selected))
-        sortMenuController.addItem(ListMenuItem(text: "Favorites", icon: #imageLiteral(resourceName: "ic_favorite"), tint: Color.pink.base, selected: true, handler: selected))
-        sortMenuController.addItem(ListMenuItem(text: "Cancel", icon: #imageLiteral(resourceName: "ic_close"), tint: .black, selected: false, handler: dismissMenu))
+        menu.addItem(ListMenuItem(text: "Alphabetical", icon: #imageLiteral(resourceName: "ic_sort_by_alpha"), tint: Color.blue.darken1, selected: false) { handler($0, .alphabetical) })
+        menu.addItem(ListMenuItem(text: "Favorites", icon: #imageLiteral(resourceName: "ic_favorite"), tint: Color.pink.base, selected: true){ handler($0, .favorites) })
+        menu.addItem(ListMenuItem(text: "Cancel", icon: #imageLiteral(resourceName: "ic_close")){ _ in self.dismiss(animated: true, completion: nil) })
     }
     
     /**

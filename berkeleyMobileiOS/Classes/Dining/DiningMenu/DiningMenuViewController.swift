@@ -10,7 +10,6 @@ class DiningMenuViewController: UIViewController, RequiresData, DelegatesScroll,
 {
     // Data
     private var shift: MealShift!
-    private var favoritedItems: [String]!
     
     
     //UI
@@ -28,6 +27,39 @@ class DiningMenuViewController: UIViewController, RequiresData, DelegatesScroll,
     public func setData(_ data: DataType)
     {
         self.shift = data.shift
+    }
+    
+    public var sortBy: FavorableSortBy = .favorites
+    {
+        didSet
+        {
+            shift?.menu.sort(by: sortBy.comparator)
+            tableView?.reloadData()
+        }
+    }
+    
+    
+    // ========================================
+    // MARK: - DelegatesScroll
+    // ========================================
+    
+    /// Return the current size of the tableView.
+    var contentSize: CGSize
+    {
+        return CGSize(width: view.bounds.width, height: tableView.contentSize.height + hoursView.bounds.height)
+    }
+    
+    /// Return the current offset or pass the set offset action.
+    var contentOffset: CGPoint
+    {
+        get { return self.tableView.contentOffset }
+        set { self.tableView.contentOffset = newValue }
+    }
+    
+    /// Relay the set action.
+    func setContentOffset(_ offset: CGPoint, animated: Bool)
+    {
+        self.tableView.setContentOffset(offset, animated: animated)
     }
     
     
@@ -82,37 +114,9 @@ class DiningMenuViewController: UIViewController, RequiresData, DelegatesScroll,
     /// Get a reuseable cell and set the data.
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        let item = self.shift.menu[indexPath.row]
-        let favorited = FavoriteStore.shared.contains(item)
-    
-        let cell = self.tableView.dequeueReusableCell(withIdentifier: className(DiningItemCell.self)) as! DiningItemCell
-        cell.setData( (item, favorited) )
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: className(DiningItemCell.self)) as! DiningItemCell
+        cell.setData( shift.menu[indexPath.row] )
         return cell
-    }
-    
-    
-    // ========================================
-    // MARK: - DelegatesScroll
-    // ========================================
-    
-    /// Return the current size of the tableView.
-    var contentSize: CGSize
-    {
-        get { return self.tableView.contentSize }
-    }
-    
-    /// Return the current offset or pass the set offset action.
-    var contentOffset: CGPoint
-    {
-        get { return self.tableView.contentOffset }
-        set { self.tableView.contentOffset = newValue }
-    }
-    
-    /// Relay the set action.
-    func setContentOffset(_ offset: CGPoint, animated: Bool)
-    {
-        self.tableView.setContentOffset(offset, animated: animated)
     }
     
     
