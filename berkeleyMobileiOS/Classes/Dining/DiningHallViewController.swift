@@ -105,17 +105,9 @@ class DiningHallViewController: UIViewController, RequiresData, ResourceDetailPr
     {
         super.viewWillAppear(animated)
         
-        logFunc(self)
-        
-        // TODO: Check open hours, and appear on nearest meal.
-        // pageTabBarController(pageTabBarController: pageController, didTransitionTo: pageController.viewControllers.first!)
-    }
-    
-    override func viewDidLayoutSubviews()
-    {
-        super.viewDidLayoutSubviews()
-        
-        logFunc(self)
+        // TODO: open to the closest meal type.
+        // TODO: restore sort preferences.
+        sortMenus(by: .favorites)
     }
     
     
@@ -183,13 +175,20 @@ class DiningHallViewController: UIViewController, RequiresData, ResourceDetailPr
         let handler = { (item: ListMenuItem, order: FavorableSortBy) in
             
             menu.setItem(item, selected: true)
-            self.menuControllers.forEach { $0.sortBy = order }
+            self.sortMenus(by: order)
+            
             self.dismiss(animated: true, completion: nil)
         }
         
         menu.addItem(ListMenuItem(text: "Alphabetical", icon: #imageLiteral(resourceName: "ic_sort_by_alpha"), tint: Color.blue.darken1, selected: false) { handler($0, .alphabetical) })
         menu.addItem(ListMenuItem(text: "Favorites", icon: #imageLiteral(resourceName: "ic_favorite"), tint: Color.pink.base, selected: true){ handler($0, .favorites) })
         menu.addItem(ListMenuItem(text: "Cancel", icon: #imageLiteral(resourceName: "ic_close")){ _ in self.dismiss(animated: true, completion: nil) })
+    }
+    
+    /// Tells each `DiningMenuViewController` to sort by the given `FavorableSortBy` ordering.
+    private func sortMenus(by order: FavorableSortBy)
+    {
+        menuControllers.forEach { $0.sortBy = order }
     }
     
     /**
