@@ -37,14 +37,7 @@ class RecreationViewController: BaseViewController {
             }
             
             self.resources[kGyms] = gyms
-            
-
-//            self.baseTableView.reloadData()
-            
-//            if self.resources.coun`t == self.sectionNames.count
-//            {
-//                LoadingScreen.sharedInstance.removeLoadingScreen()
-//            }
+        
         }
         
         //fetch resources for class too
