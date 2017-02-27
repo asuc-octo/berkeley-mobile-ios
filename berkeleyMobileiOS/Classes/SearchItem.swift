@@ -12,30 +12,23 @@ fileprivate let kURL = "https://asuc-mobile-development.herokuapp.com"
 
 class SearchItem {
 
-    let name: String?
-    let category: String?
-    var query: String?
+    let name: String
+    let category: String
+    var query: String
     
-    init(name: String, category: String?, query: String?) {
+    init(name: String, category: String, query: String) {
         self.name = name
         self.category = category
         self.query = query
     }
     
     func detailedData(_ completion: @escaping (Resource?) -> Void)  {
-        guard self.query != nil else {
-            return
-        }
-        guard self.category != nil else {
-            return
-        }
-        
-        let url = kURL + self.query!
+        let url = kURL + self.query
         
         var resourceType: ResourceType
         var key: String
         
-        switch category! {
+        switch category {
         case "Dining Hall":
             resourceType = ResourceType.DiningHall
             key = "dining_hall"

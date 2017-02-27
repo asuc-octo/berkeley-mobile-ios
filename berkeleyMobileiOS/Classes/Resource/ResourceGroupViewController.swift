@@ -54,6 +54,7 @@ class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDe
         super.viewDidLoad()
         
         self.setupNavigationBar()
+        self.setupSearchBar()
         self.setupActivityIndicator()
         
         // Connect tableView and load data
@@ -133,6 +134,17 @@ class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDe
         navbar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
         self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "", style: .plain, target: nil, action: nil)
         
+    }
+    
+    // ========================================
+    // MARK: - UISearchBar Setup
+    // ========================================
+    /**
+     *
+     */
+    
+    private func setupSearchBar()
+    {
         // Search bar
         self.navigationItem.titleView = searchBar
         searchBar.delegate = self
@@ -140,7 +152,7 @@ class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDe
         searchDropDown.bottomOffset = CGPoint(x: 0, y: 50)
         // searchDropDown.dismissMode = .manual
         searchDropDown.selectionAction = selectedRow
-        
+        searchDropDown.cancelAction = cancelDropDown
     }
     
     func selectedRow(index: Int, name: String) -> Void {
@@ -155,6 +167,12 @@ class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDe
             self.performSegue(withIdentifier: ref, sender: res)
         }
     }
+    
+    func cancelDropDown() -> Void {
+        searchBar.showsCancelButton = false
+        searchBar.resignFirstResponder()
+    }
+    
     
     /// Configure and add the ActivityIndicator.
     private func setupActivityIndicator()
@@ -247,7 +265,7 @@ class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDe
     // MARK: - UISearchDelegate
     // ========================================
     /**
-     *
+     * TODO: Change the dismiss behavior.
      */
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -266,12 +284,12 @@ class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDe
                 { (_ searchItems: [SearchItem]?) in
                     self.searchableItems = searchItems!
                     self.searchResults = searchItems!
-                    self.searchDropDown.dataSource = self.searchResults.map { item in item.name! }
+                    self.searchDropDown.dataSource = self.searchResults.map { item in item.name }
                     self.searchDropDown.show()
             }
         }
         else {
-            self.searchDropDown.dataSource = self.searchResults.map { item in item.name! }
+            self.searchDropDown.dataSource = self.searchResults.map { item in item.name }
             self.searchDropDown.show()
             
         }
@@ -289,12 +307,12 @@ class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDe
     
     func filterList(_ searchText: String?) {
         if searchText == nil || searchText! == "" {
-            searchDropDown.dataSource = searchableItems.map { item in item.name! }
+            searchDropDown.dataSource = searchableItems.map { item in item.name }
         }
         else {
             let keyword = searchText!.lowercased()
-            searchResults = searchableItems.filter({ item in (item.name?.lowercased().contains(keyword))! })
-            searchDropDown.dataSource = searchResults.map { item in item.name! }
+            searchResults = searchableItems.filter({ item in (item.name.lowercased().contains(keyword)) })
+            searchDropDown.dataSource = searchResults.map { item in item.name }
         }
     }
 }
