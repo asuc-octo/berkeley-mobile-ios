@@ -21,7 +21,7 @@ class Gym: Resource {
         self.address = address
         self.openingTimeToday = openingTimeToday
         self.closingTimeToday = closingTimeToday
-        super.init(name: name, imageLink: imageLink)
+        super.init(name: name, type: ResourceType.Gym, imageLink: imageLink)
     }
 
 }

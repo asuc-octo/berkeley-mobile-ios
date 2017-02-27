@@ -27,6 +27,6 @@ class CampusResource: Resource {
         self.latitude = latitude
         self.longitude = longitude
         self.notes = notes
-        super.init(name: name, imageLink: nil)
+        super.init(name: name,  type:ResourceType.Library, imageLink: nil)
     }
 }

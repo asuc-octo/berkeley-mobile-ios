@@ -1,5 +1,6 @@
 
 import UIKit
+import DropDown
 
 fileprivate let kColorNavy = UIColor(red: 23/255.0, green: 85/255.0, blue: 122/255.0, alpha: 1)
 
@@ -8,17 +9,21 @@ fileprivate let kColorNavy = UIColor(red: 23/255.0, green: 85/255.0, blue: 122/2
  * Displays a single `Resource` type as rows of separate groups/categories.
  * Each row is a horizontally scrolling carousel of tiles representing one `Resource` instance. 
  */
-class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDelegate, UITableViewDataSource
+class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate
 {
     // Data
     var resourceType: ResourceType!
     var resources: [Resource] = []
+    var searchableItems: [SearchItem] = []
+    var searchResults: [SearchItem] = []
     
     
     // UI
     override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
     private weak var navbar: UINavigationBar?
     private var pseudoNavbar: UIView!
+    private var searchBar = UISearchBar()
+    let searchDropDown = DropDown()
     
     @IBOutlet private weak var tableView: UITableView!
     private var activityIndicator: UIActivityIndicatorView!
@@ -127,6 +132,28 @@ class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDe
         navbar.tintColor = .white
         navbar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
         self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "", style: .plain, target: nil, action: nil)
+        
+        // Search bar
+        self.navigationItem.titleView = searchBar
+        searchBar.delegate = self
+        searchDropDown.anchorView = self.navigationItem.titleView
+        searchDropDown.bottomOffset = CGPoint(x: 0, y: 50)
+        // searchDropDown.dismissMode = .manual
+        searchDropDown.selectionAction = selectedRow
+        
+    }
+    
+    func selectedRow(index: Int, name: String) -> Void {
+        searchDropDown.hide()
+        searchBar.resignFirstResponder()
+        let selected = searchResults[index]
+        selected.detailedData { (_ resource: Resource?) in
+            guard let res = resource else {
+                return
+            }
+            let ref = res.type.rawValue + "DetailSegue"
+            self.performSegue(withIdentifier: ref, sender: res)
+        }
     }
     
     /// Configure and add the ActivityIndicator.
@@ -213,6 +240,61 @@ class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDe
         else if let vc = destination as? LibraryDetailViewController
         {
             vc.library = sender as? Library
+        }
+    }
+    
+    // ========================================
+    // MARK: - UISearchDelegate
+    // ========================================
+    /**
+     *
+     */
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        filterList(searchBar.text)
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        filterList(searchText)
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true
+        if searchableItems.count == 0 {
+            SearchDataSource.fetchSearchItems
+                { (_ searchItems: [SearchItem]?) in
+                    self.searchableItems = searchItems!
+                    self.searchResults = searchItems!
+                    self.searchDropDown.dataSource = self.searchResults.map { item in item.name! }
+                    self.searchDropDown.show()
+            }
+        }
+        else {
+            self.searchDropDown.dataSource = self.searchResults.map { item in item.name! }
+            self.searchDropDown.show()
+            
+        }
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        searchDropDown.hide()
+        searchBar.showsCancelButton = false
+    }
+    
+    func filterList(_ searchText: String?) {
+        if searchText == nil || searchText! == "" {
+            searchDropDown.dataSource = searchableItems.map { item in item.name! }
+        }
+        else {
+            let keyword = searchText!.lowercased()
+            searchResults = searchableItems.filter({ item in (item.name?.lowercased().contains(keyword))! })
+            searchDropDown.dataSource = searchResults.map { item in item.name! }
         }
     }
 }

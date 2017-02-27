@@ -26,7 +26,7 @@ class Library: Resource {
         self.weeklyByAppointment = weeklyByAppointment
         self.latitude = latitude
         self.longitude = longitude
-        super.init(name: name, imageLink: imageLink)
+        super.init(name: name, type:ResourceType.Library, imageLink: imageLink)
     }
     
 

@@ -21,6 +21,7 @@ class GymsMapListViewController: UIViewController, GMSMapViewDelegate, CLLocatio
     var locationManager = CLLocationManager()
     
     override func viewDidLoad() {
+
         super.viewDidLoad()
         
         setSegmentedControl()

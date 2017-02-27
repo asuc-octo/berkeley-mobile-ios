@@ -32,6 +32,10 @@ class LibraryDataSource: ResourceDataSource {
         }
     }
     
+    static func parseResource(_ json: JSON) -> Resource {
+        return parseLibrary(json)
+    }
+    
     // Return a Library object parsed from JSON.
     private static func parseLibrary(_ json: JSON) -> Library
     {
