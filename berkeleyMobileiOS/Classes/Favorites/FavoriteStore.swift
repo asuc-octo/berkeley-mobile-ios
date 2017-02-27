@@ -30,7 +30,7 @@ class FavoriteStore
     /// Add item of given type and name.
     func add(_ item: Favorable)
     {
-        let item = FavoriteItem(value: ["type": typeString(forItem: item), "name": item.name])
+        let item = FavoriteItem(value: ["type": typeString(for: item), "name": item.name])
         
         try! realm.write
         {
@@ -81,10 +81,11 @@ class FavoriteStore
     
     private func query(_ item: Favorable) -> Results<FavoriteItem>
     {
-        return realm.objects(FavoriteItem.self).filter("type = '\( typeString(forItem: item) )' and name = '\(item.name)'")
+        let predicate = NSPredicate(format: "type = %@ and name = %@", typeString(for: item), item.name)
+        return realm.objects(FavoriteItem.self).filter(predicate)
     }
     
-    private func typeString(forItem item: Favorable) -> String
+    private func typeString(for item: Favorable) -> String
     {
         return String(describing: item.self)
     }

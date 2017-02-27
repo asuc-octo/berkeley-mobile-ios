@@ -118,7 +118,6 @@ class DiningHallViewController: UIViewController, RequiresData, ResourceDetailPr
     /// When the page changes, set a new scroll, and call the `contentSizeChangeHandler`.
     func pageTabBarController(pageTabBarController: PageTabBarController, didTransitionTo viewController: UIViewController)
     {
-        logFunc(self)
         contentSizeChangeHandler?(self)
     }
     
