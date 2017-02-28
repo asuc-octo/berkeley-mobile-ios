@@ -61,7 +61,7 @@ class DiningHall: Resource
     init(name: String, imageLink: String?, shifts: MealMap)
     {
         self.meals = shifts
-        super.init(name: name, imageLink: imageLink)
+        super.init(name: name,  type:ResourceType.DiningHall, imageLink: imageLink)
     }
     
     /// Returns whether the hall is currently open.
