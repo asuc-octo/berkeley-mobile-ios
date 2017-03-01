@@ -15,11 +15,13 @@ class GymClassViewController: UIViewController, UITableViewDelegate, UITableView
     
     let classType = GymClassCategory(name: "AQUA", imageLink: "sdf")
     
-    var gymClasses = [GymClass]()
+//    var gymClasses = [GymClass]()
     
-    var todayClasses = [GymClass](), oneDayAheadClasses = [GymClass](), twoDaysAheadClasses = [GymClass](),
-        threeDaysAheadClasses = [GymClass](), fourDaysAheadClasses = [GymClass](), fiveDaysAheadClasses = [GymClass](),
-        sixDaysAheadClasses = [GymClass]()
+    var gymClasses = [[GymClass]]()
+    
+//    var todayClasses = [GymClass](), oneDayAheadClasses = [GymClass](), twoDaysAheadClasses = [GymClass](),
+//        threeDaysAheadClasses = [GymClass](), fourDaysAheadClasses = [GymClass](), fiveDaysAheadClasses = [GymClass](),
+//        sixDaysAheadClasses = [GymClass]()
     
 
     override func viewDidLoad() {
@@ -27,6 +29,10 @@ class GymClassViewController: UIViewController, UITableViewDelegate, UITableView
         
         gymClassesTableView.dataSource = self
         gymClassesTableView.delegate = self
+        
+        for _ in 0...6 {
+            gymClasses.append([GymClass]())
+        }
         
         //fetch resources for class too
         GymClassDataSource.fetchResources
@@ -43,33 +49,52 @@ class GymClassViewController: UIViewController, UITableViewDelegate, UITableView
                     if (gymClass.class_type == self.classType.name) {
                         
                         let currentCalendar = Calendar.current
+                    
+
+                        let myFormatter = DateFormatter()
+                        myFormatter.dateStyle = .short
+//                        myFormatter.timeStyle = .short
                         
+                        let s = myFormatter.string(from: Date())
                         
-                        let start = currentCalendar.ordinality(of: .day, in: .era, for: Date())
+                        let dateFormatter = DateFormatter()
+                        dateFormatter.dateFormat = "MM/dd/yy"
+                        dateFormatter.timeZone = TimeZone(abbreviation: "PST")
+                        let currentDate = dateFormatter.date(from: s)
+                        
+//                        print(currentDate)
+                        
+                        let start = currentCalendar.ordinality(of: .day, in: .era, for: currentDate!)
                         let end = currentCalendar.ordinality(of: .day, in: .era, for: gymClass.date!)
                         let daysDifference = end! - start!
                         
-                        if (daysDifference == 0) {
-                            self.todayClasses.append(gymClass)
-                        } else if (daysDifference == 1) {
-                            self.oneDayAheadClasses.append(gymClass)
-                        } else if (daysDifference == 2) {
-                            self.twoDaysAheadClasses.append(gymClass)
-                        } else if (daysDifference == 3) {
-                            self.threeDaysAheadClasses.append(gymClass)
-                        } else if (daysDifference == 4) {
-                            self.fourDaysAheadClasses.append(gymClass)
-                        } else if (daysDifference == 5) {
-                            self.fiveDaysAheadClasses.append(gymClass)
-                        } else if (daysDifference == 6) {
-                            self.sixDaysAheadClasses.append(gymClass)
+                        if (daysDifference < 0) {
+                            continue
                         }
+                        
+                        self.gymClasses[daysDifference].append(gymClass)
+                        
+//                        if (daysDifference == 0) {
+//                            self.todayClasses.append(gymClass)
+//                        } else if (daysDifference == 1) {
+//                            self.oneDayAheadClasses.append(gymClass)
+//                        } else if (daysDifference == 2) {
+//                            self.twoDaysAheadClasses.append(gymClass)
+//                        } else if (daysDifference == 3) {
+//                            self.threeDaysAheadClasses.append(gymClass)
+//                        } else if (daysDifference == 4) {
+//                            self.fourDaysAheadClasses.append(gymClass)
+//                        } else if (daysDifference == 5) {
+//                            self.fiveDaysAheadClasses.append(gymClass)
+//                        } else if (daysDifference == 6) {
+//                            self.sixDaysAheadClasses.append(gymClass)
+//                        }
                         
                     }
                         
                         //Calculate difference in days
-                        
-                        self.gymClasses.append(gymClass)
+//                        
+//                        self.gymClasses.append(gymClass)
                 
                 }
                 
@@ -94,22 +119,47 @@ class GymClassViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if (section == 0) {
-            return todayClasses.count
-        } else if (section == 1) {
-            return oneDayAheadClasses.count
-        } else if (section == 2) {
-            return twoDaysAheadClasses.count
-        } else if (section == 3) {
-            return threeDaysAheadClasses.count
-        } else if (section == 4) {
-            return fourDaysAheadClasses.count
-        } else if (section == 5) {
-            return fiveDaysAheadClasses.count
-        } else {
-            return sixDaysAheadClasses.count
-        }
+        return gymClasses[section].count
+        
+//        if (section == 0) {
+//            return todayClasses.count
+//        } else if (section == 1) {
+//            return oneDayAheadClasses.count
+//        } else if (section == 2) {
+//            return twoDaysAheadClasses.count
+//        } else if (section == 3) {
+//            return threeDaysAheadClasses.count
+//        } else if (section == 4) {
+//            return fourDaysAheadClasses.count
+//        } else if (section == 5) {
+//            return fiveDaysAheadClasses.count
+//        } else {
+//            return sixDaysAheadClasses.count
+//        }
 
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+//        gymClasses[section]
+        
+        let myFormatter = DateFormatter()
+        myFormatter.dateStyle = .short
+        let s = myFormatter.string(from: Date())
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yy"
+        dateFormatter.timeZone = TimeZone(abbreviation: "PST")
+        let currentDate = dateFormatter.date(from: s)
+
+        
+        let formatter2 = DateFormatter()
+        formatter2.dateStyle = .full
+        let exactDate = Date(timeInterval: 24*60*60*(Double(section)), since: currentDate!)
+        
+        let r = formatter2.string(from: exactDate)
+
+        return r
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -117,22 +167,24 @@ class GymClassViewController: UIViewController, UITableViewDelegate, UITableView
         
         var gymClass:GymClass?
         
-        if (indexPath.section == 0) {
-            gymClass = todayClasses[indexPath.row]
-        } else if (indexPath.section == 1) {
-            gymClass = oneDayAheadClasses[indexPath.row]
-        } else if (indexPath.section == 2) {
-            gymClass = twoDaysAheadClasses[indexPath.row]
-        } else if (indexPath.section == 3) {
-           gymClass = threeDaysAheadClasses[indexPath.row]
-        } else if (indexPath.section == 4) {
-           gymClass = fourDaysAheadClasses[indexPath.row]
-        } else if (indexPath.section == 5) {
-            gymClass = fiveDaysAheadClasses[indexPath.row]
-        } else {
-            gymClass = sixDaysAheadClasses[indexPath.row]
-        }
-    
+        gymClass = gymClasses[indexPath.section][indexPath.row]
+        
+//        if (indexPath.section == 0) {
+//            gymClass = todayClasses[indexPath.row]
+//        } else if (indexPath.section == 1) {
+//            gymClass = oneDayAheadClasses[indexPath.row]
+//        } else if (indexPath.section == 2) {
+//            gymClass = twoDaysAheadClasses[indexPath.row]
+//        } else if (indexPath.section == 3) {
+//           gymClass = threeDaysAheadClasses[indexPath.row]
+//        } else if (indexPath.section == 4) {
+//           gymClass = fourDaysAheadClasses[indexPath.row]
+//        } else if (indexPath.section == 5) {
+//            gymClass = fiveDaysAheadClasses[indexPath.row]
+//        } else {
+//            gymClass = sixDaysAheadClasses[indexPath.row]
+//        }
+//    
         
         cell.name.text = gymClass!.name
         cell.instructor.text = "Instructor: " + gymClass!.trainer!
