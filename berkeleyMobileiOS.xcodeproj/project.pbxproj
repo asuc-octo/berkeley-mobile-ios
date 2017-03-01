@@ -12,6 +12,8 @@
 		280389501DE2C11E00F04FCA /* LibraryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2803894F1DE2C11E00F04FCA /* LibraryCell.swift */; };
 		280741591E1B15E3009C303B /* GymsMapListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280741581E1B15E3009C303B /* GymsMapListViewController.swift */; };
 		2807415B1E1B2653009C303B /* GymCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2807415A1E1B2653009C303B /* GymCell.swift */; };
+		281071A41E66A7F200D926E6 /* GymClassTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281071A21E66A7F200D926E6 /* GymClassTableHeaderView.swift */; };
+		281071A51E66A7F200D926E6 /* GymClassTableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 281071A31E66A7F200D926E6 /* GymClassTableHeaderView.xib */; };
 		282A4EEA1E63839200480201 /* GymClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282A4EE91E63839200480201 /* GymClass.swift */; };
 		282A4EEC1E63859900480201 /* GymClassDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282A4EEB1E63859900480201 /* GymClassDataSource.swift */; };
 		282A4EEE1E63B1E100480201 /* GymClassCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282A4EED1E63B1E000480201 /* GymClassCategory.swift */; };
@@ -98,6 +100,8 @@
 		2803894F1DE2C11E00F04FCA /* LibraryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryCell.swift; sourceTree = "<group>"; };
 		280741581E1B15E3009C303B /* GymsMapListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GymsMapListViewController.swift; sourceTree = "<group>"; };
 		2807415A1E1B2653009C303B /* GymCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GymCell.swift; sourceTree = "<group>"; };
+		281071A21E66A7F200D926E6 /* GymClassTableHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GymClassTableHeaderView.swift; sourceTree = "<group>"; };
+		281071A31E66A7F200D926E6 /* GymClassTableHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GymClassTableHeaderView.xib; sourceTree = "<group>"; };
 		282A4EE91E63839200480201 /* GymClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GymClass.swift; sourceTree = "<group>"; };
 		282A4EEB1E63859900480201 /* GymClassDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GymClassDataSource.swift; sourceTree = "<group>"; };
 		282A4EED1E63B1E000480201 /* GymClassCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GymClassCategory.swift; sourceTree = "<group>"; };
@@ -334,6 +338,8 @@
 				282A4EEF1E63B39600480201 /* GymClassCategoryDataSource.swift */,
 				282A4EF11E63BAE400480201 /* GymClassViewController.swift */,
 				282A4EF51E63BC9000480201 /* GymClassCell.swift */,
+				281071A21E66A7F200D926E6 /* GymClassTableHeaderView.swift */,
+				281071A31E66A7F200D926E6 /* GymClassTableHeaderView.xib */,
 			);
 			path = Recreation;
 			sourceTree = "<group>";
@@ -525,6 +531,7 @@
 				4E8E0D931E0C08380052CC10 /* Roboto-Regular.ttf in Resources */,
 				4EEF90471DDBC7D0002CF7E4 /* Dining.storyboard in Resources */,
 				4E8E0D911E0C08380052CC10 /* Roboto-Medium.ttf in Resources */,
+				281071A51E66A7F200D926E6 /* GymClassTableHeaderView.xib in Resources */,
 				4E8E0D951E0C08380052CC10 /* Roboto-ThinItalic.ttf in Resources */,
 				4E8E0D8A1E0C08380052CC10 /* Roboto-Black.ttf in Resources */,
 				41E843951DAB3FE80096C049 /* Assets.xcassets in Resources */,
@@ -598,6 +605,7 @@
 				4E4EC1461E504710000C63ED /* ResourceNavigationController.swift in Sources */,
 				B5F25D1F1DE2A38E0084A5C7 /* Gym.swift in Sources */,
 				4E4EC1441E504710000C63ED /* ResourceGroupCell.swift in Sources */,
+				281071A41E66A7F200D926E6 /* GymClassTableHeaderView.swift in Sources */,
 				280741591E1B15E3009C303B /* GymsMapListViewController.swift in Sources */,
 				280389501DE2C11E00F04FCA /* LibraryCell.swift in Sources */,
 				4E505D411DD05A65004AC6C9 /* TabBarController.swift in Sources */,
