@@ -14,15 +14,8 @@ class GymClassViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet var gymClassesTableView: UITableView!
     
     let classType = GymClassCategory(name: "AQUA", imageLink: "sdf")
-    
-//    var gymClasses = [GymClass]()
-    
+
     var gymClasses = [[GymClass]]()
-    
-//    var todayClasses = [GymClass](), oneDayAheadClasses = [GymClass](), twoDaysAheadClasses = [GymClass](),
-//        threeDaysAheadClasses = [GymClass](), fourDaysAheadClasses = [GymClass](), fiveDaysAheadClasses = [GymClass](),
-//        sixDaysAheadClasses = [GymClass]()
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,11 +25,12 @@ class GymClassViewController: UIViewController, UITableViewDelegate, UITableView
         gymClassesTableView.dataSource = self
         gymClassesTableView.delegate = self
         
+        //Populating the gymClasses array
         for _ in 0...6 {
             gymClasses.append([GymClass]())
         }
         
-        //fetch resources for class too
+        //fetch resources for classes
         GymClassDataSource.fetchResources
             {(_ resources: [Resource]?) in
                 
@@ -51,22 +45,8 @@ class GymClassViewController: UIViewController, UITableViewDelegate, UITableView
                     if (gymClass.class_type == self.classType.name) {
                         
                         let currentCalendar = Calendar.current
-                    
-
-                        let myFormatter = DateFormatter()
-                        myFormatter.dateStyle = .short
-//                        myFormatter.timeStyle = .short
-                        
-                        let s = myFormatter.string(from: Date())
-                        
-                        let dateFormatter = DateFormatter()
-                        dateFormatter.dateFormat = "MM/dd/yy"
-                        dateFormatter.timeZone = TimeZone(abbreviation: "PST")
-                        let currentDate = dateFormatter.date(from: s)
-                        
-//                        print(currentDate)
-                        
-                        let start = currentCalendar.ordinality(of: .day, in: .era, for: currentDate!)
+                        let currentDate = self.getCurrentDate()
+                        let start = currentCalendar.ordinality(of: .day, in: .era, for: currentDate)
                         let end = currentCalendar.ordinality(of: .day, in: .era, for: gymClass.date!)
                         let daysDifference = end! - start!
                         
@@ -75,38 +55,14 @@ class GymClassViewController: UIViewController, UITableViewDelegate, UITableView
                         }
                         
                         self.gymClasses[daysDifference].append(gymClass)
-                        
-//                        if (daysDifference == 0) {
-//                            self.todayClasses.append(gymClass)
-//                        } else if (daysDifference == 1) {
-//                            self.oneDayAheadClasses.append(gymClass)
-//                        } else if (daysDifference == 2) {
-//                            self.twoDaysAheadClasses.append(gymClass)
-//                        } else if (daysDifference == 3) {
-//                            self.threeDaysAheadClasses.append(gymClass)
-//                        } else if (daysDifference == 4) {
-//                            self.fourDaysAheadClasses.append(gymClass)
-//                        } else if (daysDifference == 5) {
-//                            self.fiveDaysAheadClasses.append(gymClass)
-//                        } else if (daysDifference == 6) {
-//                            self.sixDaysAheadClasses.append(gymClass)
-//                        }
-                        
                     }
-                        
-                        //Calculate difference in days
-//                        
-//                        self.gymClasses.append(gymClass)
                 
                 }
                 
                 self.gymClassesTableView.reloadData()
         
         }
-        
-        
-
-        // Do any additional setup after loading the view.
+    
     }
 
     override func didReceiveMemoryWarning() {
@@ -122,88 +78,28 @@ class GymClassViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return gymClasses[section].count
-        
-//        if (section == 0) {
-//            return todayClasses.count
-//        } else if (section == 1) {
-//            return oneDayAheadClasses.count
-//        } else if (section == 2) {
-//            return twoDaysAheadClasses.count
-//        } else if (section == 3) {
-//            return threeDaysAheadClasses.count
-//        } else if (section == 4) {
-//            return fourDaysAheadClasses.count
-//        } else if (section == 5) {
-//            return fiveDaysAheadClasses.count
-//        } else {
-//            return sixDaysAheadClasses.count
-//        }
 
     }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        
-//        gymClasses[section]
-        
-        let myFormatter = DateFormatter()
-        myFormatter.dateStyle = .short
-        let s = myFormatter.string(from: Date())
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM/dd/yy"
-        dateFormatter.timeZone = TimeZone(abbreviation: "PST")
-        let currentDate = dateFormatter.date(from: s)
 
-        
-        let formatter2 = DateFormatter()
-        formatter2.dateStyle = .full
-        let exactDate = Date(timeInterval: 24*60*60*(Double(section)), since: currentDate!)
-        
-        var r = formatter2.string(from: exactDate)
-        let endIndex = r.index(r.endIndex, offsetBy: -6)
-        r = r.substring(to: endIndex)
-
-        return r
-    }
-    
-//    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int)
-//    {
-//        let header = view as! UITableViewHeaderFooterView
-//        header.textLabel?.textColor = UIColor.white
-//        let vw = UIView()
-//        vw.backgroundColor = UIColor.blue
-//        header.backgroundView = vw
-//        header.backgroundColor = UIColor.blue
-//    }
-
-    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         let headerView = Bundle.main.loadNibNamed("GymClassTableHeaderView", owner: self, options: nil)?.first as! GymClassTableHeaderView
+
+        let currentDate = getCurrentDate()
         
+        let futureDateFormatter = DateFormatter()
+        futureDateFormatter.dateStyle = .full
+        let futureDate = Date(timeInterval: 24*60*60*(Double(section)), since: currentDate)
         
-        let myFormatter = DateFormatter()
-        myFormatter.dateStyle = .short
-        let s = myFormatter.string(from: Date())
+        //Removing Year from String (last 6 chars)
+        var futureDateString = futureDateFormatter.string(from: futureDate)
+        let endIndex = futureDateString.index(futureDateString.endIndex, offsetBy: -6)
+        futureDateString = futureDateString.substring(to: endIndex)
+        headerView.headerDate.text = futureDateString
         
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM/dd/yy"
-        dateFormatter.timeZone = TimeZone(abbreviation: "PST")
-        let currentDate = dateFormatter.date(from: s)
-        
-        
-        let formatter2 = DateFormatter()
-        formatter2.dateStyle = .full
-        let exactDate = Date(timeInterval: 24*60*60*(Double(section)), since: currentDate!)
-        
-        var r = formatter2.string(from: exactDate)
-        let endIndex = r.index(r.endIndex, offsetBy: -6)
-        r = r.substring(to: endIndex)
-        
-        headerView.headerDate.text = r
-        
-        var rArr = r.components(separatedBy: ",")
-        var day = rArr[0]
+        //Setting up abbreviation for future date
+        var futureDateStringArr = futureDateString.components(separatedBy: ",")
+        let day = futureDateStringArr[0]
         var abbrev = ""
         let kindex = day.index(day.startIndex, offsetBy: 0)
         let lindex = day.index(day.startIndex, offsetBy: 2)
@@ -212,7 +108,7 @@ class GymClassViewController: UIViewController, UITableViewDelegate, UITableView
         } else {
             abbrev = String(day[kindex])
         }
-        
+
         headerView.headerAbbreviation.text = abbrev
         
         return headerView
@@ -251,6 +147,21 @@ class GymClassViewController: UIViewController, UITableViewDelegate, UITableView
         cell.location.text = gymClass!.location!
     
         return cell
+    }
+    
+    func getCurrentDate() -> Date {
+        
+        let currentDateFormatter = DateFormatter()
+        currentDateFormatter.dateStyle = .short
+        let currentDateString = currentDateFormatter.string(from: Date())
+        
+        let PSTFormatter = DateFormatter()
+        PSTFormatter.dateFormat = "MM/dd/yy"
+        PSTFormatter.timeZone = TimeZone(abbreviation: "PST")
+        let exactDate = PSTFormatter.date(from: currentDateString)
+        
+        return exactDate!
+        
     }
     
 
