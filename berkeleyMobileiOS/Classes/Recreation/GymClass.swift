@@ -25,7 +25,7 @@ class GymClass: Resource {
         self.location = location
         self.trainer = trainer
         
-        super.init(name: name, imageLink: imageLink)
+        super.init(name: name, type: ResourceType.GymClass, imageLink: imageLink)
     }
 
 

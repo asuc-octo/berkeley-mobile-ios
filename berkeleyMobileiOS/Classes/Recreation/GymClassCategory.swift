@@ -11,6 +11,6 @@ import UIKit
 class GymClassCategory: Resource {
 
     init(name: String, imageLink: String) {
-        super.init(name: name, imageLink: imageLink)
+        super.init(name: name, type: ResourceType.GymClass, imageLink: imageLink)
     }
 }
