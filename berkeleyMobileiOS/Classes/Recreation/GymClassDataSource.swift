@@ -14,6 +14,10 @@ fileprivate let kGymClassEndpoint = kAPIURL + "/group_exs"
 
 class GymClassDataSource: ResourceDataSource {
     
+    internal static func parseResource(_ json: JSON) -> Resource {
+        return parseGymClasses(json)
+    }
+    
     typealias ResourceType = GymClass
     
     // Fetch the list of gyms and report back to the completionHandler.

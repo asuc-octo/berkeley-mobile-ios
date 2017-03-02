@@ -14,6 +14,11 @@ fileprivate let kGymClassEndpoint = kAPIURL + "/group_exs"
 
 class GymClassCategoryDataSource: ResourceDataSource {
     
+    internal static func parseResource(_ json: JSON) -> Resource {
+        return parseGymClassCategories(json)
+    }
+
+    
     typealias ResourceType = GymClass
     
     // Fetch the list of gyms and report back to the completionHandler.
@@ -28,7 +33,7 @@ class GymClassCategoryDataSource: ResourceDataSource {
                     return
                 }
                 
-                let gymClasses = JSON(data: response.data!)["group_exs"].map { (_, child) in parseGymClasses(child) }
+                let gymClasses = JSON(data: response.data!)["group_exs"].map { (_, child) in parseGymClassCategories(child) }
                 
                 var gymClassCategoryStrings = Set<String>()
                 for gymClass in gymClasses {
@@ -46,7 +51,7 @@ class GymClassCategoryDataSource: ResourceDataSource {
     }
     
     // Return a Gym object parsed from JSON.
-    private static func parseGymClasses(_ json: JSON) -> GymClass
+    private static func parseGymClassCategories(_ json: JSON) -> GymClass
     {
         let formatter = sharedDateFormatter()
         let simpleFormatter = simpleDateFormatter()

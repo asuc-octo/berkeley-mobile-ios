@@ -33,6 +33,10 @@ class GymDataSource: ResourceDataSource
         }
     }
     
+    static func parseResource(_ json: JSON) -> Resource {
+        return parseGym(json)
+    }
+    
     // Return a Gym object parsed from JSON.
     private static func parseGym(_ json: JSON) -> Gym
     {

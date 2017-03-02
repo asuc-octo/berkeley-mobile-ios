@@ -13,7 +13,7 @@ class GymClassViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBOutlet var gymClassesTableView: UITableView!
     
-    let classType = GymClassCategory(name: "AQUA", imageLink: "sdf")
+    var classType:GymClassCategory?
 
     var gymClasses = [[GymClass]]()
 
@@ -42,7 +42,7 @@ class GymClassViewController: UIViewController, UITableViewDelegate, UITableView
                 }
                 
                 for gymClass in gymClasses {
-                    if (gymClass.class_type == self.classType.name) {
+                    if (gymClass.class_type == self.classType?.name) {
                         
                         let currentCalendar = Calendar.current
                         let currentDate = self.getCurrentDate()
