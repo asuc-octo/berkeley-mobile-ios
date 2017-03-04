@@ -63,8 +63,6 @@ class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDe
         self.tableView.dataSource = self
         self.activityIndicator.startAnimating()
         
-//        print(self.resourceType)
-        
         for type in ResourceType.connections[self.resourceType]! {
             
             type.dataSourceType.fetchResources
@@ -216,7 +214,7 @@ class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDe
         let type = ResourceType.connections[self.resourceType]![indexPath.row]
         let res = self.resources[type]!
         
-        let data = (type.rawValue, res, Optional(didSelectResource))
+        let data = (type.displayName, res, Optional(didSelectResource))
         
         let cell = tableView.dequeueReusableCell(withIdentifier: className(ResourceGroupCell.self)) as! ResourceGroupCell
         cell.setData(data)

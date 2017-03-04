@@ -28,6 +28,19 @@ enum ResourceType: String
             case .CampusResource: return CampusResourceDataSource.self
         }
     }
+    
+    var displayName: String
+    {
+        switch self
+        {
+            case .Gym: return "Gyms"
+            case .Library: return "Libraries"
+            case .DiningHall: return "Dining Halls"
+            case .GymClass: return "Group Classes"
+            case .GymClassCategory: return "Group Classes"
+            case .CampusResource: return "Campus Resources"
+        }
+    }
 }
 
 /**
