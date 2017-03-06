@@ -10,6 +10,8 @@ import UIKit
 import Material
 
 fileprivate let kGyms = "Gyms"
+fileprivate let kClasses = "GymClasses"
+
 class RecreationViewController: BaseViewController {
     //Sets up initial tab look for this class
     
@@ -18,8 +20,8 @@ class RecreationViewController: BaseViewController {
         preparePageTabBarItem()
     }
     override func viewDidLoad() {
-        sectionNamesByIndex = [0:kGyms]
-        sectionNames = [kGyms]
+        sectionNamesByIndex = [0:kGyms, 1: kClasses]
+        sectionNames = [kGyms, kClasses]
         
         let loadScreen = LoadingScreen.sharedInstance.getLoadingScreen()
         self.view.addSubview(loadScreen)
@@ -35,12 +37,28 @@ class RecreationViewController: BaseViewController {
             }
             
             self.resources[kGyms] = gyms
+        
+        }
+        
+        //fetch resources for class too
+        GymClassDataSource.fetchResources
+        {(_ resources: [Resource]?) in
+            
+            guard let gymClasses = resources as? [GymClass] else
+            {
+                print("[ERROR @ RecreationViewController] failed to fetch GymClasses")
+                LoadingScreen.sharedInstance.removeLoadingScreen()
+                return
+            }
+            
+            self.resources[kClasses] = gymClasses
             self.baseTableView.reloadData()
             
             if self.resources.count == self.sectionNames.count
             {
                 LoadingScreen.sharedInstance.removeLoadingScreen()
             }
+
         }
 
     }

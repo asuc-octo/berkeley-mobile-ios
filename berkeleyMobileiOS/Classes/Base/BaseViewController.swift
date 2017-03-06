@@ -21,6 +21,7 @@ class BaseViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -55,13 +56,12 @@ class BaseViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        print("hello")
-//        let index = indexPath.row
-//        self.performSegue(withIdentifier: "toGymDetail", sender: index)
+
     }
     
     
     func numberOfSections(in tableView: UITableView) -> Int {
+        
         return sectionNames.count
     }
     

@@ -7,11 +7,14 @@ import UIKit
 enum ResourceType: String
 {
     case Gym
+    case GymClass
+    case GymClassCategory
     case Library
     case DiningHall
     case CampusResource
     
     static let allValues = [Gym, Library, DiningHall]
+    static let connections: [ResourceType: [ResourceType]] = [Gym: [Gym, GymClassCategory], Library: [Library, CampusResource], DiningHall: [DiningHall]]
     
     var dataSourceType: ResourceDataSource.Type
     {
@@ -20,7 +23,22 @@ enum ResourceType: String
             case .Gym: return GymDataSource.self
             case .Library: return LibraryDataSource.self
             case .DiningHall: return DiningDataSource.self
+            case .GymClass: return GymClassDataSource.self
+            case .GymClassCategory: return GymClassCategoryDataSource.self
             case .CampusResource: return CampusResourceDataSource.self
+        }
+    }
+    
+    var displayName: String
+    {
+        switch self
+        {
+            case .Gym: return "Gyms"
+            case .Library: return "Libraries"
+            case .DiningHall: return "Dining Halls"
+            case .GymClass: return "Group Classes"
+            case .GymClassCategory: return "Group Classes"
+            case .CampusResource: return "Campus Resources"
         }
     }
 }
