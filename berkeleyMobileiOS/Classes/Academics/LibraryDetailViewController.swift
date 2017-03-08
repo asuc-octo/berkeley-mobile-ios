@@ -10,7 +10,7 @@ import UIKit
 import RealmSwift
 import GoogleMaps
 
-class LibraryDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, GMSMapViewDelegate, CLLocationManagerDelegate {
+class LibraryDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, GMSMapViewDelegate, CLLocationManagerDelegate, ResourceDetailProvider {
     
     @IBOutlet var libraryImage: UIImageView!
     @IBOutlet var libraryDetailTableView: UITableView!
@@ -28,9 +28,7 @@ class LibraryDetailViewController: UIViewController, UITableViewDataSource, UITa
         //libraryImage.sd_setImage(with: library?.imageURL!)
         libraryDetailTableView.delegate = self
         libraryDetailTableView.dataSource = self
-        self.title = library?.name
-        libraryName.text = library?.name
-        libraryAddress.setTitle(library?.campusLocation, for: .normal)
+        libraryDetailTableView.isScrollEnabled = false
         setUpMap()
         
     }
@@ -76,6 +74,8 @@ class LibraryDetailViewController: UIViewController, UITableViewDataSource, UITa
             } else {
                 cell.libraryStatus.textColor = UIColor.red
             }
+            
+            cell.height = 125
             
             return cell
         } else {
@@ -218,6 +218,57 @@ class LibraryDetailViewController: UIViewController, UITableViewDataSource, UITa
         
         return status
     }
+    
+    func setData(_ library: Library) {
+        self.library = library
+        
+        self.title = library.name
+        
+        
+    }
+    var text1: String? {
+        return nil
+    }
+    var text2: String? {
+        return nil
+    }
+    var viewController: UIViewController {
+        return self
+    }
+    var imageURL: URL? {
+        return library?.imageURL
+    }
+    
+    var resetOffsetOnSizeChanged = false
+    
+    var buttons: [UIButton]
+    {
+        return []
+    }
+    
+    var contentSizeChangeHandler: ((ResourceDetailProvider) -> Void)?
+        {
+        get { return nil }
+        set {}
+    }
+    
+    /// Get the contentSize property of the internal UIScrollView.
+    var contentSize: CGSize
+    {
+        let width = self.viewController.view.width
+        let height = libraryDetailTableView.height + libraryMapView.height
+        return CGSize(width: width, height: height)
+    }
+    
+    /// Get/Set the contentOffset property of the internal UIScrollView.
+    var contentOffset: CGPoint
+        {
+        get { return CGPoint.zero }
+        set {}
+    }
+    
+    /// Set of setContentOffset method of the internal UIScrollView.
+    func setContentOffset(_ offset: CGPoint, animated: Bool){}
     
     
     
