@@ -22,15 +22,14 @@ class DiningItemCell: UITableViewCell, RequiresData, ToggleButtonDelegate
     // ========================================
     // MARK: - RequiresData
     // ========================================
-    typealias DataType = (item: DiningItem, favorited: Bool)
+    typealias DataType = DiningItem
     
     /// Receive the DiningItem to represent, whehter it's already favorited, and an optional callback. 
-    func setData(_ data: DataType)
+    func setData(_ item: DataType)
     {
-        self.item = data.item
-        self.nameLabel.text = data.item.name
-        
-        self.favoriteButton.isSelected = data.favorited
+        self.item = item
+        nameLabel.text = item.name
+        favoriteButton.isSelected = item.isFavorited
     }
     
     
@@ -47,8 +46,7 @@ class DiningItemCell: UITableViewCell, RequiresData, ToggleButtonDelegate
      */
     func buttonDidToggle(_ button: ToggleButton)
     {
-        let store = FavoriteStore.sharedInstance
-        let action = (button.isSelected ? store.add : store.remove)
-        action(DiningItem.self, item.name)
+        item.isFavorited = button.isSelected
+        FavoriteStore.shared.update(item)
     }
 }

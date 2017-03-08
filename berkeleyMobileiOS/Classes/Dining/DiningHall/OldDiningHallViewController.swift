@@ -18,7 +18,7 @@ fileprivate let kAnimationDuration: TimeInterval = 0.25
  * - Banner image of the location
  * - Tabbed MealTypes containing TableView of DiningMenu 
  */
-class DiningHallViewController: UIViewController, RequiresData, PageTabBarControllerDelegate, UIScrollViewDelegate
+class OldDiningHallViewController: UIViewController, RequiresData, PageTabBarControllerDelegate, UIScrollViewDelegate
 {
     // Data
     private var diningHall: DiningHall!
@@ -141,12 +141,8 @@ class DiningHallViewController: UIViewController, RequiresData, PageTabBarContro
     /// Setup the scrollView that will contain the menuTabView.
     private func setupScrollView()
     {
-        let scrollView = UIScrollView()
         scrollView.autoresizesSubviews = false
         scrollView.delegate = self
-        
-        self.view.addSubview(scrollView)
-        self.scrollView = scrollView
     }
     
     /**

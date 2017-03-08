@@ -214,6 +214,10 @@ class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDe
     /// When a row (not tile) is tapped, present the corresponding `ResourceMapListViewController`.
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
+        guard resourceType != .DiningHall else {
+            return
+        }
+    
         let ref = self.resourceType.rawValue + "MapListSegue"
         self.performSegue(withIdentifier: ref, sender: nil)
         // TODO: sender should be the group/category.
@@ -222,8 +226,23 @@ class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDe
     /// When a tile is tapped, present the corresponding `ResourceDetailViewController`.
     func didSelectResource(_ resource: Resource)
     {
-        let ref = self.resourceType.rawValue + "DetailSegue"
-        self.performSegue(withIdentifier: ref, sender: resource)
+//        let ref = self.resourceType.rawValue + "DetailSegue"
+//        self.performSegue(withIdentifier: ref, sender: resource)
+
+        guard let hall = resource as? DiningHall else
+        {
+            return
+        }
+        
+        let detailID = className(DiningHallViewController.self)
+        let detail = UIStoryboard(name: "Dining", bundle: nil).instantiateViewController(withIdentifier: detailID) as! DiningHallViewController
+        detail.setData(hall)
+        
+        let containerID = className(ResourceContainerController.self)
+        let container = storyboard!.instantiateViewController(withIdentifier: containerID) as! ResourceContainerController
+        container.setData(detail)
+        
+        present(container, animated: true, completion: nil)
     }
     
     
@@ -239,11 +258,7 @@ class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDe
     {
         let destination = segue.destination
         
-        if let vc = destination as? DiningHallViewController
-        {
-            vc.setData(sender as! DiningHall)
-        }
-        else if let vc = destination as? GymsMapListViewController
+        if let vc = destination as? GymsMapListViewController
         {
             vc.gyms = self.resources as! [Gym]
         } 

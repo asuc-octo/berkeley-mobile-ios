@@ -24,13 +24,13 @@ class FavoriteItem: RealmSwift.Object
 class FavoriteStore
 {
     // Singleton
-    static let sharedInstance = FavoriteStore()
+    static let shared = FavoriteStore()
     private init() {}
     
     /// Add item of given type and name.
-    func add(type: AnyClass, name: String)
+    func add(_ item: Favorable)
     {
-        let item = FavoriteItem(value: ["type": String(describing: type), "name": name])
+        let item = FavoriteItem(value: ["type": typeString(for: item), "name": item.name])
         
         try! realm.write
         {
@@ -39,9 +39,9 @@ class FavoriteStore
     }
     
     /// Remove item of given type and name.
-    func remove(type: AnyClass, name: String)
+    func remove(_ item: Favorable)
     {
-        let result = self.query(type, name)
+        let result = self.query(item)
         
         if result.count == 1
         {
@@ -52,11 +52,9 @@ class FavoriteStore
     }
     
     /// Returns whether item of given type and name is favorited.
-    func contains(type: AnyClass, name: String) -> Bool
+    func contains(_ item: Favorable) -> Bool
     {
-        let result = self.query(type, name)
-        
-        return result.count == 1
+        return query(item).count == 1
     }
     
     /// Return a String array containing all favorited items of the specified class. 
@@ -66,9 +64,29 @@ class FavoriteStore
         return result.map { return $0.name }
     }
     
-    
-    private func query(_ type: AnyClass, _ name: String) -> Results<FavoriteItem>
+    /// Update the store reflect to the item's state.
+    func update(_ item: Favorable)
     {
-        return realm.objects(FavoriteItem.self).filter("type = '\( String(describing: type) )' and name = '\(name)'")
+        let action = item.isFavorited ? add : remove
+        action(item)
+    }
+    
+    /// Upate the item's state to reflect the store.
+    func restoreState(for item: Favorable)
+    {
+        var item = item
+        item.isFavorited = contains(item)
+    }
+    
+    
+    private func query(_ item: Favorable) -> Results<FavoriteItem>
+    {
+        let predicate = NSPredicate(format: "type = %@ and name = %@", typeString(for: item), item.name)
+        return realm.objects(FavoriteItem.self).filter(predicate)
+    }
+    
+    private func typeString(for item: Favorable) -> String
+    {
+        return String(describing: item.self)
     }
 }
