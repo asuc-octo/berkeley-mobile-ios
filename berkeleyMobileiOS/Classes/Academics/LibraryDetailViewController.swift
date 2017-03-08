@@ -258,6 +258,7 @@ class LibraryDetailViewController: UIViewController, UITableViewDataSource, UITa
         let width = self.viewController.view.width
         let height = libraryDetailTableView.height + libraryMapView.height
         return CGSize(width: width, height: height)
+        
     }
     
     /// Get/Set the contentOffset property of the internal UIScrollView.
