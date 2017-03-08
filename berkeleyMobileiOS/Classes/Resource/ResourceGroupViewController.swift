@@ -255,20 +255,37 @@ class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDe
 //        let ref = self.resourceType.rawValue + "DetailSegue"
 //        self.performSegue(withIdentifier: ref, sender: resource)
 
-        guard let hall = resource as? DiningHall else
-        {
+        let thisResource = resource
+        
+        if ((thisResource as? Library) != nil) {
+            let detailID = className(LibraryDetailViewController.self)
+            let detail = self.storyboard?.instantiateViewController(withIdentifier: detailID) as! LibraryDetailViewController
+            detail.setData(thisResource as! Library)
+            
+            let containerID = className(ResourceContainerController.self)
+            let container = storyboard!.instantiateViewController(withIdentifier: containerID) as! ResourceContainerController
+            container.setData(detail)
+            present(container, animated: true, completion: nil)
+            
+        } else if ((thisResource as? DiningHall) != nil) {
+            let detailID = className(DiningHallViewController.self)
+            let detail = UIStoryboard(name: "Dining", bundle: nil).instantiateViewController(withIdentifier: detailID) as! DiningHallViewController
+            detail.setData(thisResource as! DiningHallViewController.DataType)
+            
+            let containerID = className(ResourceContainerController.self)
+            let container = storyboard!.instantiateViewController(withIdentifier: containerID) as! ResourceContainerController
+            container.setData(detail)
+             present(container, animated: true, completion: nil)
+        } else {
             return
         }
         
-        let detailID = className(DiningHallViewController.self)
-        let detail = UIStoryboard(name: "Dining", bundle: nil).instantiateViewController(withIdentifier: detailID) as! DiningHallViewController
-        detail.setData(hall)
         
-        let containerID = className(ResourceContainerController.self)
-        let container = storyboard!.instantiateViewController(withIdentifier: containerID) as! ResourceContainerController
-        container.setData(detail)
         
-        present(container, animated: true, completion: nil)
+        
+    
+        
+       
     }
 
     
