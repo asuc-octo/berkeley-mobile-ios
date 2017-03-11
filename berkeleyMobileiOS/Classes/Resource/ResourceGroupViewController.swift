@@ -257,7 +257,7 @@ class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDe
 
         let thisResource = resource
         
-        if ((thisResource as? Library) != nil) {
+        if (thisResource as? Library) != nil {
             let detailID = className(LibraryDetailViewController.self)
             let detail = self.storyboard?.instantiateViewController(withIdentifier: detailID) as! LibraryDetailViewController
             detail.setData(thisResource as! Library)
@@ -267,7 +267,7 @@ class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDe
             container.setData(detail)
             present(container, animated: true, completion: nil)
             
-        } else if ((thisResource as? DiningHall) != nil) {
+        } else if (thisResource as? DiningHall) != nil {
             let detailID = className(DiningHallViewController.self)
             let detail = UIStoryboard(name: "Dining", bundle: nil).instantiateViewController(withIdentifier: detailID) as! DiningHallViewController
             detail.setData(thisResource as! DiningHallViewController.DataType)
