@@ -35,8 +35,12 @@ class DiningDataSource: ResourceDataSource
         } 
     }
     
+    static func parseResource(_ json: JSON) -> Resource {
+        return parseDiningHall(json)
+    }
+    
     // Return a DiningHall object parsed from JSON.
-    private static func parseDiningHall(_ json: JSON) -> DiningHall
+    static func parseDiningHall(_ json: JSON) -> DiningHall
     {
         let formatter = sharedDateFormatter()
         

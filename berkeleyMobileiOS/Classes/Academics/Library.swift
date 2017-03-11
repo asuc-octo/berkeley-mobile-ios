@@ -26,8 +26,22 @@ class Library: Resource {
         self.weeklyByAppointment = weeklyByAppointment
         self.latitude = latitude
         self.longitude = longitude
-        super.init(name: name, imageLink: imageLink)
+        super.init(name: name, type:ResourceType.Library, imageLink: imageLink)
     }
     
+    override var isOpen: Bool {
+        
+        //Determining Status of library
+        let todayDate = NSDate()
+        
+        if (weeklyClosingTimes[0] == nil) {
+            return false
+        }
+        if (weeklyClosingTimes[0]!.compare(todayDate as Date) == .orderedAscending) {
+            return false
+        }
+        
+        return true
+    }
 
 }
