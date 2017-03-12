@@ -163,11 +163,11 @@ class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDe
         searchDropDown.anchorView = self.navigationItem.titleView
         searchDropDown.bottomOffset = CGPoint(x: 0, y: 50)
         // searchDropDown.dismissMode = .manual
-        searchDropDown.selectionAction = selectedRow
+        searchDropDown.selectionAction = selectedRowFromSearch
         searchDropDown.cancelAction = cancelDropDown
     }
     
-    func selectedRow(index: Int, name: String) -> Void {
+    func selectedRowFromSearch(index: Int, name: String) -> Void {
         searchDropDown.hide()
         searchBar.resignFirstResponder()
         let selected = searchResults[index]
@@ -176,7 +176,17 @@ class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDe
                 return
             }
             let ref = res.type.rawValue + "DetailSegue"
-            self.performSegue(withIdentifier: ref, sender: res)
+ 
+            if let gymClass = res as? GymClass {
+                if (self.resources[ResourceType.GymClassCategory]?.count)! > 0 {
+                    let gymClassCategory = GymClassCategory(name: gymClass.class_type!, imageLink: "dsff")
+                    self.performSegue(withIdentifier: ref, sender: gymClassCategory)
+                }
+            }
+            else {
+                self.performSegue(withIdentifier: ref, sender: res)
+            }
+ 
         }
     }
     
@@ -301,8 +311,9 @@ class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDe
         if searchableItems.count == 0 {
             SearchDataSource.fetchSearchItems
                 { (_ searchItems: [SearchItem]?) in
-                    self.searchableItems = searchItems!
-                    self.searchResults = searchItems!
+                    self.searchableItems = searchItems!.filter { item in item.category != "Sports Schedule"}
+                    self.searchableItems = self.searchableItems.filterDuplicates { $0.name == $1.name }
+                    self.searchResults = self.searchableItems
                     self.searchDropDown.dataSource = self.searchResults.map { item in item.name }
                     self.searchDropDown.show()
             }
