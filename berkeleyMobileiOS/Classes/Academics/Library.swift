@@ -16,7 +16,7 @@ class Library: Resource {
     var weeklyByAppointment:[Bool]
     let latitude: Double?
     let longitude: Double?
-    var favorited: Bool? = false
+    var favorited: Bool = false
     
     init(name: String, campusLocation: String?, phoneNumber: String?, weeklyOpeningTimes:[Date?], weeklyClosingTimes:[Date?], weeklyByAppointment:[Bool], imageLink: String?, latitude: Double?, longitude: Double?) {
         self.campusLocation = campusLocation
