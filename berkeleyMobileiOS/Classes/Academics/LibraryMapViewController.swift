@@ -28,6 +28,8 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
         
 //        getAndSetFavoriteLibraries()
 //        librariesTableView.reloadData()
+        
+        
         setSegmentedControl()
         
         librariesSearchBar.isHidden = true
@@ -65,6 +67,8 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
 
         plotLibraries()
         
+        //Why doesn't this work? :
+        //self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -210,14 +214,14 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
         
         let row = sender.tag
         let selectedLibrary = libraries[row]
-        selectedLibrary.favorited = !selectedLibrary.favorited!
+        selectedLibrary.favorited = !selectedLibrary.favorited
         self.librariesTableView.reloadData()
         
         //Realm adding and deleting favorite libraries
         let favLibrary = FavoriteLibrary()
         favLibrary.name = selectedLibrary.name
         
-        if (selectedLibrary.favorited)! {
+        if selectedLibrary.favorited {
             try! realm.write {
                 realm.add(favLibrary)
             }

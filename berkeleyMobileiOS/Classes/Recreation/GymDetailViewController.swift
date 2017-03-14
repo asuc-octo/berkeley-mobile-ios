@@ -9,12 +9,11 @@
 import UIKit
 import GoogleMaps
 
-class GymDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, GMSMapViewDelegate {
+class GymDetailViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate, ResourceDetailProvider {
     
-    @IBOutlet var gymImage: UIImageView!
-    @IBOutlet var gymInformationTable: UITableView!
-    @IBOutlet var gymName: UILabel!
-    @IBOutlet var gymAddress: UIButton!
+    @IBOutlet var gymStartEndTime: UILabel!
+    @IBOutlet var gymStatus: UILabel!
+    @IBOutlet var gymInformationView: UIView!
     @IBOutlet var gymMap: GMSMapView!
     var locationManager = CLLocationManager()
     
@@ -24,13 +23,7 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
         super.viewDidLoad()
         
         setUpMap()
-        gymImage.sd_setImage(with: gym?.imageURL!)
-        gymInformationTable.delegate = self
-        gymInformationTable.dataSource = self
-        gymInformationTable.allowsSelection = false
-        self.title = gym?.name
-        gymName.text = gym?.name
-        gymAddress.setTitle(gym?.address, for: .normal)
+        setUpInformation()
         // Do any additional setup after loading the view.
     }
 
@@ -39,10 +32,7 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
         // Dispose of any resources that can be recreated.
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        if (indexPath.row == 0) {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "gymTime") as! GymTimeCell
+    func setUpInformation() {
             
             //Determining opening and closing times in PST
             let dateFormatter = DateFormatter()
@@ -54,25 +44,19 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
             let localOpeningTime = dateFormatter.string(from: (self.gym?.openingTimeToday)!)
             let localClosingTime = dateFormatter.string(from: (self.gym?.closingTimeToday)!)
             
-            cell.gymStartEndTime.text = localOpeningTime + " to " + localClosingTime
+            self.gymStartEndTime.text = localOpeningTime + " to " + localClosingTime
             
             var status = "Open"
             if (self.gym?.closingTimeToday!.compare(NSDate() as Date) == .orderedAscending) {
                 status = "Closed"
             }
-            cell.gymStatus.text = status
+            self.gymStatus.text = status
             if (status == "Open") {
-                cell.gymStatus.textColor = UIColor.green
+                self.gymStatus.textColor = UIColor.green
             } else {
-                cell.gymStatus.textColor = UIColor.red
+                self.gymStatus.textColor = UIColor.red
             }
-            
-            return cell
-        } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "gymOption") as! GymOptionsCell
-            
-            return cell
-        }
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -171,6 +155,59 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
         UIApplication.shared.open(NSURL(string: website)! as URL,  options: [:], completionHandler: nil)
         
     }
+    
+    
+    func setData(_ gym: Gym) {
+        self.gym = gym
+        
+        self.title = gym.name
+        
+        
+    }
+    var text1: String? {
+        return nil
+    }
+    var text2: String? {
+        return nil
+    }
+    var viewController: UIViewController {
+        return self
+    }
+    var imageURL: URL? {
+        return gym?.imageURL
+    }
+    
+    var resetOffsetOnSizeChanged = false
+    
+    var buttons: [UIButton]
+    {
+        return []
+    }
+    
+    var contentSizeChangeHandler: ((ResourceDetailProvider) -> Void)?
+        {
+        get { return nil }
+        set {}
+    }
+    
+    /// Get the contentSize property of the internal UIScrollView.
+    var contentSize: CGSize
+    {
+        let width = self.viewController.view.width
+        let height = gymInformationView.height + gymMap.height
+        return CGSize(width: width, height: height)
+        
+    }
+    
+    /// Get/Set the contentOffset property of the internal UIScrollView.
+    var contentOffset: CGPoint
+        {
+        get { return CGPoint.zero }
+        set {}
+    }
+    
+    /// Set of setContentOffset method of the internal UIScrollView.
+    func setContentOffset(_ offset: CGPoint, animated: Bool){}
     
 
 
