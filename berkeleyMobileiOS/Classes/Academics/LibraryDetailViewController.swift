@@ -95,18 +95,18 @@ class LibraryDetailViewController: UIViewController, GMSMapViewDelegate, CLLocat
     }
 
     @IBAction func favoriteLibrary(_ sender: Any) {
+        guard let library = self.library else {
+            return
+        }
+        library.favorited = !library.favorited
+        FavoriteStore.shared.update(library)
         
-        library?.favorited = !(library?.favorited!)!
-        
-        if (library?.favorited)! {
+        if library.favorited {
             (sender as! UIButton).setImage(UIImage(named:"heart-large-filled"), for: .normal)
-            FavoriteStore.shared.add(self.library!)
         } else {
             (sender as! UIButton).setImage(UIImage(named:"heart-large"), for: .normal)
-            FavoriteStore.shared.remove(self.library!)
         }
         
-        FavoriteStore.shared.restoreState(for: self.library!)
     }
     
     @IBAction func viewLibraryWebsite(_ sender: Any) {

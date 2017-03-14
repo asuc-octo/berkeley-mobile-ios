@@ -258,6 +258,7 @@ class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDe
         let thisResource = resource
         
         if (thisResource as? Library) != nil {
+            print("this is a library")
             let detailID = className(LibraryDetailViewController.self)
             let detail = self.storyboard?.instantiateViewController(withIdentifier: detailID) as! LibraryDetailViewController
             detail.setData(thisResource as! Library)
@@ -267,7 +268,8 @@ class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDe
             container.setData(detail)
             present(container, animated: true, completion: nil)
             
-        } else if (thisResource as? DiningHall) != nil {
+        } else if ((thisResource as? DiningHall) != nil) {
+            print("this is a dining hall")
             let detailID = className(DiningHallViewController.self)
             let detail = UIStoryboard(name: "Dining", bundle: nil).instantiateViewController(withIdentifier: detailID) as! DiningHallViewController
             detail.setData(thisResource as! DiningHallViewController.DataType)
@@ -276,6 +278,16 @@ class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDe
             let container = storyboard!.instantiateViewController(withIdentifier: containerID) as! ResourceContainerController
             container.setData(detail)
              present(container, animated: true, completion: nil)
+        } else if (thisResource as? Gym) != nil {
+            print("this is a gym")
+            let detailID = className(GymDetailViewController.self)
+           let detail = self.storyboard?.instantiateViewController(withIdentifier: detailID) as! GymDetailViewController
+            detail.setData(thisResource as! Gym)
+            
+            let containerID = className(ResourceContainerController.self)
+            let container = storyboard!.instantiateViewController(withIdentifier: containerID) as! ResourceContainerController
+            container.setData(detail)
+            present(container, animated: true, completion: nil)
         } else {
             return
         }
