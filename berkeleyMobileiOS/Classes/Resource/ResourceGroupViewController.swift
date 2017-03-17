@@ -8,7 +8,7 @@ fileprivate let kColorNavy = UIColor(red: 23/255.0, green: 85/255.0, blue: 122/2
  * Displays a single `Resource` type as rows of separate groups/categories.
  * Each row is a horizontally scrolling carousel of tiles representing one `Resource` instance. 
  */
-class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDelegate, UITableViewDataSource
+class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDelegate, UITableViewDataSource, ShowSortMenu
 {
     // Data
     var resourceType: ResourceType!
@@ -36,6 +36,16 @@ class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDe
         self.title = type.rawValue
     }
     
+    // ========================================
+    // MARK: - ShowSortMenu
+    // ========================================
+    func presentSortMenu(controller: ListMenuController) {
+        self.present(controller, animated: true, completion: nil);
+    }
+    
+    func dismissSortMenu() {
+        self.dismiss(animated: true, completion: nil);
+    }
     
     // ========================================
     // MARK: - UIViewController
@@ -158,6 +168,7 @@ class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDe
         
         let cell = tableView.dequeueReusableCell(withIdentifier: className(ResourceGroupCell.self)) as! ResourceGroupCell
         cell.setData(data)
+        cell.delegate = self
         return cell
     }
     

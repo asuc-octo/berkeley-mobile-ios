@@ -1,7 +1,13 @@
 
 import UIKit
+import Material
 
 fileprivate let kResourceTileID = "ResourceTile"
+
+protocol ShowSortMenu : class {
+    func presentSortMenu(controller: ListMenuController) -> Void;
+    func dismissSortMenu() -> Void;
+}
 
 /**
  * 
@@ -18,6 +24,9 @@ class ResourceGroupCell: UITableViewCell, RequiresData, UICollectionViewDataSour
     @IBOutlet private weak var groupLabel: UILabel!
     @IBOutlet private weak var collectionView: UICollectionView!
     
+    private let sortMenuController = ListMenuController()
+    var delegate: ShowSortMenu?
+    
     
     /// Configure the collectionView.
     override func awakeFromNib()
@@ -26,7 +35,41 @@ class ResourceGroupCell: UITableViewCell, RequiresData, UICollectionViewDataSour
         self.collectionView.dataSource = self
         self.collectionView.showsVerticalScrollIndicator = false
         self.collectionView.showsHorizontalScrollIndicator = false
+        
+        setupSortMenu()
     }
+    
+    /// Intialize and configure the modal `ListMenuController` for sorting options.
+    private func setupSortMenu()
+    {
+        let menu = sortMenuController
+        menu.message = "Sort by"
+        menu.clearOnNewSelection = true
+        
+        let handler = { (item: ListMenuItem, order: FavorableSortBy) in
+            
+            menu.setItem(item, selected: true)
+            self.sortResources(by: order)
+            
+            self.delegate?.dismissSortMenu()
+        }
+        
+        menu.addItem(ListMenuItem(text: "Alphabetical", icon: #imageLiteral(resourceName: "ic_sort_by_alpha"), tint: Color.blue.darken1, selected: false) { handler($0, .alphabetical) })
+        menu.addItem(ListMenuItem(text: "Favorites", icon: #imageLiteral(resourceName: "ic_favorite"), tint: Color.pink.base, selected: true){ handler($0, .favorites) })
+        menu.addItem(ListMenuItem(text: "Cancel", icon: #imageLiteral(resourceName: "ic_close")){ _ in self.delegate?.dismissSortMenu() })
+    }
+    
+    private func sortResources(by order: FavorableSortBy)
+    {
+        self.resources.sort(by: order.comparator)
+        self.collectionView.reloadData()
+    }
+
+    
+    @IBAction func sortButtonTapped(_ sender: UIButton) {
+        delegate?.presentSortMenu(controller: sortMenuController)
+    }
+    
     
     
     // ========================================
@@ -44,6 +87,7 @@ class ResourceGroupCell: UITableViewCell, RequiresData, UICollectionViewDataSour
         self.groupLabel.text = data.name
         self.selectionHandler = data.handler
         
+        self.sortResources(by: .favorites)
         self.collectionView.reloadData()
     }
     
