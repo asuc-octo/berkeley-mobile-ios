@@ -7,10 +7,13 @@
 //
 
 import UIKit
+import RealmSwift
 
 class GymClassDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var classCategories: [GymClassCategory]?
+    var favoriteClassCategories = [String]()
+    var realm = try! Realm()
 
     @IBOutlet var gymClassCategoryTableView: UITableView!
     
@@ -19,6 +22,11 @@ class GymClassDetailViewController: UIViewController, UITableViewDelegate, UITab
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        getAndSetFavoriteGymClassCategories()
+        gymClassCategoryTableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -31,6 +39,15 @@ class GymClassDetailViewController: UIViewController, UITableViewDelegate, UITab
         let cell = tableView.dequeueReusableCell(withIdentifier: "gymClassCategory") as! GymClassCategoryCell
         let gymClassCategory = classCategories?[indexPath.row]
         cell.gymClassCategory.text = gymClassCategory?.name
+        
+        // For favoriting
+        if (gymClassCategory?.favorited == true) {
+            cell.favoriteButton.setImage(UIImage(named:"heart-filled"), for: .normal)
+        } else {
+            cell.favoriteButton.setImage(UIImage(named:"heart"), for: .normal)
+        }
+        cell.favoriteButton.tag = indexPath.row
+        cell.favoriteButton.addTarget(self, action: #selector(self.toggleGymClassCategoryFavoriting(sender:)), for: .touchUpInside)
 
         return cell
         
@@ -57,5 +74,53 @@ class GymClassDetailViewController: UIViewController, UITableViewDelegate, UITab
         
     }
     
+    //Favoriting
+    func toggleGymClassCategoryFavoriting(sender: UIButton) {
+        
+        let row = sender.tag
+        let selectedGymClassCategory = self.classCategories?[row]
+        selectedGymClassCategory?.favorited = !(selectedGymClassCategory?.favorited!)!
+        self.gymClassCategoryTableView.reloadData()
+        
+        //Realm adding and deleting favorite campus resources
+        let favGymClassCategory = FavoriteGymClassCategory()
+        favGymClassCategory.name = (selectedGymClassCategory?.name)!
+        
+        if (selectedGymClassCategory?.favorited)! {
+            try! realm.write {
+                realm.add(favGymClassCategory)
+            }
+        } else {
+            let GymClassCategorys = realm.objects(FavoriteGymClassCategory.self)
+            for GymClassCategory in GymClassCategorys {
+                if GymClassCategory.name == selectedGymClassCategory?.name {
+                    try! realm.write {
+                        realm.delete(GymClassCategory)
+                    }
+                }
+            }
+        }
+        
+    }
     
+    func getAndSetFavoriteGymClassCategories() {
+        self.favoriteClassCategories.removeAll()
+        let GymClassCategorys = realm.objects(FavoriteGymClassCategory.self)
+        for GymClassCategory in GymClassCategorys {
+            self.favoriteClassCategories.append(GymClassCategory.name)
+        }
+        
+        for category in self.classCategories! {
+            if self.favoriteClassCategories.contains(category.name) {
+                category.favorited = true
+            }
+        }
+    }
+
+    
+    
+}
+
+class FavoriteGymClassCategory: Object {
+    dynamic var name = ""
 }
