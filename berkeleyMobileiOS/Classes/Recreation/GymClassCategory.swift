@@ -9,6 +9,8 @@
 import UIKit
 
 class GymClassCategory: Resource {
+    
+    var favorited: Bool? = false
 
     init(name: String, imageLink: String) {
         super.init(name: name, type: ResourceType.GymClass, imageLink: imageLink)
