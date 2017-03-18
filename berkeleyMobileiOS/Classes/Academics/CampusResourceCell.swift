@@ -12,6 +12,7 @@ class CampusResourceCell: UITableViewCell {
     
     @IBOutlet var name: UILabel!
     @IBOutlet var status: UILabel!
+    @IBOutlet var favoriteButton: UIButton!
     
 
     override func awakeFromNib() {
