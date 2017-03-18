@@ -747,7 +747,7 @@
         <!--Campus Resource Map List View Controller-->
         <scene sceneID="LTQ-qB-Qv1">
             <objects>
-                <viewController id="bj4-rv-DaZ" customClass="CampusResourceMapListViewController" customModule="berkeleyMobileiOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="bj4-rv-DaZ" customClass="CampusResourceMapListViewController" customModule="berkeleyMobileiOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="rVy-95-4iw"/>
                         <viewControllerLayoutGuide type="bottom" id="j1Z-Jj-yt8"/>
@@ -756,8 +756,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WiH-Xu-bLN" customClass="GMSMapView">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="DEc-Of-PWk">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Search Library" id="guo-hk-Afm">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -772,7 +775,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="99"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Academic Health Center" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="puD-4V-VKf">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Academic Health Center" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="puD-4V-VKf">
                                                     <rect key="frame" x="23" y="17" width="286" height="31"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="31" id="xbE-WI-Bd4"/>
@@ -781,8 +784,8 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="OPEN" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yZF-he-R5N">
-                                                    <rect key="frame" x="23" y="45" width="296" height="31"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OPEN" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yZF-he-R5N">
+                                                    <rect key="frame" x="23" y="45" width="273" height="31"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="31" id="aAj-C7-5tH"/>
                                                     </constraints>
@@ -801,9 +804,11 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="yZF-he-R5N" firstAttribute="leading" secondItem="h5e-R1-0yB" secondAttribute="leadingMargin" constant="15" id="2HN-jW-wH9"/>
+                                                <constraint firstItem="gHu-S9-tQU" firstAttribute="leading" secondItem="puD-4V-VKf" secondAttribute="trailing" constant="18" id="3kJ-E7-Av3"/>
                                                 <constraint firstItem="puD-4V-VKf" firstAttribute="leading" secondItem="h5e-R1-0yB" secondAttribute="leadingMargin" constant="15" id="BnB-Dj-Fw2"/>
                                                 <constraint firstItem="gHu-S9-tQU" firstAttribute="top" secondItem="h5e-R1-0yB" secondAttribute="topMargin" constant="27" id="Ez5-b9-x4i"/>
                                                 <constraint firstItem="yZF-he-R5N" firstAttribute="top" secondItem="h5e-R1-0yB" secondAttribute="topMargin" constant="37" id="Ubt-Yc-9aN"/>
+                                                <constraint firstItem="gHu-S9-tQU" firstAttribute="leading" secondItem="yZF-he-R5N" secondAttribute="trailing" constant="31" id="ZBk-09-Tg5"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="gHu-S9-tQU" secondAttribute="trailing" constant="10" id="ech-1Y-QXt"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="gHu-S9-tQU" secondAttribute="bottom" constant="26" id="sUD-fM-f7j"/>
                                                 <constraint firstItem="puD-4V-VKf" firstAttribute="top" secondItem="h5e-R1-0yB" secondAttribute="topMargin" constant="9" id="xzF-Zk-gWn"/>
@@ -823,13 +828,18 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="WiH-Xu-bLN" firstAttribute="leading" secondItem="fgZ-y2-K0x" secondAttribute="leading" id="3Vy-tu-AM4"/>
                             <constraint firstAttribute="trailing" secondItem="DEc-Of-PWk" secondAttribute="trailing" id="LIV-iO-eZr"/>
                             <constraint firstItem="DEc-Of-PWk" firstAttribute="leading" secondItem="fgZ-y2-K0x" secondAttribute="leading" id="MWi-s4-9Gg"/>
-                            <constraint firstItem="DEc-Of-PWk" firstAttribute="top" secondItem="fgZ-y2-K0x" secondAttribute="top" id="Tn1-tl-4JM"/>
+                            <constraint firstItem="DEc-Of-PWk" firstAttribute="top" secondItem="fgZ-y2-K0x" secondAttribute="top" constant="64" id="Tn1-tl-4JM"/>
+                            <constraint firstAttribute="trailing" secondItem="WiH-Xu-bLN" secondAttribute="trailing" id="UDA-yW-PGe"/>
+                            <constraint firstItem="WiH-Xu-bLN" firstAttribute="top" secondItem="rVy-95-4iw" secondAttribute="bottom" id="f5w-RL-sec"/>
+                            <constraint firstItem="j1Z-Jj-yt8" firstAttribute="top" secondItem="WiH-Xu-bLN" secondAttribute="bottom" id="fWG-Ag-YFC"/>
                             <constraint firstItem="j1Z-Jj-yt8" firstAttribute="top" secondItem="DEc-Of-PWk" secondAttribute="bottom" id="yD7-uh-pAh"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="campusResourcesMapView" destination="WiH-Xu-bLN" id="SZk-Ja-qsa"/>
                         <outlet property="campusResourcesTableView" destination="DEc-Of-PWk" id="Nsc-dw-Xq1"/>
                     </connections>
                 </viewController>
