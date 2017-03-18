@@ -689,24 +689,6 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gym Class Category Name" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wa3-5m-1Qw">
-                                                    <rect key="frame" x="25" y="18" width="289" height="31"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="31" id="BkB-Xw-oCE"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="OPEN" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ze-8C-545">
-                                                    <rect key="frame" x="25" y="48" width="41" height="31"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="41" id="h9Q-IQ-0pJ"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <color key="textColor" red="0.0" green="0.67348070039999997" blue="0.33653418169999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DP3-kz-qbc">
                                                     <rect key="frame" x="322" y="34" width="30" height="30"/>
                                                     <constraints>
@@ -715,13 +697,20 @@
                                                     </constraints>
                                                     <state key="normal" image="heart"/>
                                                 </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gym Class Category Name" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wa3-5m-1Qw">
+                                                    <rect key="frame" x="25" y="33" width="289" height="31"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="31" id="BkB-Xw-oCE"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailingMargin" secondItem="DP3-kz-qbc" secondAttribute="trailing" constant="15" id="4th-FE-e3w"/>
-                                                <constraint firstItem="wa3-5m-1Qw" firstAttribute="top" secondItem="Sjr-zd-GOX" secondAttribute="topMargin" constant="10" id="8xR-R5-7n4"/>
-                                                <constraint firstItem="1ze-8C-545" firstAttribute="leading" secondItem="Sjr-zd-GOX" secondAttribute="leadingMargin" constant="17" id="91Q-fT-TwJ"/>
+                                                <constraint firstItem="wa3-5m-1Qw" firstAttribute="top" secondItem="Sjr-zd-GOX" secondAttribute="topMargin" constant="25" id="8xR-R5-7n4"/>
                                                 <constraint firstItem="wa3-5m-1Qw" firstAttribute="leading" secondItem="Sjr-zd-GOX" secondAttribute="leadingMargin" constant="17" id="I8Q-Rx-5ie"/>
-                                                <constraint firstItem="1ze-8C-545" firstAttribute="top" secondItem="Sjr-zd-GOX" secondAttribute="topMargin" constant="40" id="XP7-pj-t8N"/>
                                                 <constraint firstItem="DP3-kz-qbc" firstAttribute="leading" secondItem="wa3-5m-1Qw" secondAttribute="trailing" constant="8" id="ctF-zG-uEl"/>
                                                 <constraint firstItem="DP3-kz-qbc" firstAttribute="top" secondItem="Sjr-zd-GOX" secondAttribute="topMargin" constant="26" id="oqb-7q-5RG"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="DP3-kz-qbc" secondAttribute="bottom" constant="27" id="xI8-iD-NOt"/>
@@ -730,7 +719,6 @@
                                         <connections>
                                             <outlet property="favoriteButton" destination="DP3-kz-qbc" id="rsk-ZW-Ikm"/>
                                             <outlet property="gymClassCategory" destination="wa3-5m-1Qw" id="Cqr-ZP-qc4"/>
-                                            <outlet property="gymClassCategoryStatus" destination="1ze-8C-545" id="pMk-bf-SAM"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
