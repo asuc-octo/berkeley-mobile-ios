@@ -7,17 +7,58 @@
 //
 
 import UIKit
+import CoreLocation
+import MapKit
+import GoogleMaps
 
-class CampusResourceMapListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class CampusResourceMapListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, GMSMapViewDelegate, CLLocationManagerDelegate {
     
     var campusResources:[CampusResource]?
     
-    
+    var locationManager = CLLocationManager()
+
     @IBOutlet var campusResourcesTableView: UITableView!
+    @IBOutlet var campusResourcesMapView: GMSMapView!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setSegmentedControl()
+        
+        campusResourcesTableView.isHidden = true
+        campusResourcesMapView.isHidden = false
+        
+        campusResourcesTableView.delegate = self
+        campusResourcesTableView.dataSource = self
+        
+        //Setting up map view
+        campusResourcesMapView.delegate = self
+        campusResourcesMapView.isMyLocationEnabled = true
+        let camera = GMSCameraPosition.camera(withLatitude: 37.871853, longitude: -122.258423, zoom: 15)
+        self.campusResourcesMapView.camera = camera
+        self.campusResourcesMapView.frame = self.view.frame
+        self.campusResourcesMapView.isMyLocationEnabled = true
+        self.locationManager.delegate = self
+        self.locationManager.startUpdatingLocation()
+        
+        let kMapStyle =
+            "[" +
+                "{ \"featureType\": \"administrative\", \"elementType\": \"geometry\", \"stylers\": [ {  \"visibility\": \"off\" } ] }, " +
+                "{ \"featureType\": \"poi\", \"stylers\": [ {  \"visibility\": \"off\" } ] }, " +
+                "{ \"featureType\": \"road\", \"elementType\": \"labels.icon\", \"stylers\": [ {  \"visibility\": \"off\" } ] }, " +
+                "{ \"featureType\": \"transit\", \"stylers\": [ {  \"visibility\": \"off\" } ] } " +
+        "]"
+        
+        do {
+            // Set the map style by passing a valid JSON string.
+            self.campusResourcesMapView.mapStyle = try GMSMapStyle(jsonString: kMapStyle)
+        } catch {
+            NSLog("The style definition could not be loaded: \(error)")
+            print(error)
+        }
+        
+        plotCampusResources()
         // Do any additional setup after loading the view.
     }
 
@@ -39,6 +80,82 @@ class CampusResourceMapListViewController: UIViewController, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (campusResources?.count)!
+    }
+    
+    //Plots the location of gyms on map view
+    //Plots the location of libraries on map view
+    func plotCampusResources() {
+        
+        var minLat = 1000.0
+        var maxLat = -1000.0
+        var minLon = 1000.0
+        var maxLon = -1000.0
+        
+        for campusResource in campusResources! {
+            
+            let marker = GMSMarker()
+            if ((campusResource.latitude == nil) || (campusResource.longitude == nil)) {
+                continue
+            }
+            let lat = campusResource.latitude!
+            let lon = campusResource.longitude!
+            
+            marker.position = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+            marker.title = campusResource.name
+            marker.map = self.campusResourcesMapView
+            
+            if (lat < minLat) {
+                minLat = lat
+            }
+            
+            if (lat > maxLat) {
+                maxLat = lat
+            }
+            
+            if (lon < minLon) {
+                minLon = lon
+            }
+            
+            if (lon > maxLon) {
+                maxLon = lon
+            }
+        }
+        
+        //Sets the bounds of the map based on the coordinates plotted
+        let southWest = CLLocationCoordinate2DMake(minLat,minLon)
+        let northEast = CLLocationCoordinate2DMake(maxLat,maxLon)
+        let bounds = GMSCoordinateBounds(coordinate: northEast, coordinate: southWest)
+        campusResourcesMapView.animate(with: GMSCameraUpdate.fit(bounds, withPadding: 50.0))
+        
+    }
+
+    
+    //Segmented control methods
+    func setSegmentedControl() {
+        
+        //Create a segmented control to use on the navigation bar
+        let segment: UISegmentedControl = UISegmentedControl(items:
+            [" Map ", "List "])
+        segment.sizeToFit()
+        segment.tintColor = UIColor.blue
+        segment.selectedSegmentIndex = 0
+        segment.addTarget(self, action: #selector(CampusResourceMapListViewController.segmentControlValueChanged), for:.valueChanged)
+        self.navigationItem.titleView = segment
+    }
+    
+    //Hide map and list dependent on selected value
+    func segmentControlValueChanged(sender: UISegmentedControl!) {
+        
+        if sender.selectedSegmentIndex == 0 {
+//            gymsSearchBar.isHidden = true
+            campusResourcesTableView.isHidden = true
+            campusResourcesMapView.isHidden = false
+        } else {
+//            gymsSearchBar.isHidden = false
+            campusResourcesTableView.isHidden = false
+            campusResourcesMapView.isHidden = true
+        }
+        
     }
     
 
