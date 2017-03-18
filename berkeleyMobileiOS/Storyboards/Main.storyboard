@@ -815,6 +815,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="favoriteButton" destination="gHu-S9-tQU" id="Vm4-GY-ESP"/>
                                             <outlet property="name" destination="puD-4V-VKf" id="rBd-5g-rgz"/>
                                             <outlet property="status" destination="yZF-he-R5N" id="haP-E1-Kex"/>
                                         </connections>

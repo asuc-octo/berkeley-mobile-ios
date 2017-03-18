@@ -10,12 +10,15 @@ import UIKit
 import CoreLocation
 import MapKit
 import GoogleMaps
+import RealmSwift
 
 class CampusResourceMapListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, GMSMapViewDelegate, CLLocationManagerDelegate {
     
     var campusResources:[CampusResource]?
+    var favoriteCampusResources = [String]()
     
     var locationManager = CLLocationManager()
+    var realm = try! Realm()
 
     @IBOutlet var campusResourcesTableView: UITableView!
     @IBOutlet var campusResourcesMapView: GMSMapView!
@@ -61,6 +64,11 @@ class CampusResourceMapListViewController: UIViewController, UITableViewDataSour
         plotCampusResources()
         // Do any additional setup after loading the view.
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        getAndSetFavoriteCampusResources()
+        campusResourcesTableView.reloadData()
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -75,15 +83,23 @@ class CampusResourceMapListViewController: UIViewController, UITableViewDataSour
         cell.name.text = campusResource?.name
         cell.status.text = campusResource?.hours
         
+        // For favoriting
+        if (campusResource?.favorited == true) {
+            cell.favoriteButton.setImage(UIImage(named:"heart-filled"), for: .normal)
+        } else {
+            cell.favoriteButton.setImage(UIImage(named:"heart"), for: .normal)
+        }
+        cell.favoriteButton.tag = indexPath.row
+        cell.favoriteButton.addTarget(self, action: #selector(self.toggleCampusResourceFavoriting(sender:)), for: .touchUpInside)
         return cell
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (campusResources?.count)!
     }
     
-    //Plots the location of gyms on map view
-    //Plots the location of libraries on map view
+    //Plots the location of campus resources on map view
     func plotCampusResources() {
         
         var minLat = 1000.0
@@ -158,6 +174,51 @@ class CampusResourceMapListViewController: UIViewController, UITableViewDataSour
         
     }
     
+    //Favoriting
+    func toggleCampusResourceFavoriting(sender: UIButton) {
+        
+        let row = sender.tag
+        let selectedCampusResource = campusResources?[row]
+        selectedCampusResource?.favorited = !(selectedCampusResource?.favorited!)!
+        self.campusResourcesTableView.reloadData()
+        
+        //Realm adding and deleting favorite campus resources
+        let favCampusResource = FavoriteCampusResource()
+        favCampusResource.name = (selectedCampusResource?.name)!
+        
+        if (selectedCampusResource?.favorited)! {
+            try! realm.write {
+                realm.add(favCampusResource)
+            }
+        } else {
+            let campusResources = realm.objects(FavoriteCampusResource.self)
+            for campusResource in campusResources {
+                if campusResource.name == selectedCampusResource?.name {
+                    try! realm.write {
+                        realm.delete(campusResource)
+                    }
+                }
+            }
+        }
+        
+    }
+    
+    func getAndSetFavoriteCampusResources() {
+        self.favoriteCampusResources.removeAll()
+        let campusResources = realm.objects(FavoriteCampusResource.self)
+        for campusResource in campusResources {
+            self.favoriteCampusResources.append(campusResource.name)
+        }
+        
+        for campusResource in self.campusResources! {
+            if self.favoriteCampusResources.contains(campusResource.name) {
+                campusResource.favorited = true
+            }
+        }
+    }
 
+}
 
+class FavoriteCampusResource: Object {
+    dynamic var name = ""
 }
