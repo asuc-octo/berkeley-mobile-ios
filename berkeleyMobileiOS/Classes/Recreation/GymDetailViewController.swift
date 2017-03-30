@@ -178,20 +178,17 @@ class GymDetailViewController: UIViewController, CLLocationManagerDelegate, GMSM
     
     var resetOffsetOnSizeChanged = false
     
-    var buttons: [UIButton]
-    {
+    var buttons: [UIButton] {
         return []
     }
     
-    var contentSizeChangeHandler: ((ResourceDetailProvider) -> Void)?
-        {
+    var contentSizeChangeHandler: ((ResourceDetailProvider) -> Void)? {
         get { return nil }
         set {}
     }
     
     /// Get the contentSize property of the internal UIScrollView.
-    var contentSize: CGSize
-    {
+    var contentSize: CGSize {
         let width = self.viewController.view.width
         let height = gymInformationView.height + gymMap.height
         return CGSize(width: width, height: height)
@@ -199,17 +196,11 @@ class GymDetailViewController: UIViewController, CLLocationManagerDelegate, GMSM
     }
     
     /// Get/Set the contentOffset property of the internal UIScrollView.
-    var contentOffset: CGPoint
-        {
+    var contentOffset: CGPoint {
         get { return CGPoint.zero }
         set {}
     }
     
     /// Set of setContentOffset method of the internal UIScrollView.
     func setContentOffset(_ offset: CGPoint, animated: Bool){}
-    
-
-
-    
-
 }

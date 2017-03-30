@@ -255,34 +255,33 @@ class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDe
 //        let ref = self.resourceType.rawValue + "DetailSegue"
 //        self.performSegue(withIdentifier: ref, sender: resource)
 
-        let thisResource = resource
         
-        if (thisResource as? Library) != nil {
+        if let thisResource = resource as? Library {
             print("this is a library")
             let detailID = className(LibraryDetailViewController.self)
             let detail = self.storyboard?.instantiateViewController(withIdentifier: detailID) as! LibraryDetailViewController
-            detail.setData(thisResource as! Library)
+            detail.setData(thisResource)
             
             let containerID = className(ResourceContainerController.self)
             let container = storyboard!.instantiateViewController(withIdentifier: containerID) as! ResourceContainerController
             container.setData(detail)
             present(container, animated: true, completion: nil)
             
-        } else if ((thisResource as? DiningHall) != nil) {
+        } else if let thisResource = resource as? DiningHall {
             print("this is a dining hall")
             let detailID = className(DiningHallViewController.self)
             let detail = UIStoryboard(name: "Dining", bundle: nil).instantiateViewController(withIdentifier: detailID) as! DiningHallViewController
-            detail.setData(thisResource as! DiningHallViewController.DataType)
+            detail.setData(thisResource)
             
             let containerID = className(ResourceContainerController.self)
             let container = storyboard!.instantiateViewController(withIdentifier: containerID) as! ResourceContainerController
             container.setData(detail)
              present(container, animated: true, completion: nil)
-        } else if (thisResource as? Gym) != nil {
+        } else if let thisResource = resource as? Gym {
             print("this is a gym")
             let detailID = className(GymDetailViewController.self)
            let detail = self.storyboard?.instantiateViewController(withIdentifier: detailID) as! GymDetailViewController
-            detail.setData(thisResource as! Gym)
+            detail.setData(thisResource)
             
             let containerID = className(ResourceContainerController.self)
             let container = storyboard!.instantiateViewController(withIdentifier: containerID) as! ResourceContainerController
