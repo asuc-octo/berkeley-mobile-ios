@@ -73,10 +73,10 @@ class LibraryDetailViewController: UIViewController, GMSMapViewDelegate, CLLocat
         }
     
         // For favoriting
-        if (library?.favorited == true) {
-            self.libraryFavoriteButton.setImage(UIImage(named:"heart-large-filled"), for: .normal)
+        if (library?.isFavorited)! {
+            self.libraryFavoriteButton.setImage(#imageLiteral(resourceName: "heart-large-filled"), for: .normal)
         } else {
-            self.libraryFavoriteButton.setImage(UIImage(named:"heart-large"), for: .normal)
+            self.libraryFavoriteButton.setImage(#imageLiteral(resourceName: "heart-large"), for: .normal)
         }
         return
     }
@@ -98,13 +98,13 @@ class LibraryDetailViewController: UIViewController, GMSMapViewDelegate, CLLocat
         guard let library = self.library else {
             return
         }
-        library.favorited = !library.favorited
+        library.isFavorited = !library.isFavorited
         FavoriteStore.shared.update(library)
         
-        if library.favorited {
-            (sender as! UIButton).setImage(UIImage(named:"heart-large-filled"), for: .normal)
+        if library.isFavorited {
+            (sender as! UIButton).setImage(#imageLiteral(resourceName: "heart-large-filled"), for: .normal)
         } else {
-            (sender as! UIButton).setImage(UIImage(named:"heart-large"), for: .normal)
+            (sender as! UIButton).setImage(#imageLiteral(resourceName: "heart-large"), for: .normal)
         }
         
     }
@@ -171,10 +171,6 @@ class LibraryDetailViewController: UIViewController, GMSMapViewDelegate, CLLocat
 
     }
     
-    
-    
-    
-    
     func setData(_ library: Library) {
         self.library = library
         
@@ -211,7 +207,7 @@ class LibraryDetailViewController: UIViewController, GMSMapViewDelegate, CLLocat
     /// Get the contentSize property of the internal UIScrollView.
     var contentSize: CGSize
     {
-        let width = self.viewController.view.width
+        let width = view.bounds.width
         let height = libraryDetailView.height + libraryMapView.height
         return CGSize(width: width, height: height)
         
