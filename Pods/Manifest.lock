@@ -6,6 +6,11 @@ PODS:
   - GoogleMaps/Base (2.1.1)
   - GoogleMaps/Maps (2.1.1):
     - GoogleMaps/Base
+  - GooglePlacePicker (2.1.1):
+    - GoogleMaps (= 2.1.1)
+    - GooglePlaces (= 2.1.1)
+  - GooglePlaces (2.1.1):
+    - GoogleMaps/Base (= 2.1.1)
   - Material (2.4.12):
     - Material/Core (= 2.4.12)
   - Material/Core (2.4.12)
@@ -23,6 +28,8 @@ DEPENDENCIES:
   - Alamofire (~> 4.0)
   - DropDown
   - GoogleMaps
+  - GooglePlacePicker
+  - GooglePlaces
   - Material (~> 2.0)
   - RealmSwift (from `https://github.com/realm/realm-cocoa.git`, branch `master`)
   - SDWebImage (~> 3.8)
@@ -44,12 +51,14 @@ SPEC CHECKSUMS:
   Alamofire: 856a113053a7bc9cbe5d6367a555d773fc5cfef7
   DropDown: 744784d9c9aa505100e942c16acd05430cbb2f0a
   GoogleMaps: a5b5bbe47734e2443bde781a6aa64e69fdb6d785
+  GooglePlacePicker: 665f39f931f2df32f9dd3fcc45f7e8abf71e535c
+  GooglePlaces: 35636d86e5020cba3856eb988c09a5491de0a65a
   Material: e9e6f09e2057309a52b9700f056be55b69d90af7
   Realm: d27b758e12d62a3371879a065d4c40aa212c5a54
   RealmSwift: a2485af6fd62369e7126ce0af43ff5430de1e77a
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: a498a662df9597ff34701c531d79e0e428d33006
+PODFILE CHECKSUM: 095d6c088673565cff576712892eaeff7525d6db
 
 COCOAPODS: 1.1.1
