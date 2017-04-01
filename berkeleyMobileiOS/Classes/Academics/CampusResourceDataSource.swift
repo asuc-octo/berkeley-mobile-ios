@@ -14,6 +14,10 @@ fileprivate let kCampusResourcesEndpoint = kAPIURL + "/resources"
 
 class CampusResourceDataSource: ResourceDataSource 
 {
+    internal static func parseResource(_ json: JSON) -> Resource {
+        return parseCampusResource(json)
+    }
+
     typealias ResourceType = CampusResource
     
     // Fetch the list of campus resources and report back to the completionHandler.

@@ -10,8 +10,14 @@ import UIKit
 import RealmSwift
 import GoogleMaps
 
-class LibraryDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, GMSMapViewDelegate, CLLocationManagerDelegate {
+fileprivate let kLibraryCellHeight: CGFloat = 125.0
+
+class LibraryDetailViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDelegate, ResourceDetailProvider {
     
+    @IBOutlet var libraryDetailView: UIView!
+    @IBOutlet var libraryFavoriteButton: UIButton!
+    @IBOutlet var libraryStartEndTime: UILabel!
+    @IBOutlet var libraryStatus: UILabel!
     @IBOutlet var libraryImage: UIImageView!
     @IBOutlet var libraryDetailTableView: UITableView!
     @IBOutlet var libraryMapView: GMSMapView!
@@ -20,18 +26,13 @@ class LibraryDetailViewController: UIViewController, UITableViewDataSource, UITa
     
     var library:Library?
     var locationManager = CLLocationManager()
-    var realm = try! Realm()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         //libraryImage.sd_setImage(with: library?.imageURL!)
-        libraryDetailTableView.delegate = self
-        libraryDetailTableView.dataSource = self
-        self.title = library?.name
-        libraryName.text = library?.name
-        libraryAddress.setTitle(library?.campusLocation, for: .normal)
         setUpMap()
+        setUpInformation();
         
     }
     
@@ -40,64 +41,46 @@ class LibraryDetailViewController: UIViewController, UITableViewDataSource, UITa
         // Dispose of any resources that can be recreated.
     }
     
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func setUpInformation() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "h:mm a"
+        dateFormatter.amSymbol = "AM"
+        dateFormatter.pmSymbol = "PM"
+        dateFormatter.timeZone = TimeZone(abbreviation: "PST")
         
-        if (indexPath.row == 0) {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "libraryTime") as! LibraryTimeCell
+        if (self.library?.weeklyClosingTimes[0] == nil) {
+            self.libraryStartEndTime.text = ""
+            self.libraryStatus.text = "Closed"
+            self.libraryStatus.textColor = UIColor.red
             
-            //Converting the date to Pacific time and displaying
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "h:mm a"
-            dateFormatter.amSymbol = "AM"
-            dateFormatter.pmSymbol = "PM"
-            dateFormatter.timeZone = TimeZone(abbreviation: "PST")
-            
-            if (self.library?.weeklyClosingTimes[0] == nil) {
-                cell.libraryStartEndTime.text = ""
-                cell.libraryStatus.text = "Closed"
-                cell.libraryStatus.textColor = UIColor.red
-                return cell
-            }
-            
+        } else {
             let localOpeningTime = dateFormatter.string(from: (self.library?.weeklyOpeningTimes[0])!)
             let localClosingTime = dateFormatter.string(from: (self.library?.weeklyClosingTimes[0])!)
             
-            cell.libraryStartEndTime.text = localOpeningTime + " to " + localClosingTime
+            self.libraryStartEndTime.text = localOpeningTime + " to " + localClosingTime
             
             //Calculating whether the library is open or not
             var status = "Open"
             if (self.library?.weeklyClosingTimes[0]?.compare(NSDate() as Date) == .orderedAscending) {
                 status = "Closed"
             }
-            cell.libraryStatus.text = status
+            self.libraryStatus.text = status
             if (status == "Open") {
-                cell.libraryStatus.textColor = UIColor.green
+                self.libraryStatus.textColor = UIColor.green
             } else {
-                cell.libraryStatus.textColor = UIColor.red
+                self.libraryStatus.textColor = UIColor.red
             }
-            
-            return cell
-        } else {
-            
-            let cell = tableView.dequeueReusableCell(withIdentifier: "libraryOption") as! LibraryOptionsCell
-            // For favoriting
-            if (library?.favorited == true) {
-                cell.libraryFavoriteButton.setImage(UIImage(named:"heart-large-filled"), for: .normal)
-            } else {
-                cell.libraryFavoriteButton.setImage(UIImage(named:"heart-large"), for: .normal)
-            }
-            return cell
         }
-    }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        // For favoriting
+        if (library?.isFavorited)! {
+            self.libraryFavoriteButton.setImage(#imageLiteral(resourceName: "heart-large-filled"), for: .normal)
+        } else {
+            self.libraryFavoriteButton.setImage(#imageLiteral(resourceName: "heart-large"), for: .normal)
+        }
+        return
     }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 112
-    }
+
     
     @IBAction func callLibrary(_ sender: Any) {
         let numberArray = self.library?.phoneNumber?.components(separatedBy: NSCharacterSet.decimalDigits.inverted)
@@ -112,33 +95,18 @@ class LibraryDetailViewController: UIViewController, UITableViewDataSource, UITa
     }
 
     @IBAction func favoriteLibrary(_ sender: Any) {
+        guard let library = self.library else {
+            return
+        }
+        library.isFavorited = !library.isFavorited
+        FavoriteStore.shared.update(library)
         
-        library?.favorited = !(library?.favorited!)!
-        
-        //Realm adding and deleting favorite libraries
-        let favLibrary = FavoriteLibrary()
-        favLibrary.name = (library?.name)!
-        
-        if (library?.favorited == true) {
-            (sender as! UIButton).setImage(UIImage(named:"heart-large-filled"), for: .normal)
+        if library.isFavorited {
+            (sender as! UIButton).setImage(#imageLiteral(resourceName: "heart-large-filled"), for: .normal)
         } else {
-            (sender as! UIButton).setImage(UIImage(named:"heart-large"), for: .normal)
+            (sender as! UIButton).setImage(#imageLiteral(resourceName: "heart-large"), for: .normal)
         }
         
-        if (library?.favorited)! {
-            try! realm.write {
-                realm.add(favLibrary)
-            }
-        } else {
-            let libraries = realm.objects(FavoriteLibrary.self)
-            for lib in libraries {
-                if lib.name == library?.name {
-                    try! realm.write {
-                        realm.delete(lib)
-                    }
-                }
-            }
-        }
     }
     
     @IBAction func viewLibraryWebsite(_ sender: Any) {
@@ -190,34 +158,70 @@ class LibraryDetailViewController: UIViewController, UITableViewDataSource, UITa
         marker.position = CLLocationCoordinate2D(latitude: lat!, longitude: lon!)
         marker.title = library?.name
         
-        let status = getLibraryStatus(library: library!)
-        if (status == "Open") {
+        let status = library?.isOpen;
+        if status! {
             marker.icon = GMSMarker.markerImage(with: .green)
+            marker.snippet = "Open"
         } else {
             marker.icon = GMSMarker.markerImage(with: .red)
+            marker.snippet = "Closed"
+            
         }
-        
-        marker.snippet = status
         marker.map = self.libraryMapView
 
     }
     
-    func getLibraryStatus(library: Library) -> String {
+    func setData(_ library: Library) {
+        self.library = library
         
-        //Determining Status of library
-        let todayDate = NSDate()
+        self.title = library.name
         
-        if (library.weeklyClosingTimes[0] == nil) {
-            return "Closed"
-        }
         
-        var status = "Open"
-        if (library.weeklyClosingTimes[0]!.compare(todayDate as Date) == .orderedAscending) {
-            status = "Closed"
-        }
-        
-        return status
     }
+    var text1: String? {
+        return nil
+    }
+    var text2: String? {
+        return nil
+    }
+    var viewController: UIViewController {
+        return self
+    }
+    var imageURL: URL? {
+        return library?.imageURL
+    }
+    
+    var resetOffsetOnSizeChanged = false
+    
+    var buttons: [UIButton]
+    {
+        return []
+    }
+    
+    var contentSizeChangeHandler: ((ResourceDetailProvider) -> Void)?
+        {
+        get { return nil }
+        set {}
+    }
+    
+    /// Get the contentSize property of the internal UIScrollView.
+    var contentSize: CGSize
+    {
+        let width = view.bounds.width
+        let height = libraryDetailView.height + libraryMapView.height
+        return CGSize(width: width, height: height)
+        
+    }
+    
+    /// Get/Set the contentOffset property of the internal UIScrollView.
+    var contentOffset: CGPoint
+        {
+        get { return CGPoint.zero }
+        set {}
+    }
+    
+    /// Set of setContentOffset method of the internal UIScrollView.
+    func setContentOffset(_ offset: CGPoint, animated: Bool){}
     
     
     
