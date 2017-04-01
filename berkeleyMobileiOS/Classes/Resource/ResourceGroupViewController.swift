@@ -13,7 +13,8 @@ class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDe
 {
     // Data
     var resourceType: ResourceType!
-    var resources: [Resource] = []
+    var resources: [ResourceType: [Resource]] = [:]
+//    var resources: [Resource] = []
     var searchableItems: [SearchItem] = []
     var searchResults: [SearchItem] = []
     
@@ -62,25 +63,36 @@ class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDe
         self.tableView.dataSource = self
         self.activityIndicator.startAnimating()
         
-        self.resourceType.dataSourceType.fetchResources
-        { (_ resources: [Resource]?) in
+        for type in ResourceType.connections[self.resourceType]! {
             
-            DispatchQueue.main.async {
-                self.activityIndicator.stopAnimating()
+            type.dataSourceType.fetchResources
+                { (_ resources: [Resource]?) in
+                    
+                    DispatchQueue.main.async {
+                        self.activityIndicator.stopAnimating()
+                    }
+                    
+                    if resources.isNil
+                    {
+                        // Error
+                        return
+                    }
+                    
+                    if ((resources?.count)! > 0) {
+                        self.resources[type] = resources
+                    }
+                    
+                    DispatchQueue.main.async {
+                        if (self.resources.count == ResourceType.connections[self.resourceType]!.count) {
+                            self.tableView.reloadData()
+                        }
+                        
+                    }
             }
             
-            if resources.isNil
-            {
-                // Error
-                return
-            }
-            
-            self.resources = resources!
-            
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
         }
+        
+
     }
     
     /// Configure statusBar, navigationBar, and highlight the tab icon. 
@@ -193,13 +205,16 @@ class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDe
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         // TODO: temp returning 1, while backend is not up to date.
-        return 1
+        return self.resources.count
     }
     
     /// Pass the DiningGroupCell a name for the category, a list of halls, and a callback handler.
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        let data = (self.resourceType.rawValue, self.resources, Optional(didSelectResource))
+        let type = ResourceType.connections[self.resourceType]![indexPath.row]
+        let res = self.resources[type]!
+        
+        let data = (type.displayName, res, Optional(didSelectResource))
         
         let cell = tableView.dequeueReusableCell(withIdentifier: className(ResourceGroupCell.self)) as! ResourceGroupCell
         cell.setData(data)
@@ -264,15 +279,8 @@ class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDe
         } else {
             return
         }
-        
-        
-        
-        
-    
-        
-       
     }
-    
+
     
     // ========================================
     // MARK: - Navigation
@@ -288,7 +296,7 @@ class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDe
         
         if let vc = destination as? GymsMapListViewController
         {
-            vc.gyms = self.resources as! [Gym]
+            vc.gyms = self.resources[ResourceType.Gym] as! [Gym]
         } 
         else if let vc = destination as? GymDetailViewController
         {
@@ -296,11 +304,15 @@ class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDe
         }
         else if let vc = destination as? LibraryMapViewController
         {
-            vc.libraries = self.resources as! [Library]
+            vc.libraries = self.resources[ResourceType.Library] as! [Library]
         }
         else if let vc = destination as? LibraryDetailViewController
         {
             vc.library = sender as? Library
+        }
+        else if let vc = destination as? GymClassViewController
+        {
+            vc.classType = sender as? GymClassCategory
         }
     }
     
