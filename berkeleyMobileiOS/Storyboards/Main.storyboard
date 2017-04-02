@@ -968,7 +968,7 @@
                                                             <outlet property="gymStatus" destination="iZj-Mf-RBD" id="hao-oB-0j7"/>
                                                         </connections>
                                                     </tableViewCell>
-                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="gymOption" rowHeight="112" id="wMD-yd-g3o" customClass="GymOptionsCell" customModule="berkeleyMobileiOS" customModuleProvider="target">
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="option" rowHeight="112" id="wMD-yd-g3o" customClass="OptionsCell" customModule="berkeleyMobileiOS" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="140" width="375" height="112"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wMD-yd-g3o" id="nyV-Ax-gph">
@@ -1033,11 +1033,6 @@
                                                                 <constraint firstItem="OAv-B4-zAY" firstAttribute="top" secondItem="nyV-Ax-gph" secondAttribute="topMargin" constant="15" id="lLK-So-IAU"/>
                                                             </constraints>
                                                         </tableViewCellContentView>
-                                                        <connections>
-                                                            <outlet property="gymDirectionsButton" destination="C9f-Mg-SRE" id="jBA-JY-j0I"/>
-                                                            <outlet property="gymPhoneButton" destination="OAv-B4-zAY" id="kMK-6n-gii"/>
-                                                            <outlet property="gymWebsiteButton" destination="QFd-Lr-adC" id="34s-5A-jFQ"/>
-                                                        </connections>
                                                     </tableViewCell>
                                                 </prototypes>
                                                 <connections>
@@ -1315,7 +1310,7 @@
                                                             <outlet property="libraryStatus" destination="Q5F-7w-Qrg" id="Gnc-rN-3RL"/>
                                                         </connections>
                                                     </tableViewCell>
-                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="libraryOption" rowHeight="112" id="GbI-9M-ivo" customClass="LibraryOptionsCell" customModule="berkeleyMobileiOS" customModuleProvider="target">
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="option" rowHeight="112" id="GbI-9M-ivo" customClass="OptionsCell" customModule="berkeleyMobileiOS" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="140" width="375" height="112"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GbI-9M-ivo" id="bTy-oh-SdK">
@@ -1390,9 +1385,7 @@
                                                             </constraints>
                                                         </tableViewCellContentView>
                                                         <connections>
-                                                            <outlet property="libraryCallButton" destination="awC-c6-thB" id="B0h-Ad-7Wh"/>
-                                                            <outlet property="libraryFavoriteButton" destination="dQq-I3-mPP" id="VfU-Ai-fUE"/>
-                                                            <outlet property="libraryWebsiteButton" destination="6DC-IB-iTR" id="tkE-pl-6X4"/>
+                                                            <outlet property="favoriteButton" destination="dQq-I3-mPP" id="NbS-K8-Nko"/>
                                                         </connections>
                                                     </tableViewCell>
                                                 </prototypes>
@@ -2147,7 +2140,7 @@
                                                             <outlet property="libraryStatus" destination="6fc-S3-Wfl" id="q7G-iM-wdC"/>
                                                         </connections>
                                                     </tableViewCell>
-                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="libraryOption" rowHeight="112" id="6yx-b6-Rbd" customClass="LibraryOptionsCell" customModule="berkeleyMobileiOS" customModuleProvider="target">
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="option" rowHeight="112" id="6yx-b6-Rbd" customClass="OptionsCell" customModule="berkeleyMobileiOS" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="140" width="375" height="112"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6yx-b6-Rbd" id="ljV-lR-V2i">
@@ -2222,8 +2215,7 @@
                                                             </constraints>
                                                         </tableViewCellContentView>
                                                         <connections>
-                                                            <outlet property="libraryCallButton" destination="zQ1-D2-vFf" id="1Uf-2v-vKA"/>
-                                                            <outlet property="libraryFavoriteButton" destination="hcU-bd-FvZ" id="uY7-xe-kXH"/>
+                                                            <outlet property="favoriteButton" destination="hcU-bd-FvZ" id="IPb-N9-to6"/>
                                                         </connections>
                                                     </tableViewCell>
                                                 </prototypes>
