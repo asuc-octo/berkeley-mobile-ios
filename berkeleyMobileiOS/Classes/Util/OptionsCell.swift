@@ -1,18 +1,18 @@
 //
-//  LibraryPhoneCell.swift
+//  OptionsCell.swift
 //  berkeleyMobileiOS
 //
-//  Created by Sampath Duddu on 1/19/17.
+//  Created by Sampath Duddu on 4/1/17.
 //  Copyright © 2017 org.berkeleyMobile. All rights reserved.
 //
 
 import UIKit
 
-class LibraryPhoneCell: UITableViewCell {
-
-    @IBOutlet var libraryCallButton: UIButton!
-    @IBOutlet var libraryLikeButton: UIButton!
+class OptionsCell: UITableViewCell {
     
+    @IBOutlet var favoriteButton: UIButton!
+    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
