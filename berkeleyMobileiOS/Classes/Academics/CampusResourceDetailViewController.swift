@@ -25,8 +25,7 @@ class CampusResourceDetailViewController: UIViewController, UITableViewDataSourc
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //libraryImage.sd_setImage(with: library?.imageURL!)
+    
         campusResourceTableView.delegate = self
         campusResourceTableView.dataSource = self
         self.title = campusResource?.name
@@ -56,18 +55,6 @@ class CampusResourceDetailViewController: UIViewController, UITableViewDataSourc
             
             cell.libraryStartEndTime.text = campusResource?.hours
             cell.libraryStatus.isHidden = true
-            
-//            //Calculating whether the library is open or not
-//            var status = "Open"
-//            if (self.library?.weeklyClosingTimes[0]?.compare(NSDate() as Date) == .orderedAscending) {
-//                status = "Closed"
-//            }
-//            cell.libraryStatus.text = status
-//            if (status == "Open") {
-//                cell.libraryStatus.textColor = UIColor.green
-//            } else {
-//                cell.libraryStatus.textColor = UIColor.red
-//            }
 //            
             return cell
         } else {
@@ -116,15 +103,6 @@ class CampusResourceDetailViewController: UIViewController, UITableViewDataSourc
         
         marker.position = CLLocationCoordinate2D(latitude: lat!, longitude: lon!)
         marker.title = campusResource?.name
-        
-//        let status = getLibraryStatus(library: library!)
-//        if (status == "Open") {
-//            marker.icon = GMSMarker.markerImage(with: .green)
-//        } else {
-//            marker.icon = GMSMarker.markerImage(with: .red)
-//        }
-//        
-//        marker.snippet = status
         marker.map = self.campusResourceMapView
         
     }
