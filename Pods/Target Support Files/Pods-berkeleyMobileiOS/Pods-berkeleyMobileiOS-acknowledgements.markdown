@@ -52,6 +52,14 @@ SOFTWARE.
 
 Copyright 2016 Google
 
+## GooglePlacePicker
+
+Copyright 2016 Google
+
+## GooglePlaces
+
+Copyright 2016 Google
+
 ## Material
 
 Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>. All rights reserved.

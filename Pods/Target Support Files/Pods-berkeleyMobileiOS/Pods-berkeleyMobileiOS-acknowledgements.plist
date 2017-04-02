@@ -83,6 +83,26 @@ SOFTWARE.</string>
 		</dict>
 		<dict>
 			<key>FooterText</key>
+			<string>Copyright 2016 Google</string>
+			<key>License</key>
+			<string>Copyright</string>
+			<key>Title</key>
+			<string>GooglePlacePicker</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>FooterText</key>
+			<string>Copyright 2016 Google</string>
+			<key>License</key>
+			<string>Copyright</string>
+			<key>Title</key>
+			<string>GooglePlaces</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>FooterText</key>
 			<string>Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. &lt;http://cosmicmind.com&gt;. All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
