@@ -287,6 +287,10 @@ class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDe
         {
             vc.campusResources = self.resources[ResourceType.CampusResource] as? [CampusResource]
         }
+        else if let vc = destination as? CampusResourceDetailViewController
+        {
+            vc.campusResource = sender as? CampusResource
+        }
     }
     
     // ========================================
