@@ -26,6 +26,7 @@
 		284A3C851E316F1F00685A01 /* AddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284A3C841E316F1F00685A01 /* AddressCell.swift */; };
 		284A3C891E318A3E00685A01 /* LibraryTimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284A3C881E318A3E00685A01 /* LibraryTimeCell.swift */; };
 		284A3C8B1E318A5900685A01 /* LibraryPhoneCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284A3C8A1E318A5900685A01 /* LibraryPhoneCell.swift */; };
+		2852AED91E908CAB00092070 /* CampusResourceDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2852AED81E908CAB00092070 /* CampusResourceDetailViewController.swift */; };
 		285991AD1E7D1EA000317995 /* CampusResourceMapListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285991AC1E7D1EA000317995 /* CampusResourceMapListViewController.swift */; };
 		285991AF1E7D209300317995 /* CampusResourceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285991AE1E7D209300317995 /* CampusResourceCell.swift */; };
 		286D90241DDE9D86001DCBB6 /* LibraryMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286D90231DDE9D86001DCBB6 /* LibraryMapViewController.swift */; };
@@ -133,6 +134,7 @@
 		284A3C841E316F1F00685A01 /* AddressCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressCell.swift; sourceTree = "<group>"; };
 		284A3C881E318A3E00685A01 /* LibraryTimeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryTimeCell.swift; sourceTree = "<group>"; };
 		284A3C8A1E318A5900685A01 /* LibraryPhoneCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryPhoneCell.swift; sourceTree = "<group>"; };
+		2852AED81E908CAB00092070 /* CampusResourceDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CampusResourceDetailViewController.swift; path = berkeleyMobileiOS/Classes/Academics/CampusResourceDetailViewController.swift; sourceTree = "<group>"; };
 		285991AC1E7D1EA000317995 /* CampusResourceMapListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CampusResourceMapListViewController.swift; sourceTree = "<group>"; };
 		285991AE1E7D209300317995 /* CampusResourceCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CampusResourceCell.swift; sourceTree = "<group>"; };
 		286D90231DDE9D86001DCBB6 /* LibraryMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryMapViewController.swift; sourceTree = "<group>"; };
@@ -242,6 +244,7 @@
 		41E843811DAB3FE80096C049 = {
 			isa = PBXGroup;
 			children = (
+				2852AED81E908CAB00092070 /* CampusResourceDetailViewController.swift */,
 				41E8438C1DAB3FE80096C049 /* berkeleyMobileiOS */,
 				41E8438B1DAB3FE80096C049 /* Products */,
 				93BD09A1D2E78ACB866AE8D4 /* Pods */,
@@ -682,6 +685,7 @@
 				4ED0D3591DDCE1C600956F9E /* DiningHallCell.swift in Sources */,
 				41B0B5881E8CD95D00DA9297 /* BearTransitViewController.swift in Sources */,
 				284A3C891E318A3E00685A01 /* LibraryTimeCell.swift in Sources */,
+				2852AED91E908CAB00092070 /* CampusResourceDetailViewController.swift in Sources */,
 				41101F9D1DDEC5AD00D8D741 /* AcademicsNavigationController.swift in Sources */,
 				28037E621DD9798C00935E62 /* LibraryDetailViewController.swift in Sources */,
 				B5F25D211DE2B6DF0084A5C7 /* Library.swift in Sources */,
@@ -737,8 +741,6 @@
 				B5F25D1D1DE2A1EA0084A5C7 /* GymDataSource.swift in Sources */,
 				282A4EEA1E63839200480201 /* GymClass.swift in Sources */,
 				284A3C8B1E318A5900685A01 /* LibraryPhoneCell.swift in Sources */,
-				41101FA31DDEC62900D8D741 /* BearTransitNavigationController.swift in Sources */,
-				4E505D481DD05A65004AC6C9 /* BearTransitViewController.swift in Sources */,
 				285991AF1E7D209300317995 /* CampusResourceCell.swift in Sources */,
 				B5F25D271DE8BFD50084A5C7 /* CampusResourceDataSource.swift in Sources */,
 				4E505D431DD05A65004AC6C9 /* HomeCollectionViewCell.swift in Sources */,
