@@ -17,6 +17,7 @@ class CampusResource: Resource {
     let latitude: Double?
     let longitude: Double?
     let notes: String?
+    var favorited: Bool? = false
     
     init(name: String, campusLocation: String?, phoneNumber: String?, alternatePhoneNumber: String?, email: String?, hours: String?, latitude: Double?, longitude: Double?, notes: String?) {
         self.campusLocation = campusLocation
