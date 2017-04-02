@@ -99,6 +99,10 @@ class CampusResourceMapListViewController: UIViewController, UITableViewDataSour
         return (campusResources?.count)!
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "CampusResourceDetailSegue", sender: indexPath.row)
+    }
+    
     //Plots the location of campus resources on map view
     func plotCampusResources() {
         
@@ -215,6 +219,24 @@ class CampusResourceMapListViewController: UIViewController, UITableViewDataSour
                 campusResource.favorited = true
             }
         }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if (segue.identifier == "CampusResourceDetailSegue") {
+            let selectedIndex = sender as! Int
+            let selectedCampusResource = self.campusResources?[selectedIndex]
+            
+            let backItem = UIBarButtonItem()
+            backItem.title = ""
+            navigationItem.backBarButtonItem = backItem
+            
+            let campusResourceDetailVC = segue.destination as! CampusResourceDetailViewController
+            
+            campusResourceDetailVC.campusResource = selectedCampusResource
+            
+        }
+        
     }
 
 }

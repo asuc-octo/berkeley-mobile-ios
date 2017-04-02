@@ -69,8 +69,7 @@ class GymDetailViewController: UIViewController, UITableViewDelegate, UITableVie
             
             return cell
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "gymOption") as! GymOptionsCell
-            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "option") as! OptionsCell
             return cell
         }
     }

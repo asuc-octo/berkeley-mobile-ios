@@ -80,12 +80,12 @@ class LibraryDetailViewController: UIViewController, UITableViewDataSource, UITa
             return cell
         } else {
             
-            let cell = tableView.dequeueReusableCell(withIdentifier: "libraryOption") as! LibraryOptionsCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "option") as! OptionsCell
             // For favoriting
             if (library?.favorited == true) {
-                cell.libraryFavoriteButton.setImage(UIImage(named:"heart-large-filled"), for: .normal)
+                cell.favoriteButton.setImage(UIImage(named:"heart-large-filled"), for: .normal)
             } else {
-                cell.libraryFavoriteButton.setImage(UIImage(named:"heart-large"), for: .normal)
+                cell.favoriteButton.setImage(UIImage(named:"heart-large"), for: .normal)
             }
             return cell
         }
