@@ -175,6 +175,7 @@ class CampusResourceDetailViewController: UIViewController, UITableViewDataSourc
     }
     
     @IBAction func emailCampusResource(_ sender: Any) {
+        
         if MFMailComposeViewController.canSendMail() {
             let mail = MFMailComposeViewController()
             mail.mailComposeDelegate = self
@@ -182,8 +183,11 @@ class CampusResourceDetailViewController: UIViewController, UITableViewDataSourc
             mail.setMessageBody("", isHTML: true)
             
             present(mail, animated: true)
+//            self.navigationController?.present(mail, animated: true, completion: nil)
         } else {
-            // show failure alert
+            let alert = UIAlertController(title: "Email", message: "Unable to send email at this time. Please ensure that you have connected your phone to at least one email account via the Mail app.", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
         }
     }
     
