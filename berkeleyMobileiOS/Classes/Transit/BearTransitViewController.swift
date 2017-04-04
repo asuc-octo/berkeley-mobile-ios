@@ -13,16 +13,22 @@ import GooglePlaces
 import DropDown
 import Alamofire
 import SwiftyJSON
+
 class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFieldDelegate,UITableViewDelegate, UITableViewDataSource {
     //Sets up initial tab look for this class
     @IBOutlet var stopTimeButton: UIButton!
     var dropDown: DropDown?
     var endDropDown: DropDown?
     var routes: [Route] = []
+    
+    var manager:CLLocationManager!
+    var myLocations: [CLLocation] = []
+    
     @IBOutlet var busesNotAvailable: UILabel!
     @IBOutlet weak var routesTable: UITableView!
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var startField: UITextField!
+    
     @IBOutlet weak var destinationField: UITextField!
     @IBOutlet weak var goButton: UIButton!
     var serverToLocalFormatter = DateFormatter.init()
@@ -83,6 +89,11 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
         serverToLocalFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         timeFormatter.dateFormat = "h:mm a"
         serverToLocalFormatter.locale = Locale.init(identifier: "en_US_POSIX")
+        
+        manager = CLLocationManager()
+        manager.desiredAccuracy = kCLLocationAccuracyBest
+        manager.requestAlwaysAuthorization()
+        manager.startUpdatingLocation()
 }
     func configureDropDown() {
         let dropper = DropDown()
@@ -272,7 +283,7 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
         filter.type = .noFilter
         filter.country = "USA"
         let client = GMSPlacesClient()
-        var autoResults: [String] = []
+        var autoResults: [String] = ["Current Location"]
         client.autocompleteQuery(autoString, bounds: bounds, filter: filter, callback: {(results, error) -> Void in
             if let error = error {
                 print("Autocomplete error \(error)")
@@ -362,23 +373,28 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
         
     }
     func getLatLngForZip(address: String) -> [Double] {
-        let baseUrl = "https://maps.googleapis.com/maps/api/geocode/json?"
-        let apikey = "AIzaSyAZaivE84tZtu9i-RS8ZLQtF3PQpCsJkTk"
-        let cleanAddress = address.replacingOccurrences(of: " ", with: "")
-        let urlstring = "\(baseUrl)address=\(cleanAddress)&key=\(apikey)"
-        let url = URL(string: urlstring)
-        let data = NSData(contentsOf: url! as URL)
-        let json = try! JSONSerialization.jsonObject(with: data! as Data, options: JSONSerialization.ReadingOptions.allowFragments) as! NSDictionary
-        if let result = json["results"] as? NSArray {
-            if let geometry = (result[0] as? NSDictionary)?["geometry"] as? NSDictionary {
-                if let location = geometry["location"] as? NSDictionary {
-                    let latitude = location["lat"] as! Float
-                    let longitude = location["lng"] as! Float
-                    return [Double(latitude), Double(longitude)]
+        if address == "Current Location" {
+            return [(manager.location?.coordinate.latitude)!, (manager.location?.coordinate.longitude)!]
+        } else {
+            let baseUrl = "https://maps.googleapis.com/maps/api/geocode/json?"
+            let apikey = "AIzaSyAZaivE84tZtu9i-RS8ZLQtF3PQpCsJkTk"
+            let cleanAddress = address.replacingOccurrences(of: " ", with: "")
+            let urlstring = "\(baseUrl)address=\(cleanAddress)&key=\(apikey)"
+            let url = URL(string: urlstring)
+            let data = NSData(contentsOf: url! as URL)
+            let json = try! JSONSerialization.jsonObject(with: data! as Data, options: JSONSerialization.ReadingOptions.allowFragments) as! NSDictionary
+            if let result = json["results"] as? NSArray {
+                if let geometry = (result[0] as? NSDictionary)?["geometry"] as? NSDictionary {
+                    if let location = geometry["location"] as? NSDictionary {
+                        let latitude = location["lat"] as! Float
+                        let longitude = location["lng"] as! Float
+                        return [Double(latitude), Double(longitude)]
+                    }
                 }
             }
+            return [0.0000, 0.0000]
         }
-        return [0.0000, 0.0000]
+
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
