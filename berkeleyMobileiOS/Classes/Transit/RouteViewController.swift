@@ -54,4 +54,11 @@ class RouteViewController: UIViewController, UITableViewDelegate, UITableViewDat
         cell.textLabel?.text = stopToDisplay.name
         return cell
     }
+    
+    
+    @IBAction func exit(_ sender: Any) {
+        _ = self.navigationController?.popViewController(animated: true)
+    }
+    
+    
 }
