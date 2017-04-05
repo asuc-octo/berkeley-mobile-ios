@@ -1650,14 +1650,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7rD-9a-8JS" customClass="GMSMapView">
-                                <rect key="frame" x="-4" y="64" width="383" height="603"/>
+                                <rect key="frame" x="-4" y="0.0" width="383" height="667"/>
                                 <color key="backgroundColor" red="0.070588235289999995" green="0.58431372550000005" blue="0.84705882349999995" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Current Location" placeholder="Enter Start Point" textAlignment="center" minimumFontSize="1" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="efK-bv-cP4">
-                                <rect key="frame" x="16" y="84" width="343" height="60"/>
+                                <rect key="frame" x="16" y="21" width="343" height="50"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="A3T-nY-I9N"/>
+                                    <constraint firstAttribute="height" constant="50" id="A3T-nY-I9N"/>
                                 </constraints>
                                 <color key="textColor" red="0.46269190310000002" green="0.46277564760000001" blue="0.46268665790000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
@@ -1672,14 +1672,14 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Destination" textAlignment="center" minimumFontSize="1" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="jyX-uR-IiV">
-                                <rect key="frame" x="16" y="149" width="343" height="60"/>
+                                <rect key="frame" x="16" y="76" width="343" height="50"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="textColor" red="0.46269190310000002" green="0.46277564760000001" blue="0.46268665790000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Buses are not currently running right now" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ju8-1u-T5A">
-                                <rect key="frame" x="-4" y="63" width="383" height="21"/>
+                                <rect key="frame" x="-4" y="0.0" width="383" height="21"/>
                                 <color key="backgroundColor" red="0.8078432083" green="0.35355706190000002" blue="0.3584613465" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="Tfc-tz-1uj"/>
@@ -1795,7 +1795,7 @@
                                 </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QXr-BA-eMi">
-                                <rect key="frame" x="16" y="217" width="93" height="29"/>
+                                <rect key="frame" x="16" y="134" width="93" height="29"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="93" id="oKg-wf-n1S"/>
@@ -1901,7 +1901,7 @@
                                 </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cpt-2D-PTg">
-                                <rect key="frame" x="279" y="217" width="80" height="29"/>
+                                <rect key="frame" x="279" y="134" width="80" height="29"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="PrW-p6-1aX"/>
@@ -1933,15 +1933,15 @@
                             <constraint firstItem="Cpt-2D-PTg" firstAttribute="trailing" secondItem="jyX-uR-IiV" secondAttribute="trailing" id="FVU-sb-XG9"/>
                             <constraint firstItem="alq-pj-Tcd" firstAttribute="leading" secondItem="XL6-5R-COS" secondAttribute="leadingMargin" constant="-20" id="GXV-WM-bYo"/>
                             <constraint firstItem="fJz-xL-n4t" firstAttribute="leading" secondItem="XL6-5R-COS" secondAttribute="leadingMargin" constant="-20" id="Jo2-Iz-FxN"/>
-                            <constraint firstItem="7rD-9a-8JS" firstAttribute="top" secondItem="Z80-KH-7fR" secondAttribute="bottom" id="M6j-rF-14a"/>
                             <constraint firstItem="q6Z-y7-hic" firstAttribute="top" secondItem="alq-pj-Tcd" secondAttribute="bottom" id="Pdn-Vc-7DV"/>
                             <constraint firstItem="Cpt-2D-PTg" firstAttribute="top" secondItem="jyX-uR-IiV" secondAttribute="bottom" constant="8" id="UOv-nC-dTC"/>
                             <constraint firstAttribute="trailingMargin" secondItem="alq-pj-Tcd" secondAttribute="trailing" constant="-20" id="YT1-iD-fVw"/>
+                            <constraint firstAttribute="topMargin" secondItem="7rD-9a-8JS" secondAttribute="top" id="ccj-AH-Ys1"/>
                             <constraint firstItem="Ju8-1u-T5A" firstAttribute="leading" secondItem="XL6-5R-COS" secondAttribute="leadingMargin" constant="-20" id="cdd-hP-Hai"/>
                             <constraint firstAttribute="trailingMargin" secondItem="7rD-9a-8JS" secondAttribute="trailing" constant="-20" id="d9s-ot-zLg"/>
                             <constraint firstItem="efK-bv-cP4" firstAttribute="leading" secondItem="XL6-5R-COS" secondAttribute="leadingMargin" id="ddt-JR-w1l"/>
                             <constraint firstItem="q6Z-y7-hic" firstAttribute="top" secondItem="7rD-9a-8JS" secondAttribute="bottom" constant="-49" id="eLF-xR-lcD"/>
-                            <constraint firstItem="Ju8-1u-T5A" firstAttribute="top" secondItem="Z80-KH-7fR" secondAttribute="bottom" constant="-1" id="evv-sV-ccw"/>
+                            <constraint firstItem="Ju8-1u-T5A" firstAttribute="top" secondItem="Z80-KH-7fR" secondAttribute="bottom" constant="-20" id="evv-sV-ccw"/>
                             <constraint firstItem="jyX-uR-IiV" firstAttribute="height" secondItem="efK-bv-cP4" secondAttribute="height" id="iE4-GZ-S0z"/>
                             <constraint firstItem="7rD-9a-8JS" firstAttribute="leading" secondItem="XL6-5R-COS" secondAttribute="leadingMargin" constant="-20" id="lQa-2q-OwU"/>
                             <constraint firstItem="QXr-BA-eMi" firstAttribute="height" secondItem="Cpt-2D-PTg" secondAttribute="height" id="opv-5A-n4C"/>
@@ -1953,6 +1953,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Transit" id="C6S-sh-Un2"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="busesNotAvailable" destination="Ju8-1u-T5A" id="bSP-di-Fqn"/>
@@ -1985,7 +1986,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="keQ-zk-Qpx">
-                                <rect key="frame" x="-4" y="72" width="383" height="546"/>
+                                <rect key="frame" x="-4" y="28" width="383" height="590"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="detailRouteCell" id="oWQ-Ff-82Y">
