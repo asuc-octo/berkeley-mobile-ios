@@ -54,8 +54,8 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
         }
         populateMapWithStops()
         pressed = true
-        stopTimeButton.setTitleColor(UIColor.blue, for: .normal)
-        stopTimeButton.borderColor = UIColor.blue
+        stopTimeButton.setTitleColor(UIColor.init(red: 0/255, green: 85/255, blue: 129/255, alpha: 1), for: .normal)
+        stopTimeButton.borderColor = UIColor.init(red: 0/255, green: 85/255, blue: 129/255, alpha: 1)
     }
     func turnStopsOFF() {
         self.mapView.clear()
@@ -68,7 +68,9 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
     var stopLat: [Double] = [37.871853, -122.258423]
     var selectedIndexPath = 0
     var polylines:[GMSPolyline] = []
-    
+    override func viewDidAppear(_ animated: Bool) {
+        startLat = [(manager.location?.coordinate.latitude)!, (manager.location?.coordinate.longitude)!]
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         self.mapView.delegate = self
@@ -94,7 +96,9 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
         manager.desiredAccuracy = kCLLocationAccuracyBest
         manager.requestAlwaysAuthorization()
         manager.startUpdatingLocation()
+
 }
+    
     func configureDropDown() {
         let dropper = DropDown()
         dropper.anchorView = self.startField
@@ -190,6 +194,12 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
                 for stopIndex in 0...(self.routes[0].stops.count - 2) {
                     self.drawPath(self.routes[0].stops[stopIndex], self.routes[0].stops[stopIndex + 1])
                 }
+                    let marker = GMSMarker()
+                    marker.position = CLLocationCoordinate2D(latitude: self.routes[0].stops[0].latitude as! CLLocationDegrees, longitude: self.routes[0].stops[0].longitude as! CLLocationDegrees)
+                    marker.map = self.mapView
+                    let smarker = GMSMarker()
+                    smarker.position = CLLocationCoordinate2D(latitude: self.routes[0].stops[self.routes[0].stops.count - 1].latitude as! CLLocationDegrees, longitude: self.routes[0].stops[self.routes[0].stops.count - 1].longitude as! CLLocationDegrees)
+                    smarker.map = self.mapView
                 self.routesTable.isHidden = false
             }
         }, startLat: String(self.startLat[0]), startLon: String(self.startLat[1]), destLat: String(self.stopLat[0]), destLon: String(self.stopLat[1]))
@@ -197,7 +207,8 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
 
     }
     func drawPath(_ startStop: routeStop, _ destStop: routeStop)
-    {
+    {   var averageLatLon = [0.0, 0.0]
+        var count = 0
         let origin = "\(startStop.latitude),\(startStop.longitude)"
         let destination = "\(destStop.latitude),\(destStop.longitude)"
         
@@ -205,6 +216,9 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
         let url = "https://maps.googleapis.com/maps/api/directions/json?origin=\(origin)&destination=\(destination)&mode=driving&key=AIzaSyBC8l95akDNvy_xZqa4j3XJCuATi2wFP_g"
         
         Alamofire.request(url).responseJSON { response in
+            var firstCoord = [0.0, 0.0]
+            var lastCoord = [0.0,0.0]
+            var fBool = true
             let json = JSON(data: response.data!)
             let routes = json["routes"].arrayValue
             for route in routes
@@ -213,11 +227,31 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
                 let points = routeOverviewPolyline?["points"]?.stringValue
                 let path = GMSPath.init(fromEncodedPath: points!)
                 let polyline = GMSPolyline.init(path: path)
+                for i in 0...((path?.count())! - 1) {
+                    lastCoord = [(path?.coordinate(at: i).latitude)!,(path?.coordinate(at: i).longitude)!]
+                    averageLatLon[0] += lastCoord[0]
+                    averageLatLon[1] += lastCoord[1]
+
+                    if fBool {
+                        firstCoord = averageLatLon
+                        fBool = false
+                    }
+                    count += 1
+                }
                 polyline.strokeWidth = 5
+                polyline.strokeColor = UIColor.init(red: 0/255, green: 85/255, blue: 129/255, alpha: 1)
                 polyline.map = self.mapView
                 self.polylines.append(polyline)
             }
+            
+
+            averageLatLon[0] /= Double(count)
+            averageLatLon[1] /= Double(count)
+            self.mapView.animate(toLocation: CLLocationCoordinate2D.init(latitude: averageLatLon[0], longitude: averageLatLon[1]))
+            self.mapView.animate(toZoom: 14.5)
+            
         }
+
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
