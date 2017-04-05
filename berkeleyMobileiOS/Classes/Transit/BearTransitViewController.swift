@@ -52,6 +52,7 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
         for p in polylines{
             p.map = nil
         }
+        self.mapView.clear()
         populateMapWithStops()
         pressed = true
         stopTimeButton.setTitleColor(UIColor.init(red: 0/255, green: 85/255, blue: 129/255, alpha: 1), for: .normal)
@@ -69,7 +70,10 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
     var selectedIndexPath = 0
     var polylines:[GMSPolyline] = []
     override func viewDidAppear(_ animated: Bool) {
-        startLat = [(manager.location?.coordinate.latitude)!, (manager.location?.coordinate.longitude)!]
+        if let coord = manager.location?.coordinate {
+        startLat = [coord.latitude, coord.longitude]
+        }
+
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,6 +83,7 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
         //Setting up map view
         let camera = GMSCameraPosition.camera(withLatitude: 37.871853, longitude: -122.258423, zoom: 15)
         self.mapView.camera = camera
+        self.mapView.isMyLocationEnabled = true
         // Do any additional setup after loading the view.
         self.makeMaterialShadow(withView: startField)
         self.makeMaterialShadow(withView: destinationField)
@@ -195,10 +200,11 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
                     self.drawPath(self.routes[0].stops[stopIndex], self.routes[0].stops[stopIndex + 1])
                 }
                     let marker = GMSMarker()
-                    marker.position = CLLocationCoordinate2D(latitude: self.routes[0].stops[0].latitude as! CLLocationDegrees, longitude: self.routes[0].stops[0].longitude as! CLLocationDegrees)
+                    marker.position = CLLocationCoordinate2D(latitude: self.routes[0].stops[0].latitude, longitude: self.routes[0].stops[0].longitude)
+                    marker.icon = UIImage.init(named: "cl")?.withRenderingMode(.alwaysTemplate).tint(with: Color.green.base)
                     marker.map = self.mapView
                     let smarker = GMSMarker()
-                    smarker.position = CLLocationCoordinate2D(latitude: self.routes[0].stops[self.routes[0].stops.count - 1].latitude as! CLLocationDegrees, longitude: self.routes[0].stops[self.routes[0].stops.count - 1].longitude as! CLLocationDegrees)
+                    smarker.position = CLLocationCoordinate2D(latitude: self.routes[0].stops[self.routes[0].stops.count - 1].latitude, longitude: self.routes[0].stops[self.routes[0].stops.count - 1].longitude)
                     smarker.map = self.mapView
                 self.routesTable.isHidden = false
             }
@@ -247,7 +253,7 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
 
             averageLatLon[0] /= Double(count)
             averageLatLon[1] /= Double(count)
-            self.mapView.animate(toLocation: CLLocationCoordinate2D.init(latitude: averageLatLon[0], longitude: averageLatLon[1]))
+            self.mapView.animate(toLocation: CLLocationCoordinate2D.init(latitude: averageLatLon[0] + 0.003, longitude: averageLatLon[1]))
             self.mapView.animate(toZoom: 14.5)
             
         }
@@ -343,29 +349,31 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
 
     }
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        self.routesTable.isHidden = true
-        let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
-        self.nearestBusesTable.backgroundView = activityIndicatorView
-        self.activityIndicatorView = activityIndicatorView
-        self.activityIndicatorView.startAnimating()
-        nearestStopsDataSource.fetchBuses({ (_ buses: [nearestBus]?) in
-            if (buses == nil || buses?.count == 0)
-            {
-                self.nearestBusesTable.isHidden = true
-                self.busesNotAvailable.isHidden = false
-                self.busesNotAvailable.text = "No buses servicing this stop in the near future"
-
-            } else {
-                self.busesNotAvailable.isHidden = true
-                self.nearestBuses = buses!
-                self.nearestBusesTable.reloadData()
-                self.activityIndicatorView.stopAnimating()
-                self.nearestBusesTable.isHidden = false
-            }
-
-        }, stopCode:marker.snippet!)
-        
-        
+        if let s = marker.snippet {
+            self.routesTable.isHidden = true
+            let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+            self.nearestBusesTable.backgroundView = activityIndicatorView
+            self.activityIndicatorView = activityIndicatorView
+            self.activityIndicatorView.startAnimating()
+            nearestStopsDataSource.fetchBuses({ (_ buses: [nearestBus]?) in
+                if (buses == nil || buses?.count == 0)
+                {
+                    self.nearestBusesTable.isHidden = true
+                    self.busesNotAvailable.isHidden = false
+                    self.busesNotAvailable.text = "No buses servicing this stop in the near future"
+                    
+                } else {
+                    self.busesNotAvailable.isHidden = true
+                    self.nearestBuses = buses!
+                    self.nearestBusesTable.reloadData()
+                    self.activityIndicatorView.stopAnimating()
+                    self.nearestBusesTable.isHidden = false
+                }
+                
+            }, stopCode:s)
+        } else {
+            
+        }
         return false
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
