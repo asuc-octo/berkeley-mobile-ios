@@ -850,6 +850,32 @@
             </objects>
             <point key="canvasLocation" x="3733.5999999999999" y="99.400299850074973"/>
         </scene>
+        <!--Test View-->
+        <scene sceneID="seX-sC-TgR">
+            <objects>
+                <viewController id="cNO-aO-ZNw" customClass="testView" customModule="berkeleyMobileiOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="VUi-hu-GGp"/>
+                        <viewControllerLayoutGuide type="bottom" id="DEn-gT-wXE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="j4K-ep-MPl">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SRy-X9-061" customClass="FabButton" customModule="Material">
+                                <rect key="frame" x="148" y="68" width="24" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.0" green="0.33333333329999998" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" image="cm_close_white"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.33333333329999998" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ruZ-kz-Sdv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4940" y="138.98050974512745"/>
+        </scene>
         <!--Gym Detail View Controller-->
         <scene sceneID="7qB-fg-WrO">
             <objects>
@@ -2004,14 +2030,15 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9qw-81-XZa">
-                                <rect key="frame" x="-4" y="20" width="379" height="55"/>
+                                <rect key="frame" x="-4" y="0.0" width="379" height="75"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="onV-Ih-Q77">
-                                        <rect key="frame" x="8" y="8" width="40" height="40"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="onV-Ih-Q77" customClass="IconButton" customModule="Material">
+                                        <rect key="frame" x="8" y="27" width="40" height="40"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" secondItem="onV-Ih-Q77" secondAttribute="height" multiplier="1:1" id="2h9-Tt-DiA"/>
+                                            <constraint firstAttribute="width" constant="40" id="01y-7K-PbK"/>
+                                            <constraint firstAttribute="width" secondItem="onV-Ih-Q77" secondAttribute="height" multiplier="1:1" id="vUO-8o-WYQ"/>
                                         </constraints>
-                                        <state key="normal" backgroundImage="exitButtonGrey"/>
+                                        <state key="normal" backgroundImage="cm_close_white"/>
                                         <connections>
                                             <action selector="exit:" destination="K7u-Tq-13N" eventType="touchUpInside" id="bO0-Jv-8GR"/>
                                         </connections>
@@ -2019,10 +2046,9 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.33333333329999998" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="onV-Ih-Q77" firstAttribute="leading" secondItem="9qw-81-XZa" secondAttribute="leading" constant="8" id="J65-HU-3Lw"/>
-                                    <constraint firstItem="onV-Ih-Q77" firstAttribute="top" secondItem="9qw-81-XZa" secondAttribute="top" constant="7.5" id="XZP-tQ-1cC"/>
-                                    <constraint firstAttribute="bottom" secondItem="onV-Ih-Q77" secondAttribute="bottom" constant="7.5" id="sOs-jG-72y"/>
-                                    <constraint firstAttribute="height" constant="55" id="sSo-VY-2b7"/>
+                                    <constraint firstItem="onV-Ih-Q77" firstAttribute="leading" secondItem="9qw-81-XZa" secondAttribute="leading" constant="8" id="N0t-h8-ZHb"/>
+                                    <constraint firstItem="onV-Ih-Q77" firstAttribute="centerY" secondItem="9qw-81-XZa" secondAttribute="centerY" constant="9.5" id="kiL-fI-5zj"/>
+                                    <constraint firstAttribute="height" constant="75" id="sSo-VY-2b7"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -2032,11 +2058,14 @@
                             <constraint firstItem="keQ-zk-Qpx" firstAttribute="leading" secondItem="WgB-nb-ekD" secondAttribute="leadingMargin" constant="-20" id="PP8-zL-dFE"/>
                             <constraint firstAttribute="trailingMargin" secondItem="9qw-81-XZa" secondAttribute="trailing" constant="-16" id="VPt-at-SBf"/>
                             <constraint firstItem="9qw-81-XZa" firstAttribute="leading" secondItem="WgB-nb-ekD" secondAttribute="leadingMargin" constant="-20" id="iTl-PY-tn3"/>
-                            <constraint firstItem="9qw-81-XZa" firstAttribute="top" secondItem="dvh-d3-kD5" secondAttribute="bottom" id="krD-5W-HKw"/>
+                            <constraint firstItem="9qw-81-XZa" firstAttribute="top" secondItem="dvh-d3-kD5" secondAttribute="bottom" constant="-20" id="krD-5W-HKw"/>
                             <constraint firstItem="HbC-4V-Hqn" firstAttribute="top" secondItem="keQ-zk-Qpx" secondAttribute="bottom" id="mCR-1f-gdk"/>
                             <constraint firstItem="keQ-zk-Qpx" firstAttribute="top" secondItem="9qw-81-XZa" secondAttribute="bottom" id="uxo-RD-CTL"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="exitButton" destination="onV-Ih-Q77" id="aNb-gc-7pj"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ulC-Jb-oRH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -2304,10 +2333,10 @@
     </scenes>
     <resources>
         <image name="background_image" width="640" height="1136"/>
+        <image name="cm_close_white" width="24" height="24"/>
         <image name="default_dining" width="580" height="455"/>
         <image name="default_marker.png" width="21" height="38"/>
         <image name="email" width="50" height="50"/>
-        <image name="exitButtonGrey" width="554" height="539"/>
         <image name="heart" width="25" height="25"/>
         <image name="heart-large" width="50" height="50"/>
         <image name="heart_empty" width="32" height="32"/>

@@ -7,13 +7,14 @@
 //
 
 import UIKit
-
+import Material
 class RouteViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    @IBOutlet var exitButton: IconButton!
     var selectedRoute: Route?
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        exitButton.image = Icon.arrowBack?.tint(with: .white)
         // Do any additional setup after loading the view.
     }
     
