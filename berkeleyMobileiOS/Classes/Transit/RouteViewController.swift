@@ -7,13 +7,14 @@
 //
 
 import UIKit
-
+import Material
 class RouteViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    @IBOutlet var exitButton: IconButton!
     var selectedRoute: Route?
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        exitButton.image = Icon.arrowBack?.tint(with: .white)
         // Do any additional setup after loading the view.
     }
     
@@ -54,4 +55,11 @@ class RouteViewController: UIViewController, UITableViewDelegate, UITableViewDat
         cell.textLabel?.text = stopToDisplay.name
         return cell
     }
+    
+    
+    @IBAction func exit(_ sender: Any) {
+        _ = self.navigationController?.popViewController(animated: true)
+    }
+    
+    
 }
