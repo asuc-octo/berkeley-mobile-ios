@@ -96,7 +96,6 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
         serverToLocalFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         timeFormatter.dateFormat = "h:mm a"
         serverToLocalFormatter.locale = Locale.init(identifier: "en_US_POSIX")
-        
         manager = CLLocationManager()
         manager.desiredAccuracy = kCLLocationAccuracyBest
         manager.requestAlwaysAuthorization()
@@ -202,6 +201,7 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
                     let marker = GMSMarker()
                     marker.position = CLLocationCoordinate2D(latitude: self.routes[0].stops[0].latitude, longitude: self.routes[0].stops[0].longitude)
                     marker.icon = UIImage.init(named: "cl")?.withRenderingMode(.alwaysTemplate).tint(with: Color.green.base)
+                    marker.groundAnchor = CGPoint.init(x: 0.5, y: 0.5);
                     marker.map = self.mapView
                     let smarker = GMSMarker()
                     smarker.position = CLLocationCoordinate2D(latitude: self.routes[0].stops[self.routes[0].stops.count - 1].latitude, longitude: self.routes[0].stops[self.routes[0].stops.count - 1].longitude)
