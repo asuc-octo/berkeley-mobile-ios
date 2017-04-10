@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
+ * Copyright (C) 2015 - 2017, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -961,7 +961,7 @@ extension Layout {
 }
 
 /// A memory reference to the LayoutKey instance for UIView extensions.
-private var LayoutKey: UInt8 = 0
+fileprivate var LayoutKey: UInt8 = 0
 
 /// Layout extension for UIView.
 extension UIView {

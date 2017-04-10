@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
+ * Copyright (C) 2015 - 2017, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -131,10 +131,20 @@ extension UIImage {
      - Returns: A UIImage that is the color passed in.
      */
     open class func image(with color: UIColor, size: CGSize) -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(size, false, Screen.scale)
+        guard let context = UIGraphicsGetCurrentContext() else {
+            return nil
+        }
+        
+        context.scaleBy(x: 1.0, y: -1.0)
+        context.translateBy(x: 0.0, y: -size.height)
+        
+        context.setBlendMode(.multiply)
+        
         let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
-        UIGraphicsBeginImageContextWithOptions(size, false, 0)
         color.setFill()
-        UIRectFill(rect)
+        context.fill(rect)
+        
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return image?.withRenderingMode(.alwaysOriginal)
@@ -168,7 +178,7 @@ extension UIImage {
 
 extension UIImage {
     /**
-     Creates an clear image.
+     Creates a clear image.
      - Returns: A UIImage that is clear.
      */
     open class func clear(size: CGSize = CGSize(width: 16, height: 16)) -> UIImage? {
@@ -217,13 +227,13 @@ extension UIImage {
         switch imageOrientation {
         case .down, .downMirrored:
             transform = transform.translatedBy(x: size.width, y: size.height)
-            transform = transform.rotated(by: CGFloat(M_PI))
+            transform = transform.rotated(by: CGFloat(Double.pi))
         case .left, .leftMirrored:
             transform = transform.translatedBy(x: size.width, y: 0)
-            transform = transform.rotated(by: CGFloat(M_PI_2))
+            transform = transform.rotated(by: CGFloat(Double.pi / 2))
         case .right, .rightMirrored:
             transform = transform.translatedBy(x: 0, y: size.height)
-            transform = transform.rotated(by: -CGFloat(M_PI_2))
+            transform = transform.rotated(by: -CGFloat(Double.pi / 2))
         default:break
         }
         
@@ -286,8 +296,8 @@ extension UIImage {
         
         let screenScale = Screen.scale
         let imageRect = CGRect(origin: .zero, size: size)
-        let hasBlur = radius > CGFloat(FLT_EPSILON)
-        let hasSaturationChange = fabs(saturationDeltaFactor - 1.0) > CGFloat(FLT_EPSILON)
+        let hasBlur = radius > CGFloat(Float.ulpOfOne)
+        let hasSaturationChange = fabs(saturationDeltaFactor - 1.0) > CGFloat(Float.ulpOfOne)
         
         if hasBlur || hasSaturationChange {
             UIGraphicsBeginImageContextWithOptions(size, false, screenScale)
@@ -305,7 +315,7 @@ extension UIImage {
             var outBuffer = createEffectBuffer(context: outContext)
             
             if hasBlur {
-                let a = sqrt(2 * M_PI)
+                let a = sqrt(2 * .pi)
                 let b = CGFloat(a) / 4
                 let c = radius * screenScale
                 let d = c * 3.0 * b

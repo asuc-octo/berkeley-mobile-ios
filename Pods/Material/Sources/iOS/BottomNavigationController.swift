@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
+ * Copyright (C) 2015 - 2017, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -30,39 +30,7 @@
 
 import UIKit
 
-public class BottomNavigationFadeAnimatedTransitioning: NSObject, UIViewControllerAnimatedTransitioning {
-	public func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-		let fromView : UIView = transitionContext.view(forKey: UITransitionContextViewKey.from)!
-		let toView : UIView = transitionContext.view(forKey: UITransitionContextViewKey.to)!
-		toView.alpha = 0
-		
-		transitionContext.containerView.addSubview(fromView)
-		transitionContext.containerView.addSubview(toView)
-		
-		UIView.animate(withDuration: transitionDuration(using: transitionContext),
-			animations: { _ in
-				toView.alpha = 1
-				fromView.alpha = 0
-			}) { _ in
-				transitionContext.completeTransition(true)
-			}
-	}
-	
-	public func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-		return 0.35
-	}
-}
-
-@objc(BottomNavigationTransitionAnimation)
-public enum BottomNavigationTransitionAnimation: Int {
-	case none
-	case fade
-}
-
-open class BottomNavigationController: UITabBarController, UITabBarControllerDelegate {
-	/// The transition animation to use when selecting a new tab.
-	open var transitionAnimation = BottomNavigationTransitionAnimation.fade
-	
+open class BottomNavigationController: UITabBarController {
 	/**
      An initializer that initializes the object with a NSCoder object.
      - Parameter aDecoder: A NSCoder instance.
@@ -142,18 +110,7 @@ open class BottomNavigationController: UITabBarController, UITabBarControllerDel
 		view.clipsToBounds = true
 		view.contentScaleFactor = Screen.scale
 		view.backgroundColor = .white
-        delegate = self
         prepareTabBar()
-	}
-	
-	/// Handles transitions when tabBarItems are pressed.
-	open func tabBarController(_ tabBarController: UITabBarController, animationControllerForTransitionFrom fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-		let fVC: UIViewController? = fromVC
-		let tVC: UIViewController? = toVC
-		if nil == fVC || nil == tVC {
-			return nil
-		}
-		return .fade == transitionAnimation ? BottomNavigationFadeAnimatedTransitioning() : nil
 	}
 	
 	/// Prepares the tabBar.
@@ -161,7 +118,7 @@ open class BottomNavigationController: UITabBarController, UITabBarControllerDel
 		tabBar.heightPreset = .normal
         tabBar.depthPreset = .depth1
         tabBar.dividerAlignment = .top
-        let image = UIImage.image(with: Color.clear, size: CGSize(width: 1, height: 1))
+        let image = UIImage()
 		tabBar.shadowImage = image
 		tabBar.backgroundImage = image
 		tabBar.backgroundColor = .white

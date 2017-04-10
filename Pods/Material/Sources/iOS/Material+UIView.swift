@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
+ * Copyright (C) 2015 - 2017, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -30,8 +30,40 @@
 
 import UIKit
 
-/// Grid extension for UIView.
 extension UIView {
+    /// A property that accesses the backing layer's masksToBounds.
+    @IBInspectable
+    open var masksToBounds: Bool {
+        get {
+            return layer.masksToBounds
+        }
+        set(value) {
+            layer.masksToBounds = value
+        }
+    }
+    
+    /// A property that accesses the backing layer's opacity.
+    @IBInspectable
+    open var opacity: Float {
+        get {
+            return layer.opacity
+        }
+        set(value) {
+            layer.opacity = value
+        }
+    }
+    
+    /// A property that accesses the backing layer's anchorPoint.
+    @IBInspectable
+    open var anchorPoint: CGPoint {
+        get {
+            return layer.anchorPoint
+        }
+        set(value) {
+            layer.anchorPoint = value
+        }
+    }
+    
     /// A property that accesses the frame.origin.x property.
     @IBInspectable
     open var x: CGFloat {
@@ -266,15 +298,6 @@ extension UIView {
         set(value) {
             layer.zPosition = value
         }
-    }
-    
-    /**
-     A method that accepts CAAnimation objects and executes them on the
-     view's backing layer.
-     - Parameter animation: A CAAnimation instance.
-     */
-    open func animate(animation: CAAnimation) {
-        layer.animate(animation: animation)
     }
     
     /// Manages the layout for the shape of the view instance.

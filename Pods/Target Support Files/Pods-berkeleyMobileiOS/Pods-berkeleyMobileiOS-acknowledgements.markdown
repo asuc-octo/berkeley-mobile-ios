@@ -50,19 +50,19 @@ SOFTWARE.
 
 ## GoogleMaps
 
-Copyright 2016 Google
+Copyright 2017 Google
 
 ## GooglePlacePicker
 
-Copyright 2016 Google
+Copyright 2017 Google
 
 ## GooglePlaces
 
-Copyright 2016 Google
+Copyright 2017 Google
 
 ## Material
 
-Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>. All rights reserved.
+Copyright (C) 2015 - 2017, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>. All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
 

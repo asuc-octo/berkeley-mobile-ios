@@ -16,6 +16,7 @@
 #import <UIKit/UIKit.h>
 
 #import "GooglePlacesDemos/DemoData.h"
+#import "GooglePlacesDemos/Support/MainSplitViewControllerBehaviorManager.h"
 
 /**
  * The class which displays the list of demos.
@@ -28,5 +29,8 @@
  * @param demoData The demo data to display in the list.
  */
 - (instancetype)initWithDemoData:(DemoData *)demoData;
+
+/** Only needed for iOS 7 to emulate the behaviour of displayModeButtonItem */
+@property(nonatomic) MainSplitViewControllerBehaviorManager *mainSplitViewControllerBehaviorManager;
 
 @end

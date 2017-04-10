@@ -29,10 +29,14 @@
 #include <system_error>
 #include <unordered_map>
 
+#include <realm/sync/history.hpp>
+
 namespace realm {
 
 class SyncUser;
 class SyncSession;
+
+using ChangesetTransformer = sync::ClientHistory::ChangesetCooker;
 
 enum class SyncSessionStopPolicy;
 
@@ -100,6 +104,8 @@ struct SyncConfig {
     SyncSessionStopPolicy stop_policy;
     std::function<SyncBindSessionHandler> bind_session_handler;
     std::function<SyncSessionErrorHandler> error_handler;
+    std::shared_ptr<ChangesetTransformer> transformer;
+    util::Optional<std::array<char, 64>> realm_encryption_key;
 };
 
 } // namespace realm

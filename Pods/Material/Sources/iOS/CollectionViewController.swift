@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.io>.
+ * Copyright (C) 2015 - 2017, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -69,6 +69,11 @@ open class CollectionViewController: UIViewController {
         prepare()
     }
     
+    open override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        collectionView.frame = view.bounds
+    }
+    
     /**
      Prepares the view instance when intialized. When subclassing,
      it is recommended to override the prepareView method
@@ -89,7 +94,7 @@ extension CollectionViewController {
     fileprivate func prepareCollectionView() {
         collectionView.delegate = self
         collectionView.dataSource = self
-        view.layout(collectionView).edges()
+        view.addSubview(collectionView)
     }
 }
 

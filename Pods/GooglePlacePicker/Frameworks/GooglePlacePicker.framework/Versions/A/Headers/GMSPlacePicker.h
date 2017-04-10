@@ -10,13 +10,7 @@
 
 #import <GooglePlacePicker/GMSPlacePickerConfig.h>
 
-#if __has_feature(modules)
-@import GoogleMapsBase;
-#else
-#import <GoogleMapsBase/GoogleMapsBase.h>
-#endif
-
-GMS_ASSUME_NONNULL_BEGIN
+NS_ASSUME_NONNULL_BEGIN
 
 
 /* Error domain used for Place Picker errors. */
@@ -75,4 +69,4 @@ typedef NS_ENUM(NSInteger, GMSPlacePickerErrorCode) {
 
 @end
 
-GMS_ASSUME_NONNULL_END
+NS_ASSUME_NONNULL_END

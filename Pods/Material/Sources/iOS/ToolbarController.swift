@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
+ * Copyright (C) 2015 - 2017, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -70,11 +70,11 @@ public protocol ToolbarControllerDelegate {
 @objc(ToolbarController)
 open class ToolbarController: StatusBarController {
     /**
-     A Display value to indicate whether or not to 
+     A Display value to indicate whether or not to
      display the rootViewController to the full view
      bounds, or up to the toolbar height.
      */
-    open var display = Display.partial {
+    open var toolbarDisplay = Display.partial {
         didSet {
             layoutSubviews()
         }
@@ -182,15 +182,15 @@ open class ToolbarController: StatusBarController {
 		super.layoutSubviews()
         
         let y = Application.shouldStatusBarBeHidden || statusBar.isHidden ? 0 : statusBar.height
-        let p = y + toolbar.height
         
         toolbar.y = y
         toolbar.width = view.width
         
-        switch display {
+        switch toolbarDisplay {
         case .partial:
-            rootViewController.view.y = p
-            rootViewController.view.height = view.height - p
+            let h = y + toolbar.height
+            rootViewController.view.y = h
+            rootViewController.view.height = view.height - h
         case .full:
             rootViewController.view.frame = view.bounds
         }

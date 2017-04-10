@@ -40,4 +40,32 @@
   }
 }
 
+#pragma mark - iOS 7 Support
+
+- (void)splitViewController:(UISplitViewController *)splitViewController
+     willHideViewController:(UIViewController *)aViewController
+          withBarButtonItem:(UIBarButtonItem *)barButtonItem
+       forPopoverController:(UIPopoverController *)pc {
+  // If the split view controller does not implement displayModeButtonItem (iOS 7) then provide
+  // a fallback.
+  if (![splitViewController respondsToSelector:@selector(displayModeButtonItem)]) {
+    UINavigationController *navigationController = splitViewController.viewControllers.lastObject;
+    UIViewController *rootViewController = navigationController.viewControllers.firstObject;
+    rootViewController.navigationItem.leftBarButtonItem = barButtonItem;
+    _iOS7DisplayModeButtonItem = barButtonItem;
+  }
+}
+
+- (void)splitViewController:(UISplitViewController *)splitViewController
+       willShowViewController:(UIViewController *)aViewController
+    invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem {
+  // If the split view controller does not implement displayModeButtonItem (iOS 7) then provide
+  // a fallback.
+  if (![splitViewController respondsToSelector:@selector(displayModeButtonItem)]) {
+    UINavigationController *navigationController = splitViewController.viewControllers.lastObject;
+    UIViewController *rootViewController = navigationController.viewControllers.firstObject;
+    rootViewController.navigationItem.leftBarButtonItem = nil;
+  }
+}
+
 @end

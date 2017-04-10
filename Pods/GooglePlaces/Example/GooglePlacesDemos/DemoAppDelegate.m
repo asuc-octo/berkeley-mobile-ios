@@ -37,7 +37,7 @@
 
   // Do a quick check to see if you've provided an API key, in a real app you wouldn't need this but
   // for the demo it means we can provide a better error message.
-  if (![kAPIKey length]) {
+  if (!kAPIKey.length) {
     // Blow up if APIKeys have not yet been set.
     NSString *bundleId = [[NSBundle mainBundle] bundleIdentifier];
     NSString *format = @"Configure APIKeys inside SDKDemoAPIKey.h for your  bundle `%@`, see "
@@ -82,6 +82,7 @@
     // UISplitViewController is available, use that.
 
     _splitViewManager = [[MainSplitViewControllerBehaviorManager alloc] init];
+    masterViewController.mainSplitViewControllerBehaviorManager = _splitViewManager;
 
     // Setup the split view controller.
     UISplitViewController *splitViewController = [[UISplitViewController alloc] init];

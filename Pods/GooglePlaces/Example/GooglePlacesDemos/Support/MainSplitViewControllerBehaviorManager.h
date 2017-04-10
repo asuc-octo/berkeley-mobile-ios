@@ -24,4 +24,7 @@
  */
 @interface MainSplitViewControllerBehaviorManager : NSObject<UISplitViewControllerDelegate>
 
+// Bar button item for use on iOS 7 where displayModeButtonItem is not available.
+@property(nonatomic, readonly) UIBarButtonItem *iOS7DisplayModeButtonItem;
+
 @end

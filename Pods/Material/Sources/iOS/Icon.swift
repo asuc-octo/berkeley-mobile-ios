@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
+ * Copyright (C) 2015 - 2017, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -42,7 +42,7 @@ public struct Icon {
 		if nil == Icon.internalBundle {
 			Icon.internalBundle = Bundle(for: View.self)
 			let url = Icon.internalBundle!.resourceURL!
-            let b = Bundle(url: url.appendingPathComponent("io.cosmicmind.material.icons.bundle"))
+            let b = Bundle(url: url.appendingPathComponent("com.cosmicmind.material.icons.bundle"))
             if let v = b {
                 Icon.internalBundle = v
             }

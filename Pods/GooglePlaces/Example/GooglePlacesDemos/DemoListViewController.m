@@ -121,6 +121,17 @@ static NSString *const kCellIdentifier = @"DemoCellIdentifier";
     // If we do then update its .viewControllers property, -showDetailViewController:sender:
     // didn't exist in iOS 7.
     self.splitViewController.viewControllers = @[ self.splitViewController.viewControllers[0], vc ];
+
+    // On iOS 7 the split view controller does not implement displayModeButtonItem so use the
+    // barButtonItem set up by MainSplitViewControllerBehaviorManager instead.
+    UIViewController *rootViewController;
+    if ([vc isKindOfClass:[UINavigationController class]]) {
+      rootViewController = ((UINavigationController *)vc).viewControllers.firstObject;
+    } else {
+      rootViewController = vc;
+    }
+    rootViewController.navigationItem.leftBarButtonItem =
+        self.mainSplitViewControllerBehaviorManager.iOS7DisplayModeButtonItem;
   } else {
     // If there is not a split view controller then we must be on an iPhone, which means we should
     // just use the navigation stack. However, the view controller we are given might be a

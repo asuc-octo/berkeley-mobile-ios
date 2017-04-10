@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
+ * Copyright (C) 2015 - 2017, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -54,7 +54,7 @@ open class SearchBarController: StatusBarController {
      display the rootViewController to the full view
      bounds, or up to the searchBar height.
      */
-    open var display = Display.partial {
+    open var searchBarDisplay = Display.partial {
         didSet {
             layoutSubviews()
         }
@@ -68,15 +68,15 @@ open class SearchBarController: StatusBarController {
 		super.layoutSubviews()
         
         let y = Application.shouldStatusBarBeHidden || statusBar.isHidden ? 0 : statusBar.height
-        let p = y + searchBar.height
         
         searchBar.y = y
         searchBar.width = view.width
         
-        switch display {
+        switch searchBarDisplay {
         case .partial:
-            rootViewController.view.y = p
-            rootViewController.view.height = view.height - p
+            let h = y + searchBar.height
+            rootViewController.view.y = h
+            rootViewController.view.height = view.height - h
         case .full:
             rootViewController.view.frame = view.bounds
         }

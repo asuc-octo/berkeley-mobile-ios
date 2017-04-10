@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
+ * Copyright (C) 2015 - 2017, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -30,7 +30,7 @@
 
 import UIKit
 
-private var ToolbarContext: UInt8 = 0
+fileprivate var ToolbarContext: UInt8 = 0
 
 open class Toolbar: Bar {
 	/// A convenience property to set the titleLabel.text.

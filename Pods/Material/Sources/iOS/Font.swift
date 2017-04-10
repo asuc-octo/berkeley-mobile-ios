@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
+ * Copyright (C) 2015 - 2017, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -86,7 +86,7 @@ private class FontLoader {
 			
 			let bundle = Bundle(for: FontLoader.self)
 			let identifier = bundle.bundleIdentifier
-            let fontURL = true == identifier?.hasPrefix("org.cocoapods") ? bundle.url(forResource: name, withExtension: "ttf", subdirectory: "io.cosmicmind.material.fonts.bundle") : bundle.url(forResource: name, withExtension: "ttf")
+            let fontURL = true == identifier?.hasPrefix("org.cocoapods") ? bundle.url(forResource: name, withExtension: "ttf", subdirectory: "com.cosmicmind.material.fonts.bundle") : bundle.url(forResource: name, withExtension: "ttf")
 			
 			if let v = fontURL {
 				let data = NSData(contentsOf: v as URL)!
@@ -97,7 +97,7 @@ private class FontLoader {
                 if !CTFontManagerRegisterGraphicsFont(font, &error) {
                     let errorDescription = CFErrorCopyDescription(error!.takeUnretainedValue())
 					let nsError = error!.takeUnretainedValue() as Any as! Error
-                    NSException(name: .internalInconsistencyException, reason: errorDescription as? String, userInfo: [NSUnderlyingErrorKey: nsError as Any]).raise()
+                    NSException(name: .internalInconsistencyException, reason: errorDescription as String?, userInfo: [NSUnderlyingErrorKey: nsError as Any]).raise()
                 }
             }
         }
