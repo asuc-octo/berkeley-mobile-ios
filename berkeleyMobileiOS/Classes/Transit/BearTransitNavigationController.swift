@@ -34,6 +34,7 @@ class BearTransitNavigationController: UINavigationController {
     //Make sure tab bar is highlighted properly
     override func viewDidAppear(_ animated: Bool) {
         ConvenienceMethods.setCurrentTabStyle(pageTabBarVC: pageTabBarController!, ForSelectedViewController: self)
+        self.navigationBar.isHidden = true;
     }
     
 }

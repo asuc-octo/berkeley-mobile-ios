@@ -1,19 +1,19 @@
 //
-//  LibraryOptionsCell.swift
+//  GymClassCategoryCell.swift
 //  berkeleyMobileiOS
 //
-//  Created by Sampath Duddu on 1/19/17.
+//  Created by Sampath Duddu on 3/12/17.
 //  Copyright © 2017 org.berkeleyMobile. All rights reserved.
 //
 
 import UIKit
 
-class LibraryOptionsCell: UITableViewCell {
-
-    @IBOutlet var libraryCallButton: UIButton!
-    @IBOutlet var libraryFavoriteButton: UIButton!
-    @IBOutlet var libraryWebsiteButton: UIButton!
+class GymClassCategoryCell: UITableViewCell {
     
+    @IBOutlet var gymClassCategory: UILabel!
+    @IBOutlet var gymClassCategoryStatus: UILabel!
+    @IBOutlet var favoriteButton: UIButton!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

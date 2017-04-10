@@ -228,12 +228,14 @@ class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDe
     
     /// When a row (not tile) is tapped, present the corresponding `ResourceMapListViewController`.
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+        
     {
         guard resourceType != .DiningHall else {
             return
         }
     
         let ref = self.resourceType.rawValue + "MapListSegue"
+
         self.performSegue(withIdentifier: ref, sender: nil)
         // TODO: sender should be the group/category.
     }
@@ -313,6 +315,18 @@ class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDe
         else if let vc = destination as? GymClassViewController
         {
             vc.classType = sender as? GymClassCategory
+        }
+        else if let vc = destination as? GymClassDetailViewController
+        {
+            vc.classCategories = self.resources[ResourceType.GymClassCategory] as? [GymClassCategory]
+        }
+        else if let vc = destination as? CampusResourceMapListViewController
+        {
+            vc.campusResources = self.resources[ResourceType.CampusResource] as? [CampusResource]
+        }
+        else if let vc = destination as? CampusResourceDetailViewController
+        {
+            vc.campusResource = sender as? CampusResource
         }
     }
     

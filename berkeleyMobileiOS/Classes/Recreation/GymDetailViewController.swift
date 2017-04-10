@@ -56,7 +56,6 @@ class GymDetailViewController: UIViewController, CLLocationManagerDelegate, GMSM
             } else {
                 self.gymStatus.textColor = UIColor.red
             }
-        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

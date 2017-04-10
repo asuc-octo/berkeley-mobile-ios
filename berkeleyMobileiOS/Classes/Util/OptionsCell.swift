@@ -1,18 +1,17 @@
 //
-//  GymOptionsCell.swift
+//  OptionsCell.swift
 //  berkeleyMobileiOS
 //
-//  Created by Sampath Duddu on 1/24/17.
+//  Created by Sampath Duddu on 4/1/17.
 //  Copyright © 2017 org.berkeleyMobile. All rights reserved.
 //
 
 import UIKit
 
-class GymOptionsCell: UITableViewCell {
+class OptionsCell: UITableViewCell {
     
-    @IBOutlet var gymPhoneButton: UIButton!
-    @IBOutlet var gymDirectionsButton: UIButton!
-    @IBOutlet var gymWebsiteButton: UIButton!
+    @IBOutlet var favoriteButton: UIButton!
+    
 
     override func awakeFromNib() {
         super.awakeFromNib()
