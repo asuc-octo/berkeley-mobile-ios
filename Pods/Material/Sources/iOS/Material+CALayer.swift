@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
+ * Copyright (C) 2015 - 2017, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -94,10 +94,8 @@ fileprivate struct MaterialLayer {
     }
 }
 
-/// A memory reference to the MaterialLayer instance for CALayer extensions.
 fileprivate var MaterialLayerKey: UInt8 = 0
 
-/// Grid extension for UIView.
 extension CALayer {
     /// MaterialLayer Reference.
     fileprivate var materialLayer: MaterialLayer {
@@ -247,62 +245,9 @@ extension CALayer {
             materialLayer.borderWidthPreset = value
         }
     }
-    
-    /**
-     A method that accepts CAAnimation objects and executes them on the
-     view's backing layer.
-     - Parameter animation: A CAAnimation instance.
-     */
-    open func animate(animation: CAAnimation) {        
-        animation.delegate = self
-        
-        if let a = animation as? CABasicAnimation {
-            a.fromValue = (presentation() ?? self).value(forKeyPath: a.keyPath!)
-        }
-        
-        if let a = animation as? CAPropertyAnimation {
-            add(a, forKey: a.keyPath!)
-        } else if let a = animation as? CAAnimationGroup {
-            add(a, forKey: nil)
-        } else if let a = animation as? CATransition {
-            add(a, forKey: kCATransition)
-        }
-    }
-    
-    /**
-     A delegation method that is executed when the backing layer stops
-     running an animation.
-     - Parameter animation: The CAAnimation instance that stopped running.
-     - Parameter flag: A boolean that indicates if the animation stopped
-     because it was completed or interrupted. True if completed, false
-     if interrupted.
-     */
-    open func animationDidStop(_ animation: CAAnimation, finished flag: Bool) {
-        guard let a = animation as? CAPropertyAnimation else {
-            if let a = (animation as? CAAnimationGroup)?.animations {
-                for x in a {
-                    animationDidStop(x, finished: true)
-                }
-            }
-            return
-        }
-        
-        guard let b = a as? CABasicAnimation else {
-            return
-        }
-        
-        guard let v = b.toValue else {
-            return
-        }
-        
-        guard let k = b.keyPath else {
-            return
-        }
-        
-        setValue(v, forKeyPath: k)
-        removeAnimation(forKey: k)
-    }
-    
+}
+
+extension CALayer {
     /// Manages the layout for the shape of the view instance.
     open func layoutShape() {
         guard .none != shapePreset else {
@@ -312,7 +257,7 @@ extension CALayer {
         if 0 == frame.width {
             frame.size.width = frame.height
         }
-            
+        
         if 0 == frame.height {
             frame.size.height = frame.width
         }
@@ -329,18 +274,13 @@ extension CALayer {
         guard isShadowPathAutoSizing else {
             return
         }
-       
+        
         if .none == depthPreset {
             shadowPath = nil
         } else if nil == shadowPath {
             shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath
         } else {
-            let a = Motion.shadowPath(to: UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath)
-            a.fromValue = shadowPath
-            animate(animation: a)
+            motion(.shadowPath(UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath))
         }
     }
 }
-
-@available(iOS 10, *)
-extension CALayer: CAAnimationDelegate {}

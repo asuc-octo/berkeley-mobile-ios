@@ -1,3 +1,27 @@
+Version 2.2.0 - February 2017
+=============================
+Features:
+  - Added the `cameraTargetBounds` property to `GMSMapView`.
+    This property restricts the camera target to the specified bounds area.
+    Subsequent gestures are then also restricted to keep the camera target
+    within the specified bounds.
+  - The `userData` property of `GMSMarker` was moved to its parent class
+    `GMSOverlay`. This enables the property to be used with the `GMSPolyline`,
+    `GMSPolygon`, `GMSCircle`, and `GMSGroundOverlay` classes.
+
+Improvements:
+  - Fixes naming of certain enum cases in Swift. The following enums are
+    affected:  `GMSMapViewType`, `GMSFrameRate`, `GMSMarkerAnimation`, and
+    `GMSLengthKind`.
+
+Resolved Issues:
+  - Fixed an issue where the `mapViewSnapshotReady` delegate method was
+    sometimes raised too early.
+
+Note:
+  - iOS 7 support is intended to be dropped starting with 2.3. 2.2.x will be
+    the last release series to support iOS 7.
+
 Version 2.1.1 - November 2016
 =============================
 Resolved Issues:

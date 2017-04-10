@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
+ * Copyright (C) 2015 - 2017, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -49,6 +49,17 @@ extension UIViewController {
 }
 
 open class StatusBarController: RootController {
+    /**
+     A Display value to indicate whether or not to
+     display the rootViewController to the full view
+     bounds, or up to the toolbar height.
+     */
+    open var statusBarDisplay = Display.full {
+        didSet {
+            layoutSubviews()
+        }
+    }
+    
     /// Device status bar style.
     open var statusBarStyle: UIStatusBarStyle {
         get {
@@ -88,7 +99,15 @@ open class StatusBarController: RootController {
         }
         
         statusBar.width = view.width
-        rootViewController.view.frame = view.bounds
+        
+        switch statusBarDisplay {
+        case .partial:
+            let h = statusBar.height
+            rootViewController.view.y = h
+            rootViewController.view.height = view.height - h
+        case .full:
+            rootViewController.view.frame = view.bounds
+        }
 	}
 	
 	/**

@@ -89,7 +89,7 @@ extension testView {
     }
     
     fileprivate func prepareFABButton() {
-        let button = FabButton(image: Icon.cm.add, tintColor: .white)
+        let button = FABButton(image: Icon.cm.add, tintColor: .white)
         button.pulseColor = .white
         button.backgroundColor = Color.red.base
         

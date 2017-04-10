@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
+ * Copyright (C) 2015 - 2017, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -185,6 +185,7 @@ open class TabBar: Bar {
                 prepareLineAnimationHandler(button: b)
             }
         }
+        
         contentView.grid.axis.columns = buttons.count
         contentView.grid.reload()
             
@@ -295,7 +296,7 @@ extension TabBar {
             
             s.line.center.x = button.center.x
             s.line.width = button.width
-        }) { [weak self, button = button, completion = completion] _ in
+        }) { [weak self, isTriggeredByUserInteraction = isTriggeredByUserInteraction, button = button, completion = completion] _ in
             guard let s = self else {
                 return
             }

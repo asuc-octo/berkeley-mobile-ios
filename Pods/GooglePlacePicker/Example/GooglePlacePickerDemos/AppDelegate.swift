@@ -14,8 +14,8 @@
  */
 
 import UIKit
-import GooglePlaces
 import GoogleMaps
+import GooglePlaces
 
 /// Application delegate for the PlacePicker demo app.
 @UIApplicationMain

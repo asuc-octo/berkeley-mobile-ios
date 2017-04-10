@@ -19,7 +19,10 @@
 #ifndef REALM_OS_SYNC_CLIENT_HPP
 #define REALM_OS_SYNC_CLIENT_HPP
 
+#include "binding_callback_thread_observer.hpp"
+
 #include <realm/sync/client.hpp>
+#include <realm/util/scope_exit.hpp>
 
 #include <thread>
 
@@ -37,9 +40,21 @@ struct SyncClient {
     : client(make_client(*logger, reconnect_mode, verify_ssl)) // Throws
     , m_logger(std::move(logger))
     , m_thread([this] {
-        client.run();
+        if (g_binding_callback_thread_observer)
+            g_binding_callback_thread_observer->did_create_thread();
+
+        auto will_destroy_thread = util::make_scope_exit([&]() noexcept {
+            if (g_binding_callback_thread_observer)
+                g_binding_callback_thread_observer->will_destroy_thread();
+        });
+
+        client.run(); // Throws
     }) // Throws
     {
+    }
+    
+    void cancel_reconnect_delay() {
+        client.cancel_reconnect_delay();
     }
 
     void stop()

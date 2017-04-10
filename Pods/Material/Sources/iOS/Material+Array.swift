@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
+ * Copyright (C) 2015 - 2017, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -44,7 +44,7 @@ extension Array where Element: Equatable {
         }
         
         guard -1 < start else {
-            fatalError("Range out of bounds for \(start) - \(end), should be 0 - \(count).")
+            fatalError("Range out of bounds for \(start) - \(end ?? 0), should be 0 - \(count).")
         }
         
         var diff = abs(e - start)

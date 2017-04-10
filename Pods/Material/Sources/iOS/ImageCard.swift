@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
+ * Copyright (C) 2015 - 2017, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -37,6 +37,17 @@ public enum ToolbarAlignment: Int {
 }
 
 open class ImageCard: Card {
+    /**
+     A Display value to indicate whether or not to
+     display the imageView to the full view
+     bounds.
+     */
+    open var imageViewDisplay = Display.partial {
+        didSet {
+            layoutSubviews()
+        }
+    }
+    
     /// A preset wrapper around imageViewEdgeInsets.
     open var imageViewEdgeInsetsPreset = EdgeInsetsPreset.none {
         didSet {
@@ -94,6 +105,6 @@ open class ImageCard: Card {
         }
         
         container.height = h
-        height = h
+        bounds.size.height = h
     }
 }

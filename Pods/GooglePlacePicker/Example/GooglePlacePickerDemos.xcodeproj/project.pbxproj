@@ -256,7 +256,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 0800;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0820;
 			};
 			buildConfigurationList = 8414C09EE75491FC466E0F17 /* Build configuration list for PBXProject "GooglePlacePickerDemos" */;
 			compatibilityVersion = "Xcode 3.2";

@@ -456,7 +456,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0820;
 			};
 			buildConfigurationList = 80C3BB6A64A9375104C7ACB9 /* Build configuration list for PBXProject "GoogleMapsDemos" */;
 			compatibilityVersion = "Xcode 3.2";

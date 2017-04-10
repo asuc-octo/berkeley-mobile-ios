@@ -72,6 +72,7 @@ using namespace realm;
 - (instancetype)initWithAuthServer:(nullable NSURL *)authServer {
     if (self = [super init]) {
         self.authenticationServer = authServer;
+        self.refreshHandles = [NSMutableDictionary dictionary];
         return self;
     }
     return nil;
@@ -130,7 +131,10 @@ using namespace realm;
         return nil;
     }
     auto path = SyncManager::shared().path_for_realm(_user->identity(), [url.absoluteString UTF8String]);
-    return [[RLMSyncSession alloc] initWithSyncSession:_user->session_for_on_disk_path(path)];
+    if (auto session = _user->session_for_on_disk_path(path)) {
+        return [[RLMSyncSession alloc] initWithSyncSession:session];
+    }
+    return nil;
 }
 
 - (NSArray<RLMSyncSession *> *)allSessions {
@@ -168,6 +172,17 @@ using namespace realm;
 
 - (RLMRealm *)managementRealmWithError:(NSError **)error {
     return [RLMRealm realmWithConfiguration:[RLMRealmConfiguration managementConfigurationForUser:self] error:error];
+}
+
+- (RLMRealm *)permissionRealmWithError:(NSError **)error {
+    return [RLMRealm realmWithConfiguration:[RLMRealmConfiguration permissionConfigurationForUser:self] error:error];
+}
+
+- (BOOL)isAdmin {
+    if (!_user) {
+        return NO;
+    }
+    return _user->is_admin();
 }
 
 #pragma mark - Private API
@@ -248,6 +263,7 @@ using namespace realm;
                                                     userInfo:nil]);
                     return;
                 }
+                sync_user->set_is_admin(model.refreshToken.tokenData.isAdmin);
                 user->_user = sync_user;
                 completion(user, nil);
             }
@@ -268,7 +284,10 @@ using namespace realm;
                                      completionBlock:(nonnull RLMUserCompletionBlock)completion {
     NSString *identity = credentials.userInfo[kRLMSyncIdentityKey];
     NSAssert(identity != nil, @"Improperly created direct access token credential.");
-    auto sync_user = SyncManager::shared().get_user([identity UTF8String], [credentials.token UTF8String], none, true);
+    auto sync_user = SyncManager::shared().get_user([identity UTF8String],
+                                                    [credentials.token UTF8String],
+                                                    none,
+                                                    SyncUser::TokenType::Admin);
     if (!sync_user) {
         completion(nil, [NSError errorWithDomain:RLMSyncErrorDomain
                                             code:RLMSyncErrorClientSessionError

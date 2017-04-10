@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
+ * Copyright (C) 2015 - 2017, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -135,7 +135,7 @@ public struct Divider {
 }
 
 /// A memory reference to the Divider instance.
-private var DividerKey: UInt8 = 0
+fileprivate var DividerKey: UInt8 = 0
 
 extension UIView {
     /// TabBarItem reference.
