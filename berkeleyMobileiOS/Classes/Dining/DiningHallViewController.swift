@@ -10,7 +10,7 @@ fileprivate let kColorNavy = UIColor(red: 23/255.0, green: 85/255.0, blue: 122/2
  * This controller is designed to be placed within a `ResourceContainerController`, giving data as a `ResourceDetailProvider`.
  * The view only contains a tab pages of the menus, without showing any data about the `DiningHall` itself (e.g. names, times, etc).
  */
-class DiningHallViewController: UIViewController, RequiresData, ResourceDetailProvider, PageTabBarControllerDelegate
+class DiningHallViewController: UIViewController, IBInitializable, RequiresData, ResourceDetailProvider, PageTabBarControllerDelegate
 {
     private var hall: DiningHall!
     
@@ -26,6 +26,19 @@ class DiningHallViewController: UIViewController, RequiresData, ResourceDetailPr
     private var selectedScroll: DelegatesScroll
     {
         return menuControllers[ pageController.selectedIndex ]
+    }
+    
+    
+    // ========================================
+    // MARK: - IBInitializable
+    // ========================================
+    typealias IBComponent = DiningHallViewController
+    
+    static var componentID: String { return className(IBComponent.self) }
+    
+    static func fromIB() -> IBComponent
+    {
+        return UIStoryboard.dining.instantiateViewController(withIdentifier: self.componentID) as! IBComponent
     }
     
     
