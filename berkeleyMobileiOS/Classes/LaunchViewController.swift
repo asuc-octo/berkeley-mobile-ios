@@ -34,7 +34,7 @@ class LaunchViewController: UIViewController
             return vc
         }
         
-        viewControllers.append( storyboard.instantiateViewController(withIdentifier: "beartransitNav") )
+        viewControllers.append( BearTransitNavigationController.instanceFromIB() )
         
         let indexViewController: UIViewController  = TabBarController(viewControllers: viewControllers, selectedIndex: 0)
         indexViewController.modalTransitionStyle = .crossDissolve
