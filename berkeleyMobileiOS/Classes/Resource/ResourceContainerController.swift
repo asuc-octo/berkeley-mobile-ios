@@ -13,7 +13,7 @@ fileprivate let kAnimationDuration: TimeInterval = 0.25
 /**
  * 
  */
-class ResourceContainerController: UIViewController, RequiresData, UIScrollViewDelegate
+class ResourceContainerController: UIViewController, IBInitializable, RequiresData, UIScrollViewDelegate
 {    
     // UI
     private let toolbar = FadeTitleToolbar()
@@ -23,6 +23,17 @@ class ResourceContainerController: UIViewController, RequiresData, UIScrollViewD
 
     @IBOutlet private var scrollView: UIScrollView!
     @IBOutlet private var infoPanel: InfoPanel!
+    
+    
+    // ========================================
+    // MARK: - IBInitializable
+    // ========================================
+    typealias IBComponent = ResourceContainerController
+    
+    static func fromIB() -> IBComponent
+    {
+        return UIStoryboard.dining.instantiateViewController(withIdentifier: className(IBComponent.self)) as! IBComponent
+    }
     
     
     // ========================================
