@@ -55,6 +55,7 @@
 		41E843951DAB3FE80096C049 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41E843941DAB3FE80096C049 /* Assets.xcassets */; };
 		4E06A05A1E5E9DE8007B946F /* ListMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E06A0591E5E9DE8007B946F /* ListMenuItem.swift */; };
 		4E106F221E9EFB380089934A /* UIStoryboard+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E106F211E9EFB380089934A /* UIStoryboard+Extension.swift */; };
+		4E106F241E9F02560089934A /* Transit.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E106F231E9F02560089934A /* Transit.storyboard */; };
 		4E143C0C1E5489B100B77D08 /* InfoPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E143C0B1E5489B100B77D08 /* InfoPanel.swift */; };
 		4E17C1D21E46623C00B9A6B8 /* ToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E17C1D11E46623C00B9A6B8 /* ToggleButton.swift */; };
 		4E2FC8471E2B0D7400B3A28B /* RecreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E505D3A1DD05A65004AC6C9 /* RecreationViewController.swift */; };
@@ -174,6 +175,7 @@
 		41E843991DAB3FE80096C049 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4E06A0591E5E9DE8007B946F /* ListMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListMenuItem.swift; sourceTree = "<group>"; };
 		4E106F211E9EFB380089934A /* UIStoryboard+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Extension.swift"; sourceTree = "<group>"; };
+		4E106F231E9F02560089934A /* Transit.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Transit.storyboard; sourceTree = "<group>"; };
 		4E143C0B1E5489B100B77D08 /* InfoPanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoPanel.swift; sourceTree = "<group>"; };
 		4E17C1D11E46623C00B9A6B8 /* ToggleButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToggleButton.swift; sourceTree = "<group>"; };
 		4E487A351DDBB59A0001F8CF /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
@@ -466,6 +468,7 @@
 			children = (
 				4E5CAED41DD02B5C00ECAF8E /* Main.storyboard */,
 				4EEF90461DDBC7D0002CF7E4 /* Dining.storyboard */,
+				4E106F231E9F02560089934A /* Transit.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -614,6 +617,7 @@
 				4E8E0D8C1E0C08380052CC10 /* Roboto-Bold.ttf in Resources */,
 				4E8E0D901E0C08380052CC10 /* Roboto-LightItalic.ttf in Resources */,
 				4E8E0D921E0C08380052CC10 /* Roboto-MediumItalic.ttf in Resources */,
+				4E106F241E9F02560089934A /* Transit.storyboard in Resources */,
 				4E8E0D8E1E0C08380052CC10 /* Roboto-Italic.ttf in Resources */,
 				4E8E0D8F1E0C08380052CC10 /* Roboto-Light.ttf in Resources */,
 				4E8E0D8D1E0C08380052CC10 /* Roboto-BoldItalic.ttf in Resources */,
