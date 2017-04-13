@@ -251,40 +251,47 @@ class ResourceGroupViewController: UIViewController, IBInitializable, RequiresDa
 //        let ref = self.resourceType.rawValue + "DetailSegue"
 //        self.performSegue(withIdentifier: ref, sender: resource)
 
+        /*
+        let detail = resource.context.detail.fromIB()
+        detail.resource = resource
         
-        if let thisResource = resource as? Library {
-            print("this is a library")
+        let container = ResourceContainerController.fromIB()
+        container.detail = detail
+        container.modalPresentationStyle = .overFullScreen
+        present(container, animated: true, completion: nil)
+        */
+        
+        var detail: ResourceDetailProvider!
+        
+        if let library = resource as? Library
+        {
             let detailID = className(LibraryDetailViewController.self)
-            let detail = self.storyboard?.instantiateViewController(withIdentifier: detailID) as! LibraryDetailViewController
-            detail.setData(thisResource)
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: detailID) as! LibraryDetailViewController
+            vc.setData(library)
+            detail = vc
             
-            let containerID = className(ResourceContainerController.self)
-            let container = storyboard!.instantiateViewController(withIdentifier: containerID) as! ResourceContainerController
+        } 
+        else if let diningHall = resource as? DiningHall
+        {
+            let vc = DiningHallViewController.fromIB()
+            vc.setData(diningHall)
+            detail = vc
+        }
+        else if let gym = resource as? Gym
+        {
+            let vc = GymDetailViewController.fromIB()
+            vc.setData(gym)
+            detail = vc
+        }
+
+        if detail != nil
+        {
+            // TODO: consider making ResourceContainerController not IBInitializable.
+            let container = ResourceContainerController.fromIB()
             container.setData(detail)
+            
+            container.modalPresentationStyle = .overFullScreen
             present(container, animated: true, completion: nil)
-            
-        } else if let thisResource = resource as? DiningHall {
-            print("this is a dining hall")
-            let detailID = className(DiningHallViewController.self)
-            let detail = UIStoryboard(name: "Dining", bundle: nil).instantiateViewController(withIdentifier: detailID) as! DiningHallViewController
-            detail.setData(thisResource)
-            
-            let containerID = className(ResourceContainerController.self)
-            let container = storyboard!.instantiateViewController(withIdentifier: containerID) as! ResourceContainerController
-            container.setData(detail)
-             present(container, animated: true, completion: nil)
-        } else if let thisResource = resource as? Gym {
-            print("this is a gym")
-            let detailID = className(GymDetailViewController.self)
-           let detail = self.storyboard?.instantiateViewController(withIdentifier: detailID) as! GymDetailViewController
-            detail.setData(thisResource)
-            
-            let containerID = className(ResourceContainerController.self)
-            let container = storyboard!.instantiateViewController(withIdentifier: containerID) as! ResourceContainerController
-            container.setData(detail)
-            present(container, animated: true, completion: nil)
-        } else {
-            return
         }
     }
 
