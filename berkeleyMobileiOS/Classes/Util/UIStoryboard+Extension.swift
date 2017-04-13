@@ -10,7 +10,7 @@ fileprivate var store = [String : UIStoryboard]()
 fileprivate func instance(_ name: String, _ bundle: Bundle? = nil) -> UIStoryboard
 {
     var sb = store[name]
-    guard sb != nil else
+    if sb == nil
     {
         sb = UIStoryboard(name: name, bundle: bundle)
         store[name] = sb
@@ -26,5 +26,6 @@ fileprivate func instance(_ name: String, _ bundle: Bundle? = nil) -> UIStoryboa
  */
 extension UIStoryboard
 {
-    static var main = instance("Main")
+    static var main     : UIStoryboard { return instance("Main") }
+    static var transit  : UIStoryboard { return instance("Transit") }
 }

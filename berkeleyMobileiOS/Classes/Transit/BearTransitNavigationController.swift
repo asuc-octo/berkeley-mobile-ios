@@ -8,8 +8,15 @@
 
 import UIKit
 
-class BearTransitNavigationController: UINavigationController {
+class BearTransitNavigationController: UINavigationController, IBInitializable {
 
+    // MARK: - IBInitializable
+    typealias IBObjectType = BearTransitNavigationController
+    
+    static func instanceFromIB() -> IBObjectType {
+        return UIStoryboard.transit.instantiateViewController(withIdentifier: className(IBObjectType.self)) as! IBObjectType
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
