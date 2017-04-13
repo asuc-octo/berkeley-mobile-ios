@@ -4,8 +4,18 @@ import UIKit
 /**
  * Base navigation controller for a single type of `Resource`.
  */
-class ResourceNavigationController: UINavigationController, RequiresData
-{    
+class ResourceNavigationController: UINavigationController, IBInitializable, RequiresData
+{ 
+    // ========================================
+    // MARK: - IBInitializable
+    // ========================================
+    typealias IBComponent = ResourceNavigationController
+    
+    static func fromIB() -> IBComponent 
+    {
+        return UIStoryboard.main.instantiateViewController(withIdentifier: className(IBComponent.self)) as! IBComponent
+    }
+    
     
     // ========================================
     // MARK: - UINavigationController
