@@ -2,6 +2,15 @@
 import UIKit
 
 /**
+ * **IBInitalizable** provides a way to init classes configured through InterfaceBuilder.
+ * Conforming classes should not assume any existing `UIStoryboard` or `UINib` instances, and create a new one. 
+ */
+protocol IBInitializable: class
+{
+    static func instanceFromIB() -> Self
+}
+
+/**
  * Specifies that the implementing module require data of DataType (which is defined by each module),
  * otherwise object may error or not behave properly.
  */
