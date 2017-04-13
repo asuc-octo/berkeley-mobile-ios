@@ -7,8 +7,9 @@ import UIKit
  */
 protocol IBInitializable: class
 {
-    associatedtype IBObjectType
-    static func instanceFromIB() -> IBObjectType
+    associatedtype IBComponent
+    
+    static func fromIB() -> IBComponent
 }
 
 /**

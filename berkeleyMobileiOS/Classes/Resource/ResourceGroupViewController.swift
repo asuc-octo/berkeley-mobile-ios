@@ -9,7 +9,7 @@ fileprivate let kColorNavy = UIColor(red: 23/255.0, green: 85/255.0, blue: 122/2
  * Displays a single `Resource` type as rows of separate groups/categories.
  * Each row is a horizontally scrolling carousel of tiles representing one `Resource` instance. 
  */
-class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate
+class ResourceGroupViewController: UIViewController, IBInitializable, RequiresData, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate
 {
     // Data
     var resourceType: ResourceType!
@@ -28,6 +28,17 @@ class ResourceGroupViewController: UIViewController, RequiresData, UITableViewDe
     
     @IBOutlet private weak var tableView: UITableView!
     private var activityIndicator: UIActivityIndicatorView!
+    
+    
+    // ========================================
+    // MARK: - RequiresData
+    // ========================================
+    typealias IBComponent = ResourceGroupViewController
+    
+    static func fromIB() -> IBComponent 
+    {
+        return UIStoryboard.main.instantiateViewController(withIdentifier: className(IBComponent.self)) as! IBComponent
+    }
     
     
     // ========================================
