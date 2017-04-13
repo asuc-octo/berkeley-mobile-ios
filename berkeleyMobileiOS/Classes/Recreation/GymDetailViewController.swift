@@ -9,7 +9,7 @@
 import UIKit
 import GoogleMaps
 
-class GymDetailViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate, ResourceDetailProvider {
+class GymDetailViewController: UIViewController, IBInitializable, CLLocationManagerDelegate, GMSMapViewDelegate, ResourceDetailProvider {
     
     @IBOutlet var gymStartEndTime: UILabel!
     @IBOutlet var gymStatus: UILabel!
@@ -18,6 +18,17 @@ class GymDetailViewController: UIViewController, CLLocationManagerDelegate, GMSM
     var locationManager = CLLocationManager()
     
     var gym: Gym?
+    
+    
+    // MARK: - IBInitalizable
+    typealias IBComponent = GymDetailViewController
+    
+    static var componentID: String { return className(IBComponent.self) }
+    
+    static func fromIB() -> IBComponent {
+        return UIStoryboard.gym.instantiateViewController(withIdentifier: self.componentID) as! IBComponent
+    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()

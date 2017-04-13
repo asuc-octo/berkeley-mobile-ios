@@ -18,6 +18,16 @@ class GymClassDetailViewController: UIViewController, UITableViewDelegate, UITab
     @IBOutlet var gymClassCategoryTableView: UITableView!
     
     
+    // MARK: - IBInitializable
+    typealias IBComponent = GymDetailViewController
+    
+    static var componentID: String { return className(IBComponent.self) }
+    
+    static func fromIB() -> IBComponent {
+        return UIStoryboard.gym.instantiateViewController(withIdentifier: self.componentID) as! IBComponent
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
