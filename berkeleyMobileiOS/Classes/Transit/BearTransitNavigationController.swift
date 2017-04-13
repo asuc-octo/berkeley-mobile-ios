@@ -13,7 +13,7 @@ class BearTransitNavigationController: UINavigationController, IBInitializable {
     // MARK: - IBInitializable
     typealias IBObjectType = BearTransitNavigationController
     
-    static func instanceFromIB() -> IBObjectType {
+    static func fromIB() -> IBObjectType {
         return UIStoryboard.transit.instantiateViewController(withIdentifier: className(IBObjectType.self)) as! IBObjectType
     }
     
