@@ -169,11 +169,14 @@ class GymDetailViewController: UIViewController, IBInitializable, CLLocationMana
     
     func setData(_ gym: Gym) {
         self.gym = gym
-        
         self.title = gym.name
-        
-        
     }
+    
+    // MARK: - ResourceDetailProvider
+    static func newInstance() -> ResourceDetailProvider {
+        return fromIB()
+    }
+    
     var text1: String? {
         return nil
     }
