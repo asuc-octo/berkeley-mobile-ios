@@ -27,6 +27,8 @@ fileprivate func instance(_ name: String, _ bundle: Bundle? = nil) -> UIStoryboa
 extension UIStoryboard
 {
     static var main     : UIStoryboard { return instance("Main") }
+    static var resource : UIStoryboard { return instance("Resource") }
+    static var academics: UIStoryboard { return instance("Academics") }
     static var gym      : UIStoryboard { return instance("Gym") }
     static var dining   : UIStoryboard { return instance("Dining") }
     static var transit  : UIStoryboard { return instance("Transit") }
