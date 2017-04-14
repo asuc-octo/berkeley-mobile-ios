@@ -38,7 +38,8 @@ class LibraryDetailViewController: UIViewController, IBInitializable, GMSMapView
         return UIStoryboard.academics.instantiateViewController(withIdentifier: self.componentID) as! IBComponent
     }
     
-
+    
+    // MARK: - UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -190,6 +191,12 @@ class LibraryDetailViewController: UIViewController, IBInitializable, GMSMapView
         
         
     }
+    
+    // MARK: - ResourceDetailProvider
+    static func newInstance() -> ResourceDetailProvider {
+        return fromIB()
+    }
+    
     var text1: String? {
         return nil
     }

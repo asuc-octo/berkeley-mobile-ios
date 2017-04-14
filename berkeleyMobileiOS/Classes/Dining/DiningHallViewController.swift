@@ -57,6 +57,11 @@ class DiningHallViewController: UIViewController, IBInitializable, RequiresData,
     // ========================================
     // MARK: - ResourceDataProvider
     // ========================================
+    static func newInstance() -> ResourceDetailProvider
+    {
+        return fromIB()
+    }
+    
     var viewController: UIViewController { return self }
     
     // TODO: Fill real data here.
