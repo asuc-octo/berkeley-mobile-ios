@@ -10,14 +10,32 @@ import Foundation
 
 class GymClass: Resource {
     
+    static var typeString: String { return className(GymClass.self).lowercased() }
+    static func displayName(pluralized: Bool) -> String {
+        return "Gym Class" + (pluralized ? "es" : "")
+    }
+    
+    static var dataSource: ResourceDataSource.Type? = GymClassDataSource.self
+    static var detailProvider: ResourceDetailProvider.Type? = nil
+    
+    
+    let name: String
+    let imageURL: URL?
+    
+    var isFavorited: Bool = false
+    
     var date: Date? = nil
     var start_time: Date? = nil
     var end_time: Date? = nil
     var class_type: String? = nil
     var location: String? = nil
     var trainer: String? = nil
+    
+    var isOpen: Bool {
+        return Date().isBetween(start_time, end_time)
+    }
 
-    init(name: String, class_type:String, location: String, trainer: String, date: Date?, start_time: Date?, end_time: Date?, imageLink: String) {
+    init(name: String, class_type:String, location: String, trainer: String, date: Date?, start_time: Date?, end_time: Date?, imageLink: String?) {
         self.start_time = start_time
         self.end_time = end_time
         self.date = date
@@ -25,8 +43,7 @@ class GymClass: Resource {
         self.location = location
         self.trainer = trainer
         
-        super.init(name: name, type: ResourceType.GymClass, imageLink: imageLink)
+        self.name = name
+        self.imageURL = URL(string: imageLink ?? "")
     }
-
-
 }

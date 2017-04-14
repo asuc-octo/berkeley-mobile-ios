@@ -12,9 +12,9 @@ fileprivate let kColorNavy = UIColor(red: 23/255.0, green: 85/255.0, blue: 122/2
 class ResourceGroupViewController: UIViewController, IBInitializable, RequiresData, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate
 {
     // Data
-    var resourceType: ResourceType!
-    var resources: [ResourceType: [Resource]] = [:]
-//    var resources: [Resource] = []
+    private var types: [Resource.Type]!
+    private var resources = [String : [Resource]]()
+    
     var searchableItems: [SearchItem] = []
     var searchResults: [SearchItem] = []
     
@@ -46,13 +46,11 @@ class ResourceGroupViewController: UIViewController, IBInitializable, RequiresDa
     // ========================================
     // MARK: - RequiresData
     // ========================================
-    typealias DataType = ResourceType
+    typealias DataType = [Resource.Type]
     
-    func setData(_ type: DataType)
+    func setData(_ types: DataType)
     {
-        self.resourceType = type
-        
-        self.title = type.rawValue
+        self.types = types
     }
     
     
@@ -76,36 +74,28 @@ class ResourceGroupViewController: UIViewController, IBInitializable, RequiresDa
         self.tableView.dataSource = self
         self.activityIndicator.startAnimating()
         
-        for type in ResourceType.connections[self.resourceType]! {
-            
-            type.dataSourceType.fetchResources
-                { (_ resources: [Resource]?) in
-                    
-                    DispatchQueue.main.async {
-                        self.activityIndicator.stopAnimating()
-                    }
-                    
-                    if resources.isNil
-                    {
-                        // Error
-                        return
-                    }
-                    
-                    if ((resources?.count)! > 0) {
-                        self.resources[type] = resources
-                    }
-                    
-                    DispatchQueue.main.async {
-                        if (self.resources.count == ResourceType.connections[self.resourceType]!.count) {
-                            self.tableView.reloadData()
-                        }
-                        
-                    }
-            }
-            
-        }
-        
+        types.forEach 
+        { type in
 
+            type.dataSource?.fetchResources
+            { list in
+                
+                DispatchQueue.main.async { self.activityIndicator.stopAnimating() }
+                
+                guard let nonEmptyList = list else
+                {
+                    // Error
+                    return print()
+                }
+                
+                self.resources[type.typeString] = nonEmptyList
+                
+                if self.resources.count == self.types.count
+                {
+                    DispatchQueue.main.async { self.tableView.reloadData() }
+                }
+            }
+        }
     }
     
     /// Configure statusBar, navigationBar, and highlight the tab icon. 
@@ -167,7 +157,6 @@ class ResourceGroupViewController: UIViewController, IBInitializable, RequiresDa
     /**
      *
      */
-    
     private func setupSearchBar()
     {
         // Search bar
@@ -180,26 +169,20 @@ class ResourceGroupViewController: UIViewController, IBInitializable, RequiresDa
         searchDropDown.cancelAction = cancelDropDown
     }
     
-    func selectedRowFromSearch(index: Int, name: String) -> Void {
+    func selectedRow(index: Int, name: String) -> Void
+    {
         searchDropDown.hide()
         searchBar.resignFirstResponder()
         let selected = searchResults[index]
-        selected.detailedData { (_ resource: Resource?) in
+        selected.detailedData
+        { (resource: Resource?) in
+            
             guard let res = resource else {
                 return
             }
-            let ref = res.type.rawValue + "DetailSegue"
- 
-            if let gymClass = res as? GymClass {
-                if (self.resources[ResourceType.GymClassCategory]?.count)! > 0 {
-                    let gymClassCategory = GymClassCategory(name: gymClass.class_type!, imageLink: "dsff")
-                    self.performSegue(withIdentifier: ref, sender: gymClassCategory)
-                }
-            }
-            else {
-                self.performSegue(withIdentifier: ref, sender: res)
-            }
- 
+            
+            let ref = type(of: res).typeString + "DetailSegue"
+            self.performSegue(withIdentifier: ref, sender: res)
         }
     }
     
@@ -234,10 +217,8 @@ class ResourceGroupViewController: UIViewController, IBInitializable, RequiresDa
     /// Pass the DiningGroupCell a name for the category, a list of halls, and a callback handler.
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        let type = ResourceType.connections[self.resourceType]![indexPath.row]
-        let res = self.resources[type]!
-        
-        let data = (type.displayName, res, Optional(didSelectResource))
+        let type = types[indexPath.row]
+        let data = (type.displayName(pluralized: true), resources[type.typeString]!, Optional(didSelectResource))
         
         let cell = tableView.dequeueReusableCell(withIdentifier: className(ResourceGroupCell.self)) as! ResourceGroupCell
         cell.setData(data)
@@ -258,105 +239,17 @@ class ResourceGroupViewController: UIViewController, IBInitializable, RequiresDa
     /// When a tile is tapped, present the corresponding `ResourceDetailViewController`.
     func didSelectResource(_ resource: Resource)
     {
-//        let ref = self.resourceType.rawValue + "DetailSegue"
-//        self.performSegue(withIdentifier: ref, sender: resource)
-
-        /*
-        let detail = resource.context.detail.fromIB()
+        guard let detail = type(of: resource).detailProvider?.newInstance() else {
+            return
+        }
         detail.resource = resource
         
         let container = ResourceContainerController.fromIB()
         container.detail = detail
         container.modalPresentationStyle = .overFullScreen
         present(container, animated: true, completion: nil)
-        */
-        
-        var detail: ResourceDetailProvider!
-        
-        if let library = resource as? Library
-        {
-            let vc = LibraryDetailViewController.fromIB()
-            vc.setData(library)
-            detail = vc
-            
-        } 
-        else if let diningHall = resource as? DiningHall
-        {
-            let vc = DiningHallViewController.fromIB()
-            vc.setData(diningHall)
-            detail = vc
-        }
-        else if let gym = resource as? Gym
-        {
-            let vc = GymDetailViewController.fromIB()
-            vc.setData(gym)
-            detail = vc
-        }
-
-        if detail != nil
-        {
-            // TODO: consider making ResourceContainerController not IBInitializable.
-            let container = ResourceContainerController.fromIB()
-            container.setData(detail)
-            
-            container.modalPresentationStyle = .overFullScreen
-            present(container, animated: true, completion: nil)
-        }
-        
-        
-        
-        
-    
-        
-       
     }
 
-    
-    // ========================================
-    // MARK: - Navigation
-    // ========================================
-    /**
-     * Cast the Resource to the corresponding type for each segue.
-     * 
-     * TODO: Create a parent Resource(Detail)ViewController to clean this junk up.
-     */
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-    {
-        let destination = segue.destination
-        
-        if let vc = destination as? GymsMapListViewController
-        {
-            vc.gyms = self.resources[ResourceType.Gym] as! [Gym]
-        } 
-        else if let vc = destination as? GymDetailViewController
-        {
-            vc.gym = sender as? Gym
-        }
-        else if let vc = destination as? LibraryMapViewController
-        {
-            vc.libraries = self.resources[ResourceType.Library] as! [Library]
-        }
-        else if let vc = destination as? LibraryDetailViewController
-        {
-            vc.library = sender as? Library
-        }
-        else if let vc = destination as? GymClassViewController
-        {
-            vc.classType = sender as? GymClassCategory
-        }
-        else if let vc = destination as? GymClassDetailViewController
-        {
-            vc.classCategories = self.resources[ResourceType.GymClassCategory] as? [GymClassCategory]
-        }
-        else if let vc = destination as? CampusResourceMapListViewController
-        {
-            vc.campusResources = self.resources[ResourceType.CampusResource] as? [CampusResource]
-        }
-        else if let vc = destination as? CampusResourceDetailViewController
-        {
-            vc.campusResource = sender as? CampusResource
-        }
-    }
     
     // ========================================
     // MARK: - UISearchDelegate
