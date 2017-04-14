@@ -35,9 +35,11 @@ class ResourceGroupViewController: UIViewController, IBInitializable, RequiresDa
     // ========================================
     typealias IBComponent = ResourceGroupViewController
     
+    static var componentID: String { return className(IBComponent.self) }
+    
     static func fromIB() -> IBComponent 
     {
-        return UIStoryboard.main.instantiateViewController(withIdentifier: className(IBComponent.self)) as! IBComponent
+        return UIStoryboard.main.instantiateViewController(withIdentifier: self.componentID) as! IBComponent
     }
     
     
