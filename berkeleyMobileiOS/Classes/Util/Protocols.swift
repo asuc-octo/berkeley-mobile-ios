@@ -2,6 +2,24 @@
 import UIKit
 
 /**
+ * **TypeString** is a self contained protocol.
+ * Provides static property `typeString`, string representation of the type.
+ */
+protocol TypeString
+{    
+    static var typeString: String { get }
+}
+
+extension TypeString
+{
+    static var typeString: String
+    { 
+        return String(describing: Self.self)
+    }
+}
+
+
+/**
  * **IBInitalizable** provides a way to init classes configured through InterfaceBuilder (IB).
  * The associted `IBComponent` should in most cases by the conforming class itself.
  */

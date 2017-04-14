@@ -9,6 +9,21 @@
 import UIKit
 
 class Library: Resource {
+    
+    static var typeString: String { return className(Library.self).lowercased() }
+    static func displayName(pluralized: Bool) -> String {
+        return pluralized ? "Librariess" : "Library"
+    }
+    
+    static var dataSource: ResourceDataSource.Type? = LibraryDataSource.self
+    static var detailProvider: ResourceDetailProvider.Type? = LibraryDetailViewController.self
+    
+    
+    let name: String
+    let imageURL: URL?
+    
+    var isFavorited: Bool = false
+    
     let campusLocation: String?
     let phoneNumber: String?
     var weeklyOpeningTimes:[Date?]
@@ -25,10 +40,12 @@ class Library: Resource {
         self.weeklyByAppointment = weeklyByAppointment
         self.latitude = latitude
         self.longitude = longitude
-        super.init(name: name, type:ResourceType.Library, imageLink: imageLink)
+        
+        self.name = name
+        self.imageURL = URL(string: imageLink ?? "")
     }
     
-    override var isOpen: Bool {
+    var isOpen: Bool {
         
         //Determining Status of library
         let todayDate = NSDate()
