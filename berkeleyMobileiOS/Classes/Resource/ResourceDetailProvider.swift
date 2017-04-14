@@ -15,6 +15,8 @@ import UIKit
  */
 protocol ResourceDetailProvider: class, DelegatesScroll
 {
+    static func newInstance() -> ResourceDetailProvider
+    
     var viewController: UIViewController { get }
 
     var text1: String? { get }
