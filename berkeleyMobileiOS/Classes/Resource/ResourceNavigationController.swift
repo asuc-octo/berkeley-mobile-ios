@@ -39,12 +39,12 @@ class ResourceNavigationController: UINavigationController, IBInitializable, Req
     // ========================================
     // MARK: - RequiresData
     // ========================================
-    typealias DataType = ResourceType
+    typealias DataType = Resource.Type
     
     /// Requires the `ResourceType` to display.
     func setData(_ type: DataType)
     {
-        let name = type.rawValue.lowercased()
+        let name = className(type).lowercased()
         self.pageTabBarItem.image = UIImage(named: "ic_tab_" + name)?.withRenderingMode(.alwaysTemplate)
         
         let rootVC = self.viewControllers.first as? ResourceGroupViewController
