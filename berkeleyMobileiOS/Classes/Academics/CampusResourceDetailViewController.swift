@@ -23,6 +23,18 @@ class CampusResourceDetailViewController: UIViewController, UITableViewDataSourc
     var locationManager = CLLocationManager()
     var realm = try! Realm()
     
+    
+    // MARK: - IBInitializable
+    typealias IBComponent = CampusResourceDetailViewController
+    
+    static var componentID: String { return className(IBComponent.self) }
+    
+    static func fromIB() -> IBComponent 
+    {
+        return UIStoryboard.academics.instantiateViewController(withIdentifier: self.componentID) as! IBComponent
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     

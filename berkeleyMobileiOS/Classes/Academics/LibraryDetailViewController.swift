@@ -12,7 +12,7 @@ import GoogleMaps
 
 fileprivate let kLibraryCellHeight: CGFloat = 125.0
 
-class LibraryDetailViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDelegate, ResourceDetailProvider {
+class LibraryDetailViewController: UIViewController, IBInitializable, GMSMapViewDelegate, CLLocationManagerDelegate, ResourceDetailProvider {
     
     @IBOutlet var libraryDetailView: UIView!
     @IBOutlet var libraryFavoriteButton: UIButton!
@@ -26,6 +26,18 @@ class LibraryDetailViewController: UIViewController, GMSMapViewDelegate, CLLocat
     
     var library:Library?
     var locationManager = CLLocationManager()
+    
+    
+    // MARK: - IBInitalizable
+    typealias IBComponent = LibraryDetailViewController
+    
+    static var componentID: String { return className(IBComponent.self) }
+    
+    static func fromIB() -> IBComponent
+    {
+        return UIStoryboard.academics.instantiateViewController(withIdentifier: self.componentID) as! IBComponent
+    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
