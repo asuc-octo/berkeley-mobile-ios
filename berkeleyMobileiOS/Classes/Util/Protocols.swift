@@ -2,15 +2,21 @@
 import UIKit
 
 /**
- * **IBInitalizable** provides a way to init classes configured through InterfaceBuilder.
- * The associted `IBObjectType` should in most cases by the conforming class itself.
+ * **IBInitalizable** provides a way to init classes configured through InterfaceBuilder (IB).
+ * The associted `IBComponent` should in most cases by the conforming class itself.
  */
 protocol IBInitializable: class
 {
+    // Type of the component; should be the conforming class in most cases.
     associatedtype IBComponent
     
+    /// The IB identifier (e.g. `StoryboardID` for storyboards).
+    static var componentID: String { get }
+    
+    /// Returns a new instance of `IBComponent` initialized through the IB.
     static func fromIB() -> IBComponent
 }
+
 
 /**
  * Specifies that the implementing module require data of DataType (which is defined by each module),
