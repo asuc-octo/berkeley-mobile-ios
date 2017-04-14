@@ -34,7 +34,7 @@ class ResourceContainerController: UIViewController, IBInitializable, RequiresDa
     
     static func fromIB() -> IBComponent
     {
-        return UIStoryboard.main.instantiateViewController(withIdentifier: self.componentID) as! IBComponent
+        return UIStoryboard.resource.instantiateViewController(withIdentifier: self.componentID) as! IBComponent
     }
     
     

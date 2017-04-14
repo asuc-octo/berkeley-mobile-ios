@@ -39,7 +39,7 @@ class ResourceGroupViewController: UIViewController, IBInitializable, RequiresDa
     
     static func fromIB() -> IBComponent 
     {
-        return UIStoryboard.main.instantiateViewController(withIdentifier: self.componentID) as! IBComponent
+        return UIStoryboard.resource.instantiateViewController(withIdentifier: self.componentID) as! IBComponent
     }
     
     
@@ -265,8 +265,7 @@ class ResourceGroupViewController: UIViewController, IBInitializable, RequiresDa
         
         if let library = resource as? Library
         {
-            let detailID = className(LibraryDetailViewController.self)
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: detailID) as! LibraryDetailViewController
+            let vc = LibraryDetailViewController.fromIB()
             vc.setData(library)
             detail = vc
             
