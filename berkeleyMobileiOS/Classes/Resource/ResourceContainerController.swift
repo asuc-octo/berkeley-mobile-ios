@@ -30,9 +30,11 @@ class ResourceContainerController: UIViewController, IBInitializable, RequiresDa
     // ========================================
     typealias IBComponent = ResourceContainerController
     
+    static var componentID: String { return className(IBComponent.self) }
+    
     static func fromIB() -> IBComponent
     {
-        return UIStoryboard.dining.instantiateViewController(withIdentifier: className(IBComponent.self)) as! IBComponent
+        return UIStoryboard.main.instantiateViewController(withIdentifier: self.componentID) as! IBComponent
     }
     
     
