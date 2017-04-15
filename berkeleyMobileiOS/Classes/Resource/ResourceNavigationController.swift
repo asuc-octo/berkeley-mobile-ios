@@ -4,7 +4,7 @@ import UIKit
 /**
  * Base navigation controller for a single type of `Resource`.
  */
-class ResourceNavigationController: UINavigationController, IBInitializable, RequiresData
+class ResourceNavigationController: UINavigationController, IBInitializable
 { 
     // ========================================
     // MARK: - IBInitializable
@@ -39,15 +39,11 @@ class ResourceNavigationController: UINavigationController, IBInitializable, Req
     // ========================================
     // MARK: - RequiresData
     // ========================================
-    typealias DataType = Resource.Type
-    
-    /// Requires the `ResourceType` to display.
-    func setData(_ type: DataType)
+    func setGroup(_ group: ResourceGroup)
     {
-        let name = className(type).lowercased()
-        self.pageTabBarItem.image = UIImage(named: "ic_tab_" + name)?.withRenderingMode(.alwaysTemplate)
+        pageTabBarItem.image = group.icon 
         
-        let rootVC = self.viewControllers.first as? ResourceGroupViewController
-        rootVC?.setData(type)
+        let groupVC = viewControllers.first as? ResourceGroupViewController
+        groupVC?.setGroup(group)
     }
 }

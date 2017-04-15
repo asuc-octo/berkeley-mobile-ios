@@ -17,6 +17,8 @@ protocol ResourceDetailProvider: class, DelegatesScroll
 {
     static func newInstance() -> ResourceDetailProvider
     
+    var resource: Resource { get set }
+    
     var viewController: UIViewController { get }
 
     var text1: String? { get }
