@@ -25,33 +25,33 @@ class SearchItem {
     func detailedData(_ completion: @escaping (Resource?) -> Void)  {
         let url = kURL + self.query
         
-        var resourceType: ResourceType
+        var resourceType: Resource.Type
         var key: String
         
-        switch category {
-        case "Dining Hall":
-            resourceType = ResourceType.DiningHall
-            key = "dining_hall"
-        case "Library":
-            resourceType = ResourceType.Library
-            key = "library"
-        case "Gym":
-            resourceType = ResourceType.Gym
-            key = "gym"
-        default:
-            return
+        switch category
+        {
+            case DiningHall.typeString:
+                resourceType = DiningHall.self
+                key = "dining_hall"
+            case Library.typeString:
+                resourceType = Library.self
+                key = "library"
+            case Gym.typeString:
+                resourceType = Gym.self
+                key = "gym"
+            default: return
         }
         
         Alamofire.request(url).responseJSON
-            { response in
-                
-                if response.result.isFailure {
-                    print("[Error @ SearchItem.detailedData()]: request failed")
-                    return
-                }
-                let json = JSON(data: response.data!)[key]
-                let item = resourceType.dataSourceType.parseResource(json)
-                completion(item)
+        { response in
+            
+            if response.result.isFailure {
+                print("[Error @ SearchItem.detailedData()]: request failed")
+                return
+            }
+            let json = JSON(data: response.data!)[key]
+            let item = resourceType.dataSource?.parseResource(json)
+            completion(item)
         }
     }
 

@@ -84,7 +84,7 @@ class CampusResourceMapListViewController: UIViewController, UITableViewDataSour
         cell.status.text = campusResource?.hours
         
         // For favoriting
-        if (campusResource?.favorited == true) {
+        if (campusResource?.isFavorited == true) {
             cell.favoriteButton.setImage(UIImage(named:"heart-filled"), for: .normal)
         } else {
             cell.favoriteButton.setImage(UIImage(named:"heart"), for: .normal)
@@ -183,14 +183,14 @@ class CampusResourceMapListViewController: UIViewController, UITableViewDataSour
         
         let row = sender.tag
         let selectedCampusResource = campusResources?[row]
-        selectedCampusResource?.favorited = !(selectedCampusResource?.favorited!)!
+        selectedCampusResource?.isFavorited = !(selectedCampusResource?.isFavorited)!
         self.campusResourcesTableView.reloadData()
         
         //Realm adding and deleting favorite campus resources
         let favCampusResource = FavoriteCampusResource()
         favCampusResource.name = (selectedCampusResource?.name)!
         
-        if (selectedCampusResource?.favorited)! {
+        if (selectedCampusResource?.isFavorited)! {
             try! realm.write {
                 realm.add(favCampusResource)
             }
@@ -216,7 +216,7 @@ class CampusResourceMapListViewController: UIViewController, UITableViewDataSour
         
         for campusResource in self.campusResources! {
             if self.favoriteCampusResources.contains(campusResource.name) {
-                campusResource.favorited = true
+                campusResource.isFavorited = true
             }
         }
     }

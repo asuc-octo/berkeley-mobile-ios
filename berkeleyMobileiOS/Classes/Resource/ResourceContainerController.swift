@@ -13,7 +13,7 @@ fileprivate let kAnimationDuration: TimeInterval = 0.25
 /**
  * 
  */
-class ResourceContainerController: UIViewController, IBInitializable, RequiresData, UIScrollViewDelegate
+class ResourceContainerController: UIViewController, IBInitializable, UIScrollViewDelegate
 {    
     // UI
     private let toolbar = FadeTitleToolbar()
@@ -39,30 +39,23 @@ class ResourceContainerController: UIViewController, IBInitializable, RequiresDa
     
     
     // ========================================
-    // MARK: - RequiresData
-    // ========================================
-    typealias DataType = ResourceDetailProvider
-    
-    func setData(_ data: ResourceDetailProvider)
-    {
-        provider = data
-        addChildViewController(detailViewController)
-    }
-    
-    
-    // ========================================
     // MARK: - ResourceDetail
     // ========================================
-    private var provider: ResourceDetailProvider!
+    var detailProvider: ResourceDetailProvider! = nil
+    {
+        didSet {
+            addChildViewController(detailViewController)
+        }
+    }
     
     private var detailViewController: UIViewController 
     { 
-        return provider.viewController 
+        return detailProvider.viewController 
     }
     
     private var detailView: UIView
     { 
-        return provider.viewController.view
+        return detailProvider.viewController.view
     }
     
     
@@ -81,20 +74,20 @@ class ResourceContainerController: UIViewController, IBInitializable, RequiresDa
         setupScrollView()
         
         
-        banner.load(url: provider.imageURL)
+        banner.load(url: detailProvider.imageURL)
         infoPanel.title = detailViewController.title
-        infoPanel.text1 = "1234 Telegraph" //provider.text1
-        infoPanel.text2 = "OPEN"//provider.text2
+        infoPanel.text1 = detailProvider.text1
+        infoPanel.text2 = detailProvider.text2
         
         toolbar.title = detailViewController.title
-        toolbar.rightViews = provider.buttons
+        toolbar.rightViews = detailProvider.buttons
         toolbar.rightViews.forEach
         {
             $0.tintColor = .white
             $0.frame = CGRect(x: 0, y: 0, width: 56, height: 56)
         }
         
-        provider.contentSizeChangeHandler = contentSizeDidChange
+        detailProvider.contentSizeChangeHandler = contentSizeDidChange
     }
     
     /**
@@ -125,7 +118,7 @@ class ResourceContainerController: UIViewController, IBInitializable, RequiresDa
     {
         super.viewDidLayoutSubviews()
         
-        scrollView.contentSize.height = infoPanel.bounds.height + provider.contentSize.height
+        scrollView.contentSize.height = infoPanel.bounds.height + detailProvider.contentSize.height
     }
     
     
@@ -206,7 +199,7 @@ class ResourceContainerController: UIViewController, IBInitializable, RequiresDa
         
         // detailView netsted offset.
         detailView.y = infoPanel.frame.maxY
-        provider.contentOffset.y = (offset < infoHeight) ? 0 : (offset - infoHeight);
+        detailProvider.contentOffset.y = (offset < infoHeight) ? 0 : (offset - infoHeight);
         
         
         // Detect end of scrolling (http://stackoverflow.com/a/1857162)
@@ -254,7 +247,7 @@ class ResourceContainerController: UIViewController, IBInitializable, RequiresDa
     
     func contentSizeDidChange(_ provider: ResourceDetailProvider)
     {
-        guard self.provider === provider && provider.resetOffsetOnSizeChanged else
+        guard provider === self.detailProvider && provider.resetOffsetOnSizeChanged else
         {
             return
         }
