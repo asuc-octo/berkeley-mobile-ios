@@ -38,6 +38,9 @@ class SearchItem {
         case "Gym":
             resourceType = ResourceType.Gym
             key = "gym"
+        case "Group Exercise":
+            resourceType = ResourceType.GymClass
+            key = "group_ex"
         default:
             return
         }
