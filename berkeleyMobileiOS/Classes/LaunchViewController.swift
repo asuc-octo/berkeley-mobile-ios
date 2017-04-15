@@ -24,12 +24,11 @@ class LaunchViewController: UIViewController
     //After launch animation, present the actual workflow. All tabs should be in this init statement.
     func presentMainViewController()
     {
-        var viewControllers: [UIViewController] = ResourceType.allValues.map
-        { type in 
-        
-            let vc = ResourceNavigationController.fromIB()
-            vc.setData(type)
-            return vc
+        var viewControllers: [UIViewController] = ResourceGroup.all.map
+        {
+            let resourceNav = ResourceNavigationController.fromIB()
+            resourceNav.setGroup($0)
+            return resourceNav
         }
         
         viewControllers.append( BearTransitNavigationController.fromIB() )

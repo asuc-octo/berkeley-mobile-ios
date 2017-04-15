@@ -51,7 +51,7 @@ class GymClassDetailViewController: UIViewController, UITableViewDelegate, UITab
         cell.gymClassCategory.text = gymClassCategory?.name
         
         // For favoriting
-        if (gymClassCategory?.favorited == true) {
+        if (gymClassCategory?.isFavorited == true) {
             cell.favoriteButton.setImage(UIImage(named:"heart-filled"), for: .normal)
         } else {
             cell.favoriteButton.setImage(UIImage(named:"heart"), for: .normal)
@@ -89,14 +89,14 @@ class GymClassDetailViewController: UIViewController, UITableViewDelegate, UITab
         
         let row = sender.tag
         let selectedGymClassCategory = self.classCategories?[row]
-        selectedGymClassCategory?.favorited = !(selectedGymClassCategory?.favorited!)!
+        selectedGymClassCategory?.isFavorited = !(selectedGymClassCategory?.isFavorited)!
         self.gymClassCategoryTableView.reloadData()
         
         //Realm adding and deleting favorite campus resources
         let favGymClassCategory = FavoriteGymClassCategory()
         favGymClassCategory.name = (selectedGymClassCategory?.name)!
         
-        if (selectedGymClassCategory?.favorited)! {
+        if (selectedGymClassCategory?.isFavorited)! {
             try! realm.write {
                 realm.add(favGymClassCategory)
             }
@@ -122,7 +122,7 @@ class GymClassDetailViewController: UIViewController, UITableViewDelegate, UITab
         
         for category in self.classCategories! {
             if self.favoriteClassCategories.contains(category.name) {
-                category.favorited = true
+                category.isFavorited = true
             }
         }
     }

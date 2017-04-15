@@ -17,7 +17,7 @@ class GymDetailViewController: UIViewController, IBInitializable, CLLocationMana
     @IBOutlet var gymMap: GMSMapView!
     var locationManager = CLLocationManager()
     
-    var gym: Gym?
+    var gym: Gym!
     
     
     // MARK: - IBInitalizable
@@ -175,6 +175,19 @@ class GymDetailViewController: UIViewController, IBInitializable, CLLocationMana
     // MARK: - ResourceDetailProvider
     static func newInstance() -> ResourceDetailProvider {
         return fromIB()
+    }
+    
+    var resource: Resource
+    {
+        get { return gym }
+        set
+        {
+            if viewIfLoaded == nil, gym == nil, let newGym = newValue as? Gym
+            {
+                gym = newGym
+                title = gym.name
+            }
+        }
     }
     
     var text1: String? {

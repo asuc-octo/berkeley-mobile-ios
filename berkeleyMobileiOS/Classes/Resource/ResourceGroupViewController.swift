@@ -9,7 +9,7 @@ fileprivate let kColorNavy = UIColor(red: 23/255.0, green: 85/255.0, blue: 122/2
  * Displays a single `Resource` type as rows of separate groups/categories.
  * Each row is a horizontally scrolling carousel of tiles representing one `Resource` instance. 
  */
-class ResourceGroupViewController: UIViewController, IBInitializable, RequiresData, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate
+class ResourceGroupViewController: UIViewController, IBInitializable, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate
 {
     // Data
     private var types: [Resource.Type]!
@@ -31,7 +31,7 @@ class ResourceGroupViewController: UIViewController, IBInitializable, RequiresDa
     
     
     // ========================================
-    // MARK: - RequiresData
+    // MARK: - IBInitializable
     // ========================================
     typealias IBComponent = ResourceGroupViewController
     
@@ -42,15 +42,13 @@ class ResourceGroupViewController: UIViewController, IBInitializable, RequiresDa
         return UIStoryboard.resource.instantiateViewController(withIdentifier: self.componentID) as! IBComponent
     }
     
-    
-    // ========================================
-    // MARK: - RequiresData
-    // ========================================
-    typealias DataType = [Resource.Type]
-    
-    func setData(_ types: DataType)
+    func setGroup(_ group: ResourceGroup)
     {
-        self.types = types
+        guard viewIfLoaded == nil, types == nil else {
+            return
+        }
+        
+        types = group.types
     }
     
     
@@ -239,13 +237,15 @@ class ResourceGroupViewController: UIViewController, IBInitializable, RequiresDa
     /// When a tile is tapped, present the corresponding `ResourceDetailViewController`.
     func didSelectResource(_ resource: Resource)
     {
-        guard let detail = type(of: resource).detailProvider?.newInstance() else {
-            return
+        guard let detailProvider = type(of: resource).detailProvider?.newInstance() else 
+        { 
+            return 
         }
-        detail.resource = resource
+        detailProvider.resource = resource
         
         let container = ResourceContainerController.fromIB()
-        container.detail = detail
+        container.detailProvider = detailProvider
+        
         container.modalPresentationStyle = .overFullScreen
         present(container, animated: true, completion: nil)
     }
