@@ -24,7 +24,7 @@ class LibraryDetailViewController: UIViewController, IBInitializable, GMSMapView
     @IBOutlet var libraryName: UILabel!
     @IBOutlet var libraryAddress: UIButton!
     
-    var library:Library?
+    var library: Library!
     var locationManager = CLLocationManager()
     
     
@@ -183,18 +183,24 @@ class LibraryDetailViewController: UIViewController, IBInitializable, GMSMapView
         marker.map = self.libraryMapView
 
     }
-    
-    func setData(_ library: Library) {
-        self.library = library
-        
-        self.title = library.name
-        
-        
-    }
-    
+
+
     // MARK: - ResourceDetailProvider
     static func newInstance() -> ResourceDetailProvider {
         return fromIB()
+    }
+    
+    var resource: Resource
+    {
+        get { return library }
+        set
+        {
+            if viewIfLoaded == nil, library == nil, let newLibrary = newValue as? Library
+            {
+                library = newLibrary
+                title = library.name
+            }
+        }
     }
     
     var text1: String? {

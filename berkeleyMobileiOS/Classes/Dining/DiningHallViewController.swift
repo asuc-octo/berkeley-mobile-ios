@@ -10,7 +10,7 @@ fileprivate let kColorNavy = UIColor(red: 23/255.0, green: 85/255.0, blue: 122/2
  * This controller is designed to be placed within a `ResourceContainerController`, giving data as a `ResourceDetailProvider`.
  * The view only contains a tab pages of the menus, without showing any data about the `DiningHall` itself (e.g. names, times, etc).
  */
-class DiningHallViewController: UIViewController, IBInitializable, RequiresData, ResourceDetailProvider, PageTabBarControllerDelegate
+class DiningHallViewController: UIViewController, IBInitializable, ResourceDetailProvider, PageTabBarControllerDelegate
 {
     private var hall: DiningHall!
     
@@ -43,23 +43,24 @@ class DiningHallViewController: UIViewController, IBInitializable, RequiresData,
     
     
     // ========================================
-    // MARK: - RequiresData
-    // ========================================
-    typealias DataType = DiningHall
-    
-    func setData(_ data: DataType)
-    {
-        hall = data
-        self.title = hall.name
-    }
-    
-    
-    // ========================================
     // MARK: - ResourceDataProvider
     // ========================================
     static func newInstance() -> ResourceDetailProvider
     {
         return fromIB()
+    }
+    
+    var resource: Resource
+    {
+        get { return hall }
+        set
+        {
+            if viewIfLoaded == nil, hall == nil, let newHall = newValue as? DiningHall
+            {
+                hall = newHall
+                title = hall.name
+            }
+        }
     }
     
     var viewController: UIViewController { return self }
