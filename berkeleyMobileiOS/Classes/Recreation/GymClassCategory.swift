@@ -11,7 +11,7 @@ import UIKit
 class GymClassCategory: Resource {
     
     static func displayName(pluralized: Bool) -> String {
-        return "Gym Class Cateogr" + (pluralized ? "ies" : "y")
+        return "Gym Class Categor" + (pluralized ? "ies" : "y")
     }
     
     static var dataSource: ResourceDataSource.Type? = GymClassCategoryDataSource.self

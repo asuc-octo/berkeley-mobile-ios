@@ -10,7 +10,6 @@ import Foundation
 
 class GymClass: Resource {
     
-    static var typeString: String { return className(GymClass.self).lowercased() }
     static func displayName(pluralized: Bool) -> String {
         return "Gym Class" + (pluralized ? "es" : "")
     }
