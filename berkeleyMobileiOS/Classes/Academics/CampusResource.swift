@@ -10,12 +10,13 @@ import UIKit
 
 class CampusResource: Resource {
     
-    static var dataSource: ResourceDataSource.Type? = CampusResourceDataSource.self
-    static var detailProvider: ResourceDetailProvider.Type? = nil
-    
     static func displayName(pluralized: Bool) -> String {
         return "Campus Resource" + (pluralized ? "s" : "")
     }
+    
+    static var dataSource: ResourceDataSource.Type? = CampusResourceDataSource.self
+    static var detailProvider: ResourceDetailProvider.Type? = nil
+    
     
     let name: String
     let imageURL: URL?
