@@ -10,9 +10,8 @@ import UIKit
 
 class Library: Resource {
     
-    static var typeString: String { return className(Library.self).lowercased() }
     static func displayName(pluralized: Bool) -> String {
-        return pluralized ? "Librariess" : "Library"
+        return "Librar" + (pluralized ? "ies" : "y")
     }
     
     static var dataSource: ResourceDataSource.Type? = LibraryDataSource.self
