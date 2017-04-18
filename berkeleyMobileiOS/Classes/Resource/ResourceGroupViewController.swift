@@ -163,7 +163,7 @@ class ResourceGroupViewController: UIViewController, IBInitializable, UITableVie
         searchDropDown.anchorView = self.navigationItem.titleView
         searchDropDown.bottomOffset = CGPoint(x: 0, y: 50)
         // searchDropDown.dismissMode = .manual
-        searchDropDown.selectionAction = selectedRowFromSearch
+        searchDropDown.selectionAction = selectedRow
         searchDropDown.cancelAction = cancelDropDown
     }
     
