@@ -9,6 +9,20 @@
 import UIKit
 
 class Library: Resource {
+    
+    static func displayName(pluralized: Bool) -> String {
+        return "Librar" + (pluralized ? "ies" : "y")
+    }
+    
+    static var dataSource: ResourceDataSource.Type? = LibraryDataSource.self
+    static var detailProvider: ResourceDetailProvider.Type? = LibraryDetailViewController.self
+    
+    
+    let name: String
+    let imageURL: URL?
+    
+    var isFavorited: Bool = false
+    
     let campusLocation: String?
     let phoneNumber: String?
     var weeklyOpeningTimes:[Date?]
@@ -16,7 +30,6 @@ class Library: Resource {
     var weeklyByAppointment:[Bool]
     let latitude: Double?
     let longitude: Double?
-    var favorited: Bool? = false
     
     init(name: String, campusLocation: String?, phoneNumber: String?, weeklyOpeningTimes:[Date?], weeklyClosingTimes:[Date?], weeklyByAppointment:[Bool], imageLink: String?, latitude: Double?, longitude: Double?) {
         self.campusLocation = campusLocation
@@ -26,8 +39,24 @@ class Library: Resource {
         self.weeklyByAppointment = weeklyByAppointment
         self.latitude = latitude
         self.longitude = longitude
-        super.init(name: name, type:ResourceType.Library, imageLink: imageLink)
+        
+        self.name = name
+        self.imageURL = URL(string: imageLink ?? "")
     }
     
+    var isOpen: Bool {
+        
+        //Determining Status of library
+        let todayDate = NSDate()
+        
+        if (weeklyClosingTimes[0] == nil) {
+            return false
+        }
+        if (weeklyClosingTimes[0]!.compare(todayDate as Date) == .orderedAscending) {
+            return false
+        }
+        
+        return true
+    }
 
 }

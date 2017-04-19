@@ -61,7 +61,10 @@ class DiningDataSource: ResourceDataSource
             return map
         }
         
-        return DiningHall(name: name, imageLink: link, shifts: meals)
+        let hall = DiningHall(name: name, imageLink: link, shifts: meals)
+        FavoriteStore.shared.restoreState(for: hall)
+        
+        return hall
     }
     
     // Return a DiningMenu object parsed from JSON.
@@ -79,7 +82,10 @@ class DiningDataSource: ResourceDataSource
             default:            type = .breakfast
         }
         
-        return DiningItem(name: name, type: type)
+        let item = DiningItem(name: name, type: type)
+        FavoriteStore.shared.restoreState(for: item)
+        
+        return item
     }
     
     private static func sharedDateFormatter() -> DateFormatter

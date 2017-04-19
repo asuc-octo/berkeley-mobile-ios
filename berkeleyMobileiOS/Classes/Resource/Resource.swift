@@ -1,78 +1,35 @@
 
 import UIKit
+import Foundation
 
 /**
- * Enum of all available `Resource` types.
+ * **Resource** describes one thing (usually a building) available to students.
  */
-enum ResourceType: String
+protocol Resource: class, TypeString, Favorable
 {
-    case Gym
-    case GymClass
-    case GymClassCategory
-    case Library
-    case DiningHall
-    case CampusResource
+    // MARK: Class
+    static func displayName(pluralized: Bool) -> String
     
-    static let allValues = [Gym, Library, DiningHall]
-    static let connections: [ResourceType: [ResourceType]] = [Gym: [Gym, GymClassCategory], Library: [Library, CampusResource], DiningHall: [DiningHall]]
+    static var dataSource: ResourceDataSource.Type? { get }
+    static var detailProvider: ResourceDetailProvider.Type? { get }
     
-    var dataSourceType: ResourceDataSource.Type
-    {
-        switch self 
-        {
-            case .Gym: return GymDataSource.self
-            case .Library: return LibraryDataSource.self
-            case .DiningHall: return DiningDataSource.self
-            case .GymClass: return GymClassDataSource.self
-            case .GymClassCategory: return GymClassCategoryDataSource.self
-            case .CampusResource: return CampusResourceDataSource.self
-        }
-    }
     
-    var displayName: String
-    {
-        switch self
-        {
-            case .Gym: return "Gyms"
-            case .Library: return "Libraries"
-            case .DiningHall: return "Dining Halls"
-            case .GymClass: return "Group Classes"
-            case .GymClassCategory: return "Group Classes"
-            case .CampusResource: return "Campus Resources"
-        }
-    }
+    // MARK: Instance
+    var name: String { get }
+    var imageURL: URL? { get }
+    
+    /// Whether this `Resource` is currently open.
+    var isOpen: Bool { get }
+    
+    /// String description in the form "Type: name", for debugging purposes.
+    var description: String { get }
 }
 
-/**
- * A physical resource (e.g. libraries, dining halls) available to students.
- */
-class Resource: Favorable
+// MARK: - Default Implementations
+extension Resource
 {
-    var name: String
-    var type: ResourceType
-    var imageURL: URL? // TODO: consider an array/collection of images.
-    
-    var isFavorited: Bool
-    
-    // TODO: Move properties of `CampusResource` here
-    
-    // TODO: consider a protocol approach.
-    var isOpen: Bool
-    {
-        return false
-    }
-    
-    /// String description is simply "DiningHall <name>"
     var description: String
     {
-        return "\( type(of: self) ): \(self.name)"
-    }
-    
-    init(name: String, type: ResourceType, imageLink: String?, favorited: Bool = false)
-    {
-        self.name = name
-        self.imageURL = URL(string: imageLink ?? "")
-        self.isFavorited = favorited
-        self.type = type
+        return "\(type(of: self)): \(self.name)"
     }
 }

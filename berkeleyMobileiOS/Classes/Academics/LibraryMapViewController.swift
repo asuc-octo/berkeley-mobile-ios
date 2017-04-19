@@ -28,6 +28,8 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
         
 //        getAndSetFavoriteLibraries()
 //        librariesTableView.reloadData()
+        
+        
         setSegmentedControl()
         
         librariesSearchBar.isHidden = true
@@ -65,6 +67,8 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
 
         plotLibraries()
         
+        //Why doesn't this work? :
+        //self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -150,10 +154,10 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
         }
         
         // For favoriting
-        if (library.favorited == true) {
-            cell.favoriteButton.setImage(UIImage(named:"heart-filled"), for: .normal)
+        if (library.isFavorited == true) {
+            cell.favoriteButton.setImage(#imageLiteral(resourceName: "heart-filled"), for: .normal)
         } else {
-            cell.favoriteButton.setImage(UIImage(named:"heart"), for: .normal)
+            cell.favoriteButton.setImage(#imageLiteral(resourceName: "heart"), for: .normal)
         }
         cell.favoriteButton.tag = indexPath.row
         cell.favoriteButton.addTarget(self, action: #selector(self.toggleLibraryFavoriting(sender:)), for: .touchUpInside)
@@ -210,14 +214,14 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
         
         let row = sender.tag
         let selectedLibrary = libraries[row]
-        selectedLibrary.favorited = !selectedLibrary.favorited!
+        selectedLibrary.isFavorited = !selectedLibrary.isFavorited
         self.librariesTableView.reloadData()
         
         //Realm adding and deleting favorite libraries
         let favLibrary = FavoriteLibrary()
         favLibrary.name = selectedLibrary.name
         
-        if (selectedLibrary.favorited)! {
+        if selectedLibrary.isFavorited {
             try! realm.write {
                 realm.add(favLibrary)
             }
@@ -259,7 +263,7 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
         
         for library in self.libraries {
             if self.favoriteLibraries.contains(library.name) {
-                library.favorited = true
+                library.isFavorited = true
             }
         }
     }
