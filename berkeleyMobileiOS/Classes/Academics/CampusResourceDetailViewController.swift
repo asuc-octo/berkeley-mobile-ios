@@ -23,6 +23,18 @@ class CampusResourceDetailViewController: UIViewController, UITableViewDataSourc
     var locationManager = CLLocationManager()
     var realm = try! Realm()
     
+    
+    // MARK: - IBInitializable
+    typealias IBComponent = CampusResourceDetailViewController
+    
+    static var componentID: String { return className(IBComponent.self) }
+    
+    static func fromIB() -> IBComponent 
+    {
+        return UIStoryboard.academics.instantiateViewController(withIdentifier: self.componentID) as! IBComponent
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     
@@ -61,7 +73,7 @@ class CampusResourceDetailViewController: UIViewController, UITableViewDataSourc
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "option") as! OptionsCell
             // For favoriting
-            if (campusResource?.favorited == true) {
+            if (campusResource?.isFavorited == true) {
                 cell.favoriteButton.setImage(UIImage(named:"heart-large-filled"), for: .normal)
             } else {
                 cell.favoriteButton.setImage(UIImage(named:"heart-large"), for: .normal)
@@ -123,19 +135,19 @@ class CampusResourceDetailViewController: UIViewController, UITableViewDataSourc
     
     @IBAction func favoriteCampusResource(_ sender: Any) {
         
-        campusResource?.favorited = !(campusResource?.favorited!)!
+        campusResource?.isFavorited = !(campusResource?.isFavorited)!
         
         //Realm adding and deleting favorite libraries
         let favCampusResource = FavoriteCampusResource()
         favCampusResource.name = (campusResource?.name)!
         
-        if (campusResource?.favorited == true) {
+        if (campusResource?.isFavorited == true) {
             (sender as! UIButton).setImage(UIImage(named:"heart-large-filled"), for: .normal)
         } else {
             (sender as! UIButton).setImage(UIImage(named:"heart-large"), for: .normal)
         }
         
-        if (campusResource?.favorited)! {
+        if (campusResource?.isFavorited)! {
             try! realm.write {
                 realm.add(favCampusResource)
             }

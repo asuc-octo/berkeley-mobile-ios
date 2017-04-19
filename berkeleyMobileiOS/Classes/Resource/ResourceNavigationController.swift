@@ -4,8 +4,20 @@ import UIKit
 /**
  * Base navigation controller for a single type of `Resource`.
  */
-class ResourceNavigationController: UINavigationController, RequiresData
-{    
+class ResourceNavigationController: UINavigationController, IBInitializable
+{ 
+    // ========================================
+    // MARK: - IBInitializable
+    // ========================================
+    typealias IBComponent = ResourceNavigationController
+    
+    static var componentID: String { return className(IBComponent.self) }
+    
+    static func fromIB() -> IBComponent 
+    {
+        return UIStoryboard.resource.instantiateViewController(withIdentifier: self.componentID) as! IBComponent
+    }
+    
     
     // ========================================
     // MARK: - UINavigationController
@@ -27,15 +39,11 @@ class ResourceNavigationController: UINavigationController, RequiresData
     // ========================================
     // MARK: - RequiresData
     // ========================================
-    typealias DataType = ResourceType
-    
-    /// Requires the `ResourceType` to display.
-    func setData(_ type: DataType)
+    func setGroup(_ group: ResourceGroup)
     {
-        let name = type.rawValue.lowercased()
-        self.pageTabBarItem.image = UIImage(named: "ic_tab_" + name)?.withRenderingMode(.alwaysTemplate)
+        pageTabBarItem.image = group.icon 
         
-        let rootVC = self.viewControllers.first as? ResourceGroupViewController
-        rootVC?.setData(type)
+        let groupVC = viewControllers.first as? ResourceGroupViewController
+        groupVC?.setGroup(group)
     }
 }

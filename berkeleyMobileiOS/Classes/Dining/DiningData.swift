@@ -32,7 +32,7 @@ enum MealType: String
 /// Represents a single meal slot with a `DiningMenu` and open hours as `DateRange`.
 struct MealShift
 {
-    let menu: DiningMenu
+    var menu: DiningMenu
     let hours: DateRange?
     
     init(menu: DiningMenu, hours: DateRange?)
@@ -56,16 +56,31 @@ typealias MealMap = [MealType : MealShift]
  */
 class DiningHall: Resource
 {
+    static func displayName(pluralized: Bool) -> String
+    {
+        return "Dining Hall" + (pluralized ? "s" : "")
+    }
+    
+    static var dataSource: ResourceDataSource.Type? = DiningDataSource.self
+    static var detailProvider: ResourceDetailProvider.Type? = DiningHallViewController.self
+    
+    
+    let name: String
+    let imageURL: URL?
     let meals: MealMap
+    
+    var isFavorited: Bool = false
     
     init(name: String, imageLink: String?, shifts: MealMap)
     {
+        self.name = name
+        self.imageURL = URL(string: imageLink ?? "")
+        
         self.meals = shifts
-        super.init(name: name,  type:ResourceType.DiningHall, imageLink: imageLink)
     }
     
     /// Returns whether the hall is currently open.
-    override var isOpen: Bool
+    var isOpen: Bool
     {
         return meals.reduce(false){ $0 || $1.value.isOpen }
     }
@@ -79,7 +94,7 @@ class DiningHall: Resource
 
 
 /// DiningMenu is a typealias for an array of DiningItems.
-typealias DiningMenu = [DiningItem]
+typealias DiningMenu = Array<DiningItem>
 
 
 /** 

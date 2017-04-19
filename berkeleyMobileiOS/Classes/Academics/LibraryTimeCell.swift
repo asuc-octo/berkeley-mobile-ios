@@ -5,7 +5,6 @@
 //  Created by Sampath Duddu on 1/19/17.
 //  Copyright © 2017 org.berkeleyMobile. All rights reserved.
 //
-
 import UIKit
 
 class LibraryTimeCell: UITableViewCell {
