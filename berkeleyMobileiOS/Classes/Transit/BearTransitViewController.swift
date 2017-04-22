@@ -20,15 +20,12 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
     var dropDown: DropDown?
     var endDropDown: DropDown?
     var routes: [Route] = []
-    
     var manager:CLLocationManager!
     var myLocations: [CLLocation] = []
-    
     @IBOutlet var busesNotAvailable: UILabel!
     @IBOutlet weak var routesTable: UITableView!
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var startField: UITextField!
-    
     @IBOutlet weak var destinationField: UITextField!
     @IBOutlet weak var goButton: UIButton!
     var serverToLocalFormatter = DateFormatter.init()
@@ -37,7 +34,10 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
     var nearestBuses: [nearestBus] = []
     @IBOutlet var nearestBusesTable: UITableView!
     weak var activityIndicatorView: UIActivityIndicatorView!
-    
+    var startLat: [Double] = [37.871853, -122.258423]
+    var stopLat: [Double] = [37.871853, -122.258423]
+    var selectedIndexPath = 0
+    var polylines:[GMSPolyline] = []
     
     @IBAction func toggleStops(_ sender: Any) {
         self.routesTable.isHidden = true
@@ -45,6 +45,7 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
         if pressed {
             turnStopsOFF()
         } else {
+            zoomToCurrentLocation()
             turnStopsON()
         }
     }
@@ -53,7 +54,10 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
             p.map = nil
         }
         self.mapView.clear()
-        populateMapWithStops()
+        let backgroundQueue = DispatchQueue(label: "com.app.queue", qos: .background)
+        backgroundQueue.async {
+            self.populateMapWithStops()
+        }
         pressed = true
         stopTimeButton.setTitleColor(UIColor.init(red: 0/255, green: 85/255, blue: 129/255, alpha: 1), for: .normal)
         stopTimeButton.borderColor = UIColor.init(red: 0/255, green: 85/255, blue: 129/255, alpha: 1)
@@ -64,15 +68,18 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
         stopTimeButton.setTitleColor(UIColor.gray, for: .normal)
         stopTimeButton.borderColor = UIColor.gray
     }
-
-    var startLat: [Double] = [37.871853, -122.258423]
-    var stopLat: [Double] = [37.871853, -122.258423]
-    var selectedIndexPath = 0
-    var polylines:[GMSPolyline] = []
+    func zoomToCurrentLocation() {
+        if let coord = manager.location?.coordinate {
+            self.mapView.animate(toLocation: CLLocationCoordinate2D.init(latitude: coord.latitude, longitude: coord.longitude))
+            self.mapView.animate(toZoom: 16.5)
+        }
+        
+    }
     override func viewDidAppear(_ animated: Bool) {
         if let coord = manager.location?.coordinate {
         startLat = [coord.latitude, coord.longitude]
         }
+        zoomToCurrentLocation()
 
     }
     override func viewDidLoad() {
@@ -84,6 +91,7 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
         let camera = GMSCameraPosition.camera(withLatitude: 37.871853, longitude: -122.258423, zoom: 15)
         self.mapView.camera = camera
         self.mapView.isMyLocationEnabled = true
+        mapView.settings.myLocationButton = true
         // Do any additional setup after loading the view.
         self.makeMaterialShadow(withView: startField)
         self.makeMaterialShadow(withView: destinationField)
@@ -100,9 +108,18 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
         manager.desiredAccuracy = kCLLocationAccuracyBest
         manager.requestAlwaysAuthorization()
         manager.startUpdatingLocation()
-
+        if let coord = manager.location?.coordinate {
+            startLat = [coord.latitude, coord.longitude]
+        }
+        zoomToCurrentLocation()
 }
-    
+    func hideKeyBoard(sender: UITapGestureRecognizer? = nil){
+        startField.endEditing(true)
+        destinationField.endEditing(true)
+    }
+    func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
+        hideKeyBoard()
+    }
     func configureDropDown() {
         let dropper = DropDown()
         dropper.anchorView = self.startField
@@ -177,7 +194,6 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
     }
     
     @IBAction func searchRoutes(_ sender: Any) {
-        
         //Get Array In Order Of Soonest of Bus Name, Start Time, End Time Bus Name, Full Routes with latitude and longitudes
         self.routesTable.isHidden = true
         for p in polylines{
@@ -188,7 +204,6 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
         turnStopsOFF()
         polylines = []
         fullRouteDataSource.fetchBuses({ (routesArray: [Route]!) in
-            //DO STUFF
             self.routes = routesArray!
             if (self.routes.count == 0) {
                 self.busesNotAvailable.isHidden = false
@@ -222,9 +237,8 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
         let url = "https://maps.googleapis.com/maps/api/directions/json?origin=\(origin)&destination=\(destination)&mode=driving&key=AIzaSyBC8l95akDNvy_xZqa4j3XJCuATi2wFP_g"
         
         Alamofire.request(url).responseJSON { response in
-            var firstCoord = [0.0, 0.0]
+//            var firstCoord = [0.0, 0.0]
             var lastCoord = [0.0,0.0]
-            var fBool = true
             let json = JSON(data: response.data!)
             let routes = json["routes"].arrayValue
             for route in routes
@@ -238,10 +252,10 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
                     averageLatLon[0] += lastCoord[0]
                     averageLatLon[1] += lastCoord[1]
 
-                    if fBool {
-                        firstCoord = averageLatLon
-                        fBool = false
-                    }
+//                    if fBool {
+//                        firstCoord = averageLatLon
+//                        fBool = false
+//                    }
                     count += 1
                 }
                 polyline.strokeWidth = 5
@@ -282,13 +296,6 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
         }
         return true
     }
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        //if textField == self.startField {
-        //    self.dropDown!.show()
-        //} else {
-        //    self.endDropDown!.show()
-        //}
-    }
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField == self.startField {
             self.dropDown!.hide()
@@ -303,14 +310,13 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
             let longitude = currentStop["lon"]
             let title = currentStop["title"]
             let code = currentStop["code"]
-            let id = currentStop["id"]
             let marker = GMSMarker()
             
             marker.position = CLLocationCoordinate2D(latitude: latitude as! CLLocationDegrees, longitude: longitude as! CLLocationDegrees)
             marker.title = title as? String
             marker.snippet = code as? String
-            marker.icon = UIImage.init(named: "stopIcon")?.withRenderingMode(.alwaysTemplate).tint(with: UIColor.init(red: 0/255, green: 85/255, blue: 129/255, alpha: 1))
-            
+            marker.icon = UIImage.init(named: "Marker-1")
+            marker.isFlat = true
             marker.map = self.mapView
         }
     }
@@ -344,9 +350,6 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
         tf.layer.shadowColor = Color.gray.cgColor
         tf.layer.shadowOffset = CGSize(width: 1, height: 1)
         tf.layer.shadowOpacity = 1
-    }
-    func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
-
     }
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         if let s = marker.snippet {
@@ -440,7 +443,6 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
 }
