@@ -11,18 +11,15 @@ import GoogleMaps
 import RealmSwift
 import MessageUI
 
-class CampusResourceDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, GMSMapViewDelegate, CLLocationManagerDelegate, MFMailComposeViewControllerDelegate {
-
-    @IBOutlet var campusResourceImage: UIImageView!
-    @IBOutlet var campusResourceName: UILabel!
-    @IBOutlet var campusResourceAddress: UIButton!
-    @IBOutlet var campusResourceMapView: GMSMapView!
-    @IBOutlet var campusResourceTableView: UITableView!
+class CampusResourceDetailViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDelegate, MFMailComposeViewControllerDelegate, ResourceDetailProvider, IBInitializable {
     
-    var campusResource:CampusResource?
+    @IBOutlet var campusResDetailView: UIView!
+    @IBOutlet var campusResFavoriteButton: UIButton!
+    @IBOutlet var campusResStartEndTime: UILabel!
+    @IBOutlet var campusResMapView: GMSMapView!
+    
+    var campusResource:CampusResource!
     var locationManager = CLLocationManager()
-    var realm = try! Realm()
-    
     
     // MARK: - IBInitializable
     typealias IBComponent = CampusResourceDetailViewController
@@ -37,15 +34,10 @@ class CampusResourceDetailViewController: UIViewController, UITableViewDataSourc
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
-        campusResourceTableView.delegate = self
-        campusResourceTableView.dataSource = self
         self.title = campusResource?.name
-        campusResourceName.text = campusResource?.name
-        campusResourceAddress.setTitle(campusResource?.campusLocation, for: .normal)
+    
         setUpMap()
-
-        // Do any additional setup after loading the view.
+        setUpInformation()
     }
 
     override func didReceiveMemoryWarning() {
@@ -53,44 +45,27 @@ class CampusResourceDetailViewController: UIViewController, UITableViewDataSourc
         // Dispose of any resources that can be recreated.
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 112
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if (indexPath.row == 0) {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "libraryTime") as! LibraryTimeCell
-            
-            cell.libraryStartEndTime.text = campusResource?.hours
-            cell.libraryStatus.isHidden = true
-//            
-            return cell
+    func setUpInformation() {
+        self.campusResStartEndTime.text = self.campusResource.hours
+        
+        // For favoriting
+        if (campusResource.isFavorited) {
+            self.campusResFavoriteButton.setImage(#imageLiteral(resourceName: "heart-large-filled"), for: .normal)
         } else {
-            
-            let cell = tableView.dequeueReusableCell(withIdentifier: "option") as! OptionsCell
-            // For favoriting
-            if (campusResource?.isFavorited == true) {
-                cell.favoriteButton.setImage(UIImage(named:"heart-large-filled"), for: .normal)
-            } else {
-                cell.favoriteButton.setImage(UIImage(named:"heart-large"), for: .normal)
-            }
-            return cell
+            self.campusResFavoriteButton.setImage(#imageLiteral(resourceName: "heart-large"), for: .normal)
         }
+        return
     }
-    
+
     func setUpMap() {
         //Setting up map view
-        campusResourceMapView.delegate = self
-        campusResourceMapView.isMyLocationEnabled = true
+        campusResMapView.delegate = self
+        campusResMapView.isMyLocationEnabled = true
         let camera = GMSCameraPosition.camera(withLatitude: 37.871853, longitude: -122.258423, zoom: 15)
-        self.campusResourceMapView.camera = camera
-        self.campusResourceMapView.frame = self.view.frame
-        self.campusResourceMapView.isMyLocationEnabled = true
-        self.campusResourceMapView.delegate = self
+        self.campusResMapView.camera = camera
+        self.campusResMapView.frame = self.view.frame
+        self.campusResMapView.isMyLocationEnabled = true
+        self.campusResMapView.delegate = self
         self.locationManager.startUpdatingLocation()
         
         let kMapStyle =
@@ -103,25 +78,22 @@ class CampusResourceDetailViewController: UIViewController, UITableViewDataSourc
         
         do {
             // Set the map style by passing a valid JSON string.
-            self.campusResourceMapView.mapStyle = try GMSMapStyle(jsonString: kMapStyle)
+            self.campusResMapView.mapStyle = try GMSMapStyle(jsonString: kMapStyle)
         } catch {
             NSLog("The style definition could not be loaded: \(error)")
             //            print(error)
         }
         
-        let lat = campusResource?.latitude!
-        let lon = campusResource?.longitude!
+        let lat = campusResource.latitude!
+        let lon = campusResource.longitude!
         let marker = GMSMarker()
         
-        marker.position = CLLocationCoordinate2D(latitude: lat!, longitude: lon!)
+        marker.position = CLLocationCoordinate2D(latitude: lat, longitude: lon)
         marker.title = campusResource?.name
-        marker.map = self.campusResourceMapView
-        
+        marker.map = self.campusResMapView
     }
     
-
-    @IBAction func callCampusResource(_ sender: Any) {
-        
+    @IBAction func callCampusResource(_ sender: UIButton) {
         let numberArray = self.campusResource?.phoneNumber?.components(separatedBy: NSCharacterSet.decimalDigits.inverted)
         var number = ""
         for n in numberArray! {
@@ -132,40 +104,22 @@ class CampusResourceDetailViewController: UIViewController, UITableViewDataSourc
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
     }
-    
-    @IBAction func favoriteCampusResource(_ sender: Any) {
-        
-        campusResource?.isFavorited = !(campusResource?.isFavorited)!
-        
-        //Realm adding and deleting favorite libraries
-        let favCampusResource = FavoriteCampusResource()
-        favCampusResource.name = (campusResource?.name)!
-        
-        if (campusResource?.isFavorited == true) {
-            (sender as! UIButton).setImage(UIImage(named:"heart-large-filled"), for: .normal)
-        } else {
-            (sender as! UIButton).setImage(UIImage(named:"heart-large"), for: .normal)
-        }
-        
-        if (campusResource?.isFavorited)! {
-            try! realm.write {
-                realm.add(favCampusResource)
-            }
-        } else {
-            let campusResources = realm.objects(FavoriteCampusResource.self)
-            for campRes in campusResources {
-                if campRes.name == campusResource?.name {
-                    try! realm.write {
-                        realm.delete(campRes)
-                    }
-                }
-            }
-        }
 
+    @IBAction func favoriteCampusResource(_ sender: UIButton) {
+        guard let campusResource = self.campusResource else {
+            return
+        }
+        campusResource.isFavorited = !campusResource.isFavorited
+        FavoriteStore.shared.update(campusResource)
+        
+        if campusResource.isFavorited {
+            (sender ).setImage(#imageLiteral(resourceName: "heart-large-filled"), for: .normal)
+        } else {
+            (sender ).setImage(#imageLiteral(resourceName: "heart-large"), for: .normal)
+        }
     }
     
-    @IBAction func emailCampusResource(_ sender: Any) {
-        
+    @IBAction func emailCampusResource(_ sender: UIButton) {
         if MFMailComposeViewController.canSendMail() {
             let mail = MFMailComposeViewController()
             mail.mailComposeDelegate = self
@@ -173,7 +127,7 @@ class CampusResourceDetailViewController: UIViewController, UITableViewDataSourc
             mail.setMessageBody("", isHTML: true)
             
             present(mail, animated: true)
-//            self.navigationController?.present(mail, animated: true, completion: nil)
+
         } else {
             let alert = UIAlertController(title: "Email", message: "Unable to send email at this time. Please ensure that you have connected your phone to at least one email account via the Mail app.", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
@@ -181,10 +135,72 @@ class CampusResourceDetailViewController: UIViewController, UITableViewDataSourc
         }
     }
     
+    
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true)
     }
     
+    // MARK: - ResourceDetailProvider
+    static func newInstance() -> ResourceDetailProvider {
+        return fromIB()
+    }
     
+    var resource: Resource
+        {
+        get { return campusResource }
+        set
+        {
+            if viewIfLoaded == nil, campusResource == nil, let newCampusResource = newValue as? CampusResource
+            {
+                campusResource = newCampusResource
+                title = campusResource.name
+            }
+        }
+    }
+    
+    var text1: String? {
+        return nil
+    }
+    var text2: String? {
+        return nil
+    }
+    var viewController: UIViewController {
+        return self
+    }
+    var imageURL: URL? {
+        return campusResource.imageURL
+    }
+    
+    var resetOffsetOnSizeChanged = false
+    
+    var buttons: [UIButton]
+    {
+        return []
+    }
+    
+    var contentSizeChangeHandler: ((ResourceDetailProvider) -> Void)?
+        {
+        get { return nil }
+        set {}
+    }
+    
+    /// Get the contentSize property of the internal UIScrollView.
+    var contentSize: CGSize
+    {
+        let width = view.bounds.width
+        let height = campusResDetailView.height + campusResMapView.height
+        return CGSize(width: width, height: height)
+        
+    }
+    
+    /// Get/Set the contentOffset property of the internal UIScrollView.
+    var contentOffset: CGPoint
+        {
+        get { return CGPoint.zero }
+        set {}
+    }
+    
+    /// Set of setContentOffset method of the internal UIScrollView.
+    func setContentOffset(_ offset: CGPoint, animated: Bool){}
 
 }
