@@ -15,7 +15,7 @@ class CampusResource: Resource {
     }
     
     static var dataSource: ResourceDataSource.Type? = CampusResourceDataSource.self
-    static var detailProvider: ResourceDetailProvider.Type? = nil
+    static var detailProvider: ResourceDetailProvider.Type? = CampusResourceDetailViewController.self
     
     
     let name: String
@@ -36,7 +36,7 @@ class CampusResource: Resource {
         return false
     }
     
-    init(name: String, campusLocation: String?, phoneNumber: String?, alternatePhoneNumber: String?, email: String?, hours: String?, latitude: Double?, longitude: Double?, notes: String?) {
+    init(name: String, campusLocation: String?, phoneNumber: String?, alternatePhoneNumber: String?, email: String?, hours: String?, latitude: Double?, longitude: Double?, notes: String?, imageLink: String?) {
         self.campusLocation = campusLocation
         self.phoneNumber = phoneNumber
         self.alternatePhoneNumber = alternatePhoneNumber
@@ -47,6 +47,6 @@ class CampusResource: Resource {
         self.notes = notes
         
         self.name = name
-        self.imageURL = URL(string: "")
+        self.imageURL = URL(string: imageLink ?? "")
     }
 }
