@@ -50,6 +50,11 @@ class GymClassDetailViewController: UIViewController, UITableViewDelegate, UITab
         let gymClassCategory = classCategories?[indexPath.row]
         cell.gymClassCategory.text = gymClassCategory?.name
         
+        //For gym status (open/closed)
+        cell.gymClassCategoryStatus.text = "Open"
+        cell.gymClassCategoryStatus.textColor = UIColor.green
+        
+        
         // For favoriting
         if (gymClassCategory?.isFavorited == true) {
             cell.favoriteButton.setImage(UIImage(named:"heart-filled"), for: .normal)
@@ -64,7 +69,6 @@ class GymClassDetailViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         self.performSegue(withIdentifier: "GymClassDetailSegue", sender: indexPath.row)
     }
     
