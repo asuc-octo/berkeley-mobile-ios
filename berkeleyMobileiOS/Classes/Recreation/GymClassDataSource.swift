@@ -10,7 +10,8 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
-fileprivate let kGymClassEndpoint = kAPIURL + "/group_exs"
+//fileprivate let kGymClassEndpoint = kAPIURL + "/group_exs"
+fileprivate let kGymClassEndpoint = "https://asuc-mobile.herokuapp.com/api/group_exs"
 
 class GymClassDataSource: ResourceDataSource {
     
@@ -50,9 +51,17 @@ class GymClassDataSource: ResourceDataSource {
         let start  = formatter.date(from: json["start_time"].string ?? "")
         let end = formatter.date(from: json["end_time"].string ?? "")
 
-        let gymClass = GymClass(name: json["name"].stringValue, class_type: json["class_type"].stringValue, location: json["location"].stringValue, trainer: json["trainer"].stringValue, date: date,start_time: start, end_time: end, imageLink: "dsf")
+        let gymClass = GymClass(name: json["name"].stringValue,
+                                class_type: json["class_type"].stringValue,
+                                location: json["location"].stringValue,
+                                trainer: json["trainer"].stringValue,
+                                date: date,
+                                start_time: start,
+                                end_time: end,
+                                imageLink: json["image_link"].stringValue)
         
         return gymClass
+        
     }
     
     private static func sharedDateFormatter() -> DateFormatter
