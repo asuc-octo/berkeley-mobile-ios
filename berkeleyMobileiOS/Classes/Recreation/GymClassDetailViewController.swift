@@ -132,7 +132,6 @@ class GymClassDetailViewController: UIViewController, UITableViewDelegate, UITab
     
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return (classCategories?.count)!
         return (classCategories?.count)!
 
     }
