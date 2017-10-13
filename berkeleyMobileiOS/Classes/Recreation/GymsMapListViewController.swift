@@ -190,6 +190,7 @@ class GymsMapListViewController: UIViewController, GMSMapViewDelegate, CLLocatio
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print ("SELECTED")
         self.performSegue(withIdentifier: "toGymDetail", sender: indexPath.row)
         self.gymsTableView.deselectRow(at: indexPath, animated: true)
     }

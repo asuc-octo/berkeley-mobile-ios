@@ -171,8 +171,8 @@
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
-                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yMW-Fg-joa" customClass="ToggleButton" customModule="berkeleyMobileiOS" customModuleProvider="target">
-                                                                        <rect key="frame" x="148" y="166" width="36" height="36"/>
+                                                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yMW-Fg-joa" customClass="ToggleButton" customModule="berkeleyMobileiOS" customModuleProvider="target">
+                                                                        <rect key="frame" x="155" y="10" width="36" height="36"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="36" id="I0b-ue-3ax"/>
                                                                             <constraint firstAttribute="width" secondItem="yMW-Fg-joa" secondAttribute="height" multiplier="1:1" id="clu-BF-Q4f"/>
