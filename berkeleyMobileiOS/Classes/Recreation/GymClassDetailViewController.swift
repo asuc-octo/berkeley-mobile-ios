@@ -9,9 +9,68 @@
 import UIKit
 import RealmSwift
 
-class GymClassDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class GymClassDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ResourceDetailProvider, IBInitializable {
     
+    static func newInstance() -> ResourceDetailProvider {
+        return fromIB()
+    }
+    
+    var resource: Resource {
+        get
+        {
+            return gymClass
+        }
+        set
+        {
+            if viewIfLoaded == nil, gymClass == nil, let newClass = newValue as? GymClass {
+                gymClass = newClass
+                title = gymClass.class_type
+            }
+            
+        }
+    }
+    
+    var viewController: UIViewController {
+        return self
+    }
+    
+    var text1: String? {
+        return nil
+    }
+    
+    var text2: String? {
+        return nil
+    }
+    
+    var imageURL: URL? {
+        return gymClass?.imageURL
+    }
+    
+    var buttons: [UIButton] = []
+    
+    var resetOffsetOnSizeChanged = false
+    
+    var contentSizeChangeHandler: ((ResourceDetailProvider) -> Void)? {
+        get { return nil }
+        set {}
+    }
+    
+    var contentSize: CGSize {
+        let width = self.viewController.view.width
+        let height = self.viewController.view.height
+        return CGSize(width: width, height: height)
+    }
+    
+    var contentOffset: CGPoint {
+        get { return CGPoint.zero }
+        set {}
+    }
+    
+    func setContentOffset(_ offset: CGPoint, animated: Bool) {}
+    
+    var gymClass : GymClass!
     var classCategories: [GymClassCategory]?
+
     var favoriteClassCategories = [String]()
     var realm = try! Realm()
 
@@ -19,13 +78,12 @@ class GymClassDetailViewController: UIViewController, UITableViewDelegate, UITab
     
     
     // MARK: - IBInitializable
-    typealias IBComponent = GymDetailViewController
+    typealias IBComponent = GymClassDetailViewController
     
     static var componentID: String { return className(IBComponent.self) }
     
     static func fromIB() -> IBComponent {
-        return UIStoryboard.gym.instantiateViewController(withIdentifier: self.componentID) as! IBComponent
-    }
+        return UIStoryboard.gym.instantiateViewController(withIdentifier: self.componentID) as! IBComponent    }
     
     
     override func viewDidLoad() {
@@ -74,7 +132,9 @@ class GymClassDetailViewController: UIViewController, UITableViewDelegate, UITab
     
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return (classCategories?.count)!
         return (classCategories?.count)!
+
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

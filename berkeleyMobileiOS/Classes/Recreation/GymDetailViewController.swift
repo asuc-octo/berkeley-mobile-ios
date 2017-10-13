@@ -15,6 +15,12 @@ class GymDetailViewController: UIViewController, IBInitializable, CLLocationMana
     @IBOutlet var gymStatus: UILabel!
     @IBOutlet var gymInformationView: UIView!
     @IBOutlet var gymMap: GMSMapView!
+    
+    @IBOutlet weak var phone: UIButton!
+    @IBOutlet weak var directions: UIButton!
+    @IBOutlet weak var website: UIButton!
+    
+    
     var locationManager = CLLocationManager()
     
     var gym: Gym!
@@ -32,6 +38,11 @@ class GymDetailViewController: UIViewController, IBInitializable, CLLocationMana
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        phone.titleLabel?.textAlignment = NSTextAlignment.center
+        directions.titleLabel?.textAlignment = .center
+        website.titleLabel?.textAlignment = .center
+
         
         setUpMap()
         setUpInformation()
@@ -125,6 +136,7 @@ class GymDetailViewController: UIViewController, IBInitializable, CLLocationMana
     
     
     @IBAction func openMap(_ sender: UIButton) {
+        
         let lat = gym?.latitude!
         let lon = gym?.longitude!
     
