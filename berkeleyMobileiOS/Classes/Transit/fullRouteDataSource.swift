@@ -10,7 +10,7 @@ import Alamofire
 import SwiftyJSON
 
 fileprivate let kGymsEndpoint = "https://asuc-mobile-development.herokuapp.com/api/bt_lines"
-fileprivate let getRouteEndpoint = "https://asuc-mobile-development.herokuapp.com/api/bt_trips/new?"
+fileprivate let getRouteEndpoint = "https://asuc-mobile.herokuapp.com/api/bt_trips/new?"
 
 class fullRouteDataSource: NSObject {
     typealias completionHandler = (_ buses: [Route]) -> Void
