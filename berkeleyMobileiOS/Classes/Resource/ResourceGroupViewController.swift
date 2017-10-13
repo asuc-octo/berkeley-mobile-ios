@@ -1,6 +1,7 @@
 
 import UIKit
 import DropDown
+import Material
 
 fileprivate let kColorNavy = UIColor(red: 23/255.0, green: 85/255.0, blue: 122/255.0, alpha: 1)
 
@@ -121,7 +122,8 @@ class ResourceGroupViewController: UIViewController, IBInitializable, UITableVie
         let view = self.view!
         
         let navbarMaxY = self.navbar?.frame.maxY ?? 0
-        self.pseudoNavbar.frame = CGRect(x: 0, y: -navbarMaxY, width: view.width, height: navbarMaxY)
+        let eliminateSpace: CGFloat = 12
+        self.pseudoNavbar.frame = CGRect(x: 0, y: -navbarMaxY - eliminateSpace, width: view.width, height: navbarMaxY + 10)
     }
     
     
@@ -166,9 +168,15 @@ class ResourceGroupViewController: UIViewController, IBInitializable, UITableVie
     {
         // Search bar
         self.navigationItem.titleView = searchBar
+        let textFieldInsideUISearchBar = searchBar.value(forKey: "searchField") as? UITextField
+        textFieldInsideUISearchBar?.borderStyle = .none
+        textFieldInsideUISearchBar?.backgroundColor = kColorNavy
+        textFieldInsideUISearchBar?.textColor = UIColor.white
+        
+        
         searchBar.delegate = self
-        searchDropDown.frame = CGRect(x: 0, y: 0, width: searchDropDown.frame.width, height: searchDropDown.frame.height)
-//        searchDropDown.anchorView = self.view
+//        searchDropDown.frame = CGRect(x: 0, y: -20, width: searchDropDown.frame.width, height: searchDropDown.frame.height)
+        searchDropDown.anchorView = self.navigationItem.titleView
         searchDropDown.bottomOffset = CGPoint(x: 0, y: 50)
         // searchDropDown.dismissMode = .manual
         searchDropDown.selectionAction = selectedRow
