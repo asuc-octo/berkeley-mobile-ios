@@ -18,25 +18,10 @@ class LaunchViewController: UIViewController
         UIView.animate(withDuration: 1.2, animations: {
             self.view.layoutIfNeeded()
         })
-        _ = Timer.scheduledTimer(timeInterval: 2, target:self, selector: #selector(LaunchViewController.presentMainViewController), userInfo: nil, repeats: false)
+//        _ = Timer.scheduledTimer(timeInterval: 2, target:self, selector: #selector(LaunchViewController.presentMainViewController), userInfo: nil, repeats: false)
     }
     
     //After launch animation, present the actual workflow. All tabs should be in this init statement.
-    func presentMainViewController()
-    {
-        var viewControllers: [UIViewController] = ResourceGroup.all.map
-        {
-            let resourceNav = ResourceNavigationController.fromIB()
-            resourceNav.setGroup($0)
-            return resourceNav
-        }
-        
-        viewControllers.append( BearTransitNavigationController.fromIB() )
-        
-        let indexViewController: UIViewController  = TabBarController(viewControllers: viewControllers, selectedIndex: 0)
-        indexViewController.modalTransitionStyle = .crossDissolve
-        
-        self.present(indexViewController, animated: true, completion: nil)
-    }
+
 }
 
