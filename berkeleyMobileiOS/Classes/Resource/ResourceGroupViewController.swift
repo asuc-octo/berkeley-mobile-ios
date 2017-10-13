@@ -167,7 +167,8 @@ class ResourceGroupViewController: UIViewController, IBInitializable, UITableVie
         // Search bar
         self.navigationItem.titleView = searchBar
         searchBar.delegate = self
-        searchDropDown.anchorView = self.navigationItem.titleView
+        searchDropDown.frame = CGRect(x: 0, y: 0, width: searchDropDown.frame.width, height: searchDropDown.frame.height)
+//        searchDropDown.anchorView = self.view
         searchDropDown.bottomOffset = CGPoint(x: 0, y: 50)
         // searchDropDown.dismissMode = .manual
         searchDropDown.selectionAction = selectedRow
