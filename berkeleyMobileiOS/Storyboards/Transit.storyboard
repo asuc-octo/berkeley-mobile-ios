@@ -44,7 +44,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h6G-AV-4Ku" customClass="GMSMapView">
+                            <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h6G-AV-4Ku" customClass="GMSMapView">
                                 <rect key="frame" x="-4" y="0.0" width="383" height="618"/>
                                 <color key="backgroundColor" red="0.070588235289999995" green="0.58431372550000005" blue="0.84705882349999995" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
@@ -413,7 +413,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.0" green="0.33333333329999998" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.0" green="0.4128602147102356" blue="0.57932960987091064" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="75" id="3Y7-BW-NYh"/>
                                     <constraint firstItem="48B-Ec-whx" firstAttribute="centerY" secondItem="zaD-27-xjN" secondAttribute="centerY" constant="9.5" id="8o9-8Q-blr"/>
@@ -439,6 +439,32 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kxz-96-FPN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4842" y="-717"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="tgK-TH-8IA">
+            <objects>
+                <viewController id="s9R-MY-QT4" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="YTT-Oz-zGf"/>
+                        <viewControllerLayoutGuide type="bottom" id="678-Vg-g0k"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Oa3-LN-uWX">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" fixedFrame="YES" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="Taq-sO-SRi">
+                                <rect key="frame" x="0.0" y="194" width="375" height="56"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.098766781390000002" green="0.4927834868" blue="0.75449579950000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tBb-lW-tRr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5948" y="-669"/>
         </scene>
     </scenes>
     <resources>
