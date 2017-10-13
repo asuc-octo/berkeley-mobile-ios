@@ -104,8 +104,15 @@ class ResourceGroupViewController: UIViewController, IBInitializable, UITableVie
         self.navbar?.hideHairline = true
         self.navbar?.setTransparent(true)
         setStatusBarStyle(self.preferredStatusBarStyle)
+        for vc in (self.pageTabBarController?.viewControllers)! {
+            if (type(of: vc) == BearTransitNavigationController.self) {
+                vc.pageTabBarItem.image = #imageLiteral(resourceName: "beartransit").withRenderingMode(.alwaysTemplate)
+            }
+        }
     }
-    
+    override func viewDidAppear(_ animated: Bool) {
+
+    }
     /// Place the pseudoNavbar backdrop behind the navbar.
     override func viewDidLayoutSubviews()
     {
