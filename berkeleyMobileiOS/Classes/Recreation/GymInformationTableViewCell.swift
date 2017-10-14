@@ -10,8 +10,8 @@ import UIKit
 
 class GymInformationTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var icon: UIImageView!
     
+    @IBOutlet weak var iconImage: UIImageView!
     @IBOutlet weak var iconInfo: UILabel!
     
     

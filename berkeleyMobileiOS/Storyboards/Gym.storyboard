@@ -96,145 +96,6 @@
             </objects>
             <point key="canvasLocation" x="712.79999999999995" y="-140.77961019490255"/>
         </scene>
-        <!--Gym Detail View Controller-->
-        <scene sceneID="aoL-IX-AVr">
-            <objects>
-                <viewController storyboardIdentifier="GymDetailViewController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="UfA-fB-LqS" customClass="GymDetailViewController" customModule="berkeleyMobileiOS" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Aql-ak-Nuv"/>
-                        <viewControllerLayoutGuide type="bottom" id="kXk-VC-idE"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="VeZ-Sh-7eb">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QDx-tU-z95">
-                                <rect key="frame" x="0.0" y="20" width="375" height="220"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Artboard 1" translatesAutoresizingMaskIntoConstraints="NO" id="qYg-fz-2le">
-                                        <rect key="frame" x="21" y="16" width="50" height="50"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="IKE-aW-7gz"/>
-                                            <constraint firstAttribute="width" constant="50" id="aBc-Hx-LE3"/>
-                                        </constraints>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="he9-Yk-K1d">
-                                        <rect key="frame" x="101" y="16" width="46" height="21"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="21" id="lAp-TU-brE"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9:00 AM to 10:00 PM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wji-8Q-lLC">
-                                        <rect key="frame" x="101" y="45" width="163" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Closed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n6x-0Y-ghZ">
-                                        <rect key="frame" x="155" y="16" width="54" height="21"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="21" id="Pnf-pL-TSj"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZAr-yC-ruO">
-                                        <rect key="frame" x="21" y="107" width="95" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="95" id="X8T-26-s3j"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                        <inset key="titleEdgeInsets" minX="-94" minY="80" maxX="-40" maxY="0.0"/>
-                                        <inset key="imageEdgeInsets" minX="25" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <state key="normal" title="PHONE" image="Artboard 3">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="callGym:" destination="UfA-fB-LqS" eventType="touchUpInside" id="TPi-x6-hGo"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K8m-0T-HQa">
-                                        <rect key="frame" x="245" y="107" width="95" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <inset key="titleEdgeInsets" minX="-94" minY="80" maxX="-17" maxY="0.0"/>
-                                        <inset key="imageEdgeInsets" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <state key="normal" title="WEBSITE" image="Artboard 4">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="viewGymWebsite:" destination="UfA-fB-LqS" eventType="touchUpInside" id="pic-L0-t3i"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Igj-NR-3hP">
-                                        <rect key="frame" x="136" y="107" width="95" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                        <inset key="titleEdgeInsets" minX="-100" minY="80" maxX="-37" maxY="0.0"/>
-                                        <inset key="imageEdgeInsets" minX="25" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <state key="normal" title="DIRECTIONS" image="Artboard 5">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="openMap:" destination="UfA-fB-LqS" eventType="touchUpInside" id="hDx-jS-KuI"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="K8m-0T-HQa" firstAttribute="height" secondItem="Igj-NR-3hP" secondAttribute="height" id="4OL-2F-YZv"/>
-                                    <constraint firstItem="qYg-fz-2le" firstAttribute="top" secondItem="QDx-tU-z95" secondAttribute="top" constant="16" id="FXn-kw-bnz"/>
-                                    <constraint firstItem="wji-8Q-lLC" firstAttribute="bottom" secondItem="qYg-fz-2le" secondAttribute="bottom" id="G6a-aD-Bfb"/>
-                                    <constraint firstItem="Igj-NR-3hP" firstAttribute="width" secondItem="ZAr-yC-ruO" secondAttribute="width" id="Hb1-ko-DXV"/>
-                                    <constraint firstItem="K8m-0T-HQa" firstAttribute="width" secondItem="ZAr-yC-ruO" secondAttribute="width" id="Q88-cE-lTg"/>
-                                    <constraint firstItem="n6x-0Y-ghZ" firstAttribute="top" secondItem="he9-Yk-K1d" secondAttribute="top" id="TGV-oK-TWw"/>
-                                    <constraint firstItem="K8m-0T-HQa" firstAttribute="leading" secondItem="Igj-NR-3hP" secondAttribute="trailing" constant="13" id="TTS-lb-Fep"/>
-                                    <constraint firstItem="n6x-0Y-ghZ" firstAttribute="leading" secondItem="he9-Yk-K1d" secondAttribute="trailing" constant="8" id="VD8-hs-r1t"/>
-                                    <constraint firstItem="wji-8Q-lLC" firstAttribute="leading" secondItem="qYg-fz-2le" secondAttribute="trailing" constant="30" id="WS3-am-Z8F"/>
-                                    <constraint firstItem="K8m-0T-HQa" firstAttribute="top" secondItem="Igj-NR-3hP" secondAttribute="top" id="ZW7-6I-r4t"/>
-                                    <constraint firstItem="Igj-NR-3hP" firstAttribute="top" secondItem="ZAr-yC-ruO" secondAttribute="top" id="aZr-rv-p2t"/>
-                                    <constraint firstItem="Igj-NR-3hP" firstAttribute="height" secondItem="ZAr-yC-ruO" secondAttribute="height" id="bT5-ON-ecr"/>
-                                    <constraint firstItem="qYg-fz-2le" firstAttribute="leading" secondItem="QDx-tU-z95" secondAttribute="leading" constant="21" id="bTs-zX-5tP"/>
-                                    <constraint firstItem="ZAr-yC-ruO" firstAttribute="leading" secondItem="qYg-fz-2le" secondAttribute="leading" id="ipp-cQ-5mn"/>
-                                    <constraint firstItem="Igj-NR-3hP" firstAttribute="leading" secondItem="ZAr-yC-ruO" secondAttribute="trailing" constant="21" id="jS6-Rs-70r"/>
-                                    <constraint firstItem="ZAr-yC-ruO" firstAttribute="top" secondItem="qYg-fz-2le" secondAttribute="bottom" constant="41" id="oWV-j9-UE1"/>
-                                    <constraint firstItem="he9-Yk-K1d" firstAttribute="top" secondItem="qYg-fz-2le" secondAttribute="top" id="wxE-nd-TN1"/>
-                                    <constraint firstItem="he9-Yk-K1d" firstAttribute="leading" secondItem="qYg-fz-2le" secondAttribute="trailing" constant="30" id="zeE-pv-0hP"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LAL-Oa-0T1" customClass="GMSMapView">
-                                <rect key="frame" x="0.0" y="245" width="375" height="220"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="QDx-tU-z95" firstAttribute="top" secondItem="Aql-ak-Nuv" secondAttribute="bottom" id="HSq-RN-2te"/>
-                            <constraint firstItem="LAL-Oa-0T1" firstAttribute="top" secondItem="QDx-tU-z95" secondAttribute="bottom" constant="5" id="IQc-BQ-dfW"/>
-                            <constraint firstItem="QDx-tU-z95" firstAttribute="height" secondItem="VeZ-Sh-7eb" secondAttribute="height" multiplier="0.33" id="akL-zd-Tme"/>
-                            <constraint firstItem="QDx-tU-z95" firstAttribute="width" secondItem="VeZ-Sh-7eb" secondAttribute="width" id="gdr-TN-fgs"/>
-                            <constraint firstItem="LAL-Oa-0T1" firstAttribute="leading" secondItem="QDx-tU-z95" secondAttribute="leading" id="nzs-47-HmL"/>
-                            <constraint firstItem="QDx-tU-z95" firstAttribute="leading" secondItem="VeZ-Sh-7eb" secondAttribute="leadingMargin" constant="-16" id="opF-BY-ibV"/>
-                            <constraint firstItem="LAL-Oa-0T1" firstAttribute="height" secondItem="QDx-tU-z95" secondAttribute="height" id="tdm-Jv-nGV"/>
-                            <constraint firstItem="LAL-Oa-0T1" firstAttribute="width" secondItem="QDx-tU-z95" secondAttribute="width" id="wG9-VW-ZfA"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="directions" destination="Igj-NR-3hP" id="b1y-bN-6A4"/>
-                        <outlet property="gymInformationView" destination="QDx-tU-z95" id="Ehx-Cs-Rj8"/>
-                        <outlet property="gymMap" destination="LAL-Oa-0T1" id="j7P-y8-lyM"/>
-                        <outlet property="gymStartEndTime" destination="wji-8Q-lLC" id="q8x-0b-VoS"/>
-                        <outlet property="gymStatus" destination="n6x-0Y-ghZ" id="HcF-Zu-Xy0"/>
-                        <outlet property="phone" destination="ZAr-yC-ruO" id="xK1-si-fJZ"/>
-                        <outlet property="website" destination="K8m-0T-HQa" id="fAa-zp-y07"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="OY6-fx-cyJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="713" y="544"/>
-        </scene>
         <!--Gym Class Detail View Controller-->
         <scene sceneID="iHh-73-BA2">
             <objects>
@@ -403,14 +264,97 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dyS-ko-zjS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1486" y="544"/>
+            <point key="canvasLocation" x="1486" y="579"/>
+        </scene>
+        <!--Gym Detail View Controller-->
+        <scene sceneID="Dis-L5-HeW">
+            <objects>
+                <viewController storyboardIdentifier="GymDetailViewController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Ip6-EN-52i" customClass="GymDetailViewController" customModule="berkeleyMobileiOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="RVj-KI-Gte"/>
+                        <viewControllerLayoutGuide type="bottom" id="OG6-nO-9Qr"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="NAa-M7-0Ac">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YQh-ih-6h0">
+                                <rect key="frame" x="0.0" y="20" width="375" height="220"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="jhJ-1X-dUF">
+                                        <rect key="frame" x="0.0" y="23" width="375" height="175"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <prototypes>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="gymInfoCell" rowHeight="68" id="Yfh-lH-fyE" customClass="GymInformationTableViewCell" customModule="berkeleyMobileiOS" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="28" width="375" height="68"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Yfh-lH-fyE" id="5Xr-ug-bKw">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="67.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jSH-6d-WLC">
+                                                            <rect key="frame" x="14" y="19" width="30" height="30"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="30" id="EUk-rc-Twg"/>
+                                                                <constraint firstAttribute="width" constant="30" id="Llb-IH-Dhf"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qeg-G1-IY6">
+                                                            <rect key="frame" x="74" y="23.5" width="279" height="21"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="Qeg-G1-IY6" firstAttribute="leading" secondItem="jSH-6d-WLC" secondAttribute="trailing" constant="30" id="5ug-pK-87L"/>
+                                                        <constraint firstItem="jSH-6d-WLC" firstAttribute="centerY" secondItem="5Xr-ug-bKw" secondAttribute="centerY" id="DFj-XO-Jnp"/>
+                                                        <constraint firstItem="Qeg-G1-IY6" firstAttribute="centerY" secondItem="5Xr-ug-bKw" secondAttribute="centerY" id="HM5-wi-1UM"/>
+                                                        <constraint firstItem="jSH-6d-WLC" firstAttribute="leading" secondItem="5Xr-ug-bKw" secondAttribute="leading" constant="14" id="KAA-h7-Dtz"/>
+                                                        <constraint firstAttribute="trailing" secondItem="Qeg-G1-IY6" secondAttribute="trailing" constant="22" id="djx-Di-FEg"/>
+                                                    </constraints>
+                                                </tableViewCellContentView>
+                                                <accessibility key="accessibilityConfiguration" identifier="gymInfoCell"/>
+                                                <connections>
+                                                    <outlet property="iconImage" destination="jSH-6d-WLC" id="e1k-ga-SfI"/>
+                                                    <outlet property="iconInfo" destination="Qeg-G1-IY6" id="IDi-38-GPd"/>
+                                                </connections>
+                                            </tableViewCell>
+                                        </prototypes>
+                                    </tableView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mhA-uf-Wqw" customClass="GMSMapView">
+                                <rect key="frame" x="0.0" y="245" width="375" height="220"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="YQh-ih-6h0" firstAttribute="height" secondItem="NAa-M7-0Ac" secondAttribute="height" multiplier="0.33" id="4dr-s6-PzM"/>
+                            <constraint firstItem="YQh-ih-6h0" firstAttribute="leading" secondItem="NAa-M7-0Ac" secondAttribute="leadingMargin" constant="-16" id="Gxy-8b-27e"/>
+                            <constraint firstItem="mhA-uf-Wqw" firstAttribute="leading" secondItem="YQh-ih-6h0" secondAttribute="leading" id="PT8-10-eIA"/>
+                            <constraint firstItem="YQh-ih-6h0" firstAttribute="top" secondItem="RVj-KI-Gte" secondAttribute="bottom" id="YoW-zz-7i0"/>
+                            <constraint firstItem="mhA-uf-Wqw" firstAttribute="height" secondItem="YQh-ih-6h0" secondAttribute="height" id="a2B-s3-dC7"/>
+                            <constraint firstItem="mhA-uf-Wqw" firstAttribute="top" secondItem="YQh-ih-6h0" secondAttribute="bottom" constant="5" id="aeD-YB-fa5"/>
+                            <constraint firstItem="mhA-uf-Wqw" firstAttribute="width" secondItem="YQh-ih-6h0" secondAttribute="width" id="czZ-KS-av4"/>
+                            <constraint firstItem="YQh-ih-6h0" firstAttribute="width" secondItem="NAa-M7-0Ac" secondAttribute="width" id="gK1-2p-QUZ"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="gymInfoTableview" destination="jhJ-1X-dUF" id="HMd-1e-2N4"/>
+                        <outlet property="gymInformationView" destination="YQh-ih-6h0" id="y9A-qs-3Pj"/>
+                        <outlet property="gymMap" destination="mhA-uf-Wqw" id="Hsk-aI-i34"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TKo-wG-WJ4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="712.79999999999995" y="578.86056971514245"/>
         </scene>
     </scenes>
     <resources>
-        <image name="Artboard 1" width="30" height="30"/>
-        <image name="Artboard 3" width="30" height="30"/>
-        <image name="Artboard 4" width="30" height="30"/>
-        <image name="Artboard 5" width="30" height="30"/>
         <image name="heart" width="25" height="25"/>
     </resources>
 </document>
