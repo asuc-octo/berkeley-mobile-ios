@@ -149,6 +149,7 @@ class GymDetailViewController: UIViewController, IBInitializable, CLLocationMana
         UIApplication.shared.open(NSURL(string: "https://www.google.com/maps/dir/Current+Location/" + String(describing: lat!) + "," + String(describing: lon!))! as URL,  options: [:], completionHandler: nil)
     }
     
+    
     func getGymStatusHours() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "h:mm a"
@@ -293,6 +294,12 @@ class GymDetailViewController: UIViewController, IBInitializable, CLLocationMana
         }
     }
     
+    func getMap() {
+        let lat = gym?.latitude!
+        let lon = gym?.longitude!
+        
+        UIApplication.shared.open(NSURL(string: "https://www.google.com/maps/dir/Current+Location/" + String(describing: lat!) + "," + String(describing: lon!))! as URL,  options: [:], completionHandler: nil)
+    }
     
     func setData(_ gym: Gym) {
         self.gym = gym
@@ -378,16 +385,20 @@ extension GymDetailViewController: UITableViewDataSource, UITableViewDelegate {
         return infoCell
     }
     
-    func tableView(_tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print (indexPath.row)
+        let cell  = tableView.cellForRow(at: indexPath)
+        cell?.selectionStyle = .none
+
         if indexPath.row == 0 {
             // do nothing
         } else if indexPath.row == 1 {
             callGym()
+            
         } else if indexPath.row == 2 {
             viewGymWebsite()
         } else if indexPath.row == 3 {
-            // go to map?
+            getMap()
         }
     }
 
