@@ -10,8 +10,10 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
+
 var KAP = "https://asuc-mobile.herokuapp.com/api/"
 fileprivate let kLibrariesEndpoint = KAP + "/weekly_libraries"
+
 
 class LibraryDataSource: ResourceDataSource {
     
