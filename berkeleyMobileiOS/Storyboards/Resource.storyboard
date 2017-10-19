@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -113,7 +114,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="278" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gfB-Uh-e7V">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="-12" width="375" height="615"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="ResourceGroupCell" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="ResourceGroupCell" id="WKb-eN-ecn" customClass="ResourceGroupCell" customModule="berkeleyMobileiOS" customModuleProvider="target">
@@ -153,7 +154,7 @@
                                                                         <rect key="frame" x="0.0" y="0.0" width="200" height="150"/>
                                                                     </imageView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OXS-0g-5kd">
-                                                                        <rect key="frame" x="16" y="166" width="39" height="16"/>
+                                                                        <rect key="frame" x="16" y="166" width="176" height="16"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="16" id="TpG-xf-ugS"/>
                                                                         </constraints>
@@ -184,6 +185,7 @@
                                                                 <constraint firstAttribute="bottom" secondItem="Nx7-pp-cqi" secondAttribute="bottom" constant="68" id="10P-sS-5aR"/>
                                                                 <constraint firstItem="Nx7-pp-cqi" firstAttribute="leading" secondItem="NRH-tG-V0m" secondAttribute="leading" id="2pl-n8-dMW"/>
                                                                 <constraint firstItem="Qhy-Dh-CeK" firstAttribute="leading" secondItem="NRH-tG-V0m" secondAttribute="leading" constant="16" id="ILz-tk-MlG"/>
+                                                                <constraint firstAttribute="trailingMargin" secondItem="OXS-0g-5kd" secondAttribute="trailing" constant="8" id="KN5-IS-Q71"/>
                                                                 <constraint firstAttribute="bottom" secondItem="yMW-Fg-joa" secondAttribute="bottom" constant="176" id="P1e-kz-srj"/>
                                                                 <constraint firstAttribute="bottom" secondItem="Qhy-Dh-CeK" secondAttribute="bottom" constant="16" id="ReF-u2-q7k"/>
                                                                 <constraint firstAttribute="trailing" secondItem="yMW-Fg-joa" secondAttribute="trailing" constant="5" id="XZk-FC-q0L"/>
@@ -229,7 +231,7 @@
                         <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="Wdr-al-d6r" firstAttribute="top" secondItem="gfB-Uh-e7V" secondAttribute="bottom" id="4LN-hz-hMa"/>
-                            <constraint firstItem="gfB-Uh-e7V" firstAttribute="top" secondItem="SR9-0k-imp" secondAttribute="bottom" id="jVO-jI-CMQ"/>
+                            <constraint firstItem="gfB-Uh-e7V" firstAttribute="top" secondItem="SR9-0k-imp" secondAttribute="bottom" constant="-12" id="jVO-jI-CMQ"/>
                             <constraint firstAttribute="trailing" secondItem="gfB-Uh-e7V" secondAttribute="trailing" id="nSA-Ra-4hf"/>
                             <constraint firstItem="gfB-Uh-e7V" firstAttribute="leading" secondItem="xDO-UD-KCp" secondAttribute="leading" id="tHT-jj-xwg"/>
                         </constraints>

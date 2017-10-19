@@ -14,13 +14,15 @@ class ConvenienceMethods: NSObject {
         var count = 0
         for vc in (pageTabBarVC.viewControllers) {
             if (vc == selectedViewController)   {
-                //Make Current Tab Image Bigger
-                vc.pageTabBarItem.imageEdgeInsets = UIEdgeInsetsMake(3,3,3,3)
-                vc.pageTabBarItem.imageView?.tintColor = Color.blue.base
-            } else {
-                vc.pageTabBarItem.imageEdgeInsets = UIEdgeInsetsMake(6,6,6,6)
-                vc.pageTabBarItem.imageView?.tintColor = Color.grey.base
-
+                    vc.pageTabBarItem.image = #imageLiteral(resourceName: "beartransitColoredIcon")
+                    //Make Current Tab Image Bigger
+                    vc.pageTabBarItem.imageEdgeInsets = UIEdgeInsetsMake(3,3,3,3)
+                    vc.pageTabBarItem.imageView?.tintColor = Color.blue.base
+                }
+            else {
+                    //Make Current Tab Image Smaller
+                    vc.pageTabBarItem.imageEdgeInsets = UIEdgeInsetsMake(3,3,3,3)
+                    vc.pageTabBarItem.imageView?.tintColor = Color.grey.base
             }
             count += 1
         }

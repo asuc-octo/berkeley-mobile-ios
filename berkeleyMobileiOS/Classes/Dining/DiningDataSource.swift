@@ -78,7 +78,6 @@ class DiningDataSource: ResourceDataSource
             case "Breakfast":   type = .breakfast
             case "Lunch":       type = .lunch
             case "Dinner":      type = .dinner
-            case "Late Night":  type = .lateNight
             default:            type = .breakfast
         }
         

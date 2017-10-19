@@ -40,7 +40,7 @@ struct ResourceGroup
     
     static let recreation = ResourceGroup(
         name: "Recreation",
-        icon: #imageLiteral(resourceName: "ic_tab_gym"), 
+        icon: #imageLiteral(resourceName: "gym-uncolored"),
         types: [
             Gym.self,
             GymClass.self

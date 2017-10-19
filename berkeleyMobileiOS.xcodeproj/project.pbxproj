@@ -34,6 +34,7 @@
 		41101F9F1DDEC5CF00D8D741 /* RecreationNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41101F9E1DDEC5CF00D8D741 /* RecreationNavigationController.swift */; };
 		4124FA911EAC027700F65FBA /* timeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4124FA901EAC027700F65FBA /* timeCell.swift */; };
 		41661D0A1DCEFC760044E7B4 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41661D021DCEFC110044E7B4 /* Material.framework */; };
+		41A19ACA1F905A7100F71CB9 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41A19AC91F905A7100F71CB9 /* Launch Screen.storyboard */; };
 		41B0B5871E8CD95D00DA9297 /* BearTransitNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B0B57A1E8CD95D00DA9297 /* BearTransitNavigationController.swift */; };
 		41B0B5881E8CD95D00DA9297 /* BearTransitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B0B57B1E8CD95D00DA9297 /* BearTransitViewController.swift */; };
 		41B0B5891E8CD95D00DA9297 /* fullRouteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B0B57C1E8CD95D00DA9297 /* fullRouteDataSource.swift */; };
@@ -112,7 +113,6 @@
 		4EE89F261DDBEF9F00AC4EF7 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE89F251DDBEF9F00AC4EF7 /* UIImageView+Extension.swift */; };
 		4EEF90471DDBC7D0002CF7E4 /* Dining.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4EEF90461DDBC7D0002CF7E4 /* Dining.storyboard */; };
 		55026D561F9152E6005D9576 /* GymInformationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55026D551F9152E6005D9576 /* GymInformationTableViewCell.swift */; };
-		554852E71F91672600D7B6A5 /* gym temp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 554852E61F91672600D7B6A5 /* gym temp.storyboard */; };
 		B5F25D1D1DE2A1EA0084A5C7 /* GymDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F25D1C1DE2A1EA0084A5C7 /* GymDataSource.swift */; };
 		B5F25D1F1DE2A38E0084A5C7 /* Gym.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F25D1E1DE2A38E0084A5C7 /* Gym.swift */; };
 		B5F25D211DE2B6DF0084A5C7 /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F25D201DE2B6DF0084A5C7 /* Library.swift */; };
@@ -153,6 +153,7 @@
 		41101F9E1DDEC5CF00D8D741 /* RecreationNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecreationNavigationController.swift; sourceTree = "<group>"; };
 		4124FA901EAC027700F65FBA /* timeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = timeCell.swift; sourceTree = "<group>"; };
 		41661D021DCEFC110044E7B4 /* Material.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Material.framework; path = "../../Library/Developer/Xcode/DerivedData/berkeleyMobileiOS-fqwsgytduwzwkifixxlmawnrvtwq/Build/Products/Debug-iphonesimulator/Material/Material.framework"; sourceTree = "<group>"; };
+		41A19AC91F905A7100F71CB9 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "Launch Screen.storyboard"; path = "berkeleyMobileiOS/Classes/Launch Screen.storyboard"; sourceTree = "<group>"; };
 		41B0B57A1E8CD95D00DA9297 /* BearTransitNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BearTransitNavigationController.swift; sourceTree = "<group>"; };
 		41B0B57B1E8CD95D00DA9297 /* BearTransitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BearTransitViewController.swift; sourceTree = "<group>"; };
 		41B0B57C1E8CD95D00DA9297 /* fullRouteDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = fullRouteDataSource.swift; sourceTree = "<group>"; };
@@ -234,7 +235,6 @@
 		4EEF90461DDBC7D0002CF7E4 /* Dining.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Dining.storyboard; sourceTree = "<group>"; };
 		4EF0D9AF1DDBC08C003C18FA /* Pods_berkeleyMobileiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods_berkeleyMobileiOS.framework; path = "Pods/../build/Debug-iphoneos/Pods_berkeleyMobileiOS.framework"; sourceTree = "<group>"; };
 		55026D551F9152E6005D9576 /* GymInformationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymInformationTableViewCell.swift; sourceTree = "<group>"; };
-		554852E61F91672600D7B6A5 /* gym temp.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "gym temp.storyboard"; sourceTree = "<group>"; };
 		7BC35364DDC70E5590C55CCF /* Pods-berkeleyMobileiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeleyMobileiOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-berkeleyMobileiOS/Pods-berkeleyMobileiOS.release.xcconfig"; sourceTree = "<group>"; };
 		9D72D6DF911EDC0F04EE307F /* Pods-berkeleyMobileiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeleyMobileiOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-berkeleyMobileiOS/Pods-berkeleyMobileiOS.debug.xcconfig"; sourceTree = "<group>"; };
 		B5F25D1C1DE2A1EA0084A5C7 /* GymDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GymDataSource.swift; sourceTree = "<group>"; };
@@ -266,6 +266,7 @@
 		41E843811DAB3FE80096C049 = {
 			isa = PBXGroup;
 			children = (
+				41A19AC91F905A7100F71CB9 /* Launch Screen.storyboard */,
 				41E8438C1DAB3FE80096C049 /* berkeleyMobileiOS */,
 				41E8438B1DAB3FE80096C049 /* Products */,
 				93BD09A1D2E78ACB866AE8D4 /* Pods */,
@@ -471,7 +472,6 @@
 				4E5CAED41DD02B5C00ECAF8E /* Main.storyboard */,
 				4E7F97121EA05806002D9EC8 /* Resource.storyboard */,
 				4E106F251E9FDEFA0089934A /* Gym.storyboard */,
-				554852E61F91672600D7B6A5 /* gym temp.storyboard */,
 				4E7F97101EA057A4002D9EC8 /* Academics.storyboard */,
 				4EEF90461DDBC7D0002CF7E4 /* Dining.storyboard */,
 				4E106F231E9F02560089934A /* Transit.storyboard */,
@@ -592,7 +592,7 @@
 				TargetAttributes = {
 					41E843891DAB3FE80096C049 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = THWYJ35MQC;
+						DevelopmentTeam = 4HBETBULVA;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 					};
@@ -624,10 +624,10 @@
 				4E8E0D8C1E0C08380052CC10 /* Roboto-Bold.ttf in Resources */,
 				4E8E0D901E0C08380052CC10 /* Roboto-LightItalic.ttf in Resources */,
 				4E8E0D921E0C08380052CC10 /* Roboto-MediumItalic.ttf in Resources */,
-				554852E71F91672600D7B6A5 /* gym temp.storyboard in Resources */,
 				4E106F241E9F02560089934A /* Transit.storyboard in Resources */,
 				4E8E0D8E1E0C08380052CC10 /* Roboto-Italic.ttf in Resources */,
 				4E8E0D8F1E0C08380052CC10 /* Roboto-Light.ttf in Resources */,
+				41A19ACA1F905A7100F71CB9 /* Launch Screen.storyboard in Resources */,
 				4E8E0D8D1E0C08380052CC10 /* Roboto-BoldItalic.ttf in Resources */,
 				4E8E0D8B1E0C08380052CC10 /* Roboto-BlackItalic.ttf in Resources */,
 				4E8E0D941E0C08380052CC10 /* Roboto-Thin.ttf in Resources */,
@@ -920,7 +920,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = THWYJ35MQC;
+				DEVELOPMENT_TEAM = 4HBETBULVA;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = berkeleyMobileiOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -943,7 +943,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				DEVELOPMENT_TEAM = THWYJ35MQC;
+				DEVELOPMENT_TEAM = 4HBETBULVA;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/build/Debug-iphoneos",

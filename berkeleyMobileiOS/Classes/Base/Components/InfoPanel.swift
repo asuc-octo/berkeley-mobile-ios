@@ -23,9 +23,9 @@ class InfoPanel: UIView
     private let curtain = CAGradientLayer()
     
     /// Fixed intrinsic height for all `InfoPanel`s.
-    static let fixedHeight: CGFloat = (2 * kPanelMargin) + (3 * kLabelHeight) + kLargeMargin + kSmallMargin
-    
-    
+//    static let fixedHeight: CGFloat = (2 * kPanelMargin) + (3 * kLabelHeight) + kLargeMargin + kSmallMargin
+    static let fixedHeight: CGFloat = 0
+
     /// Title (main text) of the panel.
     var title: String?
     {
