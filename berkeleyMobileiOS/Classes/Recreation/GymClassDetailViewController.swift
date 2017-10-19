@@ -88,12 +88,15 @@ class GymClassDetailViewController: UIViewController, UITableViewDelegate, UITab
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        GymClassCategoryDataSource.fetchResources { (list) in
+            self.classCategories = list as! [GymClassCategory]
+            self.gymClassCategoryTableView.reloadData()
+        }
         // Do any additional setup after loading the view.
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        getAndSetFavoriteGymClassCategories()
+//        getAndSetFavoriteGymClassCategories()
         gymClassCategoryTableView.reloadData()
     }
 
@@ -132,7 +135,11 @@ class GymClassDetailViewController: UIViewController, UITableViewDelegate, UITab
     
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (classCategories?.count)!
+        if let c = classCategories {
+            return (c.count)
+        } else {
+            return 0
+        }
 
     }
     
