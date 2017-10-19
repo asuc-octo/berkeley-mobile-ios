@@ -142,6 +142,8 @@ class DiningMenuViewController: UIViewController, RequiresData, DelegatesScroll,
         didSet 
         {
             self.hoursView.layer.shadowColor = (showScrollShadow ? UIColor.black : UIColor.clear).cgColor
+            
+            
         }
     }
 }
