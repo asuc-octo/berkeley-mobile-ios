@@ -205,6 +205,8 @@ class GymsMapListViewController: UIViewController, GMSMapViewDelegate, CLLocatio
             backItem.title = ""
             navigationItem.backBarButtonItem = backItem
 //            navigationItem.title = selectedGym.name
+
+            navigationItem.titleLabel.text = selectedGym.name
             
             let gymDetailVC = segue.destination as! GymDetailViewController
             

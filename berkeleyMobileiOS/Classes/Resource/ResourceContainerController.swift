@@ -140,7 +140,6 @@ class ResourceContainerController: UIViewController, IBInitializable, UIScrollVi
         toolbar.autoresizingMask = [.flexibleWidth, .flexibleBottomMargin]
         toolbar.frame = CGRect(x: 0, y: kStatusBarHeight, width: view.width, height: kToolBarHeight)
         
-        
         // Buttons
         let backButton = IconButton()
         backButton.image = #imageLiteral(resourceName: "ic_arrow_back_white")

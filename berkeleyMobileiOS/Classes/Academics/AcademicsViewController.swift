@@ -65,7 +65,9 @@ class AcademicsViewController: BaseViewController {
     func moveToMapView() {
         self.performSegue(withIdentifier: "toLibraryMapView", sender: self)
     }
-    
+    override func viewDidAppear(_ animated: Bool) {
+        return
+    }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "toLibraryMapView") {
             let backItem = UIBarButtonItem()
