@@ -28,6 +28,7 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
     @IBOutlet weak var startField: UITextField!
     @IBOutlet weak var destinationField: UITextField!
     @IBOutlet weak var goButton: UIButton!
+    @IBOutlet weak var destView: UIView!
     var serverToLocalFormatter = DateFormatter.init()
     var timeFormatter = DateFormatter.init()
     var pressed: Bool = true
@@ -39,6 +40,7 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
     var stopLat: [Double] = [37.871853, -122.258423]
     var selectedIndexPath = 0
     var polylines:[GMSPolyline] = []
+    var whitedIcons:[GMSMarker] = []
     
     @IBAction func toggleStops(_ sender: Any) {
         self.routesTable.isHidden = true
@@ -60,14 +62,14 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
             self.populateMapWithStops()
 //        }
         pressed = true
-        stopTimeButton.setTitleColor(UIColor.init(red: 0/255, green: 85/255, blue: 129/255, alpha: 1), for: .normal)
-        stopTimeButton.borderColor = UIColor.init(red: 0/255, green: 85/255, blue: 129/255, alpha: 1)
+//        stopTimeButton.setTitleColor(UIColor.init(red: 0/255, green: 85/255, blue: 129/255, alpha: 1), for: .normal)
+//        stopTimeButton.borderColor = UIColor.init(red: 0/255, green: 85/255, blue: 129/255, alpha: 1)
     }
     func turnStopsOFF() {
         self.mapView.clear()
         pressed = false
-        stopTimeButton.setTitleColor(UIColor.gray, for: .normal)
-        stopTimeButton.borderColor = UIColor.gray
+//        stopTimeButton.setTitleColor(UIColor.gray, for: .normal)
+//        stopTimeButton.borderColor = UIColor.gray
     }
     func zoomToCurrentLocation() {
         if let coord = manager.location?.coordinate {
@@ -92,8 +94,11 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
     }
     
     func setupStartDestFields() {
-        self.makeMaterialShadow(withView: startField)
-        self.makeMaterialShadow(withView: destinationField)
+//        self.makeMaterialShadow(withView: startField)
+//        self.makeMaterialShadow(withView: destinationField)
+        self.makeMaterialShadow(withView: destView)
+        self.makeMaterialShadow(withView: stopTimeButton)
+        self.makeMaterialShadow(withView: goButton)
         startField.delegate = self
         destinationField.delegate = self
         configureDropDown()
@@ -302,7 +307,7 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
             marker.position = CLLocationCoordinate2D(latitude: latitude as! CLLocationDegrees, longitude: longitude as! CLLocationDegrees)
             marker.title = title as? String
             marker.snippet = code as? String
-            marker.icon = UIImage.init(named: "Marker-1")
+            marker.icon = #imageLiteral(resourceName: "blueStop")
             marker.isFlat = true
             marker.map = self.mapView
         }
@@ -339,6 +344,12 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
         tf.layer.shadowOpacity = 1
     }
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        marker.icon = #imageLiteral(resourceName: "whiteStop")
+        for marker in whitedIcons {
+            marker.icon = #imageLiteral(resourceName: "blueStop")
+        }
+        whitedIcons = []
+        whitedIcons.append(marker)
         if let s = marker.snippet {
             self.routesTable.isHidden = true
             let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
