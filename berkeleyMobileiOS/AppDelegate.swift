@@ -16,6 +16,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        
+        UITabBar.appearance().tintColor = UIColor(hue: 0.5583, saturation: 0.79, brightness: 0.97, alpha: 1.0)
+        
+       
+        
+        
+        
         // Override point for customization after application launch.
         //GMSServices.provideAPIKey("AIzaSyAsOV94_am2S5ceDbfwkMDelYGCx6AOPgU")
         //GMSPlacesClient.provideAPIKey("AIzaSyBDNjXjgVynuRh4doXKJmljkaJphtWkVB8")

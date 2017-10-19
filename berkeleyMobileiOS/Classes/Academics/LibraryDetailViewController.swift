@@ -12,7 +12,11 @@ import GoogleMaps
 
 fileprivate let kLibraryCellHeight: CGFloat = 125.0
 
-class LibraryDetailViewController: UIViewController, IBInitializable, GMSMapViewDelegate, CLLocationManagerDelegate, ResourceDetailProvider {
+class LibraryDetailViewController: UIViewController, IBInitializable, GMSMapViewDelegate, CLLocationManagerDelegate, ResourceDetailProvider, UITableViewDelegate, UITableViewDataSource {
+    
+    
+    
+    @IBOutlet weak var LibraryTableView: UITableView!
     
     @IBOutlet var libraryDetailView: UIView!
     @IBOutlet var libraryFavoriteButton: UIButton!
@@ -43,11 +47,89 @@ class LibraryDetailViewController: UIViewController, IBInitializable, GMSMapView
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        LibraryTableView.dataSource = self
+        LibraryTableView.delegate = self
         //libraryImage.sd_setImage(with: library?.imageURL!)
         setUpMap()
         setUpInformation();
         
     }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 3
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = LibraryTableView.dequeueReusableCell(withIdentifier: "LibCell") as! LibraryOptionCell
+        
+        if (indexPath.row == 0) {
+            cell.NewImage.image = #imageLiteral(resourceName: "phone")
+        }
+        if (indexPath.row == 1) {
+            cell.NewImage.image = #imageLiteral(resourceName: "heart")
+            
+            if library.isFavorited {
+                cell.NewImage.image = #imageLiteral(resourceName: "heart_filled")
+            } else {
+                cell.NewImage.image = #imageLiteral(resourceName: "heart")
+            }
+        }
+        if (indexPath.row == 2) {
+            cell.NewImage.image = #imageLiteral(resourceName: "website")
+        }
+        
+        
+        
+        return cell
+    }
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if (indexPath.row == 0) {
+            //cell.NewImage.image = #imageLiteral(resourceName: "phone")
+            
+            let numberArray = self.library?.phoneNumber?.components(separatedBy: NSCharacterSet.decimalDigits.inverted)
+            var number = ""
+            for n in numberArray! {
+                number += n
+            }
+            
+            if let url = URL(string: "telprompt://\(number)") {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+            
+            
+            
+        }
+        if (indexPath.row == 1) {
+            //cell.NewImage.image = #imageLiteral(resourceName: "heart")
+            
+            guard let library = self.library else {
+                return
+            }
+            library.isFavorited = !library.isFavorited
+            FavoriteStore.shared.update(library)
+            LibraryTableView.reloadData()
+            
+           
+            
+            
+            
+        }
+        if (indexPath.row == 2) {
+            //cell.NewImage.image = #imageLiteral(resourceName: "website")
+            
+            
+             UIApplication.shared.open(NSURL(string: "http://www.lib.berkeley.edu/libraries/main-stacks")! as URL,  options: [:], completionHandler: nil)
+            
+            
+        }
+    }
+    
+    
+    
+    
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
