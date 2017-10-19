@@ -31,6 +31,7 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
     var serverToLocalFormatter = DateFormatter.init()
     var timeFormatter = DateFormatter.init()
     var pressed: Bool = true
+    let defaultCoord: [Double] = [37.871853, -122.258423]
     var nearestBuses: [nearestBus] = []
     @IBOutlet var nearestBusesTable: UITableView!
     weak var activityIndicatorView: UIActivityIndicatorView!
@@ -55,9 +56,9 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
         }
         self.mapView.clear()
         let backgroundQueue = DispatchQueue(label: "com.app.queue", qos: .background)
-        backgroundQueue.async {
+//        backgroundQueue.async {
             self.populateMapWithStops()
-        }
+//        }
         pressed = true
         stopTimeButton.setTitleColor(UIColor.init(red: 0/255, green: 85/255, blue: 129/255, alpha: 1), for: .normal)
         stopTimeButton.borderColor = UIColor.init(red: 0/255, green: 85/255, blue: 129/255, alpha: 1)
@@ -75,43 +76,58 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
         }
         
     }
+    func setupMap() {
+        //Setting up map view
+        let camera = GMSCameraPosition.camera(withLatitude: 37.871853, longitude: -122.258423, zoom: 15)
+        self.mapView.camera = camera
+        self.mapView.isMyLocationEnabled = true
+        mapView.settings.myLocationButton = true
+    }
     override func viewDidAppear(_ animated: Bool) {
         if let coord = manager.location?.coordinate {
         startLat = [coord.latitude, coord.longitude]
         }
-        zoomToCurrentLocation()
+//        zoomToCurrentLocation()
 
+    }
+    
+    func setupStartDestFields() {
+        self.makeMaterialShadow(withView: startField)
+        self.makeMaterialShadow(withView: destinationField)
+        startField.delegate = self
+        destinationField.delegate = self
+        configureDropDown()
+    }
+    func zoomToLoc() {
+        if let coord = manager.location?.coordinate {
+            startLat = [coord.latitude, coord.longitude]
+        }
+        zoomToCurrentLocation()
+    }
+    func setupLocationManager() {
+        manager = CLLocationManager()
+        manager.desiredAccuracy = kCLLocationAccuracyBest
+        manager.requestAlwaysAuthorization()
+        manager.startUpdatingLocation()
+    }
+    func setupTimeFormatters() {
+        serverToLocalFormatter.timeZone = TimeZone.init(abbreviation: "UTC")
+        serverToLocalFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        timeFormatter.dateFormat = "h:mm a"
+        serverToLocalFormatter.locale = Locale.init(identifier: "en_US_POSIX")
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         self.mapView.delegate = self
         busesNotAvailable.isHidden = true
         self.routesTable.isHidden = true
-        //Setting up map view
-        let camera = GMSCameraPosition.camera(withLatitude: 37.871853, longitude: -122.258423, zoom: 15)
-        self.mapView.camera = camera
-        self.mapView.isMyLocationEnabled = true
-        mapView.settings.myLocationButton = true
-        // Do any additional setup after loading the view.
-        self.makeMaterialShadow(withView: startField)
-        self.makeMaterialShadow(withView: destinationField)
-        populateMapWithStops()
-        startField.delegate = self
-        destinationField.delegate = self
-        configureDropDown()
         nearestBusesTable.isHidden = true
-        serverToLocalFormatter.timeZone = TimeZone.init(abbreviation: "UTC")
-        serverToLocalFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-        timeFormatter.dateFormat = "h:mm a"
-        serverToLocalFormatter.locale = Locale.init(identifier: "en_US_POSIX")
-        manager = CLLocationManager()
-        manager.desiredAccuracy = kCLLocationAccuracyBest
-        manager.requestAlwaysAuthorization()
-        manager.startUpdatingLocation()
-        if let coord = manager.location?.coordinate {
-            startLat = [coord.latitude, coord.longitude]
-        }
-        zoomToCurrentLocation()
+        goButton.isHidden = true
+        setupMap()
+        populateMapWithStops()
+        setupStartDestFields()
+        setupLocationManager()
+        zoomToLoc()
 }
     func hideKeyBoard(sender: UITapGestureRecognizer? = nil){
         startField.endEditing(true)
@@ -119,6 +135,11 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
     }
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
         hideKeyBoard()
+    }
+    func displayGoButtonOnCondition() {
+        if (startLat != defaultCoord && stopLat != defaultCoord) {
+            goButton.isHidden = false
+        }
     }
     func configureDropDown() {
         let dropper = DropDown()
@@ -129,13 +150,12 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
         dropper.selectionAction = { [unowned self] (index: Int, item: String) in
             self.startField.text = item
             self.startField.resignFirstResponder()
-            if ((self.destinationField.text?.characters.count)! > 0 && (self.startField.text != "Enter Destination")) {
-                self.goButton.isHidden = false
-            }
             self.startLat = self.getLatLngForZip(address: item)
+            self.displayGoButtonOnCondition()
         }
         dropper.width = dropper.anchorView!.plainView.width
         self.dropDown = dropper
+        
         let enddropper = DropDown()
         enddropper.anchorView = self.destinationField
         enddropper.dismissMode = .onTap
@@ -144,11 +164,8 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
         enddropper.selectionAction = { [unowned self] (index: Int, item: String) in
             self.destinationField.text = item
             self.destinationField.resignFirstResponder()
-            self.getLatLngForZip(address: item)
-            if ((self.startField.text?.characters.count)! > 0 && (self.startField.text != "Enter Start Point")) {
-                self.goButton.isHidden = false
-            }
             self.stopLat = self.getLatLngForZip(address: item)
+            self.displayGoButtonOnCondition()
         }
         enddropper.width = dropper.anchorView!.plainView.width
         self.endDropDown = enddropper
@@ -159,37 +176,7 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
             self.toggleHidden(someView: self.destinationField)
 
         }, completion: { _ in
-            let dropper = DropDown()
-            dropper.anchorView = self.startField
-            dropper.dismissMode = .onTap
-            dropper.bottomOffset = CGPoint(x: 0, y:dropper.anchorView!.plainView.bounds.height)
-            dropper.dataSource = ["Start Typing!"]
-            dropper.selectionAction = { [unowned self] (index: Int, item: String) in
-                self.startField.text = item
-                self.startField.resignFirstResponder()
-                if ((self.destinationField.text?.characters.count)! > 0 && (self.startField.text != "Enter Destination")) {
-                    self.goButton.isHidden = false
-                }
-                self.startLat = self.getLatLngForZip(address: item)
-            }
-            dropper.width = dropper.anchorView!.plainView.width
-            self.dropDown = dropper
-            let enddropper = DropDown()
-            enddropper.anchorView = self.destinationField
-            enddropper.dismissMode = .onTap
-            enddropper.bottomOffset = CGPoint(x: 0, y:dropper.anchorView!.plainView.bounds.height)
-            enddropper.dataSource = ["Start Typing!"]
-            enddropper.selectionAction = { [unowned self] (index: Int, item: String) in
-                self.destinationField.text = item
-                self.destinationField.resignFirstResponder()
-                self.getLatLngForZip(address: item)
-                if ((self.startField.text?.characters.count)! > 0 && (self.startField.text != "Enter Start Point")) {
-                    self.goButton.isHidden = false
-                }
-                self.stopLat = self.getLatLngForZip(address: item)
-            }
-            enddropper.width = dropper.anchorView!.plainView.width
-            self.endDropDown = enddropper
+           self.configureDropDown()
         })
     }
     
@@ -441,8 +428,4 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
         }
 
     }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-    
 }
