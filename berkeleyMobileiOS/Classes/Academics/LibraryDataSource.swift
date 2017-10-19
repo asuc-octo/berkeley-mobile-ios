@@ -11,7 +11,7 @@ import Alamofire
 import SwiftyJSON
 
 var KAPIURL = "https://asuc-mobile.herokuapp.com/api/"
-fileprivate let kLibrariesEndpoint = kAPIURL + "/weekly_libraries"
+fileprivate let kLibrariesEndpoint = KAPIURL + "/weekly_libraries"
 
 class LibraryDataSource: ResourceDataSource {
     
