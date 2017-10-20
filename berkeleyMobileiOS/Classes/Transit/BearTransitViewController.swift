@@ -13,8 +13,34 @@ import GooglePlaces
 import DropDown
 import Alamofire
 import SwiftyJSON
-
-class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFieldDelegate,UITableViewDelegate, UITableViewDataSource {
+extension UIView {
+    func applyGradient(colours: [UIColor]) -> Void {
+        self.applyGradient(colours: colours, locations: nil)
+    }
+    
+    func applyGradient(colours: [UIColor], locations: [NSNumber]?) -> Void {
+        let gradient: CAGradientLayer = CAGradientLayer()
+        gradient.frame = self.bounds
+        gradient.colors = colours.map { $0.cgColor }
+        gradient.locations = locations
+        gradient.startPoint = CGPoint(x: 0.0,y: 0.5)
+        gradient.endPoint = CGPoint(x: 1.0,y: 0.5)
+        self.layer.insertSublayer(gradient, at: 0)
+    }
+}
+class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFieldDelegate,UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: self.view.width - 10, height: 115)
+    }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 2
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "nearestBusCell", for: indexPath)
+        return cell
+    }
+    
     //Sets up initial tab look for this class
     @IBOutlet var stopTimeButton: UIButton!
     var dropDown: DropDown?
@@ -29,6 +55,10 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
     @IBOutlet weak var destinationField: UITextField!
     @IBOutlet weak var goButton: UIButton!
     @IBOutlet weak var destView: UIView!
+    
+    @IBOutlet weak var nearestBusCollection: UICollectionView!
+    var darkBlue = UIColor.init(red: 2/255, green: 46/255, blue: 129/255, alpha: 1)
+    var lightBlue = UIColor.init(red: 38/255, green: 133/255, blue: 245/255, alpha: 1)
     var serverToLocalFormatter = DateFormatter.init()
     var timeFormatter = DateFormatter.init()
     var pressed: Bool = true
@@ -126,12 +156,20 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
         self.mapView.delegate = self
         busesNotAvailable.isHidden = true
         self.routesTable.isHidden = true
-        nearestBusesTable.isHidden = true
+//        nearestBusesTable.isHidden = true
         goButton.isHidden = true
         setupMap()
         populateMapWithStops()
         setupStartDestFields()
         setupLocationManager()
+        setupTimeFormatters()
+        self.goButton.applyGradient(colours: [darkBlue, lightBlue])
+        nearestBusCollection.delegate = self
+        nearestBusCollection.dataSource = self
+//        let layout = UICollectionViewFlowLayout()
+//        layout.scrollDirection = .horizontal
+//        nearestBusCollection.setCollectionViewLayout(layout, animated: true)
+        
         zoomToLoc()
 }
     func hideKeyBoard(sender: UITapGestureRecognizer? = nil){
@@ -148,9 +186,9 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
     }
     func configureDropDown() {
         let dropper = DropDown()
-        dropper.anchorView = self.startField
+        dropper.anchorView = self.destView
         dropper.dismissMode = .onTap
-        dropper.bottomOffset = CGPoint(x: 0, y:dropper.anchorView!.plainView.bounds.height)
+        dropper.bottomOffset = CGPoint(x: 0, y:dropper.anchorView!.plainView.bounds.height + 8)
         dropper.dataSource = ["Start Typing!"]
         dropper.selectionAction = { [unowned self] (index: Int, item: String) in
             self.startField.text = item
@@ -158,13 +196,14 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
             self.startLat = self.getLatLngForZip(address: item)
             self.displayGoButtonOnCondition()
         }
-        dropper.width = dropper.anchorView!.plainView.width
+        dropper.backgroundColor = UIColor.white
+//        dropper.width = dropper.anchorView!.plainView.frame.width
         self.dropDown = dropper
         
         let enddropper = DropDown()
-        enddropper.anchorView = self.destinationField
+        enddropper.anchorView = self.destView
         enddropper.dismissMode = .onTap
-        enddropper.bottomOffset = CGPoint(x: 0, y:dropper.anchorView!.plainView.bounds.height)
+        enddropper.bottomOffset = CGPoint(x: 0, y:dropper.anchorView!.plainView.bounds.height + 8)
         enddropper.dataSource = ["Start Typing!"]
         enddropper.selectionAction = { [unowned self] (index: Int, item: String) in
             self.destinationField.text = item
@@ -172,7 +211,8 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
             self.stopLat = self.getLatLngForZip(address: item)
             self.displayGoButtonOnCondition()
         }
-        enddropper.width = dropper.anchorView!.plainView.width
+//        enddropper.width = dropper.anchorView!.plainView.width
+        enddropper.backgroundColor = UIColor.white
         self.endDropDown = enddropper
     }
     @IBAction func toggleStartStop(_ sender: Any) {
@@ -333,6 +373,11 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
                     autoResults.append(result.attributedFullText.string)
                 }
                 dropDown.dataSource = autoResults
+                var c: [NSLayoutConstraint] = dropDown.constraints
+                for constraint in c {
+                    print(constraint.constant)
+                }
+                dropDown.width = dropDown.anchorView?.plainView.width
             }
         })
     }
