@@ -30,14 +30,26 @@ extension UIView {
 }
 class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFieldDelegate,UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: self.view.width - 10, height: 115)
+        return CGSize(width: self.view.width, height: 115)
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
+        return nearestBuses.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "nearestBusCell", for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "nearestBusCell", for: indexPath) as! nearBusCollectionCell
+        let nearestB = nearestBuses[indexPath.row]
+        let toset: [UILabel] = [cell.shortestTime, cell.mediumTime, cell.smallTime]
+        let timesList = nearestB.timeLeft
+        for i in 0...2 {
+            if timesList.count > i {
+                toset[i].text = timesList[i].components(separatedBy: ":")[0]
+            } else {
+                toset[i].text = "--"
+            }
+        }
+        cell.busName.text = nearestB.busName
+        cell.busDescriptor.text = nearestB.directionTitle
         return cell
     }
     
@@ -55,6 +67,8 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
     @IBOutlet weak var destinationField: UITextField!
     @IBOutlet weak var goButton: UIButton!
     @IBOutlet weak var destView: UIView!
+    @IBOutlet weak var block1: UIView!
+    @IBOutlet weak var block2: UIView!
     
     @IBOutlet weak var nearestBusCollection: UICollectionView!
     var darkBlue = UIColor.init(red: 2/255, green: 46/255, blue: 129/255, alpha: 1)
@@ -64,7 +78,7 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
     var pressed: Bool = true
     let defaultCoord: [Double] = [37.871853, -122.258423]
     var nearestBuses: [nearestBus] = []
-    @IBOutlet var nearestBusesTable: UITableView!
+//    @IBOutlet var nearestBusesTable: UITableView!
     weak var activityIndicatorView: UIActivityIndicatorView!
     var startLat: [Double] = [37.871853, -122.258423]
     var stopLat: [Double] = [37.871853, -122.258423]
@@ -74,9 +88,9 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
     
     @IBAction func toggleStops(_ sender: Any) {
         self.routesTable.isHidden = true
-        self.nearestBusesTable.isHidden = true
+//        self.nearestBusesTable.isHidden = true
         if pressed {
-            turnStopsOFF()
+             turnStopsOFF()
         } else {
             zoomToCurrentLocation()
             turnStopsON()
@@ -92,14 +106,19 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
             self.populateMapWithStops()
 //        }
         pressed = true
+        stopTimeButton.applyGradient(colours: [darkBlue, lightBlue])
+        stopTimeButton.setTitleColor(UIColor.white, for: .normal)
+
 //        stopTimeButton.setTitleColor(UIColor.init(red: 0/255, green: 85/255, blue: 129/255, alpha: 1), for: .normal)
 //        stopTimeButton.borderColor = UIColor.init(red: 0/255, green: 85/255, blue: 129/255, alpha: 1)
     }
     func turnStopsOFF() {
         self.mapView.clear()
         pressed = false
-//        stopTimeButton.setTitleColor(UIColor.gray, for: .normal)
-//        stopTimeButton.borderColor = UIColor.gray
+        self.nearestBusCollection.isHidden = true
+//        stopTimeButton.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
+//        stopTimeButton.setTitleColor(darkBlue, for: .normal)
+    
     }
     func zoomToCurrentLocation() {
         if let coord = manager.location?.coordinate {
@@ -157,6 +176,7 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
         busesNotAvailable.isHidden = true
         self.routesTable.isHidden = true
 //        nearestBusesTable.isHidden = true
+        nearestBusCollection.isHidden = true
         goButton.isHidden = true
         setupMap()
         populateMapWithStops()
@@ -164,11 +184,16 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
         setupLocationManager()
         setupTimeFormatters()
         self.goButton.applyGradient(colours: [darkBlue, lightBlue])
+        self.stopTimeButton.applyGradient(colours: [darkBlue, lightBlue])
+        self.destView.cornerRadius = 5.0
+        self.stopTimeButton.layer.cornerRadius = 5.0
+        self.goButton.layer.cornerRadius = 5.0
+        block1.layer.cornerRadius = 0.5*block1.frame.width
+        block2.layer.cornerRadius = 0.5*block2.frame.width
+//        stopTimeButton.titleLabel?.textColor = UIColor.white
+        stopTimeButton.setTitleColor(UIColor.white, for: .normal)
         nearestBusCollection.delegate = self
         nearestBusCollection.dataSource = self
-//        let layout = UICollectionViewFlowLayout()
-//        layout.scrollDirection = .horizontal
-//        nearestBusCollection.setCollectionViewLayout(layout, animated: true)
         
         zoomToLoc()
 }
@@ -182,6 +207,9 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
     func displayGoButtonOnCondition() {
         if (startLat != defaultCoord && stopLat != defaultCoord) {
             goButton.isHidden = false
+//            stopTimeButton.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
+//            stopTimeButton.titleLabel?.textColor = darkBlue
+
         }
     }
     func configureDropDown() {
@@ -231,7 +259,8 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
         for p in polylines{
             p.map = nil
         }
-        self.nearestBusesTable.isHidden = true
+//        self.nearestBusesTable.isHidden = true
+        self.nearestBusCollection.isHidden = true
         self.busesNotAvailable.isHidden = true
         turnStopsOFF()
         polylines = []
@@ -398,22 +427,26 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
         if let s = marker.snippet {
             self.routesTable.isHidden = true
             let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
-            self.nearestBusesTable.backgroundView = activityIndicatorView
+//            self.nearestBusesTable.backgroundView = activityIndicatorView
             self.activityIndicatorView = activityIndicatorView
             self.activityIndicatorView.startAnimating()
             nearestStopsDataSource.fetchBuses({ (_ buses: [nearestBus]?) in
                 if (buses == nil || buses?.count == 0)
                 {
-                    self.nearestBusesTable.isHidden = true
-                    self.busesNotAvailable.isHidden = false
-                    self.busesNotAvailable.text = "No buses servicing this stop in the near future"
+                    self.nearestBusCollection.isHidden = false
+                    var nb = nearestBus.init(directionTitle: "--", busName: "No Buses Available", timeLeft: "--")
+                    self.nearestBuses = [nb]
+                    self.nearestBusCollection.reloadData()
+//                    self.busesNotAvailable.isHidden = false
+//                    self.busesNotAvailable.text = "No buses servicing this stop in the near future"
                     
                 } else {
-                    self.busesNotAvailable.isHidden = true
+                    self.nearestBusCollection.isHidden = false
                     self.nearestBuses = buses!
-                    self.nearestBusesTable.reloadData()
-                    self.activityIndicatorView.stopAnimating()
-                    self.nearestBusesTable.isHidden = false
+                    self.nearestBusCollection.reloadData()
+//                    self.nearestBusesTable.reloadData()
+//                    self.activityIndicatorView.stopAnimating()
+//                    self.nearestBusesTable.isHidden = false
                 }
                 
             }, stopCode:s)

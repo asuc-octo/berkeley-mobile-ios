@@ -222,8 +222,7 @@
                                 </connections>
                             </tableView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="2Jf-dU-gG4" userLabel="NearestBusCollection">
-                                <rect key="frame" x="0.0" y="508" width="375" height="108"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <rect key="frame" x="0.0" y="510" width="375" height="108"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="108" id="2d6-qj-FhB"/>
                                 </constraints>
@@ -234,7 +233,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" reuseIdentifier="nearestBusCell" id="xZF-d4-hkg">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" reuseIdentifier="nearestBusCell" id="xZF-d4-hkg" customClass="nearBusCollectionCell" customModule="berkeleyMobileiOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="-1.5" width="375" height="111"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -317,6 +316,13 @@
                                             <constraint firstItem="aVS-W0-ufD" firstAttribute="bottom" secondItem="pM9-nM-zqy" secondAttribute="bottom" id="uEO-Xm-tlw"/>
                                         </constraints>
                                         <size key="customSize" width="375" height="111"/>
+                                        <connections>
+                                            <outlet property="busDescriptor" destination="VvD-ok-Kot" id="tNT-1X-SbI"/>
+                                            <outlet property="busName" destination="jcK-zy-7b2" id="4pV-H0-xoR"/>
+                                            <outlet property="mediumTime" destination="uht-JV-jbg" id="Ga8-ZU-Jzc"/>
+                                            <outlet property="shortestTime" destination="pM9-nM-zqy" id="q65-B7-f1z"/>
+                                            <outlet property="smallTime" destination="HIG-Cs-2tm" id="shf-dH-lmP"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
@@ -352,7 +358,7 @@
                             <constraint firstItem="y0b-ex-JUs" firstAttribute="top" secondItem="h6G-AV-4Ku" secondAttribute="bottom" id="2SJ-YY-e55"/>
                             <constraint firstItem="Lhb-G4-e6x" firstAttribute="centerY" secondItem="r1L-rf-hOn" secondAttribute="centerY" id="3pD-yZ-MAn"/>
                             <constraint firstItem="r1L-rf-hOn" firstAttribute="top" secondItem="8f1-bb-qn8" secondAttribute="bottom" constant="9" id="4D6-XP-M2R"/>
-                            <constraint firstItem="y0b-ex-JUs" firstAttribute="top" secondItem="2Jf-dU-gG4" secondAttribute="bottom" constant="2" id="Ayb-zv-yfz"/>
+                            <constraint firstItem="y0b-ex-JUs" firstAttribute="top" secondItem="2Jf-dU-gG4" secondAttribute="bottom" id="Ayb-zv-yfz"/>
                             <constraint firstItem="kBg-Ob-SJR" firstAttribute="top" secondItem="ets-ah-17c" secondAttribute="bottom" constant="-20" id="HNZ-8G-FSa"/>
                             <constraint firstItem="kBg-Ob-SJR" firstAttribute="leading" secondItem="yfg-VJ-yFO" secondAttribute="leadingMargin" constant="-20" id="IRh-hC-nAh"/>
                             <constraint firstItem="h6G-AV-4Ku" firstAttribute="leading" secondItem="yfg-VJ-yFO" secondAttribute="leadingMargin" constant="-20" id="JV9-DU-NWN"/>
@@ -377,6 +383,8 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="block1" destination="x0D-6S-hvz" id="W9v-A7-j1k"/>
+                        <outlet property="block2" destination="eZY-Vz-fJY" id="BUR-KB-kvn"/>
                         <outlet property="busesNotAvailable" destination="kBg-Ob-SJR" id="Bx9-0I-2Eo"/>
                         <outlet property="destView" destination="8f1-bb-qn8" id="uMI-gN-pTS"/>
                         <outlet property="destinationField" destination="aO5-VQ-atd" id="Kcg-n5-aRK"/>
