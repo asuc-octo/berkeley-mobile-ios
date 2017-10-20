@@ -37,7 +37,7 @@
                                         <rect key="frame" x="0.0" y="72" width="375" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="64h-Dv-du3" id="dRe-Bh-sxT">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="99"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Insitute for Science and Mathematics Higher Learning" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cTc-aS-83g">
@@ -133,6 +133,36 @@
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="avL-cg-9bB">
                                 <rect key="frame" x="11" y="20" width="364" height="200"/>
                                 <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kdo-87-uTu">
+                                        <rect key="frame" x="21" y="107" width="72" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="FkL-Cb-RLZ"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <inset key="titleEdgeInsets" minX="-79" minY="80" maxX="-40" maxY="0.0"/>
+                                        <inset key="imageEdgeInsets" minX="25" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title="PHONE" image="phone">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="callLibrary:" destination="HtC-85-exa" eventType="touchUpInside" id="rC5-Wh-vuL"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Efr-uv-4Sn">
+                                        <rect key="frame" x="101" y="107" width="107" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="A4R-01-ySb"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <inset key="titleEdgeInsets" minX="-79" minY="80" maxX="-37" maxY="0.0"/>
+                                        <inset key="imageEdgeInsets" minX="30" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title="FAVORITE" image="heart-large">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="favoriteLibrary:" destination="HtC-85-exa" eventType="touchUpInside" id="Loi-tz-saz"/>
+                                        </connections>
+                                    </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_hours" translatesAutoresizingMaskIntoConstraints="NO" id="4pq-41-hFh">
                                         <rect key="frame" x="21" y="16" width="50" height="50"/>
                                         <constraints>
@@ -141,7 +171,7 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aH6-ld-vEG">
-                                        <rect key="frame" x="101" y="16" width="47" height="21"/>
+                                        <rect key="frame" x="101" y="16" width="46" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="qId-93-AvB"/>
                                         </constraints>
@@ -156,7 +186,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Closed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OPh-AL-ftV">
-                                        <rect key="frame" x="156" y="16" width="54" height="21"/>
+                                        <rect key="frame" x="155" y="16" width="54" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="gSt-jM-eAX"/>
                                         </constraints>
@@ -274,7 +304,7 @@
                                         <rect key="frame" x="0.0" y="72" width="375" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5m2-v4-kRl" id="AWp-Co-fex">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="99"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Academic Health Center" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JaY-g5-PeO">
@@ -353,6 +383,7 @@
         <!--Campus Resource Detail View Controller-->
         <scene sceneID="SI6-45-Map">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5f2-mL-yoO" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="CampusResourceDetailViewController" automaticallyAdjustsScrollViewInsets="NO" id="Ikb-m1-JcF" customClass="CampusResourceDetailViewController" customModule="berkeleyMobileiOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="A3M-ZQ-CXq"/>
@@ -368,6 +399,38 @@
                                     <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="B08-pk-Odc" userLabel="Campus Resource Detail View">
                                         <rect key="frame" x="0.0" y="20" width="375" height="220.5"/>
                                         <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vsx-bj-5hD">
+                                                <rect key="frame" x="21" y="107.5" width="92" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="CAt-RE-XmY"/>
+                                                    <constraint firstAttribute="width" constant="92" id="qCK-8z-rpS"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <inset key="titleEdgeInsets" minX="-79" minY="80" maxX="-40" maxY="0.0"/>
+                                                <inset key="imageEdgeInsets" minX="25" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                <state key="normal" title="PHONE" image="button:vsx-bj-5hD:image">
+                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="callCampusResource:" destination="Ikb-m1-JcF" eventType="touchUpInside" id="YPl-05-6X4"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t4B-FK-SQ9">
+                                                <rect key="frame" x="121" y="107.5" width="107" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="VqW-by-J0n"/>
+                                                    <constraint firstAttribute="width" constant="107" id="zcx-qt-Dyf"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <inset key="titleEdgeInsets" minX="-79" minY="80" maxX="-37" maxY="0.0"/>
+                                                <inset key="imageEdgeInsets" minX="30" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                <state key="normal" title="FAVORITE" image="heart-large">
+                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="favoriteCampusResource:" destination="Ikb-m1-JcF" eventType="touchUpInside" id="YLe-QO-u8R"/>
+                                                </connections>
+                                            </button>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_hours" translatesAutoresizingMaskIntoConstraints="NO" id="ssn-uw-X7I">
                                                 <rect key="frame" x="21" y="16.5" width="50" height="50"/>
                                                 <constraints>
@@ -375,6 +438,21 @@
                                                     <constraint firstAttribute="width" constant="50" id="fw0-6P-A22"/>
                                                 </constraints>
                                             </imageView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tle-ei-NCR">
+                                                <rect key="frame" x="236" y="107.5" width="107" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="Cls-MI-cUB"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <inset key="titleEdgeInsets" minX="-79" minY="80" maxX="-17" maxY="0.0"/>
+                                                <inset key="imageEdgeInsets" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                <state key="normal" title="WEBSITE" image="button:tle-ei-NCR:image">
+                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="emailCampusResource:" destination="Ikb-m1-JcF" eventType="touchUpInside" id="ebg-TL-0zU"/>
+                                                </connections>
+                                            </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9:00 AM to 10:00 PM" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="30T-oJ-esr">
                                                 <rect key="frame" x="106" y="31.5" width="261" height="21"/>
                                                 <constraints>
@@ -461,7 +539,6 @@
                         <outlet property="campusResStartEndTime" destination="30T-oJ-esr" id="zGf-nV-Gix"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="5f2-mL-yoO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2304.8000000000002" y="686.80659670164926"/>
         </scene>

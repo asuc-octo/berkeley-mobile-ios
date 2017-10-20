@@ -9,9 +9,68 @@
 import UIKit
 import RealmSwift
 
-class GymClassDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class GymClassDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ResourceDetailProvider, IBInitializable {
     
+    static func newInstance() -> ResourceDetailProvider {
+        return fromIB()
+    }
+    
+    var resource: Resource {
+        get
+        {
+            return gymClass
+        }
+        set
+        {
+            if viewIfLoaded == nil, gymClass == nil, let newClass = newValue as? GymClass {
+                gymClass = newClass
+                title = gymClass.class_type
+            }
+            
+        }
+    }
+    
+    var viewController: UIViewController {
+        return self
+    }
+    
+    var text1: String? {
+        return nil
+    }
+    
+    var text2: String? {
+        return nil
+    }
+    
+    var imageURL: URL? {
+        return gymClass?.imageURL
+    }
+    
+    var buttons: [UIButton] = []
+    
+    var resetOffsetOnSizeChanged = false
+    
+    var contentSizeChangeHandler: ((ResourceDetailProvider) -> Void)? {
+        get { return nil }
+        set {}
+    }
+    
+    var contentSize: CGSize {
+        let width = self.viewController.view.width
+        let height = self.viewController.view.height
+        return CGSize(width: width, height: height)
+    }
+    
+    var contentOffset: CGPoint {
+        get { return CGPoint.zero }
+        set {}
+    }
+    
+    func setContentOffset(_ offset: CGPoint, animated: Bool) {}
+    
+    var gymClass : GymClass!
     var classCategories: [GymClassCategory]?
+
     var favoriteClassCategories = [String]()
     var realm = try! Realm()
 
@@ -19,23 +78,25 @@ class GymClassDetailViewController: UIViewController, UITableViewDelegate, UITab
     
     
     // MARK: - IBInitializable
-    typealias IBComponent = GymDetailViewController
+    typealias IBComponent = GymClassDetailViewController
     
     static var componentID: String { return className(IBComponent.self) }
     
     static func fromIB() -> IBComponent {
-        return UIStoryboard.gym.instantiateViewController(withIdentifier: self.componentID) as! IBComponent
-    }
+        return UIStoryboard.gym.instantiateViewController(withIdentifier: self.componentID) as! IBComponent    }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        GymClassCategoryDataSource.fetchResources { (list) in
+            self.classCategories = list as! [GymClassCategory]
+            self.gymClassCategoryTableView.reloadData()
+        }
         // Do any additional setup after loading the view.
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        getAndSetFavoriteGymClassCategories()
+//        getAndSetFavoriteGymClassCategories()
         gymClassCategoryTableView.reloadData()
     }
 
@@ -49,6 +110,11 @@ class GymClassDetailViewController: UIViewController, UITableViewDelegate, UITab
         let cell = tableView.dequeueReusableCell(withIdentifier: "gymClassCategory") as! GymClassCategoryCell
         let gymClassCategory = classCategories?[indexPath.row]
         cell.gymClassCategory.text = gymClassCategory?.name
+        
+        //For gym status (open/closed)
+        cell.gymClassCategoryStatus.text = "Open"
+        cell.gymClassCategoryStatus.textColor = UIColor.green
+        
         
         // For favoriting
         if (gymClassCategory?.isFavorited == true) {
@@ -64,13 +130,17 @@ class GymClassDetailViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         self.performSegue(withIdentifier: "GymClassDetailSegue", sender: indexPath.row)
     }
     
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (classCategories?.count)!
+        if let c = classCategories {
+            return (c.count)
+        } else {
+            return 0
+        }
+
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

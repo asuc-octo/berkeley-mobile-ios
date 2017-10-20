@@ -36,6 +36,7 @@
 		41101F9F1DDEC5CF00D8D741 /* RecreationNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41101F9E1DDEC5CF00D8D741 /* RecreationNavigationController.swift */; };
 		4124FA911EAC027700F65FBA /* timeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4124FA901EAC027700F65FBA /* timeCell.swift */; };
 		41661D0A1DCEFC760044E7B4 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41661D021DCEFC110044E7B4 /* Material.framework */; };
+		41A19ACA1F905A7100F71CB9 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41A19AC91F905A7100F71CB9 /* Launch Screen.storyboard */; };
 		41B0B5871E8CD95D00DA9297 /* BearTransitNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B0B57A1E8CD95D00DA9297 /* BearTransitNavigationController.swift */; };
 		41B0B5881E8CD95D00DA9297 /* BearTransitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B0B57B1E8CD95D00DA9297 /* BearTransitViewController.swift */; };
 		41B0B5891E8CD95D00DA9297 /* fullRouteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B0B57C1E8CD95D00DA9297 /* fullRouteDataSource.swift */; };
@@ -51,6 +52,7 @@
 		41B56A3A1DD06E9500BC3DD2 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41B56A391DD06E9500BC3DD2 /* SwiftyJSON.framework */; };
 		41E8438E1DAB3FE80096C049 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E8438D1DAB3FE80096C049 /* AppDelegate.swift */; };
 		41E843951DAB3FE80096C049 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41E843941DAB3FE80096C049 /* Assets.xcassets */; };
+		41EB40621F9993640069A374 /* nearBusCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EB40611F9993640069A374 /* nearBusCollectionCell.swift */; };
 		4E06A05A1E5E9DE8007B946F /* ListMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E06A0591E5E9DE8007B946F /* ListMenuItem.swift */; };
 		4E106F221E9EFB380089934A /* UIStoryboard+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E106F211E9EFB380089934A /* UIStoryboard+Extension.swift */; };
 		4E106F241E9F02560089934A /* Transit.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E106F231E9F02560089934A /* Transit.storyboard */; };
@@ -113,6 +115,7 @@
 		4EE63BA41E5464B800FE3F9E /* ResourceContainerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE63BA31E5464B800FE3F9E /* ResourceContainerController.swift */; };
 		4EE89F261DDBEF9F00AC4EF7 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE89F251DDBEF9F00AC4EF7 /* UIImageView+Extension.swift */; };
 		4EEF90471DDBC7D0002CF7E4 /* Dining.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4EEF90461DDBC7D0002CF7E4 /* Dining.storyboard */; };
+		55026D561F9152E6005D9576 /* GymInformationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55026D551F9152E6005D9576 /* GymInformationTableViewCell.swift */; };
 		B5F25D1D1DE2A1EA0084A5C7 /* GymDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F25D1C1DE2A1EA0084A5C7 /* GymDataSource.swift */; };
 		B5F25D1F1DE2A38E0084A5C7 /* Gym.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F25D1E1DE2A38E0084A5C7 /* Gym.swift */; };
 		B5F25D211DE2B6DF0084A5C7 /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F25D201DE2B6DF0084A5C7 /* Library.swift */; };
@@ -155,6 +158,7 @@
 		41101F9E1DDEC5CF00D8D741 /* RecreationNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecreationNavigationController.swift; sourceTree = "<group>"; };
 		4124FA901EAC027700F65FBA /* timeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = timeCell.swift; sourceTree = "<group>"; };
 		41661D021DCEFC110044E7B4 /* Material.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Material.framework; path = "../../Library/Developer/Xcode/DerivedData/berkeleyMobileiOS-fqwsgytduwzwkifixxlmawnrvtwq/Build/Products/Debug-iphonesimulator/Material/Material.framework"; sourceTree = "<group>"; };
+		41A19AC91F905A7100F71CB9 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "Launch Screen.storyboard"; path = "berkeleyMobileiOS/Classes/Launch Screen.storyboard"; sourceTree = "<group>"; };
 		41B0B57A1E8CD95D00DA9297 /* BearTransitNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BearTransitNavigationController.swift; sourceTree = "<group>"; };
 		41B0B57B1E8CD95D00DA9297 /* BearTransitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BearTransitViewController.swift; sourceTree = "<group>"; };
 		41B0B57C1E8CD95D00DA9297 /* fullRouteDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = fullRouteDataSource.swift; sourceTree = "<group>"; };
@@ -172,6 +176,7 @@
 		41E8438D1DAB3FE80096C049 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		41E843941DAB3FE80096C049 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		41E843991DAB3FE80096C049 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		41EB40611F9993640069A374 /* nearBusCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = nearBusCollectionCell.swift; sourceTree = "<group>"; };
 		4E06A0591E5E9DE8007B946F /* ListMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListMenuItem.swift; sourceTree = "<group>"; };
 		4E106F211E9EFB380089934A /* UIStoryboard+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Extension.swift"; sourceTree = "<group>"; };
 		4E106F231E9F02560089934A /* Transit.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Transit.storyboard; sourceTree = "<group>"; };
@@ -235,6 +240,7 @@
 		4EE89F251DDBEF9F00AC4EF7 /* UIImageView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
 		4EEF90461DDBC7D0002CF7E4 /* Dining.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Dining.storyboard; sourceTree = "<group>"; };
 		4EF0D9AF1DDBC08C003C18FA /* Pods_berkeleyMobileiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods_berkeleyMobileiOS.framework; path = "Pods/../build/Debug-iphoneos/Pods_berkeleyMobileiOS.framework"; sourceTree = "<group>"; };
+		55026D551F9152E6005D9576 /* GymInformationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymInformationTableViewCell.swift; sourceTree = "<group>"; };
 		7BC35364DDC70E5590C55CCF /* Pods-berkeleyMobileiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeleyMobileiOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-berkeleyMobileiOS/Pods-berkeleyMobileiOS.release.xcconfig"; sourceTree = "<group>"; };
 		9D72D6DF911EDC0F04EE307F /* Pods-berkeleyMobileiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeleyMobileiOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-berkeleyMobileiOS/Pods-berkeleyMobileiOS.debug.xcconfig"; sourceTree = "<group>"; };
 		B5F25D1C1DE2A1EA0084A5C7 /* GymDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GymDataSource.swift; sourceTree = "<group>"; };
@@ -266,6 +272,7 @@
 		41E843811DAB3FE80096C049 = {
 			isa = PBXGroup;
 			children = (
+				41A19AC91F905A7100F71CB9 /* Launch Screen.storyboard */,
 				41E8438C1DAB3FE80096C049 /* berkeleyMobileiOS */,
 				41E8438B1DAB3FE80096C049 /* Products */,
 				93BD09A1D2E78ACB866AE8D4 /* Pods */,
@@ -423,6 +430,7 @@
 				281071A31E66A7F200D926E6 /* GymClassTableHeaderView.xib */,
 				28757D7E1E761953001697D6 /* GymClassDetailViewController.swift */,
 				28757D801E761F9F001697D6 /* GymClassCategoryCell.swift */,
+				55026D551F9152E6005D9576 /* GymInformationTableViewCell.swift */,
 			);
 			path = Recreation;
 			sourceTree = "<group>";
@@ -442,6 +450,7 @@
 				41B0B5821E8CD95D00DA9297 /* Route.swift */,
 				41B0B5831E8CD95D00DA9297 /* routeCell.swift */,
 				41B0B5841E8CD95D00DA9297 /* routeStop.swift */,
+				41EB40611F9993640069A374 /* nearBusCollectionCell.swift */,
 			);
 			path = Transit;
 			sourceTree = "<group>";
@@ -592,7 +601,7 @@
 				TargetAttributes = {
 					41E843891DAB3FE80096C049 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 33VXG65XJB;
+						DevelopmentTeam = THWYJ35MQC;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 					};
@@ -627,6 +636,7 @@
 				4E106F241E9F02560089934A /* Transit.storyboard in Resources */,
 				4E8E0D8E1E0C08380052CC10 /* Roboto-Italic.ttf in Resources */,
 				4E8E0D8F1E0C08380052CC10 /* Roboto-Light.ttf in Resources */,
+				41A19ACA1F905A7100F71CB9 /* Launch Screen.storyboard in Resources */,
 				4E8E0D8D1E0C08380052CC10 /* Roboto-BoldItalic.ttf in Resources */,
 				4E8E0D8B1E0C08380052CC10 /* Roboto-BlackItalic.ttf in Resources */,
 				4E8E0D941E0C08380052CC10 /* Roboto-Thin.ttf in Resources */,
@@ -775,6 +785,7 @@
 				282A4EEC1E63859900480201 /* GymClassDataSource.swift in Sources */,
 				4E4EC14C1E5118C9000C63ED /* FavoriteStore.swift in Sources */,
 				4E64B5701DD134F800DA5E73 /* Optional+Extension.swift in Sources */,
+				41EB40621F9993640069A374 /* nearBusCollectionCell.swift in Sources */,
 				4E505D401DD05A65004AC6C9 /* BaseViewController.swift in Sources */,
 				35D77E051F944B7B00CBDF52 /* LibraryOptionCell.swift in Sources */,
 				4EB1E5C81EA5D565002C5A8B /* LibraryTimeCell.swift in Sources */,
@@ -793,6 +804,7 @@
 				4E06A05A1E5E9DE8007B946F /* ListMenuItem.swift in Sources */,
 				4E4EC14B1E5118C9000C63ED /* Favorable.swift in Sources */,
 				4E62CFE71DD87CFB00B19722 /* UINavigationBar+Extension.swift in Sources */,
+				55026D561F9152E6005D9576 /* GymInformationTableViewCell.swift in Sources */,
 				4E4D30AD1E56F2D900E418B8 /* FadeTitleToolbar.swift in Sources */,
 				4E4EC1471E504710000C63ED /* ResourceTile.swift in Sources */,
 				4ED0D35F1DDCE9FA00956F9E /* Protocols.swift in Sources */,
@@ -920,7 +932,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = 33VXG65XJB;
+				DEVELOPMENT_TEAM = THWYJ35MQC;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = berkeleyMobileiOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -929,7 +941,7 @@
 					"-all_load",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.yo.berkeley-ios";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yooooo.berkeley-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -943,7 +955,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				DEVELOPMENT_TEAM = 33VXG65XJB;
+				DEVELOPMENT_TEAM = THWYJ35MQC;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
@@ -955,7 +967,7 @@
 					"-all_load",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.yo.berkeley-ios";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yooooo.berkeley-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
