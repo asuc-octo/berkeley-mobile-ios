@@ -50,6 +50,7 @@
 		41B56A3A1DD06E9500BC3DD2 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41B56A391DD06E9500BC3DD2 /* SwiftyJSON.framework */; };
 		41E8438E1DAB3FE80096C049 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E8438D1DAB3FE80096C049 /* AppDelegate.swift */; };
 		41E843951DAB3FE80096C049 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41E843941DAB3FE80096C049 /* Assets.xcassets */; };
+		41EB40621F9993640069A374 /* nearBusCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EB40611F9993640069A374 /* nearBusCollectionCell.swift */; };
 		4E06A05A1E5E9DE8007B946F /* ListMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E06A0591E5E9DE8007B946F /* ListMenuItem.swift */; };
 		4E106F221E9EFB380089934A /* UIStoryboard+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E106F211E9EFB380089934A /* UIStoryboard+Extension.swift */; };
 		4E106F241E9F02560089934A /* Transit.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E106F231E9F02560089934A /* Transit.storyboard */; };
@@ -171,6 +172,7 @@
 		41E8438D1DAB3FE80096C049 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		41E843941DAB3FE80096C049 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		41E843991DAB3FE80096C049 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		41EB40611F9993640069A374 /* nearBusCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = nearBusCollectionCell.swift; sourceTree = "<group>"; };
 		4E06A0591E5E9DE8007B946F /* ListMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListMenuItem.swift; sourceTree = "<group>"; };
 		4E106F211E9EFB380089934A /* UIStoryboard+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Extension.swift"; sourceTree = "<group>"; };
 		4E106F231E9F02560089934A /* Transit.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Transit.storyboard; sourceTree = "<group>"; };
@@ -442,6 +444,7 @@
 				41B0B5821E8CD95D00DA9297 /* Route.swift */,
 				41B0B5831E8CD95D00DA9297 /* routeCell.swift */,
 				41B0B5841E8CD95D00DA9297 /* routeStop.swift */,
+				41EB40611F9993640069A374 /* nearBusCollectionCell.swift */,
 			);
 			path = Transit;
 			sourceTree = "<group>";
@@ -776,6 +779,7 @@
 				282A4EEC1E63859900480201 /* GymClassDataSource.swift in Sources */,
 				4E4EC14C1E5118C9000C63ED /* FavoriteStore.swift in Sources */,
 				4E64B5701DD134F800DA5E73 /* Optional+Extension.swift in Sources */,
+				41EB40621F9993640069A374 /* nearBusCollectionCell.swift in Sources */,
 				4E505D401DD05A65004AC6C9 /* BaseViewController.swift in Sources */,
 				4EB1E5C81EA5D565002C5A8B /* LibraryTimeCell.swift in Sources */,
 				2807415B1E1B2653009C303B /* GymCell.swift in Sources */,
