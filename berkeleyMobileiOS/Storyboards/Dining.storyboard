@@ -1,19 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vwX-1f-TP7">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vwX-1f-TP7">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="Roboto-Regular.ttf">
-            <string>Roboto-Regular</string>
-        </array>
-    </customFonts>
     <scenes>
         <!--Dining Hall View Controller-->
         <scene sceneID="NkK-uR-zc3">
@@ -51,7 +47,7 @@
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="11:00 AM - 3:00 PM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rfG-H4-z4y">
                                         <rect key="frame" x="8" y="8" width="359" height="20"/>
-                                        <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <color key="textColor" red="0.13725490200000001" green="0.32549019610000002" blue="0.4431372549" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -76,8 +72,14 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kfw-4Q-1f4" customClass="ToggleButton" customModule="berkeleyMobileiOS" customModuleProvider="target">
-                                                    <rect key="frame" x="4" y="0.0" width="44" height="44"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="meal item" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Yh-nk-XE9">
+                                                    <rect key="frame" x="130" y="0.0" width="70.5" height="44"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.20000000000000001" green="0.37647058823529411" blue="0.47843137254901957" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleAspectFit" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kfw-4Q-1f4" customClass="ToggleButton" customModule="berkeleyMobileiOS" customModuleProvider="target">
+                                                    <rect key="frame" x="57" y="5" width="44" height="44"/>
                                                     <inset key="imageEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
                                                     <state key="normal" image="heart_empty"/>
                                                     <state key="selected" image="heart_filled"/>
@@ -87,21 +89,15 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="meal item" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Yh-nk-XE9">
-                                                    <rect key="frame" x="52" y="0.0" width="307" height="44"/>
-                                                    <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
-                                                    <color key="textColor" red="0.20000000000000001" green="0.37647058823529411" blue="0.47843137254901957" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="0Yh-nk-XE9" firstAttribute="leading" secondItem="Kfw-4Q-1f4" secondAttribute="trailing" constant="4" id="1ds-Pw-YKH"/>
                                                 <constraint firstItem="Kfw-4Q-1f4" firstAttribute="top" secondItem="N53-Ez-ztG" secondAttribute="top" id="Cdm-qN-F4T"/>
+                                                <constraint firstItem="Kfw-4Q-1f4" firstAttribute="leading" secondItem="N53-Ez-ztG" secondAttribute="leadingMargin" constant="4" id="DiY-27-q8u"/>
                                                 <constraint firstAttribute="bottom" secondItem="0Yh-nk-XE9" secondAttribute="bottom" id="FnP-A6-Xuf"/>
                                                 <constraint firstItem="Kfw-4Q-1f4" firstAttribute="width" secondItem="N53-Ez-ztG" secondAttribute="height" multiplier="1:1" id="OaR-2B-2Qe"/>
-                                                <constraint firstItem="Kfw-4Q-1f4" firstAttribute="leading" secondItem="N53-Ez-ztG" secondAttribute="leading" constant="4" id="So4-vH-efQ"/>
                                                 <constraint firstAttribute="trailing" secondItem="0Yh-nk-XE9" secondAttribute="trailing" constant="16" id="WEh-QE-Kj4"/>
                                                 <constraint firstItem="Kfw-4Q-1f4" firstAttribute="height" secondItem="N53-Ez-ztG" secondAttribute="height" id="ee2-bp-l2k"/>
-                                                <constraint firstItem="0Yh-nk-XE9" firstAttribute="leading" secondItem="Kfw-4Q-1f4" secondAttribute="trailing" constant="4" id="gG9-GJ-D6k"/>
                                                 <constraint firstItem="0Yh-nk-XE9" firstAttribute="top" secondItem="N53-Ez-ztG" secondAttribute="top" id="rkR-CP-jKq"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -137,7 +133,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9EV-VZ-jqv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2010" y="280"/>
+            <point key="canvasLocation" x="1926" y="137"/>
         </scene>
     </scenes>
     <resources>

@@ -20,7 +20,11 @@ class DiningHallViewController: UIViewController, IBInitializable, ResourceDetai
     private var pageController: PageTabBarController!
     private var pageTabBar: PageTabBar
     {
+        print("HURR")
+        PageTabBar.appearance().tintColor = UIColor(hue: 0.5583, saturation: 0.79, brightness: 0.97, alpha: 1.0)
+        
         return pageController.pageTabBar
+        
     }
     
     private var selectedScroll: DelegatesScroll
@@ -114,7 +118,7 @@ class DiningHallViewController: UIViewController, IBInitializable, ResourceDetai
     override func viewDidLoad() 
     {
         super.viewDidLoad()
-        
+        PageTabBar.appearance().tintColor = UIColor(hue: 0.5583, saturation: 0.79, brightness: 0.97, alpha: 1.0)
         setupMenus()
         setupSortMenu()
     }
@@ -122,6 +126,10 @@ class DiningHallViewController: UIViewController, IBInitializable, ResourceDetai
     /// Manually call the transition handler for initial page.
     override func viewWillAppear(_ animated: Bool)
     {
+        
+        
+        
+        
         super.viewWillAppear(animated)
         
         // TODO: open to the closest meal type.
@@ -161,8 +169,7 @@ class DiningHallViewController: UIViewController, IBInitializable, ResourceDetai
             barItem.pulseColor = kColorNavy//UIColor.white
             
             barItem.title = type.name
-            barItem.titleLabel?.font = RobotoFont.regular(with: 16)
-            
+            barItem.titleLabel?.font = UIFont.systemFont(ofSize: 16)
             return vc
         }
         
@@ -170,9 +177,15 @@ class DiningHallViewController: UIViewController, IBInitializable, ResourceDetai
         pageController.pageTabBarAlignment = .top
         pageController.delegate = self
         
+        //pageTabBar.
         let tabBar = pageController.pageTabBar
+        tabBar.tintColor = UIColor(hue: 0.5583, saturation: 0.79, brightness: 0.97, alpha: 1.0)
         tabBar.backgroundColor = UIColor.white//kColorNavy
         tabBar.lineColor = kColorNavy//UIColor.white
+        
+       
+        
+        
         tabBar.lineHeight = 1
         tabBar.lineAlignment = .bottom
         
