@@ -42,6 +42,11 @@ class LibraryDetailViewController: UIViewController, IBInitializable, GMSMapView
         return UIStoryboard.academics.instantiateViewController(withIdentifier: self.componentID) as! IBComponent
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
+    {
+        return 50.0;//Choose your custom row height
+    }
+    
     
     // MARK: - UIViewController
     override func viewDidLoad() {
