@@ -13,7 +13,9 @@ fileprivate let kColorNavy = UIColor(red: 23/255.0, green: 85/255.0, blue: 122/2
 class ResourceGroupViewController: UIViewController, IBInitializable, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate
 {
     // Data
-    private var types: [Resource.Type]!
+//    private var types: [Resource.Type]!
+    var types: [Resource.Type]!
+
     private var resources = [String : [Resource]]()
     
     var searchableItems: [SearchItem] = []

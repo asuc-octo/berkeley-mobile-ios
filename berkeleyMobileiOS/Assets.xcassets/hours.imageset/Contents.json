@@ -2,12 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "icon_hours.png",
+      "filename" : "Artboard 1.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "icon_hours@2x.png",
+      "filename" : "Artboard 1@2x.png",
       "scale" : "2x"
     },
     {
