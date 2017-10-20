@@ -176,9 +176,10 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="142"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1TO-x3-3cs">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1TO-x3-3cs">
                                                             <rect key="frame" x="97" y="8" width="152" height="128"/>
                                                             <constraints>
+                                                                <constraint firstAttribute="height" constant="30" id="6ah-CR-lmG"/>
                                                                 <constraint firstAttribute="width" secondItem="1TO-x3-3cs" secondAttribute="height" multiplier="19:19" id="7U7-yL-iUU"/>
                                                             </constraints>
                                                         </imageView>
@@ -356,45 +357,9 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wDw-0t-voP">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hky-K7-C0y" customClass="GMSMapView">
-                                        <rect key="frame" x="0.0" y="245.5" width="375" height="421.5"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B08-pk-Odc" userLabel="Campus Resource Detail View">
+                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="B08-pk-Odc" userLabel="Campus Resource Detail View">
                                         <rect key="frame" x="0.0" y="20" width="375" height="220.5"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vsx-bj-5hD">
-                                                <rect key="frame" x="21" y="107.5" width="92" height="50"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="50" id="CAt-RE-XmY"/>
-                                                    <constraint firstAttribute="width" constant="92" id="qCK-8z-rpS"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                <inset key="titleEdgeInsets" minX="-79" minY="80" maxX="-40" maxY="0.0"/>
-                                                <inset key="imageEdgeInsets" minX="25" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                <state key="normal" title="PHONE" image="phone">
-                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="callCampusResource:" destination="Ikb-m1-JcF" eventType="touchUpInside" id="YPl-05-6X4"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t4B-FK-SQ9">
-                                                <rect key="frame" x="121" y="107.5" width="107" height="50"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="50" id="VqW-by-J0n"/>
-                                                    <constraint firstAttribute="width" constant="107" id="zcx-qt-Dyf"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                <inset key="titleEdgeInsets" minX="-79" minY="80" maxX="-37" maxY="0.0"/>
-                                                <inset key="imageEdgeInsets" minX="30" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                <state key="normal" title="FAVORITE" image="heart-large">
-                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="favoriteCampusResource:" destination="Ikb-m1-JcF" eventType="touchUpInside" id="YLe-QO-u8R"/>
-                                                </connections>
-                                            </button>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_hours" translatesAutoresizingMaskIntoConstraints="NO" id="ssn-uw-X7I">
                                                 <rect key="frame" x="21" y="16.5" width="50" height="50"/>
                                                 <constraints>
@@ -402,21 +367,6 @@
                                                     <constraint firstAttribute="width" constant="50" id="fw0-6P-A22"/>
                                                 </constraints>
                                             </imageView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tle-ei-NCR">
-                                                <rect key="frame" x="236" y="107.5" width="107" height="50"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="50" id="Cls-MI-cUB"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                <inset key="titleEdgeInsets" minX="-79" minY="80" maxX="-17" maxY="0.0"/>
-                                                <inset key="imageEdgeInsets" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                <state key="normal" title="WEBSITE" image="email">
-                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="emailCampusResource:" destination="Ikb-m1-JcF" eventType="touchUpInside" id="ebg-TL-0zU"/>
-                                                </connections>
-                                            </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9:00 AM to 10:00 PM" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="30T-oJ-esr">
                                                 <rect key="frame" x="106" y="31.5" width="261" height="21"/>
                                                 <constraints>
@@ -426,22 +376,51 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="140" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1bF-O9-fkv">
+                                                <rect key="frame" x="0.0" y="116" width="375" height="257"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <prototypes>
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LibCell" rowHeight="140" id="trA-Dq-oj9" customClass="LibraryOptionCell2" customModule="berkeleyMobileiOS" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="28" width="375" height="140"/>
+                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="trA-Dq-oj9" id="Iav-Ft-jrx">
+                                                            <rect key="frame" x="0.0" y="0.0" width="375" height="139"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <subviews>
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kUN-hV-wTp">
+                                                                    <rect key="frame" x="140" y="32" width="105" height="99"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" secondItem="kUN-hV-wTp" secondAttribute="height" multiplier="19:19" id="NOc-NK-yoQ"/>
+                                                                    </constraints>
+                                                                </imageView>
+                                                            </subviews>
+                                                            <constraints>
+                                                                <constraint firstItem="kUN-hV-wTp" firstAttribute="top" secondItem="Iav-Ft-jrx" secondAttribute="topMargin" constant="25" id="4g5-fi-IuI"/>
+                                                                <constraint firstItem="kUN-hV-wTp" firstAttribute="centerY" secondItem="Iav-Ft-jrx" secondAttribute="centerY" id="Jjf-Xw-BVp"/>
+                                                                <constraint firstItem="kUN-hV-wTp" firstAttribute="centerX" secondItem="Iav-Ft-jrx" secondAttribute="centerX" id="Rha-8s-YCP"/>
+                                                            </constraints>
+                                                        </tableViewCellContentView>
+                                                        <connections>
+                                                            <outlet property="NewImage" destination="kUN-hV-wTp" id="4nQ-As-ySg"/>
+                                                        </connections>
+                                                    </tableViewCell>
+                                                </prototypes>
+                                            </tableView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="t4B-FK-SQ9" firstAttribute="leading" secondItem="vsx-bj-5hD" secondAttribute="trailing" constant="8" id="2Zq-q1-Zft"/>
                                             <constraint firstItem="ssn-uw-X7I" firstAttribute="leading" secondItem="B08-pk-Odc" secondAttribute="leading" constant="21" id="5v1-QS-mpO"/>
-                                            <constraint firstItem="vsx-bj-5hD" firstAttribute="leading" secondItem="ssn-uw-X7I" secondAttribute="leading" id="COW-Hk-8Ib"/>
-                                            <constraint firstItem="tle-ei-NCR" firstAttribute="top" secondItem="t4B-FK-SQ9" secondAttribute="top" id="Crf-bz-VnI"/>
-                                            <constraint firstItem="tle-ei-NCR" firstAttribute="bottom" secondItem="t4B-FK-SQ9" secondAttribute="bottom" id="DT8-Kq-rHZ"/>
-                                            <constraint firstAttribute="bottom" secondItem="vsx-bj-5hD" secondAttribute="bottom" constant="63" id="NEf-h8-99b"/>
                                             <constraint firstItem="ssn-uw-X7I" firstAttribute="top" secondItem="B08-pk-Odc" secondAttribute="top" constant="16" id="UF3-uW-h6g"/>
-                                            <constraint firstItem="tle-ei-NCR" firstAttribute="leading" secondItem="t4B-FK-SQ9" secondAttribute="trailing" constant="8" id="dWB-8O-qZe"/>
                                             <constraint firstItem="30T-oJ-esr" firstAttribute="leading" secondItem="ssn-uw-X7I" secondAttribute="trailing" constant="35" id="jB2-a7-BhS"/>
-                                            <constraint firstItem="t4B-FK-SQ9" firstAttribute="bottom" secondItem="vsx-bj-5hD" secondAttribute="bottom" id="mju-M5-Ydl"/>
-                                            <constraint firstItem="vsx-bj-5hD" firstAttribute="top" secondItem="30T-oJ-esr" secondAttribute="bottom" constant="55" id="r5O-Kl-6Hb"/>
-                                            <constraint firstItem="t4B-FK-SQ9" firstAttribute="top" secondItem="vsx-bj-5hD" secondAttribute="top" id="vWN-Ut-joU"/>
                                             <constraint firstItem="30T-oJ-esr" firstAttribute="top" secondItem="ssn-uw-X7I" secondAttribute="top" constant="15" id="zZe-bb-Edu"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hky-K7-C0y" customClass="GMSMapView">
+                                        <rect key="frame" x="0.0" y="456" width="375" height="188"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="150" id="cYM-9b-vy7"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -449,6 +428,7 @@
                                 <constraints>
                                     <constraint firstItem="hky-K7-C0y" firstAttribute="top" secondItem="B08-pk-Odc" secondAttribute="bottom" constant="5" id="Cqu-IY-D0H"/>
                                     <constraint firstItem="B08-pk-Odc" firstAttribute="width" secondItem="wDw-0t-voP" secondAttribute="width" id="DYS-xO-uJF"/>
+                                    <constraint firstAttribute="bottom" secondItem="hky-K7-C0y" secondAttribute="bottom" constant="10" id="VF2-c4-Bgu"/>
                                     <constraint firstItem="B08-pk-Odc" firstAttribute="height" relation="greaterThanOrEqual" secondItem="wDw-0t-voP" secondAttribute="height" multiplier="0.33" id="bei-ez-xJf"/>
                                     <constraint firstItem="hky-K7-C0y" firstAttribute="width" secondItem="B08-pk-Odc" secondAttribute="width" id="iwt-Bo-Tex"/>
                                     <constraint firstItem="B08-pk-Odc" firstAttribute="centerX" secondItem="wDw-0t-voP" secondAttribute="centerX" id="pxc-Er-lPz"/>
@@ -467,8 +447,8 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="LibraryTableView" destination="1bF-O9-fkv" id="KLk-C2-cG3"/>
                         <outlet property="campusResDetailView" destination="B08-pk-Odc" id="1zY-Ca-gYr"/>
-                        <outlet property="campusResFavoriteButton" destination="t4B-FK-SQ9" id="HLK-Ib-CED"/>
                         <outlet property="campusResMapView" destination="hky-K7-C0y" id="h4p-nG-XUZ"/>
                         <outlet property="campusResStartEndTime" destination="30T-oJ-esr" id="zGf-nV-Gix"/>
                     </connections>
@@ -479,10 +459,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="email" width="50" height="50"/>
         <image name="heart" width="25" height="25"/>
-        <image name="heart-large" width="50" height="50"/>
         <image name="icon_hours" width="95" height="95"/>
-        <image name="phone" width="50" height="50"/>
     </resources>
 </document>
