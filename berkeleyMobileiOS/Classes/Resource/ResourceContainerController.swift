@@ -20,7 +20,7 @@ class ResourceContainerController: UIViewController, IBInitializable, UIScrollVi
     
     @IBOutlet private var banner: UIImageView!
     private let bannerGradient = CAGradientLayer()
-
+    @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var scrollView: UIScrollView!
     @IBOutlet private var infoPanel: InfoPanel!
     
@@ -73,12 +73,15 @@ class ResourceContainerController: UIViewController, IBInitializable, UIScrollVi
         setupBanner()
         setupScrollView()
         
-        
         banner.load(url: detailProvider.imageURL)
+        titleLabel.text = detailViewController.title
+        titleLabel.textColor = UIColor.white
+        titleLabel.font = UIFont.systemFont(ofSize: 25, weight: UIFontWeightBold)
+        infoPanel.isHidden = true
         infoPanel.title = detailViewController.title
         infoPanel.text1 = detailProvider.text1
         infoPanel.text2 = detailProvider.text2
-        
+        toolbar.isHidden = true
         toolbar.title = detailViewController.title
         toolbar.rightViews = detailProvider.buttons
         toolbar.rightViews.forEach
@@ -105,6 +108,8 @@ class ResourceContainerController: UIViewController, IBInitializable, UIScrollVi
         let bannerHeight = toolbarBottom + round(size.width / kBannerRatio) 
         banner.frame = CGRect(x: 0, y: 0, width: size.width, height: bannerHeight)
         bannerGradient.frame = banner.bounds
+        
+        titleLabel.frame = CGRect(x: 10, y: 200, width: size.width - 20, height: 30)
         
         scrollView.frame = CGRect(x: 0, y: toolbarBottom, width: size.width, height: size.height - toolbarBottom)
         scrollView.contentInset.top = banner.frame.maxY - toolbarBottom
@@ -180,7 +185,6 @@ class ResourceContainerController: UIViewController, IBInitializable, UIScrollVi
         guard scrollView === self.scrollView else {
             return
         }
-    
         let inset = scrollView.contentInset.top
         let offset = scrollView.contentOffset.y
         
@@ -200,10 +204,17 @@ class ResourceContainerController: UIViewController, IBInitializable, UIScrollVi
         detailView.y = infoPanel.frame.maxY
         detailProvider.contentOffset.y = (offset < infoHeight) ? 0 : (offset - infoHeight);
         
-        
         // Detect end of scrolling (http://stackoverflow.com/a/1857162)
         NSObject.cancelPreviousPerformRequests(withTarget: self)
-        self.perform(#selector(scrollViewDidEndScrollingAnimation(_:)), with: scrollView, afterDelay: 0.2) 
+        if detailView.y < 75 {
+            toolbar.isHidden = false
+            toolbar.title = detailViewController.title
+        } else {
+            toolbar.isHidden = true
+        }
+        self.perform(#selector(scrollViewDidEndScrollingAnimation(_:)), with: scrollView, afterDelay: 0.2)
+       
+        
     }
     
     /**
@@ -218,7 +229,6 @@ class ResourceContainerController: UIViewController, IBInitializable, UIScrollVi
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView)
     {
         NSObject.cancelPreviousPerformRequests(withTarget: self)
-        
         let inset = scrollView.contentInset.top
         let offset = scrollView.contentOffset.y
         

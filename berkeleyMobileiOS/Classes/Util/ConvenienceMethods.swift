@@ -13,6 +13,9 @@ class ConvenienceMethods: NSObject {
     static func setCurrentTabStyle(pageTabBarVC: PageTabBarController, ForSelectedViewController selectedViewController: UIViewController) {
         var count = 0
         for vc in (pageTabBarVC.viewControllers) {
+//            let children = vc.childViewControllers
+//            let firstChild = children.first as! ResourceGroupViewController
+//            let firstChildTypesArr = firstChild.types
             if (vc == selectedViewController)   {
                     vc.pageTabBarItem.image = #imageLiteral(resourceName: "beartransitColoredIcon")
                     //Make Current Tab Image Bigger

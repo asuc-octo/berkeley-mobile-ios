@@ -34,6 +34,13 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="210"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jhu-w2-PBX">
+                                <rect key="frame" x="166" y="323" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="syP-dS-zhW" customClass="InfoPanel" customModule="berkeleyMobileiOS" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="210" width="375" height="100"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -79,6 +86,7 @@
                         <outlet property="banner" destination="rqM-zd-6qn" id="J88-DL-T6W"/>
                         <outlet property="infoPanel" destination="syP-dS-zhW" id="5LT-mg-9aB"/>
                         <outlet property="scrollView" destination="HQZ-p2-bXa" id="C0J-22-WXf"/>
+                        <outlet property="titleLabel" destination="Jhu-w2-PBX" id="PRD-Kn-lO3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HZg-ZI-GhS" userLabel="First Responder" sceneMemberID="firstResponder"/>
