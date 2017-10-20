@@ -25,7 +25,7 @@ class GymClassCategory: Resource {
     
     var isOpen: Bool
     {
-        return false
+        return false; 
     }
 
     init(name: String, imageLink: String?)

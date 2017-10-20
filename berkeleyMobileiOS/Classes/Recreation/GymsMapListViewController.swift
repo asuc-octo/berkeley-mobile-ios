@@ -190,6 +190,7 @@ class GymsMapListViewController: UIViewController, GMSMapViewDelegate, CLLocatio
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print ("SELECTED")
         self.performSegue(withIdentifier: "toGymDetail", sender: indexPath.row)
         self.gymsTableView.deselectRow(at: indexPath, animated: true)
     }
@@ -204,6 +205,7 @@ class GymsMapListViewController: UIViewController, GMSMapViewDelegate, CLLocatio
             backItem.title = ""
             navigationItem.backBarButtonItem = backItem
 //            navigationItem.title = selectedGym.name
+            navigationItem.titleLabel.text = selectedGym.name
             
             let gymDetailVC = segue.destination as! GymDetailViewController
             

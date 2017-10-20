@@ -19,13 +19,13 @@ enum MealType: String
     case 
         breakfast = "breakfast", 
         lunch     = "lunch", 
-        dinner    = "dinner", 
-        lateNight = "late_night"
+        dinner    = "dinner"
+        //lateNight = "late_night"
     
-    static let allValues = [breakfast, lunch, dinner, lateNight]
+    static let allValues = [breakfast, lunch, dinner]
     
     var name: String {
-        return (self == .lateNight) ? "Late Night" : self.rawValue.capitalized
+        return self.rawValue.capitalized
     }
 }
 

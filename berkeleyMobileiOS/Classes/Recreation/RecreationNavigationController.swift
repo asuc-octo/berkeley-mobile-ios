@@ -12,7 +12,7 @@ class RecreationNavigationController: UINavigationController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        print("THIS VIEW CONTROLELR IS IN USE")
         // Do any additional setup after loading the view.
     }
 
@@ -27,13 +27,15 @@ class RecreationNavigationController: UINavigationController {
     }
     //Customize Tab Bar Presence
     private func preparePageTabBarItem() {
-        pageTabBarItem.image = #imageLiteral(resourceName: "50x50-Gym_32x32")
+        pageTabBarItem.image = #imageLiteral(resourceName: "gym-colored")
         pageTabBarItem.image = pageTabBarItem.image!.withRenderingMode(.alwaysTemplate)
         pageTabBarItem.imageView?.contentMode = .scaleAspectFit
     }
     //Make sure tab bar is highlighted properly
     override func viewDidAppear(_ animated: Bool) {
         ConvenienceMethods.setCurrentTabStyle(pageTabBarVC: pageTabBarController!, ForSelectedViewController: self)
+        
+        
     }
 
 }

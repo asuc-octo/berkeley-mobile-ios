@@ -11,14 +11,18 @@ import GoogleMaps
 
 class GymDetailViewController: UIViewController, IBInitializable, CLLocationManagerDelegate, GMSMapViewDelegate, ResourceDetailProvider {
     
-    @IBOutlet var gymStartEndTime: UILabel!
-    @IBOutlet var gymStatus: UILabel!
+    @IBOutlet weak var gymInfoTableview: UITableView!
+    //    @IBOutlet var gymStartEndTime: UILabel!
+//    @IBOutlet var gymStatus: UILabel!
     @IBOutlet var gymInformationView: UIView!
     @IBOutlet var gymMap: GMSMapView!
+
+    var iconImages = [UIImage]()
+    var gymInfo = [String]()
+    
     var locationManager = CLLocationManager()
     
     var gym: Gym!
-    
     
     // MARK: - IBInitalizable
     typealias IBComponent = GymDetailViewController
@@ -28,13 +32,25 @@ class GymDetailViewController: UIViewController, IBInitializable, CLLocationMana
     static func fromIB() -> IBComponent {
         return UIStoryboard.gym.instantiateViewController(withIdentifier: self.componentID) as! IBComponent
     }
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        iconImages.append(UIImage(named: "hours.png")!)
+        iconImages.append(UIImage(named: "phone.png")!)
+        iconImages.append(UIImage(named: "website.png")!)
+        iconImages.append(UIImage(named: "loc.png")!)
+        
+        gymInfo.append(getGymStatusHours())
+        gymInfo.append(getGymPhoneNumber())
+        gymInfo.append(getGymWebsite())
+        gymInfo.append(getGymLoc())
+
+        gymInfoTableview.delegate = self
+        gymInfoTableview.dataSource = self
+        
         setUpMap()
-        setUpInformation()
+//        setUpInformation()
         // Do any additional setup after loading the view.
     }
 
@@ -43,35 +59,36 @@ class GymDetailViewController: UIViewController, IBInitializable, CLLocationMana
         // Dispose of any resources that can be recreated.
     }
     
-    func setUpInformation() {
-            
-            //Determining opening and closing times in PST
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "h:mm a"
-            dateFormatter.amSymbol = "AM"
-            dateFormatter.pmSymbol = "PM"
-            dateFormatter.timeZone = TimeZone(abbreviation: "PST")
-            
-            let localOpeningTime = dateFormatter.string(from: (self.gym?.openingTimeToday)!)
-            let localClosingTime = dateFormatter.string(from: (self.gym?.closingTimeToday)!)
-            
-            self.gymStartEndTime.text = localOpeningTime + " to " + localClosingTime
-            
-            var status = "Open"
-            if (self.gym?.closingTimeToday!.compare(NSDate() as Date) == .orderedAscending) {
-                status = "Closed"
-            }
-            self.gymStatus.text = status
-            if (status == "Open") {
-                self.gymStatus.textColor = UIColor.green
-            } else {
-                self.gymStatus.textColor = UIColor.red
-            }
-    }
+//    func setUpInformation() {
+//
+//            //Determining opening and closing times in PST
+//            let dateFormatter = DateFormatter()
+//            dateFormatter.dateFormat = "h:mm a"
+//            dateFormatter.amSymbol = "AM"
+//            dateFormatter.pmSymbol = "PM"
+//            dateFormatter.timeZone = TimeZone(abbreviation: "PST")
+//
+//            let localOpeningTime = dateFormatter.string(from: (self.gym?.openingTimeToday)!)
+//            let localClosingTime = dateFormatter.string(from: (self.gym?.closingTimeToday)!)
+//
+//            self.gymStartEndTime.text = localOpeningTime + " to " + localClosingTime
+//
+//            var status = "Open"
+//            if (self.gym?.closingTimeToday!.compare(NSDate() as Date) == .orderedAscending) {
+//                status = "Closed"
+//            }
+//            self.gymStatus.text = status
+//            if (status == "Open") {
+//                self.gymStatus.textColor = UIColor.green
+//            } else {
+//                self.gymStatus.textColor = UIColor.red
+//            }
+//    }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
-    }
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return gymInfo.count
+//    }
+//
     
     func setUpMap() {
         //Setting up map view
@@ -125,21 +142,115 @@ class GymDetailViewController: UIViewController, IBInitializable, CLLocationMana
     
     
     @IBAction func openMap(_ sender: UIButton) {
+        
         let lat = gym?.latitude!
         let lon = gym?.longitude!
     
         UIApplication.shared.open(NSURL(string: "https://www.google.com/maps/dir/Current+Location/" + String(describing: lat!) + "," + String(describing: lon!))! as URL,  options: [:], completionHandler: nil)
     }
     
-
-    @IBAction func callGym(_ sender: Any) {
+    
+    func getGymStatusHours() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "h:mm a"
+        dateFormatter.amSymbol = "AM"
+        dateFormatter.pmSymbol = "PM"
+        dateFormatter.timeZone = TimeZone(abbreviation: "PST")
         
+        let localOpeningTime = dateFormatter.string(from: (self.gym?.openingTimeToday)!)
+        let localClosingTime = dateFormatter.string(from: (self.gym?.closingTimeToday)!)
+        
+        let timeRange = localOpeningTime + " to " + localClosingTime
+        
+        var status = "Open"
+        if (self.gym?.closingTimeToday!.compare(NSDate() as Date) == .orderedAscending) {
+            status = "Closed"
+        }
+//        self.gymStatus.text = status
+//        if (status == "Open") {
+//            self.gymStatus.textColor = UIColor.green
+//        } else {
+//            self.gymStatus.textColor = UIColor.red
+//        }
+        let timeInfo = status + "    " + timeRange
+        return timeInfo
+    }
+    
+    
+    func getGymPhoneNumber() -> String {
         var number = ""
+        if (gym?.name.contains("Recreational"))! {
+            number = "(510) 643-8038"
+            
+        } else if (gym?.name.contains("Stadium"))! {
+            number = "(510) 642-7796"
+        }
+        return number
+    }
+    
+    func getGymWebsite() -> String{
+        var website = ""
         
+        //Hardcoding websites for gyms
+        if (gym?.name.contains("Recreational"))! {
+            website = "recsports.berkeley.edu/rsf/"
+            
+        } else if (gym?.name.contains("Stadium"))! {
+            website = "recsports.berkeley.edu/stadium-fitness-center/"
+        }
+        return website
+    }
+    
+    func getGymLoc() -> String {
+        let addr = gym?.address
+        let addrArray = addr?.components(separatedBy: ",")
+        return addrArray![0]
+    }
+    
+    
+//    @IBAction func callGym(_ sender: Any) {
+//
+//        var number = ""
+//
+//        //Hardcoding phone numbers for gyms
+//        if (gym?.name.contains("Recreational"))! {
+//            number = "5106438038"
+//
+//        } else if (gym?.name.contains("Stadium"))! {
+//            number = "5106427796"
+//        }
+//
+//        if let url = URL(string: "telprompt://\(number)") {
+//            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+//        }
+//
+//    }
+//
+//    @IBAction func viewGymWebsite(_ sender: Any) {
+//
+//        var website = ""
+//
+//        //Hardcoding websites for gyms
+//        if (gym?.name.contains("Recreational"))! {
+//            website = "https://recsports.berkeley.edu/rsf/"
+//
+//        } else if (gym?.name.contains("Stadium"))! {
+//            website = "https://recsports.berkeley.edu/stadium-fitness-center/"
+//        }
+//
+//        UIApplication.shared.open(NSURL(string: website)! as URL,  options: [:], completionHandler: nil)
+//
+//    }
+//
+//
+    
+    func callGym() {
+        var number = ""
+
         //Hardcoding phone numbers for gyms
         if (gym?.name.contains("Recreational"))! {
             number = "5106438038"
-            
+
         } else if (gym?.name.contains("Stadium"))! {
             number = "5106427796"
         }
@@ -147,30 +258,54 @@ class GymDetailViewController: UIViewController, IBInitializable, CLLocationMana
         if let url = URL(string: "telprompt://\(number)") {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
-        
     }
     
-    @IBAction func viewGymWebsite(_ sender: Any) {
-        
+    func viewGymWebsite() {
         var website = ""
-        
+
         //Hardcoding websites for gyms
         if (gym?.name.contains("Recreational"))! {
             website = "https://recsports.berkeley.edu/rsf/"
-            
+
         } else if (gym?.name.contains("Stadium"))! {
             website = "https://recsports.berkeley.edu/stadium-fitness-center/"
         }
+
+//        UIApplication.shared.open(NSURL(string: website)! as URL,  options: [:], completionHandler: nil)
         
-        UIApplication.shared.open(NSURL(string: website)! as URL,  options: [:], completionHandler: nil)
+//        guard let url = URL(string: website) else {
+//            return //be safe
+//        }
+//
+//        if #available(iOS 10.0, *) {
+//            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+//        } else {
+//            UIApplication.shared.openURL(url)
+//        }
         
+        
+        let url = URL(string: website)!
+        if UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            //If you want handle the completion block than
+            UIApplication.shared.open(url, options: [:], completionHandler: { (success) in
+                print("Open url : \(success)")
+            })
+        }
     }
     
+    func getMap() {
+        let lat = gym?.latitude!
+        let lon = gym?.longitude!
+        
+        UIApplication.shared.open(NSURL(string: "https://www.google.com/maps/dir/Current+Location/" + String(describing: lat!) + "," + String(describing: lon!))! as URL,  options: [:], completionHandler: nil)
+    }
     
     func setData(_ gym: Gym) {
         self.gym = gym
         self.title = gym.name
     }
+    
     
     // MARK: - ResourceDetailProvider
     static func newInstance() -> ResourceDetailProvider {
@@ -230,4 +365,41 @@ class GymDetailViewController: UIViewController, IBInitializable, CLLocationMana
     
     /// Set of setContentOffset method of the internal UIScrollView.
     func setContentOffset(_ offset: CGPoint, animated: Bool){}
+}
+
+extension GymDetailViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 4
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let infoCell = gymInfoTableview.dequeueReusableCell(withIdentifier: "gymInfoCell", for: indexPath) as! GymInformationTableViewCell
+        infoCell.iconImage.image = iconImages[indexPath.row]
+        infoCell.iconInfo.text = gymInfo[indexPath.row]
+        infoCell.iconInfo.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightMedium)
+        return infoCell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print (indexPath.row)
+        let cell  = tableView.cellForRow(at: indexPath)
+        cell?.selectionStyle = .none
+
+        if indexPath.row == 0 {
+            // do nothing
+        } else if indexPath.row == 1 {
+            callGym()
+            
+        } else if indexPath.row == 2 {
+            viewGymWebsite()
+        } else if indexPath.row == 3 {
+            getMap()
+        }
+    }
+
 }
