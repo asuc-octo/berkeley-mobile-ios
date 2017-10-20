@@ -19,7 +19,7 @@ class LibraryDetailViewController: UIViewController, IBInitializable, GMSMapView
     @IBOutlet weak var LibraryTableView: UITableView!
     
     @IBOutlet var libraryDetailView: UIView!
-    @IBOutlet var libraryFavoriteButton: UIButton!
+   
     @IBOutlet var libraryStartEndTime: UILabel!
     @IBOutlet var libraryStatus: UILabel!
     @IBOutlet var libraryImage: UIImageView!
@@ -168,47 +168,11 @@ class LibraryDetailViewController: UIViewController, IBInitializable, GMSMapView
         }
     
         // For favoriting
-        if (library?.isFavorited)! {
-            self.libraryFavoriteButton.setImage(#imageLiteral(resourceName: "heart-large-filled"), for: .normal)
-        } else {
-            self.libraryFavoriteButton.setImage(#imageLiteral(resourceName: "heart-large"), for: .normal)
-        }
-        return
+      
     }
 
     
-    @IBAction func callLibrary(_ sender: Any) {
-        let numberArray = self.library?.phoneNumber?.components(separatedBy: NSCharacterSet.decimalDigits.inverted)
-        var number = ""
-        for n in numberArray! {
-            number += n
-        }
-        
-        if let url = URL(string: "telprompt://\(number)") {
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-        }
-    }
 
-    @IBAction func favoriteLibrary(_ sender: Any) {
-        guard let library = self.library else {
-            return
-        }
-        library.isFavorited = !library.isFavorited
-        FavoriteStore.shared.update(library)
-        
-        if library.isFavorited {
-            (sender as! UIButton).setImage(#imageLiteral(resourceName: "heart-large-filled"), for: .normal)
-        } else {
-            (sender as! UIButton).setImage(#imageLiteral(resourceName: "heart-large"), for: .normal)
-        }
-        
-    }
-    
-    @IBAction func viewLibraryWebsite(_ sender: Any) {
-        
-        UIApplication.shared.open(NSURL(string: "http://www.lib.berkeley.edu/libraries/main-stacks")! as URL,  options: [:], completionHandler: nil)
-    }
-    
 
     @IBAction func viewLibraryMap(_ sender: Any) {
         
