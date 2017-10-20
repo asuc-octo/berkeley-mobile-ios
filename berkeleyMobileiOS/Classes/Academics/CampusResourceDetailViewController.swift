@@ -11,12 +11,15 @@ import GoogleMaps
 import RealmSwift
 import MessageUI
 
-class CampusResourceDetailViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDelegate, MFMailComposeViewControllerDelegate, ResourceDetailProvider, IBInitializable {
+class CampusResourceDetailViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDelegate, MFMailComposeViewControllerDelegate, ResourceDetailProvider, IBInitializable, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet var campusResDetailView: UIView!
-    @IBOutlet var campusResFavoriteButton: UIButton!
+   
     @IBOutlet var campusResStartEndTime: UILabel!
     @IBOutlet var campusResMapView: GMSMapView!
+    
+    @IBOutlet weak var LibraryTableView: UITableView!
+    
     
     var campusResource:CampusResource!
     var locationManager = CLLocationManager()
@@ -38,6 +41,8 @@ class CampusResourceDetailViewController: UIViewController, GMSMapViewDelegate, 
     
         setUpMap()
         setUpInformation()
+        LibraryTableView.dataSource = self
+        LibraryTableView.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -45,15 +50,116 @@ class CampusResourceDetailViewController: UIViewController, GMSMapViewDelegate, 
         // Dispose of any resources that can be recreated.
     }
     
+    
+    
+    
+    
+    
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 3
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = LibraryTableView.dequeueReusableCell(withIdentifier: "LibCell") as! LibraryOptionCell2
+        
+        if (indexPath.row == 0) {
+            cell.NewImage.image = #imageLiteral(resourceName: "phone")
+        }
+        if (indexPath.row == 1) {
+            cell.NewImage.image = #imageLiteral(resourceName: "heart")
+            
+            if campusResource.isFavorited {
+                cell.NewImage.image = #imageLiteral(resourceName: "heart_filled")
+            } else {
+                cell.NewImage.image = #imageLiteral(resourceName: "heart")
+            }
+        }
+        if (indexPath.row == 2) {
+            cell.NewImage.image = #imageLiteral(resourceName: "website")
+        }
+        
+        
+        
+        return cell
+    }
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if (indexPath.row == 0) {
+            //cell.NewImage.image = #imageLiteral(resourceName: "phone")
+            
+            let numberArray = self.campusResource?.phoneNumber?.components(separatedBy: NSCharacterSet.decimalDigits.inverted)
+            var number = ""
+            for n in numberArray! {
+                number += n
+            }
+            
+            if let url = URL(string: "telprompt://\(number)") {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+            
+            
+            
+        }
+        if (indexPath.row == 1) {
+            //cell.NewImage.image = #imageLiteral(resourceName: "heart")
+            
+            guard let campusResource = self.campusResource else {
+                return
+            }
+            campusResource.isFavorited = !campusResource.isFavorited
+            FavoriteStore.shared.update(campusResource)
+            
+            if campusResource.isFavorited {
+                LibraryTableView.reloadData()
+            } else {
+                LibraryTableView.reloadData()
+            }
+            
+            
+            
+            
+            
+        }
+        if (indexPath.row == 2) {
+            //cell.NewImage.image = #imageLiteral(resourceName: "website")
+            
+            
+            if MFMailComposeViewController.canSendMail() {
+                let mail = MFMailComposeViewController()
+                mail.mailComposeDelegate = self
+                mail.setToRecipients([(campusResource?.email)!])
+                mail.setMessageBody("", isHTML: true)
+                
+                present(mail, animated: true)
+                
+            } else {
+                let alert = UIAlertController(title: "Email", message: "Unable to send email at this time. Please ensure that you have connected your phone to at least one email account via the Mail app.", preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }
+            
+            
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     func setUpInformation() {
         self.campusResStartEndTime.text = self.campusResource.hours
         
         // For favoriting
-        if (campusResource.isFavorited) {
-            self.campusResFavoriteButton.setImage(#imageLiteral(resourceName: "heart-large-filled"), for: .normal)
-        } else {
-            self.campusResFavoriteButton.setImage(#imageLiteral(resourceName: "heart-large"), for: .normal)
-        }
+        
         return
     }
 
