@@ -1,25 +1,24 @@
 //
-//  GymClassCategoryCell.swift
+//  GymInformationTableViewCell.swift
 //  berkeleyMobileiOS
 //
-//  Created by Sampath Duddu on 3/12/17.
+//  Created by Marisa Wong on 10/13/17.
 //  Copyright © 2017 org.berkeleyMobile. All rights reserved.
 //
 
 import UIKit
 
-class GymClassCategoryCell: UITableViewCell {
+class GymInformationTableViewCell: UITableViewCell {
+
     
-    @IBOutlet var gymClassCategory: UILabel!
-    @IBOutlet var gymClassCategoryStatus: UILabel!
-    @IBOutlet var favoriteButton: UIButton!
+    @IBOutlet weak var iconImage: UIImageView!
+    @IBOutlet weak var iconInfo: UILabel!
     
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-    
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

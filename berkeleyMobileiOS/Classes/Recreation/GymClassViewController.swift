@@ -8,12 +8,75 @@
 
 import UIKit
 
-class GymClassViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
+class GymClassViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ResourceDetailProvider, IBInitializable {
+    static var componentID: String { return className(IBComponent.self) }
+    typealias IBComponent = GymClassViewController
     
+
+    static func newInstance() -> ResourceDetailProvider {
+        return fromIB()
+    }
+    static func fromIB() -> IBComponent {
+        return UIStoryboard.gym.instantiateViewController(withIdentifier: self.componentID) as! IBComponent    }
+    var resource: Resource {
+        get
+        {
+            return gymClass
+        }
+        set
+        {
+            if viewIfLoaded == nil, gymClass == nil, let newClass = newValue as? GymClass {
+                gymClass = newClass
+                title = gymClass.class_type
+                self.classString = gymClass.class_type
+            }
+            
+        }
+    }
+    
+    var viewController: UIViewController {
+        return self
+    }
+    
+    var text1: String? {
+        return nil
+    }
+    
+    var text2: String? {
+        return nil
+    }
+    
+    var imageURL: URL? {
+        return gymClass?.imageURL
+    }
+    
+    var buttons: [UIButton] = []
+    
+    var resetOffsetOnSizeChanged = false
+    
+    var contentSizeChangeHandler: ((ResourceDetailProvider) -> Void)? {
+        get { return nil }
+        set {}
+    }
+    
+    var contentSize: CGSize {
+        let width = self.viewController.view.width
+        let height = self.viewController.view.height
+        return CGSize(width: width, height: height)
+    }
+    
+    var contentOffset: CGPoint {
+        get { return CGPoint.zero }
+        set {}
+    }
+    
+    func setContentOffset(_ offset: CGPoint, animated: Bool) {}
+    var gymClass : GymClass!
+
     @IBOutlet var gymClassesTableView: UITableView!
     
     var classType:GymClassCategory?
+    var classString: String?
 
     var gymClasses = [[GymClass]]()
 
@@ -42,7 +105,7 @@ class GymClassViewController: UIViewController, UITableViewDelegate, UITableView
                 }
                 
                 for gymClass in gymClasses {
-                    if (gymClass.class_type == self.classType?.name) {
+                    if (gymClass.class_type == self.classString) {
                         
                         let currentCalendar = Calendar.current
                         let currentDate = self.getCurrentDate()

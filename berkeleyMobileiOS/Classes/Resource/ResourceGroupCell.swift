@@ -42,6 +42,8 @@ class ResourceGroupCell: UITableViewCell, RequiresData, UICollectionViewDataSour
     {
         self.resources = data.resources
         self.groupLabel.text = data.name
+        self.groupLabel.font = UIFont.systemFont(ofSize: 20, weight: UIFontWeightBold)
+        
         self.selectionHandler = data.handler
         
         self.collectionView.reloadData()
