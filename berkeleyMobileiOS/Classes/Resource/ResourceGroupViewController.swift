@@ -32,6 +32,8 @@ class ResourceGroupViewController: UIViewController, IBInitializable, UITableVie
     @IBOutlet private weak var tableView: UITableView!
     private var activityIndicator: UIActivityIndicatorView!
     
+    var diningRes: DiningHall!
+    
     
     // ========================================
     // MARK: - IBInitializable
@@ -198,7 +200,45 @@ class ResourceGroupViewController: UIViewController, IBInitializable, UITableVie
             }
             
             let ref = type(of: res).typeString + "DetailSegue"
+            if type(of: res).typeString == "DiningHall" {
+                self.diningRes = res as? DiningHall
+            }
             self.performSegue(withIdentifier: ref, sender: res)
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let identifier = segue.identifier {
+            if identifier == "DiningHallDetailSegue" {
+                if let dest = segue.destination as? DiningMenuViewController {
+                    let menuID = className(DiningMenuViewController.self)
+                    let hall = DiningHall(name: diningRes.name, imageLink: nil, shifts: diningRes.meals)
+
+                    let menuControllers = MealType.allValues.map
+                        { type in
+                    
+                            let vc = storyboard!.instantiateViewController(withIdentifier: menuID) as! DiningMenuViewController
+                            vc.setData(type: type, shift: hall.meals[type]!)
+
+                            let barItem = vc.pageTabBarItem
+                            barItem.titleColor = kColorNavy
+                            barItem.pulseColor = kColorNavy//UIColor.white
+
+                            barItem.title = type.name
+                            barItem.titleLabel?.font = RobotoFont.regular(with: 16)
+                        }
+                    }
+            }
+            else if identifier == "LibraryDetailSegue" {
+//                if let dest = segue.destination as? SettingsViewController {
+//                    // do stuff in the settingsVC before it loads
+//                }
+            }
+            else if identifier == "GymDetailSegue" {
+                if let dest = segue.destination as? GymDetailViewController {
+//                    let gym = Gym(name: , address: String, imageLink: String?, openingTimeToday: Date?, closingTimeToday: Date?)
+                }
+            }
         }
     }
     
