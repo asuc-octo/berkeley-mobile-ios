@@ -24,11 +24,13 @@ class SearchItem {
     
     func detailedData(_ completion: @escaping (Resource?) -> Void)  {
         let url = kURL + self.query
-        
+        var currCategory = self.category
+        currCategory = currCategory.replacingOccurrences(of: " ", with: "")
+
         var resourceType: Resource.Type
         var key: String
         
-        switch category
+        switch currCategory
         {
             case DiningHall.typeString:
                 resourceType = DiningHall.self

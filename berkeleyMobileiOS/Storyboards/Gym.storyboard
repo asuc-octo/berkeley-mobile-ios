@@ -293,14 +293,14 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jSH-6d-WLC">
-                                                            <rect key="frame" x="14" y="19" width="30" height="30"/>
+                                                            <rect key="frame" x="26" y="19" width="30" height="30"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="30" id="EUk-rc-Twg"/>
                                                                 <constraint firstAttribute="width" constant="30" id="Llb-IH-Dhf"/>
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qeg-G1-IY6">
-                                                            <rect key="frame" x="74" y="24" width="279" height="21"/>
+                                                            <rect key="frame" x="86" y="24" width="279" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -310,8 +310,8 @@
                                                         <constraint firstItem="Qeg-G1-IY6" firstAttribute="leading" secondItem="jSH-6d-WLC" secondAttribute="trailing" constant="30" id="5ug-pK-87L"/>
                                                         <constraint firstItem="jSH-6d-WLC" firstAttribute="centerY" secondItem="5Xr-ug-bKw" secondAttribute="centerY" id="DFj-XO-Jnp"/>
                                                         <constraint firstItem="Qeg-G1-IY6" firstAttribute="centerY" secondItem="5Xr-ug-bKw" secondAttribute="centerY" id="HM5-wi-1UM"/>
-                                                        <constraint firstItem="jSH-6d-WLC" firstAttribute="leading" secondItem="5Xr-ug-bKw" secondAttribute="leading" constant="14" id="KAA-h7-Dtz"/>
-                                                        <constraint firstAttribute="trailing" secondItem="Qeg-G1-IY6" secondAttribute="trailing" constant="22" id="djx-Di-FEg"/>
+                                                        <constraint firstItem="jSH-6d-WLC" firstAttribute="leading" secondItem="5Xr-ug-bKw" secondAttribute="leading" constant="26" id="KAA-h7-Dtz"/>
+                                                        <constraint firstAttribute="trailing" secondItem="Qeg-G1-IY6" secondAttribute="trailing" constant="10" id="djx-Di-FEg"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <accessibility key="accessibilityConfiguration" identifier="gymInfoCell"/>
@@ -332,7 +332,7 @@
                                     <constraint firstAttribute="trailing" secondItem="jhJ-1X-dUF" secondAttribute="trailing" id="z49-ss-2TF"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mhA-uf-Wqw" customClass="GMSMapView">
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mhA-uf-Wqw" customClass="GMSMapView">
                                 <rect key="frame" x="0.0" y="225" width="375" height="442"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>

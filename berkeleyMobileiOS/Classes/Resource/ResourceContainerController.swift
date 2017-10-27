@@ -81,7 +81,7 @@ class ResourceContainerController: UIViewController, IBInitializable, UIScrollVi
         infoPanel.title = detailViewController.title
         infoPanel.text1 = detailProvider.text1
         infoPanel.text2 = detailProvider.text2
-        toolbar.isHidden = true
+//        toolbar.isHidden = true
         toolbar.title = detailViewController.title
         toolbar.rightViews = detailProvider.buttons
         toolbar.rightViews.forEach
@@ -154,7 +154,16 @@ class ResourceContainerController: UIViewController, IBInitializable, UIScrollVi
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         toolbar.leftViews = [backButton]
     }
+    private func showToolbarTitle() {
+        toolbar.titleLabel.textColor = .white
+        toolbar.titleLabel.textAlignment = .left
+        toolbar.titleLabel.text = detailViewController.title
+    }
     
+    private func doNotShowToolbarTitle() {
+        toolbar.titleLabel.text = ""
+        
+    }
     /// Configure the banner image and add a gradient.
     private func setupBanner()
     {
@@ -210,8 +219,12 @@ class ResourceContainerController: UIViewController, IBInitializable, UIScrollVi
         if detailView.y < 75 {
             toolbar.isHidden = false
             toolbar.title = detailViewController.title
+            showToolbarTitle()
+            titleLabel.text = ""
         } else {
-            toolbar.isHidden = true
+//            toolbar.isHidden = true
+            doNotShowToolbarTitle()
+            
         }
         self.perform(#selector(scrollViewDidEndScrollingAnimation(_:)), with: scrollView, afterDelay: 0.2)
        
