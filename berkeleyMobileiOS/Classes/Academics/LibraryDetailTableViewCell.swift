@@ -1,21 +1,14 @@
 //
-//  CampusResourceCell.swift
-//  berkeleyMobileiOS
+//  LibraryDetailTableViewCell.swift
+//  
 //
 //  Created by Marisa Wong on 10/26/17.
-//  Copyright © 2017 org.berkeleyMobile. All rights reserved.
 //
 
 import UIKit
 
-class CampusResourceCell: UITableViewCell {
+class LibraryDetailTableViewCell: UITableViewCell {
 
-    @IBOutlet var name: UILabel!
-    @IBOutlet var status: UILabel!
-    @IBOutlet var favoriteButton: UIButton!
-    
-
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
