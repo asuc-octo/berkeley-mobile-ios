@@ -220,7 +220,7 @@ class ResourceContainerController: UIViewController, IBInitializable, UIScrollVi
             toolbar.isHidden = false
             toolbar.title = detailViewController.title
             showToolbarTitle()
-            titleLabel.text = ""
+//            titleLabel.text = ""
         } else {
 //            toolbar.isHidden = true
             doNotShowToolbarTitle()
