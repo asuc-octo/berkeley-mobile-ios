@@ -14,8 +14,12 @@ fileprivate let kLibraryCellHeight: CGFloat = 125.0
 
 class LibraryDetailViewController: UIViewController, IBInitializable, GMSMapViewDelegate, CLLocationManagerDelegate, ResourceDetailProvider {
     
+    
+    
+    @IBOutlet weak var LibraryTableView: UITableView!
+    
     @IBOutlet var libraryDetailView: UIView!
-    @IBOutlet var libraryFavoriteButton: UIButton!
+   
     @IBOutlet var libraryStartEndTime: UILabel!
     @IBOutlet var libraryStatus: UILabel!
     @IBOutlet var libraryImage: UIImageView!
@@ -41,6 +45,11 @@ class LibraryDetailViewController: UIViewController, IBInitializable, GMSMapView
     static func fromIB() -> IBComponent
     {
         return UIStoryboard.academics.instantiateViewController(withIdentifier: self.componentID) as! IBComponent
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
+    {
+        return 50.0;//Choose your custom row height
     }
     
     
@@ -99,10 +108,12 @@ class LibraryDetailViewController: UIViewController, IBInitializable, GMSMapView
         
     }
     
+
     func getLibraryLoc() -> String {
         return "666 Berkeley St"
         
     }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -199,6 +210,7 @@ class LibraryDetailViewController: UIViewController, IBInitializable, GMSMapView
     func viewLibraryWebsite() {
         UIApplication.shared.open(NSURL(string: "http://www.lib.berkeley.edu/libraries/main-stacks")! as URL,  options: [:], completionHandler: nil)
     }
+
 
 //    @IBAction func viewLibraryMap(_ sender: Any) {
 //

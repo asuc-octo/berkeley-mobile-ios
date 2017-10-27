@@ -140,8 +140,9 @@ class ResourceContainerController: UIViewController, IBInitializable, UIScrollVi
         // Toolbar
         toolbar.fadeLength = 20.0
         toolbar.backgroundColor = .clear
-//        toolbar.titleLabel.textColor = .white
-//        toolbar.titleLabel.textAlignment = .left
+        toolbar.titleLabel.textColor = .white
+        toolbar.titleLabel.textAlignment = .left
+        toolbar.titleLabel.font = UIFont.systemFont(ofSize: 16)
         toolbar.autoresizingMask = [.flexibleWidth, .flexibleBottomMargin]
         toolbar.frame = CGRect(x: 0, y: kStatusBarHeight, width: view.width, height: kToolBarHeight)
         
@@ -219,7 +220,7 @@ class ResourceContainerController: UIViewController, IBInitializable, UIScrollVi
             toolbar.isHidden = false
             toolbar.title = detailViewController.title
             showToolbarTitle()
-            titleLabel.text = ""
+//            titleLabel.text = ""
         } else {
 //            toolbar.isHidden = true
             doNotShowToolbarTitle()

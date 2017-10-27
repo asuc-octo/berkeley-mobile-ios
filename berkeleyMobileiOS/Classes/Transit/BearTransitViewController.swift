@@ -40,16 +40,23 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "nearestBusCell", for: indexPath) as! nearBusCollectionCell
         let nearestB = nearestBuses[indexPath.row]
         let toset: [UILabel] = [cell.shortestTime, cell.mediumTime, cell.smallTime]
+        let tosetmins: [UILabel] = [cell.min1, cell.min2, cell.min3]
         let timesList = nearestB.timeLeft
         for i in 0...2 {
-            if timesList.count > i {
-                toset[i].text = timesList[i].components(separatedBy: ":")[0]
-            } else {
-                toset[i].text = "--"
-            }
+//            if nearestB.busName == "No Buses Available" {
+////                toset[i].isHidden = true
+////                tosetmins[i].isHidden = true
+//            } else {
+                if timesList.count > i {
+                    toset[i].text = timesList[i].components(separatedBy: ":")[0]
+                } else {
+                    toset[i].text = "--"
+                }
+
         }
         cell.busName.text = nearestB.busName
         cell.busDescriptor.text = nearestB.directionTitle
+
         return cell
     }
     
@@ -181,6 +188,7 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
         setupMap()
         populateMapWithStops()
         setupStartDestFields()
+        makeMaterialShadow(withView: routesTable)
         setupLocationManager()
         setupTimeFormatters()
         self.goButton.applyGradient(colours: [darkBlue, lightBlue])
