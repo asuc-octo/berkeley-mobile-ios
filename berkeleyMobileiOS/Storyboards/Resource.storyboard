@@ -171,7 +171,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qhy-Dh-CeK">
-                                                                        <rect key="frame" x="16" y="190" width="29" height="12"/>
+                                                                        <rect key="frame" x="16" y="190" width="30" height="12"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="12" id="KU2-co-fih"/>
                                                                         </constraints>

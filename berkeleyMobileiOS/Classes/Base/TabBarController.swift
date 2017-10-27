@@ -24,6 +24,11 @@ class TabBarController: PageTabBarController {
         pageTabBar.lineAlignment = .bottom
         pageTabBarItem.pulseAnimation = .center
         pageTabBarItem.pulseColor = Color.blue.lighten2
+        
+        pageTabBarItem.tintColor = UIColor(hue: 0.5583, saturation: 0.79, brightness: 0.97, alpha: 1.0)
+        if pageTabBarItem.isSelected {
+            pageTabBarItem.backgroundColor = UIColor(hue: 0.5583, saturation: 0.79, brightness: 0.97, alpha: 1.0)
+        }
     }
 }
 extension TabBarController: PageTabBarControllerDelegate {
