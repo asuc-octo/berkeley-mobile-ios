@@ -14,11 +14,14 @@ import MessageUI
 class CampusResourceDetailViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDelegate, MFMailComposeViewControllerDelegate, ResourceDetailProvider, IBInitializable {
     
     @IBOutlet var campusResDetailView: UIView!
-    @IBOutlet var campusResFavoriteButton: UIButton!
+   
     @IBOutlet var campusResStartEndTime: UILabel!
     @IBOutlet var campusResMapView: GMSMapView!
     
     @IBOutlet weak var campusResDetailTableview: UITableView!
+    @IBOutlet weak var LibraryTableView: UITableView!
+    
+    
     var campusResource:CampusResource!
     var locationManager = CLLocationManager()
     
@@ -55,6 +58,7 @@ class CampusResourceDetailViewController: UIViewController, GMSMapViewDelegate, 
         
         setUpMap()
         setUpInformation()
+  
     }
 
     override func didReceiveMemoryWarning() {
@@ -62,6 +66,11 @@ class CampusResourceDetailViewController: UIViewController, GMSMapViewDelegate, 
         // Dispose of any resources that can be recreated.
     }
     
+    
+    
+    
+
+
     func setUpInformation() {
 //        self.campusResStartEndTime.text = self.campusResource.hours
 //
@@ -71,6 +80,10 @@ class CampusResourceDetailViewController: UIViewController, GMSMapViewDelegate, 
 //        } else {
 //            self.campusResFavoriteButton.setImage(#imageLiteral(resourceName: "heart-large"), for: .normal)
 //        }
+//        self.campusResStartEndTime.text = self.campusResource.hours
+        
+        // For favoriting
+        
         return
     }
 
