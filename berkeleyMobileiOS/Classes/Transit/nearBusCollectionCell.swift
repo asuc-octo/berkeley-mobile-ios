@@ -10,6 +10,9 @@ import UIKit
 
 class nearBusCollectionCell: UICollectionViewCell {
     
+    @IBOutlet weak var min1: UILabel!
+    @IBOutlet weak var min2: UILabel!
+    @IBOutlet weak var min3: UILabel!
     @IBOutlet weak var smallTime: UILabel!
     @IBOutlet weak var mediumTime: UILabel!
     @IBOutlet weak var shortestTime: UILabel!

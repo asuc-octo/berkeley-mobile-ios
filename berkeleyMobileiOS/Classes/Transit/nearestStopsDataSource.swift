@@ -9,12 +9,11 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
-fileprivate let kGymsEndpoint = "https://asuc-mobile-development.herokuapp.com/api/pt_routes?code="
+fileprivate let kGymsEndpoint = "https://asuc-mobile.herokuapp.com/api/pt_routes?code="
 
 class nearestStopsDataSource: NSObject {
     typealias completionHandler = (_ buses: [nearestBus]?) -> Void
     
-    // Fetch the list of gyms and report back to the completionHandler.
     static func fetchBuses(_ completion: @escaping completionHandler, stopCode: String)
     {
         Alamofire.request(kGymsEndpoint + stopCode).responseJSON
@@ -26,9 +25,14 @@ class nearestStopsDataSource: NSObject {
                     completion(buses)
                 } else {
                     var busesDict: [String: nearestBus] = [:]
-                    for stop in JSON(data: response.data!)["ptbus_response"]["values"] {
-                        busesDict = parseBus(stop.1, busesDict)
+                    let responseData = JSON(data:response.data!)["ptbus_response"]["values"]
+                    for bus in responseData {
+                        for stop in bus.1["values"] {
+                            busesDict = parseBus(stop.1, busesDict)
+                        }
                     }
+                    
+
                     var newBuses: [nearestBus] = []
                     for (key, value) in busesDict {
                         newBuses.append(value)
