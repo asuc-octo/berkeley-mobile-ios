@@ -114,7 +114,7 @@ class ResourceContainerController: UIViewController, IBInitializable, UIScrollVi
         scrollView.frame = CGRect(x: 0, y: toolbarBottom, width: size.width, height: size.height - toolbarBottom)
         scrollView.contentInset.top = banner.frame.maxY - toolbarBottom
         
-        infoPanel.frame = CGRect(x: 0, y: 0, width: size.width, height: InfoPanel.fixedHeight)
+        infoPanel.frame = CGRect(x: 0, y: bannerHeight, width: size.width, height: InfoPanel.fixedHeight)
         detailView.frame = CGRect(x: 0, y: InfoPanel.fixedHeight, width: size.width, height: scrollView.bounds.height)
     }
     

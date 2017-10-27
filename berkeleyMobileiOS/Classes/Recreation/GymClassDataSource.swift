@@ -12,6 +12,7 @@ import SwiftyJSON
 
 //fileprivate let kGymClassEndpoint = kAPIURL + "/group_exs"
 fileprivate let kGymClassEndpoint = "https://asuc-mobile.herokuapp.com/api/group_exs"
+var gymClassTypesSeen = [String]()
 
 class GymClassDataSource: ResourceDataSource {
     
@@ -40,7 +41,6 @@ class GymClassDataSource: ResourceDataSource {
                 completion(gymClasses)
         }
     }
-    
     // Return a Gym object parsed from JSON.
     private static func parseGymClasses(_ json: JSON) -> GymClass
     {
@@ -50,17 +50,32 @@ class GymClassDataSource: ResourceDataSource {
         let date = simpleFormatter.date(from: json["date"].string ?? "")
         let start  = formatter.date(from: json["start_time"].string ?? "")
         let end = formatter.date(from: json["end_time"].string ?? "")
-
-        let gymClass = GymClass(name: json["name"].stringValue,
-                                class_type: json["class_type"].stringValue,
-                                location: json["location"].stringValue,
-                                trainer: json["trainer"].stringValue,
-                                date: date,
-                                start_time: start,
-                                end_time: end,
-                                imageLink: json["image_link"].stringValue)
         
-        return gymClass
+//        if !gymClassTypesSeen.contains(json["class_type"].stringValue){
+//            gymClassTypesSeen.append(json["class_type"].stringValue)
+            let gymClass = GymClass(name: json["name"].stringValue,
+                                    class_type: json["class_type"].stringValue,
+                                    location: json["location"].stringValue,
+                                    trainer: json["trainer"].stringValue,
+                                    date: date,
+                                    start_time: start,
+                                    end_time: end,
+                                    imageLink: json["image_link"].stringValue)
+            return gymClass
+            
+//        } else {
+//            let gymClass = GymClass(name: "",
+//                                    class_type: "",
+//                                    location: "",
+//                                    trainer: "",
+//                                    date: Date(),
+//                                    start_time: Date(),
+//                                    end_time: Date(),
+//                                    imageLink: "")
+//            return gymClass
+//        }
+//
+
         
     }
     

@@ -23,9 +23,14 @@ class LibraryDetailViewController: UIViewController, IBInitializable, GMSMapView
     @IBOutlet var libraryMapView: GMSMapView!
     @IBOutlet var libraryName: UILabel!
     @IBOutlet var libraryAddress: UIButton!
+    @IBOutlet weak var libraryInfoTableview: UITableView!
     
     var library: Library!
     var locationManager = CLLocationManager()
+    
+    
+    var iconImages = [UIImage]()
+    var libInfo = [String]()
     
     
     // MARK: - IBInitalizable
@@ -43,59 +48,121 @@ class LibraryDetailViewController: UIViewController, IBInitializable, GMSMapView
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        iconImages.append(UIImage(named: "hours.png")!)
+        iconImages.append(UIImage(named: "phone.png")!)
+        iconImages.append(UIImage(named: "website.png")!)
+        iconImages.append(UIImage(named: "loc.png")!)
+        
+        libInfo.append(getLibraryStatusHours())
+        libInfo.append(getLibraryPhoneNumber())
+        libInfo.append(getLibraryWebsite())
+        libInfo.append(getLibraryLoc())
+        
+        libraryInfoTableview.delegate = self
+        libraryInfoTableview.dataSource = self
+        
+        
+        
         //libraryImage.sd_setImage(with: library?.imageURL!)
         setUpMap()
         setUpInformation();
         
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    func setUpInformation() {
+    func getLibraryStatusHours() -> String{
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "h:mm a"
         dateFormatter.amSymbol = "AM"
         dateFormatter.pmSymbol = "PM"
         dateFormatter.timeZone = TimeZone(abbreviation: "PST")
         
-        if (self.library?.weeklyClosingTimes[0] == nil) {
-            self.libraryStartEndTime.text = ""
-            self.libraryStatus.text = "Closed"
-            self.libraryStatus.textColor = UIColor.red
-            
-        } else {
-            let localOpeningTime = dateFormatter.string(from: (self.library?.weeklyOpeningTimes[0])!)
-            let localClosingTime = dateFormatter.string(from: (self.library?.weeklyClosingTimes[0])!)
-            
-            self.libraryStartEndTime.text = localOpeningTime + " to " + localClosingTime
-            
-            //Calculating whether the library is open or not
-            var status = "Open"
-            if (self.library?.weeklyClosingTimes[0]?.compare(NSDate() as Date) == .orderedAscending) {
-                status = "Closed"
-            }
-            self.libraryStatus.text = status
-            if (status == "Open") {
-                self.libraryStatus.textColor = UIColor.green
-            } else {
-                self.libraryStatus.textColor = UIColor.red
-            }
-        }
+//        let localOpeningTime = dateFormatter.string(from:
+//            (self.library?.weeklyOpeningTimes))
+//        let localClosingTime = dateFormatter.string(from: (self.library?.weeklyClosingTimes)!);)
+//        let timeRange = localOpeningTime + " to " + localClosingTime
+//
+//        var status = "Open"
+//        if (self.library?.weeklyClosingTimes.compare(NSDate() as Date) == .orderedAscending) {
+//            status = "Closed"
+//        }
+//
+//        let timeInfo = status + "    " + timeRange
+//        return timeInfo
+            return "HOURZZZ"
+    }
     
-        // For favoriting
-        if (library?.isFavorited)! {
-            self.libraryFavoriteButton.setImage(#imageLiteral(resourceName: "heart-large-filled"), for: .normal)
-        } else {
-            self.libraryFavoriteButton.setImage(#imageLiteral(resourceName: "heart-large"), for: .normal)
-        }
+    func getLibraryPhoneNumber() -> String {
+        return (self.library?.phoneNumber)!
+    }
+    
+    func getLibraryWebsite() -> String {
+        return "marisawong.comlmao"
+        
+    }
+    
+    func getLibraryLoc() -> String {
+        return "666 Berkeley St"
+        
+    }
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    func setUpInformation() {
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "h:mm a"
+//        dateFormatter.amSymbol = "AM"
+//        dateFormatter.pmSymbol = "PM"
+//        dateFormatter.timeZone = TimeZone(abbreviation: "PST")
+//
+//        if (self.library?.weeklyClosingTimes[0] == nil) {
+//            self.libraryStartEndTime.text = ""
+//            self.libraryStatus.text = "Closed"
+//            self.libraryStatus.textColor = UIColor.red
+//
+//        } else {
+//            let localOpeningTime = dateFormatter.string(from: (self.library?.weeklyOpeningTimes[0])!)
+//            let localClosingTime = dateFormatter.string(from: (self.library?.weeklyClosingTimes[0])!)
+//
+//            self.libraryStartEndTime.text = localOpeningTime + " to " + localClosingTime
+//
+//            //Calculating whether the library is open or not
+//            var status = "Open"
+//            if (self.library?.weeklyClosingTimes[0]?.compare(NSDate() as Date) == .orderedAscending) {
+//                status = "Closed"
+//            }
+//            self.libraryStatus.text = status
+//            if (status == "Open") {
+//                self.libraryStatus.textColor = UIColor.green
+//            } else {
+//                self.libraryStatus.textColor = UIColor.red
+//            }
+//        }
+    
+//        // For favoriting
+//        if (library?.isFavorited)! {
+//            self.libraryFavoriteButton.setImage(#imageLiteral(resourceName: "heart-large-filled"), for: .normal)
+//        } else {
+//            self.libraryFavoriteButton.setImage(#imageLiteral(resourceName: "heart-large"), for: .normal)
+//        }
         return
     }
 
     
-    @IBAction func callLibrary(_ sender: Any) {
+//    @IBAction func callLibrary(_ sender: Any) {
+//        let numberArray = self.library?.phoneNumber?.components(separatedBy: NSCharacterSet.decimalDigits.inverted)
+//        var number = ""
+//        for n in numberArray! {
+//            number += n
+//        }
+//
+//        if let url = URL(string: "telprompt://\(number)") {
+//            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+//        }
+//    }
+
+    
+    func callLibrary() {
         let numberArray = self.library?.phoneNumber?.components(separatedBy: NSCharacterSet.decimalDigits.inverted)
         var number = ""
         for n in numberArray! {
@@ -103,10 +170,11 @@ class LibraryDetailViewController: UIViewController, IBInitializable, GMSMapView
         }
         
         if let url = URL(string: "telprompt://\(number)") {
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
     }
-
+        
+        
     @IBAction func favoriteLibrary(_ sender: Any) {
         guard let library = self.library else {
             return
@@ -122,14 +190,26 @@ class LibraryDetailViewController: UIViewController, IBInitializable, GMSMapView
         
     }
     
-    @IBAction func viewLibraryWebsite(_ sender: Any) {
-        
+//    @IBAction func viewLibraryWebsite(_ sender: Any) {
+//
+//        UIApplication.shared.open(NSURL(string: "http://www.lib.berkeley.edu/libraries/main-stacks")! as URL,  options: [:], completionHandler: nil)
+//    }
+    
+    
+    func viewLibraryWebsite() {
         UIApplication.shared.open(NSURL(string: "http://www.lib.berkeley.edu/libraries/main-stacks")! as URL,  options: [:], completionHandler: nil)
     }
-    
 
-    @IBAction func viewLibraryMap(_ sender: Any) {
-        
+//    @IBAction func viewLibraryMap(_ sender: Any) {
+//
+//        let lat = library?.latitude!
+//        let lon = library?.longitude!
+//
+//        UIApplication.shared.open(NSURL(string: "https://www.google.com/maps/dir/Current+Location/" + String(describing: lat!) + "," + String(describing: lon!))! as URL,  options: [:], completionHandler: nil)
+//
+//    }
+    
+    func getMap() {
         let lat = library?.latitude!
         let lon = library?.longitude!
         
@@ -248,6 +328,52 @@ class LibraryDetailViewController: UIViewController, IBInitializable, GMSMapView
     /// Set of setContentOffset method of the internal UIScrollView.
     func setContentOffset(_ offset: CGPoint, animated: Bool){}
     
+}
+
+extension LibraryDetailViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 4
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let libraryInfoCell = libraryInfoTableview.dequeueReusableCell(withIdentifier: "libraryCell", for: indexPath) as! LibraryDetailCell
+        
+        libraryInfoCell.libraryIconImage.image = iconImages[indexPath.row]
+        libraryInfoCell.libraryIconInfo.text = libInfo[indexPath.row]
+        libraryInfoCell.libraryIconInfo.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightMedium)
+        return libraryInfoCell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell  = tableView.cellForRow(at: indexPath)
+        cell?.selectionStyle = .none
+        
+        if indexPath.row == 0 {
+            // do nothing
+        } else if indexPath.row == 1 {
+            callLibrary()
+        } else if indexPath.row == 2 {
+            viewLibraryWebsite()
+        } else if indexPath.row == 3 {
+            getMap()
+        }
+    }
+    
     
     
 }
+
+
+
+
+
+
+
+
+
+

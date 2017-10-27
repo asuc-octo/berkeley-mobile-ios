@@ -1,5 +1,5 @@
 //
-//  CampusResourceCell.swift
+//  LibraryDetailCell.swift
 //  berkeleyMobileiOS
 //
 //  Created by Marisa Wong on 10/26/17.
@@ -8,14 +8,10 @@
 
 import UIKit
 
-class CampusResourceCell: UITableViewCell {
+class LibraryDetailCell: UITableViewCell {
 
-    @IBOutlet var name: UILabel!
-    @IBOutlet var status: UILabel!
-    @IBOutlet var favoriteButton: UIButton!
-    
-
-    
+    @IBOutlet weak var libraryIconImage: UIImageView!
+    @IBOutlet weak var libraryIconInfo: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

@@ -23,6 +23,7 @@ class CampusResourceMapListViewController: UIViewController, UITableViewDataSour
     @IBOutlet var campusResourcesTableView: UITableView!
     @IBOutlet var campusResourcesMapView: GMSMapView!
     
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
