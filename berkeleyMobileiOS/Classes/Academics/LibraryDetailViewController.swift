@@ -256,11 +256,17 @@ class LibraryDetailViewController: UIViewController, IBInitializable, GMSMapView
 //            print(error)
         }
         
-        let lat = library?.latitude!
-        let lon = library?.longitude!
+        var lat = 37.0
+        var lon = -37.0
+        if let la = library?.latitude {
+            lat = la
+        }
+        if let lo = library?.longitude {
+            lon = lo
+        }
         let marker = GMSMarker()
         
-        marker.position = CLLocationCoordinate2D(latitude: lat!, longitude: lon!)
+        marker.position = CLLocationCoordinate2D(latitude: lat, longitude: lon)
         marker.title = library?.name
         
         let status = library?.isOpen;
@@ -325,7 +331,7 @@ class LibraryDetailViewController: UIViewController, IBInitializable, GMSMapView
     var contentSize: CGSize
     {
         let width = view.bounds.width
-        let height = libraryDetailView.height + libraryMapView.height
+        let height = libraryDetailView.height
         return CGSize(width: width, height: height)
         
     }
