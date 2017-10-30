@@ -11,7 +11,6 @@ import UIKit
 class GymClassViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ResourceDetailProvider, IBInitializable {
     static var componentID: String { return className(IBComponent.self) }
     typealias IBComponent = GymClassViewController
-    
 
     static func newInstance() -> ResourceDetailProvider {
         return fromIB()
