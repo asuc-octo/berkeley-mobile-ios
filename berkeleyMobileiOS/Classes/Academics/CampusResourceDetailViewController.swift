@@ -13,7 +13,8 @@ import MessageUI
 
 class CampusResourceDetailViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDelegate, MFMailComposeViewControllerDelegate, ResourceDetailProvider, IBInitializable {
     
-    @IBOutlet var campusResDetailView: UIView!
+    @IBOutlet weak var campusStack: UIStackView!
+//    @IBOutlet var campusResDetailView: UIView!
    
     @IBOutlet var campusResStartEndTime: UILabel!
     @IBOutlet var campusResMapView: GMSMapView!
@@ -45,13 +46,18 @@ class CampusResourceDetailViewController: UIViewController, GMSMapViewDelegate, 
     
         iconImages.append(UIImage(named: "hours.png")!)
         iconImages.append(UIImage(named: "phone.png")!)
-        iconImages.append(UIImage(named: "website.png")!)
+//        iconImages.append(UIImage(named: "website.png")!)
         iconImages.append(UIImage(named: "loc.png")!)
         
-        campResInfo.append("NUMBER")
+        campResInfo.append((self.campusResource?.hours)!)
         campResInfo.append((self.campusResource?.phoneNumber)!)
-        campResInfo.append("")
-        campResInfo.append((self.campusResource?.campusLocation)!)
+//        campResInfo.append((self.campusResource?.notes)!)
+        if let loc = campusResource.campusLocation {
+            campResInfo.append(loc)
+        } else {
+            campResInfo.append("Call for location")
+        }
+//        campResInfo.append((self.campusResource?.campusLocation)!)
         
         campusResDetailTableview.delegate = self
         campusResDetailTableview.dataSource = self
@@ -95,6 +101,7 @@ class CampusResourceDetailViewController: UIViewController, GMSMapViewDelegate, 
         self.campusResMapView.camera = camera
         self.campusResMapView.frame = self.view.frame
         self.campusResMapView.isMyLocationEnabled = true
+        self.campusResMapView.isUserInteractionEnabled = false
         self.campusResMapView.delegate = self
         self.locationManager.startUpdatingLocation()
         
@@ -247,7 +254,7 @@ class CampusResourceDetailViewController: UIViewController, GMSMapViewDelegate, 
     var contentSize: CGSize
     {
         let width = view.bounds.width
-        let height = campusResDetailView.height + campusResMapView.height
+        let height = campusStack.height
         return CGSize(width: width, height: height)
         
     }
@@ -268,7 +275,7 @@ class CampusResourceDetailViewController: UIViewController, GMSMapViewDelegate, 
 extension CampusResourceDetailViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return 3
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -292,9 +299,11 @@ extension CampusResourceDetailViewController: UITableViewDelegate, UITableViewDa
             // do nothing
         } else if indexPath.row == 1 {
             callCampRes()
-        } else if indexPath.row == 2 {
-            emailCampResWebsite()
-        } else if indexPath.row == 3 {
+        }
+//        else if indexPath.row == 2 {
+//            emailCampResWebsite()
+//        }
+        else if indexPath.row == 2 {
 //            getMap()
         }
     }

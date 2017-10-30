@@ -18,8 +18,9 @@ class LibraryDetailViewController: UIViewController, IBInitializable, GMSMapView
     
     @IBOutlet weak var LibraryTableView: UITableView!
     
-    @IBOutlet var libraryDetailView: UIView!
+//    @IBOutlet var libraryDetailView: UIView!
    
+    @IBOutlet weak var libraryStack: UIStackView!
     @IBOutlet var libraryStartEndTime: UILabel!
     @IBOutlet var libraryStatus: UILabel!
     @IBOutlet var libraryImage: UIImageView!
@@ -59,12 +60,12 @@ class LibraryDetailViewController: UIViewController, IBInitializable, GMSMapView
         
         iconImages.append(UIImage(named: "hours.png")!)
         iconImages.append(UIImage(named: "phone.png")!)
-        iconImages.append(UIImage(named: "website.png")!)
+//        iconImages.append(UIImage(named: "website.png")!)
         iconImages.append(UIImage(named: "loc.png")!)
         
         libInfo.append(getLibraryStatusHours())
         libInfo.append(getLibraryPhoneNumber())
-        libInfo.append(getLibraryWebsite())
+//        libInfo.append(getLibraryWebsite())
         libInfo.append(getLibraryLoc())
         
         libraryInfoTableview.delegate = self
@@ -83,20 +84,23 @@ class LibraryDetailViewController: UIViewController, IBInitializable, GMSMapView
         dateFormatter.amSymbol = "AM"
         dateFormatter.pmSymbol = "PM"
         dateFormatter.timeZone = TimeZone(abbreviation: "PST")
+        let trivialDayStringsORDINAL = ["", "SUN","MON","TUE","WED","THU","FRI","SAT"]
+        let dow = Calendar.current.component(.weekday, from: Date())
+        let translateddow = (dow - 2 + 7) % 7
         
-//        let localOpeningTime = dateFormatter.string(from:
-//            (self.library?.weeklyOpeningTimes))
-//        let localClosingTime = dateFormatter.string(from: (self.library?.weeklyClosingTimes)!);)
-//        let timeRange = localOpeningTime + " to " + localClosingTime
-//
+        let localOpeningTime = dateFormatter.string(from:
+            (self.library?.weeklyOpeningTimes[translateddow])!)
+        let localClosingTime = dateFormatter.string(from: (self.library?.weeklyClosingTimes[translateddow])!)
+        let timeRange:String = localOpeningTime + " to " + localClosingTime
+
 //        var status = "Open"
 //        if (self.library?.weeklyClosingTimes.compare(NSDate() as Date) == .orderedAscending) {
 //            status = "Closed"
 //        }
-//
+
 //        let timeInfo = status + "    " + timeRange
-//        return timeInfo
-            return "HOURZZZ"
+        return timeRange
+//            return "HOURZZZ"
     }
     
     func getLibraryPhoneNumber() -> String {
@@ -104,13 +108,18 @@ class LibraryDetailViewController: UIViewController, IBInitializable, GMSMapView
     }
     
     func getLibraryWebsite() -> String {
+//        return library.
         return "marisawong.comlmao"
         
     }
     
 
     func getLibraryLoc() -> String {
-        return "666 Berkeley St"
+        if let loc = library.campusLocation {
+            return loc
+        } else {
+            return "UC Berkeley"
+        }
         
     }
 
@@ -208,6 +217,7 @@ class LibraryDetailViewController: UIViewController, IBInitializable, GMSMapView
     
     
     func viewLibraryWebsite() {
+//        library.description
         UIApplication.shared.open(NSURL(string: "http://www.lib.berkeley.edu/libraries/main-stacks")! as URL,  options: [:], completionHandler: nil)
     }
 
@@ -238,6 +248,7 @@ class LibraryDetailViewController: UIViewController, IBInitializable, GMSMapView
         self.libraryMapView.frame = self.view.frame
         self.libraryMapView.isMyLocationEnabled = true
         self.libraryMapView.delegate = self
+        self.libraryMapView.isUserInteractionEnabled = false
         self.locationManager.startUpdatingLocation()
         
         let kMapStyle =
@@ -331,7 +342,7 @@ class LibraryDetailViewController: UIViewController, IBInitializable, GMSMapView
     var contentSize: CGSize
     {
         let width = view.bounds.width
-        let height = libraryDetailView.height
+        let height = libraryStack.height
         return CGSize(width: width, height: height)
         
     }
@@ -351,13 +362,19 @@ class LibraryDetailViewController: UIViewController, IBInitializable, GMSMapView
 extension LibraryDetailViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return 3
     }
-    
+//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        var viewT = UIView.init(frame: CGRect.init(x: 0, y: 0, width: view.width, height: 1))
+//        viewT.backgroundColor = UIColor.white
+//        return viewT
+//    }
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    
+//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        return 10
+//    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let libraryInfoCell = libraryInfoTableview.dequeueReusableCell(withIdentifier: "libraryCell", for: indexPath) as! LibraryDetailCell
         
@@ -375,9 +392,11 @@ extension LibraryDetailViewController: UITableViewDataSource, UITableViewDelegat
             // do nothing
         } else if indexPath.row == 1 {
             callLibrary()
-        } else if indexPath.row == 2 {
-            viewLibraryWebsite()
-        } else if indexPath.row == 3 {
+        }
+//        else if indexPath.row == 2 {
+//            viewLibraryWebsite()
+//        }
+        else if indexPath.row == 2 {
             getMap()
         }
     }
