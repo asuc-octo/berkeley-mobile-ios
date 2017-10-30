@@ -11,18 +11,23 @@ import GoogleMaps
 import RealmSwift
 import MessageUI
 
-class CampusResourceDetailViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDelegate, MFMailComposeViewControllerDelegate, ResourceDetailProvider, IBInitializable, UITableViewDataSource, UITableViewDelegate {
+class CampusResourceDetailViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDelegate, MFMailComposeViewControllerDelegate, ResourceDetailProvider, IBInitializable {
     
-    @IBOutlet var campusResDetailView: UIView!
+    @IBOutlet weak var campusStack: UIStackView!
+//    @IBOutlet var campusResDetailView: UIView!
    
     @IBOutlet var campusResStartEndTime: UILabel!
     @IBOutlet var campusResMapView: GMSMapView!
     
+    @IBOutlet weak var campusResDetailTableview: UITableView!
     @IBOutlet weak var LibraryTableView: UITableView!
     
     
     var campusResource:CampusResource!
     var locationManager = CLLocationManager()
+    
+    var iconImages = [UIImage]()
+    var campResInfo = [String]()
     
     // MARK: - IBInitializable
     typealias IBComponent = CampusResourceDetailViewController
@@ -39,10 +44,27 @@ class CampusResourceDetailViewController: UIViewController, GMSMapViewDelegate, 
         super.viewDidLoad()
         self.title = campusResource?.name
     
+        iconImages.append(UIImage(named: "hours.png")!)
+        iconImages.append(UIImage(named: "phone.png")!)
+//        iconImages.append(UIImage(named: "website.png")!)
+        iconImages.append(UIImage(named: "loc.png")!)
+        
+        campResInfo.append((self.campusResource?.hours)!)
+        campResInfo.append((self.campusResource?.phoneNumber)!)
+//        campResInfo.append((self.campusResource?.notes)!)
+        if let loc = campusResource.campusLocation {
+            campResInfo.append(loc)
+        } else {
+            campResInfo.append("Call for location")
+        }
+//        campResInfo.append((self.campusResource?.campusLocation)!)
+        
+        campusResDetailTableview.delegate = self
+        campusResDetailTableview.dataSource = self
+        
         setUpMap()
         setUpInformation()
-        LibraryTableView.dataSource = self
-        LibraryTableView.delegate = self
+  
     }
 
     override func didReceiveMemoryWarning() {
@@ -53,110 +75,18 @@ class CampusResourceDetailViewController: UIViewController, GMSMapViewDelegate, 
     
     
     
-    
-    
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = LibraryTableView.dequeueReusableCell(withIdentifier: "LibCell") as! LibraryOptionCell2
-        
-        if (indexPath.row == 0) {
-            cell.NewImage.image = #imageLiteral(resourceName: "phone")
-        }
-        if (indexPath.row == 1) {
-            cell.NewImage.image = #imageLiteral(resourceName: "heart")
-            
-            if campusResource.isFavorited {
-                cell.NewImage.image = #imageLiteral(resourceName: "heart_filled")
-            } else {
-                cell.NewImage.image = #imageLiteral(resourceName: "heart")
-            }
-        }
-        if (indexPath.row == 2) {
-            cell.NewImage.image = #imageLiteral(resourceName: "website")
-        }
-        
-        
-        
-        return cell
-    }
-    
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (indexPath.row == 0) {
-            //cell.NewImage.image = #imageLiteral(resourceName: "phone")
-            
-            let numberArray = self.campusResource?.phoneNumber?.components(separatedBy: NSCharacterSet.decimalDigits.inverted)
-            var number = ""
-            for n in numberArray! {
-                number += n
-            }
-            
-            if let url = URL(string: "telprompt://\(number)") {
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            }
-            
-            
-            
-        }
-        if (indexPath.row == 1) {
-            //cell.NewImage.image = #imageLiteral(resourceName: "heart")
-            
-            guard let campusResource = self.campusResource else {
-                return
-            }
-            campusResource.isFavorited = !campusResource.isFavorited
-            FavoriteStore.shared.update(campusResource)
-            
-            if campusResource.isFavorited {
-                LibraryTableView.reloadData()
-            } else {
-                LibraryTableView.reloadData()
-            }
-            
-            
-            
-            
-            
-        }
-        if (indexPath.row == 2) {
-            //cell.NewImage.image = #imageLiteral(resourceName: "website")
-            
-            
-            if MFMailComposeViewController.canSendMail() {
-                let mail = MFMailComposeViewController()
-                mail.mailComposeDelegate = self
-                mail.setToRecipients([(campusResource?.email)!])
-                mail.setMessageBody("", isHTML: true)
-                
-                present(mail, animated: true)
-                
-            } else {
-                let alert = UIAlertController(title: "Email", message: "Unable to send email at this time. Please ensure that you have connected your phone to at least one email account via the Mail app.", preferredStyle: UIAlertControllerStyle.alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
-            }
-            
-            
-        }
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
     func setUpInformation() {
-        self.campusResStartEndTime.text = self.campusResource.hours
+//        self.campusResStartEndTime.text = self.campusResource.hours
+//
+//        // For favoriting
+//        if (campusResource.isFavorited) {
+//            self.campusResFavoriteButton.setImage(#imageLiteral(resourceName: "heart-large-filled"), for: .normal)
+//        } else {
+//            self.campusResFavoriteButton.setImage(#imageLiteral(resourceName: "heart-large"), for: .normal)
+//        }
+//        self.campusResStartEndTime.text = self.campusResource.hours
         
         // For favoriting
         
@@ -171,6 +101,7 @@ class CampusResourceDetailViewController: UIViewController, GMSMapViewDelegate, 
         self.campusResMapView.camera = camera
         self.campusResMapView.frame = self.view.frame
         self.campusResMapView.isMyLocationEnabled = true
+        self.campusResMapView.isUserInteractionEnabled = false
         self.campusResMapView.delegate = self
         self.locationManager.startUpdatingLocation()
         
@@ -199,7 +130,19 @@ class CampusResourceDetailViewController: UIViewController, GMSMapViewDelegate, 
         marker.map = self.campusResMapView
     }
     
-    @IBAction func callCampusResource(_ sender: UIButton) {
+//    @IBAction func callCampusResource(_ sender: UIButton) {
+//        let numberArray = self.campusResource?.phoneNumber?.components(separatedBy: NSCharacterSet.decimalDigits.inverted)
+//        var number = ""
+//        for n in numberArray! {
+//            number += n
+//        }
+//
+//        if let url = URL(string: "telprompt://\(number)") {
+//            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+//        }
+//    }
+
+    func callCampRes() {
         let numberArray = self.campusResource?.phoneNumber?.components(separatedBy: NSCharacterSet.decimalDigits.inverted)
         var number = ""
         for n in numberArray! {
@@ -210,7 +153,7 @@ class CampusResourceDetailViewController: UIViewController, GMSMapViewDelegate, 
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
     }
-
+    
     @IBAction func favoriteCampusResource(_ sender: UIButton) {
         guard let campusResource = self.campusResource else {
             return
@@ -224,8 +167,7 @@ class CampusResourceDetailViewController: UIViewController, GMSMapViewDelegate, 
             (sender ).setImage(#imageLiteral(resourceName: "heart-large"), for: .normal)
         }
     }
-    
-    @IBAction func emailCampusResource(_ sender: UIButton) {
+    func emailCampResWebsite() {
         if MFMailComposeViewController.canSendMail() {
             let mail = MFMailComposeViewController()
             mail.mailComposeDelegate = self
@@ -233,13 +175,31 @@ class CampusResourceDetailViewController: UIViewController, GMSMapViewDelegate, 
             mail.setMessageBody("", isHTML: true)
             
             present(mail, animated: true)
-
+            
         } else {
             let alert = UIAlertController(title: "Email", message: "Unable to send email at this time. Please ensure that you have connected your phone to at least one email account via the Mail app.", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
+        
     }
+//    @IBAction func emailCampusResource(_ sender: UIButton) {
+//        if MFMailComposeViewController.canSendMail() {
+//            let mail = MFMailComposeViewController()
+//            mail.mailComposeDelegate = self
+//            mail.setToRecipients([(campusResource?.email)!])
+//            mail.setMessageBody("", isHTML: true)
+//
+//            present(mail, animated: true)
+//
+//        } else {
+//            let alert = UIAlertController(title: "Email", message: "Unable to send email at this time. Please ensure that you have connected your phone to at least one email account via the Mail app.", preferredStyle: UIAlertControllerStyle.alert)
+//            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+//            self.present(alert, animated: true, completion: nil)
+//        }
+//    }
+//    
+    
     
     
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
@@ -294,7 +254,7 @@ class CampusResourceDetailViewController: UIViewController, GMSMapViewDelegate, 
     var contentSize: CGSize
     {
         let width = view.bounds.width
-        let height = campusResDetailView.height + campusResMapView.height
+        let height = campusStack.height
         return CGSize(width: width, height: height)
         
     }
@@ -310,3 +270,47 @@ class CampusResourceDetailViewController: UIViewController, GMSMapViewDelegate, 
     func setContentOffset(_ offset: CGPoint, animated: Bool){}
 
 }
+
+
+extension CampusResourceDetailViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 3
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let campResInfoCell = campusResDetailTableview.dequeueReusableCell(withIdentifier: "campusResourceDetail", for: indexPath) as! CampusResourceDetailCell
+        
+        campResInfoCell.campResIconImage.image = iconImages[indexPath.row]
+        campResInfoCell.campResIconInfo.text = campResInfo[indexPath.row]
+        campResInfoCell.campResIconInfo.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightMedium)
+        return campResInfoCell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell  = tableView.cellForRow(at: indexPath)
+        cell?.selectionStyle = .none
+        
+        if indexPath.row == 0 {
+            // do nothing
+        } else if indexPath.row == 1 {
+            callCampRes()
+        }
+//        else if indexPath.row == 2 {
+//            emailCampResWebsite()
+//        }
+        else if indexPath.row == 2 {
+//            getMap()
+        }
+    }
+    
+    
+    
+}
+
+
+

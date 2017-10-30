@@ -8,13 +8,15 @@
 
 import UIKit
 
-class CampusResourceCell: UITableViewCell {
+class CampusResourceDetailCell: UITableViewCell {
 
-    @IBOutlet var name: UILabel!
-    @IBOutlet var status: UILabel!
-    @IBOutlet var favoriteButton: UIButton!
     
-
+    
+    @IBOutlet weak var campResIconInfo: UILabel!
+    
+    
+    @IBOutlet weak var campResIconImage: UIImageView!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
