@@ -17,7 +17,7 @@ class ConvenienceMethods: NSObject {
 //            let firstChild = children.first as! ResourceGroupViewController
 //            let firstChildTypesArr = firstChild.types
             if (vc == selectedViewController)   {
-                    vc.pageTabBarItem.image = #imageLiteral(resourceName: "beartransitColoredIcon")
+//                    vc.pageTabBarItem.image = #imageLiteral(resourceName: "beartransitColoredIcon")
                     //Make Current Tab Image Bigger
                     vc.pageTabBarItem.imageEdgeInsets = UIEdgeInsetsMake(3,3,3,3)
                     vc.pageTabBarItem.imageView?.tintColor = Color.blue.base

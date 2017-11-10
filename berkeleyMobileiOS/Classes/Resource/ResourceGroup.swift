@@ -23,7 +23,7 @@ struct ResourceGroup
     
     static let academics = ResourceGroup(
         name: "Academics", 
-        icon: #imageLiteral(resourceName: "ic_tab_library"), 
+        icon: #imageLiteral(resourceName: "LIBRARIES"),
         types: [
             Library.self, 
             CampusResource.self
@@ -32,7 +32,7 @@ struct ResourceGroup
     
     static let dining = ResourceGroup(
         name: "Dining", 
-        icon: #imageLiteral(resourceName: "ic_tab_dininghall"), 
+        icon: #imageLiteral(resourceName: "DINING"), 
         types: [
             DiningHall.self
         ]
