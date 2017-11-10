@@ -171,20 +171,27 @@ class ResourceGroupViewController: UIViewController, IBInitializable, UITableVie
     private func setupSearchBar()
     {
         // Search bar
-        self.navigationItem.titleView = searchBar
-        let textFieldInsideUISearchBar = searchBar.value(forKey: "searchField") as? UITextField
-        textFieldInsideUISearchBar?.borderStyle = .none
-        textFieldInsideUISearchBar?.backgroundColor = kColorNavy
-        textFieldInsideUISearchBar?.textColor = UIColor.white
+        let image : UIImage = #imageLiteral(resourceName: "bearmedium")
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+        imageView.contentMode = .scaleAspectFit
+        imageView.image = image
+        self.navigationItem.titleView = imageView
+//        let iv = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: 24, height: 24))
+//        iv.image = #imageLiteral(resourceName: "bear")
+//        self.navigationItem.titleView = iv
+//        let textFieldInsideUISearchBar = searchBar.value(forKey: "searchField") as? UITextField
+//        textFieldInsideUISearchBar?.borderStyle = .none
+//        textFieldInsideUISearchBar?.backgroundColor = kColorNavy
+//        textFieldInsideUISearchBar?.textColor = UIColor.white
         
         
-        searchBar.delegate = self
-//        searchDropDown.frame = CGRect(x: 0, y: -20, width: searchDropDown.frame.width, height: searchDropDown.frame.height)
-        searchDropDown.anchorView = self.navigationItem.titleView
-        searchDropDown.bottomOffset = CGPoint(x: 0, y: 50)
-        // searchDropDown.dismissMode = .manual
-        searchDropDown.selectionAction = selectedRow
-        searchDropDown.cancelAction = cancelDropDown
+//        searchBar.delegate = self
+////        searchDropDown.frame = CGRect(x: 0, y: -20, width: searchDropDown.frame.width, height: searchDropDown.frame.height)
+//        searchDropDown.anchorView = self.navigationItem.titleView
+//        searchDropDown.bottomOffset = CGPoint(x: 0, y: 50)
+//        // searchDropDown.dismissMode = .manual
+//        searchDropDown.selectionAction = selectedRow
+//        searchDropDown.cancelAction = cancelDropDown
     }
     
     func selectedRow(index: Int, name: String) -> Void
