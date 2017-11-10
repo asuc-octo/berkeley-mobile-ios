@@ -279,7 +279,7 @@ class GymDetailViewController: UIViewController, IBInitializable, CLLocationMana
     /// Get the contentSize property of the internal UIScrollView.
     var contentSize: CGSize {
         let width = self.viewController.view.width
-        let height = gymInformationView.height + gymMap.height
+        let height = self.viewController.view.height
         return CGSize(width: width, height: height)
         
     }
