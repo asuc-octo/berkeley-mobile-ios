@@ -79,8 +79,8 @@ class DiningHallViewController: UIViewController, IBInitializable, ResourceDetai
     {
         let sort = IconButton(image: #imageLiteral(resourceName: "ic_sort"), tintColor: .white)
         sort.addTarget(self, action: #selector(sortTapped), for: .touchUpInside)
-        
-        return [sort]
+        //SORT REMOVED
+        return []
     }
     
     /// Content size of the current menu tab page.
