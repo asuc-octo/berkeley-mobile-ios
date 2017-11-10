@@ -76,7 +76,7 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
     @IBOutlet weak var destView: UIView!
     @IBOutlet weak var block1: UIView!
     @IBOutlet weak var block2: UIView!
-    
+    var markers:[GMSMarker] = []
     @IBOutlet weak var nearestBusCollection: UICollectionView!
     var darkBlue = UIColor.init(red: 2/255, green: 46/255, blue: 129/255, alpha: 1)
     var lightBlue = UIColor.init(red: 38/255, green: 133/255, blue: 245/255, alpha: 1)
@@ -145,6 +145,8 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
         if let coord = manager.location?.coordinate {
         startLat = [coord.latitude, coord.longitude]
         }
+
+        
 //        zoomToCurrentLocation()
 
     }
@@ -204,6 +206,7 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
         nearestBusCollection.dataSource = self
         
         zoomToLoc()
+        Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateLiveBuses), userInfo: nil, repeats: true)
 }
     func hideKeyBoard(sender: UITapGestureRecognizer? = nil){
         startField.endEditing(true)
@@ -416,6 +419,30 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
                 }
                 dropDown.width = dropDown.anchorView?.plainView.width
             }
+        })
+    }
+    func updateLiveBuses() {
+        livebusDataSource.fetchBuses({ (_ buses: [livebus]?) in
+            if (buses == nil || buses?.count == 0)
+            {
+                
+            } else {
+//                self.mapView.clear()
+                for m in self.markers {
+                    m.map = nil
+                }
+                self.markers = []
+                for bus in buses! {
+                    let marker = GMSMarker()
+                    marker.position = CLLocationCoordinate2D(latitude: bus.latitude as! CLLocationDegrees, longitude: bus.longitude as! CLLocationDegrees)
+                    marker.title = bus.lineName
+                    marker.icon = #imageLiteral(resourceName: "bus-icon-blue")
+                    marker.isFlat = true
+                    marker.map = self.mapView
+                    self.markers.append(marker)
+                }
+            }
+            
         })
     }
     func makeMaterialShadow(withView tf: UIView!) {
