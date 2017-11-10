@@ -104,7 +104,7 @@ class GymClassViewController: UIViewController, UITableViewDelegate, UITableView
                 }
                 
                 for gymClass in gymClasses {
-                    if (gymClass.class_type == self.classString) {
+                    if (gymClass.class_type == self.classString && gymClass.start_time != nil) {
                         
                         let currentCalendar = Calendar.current
                         let currentDate = self.getCurrentDate()

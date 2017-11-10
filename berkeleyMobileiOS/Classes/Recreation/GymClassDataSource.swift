@@ -33,12 +33,27 @@ class GymClassDataSource: ResourceDataSource {
                     print("[Error @ GymClassDataSource.fetchGyms()]: request failed")
                     return
                 }
+                var totalClasses: [GymClass] = []
+                for (key, subJson) in JSON(data: response.data!)["group_exs"] {
+                    let gymClass = GymClass(name: key,
+                                            class_type: key,
+                                            location: "",
+                                            trainer: "",
+                                            date: nil,
+                                            start_time: nil,
+                                            end_time: nil,
+                                            imageLink: subJson[0]["image_link"].stringValue)
+                    totalClasses.append(gymClass)
+                }
+                for (key, subJson) in JSON(data: response.data!)["group_exs"] {
+                 let gymClasses = subJson.map { (_, child) in parseGymClasses(child) }
+                totalClasses.append(contentsOf: gymClasses)
+                }
+
                 
-                let gymClasses = JSON(data: response.data!)["group_exs"].map { (_, child) in parseGymClasses(child) }
                 
                 
-                
-                completion(gymClasses)
+                completion(totalClasses)
         }
     }
     // Return a Gym object parsed from JSON.

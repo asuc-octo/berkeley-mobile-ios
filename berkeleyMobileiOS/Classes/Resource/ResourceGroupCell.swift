@@ -63,6 +63,15 @@ class ResourceGroupCell: UITableViewCell, RequiresData, UICollectionViewDataSour
     /// Return the number of tiles in the group.
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
+        var count = 0
+        if (groupLabel.text == "Gym Classes") {
+            for res in resources {
+                if ((res as! GymClass).start_time == nil) {
+                    count += 1
+                }
+            }
+            return count
+        }
         return resources.count
     }
     
