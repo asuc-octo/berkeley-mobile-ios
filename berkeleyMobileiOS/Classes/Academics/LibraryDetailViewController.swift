@@ -282,7 +282,7 @@ class LibraryDetailViewController: UIViewController, IBInitializable, GMSMapView
         
         let status = library?.isOpen;
         if status! {
-            marker.icon = GMSMarker.markerImage(with: .green)
+            marker.icon = GMSMarker.markerImage(with: UIColor(hex: "022E81"))
             marker.snippet = "Open"
         } else {
             marker.icon = GMSMarker.markerImage(with: .red)
