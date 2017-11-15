@@ -45,7 +45,7 @@ class GymClass: Resource {
         self.trainer = trainer
 
 //        self.name = name
-        self.name = class_type
+        self.name = name
         self.imageURL = URL(string: imageLink ?? "")
     }
 }
