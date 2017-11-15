@@ -171,7 +171,7 @@ class ResourceGroupViewController: UIViewController, IBInitializable, UITableVie
     private func setupSearchBar()
     {
         // Search bar
-        let image : UIImage = #imageLiteral(resourceName: "bearmedium")
+        let image : UIImage = #imageLiteral(resourceName: "bearsmallmed")
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
         imageView.contentMode = .scaleAspectFit
         imageView.image = image
