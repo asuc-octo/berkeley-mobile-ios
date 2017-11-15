@@ -99,7 +99,7 @@ class GymDetailViewController: UIViewController, IBInitializable, CLLocationMana
         }
         
         if (status == "Open") {
-            marker.icon = GMSMarker.markerImage(with: .green)
+            marker.icon = GMSMarker.markerImage(with: UIColor(hex: "022E81"))
         } else {
             marker.icon = GMSMarker.markerImage(with: .red)
         }
