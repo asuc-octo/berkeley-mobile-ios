@@ -21,6 +21,7 @@ extension UIView {
     func applyGradient(colours: [UIColor], locations: [NSNumber]?) -> Void {
         let gradient: CAGradientLayer = CAGradientLayer()
         gradient.frame = self.bounds
+        gradient.cornerRadius = 5.0
         gradient.colors = colours.map { $0.cgColor }
         gradient.locations = locations
         gradient.startPoint = CGPoint(x: 0.0,y: 0.5)
@@ -67,7 +68,7 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
     var routes: [Route] = []
     var manager:CLLocationManager!
     var myLocations: [CLLocation] = []
-    @IBOutlet var busesNotAvailable: UILabel!
+//    @IBOutlet var busesNotAvailable: UILabel!
     @IBOutlet weak var routesTable: UITableView!
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var startField: UITextField!
@@ -139,13 +140,13 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
         let camera = GMSCameraPosition.camera(withLatitude: 37.871853, longitude: -122.258423, zoom: 15)
         self.mapView.camera = camera
         self.mapView.isMyLocationEnabled = true
-        mapView.settings.myLocationButton = true
+//        mapView.settings.myLocationButton = true
     }
     override func viewDidAppear(_ animated: Bool) {
         if let coord = manager.location?.coordinate {
         startLat = [coord.latitude, coord.longitude]
         }
-
+        
         
 //        zoomToCurrentLocation()
 
@@ -182,13 +183,13 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
     override func viewDidLoad() {
         super.viewDidLoad()
         self.mapView.delegate = self
-        busesNotAvailable.isHidden = true
+//        busesNotAvailable.isHidden = true
         self.routesTable.isHidden = true
 //        nearestBusesTable.isHidden = true
         nearestBusCollection.isHidden = true
         goButton.isHidden = true
         setupMap()
-        populateMapWithStops()
+//        populateMapWithStops()
         setupStartDestFields()
         makeMaterialShadow(withView: routesTable)
         setupLocationManager()
@@ -202,9 +203,10 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
         block2.layer.cornerRadius = 0.5*block2.frame.width
 //        stopTimeButton.titleLabel?.textColor = UIColor.white
         stopTimeButton.setTitleColor(UIColor.white, for: .normal)
+        stopTimeButton.isHidden = true
         nearestBusCollection.delegate = self
         nearestBusCollection.dataSource = self
-        
+        goButton.setTitle("Go", for: .normal)
         zoomToLoc()
         Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateLiveBuses), userInfo: nil, repeats: true)
 }
@@ -266,38 +268,71 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
     
     @IBAction func searchRoutes(_ sender: Any) {
         //Get Array In Order Of Soonest of Bus Name, Start Time, End Time Bus Name, Full Routes with latitude and longitudes
-        self.routesTable.isHidden = true
-        for p in polylines{
-            p.map = nil
-        }
-//        self.nearestBusesTable.isHidden = true
-        self.nearestBusCollection.isHidden = true
-        self.busesNotAvailable.isHidden = true
-        turnStopsOFF()
-        polylines = []
-        fullRouteDataSource.fetchBuses({ (routesArray: [Route]!) in
-            self.routes = routesArray!
-            if (self.routes.count == 0) {
-                self.busesNotAvailable.isHidden = false
-
-            } else {
-                self.routesTable.reloadData()
-                for stopIndex in 0...(self.routes[0].stops.count - 2) {
-                    self.drawPath(self.routes[0].stops[stopIndex], self.routes[0].stops[stopIndex + 1])
-                }
+        if self.goButton.titleLabel?.text == "Go" {
+            self.routesTable.isHidden = true
+            for p in polylines{
+                p.map = nil
+            }
+            self.nearestBusCollection.isHidden = true
+//            self.busesNotAvailable.isHidden = true
+            turnStopsOFF()
+            polylines = []
+            self.goButton.setTitle("Loading", for: .normal)
+            fullRouteDataSource.fetchBuses({ (routesArray: [Route]!) in
+                self.routes = routesArray!
+                if (self.routes.count == 0) {
+//                    self.busesNotAvailable.isHidden = false
+                    
+                } else {
+                    self.routesTable.reloadData()
+                    var averageLatLon = [0.0, 0.0]
+                    for stopIndex in 0...(self.routes[0].stops.count - 2) {
+                        var lon1 = self.routes[0].stops[stopIndex].longitude
+                        var lat1 = self.routes[0].stops[stopIndex].latitude
+                        averageLatLon[0] += lat1
+                        averageLatLon[1] += lon1
+                        self.drawPath(self.routes[0].stops[stopIndex], self.routes[0].stops[stopIndex + 1])
+                    }
+                    var lon1 = self.routes[0].stops[self.routes[0].stops.count - 1].longitude
+                    var lat1 = self.routes[0].stops[self.routes[0].stops.count - 1].latitude
+                    averageLatLon[0] += lat1
+                    averageLatLon[1] += lon1
+                    averageLatLon[0] /= Double(self.routes[0].stops.count)
+                    averageLatLon[1] /= Double(self.routes[0].stops.count)
+                    let loc: CLLocationCoordinate2D = CLLocationCoordinate2D.init(latitude: averageLatLon[0], longitude: averageLatLon[1])
+                    self.mapView.animate(toLocation: loc)
+                    self.mapView.animate(toZoom: 14)
+                    
+                    
                     let marker = GMSMarker()
                     marker.position = CLLocationCoordinate2D(latitude: self.routes[0].stops[0].latitude, longitude: self.routes[0].stops[0].longitude)
-                    marker.icon = UIImage.init(named: "cl")?.withRenderingMode(.alwaysTemplate).tint(with: Color.green.base)
+                    marker.icon = #imageLiteral(resourceName: "blueStop").withRenderingMode(.alwaysTemplate).tint(with: Color.green.accent3)
                     marker.groundAnchor = CGPoint.init(x: 0.5, y: 0.5);
                     marker.map = self.mapView
                     let smarker = GMSMarker()
                     smarker.position = CLLocationCoordinate2D(latitude: self.routes[0].stops[self.routes[0].stops.count - 1].latitude, longitude: self.routes[0].stops[self.routes[0].stops.count - 1].longitude)
                     smarker.map = self.mapView
-                self.routesTable.isHidden = false
+                    smarker.icon = #imageLiteral(resourceName: "blueStop").withRenderingMode(.alwaysTemplate).tint(with: Color.red.accent3)
+                    self.routesTable.isHidden = false
+                }
+                self.goButton.setTitle("Done", for: .normal)
+            }, startLat: String(self.startLat[0]), startLon: String(self.startLat[1]), destLat: String(self.stopLat[0]), destLon: String(self.stopLat[1]))
+            
+            self.goButton.layer.sublayers?.removeFirst()
+            goButton.setTitleColor(darkBlue, for: .normal)
+        } else {
+            self.routesTable.isHidden = true
+            for p in polylines{
+                p.map = nil
             }
-        }, startLat: String(self.startLat[0]), startLon: String(self.startLat[1]), destLat: String(self.stopLat[0]), destLon: String(self.stopLat[1]))
+            self.nearestBusCollection.isHidden = true
+//            self.busesNotAvailable.isHidden = true
+//            goButton.isHidden = true
+            goButton.setTitle("Go", for: .normal)
+            self.goButton.applyGradient(colours: [darkBlue, lightBlue])
+            goButton.setTitleColor(UIColor.white, for: .normal)
+        }
         
-
     }
     func drawPath(_ startStop: routeStop, _ destStop: routeStop)
     {   var averageLatLon = [0.0, 0.0]
@@ -309,7 +344,6 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
         let url = "https://maps.googleapis.com/maps/api/directions/json?origin=\(origin)&destination=\(destination)&mode=driving&key=AIzaSyBC8l95akDNvy_xZqa4j3XJCuATi2wFP_g"
         
         Alamofire.request(url).responseJSON { response in
-//            var firstCoord = [0.0, 0.0]
             var lastCoord = [0.0,0.0]
             let json = JSON(data: response.data!)
             let routes = json["routes"].arrayValue
@@ -323,24 +357,15 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
                     lastCoord = [(path?.coordinate(at: i).latitude)!,(path?.coordinate(at: i).longitude)!]
                     averageLatLon[0] += lastCoord[0]
                     averageLatLon[1] += lastCoord[1]
-
-//                    if fBool {
-//                        firstCoord = averageLatLon
-//                        fBool = false
-//                    }
                     count += 1
                 }
-                polyline.strokeWidth = 5
-                polyline.strokeColor = UIColor.init(red: 0/255, green: 85/255, blue: 129/255, alpha: 1)
+                polyline.strokeWidth = 6
+                polyline.strokeColor = self.lightBlue
                 polyline.map = self.mapView
                 self.polylines.append(polyline)
             }
             
 
-            averageLatLon[0] /= Double(count)
-            averageLatLon[1] /= Double(count)
-            self.mapView.animate(toLocation: CLLocationCoordinate2D.init(latitude: averageLatLon[0] + 0.003, longitude: averageLatLon[1]))
-            self.mapView.animate(toZoom: 14.5)
             
         }
 
@@ -438,7 +463,9 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
                     marker.title = bus.lineName
                     marker.icon = #imageLiteral(resourceName: "bus-icon-blue")
                     marker.isFlat = true
-                    marker.map = self.mapView
+                    if (marker.title != "") {
+                        marker.map = self.mapView
+                    }
                     self.markers.append(marker)
                 }
             }
@@ -453,12 +480,12 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
         tf.layer.shadowOpacity = 1
     }
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        marker.icon = #imageLiteral(resourceName: "whiteStop")
-        for marker in whitedIcons {
-            marker.icon = #imageLiteral(resourceName: "blueStop")
-        }
-        whitedIcons = []
-        whitedIcons.append(marker)
+//        marker.icon = #imageLiteral(resourceName: "whiteStop")
+//        for marker in whitedIcons {
+//            marker.icon = #imageLiteral(resourceName: "blueStop")
+//        }
+//        whitedIcons = []
+//        whitedIcons.append(marker)
         if let s = marker.snippet {
             self.routesTable.isHidden = true
             let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)

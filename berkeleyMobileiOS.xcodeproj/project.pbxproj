@@ -33,11 +33,13 @@
 		35D77E071F997D7900CBDF52 /* LibraryOptionCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35D77E061F997D7900CBDF52 /* LibraryOptionCell2.swift */; };
 		41017CFA1FB55BF4002D12BB /* livebusDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41017CF91FB55BF4002D12BB /* livebusDataSource.swift */; };
 		41017CFC1FB55C33002D12BB /* livebus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41017CFB1FB55C33002D12BB /* livebus.swift */; };
+		4103E0C01FBE2DEC009F2C90 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4103E0BF1FBE2DEC009F2C90 /* Images.xcassets */; };
+		4103E0C21FBE3671009F2C90 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4103E0C11FBE3671009F2C90 /* Launch Screen.storyboard */; };
+		4103E0C41FBE392F009F2C90 /* ls.png in Resources */ = {isa = PBXBuildFile; fileRef = 4103E0C31FBE392E009F2C90 /* ls.png */; };
 		41101F9D1DDEC5AD00D8D741 /* AcademicsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41101F9C1DDEC5AD00D8D741 /* AcademicsNavigationController.swift */; };
 		41101F9F1DDEC5CF00D8D741 /* RecreationNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41101F9E1DDEC5CF00D8D741 /* RecreationNavigationController.swift */; };
 		4124FA911EAC027700F65FBA /* timeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4124FA901EAC027700F65FBA /* timeCell.swift */; };
 		41661D0A1DCEFC760044E7B4 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41661D021DCEFC110044E7B4 /* Material.framework */; };
-		41A19ACA1F905A7100F71CB9 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41A19AC91F905A7100F71CB9 /* Launch Screen.storyboard */; };
 		41B0B5871E8CD95D00DA9297 /* BearTransitNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B0B57A1E8CD95D00DA9297 /* BearTransitNavigationController.swift */; };
 		41B0B5881E8CD95D00DA9297 /* BearTransitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B0B57B1E8CD95D00DA9297 /* BearTransitViewController.swift */; };
 		41B0B5891E8CD95D00DA9297 /* fullRouteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B0B57C1E8CD95D00DA9297 /* fullRouteDataSource.swift */; };
@@ -160,11 +162,13 @@
 		35D77E061F997D7900CBDF52 /* LibraryOptionCell2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryOptionCell2.swift; sourceTree = "<group>"; };
 		41017CF91FB55BF4002D12BB /* livebusDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = livebusDataSource.swift; sourceTree = "<group>"; };
 		41017CFB1FB55C33002D12BB /* livebus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = livebus.swift; sourceTree = "<group>"; };
+		4103E0BF1FBE2DEC009F2C90 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		4103E0C11FBE3671009F2C90 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		4103E0C31FBE392E009F2C90 /* ls.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ls.png; sourceTree = "<group>"; };
 		41101F9C1DDEC5AD00D8D741 /* AcademicsNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcademicsNavigationController.swift; sourceTree = "<group>"; };
 		41101F9E1DDEC5CF00D8D741 /* RecreationNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecreationNavigationController.swift; sourceTree = "<group>"; };
 		4124FA901EAC027700F65FBA /* timeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = timeCell.swift; sourceTree = "<group>"; };
 		41661D021DCEFC110044E7B4 /* Material.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Material.framework; path = "../../Library/Developer/Xcode/DerivedData/berkeleyMobileiOS-fqwsgytduwzwkifixxlmawnrvtwq/Build/Products/Debug-iphonesimulator/Material/Material.framework"; sourceTree = "<group>"; };
-		41A19AC91F905A7100F71CB9 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "Launch Screen.storyboard"; path = "berkeleyMobileiOS/Classes/Launch Screen.storyboard"; sourceTree = "<group>"; };
 		41B0B57A1E8CD95D00DA9297 /* BearTransitNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BearTransitNavigationController.swift; sourceTree = "<group>"; };
 		41B0B57B1E8CD95D00DA9297 /* BearTransitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BearTransitViewController.swift; sourceTree = "<group>"; };
 		41B0B57C1E8CD95D00DA9297 /* fullRouteDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = fullRouteDataSource.swift; sourceTree = "<group>"; };
@@ -282,7 +286,6 @@
 		41E843811DAB3FE80096C049 = {
 			isa = PBXGroup;
 			children = (
-				41A19AC91F905A7100F71CB9 /* Launch Screen.storyboard */,
 				41E8438C1DAB3FE80096C049 /* berkeleyMobileiOS */,
 				41E8438B1DAB3FE80096C049 /* Products */,
 				93BD09A1D2E78ACB866AE8D4 /* Pods */,
@@ -303,10 +306,12 @@
 			children = (
 				41E843991DAB3FE80096C049 /* Info.plist */,
 				41E8438D1DAB3FE80096C049 /* AppDelegate.swift */,
+				4103E0C11FBE3671009F2C90 /* Launch Screen.storyboard */,
 				4E505D2C1DD05A65004AC6C9 /* Classes */,
 				4E5CAED11DD02B5C00ECAF8E /* Storyboards */,
 				4E8E0D7C1E0C08380052CC10 /* Fonts */,
 				41E843941DAB3FE80096C049 /* Assets.xcassets */,
+				4103E0BF1FBE2DEC009F2C90 /* Images.xcassets */,
 			);
 			path = berkeleyMobileiOS;
 			sourceTree = "<group>";
@@ -401,6 +406,7 @@
 		4E505D2F1DD05A65004AC6C9 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				4103E0C31FBE392E009F2C90 /* ls.png */,
 				05ED0E901DF52327007F5241 /* DetailsViewController.swift */,
 				4E505D301DD05A65004AC6C9 /* BaseViewController.swift */,
 				B5F25D2A1DF519890084A5C7 /* LoadingScreen.swift */,
@@ -651,7 +657,7 @@
 				4E106F241E9F02560089934A /* Transit.storyboard in Resources */,
 				4E8E0D8E1E0C08380052CC10 /* Roboto-Italic.ttf in Resources */,
 				4E8E0D8F1E0C08380052CC10 /* Roboto-Light.ttf in Resources */,
-				41A19ACA1F905A7100F71CB9 /* Launch Screen.storyboard in Resources */,
+				4103E0C21FBE3671009F2C90 /* Launch Screen.storyboard in Resources */,
 				4E8E0D8D1E0C08380052CC10 /* Roboto-BoldItalic.ttf in Resources */,
 				4E8E0D8B1E0C08380052CC10 /* Roboto-BlackItalic.ttf in Resources */,
 				4E8E0D941E0C08380052CC10 /* Roboto-Thin.ttf in Resources */,
@@ -659,7 +665,9 @@
 				4EEF90471DDBC7D0002CF7E4 /* Dining.storyboard in Resources */,
 				4E8E0D911E0C08380052CC10 /* Roboto-Medium.ttf in Resources */,
 				281071A51E66A7F200D926E6 /* GymClassTableHeaderView.xib in Resources */,
+				4103E0C41FBE392F009F2C90 /* ls.png in Resources */,
 				4E8E0D951E0C08380052CC10 /* Roboto-ThinItalic.ttf in Resources */,
+				4103E0C01FBE2DEC009F2C90 /* Images.xcassets in Resources */,
 				4E8E0D8A1E0C08380052CC10 /* Roboto-Black.ttf in Resources */,
 				41E843951DAB3FE80096C049 /* Assets.xcassets in Resources */,
 				4E7F97131EA05806002D9EC8 /* Resource.storyboard in Resources */,
