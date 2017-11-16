@@ -124,7 +124,7 @@ class CampusResourceDetailViewController: UIViewController, GMSMapViewDelegate, 
         let lat = campusResource.latitude!
         let lon = campusResource.longitude!
         let marker = GMSMarker()
-        
+        marker.icon = GMSMarker.markerImage(with: UIColor(hex: "022E81"))
         marker.position = CLLocationCoordinate2D(latitude: lat, longitude: lon)
         marker.title = campusResource?.name
         marker.map = self.campusResMapView
