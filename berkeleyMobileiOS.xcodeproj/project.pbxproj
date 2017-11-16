@@ -119,6 +119,7 @@
 		4EE89F261DDBEF9F00AC4EF7 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE89F251DDBEF9F00AC4EF7 /* UIImageView+Extension.swift */; };
 		4EEF90471DDBC7D0002CF7E4 /* Dining.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4EEF90461DDBC7D0002CF7E4 /* Dining.storyboard */; };
 		55026D561F9152E6005D9576 /* GymInformationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55026D551F9152E6005D9576 /* GymInformationTableViewCell.swift */; };
+		55A520FA1FB92BD500C4C9E4 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A520F91FB92BD500C4C9E4 /* UIColor+Extension.swift */; };
 		55EC872F1FA2DC1E00C71C09 /* LibraryDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EC872E1FA2DC1E00C71C09 /* LibraryDetailCell.swift */; };
 		55EC87311FA2E70A00C71C09 /* CampusResourceDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EC87301FA2E70A00C71C09 /* CampusResourceDetailCell.swift */; };
 		55EC87331FA2EDC800C71C09 /* CampusResourceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EC87321FA2EDC800C71C09 /* CampusResourceCell.swift */; };
@@ -250,6 +251,7 @@
 		4EEF90461DDBC7D0002CF7E4 /* Dining.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Dining.storyboard; sourceTree = "<group>"; };
 		4EF0D9AF1DDBC08C003C18FA /* Pods_berkeleyMobileiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods_berkeleyMobileiOS.framework; path = "Pods/../build/Debug-iphoneos/Pods_berkeleyMobileiOS.framework"; sourceTree = "<group>"; };
 		55026D551F9152E6005D9576 /* GymInformationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymInformationTableViewCell.swift; sourceTree = "<group>"; };
+		55A520F91FB92BD500C4C9E4 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		55EC872E1FA2DC1E00C71C09 /* LibraryDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryDetailCell.swift; sourceTree = "<group>"; };
 		55EC87301FA2E70A00C71C09 /* CampusResourceDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CampusResourceDetailCell.swift; path = berkeleyMobileiOS/Classes/Academics/CampusResourceDetailCell.swift; sourceTree = SOURCE_ROOT; };
 		55EC87321FA2EDC800C71C09 /* CampusResourceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusResourceCell.swift; sourceTree = "<group>"; };
@@ -489,6 +491,7 @@
 				4E7F32AA1E6214E700D781B2 /* UIViewController+Extension.swift */,
 				2852AEDA1E90B4FD00092070 /* OptionsCell.swift */,
 				4E106F211E9EFB380089934A /* UIStoryboard+Extension.swift */,
+				55A520F91FB92BD500C4C9E4 /* UIColor+Extension.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -742,7 +745,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -762,6 +765,7 @@
 				4EC865DC1E9C275D00B51E30 /* SearchDataSource.swift in Sources */,
 				41B0B58E1E8CD95D00DA9297 /* nearestStopsDataSource.swift in Sources */,
 				41E8438E1DAB3FE80096C049 /* AppDelegate.swift in Sources */,
+				55A520FA1FB92BD500C4C9E4 /* UIColor+Extension.swift in Sources */,
 				4E4EC1451E504710000C63ED /* ResourceGroupViewController.swift in Sources */,
 				4E4EC1461E504710000C63ED /* ResourceNavigationController.swift in Sources */,
 				4E106F221E9EFB380089934A /* UIStoryboard+Extension.swift in Sources */,
