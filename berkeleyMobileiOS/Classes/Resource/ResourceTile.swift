@@ -45,10 +45,14 @@ class ResourceTile: UICollectionViewCell, RequiresData, ToggleButtonDelegate
     {
         self.resource = resource
         self.nameLabel.text = resource.name
-        
-        let status = self.resource.isOpen ? ("OPEN", kColorGreen) : ("CLOSED", kColorRed)
-        self.statusLabel.text = status.0
-        self.statusLabel.textColor = status.1
+        if (type(of: resource) == CampusResource.self) {
+            self.statusLabel.text = ""
+        } else {
+            let status = self.resource.isOpen ? ("OPEN", kColorGreen) : ("CLOSED", kColorRed)
+            self.statusLabel.text = status.0
+            self.statusLabel.textColor = status.1
+        }
+
         
         self.imageView.load(url: resource.imageURL)
         self.favoriteButton.isSelected = resource.isFavorited
