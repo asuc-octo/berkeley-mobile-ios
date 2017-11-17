@@ -31,6 +31,9 @@ class Gym: Resource {
     var longitude: Double? = nil
     
     var isOpen: Bool {
+        if openingTimeToday == closingTimeToday {
+            return true
+        }
         return Date().isBetween(openingTimeToday, closingTimeToday)
     }
     
