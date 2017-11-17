@@ -43,17 +43,33 @@ class RouteViewController: UIViewController, UITableViewDelegate, UITableViewDat
             return (selectedRoute?.secondRouteStops?.count)!
         }
     }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
+    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //        tableView.register(nearestBusTableViewCell.self, forCellReuseIdentifier: "Cell")
-        let cell = tableView.dequeueReusableCell(withIdentifier: "detailRouteCell", for: indexPath)
         var stopToDisplay: routeStop
         if indexPath.section == 0 {
             stopToDisplay = (selectedRoute?.stops[indexPath.row])!
         } else {
             stopToDisplay = (selectedRoute?.secondRouteStops?[indexPath.row])!
         }
-        cell.textLabel?.text = stopToDisplay.name
-        return cell
+        if indexPath.row == 0 {
+            var cell = tableView.dequeueReusableCell(withIdentifier: "startCell", for: indexPath) as! RouteDetailsTableViewCell
+            cell.stopName.text = stopToDisplay.name
+            return cell
+        } else if (indexPath.row == (selectedRoute?.stops.count)! - 1) {
+            var cell = tableView.dequeueReusableCell(withIdentifier: "endCell", for: indexPath) as! RouteEndTableViewCell
+            cell.stopName.text = stopToDisplay.name
+            return cell
+        } else {
+            var cell = tableView.dequeueReusableCell(withIdentifier: "midCell", for: indexPath) as! RouteMidTableViewCell
+            cell.stopName.text = stopToDisplay.name
+            return cell
+        }
+
+
+
     }
     
     
