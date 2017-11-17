@@ -87,11 +87,22 @@ class LibraryDetailViewController: UIViewController, IBInitializable, GMSMapView
         let trivialDayStringsORDINAL = ["", "SUN","MON","TUE","WED","THU","FRI","SAT"]
         let dow = Calendar.current.component(.weekday, from: Date())
         let translateddow = (dow - 2 + 7) % 7
-        
-        let localOpeningTime = dateFormatter.string(from:
-            (self.library?.weeklyOpeningTimes[translateddow])!)
-        let localClosingTime = dateFormatter.string(from: (self.library?.weeklyClosingTimes[translateddow])!)
-        let timeRange:String = localOpeningTime + " to " + localClosingTime
+        var localOpeningTime = ""
+        var localClosingTime = ""
+        if let t = (self.library?.weeklyOpeningTimes[translateddow]) {
+            localOpeningTime = dateFormatter.string(from:t)
+        }
+//            localOpeningTime = nil
+//        }
+        if let t = (self.library?.weeklyClosingTimes[translateddow]) {
+            localClosingTime = dateFormatter.string(from:t)
+        }
+//        let localClosingTime = dateFormatter.string(from: (self.library?.weeklyClosingTimes[translateddow])!)
+        var timeRange:String = localOpeningTime + " to " + localClosingTime
+
+        if (localOpeningTime == "" && localClosingTime == "") {
+            timeRange = "Closed Today"
+        }
 
 //        var status = "Open"
 //        if (self.library?.weeklyClosingTimes.compare(NSDate() as Date) == .orderedAscending) {
