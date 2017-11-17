@@ -472,10 +472,6 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
                     autoResults.append(result.attributedFullText.string)
                 }
                 dropDown.dataSource = autoResults
-                var c: [NSLayoutConstraint] = dropDown.constraints
-                for constraint in c {
-                    print(constraint.constant)
-                }
                 dropDown.width = dropDown.anchorView?.plainView.width
             }
         })
@@ -558,15 +554,30 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
             return self.nearestBuses.count
         }
     }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 130
+    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView.tag == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "routeCell", for: indexPath) as! routeCell
             let route: Route = routes[indexPath.row]
-            cell.lineName.text = route.busName
             let Routecount = route.stops.count
             cell.start.text = route.stops[0].name
-            cell.end.text = route.stops[Routecount - 1].name
+            
+            if let secondBus = route.secondBusName {
+                cell.lineName.text = route.busName + " & " + secondBus
+                cell.end.text = route.secondRouteStops?.last?.name
+            } else {
+                cell.lineName.text = route.busName
+                cell.end.text = route.stops[Routecount - 1].name
+            }
+
             let currentDate = serverToLocalFormatter.date(from: route.startTime)
+            let endDate = serverToLocalFormatter.date(from: route.endTime)
+            let timeElapsed = endDate?.timeIntervalSince(currentDate!)
+            var minutes = timeElapsed!/60
+            
+            cell.duration.text = Int(minutes.rounded()).description + " mins"
             cell.timeTravel.text = timeFormatter.string(from: currentDate!)
             //        cell.detailTextLabel!.text = currentBus.directionTitle
             return cell

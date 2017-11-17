@@ -10,6 +10,7 @@ import UIKit
 
 class routeCell: UITableViewCell {
     
+    @IBOutlet weak var duration: UILabel!
     @IBOutlet weak var lineName: UILabel!
 
     @IBOutlet weak var start: UILabel!
