@@ -12,7 +12,8 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
-fileprivate let kDiningHallsEndpoint = kAPIURL + "dining_halls"
+fileprivate let kDiningHallsEndpoint = "https://asuc-mobile-dev.herokuapp.com/api/"
+ + "dining_halls"
 
 class DiningDataSource: ResourceDataSource
 {

@@ -86,9 +86,11 @@ class DiningHallViewController: UIViewController, IBInitializable, ResourceDetai
     /// Content size of the current menu tab page.
     var contentSize: CGSize
     {
-        let width = self.viewController.view.width
-        let height = self.viewController.view.height
-        return CGSize(width: width, height: height)
+//        let width = self.viewController.view.width
+//        let height = self.viewController.view.height
+//        return CGSize(width: width, height: height)
+        let size = selectedScroll.contentSize
+        return CGSize(width: size.width, height: size.height + pageTabBar.bounds.height)
     }
     
     /// Scroll for the current menu tab page not animated.
