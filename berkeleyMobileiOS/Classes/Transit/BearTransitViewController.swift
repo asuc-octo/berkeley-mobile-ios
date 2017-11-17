@@ -94,6 +94,8 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
     var polylines:[GMSPolyline] = []
     var whitedIcons:[GMSMarker] = []
     
+    @IBOutlet weak var noRoutesFound: UIView!
+    @IBOutlet weak var alertImage: UIImageView!
     @IBAction func toggleStops(_ sender: Any) {
         self.routesTable.isHidden = true
 //        self.nearestBusesTable.isHidden = true
@@ -208,6 +210,10 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
         nearestBusCollection.dataSource = self
         goButton.setTitle("Go", for: .normal)
         zoomToLoc()
+        alertImage.image = #imageLiteral(resourceName: "alert").withRenderingMode(.alwaysTemplate).tint(with: .white)
+//        alertImage.image?.tint(with: .white)
+        noRoutesFound.isHidden = true
+        makeMaterialShadow(withView: noRoutesFound)
         Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateLiveBuses), userInfo: nil, repeats: true)
 }
     func hideKeyBoard(sender: UITapGestureRecognizer? = nil){
@@ -282,7 +288,7 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
                 self.routes = routesArray!
                 if (self.routes.count == 0) {
 //                    self.busesNotAvailable.isHidden = false
-                    
+                    self.noRoutesFound.isHidden = false
                 } else {
                     self.routesTable.reloadData()
                     var averageLatLon = [0.0, 0.0]
@@ -325,6 +331,7 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
             for p in polylines{
                 p.map = nil
             }
+            self.noRoutesFound.isHidden = true
             self.nearestBusCollection.isHidden = true
 //            self.busesNotAvailable.isHidden = true
 //            goButton.isHidden = true
