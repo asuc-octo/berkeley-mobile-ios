@@ -167,7 +167,7 @@
 		41017CFB1FB55C33002D12BB /* livebus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = livebus.swift; sourceTree = "<group>"; };
 		4103E0BF1FBE2DEC009F2C90 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		4103E0C11FBE3671009F2C90 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
-		4103E0C31FBE392E009F2C90 /* ls.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ls.png; sourceTree = "<group>"; };
+		4103E0C31FBE392E009F2C90 /* ls.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ls.png; path = "/Users/akilesh/Documents/berkeley-ios/berkeleyMobileiOS/Classes/Base/ls.png"; sourceTree = "<absolute>"; };
 		4103E0C51FBE83A9009F2C90 /* RouteDetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDetailsTableViewCell.swift; sourceTree = "<group>"; };
 		4103E0C71FBE958B009F2C90 /* RouteMidTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteMidTableViewCell.swift; sourceTree = "<group>"; };
 		4103E0C91FBE95B9009F2C90 /* RouteEndTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteEndTableViewCell.swift; sourceTree = "<group>"; };

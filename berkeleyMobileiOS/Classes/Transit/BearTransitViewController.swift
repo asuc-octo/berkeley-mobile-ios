@@ -298,9 +298,24 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
                         averageLatLon[0] += lat1
                         averageLatLon[1] += lon1
                         self.drawPath(self.routes[0].stops[stopIndex], self.routes[0].stops[stopIndex + 1])
+                        if stopIndex != 0 {
+                            let marker4 = GMSMarker()
+                            marker4.icon = #imageLiteral(resourceName: "bluecircle")
+                            let loc = CLLocationCoordinate2D.init(latitude: lat1, longitude: lon1)
+                            marker4.position = loc
+                            marker4.groundAnchor = CGPoint.init(x: 0.5, y: 0.5)
+                            marker4.map = self.mapView
+                        }
+
                     }
                     var lon1 = self.routes[0].stops[self.routes[0].stops.count - 1].longitude
                     var lat1 = self.routes[0].stops[self.routes[0].stops.count - 1].latitude
+//                    let marker4 = GMSMarker()
+//                    marker4.icon = #imageLiteral(resourceName: "bluecircle")
+//                    let loc2 = CLLocationCoordinate2D.init(latitude: lat1, longitude: lon1)
+//                    marker4.position = loc2
+//                    marker4.groundAnchor = CGPoint.init(x: 0.5, y: 0.5)
+//                    marker4.map = self.mapView
                     averageLatLon[0] += lat1
                     averageLatLon[1] += lon1
                     averageLatLon[0] /= Double(self.routes[0].stops.count)
@@ -331,6 +346,7 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
             for p in polylines{
                 p.map = nil
             }
+            turnStopsOFF()
             self.noRoutesFound.isHidden = true
             self.nearestBusCollection.isHidden = true
 //            self.busesNotAvailable.isHidden = true
@@ -342,39 +358,50 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
         
     }
     func drawPath(_ startStop: routeStop, _ destStop: routeStop)
-    {   var averageLatLon = [0.0, 0.0]
-        var count = 0
+    {
+//        var averageLatLon = [0.0, 0.0]
+//        var count = 0
         let origin = "\(startStop.latitude),\(startStop.longitude)"
         let destination = "\(destStop.latitude),\(destStop.longitude)"
         
         
         let url = "https://maps.googleapis.com/maps/api/directions/json?origin=\(origin)&destination=\(destination)&mode=driving&key=AIzaSyBC8l95akDNvy_xZqa4j3XJCuATi2wFP_g"
-        
-        Alamofire.request(url).responseJSON { response in
-            var lastCoord = [0.0,0.0]
-            let json = JSON(data: response.data!)
-            let routes = json["routes"].arrayValue
-            for route in routes
-            {
-                let routeOverviewPolyline = route["overview_polyline"].dictionary
-                let points = routeOverviewPolyline?["points"]?.stringValue
-                let path = GMSPath.init(fromEncodedPath: points!)
-                let polyline = GMSPolyline.init(path: path)
-                for i in 0...((path?.count())! - 1) {
-                    lastCoord = [(path?.coordinate(at: i).latitude)!,(path?.coordinate(at: i).longitude)!]
-                    averageLatLon[0] += lastCoord[0]
-                    averageLatLon[1] += lastCoord[1]
-                    count += 1
-                }
-                polyline.strokeWidth = 6
-                polyline.strokeColor = self.lightBlue
-                polyline.map = self.mapView
-                self.polylines.append(polyline)
-            }
+        if (startStop.id == 15382 && destStop.id == 15383) {
+            var pat = GMSMutablePath.init()
+            pat.addLatitude(startStop.latitude, longitude: startStop.longitude)
+            pat.addLatitude(destStop.latitude, longitude: destStop.longitude)
             
-
-            
+            let polyline = GMSPolyline.init(path: pat)
+            polyline.strokeWidth = 6
+            polyline.strokeColor = self.lightBlue
+            polyline.map = self.mapView
+            self.polylines.append(polyline)
         }
+        else {
+            Alamofire.request(url).responseJSON { response in
+                //            var lastCoord = [0.0,0.0]
+                let json = JSON(data: response.data!)
+                let routes = json["routes"].arrayValue
+                for route in routes
+                {
+                    let routeOverviewPolyline = route["overview_polyline"].dictionary
+                    let points = routeOverviewPolyline?["points"]?.stringValue
+                    let path = GMSPath.init(fromEncodedPath: points!)
+                    let polyline = GMSPolyline.init(path: path)
+                    //                for i in 0...((path?.count())! - 1) {
+                    //                    lastCoord = [(path?.coordinate(at: i).latitude)!,(path?.coordinate(at: i).longitude)!]
+                    //                    averageLatLon[0] += lastCoord[0]
+                    //                    averageLatLon[1] += lastCoord[1]
+                    //                    count += 1
+                    //                }
+                    polyline.strokeWidth = 6
+                    polyline.strokeColor = self.lightBlue
+                    polyline.map = self.mapView
+                    self.polylines.append(polyline)
+                }
+            }
+        }
+
 
     }
 
@@ -558,6 +585,7 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView.tag == 0 {
+            selectedIndexPath = indexPath.row
             performSegue(withIdentifier: "routeDetails", sender: self)
         }
         
