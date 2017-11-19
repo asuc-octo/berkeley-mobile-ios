@@ -1,6 +1,6 @@
 
 import UIKit
-
+import Firebase
 
 fileprivate let kCellPadding: CGFloat = 12.0
 fileprivate let kContentHeight: CGFloat = 44.0
@@ -48,5 +48,7 @@ class DiningItemCell: UITableViewCell, RequiresData, ToggleButtonDelegate
     {
         item.isFavorited = button.isSelected
         FavoriteStore.shared.update(item)
+        Analytics.logEvent("favorited_food_item", parameters: ["food_item" : item.name])
+
     }
 }

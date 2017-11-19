@@ -2,7 +2,7 @@
 import UIKit
 import DropDown
 import Material
-
+import Firebase
 fileprivate let kColorNavy = UIColor(red: 23/255.0, green: 85/255.0, blue: 122/255.0, alpha: 1)
 
 
@@ -105,7 +105,25 @@ class ResourceGroupViewController: UIViewController, IBInitializable, UITableVie
     override func viewWillAppear(_ animated: Bool)
     {
         super.viewWillAppear(animated);
-        
+        for some_type in self.types! {
+            let resource_type = self.types[0]
+            if (some_type == berkeleyMobileiOS.Library.self) {
+                Analytics.logEvent("opened_library_screen", parameters: nil)
+
+            } else if (some_type == berkeleyMobileiOS.CampusResource.self) {
+                Analytics.logEvent("opened_resource_screen", parameters: nil)
+            } else if (some_type == berkeleyMobileiOS.DiningHall.self) {
+                Analytics.logEvent("opened_food_screen", parameters: nil)
+
+            } else if (some_type == berkeleyMobileiOS.Gym.self) {
+                Analytics.logEvent("opened_gym_screen", parameters: nil)
+
+            } else if (some_type == berkeleyMobileiOS.GymClass.self) {
+                Analytics.logEvent("opened_gym_class_screen", parameters: nil)
+            } else {
+                print("Error")
+            }
+        }
         self.navbar?.hideHairline = true
         self.navbar?.setTransparent(true)
         setStatusBarStyle(self.preferredStatusBarStyle)

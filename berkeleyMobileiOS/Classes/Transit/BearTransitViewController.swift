@@ -13,6 +13,7 @@ import GooglePlaces
 import DropDown
 import Alamofire
 import SwiftyJSON
+import Firebase
 extension UIView {
     func applyGradient(colours: [UIColor]) -> Void {
         self.applyGradient(colours: colours, locations: nil)
@@ -148,7 +149,7 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
         if let coord = manager.location?.coordinate {
         startLat = [coord.latitude, coord.longitude]
         }
-        
+        Analytics.logEvent("opened_transit_screen", parameters: nil)
         
 //        zoomToCurrentLocation()
 
@@ -274,6 +275,7 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
     
     @IBAction func searchRoutes(_ sender: Any) {
         //Get Array In Order Of Soonest of Bus Name, Start Time, End Time Bus Name, Full Routes with latitude and longitudes
+        Analytics.logEvent("clicked_go_button", parameters: ["Route" : "Yes"])
         if self.goButton.titleLabel?.text == "Go" {
             self.routesTable.isHidden = true
             for p in polylines{
@@ -408,6 +410,7 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let dest = segue.destination as! RouteViewController
         dest.selectedRoute = self.routes[selectedIndexPath]
+        Analytics.logEvent("clicked_on_route", parameters: nil)
     }
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         self.goButton.isHidden = true
