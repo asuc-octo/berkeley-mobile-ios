@@ -1,6 +1,7 @@
 
 import UIKit
 import Material
+import Firebase
 
 fileprivate let kColorNavy = UIColor(red: 23/255.0, green: 85/255.0, blue: 122/255.0, alpha: 1)
 
@@ -140,7 +141,10 @@ class DiningHallViewController: UIViewController, IBInitializable, ResourceDetai
         sortMenus(by: .favorites)
     }
     
-    
+    override func viewDidAppear(_ animated: Bool) {
+        Analytics.logEvent("opened_dining_hall", parameters: ["dining_hall" : hall.name])
+
+    }
     // ========================================
     // MARK: - PageTabBarControllerDelegate
     // ========================================

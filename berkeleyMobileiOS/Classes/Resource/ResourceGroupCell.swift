@@ -1,5 +1,6 @@
 
 import UIKit
+import Firebase
 
 fileprivate let kResourceTileID = "ResourceTile"
 
@@ -94,5 +95,22 @@ class ResourceGroupCell: UITableViewCell, RequiresData, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
         self.selectionHandler?( self.resources[indexPath.item] )
+        let some_type = type(of: self.resources[indexPath.item])
+        if (some_type == berkeleyMobileiOS.Library.self) {
+            Analytics.logEvent("opened_library", parameters: ["library" : self.resources[indexPath.item].name])
+            
+        } else if (some_type == berkeleyMobileiOS.CampusResource.self) {
+            Analytics.logEvent("opened_resource", parameters: ["resource" : self.resources[indexPath.item].name])
+        } else if (some_type == berkeleyMobileiOS.DiningHall.self) {
+//            Analytics.logEvent("opened_food", parameters: nil)
+            
+        } else if (some_type == berkeleyMobileiOS.Gym.self) {
+            Analytics.logEvent("opened_gym", parameters: ["gym" : self.resources[indexPath.item].name])
+            
+        } else if (some_type == berkeleyMobileiOS.GymClass.self) {
+            Analytics.logEvent("opened_gym_class", parameters: ["gym class category" : self.resources[indexPath.item].name])
+        } else {
+            print("Error")
+        }
     }
 }
