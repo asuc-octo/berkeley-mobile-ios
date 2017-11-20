@@ -9,6 +9,8 @@
 import UIKit
 
 class Library: Resource {
+    var image: UIImage?
+    
     
     static func displayName(pluralized: Bool) -> String {
         return "Librar" + (pluralized ? "ies" : "y")

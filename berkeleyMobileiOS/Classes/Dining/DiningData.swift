@@ -6,7 +6,7 @@
  */
 
 import Foundation 
-
+import UIKit
 /**
  * `MealType` is one of four: 
  * - Breakfast
@@ -56,6 +56,8 @@ typealias MealMap = [MealType : MealShift]
  */
 class DiningHall: Resource
 {
+    var image: UIImage?
+    
     static func displayName(pluralized: Bool) -> String
     {
         return "Dining Hall" + (pluralized ? "s" : "")

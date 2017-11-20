@@ -1,6 +1,9 @@
 PODS:
   - Alamofire (4.4.0)
+  - Crashlytics (3.9.3):
+    - Fabric (~> 1.7.2)
   - DropDown (2)
+  - Fabric (1.7.2)
   - Firebase/Core (4.3.0):
     - FirebaseAnalytics (= 4.0.4)
     - FirebaseCore (= 4.0.8)
@@ -46,7 +49,9 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 4.0)
+  - Crashlytics (~> 3.9.3)
   - DropDown
+  - Fabric (~> 1.7.2)
   - Firebase/Core
   - GoogleMaps
   - GooglePlacePicker
@@ -70,7 +75,9 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
+  Crashlytics: dbb07d01876c171c5ccbdf7826410380189e452c
   DropDown: 744784d9c9aa505100e942c16acd05430cbb2f0a
+  Fabric: 9cd6a848efcf1b8b07497e0b6a2e7d336353ba15
   Firebase: 83283761a1ef6dc9846e03d08059f51421afbd65
   FirebaseAnalytics: 722b53c7b32bfc7806b06e0093a2f5180d4f2c5a
   FirebaseCore: 69b1a5ac5f857ba6d5fd9d5fe794f4786dd5e579
@@ -86,6 +93,6 @@ SPEC CHECKSUMS:
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: a197f7e7af3b92e1236e13f1ef7973f90201c8e9
+PODFILE CHECKSUM: 8dfd594ee90d3bf6c5a475524404e7444cea600f
 
 COCOAPODS: 1.3.1

@@ -9,6 +9,8 @@
 import UIKit
 
 class GymClassCategory: Resource {
+    var image: UIImage?
+    
     
     static func displayName(pluralized: Bool) -> String {
         return "Gym Class Categor" + (pluralized ? "ies" : "y")

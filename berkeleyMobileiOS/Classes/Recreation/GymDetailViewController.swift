@@ -10,6 +10,8 @@ import UIKit
 import GoogleMaps
 
 class GymDetailViewController: UIViewController, IBInitializable, CLLocationManagerDelegate, GMSMapViewDelegate, ResourceDetailProvider {
+    var image: UIImage?
+    
     
     @IBOutlet weak var gymInfoTableview: UITableView!
     //    @IBOutlet var gymStartEndTime: UILabel!
@@ -36,10 +38,10 @@ class GymDetailViewController: UIViewController, IBInitializable, CLLocationMana
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        iconImages.append(UIImage(named: "hours.png")!)
-        iconImages.append(UIImage(named: "phone.png")!)
-        iconImages.append(UIImage(named: "website.png")!)
-        iconImages.append(UIImage(named: "loc.png")!)
+        iconImages.append(#imageLiteral(resourceName: "hours_2.0"))
+        iconImages.append(#imageLiteral(resourceName: "phone_2.0"))
+        iconImages.append(#imageLiteral(resourceName: "website_2.0"))
+        iconImages.append(#imageLiteral(resourceName: "location_2.0"))
         
         gymInfo.append(getGymStatusHours())
         gymInfo.append(getGymPhoneNumber())
@@ -99,9 +101,9 @@ class GymDetailViewController: UIViewController, IBInitializable, CLLocationMana
         }
         
         if (status == "Open") {
-            marker.icon = GMSMarker.markerImage(with: UIColor(hex: "022E81"))
+            marker.icon = #imageLiteral(resourceName: "blueStop")
         } else {
-            marker.icon = GMSMarker.markerImage(with: .red)
+            marker.icon = #imageLiteral(resourceName: "blueStop")
         }
         
         marker.snippet = status

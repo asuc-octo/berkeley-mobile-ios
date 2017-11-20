@@ -108,6 +108,9 @@ class DiningMenuViewController: UIViewController, RequiresData, DelegatesScroll,
     /// Return the number of menu items.
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
+        if (self.shift.hours.isNil) {
+            return 0
+        }
         return self.shift.menu.count
     }
     

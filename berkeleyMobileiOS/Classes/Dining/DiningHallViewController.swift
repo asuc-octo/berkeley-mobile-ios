@@ -13,6 +13,8 @@ fileprivate let kColorNavy = UIColor(red: 23/255.0, green: 85/255.0, blue: 122/2
  */
 class DiningHallViewController: UIViewController, IBInitializable, ResourceDetailProvider, PageTabBarControllerDelegate
 {
+    var image: UIImage?
+    
     private var hall: DiningHall!
     
     private let sortMenuController = ListMenuController()

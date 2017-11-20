@@ -58,10 +58,20 @@ class RouteViewController: UIViewController, UITableViewDelegate, UITableViewDat
             var cell = tableView.dequeueReusableCell(withIdentifier: "startCell", for: indexPath) as! RouteDetailsTableViewCell
             cell.stopName.text = stopToDisplay.name
             return cell
-        } else if (indexPath.row == (selectedRoute?.stops.count)! - 1) {
+        } else if ((indexPath.row == (selectedRoute?.stops.count)! - 1) && (indexPath.section == 0)) {
             var cell = tableView.dequeueReusableCell(withIdentifier: "endCell", for: indexPath) as! RouteEndTableViewCell
             cell.stopName.text = stopToDisplay.name
             return cell
+        } else if (indexPath.section == 1) {
+            if (indexPath.row == (selectedRoute?.secondRouteStops?.count)! - 1) {
+                var cell = tableView.dequeueReusableCell(withIdentifier: "endCell", for: indexPath) as! RouteEndTableViewCell
+                cell.stopName.text = stopToDisplay.name
+                return cell
+            } else {
+                var cell = tableView.dequeueReusableCell(withIdentifier: "midCell", for: indexPath) as! RouteMidTableViewCell
+                cell.stopName.text = stopToDisplay.name
+                return cell
+            }
         } else {
             var cell = tableView.dequeueReusableCell(withIdentifier: "midCell", for: indexPath) as! RouteMidTableViewCell
             cell.stopName.text = stopToDisplay.name

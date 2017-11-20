@@ -24,7 +24,7 @@ protocol ResourceDetailProvider: class, DelegatesScroll
     var text1: String? { get }
     var text2: String? { get }
     var imageURL: URL? { get }
-    
+    var image: UIImage? { get set}
     var buttons: [UIButton] { get }
     
     /// Whether the receiving container should reset content offset when content size is changed.

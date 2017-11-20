@@ -23,7 +23,7 @@ struct ResourceGroup
     
     static let academics = ResourceGroup(
         name: "Academics", 
-        icon: #imageLiteral(resourceName: "LIBRARIES"),
+        icon: #imageLiteral(resourceName: "library_transparent"),
         types: [
             Library.self, 
             CampusResource.self

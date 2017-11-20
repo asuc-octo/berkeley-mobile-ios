@@ -94,7 +94,6 @@ class ResourceGroupCell: UITableViewCell, RequiresData, UICollectionViewDataSour
     /// When a ResourceTile is selected (tapped), call the selectionHandler with the Resource.
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
-        self.selectionHandler?( self.resources[indexPath.item] )
         let some_type = type(of: self.resources[indexPath.item])
         if (some_type == berkeleyMobileiOS.Library.self) {
             Analytics.logEvent("opened_library", parameters: ["library" : self.resources[indexPath.item].name])
@@ -102,7 +101,7 @@ class ResourceGroupCell: UITableViewCell, RequiresData, UICollectionViewDataSour
         } else if (some_type == berkeleyMobileiOS.CampusResource.self) {
             Analytics.logEvent("opened_resource", parameters: ["resource" : self.resources[indexPath.item].name])
         } else if (some_type == berkeleyMobileiOS.DiningHall.self) {
-//            Analytics.logEvent("opened_food", parameters: nil)
+            //            Analytics.logEvent("opened_food", parameters: nil)
             
         } else if (some_type == berkeleyMobileiOS.Gym.self) {
             Analytics.logEvent("opened_gym", parameters: ["gym" : self.resources[indexPath.item].name])
@@ -112,5 +111,7 @@ class ResourceGroupCell: UITableViewCell, RequiresData, UICollectionViewDataSour
         } else {
             print("Error")
         }
+        self.selectionHandler?( self.resources[indexPath.item] )
+        
     }
 }
