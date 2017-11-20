@@ -106,7 +106,6 @@ class ResourceGroupViewController: UIViewController, IBInitializable, UITableVie
     {
         super.viewWillAppear(animated);
         for some_type in self.types! {
-            let resource_type = self.types[0]
             if (some_type == berkeleyMobileiOS.Library.self) {
                 Analytics.logEvent("opened_library_screen", parameters: nil)
 
@@ -260,7 +259,7 @@ class ResourceGroupViewController: UIViewController, IBInitializable, UITableVie
 //                }
             }
             else if identifier == "GymDetailSegue" {
-                if let dest = segue.destination as? GymDetailViewController {
+                if segue.destination is GymDetailViewController {
 //                    let gym = Gym(name: , address: String, imageLink: String?, openingTimeToday: Date?, closingTimeToday: Date?)
                 }
             }

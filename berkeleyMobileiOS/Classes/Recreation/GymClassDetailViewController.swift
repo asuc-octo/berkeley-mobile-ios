@@ -91,7 +91,7 @@ class GymClassDetailViewController: UIViewController, UITableViewDelegate, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
         GymClassCategoryDataSource.fetchResources { (list) in
-            self.classCategories = list as! [GymClassCategory]
+            self.classCategories = list as? [GymClassCategory]
             self.gymClassCategoryTableView.reloadData()
         }
         // Do any additional setup after loading the view.

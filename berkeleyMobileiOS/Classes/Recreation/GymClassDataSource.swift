@@ -45,7 +45,7 @@ class GymClassDataSource: ResourceDataSource {
                                             imageLink: subJson[0]["image_link"].stringValue)
                     totalClasses.append(gymClass)
                 }
-                for (key, subJson) in JSON(data: response.data!)["group_exs"] {
+                for (_, subJson) in JSON(data: response.data!)["group_exs"] {
                  let gymClasses = subJson.map { (_, child) in parseGymClasses(child) }
                 totalClasses.append(contentsOf: gymClasses)
                 }

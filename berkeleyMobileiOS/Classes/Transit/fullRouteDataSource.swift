@@ -60,7 +60,7 @@ class fullRouteDataSource: NSObject {
     // Return a Gym object parsed from JSON.
     private static func parseRoute(_ json: JSON) -> Route
     {
-        var routeObject = makeRouteObjectFromTrip(json)
+        let routeObject = makeRouteObjectFromTrip(json)
         //Turn Start/Stop Array into the whole range of stops
         routeObject.populateStopsAlongAllRoutes()
         

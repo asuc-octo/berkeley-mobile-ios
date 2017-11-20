@@ -34,7 +34,7 @@ class nearestStopsDataSource: NSObject {
                     
 
                     var newBuses: [nearestBus] = []
-                    for (key, value) in busesDict {
+                    for (_, value) in busesDict {
                         newBuses.append(value)
                     }
                     completion(newBuses)
