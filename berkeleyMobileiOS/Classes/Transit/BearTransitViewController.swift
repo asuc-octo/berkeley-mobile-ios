@@ -14,6 +14,7 @@ import DropDown
 import Alamofire
 import SwiftyJSON
 import Firebase
+//import Crashlytics
 extension UIView {
     func applyGradient(colours: [UIColor]) -> Void {
         self.applyGradient(colours: colours, locations: nil)
@@ -146,9 +147,12 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
 //        mapView.settings.myLocationButton = true
     }
     override func viewDidAppear(_ animated: Bool) {
-        if let coord = manager.location?.coordinate {
-        startLat = [coord.latitude, coord.longitude]
+        if (startField.text == "Current Location") {
+            if let coord = manager.location?.coordinate {
+                startLat = [coord.latitude, coord.longitude]
+            }
         }
+//        Crashlytics.sharedInstance().crash()
         Analytics.logEvent("opened_transit_screen", parameters: nil)
         
 //        zoomToCurrentLocation()
@@ -302,9 +306,10 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
                         self.drawPath(self.routes[0].stops[stopIndex], self.routes[0].stops[stopIndex + 1])
                         if stopIndex != 0 {
                             let marker4 = GMSMarker()
-                            marker4.icon = #imageLiteral(resourceName: "bluecircle")
+                            marker4.icon = #imageLiteral(resourceName: "bluecircle").resize(toWidth: 18)
                             let loc = CLLocationCoordinate2D.init(latitude: lat1, longitude: lon1)
                             marker4.position = loc
+                            marker4.snippet = self.routes[0].stops[stopIndex].name
                             marker4.groundAnchor = CGPoint.init(x: 0.5, y: 0.5)
                             marker4.map = self.mapView
                         }
@@ -519,6 +524,7 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
 //        }
 //        whitedIcons = []
 //        whitedIcons.append(marker)
+        return false
         if let s = marker.snippet {
             self.routesTable.isHidden = true
             let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)

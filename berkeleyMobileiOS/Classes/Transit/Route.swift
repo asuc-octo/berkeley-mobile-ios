@@ -45,7 +45,7 @@ class Route: NSObject {
         let lastStop = stops.last!.name
         var allStops: [routeStop] = []
         
-        
+
         //Find the line
         var stopList: [[String: Any]] = ConvenienceMethods.getAllBTStops()[currentBusName]!["stop_list"] as! [[String : Any]]
         var firstIndex = 0
@@ -56,6 +56,11 @@ class Route: NSObject {
                 firstIndex = i
                 break
             }
+        }
+        if firstStopID == lastStop {
+            let currentStopObject = stopList[firstIndex]
+            let dummy = routeStop.init(currentStopObject["name"] as! String, currentStopObject["latitude"] as! Double, currentStopObject["longitude"] as! Double, currentStopObject["id"] as! Int)
+            return [dummy, dummy]
         }
         //Iterate through adding stops to the in between list until you get to the last stop
         var iterator = firstIndex

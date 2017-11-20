@@ -10,6 +10,8 @@ import UIKit
 import RealmSwift
 
 class GymClassDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ResourceDetailProvider, IBInitializable {
+    var image: UIImage?
+    
     
     static func newInstance() -> ResourceDetailProvider {
         return fromIB()

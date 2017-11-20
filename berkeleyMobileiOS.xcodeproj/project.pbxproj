@@ -612,6 +612,7 @@
 				41E843881DAB3FE80096C049 /* Resources */,
 				870E1645707A169312C5FB2C /* [CP] Embed Pods Frameworks */,
 				72F272B633396CA43BAB0E06 /* [CP] Copy Pods Resources */,
+				41A04D721FC36C5700CEEC7E /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -693,6 +694,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		41A04D721FC36C5700CEEC7E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\"";
+		};
 		72F272B633396CA43BAB0E06 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -982,6 +996,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 4HBETBULVA;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = berkeleyMobileiOS/Info.plist;

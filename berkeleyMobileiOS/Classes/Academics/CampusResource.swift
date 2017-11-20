@@ -9,6 +9,8 @@
 import UIKit
 
 class CampusResource: Resource {
+    var image: UIImage?
+    
     
     static func displayName(pluralized: Bool) -> String {
         return "Campus Resource" + (pluralized ? "s" : "")

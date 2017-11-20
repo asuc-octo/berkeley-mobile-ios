@@ -7,8 +7,11 @@
 //
 
 import Foundation
+import UIKit
 
 class Gym: Resource {
+    var image: UIImage?
+    
     
     static func displayName(pluralized: Bool) -> String {
         return "Gym" + (pluralized ? "s" : "")

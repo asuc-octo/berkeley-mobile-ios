@@ -18,6 +18,7 @@ protocol Resource: class, TypeString, Favorable
     var name: String { get }
     var imageURL: URL? { get }
     
+    var image: UIImage? {get set}
     /// Whether this `Resource` is currently open.
     var isOpen: Bool { get }
     

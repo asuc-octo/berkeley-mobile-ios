@@ -13,6 +13,8 @@ import GoogleMaps
 fileprivate let kLibraryCellHeight: CGFloat = 125.0
 
 class LibraryDetailViewController: UIViewController, IBInitializable, GMSMapViewDelegate, CLLocationManagerDelegate, ResourceDetailProvider {
+    var image: UIImage?
+    
     
     
     
@@ -58,10 +60,10 @@ class LibraryDetailViewController: UIViewController, IBInitializable, GMSMapView
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        iconImages.append(UIImage(named: "hours.png")!)
-        iconImages.append(UIImage(named: "phone.png")!)
+        iconImages.append(#imageLiteral(resourceName: "hours_2.0"))
+        iconImages.append(#imageLiteral(resourceName: "phone_2.0"))
 //        iconImages.append(UIImage(named: "website.png")!)
-        iconImages.append(UIImage(named: "loc.png")!)
+        iconImages.append(#imageLiteral(resourceName: "location_2.0"))
         
         libInfo.append(getLibraryStatusHours())
         libInfo.append(getLibraryPhoneNumber())
@@ -293,10 +295,10 @@ class LibraryDetailViewController: UIViewController, IBInitializable, GMSMapView
         
         let status = library?.isOpen;
         if status! {
-            marker.icon = GMSMarker.markerImage(with: UIColor(hex: "022E81"))
+            marker.icon = #imageLiteral(resourceName: "blueStop")
             marker.snippet = "Open"
         } else {
-            marker.icon = GMSMarker.markerImage(with: .red)
+            marker.icon = #imageLiteral(resourceName: "blueStop")
             marker.snippet = "Closed"
             
         }

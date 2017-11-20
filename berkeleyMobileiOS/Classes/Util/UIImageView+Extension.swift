@@ -7,8 +7,9 @@ import Alamofire
 
 extension UIImageView
 {
-    func load(url: URLConvertible?)
+    func load(resource: Resource)
     {
+        let url = resource.imageURL
         if url == nil {
             return
         }
@@ -28,6 +29,7 @@ extension UIImageView
             
             DispatchQueue.main.async {
                 self.image = image
+                resource.image = image
             }
         }
     }

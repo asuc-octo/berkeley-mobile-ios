@@ -45,7 +45,7 @@ class ResourceTile: UICollectionViewCell, RequiresData, ToggleButtonDelegate
     {
         self.resource = resource
         self.nameLabel.text = resource.name
-        if (type(of: resource) == CampusResource.self) {
+        if (type(of: resource) == CampusResource.self || type(of: resource) == GymClass.self) {
             self.statusLabel.text = ""
         } else {
             let status = self.resource.isOpen ? ("OPEN", kColorGreen) : ("CLOSED", kColorRed)
@@ -53,8 +53,48 @@ class ResourceTile: UICollectionViewCell, RequiresData, ToggleButtonDelegate
             self.statusLabel.textColor = status.1
         }
 
+//        if (type(of: resource) == GymClass.self) {
+            if let im = resource.image {
+            self.imageView.image = im
+            } else {
+                switch resource.name {
+                case "ALL-AROUND WORKOUT": do {
+                    self.imageView.image = #imageLiteral(resourceName: "ALL-AROUND WORKOUT")
+                    resource.image = #imageLiteral(resourceName: "ALL-AROUND WORKOUT")
+                }
+                case "CARDIO": do {
+                    self.imageView.image = #imageLiteral(resourceName: "CARDIO")
+                    resource.image = #imageLiteral(resourceName: "CARDIO")
+                }
+                case "MIND/BODY": do {
+                    self.imageView.image = #imageLiteral(resourceName: "MIND:BODY")
+                    resource.image = #imageLiteral(resourceName: "MIND:BODY")
+                }
+                case "DANCE": do {
+                    self.imageView.image = #imageLiteral(resourceName: "DANCE")
+                    resource.image = #imageLiteral(resourceName: "DANCE")
+                }
+                case "STRENGTH": do {
+                    self.imageView.image = #imageLiteral(resourceName: "STRENGTH")
+                    resource.image = #imageLiteral(resourceName: "STRENGTH")
+                }
+                case "AQUA": do {
+                    self.imageView.image = #imageLiteral(resourceName: "AQUA")
+                    resource.image = #imageLiteral(resourceName: "AQUA")
+                }
+                case "CORE": do {
+                    self.imageView.image = #imageLiteral(resourceName: "CORE")
+                    self.imageView.image = #imageLiteral(resourceName: "CORE")
+                }
+                default: do {
+                    self.imageView.load(resource: resource)
+                }
+                }
+        }
         
-        self.imageView.load(url: resource.imageURL)
+//        } else {
+//            self.imageView.load(url: resource.imageURL)
+//        }
         self.favoriteButton.isSelected = resource.isFavorited
     }
     

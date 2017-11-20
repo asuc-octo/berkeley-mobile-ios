@@ -72,8 +72,11 @@ class ResourceContainerController: UIViewController, IBInitializable, UIScrollVi
         setupToolbar()
         setupBanner()
         setupScrollView()
-        
-        banner.load(url: detailProvider.imageURL)
+        if let im = detailProvider.resource.image {
+            banner.image = im
+        } else {
+            banner.load(resource: detailProvider.resource)
+        }
         titleLabel.text = detailViewController.title
         titleLabel.textColor = UIColor.white
         titleLabel.font = UIFont.systemFont(ofSize: 25, weight: UIFontWeightBold)
@@ -165,7 +168,11 @@ class ResourceContainerController: UIViewController, IBInitializable, UIScrollVi
     }
     
     private func doNotShowToolbarTitle() {
-        toolbar.titleLabel.text = ""
+        if (type(of: self.detailProvider!) == berkeleyMobileiOS.GymClassViewController.self) {
+            
+        } else {
+            toolbar.titleLabel.text = ""
+        }
         
     }
     /// Configure the banner image and add a gradient.

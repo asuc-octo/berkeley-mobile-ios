@@ -41,7 +41,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         viewControllers.append( BearTransitNavigationController.fromIB() )
-        
+        let temp = viewControllers[0]
+        viewControllers[0] = viewControllers.last!
+        viewControllers[viewControllers.endIndex - 1] = temp
         let indexViewController: UIViewController  = TabBarController(viewControllers: viewControllers, selectedIndex: 0)
         indexViewController.modalTransitionStyle = .crossDissolve
         window?.rootViewController = indexViewController

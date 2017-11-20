@@ -12,6 +12,8 @@ import RealmSwift
 import MessageUI
 
 class CampusResourceDetailViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDelegate, MFMailComposeViewControllerDelegate, ResourceDetailProvider, IBInitializable {
+    var image: UIImage?
+    
     
     @IBOutlet weak var campusStack: UIStackView!
 //    @IBOutlet var campusResDetailView: UIView!
@@ -44,10 +46,10 @@ class CampusResourceDetailViewController: UIViewController, GMSMapViewDelegate, 
         super.viewDidLoad()
         self.title = campusResource?.name
     
-        iconImages.append(UIImage(named: "hours.png")!)
-        iconImages.append(UIImage(named: "phone.png")!)
+        iconImages.append(#imageLiteral(resourceName: "hours_2.0"))
+        iconImages.append(#imageLiteral(resourceName: "phone_2.0"))
 //        iconImages.append(UIImage(named: "website.png")!)
-        iconImages.append(UIImage(named: "loc.png")!)
+        iconImages.append(#imageLiteral(resourceName: "location_2.0"))
         
         campResInfo.append((self.campusResource?.hours)!)
         campResInfo.append((self.campusResource?.phoneNumber)!)
@@ -124,7 +126,7 @@ class CampusResourceDetailViewController: UIViewController, GMSMapViewDelegate, 
         let lat = campusResource.latitude!
         let lon = campusResource.longitude!
         let marker = GMSMarker()
-        marker.icon = GMSMarker.markerImage(with: UIColor(hex: "022E81"))
+        marker.icon = #imageLiteral(resourceName: "blueStop")
         marker.position = CLLocationCoordinate2D(latitude: lat, longitude: lon)
         marker.title = campusResource?.name
         marker.map = self.campusResMapView
