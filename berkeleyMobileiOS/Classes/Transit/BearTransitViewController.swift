@@ -299,8 +299,8 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
                     self.routesTable.reloadData()
                     var averageLatLon = [0.0, 0.0]
                     for stopIndex in 0...(self.routes[0].stops.count - 2) {
-                        var lon1 = self.routes[0].stops[stopIndex].longitude
-                        var lat1 = self.routes[0].stops[stopIndex].latitude
+                        let lon1 = self.routes[0].stops[stopIndex].longitude
+                        let lat1 = self.routes[0].stops[stopIndex].latitude
                         averageLatLon[0] += lat1
                         averageLatLon[1] += lon1
                         self.drawPath(self.routes[0].stops[stopIndex], self.routes[0].stops[stopIndex + 1])
@@ -315,8 +315,8 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
                         }
 
                     }
-                    var lon1 = self.routes[0].stops[self.routes[0].stops.count - 1].longitude
-                    var lat1 = self.routes[0].stops[self.routes[0].stops.count - 1].latitude
+                    let lon1 = self.routes[0].stops[self.routes[0].stops.count - 1].longitude
+                    let lat1 = self.routes[0].stops[self.routes[0].stops.count - 1].latitude
 //                    let marker4 = GMSMarker()
 //                    marker4.icon = #imageLiteral(resourceName: "bluecircle")
 //                    let loc2 = CLLocationCoordinate2D.init(latitude: lat1, longitude: lon1)
@@ -497,7 +497,7 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
                 self.markers = []
                 for bus in buses! {
                     let marker = GMSMarker()
-                    marker.position = CLLocationCoordinate2D(latitude: bus.latitude as! CLLocationDegrees, longitude: bus.longitude as! CLLocationDegrees)
+                    marker.position = CLLocationCoordinate2D(latitude: bus.latitude , longitude: bus.longitude as! CLLocationDegrees)
                     marker.title = bus.lineName
                     marker.icon = #imageLiteral(resourceName: "bus-icon-blue")
                     marker.isFlat = true
