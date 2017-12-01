@@ -31,11 +31,11 @@
 		28757D811E761F9F001697D6 /* GymClassCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28757D801E761F9F001697D6 /* GymClassCategoryCell.swift */; };
 		35D77E051F944B7B00CBDF52 /* LibraryOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35D77E041F944B7B00CBDF52 /* LibraryOptionCell.swift */; };
 		35D77E071F997D7900CBDF52 /* LibraryOptionCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35D77E061F997D7900CBDF52 /* LibraryOptionCell2.swift */; };
+		41005D7B1FD12556009D8FB9 /* ls.png in Resources */ = {isa = PBXBuildFile; fileRef = 41005D7A1FD12556009D8FB9 /* ls.png */; };
 		41017CFA1FB55BF4002D12BB /* livebusDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41017CF91FB55BF4002D12BB /* livebusDataSource.swift */; };
 		41017CFC1FB55C33002D12BB /* livebus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41017CFB1FB55C33002D12BB /* livebus.swift */; };
 		4103E0C01FBE2DEC009F2C90 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4103E0BF1FBE2DEC009F2C90 /* Images.xcassets */; };
 		4103E0C21FBE3671009F2C90 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4103E0C11FBE3671009F2C90 /* Launch Screen.storyboard */; };
-		4103E0C41FBE392F009F2C90 /* ls.png in Resources */ = {isa = PBXBuildFile; fileRef = 4103E0C31FBE392E009F2C90 /* ls.png */; };
 		4103E0C61FBE83A9009F2C90 /* RouteDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4103E0C51FBE83A9009F2C90 /* RouteDetailsTableViewCell.swift */; };
 		4103E0C81FBE958B009F2C90 /* RouteMidTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4103E0C71FBE958B009F2C90 /* RouteMidTableViewCell.swift */; };
 		4103E0CA1FBE95B9009F2C90 /* RouteEndTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4103E0C91FBE95B9009F2C90 /* RouteEndTableViewCell.swift */; };
@@ -164,11 +164,11 @@
 		28757D801E761F9F001697D6 /* GymClassCategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GymClassCategoryCell.swift; sourceTree = "<group>"; };
 		35D77E041F944B7B00CBDF52 /* LibraryOptionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryOptionCell.swift; sourceTree = "<group>"; };
 		35D77E061F997D7900CBDF52 /* LibraryOptionCell2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryOptionCell2.swift; sourceTree = "<group>"; };
+		41005D7A1FD12556009D8FB9 /* ls.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ls.png; sourceTree = "<group>"; };
 		41017CF91FB55BF4002D12BB /* livebusDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = livebusDataSource.swift; sourceTree = "<group>"; };
 		41017CFB1FB55C33002D12BB /* livebus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = livebus.swift; sourceTree = "<group>"; };
 		4103E0BF1FBE2DEC009F2C90 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		4103E0C11FBE3671009F2C90 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
-		4103E0C31FBE392E009F2C90 /* ls.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ls.png; path = "/Users/akilesh/Documents/berkeley-ios/berkeleyMobileiOS/Classes/Base/ls.png"; sourceTree = "<absolute>"; };
 		4103E0C51FBE83A9009F2C90 /* RouteDetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDetailsTableViewCell.swift; sourceTree = "<group>"; };
 		4103E0C71FBE958B009F2C90 /* RouteMidTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteMidTableViewCell.swift; sourceTree = "<group>"; };
 		4103E0C91FBE95B9009F2C90 /* RouteEndTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteEndTableViewCell.swift; sourceTree = "<group>"; };
@@ -312,6 +312,7 @@
 		41E8438C1DAB3FE80096C049 /* berkeleyMobileiOS */ = {
 			isa = PBXGroup;
 			children = (
+				41005D7A1FD12556009D8FB9 /* ls.png */,
 				41E843991DAB3FE80096C049 /* Info.plist */,
 				41E8438D1DAB3FE80096C049 /* AppDelegate.swift */,
 				4103E0C11FBE3671009F2C90 /* Launch Screen.storyboard */,
@@ -415,7 +416,6 @@
 		4E505D2F1DD05A65004AC6C9 /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				4103E0C31FBE392E009F2C90 /* ls.png */,
 				05ED0E901DF52327007F5241 /* DetailsViewController.swift */,
 				4E505D301DD05A65004AC6C9 /* BaseViewController.swift */,
 				B5F25D2A1DF519890084A5C7 /* LoadingScreen.swift */,
@@ -664,6 +664,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				41005D7B1FD12556009D8FB9 /* ls.png in Resources */,
 				4E8E0D8C1E0C08380052CC10 /* Roboto-Bold.ttf in Resources */,
 				4E8E0D901E0C08380052CC10 /* Roboto-LightItalic.ttf in Resources */,
 				4E8E0D921E0C08380052CC10 /* Roboto-MediumItalic.ttf in Resources */,
@@ -678,7 +679,6 @@
 				4EEF90471DDBC7D0002CF7E4 /* Dining.storyboard in Resources */,
 				4E8E0D911E0C08380052CC10 /* Roboto-Medium.ttf in Resources */,
 				281071A51E66A7F200D926E6 /* GymClassTableHeaderView.xib in Resources */,
-				4103E0C41FBE392F009F2C90 /* ls.png in Resources */,
 				4E8E0D951E0C08380052CC10 /* Roboto-ThinItalic.ttf in Resources */,
 				4103E0C01FBE2DEC009F2C90 /* Images.xcassets in Resources */,
 				41C1A5151FC2272300D07E6F /* GoogleService-Info.plist in Resources */,
