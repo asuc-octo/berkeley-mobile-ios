@@ -85,13 +85,13 @@ class CampusResourceMapListViewController: UIViewController, UITableViewDataSour
         cell.status.text = campusResource?.hours
         
         // For favoriting
-        if (campusResource?.isFavorited == true) {
-            cell.favoriteButton.setImage(UIImage(named:"heart-filled"), for: .normal)
-        } else {
-            cell.favoriteButton.setImage(UIImage(named:"heart"), for: .normal)
-        }
-        cell.favoriteButton.tag = indexPath.row
-        cell.favoriteButton.addTarget(self, action: #selector(self.toggleCampusResourceFavoriting(sender:)), for: .touchUpInside)
+//        if (campusResource?.isFavorited == true) {
+//            cell.favoriteButton.setImage(UIImage(named:"heart-filled"), for: .normal)
+//        } else {
+//            cell.favoriteButton.setImage(UIImage(named:"heart"), for: .normal)
+//        }
+//        cell.favoriteButton.tag = indexPath.row
+//        cell.favoriteButton.addTarget(self, action: #selector(self.toggleCampusResourceFavoriting(sender:)), for: .touchUpInside)
         return cell
         
     }

@@ -154,13 +154,13 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
         }
         
         // For favoriting
-        if (library.isFavorited == true) {
-            cell.favoriteButton.setImage(#imageLiteral(resourceName: "heart-filled"), for: .normal)
-        } else {
-            cell.favoriteButton.setImage(#imageLiteral(resourceName: "heart"), for: .normal)
-        }
-        cell.favoriteButton.tag = indexPath.row
-        cell.favoriteButton.addTarget(self, action: #selector(self.toggleLibraryFavoriting(sender:)), for: .touchUpInside)
+//        if (library.isFavorited == true) {
+//            cell.favoriteButton.setImage(#imageLiteral(resourceName: "heart-filled"), for: .normal)
+//        } else {
+//            cell.favoriteButton.setImage(#imageLiteral(resourceName: "heart"), for: .normal)
+//        }
+//        cell.favoriteButton.tag = indexPath.row
+//        cell.favoriteButton.addTarget(self, action: #selector(self.toggleLibraryFavoriting(sender:)), for: .touchUpInside)
         return cell
     }
     
