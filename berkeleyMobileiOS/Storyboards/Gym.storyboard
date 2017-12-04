@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -42,7 +42,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gym Name" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nyi-SH-WrN">
-                                                    <rect key="frame" x="30" y="20" width="97" height="31"/>
+                                                    <rect key="frame" x="23" y="17" width="97" height="31"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="31" id="39f-rg-Feh"/>
                                                     </constraints>
@@ -51,7 +51,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OPEN" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Idt-eb-FaQ">
-                                                    <rect key="frame" x="29" y="47" width="40.5" height="26"/>
+                                                    <rect key="frame" x="22" y="44" width="40.5" height="31.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" red="0.0" green="0.67348070039999997" blue="0.33653418169999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -114,20 +114,12 @@
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="gymClassCategory" rowHeight="100" id="FnR-mU-wNI" customClass="GymClassCategoryCell" customModule="berkeleyMobileiOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="FnR-mU-wNI" id="DER-O7-J5c">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FnR-mU-wNI" id="DER-O7-J5c">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XTw-OU-eth">
-                                                    <rect key="frame" x="315" y="34" width="30" height="30"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="M67-fw-KFA"/>
-                                                        <constraint firstAttribute="width" constant="30" id="adu-6B-n85"/>
-                                                    </constraints>
-                                                    <state key="normal" image="heart"/>
-                                                </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Gym Class Category Name" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gJ2-qA-3pk">
-                                                    <rect key="frame" x="32" y="33" width="275" height="31"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gym Class Category Name" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gJ2-qA-3pk">
+                                                    <rect key="frame" x="25" y="33" width="234.5" height="31"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="31" id="y0y-pk-DId"/>
                                                     </constraints>
@@ -135,26 +127,21 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Open" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="21i-NY-fnJ">
-                                                    <rect key="frame" x="32" y="70" width="42" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Open" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="21i-NY-fnJ">
+                                                    <rect key="frame" x="25" y="70" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailingMargin" secondItem="XTw-OU-eth" secondAttribute="trailing" constant="15" id="5a8-DE-WrL"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="XTw-OU-eth" secondAttribute="bottom" constant="27" id="8Vi-6C-67n"/>
                                                 <constraint firstItem="gJ2-qA-3pk" firstAttribute="leading" secondItem="DER-O7-J5c" secondAttribute="leadingMargin" constant="17" id="E7C-mc-P8y"/>
                                                 <constraint firstItem="21i-NY-fnJ" firstAttribute="leading" secondItem="gJ2-qA-3pk" secondAttribute="leading" id="Fwn-1z-E1E"/>
                                                 <constraint firstItem="21i-NY-fnJ" firstAttribute="top" secondItem="gJ2-qA-3pk" secondAttribute="bottom" constant="6" id="Kzg-i4-B0J"/>
-                                                <constraint firstItem="XTw-OU-eth" firstAttribute="leading" secondItem="gJ2-qA-3pk" secondAttribute="trailing" constant="8" id="dRD-W4-pa4"/>
-                                                <constraint firstItem="XTw-OU-eth" firstAttribute="top" secondItem="DER-O7-J5c" secondAttribute="topMargin" constant="26" id="eGv-b4-zHO"/>
                                                 <constraint firstItem="gJ2-qA-3pk" firstAttribute="top" secondItem="DER-O7-J5c" secondAttribute="topMargin" constant="25" id="n4p-ce-XyM"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="favoriteButton" destination="XTw-OU-eth" id="If0-Ce-ICs"/>
                                             <outlet property="gymClassCategory" destination="gJ2-qA-3pk" id="xkc-IY-Dvy"/>
                                             <outlet property="gymClassCategoryStatus" destination="21i-NY-fnJ" id="F7G-vA-GwY"/>
                                         </connections>
@@ -365,7 +352,4 @@
             <point key="canvasLocation" x="712.79999999999995" y="578.86056971514245"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="heart" width="25" height="25"/>
-    </resources>
 </document>

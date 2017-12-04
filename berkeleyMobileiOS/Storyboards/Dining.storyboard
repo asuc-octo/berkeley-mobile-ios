@@ -6,8 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -73,36 +71,20 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="meal item" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Yh-nk-XE9">
-                                                    <rect key="frame" x="130" y="0.0" width="70.5" height="44"/>
+                                                    <rect key="frame" x="57" y="0.0" width="70.5" height="44"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.20000000000000001" green="0.37647058823529411" blue="0.47843137254901957" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleAspectFit" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kfw-4Q-1f4" customClass="ToggleButton" customModule="berkeleyMobileiOS" customModuleProvider="target">
-                                                    <rect key="frame" x="57" y="5" width="44" height="44"/>
-                                                    <inset key="imageEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
-                                                    <state key="normal" image="heart_empty"/>
-                                                    <state key="selected" image="heart_filled"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="width">
-                                                            <real key="value" value="44"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
-                                                </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="0Yh-nk-XE9" firstAttribute="leading" secondItem="Kfw-4Q-1f4" secondAttribute="trailing" constant="4" id="1ds-Pw-YKH"/>
-                                                <constraint firstItem="Kfw-4Q-1f4" firstAttribute="top" secondItem="N53-Ez-ztG" secondAttribute="top" id="Cdm-qN-F4T"/>
-                                                <constraint firstItem="Kfw-4Q-1f4" firstAttribute="leading" secondItem="N53-Ez-ztG" secondAttribute="leadingMargin" constant="4" id="DiY-27-q8u"/>
                                                 <constraint firstAttribute="bottom" secondItem="0Yh-nk-XE9" secondAttribute="bottom" id="FnP-A6-Xuf"/>
-                                                <constraint firstItem="Kfw-4Q-1f4" firstAttribute="width" secondItem="N53-Ez-ztG" secondAttribute="height" multiplier="1:1" id="OaR-2B-2Qe"/>
                                                 <constraint firstAttribute="trailing" secondItem="0Yh-nk-XE9" secondAttribute="trailing" constant="16" id="WEh-QE-Kj4"/>
-                                                <constraint firstItem="Kfw-4Q-1f4" firstAttribute="height" secondItem="N53-Ez-ztG" secondAttribute="height" id="ee2-bp-l2k"/>
+                                                <constraint firstItem="0Yh-nk-XE9" firstAttribute="leading" secondItem="N53-Ez-ztG" secondAttribute="leading" constant="16" id="gU8-qZ-GVe"/>
                                                 <constraint firstItem="0Yh-nk-XE9" firstAttribute="top" secondItem="N53-Ez-ztG" secondAttribute="top" id="rkR-CP-jKq"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="favoriteButton" destination="Kfw-4Q-1f4" id="QKO-vA-bya"/>
                                             <outlet property="nameLabel" destination="0Yh-nk-XE9" id="z55-Dj-3xt"/>
                                         </connections>
                                     </tableViewCell>
@@ -136,8 +118,4 @@
             <point key="canvasLocation" x="1926" y="137"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="heart_empty" width="32" height="32"/>
-        <image name="heart_filled" width="32" height="32"/>
-    </resources>
 </document>

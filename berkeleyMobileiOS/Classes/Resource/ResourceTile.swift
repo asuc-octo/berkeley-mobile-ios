@@ -95,7 +95,7 @@ class ResourceTile: UICollectionViewCell, RequiresData, ToggleButtonDelegate
 //        } else {
 //            self.imageView.load(url: resource.imageURL)
 //        }
-        self.favoriteButton.isSelected = resource.isFavorited
+//        self.favoriteButton.isSelected = resource.isFavorited
     }
     
     
