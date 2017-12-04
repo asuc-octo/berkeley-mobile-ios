@@ -13,7 +13,7 @@ class LibraryCell: UITableViewCell {
     @IBOutlet var libraryName: UILabel!
     @IBOutlet var libraryStatus: UILabel!
     
-    @IBOutlet var favoriteButton: UIButton!
+//    @IBOutlet var favoriteButton: UIButton!
 
     override func awakeFromNib() {
         super.awakeFromNib()
