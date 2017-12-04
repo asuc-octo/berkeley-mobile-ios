@@ -16,7 +16,7 @@ class DiningItemCell: UITableViewCell, RequiresData, ToggleButtonDelegate
 
     // UI
     @IBOutlet private weak var nameLabel: UILabel!
-    @IBOutlet private weak var favoriteButton: UIButton!
+//    @IBOutlet private weak var favoriteButton: UIButton!
     
     
     // ========================================
@@ -29,7 +29,7 @@ class DiningItemCell: UITableViewCell, RequiresData, ToggleButtonDelegate
     {
         self.item = item
         nameLabel.text = item.name
-        favoriteButton.isSelected = item.isFavorited
+//        favoriteButton.isSelected = item.isFavorited
     }
     
     
@@ -46,9 +46,9 @@ class DiningItemCell: UITableViewCell, RequiresData, ToggleButtonDelegate
      */
     func buttonDidToggle(_ button: ToggleButton)
     {
-        item.isFavorited = button.isSelected
-        FavoriteStore.shared.update(item)
-        Analytics.logEvent("favorited_food_item", parameters: ["food_item" : item.name])
+//        item.isFavorited = button.isSelected
+//        FavoriteStore.shared.update(item)
+//        Analytics.logEvent("favorited_food_item", parameters: ["food_item" : item.name])
 
     }
 }

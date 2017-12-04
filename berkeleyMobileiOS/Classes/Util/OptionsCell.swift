@@ -10,7 +10,7 @@ import UIKit
 
 class OptionsCell: UITableViewCell {
     
-    @IBOutlet var favoriteButton: UIButton!
+//    @IBOutlet var favoriteButton: UIButton!
     
 
     override func awakeFromNib() {
