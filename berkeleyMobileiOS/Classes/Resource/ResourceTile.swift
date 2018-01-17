@@ -84,8 +84,12 @@ class ResourceTile: UICollectionViewCell, RequiresData, ToggleButtonDelegate
                 }
                 case "CORE": do {
                     self.imageView.image = #imageLiteral(resourceName: "CORE")
-                    self.imageView.image = #imageLiteral(resourceName: "CORE")
+                    resource.image = #imageLiteral(resourceName: "CORE")
                 }
+                case "Recreational Sports Facility (RSF)": do {
+                    self.imageView.image = #imageLiteral(resourceName: "rsf")
+                    resource.image = #imageLiteral(resourceName: "rsf")
+                    }
                 default: do {
                     self.imageView.load(resource: resource)
                 }

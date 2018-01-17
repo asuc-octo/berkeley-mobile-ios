@@ -194,8 +194,7 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
         self.routesTable.isHidden = true
 //        nearestBusesTable.isHidden = true
         nearestBusCollection.isHidden = true
-        goButton.isHidden = true
-        setupMap()
+         setupMap()
 //        populateMapWithStops()
         setupStartDestFields()
         makeMaterialShadow(withView: routesTable)
@@ -278,6 +277,32 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
     }
     
     @IBAction func searchRoutes(_ sender: Any) {
+        if (self.destinationField.text == "") {
+            let alertController = UIAlertController(title: "Destination Missing", message: "Please enter a valid destination.", preferredStyle: .alert)
+            
+            let OKAction = UIAlertAction(title: "Ok", style: .default) { action in
+                // ...
+            }
+            alertController.addAction(OKAction)
+            
+            self.present(alertController, animated: true) {
+                // ...
+            }
+            return
+        }
+        if (self.startField.text == "") {
+            let alertController = UIAlertController(title: "No Starting Point", message: "Please enter a valid starting point.", preferredStyle: .alert)
+            
+            let OKAction = UIAlertAction(title: "Ok", style: .default) { action in
+                // ...
+            }
+            alertController.addAction(OKAction)
+            
+            self.present(alertController, animated: true) {
+                // ...
+            }
+            return
+        }
         //Get Array In Order Of Soonest of Bus Name, Start Time, End Time Bus Name, Full Routes with latitude and longitudes
         Analytics.logEvent("clicked_go_button", parameters: ["Route" : "Yes"])
         if self.goButton.titleLabel?.text == "Go" {
