@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vwX-1f-TP7">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vwX-1f-TP7">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -70,21 +71,32 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="meal item" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Yh-nk-XE9">
-                                                    <rect key="frame" x="57" y="0.0" width="70.5" height="44"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="meal item" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Yh-nk-XE9">
+                                                    <rect key="frame" x="47" y="12.5" width="313" height="19.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.20000000000000001" green="0.37647058823529411" blue="0.47843137254901957" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UE3-Mg-Yp2" customClass="ToggleButton" customModule="berkeleyMobileiOS" customModuleProvider="target">
+                                                    <rect key="frame" x="15" y="13" width="20" height="19"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="20" id="3ey-i1-vbW"/>
+                                                        <constraint firstAttribute="width" secondItem="UE3-Mg-Yp2" secondAttribute="height" multiplier="17:16" id="PUw-O5-baD"/>
+                                                    </constraints>
+                                                    <state key="normal" image="heart_empty"/>
+                                                    <state key="selected" image="heart_filled"/>
+                                                </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="0Yh-nk-XE9" secondAttribute="bottom" id="FnP-A6-Xuf"/>
-                                                <constraint firstAttribute="trailing" secondItem="0Yh-nk-XE9" secondAttribute="trailing" constant="16" id="WEh-QE-Kj4"/>
-                                                <constraint firstItem="0Yh-nk-XE9" firstAttribute="leading" secondItem="N53-Ez-ztG" secondAttribute="leading" constant="16" id="gU8-qZ-GVe"/>
-                                                <constraint firstItem="0Yh-nk-XE9" firstAttribute="top" secondItem="N53-Ez-ztG" secondAttribute="top" id="rkR-CP-jKq"/>
+                                                <constraint firstItem="0Yh-nk-XE9" firstAttribute="leading" secondItem="UE3-Mg-Yp2" secondAttribute="trailing" constant="12" id="4bg-1K-sQO"/>
+                                                <constraint firstItem="UE3-Mg-Yp2" firstAttribute="centerY" secondItem="N53-Ez-ztG" secondAttribute="centerY" id="Kcu-AJ-a54"/>
+                                                <constraint firstAttribute="trailing" secondItem="0Yh-nk-XE9" secondAttribute="trailing" constant="15" id="faq-Ot-NdZ"/>
+                                                <constraint firstItem="UE3-Mg-Yp2" firstAttribute="leading" secondItem="N53-Ez-ztG" secondAttribute="leading" constant="15" id="n73-64-b2r"/>
+                                                <constraint firstItem="0Yh-nk-XE9" firstAttribute="centerY" secondItem="UE3-Mg-Yp2" secondAttribute="centerY" id="uvB-dy-Ufs"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="favoriteButton" destination="UE3-Mg-Yp2" id="Z1V-mu-fEs"/>
                                             <outlet property="nameLabel" destination="0Yh-nk-XE9" id="z55-Dj-3xt"/>
                                         </connections>
                                     </tableViewCell>
@@ -115,7 +127,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9EV-VZ-jqv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1926" y="137"/>
+            <point key="canvasLocation" x="1925.5999999999999" y="136.73163418290855"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="heart_empty" width="32" height="32"/>
+        <image name="heart_filled" width="32" height="32"/>
+    </resources>
 </document>
