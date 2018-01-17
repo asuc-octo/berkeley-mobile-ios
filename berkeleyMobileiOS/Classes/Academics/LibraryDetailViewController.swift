@@ -105,14 +105,14 @@ class LibraryDetailViewController: UIViewController, IBInitializable, GMSMapView
         if (localOpeningTime == "" && localClosingTime == "") {
             timeRange = "Closed Today"
         }
-
-//        var status = "Open"
-//        if (self.library?.weeklyClosingTimes.compare(NSDate() as Date) == .orderedAscending) {
-//            status = "Closed"
-//        }
-
-//        let timeInfo = status + "    " + timeRange
-        return timeRange
+        var status = "Open"
+        let dates: [Date?] = self.library.weeklyClosingTimes
+        if (dates.last!!.compare(NSDate() as Date) == .orderedAscending) {
+            status = "Closed"
+        }
+//
+        let timeInfo = status + "    " + timeRange
+        return timeInfo
 //            return "HOURZZZ"
     }
     
