@@ -52,7 +52,11 @@ class LibraryDetailViewController: UIViewController, IBInitializable, GMSMapView
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
     {
-        return 50.0;//Choose your custom row height
+        if indexPath.row == 0 {
+            return 70
+        } else {
+            return 55
+        }
     }
     
     
@@ -107,9 +111,14 @@ class LibraryDetailViewController: UIViewController, IBInitializable, GMSMapView
         }
         var status = "Open"
         let dates: [Date?] = self.library.weeklyClosingTimes
-        if (dates.last!!.compare(NSDate() as Date) == .orderedAscending) {
+        if let l = dates.last! {
+            if (l.compare(NSDate() as Date) == .orderedAscending) {
+                status = "Closed"
+            }
+        } else {
             status = "Closed"
         }
+        
 //
         let timeInfo = status + "    " + timeRange
         return timeInfo
@@ -388,6 +397,7 @@ extension LibraryDetailViewController: UITableViewDataSource, UITableViewDelegat
 //    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
 //        return 10
 //    }
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let libraryInfoCell = libraryInfoTableview.dequeueReusableCell(withIdentifier: "libraryCell", for: indexPath) as! LibraryDetailCell
         
