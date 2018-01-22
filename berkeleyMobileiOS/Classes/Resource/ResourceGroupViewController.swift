@@ -279,7 +279,7 @@ class ResourceGroupViewController: UIViewController, IBInitializable, UITableVie
         self.activityIndicator.hidesWhenStopped = true
         self.activityIndicator.center = self.view!.center
         self.activityIndicator.autoresizingMask = [.flexibleRightMargin, .flexibleBottomMargin]
-        self.view.addSubview(self.activityIndicator)
+//        self.view.addSubview(self.activityIndicator)
     }
     
     
