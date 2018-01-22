@@ -37,10 +37,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         {
             let resourceNav = ResourceNavigationController.fromIB()
             resourceNav.setGroup($0)
+            resourceNav.childViewControllers.first!.viewDidLoad()
             return resourceNav
         }
-        
-        viewControllers.append( BearTransitNavigationController.fromIB() )
+        let bt = BearTransitNavigationController.fromIB()
+//        bt.childViewControllers.first!.viewDidLoad()
+        viewControllers.append(bt)
         let temp = viewControllers[0]
         viewControllers[0] = viewControllers.last!
         viewControllers[viewControllers.endIndex - 1] = temp
