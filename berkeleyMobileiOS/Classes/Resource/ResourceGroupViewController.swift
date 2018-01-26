@@ -21,6 +21,8 @@ class ResourceGroupViewController: UIViewController, IBInitializable, UITableVie
     var searchableItems: [SearchItem] = []
     var searchResults: [SearchItem] = []
     
+    var already_loaded = false
+    var loading_label: UILabel?
     
     // UI
     override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
@@ -93,8 +95,10 @@ class ResourceGroupViewController: UIViewController, IBInitializable, UITableVie
                 
                 self.resources[type.typeString] = nonEmptyList
                 
-                if self.resources.count == self.types.count
+                if (self.resources.count == self.types.count && self.already_loaded != true)
                 {
+                    self.already_loaded = true
+                    self.removeLoadingView()
                     DispatchQueue.main.async { self.tableView.reloadData() }
                 }
             }
@@ -132,8 +136,13 @@ class ResourceGroupViewController: UIViewController, IBInitializable, UITableVie
             }
         }
     }
+    override func viewDidDisappear(_ animated: Bool) {
+        removeLoadingView()
+    }
     override func viewDidAppear(_ animated: Bool) {
-
+        if (!already_loaded) {
+            addLoadingView()
+        }
     }
     /// Place the pseudoNavbar backdrop behind the navbar.
     override func viewDidLayoutSubviews()
@@ -387,5 +396,19 @@ class ResourceGroupViewController: UIViewController, IBInitializable, UITableVie
             searchResults = searchableItems.filter({ item in (item.name.lowercased().contains(keyword)) })
             searchDropDown.dataSource = searchResults.map { item in item.name }
         }
+    }
+    func removeLoadingView() {
+        if let l = self.loading_label {
+            l.removeFromSuperview()
+        }
+    }
+    func addLoadingView() {
+        self.loading_label = UILabel.init(frame: CGRect.init(x: 0, y: 0, width: 60, height: 20))
+        self.loading_label!.text = "Loading"
+        self.loading_label!.textColor = Color.grey.lighten1
+        self.loading_label!.font = UIFont.init(name: "System", size: 16)
+        self.loading_label!.sizeToFit()
+        self.loading_label!.center = view.center
+        view.addSubview(self.loading_label!)
     }
 }
