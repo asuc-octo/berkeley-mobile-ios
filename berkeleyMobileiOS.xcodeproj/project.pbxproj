@@ -43,6 +43,7 @@
 		41101F9F1DDEC5CF00D8D741 /* RecreationNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41101F9E1DDEC5CF00D8D741 /* RecreationNavigationController.swift */; };
 		4124FA911EAC027700F65FBA /* timeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4124FA901EAC027700F65FBA /* timeCell.swift */; };
 		41661D0A1DCEFC760044E7B4 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41661D021DCEFC110044E7B4 /* Material.framework */; };
+		41A884BC201BD4DF00EE85C7 /* NetworkingConvenienceMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A884BB201BD4DF00EE85C7 /* NetworkingConvenienceMethods.swift */; };
 		41B0B5871E8CD95D00DA9297 /* BearTransitNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B0B57A1E8CD95D00DA9297 /* BearTransitNavigationController.swift */; };
 		41B0B5881E8CD95D00DA9297 /* BearTransitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B0B57B1E8CD95D00DA9297 /* BearTransitViewController.swift */; };
 		41B0B5891E8CD95D00DA9297 /* fullRouteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B0B57C1E8CD95D00DA9297 /* fullRouteDataSource.swift */; };
@@ -176,6 +177,7 @@
 		41101F9E1DDEC5CF00D8D741 /* RecreationNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecreationNavigationController.swift; sourceTree = "<group>"; };
 		4124FA901EAC027700F65FBA /* timeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = timeCell.swift; sourceTree = "<group>"; };
 		41661D021DCEFC110044E7B4 /* Material.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Material.framework; path = "../../Library/Developer/Xcode/DerivedData/berkeleyMobileiOS-fqwsgytduwzwkifixxlmawnrvtwq/Build/Products/Debug-iphonesimulator/Material/Material.framework"; sourceTree = "<group>"; };
+		41A884BB201BD4DF00EE85C7 /* NetworkingConvenienceMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingConvenienceMethods.swift; sourceTree = "<group>"; };
 		41B0B57A1E8CD95D00DA9297 /* BearTransitNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BearTransitNavigationController.swift; sourceTree = "<group>"; };
 		41B0B57B1E8CD95D00DA9297 /* BearTransitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BearTransitViewController.swift; sourceTree = "<group>"; };
 		41B0B57C1E8CD95D00DA9297 /* fullRouteDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = fullRouteDataSource.swift; sourceTree = "<group>"; };
@@ -470,6 +472,7 @@
 				4103E0C51FBE83A9009F2C90 /* RouteDetailsTableViewCell.swift */,
 				41B0B57A1E8CD95D00DA9297 /* BearTransitNavigationController.swift */,
 				41B0B57B1E8CD95D00DA9297 /* BearTransitViewController.swift */,
+				41A884BB201BD4DF00EE85C7 /* NetworkingConvenienceMethods.swift */,
 				41B0B57C1E8CD95D00DA9297 /* fullRouteDataSource.swift */,
 				41B0B57D1E8CD95D00DA9297 /* nearestBus.swift */,
 				4124FA901EAC027700F65FBA /* timeCell.swift */,
@@ -880,6 +883,7 @@
 				B5F25D1D1DE2A1EA0084A5C7 /* GymDataSource.swift in Sources */,
 				282A4EEA1E63839200480201 /* GymClass.swift in Sources */,
 				2852AEDB1E90B4FD00092070 /* OptionsCell.swift in Sources */,
+				41A884BC201BD4DF00EE85C7 /* NetworkingConvenienceMethods.swift in Sources */,
 				4E4E7D151E5CBD8900A45586 /* ListMenuCell.swift in Sources */,
 				55EC87311FA2E70A00C71C09 /* CampusResourceDetailCell.swift in Sources */,
 				55EC87331FA2EDC800C71C09 /* CampusResourceCell.swift in Sources */,

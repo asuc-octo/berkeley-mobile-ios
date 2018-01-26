@@ -20,7 +20,7 @@ class GymDataSource: ResourceDataSource
     // Fetch the list of gyms and report back to the completionHandler.
     static func fetchResources(_ completion: @escaping ([Resource]?) -> Void)
     {
-        Alamofire.request(kGymsEndpoint).responseJSON
+        Alamofire.request(encode_url_no_cache(kGymsEndpoint)).responseJSON
         { response in
             
             if response.result.isFailure

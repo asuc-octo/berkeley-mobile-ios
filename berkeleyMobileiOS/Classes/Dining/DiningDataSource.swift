@@ -22,7 +22,7 @@ class DiningDataSource: ResourceDataSource
     // Fetch the list of dining halls and report back to the completionHandler.
     class func fetchResources(_ completion: @escaping (([Resource]?) -> Void)) 
     {
-        Alamofire.request(kDiningHallsEndpoint).responseJSON
+        Alamofire.request(encode_url_no_cache(kDiningHallsEndpoint)).responseJSON
         { response in
             
             if response.result.isFailure 

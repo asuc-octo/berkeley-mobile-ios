@@ -24,6 +24,14 @@ class LibraryDataSource: ResourceDataSource {
     // Fetch the list of libraries and report back to the completionHandler.
     static func fetchResources(_ completion: @escaping ([Resource]?) -> Void) 
     {
+        Alamofire.request(encode_url_no_cache(kLibrariesEndpoint)).response { response in
+            // Handle stuff...
+            if !response.error.isNil {
+                print("Error")
+            }
+            
+        }
+        
         Alamofire.request(kLibrariesEndpoint).responseJSON
         { response in
             
