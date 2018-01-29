@@ -48,17 +48,44 @@ class Library: Resource {
     
     var isOpen: Bool {
         
-        //Determining Status of library
-        let todayDate = NSDate()
         
-        if (weeklyClosingTimes[0] == nil) {
-            return false
-        }
-        if (weeklyClosingTimes[0]!.compare(todayDate as Date) == .orderedAscending) {
-            return false
-        }
         
-        return true
+        
+        
+        var status = true
+//        let dates: [Date?] = self.weeklyClosingTimes
+//        if let l = dates.last! {
+//            if (l.compare(NSDate() as Date) == .orderedAscending) {
+//                status = false
+//            }
+//        } else {
+//            status = false
+//        }
+//        return status
+        let dow = Calendar.current.component(.weekday, from: Date())
+        let translateddow = (dow - 2 + 7) % 7
+        if let t = (self.weeklyOpeningTimes[translateddow]) {
+            if t > Date() {
+                status = false
+            }
+        }
+        if let t = (self.weeklyClosingTimes[translateddow]) {
+            if t < Date() {
+                status = false
+            }
+        }
+        return status
+//        //Determining Status of library
+//        let todayDate = NSDate()
+//
+//        if (weeklyClosingTimes[0] == nil) {
+//            return false
+//        }
+//        if (weeklyClosingTimes[0]!.compare(todayDate as Date) == .orderedAscending) {
+//            return false
+//        }
+//
+//        return true
     }
 
 }
