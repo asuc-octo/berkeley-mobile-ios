@@ -10,7 +10,7 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
-fileprivate let kCampusResourcesEndpoint = kAPIURL + "/resources"
+fileprivate let kCampusResourcesEndpoint = "https://asuc-mobile-dev.herokuapp.com/api/resources"
 
 class CampusResourceDataSource: ResourceDataSource 
 {
