@@ -128,16 +128,32 @@ class GymDetailViewController: UIViewController, IBInitializable, CLLocationMana
         dateFormatter.pmSymbol = "PM"
         dateFormatter.timeZone = TimeZone(abbreviation: "PST")
         
+        //Test date formatter
+        let df = DateFormatter()
+        df.dateFormat = "MM-dd-yyyy HH:mm"
+        df.timeZone = TimeZone(abbreviation: "PST")
+        let test1 = df.string(from: (self.gym?.openingTimeToday)!)
+        let test2 = df.string(from: (self.gym?.closingTimeToday)!)
+        
         let localOpeningTime = dateFormatter.string(from: (self.gym?.openingTimeToday)!)
         let localClosingTime = dateFormatter.string(from: (self.gym?.closingTimeToday)!)
         
         let timeRange = localOpeningTime + " to " + localClosingTime
         
         var status = "Open"
-        if (self.gym?.closingTimeToday!.compare(NSDate() as Date) == .orderedAscending) {
-            status = "Closed"
+//        if (self.gym?.closingTimeToday!.compare(NSDate() as Date) == .orderedAscending) {
+//            status = "Closed"
+//        }
+        if let t = (self.gym!.openingTimeToday) {
+            if t > Date() {
+                status = "Closed"
+            }
         }
-
+        if let t = (self.gym!.closingTimeToday) {
+            if t < Date() {
+                status = "Closed"
+            }
+        }
         let timeInfo = status + "    " + timeRange
         return timeInfo
     }

@@ -34,10 +34,22 @@ class Gym: Resource {
     var longitude: Double? = nil
     
     var isOpen: Bool {
-        if openingTimeToday == closingTimeToday {
-            return true
+//        if openingTimeToday == closingTimeToday {
+//            return true
+//        }
+//        return Date().isBetween(openingTimeToday, closingTimeToday)
+        var status = true
+        if let t = (openingTimeToday) {
+            if t > Date() {
+                status = false
+            }
         }
-        return Date().isBetween(openingTimeToday, closingTimeToday)
+        if let t = (closingTimeToday) {
+            if t < Date() {
+                status = false
+            }
+        }
+        return status
     }
     
     init(name: String, address: String, imageLink: String?, openingTimeToday: Date?, closingTimeToday: Date?) {

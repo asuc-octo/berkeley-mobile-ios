@@ -98,31 +98,37 @@ class LibraryDetailViewController: UIViewController, IBInitializable, GMSMapView
         if let t = (self.library?.weeklyOpeningTimes[translateddow]) {
             localOpeningTime = dateFormatter.string(from:t)
         }
-//            localOpeningTime = nil
-//        }
         if let t = (self.library?.weeklyClosingTimes[translateddow]) {
             localClosingTime = dateFormatter.string(from:t)
         }
 //        let localClosingTime = dateFormatter.string(from: (self.library?.weeklyClosingTimes[translateddow])!)
         var timeRange:String = localOpeningTime + " to " + localClosingTime
+        var status = "Closed"
 
         if (localOpeningTime == "" && localClosingTime == "") {
             timeRange = "Closed Today"
-        }
-        var status = "Open"
-        let dates: [Date?] = self.library.weeklyClosingTimes
-        if let l = dates.last! {
-            if (l.compare(NSDate() as Date) == .orderedAscending) {
-                status = "Closed"
-            }
         } else {
-            status = "Closed"
+            let openTime = (self.library!.weeklyOpeningTimes[translateddow])!
+            let closeTime = (self.library!.weeklyClosingTimes[translateddow])!
+            if (openTime < Date() && closeTime > Date()) {
+                status = "Open"
+            }
         }
+//        let dates: [Date?] = self.library.weeklyClosingTimes
+//        if let l = dates.last! {
+//            if (l.compare(NSDate() as Date) == .orderedAscending) {
+//                status = "Closed"
+//            }
+//        } else {
+//            status = "Closed"
+//        }
         
 //
-        let timeInfo = status + "    " + timeRange
+        var timeInfo = status + "    " + timeRange
+        if (timeRange == "Closed Today") {
+            timeInfo = timeRange
+        }
         return timeInfo
-//            return "HOURZZZ"
     }
     
     func getLibraryPhoneNumber() -> String {
