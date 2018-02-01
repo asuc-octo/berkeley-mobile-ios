@@ -14,8 +14,6 @@ class GymDetailViewController: UIViewController, IBInitializable, CLLocationMana
     
     
     @IBOutlet weak var gymInfoTableview: UITableView!
-    //    @IBOutlet var gymStartEndTime: UILabel!
-//    @IBOutlet var gymStatus: UILabel!
     @IBOutlet var gymInformationView: UIView!
     @IBOutlet var gymMap: GMSMapView!
 
@@ -110,17 +108,7 @@ class GymDetailViewController: UIViewController, IBInitializable, CLLocationMana
         marker.map = self.gymMap
         
     }
-    
-    
-    @IBAction func openMap(_ sender: UIButton) {
-        
-        let lat = gym?.latitude!
-        let lon = gym?.longitude!
-    
-        UIApplication.shared.open(NSURL(string: "https://www.google.com/maps/dir/Current+Location/" + String(describing: lat!) + "," + String(describing: lon!))! as URL,  options: [:], completionHandler: nil)
-    }
-    
-    
+
     func getGymStatusHours() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "h:mm a"
@@ -132,18 +120,14 @@ class GymDetailViewController: UIViewController, IBInitializable, CLLocationMana
         let df = DateFormatter()
         df.dateFormat = "MM-dd-yyyy HH:mm"
         df.timeZone = TimeZone(abbreviation: "PST")
-        let test1 = df.string(from: (self.gym?.openingTimeToday)!)
-        let test2 = df.string(from: (self.gym?.closingTimeToday)!)
-        
+
         let localOpeningTime = dateFormatter.string(from: (self.gym?.openingTimeToday)!)
         let localClosingTime = dateFormatter.string(from: (self.gym?.closingTimeToday)!)
         
         let timeRange = localOpeningTime + " to " + localClosingTime
         
         var status = "Open"
-//        if (self.gym?.closingTimeToday!.compare(NSDate() as Date) == .orderedAscending) {
-//            status = "Closed"
-//        }
+
         if let t = (self.gym!.openingTimeToday) {
             if t > Date() {
                 status = "Closed"
@@ -215,19 +199,6 @@ class GymDetailViewController: UIViewController, IBInitializable, CLLocationMana
         } else if (gym?.name.contains("Stadium"))! {
             website = "https://recsports.berkeley.edu/stadium-fitness-center/"
         }
-
-//        UIApplication.shared.open(NSURL(string: website)! as URL,  options: [:], completionHandler: nil)
-        
-//        guard let url = URL(string: website) else {
-//            return //be safe
-//        }
-//
-//        if #available(iOS 10.0, *) {
-//            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-//        } else {
-//            UIApplication.shared.openURL(url)
-//        }
-        
         
         let url = URL(string: website)!
         if UIApplication.shared.canOpenURL(url) {
@@ -335,11 +306,8 @@ extension GymDetailViewController: UITableViewDataSource, UITableViewDelegate {
         let cell  = tableView.cellForRow(at: indexPath)
         cell?.selectionStyle = .none
 
-        if indexPath.row == 0 {
-            // do nothing
-        } else if indexPath.row == 1 {
+        if indexPath.row == 1 {
             callGym()
-            
         } else if indexPath.row == 2 {
             viewGymWebsite()
         } else if indexPath.row == 3 {

@@ -15,13 +15,8 @@ fileprivate let kLibraryCellHeight: CGFloat = 125.0
 class LibraryDetailViewController: UIViewController, IBInitializable, GMSMapViewDelegate, CLLocationManagerDelegate, ResourceDetailProvider {
     var image: UIImage?
     
-    
-    
-    
     @IBOutlet weak var LibraryTableView: UITableView!
     
-//    @IBOutlet var libraryDetailView: UIView!
-   
     @IBOutlet weak var libraryStack: UIStackView!
     @IBOutlet var libraryStartEndTime: UILabel!
     @IBOutlet var libraryStatus: UILabel!
@@ -66,23 +61,16 @@ class LibraryDetailViewController: UIViewController, IBInitializable, GMSMapView
         
         iconImages.append(#imageLiteral(resourceName: "hours_2.0"))
         iconImages.append(#imageLiteral(resourceName: "phone_2.0"))
-//        iconImages.append(UIImage(named: "website.png")!)
         iconImages.append(#imageLiteral(resourceName: "location_2.0"))
         
         libInfo.append(getLibraryStatusHours())
         libInfo.append(getLibraryPhoneNumber())
-//        libInfo.append(getLibraryWebsite())
         libInfo.append(getLibraryLoc())
         
         libraryInfoTableview.delegate = self
         libraryInfoTableview.dataSource = self
         
-        
-        
-        //libraryImage.sd_setImage(with: library?.imageURL!)
-        setUpMap()
-        setUpInformation();
-        
+        setUpMap()        
     }
     func getLibraryStatusHours() -> String{
         let dateFormatter = DateFormatter()
@@ -90,7 +78,7 @@ class LibraryDetailViewController: UIViewController, IBInitializable, GMSMapView
         dateFormatter.amSymbol = "AM"
         dateFormatter.pmSymbol = "PM"
         dateFormatter.timeZone = TimeZone(abbreviation: "PST")
-        let trivialDayStringsORDINAL = ["", "SUN","MON","TUE","WED","THU","FRI","SAT"]
+        var trivialDayStringsORDINAL = ["", "SUN","MON","TUE","WED","THU","FRI","SAT"]
         let dow = Calendar.current.component(.weekday, from: Date())
         let translateddow = (dow - 2 + 7) % 7
         var localOpeningTime = ""
@@ -101,7 +89,7 @@ class LibraryDetailViewController: UIViewController, IBInitializable, GMSMapView
         if let t = (self.library?.weeklyClosingTimes[translateddow]) {
             localClosingTime = dateFormatter.string(from:t)
         }
-//        let localClosingTime = dateFormatter.string(from: (self.library?.weeklyClosingTimes[translateddow])!)
+
         var timeRange:String = localOpeningTime + " to " + localClosingTime
         var status = "Closed"
 
@@ -114,16 +102,7 @@ class LibraryDetailViewController: UIViewController, IBInitializable, GMSMapView
                 status = "Open"
             }
         }
-//        let dates: [Date?] = self.library.weeklyClosingTimes
-//        if let l = dates.last! {
-//            if (l.compare(NSDate() as Date) == .orderedAscending) {
-//                status = "Closed"
-//            }
-//        } else {
-//            status = "Closed"
-//        }
-        
-//
+
         var timeInfo = status + "    " + timeRange
         if (timeRange == "Closed Today") {
             timeInfo = timeRange
@@ -156,60 +135,6 @@ class LibraryDetailViewController: UIViewController, IBInitializable, GMSMapView
         // Dispose of any resources that can be recreated.
     }
     
-    func setUpInformation() {
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "h:mm a"
-//        dateFormatter.amSymbol = "AM"
-//        dateFormatter.pmSymbol = "PM"
-//        dateFormatter.timeZone = TimeZone(abbreviation: "PST")
-//
-//        if (self.library?.weeklyClosingTimes[0] == nil) {
-//            self.libraryStartEndTime.text = ""
-//            self.libraryStatus.text = "Closed"
-//            self.libraryStatus.textColor = UIColor.red
-//
-//        } else {
-//            let localOpeningTime = dateFormatter.string(from: (self.library?.weeklyOpeningTimes[0])!)
-//            let localClosingTime = dateFormatter.string(from: (self.library?.weeklyClosingTimes[0])!)
-//
-//            self.libraryStartEndTime.text = localOpeningTime + " to " + localClosingTime
-//
-//            //Calculating whether the library is open or not
-//            var status = "Open"
-//            if (self.library?.weeklyClosingTimes[0]?.compare(NSDate() as Date) == .orderedAscending) {
-//                status = "Closed"
-//            }
-//            self.libraryStatus.text = status
-//            if (status == "Open") {
-//                self.libraryStatus.textColor = UIColor.green
-//            } else {
-//                self.libraryStatus.textColor = UIColor.red
-//            }
-//        }
-    
-//        // For favoriting
-//        if (library?.isFavorited)! {
-//            self.libraryFavoriteButton.setImage(#imageLiteral(resourceName: "heart-large-filled"), for: .normal)
-//        } else {
-//            self.libraryFavoriteButton.setImage(#imageLiteral(resourceName: "heart-large"), for: .normal)
-//        }
-        return
-    }
-
-    
-//    @IBAction func callLibrary(_ sender: Any) {
-//        let numberArray = self.library?.phoneNumber?.components(separatedBy: NSCharacterSet.decimalDigits.inverted)
-//        var number = ""
-//        for n in numberArray! {
-//            number += n
-//        }
-//
-//        if let url = URL(string: "telprompt://\(number)") {
-//            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-//        }
-//    }
-
-    
     func callLibrary() {
         let numberArray = self.library?.phoneNumber?.components(separatedBy: NSCharacterSet.decimalDigits.inverted)
         var number = ""
@@ -238,26 +163,10 @@ class LibraryDetailViewController: UIViewController, IBInitializable, GMSMapView
         
     }
     
-//    @IBAction func viewLibraryWebsite(_ sender: Any) {
-//
-//        UIApplication.shared.open(NSURL(string: "http://www.lib.berkeley.edu/libraries/main-stacks")! as URL,  options: [:], completionHandler: nil)
-//    }
-    
-    
     func viewLibraryWebsite() {
-//        library.description
         UIApplication.shared.open(NSURL(string: "http://www.lib.berkeley.edu/libraries/main-stacks")! as URL,  options: [:], completionHandler: nil)
     }
 
-
-//    @IBAction func viewLibraryMap(_ sender: Any) {
-//
-//        let lat = library?.latitude!
-//        let lon = library?.longitude!
-//
-//        UIApplication.shared.open(NSURL(string: "https://www.google.com/maps/dir/Current+Location/" + String(describing: lat!) + "," + String(describing: lon!))! as URL,  options: [:], completionHandler: nil)
-//
-//    }
     
     func getMap() {
         let lat = library?.latitude!
@@ -292,7 +201,6 @@ class LibraryDetailViewController: UIViewController, IBInitializable, GMSMapView
             self.libraryMapView.mapStyle = try GMSMapStyle(jsonString: kMapStyle)
         } catch {
             NSLog("The style definition could not be loaded: \(error)")
-//            print(error)
         }
         
         var lat = 37.0
@@ -392,17 +300,10 @@ extension LibraryDetailViewController: UITableViewDataSource, UITableViewDelegat
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 3
     }
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        var viewT = UIView.init(frame: CGRect.init(x: 0, y: 0, width: view.width, height: 1))
-//        viewT.backgroundColor = UIColor.white
-//        return viewT
-//    }
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return 10
-//    }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let libraryInfoCell = libraryInfoTableview.dequeueReusableCell(withIdentifier: "libraryCell", for: indexPath) as! LibraryDetailCell
@@ -417,14 +318,9 @@ extension LibraryDetailViewController: UITableViewDataSource, UITableViewDelegat
         let cell  = tableView.cellForRow(at: indexPath)
         cell?.selectionStyle = .none
         
-        if indexPath.row == 0 {
-            // do nothing
-        } else if indexPath.row == 1 {
+        if indexPath.row == 1 {
             callLibrary()
         }
-//        else if indexPath.row == 2 {
-//            viewLibraryWebsite()
-//        }
         else if indexPath.row == 2 {
             getMap()
         }

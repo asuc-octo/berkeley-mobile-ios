@@ -26,10 +26,6 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        getAndSetFavoriteLibraries()
-//        librariesTableView.reloadData()
-        
-        
         setSegmentedControl()
         
         librariesSearchBar.isHidden = true
@@ -66,9 +62,6 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
         }
 
         plotLibraries()
-        
-        //Why doesn't this work? :
-        //self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {

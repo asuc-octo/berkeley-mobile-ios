@@ -1,23 +1,20 @@
 //
-//  CampusResourceCell.swift
+//  GymInformationTableViewCell.swift
 //  berkeleyMobileiOS
 //
-//  Created by Marisa Wong on 10/26/17.
+//  Created by Marisa Wong on 10/13/17.
 //  Copyright © 2017 org.berkeleyMobile. All rights reserved.
 //
 
 import UIKit
 
-class CampusResourceDetailCell: UITableViewCell {
+class GymInformationTableViewCell: UITableViewCell {
 
     
+    @IBOutlet weak var iconImage: UIImageView!
+    @IBOutlet weak var iconInfo: UILabel!
     
-    @IBOutlet weak var campResIconInfo: UILabel!
-    
-    
-    @IBOutlet weak var campResIconImage: UIImageView!
-    
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
