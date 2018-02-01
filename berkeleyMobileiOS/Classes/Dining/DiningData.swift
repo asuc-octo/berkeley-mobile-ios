@@ -20,7 +20,6 @@ enum MealType: String
         breakfast = "breakfast", 
         lunch     = "lunch", 
         dinner    = "dinner"
-        //lateNight = "late_night"
     
     static let allValues = [breakfast, lunch, dinner]
     
@@ -107,8 +106,6 @@ class DiningItem: Favorable
 {
     let name: String
     let mealType: MealType
-    //weak var hall: DiningHall?
-    
     var isFavorited: Bool
     
     init(name: String, type: MealType, favorited: Bool = false)
