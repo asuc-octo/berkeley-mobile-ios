@@ -12,7 +12,6 @@ class GymClassCategoryCell: UITableViewCell {
     
     @IBOutlet var gymClassCategory: UILabel!
     @IBOutlet var gymClassCategoryStatus: UILabel!
-//    @IBOutlet var favoriteButton: UIButton!
     
     
     override func awakeFromNib() {
