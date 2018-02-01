@@ -82,16 +82,12 @@ class DiningHallViewController: UIViewController, IBInitializable, ResourceDetai
     {
         let sort = IconButton(image: #imageLiteral(resourceName: "ic_sort"), tintColor: .white)
         sort.addTarget(self, action: #selector(sortTapped), for: .touchUpInside)
-        //SORT REMOVED
         return []
     }
     
     /// Content size of the current menu tab page.
     var contentSize: CGSize
     {
-//        let width = self.viewController.view.width
-//        let height = self.viewController.view.height
-//        return CGSize(width: width, height: height)
         let size = selectedScroll.contentSize
         return CGSize(width: size.width, height: size.height + pageTabBar.bounds.height)
     }
@@ -132,9 +128,6 @@ class DiningHallViewController: UIViewController, IBInitializable, ResourceDetai
     /// Manually call the transition handler for initial page.
     override func viewWillAppear(_ animated: Bool)
     {
-        
-        
-        
         
         super.viewWillAppear(animated)
         
@@ -185,8 +178,7 @@ class DiningHallViewController: UIViewController, IBInitializable, ResourceDetai
         pageController = PageTabBarController(viewControllers: menuControllers, selectedIndex: 0)
         pageController.pageTabBarAlignment = .top
         pageController.delegate = self
-        
-        //pageTabBar.
+    
         let tabBar = pageController.pageTabBar
         tabBar.tintColor = UIColor(hue: 0.5583, saturation: 0.79, brightness: 0.97, alpha: 1.0)
         tabBar.backgroundColor = UIColor.white//kColorNavy

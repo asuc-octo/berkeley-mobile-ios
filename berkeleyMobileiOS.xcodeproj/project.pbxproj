@@ -29,6 +29,7 @@
 		286D90241DDE9D86001DCBB6 /* LibraryMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286D90231DDE9D86001DCBB6 /* LibraryMapViewController.swift */; };
 		28757D7F1E761953001697D6 /* GymClassDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28757D7E1E761953001697D6 /* GymClassDetailViewController.swift */; };
 		28757D811E761F9F001697D6 /* GymClassCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28757D801E761F9F001697D6 /* GymClassCategoryCell.swift */; };
+		354035402022D04F00A4AEB4 /* Dictionaries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3540353F2022D04F00A4AEB4 /* Dictionaries.swift */; };
 		35D77E051F944B7B00CBDF52 /* LibraryOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35D77E041F944B7B00CBDF52 /* LibraryOptionCell.swift */; };
 		35D77E071F997D7900CBDF52 /* LibraryOptionCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35D77E061F997D7900CBDF52 /* LibraryOptionCell2.swift */; };
 		41005D7B1FD12556009D8FB9 /* ls.png in Resources */ = {isa = PBXBuildFile; fileRef = 41005D7A1FD12556009D8FB9 /* ls.png */; };
@@ -163,6 +164,7 @@
 		286D90231DDE9D86001DCBB6 /* LibraryMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryMapViewController.swift; sourceTree = "<group>"; };
 		28757D7E1E761953001697D6 /* GymClassDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GymClassDetailViewController.swift; sourceTree = "<group>"; };
 		28757D801E761F9F001697D6 /* GymClassCategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GymClassCategoryCell.swift; sourceTree = "<group>"; };
+		3540353F2022D04F00A4AEB4 /* Dictionaries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dictionaries.swift; sourceTree = "<group>"; };
 		35D77E041F944B7B00CBDF52 /* LibraryOptionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryOptionCell.swift; sourceTree = "<group>"; };
 		35D77E061F997D7900CBDF52 /* LibraryOptionCell2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryOptionCell2.swift; sourceTree = "<group>"; };
 		41005D7A1FD12556009D8FB9 /* ls.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ls.png; sourceTree = "<group>"; };
@@ -507,6 +509,7 @@
 				2852AEDA1E90B4FD00092070 /* OptionsCell.swift */,
 				4E106F211E9EFB380089934A /* UIStoryboard+Extension.swift */,
 				55A520F91FB92BD500C4C9E4 /* UIColor+Extension.swift */,
+				3540353F2022D04F00A4AEB4 /* Dictionaries.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -638,7 +641,7 @@
 				TargetAttributes = {
 					41E843891DAB3FE80096C049 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 4HBETBULVA;
+						DevelopmentTeam = L5JHXPF355;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 					};
@@ -779,7 +782,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -876,6 +879,7 @@
 				4E64B56E1DD134EB00DA5E73 /* Date+Extension.swift in Sources */,
 				4E7F32AB1E6214E700D781B2 /* UIViewController+Extension.swift in Sources */,
 				4E2FC8471E2B0D7400B3A28B /* RecreationViewController.swift in Sources */,
+				354035402022D04F00A4AEB4 /* Dictionaries.swift in Sources */,
 				41B0B58C1E8CD95D00DA9297 /* nearestBusTableViewCell.swift in Sources */,
 				4E487A361DDBB59A0001F8CF /* Utils.swift in Sources */,
 				28757D7F1E761953001697D6 /* GymClassDetailViewController.swift in Sources */,
@@ -1001,7 +1005,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 4HBETBULVA;
+				DEVELOPMENT_TEAM = L5JHXPF355;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = berkeleyMobileiOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1028,7 +1032,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 4HBETBULVA;
+				DEVELOPMENT_TEAM = L5JHXPF355;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
