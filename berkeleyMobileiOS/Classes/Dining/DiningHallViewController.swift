@@ -15,7 +15,12 @@ class DiningHallViewController: UIViewController, IBInitializable, ResourceDetai
 {
     var image: UIImage?
     
+    var caf = false
+    
+    var cafe: CafeClass!
+    
     private var hall: DiningHall!
+    
     
     private let sortMenuController = ListMenuController()
     
@@ -64,8 +69,16 @@ class DiningHallViewController: UIViewController, IBInitializable, ResourceDetai
         {
             if viewIfLoaded == nil, hall == nil, let newHall = newValue as? DiningHall
             {
+                
                 hall = newHall
                 title = hall.name
+            }
+            if viewIfLoaded == nil, hall == nil, let newHall = newValue as? CafeClass
+            {
+                
+                cafe = newHall
+                caf = true
+                title = cafe.name
             }
         }
     }
@@ -164,7 +177,23 @@ class DiningHallViewController: UIViewController, IBInitializable, ResourceDetai
         { type in
             
             let vc = storyboard!.instantiateViewController(withIdentifier: menuID) as! DiningMenuViewController
-            vc.setData(type: type, shift: hall.meals[type]!)
+            
+            //var sss = breakfast
+            
+           
+            
+            
+            if caf {
+                 vc.setData(type: type, shift: cafe.meals[type]!)
+                
+            } else {
+                vc.setData(type: type, shift: hall.meals[type]!)
+                
+            }
+        
+            
+          
+            
             
             let barItem = vc.pageTabBarItem
             barItem.titleColor = kColorNavy
