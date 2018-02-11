@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -42,7 +42,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gym Name" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nyi-SH-WrN">
-                                                    <rect key="frame" x="23" y="17" width="97" height="31"/>
+                                                    <rect key="frame" x="30" y="20" width="97" height="31"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="31" id="39f-rg-Feh"/>
                                                     </constraints>
@@ -51,7 +51,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OPEN" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Idt-eb-FaQ">
-                                                    <rect key="frame" x="22" y="44" width="40.5" height="31.5"/>
+                                                    <rect key="frame" x="29" y="47" width="40.5" height="26"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" red="0.0" green="0.67348070039999997" blue="0.33653418169999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -119,7 +119,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gym Class Category Name" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gJ2-qA-3pk">
-                                                    <rect key="frame" x="25" y="33" width="234.5" height="31"/>
+                                                    <rect key="frame" x="32" y="36" width="234.5" height="31"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="31" id="y0y-pk-DId"/>
                                                     </constraints>
@@ -128,7 +128,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Open" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="21i-NY-fnJ">
-                                                    <rect key="frame" x="25" y="70" width="42" height="21"/>
+                                                    <rect key="frame" x="32" y="73" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -286,25 +286,26 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jSH-6d-WLC">
-                                                            <rect key="frame" x="26" y="19" width="30" height="30"/>
+                                                            <rect key="frame" x="15" y="22" width="24" height="24"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="30" id="EUk-rc-Twg"/>
-                                                                <constraint firstAttribute="width" constant="30" id="Llb-IH-Dhf"/>
+                                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="24" id="Tsc-CR-556"/>
+                                                                <constraint firstAttribute="height" constant="24" id="ggO-R5-eXv"/>
+                                                                <constraint firstAttribute="width" constant="24" id="j89-a3-Yw8"/>
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qeg-G1-IY6">
-                                                            <rect key="frame" x="86" y="24" width="281" height="21"/>
+                                                            <rect key="frame" x="47" y="24" width="313" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstItem="Qeg-G1-IY6" firstAttribute="leading" secondItem="jSH-6d-WLC" secondAttribute="trailing" constant="30" id="5ug-pK-87L"/>
-                                                        <constraint firstItem="jSH-6d-WLC" firstAttribute="centerY" secondItem="5Xr-ug-bKw" secondAttribute="centerY" id="DFj-XO-Jnp"/>
-                                                        <constraint firstItem="Qeg-G1-IY6" firstAttribute="centerY" secondItem="5Xr-ug-bKw" secondAttribute="centerY" id="HM5-wi-1UM"/>
-                                                        <constraint firstItem="jSH-6d-WLC" firstAttribute="leading" secondItem="5Xr-ug-bKw" secondAttribute="leading" constant="26" id="KAA-h7-Dtz"/>
-                                                        <constraint firstAttribute="trailing" secondItem="Qeg-G1-IY6" secondAttribute="trailing" constant="8" id="djx-Di-FEg"/>
+                                                        <constraint firstItem="jSH-6d-WLC" firstAttribute="centerY" secondItem="5Xr-ug-bKw" secondAttribute="centerY" id="3pQ-Tr-jFM"/>
+                                                        <constraint firstItem="Qeg-G1-IY6" firstAttribute="leading" secondItem="jSH-6d-WLC" secondAttribute="trailing" constant="8" id="cMa-tn-hcP"/>
+                                                        <constraint firstItem="jSH-6d-WLC" firstAttribute="leading" secondItem="5Xr-ug-bKw" secondAttribute="leading" constant="15" id="dwO-4y-983"/>
+                                                        <constraint firstItem="Qeg-G1-IY6" firstAttribute="centerY" secondItem="5Xr-ug-bKw" secondAttribute="centerY" id="jDB-aT-dGQ"/>
+                                                        <constraint firstAttribute="trailing" secondItem="Qeg-G1-IY6" secondAttribute="trailing" constant="15" id="k7o-ah-aOV"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <accessibility key="accessibilityConfiguration" identifier="gymInfoCell"/>
