@@ -356,7 +356,6 @@
 				4E4EC13B1E50470F000C63ED /* Resource */,
 				4E4EC1481E5118C9000C63ED /* Favorites */,
 				4E505D2D1DD05A65004AC6C9 /* Academics */,
-				4E505D341DD05A65004AC6C9 /* Home */,
 				4E505D391DD05A65004AC6C9 /* Recreation */,
 				4E505D3B1DD05A65004AC6C9 /* Transit */,
 				4E62CFD91DD7E38900B19722 /* Dining */,
@@ -386,13 +385,6 @@
 				4E17C1D01E46623C00B9A6B8 /* Components */,
 			);
 			path = Base;
-			sourceTree = "<group>";
-		};
-		4E505D341DD05A65004AC6C9 /* Home */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Home;
 			sourceTree = "<group>";
 		};
 		4E505D391DD05A65004AC6C9 /* Recreation */ = {
