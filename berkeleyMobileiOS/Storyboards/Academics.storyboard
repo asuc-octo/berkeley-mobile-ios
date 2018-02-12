@@ -118,9 +118,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="PqX-cm-deh" userLabel="LibraryStack">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" estimatedRowHeight="176" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="D48-30-Xwm">
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="D48-30-Xwm">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -174,7 +174,7 @@
                                         </prototypes>
                                     </tableView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GBe-MS-w4Y" customClass="GMSMapView">
-                                        <rect key="frame" x="0.0" y="200" width="375" height="447"/>
+                                        <rect key="frame" x="0.0" y="200" width="375" height="467"/>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="lessThanOrEqual" constant="500" id="rCe-bZ-euW"/>
@@ -188,9 +188,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="PqX-cm-deh" firstAttribute="top" secondItem="9Md-Yn-lVU" secondAttribute="bottom" id="4EP-BT-yrU"/>
                             <constraint firstItem="PqX-cm-deh" firstAttribute="leading" secondItem="utd-hv-GcX" secondAttribute="leading" id="5bb-f8-UXv"/>
                             <constraint firstItem="06h-RA-hKb" firstAttribute="top" secondItem="PqX-cm-deh" secondAttribute="bottom" id="IWi-Ff-0pb"/>
+                            <constraint firstItem="PqX-cm-deh" firstAttribute="top" secondItem="utd-hv-GcX" secondAttribute="top" id="MRx-tn-14I"/>
                             <constraint firstAttribute="trailing" secondItem="PqX-cm-deh" secondAttribute="trailing" id="oj2-hS-ZjL"/>
                         </constraints>
                     </view>
@@ -307,7 +307,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="L9Q-Qi-1IR">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="lB3-Ob-t1Q">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
@@ -353,7 +353,7 @@
                                         </prototypes>
                                     </tableView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hky-K7-C0y" customClass="GMSMapView">
-                                        <rect key="frame" x="0.0" y="200" width="375" height="447"/>
+                                        <rect key="frame" x="0.0" y="200" width="375" height="467"/>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="lessThanOrEqual" constant="500" id="nBJ-Pf-Zap"/>
@@ -361,6 +361,7 @@
                                     </view>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="lB3-Ob-t1Q" firstAttribute="top" secondItem="L9Q-Qi-1IR" secondAttribute="top" id="6cj-ls-hNp"/>
                                     <constraint firstItem="hky-K7-C0y" firstAttribute="top" secondItem="lB3-Ob-t1Q" secondAttribute="bottom" id="RVe-cR-cQV"/>
                                 </constraints>
                             </stackView>
@@ -368,9 +369,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="L9Q-Qi-1IR" secondAttribute="trailing" id="MGx-xs-xah"/>
+                            <constraint firstItem="L9Q-Qi-1IR" firstAttribute="top" secondItem="M11-EJ-d5S" secondAttribute="top" id="TWd-0X-oXc"/>
                             <constraint firstItem="L9Q-Qi-1IR" firstAttribute="leading" secondItem="M11-EJ-d5S" secondAttribute="leading" id="Uir-8s-7dF"/>
                             <constraint firstItem="LSt-o8-dK9" firstAttribute="top" secondItem="L9Q-Qi-1IR" secondAttribute="bottom" id="lKJ-EH-XVm"/>
-                            <constraint firstItem="L9Q-Qi-1IR" firstAttribute="top" secondItem="A3M-ZQ-CXq" secondAttribute="bottom" id="zLN-GE-NS6"/>
                         </constraints>
                     </view>
                     <connections>
