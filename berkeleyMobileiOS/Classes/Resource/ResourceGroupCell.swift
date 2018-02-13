@@ -73,7 +73,11 @@ class ResourceGroupCell: UITableViewCell, RequiresData, UICollectionViewDataSour
             }
             return count
         }
-        return resources.count
+        if let r = resources {
+            return resources.count
+        } else {
+            return 0
+        }
     }
     
     /// Get a ResourceTile and pass it the corresponding Resource.
