@@ -64,7 +64,14 @@ class DiningHallViewController: UIViewController, IBInitializable, ResourceDetai
     
     var resource: Resource
     {
-        get { return hall }
+        get {
+            if caf == true {
+                return cafe
+            } else {
+                return hall
+            }
+        
+        }
         set
         {
             if viewIfLoaded == nil, hall == nil, let newHall = newValue as? DiningHall
@@ -150,7 +157,11 @@ class DiningHallViewController: UIViewController, IBInitializable, ResourceDetai
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        Analytics.logEvent("opened_dining_hall", parameters: ["dining_hall" : hall.name])
+        if caf {
+            Analytics.logEvent("opened_cafe", parameters: ["cafe" : cafe.name])
+        } else {
+            Analytics.logEvent("opened_dining_hall", parameters: ["dining_hall" : hall.name])
+        }
 
     }
     // ========================================
