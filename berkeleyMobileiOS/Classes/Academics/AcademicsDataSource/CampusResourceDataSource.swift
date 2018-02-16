@@ -40,7 +40,7 @@ class CampusResourceDataSource: ResourceDataSource
     // Return a CampusResource object parsed from JSON.
     private static func parseCampusResource(_ json: JSON) -> CampusResource
     {
-        let campusResource = CampusResource(name: json["Resource"].stringValue, campusLocation: json["Office Location"].string, phoneNumber: json["Phone 1"].string, alternatePhoneNumber: json["Phone 2"].string, email: json["Email"].string, hours: json["Hours"].string, latitude: json["Latitude"].double, longitude: json["Longitude"].double, notes: json["Notes"].string, imageLink: json["Image"].string)
+        let campusResource = CampusResource(name: json["Resource"].stringValue, campusLocation: json["Office Location"].string, phoneNumber: json["Phone 1"].string, alternatePhoneNumber: json["Phone 2"].string, email: json["Email"].string, hours: json["Hours"].string, latitude: json["Latitude"].double, longitude: json["Longitude"].double, notes: json["Notes"].string, imageLink: json["Image"].string, description: json["Description"].string)
         
         FavoriteStore.shared.restoreState(for: campusResource)
         

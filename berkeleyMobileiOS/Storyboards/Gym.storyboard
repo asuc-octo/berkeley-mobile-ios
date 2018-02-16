@@ -286,25 +286,26 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jSH-6d-WLC">
-                                                            <rect key="frame" x="26" y="19" width="30" height="30"/>
+                                                            <rect key="frame" x="15" y="22" width="24" height="24"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="30" id="EUk-rc-Twg"/>
-                                                                <constraint firstAttribute="width" constant="30" id="Llb-IH-Dhf"/>
+                                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="24" id="Tsc-CR-556"/>
+                                                                <constraint firstAttribute="height" constant="24" id="ggO-R5-eXv"/>
+                                                                <constraint firstAttribute="width" constant="24" id="j89-a3-Yw8"/>
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qeg-G1-IY6">
-                                                            <rect key="frame" x="86" y="24" width="281" height="21"/>
+                                                            <rect key="frame" x="47" y="24" width="313" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstItem="Qeg-G1-IY6" firstAttribute="leading" secondItem="jSH-6d-WLC" secondAttribute="trailing" constant="30" id="5ug-pK-87L"/>
-                                                        <constraint firstItem="jSH-6d-WLC" firstAttribute="centerY" secondItem="5Xr-ug-bKw" secondAttribute="centerY" id="DFj-XO-Jnp"/>
-                                                        <constraint firstItem="Qeg-G1-IY6" firstAttribute="centerY" secondItem="5Xr-ug-bKw" secondAttribute="centerY" id="HM5-wi-1UM"/>
-                                                        <constraint firstItem="jSH-6d-WLC" firstAttribute="leading" secondItem="5Xr-ug-bKw" secondAttribute="leading" constant="26" id="KAA-h7-Dtz"/>
-                                                        <constraint firstAttribute="trailing" secondItem="Qeg-G1-IY6" secondAttribute="trailing" constant="8" id="djx-Di-FEg"/>
+                                                        <constraint firstItem="jSH-6d-WLC" firstAttribute="centerY" secondItem="5Xr-ug-bKw" secondAttribute="centerY" id="3pQ-Tr-jFM"/>
+                                                        <constraint firstItem="Qeg-G1-IY6" firstAttribute="leading" secondItem="jSH-6d-WLC" secondAttribute="trailing" constant="8" id="cMa-tn-hcP"/>
+                                                        <constraint firstItem="jSH-6d-WLC" firstAttribute="leading" secondItem="5Xr-ug-bKw" secondAttribute="leading" constant="15" id="dwO-4y-983"/>
+                                                        <constraint firstItem="Qeg-G1-IY6" firstAttribute="centerY" secondItem="5Xr-ug-bKw" secondAttribute="centerY" id="jDB-aT-dGQ"/>
+                                                        <constraint firstAttribute="trailing" secondItem="Qeg-G1-IY6" secondAttribute="trailing" constant="15" id="k7o-ah-aOV"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <accessibility key="accessibilityConfiguration" identifier="gymInfoCell"/>
