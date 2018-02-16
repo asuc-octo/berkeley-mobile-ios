@@ -15,7 +15,12 @@ class DiningHallViewController: UIViewController, IBInitializable, ResourceDetai
 {
     var image: UIImage?
     
+    var caf = false
+    
+    var cafe: CafeClass!
+    
     private var hall: DiningHall!
+    
     
     private let sortMenuController = ListMenuController()
     
@@ -59,13 +64,28 @@ class DiningHallViewController: UIViewController, IBInitializable, ResourceDetai
     
     var resource: Resource
     {
-        get { return hall }
+        get {
+            if caf == true {
+                return cafe
+            } else {
+                return hall
+            }
+        
+        }
         set
         {
             if viewIfLoaded == nil, hall == nil, let newHall = newValue as? DiningHall
             {
+                
                 hall = newHall
                 title = hall.name
+            }
+            if viewIfLoaded == nil, hall == nil, let newHall = newValue as? CafeClass
+            {
+                
+                cafe = newHall
+                caf = true
+                title = cafe.name
             }
         }
     }
@@ -82,16 +102,12 @@ class DiningHallViewController: UIViewController, IBInitializable, ResourceDetai
     {
         let sort = IconButton(image: #imageLiteral(resourceName: "ic_sort"), tintColor: .white)
         sort.addTarget(self, action: #selector(sortTapped), for: .touchUpInside)
-        //SORT REMOVED
         return []
     }
     
     /// Content size of the current menu tab page.
     var contentSize: CGSize
     {
-//        let width = self.viewController.view.width
-//        let height = self.viewController.view.height
-//        return CGSize(width: width, height: height)
         let size = selectedScroll.contentSize
         return CGSize(width: size.width, height: size.height + pageTabBar.bounds.height)
     }
@@ -133,9 +149,6 @@ class DiningHallViewController: UIViewController, IBInitializable, ResourceDetai
     override func viewWillAppear(_ animated: Bool)
     {
         
-        
-        
-        
         super.viewWillAppear(animated)
         
         // TODO: open to the closest meal type.
@@ -144,7 +157,11 @@ class DiningHallViewController: UIViewController, IBInitializable, ResourceDetai
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        Analytics.logEvent("opened_dining_hall", parameters: ["dining_hall" : hall.name])
+        if caf {
+            Analytics.logEvent("opened_cafe", parameters: ["cafe" : cafe.name])
+        } else {
+            Analytics.logEvent("opened_dining_hall", parameters: ["dining_hall" : hall.name])
+        }
 
     }
     // ========================================
@@ -171,7 +188,23 @@ class DiningHallViewController: UIViewController, IBInitializable, ResourceDetai
         { type in
             
             let vc = storyboard!.instantiateViewController(withIdentifier: menuID) as! DiningMenuViewController
-            vc.setData(type: type, shift: hall.meals[type]!)
+            
+            //var sss = breakfast
+            
+           
+            
+            
+            if caf {
+                 vc.setData(type: type, shift: cafe.meals[type]!)
+                
+            } else {
+                vc.setData(type: type, shift: hall.meals[type]!)
+                
+            }
+        
+            
+          
+            
             
             let barItem = vc.pageTabBarItem
             barItem.titleColor = kColorNavy
@@ -185,8 +218,7 @@ class DiningHallViewController: UIViewController, IBInitializable, ResourceDetai
         pageController = PageTabBarController(viewControllers: menuControllers, selectedIndex: 0)
         pageController.pageTabBarAlignment = .top
         pageController.delegate = self
-        
-        //pageTabBar.
+    
         let tabBar = pageController.pageTabBar
         tabBar.tintColor = UIColor(hue: 0.5583, saturation: 0.79, brightness: 0.97, alpha: 1.0)
         tabBar.backgroundColor = UIColor.white//kColorNavy
