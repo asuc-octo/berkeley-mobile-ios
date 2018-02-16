@@ -10,8 +10,8 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
-fileprivate let kGymClassEndpoint = kAPIURL + "/group_exs"
-//fileprivate let kGymClassEndpoint = "https://asuc-mobile.herokuapp.com/api/group_exs"
+//fileprivate let kGymClassEndpoint = kAPIURL + "/group_exs"
+fileprivate let kGymClassEndpoint = "https://asuc-mobile.herokuapp.com/api/group_exs"
 var gymClassTypesSeen = [String]()
 
 class GymClassDataSource: ResourceDataSource {
