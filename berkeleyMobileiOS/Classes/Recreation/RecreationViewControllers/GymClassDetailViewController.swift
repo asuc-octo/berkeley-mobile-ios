@@ -98,7 +98,6 @@ class GymClassDetailViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     override func viewDidAppear(_ animated: Bool) {
-//        getAndSetFavoriteGymClassCategories()
         gymClassCategoryTableView.reloadData()
     }
 
@@ -116,19 +115,8 @@ class GymClassDetailViewController: UIViewController, UITableViewDelegate, UITab
         //For gym status (open/closed)
         cell.gymClassCategoryStatus.text = "Open"
         cell.gymClassCategoryStatus.textColor = UIColor.green
-        
-        
-        // For favoriting
-//        if (gymClassCategory?.isFavorited == true) {
-//            cell.favoriteButton.setImage(UIImage(named:"heart-filled"), for: .normal)
-//        } else {
-//            cell.favoriteButton.setImage(UIImage(named:"heart"), for: .normal)
-//        }
-//        cell.favoriteButton.tag = indexPath.row
-//        cell.favoriteButton.addTarget(self, action: #selector(self.toggleGymClassCategoryFavoriting(sender:)), for: .touchUpInside)
 
         return cell
-        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -198,8 +186,6 @@ class GymClassDetailViewController: UIViewController, UITableViewDelegate, UITab
             }
         }
     }
-
-    
     
 }
 

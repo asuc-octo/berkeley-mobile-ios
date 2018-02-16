@@ -12,7 +12,6 @@ class RecreationNavigationController: UINavigationController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("THIS VIEW CONTROLELR IS IN USE")
         // Do any additional setup after loading the view.
     }
 
