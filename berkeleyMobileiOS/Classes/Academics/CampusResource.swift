@@ -33,12 +33,13 @@ class CampusResource: Resource {
     let latitude: Double?
     let longitude: Double?
     let notes: String?
+    let description: String?
     
     var isOpen: Bool {
         return false
     }
     
-    init(name: String, campusLocation: String?, phoneNumber: String?, alternatePhoneNumber: String?, email: String?, hours: String?, latitude: Double?, longitude: Double?, notes: String?, imageLink: String?) {
+    init(name: String, campusLocation: String?, phoneNumber: String?, alternatePhoneNumber: String?, email: String?, hours: String?, latitude: Double?, longitude: Double?, notes: String?, imageLink: String?, description: String?) {
         self.campusLocation = campusLocation
         self.phoneNumber = phoneNumber
         self.alternatePhoneNumber = alternatePhoneNumber
@@ -50,5 +51,6 @@ class CampusResource: Resource {
         
         self.name = name
         self.imageURL = URL(string: imageLink ?? "")
+        self.description = description
     }
 }

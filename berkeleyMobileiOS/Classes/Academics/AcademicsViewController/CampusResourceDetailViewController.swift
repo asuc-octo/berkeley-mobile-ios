@@ -27,7 +27,12 @@ class CampusResourceDetailViewController: UIViewController, GMSMapViewDelegate, 
     var campusResource:CampusResource!
     var locationManager = CLLocationManager()
     
-    var iconImages = [UIImage]()
+    var iconImages: [UIImage] = [
+        UIImage(named:"hours_2.0.png")!,
+        UIImage(named:"phone_2.0.png")!,
+        UIImage(named:"location_2.0.png")!,
+        UIImage(named:"info_2.0.png")!
+    ]
     var campResInfo = [String]()
     
     // MARK: - IBInitializable
@@ -44,11 +49,7 @@ class CampusResourceDetailViewController: UIViewController, GMSMapViewDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = campusResource?.name
-    
-        iconImages.append(#imageLiteral(resourceName: "hours_2.0"))
-        iconImages.append(#imageLiteral(resourceName: "phone_2.0"))
-        iconImages.append(#imageLiteral(resourceName: "location_2.0"))
-        
+
         campResInfo.append((self.campusResource?.hours)!)
         campResInfo.append((self.campusResource?.phoneNumber)!)
         if let loc = campusResource.campusLocation {
@@ -56,10 +57,15 @@ class CampusResourceDetailViewController: UIViewController, GMSMapViewDelegate, 
         } else {
             campResInfo.append("Call for location")
         }
+        campResInfo.append((self.campusResource?.description)!)
         
         campusResDetailTableview.delegate = self
         campusResDetailTableview.dataSource = self
         
+        
+        campusResDetailTableview.estimatedRowHeight = CGFloat(55.0);
+        campusResDetailTableview.rowHeight = UITableViewAutomaticDimension;
+
         setUpMap()
         setUpInformation()
   
@@ -240,19 +246,23 @@ class CampusResourceDetailViewController: UIViewController, GMSMapViewDelegate, 
 extension CampusResourceDetailViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 4
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.row == 0 {
-            return 70
+        if indexPath.row == 3 {
+            print("hello i am 4th row bih")
+            return UITableViewAutomaticDimension
         } else {
             return 55
         }
     }
+
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let campResInfoCell = campusResDetailTableview.dequeueReusableCell(withIdentifier: "campusResourceDetail", for: indexPath) as! CampusResourceDetailCell
         
@@ -270,8 +280,7 @@ extension CampusResourceDetailViewController: UITableViewDelegate, UITableViewDa
             callCampRes()
         }
     }
-    
-    
+
 }
 
 
