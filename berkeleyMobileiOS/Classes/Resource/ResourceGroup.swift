@@ -34,7 +34,8 @@ struct ResourceGroup
         name: "Dining", 
         icon: #imageLiteral(resourceName: "DINING"), 
         types: [
-            DiningHall.self
+            DiningHall.self,
+            CafeClass.self
         ]
     )
     

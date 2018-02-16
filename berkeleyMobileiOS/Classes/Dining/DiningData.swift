@@ -20,7 +20,6 @@ enum MealType: String
         breakfast = "breakfast", 
         lunch     = "lunch", 
         dinner    = "dinner"
-        //lateNight = "late_night"
     
     static let allValues = [breakfast, lunch, dinner]
     
@@ -95,6 +94,48 @@ class DiningHall: Resource
 }
 
 
+
+class CafeClass: Resource
+{
+    var image: UIImage?
+    
+    static func displayName(pluralized: Bool) -> String
+    {
+        return "Cafe" + (pluralized ? "s" : "")
+    }
+    
+    static var dataSource: ResourceDataSource.Type? = CafeDataSource.self
+    static var detailProvider: ResourceDetailProvider.Type? = DiningHallViewController.self
+    
+    
+    let name: String
+    let imageURL: URL?
+    let meals: MealMap
+    
+    var isFavorited: Bool = false
+    
+    init(name: String, imageLink: String?, shifts: MealMap)
+    {
+        self.name = name
+        self.imageURL = URL(string: imageLink ?? "")
+        
+        self.meals = shifts
+    }
+    
+    /// Returns whether the hall is currently open.
+    var isOpen: Bool
+    {
+        return meals.reduce(false){ $0 || $1.value.isOpen }
+    }
+    
+    /// Returns the DiningMenu for the given MealType.
+    func menuForType(_ type: MealType) -> DiningMenu
+    {
+        return meals[type]!.menu
+    }
+}
+
+
 /// DiningMenu is a typealias for an array of DiningItems.
 typealias DiningMenu = Array<DiningItem>
 
@@ -107,8 +148,6 @@ class DiningItem: Favorable
 {
     let name: String
     let mealType: MealType
-    //weak var hall: DiningHall?
-    
     var isFavorited: Bool
     
     init(name: String, type: MealType, favorited: Bool = false)
