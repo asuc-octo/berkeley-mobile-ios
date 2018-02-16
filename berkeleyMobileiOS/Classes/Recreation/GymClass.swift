@@ -33,8 +33,6 @@ class GymClass: Resource {
     var trainer: String? = nil
     
     var isOpen: Bool {
-//        return Date().isBetween(start_time, end_time)
-        
         return true
     }
 
@@ -45,8 +43,6 @@ class GymClass: Resource {
         self.class_type = class_type
         self.location = location
         self.trainer = trainer
-
-//        self.name = name
         self.name = name
         self.imageURL = URL(string: imageLink ?? "")
     }

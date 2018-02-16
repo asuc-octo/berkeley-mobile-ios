@@ -23,7 +23,6 @@ class CampusResourceMapListViewController: UIViewController, UITableViewDataSour
     @IBOutlet var campusResourcesTableView: UITableView!
     @IBOutlet var campusResourcesMapView: GMSMapView!
     
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -168,11 +167,9 @@ class CampusResourceMapListViewController: UIViewController, UITableViewDataSour
     func segmentControlValueChanged(sender: UISegmentedControl!) {
         
         if sender.selectedSegmentIndex == 0 {
-//            gymsSearchBar.isHidden = true
             campusResourcesTableView.isHidden = true
             campusResourcesMapView.isHidden = false
         } else {
-//            gymsSearchBar.isHidden = false
             campusResourcesTableView.isHidden = false
             campusResourcesMapView.isHidden = true
         }

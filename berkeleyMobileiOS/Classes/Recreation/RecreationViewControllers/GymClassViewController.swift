@@ -186,7 +186,7 @@ class GymClassViewController: UIViewController, UITableViewDelegate, UITableView
         
         return 60
     }
-//
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "gymClass") as! GymClassCell
         
@@ -227,7 +227,5 @@ class GymClassViewController: UIViewController, UITableViewDelegate, UITableView
         return exactDate!
         
     }
-    
-
 
 }
