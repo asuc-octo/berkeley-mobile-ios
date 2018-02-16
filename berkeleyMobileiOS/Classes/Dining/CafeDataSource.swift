@@ -64,9 +64,17 @@ class CafeDataSource: ResourceDataSource
         { (map, type) -> MealMap in
             
             let key   = type.rawValue
-            let menu   = json["menu_items"].map{ (_, child) in parseDiningItem(child) }
-            let open  = formatter.date(from: json["start_time" ].string ?? "")
-            let close = formatter.date(from: json["end_time"].string ?? "")
+            var meal_int = 0
+            switch type
+            {
+            case .breakfast:   meal_int = 0
+            case .lunch:       meal_int = 1
+            case .dinner:      meal_int = 2
+            default:            meal_int = 0
+            }
+            let menu   = json["menus"][meal_int]["menu_items"].map{ (_, child) in parseDiningItem(child) }
+            let open  = formatter.date(from: json["menus"][meal_int]["start_time" ].string ?? "")
+            let close = formatter.date(from: json["menus"][meal_int]["end_time"].string ?? "")
             let shift = MealShift(menu: menu, hours: DateRange(start: open, end: close))
             
             var map = map
