@@ -272,7 +272,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YQh-ih-6h0">
-                                <rect key="frame" x="0.0" y="25" width="375" height="200"/>
+                                <rect key="frame" x="0.0" y="12" width="375" height="200"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="jhJ-1X-dUF">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
@@ -327,14 +327,14 @@
                                 </constraints>
                             </view>
                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mhA-uf-Wqw" customClass="GMSMapView">
-                                <rect key="frame" x="0.0" y="225" width="375" height="442"/>
+                                <rect key="frame" x="0.0" y="212" width="375" height="455"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="YQh-ih-6h0" firstAttribute="leading" secondItem="NAa-M7-0Ac" secondAttribute="leadingMargin" constant="-16" id="Gxy-8b-27e"/>
-                            <constraint firstItem="YQh-ih-6h0" firstAttribute="top" secondItem="RVj-KI-Gte" secondAttribute="bottom" constant="5" id="Mpj-28-pNE"/>
+                            <constraint firstItem="YQh-ih-6h0" firstAttribute="top" secondItem="NAa-M7-0Ac" secondAttribute="top" constant="12" id="Mpj-28-pNE"/>
                             <constraint firstItem="mhA-uf-Wqw" firstAttribute="leading" secondItem="YQh-ih-6h0" secondAttribute="leading" id="PT8-10-eIA"/>
                             <constraint firstItem="mhA-uf-Wqw" firstAttribute="width" secondItem="YQh-ih-6h0" secondAttribute="width" id="czZ-KS-av4"/>
                             <constraint firstItem="YQh-ih-6h0" firstAttribute="width" secondItem="NAa-M7-0Ac" secondAttribute="width" id="gK1-2p-QUZ"/>
