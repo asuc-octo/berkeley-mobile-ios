@@ -31,6 +31,8 @@ class DiningDataSource: ResourceDataSource
                 return
             }
             
+            print("DINING PULL")
+            
             let halls = JSON(data: response.data!)["dining_halls"].map { (_, child) in parseDiningHall(child) }
             completion(halls)
         } 
@@ -47,6 +49,11 @@ class DiningDataSource: ResourceDataSource
         
         let name = json["name"].stringValue
         let link = json["image_link"].string
+        
+        print("SHOULDPRINT")
+        
+        print("DININGLINK" + link!)
+        print("DININGNAME" + name)
         
         let meals = MealType.allValues.reduce(MealMap()) 
         { (map, type) -> MealMap in
