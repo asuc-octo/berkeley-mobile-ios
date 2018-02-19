@@ -54,46 +54,58 @@ class ResourceTile: UICollectionViewCell, RequiresData, ToggleButtonDelegate
         }
 
 //        if (type(of: resource) == GymClass.self) {
-            if let im = resource.image {
+        if let im = resource.image {
             self.imageView.image = im
-            } else {
-                switch resource.name {
-                case "ALL-AROUND WORKOUT": do {
-                    self.imageView.image = #imageLiteral(resourceName: "ALL-AROUND WORKOUT")
-                    resource.image = #imageLiteral(resourceName: "ALL-AROUND WORKOUT")
-                }
-                case "CARDIO": do {
-                    self.imageView.image = #imageLiteral(resourceName: "CARDIO")
-                    resource.image = #imageLiteral(resourceName: "CARDIO")
-                }
-                case "MIND/BODY": do {
-                    self.imageView.image = #imageLiteral(resourceName: "MIND:BODY")
-                    resource.image = #imageLiteral(resourceName: "MIND:BODY")
-                }
-                case "DANCE": do {
-                    self.imageView.image = #imageLiteral(resourceName: "DANCE")
-                    resource.image = #imageLiteral(resourceName: "DANCE")
-                }
-                case "STRENGTH": do {
-                    self.imageView.image = #imageLiteral(resourceName: "STRENGTH")
-                    resource.image = #imageLiteral(resourceName: "STRENGTH")
-                }
-                case "AQUA": do {
-                    self.imageView.image = #imageLiteral(resourceName: "AQUA")
-                    resource.image = #imageLiteral(resourceName: "AQUA")
-                }
-                case "CORE": do {
-                    self.imageView.image = #imageLiteral(resourceName: "CORE")
-                    resource.image = #imageLiteral(resourceName: "CORE")
-                }
-                case "Recreational Sports Facility (RSF)": do {
-                    self.imageView.image = #imageLiteral(resourceName: "rsf")
-                    resource.image = #imageLiteral(resourceName: "rsf")
-                    }
-                default: do {
-                    self.imageView.load(resource: resource)
-                }
-                }
+        } else {
+            switch resource.name {
+            case "ALL-AROUND WORKOUT": do {
+                self.imageView.image = #imageLiteral(resourceName: "ALL-AROUND WORKOUT")
+                resource.image = #imageLiteral(resourceName: "ALL-AROUND WORKOUT")
+            }
+            case "CARDIO": do {
+                self.imageView.image = #imageLiteral(resourceName: "CARDIO")
+                resource.image = #imageLiteral(resourceName: "CARDIO")
+            }
+            case "MIND/BODY": do {
+                self.imageView.image = #imageLiteral(resourceName: "MIND:BODY")
+                resource.image = #imageLiteral(resourceName: "MIND:BODY")
+            }
+            case "DANCE": do {
+                self.imageView.image = #imageLiteral(resourceName: "DANCE")
+                resource.image = #imageLiteral(resourceName: "DANCE")
+            }
+            case "STRENGTH": do {
+                self.imageView.image = #imageLiteral(resourceName: "STRENGTH")
+                resource.image = #imageLiteral(resourceName: "STRENGTH")
+            }
+            case "AQUA": do {
+                self.imageView.image = #imageLiteral(resourceName: "AQUA")
+                resource.image = #imageLiteral(resourceName: "AQUA")
+            }
+            case "CORE": do {
+                self.imageView.image = #imageLiteral(resourceName: "CORE")
+                resource.image = #imageLiteral(resourceName: "CORE")
+            }
+            case "Recreational Sports Facility (RSF)": do {
+                self.imageView.image = #imageLiteral(resourceName: "rsf")
+                resource.image = #imageLiteral(resourceName: "rsf")
+            }
+            case "Browns Cafe" : do {
+                self.imageView.image = #imageLiteral(resourceName: "browns_cafe")
+                resource.image = #imageLiteral(resourceName: "browns_cafe")
+            }
+            case "Golden Bear Cafe" : do {
+                self.imageView.image = #imageLiteral(resourceName: "golden_bear_cafe")
+                resource.image = #imageLiteral(resourceName: "golden_bear_cafe")
+            }
+            case "The Den" : do {
+                self.imageView.image = #imageLiteral(resourceName: "the_den")
+                resource.image = #imageLiteral(resourceName: "the_den")
+            }
+            default: do {
+                self.imageView.load(resource: resource)
+            }
+            }
         }
         
 //        } else {
