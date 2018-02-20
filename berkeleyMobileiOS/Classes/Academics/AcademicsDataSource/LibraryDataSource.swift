@@ -10,9 +10,9 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
-//fileprivate let kLibrariesEndpoint = kAPIURL + "/weekly_libraries"
+fileprivate let kLibrariesEndpoint = kAPIURL + "/weekly_libraries"
 
-fileprivate let kLibrariesEndpoint = "https://asuc-mobile-dev.herokuapp.com/api//weekly_libraries"
+//fileprivate let kLibrariesEndpoint = "https://asuc-mobile-dev.herokuapp.com/api//weekly_libraries"
 
 //var KAP = "https://asuc-mobile.herokuapp.com/api/"
 //fileprivate let kLibrariesEndpoint = KAP + "/weekly_libraries"
