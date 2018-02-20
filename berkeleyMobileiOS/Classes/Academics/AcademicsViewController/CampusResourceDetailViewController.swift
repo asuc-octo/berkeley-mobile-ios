@@ -72,12 +72,15 @@ class CampusResourceDetailViewController: UIViewController, GMSMapViewDelegate, 
         setUpInformation()
   
     }
+    override func viewWillAppear(_ animated: Bool) {
+
+    }
     override func viewDidAppear(_ animated: Bool) {
-        
-        self.detailCellHeight.constant += ((self.campusResDetailTableview.cellForRow(at: IndexPath.init(row: 3, section: 0))?.height)! - 30)
-        UIView.animate(withDuration: 0.1) {
+        self.detailCellHeight.constant += ((self.campusResDetailTableview.cellForRow(at: IndexPath.init(row: 3, section: 0))?.height)!)
+        UIView.animate(withDuration: 0.05) {
             self.view.layoutIfNeeded()
         }
+
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -264,6 +267,7 @@ extension CampusResourceDetailViewController: UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 3 {
             print("hello i am 4th row bih")
+
             return UITableViewAutomaticDimension
         } else {
             return 55
@@ -277,6 +281,7 @@ extension CampusResourceDetailViewController: UITableViewDelegate, UITableViewDa
         campResInfoCell.campResIconImage.image = iconImages[indexPath.row]
         campResInfoCell.campResIconInfo.text = campResInfo[indexPath.row]
         campResInfoCell.campResIconInfo.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightMedium)
+
         return campResInfoCell
     }
     
