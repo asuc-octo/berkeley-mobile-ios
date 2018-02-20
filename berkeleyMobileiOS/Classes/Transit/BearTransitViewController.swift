@@ -443,7 +443,7 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
         Analytics.logEvent("clicked_on_route", parameters: nil)
     }
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        self.goButton.isHidden = true
+        self.goButton.isHidden = false
         //Replacement String is last character typed
         var placeString = textField.text!
         if (string) == "" {
