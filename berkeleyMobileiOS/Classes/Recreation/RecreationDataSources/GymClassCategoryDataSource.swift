@@ -35,7 +35,7 @@ class GymClassCategoryDataSource: ResourceDataSource {
                     return
                 }
                 
-                let gymClasses = JSON(data: response.data!)["group_exs"].map { (_, child) in parseGymClassCategories(child) }
+                let gymClasses = JSON(data: response.data!).map { (_, child) in parseGymClassCategories(child) }
                 
                 var gymClassCategoryStrings = Set<String>()
                 for gymClass in gymClasses {
