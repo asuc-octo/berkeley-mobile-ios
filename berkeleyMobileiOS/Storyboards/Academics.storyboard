@@ -310,10 +310,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="lB3-Ob-t1Q">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="270"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="270" id="OeQ-jB-qXt"/>
+                                            <constraint firstAttribute="height" constant="200" id="OeQ-jB-qXt"/>
                                         </constraints>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="campusResourceDetail" rowHeight="55" id="kzr-Tc-yl5" customClass="CampusResourceDetailCell" customModule="berkeleyMobileiOS" customModuleProvider="target">
@@ -339,9 +339,11 @@
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="4cs-eu-Azr" firstAttribute="leading" secondItem="Ev1-9N-oM5" secondAttribute="trailing" constant="14" id="1wV-Ps-WRh"/>
+                                                        <constraint firstAttribute="bottom" secondItem="4cs-eu-Azr" secondAttribute="bottom" constant="17" id="8VO-Oo-huy"/>
                                                         <constraint firstItem="4cs-eu-Azr" firstAttribute="centerY" secondItem="rde-Rp-tJ2" secondAttribute="centerY" id="RO1-Z0-JTe"/>
                                                         <constraint firstAttribute="trailing" secondItem="4cs-eu-Azr" secondAttribute="trailing" constant="15" id="c9I-r0-Oei"/>
                                                         <constraint firstItem="Ev1-9N-oM5" firstAttribute="leading" secondItem="rde-Rp-tJ2" secondAttribute="leading" constant="15" id="r54-Tr-47J"/>
+                                                        <constraint firstItem="4cs-eu-Azr" firstAttribute="top" secondItem="rde-Rp-tJ2" secondAttribute="top" constant="17" id="uv1-H8-cH7"/>
                                                         <constraint firstItem="Ev1-9N-oM5" firstAttribute="centerY" secondItem="rde-Rp-tJ2" secondAttribute="centerY" id="wAM-4G-01P"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
@@ -353,7 +355,7 @@
                                         </prototypes>
                                     </tableView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hky-K7-C0y" customClass="GMSMapView">
-                                        <rect key="frame" x="0.0" y="270" width="375" height="377"/>
+                                        <rect key="frame" x="0.0" y="200" width="375" height="467"/>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                 </subviews>
@@ -375,6 +377,7 @@
                         <outlet property="campusResDetailTableview" destination="lB3-Ob-t1Q" id="gTh-2x-TNk"/>
                         <outlet property="campusResMapView" destination="hky-K7-C0y" id="h4p-nG-XUZ"/>
                         <outlet property="campusStack" destination="L9Q-Qi-1IR" id="3Zy-Tb-0wk"/>
+                        <outlet property="detailCellHeight" destination="OeQ-jB-qXt" id="Qnd-oS-4Ke"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5f2-mL-yoO" userLabel="First Responder" sceneMemberID="firstResponder"/>

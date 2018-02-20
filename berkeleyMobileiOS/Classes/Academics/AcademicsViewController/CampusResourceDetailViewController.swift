@@ -14,6 +14,7 @@ import MessageUI
 class CampusResourceDetailViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDelegate, MFMailComposeViewControllerDelegate, ResourceDetailProvider, IBInitializable {
     var image: UIImage?
     
+    @IBOutlet weak var detailCellHeight: NSLayoutConstraint!
     
     @IBOutlet weak var campusStack: UIStackView!
    
@@ -65,12 +66,19 @@ class CampusResourceDetailViewController: UIViewController, GMSMapViewDelegate, 
         
         campusResDetailTableview.estimatedRowHeight = CGFloat(55.0);
         campusResDetailTableview.rowHeight = UITableViewAutomaticDimension;
+        campusResDetailTableview.isScrollEnabled = false
 
         setUpMap()
         setUpInformation()
   
     }
-
+    override func viewDidAppear(_ animated: Bool) {
+        
+        self.detailCellHeight.constant += ((self.campusResDetailTableview.cellForRow(at: IndexPath.init(row: 3, section: 0))?.height)! - 30)
+        UIView.animate(withDuration: 0.1) {
+            self.view.layoutIfNeeded()
+        }
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
