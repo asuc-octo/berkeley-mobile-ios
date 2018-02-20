@@ -16,6 +16,6 @@ import Foundation
 //  Copyright © 2016 org.berkeleyMobile. All rights reser //
 
 
-var allBTStops = ["Central Line":["id":1407,"name":"Central Line"]]
+var allBTStops = ["Central Line":["id":1407,"name":"Central Line"]]as
 
 var allStops = ["Central Line":["id":1407,"name":"Central Line"]]
