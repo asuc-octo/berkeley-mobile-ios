@@ -10,8 +10,9 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
-//fileprivate let kGymClassEndpoint = kAPIURL + "/group_exs"
-fileprivate let kGymClassEndpoint = "https://asuc-mobile.herokuapp.com/api/group_exs"
+fileprivate let kGymClassEndpoint = kAPIURL + "/group_exs"
+//fileprivate let kGymClassEndpoint = "https://asuc-mobile.herokuapp.com/api/group_exs"
+
 var gymClassTypesSeen = [String]()
 
 class GymClassDataSource: ResourceDataSource {
@@ -34,7 +35,8 @@ class GymClassDataSource: ResourceDataSource {
                     return
                 }
                 var totalClasses: [GymClass] = []
-                for (key, subJson) in JSON(data: response.data!)["group_exs"] {
+
+                for (key, subJson) in JSON(data: response.data!) {
                     let gymClass = GymClass(name: key,
                                             class_type: key,
                                             location: "",
@@ -45,7 +47,7 @@ class GymClassDataSource: ResourceDataSource {
                                             imageLink: subJson[0]["image_link"].stringValue)
                     totalClasses.append(gymClass)
                 }
-                for (_, subJson) in JSON(data: response.data!)["group_exs"] {
+                for (_, subJson) in JSON(data: response.data!) {
                  let gymClasses = subJson.map { (_, child) in parseGymClasses(child) }
                 totalClasses.append(contentsOf: gymClasses)
                 }

@@ -31,7 +31,7 @@ class ConvenienceMethods: NSObject {
         }
     }
     static func getAllBTStops() -> Dictionary<String, Dictionary<String, Any>> {
-        return allStops
+        return allBTStops
     }
     
     static func getAllStops() -> Dictionary<String, Dictionary<String, Any>> {
