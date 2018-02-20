@@ -256,7 +256,7 @@ extension CampusResourceDetailViewController: UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 3 {
             print("hello i am 4th row bih")
-            return UITableViewAutomaticDimension
+            return 140
         } else {
             return 55
         }
