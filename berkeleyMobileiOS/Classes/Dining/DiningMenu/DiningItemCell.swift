@@ -38,6 +38,7 @@ class DiningItemCell: UITableViewCell, RequiresData, ToggleButtonDelegate
         nameLabel.text = item.name
         favoriteButton.isSelected = item.isFavorited
         
+        // add diet restrictions to imageviews
         let dietImages: [UIImageView] = [dietImageView1, dietImageView2, dietImageView3, dietImageView4, dietImageView5, dietImageView5, dietImageView6]
         let restrictions = item.restrictions
         if (restrictions.count > 0) {
@@ -45,6 +46,7 @@ class DiningItemCell: UITableViewCell, RequiresData, ToggleButtonDelegate
                 let r = restrictions[index]
                 let dietImageView = dietImages[index]
                 
+                // some cases are not yet supplied by back-end
                 switch r {
                 case "Contains Alcohol" :
                     dietImageView.image = UIImage(named: "ALCOHOL")
