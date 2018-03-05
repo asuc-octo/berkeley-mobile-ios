@@ -149,6 +149,8 @@ class DiningItem: Favorable
     let name: String
     let mealType: MealType
     var isFavorited: Bool
+    
+    // additional information regarding food such as allergens or alternative options
     let restrictions: [String]
     
     init(name: String, type: MealType, favorited: Bool = false, restrictions: [String])
