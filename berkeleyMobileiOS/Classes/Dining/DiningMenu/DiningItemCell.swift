@@ -42,47 +42,54 @@ class DiningItemCell: UITableViewCell, RequiresData, ToggleButtonDelegate
         let dietImages: [UIImageView] = [dietImageView1, dietImageView2, dietImageView3, dietImageView4, dietImageView5, dietImageView5, dietImageView6]
         let restrictions = item.restrictions
         if (restrictions.count > 0) {
-            for index in 0...(restrictions.count - 1) {
-                let r = restrictions[index]
+            
+            for index in 0...6 {
                 let dietImageView = dietImages[index]
                 
-                // some cases are not yet supplied by back-end
-                switch r {
-                case "Contains Alcohol" :
-                    dietImageView.image = UIImage(named: "ALCOHOL")
-                case "Egg" :
-                    dietImageView.image = UIImage(named: "EGG")
-                case "Fish" :
-                    dietImageView.image = UIImage(named: "FISH")
-                case "Contains Gluten" :
-                    dietImageView.image = UIImage(named: "GLUTEN")
-                    //            case "Egg" :
-                    //                dietImageView.image = UIImage(named: "HALAL")
-                    //            case "Egg" :
-                //                dietImageView.image = UIImage(named: "KOSHER")
-                case "Milk" :
-                    dietImageView.image = UIImage(named: "MILK")
-                    //            case "Egg" :
-                //                dietImageView.image = UIImage(named: "PEANUTS")
-                case "Contains Pork" :
-                    dietImageView.image = UIImage(named: "PORK")
-                case "Sesame" :
-                    dietImageView.image = UIImage(named: "SESAME")
-                    //            case "Egg" :
-                //                dietImageView.image = UIImage(named: "SHELLFISH")
-                case "Soybeans" :
-                    dietImageView.image = UIImage(named: "SOYBEAN")
-                    //            case "Egg" :
-                //                dietImageView.image = UIImage(named: "TREENUTS")
-                case "Vegan Option" :
-                    dietImageView.image = UIImage(named: "VEGAN")
-                case "Vegetarian Option" :
-                    dietImageView.image = UIImage(named: "VEGETARIAN")
-                case "Wheat" :
-                    dietImageView.image = UIImage(named: "WHEAT")
-                default:
-                    dietImageView.isHidden = true
+                if (index <= restrictions.count - 1) {
+                    let r = restrictions[index]
+                    
+                    // some cases are not yet supplied by back-end
+                    switch r {
+                    case "Contains Alcohol" :
+                        dietImageView.image = UIImage(named: "ALCOHOL")
+                    case "Egg" :
+                        dietImageView.image = UIImage(named: "EGG")
+                    case "Fish" :
+                        dietImageView.image = UIImage(named: "FISH")
+                    case "Contains Gluten" :
+                        dietImageView.image = UIImage(named: "GLUTEN")
+                        //            case "Egg" :
+                        //                dietImageView.image = UIImage(named: "HALAL")
+                        //            case "Egg" :
+                    //                dietImageView.image = UIImage(named: "KOSHER")
+                    case "Milk" :
+                        dietImageView.image = UIImage(named: "MILK")
+                        //            case "Egg" :
+                    //                dietImageView.image = UIImage(named: "PEANUTS")
+                    case "Contains Pork" :
+                        dietImageView.image = UIImage(named: "PORK")
+                    case "Sesame" :
+                        dietImageView.image = UIImage(named: "SESAME")
+                        //            case "Egg" :
+                    //                dietImageView.image = UIImage(named: "SHELLFISH")
+                    case "Soybeans" :
+                        dietImageView.image = UIImage(named: "SOYBEAN")
+                        //            case "Egg" :
+                    //                dietImageView.image = UIImage(named: "TREENUTS")
+                    case "Vegan Option" :
+                        dietImageView.image = UIImage(named: "VEGAN")
+                    case "Vegetarian Option" :
+                        dietImageView.image = UIImage(named: "VEGETARIAN")
+                    case "Wheat" :
+                        dietImageView.image = UIImage(named: "WHEAT")
+                    default:
+                        dietImageView.image = nil
+                    }
+                } else {
+                    dietImageView.image = nil
                 }
+                
             }
         }
         
