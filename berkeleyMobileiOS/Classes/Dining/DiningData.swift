@@ -149,12 +149,13 @@ class DiningItem: Favorable
     let name: String
     let mealType: MealType
     var isFavorited: Bool
+    let restrictions: [String]
     
-    init(name: String, type: MealType, favorited: Bool = false)
+    init(name: String, type: MealType, favorited: Bool = false, restrictions: [String])
     {
         self.name = name
         self.mealType = type
-        
         self.isFavorited = favorited
+        self.restrictions = restrictions
     }
 }
