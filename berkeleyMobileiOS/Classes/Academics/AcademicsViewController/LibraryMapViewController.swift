@@ -283,3 +283,4 @@ class LibraryMapViewController: UIViewController, GMSMapViewDelegate, UITableVie
 class FavoriteLibrary: Object {
     dynamic var name = ""
 }
+
