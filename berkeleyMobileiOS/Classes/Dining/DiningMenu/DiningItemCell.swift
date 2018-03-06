@@ -38,9 +38,39 @@ class DiningItemCell: UITableViewCell, RequiresData, ToggleButtonDelegate
         nameLabel.text = item.name
         favoriteButton.isSelected = item.isFavorited
         
+        let restrictions = item.restrictions
+        
+        let screenWidth = UIScreen.main.bounds.width
+        
+        // word wrapping dependent on number of images
+        switch restrictions.count {
+        case 7 :
+            width = 193
+        case 6 :
+            width = 212
+        case 5 :
+            width = 231
+        case 4 :
+            width = 250
+        case 3 :
+            width = 269
+        case 2 :
+            width = 288
+        case 1 :
+            width = 306
+        default:
+            width = 313
+        }
+        
+        // programmatically set constraints for word wrapping
+        nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        let widthConstraint = NSLayoutConstraint(item: nameLabel, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: width)
+        self.contentView.addConstraint(widthConstraint)
+        
+        
+        
         // add diet restrictions to imageviews
         let dietImages: [UIImageView] = [dietImageView1, dietImageView2, dietImageView3, dietImageView4, dietImageView5, dietImageView5, dietImageView6]
-        let restrictions = item.restrictions
         if (restrictions.count > 0) {
             
             for index in 0...6 {
@@ -59,24 +89,24 @@ class DiningItemCell: UITableViewCell, RequiresData, ToggleButtonDelegate
                         dietImageView.image = UIImage(named: "FISH")
                     case "Contains Gluten" :
                         dietImageView.image = UIImage(named: "GLUTEN")
-                        //            case "Egg" :
-                        //                dietImageView.image = UIImage(named: "HALAL")
-                        //            case "Egg" :
-                    //                dietImageView.image = UIImage(named: "KOSHER")
+                    case "Halal" :
+                        dietImageView.image = UIImage(named: "HALAL")
+                    case "Kosher" :
+                        dietImageView.image = UIImage(named: "KOSHER")
                     case "Milk" :
                         dietImageView.image = UIImage(named: "MILK")
-                        //            case "Egg" :
-                    //                dietImageView.image = UIImage(named: "PEANUTS")
+                    case "Peanuts" :
+                        dietImageView.image = UIImage(named: "PEANUTS")
                     case "Contains Pork" :
                         dietImageView.image = UIImage(named: "PORK")
                     case "Sesame" :
                         dietImageView.image = UIImage(named: "SESAME")
-                        //            case "Egg" :
-                    //                dietImageView.image = UIImage(named: "SHELLFISH")
+                    case "Shellfish" :
+                        dietImageView.image = UIImage(named: "SHELLFISH")
                     case "Soybeans" :
                         dietImageView.image = UIImage(named: "SOYBEAN")
-                        //            case "Egg" :
-                    //                dietImageView.image = UIImage(named: "TREENUTS")
+                    case "Tree Nuts" :
+                        dietImageView.image = UIImage(named: "TREENUTS")
                     case "Vegan Option" :
                         dietImageView.image = UIImage(named: "VEGAN")
                     case "Vegetarian Option" :
