@@ -71,8 +71,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="meal item" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Yh-nk-XE9">
-                                                    <rect key="frame" x="47" y="12.5" width="313" height="19.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="meal item" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Yh-nk-XE9">
+                                                    <rect key="frame" x="47" y="13" width="70.5" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.20000000000000001" green="0.37647058823529411" blue="0.47843137254901957" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -87,52 +87,52 @@
                                                     <state key="selected" image="heart_filled"/>
                                                 </button>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4AZ-hM-pWn" userLabel="Diet Image 1">
-                                                    <rect key="frame" x="340" y="11" width="20" height="23"/>
+                                                    <rect key="frame" x="343" y="12" width="17" height="20"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="20" id="cTM-HN-BZr"/>
-                                                        <constraint firstAttribute="width" secondItem="4AZ-hM-pWn" secondAttribute="height" multiplier="20:23" id="d72-IM-wcB"/>
+                                                        <constraint firstAttribute="width" constant="17" id="ZIY-P9-IUf"/>
+                                                        <constraint firstAttribute="width" secondItem="4AZ-hM-pWn" secondAttribute="height" multiplier="17:20" id="xC4-k3-Raz"/>
                                                     </constraints>
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RcD-BP-Kua" userLabel="Diet Image 2">
-                                                    <rect key="frame" x="318" y="11" width="20" height="23"/>
+                                                    <rect key="frame" x="324" y="12" width="17" height="20"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="20" id="Wus-Sf-2q6"/>
-                                                        <constraint firstAttribute="width" secondItem="RcD-BP-Kua" secondAttribute="height" multiplier="20:23" id="scM-S3-Efi"/>
+                                                        <constraint firstAttribute="width" secondItem="RcD-BP-Kua" secondAttribute="height" multiplier="17:20" id="5ZL-lj-hZu"/>
+                                                        <constraint firstAttribute="width" constant="17" id="IaR-Eo-AOy"/>
                                                     </constraints>
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vbJ-cS-Ufr" userLabel="Diet Image 3">
-                                                    <rect key="frame" x="296" y="11" width="20" height="23"/>
+                                                    <rect key="frame" x="305" y="12" width="17" height="20"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" secondItem="vbJ-cS-Ufr" secondAttribute="height" multiplier="20:23" id="8vz-fG-oZf"/>
-                                                        <constraint firstAttribute="width" constant="20" id="grS-eq-nFK"/>
+                                                        <constraint firstAttribute="width" secondItem="vbJ-cS-Ufr" secondAttribute="height" multiplier="17:20" id="Kd9-Zk-4ES"/>
+                                                        <constraint firstAttribute="width" constant="17" id="fnD-Cw-5ok"/>
                                                     </constraints>
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZCJ-QE-EM9" userLabel="Diet Image 4">
-                                                    <rect key="frame" x="274" y="11" width="20" height="23"/>
+                                                    <rect key="frame" x="286" y="12" width="17" height="20"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" secondItem="ZCJ-QE-EM9" secondAttribute="height" multiplier="20:23" id="53C-wm-a4B"/>
-                                                        <constraint firstAttribute="width" constant="20" id="9H0-ga-qud"/>
+                                                        <constraint firstAttribute="width" constant="17" id="QUv-MS-Wfh"/>
+                                                        <constraint firstAttribute="width" secondItem="ZCJ-QE-EM9" secondAttribute="height" multiplier="17:20" id="ZZb-oV-Hf2"/>
                                                     </constraints>
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6od-Su-WqF" userLabel="Diet Image 5">
-                                                    <rect key="frame" x="252" y="11" width="20" height="23"/>
+                                                    <rect key="frame" x="267" y="12" width="17" height="20"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="20" id="Rnr-E7-mIg"/>
-                                                        <constraint firstAttribute="width" secondItem="6od-Su-WqF" secondAttribute="height" multiplier="20:23" id="eQg-Q1-JxE"/>
+                                                        <constraint firstAttribute="width" constant="17" id="365-GL-nZ6"/>
+                                                        <constraint firstAttribute="width" secondItem="6od-Su-WqF" secondAttribute="height" multiplier="17:20" id="TEs-rt-8Xz"/>
                                                     </constraints>
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="i34-k4-Nki" userLabel="Diet Image 6">
-                                                    <rect key="frame" x="230" y="11" width="20" height="23"/>
+                                                    <rect key="frame" x="248" y="12" width="17" height="20"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" secondItem="i34-k4-Nki" secondAttribute="height" multiplier="20:23" id="EPg-I1-Ub3"/>
-                                                        <constraint firstAttribute="width" constant="20" id="UiG-L2-UBC"/>
+                                                        <constraint firstAttribute="width" secondItem="i34-k4-Nki" secondAttribute="height" multiplier="17:20" id="1xH-dE-xfd"/>
+                                                        <constraint firstAttribute="width" constant="17" id="BlA-MB-zLE"/>
                                                     </constraints>
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GjE-xK-GlY" userLabel="Diet Image 7">
-                                                    <rect key="frame" x="208" y="11" width="20" height="23"/>
+                                                    <rect key="frame" x="229" y="12" width="17" height="20"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" secondItem="GjE-xK-GlY" secondAttribute="height" multiplier="20:23" id="C5s-2q-SnW"/>
-                                                        <constraint firstAttribute="width" constant="20" id="qKo-PD-ElM"/>
+                                                        <constraint firstAttribute="width" constant="17" id="kpk-tW-W0P"/>
+                                                        <constraint firstAttribute="width" secondItem="GjE-xK-GlY" secondAttribute="height" multiplier="17:20" id="qJL-rX-Zbb"/>
                                                     </constraints>
                                                 </imageView>
                                             </subviews>
@@ -141,20 +141,19 @@
                                                 <constraint firstItem="0Yh-nk-XE9" firstAttribute="leading" secondItem="UE3-Mg-Yp2" secondAttribute="trailing" constant="12" id="4bg-1K-sQO"/>
                                                 <constraint firstItem="vbJ-cS-Ufr" firstAttribute="leading" secondItem="ZCJ-QE-EM9" secondAttribute="trailing" constant="2" id="KPg-5W-3BK"/>
                                                 <constraint firstItem="UE3-Mg-Yp2" firstAttribute="centerY" secondItem="N53-Ez-ztG" secondAttribute="centerY" id="Kcu-AJ-a54"/>
-                                                <constraint firstItem="6od-Su-WqF" firstAttribute="centerY" secondItem="N53-Ez-ztG" secondAttribute="centerY" id="Mt7-0L-fZC"/>
+                                                <constraint firstItem="GjE-xK-GlY" firstAttribute="centerY" secondItem="N53-Ez-ztG" secondAttribute="centerY" id="OJ9-pl-dbq"/>
+                                                <constraint firstItem="vbJ-cS-Ufr" firstAttribute="centerY" secondItem="N53-Ez-ztG" secondAttribute="centerY" id="VrQ-dQ-777"/>
                                                 <constraint firstItem="ZCJ-QE-EM9" firstAttribute="leading" secondItem="6od-Su-WqF" secondAttribute="trailing" constant="2" id="Ybh-BA-Phc"/>
-                                                <constraint firstItem="vbJ-cS-Ufr" firstAttribute="centerY" secondItem="N53-Ez-ztG" secondAttribute="centerY" id="f1t-BF-1O1"/>
-                                                <constraint firstAttribute="trailing" secondItem="0Yh-nk-XE9" secondAttribute="trailing" constant="15" id="faq-Ot-NdZ"/>
-                                                <constraint firstItem="GjE-xK-GlY" firstAttribute="centerY" secondItem="N53-Ez-ztG" secondAttribute="centerY" id="fsf-lV-a8c"/>
-                                                <constraint firstItem="i34-k4-Nki" firstAttribute="centerY" secondItem="N53-Ez-ztG" secondAttribute="centerY" id="iEW-xZ-etR"/>
-                                                <constraint firstItem="RcD-BP-Kua" firstAttribute="centerY" secondItem="N53-Ez-ztG" secondAttribute="centerY" id="iXk-g8-sO5"/>
-                                                <constraint firstItem="4AZ-hM-pWn" firstAttribute="centerY" secondItem="N53-Ez-ztG" secondAttribute="centerY" id="l3k-2o-p4U"/>
+                                                <constraint firstItem="ZCJ-QE-EM9" firstAttribute="centerY" secondItem="N53-Ez-ztG" secondAttribute="centerY" id="byu-eZ-Bqi"/>
+                                                <constraint firstItem="4AZ-hM-pWn" firstAttribute="centerY" secondItem="N53-Ez-ztG" secondAttribute="centerY" id="eK6-co-vsL"/>
+                                                <constraint firstItem="RcD-BP-Kua" firstAttribute="centerY" secondItem="N53-Ez-ztG" secondAttribute="centerY" id="ius-6C-FOp"/>
                                                 <constraint firstItem="UE3-Mg-Yp2" firstAttribute="leading" secondItem="N53-Ez-ztG" secondAttribute="leading" constant="15" id="n73-64-b2r"/>
+                                                <constraint firstItem="i34-k4-Nki" firstAttribute="centerY" secondItem="N53-Ez-ztG" secondAttribute="centerY" id="nOg-PK-38F"/>
                                                 <constraint firstItem="4AZ-hM-pWn" firstAttribute="leading" secondItem="RcD-BP-Kua" secondAttribute="trailing" constant="2" id="nfT-cT-rbo"/>
                                                 <constraint firstItem="i34-k4-Nki" firstAttribute="leading" secondItem="GjE-xK-GlY" secondAttribute="trailing" constant="2" id="oeN-gA-BiZ"/>
                                                 <constraint firstItem="6od-Su-WqF" firstAttribute="leading" secondItem="i34-k4-Nki" secondAttribute="trailing" constant="2" id="rys-ZR-sHe"/>
+                                                <constraint firstItem="6od-Su-WqF" firstAttribute="centerY" secondItem="N53-Ez-ztG" secondAttribute="centerY" id="sRg-2b-vXr"/>
                                                 <constraint firstAttribute="trailing" secondItem="4AZ-hM-pWn" secondAttribute="trailing" constant="15" id="suK-qH-61f"/>
-                                                <constraint firstItem="ZCJ-QE-EM9" firstAttribute="centerY" secondItem="N53-Ez-ztG" secondAttribute="centerY" id="tMx-IY-fqy"/>
                                                 <constraint firstItem="0Yh-nk-XE9" firstAttribute="centerY" secondItem="UE3-Mg-Yp2" secondAttribute="centerY" id="uvB-dy-Ufs"/>
                                             </constraints>
                                         </tableViewCellContentView>
