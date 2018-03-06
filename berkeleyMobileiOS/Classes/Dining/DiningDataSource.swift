@@ -81,6 +81,7 @@ class DiningDataSource: ResourceDataSource
     private static func parseDiningItem(_ json: JSON) -> DiningItem
     {
         let name = json["name"].stringValue
+        let restrictions: [String] = json["food_type"].arrayValue.map {$0.stringValue}
         
         var type: MealType
         switch json["meal"].stringValue 
@@ -91,7 +92,7 @@ class DiningDataSource: ResourceDataSource
             default:            type = .breakfast
         }
         
-        let item = DiningItem(name: name, type: type)
+        let item = DiningItem(name: name, type: type, restrictions: restrictions)
         FavoriteStore.shared.restoreState(for: item)
         
         return item

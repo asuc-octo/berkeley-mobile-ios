@@ -79,6 +79,7 @@ class DiningMenuViewController: UIViewController, RequiresData, DelegatesScroll,
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.isScrollEnabled = false
+        self.tableView.separatorStyle = .singleLine
         
         
         // Display the open hours.
