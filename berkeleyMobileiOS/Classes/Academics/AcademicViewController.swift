@@ -10,7 +10,7 @@ import UIKit
 
 class AcademicViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    
+    @IBOutlet weak var banner: UIImageView!
 
     @IBOutlet weak var libButton: UIButton!
     @IBOutlet weak var resourceButton: UIButton!
@@ -18,6 +18,7 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
     @IBAction func libModeSelected(_ sender: Any) {
         isLibrary=true
         libButton.titleLabel?.textColor = UIColor(hex: "005581")
+        libButton.alpha = 1.0
         resourceButton.titleLabel?.textColor = UIColor(hex: "005581")
         resourceButton.alpha = 0.5
         resourceTableView.reloadData()
@@ -28,9 +29,16 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
         libButton.titleLabel?.textColor = UIColor(hex: "005581")
         libButton.alpha = 0.5
         resourceButton.titleLabel?.textColor = UIColor(hex: "005581")
+        resourceButton.alpha = 1.0
         resourceTableView.reloadData()
     }
 
+    @IBAction func unwindToAcademic(segue: UIStoryboardSegue) {
+    }
+    
+    @IBAction func libraryUnwind(segue: UIStoryboardSegue) {
+    }
+    
     
     @IBOutlet weak var resourceTableView: UITableView!
     var already_loaded = false
@@ -43,6 +51,10 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        banner.backgroundColor = UIColor(red: 23/255.0, green: 85/255.0, blue: 122/255.0, alpha: 1)
+        
+
         
         libButton.titleLabel?.textColor = UIColor(hex: "005581")
         resourceButton.titleLabel?.textColor = UIColor(hex: "005581")
@@ -224,14 +236,18 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
             let selectedIndex = sender as! Int
             let selectedLibrary = self.libraries[selectedIndex]
 
-            let backItem = UIBarButtonItem()
-            backItem.title = ""
-            navigationItem.backBarButtonItem = backItem
-
-            let libraryDetailVC = segue.destination as! LibraryDetailViewController
+            let libraryDetailVC = segue.destination as! LibraryViewController
 
             libraryDetailVC.library = selectedLibrary
 
+        }
+        if (segue.identifier == "toCampusResourceDetail") {
+            let selectedIndex = sender as! Int
+            let selectedCampRes = self.campusResources[selectedIndex]
+
+            let campusResourceDetailVC = segue.destination as! CampusResourceViewController
+            
+            campusResourceDetailVC.campusResource = selectedCampRes
         }
 
     }
