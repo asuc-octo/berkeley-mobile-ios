@@ -42,13 +42,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         let bt = BearTransitNavigationController.fromIB()
 //        bt.childViewControllers.first!.viewDidLoad()
-//        let academic = AcademicNavigationController.fromIB()
+        let academic = AcademicNavigationController.fromIB()
         viewControllers.append(bt)
-//        viewControllers.append(academic)
+        viewControllers.append(academic)
         let temp = viewControllers[0]
         viewControllers[0] = viewControllers.last!
         viewControllers[viewControllers.endIndex - 1] = temp
         let indexViewController: UIViewController  = TabBarController(viewControllers: viewControllers, selectedIndex: 0)
+        
         indexViewController.modalTransitionStyle = .crossDissolve
         window?.rootViewController = indexViewController
 //        self.present(indexViewController, animated: true, completion: nil)
