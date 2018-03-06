@@ -51,6 +51,9 @@ class Library: Resource {
         var status = true
         let dow = Calendar.current.component(.weekday, from: Date())
         let translateddow = (dow - 2 + 7) % 7
+        if self.weeklyOpeningTimes.count == 0 {
+            return false
+        }
         if let t = (self.weeklyOpeningTimes[translateddow]) {
             if t > Date() {
                 status = false
