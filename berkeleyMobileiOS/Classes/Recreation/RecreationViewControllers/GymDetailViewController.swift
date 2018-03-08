@@ -128,15 +128,8 @@ class GymDetailViewController: UIViewController, IBInitializable, CLLocationMana
         
         var status = "Open"
 
-        if let t = (self.gym!.openingTimeToday) {
-            if t > Date() {
-                status = "Closed"
-            }
-        }
-        if let t = (self.gym!.closingTimeToday) {
-            if t < Date() {
-                status = "Closed"
-            }
+        if !self.gym.isOpen {
+            status = "Closed"
         }
         let timeInfo = status + "    " + timeRange
         return timeInfo
