@@ -96,9 +96,7 @@ class LibraryDetailViewController: UIViewController, IBInitializable, GMSMapView
         if (localOpeningTime == "" && localClosingTime == "") {
             timeRange = "Closed Today"
         } else {
-            let openTime = (self.library!.weeklyOpeningTimes[translateddow])!
-            let closeTime = (self.library!.weeklyClosingTimes[translateddow])!
-            if (openTime < Date() && closeTime > Date()) {
+            if self.library.isOpen {
                 status = "Open"
             }
         }
