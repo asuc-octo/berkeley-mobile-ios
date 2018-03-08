@@ -33,6 +33,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     func presentMainViewController()
     {
+        let academic = AcademicNavigationController.fromIB()
+
+        let gym = GymNavigationController.fromIB()
+
         var viewControllers: [UIViewController] = ResourceGroup.all.map
         {
             let resourceNav = ResourceNavigationController.fromIB()
@@ -40,11 +44,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             resourceNav.childViewControllers.first!.viewDidLoad()
             return resourceNav
         }
+        viewControllers.append(academic)
+        viewControllers.append(gym)
         let bt = BearTransitNavigationController.fromIB()
 //        bt.childViewControllers.first!.viewDidLoad()
-        let academic = AcademicNavigationController.fromIB()
         viewControllers.append(bt)
-        viewControllers.append(academic)
         let temp = viewControllers[0]
         viewControllers[0] = viewControllers.last!
         viewControllers[viewControllers.endIndex - 1] = temp
