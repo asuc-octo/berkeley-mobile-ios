@@ -524,7 +524,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="heart_empty" translatesAutoresizingMaskIntoConstraints="NO" id="3iz-XL-E5s">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3iz-XL-E5s">
                                                     <rect key="frame" x="340" y="52.5" width="19" height="18.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="18.75" id="O99-9q-w1N"/>
@@ -856,7 +856,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="heart_empty" width="32" height="32"/>
         <image name="ic_arrow_back_white" width="24" height="24"/>
     </resources>
 </document>
