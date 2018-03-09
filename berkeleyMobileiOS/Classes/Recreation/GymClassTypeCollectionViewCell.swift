@@ -11,4 +11,6 @@ import UIKit
 class GymClassTypeCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var classType: UIButton!
+    
+
 }

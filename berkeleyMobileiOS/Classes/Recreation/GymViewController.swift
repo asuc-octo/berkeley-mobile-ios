@@ -74,6 +74,7 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
             let classTypeCell = collectionView.dequeueReusableCell(withReuseIdentifier: "classTypeCell", for: indexPath) as! GymClassTypeCollectionViewCell
             let type = classTypes[indexPath.row]
             var color = ""
+            var width = 0
             switch type {
             case "ALL-AROUND":
                 color = "10CEB4"
@@ -95,8 +96,24 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
             }
             classTypeCell.classType.setTitle(type, for: .normal)
             classTypeCell.classType.backgroundColor = UIColor(hex: color)
+            classTypeCell.classType.titleLabel?.numberOfLines = 0
+            classTypeCell.classType.width = labelSize(text: type, fontSize: 12, maxWidth: 1000, numberOfLines: 0).width
+            classTypeCell.classType.cornerRadius = 8
             return classTypeCell
         }
+    }
+    
+
+    func labelSize(text: String,fontSize: CGFloat, maxWidth : CGFloat,numberOfLines: Int) -> CGRect{
+        
+        let font = UIFont.systemFont(ofSize: fontSize)//(name: "HelveticaNeue", size: fontSize)!
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: maxWidth, height: CGFloat.leastNonzeroMagnitude))
+        label.numberOfLines = numberOfLines
+        label.font = font
+        label.text = text
+        
+        label.sizeToFit()
+        return label.frame
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -125,11 +142,3 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
 }
 
 
-extension Calendar {
-    static let gregorian = Calendar(identifier: .gregorian)
-}
-extension Date {
-    var startOfWeek: Date? {
-        return Calendar.gregorian.date(from: Calendar.gregorian.dateComponents([.yearForWeekOfYear, .weekOfYear], from: self))
-    }
-}
