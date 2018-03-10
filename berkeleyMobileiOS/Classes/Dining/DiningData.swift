@@ -150,11 +150,14 @@ class DiningItem: Favorable
     let mealType: MealType
     var isFavorited: Bool
     
-    init(name: String, type: MealType, favorited: Bool = false)
+    // additional information regarding food such as allergens or alternative options
+    let restrictions: [String]
+    
+    init(name: String, type: MealType, favorited: Bool = false, restrictions: [String])
     {
         self.name = name
         self.mealType = type
-        
         self.isFavorited = favorited
+        self.restrictions = restrictions
     }
 }
