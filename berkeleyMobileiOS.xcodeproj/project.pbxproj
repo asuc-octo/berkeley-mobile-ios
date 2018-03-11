@@ -37,6 +37,9 @@
 		4103E0C61FBE83A9009F2C90 /* RouteDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4103E0C51FBE83A9009F2C90 /* RouteDetailsTableViewCell.swift */; };
 		4103E0C81FBE958B009F2C90 /* RouteMidTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4103E0C71FBE958B009F2C90 /* RouteMidTableViewCell.swift */; };
 		4103E0CA1FBE95B9009F2C90 /* RouteEndTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4103E0C91FBE95B9009F2C90 /* RouteEndTableViewCell.swift */; };
+		4124609F205492240000DB54 /* LibraryDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4124609E205492240000DB54 /* LibraryDetailTableViewCell.swift */; };
+		412460A12054BD6B0000DB54 /* LibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412460A02054BD6B0000DB54 /* LibraryViewController.swift */; };
+		412460A32054C42D0000DB54 /* CampusResourceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412460A22054C42D0000DB54 /* CampusResourceTableViewCell.swift */; };
 		4124FA911EAC027700F65FBA /* timeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4124FA901EAC027700F65FBA /* timeCell.swift */; };
 		41661D0A1DCEFC760044E7B4 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41661D021DCEFC110044E7B4 /* Material.framework */; };
 		41A884BC201BD4DF00EE85C7 /* NetworkingConvenienceMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A884BB201BD4DF00EE85C7 /* NetworkingConvenienceMethods.swift */; };
@@ -113,7 +116,11 @@
 		4EE89F261DDBEF9F00AC4EF7 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE89F251DDBEF9F00AC4EF7 /* UIImageView+Extension.swift */; };
 		4EEF90471DDBC7D0002CF7E4 /* Dining.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4EEF90461DDBC7D0002CF7E4 /* Dining.storyboard */; };
 		55026D561F9152E6005D9576 /* GymInformationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55026D551F9152E6005D9576 /* GymInformationTableViewCell.swift */; };
+		551589C32049DE3100D27CC1 /* ResourceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551589C22049DE3100D27CC1 /* ResourceTableViewCell.swift */; };
+		5552A68D2048C03100F27AED /* AcademicNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5552A68C2048C03100F27AED /* AcademicNavigationController.swift */; };
+		5552A68F2048C2F100F27AED /* AcademicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5552A68E2048C2F100F27AED /* AcademicViewController.swift */; };
 		55A520FA1FB92BD500C4C9E4 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A520F91FB92BD500C4C9E4 /* UIColor+Extension.swift */; };
+		55C80BD3204E4EF300E64D05 /* CampusResourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C80BD2204E4EF300E64D05 /* CampusResourceViewController.swift */; };
 		55EC872F1FA2DC1E00C71C09 /* LibraryDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EC872E1FA2DC1E00C71C09 /* LibraryDetailCell.swift */; };
 		55EC87311FA2E70A00C71C09 /* CampusResourceDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EC87301FA2E70A00C71C09 /* CampusResourceDetailCell.swift */; };
 		55EC87331FA2EDC800C71C09 /* CampusResourceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EC87321FA2EDC800C71C09 /* CampusResourceCell.swift */; };
@@ -160,6 +167,9 @@
 		4103E0C51FBE83A9009F2C90 /* RouteDetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDetailsTableViewCell.swift; sourceTree = "<group>"; };
 		4103E0C71FBE958B009F2C90 /* RouteMidTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteMidTableViewCell.swift; sourceTree = "<group>"; };
 		4103E0C91FBE95B9009F2C90 /* RouteEndTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteEndTableViewCell.swift; sourceTree = "<group>"; };
+		4124609E205492240000DB54 /* LibraryDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LibraryDetailTableViewCell.swift; path = "/Users/akilesh/Documents/berkeley-ios/berkeleyMobileiOS/Classes/Academics/AcademicsViewController/LibraryDetailTableViewCell.swift"; sourceTree = "<absolute>"; };
+		412460A02054BD6B0000DB54 /* LibraryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryViewController.swift; sourceTree = "<group>"; };
+		412460A22054C42D0000DB54 /* CampusResourceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusResourceTableViewCell.swift; sourceTree = "<group>"; };
 		4124FA901EAC027700F65FBA /* timeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = timeCell.swift; sourceTree = "<group>"; };
 		41661D021DCEFC110044E7B4 /* Material.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Material.framework; path = "../../Library/Developer/Xcode/DerivedData/berkeleyMobileiOS-fqwsgytduwzwkifixxlmawnrvtwq/Build/Products/Debug-iphonesimulator/Material/Material.framework"; sourceTree = "<group>"; };
 		41A884BB201BD4DF00EE85C7 /* NetworkingConvenienceMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingConvenienceMethods.swift; sourceTree = "<group>"; };
@@ -239,7 +249,11 @@
 		4EEF90461DDBC7D0002CF7E4 /* Dining.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Dining.storyboard; sourceTree = "<group>"; };
 		4EF0D9AF1DDBC08C003C18FA /* Pods_berkeleyMobileiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods_berkeleyMobileiOS.framework; path = "Pods/../build/Debug-iphoneos/Pods_berkeleyMobileiOS.framework"; sourceTree = "<group>"; };
 		55026D551F9152E6005D9576 /* GymInformationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymInformationTableViewCell.swift; sourceTree = "<group>"; };
+		551589C22049DE3100D27CC1 /* ResourceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceTableViewCell.swift; sourceTree = "<group>"; };
+		5552A68C2048C03100F27AED /* AcademicNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcademicNavigationController.swift; sourceTree = "<group>"; };
+		5552A68E2048C2F100F27AED /* AcademicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcademicViewController.swift; sourceTree = "<group>"; };
 		55A520F91FB92BD500C4C9E4 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		55C80BD2204E4EF300E64D05 /* CampusResourceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusResourceViewController.swift; sourceTree = "<group>"; };
 		55EC872E1FA2DC1E00C71C09 /* LibraryDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryDetailCell.swift; sourceTree = "<group>"; };
 		55EC87301FA2E70A00C71C09 /* CampusResourceDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CampusResourceDetailCell.swift; path = berkeleyMobileiOS/Classes/Academics/AcademicsCells/CampusResourceDetailCell.swift; sourceTree = SOURCE_ROOT; };
 		55EC87321FA2EDC800C71C09 /* CampusResourceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusResourceCell.swift; sourceTree = "<group>"; };
@@ -371,10 +385,15 @@
 		4E505D2D1DD05A65004AC6C9 /* Academics */ = {
 			isa = PBXGroup;
 			children = (
+				55C80BD2204E4EF300E64D05 /* CampusResourceViewController.swift */,
 				55B1CC6A2022D2C300D5C3D3 /* AcademicsDataSource */,
 				55B1CC682022D2B000D5C3D3 /* AcademicsViewController */,
 				55B1CC672022D2A500D5C3D3 /* AcademicsCells */,
 				B5F25D201DE2B6DF0084A5C7 /* Library.swift */,
+				5552A68C2048C03100F27AED /* AcademicNavigationController.swift */,
+				5552A68E2048C2F100F27AED /* AcademicViewController.swift */,
+				412460A22054C42D0000DB54 /* CampusResourceTableViewCell.swift */,
+				551589C22049DE3100D27CC1 /* ResourceTableViewCell.swift */,
 				B5F25D241DE8BFC60084A5C7 /* CampusResource.swift */,
 			);
 			path = Academics;
@@ -570,6 +589,8 @@
 		55B1CC682022D2B000D5C3D3 /* AcademicsViewController */ = {
 			isa = PBXGroup;
 			children = (
+				4124609E205492240000DB54 /* LibraryDetailTableViewCell.swift */,
+				412460A02054BD6B0000DB54 /* LibraryViewController.swift */,
 				28037E611DD9798C00935E62 /* LibraryDetailViewController.swift */,
 				286D90231DDE9D86001DCBB6 /* LibraryMapViewController.swift */,
 				285991AC1E7D1EA000317995 /* CampusResourceMapListViewController.swift */,
@@ -806,6 +827,7 @@
 				41B0B58E1E8CD95D00DA9297 /* nearestStopsDataSource.swift in Sources */,
 				41E8438E1DAB3FE80096C049 /* AppDelegate.swift in Sources */,
 				55A520FA1FB92BD500C4C9E4 /* UIColor+Extension.swift in Sources */,
+				412460A12054BD6B0000DB54 /* LibraryViewController.swift in Sources */,
 				4103E0C81FBE958B009F2C90 /* RouteMidTableViewCell.swift in Sources */,
 				4E4EC1451E504710000C63ED /* ResourceGroupViewController.swift in Sources */,
 				4E4EC1461E504710000C63ED /* ResourceNavigationController.swift in Sources */,
@@ -818,6 +840,7 @@
 				280389501DE2C11E00F04FCA /* LibraryCell.swift in Sources */,
 				4E505D411DD05A65004AC6C9 /* TabBarController.swift in Sources */,
 				41B0B5901E8CD95D00DA9297 /* routeCell.swift in Sources */,
+				412460A32054C42D0000DB54 /* CampusResourceTableViewCell.swift in Sources */,
 				41B0B5881E8CD95D00DA9297 /* BearTransitViewController.swift in Sources */,
 				2852AED91E908CAB00092070 /* CampusResourceDetailViewController.swift in Sources */,
 				4E4E7D0C1E5A7ED000A45586 /* DiningHallViewController.swift in Sources */,
@@ -827,6 +850,7 @@
 				B5F25D251DE8BFC60084A5C7 /* CampusResource.swift in Sources */,
 				4E4EC1431E504710000C63ED /* ResourceDataSource.swift in Sources */,
 				35E4945F20296C9000467C77 /* CafeDataSource.swift in Sources */,
+				55C80BD3204E4EF300E64D05 /* CampusResourceViewController.swift in Sources */,
 				4103E0C61FBE83A9009F2C90 /* RouteDetailsTableViewCell.swift in Sources */,
 				41B0B5911E8CD95D00DA9297 /* routeStop.swift in Sources */,
 				41B0B58A1E8CD95D00DA9297 /* nearestBus.swift in Sources */,
@@ -838,6 +862,7 @@
 				41B0B58B1E8CD95D00DA9297 /* NearestBusesTableViewCell.swift in Sources */,
 				28757D811E761F9F001697D6 /* GymClassCategoryCell.swift in Sources */,
 				41017CFA1FB55BF4002D12BB /* livebusDataSource.swift in Sources */,
+				4124609F205492240000DB54 /* LibraryDetailTableViewCell.swift in Sources */,
 				4E143C0C1E5489B100B77D08 /* InfoPanel.swift in Sources */,
 				285991AD1E7D1EA000317995 /* CampusResourceMapListViewController.swift in Sources */,
 				4EE89F261DDBEF9F00AC4EF7 /* UIImageView+Extension.swift in Sources */,
@@ -849,6 +874,7 @@
 				282A4EEC1E63859900480201 /* GymClassDataSource.swift in Sources */,
 				4E4EC14C1E5118C9000C63ED /* FavoriteStore.swift in Sources */,
 				4E64B5701DD134F800DA5E73 /* Optional+Extension.swift in Sources */,
+				5552A68F2048C2F100F27AED /* AcademicViewController.swift in Sources */,
 				41EB40621F9993640069A374 /* nearBusCollectionCell.swift in Sources */,
 				2807415B1E1B2653009C303B /* GymCell.swift in Sources */,
 				41B0B58F1E8CD95D00DA9297 /* Route.swift in Sources */,
@@ -876,6 +902,8 @@
 				41B0B58C1E8CD95D00DA9297 /* nearestBusTableViewCell.swift in Sources */,
 				4E487A361DDBB59A0001F8CF /* Utils.swift in Sources */,
 				28757D7F1E761953001697D6 /* GymClassDetailViewController.swift in Sources */,
+				551589C32049DE3100D27CC1 /* ResourceTableViewCell.swift in Sources */,
+				5552A68D2048C03100F27AED /* AcademicNavigationController.swift in Sources */,
 				B5F25D231DE2B6ED0084A5C7 /* LibraryDataSource.swift in Sources */,
 				B5F25D1D1DE2A1EA0084A5C7 /* GymDataSource.swift in Sources */,
 				282A4EEA1E63839200480201 /* GymClass.swift in Sources */,
