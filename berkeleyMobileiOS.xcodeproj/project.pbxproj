@@ -37,7 +37,6 @@
 		4103E0C61FBE83A9009F2C90 /* RouteDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4103E0C51FBE83A9009F2C90 /* RouteDetailsTableViewCell.swift */; };
 		4103E0C81FBE958B009F2C90 /* RouteMidTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4103E0C71FBE958B009F2C90 /* RouteMidTableViewCell.swift */; };
 		4103E0CA1FBE95B9009F2C90 /* RouteEndTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4103E0C91FBE95B9009F2C90 /* RouteEndTableViewCell.swift */; };
-		4124609F205492240000DB54 /* LibraryDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4124609E205492240000DB54 /* LibraryDetailTableViewCell.swift */; };
 		412460A12054BD6B0000DB54 /* LibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412460A02054BD6B0000DB54 /* LibraryViewController.swift */; };
 		412460A32054C42D0000DB54 /* CampusResourceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412460A22054C42D0000DB54 /* CampusResourceTableViewCell.swift */; };
 		4124FA911EAC027700F65FBA /* timeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4124FA901EAC027700F65FBA /* timeCell.swift */; };
@@ -167,7 +166,6 @@
 		4103E0C51FBE83A9009F2C90 /* RouteDetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDetailsTableViewCell.swift; sourceTree = "<group>"; };
 		4103E0C71FBE958B009F2C90 /* RouteMidTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteMidTableViewCell.swift; sourceTree = "<group>"; };
 		4103E0C91FBE95B9009F2C90 /* RouteEndTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteEndTableViewCell.swift; sourceTree = "<group>"; };
-		4124609E205492240000DB54 /* LibraryDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LibraryDetailTableViewCell.swift; path = "/Users/akilesh/Documents/berkeley-ios/berkeleyMobileiOS/Classes/Academics/AcademicsViewController/LibraryDetailTableViewCell.swift"; sourceTree = "<absolute>"; };
 		412460A02054BD6B0000DB54 /* LibraryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryViewController.swift; sourceTree = "<group>"; };
 		412460A22054C42D0000DB54 /* CampusResourceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusResourceTableViewCell.swift; sourceTree = "<group>"; };
 		4124FA901EAC027700F65FBA /* timeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = timeCell.swift; sourceTree = "<group>"; };
@@ -589,7 +587,6 @@
 		55B1CC682022D2B000D5C3D3 /* AcademicsViewController */ = {
 			isa = PBXGroup;
 			children = (
-				4124609E205492240000DB54 /* LibraryDetailTableViewCell.swift */,
 				412460A02054BD6B0000DB54 /* LibraryViewController.swift */,
 				28037E611DD9798C00935E62 /* LibraryDetailViewController.swift */,
 				286D90231DDE9D86001DCBB6 /* LibraryMapViewController.swift */,
@@ -807,7 +804,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -862,7 +859,6 @@
 				41B0B58B1E8CD95D00DA9297 /* NearestBusesTableViewCell.swift in Sources */,
 				28757D811E761F9F001697D6 /* GymClassCategoryCell.swift in Sources */,
 				41017CFA1FB55BF4002D12BB /* livebusDataSource.swift in Sources */,
-				4124609F205492240000DB54 /* LibraryDetailTableViewCell.swift in Sources */,
 				4E143C0C1E5489B100B77D08 /* InfoPanel.swift in Sources */,
 				285991AD1E7D1EA000317995 /* CampusResourceMapListViewController.swift in Sources */,
 				4EE89F261DDBEF9F00AC4EF7 /* UIImageView+Extension.swift in Sources */,
