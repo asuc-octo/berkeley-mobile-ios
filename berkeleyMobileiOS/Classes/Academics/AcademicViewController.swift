@@ -52,14 +52,6 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        banner.backgroundColor = UIColor(red: 23/255.0, green: 85/255.0, blue: 122/255.0, alpha: 1)
-        
-
-        
-        libButton.titleLabel?.textColor = UIColor(hex: "005581")
-        resourceButton.titleLabel?.textColor = UIColor(hex: "005581")
-        resourceButton.alpha = 0.5
-        
         Library.dataSource?.fetchResources
             { list in
                 
@@ -70,10 +62,12 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
                 }
                 
                 self.libraries = nonEmptyList as! [Library]
-                if (self.already_loaded != true) {
-                    self.already_loaded = true
-                    self.resourceTableView.reloadData()
+//                if (self.already_loaded != true) {
+//                    self.already_loaded = true
+                if let t = self.resourceTableView {
+                    t.reloadData()
                 }
+//                }
 
         }
         
@@ -87,20 +81,32 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
                 }
                 
                 self.campusResources = nonEmptyList as! [CampusResource]
-                if (self.already_loaded != true) {
-                    self.already_loaded = true
-                    self.resourceTableView.reloadData()
+//                if (self.already_loaded != true) {
+//                    self.already_loaded = true
+                if let t = self.resourceTableView {
+                    t.reloadData()
                 }
+//                }
                 
         }
 
+
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        libButton.titleLabel?.textColor = UIColor(hex: "005581")
+        resourceButton.titleLabel?.textColor = UIColor(hex: "005581")
+        if isLibrary {
+            resourceButton.alpha = 0.5
+        } else {
+            libButton.alpha = 0.5
+        }
+    }
+    override func viewDidAppear(_ animated: Bool) {
         self.resourceTableView.delegate = self
         self.resourceTableView.dataSource = self
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
         resourceTableView.reloadData()
-        
+        banner.backgroundColor = UIColor(red: 23/255.0, green: 85/255.0, blue: 122/255.0, alpha: 1)
+
         
     }
     
@@ -121,16 +127,15 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
             // Populate cells with library information
             let library = libraries[indexPath.row]
             cell.resourceName.text = library.name
-            print(library.imageURL?.absoluteString)
-            if let data = try? Data(contentsOf: library.imageURL!)
-            {
-                let image: UIImage = UIImage(data: data)!
-                cell.resourceImage.image = image
-            }
+            cell.resourceImage.load(resource: library)
             
 
-            let status = getLibraryStatus(library: library)
+            var status = "Closed"
+            if library.isOpen {
+                status = "Open"
+            }
             cell.resourceStatus.text = status
+
             if (status == "Open") {
                 cell.resourceStatus.textColor = UIColor.green
             } else {
@@ -145,12 +150,7 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
 
             // Populate cells with campus resource information
             let resource = campusResources[indexPath.row]
-            print(resource.imageURL?.absoluteString)
-            if let data = try? Data(contentsOf: resource.imageURL!)
-            {
-                    let image: UIImage = UIImage(data: data)!
-                    cell.main_image.image = image
-            }
+            cell.main_image.load(resource: resource)
             cell.resource_name.text = resource.name
             
 //            cell.resourceHours.text = resource.hours
