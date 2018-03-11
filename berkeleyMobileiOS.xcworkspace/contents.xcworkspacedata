@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/marisawong/Desktop/clubs/berkeley-ios/berkeleyMobileiOS/Classes/Academics/AcademicsViewController/LibraryDetailTableViewCell.swift">
+      location = "developer:/Users/akilesh/Documents/berkeley-ios/berkeleyMobileiOS/Classes/Academics/AcademicsViewController/LibraryDetailTableViewCell.swift">
    </FileRef>
    <FileRef
       location = "group:berkeleyMobileiOS.xcodeproj">
