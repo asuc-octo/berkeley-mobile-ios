@@ -72,7 +72,7 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
                 self.libraries = nonEmptyList as! [Library]
                 if (self.already_loaded != true) {
                     self.already_loaded = true
-                    DispatchQueue.main.async { self.resourceTableView.reloadData() }
+                    self.resourceTableView.reloadData()
                 }
 
         }
@@ -89,7 +89,7 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
                 self.campusResources = nonEmptyList as! [CampusResource]
                 if (self.already_loaded != true) {
                     self.already_loaded = true
-                    DispatchQueue.main.async { self.resourceTableView.reloadData() }
+                    self.resourceTableView.reloadData()
                 }
                 
         }
@@ -115,13 +115,13 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = resourceTableView.dequeueReusableCell(withIdentifier: "resource") as! ResourceTableViewCell
         
         if (isLibrary == true) {
+            let cell = resourceTableView.dequeueReusableCell(withIdentifier: "resource") as! ResourceTableViewCell
             // Populate cells with library information
             let library = libraries[indexPath.row]
             cell.resourceName.text = library.name
-            
+            print(library.imageURL?.absoluteString)
             if let data = try? Data(contentsOf: library.imageURL!)
             {
                 let image: UIImage = UIImage(data: data)!
@@ -139,19 +139,27 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
             
             let hours = getLibraryHours(library: library)
             cell.resourceHours.text = hours
+            return cell
         } else {
+            let cell = resourceTableView.dequeueReusableCell(withIdentifier: "campus_resource") as! CampusResourceTableViewCell
+
             // Populate cells with campus resource information
             let resource = campusResources[indexPath.row]
-            cell.resourceName.text = resource.name
+            print(resource.imageURL?.absoluteString)
+            if let data = try? Data(contentsOf: resource.imageURL!)
+            {
+                    let image: UIImage = UIImage(data: data)!
+                    cell.main_image.image = image
+            }
+            cell.resource_name.text = resource.name
             
-            cell.resourceHours.text = resource.hours
+//            cell.resourceHours.text = resource.hours
+            return cell
         }
-    
-        return cell
     
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 61
+        return 80
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (isLibrary == true) {
