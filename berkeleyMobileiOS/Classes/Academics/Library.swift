@@ -48,20 +48,22 @@ class Library: Resource {
     
     var isOpen: Bool {
         
-        var status = true
+        var status = false
         let dow = Calendar.current.component(.weekday, from: Date())
         let translateddow = (dow - 2 + 7) % 7
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "h:mm a"
+        dateFormatter.amSymbol = "AM"
+        dateFormatter.pmSymbol = "PM"
+        dateFormatter.timeZone = TimeZone(abbreviation: "PST")
         if self.weeklyOpeningTimes.count == 0 {
             return false
         }
-        if let t = (self.weeklyOpeningTimes[translateddow]) {
-            if t > Date() {
-                status = false
-            }
-        }
-        if let t = (self.weeklyClosingTimes[translateddow]) {
-            if t < Date() {
-                status = false
+        if let opening = (self.weeklyOpeningTimes[translateddow]) {
+            if let closing = (self.weeklyClosingTimes[translateddow]) {
+                if (Date() >= opening && Date() <= closing) {
+                    status = true
+                }
             }
         }
         return status
