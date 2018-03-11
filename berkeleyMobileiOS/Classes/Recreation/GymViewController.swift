@@ -26,8 +26,17 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
     override func viewDidLoad() {
         super.viewDidLoad()
         
-      //  classTypesCollectionView.register(UINib(nibName: "classType", bundle: nil), forCellWithReuseIdentifier: "classTypeCell")
-
+        // Set up gym classes
+        GymClassDataSource.fetchResources
+            { list in
+                guard let nonEmptyList = list else
+                {
+                    // Error
+                    return print("no didnt work")
+                }
+                self.gymClasses = nonEmptyList as! [GymClass]
+        }
+        print(gymClasses.count)
         
         weekCollectionView.delegate = self
         weekCollectionView.dataSource = self
@@ -38,19 +47,7 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
         classTableView.delegate = self
         classTableView.dataSource = self
         
-        // Set up gym classes
-        GymClass.dataSource?.fetchResources
-            { list in
-                guard let nonEmptyList = list else
-                {
-                    // Error
-                    return print("no didnt work")
-                }
-                self.gymClasses = nonEmptyList as! [GymClass]
-        }
-        
         // Set up days of the week
-        
         
         // Do any additional setup after loading the view.
     }
@@ -74,7 +71,6 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
             let classTypeCell = collectionView.dequeueReusableCell(withReuseIdentifier: "classTypeCell", for: indexPath) as! GymClassTypeCollectionViewCell
             let type = classTypes[indexPath.row]
             var color = ""
-            var width = 0
             switch type {
             case "ALL-AROUND":
                 color = "10CEB4"
@@ -121,11 +117,23 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = classTableView.dequeueReusableCell(withIdentifier: "gymClass") as! GymClassInfoTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "gymClass", for: indexPath) as! GymClassInfoTableViewCell
         let gymClass = gymClasses[indexPath.row]
         cell.name.text = gymClass.name
         cell.instructor.text = gymClass.trainer
         cell.room.text = gymClass.location
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "h:mm a"
+        dateFormatter.amSymbol = "AM"
+        dateFormatter.pmSymbol = "PM"
+        dateFormatter.timeZone = TimeZone(abbreviation: "PST")
+        
+        let startTime = dateFormatter.string(from: (gymClass.start_time!))
+        let endTime = dateFormatter.string(from: (gymClass.end_time!))
+        
+        cell.time.text = startTime + " - " + endTime
+        
         return cell
     }
     
