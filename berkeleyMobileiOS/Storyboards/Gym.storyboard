@@ -260,7 +260,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="gymClass" rowHeight="76" id="3UR-7b-Dz6" customClass="GymClassInfoTableViewCell" customModule="berkeleyMobileiOS" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="gymClass" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="gymClass" rowHeight="76" id="3UR-7b-Dz6" customClass="GymClassInfoTableViewCell" customModule="berkeleyMobileiOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="76"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3UR-7b-Dz6" id="3BB-Vi-hxt">
@@ -304,6 +304,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <accessibility key="accessibilityConfiguration" identifier="gymClass"/>
                                         <connections>
                                             <outlet property="gym" destination="Aa3-Du-qwg" id="Sr6-AH-dkY"/>
                                             <outlet property="instructor" destination="RMY-kI-y9S" id="qL5-dP-sb9"/>

@@ -25,8 +25,6 @@ class LibraryViewController: UIViewController, GMSMapViewDelegate, CLLocationMan
         setUpMap()
         libTitle.bringSubview(toFront: libraryImage)
         
-        
-        
         libTitle.text = library.name
         libTitle.lineBreakMode = NSLineBreakMode.byWordWrapping
         libTitle.numberOfLines = 0
