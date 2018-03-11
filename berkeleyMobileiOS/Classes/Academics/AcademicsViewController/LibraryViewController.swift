@@ -30,12 +30,7 @@ class LibraryViewController: UIViewController, GMSMapViewDelegate, CLLocationMan
         
         libTableView.separatorStyle = .none 
         
-        if let data = try? Data(contentsOf: library.imageURL!)
-        {
-            let image: UIImage = UIImage(data: data)!
-            libraryImage.image = image
-        }
-        
+        libraryImage.load(resource: library)
         iconImages.append(#imageLiteral(resourceName: "hours_2.0"))
         iconImages.append(#imageLiteral(resourceName: "phone_2.0"))
         iconImages.append(#imageLiteral(resourceName: "location_2.0"))
@@ -176,7 +171,9 @@ extension LibraryViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-        
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 55
+    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let libraryInfoCell = libTableView.dequeueReusableCell(withIdentifier: "libraryCell", for: indexPath) as! LibraryDetailCell
             

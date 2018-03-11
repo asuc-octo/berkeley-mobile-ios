@@ -36,11 +36,7 @@ class CampusResourceViewController: UIViewController, CLLocationManagerDelegate,
         
         campResTableView.separatorStyle = .none
 
-        if let data = try? Data(contentsOf: campusResource.imageURL!)
-        {
-            let image: UIImage = UIImage(data: data)!
-            campResImage.image = image
-        }
+        campResImage.load(resource: campusResource)
         
         campResInfo.append((self.campusResource?.hours)!)
         campResInfo.append((self.campusResource?.phoneNumber)!)
@@ -120,13 +116,11 @@ extension CampusResourceViewController: UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.row == 3 {
-            print("hello i am 4th row bih")
-            
+//        if indexPath.row == 3 {
             return UITableViewAutomaticDimension
-        } else {
-            return 55
-        }
+//        } else {
+//            return 55
+//        }
     }
     
     
