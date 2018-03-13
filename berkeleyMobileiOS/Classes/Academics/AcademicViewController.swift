@@ -8,6 +8,11 @@
 
 import UIKit
 
+fileprivate let kColorRed = UIColor.red
+fileprivate let kColorGray = UIColor(white: 189/255.0, alpha: 1)
+fileprivate let kColorNavy = UIColor(red: 0, green: 51/255.0, blue: 102/255.0, alpha: 1)
+fileprivate let kColorGreen = UIColor(red: 16/255.0, green: 161/255.0, blue: 0, alpha:1)
+
 class AcademicViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var banner: UIImageView!
@@ -138,9 +143,9 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
             cell.resourceStatus.text = status
 
             if (status == "Open") {
-                cell.resourceStatus.textColor = UIColor.green
+                cell.resourceStatus.textColor = kColorGreen
             } else {
-                cell.resourceStatus.textColor = UIColor.red
+                cell.resourceStatus.textColor = kColorRed
             }
             
             let hours = getLibraryHours(library: library)
@@ -153,6 +158,7 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
             let resource = campusResources[indexPath.row]
             cell.main_image.load(resource: resource)
             cell.resource_name.text = resource.name
+            cell.category_name.text = resource.category
             
 //            cell.resourceHours.text = resource.hours
             return cell
@@ -160,7 +166,12 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
     
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80
+        if (isLibrary == true) {
+            return 80
+        } else {
+            return UITableViewAutomaticDimension
+        }
+//        return 80
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (isLibrary == true) {
