@@ -14,7 +14,7 @@ class CampusResourceViewController: UIViewController, CLLocationManagerDelegate,
     @IBOutlet weak var campResTitle: UILabel!
     @IBOutlet weak var campResImage: UIImageView!
     @IBOutlet weak var campResTableView: UITableView!
-    @IBOutlet var campResMap: GMSMapView!
+//    @IBOutlet var campResMap: GMSMapView!
     
     
     var campusResource:CampusResource!
@@ -49,7 +49,7 @@ class CampusResourceViewController: UIViewController, CLLocationManagerDelegate,
         
         campResTableView.delegate = self
         campResTableView.dataSource = self
-        setUpMap()
+//        setUpMap()
         // Do any additional setup after loading the view.
     }
     
@@ -57,16 +57,16 @@ class CampusResourceViewController: UIViewController, CLLocationManagerDelegate,
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    func setUpMap() {
+    func setUpMap(_ campResMap: GMSMapView) {
         //Setting up map view
         campResMap.delegate = self
         campResMap.isMyLocationEnabled = true
         let camera = GMSCameraPosition.camera(withLatitude: 37.871853, longitude: -122.258423, zoom: 15)
-        self.campResMap.camera = camera
-        self.campResMap.frame = self.view.frame
-        self.campResMap.isMyLocationEnabled = true
-        self.campResMap.isUserInteractionEnabled = false
-        self.campResMap.delegate = self
+        campResMap.camera = camera
+        campResMap.frame = self.view.frame
+        campResMap.isMyLocationEnabled = true
+        campResMap.isUserInteractionEnabled = false
+        campResMap.delegate = self
         self.locationManager.startUpdatingLocation()
         
         let kMapStyle =
@@ -79,7 +79,7 @@ class CampusResourceViewController: UIViewController, CLLocationManagerDelegate,
         
         do {
             // Set the map style by passing a valid JSON string.
-            self.campResMap.mapStyle = try GMSMapStyle(jsonString: kMapStyle)
+            campResMap.mapStyle = try GMSMapStyle(jsonString: kMapStyle)
         } catch {
             NSLog("The style definition could not be loaded: \(error)")
             //            print(error)
@@ -91,7 +91,7 @@ class CampusResourceViewController: UIViewController, CLLocationManagerDelegate,
         marker.icon = #imageLiteral(resourceName: "blueStop")
         marker.position = CLLocationCoordinate2D(latitude: lat, longitude: lon)
         marker.title = campusResource?.name
-        marker.map = self.campResMap
+        marker.map = campResMap
     }
     
     /*
@@ -108,7 +108,7 @@ class CampusResourceViewController: UIViewController, CLLocationManagerDelegate,
 extension CampusResourceViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return 5
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -116,6 +116,9 @@ extension CampusResourceViewController: UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.row == 4 {
+            return 200
+        }
 //        if indexPath.row == 3 {
             return UITableViewAutomaticDimension
 //        } else {
@@ -125,6 +128,12 @@ extension CampusResourceViewController: UITableViewDelegate, UITableViewDataSour
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.row == 4 {
+           let campResInfoCell = campResTableView.dequeueReusableCell(withIdentifier: "mapTable", for: indexPath) as! MapTableViewCell
+            setUpMap(campResInfoCell.campusResourceMap)
+            return campResInfoCell
+//            campResInfoCell.campusResourceMap
+        }
         let campResInfoCell = campResTableView.dequeueReusableCell(withIdentifier: "campusResourceDetail", for: indexPath) as! CampusResourceDetailCell
         
         campResInfoCell.campResIconImage.image = iconImages[indexPath.row]
