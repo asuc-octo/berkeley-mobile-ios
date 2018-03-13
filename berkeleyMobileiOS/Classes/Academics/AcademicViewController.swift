@@ -110,7 +110,8 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
         self.resourceTableView.delegate = self
         self.resourceTableView.dataSource = self
         resourceTableView.reloadData()
-        banner.backgroundColor = UIColor(red: 23/255.0, green: 85/255.0, blue: 122/255.0, alpha: 1)
+        //banner.backgroundColor = UIColor(hex: "1A5679")
+        banner.backgroundColor = UIColor(red: 0, green: 51/255.0, blue: 102/255.0, alpha: 1)
 
         
     }
@@ -135,20 +136,21 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
             cell.resourceImage.load(resource: library)
             
 
-            var status = "Closed"
+            var status = "CLOSED"
             if library.isOpen {
-                status = "Open"
+                status = "OPEN"
             }
             cell.resourceStatus.text = status
 
-            if (status == "Open") {
-                cell.resourceStatus.textColor = kColorGreen
+            if (status == "OPEN") {
+                cell.resourceStatus.textColor = UIColor(hex: "18A408")
             } else {
-                cell.resourceStatus.textColor = kColorRed
+                cell.resourceStatus.textColor = UIColor(hex: "FF2828")
             }
             
             let hours = getLibraryHours(library: library)
             cell.resourceHours.text = hours
+            cell.resourceHours.textColor = UIColor(hex: "585858")
             return cell
         } else {
             let cell = resourceTableView.dequeueReusableCell(withIdentifier: "campus_resource") as! CampusResourceTableViewCell
