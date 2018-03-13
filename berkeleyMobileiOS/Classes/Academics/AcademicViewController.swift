@@ -157,6 +157,7 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
             let resource = campusResources[indexPath.row]
             cell.main_image.load(resource: resource)
             cell.resource_name.text = resource.name
+            cell.category_name.text = resource.category
             
 //            cell.resourceHours.text = resource.hours
             return cell
@@ -164,7 +165,12 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
     
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80
+        if (isLibrary == true) {
+            return 80
+        } else {
+            return UITableViewAutomaticDimension
+        }
+//        return 80
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (isLibrary == true) {

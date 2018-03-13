@@ -10,6 +10,7 @@ import UIKit
 
 class CampusResourceTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var category_name: UILabel!
     @IBOutlet weak var main_image: UIImageView!
     @IBOutlet weak var resource_name: UILabel!
     override func awakeFromNib() {
