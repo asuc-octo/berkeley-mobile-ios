@@ -458,23 +458,23 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="|" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zKS-em-CwJ">
-                                <rect key="frame" x="105" y="71" width="12" height="45"/>
+                                <rect key="frame" x="126" y="71" width="12" height="45"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="33"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F1U-vI-hTe">
-                                <rect key="frame" x="18" y="73" width="81" height="47"/>
+                                <rect key="frame" x="18" y="73" width="102" height="47"/>
                                 <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="26"/>
-                                <state key="normal" title="Library"/>
+                                <state key="normal" title="Libraries"/>
                                 <connections>
                                     <action selector="libModeSelected:" destination="adv-ic-IZc" eventType="touchUpInside" id="IBH-Vl-15e"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m66-2f-FU2">
-                                <rect key="frame" x="125" y="73" width="110" height="47"/>
+                                <rect key="frame" x="146" y="73" width="123" height="47"/>
                                 <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="26"/>
-                                <state key="normal" title="Resource"/>
+                                <state key="normal" title="Resources"/>
                                 <connections>
                                     <action selector="resourceModeSelected:" destination="adv-ic-IZc" eventType="touchUpInside" id="vGe-H2-ohv"/>
                                 </connections>
