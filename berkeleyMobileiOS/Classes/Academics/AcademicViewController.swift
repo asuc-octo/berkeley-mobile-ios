@@ -136,20 +136,21 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
             cell.resourceImage.load(resource: library)
             
 
-            var status = "Closed"
+            var status = "CLOSED"
             if library.isOpen {
-                status = "Open"
+                status = "OPEN"
             }
             cell.resourceStatus.text = status
 
-            if (status == "Open") {
-                cell.resourceStatus.textColor = kColorGreen
+            if (status == "OPEN") {
+                cell.resourceStatus.textColor = UIColor(hex: "18A408")
             } else {
-                cell.resourceStatus.textColor = kColorRed
+                cell.resourceStatus.textColor = UIColor(hex: "FF2828")
             }
             
             let hours = getLibraryHours(library: library)
             cell.resourceHours.text = hours
+            cell.resourceHours.textColor = UIColor(hex: "585858")
             return cell
         } else {
             let cell = resourceTableView.dequeueReusableCell(withIdentifier: "campus_resource") as! CampusResourceTableViewCell
