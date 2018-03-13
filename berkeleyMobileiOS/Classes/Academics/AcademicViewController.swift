@@ -105,7 +105,8 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
         self.resourceTableView.delegate = self
         self.resourceTableView.dataSource = self
         resourceTableView.reloadData()
-        banner.backgroundColor = UIColor(red: 23/255.0, green: 85/255.0, blue: 122/255.0, alpha: 1)
+        //banner.backgroundColor = UIColor(hex: "1A5679")
+        banner.backgroundColor = UIColor(red: 0, green: 51/255.0, blue: 102/255.0, alpha: 1)
 
         
     }
