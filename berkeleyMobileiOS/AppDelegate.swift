@@ -47,9 +47,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let academic = AcademicNavigationController.fromIB()
         academic.childViewControllers.first!.viewDidLoad()
         viewControllers.append(bt)
-        viewControllers.append(academic)
         viewControllers += resource_views
-        
+        viewControllers.append(academic)
+
         let indexViewController: UIViewController  = TabBarController(viewControllers: viewControllers, selectedIndex: 0)
         
         indexViewController.modalTransitionStyle = .crossDissolve
