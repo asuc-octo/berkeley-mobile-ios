@@ -35,7 +35,7 @@ class AcademicNavigationController: UINavigationController, IBInitializable {
     }
     //Customize Tab Bar Presence
     private func preparePageTabBarItem() {
-        pageTabBarItem.image = #imageLiteral(resourceName: "LIBRARIES")
+        pageTabBarItem.image = #imageLiteral(resourceName: "library_transparent")
         pageTabBarItem.image = pageTabBarItem.image!.withRenderingMode(.alwaysTemplate)
         pageTabBarItem.imageView?.contentMode = .scaleAspectFit
     }
