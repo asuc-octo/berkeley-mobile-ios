@@ -113,7 +113,7 @@ class LibraryViewController: UIViewController, GMSMapViewDelegate, CLLocationMan
         dateFormatter.timeZone = TimeZone(abbreviation: "PST")
         var trivialDayStringsORDINAL = ["", "SUN","MON","TUE","WED","THU","FRI","SAT"]
         let dow = Calendar.current.component(.weekday, from: Date())
-        let translateddow = (dow - 2 + 7) % 7
+        let translateddow = 0
         var localOpeningTime = ""
         var localClosingTime = ""
         if let t = (self.library?.weeklyOpeningTimes[translateddow]) {
@@ -129,11 +129,9 @@ class LibraryViewController: UIViewController, GMSMapViewDelegate, CLLocationMan
         if (localOpeningTime == "" && localClosingTime == "") {
         timeRange = "Closed Today"
         } else {
-        let openTime = (self.library!.weeklyOpeningTimes[translateddow])!
-        let closeTime = (self.library!.weeklyClosingTimes[translateddow])!
-        if (openTime < Date() && closeTime > Date()) {
-        status = "Open"
-        }
+            if library.isOpen {
+                status = "Open"
+            }
         }
         
         var timeInfo = status + "    " + timeRange

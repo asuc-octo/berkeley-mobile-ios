@@ -229,18 +229,7 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
         dateFormatter.timeZone = TimeZone(abbreviation: "PST")
         var trivialDayStringsORDINAL = ["", "SUN","MON","TUE","WED","THU","FRI","SAT"]
         let dow = Calendar.current.component(.weekday, from: Date())
-        var translateddow = (dow - 2 + 7) % 7
-        for d in 0...(library.weeklyOpeningTimes.count - 1) {
-            if library.weeklyOpeningTimes[d] != nil {
-                if (NSCalendar.current.isDateInToday(library.weeklyOpeningTimes[d]!)) {
-                    translateddow = d
-                    break
-                }
-            }
-        }
-        if (translateddow == 0 && library.weeklyOpeningTimes[0] == nil) {
-            translateddow = (dow - 2 + 7) % 7
-        }
+        let translateddow = 0
         var localOpeningTime = ""
         var localClosingTime = ""
         if let t = (library.weeklyOpeningTimes[translateddow]) {
@@ -256,9 +245,7 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
         if (localOpeningTime == "" && localClosingTime == "") {
             timeRange = "Closed Today"
         } else {
-            let openTime = (library.weeklyOpeningTimes[translateddow])!
-            let closeTime = (library.weeklyClosingTimes[translateddow])!
-            if (openTime < Date() && closeTime > Date()) {
+            if library.isOpen {
                 status = "Open"
             }
         }

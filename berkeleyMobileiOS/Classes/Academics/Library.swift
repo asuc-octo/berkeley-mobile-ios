@@ -52,24 +52,12 @@ class Library: Resource {
         }
         var status = false
         let dow = Calendar.current.component(.weekday, from: Date())
-        let translateddow = (dow - 2 + 7) % 7
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "h:mm a"
         dateFormatter.amSymbol = "AM"
         dateFormatter.pmSymbol = "PM"
         dateFormatter.timeZone = TimeZone(abbreviation: "PST")
         var ind = 0
-        for d in 0...(weeklyOpeningTimes.count - 1) {
-            if weeklyOpeningTimes[d] != nil {
-                if (NSCalendar.current.isDateInToday(weeklyOpeningTimes[d]!)) {
-                    ind = d
-                    break
-                }
-            }
-        }
-        if (ind == 0 && weeklyOpeningTimes[0] == nil) {
-            ind = (dow - 2 + 7) % 7
-        }
         if let opening = (self.weeklyOpeningTimes[ind]) {
             if let closing = (self.weeklyClosingTimes[ind]) {
                 if (Date() >= opening && Date() <= closing) {
