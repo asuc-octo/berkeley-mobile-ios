@@ -47,7 +47,9 @@ class Library: Resource {
     }
     
     var isOpen: Bool {
-        
+        if self.weeklyOpeningTimes.count == 0 {
+            return false
+        }
         var status = false
         let dow = Calendar.current.component(.weekday, from: Date())
         let translateddow = (dow - 2 + 7) % 7
@@ -56,11 +58,20 @@ class Library: Resource {
         dateFormatter.amSymbol = "AM"
         dateFormatter.pmSymbol = "PM"
         dateFormatter.timeZone = TimeZone(abbreviation: "PST")
-        if self.weeklyOpeningTimes.count == 0 {
-            return false
+        var ind = 0
+        for d in 0...(weeklyOpeningTimes.count - 1) {
+            if weeklyOpeningTimes[d] != nil {
+                if (NSCalendar.current.isDateInToday(weeklyOpeningTimes[d]!)) {
+                    ind = d
+                    break
+                }
+            }
         }
-        if let opening = (self.weeklyOpeningTimes[translateddow]) {
-            if let closing = (self.weeklyClosingTimes[translateddow]) {
+        if (ind == 0 && weeklyOpeningTimes[0] == nil) {
+            ind = (dow - 2 + 7) % 7
+        }
+        if let opening = (self.weeklyOpeningTimes[ind]) {
+            if let closing = (self.weeklyClosingTimes[ind]) {
                 if (Date() >= opening && Date() <= closing) {
                     status = true
                 }

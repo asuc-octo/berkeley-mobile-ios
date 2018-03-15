@@ -153,7 +153,6 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
             cell.resourceHours.textColor = UIColor(hex: "585858")
             
             var splitStr = hours.components(separatedBy: " to ")
-            print("wat")
             if (splitStr.count == 2) {
                 if (splitStr[0] == splitStr[1]) {
                     cell.resourceStatus.textColor = UIColor(hex: "18A408")
@@ -230,7 +229,18 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
         dateFormatter.timeZone = TimeZone(abbreviation: "PST")
         var trivialDayStringsORDINAL = ["", "SUN","MON","TUE","WED","THU","FRI","SAT"]
         let dow = Calendar.current.component(.weekday, from: Date())
-        let translateddow = (dow - 2 + 7) % 7
+        var translateddow = (dow - 2 + 7) % 7
+        for d in 0...(library.weeklyOpeningTimes.count - 1) {
+            if library.weeklyOpeningTimes[d] != nil {
+                if (NSCalendar.current.isDateInToday(library.weeklyOpeningTimes[d]!)) {
+                    translateddow = d
+                    break
+                }
+            }
+        }
+        if (translateddow == 0 && library.weeklyOpeningTimes[0] == nil) {
+            translateddow = (dow - 2 + 7) % 7
+        }
         var localOpeningTime = ""
         var localClosingTime = ""
         if let t = (library.weeklyOpeningTimes[translateddow]) {
