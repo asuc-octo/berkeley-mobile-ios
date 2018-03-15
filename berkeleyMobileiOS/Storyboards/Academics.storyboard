@@ -426,7 +426,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hdQ-zN-Z0b">
-                                <rect key="frame" x="16" y="219" width="351" height="33"/>
+                                <rect key="frame" x="16" y="222.5" width="351" height="29.5"/>
                                 <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="25"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -483,13 +483,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="|" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zKS-em-CwJ">
-                                <rect key="frame" x="126" y="68" width="12" height="45"/>
+                                <rect key="frame" x="126" y="92" width="12" height="41"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="33"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F1U-vI-hTe">
-                                <rect key="frame" x="18" y="70" width="102" height="47"/>
+                                <rect key="frame" x="18" y="94" width="102" height="43"/>
                                 <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="26"/>
                                 <state key="normal" title="Libraries">
                                     <color key="titleColor" red="0.0" green="0.33333333333333331" blue="0.50588235294117645" alpha="1" colorSpace="calibratedRGB"/>
@@ -499,7 +499,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m66-2f-FU2">
-                                <rect key="frame" x="146" y="70" width="123" height="47"/>
+                                <rect key="frame" x="146" y="94" width="123" height="43"/>
                                 <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="26"/>
                                 <state key="normal" title="Resources">
                                     <color key="titleColor" red="0.0" green="0.33333333329999998" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
@@ -509,15 +509,15 @@
                                 </connections>
                             </button>
                             <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BZo-6g-Oo2">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="62"/>
-                                <color key="backgroundColor" red="0.0" green="0.20000000000000001" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="86"/>
+                                <color key="backgroundColor" red="0.073520830159999995" green="0.20189315760000001" blue="0.37033156839999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color key="tintColor" red="0.0" green="0.20000000000000001" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="62" id="xpI-Rh-eDp"/>
+                                    <constraint firstAttribute="height" constant="86" id="xpI-Rh-eDp"/>
                                 </constraints>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Q2k-Dw-j7I">
-                                <rect key="frame" x="0.0" y="125" width="375" height="542"/>
+                                <rect key="frame" x="0.0" y="145" width="375" height="522"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="resource" rowHeight="85" id="pWA-wx-zs9" customClass="ResourceTableViewCell" customModule="berkeleyMobileiOS" customModuleProvider="target">
@@ -549,7 +549,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="closed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RFW-Kc-P1Y">
-                                                    <rect key="frame" x="78" y="44.5" width="60" height="20"/>
+                                                    <rect key="frame" x="78" y="44.5" width="65" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="65" id="CdH-cQ-5Q8"/>
                                                     </constraints>
@@ -558,7 +558,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v5U-rx-tEX">
-                                                    <rect key="frame" x="160" y="44.5" width="207" height="20"/>
+                                                    <rect key="frame" x="165" y="44.5" width="202" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="8vx-Mu-uDh"/>
                                                     </constraints>
@@ -644,8 +644,8 @@
                                     <outlet property="delegate" destination="adv-ic-IZc" id="sJq-TH-EOS"/>
                                 </connections>
                             </tableView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="bearsmallmed" translatesAutoresizingMaskIntoConstraints="NO" id="6xk-dm-M53">
-                                <rect key="frame" x="136" y="15" width="87" height="45"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bearsmallmed" translatesAutoresizingMaskIntoConstraints="NO" id="6xk-dm-M53">
+                                <rect key="frame" x="169.5" y="47" width="36" height="19"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -656,8 +656,8 @@
                             <constraint firstItem="Q2k-Dw-j7I" firstAttribute="top" secondItem="m66-2f-FU2" secondAttribute="bottom" constant="8" id="6Ks-gq-NBL"/>
                             <constraint firstItem="Q2k-Dw-j7I" firstAttribute="top" secondItem="F1U-vI-hTe" secondAttribute="bottom" constant="8" id="8yg-kn-LYx"/>
                             <constraint firstItem="m66-2f-FU2" firstAttribute="leading" secondItem="zKS-em-CwJ" secondAttribute="trailing" constant="8" id="FAf-c8-KPj"/>
+                            <constraint firstItem="6xk-dm-M53" firstAttribute="bottom" secondItem="BZo-6g-Oo2" secondAttribute="bottom" constant="-20" id="MRP-Bd-33n"/>
                             <constraint firstItem="F1U-vI-hTe" firstAttribute="leading" secondItem="L6L-xv-Izl" secondAttribute="leading" constant="18" id="blz-MD-zbw"/>
-                            <constraint firstItem="6xk-dm-M53" firstAttribute="top" secondItem="BZo-6g-Oo2" secondAttribute="top" constant="33" id="coc-mj-IVT"/>
                             <constraint firstItem="m66-2f-FU2" firstAttribute="top" secondItem="BZo-6g-Oo2" secondAttribute="bottom" constant="8" id="g05-af-O1y"/>
                             <constraint firstItem="BZo-6g-Oo2" firstAttribute="top" secondItem="L6L-xv-Izl" secondAttribute="top" id="hXW-dR-yDf"/>
                             <constraint firstItem="zKS-em-CwJ" firstAttribute="leading" secondItem="F1U-vI-hTe" secondAttribute="trailing" constant="6" id="m2v-up-eoA"/>
@@ -670,6 +670,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="gc8-iY-XvV"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="banner" destination="BZo-6g-Oo2" id="dpB-Dt-AOR"/>
                         <outlet property="libButton" destination="F1U-vI-hTe" id="mrN-MS-YHN"/>
