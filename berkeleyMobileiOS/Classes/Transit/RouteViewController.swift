@@ -29,13 +29,13 @@ class RouteViewController: UIViewController, UITableViewDelegate, UITableViewDat
             return 1
         }
     }
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0 {
-            return selectedRoute?.busName
-        } else {
-            return selectedRoute?.secondBusName
-        }
-    }
+//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        if section == 0 {
+//            return selectedRoute?.busName
+//        } else {
+//            return selectedRoute?.secondBusName
+//        }
+//    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return (selectedRoute?.stops.count)!
@@ -44,7 +44,11 @@ class RouteViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80
+        if (indexPath.row == 0) {
+            return 120
+        } else {
+            return 65
+        }
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //        tableView.register(nearestBusTableViewCell.self, forCellReuseIdentifier: "Cell")
@@ -54,7 +58,10 @@ class RouteViewController: UIViewController, UITableViewDelegate, UITableViewDat
         } else {
             stopToDisplay = (selectedRoute?.secondRouteStops?[indexPath.row])!
         }
-        if indexPath.row == 0 {
+        if (indexPath.row == 0) {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "titleCell", for: indexPath) as! RouteTitleTableViewCell
+            return cell
+        } else if indexPath.row == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "startCell", for: indexPath) as! RouteDetailsTableViewCell
             cell.stopName.text = stopToDisplay.name
             return cell

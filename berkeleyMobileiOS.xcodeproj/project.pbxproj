@@ -124,6 +124,8 @@
 		55EC872F1FA2DC1E00C71C09 /* LibraryDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EC872E1FA2DC1E00C71C09 /* LibraryDetailCell.swift */; };
 		55EC87311FA2E70A00C71C09 /* CampusResourceDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EC87301FA2E70A00C71C09 /* CampusResourceDetailCell.swift */; };
 		55EC87331FA2EDC800C71C09 /* CampusResourceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EC87321FA2EDC800C71C09 /* CampusResourceCell.swift */; };
+		92DD7191206072BD00B73233 /* RouteTitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DD7190206072BD00B73233 /* RouteTitleTableViewCell.swift */; };
+		92DD7194206075CC00B73233 /* RouteResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DD7193206075CC00B73233 /* RouteResultViewController.swift */; };
 		B5F25D1D1DE2A1EA0084A5C7 /* GymDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F25D1C1DE2A1EA0084A5C7 /* GymDataSource.swift */; };
 		B5F25D1F1DE2A38E0084A5C7 /* Gym.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F25D1E1DE2A38E0084A5C7 /* Gym.swift */; };
 		B5F25D211DE2B6DF0084A5C7 /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F25D201DE2B6DF0084A5C7 /* Library.swift */; };
@@ -258,6 +260,8 @@
 		55EC87301FA2E70A00C71C09 /* CampusResourceDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CampusResourceDetailCell.swift; path = berkeleyMobileiOS/Classes/Academics/AcademicsCells/CampusResourceDetailCell.swift; sourceTree = SOURCE_ROOT; };
 		55EC87321FA2EDC800C71C09 /* CampusResourceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusResourceCell.swift; sourceTree = "<group>"; };
 		7BC35364DDC70E5590C55CCF /* Pods-berkeleyMobileiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeleyMobileiOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-berkeleyMobileiOS/Pods-berkeleyMobileiOS.release.xcconfig"; sourceTree = "<group>"; };
+		92DD7190206072BD00B73233 /* RouteTitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteTitleTableViewCell.swift; sourceTree = "<group>"; };
+		92DD7193206075CC00B73233 /* RouteResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteResultViewController.swift; sourceTree = "<group>"; };
 		9D72D6DF911EDC0F04EE307F /* Pods-berkeleyMobileiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeleyMobileiOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-berkeleyMobileiOS/Pods-berkeleyMobileiOS.debug.xcconfig"; sourceTree = "<group>"; };
 		B5F25D1C1DE2A1EA0084A5C7 /* GymDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GymDataSource.swift; sourceTree = "<group>"; };
 		B5F25D1E1DE2A38E0084A5C7 /* Gym.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gym.swift; sourceTree = "<group>"; };
@@ -429,11 +433,10 @@
 		4E505D3B1DD05A65004AC6C9 /* Transit */ = {
 			isa = PBXGroup;
 			children = (
-				4103E0C91FBE95B9009F2C90 /* RouteEndTableViewCell.swift */,
-				4103E0C71FBE958B009F2C90 /* RouteMidTableViewCell.swift */,
-				4103E0C51FBE83A9009F2C90 /* RouteDetailsTableViewCell.swift */,
+				92DD71922060754800B73233 /* RouteCells */,
 				41B0B57A1E8CD95D00DA9297 /* BearTransitNavigationController.swift */,
 				41B0B57B1E8CD95D00DA9297 /* BearTransitViewController.swift */,
+				92DD7193206075CC00B73233 /* RouteResultViewController.swift */,
 				41A884BB201BD4DF00EE85C7 /* NetworkingConvenienceMethods.swift */,
 				41B0B57C1E8CD95D00DA9297 /* fullRouteDataSource.swift */,
 				41B0B57D1E8CD95D00DA9297 /* nearestBus.swift */,
@@ -606,6 +609,17 @@
 				B5F25D261DE8BFD50084A5C7 /* CampusResourceDataSource.swift */,
 			);
 			path = AcademicsDataSource;
+			sourceTree = "<group>";
+		};
+		92DD71922060754800B73233 /* RouteCells */ = {
+			isa = PBXGroup;
+			children = (
+				92DD7190206072BD00B73233 /* RouteTitleTableViewCell.swift */,
+				4103E0C91FBE95B9009F2C90 /* RouteEndTableViewCell.swift */,
+				4103E0C71FBE958B009F2C90 /* RouteMidTableViewCell.swift */,
+				4103E0C51FBE83A9009F2C90 /* RouteDetailsTableViewCell.swift */,
+			);
+			path = RouteCells;
 			sourceTree = "<group>";
 		};
 		93BD09A1D2E78ACB866AE8D4 /* Pods */ = {
@@ -807,7 +821,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -827,6 +841,7 @@
 				41B0B58E1E8CD95D00DA9297 /* nearestStopsDataSource.swift in Sources */,
 				41E8438E1DAB3FE80096C049 /* AppDelegate.swift in Sources */,
 				55A520FA1FB92BD500C4C9E4 /* UIColor+Extension.swift in Sources */,
+				92DD7194206075CC00B73233 /* RouteResultViewController.swift in Sources */,
 				412460A12054BD6B0000DB54 /* LibraryViewController.swift in Sources */,
 				4103E0C81FBE958B009F2C90 /* RouteMidTableViewCell.swift in Sources */,
 				4E4EC1451E504710000C63ED /* ResourceGroupViewController.swift in Sources */,
@@ -891,6 +906,7 @@
 				4E62CFE71DD87CFB00B19722 /* UINavigationBar+Extension.swift in Sources */,
 				55026D561F9152E6005D9576 /* GymInformationTableViewCell.swift in Sources */,
 				55EC872F1FA2DC1E00C71C09 /* LibraryDetailCell.swift in Sources */,
+				92DD7191206072BD00B73233 /* RouteTitleTableViewCell.swift in Sources */,
 				4E4D30AD1E56F2D900E418B8 /* FadeTitleToolbar.swift in Sources */,
 				4E4EC1471E504710000C63ED /* ResourceTile.swift in Sources */,
 				4ED0D35F1DDCE9FA00956F9E /* Protocols.swift in Sources */,
