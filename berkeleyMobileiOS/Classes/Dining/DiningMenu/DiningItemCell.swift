@@ -18,6 +18,7 @@ class DiningItemCell: UITableViewCell, RequiresData, ToggleButtonDelegate
     @IBOutlet private weak var nameLabel: UILabel!
     @IBOutlet private weak var favoriteButton: UIButton!
     
+    @IBOutlet weak var costLabel: UILabel!
     @IBOutlet weak var dietImageView1: UIImageView!
     @IBOutlet weak var dietImageView2: UIImageView!
     @IBOutlet weak var dietImageView3: UIImageView!
@@ -35,7 +36,40 @@ class DiningItemCell: UITableViewCell, RequiresData, ToggleButtonDelegate
     func setData(_ item: DataType)
     {
         self.item = item
-        nameLabel.text = item.name
+        
+        var str = item.name
+        
+        if str.characters.contains("$"){
+            
+            
+            let start = str.index(str.startIndex, offsetBy: 0)
+            let end = str.index(str.endIndex, offsetBy: -5)
+            let range = start..<end
+        
+        
+        
+            let start2 = str.index(str.endIndex, offsetBy: -5)
+            let end2 = str.index(str.endIndex, offsetBy: -0)
+            let range2 = start2..<end2
+        
+            let nameString = str[range]
+        
+            let costString = str[range2]
+        
+        
+            nameLabel.text = nameString
+        
+            costLabel.text = costString
+            
+            
+            
+        } else {
+            nameLabel.text = str
+        }
+        
+        
+        
+        
         favoriteButton.isSelected = item.isFavorited
         
         let restrictions = item.restrictions
