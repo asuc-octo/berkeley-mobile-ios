@@ -91,7 +91,8 @@ class CafeDataSource: ResourceDataSource
     // Return a DiningMenu object parsed from JSON.
     private static func parseDiningItem(_ json: JSON) -> DiningItem
     {
-        let name = json["name"].stringValue
+        let name = json["name"].stringValue + "       $" + json["cost"].stringValue
+        
         let restrictions: [String] = json["food_type"].arrayValue.map {$0.stringValue}
         
         var type: MealType
