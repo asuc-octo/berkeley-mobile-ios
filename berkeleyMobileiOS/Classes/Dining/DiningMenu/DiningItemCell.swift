@@ -18,6 +18,13 @@ class DiningItemCell: UITableViewCell, RequiresData, ToggleButtonDelegate
     @IBOutlet private weak var nameLabel: UILabel!
     @IBOutlet private weak var favoriteButton: UIButton!
     
+    @IBOutlet weak var dietImageView1: UIImageView!
+    @IBOutlet weak var dietImageView2: UIImageView!
+    @IBOutlet weak var dietImageView3: UIImageView!
+    @IBOutlet weak var dietImageView4: UIImageView!
+    @IBOutlet weak var dietImageView5: UIImageView!
+    @IBOutlet weak var dietImageView6: UIImageView!
+    @IBOutlet weak var dietImageView7: UIImageView!
     
     // ========================================
     // MARK: - RequiresData
@@ -30,7 +37,95 @@ class DiningItemCell: UITableViewCell, RequiresData, ToggleButtonDelegate
         self.item = item
         nameLabel.text = item.name
         favoriteButton.isSelected = item.isFavorited
+        
+        let restrictions = item.restrictions
+        
+        let screenWidth = UIScreen.main.bounds.width
+        
+        // word wrapping dependent on number of images
+        switch restrictions.count {
+        case 7 :
+            width = 193
+        case 6 :
+            width = 212
+        case 5 :
+            width = 231
+        case 4 :
+            width = 250
+        case 3 :
+            width = 269
+        case 2 :
+            width = 288
+        case 1 :
+            width = 306
+        default:
+            width = 313
+        }
+        
+        // programmatically set constraints for word wrapping
+        nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        let widthConstraint = NSLayoutConstraint(item: nameLabel, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: width)
+        self.contentView.addConstraint(widthConstraint)
+        
+        
+        
+        // add diet restrictions to imageviews
+        let dietImages: [UIImageView] = [dietImageView1, dietImageView2, dietImageView3, dietImageView4, dietImageView5, dietImageView5, dietImageView6]
+        if (restrictions.count > 0) {
+            
+            for index in 0...6 {
+                let dietImageView = dietImages[index]
+                
+                if (index <= restrictions.count - 1) {
+                    let r = restrictions[index]
+                    
+                    // some cases are not yet supplied by back-end
+                    switch r {
+                    case "Contains Alcohol" :
+                        dietImageView.image = UIImage(named: "ALCOHOL")
+                    case "Egg" :
+                        dietImageView.image = UIImage(named: "EGG")
+                    case "Fish" :
+                        dietImageView.image = UIImage(named: "FISH")
+                    case "Contains Gluten" :
+                        dietImageView.image = UIImage(named: "GLUTEN")
+                    case "Halal" :
+                        dietImageView.image = UIImage(named: "HALAL")
+                    case "Kosher" :
+                        dietImageView.image = UIImage(named: "KOSHER")
+                    case "Milk" :
+                        dietImageView.image = UIImage(named: "MILK")
+                    case "Peanuts" :
+                        dietImageView.image = UIImage(named: "PEANUTS")
+                    case "Contains Pork" :
+                        dietImageView.image = UIImage(named: "PORK")
+                    case "Sesame" :
+                        dietImageView.image = UIImage(named: "SESAME")
+                    case "Shellfish" :
+                        dietImageView.image = UIImage(named: "SHELLFISH")
+                    case "Soybeans" :
+                        dietImageView.image = UIImage(named: "SOYBEAN")
+                    case "Tree Nuts" :
+                        dietImageView.image = UIImage(named: "TREENUTS")
+                    case "Vegan Option" :
+                        dietImageView.image = UIImage(named: "VEGAN")
+                    case "Vegetarian Option" :
+                        dietImageView.image = UIImage(named: "VEGETARIAN")
+                    case "Wheat" :
+                        dietImageView.image = UIImage(named: "WHEAT")
+                    default:
+                        dietImageView.image = nil
+                    }
+                } else {
+                    dietImageView.image = nil
+                }
+                
+            }
+        }
+        
+        
     }
+    
     
     
     // ========================================

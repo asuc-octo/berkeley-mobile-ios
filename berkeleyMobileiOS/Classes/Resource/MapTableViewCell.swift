@@ -1,14 +1,17 @@
 //
-//  LibraryDetailTableViewCell.swift
-//  
+//  MapTableViewCell.swift
+//  berkeleyMobileiOS
 //
-//  Created by Marisa Wong on 10/26/17.
+//  Created by Akilesh on 3/12/18.
+//  Copyright © 2018 org.berkeleyMobile. All rights reserved.
 //
 
 import UIKit
+import GoogleMaps
 
-class LibraryDetailTableViewCell: UITableViewCell {
+class MapTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var campusResourceMap: GMSMapView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

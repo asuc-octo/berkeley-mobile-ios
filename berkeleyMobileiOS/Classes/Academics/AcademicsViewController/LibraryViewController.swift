@@ -31,12 +31,7 @@ class LibraryViewController: UIViewController, GMSMapViewDelegate, CLLocationMan
         
         libTableView.separatorStyle = .none
         
-        if let data = try? Data(contentsOf: library.imageURL!)
-        {
-            let image: UIImage = UIImage(data: data)!
-            libraryImage.image = image
-        }
-        
+        libraryImage.load(resource: library)
         iconImages.append(#imageLiteral(resourceName: "hours_2.0"))
         iconImages.append(#imageLiteral(resourceName: "phone_2.0"))
         iconImages.append(#imageLiteral(resourceName: "location_2.0"))
@@ -119,7 +114,7 @@ class LibraryViewController: UIViewController, GMSMapViewDelegate, CLLocationMan
         dateFormatter.timeZone = TimeZone(abbreviation: "PST")
         var trivialDayStringsORDINAL = ["", "SUN","MON","TUE","WED","THU","FRI","SAT"]
         let dow = Calendar.current.component(.weekday, from: Date())
-        let translateddow = (dow - 2 + 7) % 7
+        let translateddow = 0
         var localOpeningTime = ""
         var localClosingTime = ""
         if let t = (self.library?.weeklyOpeningTimes[translateddow]) {
@@ -135,11 +130,9 @@ class LibraryViewController: UIViewController, GMSMapViewDelegate, CLLocationMan
         if (localOpeningTime == "" && localClosingTime == "") {
         timeRange = "Closed Today"
         } else {
-        let openTime = (self.library!.weeklyOpeningTimes[translateddow])!
-        let closeTime = (self.library!.weeklyClosingTimes[translateddow])!
-        if (openTime < Date() && closeTime > Date()) {
-        status = "Open"
-        }
+            if library.isOpen {
+                status = "Open"
+            }
         }
         
         var timeInfo = status + "    " + timeRange
@@ -177,7 +170,9 @@ extension LibraryViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-        
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 55
+    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let libraryInfoCell = libTableView.dequeueReusableCell(withIdentifier: "libraryCell", for: indexPath) as! LibraryDetailCell
             

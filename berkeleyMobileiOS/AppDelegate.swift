@@ -33,25 +33,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     func presentMainViewController()
     {
-        let academic = AcademicNavigationController.fromIB()
-
-        let gym = GymNavigationController.fromIB()
-
-        var viewControllers: [UIViewController] = ResourceGroup.all.map
+        var resource_views: [UIViewController] = ResourceGroup.all.map
         {
             let resourceNav = ResourceNavigationController.fromIB()
             resourceNav.setGroup($0)
             resourceNav.childViewControllers.first!.viewDidLoad()
             return resourceNav
         }
-        viewControllers.append(academic)
-        viewControllers.append(gym)
+        var viewControllers: [UIViewController] = []
+        
         let bt = BearTransitNavigationController.fromIB()
 //        bt.childViewControllers.first!.viewDidLoad()
+        let academic = AcademicNavigationController.fromIB()
+        academic.childViewControllers.first!.viewDidLoad()
         viewControllers.append(bt)
-        let temp = viewControllers[0]
-        viewControllers[0] = viewControllers.last!
-        viewControllers[viewControllers.endIndex - 1] = temp
+        viewControllers += resource_views
+        viewControllers.append(academic)
+
         let indexViewController: UIViewController  = TabBarController(viewControllers: viewControllers, selectedIndex: 0)
         
         indexViewController.modalTransitionStyle = .crossDissolve
