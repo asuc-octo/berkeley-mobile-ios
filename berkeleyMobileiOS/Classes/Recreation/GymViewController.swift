@@ -21,7 +21,7 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
     
     var classTypes = ["ALL-AROUND", "CARDIO", "MIND/BODY", "CORE", "DANCE", "STRENGTH", "AQUA"]
     
-    
+    var daysOfWeek = [Date]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +47,8 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
         classTableView.delegate = self
         classTableView.dataSource = self
         
+        daysOfWeek = getDaysOfWeek()
+        print("sup")
         // Set up days of the week
         
         // Do any additional setup after loading the view.
@@ -137,6 +139,22 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
         return cell
     }
     
+    func getDaysOfWeek() -> [Date] {
+        var days = [Date]()
+        let start = Date().startOfWeek!
+        var dateComponent = DateComponents()
+        dateComponent.day = 1
+        let calendar = Calendar.current
+        var currDate = start
+        days.append(start)
+        for index in 1...6 {
+            var nextDate = calendar.nextDate(after: currDate, matching: DateComponents(day: 1), matchingPolicy: .nextTime)
+            days.append(nextDate!)
+            currDate = nextDate!
+        }
+        return days
+        
+    }
 
     /*
     // MARK: - Navigation
@@ -147,6 +165,19 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
         // Pass the selected object to the new view controller.
     }
     */
+}
+extension Date {
+    var startOfWeek: Date? {
+        let gregorian = Calendar(identifier: .gregorian)
+        guard let sunday = gregorian.date(from: gregorian.dateComponents([.yearForWeekOfYear, .weekOfYear], from: self)) else { return nil }
+        return gregorian.date(byAdding: .day, value: 1, to: sunday)
+    }
+    
+    var endOfWeek: Date? {
+        let gregorian = Calendar(identifier: .gregorian)
+        guard let sunday = gregorian.date(from: gregorian.dateComponents([.yearForWeekOfYear, .weekOfYear], from: self)) else { return nil }
+        return gregorian.date(byAdding: .day, value: 7, to: sunday)
+    }
 }
 
 

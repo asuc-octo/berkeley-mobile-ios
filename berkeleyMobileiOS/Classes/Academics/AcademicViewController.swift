@@ -8,6 +8,11 @@
 
 import UIKit
 
+fileprivate let kColorRed = UIColor.red
+fileprivate let kColorGray = UIColor(white: 189/255.0, alpha: 1)
+fileprivate let kColorNavy = UIColor(red: 0, green: 51/255.0, blue: 102/255.0, alpha: 1)
+fileprivate let kColorGreen = UIColor(red: 16/255.0, green: 161/255.0, blue: 0, alpha:1)
+
 class AcademicViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var banner: UIImageView!
@@ -52,14 +57,6 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        banner.backgroundColor = UIColor(red: 23/255.0, green: 85/255.0, blue: 122/255.0, alpha: 1)
-        
-
-        
-        libButton.titleLabel?.textColor = UIColor(hex: "005581")
-        resourceButton.titleLabel?.textColor = UIColor(hex: "005581")
-        resourceButton.alpha = 0.5
-        
         Library.dataSource?.fetchResources
             { list in
                 
@@ -70,10 +67,12 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
                 }
                 
                 self.libraries = nonEmptyList as! [Library]
-                if (self.already_loaded != true) {
-                    self.already_loaded = true
-                    DispatchQueue.main.async { self.resourceTableView.reloadData() }
+//                if (self.already_loaded != true) {
+//                    self.already_loaded = true
+                if let t = self.resourceTableView {
+                    t.reloadData()
                 }
+//                }
 
         }
         
@@ -87,20 +86,33 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
                 }
                 
                 self.campusResources = nonEmptyList as! [CampusResource]
-                if (self.already_loaded != true) {
-                    self.already_loaded = true
-                    DispatchQueue.main.async { self.resourceTableView.reloadData() }
+//                if (self.already_loaded != true) {
+//                    self.already_loaded = true
+                if let t = self.resourceTableView {
+                    t.reloadData()
                 }
+//                }
                 
         }
 
+
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        libButton.titleLabel?.textColor = UIColor(hex: "005581")
+        resourceButton.titleLabel?.textColor = UIColor(hex: "005581")
+        if isLibrary {
+            resourceButton.alpha = 0.5
+        } else {
+            libButton.alpha = 0.5
+        }
+    }
+    override func viewDidAppear(_ animated: Bool) {
         self.resourceTableView.delegate = self
         self.resourceTableView.dataSource = self
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
         resourceTableView.reloadData()
-        
+        //banner.backgroundColor = UIColor(hex: "1A5679")
+        banner.backgroundColor = UIColor(red: 0, green: 51/255.0, blue: 102/255.0, alpha: 1)
+
         
     }
     
@@ -115,43 +127,62 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = resourceTableView.dequeueReusableCell(withIdentifier: "resource") as! ResourceTableViewCell
         
         if (isLibrary == true) {
+            let cell = resourceTableView.dequeueReusableCell(withIdentifier: "resource") as! ResourceTableViewCell
             // Populate cells with library information
             let library = libraries[indexPath.row]
             cell.resourceName.text = library.name
-            
-            if let data = try? Data(contentsOf: library.imageURL!)
-            {
-                let image: UIImage = UIImage(data: data)!
-                cell.resourceImage.image = image
-            }
+            cell.resourceImage.load(resource: library)
             
 
-            let status = getLibraryStatus(library: library)
+            var status = "OPEN"
+            if library.isOpen == false {
+                status = "CLOSED"
+            }
             cell.resourceStatus.text = status
-            if (status == "Open") {
-                cell.resourceStatus.textColor = UIColor.green
+
+            if (status == "OPEN") {
+                cell.resourceStatus.textColor = UIColor(hex: "18A408")
             } else {
-                cell.resourceStatus.textColor = UIColor.red
+                cell.resourceStatus.textColor = UIColor(hex: "FF2828")
             }
             
             let hours = getLibraryHours(library: library)
             cell.resourceHours.text = hours
+            cell.resourceHours.textColor = UIColor(hex: "585858")
+            
+            var splitStr = hours.components(separatedBy: " to ")
+            if (splitStr.count == 2) {
+                if (splitStr[0] == splitStr[1]) {
+                    cell.resourceStatus.textColor = UIColor(hex: "18A408")
+                    cell.resourceStatus.text = "OPEN"
+                    cell.resourceStatus.textColor = UIColor(hex:"18A408")
+                }
+            }
+            
+            return cell
         } else {
+            let cell = resourceTableView.dequeueReusableCell(withIdentifier: "campus_resource") as! CampusResourceTableViewCell
+
             // Populate cells with campus resource information
             let resource = campusResources[indexPath.row]
-            cell.resourceName.text = resource.name
+            cell.main_image.load(resource: resource)
+            cell.resource_name.text = resource.name
+            cell.category_name.text = resource.category
             
-            cell.resourceHours.text = resource.hours
+//            cell.resourceHours.text = resource.hours
+            return cell
         }
-    
-        return cell
     
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 61
+        if (isLibrary == true) {
+            return 80
+        } else {
+            return UITableViewAutomaticDimension
+        }
+//        return 80
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (isLibrary == true) {
@@ -198,7 +229,7 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
         dateFormatter.timeZone = TimeZone(abbreviation: "PST")
         var trivialDayStringsORDINAL = ["", "SUN","MON","TUE","WED","THU","FRI","SAT"]
         let dow = Calendar.current.component(.weekday, from: Date())
-        let translateddow = (dow - 2 + 7) % 7
+        let translateddow = 0
         var localOpeningTime = ""
         var localClosingTime = ""
         if let t = (library.weeklyOpeningTimes[translateddow]) {
@@ -214,9 +245,7 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
         if (localOpeningTime == "" && localClosingTime == "") {
             timeRange = "Closed Today"
         } else {
-            let openTime = (library.weeklyOpeningTimes[translateddow])!
-            let closeTime = (library.weeklyClosingTimes[translateddow])!
-            if (openTime < Date() && closeTime > Date()) {
+            if library.isOpen {
                 status = "Open"
             }
         }
