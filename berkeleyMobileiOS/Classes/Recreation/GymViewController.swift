@@ -10,33 +10,54 @@ import UIKit
 
 class GymViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
     
-
+    @IBOutlet weak var gymCollectionView: UICollectionView!
+    
     @IBOutlet weak var weekCollectionView: UICollectionView!
     
     @IBOutlet weak var classTypesCollectionView: UICollectionView!
     
     @IBOutlet weak var classTableView: UITableView!
     
+    var currentDate = Date()
+    
+    var gyms = [Gym]()
+    
     var gymClasses = [GymClass]() 
     
     var classTypes = ["ALL-AROUND", "CARDIO", "MIND/BODY", "CORE", "DANCE", "STRENGTH", "AQUA"]
     
+    var dayNames = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"]
     var daysOfWeek = [Date]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Set up gym classes
-        GymClassDataSource.fetchResources
+        GymClass.dataSource?.fetchResources
             { list in
+                //                DispatchQueue.main.async { self.activityIndicator.stopAnimating() }
                 guard let nonEmptyList = list else
                 {
                     // Error
-                    return print("no didnt work")
+                    return print()
+                }
+                self.gyms = nonEmptyList as! [Gym]
+        }
+        
+        // Set up gym classes
+        GymClass.dataSource?.fetchResources
+            { list in
+//                DispatchQueue.main.async { self.activityIndicator.stopAnimating() }
+                guard let nonEmptyList = list else
+                {
+                    // Error
+                    return print()
                 }
                 self.gymClasses = nonEmptyList as! [GymClass]
         }
         print(gymClasses.count)
+        
+        gymCollectionView.delegate = self
+        gymCollectionView.dataSource = self
         
         weekCollectionView.delegate = self
         weekCollectionView.dataSource = self
@@ -48,8 +69,6 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
         classTableView.dataSource = self
         
         daysOfWeek = getDaysOfWeek()
-        print("sup")
-        // Set up days of the week
         
         // Do any additional setup after loading the view.
     }
@@ -60,15 +79,51 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 7
+        if collectionView == self.weekCollectionView {
+            return 7
+        } else if collectionView == self.classTypesCollectionView {
+//            return self.gymClasses.count
+            return 7 
+        } else if collectionView == self.gymCollectionView {
+            return self.gyms.count
+        } else {
+            return 0
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == self.weekCollectionView {
             let weekCell = collectionView.dequeueReusableCell(withReuseIdentifier: "weekCell", for: indexPath) as! DayCollectionViewCell
-            weekCell.day.text = "day of the week"
-            weekCell.date.text = "date"
+            
+            weekCell.day.text = dayNames[indexPath.row]
+            weekCell.day.textAlignment = .center
+            let currDate = daysOfWeek[indexPath.row]
+            let calendar = Calendar.current
+            let date = calendar.component(.day, from: currDate)
+            weekCell.date.text = String(date)
+            weekCell.date.textAlignment = .center
+            
+            if (calendar.component(.day, from: currDate) == calendar.component(.day, from: currentDate)) {
+                print("I AM THE SAME")
+                weekCell.date.font = UIFont.boldSystemFont(ofSize: 20.0)
+                weekCell.day.font = UIFont.boldSystemFont(ofSize: 15.0)
+            }
             return weekCell
+//        } else if collectionView == self.classTypesCollectionView {
+//            let gymCell = collectionView.dequeueReusableCell(withReuseIdentifier: "gymCollectionCell", for: indexPath) as! GymCollectionViewCell
+//            let gym = self.gyms[indexPath.row]
+//            gymCell.gymName.text = gym.name
+//            if (gym.isOpen) {
+//                gymCell.gymStatus.text = "OPEN"
+//            } else {
+//                gymCell.gymStatus.text = "CLOSED"
+//            }
+//            let gymImage = gym.image
+//            gymCell.gymImage.image = gymImage
+//
+//            return gymCell
+//
+            
         } else {
             let classTypeCell = collectionView.dequeueReusableCell(withReuseIdentifier: "classTypeCell", for: indexPath) as! GymClassTypeCollectionViewCell
             let type = classTypes[indexPath.row]
@@ -95,8 +150,8 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
             classTypeCell.classType.setTitle(type, for: .normal)
             classTypeCell.classType.backgroundColor = UIColor(hex: color)
             classTypeCell.classType.titleLabel?.numberOfLines = 0
-            classTypeCell.classType.width = labelSize(text: type, fontSize: 12, maxWidth: 1000, numberOfLines: 0).width
-            classTypeCell.classType.cornerRadius = 8
+//            classTypeCell.classType.width = labelSize(text: type, fontSize: 12, maxWidth: 1000, numberOfLines: 0).width
+            classTypeCell.classType.cornerRadius = 15
             return classTypeCell
         }
     }
@@ -148,7 +203,7 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
         var currDate = start
         days.append(start)
         for index in 1...6 {
-            var nextDate = calendar.nextDate(after: currDate, matching: DateComponents(day: 1), matchingPolicy: .nextTime)
+            var nextDate = calendar.date(byAdding: .day, value: 1, to: currDate)
             days.append(nextDate!)
             currDate = nextDate!
         }
@@ -165,12 +220,19 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
         // Pass the selected object to the new view controller.
     }
     */
+    
+    @IBAction func unwindToGym(segue: UIStoryboardSegue) {
+    }
+    
+    
+    
 }
 extension Date {
     var startOfWeek: Date? {
         let gregorian = Calendar(identifier: .gregorian)
         guard let sunday = gregorian.date(from: gregorian.dateComponents([.yearForWeekOfYear, .weekOfYear], from: self)) else { return nil }
-        return gregorian.date(byAdding: .day, value: 1, to: sunday)
+        
+        return gregorian.date(byAdding: .day, value: 0, to: sunday)
     }
     
     var endOfWeek: Date? {
