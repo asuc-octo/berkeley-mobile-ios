@@ -936,10 +936,8 @@
         </scene>
     </scenes>
     <resources>
-<<<<<<< HEAD
-=======
+
         <image name="bearsmallmed" width="36" height="19"/>
->>>>>>> bc82fc3fcbc0ccd347610576af8ae2f7c0a5cf4c
         <image name="ic_arrow_back_white" width="24" height="24"/>
     </resources>
 </document>
