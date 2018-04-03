@@ -11,6 +11,8 @@ import UIKit
 class RouteDetailsTableViewCell: UITableViewCell {
 
     @IBOutlet weak var stopName: UILabel!
+    
+    @IBOutlet weak var timeLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
