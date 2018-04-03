@@ -12,9 +12,9 @@ import UIKit
 class RouteTitleTableViewCell: UITableViewCell {
 
     @IBOutlet weak var busLabel: UILabel!
-    @IBOutlet weak var startLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     
+    @IBOutlet weak var arrow: UIImageView!
     @IBOutlet weak var bus1: UIImageView!
     @IBOutlet weak var bus2: UIImageView!
     @IBOutlet weak var busStartNum: UILabel!
