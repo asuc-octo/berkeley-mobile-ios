@@ -14,6 +14,9 @@ import DropDown
 import Alamofire
 import SwiftyJSON
 import Firebase
+import KCFloatingActionButton
+import MapKit
+import ExpandingMenu
 //import Crashlytics
 extension UIView {
     func applyGradient(colours: [UIColor]) -> Void {
@@ -31,13 +34,69 @@ extension UIView {
         self.layer.insertSublayer(gradient, at: 0)
     }
 }
-class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFieldDelegate,UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+
+extension FABMenuController {
+    override convenience init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        self.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+}
+
+class LocationMarkersData {
+    var category = ""
+    var lat = ""
+    var lon = ""
+    var building = ""
+    var floor = ""
+    var imageUrl = ""
+    init() {
+    }
+    
+    func setCategory(text: String) {
+        category = text
+    }
+    
+    func setLatitude(text: String) {
+        lat = text
+    }
+    
+    func setLongitude(text: String) {
+        lon = text
+    }
+    
+    func setBuilding(text: String) {
+        building = text
+    }
+    
+    func setFloor(text: String) {
+        floor = text
+    }
+    
+    func setImage(text: String) {
+        imageUrl = text
+    }
+    
+    
+}
+
+
+class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFieldDelegate,UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout  {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: self.view.width, height: 115)
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return nearestBuses.count
     }
+    
+//    init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+//        //super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+//        //super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+//
+//        super.init(rootViewController: self)
+//    }
+    
+//    required init?(coder aDecoder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "nearestBusCell", for: indexPath) as! nearBusCollectionCell
@@ -46,20 +105,20 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
         let tosetmins: [UILabel] = [cell.min1, cell.min2, cell.min3]
         let timesList = nearestB.timeLeft
         for i in 0...2 {
-//            if nearestB.busName == "No Buses Available" {
-////                toset[i].isHidden = true
-////                tosetmins[i].isHidden = true
-//            } else {
-                if timesList.count > i {
-                    toset[i].text = timesList[i].components(separatedBy: ":")[0]
-                } else {
-                    toset[i].text = "--"
-                }
-
+            //            if nearestB.busName == "No Buses Available" {
+            ////                toset[i].isHidden = true
+            ////                tosetmins[i].isHidden = true
+            //            } else {
+            if timesList.count > i {
+                toset[i].text = timesList[i].components(separatedBy: ":")[0]
+            } else {
+                toset[i].text = "--"
+            }
+            
         }
         cell.busName.text = nearestB.busName
         cell.busDescriptor.text = nearestB.directionTitle
-
+        
         return cell
     }
     
@@ -70,7 +129,7 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
     var routes: [Route] = []
     var manager:CLLocationManager!
     var myLocations: [CLLocation] = []
-//    @IBOutlet var busesNotAvailable: UILabel!
+    //    @IBOutlet var busesNotAvailable: UILabel!
     @IBOutlet weak var routesTable: UITableView!
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var startField: UITextField!
@@ -88,7 +147,7 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
     var pressed: Bool = true
     let defaultCoord: [Double] = [37.871853, -122.258423]
     var nearestBuses: [nearestBus] = []
-//    @IBOutlet var nearestBusesTable: UITableView!
+    //    @IBOutlet var nearestBusesTable: UITableView!
     weak var activityIndicatorView: UIActivityIndicatorView!
     var startLat: [Double] = [37.871853, -122.258423]
     var stopLat: [Double] = [37.871853, -122.258423]
@@ -96,13 +155,25 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
     var polylines:[GMSPolyline] = []
     var whitedIcons:[GMSMarker] = []
     
+    
+    // FabController Instances Begin
+//    fileprivate let fabMenuSize = CGSize(width: 56, height: 56)
+//    fileprivate let bottomInset: CGFloat = 24
+//    fileprivate let rightInset: CGFloat = 24
+//
+//    fileprivate var fabButton: FABButton!
+//    fileprivate var notesFABMenuItem: FABMenuItem!
+//    fileprivate var remindersFABMenuItem: FABMenuItem!
+    // FabController Instances End
+    
+    
     @IBOutlet weak var noRoutesFound: UIView!
     @IBOutlet weak var alertImage: UIImageView!
     @IBAction func toggleStops(_ sender: Any) {
         self.routesTable.isHidden = true
-//        self.nearestBusesTable.isHidden = true
+        //        self.nearestBusesTable.isHidden = true
         if pressed {
-             turnStopsOFF()
+            turnStopsOFF()
         } else {
             zoomToCurrentLocation()
             turnStopsON()
@@ -114,23 +185,35 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
         }
         self.mapView.clear()
         let backgroundQueue = DispatchQueue(label: "com.app.queue", qos: .background)
-//        backgroundQueue.async {
-            self.populateMapWithStops()
-//        }
+        //        backgroundQueue.async {
+        self.populateMapWithStops()
+        //        }
         pressed = true
         stopTimeButton.applyGradient(colours: [darkBlue, lightBlue])
         stopTimeButton.setTitleColor(UIColor.white, for: .normal)
-
-//        stopTimeButton.setTitleColor(UIColor.init(red: 0/255, green: 85/255, blue: 129/255, alpha: 1), for: .normal)
-//        stopTimeButton.borderColor = UIColor.init(red: 0/255, green: 85/255, blue: 129/255, alpha: 1)
+        
+        //        stopTimeButton.setTitleColor(UIColor.init(red: 0/255, green: 85/255, blue: 129/255, alpha: 1), for: .normal)
+        //        stopTimeButton.borderColor = UIColor.init(red: 0/255, green: 85/255, blue: 129/255, alpha: 1)
     }
+    
+//    open override func prepare() {
+//        super.prepare()
+//        view.backgroundColor = .white
+//
+//        prepareFABButton()
+//        prepareNotesFABMenuItem()
+//        prepareRemindersFABMenuItem()
+//        prepareFABMenu()
+//    }
+    
+    
     func turnStopsOFF() {
         self.mapView.clear()
         pressed = false
         self.nearestBusCollection.isHidden = true
-//        stopTimeButton.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
-//        stopTimeButton.setTitleColor(darkBlue, for: .normal)
-    
+        //        stopTimeButton.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
+        //        stopTimeButton.setTitleColor(darkBlue, for: .normal)
+        
     }
     func zoomToCurrentLocation() {
         if let coord = manager.location?.coordinate {
@@ -144,7 +227,7 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
         let camera = GMSCameraPosition.camera(withLatitude: 37.871853, longitude: -122.258423, zoom: 15)
         self.mapView.camera = camera
         self.mapView.isMyLocationEnabled = true
-//        mapView.settings.myLocationButton = true
+        //        mapView.settings.myLocationButton = true
     }
     override func viewDidAppear(_ animated: Bool) {
         if (startField.text == "Current Location") {
@@ -152,16 +235,16 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
                 startLat = [coord.latitude, coord.longitude]
             }
         }
-//        Crashlytics.sharedInstance().crash()
+        //        Crashlytics.sharedInstance().crash()
         Analytics.logEvent("opened_transit_screen", parameters: nil)
         
-//        zoomToCurrentLocation()
-
+        //        zoomToCurrentLocation()
+        
     }
     
     func setupStartDestFields() {
-//        self.makeMaterialShadow(withView: startField)
-//        self.makeMaterialShadow(withView: destinationField)
+        //        self.makeMaterialShadow(withView: startField)
+        //        self.makeMaterialShadow(withView: destinationField)
         self.makeMaterialShadow(withView: destView)
         self.makeMaterialShadow(withView: stopTimeButton)
         self.makeMaterialShadow(withView: goButton)
@@ -187,15 +270,149 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
         timeFormatter.dateFormat = "h:mm a"
         serverToLocalFormatter.locale = Locale.init(identifier: "en_US_POSIX")
     }
+    
+    var dict: [String : [[String : Any]]] = [String : [[String : Any]]]()
+    var microwaVeCoordinates = [LocationMarkersData]()
+    var waterFountainCoordinates = [LocationMarkersData]()
+    var napPodsCoordinates = [LocationMarkersData]()
+    
+    func getCoordinates() {
+        dict = [
+            "Microwave": [
+                [
+                    "category": "microwave",
+                    "lat": "37.871074",
+                    "lon": "-122.26137",
+                    "description1": "mlk",
+                    "description2": "floor2",
+                    "image_link": "https://upload.wikimedia.org//wikipedia//commons//thumb//8//85//Consumer_Reports_-_Kenmore_microwave_oven.tif//lossy-page1-1200px-Consumer_Reports_-_Kenmore_microwave_oven.tif.jpg"
+                ], [
+                    "category": "microwave",
+                    "lat": "37.871074",
+                    "lon": "-122.26137",
+                    "description1": "li ka shing",
+                    "description2": "floor2",
+                    "image_link": "https://upload.wikimedia.org//wikipedia//commons//thumb//8//85//Consumer_Reports_-_Kenmore_microwave_oven.tif//lossy-page1-1200px-Consumer_Reports_-_Kenmore_microwave_oven.tif.jpg"
+                ],
+                   [
+                    "category": "microwave",
+                    "lat": "37.871074",
+                    "lon": "-122.261267",
+                    "description1": "li ka shing",
+                    "description2": "floor2",
+                    "image_link": "https://upload.wikimedia.org//wikipedia//commons//thumb//8//85//Consumer_Reports_-_Kenmore_microwave_oven.tif//lossy-page1-1200px-Consumer_Reports_-_Kenmore_microwave_oven.tif.jpg"
+                ]
+            ],
+            "Water Fountain": [
+                [
+                    "category": "Water Fountain",
+                    "lat": "37.871024",
+                    "lon": "-122.259524",
+                    "description1": "Sather Gate",
+                    "description2": "Under the Bridge",
+                    "image_link": "https://upload.wikimedia.org//wikipedia//commons//thumb//8//85//Consumer_Reports_-_Kenmore_microwave_oven.tif//lossy-page1-1200px-Consumer_Reports_-_Kenmore_microwave_oven.tif.jpg"
+                ],
+                [
+                    "category": "Water Fountain",
+                    "lat": "37.871024",
+                    "lon": "-122.989524",
+                    "description1": "Unit 3",
+                    "description2": "Under the Bridge",
+                    "image_link": "https://upload.wikimedia.org//wikipedia//commons//thumb//8//85//Consumer_Reports_-_Kenmore_microwave_oven.tif//lossy-page1-1200px-Consumer_Reports_-_Kenmore_microwave_oven.tif.jpg"
+                ],
+                [
+                    "category": "Water Fountain",
+                    "lat": "37.991024",
+                    "lon": "-122.989524",
+                    "description1": "Clark Kerr",
+                    "description2": "Under the Bridge",
+                    "image_link": "https://upload.wikimedia.org//wikipedia//commons//thumb//8//85//Consumer_Reports_-_Kenmore_microwave_oven.tif//lossy-page1-1200px-Consumer_Reports_-_Kenmore_microwave_oven.tif.jpg"
+                ]
+            ],
+            "Nap Pods": [
+                [
+                    "category": "Nap Pod",
+                    "lat": "37.971024",
+                    "lon": "-122.259524",
+                    "description1": "North Gate",
+                    "description2": "Under the Bridge",
+                    "image_link": "https://upload.wikimedia.org//wikipedia//commons//thumb//8//85//Consumer_Reports_-_Kenmore_microwave_oven.tif//lossy-page1-1200px-Consumer_Reports_-_Kenmore_microwave_oven.tif.jpg"
+                ],
+                [
+                    "category": "Nap Pod",
+                    "lat": "37.9981024",
+                    "lon": "-122.259524",
+                    "description1": "South Gate",
+                    "description2": "Under the Bridge",
+                    "image_link": "https://upload.wikimedia.org//wikipedia//commons//thumb//8//85//Consumer_Reports_-_Kenmore_microwave_oven.tif//lossy-page1-1200px-Consumer_Reports_-_Kenmore_microwave_oven.tif.jpg"
+                ],
+                [
+                    "category": "Nap Pod",
+                    "lat": "37.9981024",
+                    "lon": "-122.309524",
+                    "description1": "GBC",
+                    "description2": "Under the Bridge",
+                    "image_link": "https://upload.wikimedia.org//wikipedia//commons//thumb//8//85//Consumer_Reports_-_Kenmore_microwave_oven.tif//lossy-page1-1200px-Consumer_Reports_-_Kenmore_microwave_oven.tif.jpg"
+                ]
+            ]
+        ]
+        
+        //WaterFountain Coordinates
+        let waterData = dict["Water Fountain"]!
+        for loc in waterData {
+            let finalData = loc as! [String: String]
+            let location = LocationMarkersData()
+            location.setFloor(text: finalData["description2"]!)
+            location.setCategory(text: finalData["category"]!)
+            location.setLatitude(text: finalData["lat"]!)
+            location.setLongitude(text: finalData["lon"]!)
+            location.setBuilding(text: finalData["description1"]!)
+            location.setImage(text: finalData["image_link"]!)
+            self.waterFountainCoordinates.append(location)
+        }
+        //Microwave Coordinates
+        let microData = dict["Microwave"]!
+        for loc in microData {
+            let finalData = loc as! [String: String]
+            let location = LocationMarkersData()
+            location.setFloor(text: finalData["description2"]!)
+            location.setCategory(text: finalData["category"]!)
+            location.setLatitude(text: finalData["lat"]!)
+            location.setLongitude(text: finalData["lon"]!)
+            location.setBuilding(text: finalData["description1"]!)
+            location.setImage(text: finalData["image_link"]!)
+            self.microwaVeCoordinates.append(location)
+        }
+        
+        let napData = dict["Nap Pods"]!
+        for loc in napData {
+            let finalData = loc as! [String: String]
+            let location = LocationMarkersData()
+            location.setFloor(text: finalData["description2"]!)
+            location.setCategory(text: finalData["category"]!)
+            location.setLatitude(text: finalData["lat"]!)
+            location.setLongitude(text: finalData["lon"]!)
+            location.setBuilding(text: finalData["description1"]!)
+            location.setImage(text: finalData["image_link"]!)
+            self.napPodsCoordinates.append(location)
+        }
+    }
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        getCoordinates()
+        
+        
+        
         self.mapView.delegate = self
-//        busesNotAvailable.isHidden = true
+        //        busesNotAvailable.isHidden = true
         self.routesTable.isHidden = true
-//        nearestBusesTable.isHidden = true
+        //        nearestBusesTable.isHidden = true
         nearestBusCollection.isHidden = true
-         setupMap()
-//        populateMapWithStops()
+        setupMap()
+        //        populateMapWithStops()
         setupStartDestFields()
         makeMaterialShadow(withView: routesTable)
         setupLocationManager()
@@ -207,19 +424,147 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
         self.goButton.layer.cornerRadius = 5.0
         block1.layer.cornerRadius = 0.5*block1.frame.width
         block2.layer.cornerRadius = 0.5*block2.frame.width
-//        stopTimeButton.titleLabel?.textColor = UIColor.white
+        //        stopTimeButton.titleLabel?.textColor = UIColor.white
         stopTimeButton.setTitleColor(UIColor.white, for: .normal)
         stopTimeButton.isHidden = true
         nearestBusCollection.delegate = self
         nearestBusCollection.dataSource = self
         goButton.setTitle("Go", for: .normal)
         zoomToLoc()
-        alertImage.image = #imageLiteral(resourceName: "alert").withRenderingMode(.alwaysTemplate).tint(with: .white)
-//        alertImage.image?.tint(with: .white)
+        alertImage.image =  #imageLiteral(resourceName: "alert").withRenderingMode(.alwaysTemplate).tint(with: .white)
+        //        alertImage.image?.tint(with: .white)
         noRoutesFound.isHidden = true
         makeMaterialShadow(withView: noRoutesFound)
         Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateLiveBuses), userInfo: nil, repeats: true)
-}
+        
+        
+        //Round Menu Setup
+        //let fab = KCFloatingActionButton()
+        let menuButtonSize: CGSize = CGSize(width: 60.0, height: 60.0)
+        //let smallerMenu: CGSize = CGSize(width: 5.0, height: 5.0)
+        let menuButton = ExpandingMenuButton(frame: CGRect(origin: CGPoint.zero, size: menuButtonSize), centerImage:  #imageLiteral(resourceName: "white_eye"), centerHighlightedImage: #imageLiteral(resourceName: "white_eye"))
+        //
+        menuButton.center = CGPoint(x: self.view.bounds.width - 32.0, y: self.view.bounds.height - 90.0)
+        menuButton.menuItemMargin = 10
+        menuButton.allowSounds = false
+        view.addSubview(menuButton)
+        
+        let item1 = ExpandingMenuItem(size: menuButtonSize, title: "", image: #imageLiteral(resourceName: "water_fountains"), highlightedImage: #imageLiteral(resourceName: "water_fountains"), backgroundImage: #imageLiteral(resourceName: "water_fountains"), backgroundHighlightedImage: #imageLiteral(resourceName: "water_fountains")) { () -> Void in
+            self.chosenMarkers.removeAll()
+            self.getCoordinates()
+            for coordinate in self.waterFountainCoordinates {
+                let latitude =  Double(coordinate.lat) //{
+                let longitude =  Double(coordinate.lon) //{
+                let location = CLLocation(latitude: latitude!, longitude: longitude!)
+                let marker = GMSMarker(position: location.coordinate)
+                //annotation.image = "greekicon"
+                //let centerCoordinate =
+                //marker. = centerCoordinate
+                marker.map = self.mapView
+                marker.title = coordinate.building
+                marker.icon = self.imageWithImage(image: #imageLiteral(resourceName: "water_fountains"), scaledToSize: CGSize(width: 50.0, height: 50.0))
+                //marker.iconView?.sizeThatFits(CGSize(width: 5.0, height: 5.0))
+                self.chosenMarkers.append(marker)
+                //self.markers.append(contentsOf: self.chosenMarkers)
+            }
+            self.markers.append(contentsOf: self.chosenMarkers)
+        }
+        let item2 = ExpandingMenuItem(size: menuButtonSize, title: "", image: #imageLiteral(resourceName: "microwaves"), highlightedImage: #imageLiteral(resourceName: "microwaves"), backgroundImage: #imageLiteral(resourceName: "microwaves"), backgroundHighlightedImage: #imageLiteral(resourceName: "microwaves")) { () -> Void in
+            
+            self.chosenMarkers.removeAll()
+            self.getCoordinates()
+            for coordinate in self.microwaVeCoordinates {
+                let latitude =  Double(coordinate.lat) //{
+                let longitude =  Double(coordinate.lon) //{
+                let location = CLLocation(latitude: latitude!, longitude: longitude!)
+                let marker = GMSMarker(position: location.coordinate)
+                marker.map = self.mapView
+                marker.title = coordinate.building
+                
+                marker.icon = self.imageWithImage(image: #imageLiteral(resourceName: "microwaves"), scaledToSize: CGSize(width: 50.0, height: 50.0))
+                //ma0rker.iconView?.sizeThatFits(CGSize(width: 5.0, height: 5.0))
+                //marker.iconView.s
+                self.chosenMarkers.append(marker)
+            }
+            self.markers.append(contentsOf: self.chosenMarkers)
+        }
+        let item3 = ExpandingMenuItem(size: menuButtonSize, title: "", image: #imageLiteral(resourceName: "nap_pods"), highlightedImage: #imageLiteral(resourceName: "nap_pods"), backgroundImage: #imageLiteral(resourceName: "nap_pods"), backgroundHighlightedImage: #imageLiteral(resourceName: "nap_pods")) { () -> Void in
+            self.chosenMarkers.removeAll()
+            self.getCoordinates()
+            for coordinate in self.napPodsCoordinates {
+                let latitude =  Double(coordinate.lat) //{
+                let longitude =  Double(coordinate.lon) //{
+                let location = CLLocation(latitude: latitude!, longitude: longitude!)
+                let marker = GMSMarker(position: location.coordinate)
+                marker.map = self.mapView
+                marker.title = coordinate.building
+                
+                marker.icon = self.imageWithImage(image: #imageLiteral(resourceName: "microwaves"), scaledToSize: CGSize(width: 50.0, height: 50.0))
+                //ma0rker.iconView?.sizeThatFits(CGSize(width: 5.0, height: 5.0))
+                //marker.iconView.s
+                self.chosenMarkers.append(marker)
+//                self.markers.append(contentsOf: self.chosenMarkers)
+            }
+            self.markers.append(contentsOf: self.chosenMarkers)
+        }
+        
+        menuButton.addMenuItems([item1, item2, item3])
+       // self.view.addSubview(menuButton)
+//        fab.addItem(icon: UIImage(named: "water_fountains"), handler: { item in
+//
+//
+//               // }
+//            fab.close()
+//        })
+//        fab.addItem(icon: UIImage(named: "microwaves"), handler: { item in
+//
+//            fab.close()
+//        })
+//        fab.addItem(icon: UIImage(named: "nap_pods"), handler: { item in
+//
+//            fab.close()
+//        })
+//        self.view.addSubview(fab)
+    }
+    
+    func imageWithImage(image:UIImage, scaledToSize newSize:CGSize) -> UIImage{
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0);
+        image.draw(in: CGRect.init(x: 0, y: 0, width: newSize.width, height: newSize.height))
+        let newImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        return newImage
+    }
+    
+    
+    var chosenMarkers = [GMSMarker]()
+    
+    
+    func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
+        var skip = false
+        for mak in microwaVeCoordinates {
+            if mak.building == marker.title {
+                
+                let theHeight = self.view.frame.size.height //grabs the height of your view
+                
+                var nextBar = UIView()
+                
+                nextBar.backgroundColor = UIColor(red: 7/255, green: 152/255, blue: 253/255, alpha: 0.5)
+                
+                nextBar.frame = CGRect(x: 0, y: theHeight - 50 , width: self.view.frame.width, height: 50)
+                
+                self.view.addSubview(nextBar)
+                
+                skip = true
+                break
+            }
+        }
+        if !skip {
+            
+            
+        }
+    }
+    
+    
     func hideKeyBoard(sender: UITapGestureRecognizer? = nil){
         startField.endEditing(true)
         destinationField.endEditing(true)
@@ -230,9 +575,9 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
     func displayGoButtonOnCondition() {
         if (startLat != defaultCoord && stopLat != defaultCoord) {
             goButton.isHidden = false
-//            stopTimeButton.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
-//            stopTimeButton.titleLabel?.textColor = darkBlue
-
+            //            stopTimeButton.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
+            //            stopTimeButton.titleLabel?.textColor = darkBlue
+            
         }
     }
     func configureDropDown() {
@@ -248,7 +593,7 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
             self.displayGoButtonOnCondition()
         }
         dropper.backgroundColor = UIColor.white
-//        dropper.width = dropper.anchorView!.plainView.frame.width
+        //        dropper.width = dropper.anchorView!.plainView.frame.width
         self.dropDown = dropper
         
         let enddropper = DropDown()
@@ -262,7 +607,7 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
             self.stopLat = self.getLatLngForZip(address: item)
             self.displayGoButtonOnCondition()
         }
-//        enddropper.width = dropper.anchorView!.plainView.width
+        //        enddropper.width = dropper.anchorView!.plainView.width
         enddropper.backgroundColor = UIColor.white
         self.endDropDown = enddropper
     }
@@ -270,9 +615,9 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
         UIView.transition(with: view, duration: 0.2, options: .transitionCrossDissolve, animations: {() -> Void in
             self.toggleHidden(someView: self.startField)
             self.toggleHidden(someView: self.destinationField)
-
+            
         }, completion: { _ in
-           self.configureDropDown()
+            self.configureDropDown()
         })
     }
     
@@ -311,14 +656,14 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
                 p.map = nil
             }
             self.nearestBusCollection.isHidden = true
-//            self.busesNotAvailable.isHidden = true
+            //            self.busesNotAvailable.isHidden = true
             turnStopsOFF()
             polylines = []
             self.goButton.setTitle("Loading", for: .normal)
             fullRouteDataSource.fetchBuses({ (routesArray: [Route]!) in
                 self.routes = routesArray!
                 if (self.routes.count == 0) {
-//                    self.busesNotAvailable.isHidden = false
+                    //                    self.busesNotAvailable.isHidden = false
                     self.noRoutesFound.isHidden = false
                 } else {
                     self.routesTable.reloadData()
@@ -331,23 +676,23 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
                         self.drawPath(self.routes[0].stops[stopIndex], self.routes[0].stops[stopIndex + 1])
                         if stopIndex != 0 {
                             let marker4 = GMSMarker()
-                            marker4.icon = #imageLiteral(resourceName: "bluecircle").resize(toWidth: 18)
+                            marker4.icon =  #imageLiteral(resourceName: "bluecircle").resize(toWidth: 18)
                             let loc = CLLocationCoordinate2D.init(latitude: lat1, longitude: lon1)
                             marker4.position = loc
                             marker4.snippet = self.routes[0].stops[stopIndex].name
                             marker4.groundAnchor = CGPoint.init(x: 0.5, y: 0.5)
                             marker4.map = self.mapView
                         }
-
+                        
                     }
                     let lon1 = self.routes[0].stops[self.routes[0].stops.count - 1].longitude
                     let lat1 = self.routes[0].stops[self.routes[0].stops.count - 1].latitude
-//                    let marker4 = GMSMarker()
-//                    marker4.icon = #imageLiteral(resourceName: "bluecircle")
-//                    let loc2 = CLLocationCoordinate2D.init(latitude: lat1, longitude: lon1)
-//                    marker4.position = loc2
-//                    marker4.groundAnchor = CGPoint.init(x: 0.5, y: 0.5)
-//                    marker4.map = self.mapView
+                    //                    let marker4 = GMSMarker()
+                    //                    marker4.icon = #imageLiteral(resourceName: "bluecircle")
+                    //                    let loc2 = CLLocationCoordinate2D.init(latitude: lat1, longitude: lon1)
+                    //                    marker4.position = loc2
+                    //                    marker4.groundAnchor = CGPoint.init(x: 0.5, y: 0.5)
+                    //                    marker4.map = self.mapView
                     averageLatLon[0] += lat1
                     averageLatLon[1] += lon1
                     averageLatLon[0] /= Double(self.routes[0].stops.count)
@@ -359,13 +704,13 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
                     
                     let marker = GMSMarker()
                     marker.position = CLLocationCoordinate2D(latitude: self.routes[0].stops[0].latitude, longitude: self.routes[0].stops[0].longitude)
-                    marker.icon = #imageLiteral(resourceName: "blueStop").withRenderingMode(.alwaysTemplate).tint(with: Color.green.accent3)
+                    marker.icon =  #imageLiteral(resourceName: "blueStop").withRenderingMode(.alwaysTemplate).tint(with: Color.green.accent3)
                     marker.groundAnchor = CGPoint.init(x: 0.5, y: 0.5);
                     marker.map = self.mapView
                     let smarker = GMSMarker()
                     smarker.position = CLLocationCoordinate2D(latitude: self.routes[0].stops[self.routes[0].stops.count - 1].latitude, longitude: self.routes[0].stops[self.routes[0].stops.count - 1].longitude)
                     smarker.map = self.mapView
-                    smarker.icon = #imageLiteral(resourceName: "blueStop").withRenderingMode(.alwaysTemplate).tint(with: Color.red.accent3)
+                    smarker.icon =  #imageLiteral(resourceName: "blueStop").withRenderingMode(.alwaysTemplate).tint(with: Color.red.accent3)
                     self.routesTable.isHidden = false
                 }
                 self.goButton.setTitle("Done", for: .normal)
@@ -381,8 +726,8 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
             turnStopsOFF()
             self.noRoutesFound.isHidden = true
             self.nearestBusCollection.isHidden = true
-//            self.busesNotAvailable.isHidden = true
-//            goButton.isHidden = true
+            //            self.busesNotAvailable.isHidden = true
+            //            goButton.isHidden = true
             goButton.setTitle("Go", for: .normal)
             self.goButton.applyGradient(colours: [darkBlue, lightBlue])
             goButton.setTitleColor(UIColor.white, for: .normal)
@@ -391,8 +736,8 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
     }
     func drawPath(_ startStop: routeStop, _ destStop: routeStop)
     {
-//        var averageLatLon = [0.0, 0.0]
-//        var count = 0
+        //        var averageLatLon = [0.0, 0.0]
+        //        var count = 0
         let origin = "\(startStop.latitude),\(startStop.longitude)"
         let destination = "\(destStop.latitude),\(destStop.longitude)"
         
@@ -433,10 +778,10 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
                 }
             }
         }
-
-
+        
+        
     }
-
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let dest = segue.destination as! RouteViewController
         dest.selectedRoute = self.routes[selectedIndexPath]
@@ -479,7 +824,7 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
             marker.position = CLLocationCoordinate2D(latitude: latitude as! CLLocationDegrees, longitude: longitude as! CLLocationDegrees)
             marker.title = title as? String
             marker.snippet = code as? String
-            marker.icon = #imageLiteral(resourceName: "blueStop")
+            marker.icon =  #imageLiteral(resourceName: "blueStop")
             marker.isFlat = true
             marker.map = self.mapView
         }
@@ -515,16 +860,19 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
             {
                 
             } else {
-//                self.mapView.clear()
+                //                self.mapView.clear()
                 for m in self.markers {
-                    m.map = nil
+                    if m.icon != #imageLiteral(resourceName: "nap_pods") && m.icon != #imageLiteral(resourceName: "microwaves") && m.icon != #imageLiteral(resourceName: "water_fountains") {
+                         m.map = nil
+                    }
                 }
                 self.markers = []
+                self.markers.append(contentsOf: self.chosenMarkers)
                 for bus in buses! {
                     let marker = GMSMarker()
                     marker.position = CLLocationCoordinate2D(latitude: bus.latitude , longitude: bus.longitude as! CLLocationDegrees)
                     marker.title = bus.lineName
-                    marker.icon = #imageLiteral(resourceName: "bus-icon-blue")
+                    marker.icon =  #imageLiteral(resourceName: "bus-icon-blue")
                     marker.isFlat = true
                     if (marker.title != "") {
                         marker.map = self.mapView
@@ -543,17 +891,17 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
         tf.layer.shadowOpacity = 1
     }
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-//        marker.icon = #imageLiteral(resourceName: "whiteStop")
-//        for marker in whitedIcons {
-//            marker.icon = #imageLiteral(resourceName: "blueStop")
-//        }
-//        whitedIcons = []
-//        whitedIcons.append(marker)
+        //        marker.icon = #imageLiteral(resourceName: "whiteStop")
+        //        for marker in whitedIcons {
+        //            marker.icon = #imageLiteral(resourceName: "blueStop")
+        //        }
+        //        whitedIcons = []
+        //        whitedIcons.append(marker)
         return false
         if let s = marker.snippet {
             self.routesTable.isHidden = true
             let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
-//            self.nearestBusesTable.backgroundView = activityIndicatorView
+            //            self.nearestBusesTable.backgroundView = activityIndicatorView
             self.activityIndicatorView = activityIndicatorView
             self.activityIndicatorView.startAnimating()
             nearestStopsDataSource.fetchBuses({ (_ buses: [nearestBus]?) in
@@ -563,16 +911,16 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
                     var nb = nearestBus.init(directionTitle: "--", busName: "No Buses Available", timeLeft: "--")
                     self.nearestBuses = [nb]
                     self.nearestBusCollection.reloadData()
-//                    self.busesNotAvailable.isHidden = false
-//                    self.busesNotAvailable.text = "No buses servicing this stop in the near future"
+                    //                    self.busesNotAvailable.isHidden = false
+                    //                    self.busesNotAvailable.text = "No buses servicing this stop in the near future"
                     
                 } else {
                     self.nearestBusCollection.isHidden = false
                     self.nearestBuses = buses!
                     self.nearestBusCollection.reloadData()
-//                    self.nearestBusesTable.reloadData()
-//                    self.activityIndicatorView.stopAnimating()
-//                    self.nearestBusesTable.isHidden = false
+                    //                    self.nearestBusesTable.reloadData()
+                    //                    self.activityIndicatorView.stopAnimating()
+                    //                    self.nearestBusesTable.isHidden = false
                 }
                 
             }, stopCode:s)
@@ -605,7 +953,7 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
                 cell.lineName.text = route.busName
                 cell.end.text = route.stops[Routecount - 1].name
             }
-
+            
             let currentDate = serverToLocalFormatter.date(from: route.startTime)
             let endDate = serverToLocalFormatter.date(from: route.endTime)
             let timeElapsed = endDate?.timeIntervalSince(currentDate!)
@@ -626,7 +974,7 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
             cell.timesCollection.reloadData()
             return cell
         }
-
+        
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView.tag == 0 {
@@ -657,6 +1005,114 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
             }
             return [0.0000, 0.0000]
         }
-
+        
     }
 }
+
+
+extension KCFloatingActionButton {
+    func setImage(image: UIImage) {
+//        buttonImageView.removeFromSuperview()
+//        buttonImageView = UIImageView(image: buttonImage)
+//        buttonImageView.tintColor = plusColor
+//        buttonImageView.frame = CGRect(
+//            x: circleLayer.frame.origin.x + (size / 2 - buttonImageView.frame.size.width / 2),
+//            y: circleLayer.frame.origin.y + (size / 2 - buttonImageView.frame.size.height / 2),
+//            width: buttonImageView.frame.size.width,
+//            height: buttonImageView.frame.size.height
+//        )
+//        addSubview(buttonImageView)
+    }
+}
+
+//extension BearTransitViewController {
+//    fileprivate func prepareFABButton() {
+//        fabButton = FABButton(image: Icon.cm.add, tintColor: .white)
+//        fabButton.pulseColor = .white
+//        fabButton.backgroundColor = Color.red.base
+//    }
+//
+//    fileprivate func prepareNotesFABMenuItem() {
+//        notesFABMenuItem = FABMenuItem()
+//        notesFABMenuItem.title = "Audio Library"
+//        notesFABMenuItem.fabButton.image = Icon.cm.pen
+//        notesFABMenuItem.fabButton.tintColor = .white
+//        notesFABMenuItem.fabButton.pulseColor = .white
+//        notesFABMenuItem.fabButton.backgroundColor = Color.green.base
+//        notesFABMenuItem.fabButton.addTarget(self, action: #selector(handleNotesFABMenuItem(button:)), for: .touchUpInside)
+//    }
+//
+//    fileprivate func prepareRemindersFABMenuItem() {
+//        remindersFABMenuItem = FABMenuItem()
+//        remindersFABMenuItem.title = "Reminders"
+//        remindersFABMenuItem.fabButton.image = Icon.cm.bell
+//        remindersFABMenuItem.fabButton.tintColor = .white
+//        remindersFABMenuItem.fabButton.pulseColor = .white
+//        remindersFABMenuItem.fabButton.backgroundColor = Color.blue.base
+//        remindersFABMenuItem.fabButton.addTarget(self, action: #selector(handleRemindersFABMenuItem(button:)), for: .touchUpInside)
+//    }
+//
+//    fileprivate func prepareFABMenu() {
+//        fabMenu.fabButton = fabButton
+//        fabMenu.fabMenuItems = [notesFABMenuItem, remindersFABMenuItem]
+//        fabMenuBacking = .none
+//
+//        view.layout(fabMenu)
+//            .bottom(bottomInset)
+//            .right(rightInset)
+//            .size(fabMenuSize)
+//    }
+//}
+//
+//extension BearTransitViewController {
+//    @objc
+//    fileprivate func handleNotesFABMenuItem(button: UIButton) {
+//        transition(to: NotesViewController())
+//        fabMenu.close()
+//        //fabMenu.fabButton?.animate(.rotate(0))
+//    }
+//
+//    @objc
+//    fileprivate func handleRemindersFABMenuItem(button: UIButton) {
+//        transition(to: RemindersViewController())
+//        fabMenu.close()
+//        //fabMenu.fabButton?.animate(.rotate(0))
+//    }
+//}
+//
+//extension BearTransitViewController {
+//    @objc
+//    open func fabMenuWillOpen(fabMenu: FABMenu) {
+//        //fabMenu.fabButton?.animate(.rotate(45))
+//
+//        print("fabMenuWillOpen")
+//    }
+//
+//    @objc
+//    open func fabMenuDidOpen(fabMenu: FABMenu) {
+//        print("fabMenuDidOpen")
+//    }
+//
+//    @objc
+//    open func fabMenuWillClose(fabMenu: FABMenu) {
+//        //fabMenu.fabButton?.animate(.rotate(0))
+//
+//        print("fabMenuWillClose")
+//    }
+//
+//    @objc
+//    open func fabMenuDidClose(fabMenu: FABMenu) {
+//        print("fabMenuDidClose")
+//    }
+//
+//    @objc
+//    open func fabMenu(fabMenu: FABMenu, tappedAt point: CGPoint, isOutside: Bool) {
+//        print("fabMenuTappedAtPointIsOutside", point, isOutside)
+//
+//        guard isOutside else {
+//            return
+//        }
+//
+//        // Do something ...
+//    }
+//}
