@@ -26,9 +26,8 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
     var gymClasses = [GymClass]()
     var subsetClasses = [GymClass]()
     
-//    var setClasses = Set<GymClass>()
     
-    var selectedClassTypes = [String]()
+    var selectedClassTypes = ["ALL-AROUND", "CARDIO", "MIND/BODY", "CORE", "DANCE", "STRENGTH", "AQUA"]
     var selectedDays: Date!
     
     var classTypes = ["ALL-AROUND", "CARDIO", "MIND/BODY", "CORE", "DANCE", "STRENGTH", "AQUA"]
