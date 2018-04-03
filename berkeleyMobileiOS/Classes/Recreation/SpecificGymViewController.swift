@@ -27,10 +27,13 @@ class SpecificGymViewController: UIViewController, CLLocationManagerDelegate, GM
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        gymImage.load(resource: gym)
+        gymTitle.text = gym.name
+     
         iconImages.append(#imageLiteral(resourceName: "hours_2.0"))
         iconImages.append(#imageLiteral(resourceName: "phone_2.0"))
-        iconImages.append(#imageLiteral(resourceName: "website_2.0"))
         iconImages.append(#imageLiteral(resourceName: "location_2.0"))
+        iconImages.append(#imageLiteral(resourceName: "info_2.0"))
         
         gymInfo.append(getGymStatusHours())
         gymInfo.append(getGymPhoneNumber())
@@ -40,11 +43,11 @@ class SpecificGymViewController: UIViewController, CLLocationManagerDelegate, GM
         gymInfoTableview.delegate = self
         gymInfoTableview.dataSource = self
         
-        setUpMap()
+        //setUpMap()
         // Do any additional setup after loading the view.
     }
     
-    func setUpMap() {
+    func setUpMap(_ gymMap: GMSMapView) {
         //Setting up map view
         gymMap.delegate = self
         gymMap.isMyLocationEnabled = true
@@ -185,6 +188,14 @@ extension SpecificGymViewController: UITableViewDataSource, UITableViewDelegate 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        if indexPath.row == 4 {
+            let infoCell = gymInfoTableview.dequeueReusableCell(withIdentifier: "mapTable", for: indexPath) as! MapTableViewCell
+            setUpMap(infoCell.campusResourceMap)
+            return infoCell
+            //            campResInfoCell.campusResourceMap
+        }
+        
         let infoCell = gymInfoTableview.dequeueReusableCell(withIdentifier: "gymInfoCell", for: indexPath) as! GymInformationTableViewCell
         infoCell.iconImage.image = iconImages[indexPath.row]
         infoCell.iconInfo.text = gymInfo[indexPath.row]
