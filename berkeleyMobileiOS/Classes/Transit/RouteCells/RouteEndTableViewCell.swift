@@ -10,6 +10,7 @@ import UIKit
 
 class RouteEndTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var transferImage: UIImageView!
     @IBOutlet weak var stopName: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
