@@ -31,37 +31,37 @@ extension UIView {
         self.layer.insertSublayer(gradient, at: 0)
     }
 }
-class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFieldDelegate,UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: self.view.width, height: 115)
-    }
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return nearestBuses.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "nearestBusCell", for: indexPath) as! nearBusCollectionCell
-        let nearestB = nearestBuses[indexPath.row]
-        let toset: [UILabel] = [cell.shortestTime, cell.mediumTime, cell.smallTime]
-        let tosetmins: [UILabel] = [cell.min1, cell.min2, cell.min3]
-        let timesList = nearestB.timeLeft
-        for i in 0...2 {
-//            if nearestB.busName == "No Buses Available" {
-////                toset[i].isHidden = true
-////                tosetmins[i].isHidden = true
-//            } else {
-                if timesList.count > i {
-                    toset[i].text = timesList[i].components(separatedBy: ":")[0]
-                } else {
-                    toset[i].text = "--"
-                }
-
-        }
-        cell.busName.text = nearestB.busName
-        cell.busDescriptor.text = nearestB.directionTitle
-
-        return cell
-    }
+class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFieldDelegate {
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        return CGSize(width: self.view.width, height: 115)
+//    }
+//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        return nearestBuses.count
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "nearestBusCell", for: indexPath) as! nearBusCollectionCell
+//        let nearestB = nearestBuses[indexPath.row]
+//        let toset: [UILabel] = [cell.shortestTime, cell.mediumTime, cell.smallTime]
+//        let tosetmins: [UILabel] = [cell.min1, cell.min2, cell.min3]
+//        let timesList = nearestB.timeLeft
+//        for i in 0...2 {
+////            if nearestB.busName == "No Buses Available" {
+//////                toset[i].isHidden = true
+//////                tosetmins[i].isHidden = true
+////            } else {
+//                if timesList.count > i {
+//                    toset[i].text = timesList[i].components(separatedBy: ":")[0]
+//                } else {
+//                    toset[i].text = "--"
+//                }
+//
+//        }
+//        cell.busName.text = nearestB.busName
+//        cell.busDescriptor.text = nearestB.directionTitle
+//
+//        return cell
+//    }
     
     //Sets up initial tab look for this class
     @IBOutlet var stopTimeButton: UIButton!
@@ -210,8 +210,8 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
 //        stopTimeButton.titleLabel?.textColor = UIColor.white
         stopTimeButton.setTitleColor(UIColor.white, for: .normal)
         stopTimeButton.isHidden = true
-        nearestBusCollection.delegate = self
-        nearestBusCollection.dataSource = self
+//        nearestBusCollection.delegate = self
+//        nearestBusCollection.dataSource = self
         goButton.setTitle("Go", for: .normal)
         zoomToLoc()
         alertImage.image = #imageLiteral(resourceName: "alert").withRenderingMode(.alwaysTemplate).tint(with: .white)
@@ -277,6 +277,8 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
     }
     
     @IBAction func searchRoutes(_ sender: Any) {
+        
+        // check if location fields are empty
         if (self.destinationField.text == "") {
             let alertController = UIAlertController(title: "Destination Missing", message: "Please enter a valid destination.", preferredStyle: .alert)
             
@@ -303,6 +305,7 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
             }
             return
         }
+        
         //Get Array In Order Of Soonest of Bus Name, Start Time, End Time Bus Name, Full Routes with latitude and longitudes
         Analytics.logEvent("clicked_go_button", parameters: ["Route" : "Yes"])
         if self.goButton.titleLabel?.text == "Go" {
@@ -366,7 +369,9 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
                     smarker.position = CLLocationCoordinate2D(latitude: self.routes[0].stops[self.routes[0].stops.count - 1].latitude, longitude: self.routes[0].stops[self.routes[0].stops.count - 1].longitude)
                     smarker.map = self.mapView
                     smarker.icon = #imageLiteral(resourceName: "blueStop").withRenderingMode(.alwaysTemplate).tint(with: Color.red.accent3)
-                    self.routesTable.isHidden = false
+//                    self.routesTable.isHidden = false
+                    
+                    self.performSegue(withIdentifier: "routeResults", sender: self)
                 }
                 self.goButton.setTitle("Done", for: .normal)
             }, startLat: String(self.startLat[0]), startLon: String(self.startLat[1]), destLat: String(self.stopLat[0]), destLon: String(self.stopLat[1]))
@@ -389,6 +394,8 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
         }
         
     }
+    
+
     func drawPath(_ startStop: routeStop, _ destStop: routeStop)
     {
 //        var averageLatLon = [0.0, 0.0]
@@ -438,8 +445,12 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let dest = segue.destination as! RouteViewController
-        dest.selectedRoute = self.routes[selectedIndexPath]
+//        let dest = segue.destination as! RouteViewController
+//        dest.selectedRoute = self.routes[selectedIndexPath]
+        let dest = segue.destination as! RouteResultViewController
+        dest.routes = self.routes
+        dest.start = startField.text
+        dest.end = destinationField.text
         Analytics.logEvent("clicked_on_route", parameters: nil)
     }
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -559,7 +570,7 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
             nearestStopsDataSource.fetchBuses({ (_ buses: [nearestBus]?) in
                 if (buses == nil || buses?.count == 0)
                 {
-                    self.nearestBusCollection.isHidden = false
+//                    self.nearestBusCollection.isHidden = false
                     var nb = nearestBus.init(directionTitle: "--", busName: "No Buses Available", timeLeft: "--")
                     self.nearestBuses = [nb]
                     self.nearestBusCollection.reloadData()
@@ -567,7 +578,7 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
 //                    self.busesNotAvailable.text = "No buses servicing this stop in the near future"
                     
                 } else {
-                    self.nearestBusCollection.isHidden = false
+//                    self.nearestBusCollection.isHidden = false
                     self.nearestBuses = buses!
                     self.nearestBusCollection.reloadData()
 //                    self.nearestBusesTable.reloadData()
@@ -581,60 +592,60 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
         }
         return false
     }
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tableView.tag == 0 {
-            return self.routes.count
-        } else {
-            return self.nearestBuses.count
-        }
-    }
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 130
-    }
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if tableView.tag == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "routeCell", for: indexPath) as! routeCell
-            let route: Route = routes[indexPath.row]
-            let Routecount = route.stops.count
-            cell.start.text = route.stops[0].name
-            
-            if let secondBus = route.secondBusName {
-                cell.lineName.text = route.busName + " & " + secondBus
-                cell.end.text = route.secondRouteStops?.last?.name
-            } else {
-                cell.lineName.text = route.busName
-                cell.end.text = route.stops[Routecount - 1].name
-            }
-
-            let currentDate = serverToLocalFormatter.date(from: route.startTime)
-            let endDate = serverToLocalFormatter.date(from: route.endTime)
-            let timeElapsed = endDate?.timeIntervalSince(currentDate!)
-            var minutes = timeElapsed!/60
-            
-            cell.duration.text = Int(minutes.rounded()).description + " mins"
-            cell.timeTravel.text = timeFormatter.string(from: currentDate!)
-            //        cell.detailTextLabel!.text = currentBus.directionTitle
-            return cell
-        } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "NearestBusesTableViewCell") as! NearestBusesTableViewCell
-            let nearestB = nearestBuses[indexPath.row]
-            cell.busName.text = nearestB.busName
-            cell.busLabel.text = nearestB.directionTitle
-            cell.nearestBus = nearestB
-            cell.timesCollection.delegate = cell
-            cell.timesCollection.dataSource = cell
-            cell.timesCollection.reloadData()
-            return cell
-        }
-
-    }
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if tableView.tag == 0 {
-            selectedIndexPath = indexPath.row
-            performSegue(withIdentifier: "routeDetails", sender: self)
-        }
-        
-    }
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        if tableView.tag == 0 {
+//            return self.routes.count
+//        } else {
+//            return self.nearestBuses.count
+//        }
+//    }
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 130
+//    }
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        if tableView.tag == 0 {
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "routeCell", for: indexPath) as! routeCell
+//            let route: Route = routes[indexPath.row]
+//            let Routecount = route.stops.count
+//            cell.start.text = route.stops[0].name
+//
+//            if let secondBus = route.secondBusName {
+//                cell.lineName.text = route.busName + " & " + secondBus
+//                cell.end.text = route.secondRouteStops?.last?.name
+//            } else {
+//                cell.lineName.text = route.busName
+//                cell.end.text = route.stops[Routecount - 1].name
+//            }
+//
+//            let currentDate = serverToLocalFormatter.date(from: route.startTime)
+//            let endDate = serverToLocalFormatter.date(from: route.endTime)
+//            let timeElapsed = endDate?.timeIntervalSince(currentDate!)
+//            var minutes = timeElapsed!/60
+//
+//            cell.duration.text = Int(minutes.rounded()).description + " mins"
+//            cell.timeTravel.text = timeFormatter.string(from: currentDate!)
+//            //        cell.detailTextLabel!.text = currentBus.directionTitle
+//            return cell
+//        } else {
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "NearestBusesTableViewCell") as! NearestBusesTableViewCell
+//            let nearestB = nearestBuses[indexPath.row]
+//            cell.busName.text = nearestB.busName
+//            cell.busLabel.text = nearestB.directionTitle
+//            cell.nearestBus = nearestB
+//            cell.timesCollection.delegate = cell
+//            cell.timesCollection.dataSource = cell
+//            cell.timesCollection.reloadData()
+//            return cell
+//        }
+//
+//    }
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        if tableView.tag == 0 {
+//            selectedIndexPath = indexPath.row
+//            performSegue(withIdentifier: "routeDetails", sender: self)
+//        }
+//
+//    }
     func getLatLngForZip(address: String) -> [Double] {
         if address == "Current Location" {
             return [(manager.location?.coordinate.latitude)!, (manager.location?.coordinate.longitude)!]
