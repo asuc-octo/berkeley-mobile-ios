@@ -37,24 +37,34 @@ class GymClassDataSource: ResourceDataSource {
                 var totalClasses: [GymClass] = []
 
                 for (key, subJson) in JSON(data: response.data!) {
-                    let gymClass = GymClass(name: key,
-                                            class_type: key,
-                                            location: "",
-                                            trainer: "",
-                                            date: nil,
-                                            start_time: nil,
-                                            end_time: nil,
-                                            imageLink: subJson[0]["image_link"].stringValue)
-                    totalClasses.append(gymClass)
+                    for index in 1...subJson.count {
+                        let dateString = subJson[index]["date"].rawString()!
+                        let finalDate = dateString.date(format:"yyyy-MM-dd")
+                        
+                        let startDateString = subJson[index]["start_time"].rawString()!
+                        let finalStartDate = startDateString.date(format:"yyyy-MM-dd'T'HH:mm:ss'.000Z'")
+                        
+                        
+                        let endDateString = subJson[index]["end_time"].rawString()!
+                        let finalEndDate = endDateString.date(format:"yyyy-MM-dd'T'HH:mm:ss'.000Z'")
+                        
+                        
+                        let gymClass = GymClass(name: subJson[index]["name"].rawString()!,
+                                                class_type: key,
+                                                location: subJson[index]["location"].rawString()!,
+                                                trainer: subJson[index]["trainer"].rawString()!,
+                                                date: finalDate,
+                                                start_time: finalStartDate,
+                                                end_time: finalEndDate,
+                                                imageLink: subJson[index]["image_link"].stringValue)
+                        totalClasses.append(gymClass)
+                    }
+                    
                 }
                 for (_, subJson) in JSON(data: response.data!) {
                  let gymClasses = subJson.map { (_, child) in parseGymClasses(child) }
                 totalClasses.append(contentsOf: gymClasses)
                 }
-
-                
-                
-                
                 completion(totalClasses)
         }
     }
@@ -116,4 +126,17 @@ class GymClassDataSource: ResourceDataSource {
 
 
 
+}
+
+
+
+
+extension String {
+    func date(format: String) -> Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+        dateFormatter.timeZone = TimeZone.current
+        let date = dateFormatter.date(from: self)
+        return date
+    }
 }

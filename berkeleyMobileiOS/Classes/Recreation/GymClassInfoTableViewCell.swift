@@ -20,6 +20,7 @@ class GymClassInfoTableViewCell: UITableViewCell {
     
     @IBOutlet weak var gym: UILabel!
     
+    @IBOutlet weak var sidebarColor: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
