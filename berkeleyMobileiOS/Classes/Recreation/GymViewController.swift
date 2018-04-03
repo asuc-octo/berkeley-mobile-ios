@@ -145,8 +145,11 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
             gymCell.gymName.text = gym.name
             if (gym.isOpen) {
                 gymCell.gymStatus.text = "OPEN"
+                gymCell.gymStatus.textColor = UIColor(hex: "18A408")
             } else {
                 gymCell.gymStatus.text = "CLOSED"
+                gymCell.gymStatus.textColor = UIColor(hex: "FF2828")
+
             }
             gymCell.gymImage.load(resource: gym)
             return gymCell
@@ -185,25 +188,26 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
         if collectionView == self.gymCollectionView {
             selectedGym = self.gyms[indexPath.row]
             performSegue(withIdentifier: "toGym", sender: self)
-        } else if collectionView == self.weekCollectionView {
+ //       } else if collectionView == self.weekCollectionView {
             // Reload table to only show stuff for that day
-            var clickedDay = self.daysOfWeek[indexPath.row]
-            if (selectedDays != clickedDay) {
-                selectedDays = clickedDay
-                let calendar = Calendar.current
-                var tempClasses = [GymClass]()
-                for gymClass in self.gymClasses {
-                    let gymDate = gymClass.date
-                    if (gymDate != nil && calendar.component(.day, from: gymDate!) == calendar.component(.day, from: selectedDays)) {
-                        tempClasses.append(gymClass)
-                    }
-                }
-                subsetClasses = tempClasses
-            }
+//            var clickedDay = self.daysOfWeek[indexPath.row]
+//            if (selectedDays != clickedDay) {
+//                selectedDays = clickedDay
+//                let calendar = Calendar.current
+//                var tempClasses = [GymClass]()
+//                for gymClass in self.gymClasses {
+//                    let gymDate = gymClass.date
+//                    if (gymDate != nil && calendar.component(.day, from: gymDate!) == calendar.component(.day, from: selectedDays)) {
+//                        tempClasses.append(gymClass)
+//                    }
+//                }
+//                subsetClasses = tempClasses
+                // Need to update which date is bolded
+//            }
         
         } else if collectionView == self.classTypesCollectionView {
             // Reload table to only show stuff for selected class types
-            
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "classTypeCell", for: indexPath) as! GymClassTypeCollectionViewCell
             var selectedType = self.classTypes[indexPath.row]
             if (!self.selectedClassTypes.contains(selectedType)) {
                 self.selectedClassTypes.append(selectedType)
@@ -213,6 +217,7 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
                         subsetClasses.append(gymClass)
                     }
                 }
+                
             } else {
                 var tempClasses = [GymClass]()
                 for index in 0...subsetClasses.count {

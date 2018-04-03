@@ -125,6 +125,7 @@
 		555D40E72051F06300EA1E1C /* GymViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555D40E62051F06300EA1E1C /* GymViewController.swift */; };
 		555D40E92051FD3000EA1E1C /* GymNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555D40E82051FD3000EA1E1C /* GymNavigationController.swift */; };
 		55A520FA1FB92BD500C4C9E4 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A520F91FB92BD500C4C9E4 /* UIColor+Extension.swift */; };
+		55B540BA20733A4B00E07E19 /* GymMapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B540B920733A4B00E07E19 /* GymMapTableViewCell.swift */; };
 		55C44749206B273F00409499 /* GymCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C44748206B273F00409499 /* GymCollectionViewCell.swift */; };
 		55C4474B206B3EE600409499 /* SpecificGymViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C4474A206B3EE600409499 /* SpecificGymViewController.swift */; };
 		55C80BD3204E4EF300E64D05 /* CampusResourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C80BD2204E4EF300E64D05 /* CampusResourceViewController.swift */; };
@@ -265,6 +266,7 @@
 		555D40E62051F06300EA1E1C /* GymViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymViewController.swift; sourceTree = "<group>"; };
 		555D40E82051FD3000EA1E1C /* GymNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymNavigationController.swift; sourceTree = "<group>"; };
 		55A520F91FB92BD500C4C9E4 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		55B540B920733A4B00E07E19 /* GymMapTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymMapTableViewCell.swift; sourceTree = "<group>"; };
 		55C44748206B273F00409499 /* GymCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymCollectionViewCell.swift; sourceTree = "<group>"; };
 		55C4474A206B3EE600409499 /* SpecificGymViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecificGymViewController.swift; sourceTree = "<group>"; };
 		55C80BD2204E4EF300E64D05 /* CampusResourceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusResourceViewController.swift; sourceTree = "<group>"; };
@@ -428,6 +430,7 @@
 		4E505D391DD05A65004AC6C9 /* Recreation */ = {
 			isa = PBXGroup;
 			children = (
+				55B540B920733A4B00E07E19 /* GymMapTableViewCell.swift */,
 				555D40E82051FD3000EA1E1C /* GymNavigationController.swift */,
 				55B1CC662022CF3F00D5C3D3 /* RecreationViewControllers */,
 				55B1CC652022CE8800D5C3D3 /* RecreationDataSources */,
@@ -939,6 +942,7 @@
 				41A884BC201BD4DF00EE85C7 /* NetworkingConvenienceMethods.swift in Sources */,
 				4E4E7D151E5CBD8900A45586 /* ListMenuCell.swift in Sources */,
 				55EC87311FA2E70A00C71C09 /* CampusResourceDetailCell.swift in Sources */,
+				55B540BA20733A4B00E07E19 /* GymMapTableViewCell.swift in Sources */,
 				55EC87331FA2EDC800C71C09 /* CampusResourceCell.swift in Sources */,
 				B5F25D271DE8BFD50084A5C7 /* CampusResourceDataSource.swift in Sources */,
 				4E62CFE01DD7E38900B19722 /* DiningDataSource.swift in Sources */,
