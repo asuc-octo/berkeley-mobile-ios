@@ -126,6 +126,8 @@
 		55EC87331FA2EDC800C71C09 /* CampusResourceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EC87321FA2EDC800C71C09 /* CampusResourceCell.swift */; };
 		92DD7191206072BD00B73233 /* RouteTitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DD7190206072BD00B73233 /* RouteTitleTableViewCell.swift */; };
 		92DD7194206075CC00B73233 /* RouteResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DD7193206075CC00B73233 /* RouteResultViewController.swift */; };
+		94BCFD2C2072B4050021A887 /* RemindersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BCFD2B2072B4050021A887 /* RemindersViewController.swift */; };
+		94BCFD2E2072B4280021A887 /* NotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BCFD2D2072B4280021A887 /* NotesViewController.swift */; };
 		B5F25D1D1DE2A1EA0084A5C7 /* GymDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F25D1C1DE2A1EA0084A5C7 /* GymDataSource.swift */; };
 		B5F25D1F1DE2A38E0084A5C7 /* Gym.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F25D1E1DE2A38E0084A5C7 /* Gym.swift */; };
 		B5F25D211DE2B6DF0084A5C7 /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F25D201DE2B6DF0084A5C7 /* Library.swift */; };
@@ -262,6 +264,8 @@
 		7BC35364DDC70E5590C55CCF /* Pods-berkeleyMobileiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeleyMobileiOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-berkeleyMobileiOS/Pods-berkeleyMobileiOS.release.xcconfig"; sourceTree = "<group>"; };
 		92DD7190206072BD00B73233 /* RouteTitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteTitleTableViewCell.swift; sourceTree = "<group>"; };
 		92DD7193206075CC00B73233 /* RouteResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteResultViewController.swift; sourceTree = "<group>"; };
+		94BCFD2B2072B4050021A887 /* RemindersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersViewController.swift; sourceTree = "<group>"; };
+		94BCFD2D2072B4280021A887 /* NotesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewController.swift; sourceTree = "<group>"; };
 		9D72D6DF911EDC0F04EE307F /* Pods-berkeleyMobileiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeleyMobileiOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-berkeleyMobileiOS/Pods-berkeleyMobileiOS.debug.xcconfig"; sourceTree = "<group>"; };
 		B5F25D1C1DE2A1EA0084A5C7 /* GymDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GymDataSource.swift; sourceTree = "<group>"; };
 		B5F25D1E1DE2A38E0084A5C7 /* Gym.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gym.swift; sourceTree = "<group>"; };
@@ -434,6 +438,10 @@
 			isa = PBXGroup;
 			children = (
 				92DD71922060754800B73233 /* RouteCells */,
+				94BCFD2A2072B3D90021A887 /* FABMenuImports */,
+				4103E0C91FBE95B9009F2C90 /* RouteEndTableViewCell.swift */,
+				4103E0C71FBE958B009F2C90 /* RouteMidTableViewCell.swift */,
+				4103E0C51FBE83A9009F2C90 /* RouteDetailsTableViewCell.swift */,
 				41B0B57A1E8CD95D00DA9297 /* BearTransitNavigationController.swift */,
 				41B0B57B1E8CD95D00DA9297 /* BearTransitViewController.swift */,
 				92DD7193206075CC00B73233 /* RouteResultViewController.swift */,
@@ -631,6 +639,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		94BCFD2A2072B3D90021A887 /* FABMenuImports */ = {
+			isa = PBXGroup;
+			children = (
+				94BCFD2B2072B4050021A887 /* RemindersViewController.swift */,
+				94BCFD2D2072B4280021A887 /* NotesViewController.swift */,
+			);
+			path = FABMenuImports;
+			sourceTree = "<group>";
+		};
 		BADAC15CCD681293C4FD4336 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -680,7 +697,7 @@
 				TargetAttributes = {
 					41E843891DAB3FE80096C049 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 4HBETBULVA;
+						DevelopmentTeam = 9AMQKU48U7;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 					};
@@ -765,7 +782,9 @@
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlacePicker.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlaces.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -781,7 +800,9 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-berkeleyMobileiOS/Pods-berkeleyMobileiOS-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/DropDown/DropDown.framework",
+				"${BUILT_PRODUCTS_DIR}/ExpandingMenu/ExpandingMenu.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/KCFloatingActionButton/KCFloatingActionButton.framework",
 				"${BUILT_PRODUCTS_DIR}/Material/Material.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
@@ -793,7 +814,9 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DropDown.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ExpandingMenu.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KCFloatingActionButton.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Material.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
@@ -839,6 +862,7 @@
 				B5F25D2B1DF519890084A5C7 /* LoadingScreen.swift in Sources */,
 				4EC865DC1E9C275D00B51E30 /* SearchDataSource.swift in Sources */,
 				41B0B58E1E8CD95D00DA9297 /* nearestStopsDataSource.swift in Sources */,
+				94BCFD2C2072B4050021A887 /* RemindersViewController.swift in Sources */,
 				41E8438E1DAB3FE80096C049 /* AppDelegate.swift in Sources */,
 				55A520FA1FB92BD500C4C9E4 /* UIColor+Extension.swift in Sources */,
 				92DD7194206075CC00B73233 /* RouteResultViewController.swift in Sources */,
@@ -899,6 +923,7 @@
 				4ED0D35C1DDCE1C600956F9E /* DiningItemCell.swift in Sources */,
 				4ED0D35D1DDCE1C600956F9E /* DiningMenuViewController.swift in Sources */,
 				4E505D491DD05A65004AC6C9 /* ConvenienceMethods.swift in Sources */,
+				94BCFD2E2072B4280021A887 /* NotesViewController.swift in Sources */,
 				282A4EF21E63BAE400480201 /* GymClassViewController.swift in Sources */,
 				282A4EF61E63BC9000480201 /* GymClassCell.swift in Sources */,
 				4E06A05A1E5E9DE8007B946F /* ListMenuItem.swift in Sources */,
@@ -1041,7 +1066,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 4HBETBULVA;
+				DEVELOPMENT_TEAM = 9AMQKU48U7;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = berkeleyMobileiOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1068,7 +1093,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 4HBETBULVA;
+				DEVELOPMENT_TEAM = 9AMQKU48U7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
