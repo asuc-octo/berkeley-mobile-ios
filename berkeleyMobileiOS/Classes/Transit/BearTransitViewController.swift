@@ -34,6 +34,11 @@ extension UIView {
         self.layer.insertSublayer(gradient, at: 0)
     }
 }
+extension FABMenuController {
+    override convenience init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        self.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+}
 class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFieldDelegate {
 //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 //        return CGSize(width: self.view.width, height: 115)
@@ -65,11 +70,7 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
 //
 //        return cell
 //    }
-extension FABMenuController {
-    override convenience init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        self.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    }
-}
+
 
 class LocationMarkersData {
     var category = ""
