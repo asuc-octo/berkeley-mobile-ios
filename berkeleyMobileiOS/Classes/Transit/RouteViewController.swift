@@ -161,7 +161,7 @@ class RouteViewController: UIViewController, UITableViewDelegate, UITableViewDat
             stopToDisplay = (selectedRoute.secondRouteStops?[indexPath.row])!
         }
         
-        if (indexPath.row == 0) {
+//        if (indexPath.row == 0) {
             let cell = tableView.dequeueReusableCell(withIdentifier: "titleCell", for: indexPath) as! RouteTitleTableViewCell
             cell.busLabel.text = busType
             cell.timeLabel.text = duration
@@ -206,42 +206,43 @@ class RouteViewController: UIViewController, UITableViewDelegate, UITableViewDat
 //            cell.busStartNum.text = "\(bus1)"
 //            cell.busStartNum.text = "\(bus2)"
             return cell
-        } else if indexPath.row == 1 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "startCell", for: indexPath) as! RouteDetailsTableViewCell
-            cell.stopName.text = stopToDisplay.name
-            cell.timeLabel.text = time
-            return cell
-        }
-        else if ((indexPath.row == (selectedRoute?.stops.count)! - 1) && (indexPath.section == 0)) {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "endCell", for: indexPath) as! RouteEndTableViewCell
-            cell.stopName.text = stopToDisplay.name
-            if (selectedRoute.twoTrips) {
-                cell.transferImage.isHidden = false
-            } else {
-                cell.transferImage.isHidden = true
-            }
-            return cell
-        } else if (indexPath.section == 1) {
-            if (indexPath.row == 0) {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "startCell", for: indexPath) as! RouteDetailsTableViewCell
-                cell.stopName.text = stopToDisplay.name
-                cell.timeLabel.text = selectedRoute.startTime2
-                return cell
-            } else if(indexPath.row == (selectedRoute?.secondRouteStops?.count)! - 1) {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "endCell", for: indexPath) as! RouteEndTableViewCell
-                cell.stopName.text = stopToDisplay.name
-                return cell
-            } else {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "midCell", for: indexPath) as! RouteMidTableViewCell
-                cell.stopName.text = stopToDisplay.name
-                return cell
-            }
-        }
-        else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "midCell", for: indexPath) as! RouteMidTableViewCell
-            cell.stopName.text = stopToDisplay.name
-            return cell
-        }
+//        }
+//        } else if indexPath.row == 1 {
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "startCell", for: indexPath) as! RouteDetailsTableViewCell
+//            cell.stopName.text = stopToDisplay.name
+//            cell.timeLabel.text = time
+//            return cell
+//        }
+//        else if ((indexPath.row == (selectedRoute?.stops.count)! - 1) && (indexPath.section == 0)) {
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "endCell", for: indexPath) as! RouteEndTableViewCell
+//            cell.stopName.text = stopToDisplay.name
+//            if (selectedRoute.twoTrips) {
+//                cell.transferImage.isHidden = false
+//            } else {
+//                cell.transferImage.isHidden = true
+//            }
+//            return cell
+//        } else if (indexPath.section == 1) {
+//            if (indexPath.row == 0) {
+//                let cell = tableView.dequeueReusableCell(withIdentifier: "startCell", for: indexPath) as! RouteDetailsTableViewCell
+//                cell.stopName.text = stopToDisplay.name
+//                cell.timeLabel.text = selectedRoute.startTime2
+//                return cell
+//            } else if(indexPath.row == (selectedRoute?.secondRouteStops?.count)! - 1) {
+//                let cell = tableView.dequeueReusableCell(withIdentifier: "endCell", for: indexPath) as! RouteEndTableViewCell
+//                cell.stopName.text = stopToDisplay.name
+//                return cell
+//            } else {
+//                let cell = tableView.dequeueReusableCell(withIdentifier: "midCell", for: indexPath) as! RouteMidTableViewCell
+//                cell.stopName.text = stopToDisplay.name
+//                return cell
+//            }
+//        }
+//        else {
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "midCell", for: indexPath) as! RouteMidTableViewCell
+//            cell.stopName.text = stopToDisplay.name
+//            return cell
+//        }
 
 
 
