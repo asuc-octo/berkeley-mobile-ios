@@ -27,7 +27,7 @@ class livebusDataSource: NSObject {
                     var buses: [livebus] = []
                     let responseData = JSON(data:response.data!)["buses"]
                     for bus in responseData {
-                        buses.append(livebus.init(bus.1["latitude"].doubleValue, bus.1["longitude"].doubleValue,bus.1["line_name"].stringValue))
+                        buses.append(livebus.init(bus.1["latitude"].doubleValue, bus.1["longitude"].doubleValue,bus.1["line_name"].stringValue, bus.1["id"].stringValue))
                     }
                     completion(buses)
                 }
