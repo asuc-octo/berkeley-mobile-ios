@@ -186,7 +186,7 @@ class LocationMarkersData {
     var selectedIndexPath = 0
     var polylines:[GMSPolyline] = []
     var whitedIcons:[GMSMarker] = []
-    
+    var liveBusMarkers: [String: GMSMarker] = [:]
     
     // FabController Instances Begin
 //    fileprivate let fabMenuSize = CGSize(width: 56, height: 56)
@@ -482,6 +482,7 @@ class LocationMarkersData {
         view.addSubview(menuButton)
         
         let item1 = ExpandingMenuItem(size: menuButtonSize, title: "", image: #imageLiteral(resourceName: "water_fountains"), highlightedImage: #imageLiteral(resourceName: "water_fountains"), backgroundImage: #imageLiteral(resourceName: "water_fountains"), backgroundHighlightedImage: #imageLiteral(resourceName: "water_fountains")) { () -> Void in
+            self.markers.append(contentsOf: self.chosenMarkers)
             self.chosenMarkers.removeAll()
             self.getCoordinates()
             for coordinate in self.waterFountainCoordinates {
@@ -497,12 +498,11 @@ class LocationMarkersData {
                 marker.icon = self.imageWithImage(image: #imageLiteral(resourceName: "water_fountains"), scaledToSize: CGSize(width: 50.0, height: 50.0))
                 //marker.iconView?.sizeThatFits(CGSize(width: 5.0, height: 5.0))
                 self.chosenMarkers.append(marker)
-                //self.markers.append(contentsOf: self.chosenMarkers)
             }
-            self.markers.append(contentsOf: self.chosenMarkers)
+//            self.markers.append(contentsOf: self.chosenMarkers)
         }
         let item2 = ExpandingMenuItem(size: menuButtonSize, title: "", image: #imageLiteral(resourceName: "microwaves"), highlightedImage: #imageLiteral(resourceName: "microwaves"), backgroundImage: #imageLiteral(resourceName: "microwaves"), backgroundHighlightedImage: #imageLiteral(resourceName: "microwaves")) { () -> Void in
-            
+            self.markers.append(contentsOf: self.chosenMarkers)
             self.chosenMarkers.removeAll()
             self.getCoordinates()
             for coordinate in self.microwaVeCoordinates {
@@ -518,9 +518,11 @@ class LocationMarkersData {
                 //marker.iconView.s
                 self.chosenMarkers.append(marker)
             }
-            self.markers.append(contentsOf: self.chosenMarkers)
+//            self.markers.append(contentsOf: self.chosenMarkers)
         }
         let item3 = ExpandingMenuItem(size: menuButtonSize, title: "", image: #imageLiteral(resourceName: "nap_pods"), highlightedImage: #imageLiteral(resourceName: "nap_pods"), backgroundImage: #imageLiteral(resourceName: "nap_pods"), backgroundHighlightedImage: #imageLiteral(resourceName: "nap_pods")) { () -> Void in
+            
+            self.markers.append(contentsOf: self.chosenMarkers)
             self.chosenMarkers.removeAll()
             self.getCoordinates()
             for coordinate in self.napPodsCoordinates {
@@ -530,14 +532,13 @@ class LocationMarkersData {
                 let marker = GMSMarker(position: location.coordinate)
                 marker.map = self.mapView
                 marker.title = coordinate.building
-                
-                marker.icon = self.imageWithImage(image: #imageLiteral(resourceName: "microwaves"), scaledToSize: CGSize(width: 50.0, height: 50.0))
+                marker.icon = self.imageWithImage(image: #imageLiteral(resourceName: "nap_pods"), scaledToSize: CGSize(width: 50.0, height: 50.0))
                 //ma0rker.iconView?.sizeThatFits(CGSize(width: 5.0, height: 5.0))
                 //marker.iconView.s
                 self.chosenMarkers.append(marker)
 //                self.markers.append(contentsOf: self.chosenMarkers)
             }
-            self.markers.append(contentsOf: self.chosenMarkers)
+//            self.markers.append(contentsOf: self.chosenMarkers)
         }
         
         menuButton.addMenuItems([item1, item2, item3])
@@ -905,23 +906,40 @@ class LocationMarkersData {
             } else {
                 //                self.mapView.clear()
                 for m in self.markers {
-                    if m.icon != #imageLiteral(resourceName: "nap_pods") && m.icon != #imageLiteral(resourceName: "microwaves") && m.icon != #imageLiteral(resourceName: "water_fountains") {
-                         m.map = nil
-                    }
+                    m.map = nil
                 }
-                self.markers = []
-                self.markers.append(contentsOf: self.chosenMarkers)
+                self.markers.removeAll()
+                
+//                for m in self.chosenMarkers {
+//                    m.map = self.mapView
+//                }
+//                self.markers = []
+//                self.markers.append(contentsOf: self.chosenMarkers)
+                var new_buses: [String: GMSMarker] = [:]
                 for bus in buses! {
-                    let marker = GMSMarker()
-                    marker.position = CLLocationCoordinate2D(latitude: bus.latitude , longitude: bus.longitude as! CLLocationDegrees)
-                    marker.title = bus.lineName
-                    marker.icon =  #imageLiteral(resourceName: "bus-icon-blue")
-                    marker.isFlat = true
-                    if (marker.title != "") {
-                        marker.map = self.mapView
+                    if bus.lineName == "" {
+                        continue
                     }
-                    self.markers.append(marker)
+                    if self.liveBusMarkers.keys.contains(bus.id) {
+                        self.liveBusMarkers[bus.id]!.position = CLLocationCoordinate2D(latitude: bus.latitude , longitude: bus.longitude as! CLLocationDegrees)
+                        new_buses[bus.id] = self.liveBusMarkers[bus.id]!
+                    } else {
+                        let marker = GMSMarker()
+                        marker.position = CLLocationCoordinate2D(latitude: bus.latitude , longitude: bus.longitude as! CLLocationDegrees)
+                        marker.title = bus.lineName
+                        marker.icon =  #imageLiteral(resourceName: "bus-icon-blue")
+                        marker.isFlat = true
+                        marker.map = self.mapView
+                        new_buses[bus.id] = marker
+//                        self.markers.append(marker)
+                    }
                 }
+                for (key, value) in self.liveBusMarkers {
+                    if !new_buses.keys.contains(key) {
+                        value.map = nil
+                    }
+                }
+                self.liveBusMarkers = new_buses
             }
             
         })
