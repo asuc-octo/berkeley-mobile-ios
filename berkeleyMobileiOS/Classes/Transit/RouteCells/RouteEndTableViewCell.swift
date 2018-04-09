@@ -1,5 +1,5 @@
 //
-//  RouteDetailsTableViewCell.swift
+//  RouteEndTableViewCell.swift
 //  berkeleyMobileiOS
 //
 //  Created by Akilesh Bapu on 11/16/17.
@@ -8,8 +8,9 @@
 
 import UIKit
 
-class RouteDetailsTableViewCell: UITableViewCell {
+class RouteEndTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var transferImage: UIImageView!
     @IBOutlet weak var stopName: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()

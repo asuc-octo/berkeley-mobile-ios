@@ -17,5 +17,7 @@ pod 'DropDown'
 pod 'SDWebImage', '~>3.8'
 pod 'Fabric', '~> 1.7.2'
 pod 'Crashlytics', '~> 3.9.3'
+pod 'KCFloatingActionButton'
+pod 'ExpandingMenu', '~> 0.3'
 pod 'RealmSwift', :git => 'https://github.com/realm/realm-cocoa.git', :branch => 'master', submodules: true
 end

@@ -12,9 +12,11 @@ class livebus: NSObject {
     var latitude: Double
     var longitude: Double
     var lineName: String
-    init(_ lat: Double, _ lon: Double, _ ln: String) {
+    var id: String
+    init(_ lat: Double, _ lon: Double, _ ln: String, _ id: String) {
         self.latitude = lat
         self.longitude = lon
         self.lineName = ln
+        self.id = id
     }
 }
