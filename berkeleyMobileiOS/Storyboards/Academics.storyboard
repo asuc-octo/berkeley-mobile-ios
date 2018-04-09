@@ -510,7 +510,7 @@
                             </button>
                             <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BZo-6g-Oo2">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="86"/>
-                                <color key="backgroundColor" red="0.073520830159999995" green="0.20189315760000001" blue="0.37033156839999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" red="0.074509803921568626" green="0.20000000000000001" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color key="tintColor" red="0.0" green="0.20000000000000001" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="86" id="xpI-Rh-eDp"/>

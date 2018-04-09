@@ -10,7 +10,7 @@ import UIKit
 
 class GymClassTypeCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var classType: UIButton!
+    @IBOutlet weak var classType: UILabel!
+    var selectedBool: Bool!
     
-
 }
