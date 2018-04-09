@@ -1,5 +1,5 @@
 //
-//  RouteEndTableViewCell.swift
+//  RouteDetailsTableViewCell.swift
 //  berkeleyMobileiOS
 //
 //  Created by Akilesh Bapu on 11/16/17.
@@ -8,9 +8,11 @@
 
 import UIKit
 
-class RouteEndTableViewCell: UITableViewCell {
+class RouteDetailsTableViewCell: UITableViewCell {
 
     @IBOutlet weak var stopName: UILabel!
+    
+    @IBOutlet weak var timeLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

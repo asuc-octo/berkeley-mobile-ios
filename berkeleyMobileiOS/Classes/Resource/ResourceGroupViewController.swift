@@ -308,12 +308,24 @@ class ResourceGroupViewController: UIViewController, IBInitializable, UITableVie
     /// Pass the DiningGroupCell a name for the category, a list of halls, and a callback handler.
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
+        
+        print("Here1" )
         let cell = tableView.dequeueReusableCell(withIdentifier: className(ResourceGroupCell.self)) as! ResourceGroupCell
+        print("Here2" )
         let type = types[indexPath.row]
+        print("HERE3")
+        
+        
         if let resource_data = resources[type.typeString] {
-            let data = (type.displayName(pluralized: true), resources[type.typeString]!, Optional(didSelectResource))
+            
+            
+            
+            let data = (type.displayName(pluralized: true), resource_data, Optional(didSelectResource))
+            print("HERE4")
             cell.setData(data)
         } else {
+            
+            print("Here5")
             
         }
         return cell
