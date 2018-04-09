@@ -26,9 +26,10 @@ class LibraryViewController: UIViewController, GMSMapViewDelegate, CLLocationMan
         libTitle.bringSubview(toFront: libraryImage)
         
         libTitle.text = library.name
+        libTitle.lineBreakMode = NSLineBreakMode.byWordWrapping
+        libTitle.numberOfLines = 0
         
-        
-        libTableView.separatorStyle = .none 
+        libTableView.separatorStyle = .none
         
         libraryImage.load(resource: library)
         iconImages.append(#imageLiteral(resourceName: "hours_2.0"))
