@@ -197,6 +197,7 @@ extension SpecificGymViewController: UITableViewDataSource, UITableViewDelegate 
         }
         
         let infoCell = gymInfoTableview.dequeueReusableCell(withIdentifier: "gymInfoCell", for: indexPath) as! GymInformationTableViewCell
+        
         infoCell.iconImage.image = iconImages[indexPath.row]
         infoCell.iconInfo.text = gymInfo[indexPath.row]
         infoCell.iconInfo.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightMedium)
