@@ -422,7 +422,7 @@ class LocationMarkersData {
             switch response.result {
             case .success:
                 if let value = response.result.value {
-                    let json = JSON(value)
+                    //let json = JSON(value)
                     
                     self.dict = value as! [String : [[String : Any]]]
                     
@@ -431,43 +431,57 @@ class LocationMarkersData {
                     for loc in waterData {
                         let finalData = loc
                         let location = LocationMarkersData()
-                        location.setFloor(text: finalData["description2"]! as! String)
+                        if let c = finalData["description2"]! as? String {
+                            location.setImage(text: c)
+                        }
                         location.setCategory(text: finalData["category"]! as! String)
-                        location.setLatitude(text: finalData["lat"]! as! String)
-                        location.setLongitude(text: finalData["lon"]! as! String)
+                        location.setLatitude(text: String(finalData["lat"]! as! Double))
+                        location.setLongitude(text: String(finalData["lon"]! as! Double))
                         location.setBuilding(text: finalData["description1"]! as! String)
-                        location.setImage(text: finalData["image_link"]! as! String)
+                        if let b = finalData["image_link"]! as? String {
+                            location.setImage(text: b)
+                        }
                         location.icon = #imageLiteral(resourceName: "water_fountains")
                         self.waterFountainCoordinates.append(location)
                     }
                     //Microwave Coordinates
                     let microData = self.dict["Microwave"]!
                     for loc in microData {
-                        let finalData = loc as! [String: String]
+                        let finalData = loc
                         let location = LocationMarkersData()
-                        location.setFloor(text: finalData["description2"]!)
-                        location.setCategory(text: finalData["category"]!)
-                        location.setLatitude(text: finalData["lat"]!)
-                        location.setLongitude(text: finalData["lon"]!)
-                        location.setBuilding(text: finalData["description1"]!)
-                        location.setImage(text: finalData["image_link"]!)
+                        if let c = finalData["description2"]! as? String {
+                            location.setImage(text: c)
+                        }
+                        location.setCategory(text: finalData["category"]! as! String)
+                        location.setLatitude(text: String(finalData["lat"]! as! Double))
+                        location.setLongitude(text: String(finalData["lon"]! as! Double))
+                        location.setBuilding(text: finalData["description1"]! as! String)
+                        if let b = finalData["image_link"]! as? String {
+                            location.setImage(text: b)
+                        }
                         location.icon = #imageLiteral(resourceName: "microwaves")
                         self.microwaVeCoordinates.append(location)
                     }
                     
-                    let napData = self.self.dict["Nap Pods"]!
-                    for loc in napData {
-                        let finalData = loc as! [String: String]
-                        let location = LocationMarkersData()
-                        location.setFloor(text: finalData["description2"]!)
-                        location.setCategory(text: finalData["category"]!)
-                        location.setLatitude(text: finalData["lat"]!)
-                        location.setLongitude(text: finalData["lon"]!)
-                        location.setBuilding(text: finalData["description1"]!)
-                        location.setImage(text: finalData["image_link"]!)
-                        location.icon = #imageLiteral(resourceName: "nap_pods")
-                        self.napPodsCoordinates.append(location)
+                    if let napData = self.self.dict["Nap Pods"] {
+                        for loc in napData {
+                            let finalData = loc
+                            let location = LocationMarkersData()
+                            if let c = finalData["description2"]! as? String {
+                                location.setImage(text: c)
+                            }
+                            location.setCategory(text: finalData["category"]! as! String)
+                            location.setLatitude(text: String(finalData["lat"]! as! Double))
+                            location.setLongitude(text: String(finalData["lon"]! as! Double))
+                            location.setBuilding(text: finalData["description1"]! as! String)
+                            if let b = finalData["image_link"]! as? String {
+                                location.setImage(text: b)
+                            }
+                            location.icon = #imageLiteral(resourceName: "nap_pods")
+                            self.napPodsCoordinates.append(location)
+                        }
                     }
+                    
                     
                     
                 }
