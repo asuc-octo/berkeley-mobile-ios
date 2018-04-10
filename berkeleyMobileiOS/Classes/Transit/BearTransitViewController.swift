@@ -34,6 +34,7 @@ extension UIView {
         self.layer.insertSublayer(gradient, at: 0)
     }
 }
+
 extension FABMenuController {
     override convenience init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         self.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -330,130 +331,155 @@ class LocationMarkersData {
     var microwaVeCoordinates = [LocationMarkersData]()
     var waterFountainCoordinates = [LocationMarkersData]()
     var napPodsCoordinates = [LocationMarkersData]()
+//
+//    [
+//    "Microwave": [
+//    [
+//    "category": "microwave",
+//    "lat": "37.871074",
+//    "lon": "-122.26137",
+//    "description1": "mlk",
+//    "description2": "floor2",
+//    "image_link": "https://upload.wikimedia.org//wikipedia//commons//thumb//8//85//Consumer_Reports_-_Kenmore_microwave_oven.tif//lossy-page1-1200px-Consumer_Reports_-_Kenmore_microwave_oven.tif.jpg"
+//    ], [
+//    "category": "microwave",
+//    "lat": "37.871074",
+//    "lon": "-122.26137",
+//    "description1": "li ka shing",
+//    "description2": "floor2",
+//    "image_link": "https://upload.wikimedia.org//wikipedia//commons//thumb//8//85//Consumer_Reports_-_Kenmore_microwave_oven.tif//lossy-page1-1200px-Consumer_Reports_-_Kenmore_microwave_oven.tif.jpg"
+//    ],
+//    [
+//    "category": "microwave",
+//    "lat": "37.871074",
+//    "lon": "-122.261267",
+//    "description1": "li ka shing",
+//    "description2": "floor2",
+//    "image_link": "https://upload.wikimedia.org//wikipedia//commons//thumb//8//85//Consumer_Reports_-_Kenmore_microwave_oven.tif//lossy-page1-1200px-Consumer_Reports_-_Kenmore_microwave_oven.tif.jpg"
+//    ]
+//    ],
+//    "Water Fountain": [
+//    [
+//    "category": "Water Fountain",
+//    "lat": "37.871024",
+//    "lon": "-122.259524",
+//    "description1": "Sather Gate",
+//    "description2": "Under the Bridge",
+//    "image_link": "https://upload.wikimedia.org//wikipedia//commons//thumb//8//85//Consumer_Reports_-_Kenmore_microwave_oven.tif//lossy-page1-1200px-Consumer_Reports_-_Kenmore_microwave_oven.tif.jpg"
+//    ],
+//    [
+//    "category": "Water Fountain",
+//    "lat": "37.871024",
+//    "lon": "-122.989524",
+//    "description1": "Unit 3",
+//    "description2": "Under the Bridge",
+//    "image_link": "https://upload.wikimedia.org//wikipedia//commons//thumb//8//85//Consumer_Reports_-_Kenmore_microwave_oven.tif//lossy-page1-1200px-Consumer_Reports_-_Kenmore_microwave_oven.tif.jpg"
+//    ],
+//    [
+//    "category": "Water Fountain",
+//    "lat": "37.991024",
+//    "lon": "-122.989524",
+//    "description1": "Clark Kerr",
+//    "description2": "Under the Bridge",
+//    "image_link": "https://upload.wikimedia.org//wikipedia//commons//thumb//8//85//Consumer_Reports_-_Kenmore_microwave_oven.tif//lossy-page1-1200px-Consumer_Reports_-_Kenmore_microwave_oven.tif.jpg"
+//    ]
+//    ],
+//    "Nap Pods": [
+//    [
+//    "category": "Nap Pod",
+//    "lat": "37.971024",
+//    "lon": "-122.259524",
+//    "description1": "North Gate",
+//    "description2": "Under the Bridge",
+//    "image_link": "https://upload.wikimedia.org//wikipedia//commons//thumb//8//85//Consumer_Reports_-_Kenmore_microwave_oven.tif//lossy-page1-1200px-Consumer_Reports_-_Kenmore_microwave_oven.tif.jpg"
+//    ],
+//    [
+//    "category": "Nap Pod",
+//    "lat": "37.9981024",
+//    "lon": "-122.259524",
+//    "description1": "South Gate",
+//    "description2": "Under the Bridge",
+//    "image_link": "https://upload.wikimedia.org//wikipedia//commons//thumb//8//85//Consumer_Reports_-_Kenmore_microwave_oven.tif//lossy-page1-1200px-Consumer_Reports_-_Kenmore_microwave_oven.tif.jpg"
+//    ],
+//    [
+//    "category": "Nap Pod",
+//    "lat": "37.9981024",
+//    "lon": "-122.309524",
+//    "description1": "GBC",
+//    "description2": "Under the Bridge",
+//    "image_link": "https://upload.wikimedia.org//wikipedia//commons//thumb//8//85//Consumer_Reports_-_Kenmore_microwave_oven.tif//lossy-page1-1200px-Consumer_Reports_-_Kenmore_microwave_oven.tif.jpg"
+//    ]
+//    ]
+//    ]
+    
+    
     
     func getCoordinates() {
-        dict = [
-            "Microwave": [
-                [
-                    "category": "microwave",
-                    "lat": "37.871074",
-                    "lon": "-122.26137",
-                    "description1": "mlk",
-                    "description2": "floor2",
-                    "image_link": "https://upload.wikimedia.org//wikipedia//commons//thumb//8//85//Consumer_Reports_-_Kenmore_microwave_oven.tif//lossy-page1-1200px-Consumer_Reports_-_Kenmore_microwave_oven.tif.jpg"
-                ], [
-                    "category": "microwave",
-                    "lat": "37.871074",
-                    "lon": "-122.26137",
-                    "description1": "li ka shing",
-                    "description2": "floor2",
-                    "image_link": "https://upload.wikimedia.org//wikipedia//commons//thumb//8//85//Consumer_Reports_-_Kenmore_microwave_oven.tif//lossy-page1-1200px-Consumer_Reports_-_Kenmore_microwave_oven.tif.jpg"
-                ],
-                   [
-                    "category": "microwave",
-                    "lat": "37.871074",
-                    "lon": "-122.261267",
-                    "description1": "li ka shing",
-                    "description2": "floor2",
-                    "image_link": "https://upload.wikimedia.org//wikipedia//commons//thumb//8//85//Consumer_Reports_-_Kenmore_microwave_oven.tif//lossy-page1-1200px-Consumer_Reports_-_Kenmore_microwave_oven.tif.jpg"
-                ]
-            ],
-            "Water Fountain": [
-                [
-                    "category": "Water Fountain",
-                    "lat": "37.871024",
-                    "lon": "-122.259524",
-                    "description1": "Sather Gate",
-                    "description2": "Under the Bridge",
-                    "image_link": "https://upload.wikimedia.org//wikipedia//commons//thumb//8//85//Consumer_Reports_-_Kenmore_microwave_oven.tif//lossy-page1-1200px-Consumer_Reports_-_Kenmore_microwave_oven.tif.jpg"
-                ],
-                [
-                    "category": "Water Fountain",
-                    "lat": "37.871024",
-                    "lon": "-122.989524",
-                    "description1": "Unit 3",
-                    "description2": "Under the Bridge",
-                    "image_link": "https://upload.wikimedia.org//wikipedia//commons//thumb//8//85//Consumer_Reports_-_Kenmore_microwave_oven.tif//lossy-page1-1200px-Consumer_Reports_-_Kenmore_microwave_oven.tif.jpg"
-                ],
-                [
-                    "category": "Water Fountain",
-                    "lat": "37.991024",
-                    "lon": "-122.989524",
-                    "description1": "Clark Kerr",
-                    "description2": "Under the Bridge",
-                    "image_link": "https://upload.wikimedia.org//wikipedia//commons//thumb//8//85//Consumer_Reports_-_Kenmore_microwave_oven.tif//lossy-page1-1200px-Consumer_Reports_-_Kenmore_microwave_oven.tif.jpg"
-                ]
-            ],
-            "Nap Pods": [
-                [
-                    "category": "Nap Pod",
-                    "lat": "37.971024",
-                    "lon": "-122.259524",
-                    "description1": "North Gate",
-                    "description2": "Under the Bridge",
-                    "image_link": "https://upload.wikimedia.org//wikipedia//commons//thumb//8//85//Consumer_Reports_-_Kenmore_microwave_oven.tif//lossy-page1-1200px-Consumer_Reports_-_Kenmore_microwave_oven.tif.jpg"
-                ],
-                [
-                    "category": "Nap Pod",
-                    "lat": "37.9981024",
-                    "lon": "-122.259524",
-                    "description1": "South Gate",
-                    "description2": "Under the Bridge",
-                    "image_link": "https://upload.wikimedia.org//wikipedia//commons//thumb//8//85//Consumer_Reports_-_Kenmore_microwave_oven.tif//lossy-page1-1200px-Consumer_Reports_-_Kenmore_microwave_oven.tif.jpg"
-                ],
-                [
-                    "category": "Nap Pod",
-                    "lat": "37.9981024",
-                    "lon": "-122.309524",
-                    "description1": "GBC",
-                    "description2": "Under the Bridge",
-                    "image_link": "https://upload.wikimedia.org//wikipedia//commons//thumb//8//85//Consumer_Reports_-_Kenmore_microwave_oven.tif//lossy-page1-1200px-Consumer_Reports_-_Kenmore_microwave_oven.tif.jpg"
-                ]
-            ]
-        ]
         
-        //WaterFountain Coordinates
-        let waterData = dict["Water Fountain"]!
-        for loc in waterData {
-            let finalData = loc as! [String: String]
-            let location = LocationMarkersData()
-            location.setFloor(text: finalData["description2"]!)
-            location.setCategory(text: finalData["category"]!)
-            location.setLatitude(text: finalData["lat"]!)
-            location.setLongitude(text: finalData["lon"]!)
-            location.setBuilding(text: finalData["description1"]!)
-            location.setImage(text: finalData["image_link"]!)
-            location.icon = #imageLiteral(resourceName: "water_fountains")
-            self.waterFountainCoordinates.append(location)
+        let apiToContact = "http://asuc-mobile-dev.herokuapp.com/api/map"
+        // This code will call the iTunes top 25 movies endpoint listed above
+        Alamofire.request(apiToContact).validate().responseJSON() { response in
+            switch response.result {
+            case .success:
+                if let value = response.result.value {
+                    let json = JSON(value)
+                    
+                    self.dict = value as! [String : [[String : Any]]]
+                    
+                    //WaterFountain Coordinates
+                    let waterData = self.dict["Water Fountain"]!
+                    for loc in waterData {
+                        let finalData = loc
+                        let location = LocationMarkersData()
+                        location.setFloor(text: finalData["description2"]! as! String)
+                        location.setCategory(text: finalData["category"]! as! String)
+                        location.setLatitude(text: finalData["lat"]! as! String)
+                        location.setLongitude(text: finalData["lon"]! as! String)
+                        location.setBuilding(text: finalData["description1"]! as! String)
+                        location.setImage(text: finalData["image_link"]! as! String)
+                        location.icon = #imageLiteral(resourceName: "water_fountains")
+                        self.waterFountainCoordinates.append(location)
+                    }
+                    //Microwave Coordinates
+                    let microData = self.dict["Microwave"]!
+                    for loc in microData {
+                        let finalData = loc as! [String: String]
+                        let location = LocationMarkersData()
+                        location.setFloor(text: finalData["description2"]!)
+                        location.setCategory(text: finalData["category"]!)
+                        location.setLatitude(text: finalData["lat"]!)
+                        location.setLongitude(text: finalData["lon"]!)
+                        location.setBuilding(text: finalData["description1"]!)
+                        location.setImage(text: finalData["image_link"]!)
+                        location.icon = #imageLiteral(resourceName: "microwaves")
+                        self.microwaVeCoordinates.append(location)
+                    }
+                    
+                    let napData = self.self.dict["Nap Pods"]!
+                    for loc in napData {
+                        let finalData = loc as! [String: String]
+                        let location = LocationMarkersData()
+                        location.setFloor(text: finalData["description2"]!)
+                        location.setCategory(text: finalData["category"]!)
+                        location.setLatitude(text: finalData["lat"]!)
+                        location.setLongitude(text: finalData["lon"]!)
+                        location.setBuilding(text: finalData["description1"]!)
+                        location.setImage(text: finalData["image_link"]!)
+                        location.icon = #imageLiteral(resourceName: "nap_pods")
+                        self.napPodsCoordinates.append(location)
+                    }
+                    
+                    
+                }
+            case .failure(let error):
+                let alert = UIAlertController.init(title: "Couldn't load icons", message: error.localizedDescription, preferredStyle: .alert)
+                let action = UIAlertAction.init(title: "Okay", style: .default, handler: nil)
+                alert.addAction(action)
+                self.present(alert, animated: true, completion: nil)
+            }
         }
-        //Microwave Coordinates
-        let microData = dict["Microwave"]!
-        for loc in microData {
-            let finalData = loc as! [String: String]
-            let location = LocationMarkersData()
-            location.setFloor(text: finalData["description2"]!)
-            location.setCategory(text: finalData["category"]!)
-            location.setLatitude(text: finalData["lat"]!)
-            location.setLongitude(text: finalData["lon"]!)
-            location.setBuilding(text: finalData["description1"]!)
-            location.setImage(text: finalData["image_link"]!)
-            location.icon = #imageLiteral(resourceName: "microwaves")
-            self.microwaVeCoordinates.append(location)
-        }
+
         
-        let napData = dict["Nap Pods"]!
-        for loc in napData {
-            let finalData = loc as! [String: String]
-            let location = LocationMarkersData()
-            location.setFloor(text: finalData["description2"]!)
-            location.setCategory(text: finalData["category"]!)
-            location.setLatitude(text: finalData["lat"]!)
-            location.setLongitude(text: finalData["lon"]!)
-            location.setBuilding(text: finalData["description1"]!)
-            location.setImage(text: finalData["image_link"]!)
-            location.icon = #imageLiteral(resourceName: "nap_pods")
-            self.napPodsCoordinates.append(location)
-        }
     }
     
     
