@@ -55,6 +55,8 @@ class RouteResultViewController: UIViewController, UITableViewDelegate, UITableV
 
         cell.timeLabel.text = Int(minutes.rounded()).description + " mins"
         
+        cell.timeStartLabel.text = timeFormatter.string(from: currentDate!)
+        
         return cell
     }
     
