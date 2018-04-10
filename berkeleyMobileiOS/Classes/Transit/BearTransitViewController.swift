@@ -70,7 +70,29 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
 //
 //        return cell
 //    }
-
+    
+    @IBOutlet weak var iconInfoView: UIView!
+    
+    
+    @IBAction func cancelPressed(_ sender: UIButton) {
+        iconInfoView.isHidden = true
+        menuButton.isHidden = false
+    }
+    
+    @IBOutlet weak var distanceFromUserDisplay: UILabel!
+    
+    @IBOutlet weak var selectedIconDisplay: UIImageView!
+    
+    @IBOutlet weak var iconTitleDisplay: UILabel!
+    
+    @IBOutlet weak var colorDisplay: UIView!
+    
+    @IBOutlet weak var info1DisplayLabel: UILabel!
+    
+    @IBOutlet weak var info2DisplayLabel: UILabel!
+    
+    
+    
 
 class LocationMarkersData {
     var category = ""
@@ -79,6 +101,7 @@ class LocationMarkersData {
     var building = ""
     var floor = ""
     var imageUrl = ""
+    var icon = UIImage()
     init() {
     }
     
@@ -400,6 +423,7 @@ class LocationMarkersData {
             location.setLongitude(text: finalData["lon"]!)
             location.setBuilding(text: finalData["description1"]!)
             location.setImage(text: finalData["image_link"]!)
+            location.icon = #imageLiteral(resourceName: "water_fountains")
             self.waterFountainCoordinates.append(location)
         }
         //Microwave Coordinates
@@ -413,6 +437,7 @@ class LocationMarkersData {
             location.setLongitude(text: finalData["lon"]!)
             location.setBuilding(text: finalData["description1"]!)
             location.setImage(text: finalData["image_link"]!)
+            location.icon = #imageLiteral(resourceName: "microwaves")
             self.microwaVeCoordinates.append(location)
         }
         
@@ -426,6 +451,7 @@ class LocationMarkersData {
             location.setLongitude(text: finalData["lon"]!)
             location.setBuilding(text: finalData["description1"]!)
             location.setImage(text: finalData["image_link"]!)
+            location.icon = #imageLiteral(resourceName: "nap_pods")
             self.napPodsCoordinates.append(location)
         }
     }
@@ -436,6 +462,10 @@ class LocationMarkersData {
         super.viewDidLoad()
         getCoordinates()
         
+        
+        iconInfoView.isHidden = true
+        iconInfoView.clipsToBounds = true
+        mapView.addSubview(iconInfoView)
         
         
         self.mapView.delegate = self
@@ -472,9 +502,7 @@ class LocationMarkersData {
         
         //Round Menu Setup
         //let fab = KCFloatingActionButton()
-        let menuButtonSize: CGSize = CGSize(width: 60.0, height: 60.0)
-        //let smallerMenu: CGSize = CGSize(width: 5.0, height: 5.0)
-        let menuButton = ExpandingMenuButton(frame: CGRect(origin: CGPoint.zero, size: menuButtonSize), centerImage:  #imageLiteral(resourceName: "white_eye"), centerHighlightedImage: #imageLiteral(resourceName: "white_eye"))
+        
         //
         menuButton.center = CGPoint(x: self.view.bounds.width - 32.0, y: self.view.bounds.height - 90.0)
         menuButton.menuItemMargin = 10
@@ -499,6 +527,7 @@ class LocationMarkersData {
                 //marker.iconView?.sizeThatFits(CGSize(width: 5.0, height: 5.0))
                 self.chosenMarkers.append(marker)
             }
+            self.selectedIcons = self.waterFountainCoordinates
 //            self.markers.append(contentsOf: self.chosenMarkers)
         }
         let item2 = ExpandingMenuItem(size: menuButtonSize, title: "", image: #imageLiteral(resourceName: "microwaves"), highlightedImage: #imageLiteral(resourceName: "microwaves"), backgroundImage: #imageLiteral(resourceName: "microwaves"), backgroundHighlightedImage: #imageLiteral(resourceName: "microwaves")) { () -> Void in
@@ -518,6 +547,7 @@ class LocationMarkersData {
                 //marker.iconView.s
                 self.chosenMarkers.append(marker)
             }
+            self.selectedIcons = self.microwaVeCoordinates
 //            self.markers.append(contentsOf: self.chosenMarkers)
         }
         let item3 = ExpandingMenuItem(size: menuButtonSize, title: "", image: #imageLiteral(resourceName: "nap_pods"), highlightedImage: #imageLiteral(resourceName: "nap_pods"), backgroundImage: #imageLiteral(resourceName: "nap_pods"), backgroundHighlightedImage: #imageLiteral(resourceName: "nap_pods")) { () -> Void in
@@ -538,6 +568,7 @@ class LocationMarkersData {
                 self.chosenMarkers.append(marker)
 //                self.markers.append(contentsOf: self.chosenMarkers)
             }
+            self.selectedIcons = self.napPodsCoordinates
 //            self.markers.append(contentsOf: self.chosenMarkers)
         }
         
@@ -560,6 +591,11 @@ class LocationMarkersData {
 //        self.view.addSubview(fab)
     }
     
+    let menuButtonSize: CGSize = CGSize(width: 60.0, height: 60.0)
+    //let smallerMenu: CGSize = CGSize(width: 5.0, height: 5.0)
+    let menuButton = ExpandingMenuButton(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: 60.0, height: 60.0)), centerImage:  #imageLiteral(resourceName: "white_eye"), centerHighlightedImage: #imageLiteral(resourceName: "white_eye"))
+    
+    
     func imageWithImage(image:UIImage, scaledToSize newSize:CGSize) -> UIImage{
         UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0);
         image.draw(in: CGRect.init(x: 0, y: 0, width: newSize.width, height: newSize.height))
@@ -568,7 +604,7 @@ class LocationMarkersData {
         return newImage
     }
     
-    
+   var selectedIcons = [LocationMarkersData]()
     var chosenMarkers = [GMSMarker]()
     
     
@@ -602,9 +638,11 @@ class LocationMarkersData {
         startField.endEditing(true)
         destinationField.endEditing(true)
     }
+    
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
         hideKeyBoard()
     }
+    
     func displayGoButtonOnCondition() {
         if (startLat != defaultCoord && stopLat != defaultCoord) {
             goButton.isHidden = false
@@ -613,6 +651,7 @@ class LocationMarkersData {
             
         }
     }
+    
     func configureDropDown() {
         let dropper = DropDown()
         dropper.anchorView = self.destView
@@ -644,6 +683,7 @@ class LocationMarkersData {
         enddropper.backgroundColor = UIColor.white
         self.endDropDown = enddropper
     }
+    
     @IBAction func toggleStartStop(_ sender: Any) {
         UIView.transition(with: view, duration: 0.2, options: .transitionCrossDissolve, animations: {() -> Void in
             self.toggleHidden(someView: self.startField)
@@ -898,6 +938,7 @@ class LocationMarkersData {
             }
         })
     }
+    
     func updateLiveBuses() {
         livebusDataSource.fetchBuses({ (_ buses: [livebus]?) in
             if (buses == nil || buses?.count == 0)
@@ -944,6 +985,7 @@ class LocationMarkersData {
             
         })
     }
+    
     func makeMaterialShadow(withView tf: UIView!) {
         tf.layer.masksToBounds = false
         tf.layer.shadowRadius = 3.0
@@ -951,6 +993,19 @@ class LocationMarkersData {
         tf.layer.shadowOffset = CGSize(width: 1, height: 1)
         tf.layer.shadowOpacity = 1
     }
+    
+    
+    func getSelectedMarker(name: String) -> LocationMarkersData? {
+        for marker in selectedIcons {
+            if marker.building == name {
+                return marker
+            }
+        }
+        return nil
+    }
+    
+    
+    
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         //        marker.icon = #imageLiteral(resourceName: "whiteStop")
         //        for marker in whitedIcons {
@@ -958,6 +1013,30 @@ class LocationMarkersData {
         //        }
         //        whitedIcons = []
         //        whitedIcons.append(marker)
+        
+        menuButton.isHidden = true
+        iconInfoView.isHidden = false
+        let selected = getSelectedMarker(name: marker.title!)
+        var title = ""
+        var color = UIColor()
+        if selected?.icon == #imageLiteral(resourceName: "water_fountains"){
+            title = "Bottle Filling Station"
+            color = UIColor.init(hex: "2EB8CF")
+        } else if selected?.icon == #imageLiteral(resourceName: "microwaves") {
+            title = "Microwave Station"
+            color = UIColor.init(hex: "FF702C")
+        } else if selected?.icon == #imageLiteral(resourceName: "nap_pods") {
+            title = "Nap Pod"
+            color = UIColor.init(hex: "FF2BA3")
+        }
+        
+        self.selectedIconDisplay.image = selected?.icon
+        self.iconTitleDisplay.text = title
+        self.iconTitleDisplay.textColor = color
+        self.colorDisplay.backgroundColor = color
+        self.info1DisplayLabel.text = selected?.building
+        self.info2DisplayLabel.text = selected?.floor
+        
         return false
         if let s = marker.snippet {
             self.routesTable.isHidden = true
