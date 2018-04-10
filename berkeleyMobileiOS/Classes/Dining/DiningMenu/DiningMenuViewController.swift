@@ -89,7 +89,7 @@ class DiningMenuViewController: UIViewController, RequiresData, DelegatesScroll,
         hoursLayer.shadowColor = UIColor.clear.cgColor
         hoursLayer.shadowOffset = CGSize(width: 0, height: 2)
         
-        if self.shift.hours.isNil
+        if self.shift.hours.isNil || self.shift.menu.count == 0
         {
             self.hoursLabel.text = "CLOSED"
             return
