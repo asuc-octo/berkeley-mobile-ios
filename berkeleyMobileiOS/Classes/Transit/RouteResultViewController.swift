@@ -24,6 +24,8 @@ class RouteResultViewController: UIViewController, UITableViewDelegate, UITableV
     var serverToLocalFormatter = DateFormatter.init()
     var timeFormatter = DateFormatter.init()
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         startTextField.text = start
