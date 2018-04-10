@@ -26,6 +26,7 @@ class routeCell: UITableViewCell {
     @IBOutlet weak var typeLabel: UILabel!
     @IBOutlet weak var startLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var timeStartLabel: UILabel!
     /*
      // Only override draw() if you perform custom drawing.
      // An empty implementation adversely affects performance during animation.
