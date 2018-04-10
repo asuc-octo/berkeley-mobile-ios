@@ -132,7 +132,6 @@ extension CampusResourceViewController: UITableViewDelegate, UITableViewDataSour
            let campResInfoCell = campResTableView.dequeueReusableCell(withIdentifier: "mapTable", for: indexPath) as! MapTableViewCell
             setUpMap(campResInfoCell.campusResourceMap)
             return campResInfoCell
-//            campResInfoCell.campusResourceMap
         }
         let campResInfoCell = campResTableView.dequeueReusableCell(withIdentifier: "campusResourceDetail", for: indexPath) as! CampusResourceDetailCell
         

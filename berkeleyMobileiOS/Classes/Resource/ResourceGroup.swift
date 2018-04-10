@@ -20,7 +20,7 @@ struct ResourceGroup
     
     // MARK: - Groups
 //    static let all = [academics, dining, recreation]
-    static let all = [dining, recreation]
+    static let all = [dining]
     static let academics = ResourceGroup(
         name: "Academics",
         
