@@ -445,7 +445,7 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J8a-Sa-YO0">
-                                                            <rect key="frame" x="8" y="165" width="184" height="19"/>
+                                                            <rect key="frame" x="16" y="165" width="176" height="19"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="19" id="nWc-EA-zQR"/>
                                                             </constraints>
@@ -454,7 +454,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zW0-SK-OST">
-                                                            <rect key="frame" x="8" y="189" width="29" height="15"/>
+                                                            <rect key="frame" x="16" y="189" width="29" height="15"/>
                                                             <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="12"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -469,13 +469,13 @@
                                                 </view>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstItem="zW0-SK-OST" firstAttribute="leading" secondItem="BQw-ck-CdD" secondAttribute="leading" constant="8" id="TXf-64-681"/>
                                                     <constraint firstItem="TEe-qe-Qva" firstAttribute="top" secondItem="BQw-ck-CdD" secondAttribute="top" id="Vdj-gh-pnw"/>
                                                     <constraint firstItem="J8a-Sa-YO0" firstAttribute="top" secondItem="TEe-qe-Qva" secondAttribute="bottom" constant="15" id="bwD-6b-mPG"/>
                                                     <constraint firstAttribute="trailing" secondItem="TEe-qe-Qva" secondAttribute="trailing" id="gmB-5T-Nrb"/>
                                                     <constraint firstItem="TEe-qe-Qva" firstAttribute="leading" secondItem="BQw-ck-CdD" secondAttribute="leading" id="ibp-VP-gld"/>
                                                     <constraint firstAttribute="trailing" secondItem="J8a-Sa-YO0" secondAttribute="trailing" constant="8" id="lqd-0U-UNm"/>
-                                                    <constraint firstItem="J8a-Sa-YO0" firstAttribute="leading" secondItem="BQw-ck-CdD" secondAttribute="leading" constant="8" id="ruV-8z-A86"/>
+                                                    <constraint firstItem="J8a-Sa-YO0" firstAttribute="leading" secondItem="BQw-ck-CdD" secondAttribute="leading" constant="16" id="ruV-8z-A86"/>
+                                                    <constraint firstItem="zW0-SK-OST" firstAttribute="leading" secondItem="J8a-Sa-YO0" secondAttribute="leading" id="sux-LN-ExM"/>
                                                     <constraint firstItem="zW0-SK-OST" firstAttribute="top" secondItem="J8a-Sa-YO0" secondAttribute="bottom" constant="5" id="vQX-o5-4Ax"/>
                                                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="zW0-SK-OST" secondAttribute="bottom" constant="4" id="wl9-DO-qZM"/>
                                                 </constraints>
@@ -806,15 +806,15 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="260"/>
                                 <color key="backgroundColor" red="0.074509803920000006" green="0.1764705882" blue="0.60784313729999995" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" misplaced="YES" alwaysBounceVertical="YES" pagingEnabled="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="HOg-Gg-9ub">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" misplaced="YES" alwaysBounceVertical="YES" pagingEnabled="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="HOg-Gg-9ub">
                                 <rect key="frame" x="0.0" y="260" width="375" height="206"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="gymInfoCell" rowHeight="80" id="gyQ-cA-14B" customClass="GymInformationTableViewCell" customModule="berkeleyMobileiOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="80"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="gymInfoCell" rowHeight="55" id="gyQ-cA-14B" customClass="GymInformationTableViewCell" customModule="berkeleyMobileiOS" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gyQ-cA-14B" id="xUC-xB-gxR">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="79.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1d5-TX-YcV">
@@ -825,7 +825,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0jf-iF-adH">
-                                                    <rect key="frame" x="53" y="16" width="314" height="47.5"/>
+                                                    <rect key="frame" x="53" y="16" width="314" height="22.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -853,10 +853,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="mapTable" id="g4I-oL-Cgm" customClass="MapTableViewCell" customModule="berkeleyMobileiOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="108" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="83" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="g4I-oL-Cgm" id="gud-Jo-8KJ">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" verticalHuggingPriority="251" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="CDg-GW-Icu" customClass="GMSMapView">
@@ -907,7 +907,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xCB-ab-lpt">
-                                <rect key="frame" x="16" y="219" width="351" height="33"/>
+                                <rect key="frame" x="16" y="222.5" width="351" height="29.5"/>
                                 <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="25"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
