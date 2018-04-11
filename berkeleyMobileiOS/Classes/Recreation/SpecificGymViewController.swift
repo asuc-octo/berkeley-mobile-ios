@@ -26,8 +26,12 @@ class SpecificGymViewController: UIViewController, CLLocationManagerDelegate, GM
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        gymImage.load(resource: gym)
+        if gym.name == "Recreational Sports Facility (RSF)" {
+            gymImage.image = #imageLiteral(resourceName: "rsf")
+        } else {
+            gymImage.load(resource: gym)
+        }
+//        gymImage.load(resource: gym)
         gymTitle.text = gym.name
      
         iconImages.append(#imageLiteral(resourceName: "hours_2.0"))
@@ -52,10 +56,11 @@ class SpecificGymViewController: UIViewController, CLLocationManagerDelegate, GM
         gymMap.delegate = self
         gymMap.isMyLocationEnabled = true
         let camera = GMSCameraPosition.camera(withLatitude: 37.871853, longitude: -122.258423, zoom: 15)
-        self.gymMap.camera = camera
-        self.gymMap.frame = self.view.frame
-        self.gymMap.isMyLocationEnabled = true
-        self.gymMap.delegate = self
+        gymMap.camera = camera
+        gymMap.frame = self.view.frame
+        gymMap.isMyLocationEnabled = true
+        gymMap.delegate = self
+        gymMap.isUserInteractionEnabled = false
         self.locationManager.startUpdatingLocation()
         
         let kMapStyle =
@@ -68,7 +73,7 @@ class SpecificGymViewController: UIViewController, CLLocationManagerDelegate, GM
         
         do {
             // Set the map style by passing a valid JSON string.
-            self.gymMap.mapStyle = try GMSMapStyle(jsonString: kMapStyle)
+            gymMap.mapStyle = try GMSMapStyle(jsonString: kMapStyle)
         } catch {
             NSLog("The style definition could not be loaded: \(error)")
             //            print(error)
@@ -93,7 +98,7 @@ class SpecificGymViewController: UIViewController, CLLocationManagerDelegate, GM
         }
         
         marker.snippet = status
-        marker.map = self.gymMap
+        marker.map = gymMap
         
     }
     
@@ -180,7 +185,7 @@ class SpecificGymViewController: UIViewController, CLLocationManagerDelegate, GM
 extension SpecificGymViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return 5
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -216,5 +221,11 @@ extension SpecificGymViewController: UITableViewDataSource, UITableViewDelegate 
         } else if indexPath.row == 3 {
 //            getMap()
         }
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.row == 4 {
+            return 250
+        }
+        return 55
     }
 }
