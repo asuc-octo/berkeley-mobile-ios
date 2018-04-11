@@ -961,8 +961,8 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="20 min" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yef-DM-APR">
-                                                    <rect key="frame" x="253" y="11" width="72" height="27"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20 min" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yef-DM-APR">
+                                                    <rect key="frame" x="269.5" y="11" width="55.5" height="27"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="27" id="zCX-tK-s7Q"/>
                                                     </constraints>
@@ -992,6 +992,12 @@
                                                         <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </state>
                                                 </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="37Q-mb-osG">
+                                                    <rect key="frame" x="32" y="49" width="31" height="14.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="0jp-zi-1fY" firstAttribute="leading" secondItem="Yef-DM-APR" secondAttribute="trailing" constant="8" id="0kj-vO-7k3"/>
@@ -1002,10 +1008,13 @@
                                                 <constraint firstItem="3o9-la-S6r" firstAttribute="leading" secondItem="Mgj-Z3-07M" secondAttribute="trailing" constant="31" id="GiF-NN-ogw"/>
                                                 <constraint firstItem="5B1-bU-u7f" firstAttribute="leading" secondItem="buS-ve-0Ah" secondAttribute="leading" id="GoV-XK-P7P"/>
                                                 <constraint firstItem="5B1-bU-u7f" firstAttribute="top" secondItem="buS-ve-0Ah" secondAttribute="top" id="Kua-VW-Bgm"/>
+                                                <constraint firstItem="Gi7-O8-N9T" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="37Q-mb-osG" secondAttribute="trailing" constant="4" id="NkM-dI-wBP"/>
                                                 <constraint firstItem="0jp-zi-1fY" firstAttribute="trailing" secondItem="buS-ve-0Ah" secondAttribute="trailingMargin" id="VQc-kn-KEN"/>
                                                 <constraint firstItem="Yef-DM-APR" firstAttribute="centerY" secondItem="3o9-la-S6r" secondAttribute="centerY" id="WHz-Z7-oct"/>
+                                                <constraint firstItem="37Q-mb-osG" firstAttribute="centerY" secondItem="Gi7-O8-N9T" secondAttribute="centerY" id="cYE-R5-gsU"/>
                                                 <constraint firstItem="Mgj-Z3-07M" firstAttribute="centerX" secondItem="tip-0o-2Rh" secondAttribute="centerX" id="cfB-fA-AWM"/>
                                                 <constraint firstItem="3o9-la-S6r" firstAttribute="centerY" secondItem="Mgj-Z3-07M" secondAttribute="centerY" id="gKQ-B1-Qy9"/>
+                                                <constraint firstItem="37Q-mb-osG" firstAttribute="centerX" secondItem="tip-0o-2Rh" secondAttribute="centerX" id="jJc-PR-Nde"/>
                                                 <constraint firstItem="Gi7-O8-N9T" firstAttribute="leading" secondItem="3o9-la-S6r" secondAttribute="leading" id="mSP-8X-dgt"/>
                                                 <constraint firstItem="Mgj-Z3-07M" firstAttribute="top" secondItem="buS-ve-0Ah" secondAttribute="topMargin" constant="3" id="o03-s8-82Q"/>
                                                 <constraint firstItem="Mgj-Z3-07M" firstAttribute="leading" secondItem="5B1-bU-u7f" secondAttribute="trailing" constant="31" id="rFu-7p-iz4"/>
@@ -1019,6 +1028,7 @@
                                             <outlet property="sideColorView" destination="5B1-bU-u7f" id="Idq-dA-CeC"/>
                                             <outlet property="startLabel" destination="Gi7-O8-N9T" id="b36-nn-cqJ"/>
                                             <outlet property="timeLabel" destination="Yef-DM-APR" id="Lxk-G3-rBU"/>
+                                            <outlet property="timeStartLabel" destination="37Q-mb-osG" id="1lu-je-ygD"/>
                                             <outlet property="typeLabel" destination="3o9-la-S6r" id="JzY-S3-gTU"/>
                                         </connections>
                                     </tableViewCell>

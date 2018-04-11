@@ -8,6 +8,7 @@
 
 import UIKit
 import Material
+import Firebase
 fileprivate let kColorGray = UIColor(white: 189/255.0, alpha: 1)
 
 class GymViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
@@ -233,6 +234,8 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
             selectedGym = self.gyms[indexPath.row]
             performSegue(withIdentifier: "toGym", sender: self)
         } else if collectionView == self.weekCollectionView {
+            Analytics.logEvent("gym_date_clicked", parameters: nil)
+
             //  Reload table to only show stuff for that day
             var clickedDay = self.daysOfWeek[indexPath.row]
             if (selectedDays != clickedDay) {
@@ -254,6 +257,7 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
             self.classTableView.reloadData()
             self.weekCollectionView.reloadData()
         } else if collectionView == self.classTypesCollectionView {
+            Analytics.logEvent("clicked_exercise_filter", parameters: nil)
             // Reload table to only show stuff for selected class types
             var selectedType = self.classTypes[indexPath.row]
             if (!self.selectedClassTypes.contains(selectedType)) {
