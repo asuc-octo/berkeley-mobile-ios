@@ -129,6 +129,9 @@
 		55EC87331FA2EDC800C71C09 /* CampusResourceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EC87321FA2EDC800C71C09 /* CampusResourceCell.swift */; };
 		92DD7191206072BD00B73233 /* RouteTitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DD7190206072BD00B73233 /* RouteTitleTableViewCell.swift */; };
 		92DD7194206075CC00B73233 /* RouteResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DD7193206075CC00B73233 /* RouteResultViewController.swift */; };
+		92EDCCF1207C09F9000B861D /* RouteDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EDCCF0207C09F9000B861D /* RouteDetailsTableViewCell.swift */; };
+		92EDCCF3207C0A15000B861D /* RouteEndTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EDCCF2207C0A15000B861D /* RouteEndTableViewCell.swift */; };
+		92EDCCF5207C0A1D000B861D /* RouteMidTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EDCCF4207C0A1C000B861D /* RouteMidTableViewCell.swift */; };
 		94BCFD2C2072B4050021A887 /* RemindersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BCFD2B2072B4050021A887 /* RemindersViewController.swift */; };
 		94BCFD2E2072B4280021A887 /* NotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BCFD2D2072B4280021A887 /* NotesViewController.swift */; };
 		94C46117207C1B2200E61462 /* DayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C46116207C1B2200E61462 /* DayCollectionViewCell.swift */; };
@@ -277,6 +280,9 @@
 		7BC35364DDC70E5590C55CCF /* Pods-berkeleyMobileiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeleyMobileiOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-berkeleyMobileiOS/Pods-berkeleyMobileiOS.release.xcconfig"; sourceTree = "<group>"; };
 		92DD7190206072BD00B73233 /* RouteTitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteTitleTableViewCell.swift; sourceTree = "<group>"; };
 		92DD7193206075CC00B73233 /* RouteResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteResultViewController.swift; sourceTree = "<group>"; };
+		92EDCCF0207C09F9000B861D /* RouteDetailsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDetailsTableViewCell.swift; sourceTree = "<group>"; };
+		92EDCCF2207C0A15000B861D /* RouteEndTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteEndTableViewCell.swift; sourceTree = "<group>"; };
+		92EDCCF4207C0A1C000B861D /* RouteMidTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteMidTableViewCell.swift; sourceTree = "<group>"; };
 		94BCFD2B2072B4050021A887 /* RemindersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersViewController.swift; sourceTree = "<group>"; };
 		94BCFD2D2072B4280021A887 /* NotesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewController.swift; sourceTree = "<group>"; };
 		94C46116207C1B2200E61462 /* DayCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -807,9 +813,7 @@
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlacePicker.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlaces.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -926,6 +930,7 @@
 				F3CEBE00207D7FF6004C0E95 /* RouteMidTableViewCell.swift in Sources */,
 				4E4E7D131E5CBD6F00A45586 /* ListMenuController.swift in Sources */,
 				284A3C811E31671300685A01 /* GymDetailViewController.swift in Sources */,
+				92EDCCF3207C0A15000B861D /* RouteEndTableViewCell.swift in Sources */,
 				41B0B58B1E8CD95D00DA9297 /* NearestBusesTableViewCell.swift in Sources */,
 				28757D811E761F9F001697D6 /* GymClassCategoryCell.swift in Sources */,
 				41017CFA1FB55BF4002D12BB /* livebusDataSource.swift in Sources */,
@@ -947,6 +952,7 @@
 				F3CEBE02207D8006004C0E95 /* RouteEndTableViewCell.swift in Sources */,
 				4E4EC1421E50470F000C63ED /* Resource.swift in Sources */,
 				282A4EF01E63B39600480201 /* GymClassCategoryDataSource.swift in Sources */,
+				92EDCCF5207C0A1D000B861D /* RouteMidTableViewCell.swift in Sources */,
 				4E505D461DD05A65004AC6C9 /* LaunchViewController.swift in Sources */,
 				4ED0D35C1DDCE1C600956F9E /* DiningItemCell.swift in Sources */,
 				4ED0D35D1DDCE1C600956F9E /* DiningMenuViewController.swift in Sources */,
@@ -960,6 +966,7 @@
 				55026D561F9152E6005D9576 /* GymInformationTableViewCell.swift in Sources */,
 				55EC872F1FA2DC1E00C71C09 /* LibraryDetailCell.swift in Sources */,
 				92DD7191206072BD00B73233 /* RouteTitleTableViewCell.swift in Sources */,
+				92EDCCF1207C09F9000B861D /* RouteDetailsTableViewCell.swift in Sources */,
 				4E4D30AD1E56F2D900E418B8 /* FadeTitleToolbar.swift in Sources */,
 				4E4EC1471E504710000C63ED /* ResourceTile.swift in Sources */,
 				4ED0D35F1DDCE9FA00956F9E /* Protocols.swift in Sources */,
