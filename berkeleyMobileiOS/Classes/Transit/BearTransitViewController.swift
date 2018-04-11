@@ -463,7 +463,7 @@ class LocationMarkersData {
                         self.microwaVeCoordinates.append(location)
                     }
                     
-                    if let napData = self.self.dict["Nap Pods"] {
+                    if let napData = self.self.dict["Nap Pod"] {
                         for loc in napData {
                             let finalData = loc
                             let location = LocationMarkersData()
@@ -544,12 +544,13 @@ class LocationMarkersData {
         //let fab = KCFloatingActionButton()
         
         //
-        menuButton.center = CGPoint(x: self.view.bounds.width - 32.0, y: self.view.bounds.height - 90.0)
+        menuButton.center = CGPoint(x: self.view.bounds.width - 44.0, y: self.view.bounds.height - 100.0)
         menuButton.menuItemMargin = 10
         menuButton.allowSounds = false
         view.addSubview(menuButton)
         
         let item1 = ExpandingMenuItem(size: menuButtonSize, title: "", image: #imageLiteral(resourceName: "water_fountains"), highlightedImage: #imageLiteral(resourceName: "water_fountains"), backgroundImage: #imageLiteral(resourceName: "water_fountains"), backgroundHighlightedImage: #imageLiteral(resourceName: "water_fountains")) { () -> Void in
+            Analytics.logEvent("map_icon_clicked", parameters: ["Category": "Waterfountain"])
             self.markers.append(contentsOf: self.chosenMarkers)
             self.chosenMarkers.removeAll()
             self.getCoordinates()
@@ -571,6 +572,8 @@ class LocationMarkersData {
 //            self.markers.append(contentsOf: self.chosenMarkers)
         }
         let item2 = ExpandingMenuItem(size: menuButtonSize, title: "", image: #imageLiteral(resourceName: "microwaves"), highlightedImage: #imageLiteral(resourceName: "microwaves"), backgroundImage: #imageLiteral(resourceName: "microwaves"), backgroundHighlightedImage: #imageLiteral(resourceName: "microwaves")) { () -> Void in
+            Analytics.logEvent("map_icon_clicked", parameters: ["Category": "Microwave"])
+
             self.markers.append(contentsOf: self.chosenMarkers)
             self.chosenMarkers.removeAll()
             self.getCoordinates()
@@ -591,7 +594,8 @@ class LocationMarkersData {
 //            self.markers.append(contentsOf: self.chosenMarkers)
         }
         let item3 = ExpandingMenuItem(size: menuButtonSize, title: "", image: #imageLiteral(resourceName: "nap_pods"), highlightedImage: #imageLiteral(resourceName: "nap_pods"), backgroundImage: #imageLiteral(resourceName: "nap_pods"), backgroundHighlightedImage: #imageLiteral(resourceName: "nap_pods")) { () -> Void in
-            
+            Analytics.logEvent("map_icon_clicked", parameters: ["Category": "Nappod"])
+
             self.markers.append(contentsOf: self.chosenMarkers)
             self.chosenMarkers.removeAll()
             self.getCoordinates()
