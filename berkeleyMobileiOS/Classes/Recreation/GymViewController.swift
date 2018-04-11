@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GymViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
+class GymViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
     
     @IBOutlet weak var gymCollectionView: UICollectionView!
     
@@ -27,11 +27,11 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
     var subsetClasses = [GymClass]()
     
     
-    var selectedClassTypes = ["ALL-AROUND", "CARDIO", "MIND/BODY", "CORE", "DANCE", "STRENGTH", "AQUA"]
+    var selectedClassTypes: [String] = []
     var classBool = [true, true, true, true, true, true, true]
-    var selectedDays: Date!
-    
-    var classTypes = ["ALL-AROUND", "CARDIO", "MIND/BODY", "CORE", "DANCE", "STRENGTH", "AQUA"]
+    var selectedDays: Date! = Date()
+    var classTypes: [String] = []
+//    var classTypes = ["ALL-AROUND", "CARDIO", "MIND/BODY", "CORE", "DANCE", "STRENGTH", "AQUA"]
     
     var dayNames = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"]
     var daysOfWeek = [Date]()
@@ -64,24 +64,34 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
                 self.gymClasses = nonEmptyList as! [GymClass]
             
                 let calendar = Calendar.current
-                let date = Date()
                 var tempClasses = [GymClass]()
+                var found_types: Set<String> = Set()
                 for gymClass in self.gymClasses {
-                    let gymDate = gymClass.date
-                    
-                    if (gymDate != nil && calendar.component(.day, from: gymDate!) == calendar.component(.day, from: date)) {
-                        tempClasses.append(gymClass)
+                    if let gymDate = gymClass.date {
+                        if let gc = gymClass.class_type {
+                            found_types.insert(gc)
+                            if (calendar.component(.day, from: gymDate) == calendar.component(.day, from: self.selectedDays)) {
+                                tempClasses.append(gymClass)
+                            }
+                        }
                     }
+ 
                 }
                 self.subsetClasses = tempClasses
-                
-                
+                var ref: [String] = ["ALL-AROUND WORKOUT", "CARDIO", "MIND/BODY", "CORE", "DANCE", "STRENGTH", "AQUA"]
+                self.classTypes = []
+                for s in ref {
+                    if found_types.contains(s) {
+                        self.classTypes.append(s)
+                    }
+                }
+                self.selectedClassTypes = self.classTypes
                 
                 if let t = self.classTableView {
                     t.reloadData()
                 }
+                self.classTypesCollectionView.reloadData()
         }
-        print(gymClasses.count)
         
         gymCollectionView.delegate = self
         gymCollectionView.dataSource = self
@@ -107,7 +117,7 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
         if collectionView == self.weekCollectionView {
             return 7
         } else if collectionView == self.classTypesCollectionView {
-            return 7
+            return self.classTypes.count
         } else if collectionView == self.gymCollectionView {
             return self.gyms.count
         } else {
@@ -152,7 +162,7 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
             let type = classTypes[indexPath.row]
             var color = ""
             switch type {
-            case "ALL-AROUND":
+            case "ALL-AROUND WORKOUT":
                 color = "10CEB4"
             case "CARDIO":
                 color = "FD2BA8"
@@ -172,12 +182,15 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
   
             
             classTypeCell.selectedBool = self.classBool[indexPath.row]
-            classTypeCell.classType.text = type
-            classTypeCell.classType.cornerRadius = 10
-           
-            if (self.classBool[indexPath.row] == true) {
+            classTypeCell.classType.text = type.split(separator: " ").first?.uppercased()
+            classTypeCell.classType.layer.cornerRadius = 10
+            classTypeCell.classType.layer.masksToBounds = true
+            print(self.classBool)
+            if ( classTypeCell.selectedBool) {
                 classTypeCell.classType.backgroundColor = UIColor(hex: color)
                 classTypeCell.classType.textColor = UIColor.white
+                classTypeCell.classType.borderColor = UIColor(hex: color)
+
             } else {
                 classTypeCell.classType.backgroundColor = UIColor.white
                 classTypeCell.classType.textColor = UIColor(hex: color)
@@ -195,7 +208,6 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
             selectedGym = self.gyms[indexPath.row]
             performSegue(withIdentifier: "toGym", sender: self)
         } else if collectionView == self.weekCollectionView {
-            print("week collection view")
 
             //  Reload table to only show stuff for that day
             var clickedDay = self.daysOfWeek[indexPath.row]
@@ -226,12 +238,21 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
                 for gymClass in self.gymClasses {
                     let classType = gymClass.class_type
                     if (classType == selectedType) {
-                        tempClasses.append(gymClass)
+                        let calendar = Calendar.current
+                        if let gymDate = gymClass.date {
+                            let cd = calendar.component(.day, from: gymDate)
+                            let dd = calendar.component(.day, from: selectedDays)
+                            if (cd == dd) {
+                                tempClasses.append(gymClass)
+                            }
+                        }
+
                     }
                 }
-                subsetClasses = tempClasses
+                subsetClasses.append(contentsOf: tempClasses)
             } else {
-                self.selectedClassTypes.remove(at: indexPath.row)
+                self.selectedClassTypes.remove(at: self.selectedClassTypes.index(of: selectedType)!)
+                
                 self.classBool[indexPath.row] = false
                 var tempClasses = [GymClass]()
 
@@ -248,7 +269,6 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
         }
  
     }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             if identifier == "toGym" {
@@ -265,7 +285,6 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print(subsetClasses.count)
         let cell = tableView.dequeueReusableCell(withIdentifier: "gymClass", for: indexPath) as! GymClassInfoTableViewCell
         let gymClass = subsetClasses[indexPath.row]
         let classType = gymClass.class_type
@@ -285,7 +304,7 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
         let type = gymClass.class_type
         var color = ""
         switch type {
-        case "ALL-AROUND"?:
+        case "ALL-AROUND WORKOUT"?:
             color = "10CEB4"
         case "CARDIO"?:
             color = "FD2BA8"

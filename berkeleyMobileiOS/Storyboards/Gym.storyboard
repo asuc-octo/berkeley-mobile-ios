@@ -441,15 +441,20 @@
                                             <rect key="frame" x="0.0" y="0.0" width="65" height="25"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qve-qW-odL">
-                                                    <rect key="frame" x="0.0" y="3" width="65" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qve-qW-odL">
+                                                    <rect key="frame" x="0.0" y="1" width="65" height="23"/>
                                                     <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="10"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </view>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="qve-qW-odL" secondAttribute="bottom" constant="1" id="Slj-1p-Hz9"/>
+                                            <constraint firstAttribute="trailing" secondItem="qve-qW-odL" secondAttribute="trailing" id="dgl-BJ-uPH"/>
+                                            <constraint firstItem="qve-qW-odL" firstAttribute="top" secondItem="JeC-9L-FhI" secondAttribute="top" constant="1" id="hjc-nO-wtd"/>
+                                            <constraint firstItem="qve-qW-odL" firstAttribute="leading" secondItem="JeC-9L-FhI" secondAttribute="leading" id="kEH-te-H6P"/>
+                                        </constraints>
                                         <connections>
                                             <outlet property="classType" destination="qve-qW-odL" id="Gal-tz-obL"/>
                                         </connections>
@@ -844,7 +849,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xCB-ab-lpt">
-                                <rect key="frame" x="16" y="219" width="351" height="33"/>
+                                <rect key="frame" x="16" y="222.5" width="351" height="29.5"/>
                                 <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="25"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
