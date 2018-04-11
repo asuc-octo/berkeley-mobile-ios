@@ -47,6 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let academic = AcademicNavigationController.fromIB()
         
         let gym = GymNavigationController.fromIB()
+//        gym.childViewControllers.first!.viewDidLoad()
         academic.childViewControllers.first!.viewDidLoad()
         viewControllers.append(bt)
         viewControllers.append(gym)
