@@ -94,6 +94,7 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
                 if let t = self.classTableView {
                     t.reloadData()
                     self.noClasses.isHidden = false
+                    self.noClasses.text = "No Classes for Selected Options"
                 }
 //                self.tableViewHeight.constant = self.height_from_count(self.subsetClasses.count)
                 self.tableViewHeight.constant = self.height_from_count()
@@ -137,8 +138,8 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == self.weekCollectionView {
             let weekCell = collectionView.dequeueReusableCell(withReuseIdentifier: "weekCell", for: indexPath) as! DayCollectionViewCell
-            
-            weekCell.day.text = dayNames[indexPath.row]
+            let dow = Calendar.current.dateComponents([.weekday], from: Date()).weekday!
+            weekCell.day.text = dayNames[(indexPath.row + dow - 1) % dayNames.count]
             weekCell.day.textAlignment = .center
             let currDate = daysOfWeek[indexPath.row]
             let calendar = Calendar.current
@@ -377,6 +378,7 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
             endHr == 12
         }
         var endMin = calendar.component(.minute, from: endTime!)
+        var ampm = calendar.component(.era, from: endTime!)
         var startStr = ""
         var endStr = ""
         if (startMin == 0) {
@@ -389,8 +391,15 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
         } else {
             endStr = String(endHr) + ":" + String(endMin)
         }
-
-        let time = startStr + "-" + endStr
+        let formatter = DateFormatter()
+//        formatter.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierISO8601)
+//        formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
+//        formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
+        formatter.dateFormat = "a"
+//        formatter.AMSymbol = "AM"
+//        formatter.PMSymbol = "PM"
+        let dateString = formatter.string(from: endTime!)
+        let time = startStr + " - " + endStr + " " + dateString
         
         cell.time.text = time
         
@@ -399,9 +408,7 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
     
     func getDaysOfWeek() -> [Date] {
         var days = [Date]()
-        let start = Date().startOfWeek!
-        var dateComponent = DateComponents()
-        dateComponent.day = 1
+        let start = Date()
         let calendar = Calendar.current
         var currDate = start
         days.append(start)

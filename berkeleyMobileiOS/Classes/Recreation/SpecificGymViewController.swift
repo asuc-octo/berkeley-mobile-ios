@@ -224,7 +224,7 @@ extension SpecificGymViewController: UITableViewDataSource, UITableViewDelegate 
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 4 {
-            return 250
+            return 300
         }
         return 55
     }
