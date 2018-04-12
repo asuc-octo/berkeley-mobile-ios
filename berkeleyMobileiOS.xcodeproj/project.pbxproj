@@ -114,6 +114,7 @@
 		4EEF90471DDBC7D0002CF7E4 /* Dining.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4EEF90461DDBC7D0002CF7E4 /* Dining.storyboard */; };
 		55026D561F9152E6005D9576 /* GymInformationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55026D551F9152E6005D9576 /* GymInformationTableViewCell.swift */; };
 		551589C32049DE3100D27CC1 /* ResourceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551589C22049DE3100D27CC1 /* ResourceTableViewCell.swift */; };
+		553452B2207EA28200D3A7CB /* DropDownTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553452B1207EA28200D3A7CB /* DropDownTableViewCell.swift */; };
 		5552A68D2048C03100F27AED /* AcademicNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5552A68C2048C03100F27AED /* AcademicNavigationController.swift */; };
 		5552A68F2048C2F100F27AED /* AcademicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5552A68E2048C2F100F27AED /* AcademicViewController.swift */; };
 		555D40E32051EFF100EA1E1C /* GymClassTypeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555D40E22051EFF100EA1E1C /* GymClassTypeCollectionViewCell.swift */; };
@@ -134,9 +135,6 @@
 		92EDCCF5207C0A1D000B861D /* RouteMidTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EDCCF4207C0A1C000B861D /* RouteMidTableViewCell.swift */; };
 		94BCFD2C2072B4050021A887 /* RemindersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BCFD2B2072B4050021A887 /* RemindersViewController.swift */; };
 		94BCFD2E2072B4280021A887 /* NotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BCFD2D2072B4280021A887 /* NotesViewController.swift */; };
-		94C46113207C1A2400E61462 /* RouteEndTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C46110207C1A2300E61462 /* RouteEndTableViewCell.swift */; };
-		94C46114207C1A2400E61462 /* RouteMidTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C46111207C1A2300E61462 /* RouteMidTableViewCell.swift */; };
-		94C46115207C1A2400E61462 /* RouteDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C46112207C1A2400E61462 /* RouteDetailsTableViewCell.swift */; };
 		94C46117207C1B2200E61462 /* DayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C46116207C1B2200E61462 /* DayCollectionViewCell.swift */; };
 		94C46119207C1B6F00E61462 /* GymClassInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C46118207C1B6E00E61462 /* GymClassInfoTableViewCell.swift */; };
 		B5F25D1D1DE2A1EA0084A5C7 /* GymDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F25D1C1DE2A1EA0084A5C7 /* GymDataSource.swift */; };
@@ -262,6 +260,7 @@
 		4EF0D9AF1DDBC08C003C18FA /* Pods_berkeleyMobileiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods_berkeleyMobileiOS.framework; path = "Pods/../build/Debug-iphoneos/Pods_berkeleyMobileiOS.framework"; sourceTree = "<group>"; };
 		55026D551F9152E6005D9576 /* GymInformationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymInformationTableViewCell.swift; sourceTree = "<group>"; };
 		551589C22049DE3100D27CC1 /* ResourceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceTableViewCell.swift; sourceTree = "<group>"; };
+		553452B1207EA28200D3A7CB /* DropDownTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownTableViewCell.swift; sourceTree = "<group>"; };
 		5552A68C2048C03100F27AED /* AcademicNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcademicNavigationController.swift; sourceTree = "<group>"; };
 		5552A68E2048C2F100F27AED /* AcademicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcademicViewController.swift; sourceTree = "<group>"; };
 		555D40E02051EFA500EA1E1C /* DayCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DayCollectionViewCell.swift; path = berkeleyMobileiOS/Classes/Recreation/DayCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
@@ -285,9 +284,6 @@
 		92EDCCF4207C0A1C000B861D /* RouteMidTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteMidTableViewCell.swift; sourceTree = "<group>"; };
 		94BCFD2B2072B4050021A887 /* RemindersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersViewController.swift; sourceTree = "<group>"; };
 		94BCFD2D2072B4280021A887 /* NotesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewController.swift; sourceTree = "<group>"; };
-		94C46110207C1A2300E61462 /* RouteEndTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RouteEndTableViewCell.swift; path = "../../../../../../../Downloads/berkeley-ios-develop/berkeleyMobileiOS/Classes/Transit/RouteCells/RouteEndTableViewCell.swift"; sourceTree = "<group>"; };
-		94C46111207C1A2300E61462 /* RouteMidTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RouteMidTableViewCell.swift; path = "../../../../../../../Downloads/berkeley-ios-develop/berkeleyMobileiOS/Classes/Transit/RouteCells/RouteMidTableViewCell.swift"; sourceTree = "<group>"; };
-		94C46112207C1A2400E61462 /* RouteDetailsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RouteDetailsTableViewCell.swift; path = "../../../../../../../Downloads/berkeley-ios-develop/berkeleyMobileiOS/Classes/Transit/RouteCells/RouteDetailsTableViewCell.swift"; sourceTree = "<group>"; };
 		94C46116207C1B2200E61462 /* DayCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayCollectionViewCell.swift; sourceTree = "<group>"; };
 		94C46118207C1B6E00E61462 /* GymClassInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GymClassInfoTableViewCell.swift; sourceTree = "<group>"; };
 		9D72D6DF911EDC0F04EE307F /* Pods-berkeleyMobileiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeleyMobileiOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-berkeleyMobileiOS/Pods-berkeleyMobileiOS.debug.xcconfig"; sourceTree = "<group>"; };
@@ -418,6 +414,7 @@
 		4E505D2D1DD05A65004AC6C9 /* Academics */ = {
 			isa = PBXGroup;
 			children = (
+				553452B1207EA28200D3A7CB /* DropDownTableViewCell.swift */,
 				55C80BD2204E4EF300E64D05 /* CampusResourceViewController.swift */,
 				55B1CC6A2022D2C300D5C3D3 /* AcademicsDataSource */,
 				55B1CC682022D2B000D5C3D3 /* AcademicsViewController */,
@@ -656,9 +653,6 @@
 				92EDCCF4207C0A1C000B861D /* RouteMidTableViewCell.swift */,
 				92EDCCF2207C0A15000B861D /* RouteEndTableViewCell.swift */,
 				92EDCCF0207C09F9000B861D /* RouteDetailsTableViewCell.swift */,
-				94C46112207C1A2400E61462 /* RouteDetailsTableViewCell.swift */,
-				94C46110207C1A2300E61462 /* RouteEndTableViewCell.swift */,
-				94C46111207C1A2300E61462 /* RouteMidTableViewCell.swift */,
 				92DD7190206072BD00B73233 /* RouteTitleTableViewCell.swift */,
 			);
 			path = RouteCells;
@@ -878,7 +872,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -896,7 +890,6 @@
 				B5F25D2B1DF519890084A5C7 /* LoadingScreen.swift in Sources */,
 				4EC865DC1E9C275D00B51E30 /* SearchDataSource.swift in Sources */,
 				41B0B58E1E8CD95D00DA9297 /* nearestStopsDataSource.swift in Sources */,
-				94C46115207C1A2400E61462 /* RouteDetailsTableViewCell.swift in Sources */,
 				94BCFD2C2072B4050021A887 /* RemindersViewController.swift in Sources */,
 				41E8438E1DAB3FE80096C049 /* AppDelegate.swift in Sources */,
 				55A520FA1FB92BD500C4C9E4 /* UIColor+Extension.swift in Sources */,
@@ -935,14 +928,13 @@
 				4E4E7D131E5CBD6F00A45586 /* ListMenuController.swift in Sources */,
 				284A3C811E31671300685A01 /* GymDetailViewController.swift in Sources */,
 				92EDCCF3207C0A15000B861D /* RouteEndTableViewCell.swift in Sources */,
+				553452B2207EA28200D3A7CB /* DropDownTableViewCell.swift in Sources */,
 				41B0B58B1E8CD95D00DA9297 /* NearestBusesTableViewCell.swift in Sources */,
-				94C46113207C1A2400E61462 /* RouteEndTableViewCell.swift in Sources */,
 				28757D811E761F9F001697D6 /* GymClassCategoryCell.swift in Sources */,
 				41017CFA1FB55BF4002D12BB /* livebusDataSource.swift in Sources */,
 				4E143C0C1E5489B100B77D08 /* InfoPanel.swift in Sources */,
 				285991AD1E7D1EA000317995 /* CampusResourceMapListViewController.swift in Sources */,
 				4EE89F261DDBEF9F00AC4EF7 /* UIImageView+Extension.swift in Sources */,
-				94C46114207C1A2400E61462 /* RouteMidTableViewCell.swift in Sources */,
 				282A4EEE1E63B1E100480201 /* GymClassCategory.swift in Sources */,
 				41B0B5961E8CDC6200DA9297 /* RouteViewController.swift in Sources */,
 				4E4D30AF1E57922600E418B8 /* CATransaction+Extension.swift in Sources */,

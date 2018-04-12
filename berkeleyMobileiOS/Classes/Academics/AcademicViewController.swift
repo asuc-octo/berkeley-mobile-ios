@@ -53,6 +53,8 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
     var libraries = [Library]()
 
     var campusResources = [CampusResource]()
+    var favLib = [Library]()
+    var nonFavLib = [Library]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,13 +69,9 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
                 }
                 
                 self.libraries = nonEmptyList as! [Library]
-//                if (self.already_loaded != true) {
-//                    self.already_loaded = true
                 if let t = self.resourceTableView {
                     t.reloadData()
                 }
-//                }
-
         }
         
         CampusResource.dataSource?.fetchResources
@@ -86,14 +84,29 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
                 }
                 
                 self.campusResources = nonEmptyList as! [CampusResource]
-//                if (self.already_loaded != true) {
-//                    self.already_loaded = true
                 if let t = self.resourceTableView {
                     t.reloadData()
                 }
-//                }
-                
         }
+        
+        // Check to see if user setting for favoriting exists
+        let defaults = UserDefaults.standard
+        if (UserDefaults.standard.object(forKey: "favoritedLibraries") == nil) {
+            // No favoriting enabled (first time opening libraries) - no favorites
+            defaults.set(favLib, forKey:"favoritedLibraries")
+            var nonFavLib = self.libraries
+        } else {
+            favLib = defaults.object(forKey: "favoritedLibraries") as! [Library]
+            for lib in self.libraries {
+                for favL in favLib {
+                    if (lib.name != favL.name) {
+                        nonFavLib.append(lib)
+                    }
+                }
+            }
+        }
+        
+        self.libraries = favLib + nonFavLib
 
 
     }
@@ -135,7 +148,15 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
             cell.resourceName.text = library.name
             cell.resourceImage.load(resource: library)
             
-
+            if (library.isFavorited == false) {
+                cell.favorited.setImage(#imageLiteral(resourceName: "heart_empty"), for: .normal)
+            } else {
+                cell.favorited.setImage(#imageLiteral(resourceName: "heart_filled"), for: .normal)
+            }
+            cell.lib = library 
+            cell.favorited.tag = indexPath.row
+            cell.favorited.addTarget(self, action: "updateFavorites", for: .touchUpInside)
+            
             var status = "OPEN"
             if library.isOpen == false {
                 status = "CLOSED"
@@ -174,8 +195,9 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
 //            cell.resourceHours.text = resource.hours
             return cell
         }
-    
     }
+    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if (isLibrary == true) {
             return 80
