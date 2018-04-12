@@ -12,6 +12,8 @@ class LibraryDetailCell: UITableViewCell {
 
     @IBOutlet weak var libraryIconImage: UIImageView!
     @IBOutlet weak var libraryIconInfo: UILabel!
+
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
