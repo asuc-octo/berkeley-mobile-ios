@@ -59,12 +59,11 @@ class DiningItemCell: UITableViewCell, RequiresData, ToggleButtonDelegate
         
             nameLabel.text = nameString
         
-            costLabel.text = costString
-            
-            
+            costLabel.text = costString.trimmingCharacters(in: .whitespaces)
             
         } else {
             nameLabel.text = str
+            costLabel.isHidden = true
         }
         
         
