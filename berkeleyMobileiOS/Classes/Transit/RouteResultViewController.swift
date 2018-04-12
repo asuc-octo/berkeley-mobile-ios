@@ -24,6 +24,8 @@ class RouteResultViewController: UIViewController, UITableViewDelegate, UITableV
     var serverToLocalFormatter = DateFormatter.init()
     var timeFormatter = DateFormatter.init()
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         startTextField.text = start
@@ -53,9 +55,9 @@ class RouteResultViewController: UIViewController, UITableViewDelegate, UITableV
         let timeElapsed = endDate?.timeIntervalSince(currentDate!)
         var minutes = timeElapsed!/60
 
-        cell.timeLabel.text = Int(minutes.rounded()).description + " mins"
+        cell.timeStartLabel.text = Int(minutes.rounded()).description + " mins"
         
-        cell.timeStartLabel.text = timeFormatter.string(from: currentDate!)
+        cell.timeLabel.text = timeFormatter.string(from: currentDate!)
         
         return cell
     }

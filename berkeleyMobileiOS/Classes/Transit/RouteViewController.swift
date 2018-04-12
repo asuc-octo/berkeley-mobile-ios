@@ -156,9 +156,9 @@ class RouteViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         var stopToDisplay: routeStop
         if indexPath.section == 0 {
-            stopToDisplay = selectedRoute.stops[indexPath.row]
+            stopToDisplay = selectedRoute.stops[max(0, indexPath.row - 1)]
         } else {
-            stopToDisplay = (selectedRoute.secondRouteStops?[indexPath.row])!
+            stopToDisplay = (selectedRoute.secondRouteStops?[max(0, indexPath.row - 1)])!
         }
         
         if (indexPath.row == 0) {
@@ -208,6 +208,11 @@ class RouteViewController: UIViewController, UITableViewDelegate, UITableViewDat
             return cell
         } else if indexPath.row == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "startCell", for: indexPath) as! RouteDetailsTableViewCell
+//            if indexPath.section == 0 {
+//                stopToDisplay = selectedRoute.stops[indexPath.row - 1]
+//            } else {
+//                stopToDisplay = (selectedRoute.secondRouteStops?[indexPath.row - 1])!
+//            }
             cell.stopName.text = stopToDisplay.name
             cell.timeLabel.text = time
             return cell
