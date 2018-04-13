@@ -82,6 +82,7 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
                     }
  
                 }
+                
                 self.subsetClasses = tempClasses
                 var ref: [String] = ["ALL-AROUND WORKOUT", "CARDIO", "MIND/BODY", "CORE", "DANCE", "STRENGTH", "AQUA"]
                 self.classTypes = []

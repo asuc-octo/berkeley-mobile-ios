@@ -199,11 +199,18 @@ class ResourceGroupViewController: UIViewController, IBInitializable, UITableVie
     private func setupSearchBar()
     {
         // Search bar
+
+        
+        var backView = UIView(frame: CGRect(x: 0, y: 0, width: (self.navigationController?.navigationBar.frame.width)!, height: (self.navigationController?.navigationBar.frame.height)!))
         let image : UIImage = #imageLiteral(resourceName: "bearsmallmed")
-        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+        let imageView = UIImageView(frame: CGRect(x: ((self.navigationController?.navigationBar.frame.width)! - 36) / 2, y: 2, width: 36, height: 19))
         imageView.contentMode = .scaleAspectFit
         imageView.image = image
-        self.navigationItem.titleView = imageView
+        //        self.navigationItem.titleView = imageView
+        
+        backView.addSubview(imageView)
+        self.navigationItem.titleView = backView
+        
 //        let iv = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: 24, height: 24))
 //        iv.image = #imageLiteral(resourceName: "bear")
 //        self.navigationItem.titleView = iv
