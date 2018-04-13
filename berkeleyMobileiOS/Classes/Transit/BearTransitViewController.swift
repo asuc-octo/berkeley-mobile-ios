@@ -432,7 +432,7 @@ class LocationMarkersData {
                         let finalData = loc
                         let location = LocationMarkersData()
                         if let c = finalData["description2"]! as? String {
-                            location.setImage(text: c)
+                            location.setFloor(text: c)
                         }
                         location.setCategory(text: finalData["category"]! as! String)
                         location.setLatitude(text: String(finalData["lat"]! as! Double))
@@ -450,7 +450,7 @@ class LocationMarkersData {
                         let finalData = loc
                         let location = LocationMarkersData()
                         if let c = finalData["description2"]! as? String {
-                            location.setImage(text: c)
+                            location.setFloor(text: c)
                         }
                         location.setCategory(text: finalData["category"]! as! String)
                         location.setLatitude(text: String(finalData["lat"]! as! Double))
@@ -468,7 +468,7 @@ class LocationMarkersData {
                             let finalData = loc
                             let location = LocationMarkersData()
                             if let c = finalData["description2"]! as? String {
-                                location.setImage(text: c)
+                                location.setFloor(text: c)
                             }
                             location.setCategory(text: finalData["category"]! as! String)
                             location.setLatitude(text: String(finalData["lat"]! as! Double))
@@ -564,6 +564,7 @@ class LocationMarkersData {
                 //marker. = centerCoordinate
                 marker.map = self.mapView
                 marker.title = coordinate.building
+//                marker.snippet = coordinate.floor
                 marker.icon = self.imageWithImage(image: #imageLiteral(resourceName: "water_fountains"), scaledToSize: CGSize(width: 50.0, height: 50.0))
                 //marker.iconView?.sizeThatFits(CGSize(width: 5.0, height: 5.0))
                 self.chosenMarkers.append(marker)
@@ -584,7 +585,7 @@ class LocationMarkersData {
                 let marker = GMSMarker(position: location.coordinate)
                 marker.map = self.mapView
                 marker.title = coordinate.building
-                
+//                marker.snippet = coordinate.floor
                 marker.icon = self.imageWithImage(image: #imageLiteral(resourceName: "microwaves"), scaledToSize: CGSize(width: 50.0, height: 50.0))
                 //ma0rker.iconView?.sizeThatFits(CGSize(width: 5.0, height: 5.0))
                 //marker.iconView.s
@@ -606,6 +607,7 @@ class LocationMarkersData {
                 let marker = GMSMarker(position: location.coordinate)
                 marker.map = self.mapView
                 marker.title = coordinate.building
+//                marker.snippet = coordinate.floor
                 marker.icon = self.imageWithImage(image: #imageLiteral(resourceName: "nap_pods"), scaledToSize: CGSize(width: 50.0, height: 50.0))
                 //ma0rker.iconView?.sizeThatFits(CGSize(width: 5.0, height: 5.0))
                 //marker.iconView.s
