@@ -400,11 +400,14 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
 //        formatter.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierISO8601)
 //        formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
 //        formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
-        formatter.dateFormat = "a"
+        formatter.dateFormat = "h:mm a"
+        let formatter2 = DateFormatter()
+        formatter2.dateFormat = "h:mm"
 //        formatter.AMSymbol = "AM"
 //        formatter.PMSymbol = "PM"
-        let dateString = formatter.string(from: endTime!)
-        let time = startStr + " - " + endStr + " " + dateString
+        startStr = formatter2.string(from: startTime!)
+        endStr = formatter.string(from: endTime!)
+        let time = startStr + " - " + endStr
         
         cell.time.text = time
         
