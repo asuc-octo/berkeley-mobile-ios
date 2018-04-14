@@ -36,31 +36,31 @@ class GymClassDataSource: ResourceDataSource {
                 }
                 var totalClasses: [GymClass] = []
 
-                for (key, subJson) in JSON(data: response.data!) {
-                    for index in 1...subJson.count {
-                        let dateString = subJson[index]["date"].rawString()!
-                        let finalDate = dateString.date(format:"yyyy-MM-dd")
-                        
-                        let startDateString = subJson[index]["start_time"].rawString()!
-                        let finalStartDate = startDateString.date(format:"yyyy-MM-dd'T'HH:mm:ss'.000Z'")
-                        
-                        
-                        let endDateString = subJson[index]["end_time"].rawString()!
-                        let finalEndDate = endDateString.date(format:"yyyy-MM-dd'T'HH:mm:ss'.000Z'")
-                        
-                        
-                        let gymClass = GymClass(name: subJson[index]["name"].rawString()!,
-                                                class_type: key,
-                                                location: subJson[index]["location"].rawString()!,
-                                                trainer: subJson[index]["trainer"].rawString()!,
-                                                date: finalDate,
-                                                start_time: finalStartDate,
-                                                end_time: finalEndDate,
-                                                imageLink: subJson[index]["image_link"].stringValue)
-                        totalClasses.append(gymClass)
-                    }
-                    
-                }
+//                for (key, subJson) in JSON(data: response.data!) {
+//                    for index in 1...subJson.count {
+//                        let dateString = subJson[index]["date"].rawString()!
+//                        let finalDate = dateString.date(format:"yyyy-MM-dd")
+//
+//                        let startDateString = subJson[index]["start_time"].rawString()!
+//                        let finalStartDate = startDateString.date(format:"yyyy-MM-dd'T'HH:mm:ss'.000Z'")
+//
+//
+//                        let endDateString = subJson[index]["end_time"].rawString()!
+//                        let finalEndDate = endDateString.date(format:"yyyy-MM-dd'T'HH:mm:ss'.000Z'")
+//
+//
+//                        let gymClass = GymClass(name: subJson[index]["name"].rawString()!,
+//                                                class_type: key,
+//                                                location: subJson[index]["location"].rawString()!,
+//                                                trainer: subJson[index]["trainer"].rawString()!,
+//                                                date: finalDate,
+//                                                start_time: finalStartDate,
+//                                                end_time: finalEndDate,
+//                                                imageLink: subJson[index]["image_link"].stringValue)
+//                        totalClasses.append(gymClass)
+//                    }
+//
+//                }
                 for (_, subJson) in JSON(data: response.data!) {
                  let gymClasses = subJson.map { (_, child) in parseGymClasses(child) }
                 totalClasses.append(contentsOf: gymClasses)
