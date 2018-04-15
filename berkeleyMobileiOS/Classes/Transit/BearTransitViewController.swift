@@ -1075,6 +1075,8 @@ class LocationMarkersData {
         } else if selected?.icon == #imageLiteral(resourceName: "nap_pods") {
             title = "Nap Pod"
             color = UIColor.init(hex: "FF2BA3")
+        } else {
+            return true
         }
         
         self.selectedIconDisplay.image = selected?.icon

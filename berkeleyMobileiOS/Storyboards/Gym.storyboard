@@ -359,7 +359,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZwV-aI-OXB">
-                                                            <rect key="frame" x="330" y="9.5" width="29" height="14.5"/>
+                                                            <rect key="frame" x="330" y="8.5" width="29" height="14.5"/>
                                                             <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="12"/>
                                                             <color key="textColor" red="0.35686274509803922" green="0.35686274509803922" blue="0.35686274509803922" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -425,21 +425,20 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="1h6-4n-2fC">
-                                        <rect key="frame" x="8" y="30" width="367" height="227"/>
+                                        <rect key="frame" x="0.0" y="30" width="375" height="227"/>
                                         <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="367" id="MgN-SE-HeC"/>
                                             <constraint firstAttribute="height" constant="227" id="ohV-6R-JJT"/>
                                         </constraints>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="P5u-Dl-2EM">
                                             <size key="itemSize" width="200" height="215"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                            <inset key="sectionInset" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="gymCollectionCell" reuseIdentifier="gymCollectionCell" id="BQw-ck-CdD" customClass="GymCollectionViewCell" customModule="berkeleyMobileiOS" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="4.5" width="200" height="218"/>
+                                                <rect key="frame" x="8" y="4.5" width="200" height="218"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                                     <rect key="frame" x="0.0" y="0.0" width="200" height="218"/>
@@ -541,7 +540,7 @@
                                     <constraint firstItem="T2y-qR-2ES" firstAttribute="top" secondItem="pgd-Jo-c56" secondAttribute="top" constant="3" id="gEd-Zu-PBo"/>
                                     <constraint firstItem="jAL-N2-Hxl" firstAttribute="leading" secondItem="vxP-Qm-ZTT" secondAttribute="leading" id="h91-AH-wEO"/>
                                     <constraint firstItem="QBj-NS-ody" firstAttribute="top" secondItem="jAL-N2-Hxl" secondAttribute="bottom" constant="4" id="ksw-IC-tKL"/>
-                                    <constraint firstItem="1h6-4n-2fC" firstAttribute="leading" secondItem="pgd-Jo-c56" secondAttribute="leading" constant="8" id="lZm-69-BXa"/>
+                                    <constraint firstItem="1h6-4n-2fC" firstAttribute="leading" secondItem="pgd-Jo-c56" secondAttribute="leading" id="lZm-69-BXa"/>
                                     <constraint firstItem="vxP-Qm-ZTT" firstAttribute="top" secondItem="1h6-4n-2fC" secondAttribute="bottom" constant="8" id="lnL-jj-eOG"/>
                                     <constraint firstItem="T2y-qR-2ES" firstAttribute="leading" secondItem="pgd-Jo-c56" secondAttribute="leading" constant="8" id="md4-75-3Ug"/>
                                     <constraint firstAttribute="bottom" secondItem="2R2-Az-6gw" secondAttribute="bottom" id="r9I-jg-PVj"/>
@@ -572,6 +571,7 @@
                             <constraint firstAttribute="trailing" secondItem="iZE-Ki-nbc" secondAttribute="trailing" id="Mm2-dL-VRy"/>
                             <constraint firstItem="Qjs-aD-AeQ" firstAttribute="centerX" secondItem="iZE-Ki-nbc" secondAttribute="centerX" id="Tv1-2N-sM5"/>
                             <constraint firstItem="iZE-Ki-nbc" firstAttribute="top" secondItem="4BM-v4-wyg" secondAttribute="top" id="YM0-yK-roF"/>
+                            <constraint firstItem="1h6-4n-2fC" firstAttribute="width" secondItem="4BM-v4-wyg" secondAttribute="width" id="aHI-1b-JhV"/>
                             <constraint firstItem="iZE-Ki-nbc" firstAttribute="leading" secondItem="4BM-v4-wyg" secondAttribute="leading" id="jFP-Xk-4ko"/>
                             <constraint firstAttribute="bottom" secondItem="pgd-Jo-c56" secondAttribute="bottom" id="sP3-bT-TOP"/>
                         </constraints>
