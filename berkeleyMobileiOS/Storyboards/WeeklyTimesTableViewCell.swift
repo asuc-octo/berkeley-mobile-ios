@@ -20,6 +20,14 @@ class WeeklyTimesTableViewCell: UITableViewCell {
     
     @IBOutlet weak var timeTableView: UITableView!
     
+    @IBAction func expand(_ sender: Any) {
+        
+        
+    }
+    
+    
+    
+    
     var days: [String]!
     var times: [String]!
     
@@ -51,15 +59,8 @@ extension WeeklyTimesTableViewCell: UITableViewDelegate, UITableViewDataSource {
         let cell = timeTableView.dequeueReusableCell(withIdentifier: "timeCell", for:indexPath) as! TimeTableViewCell
         cell.day.text = days![indexPath.row]
         cell.time.text = times![indexPath.row]
-
-    
         return cell
     }
-    
-    
-    
-    
-    
     
 }
 
