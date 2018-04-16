@@ -17,6 +17,8 @@ class LibraryViewController: UIViewController, GMSMapViewDelegate, CLLocationMan
     var libInfo = [String]()
     var weeklyTimes = [String]()
     var daysOfWeek = [String]()
+    var expandRow: Bool!
+    @IBOutlet weak var timeTableview: UITableView!
     
     @IBOutlet weak var libTitle: UILabel!
     @IBOutlet weak var libraryImage: UIImageView!
@@ -45,6 +47,7 @@ class LibraryViewController: UIViewController, GMSMapViewDelegate, CLLocationMan
         libTableView.delegate = self
         libTableView.dataSource = self
 
+        expandRow = false
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "h:mm a"
@@ -73,6 +76,7 @@ class LibraryViewController: UIViewController, GMSMapViewDelegate, CLLocationMan
 //            var timeInfo = weekday + " " + timeRange
             
             weeklyTimes.append(timeRange)
+            
         }
         
         var dateComponent = DateComponents()
@@ -224,6 +228,9 @@ class LibraryViewController: UIViewController, GMSMapViewDelegate, CLLocationMan
         }
     }
 }
+
+
+
 extension LibraryViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -233,30 +240,41 @@ extension LibraryViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 55
+        if expandRow == true && indexPath.row == 0  {
+            return 170
+        } else {
+            return 55
+        }
     }
+
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let libraryInfoCell = libTableView.dequeueReusableCell(withIdentifier: "libraryCell", for: indexPath) as! LibraryDetailCell
+        if indexPath.row == 0 {
+            let cell = libTableView.dequeueReusableCell(withIdentifier: "dropdown", for: indexPath) as! WeeklyTimesTableViewCell
+            cell.icon.image = iconImages[indexPath.row]
+            cell.day.text = daysOfWeek[0]
+            cell.time.text = weeklyTimes[0]
+            cell.days = daysOfWeek
+            cell.times = weeklyTimes
+            return cell
+        } else {
+            let libraryInfoCell = libTableView.dequeueReusableCell(withIdentifier: "libraryCell", for: indexPath) as! LibraryDetailCell
             
-        libraryInfoCell.libraryIconImage.image = iconImages[indexPath.row]
-        libraryInfoCell.libraryIconInfo.text = libInfo[indexPath.row]
-        libraryInfoCell.libraryIconInfo.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightMedium)
-        return libraryInfoCell
+            libraryInfoCell.libraryIconImage.image = iconImages[indexPath.row]
+            libraryInfoCell.libraryIconInfo.text = libInfo[indexPath.row]
+            libraryInfoCell.libraryIconInfo.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightMedium)
+            return libraryInfoCell
+        }
     }
         
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell  = tableView.cellForRow(at: indexPath)
-        cell?.selectionStyle = .none
-            
-        if indexPath.row == 1 {
-           // callLibrary()
-        }
-        else if indexPath.row == 2 {
-            //getMap()
+        if indexPath.row == 0 {
+            let cell = tableView.cellForRow(at: indexPath) as! WeeklyTimesTableViewCell
+            expandRow = !expandRow
+            tableView.reloadData()
         }
     }
-        
-
+    
 }
