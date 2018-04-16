@@ -125,6 +125,9 @@
 		55C44749206B273F00409499 /* GymCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C44748206B273F00409499 /* GymCollectionViewCell.swift */; };
 		55C4474B206B3EE600409499 /* SpecificGymViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C4474A206B3EE600409499 /* SpecificGymViewController.swift */; };
 		55C80BD3204E4EF300E64D05 /* CampusResourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C80BD2204E4EF300E64D05 /* CampusResourceViewController.swift */; };
+		55D9A4BB2084220F0040110C /* WeeklyTimesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D9A4BA2084220F0040110C /* WeeklyTimesTableViewCell.swift */; };
+		55D9A4BD208448DD0040110C /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D9A4BC208448DD0040110C /* UIImageExtension.swift */; };
+		55D9A4BF20844FB00040110C /* TimeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D9A4BE20844FB00040110C /* TimeTableViewCell.swift */; };
 		55EC872F1FA2DC1E00C71C09 /* LibraryDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EC872E1FA2DC1E00C71C09 /* LibraryDetailCell.swift */; };
 		55EC87311FA2E70A00C71C09 /* CampusResourceDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EC87301FA2E70A00C71C09 /* CampusResourceDetailCell.swift */; };
 		55EC87331FA2EDC800C71C09 /* CampusResourceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EC87321FA2EDC800C71C09 /* CampusResourceCell.swift */; };
@@ -272,6 +275,9 @@
 		55C44748206B273F00409499 /* GymCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymCollectionViewCell.swift; sourceTree = "<group>"; };
 		55C4474A206B3EE600409499 /* SpecificGymViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecificGymViewController.swift; sourceTree = "<group>"; };
 		55C80BD2204E4EF300E64D05 /* CampusResourceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusResourceViewController.swift; sourceTree = "<group>"; };
+		55D9A4BA2084220F0040110C /* WeeklyTimesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyTimesTableViewCell.swift; sourceTree = "<group>"; };
+		55D9A4BC208448DD0040110C /* UIImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
+		55D9A4BE20844FB00040110C /* TimeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTableViewCell.swift; sourceTree = "<group>"; };
 		55EC872E1FA2DC1E00C71C09 /* LibraryDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryDetailCell.swift; sourceTree = "<group>"; };
 		55EC87301FA2E70A00C71C09 /* CampusResourceDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CampusResourceDetailCell.swift; path = berkeleyMobileiOS/Classes/Academics/AcademicsCells/CampusResourceDetailCell.swift; sourceTree = SOURCE_ROOT; };
 		55EC87321FA2EDC800C71C09 /* CampusResourceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusResourceCell.swift; sourceTree = "<group>"; };
@@ -403,6 +409,8 @@
 		4E505D2C1DD05A65004AC6C9 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				55D9A4BC208448DD0040110C /* UIImageExtension.swift */,
+				55D9A4BE20844FB00040110C /* TimeTableViewCell.swift */,
 				4E505D381DD05A65004AC6C9 /* LaunchViewController.swift */,
 				4E505D2F1DD05A65004AC6C9 /* Base */,
 				4EC865D91E9C275D00B51E30 /* Search */,
@@ -526,6 +534,7 @@
 				4E7F97121EA05806002D9EC8 /* Resource.storyboard */,
 				4E106F251E9FDEFA0089934A /* Gym.storyboard */,
 				4E7F97101EA057A4002D9EC8 /* Academics.storyboard */,
+				55D9A4BA2084220F0040110C /* WeeklyTimesTableViewCell.swift */,
 				4EEF90461DDBC7D0002CF7E4 /* Dining.storyboard */,
 				4E106F231E9F02560089934A /* Transit.storyboard */,
 			);
@@ -948,6 +957,7 @@
 				4124FA911EAC027700F65FBA /* timeCell.swift in Sources */,
 				282A4EEC1E63859900480201 /* GymClassDataSource.swift in Sources */,
 				4E4EC14C1E5118C9000C63ED /* FavoriteStore.swift in Sources */,
+				55D9A4BF20844FB00040110C /* TimeTableViewCell.swift in Sources */,
 				4E64B5701DD134F800DA5E73 /* Optional+Extension.swift in Sources */,
 				5552A68F2048C2F100F27AED /* AcademicViewController.swift in Sources */,
 				41EB40621F9993640069A374 /* nearBusCollectionCell.swift in Sources */,
@@ -956,6 +966,7 @@
 				286D90241DDE9D86001DCBB6 /* LibraryMapViewController.swift in Sources */,
 				F3CEBE02207D8006004C0E95 /* RouteEndTableViewCell.swift in Sources */,
 				4E4EC1421E50470F000C63ED /* Resource.swift in Sources */,
+				55D9A4BB2084220F0040110C /* WeeklyTimesTableViewCell.swift in Sources */,
 				282A4EF01E63B39600480201 /* GymClassCategoryDataSource.swift in Sources */,
 				4E505D461DD05A65004AC6C9 /* LaunchViewController.swift in Sources */,
 				4ED0D35C1DDCE1C600956F9E /* DiningItemCell.swift in Sources */,
@@ -966,6 +977,7 @@
 				282A4EF61E63BC9000480201 /* GymClassCell.swift in Sources */,
 				4E06A05A1E5E9DE8007B946F /* ListMenuItem.swift in Sources */,
 				4E4EC14B1E5118C9000C63ED /* Favorable.swift in Sources */,
+				55D9A4BD208448DD0040110C /* UIImageExtension.swift in Sources */,
 				4E62CFE71DD87CFB00B19722 /* UINavigationBar+Extension.swift in Sources */,
 				55026D561F9152E6005D9576 /* GymInformationTableViewCell.swift in Sources */,
 				55EC872F1FA2DC1E00C71C09 /* LibraryDetailCell.swift in Sources */,
