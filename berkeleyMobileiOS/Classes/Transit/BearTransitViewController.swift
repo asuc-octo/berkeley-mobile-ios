@@ -432,7 +432,7 @@ class LocationMarkersData {
                         let finalData = loc
                         let location = LocationMarkersData()
                         if let c = finalData["description2"]! as? String {
-                            location.setImage(text: c)
+                            location.setFloor(text: c)
                         }
                         location.setCategory(text: finalData["category"]! as! String)
                         location.setLatitude(text: String(finalData["lat"]! as! Double))
@@ -450,7 +450,7 @@ class LocationMarkersData {
                         let finalData = loc
                         let location = LocationMarkersData()
                         if let c = finalData["description2"]! as? String {
-                            location.setImage(text: c)
+                            location.setFloor(text: c)
                         }
                         location.setCategory(text: finalData["category"]! as! String)
                         location.setLatitude(text: String(finalData["lat"]! as! Double))
@@ -468,7 +468,7 @@ class LocationMarkersData {
                             let finalData = loc
                             let location = LocationMarkersData()
                             if let c = finalData["description2"]! as? String {
-                                location.setImage(text: c)
+                                location.setFloor(text: c)
                             }
                             location.setCategory(text: finalData["category"]! as! String)
                             location.setLatitude(text: String(finalData["lat"]! as! Double))
@@ -547,6 +547,7 @@ class LocationMarkersData {
         menuButton.center = CGPoint(x: self.view.bounds.width - 44.0, y: self.view.bounds.height - 100.0)
         menuButton.menuItemMargin = 10
         menuButton.allowSounds = false
+        
         view.addSubview(menuButton)
         
         let item1 = ExpandingMenuItem(size: menuButtonSize, title: "", image: #imageLiteral(resourceName: "water_fountains"), highlightedImage: #imageLiteral(resourceName: "water_fountains"), backgroundImage: #imageLiteral(resourceName: "water_fountains"), backgroundHighlightedImage: #imageLiteral(resourceName: "water_fountains")) { () -> Void in
@@ -564,6 +565,7 @@ class LocationMarkersData {
                 //marker. = centerCoordinate
                 marker.map = self.mapView
                 marker.title = coordinate.building
+//                marker.snippet = coordinate.floor
                 marker.icon = self.imageWithImage(image: #imageLiteral(resourceName: "water_fountains"), scaledToSize: CGSize(width: 50.0, height: 50.0))
                 //marker.iconView?.sizeThatFits(CGSize(width: 5.0, height: 5.0))
                 self.chosenMarkers.append(marker)
@@ -584,7 +586,7 @@ class LocationMarkersData {
                 let marker = GMSMarker(position: location.coordinate)
                 marker.map = self.mapView
                 marker.title = coordinate.building
-                
+//                marker.snippet = coordinate.floor
                 marker.icon = self.imageWithImage(image: #imageLiteral(resourceName: "microwaves"), scaledToSize: CGSize(width: 50.0, height: 50.0))
                 //ma0rker.iconView?.sizeThatFits(CGSize(width: 5.0, height: 5.0))
                 //marker.iconView.s
@@ -606,6 +608,7 @@ class LocationMarkersData {
                 let marker = GMSMarker(position: location.coordinate)
                 marker.map = self.mapView
                 marker.title = coordinate.building
+//                marker.snippet = coordinate.floor
                 marker.icon = self.imageWithImage(image: #imageLiteral(resourceName: "nap_pods"), scaledToSize: CGSize(width: 50.0, height: 50.0))
                 //ma0rker.iconView?.sizeThatFits(CGSize(width: 5.0, height: 5.0))
                 //marker.iconView.s
@@ -635,10 +638,10 @@ class LocationMarkersData {
 //        self.view.addSubview(fab)
     }
     
-    let menuButtonSize: CGSize = CGSize(width: 60.0, height: 60.0)
+    let menuButtonSize: CGSize = CGSize(width: 75.0, height: 75.0)
     //let smallerMenu: CGSize = CGSize(width: 5.0, height: 5.0)
-    let menuButton = ExpandingMenuButton(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: 60.0, height: 60.0)), centerImage:  #imageLiteral(resourceName: "white_eye"), centerHighlightedImage: #imageLiteral(resourceName: "white_eye"))
-    
+    var menuButton = ExpandingMenuButton(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: 75.0, height: 75.0)), centerImage:  #imageLiteral(resourceName: "white_eye"), centerHighlightedImage: #imageLiteral(resourceName: "white_eye"))
+
     
     func imageWithImage(image:UIImage, scaledToSize newSize:CGSize) -> UIImage{
         UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0);
@@ -1072,6 +1075,8 @@ class LocationMarkersData {
         } else if selected?.icon == #imageLiteral(resourceName: "nap_pods") {
             title = "Nap Pod"
             color = UIColor.init(hex: "FF2BA3")
+        } else {
+            return true
         }
         
         self.selectedIconDisplay.image = selected?.icon
