@@ -19,7 +19,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>8.2</string>
 	<key>CFBundleVersion</key>
-	<string>4</string>
+	<string>6</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -28,11 +28,11 @@
 		<true/>
 	</dict>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string></string>
+	<string>Berkeley Mobile would like to use your location for Bear Transit Routing!</string>
 	<key>NSLocationUsageDescription</key>
-	<string>Berkeley Mobile wants would like to use your location.</string>
+	<string>Berkeley Mobile would like to use your location for Bear Transit Routing!</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>Berkeley Mobile would like to use your location for Bear Transit Routing!</string>
 	<key>UILaunchStoryboardName</key>
 	<string>Launch Screen</string>
 	<key>UIMainStoryboardFile</key>

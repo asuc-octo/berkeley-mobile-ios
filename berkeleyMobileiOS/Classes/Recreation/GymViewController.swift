@@ -76,13 +76,20 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
                         if let gc = gymClass.class_type {
                             found_types.insert(gc)
                             if (calendar.component(.day, from: gymDate) == calendar.component(.day, from: self.selectedDays)) {
+                                if gymClass.name == "Yogalates" {
+                                    
+                                }
                                 tempClasses.append(gymClass)
                             }
                         }
                     }
  
                 }
+                
                 self.subsetClasses = tempClasses
+                self.subsetClasses.sort(by: { (a, b) -> Bool in
+                    a.start_time! < b.start_time!
+                })
                 var ref: [String] = ["ALL-AROUND WORKOUT", "CARDIO", "MIND/BODY", "CORE", "DANCE", "STRENGTH", "AQUA"]
                 self.classTypes = []
                 for s in ref {
@@ -252,6 +259,10 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
                     }
                 }
                 subsetClasses = tempClasses
+                self.subsetClasses.sort(by: { (a, b) -> Bool in
+                    a.start_time! < b.start_time!
+                })
+                
             }
             
             self.classTableView.reloadData()
@@ -299,6 +310,9 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
                 self.tableViewHeight.constant = height_from_count()
 
             }
+            self.subsetClasses.sort(by: { (a, b) -> Bool in
+                a.start_time! < b.start_time!
+            })
             self.classTypesCollectionView.reloadData()
             self.classTableView.reloadData()
         }
@@ -399,11 +413,14 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
 //        formatter.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierISO8601)
 //        formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
 //        formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
-        formatter.dateFormat = "a"
+        formatter.dateFormat = "h:mm a"
+        let formatter2 = DateFormatter()
+        formatter2.dateFormat = "h:mm"
 //        formatter.AMSymbol = "AM"
 //        formatter.PMSymbol = "PM"
-        let dateString = formatter.string(from: endTime!)
-        let time = startStr + " - " + endStr + " " + dateString
+        startStr = formatter2.string(from: startTime!)
+        endStr = formatter.string(from: endTime!)
+        let time = startStr + " - " + endStr
         
         cell.time.text = time
         
