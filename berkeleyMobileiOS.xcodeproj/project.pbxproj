@@ -658,9 +658,6 @@
 		92DD71922060754800B73233 /* RouteCells */ = {
 			isa = PBXGroup;
 			children = (
-				92EDCCF4207C0A1C000B861D /* RouteMidTableViewCell.swift */,
-				92EDCCF2207C0A15000B861D /* RouteEndTableViewCell.swift */,
-				92EDCCF0207C09F9000B861D /* RouteDetailsTableViewCell.swift */,
 				F3CEBE01207D8006004C0E95 /* RouteEndTableViewCell.swift */,
 				F3CEBE03207D8019004C0E95 /* RouteDetailsTableViewCell.swift */,
 				F3CEBDFF207D7FF6004C0E95 /* RouteMidTableViewCell.swift */,
@@ -821,7 +818,9 @@
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlacePicker.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlaces.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -938,7 +937,6 @@
 				F3CEBE00207D7FF6004C0E95 /* RouteMidTableViewCell.swift in Sources */,
 				4E4E7D131E5CBD6F00A45586 /* ListMenuController.swift in Sources */,
 				284A3C811E31671300685A01 /* GymDetailViewController.swift in Sources */,
-				92EDCCF3207C0A15000B861D /* RouteEndTableViewCell.swift in Sources */,
 				553452B2207EA28200D3A7CB /* DropDownTableViewCell.swift in Sources */,
 				41B0B58B1E8CD95D00DA9297 /* NearestBusesTableViewCell.swift in Sources */,
 				28757D811E761F9F001697D6 /* GymClassCategoryCell.swift in Sources */,
