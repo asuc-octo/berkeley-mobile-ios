@@ -258,6 +258,11 @@ extension LibraryViewController: UITableViewDataSource, UITableViewDelegate {
             cell.time.text = weeklyTimes[0]
             cell.days = daysOfWeek
             cell.times = weeklyTimes
+            if expandRow == true {
+                cell.expandButton.setBackgroundImage(#imageLiteral(resourceName: "collapse"), for: .normal)
+            } else {
+                cell.expandButton.setBackgroundImage(#imageLiteral(resourceName: "expand"), for: .normal)
+            }
             return cell
         } else {
             let libraryInfoCell = libTableView.dequeueReusableCell(withIdentifier: "libraryCell", for: indexPath) as! LibraryDetailCell

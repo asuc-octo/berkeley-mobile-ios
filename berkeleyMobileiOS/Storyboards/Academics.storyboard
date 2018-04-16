@@ -893,6 +893,9 @@
                                                     <rect key="frame" x="338" y="13" width="30" height="27"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" backgroundImage="forward-arrow"/>
+                                                    <connections>
+                                                        <action selector="expand:" destination="LKm-uf-A5V" eventType="touchUpInside" id="mRa-NP-3Pg"/>
+                                                    </connections>
                                                 </button>
                                                 <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="GtL-mk-Ebh">
                                                     <rect key="frame" x="15" y="56" width="345" height="99"/>
