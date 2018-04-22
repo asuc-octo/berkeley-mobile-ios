@@ -36,7 +36,6 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
     var classBool = [true, true, true, true, true, true, true]
     var selectedDays: Date! = Date()
     var classTypes: [String] = []
-//    var classTypes = ["ALL-AROUND", "CARDIO", "MIND/BODY", "CORE", "DANCE", "STRENGTH", "AQUA"]
     
     var dayNames = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"]
     var daysOfWeek = [Date]()
@@ -46,7 +45,6 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
         noClasses.isHidden = true
         Gym.dataSource?.fetchResources
             { list in
-                //                DispatchQueue.main.async { self.activityIndicator.stopAnimating() }
                 guard let nonEmptyList = list else
                 {
                     // Error
@@ -60,14 +58,13 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
         // Set up gym classes
         GymClass.dataSource?.fetchResources
             { list in
-//                DispatchQueue.main.async { self.activityIndicator.stopAnimating() }
                 guard let nonEmptyList = list else
                 {
                     // Error
-                    return print()
+                    return print("Failed to load gym classes in GymViewController")
                 }
                 self.gymClasses = nonEmptyList as! [GymClass]
-            
+                
                 let calendar = Calendar.current
                 var tempClasses = [GymClass]()
                 var found_types: Set<String> = Set()
@@ -76,9 +73,6 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
                         if let gc = gymClass.class_type {
                             found_types.insert(gc)
                             if (calendar.component(.day, from: gymDate) == calendar.component(.day, from: self.selectedDays)) {
-                                if gymClass.name == "Yogalates" {
-                                    
-                                }
                                 tempClasses.append(gymClass)
                             }
                         }
@@ -90,7 +84,9 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
                 self.subsetClasses.sort(by: { (a, b) -> Bool in
                     a.start_time! < b.start_time!
                 })
+                
                 var ref: [String] = ["ALL-AROUND WORKOUT", "CARDIO", "MIND/BODY", "CORE", "DANCE", "STRENGTH", "AQUA"]
+                
                 self.classTypes = []
                 for s in ref {
                     if found_types.contains(s) {
@@ -104,7 +100,6 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
                     self.noClasses.isHidden = false
                     self.noClasses.text = "No Classes for Selected Options"
                 }
-//                self.tableViewHeight.constant = self.height_from_count(self.subsetClasses.count)
                 self.tableViewHeight.constant = self.height_from_count()
                 self.classTypesCollectionView.reloadData()
         }
@@ -128,9 +123,11 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     func height_from_count() -> CGFloat {
         return CGFloat((self.subsetClasses.count) * Int(55))
     }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.weekCollectionView {
             return 7
@@ -152,12 +149,14 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
             let currDate = daysOfWeek[indexPath.row]
             let calendar = Calendar.current
             let date = calendar.component(.day, from: currDate)
+           
             weekCell.date.text = String(date)
             weekCell.date.textAlignment = .center
             weekCell.date.font = UIFont.init(name: "Roboto", size: 16)
             weekCell.day.font = UIFont.init(name: "Roboto", size: 11)
             weekCell.date.textColor = UIColor(hex: "5B5B5B")
             weekCell.day.textColor = UIColor(hex: "5B5B5B")
+            
             if (calendar.component(.day, from: currDate) == calendar.component(.day, from: selectedDays)) {
                 weekCell.date.font = UIFont.init(name: "Roboto-Bold", size: 20)
                 weekCell.day.font = UIFont.init(name: "Roboto-Bold", size: 13)
@@ -169,6 +168,7 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
             let gymCell = collectionView.dequeueReusableCell(withReuseIdentifier: "gymCollectionCell", for: indexPath) as! GymCollectionViewCell
             let gym = self.gyms[indexPath.row]
             gymCell.gymName.text = gym.name
+            
             let layer = gymCell.layer
             layer.borderWidth = 1
             layer.borderColor = kColorGray.cgColor
@@ -213,23 +213,21 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
                 color = ""
             }
   
-            
             classTypeCell.selectedBool = self.classBool[indexPath.row]
             classTypeCell.classType.text = type.split(separator: " ").first?.uppercased()
             classTypeCell.classType.layer.cornerRadius = 10
             classTypeCell.classType.layer.masksToBounds = true
             print(self.classBool)
+            
             if ( classTypeCell.selectedBool) {
                 classTypeCell.classType.backgroundColor = UIColor(hex: color)
                 classTypeCell.classType.textColor = UIColor.white
                 classTypeCell.classType.borderColor = UIColor(hex: color)
-
             } else {
                 classTypeCell.classType.backgroundColor = UIColor.white
                 classTypeCell.classType.textColor = UIColor(hex: color)
                 classTypeCell.classType.borderColor = UIColor(hex: color)
                 classTypeCell.classType.borderWidth = 1.0
-                
             }
             return classTypeCell
         }
@@ -242,11 +240,8 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
             performSegue(withIdentifier: "toGym", sender: self)
         } else if collectionView == self.weekCollectionView {
             Analytics.logEvent("gym_date_clicked", parameters: nil)
-
-            //  Reload table to only show stuff for that day
             var clickedDay = self.daysOfWeek[indexPath.row]
             if (selectedDays != clickedDay) {
-                // Here we want to swap which one is bolded
                 selectedDays = clickedDay
                 let calendar = Calendar.current
                 var tempClasses = [GymClass]()
@@ -262,14 +257,11 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
                 self.subsetClasses.sort(by: { (a, b) -> Bool in
                     a.start_time! < b.start_time!
                 })
-                
             }
-            
             self.classTableView.reloadData()
             self.weekCollectionView.reloadData()
         } else if collectionView == self.classTypesCollectionView {
             Analytics.logEvent("clicked_exercise_filter", parameters: nil)
-            // Reload table to only show stuff for selected class types
             var selectedType = self.classTypes[indexPath.row]
             if (!self.selectedClassTypes.contains(selectedType)) {
                 self.selectedClassTypes.append(selectedType)
@@ -328,7 +320,6 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
         }
     }
     
-    // SHIT (i.e. tableview) FOR GYM CLASSES BYOOTCH
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if subsetClasses.count == 0 {
             self.classTableView.isHidden = true
@@ -337,9 +328,11 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
         }
         return subsetClasses.count
     }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 55
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "gymClass", for: indexPath) as! GymClassInfoTableViewCell
         let gymClass = subsetClasses[indexPath.row]
@@ -380,7 +373,6 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
         
         cell.sidebarColor.backgroundColor = UIColor(hex: color)
     
-        
         let startTime = gymClass.start_time
         let endTime = gymClass.end_time
 
@@ -410,14 +402,9 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
             endStr = String(endHr) + ":" + String(endMin)
         }
         let formatter = DateFormatter()
-//        formatter.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierISO8601)
-//        formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
-//        formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
         formatter.dateFormat = "h:mm a"
         let formatter2 = DateFormatter()
         formatter2.dateFormat = "h:mm"
-//        formatter.AMSymbol = "AM"
-//        formatter.PMSymbol = "PM"
         startStr = formatter2.string(from: startTime!)
         endStr = formatter.string(from: endTime!)
         let time = startStr + " - " + endStr
@@ -455,9 +442,9 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
     @IBAction func unwindToGym(segue: UIStoryboardSegue) {
     }
     
-    
-    
 }
+
+
 extension Date {
     var startOfWeek: Date? {
         let gregorian = Calendar(identifier: .gregorian)
@@ -465,13 +452,6 @@ extension Date {
         
         return gregorian.date(byAdding: .day, value: 0, to: sunday)
     }
-    
-    var endOfWeek: Date? {
-        let gregorian = Calendar(identifier: .gregorian)
-        guard let sunday = gregorian.date(from: gregorian.dateComponents([.yearForWeekOfYear, .weekOfYear], from: self)) else { return nil }
-        return gregorian.date(byAdding: .day, value: 7, to: sunday)
-    }
-    
     
 }
 

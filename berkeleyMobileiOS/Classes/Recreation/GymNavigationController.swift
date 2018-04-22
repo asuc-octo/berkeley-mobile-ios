@@ -18,8 +18,6 @@ class GymNavigationController: UINavigationController, IBInitializable {
         return UIStoryboard.gym.instantiateViewController(withIdentifier: self.componentID) as! IBObjectType
     }
     
-
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -41,6 +39,7 @@ class GymNavigationController: UINavigationController, IBInitializable {
         pageTabBarItem.image = pageTabBarItem.image!.withRenderingMode(.alwaysTemplate)
         pageTabBarItem.imageView?.contentMode = .scaleAspectFit
     }
+    
     //Make sure tab bar is highlighted properly
     override func viewDidAppear(_ animated: Bool) {
         ConvenienceMethods.setCurrentTabStyle(pageTabBarVC: pageTabBarController!, ForSelectedViewController: self)
