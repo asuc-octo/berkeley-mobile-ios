@@ -160,7 +160,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hdQ-zN-Z0b">
-                                <rect key="frame" x="16" y="219" width="351" height="33"/>
+                                <rect key="frame" x="16" y="222.5" width="351" height="29.5"/>
                                 <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="25"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -217,13 +217,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="|" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zKS-em-CwJ">
-                                <rect key="frame" x="126" y="92" width="12" height="45"/>
+                                <rect key="frame" x="126" y="92" width="12" height="41"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="33"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F1U-vI-hTe">
-                                <rect key="frame" x="18" y="94" width="102" height="47"/>
+                                <rect key="frame" x="18" y="94" width="102" height="43"/>
                                 <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="26"/>
                                 <state key="normal" title="Libraries">
                                     <color key="titleColor" red="0.0" green="0.33333333333333331" blue="0.50588235294117645" alpha="1" colorSpace="calibratedRGB"/>
@@ -233,7 +233,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m66-2f-FU2">
-                                <rect key="frame" x="146" y="94" width="123" height="47"/>
+                                <rect key="frame" x="146" y="94" width="123" height="43"/>
                                 <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="26"/>
                                 <state key="normal" title="Resources">
                                     <color key="titleColor" red="0.0" green="0.33333333329999998" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
@@ -251,7 +251,7 @@
                                 </constraints>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Q2k-Dw-j7I">
-                                <rect key="frame" x="0.0" y="149" width="375" height="518"/>
+                                <rect key="frame" x="0.0" y="145" width="375" height="522"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="resource" rowHeight="85" id="pWA-wx-zs9" customClass="ResourceTableViewCell" customModule="berkeleyMobileiOS" customModuleProvider="target">
@@ -300,14 +300,6 @@
                                                     <color key="textColor" red="0.34509803919999998" green="0.34509803919999998" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kZX-CS-K3p">
-                                                    <rect key="frame" x="320" y="38" width="30" height="32"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <state key="normal" title="Button" image="heart_empty"/>
-                                                    <connections>
-                                                        <action selector="updateFavoritesWithSender:" destination="pWA-wx-zs9" eventType="touchUpInside" id="OGf-J3-mM8"/>
-                                                    </connections>
-                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="v5U-rx-tEX" firstAttribute="leading" secondItem="RFW-Kc-P1Y" secondAttribute="trailing" constant="22" id="5iH-jh-y6D"/>
@@ -326,7 +318,6 @@
                                         </tableViewCellContentView>
                                         <accessibility key="accessibilityConfiguration" identifier="resource"/>
                                         <connections>
-                                            <outlet property="favorited" destination="kZX-CS-K3p" id="Ouh-KE-hz2"/>
                                             <outlet property="resourceHours" destination="v5U-rx-tEX" id="3lE-zs-uS2"/>
                                             <outlet property="resourceImage" destination="I5O-xc-rax" id="bzt-KP-qkT"/>
                                             <outlet property="resourceName" destination="EIk-AX-921" id="p78-ex-1OK"/>
@@ -666,7 +657,6 @@
     <resources>
         <image name="bearsmallmed" width="36" height="19"/>
         <image name="forward-arrow" width="31" height="30"/>
-        <image name="heart_empty" width="32" height="32"/>
         <image name="ic_arrow_back_white" width="24" height="24"/>
     </resources>
 </document>

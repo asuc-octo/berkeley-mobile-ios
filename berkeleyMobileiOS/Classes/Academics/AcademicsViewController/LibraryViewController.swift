@@ -109,7 +109,7 @@ class LibraryViewController: UIViewController, GMSMapViewDelegate, CLLocationMan
         
             currDate = nextDate!
         }
-        
+    
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
