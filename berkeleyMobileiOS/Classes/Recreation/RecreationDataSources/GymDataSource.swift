@@ -11,7 +11,6 @@ import Alamofire
 import SwiftyJSON
 
 fileprivate let kGymsEndpoint = kAPIURL + "/gyms"
-//fileprivate let kGymsEndpoint = "https://asuc-mobile-dev.herokuapp.com/api/gyms"
 
 class GymDataSource: ResourceDataSource 
 {
