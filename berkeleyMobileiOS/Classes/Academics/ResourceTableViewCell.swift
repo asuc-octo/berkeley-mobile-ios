@@ -17,37 +17,6 @@ class ResourceTableViewCell: UITableViewCell {
     
     @IBOutlet weak var resourceHours: UILabel!
     
-    @IBOutlet weak var favorited: UIButton!
-    
-    var lib: Library!
-    
-    
-    @IBAction func updateFavorites(sender:UIButton) {
-        if (lib.isFavorited == false) {
-            // Now need to make it favorited + change image
-            lib.isFavorited = true
-            favorited.setImage(#imageLiteral(resourceName: "heart_filled"), for: .normal)
-        } else {
-            lib.isFavorited = false
-            favorited.setImage(#imageLiteral(resourceName: "heart_empty"), for: .normal)
-        }
-    }
-    
-    func updateUserFav(favData: [Library], index: Int) -> [Library]{
-        let defaults = UserDefaults.standard
-        var updatedData = favData
-        if (lib.isFavorited) {
-            updatedData.append(lib)
-            
-        } else {
-            updatedData.remove(at: index)
-        }
-        
-        defaults.set(updatedData, forKey:"favoritedLibraries")
-        return updatedData
-    }
-    
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

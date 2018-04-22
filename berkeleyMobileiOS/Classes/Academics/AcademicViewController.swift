@@ -110,6 +110,7 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
 
 
     }
+
     override func viewWillAppear(_ animated: Bool) {
         libButton.titleLabel?.textColor = UIColor(hex: "005581")
         resourceButton.titleLabel?.textColor = UIColor(hex: "005581")
@@ -147,15 +148,6 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
             let library = libraries[indexPath.row]
             cell.resourceName.text = library.name
             cell.resourceImage.load(resource: library)
-            
-            if (library.isFavorited == false) {
-                cell.favorited.setImage(#imageLiteral(resourceName: "heart_empty"), for: .normal)
-            } else {
-                cell.favorited.setImage(#imageLiteral(resourceName: "heart_filled"), for: .normal)
-            }
-            cell.lib = library 
-            cell.favorited.tag = indexPath.row
-            cell.favorited.addTarget(self, action: "updateFavorites", for: .touchUpInside)
             
             var status = "OPEN"
             if library.isOpen == false {
