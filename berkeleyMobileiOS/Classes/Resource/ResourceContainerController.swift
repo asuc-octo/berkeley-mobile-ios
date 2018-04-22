@@ -117,10 +117,10 @@ class ResourceContainerController: UIViewController, IBInitializable, UIScrollVi
         scrollView.frame = CGRect(x: 0, y: toolbarBottom, width: size.width, height: size.height - toolbarBottom)
         scrollView.contentInset.top = banner.frame.maxY - toolbarBottom
 //        scrollView.contentOffset = CGPoint(x: 0, y: InfoPanel.fixedHeight)
-        if (type(of: self.detailProvider!) == berkeleyMobileiOS.GymClassViewController.self) {
-            scrollView.contentOffset = CGPoint(x:0, y: 0)
-            toolbar.reveal = 1
-        }
+//        if (type(of: self.detailProvider!) == berkeleyMobileiOS.GymClassViewController.self) {
+//            scrollView.contentOffset = CGPoint(x:0, y: 0)
+//            toolbar.reveal = 1
+//        }
         infoPanel.frame = CGRect(x: 0, y: bannerHeight, width: size.width, height: InfoPanel.fixedHeight)
         detailView.frame = CGRect(x: 0, y: InfoPanel.fixedHeight, width: size.width, height: scrollView.bounds.height)
     }
@@ -168,11 +168,12 @@ class ResourceContainerController: UIViewController, IBInitializable, UIScrollVi
     }
     
     private func doNotShowToolbarTitle() {
-        if (type(of: self.detailProvider!) == berkeleyMobileiOS.GymClassViewController.self) {
-            
-        } else {
-            toolbar.titleLabel.text = ""
-        }
+//        if (type(of: self.detailProvider!) == berkeleyMobileiOS.GymClassViewController.self) {
+//
+//        } else {
+//            toolbar.titleLabel.text = ""
+//        }
+        toolbar.titleLabel.text = ""
         
     }
     /// Configure the banner image and add a gradient.
@@ -219,17 +220,17 @@ class ResourceContainerController: UIViewController, IBInitializable, UIScrollVi
         // infoPanel & titleLabel reveal.
         infoPanel.curtainCover = offset
         infoPanel.y = max(0, offset - infoHeight)
-        if (type(of: self.detailProvider!) == berkeleyMobileiOS.GymClassViewController.self) {
+//        if (type(of: self.detailProvider!) == berkeleyMobileiOS.GymClassViewController.self) {
+//            toolbar.reveal = 1
+//        } else {
+        if (offset >= 0) {
             toolbar.reveal = 1
+        } else if (offset <= -164) {
+            toolbar.reveal = 0
         } else {
-            if (offset >= 0) {
-                toolbar.reveal = 1
-            } else if (offset <= -164) {
-                toolbar.reveal = 0
-            } else {
-                toolbar.reveal = 1  + (offset/164)
-            }
+            toolbar.reveal = 1  + (offset/164)
         }
+//        }
 
 //        toolbar.reveal = (offset - toolbar.height) / (banner.height - toolbar.height)
         print(toolbar.reveal)

@@ -23,7 +23,6 @@ class SpecificGymViewController: UIViewController, CLLocationManagerDelegate, GM
     var iconImages = [UIImage]()
     var gymInfo = [String]()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         if gym.name == "Recreational Sports Facility (RSF)" {
@@ -31,7 +30,6 @@ class SpecificGymViewController: UIViewController, CLLocationManagerDelegate, GM
         } else {
             gymImage.load(resource: gym)
         }
-//        gymImage.load(resource: gym)
         gymTitle.text = gym.name
      
         iconImages.append(#imageLiteral(resourceName: "hours_2.0"))
@@ -47,7 +45,6 @@ class SpecificGymViewController: UIViewController, CLLocationManagerDelegate, GM
         gymInfoTableview.delegate = self
         gymInfoTableview.dataSource = self
         
-        //setUpMap()
         // Do any additional setup after loading the view.
     }
     
@@ -158,26 +155,11 @@ class SpecificGymViewController: UIViewController, CLLocationManagerDelegate, GM
         let addrArray = addr?.components(separatedBy: ",")
         return addrArray![0]
     }
-    
-    
-    
-
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 
@@ -198,7 +180,6 @@ extension SpecificGymViewController: UITableViewDataSource, UITableViewDelegate 
             let infoCell = gymInfoTableview.dequeueReusableCell(withIdentifier: "mapTable", for: indexPath) as! MapTableViewCell
             setUpMap(infoCell.campusResourceMap)
             return infoCell
-            //            campResInfoCell.campusResourceMap
         }
         
         let infoCell = gymInfoTableview.dequeueReusableCell(withIdentifier: "gymInfoCell", for: indexPath) as! GymInformationTableViewCell
@@ -210,7 +191,6 @@ extension SpecificGymViewController: UITableViewDataSource, UITableViewDelegate 
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print (indexPath.row)
         let cell  = tableView.cellForRow(at: indexPath)
         cell?.selectionStyle = .none
         
