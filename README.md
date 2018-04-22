@@ -1,42 +1,66 @@
-Berkeley Mobile iOS Repository
-=====================
+# Berkeley-Mobile-iOS
 
-Code pertinent to the iOS Application under the Associated Students of the University of California (ASUC) is stored in this repository. This project was commissioned by the Office of the President under Pavan Upadhyayula, May 2014.
+This is the official repository for the Berkeley Mobile iOS application.
 
-Goals for sprints till end of year
+## What is Berkeley Mobile?
 
-Sprint One: End of October
-"Project Swift"
-----------------
+Created in 2012, Berkeley Mobile has acculumated over 20,000 downloads on iOS and Android and currently has about 2,000 Monthly Active Users (MAUs). It has Bear Transit routes, library and gym information, dining hall menus, and campus resources, all in one place for the busy Berkeley student. The mission of Berkeley Mobile is to use cool technology to help students navigate Berkeley. You can [download Berkeley Mobile on the Google Play Store](https://play.google.com/store/apps/details?id=com.asuc.asucmobile&hl=en_US).
 
-- [] Swift Rewrite of App (Bulleted are any major changes)
-  - [] Restkit -> Alamofire and SwiftyJSON
-- [] Siri Integration for BearTransit (If time permits)
+<p align="center">
+  <img src="/app_preview_images/screen1.png" width="200"/>
+  <img src="/app_preview_images/screen2.png" width="200"/>
+  <img src="/app_preview_images/screen3.png" width="200"/>
+  <img src="/app_preview_images/screen4.png" width="200"/>
+</p>
+
+*Berkeley Mobile is a product of the Associated Students of University of California (ASUC) Office of the Chief Technology Officer (OCTO) and is not affiliated with the University of California, Berkeley or the Regents of the University of California.*
+
+## Documentation
+
+For documentation, check out our [wiki](https://github.com/asuc-octo/berkeley-mobile-ios/wiki).
+
+The application consists of eight modules:
+* [Academics](berkeleyMobileiOS/Classes/Academics): for Libraries and Campus Resources features 
+* [Dining](berkeleyMobileiOS/Classes/Dining): for dining hall and cafe features 
+* [Favorites](berkeleyMobileiOS/Classes/Favorites): favoriting feature 
+* [Recreation](berkeleyMobileiOS/Classes/Recreation): for gyms and gym classes features 
+* [Resource](berkeleyMobileiOS/Classes/Resource): acts as the base for features 
+* [Search](berkeleyMobileiOS/Classes/Search): search functionality, currently not being used 
+* [Transit](berkeleyMobileiOS/Classes/Transit): for Bear Transit feature
+* [Util](berkeleyMobileiOS/Classes/Util): some misc. utilities
 
 
-Sprint Two: End of November
-"Project Design and All Bug Fixes"
-----------------
+## Getting set up
 
-- [ ] Implement Redesign of App (Bulleted are any major changes)
-  - [ ] Material Design Tab Bar or Hamburger Menu
-  - [ ] Bear Transit Restructuring based on students' interests
-    - [ ] Google Maps instead of Apple Maps
-- [ ] Non-Dining Hall Cafeterias Included
-- [ ] Write Unit/UI Tests and fix all the bugs
+It is recommended you use XCode 9.2 or higher and Swift 3. Install [Cocoapods](https://guides.cocoapods.org/using/getting-started.html) and be sure to run pod install in the berkeley-mobile-ios directory. 
 
-Goal at this point: Have a nearly perfect, well-designed app that has the core features most students need and is completely bug-free, reliable, and containing of no unnecessary/unused features. If this goal is achieved, we start implementing more cool and fun features
+### APIs
 
-Sprint Three
-------------------
+* Get a Google API key through [Google Console](https://developers.google.com/maps/documentation/ios-sdk/get-api-key), enable the Google Maps and Google Places APIs, and paste it in [secret.xml](app/src/main/res/values/secret.xml)
+* We've configured this repository so that the application pulls from our sandbox backend, which just returns test data. If you would like access to our production backend API, please [contact us](#contact). 
 
-- [ ] AC Transit Routing
-- [ ] BearWalks/Night Shuttle Integration or social spinoff
-- [ ] Library Room Reservation Integration
-- [ ] CalNet Authentication for above two features
+## Contributing
 
-Technical Specifications
-------------------------
+See [CONTRIBUTING.md](CONTRIBUTING.md) for more information.
 
-* This application is built using Xcode and the Swift language, and is native to iOS
-* This application can run on iOS 7.0 or above
+## <a name="todo"></a> TODO
+
+The following is a summary of open tasks and issues. For new contributors, we recommend focusing on Improvements. **Before starting to work on new features or large changes not listed below, especially ones that involve UI changes or new APIs, please [contact us](#contact)!**
+
+### What the Berkeley Mobile team is working on
+
+* Crowd sourcing water fountain, microwave, and nap pod locations
+
+
+### Feature Ideas
+
+* Favoriting items such as libraries, food items 
+* We might be open to partnerships with student orgs
+
+## <a name="contact"></a> Contact
+
+You can contact the Berkeley Mobile team at octo.berkeleymobile@asuc.org with any questions.
+
+## License
+
+This project uses the Educational Community License (ECL) 2.0. See [LICENSE.md](LICENSE.md) for more information.
