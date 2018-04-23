@@ -486,7 +486,7 @@ class LocationMarkersData {
                     
                 }
             case .failure(let error):
-                let alert = UIAlertController.init(title: "Couldn't load icons", message: error.localizedDescription, preferredStyle: .alert)
+                let alert = UIAlertController.init(title: "Couldn't load popular places", message: error.localizedDescription, preferredStyle: .alert)
                 let action = UIAlertAction.init(title: "Okay", style: .default, handler: nil)
                 alert.addAction(action)
                 self.present(alert, animated: true, completion: nil)
