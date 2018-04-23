@@ -90,6 +90,10 @@ class ResourceTile: UICollectionViewCell, RequiresData, ToggleButtonDelegate
                 self.imageView.image = #imageLiteral(resourceName: "rsf")
                 resource.image = #imageLiteral(resourceName: "rsf")
             }
+            case "Stadium Fitness Center": do {
+                self.imageView.image = #imageLiteral(resourceName: "stadium")
+                resource.image = #imageLiteral(resourceName: "stadium")
+                }
             case "Browns Cafe" : do {
                 self.imageView.image = #imageLiteral(resourceName: "browns_cafe")
                 resource.image = #imageLiteral(resourceName: "browns_cafe")
@@ -102,6 +106,10 @@ class ResourceTile: UICollectionViewCell, RequiresData, ToggleButtonDelegate
                 self.imageView.image = #imageLiteral(resourceName: "the_den")
                 resource.image = #imageLiteral(resourceName: "the_den")
             }
+            case "Clark Kerr": do {
+                self.imageView.image = #imageLiteral(resourceName: "ckc")
+                resource.image = #imageLiteral(resourceName: "ckc")
+                }
             default: do {
                 self.imageView.load(resource: resource)
             }
