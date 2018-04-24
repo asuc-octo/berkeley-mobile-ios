@@ -104,11 +104,11 @@ class ResourceContainerController: UIViewController, IBInitializable, UIScrollVi
     {
         super.viewWillLayoutSubviews()
         
-        let size = view.bounds.size
+        let size = view.frame.size
         let toolbarBottom = statusBarHeight + kToolBarHeight
         
         // Banner goes under the status and toolbars. 
-        let bannerHeight = toolbarBottom + round(size.width / kBannerRatio) 
+        let bannerHeight = toolbarBottom + round(size.width / kBannerRatio)
         banner.frame = CGRect(x: 0, y: 0, width: size.width, height: bannerHeight)
         bannerGradient.frame = banner.bounds
         
@@ -122,6 +122,8 @@ class ResourceContainerController: UIViewController, IBInitializable, UIScrollVi
 //            toolbar.reveal = 1
 //        }
         infoPanel.frame = CGRect(x: 0, y: bannerHeight, width: size.width, height: InfoPanel.fixedHeight)
+        
+        infoPanel.y = -25
         detailView.frame = CGRect(x: 0, y: InfoPanel.fixedHeight, width: size.width, height: scrollView.bounds.height)
     }
     
@@ -131,8 +133,12 @@ class ResourceContainerController: UIViewController, IBInitializable, UIScrollVi
         super.viewDidLayoutSubviews()
         
         scrollView.contentSize.height = infoPanel.bounds.height + detailProvider.contentSize.height
+        scrollViewDidScroll(self.scrollView)
+
     }
-    
+    override func viewDidAppear(_ animated: Bool) {
+//        scrollViewDidScroll(self.scrollView)
+    }
     
     // ========================================
     // MARK: - Setup
@@ -217,12 +223,15 @@ class ResourceContainerController: UIViewController, IBInitializable, UIScrollVi
         let pulled = -(inset + offset)
         banner.height = inset + (pulled > 0 ? pulled : 0) + toolbarMaxY
         
-        // infoPanel & titleLabel reveal.
         infoPanel.curtainCover = offset
-        infoPanel.y = max(0, offset - infoHeight)
-//        if (type(of: self.detailProvider!) == berkeleyMobileiOS.GymClassViewController.self) {
-//            toolbar.reveal = 1
-//        } else {
+        if UIDevice().userInterfaceIdiom == .phone {
+            if UIScreen.main.nativeBounds.height == 2436 {
+                infoPanel.y = max(-25, offset - infoHeight)
+            } else {
+                infoPanel.y = max(0, offset - infoHeight)
+            }
+        }
+//        infoPanel.y = max(-25, offset - infoHeight)
         if (offset >= 0) {
             toolbar.reveal = 1
         } else if (offset <= -164) {
@@ -230,15 +239,6 @@ class ResourceContainerController: UIViewController, IBInitializable, UIScrollVi
         } else {
             toolbar.reveal = 1  + (offset/164)
         }
-//        }
-
-//        toolbar.reveal = (offset - toolbar.height) / (banner.height - toolbar.height)
-        print(toolbar.reveal)
-        print(offset)
-//        print(1/(offset/banner.height))
-//        print(banner.height)
-//        print(toolbar.height)
-        // detailView netsted offset.
         detailView.y = infoPanel.frame.maxY
         detailProvider.contentOffset.y = (offset < infoHeight) ? 0 : (offset - infoHeight);
         
@@ -248,9 +248,7 @@ class ResourceContainerController: UIViewController, IBInitializable, UIScrollVi
             toolbar.isHidden = false
             toolbar.title = detailViewController.title
             showToolbarTitle()
-//            titleLabel.text = ""
         } else {
-//            toolbar.isHidden = true
             doNotShowToolbarTitle()
             
         }
@@ -274,15 +272,14 @@ class ResourceContainerController: UIViewController, IBInitializable, UIScrollVi
         let inset = scrollView.contentInset.top
         let offset = scrollView.contentOffset.y
         
-        let lower = -inset
+        var lower = -inset
         let upper = InfoPanel.fixedHeight
         
         // If within banner area, snap to top or bottom.
         if (lower ..< upper).contains(offset)
         {
-            let finalY = (offset < round(lower/3)) ? lower : upper
-            let duration = 1 * Double( abs((finalY - offset) / inset) ) 
-            
+            var finalY = (offset < round(lower/3)) ? lower : upper
+            let duration = 1 * Double( abs((finalY - offset) / inset) )
             // Animation duration depends on the the distance.
             UIView.animate(withDuration: duration)
             {

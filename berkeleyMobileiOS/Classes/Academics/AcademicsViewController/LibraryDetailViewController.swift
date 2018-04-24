@@ -33,7 +33,8 @@ class LibraryDetailViewController: UIViewController, IBInitializable, GMSMapView
 
     var iconImages = [UIImage]()
     var libInfo = [String]()
-
+    
+    var weeklyTimes = [String]()
 
     // MARK: - IBInitalizable
     typealias IBComponent = LibraryDetailViewController
@@ -70,6 +71,37 @@ class LibraryDetailViewController: UIViewController, IBInitializable, GMSMapView
         libraryInfoTableview.delegate = self
         libraryInfoTableview.dataSource = self
 
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "h:mm a"
+        dateFormatter.amSymbol = "AM"
+        dateFormatter.pmSymbol = "PM"
+        dateFormatter.timeZone = TimeZone(abbreviation: "PST")
+        var trivialDayStringsORDINAL = ["", "SUN","MON","TUE","WED","THU","FRI","SAT"]
+        var localOpeningTime = ""
+        var localClosingTime = ""
+        var timeArr = [String]()
+        for i in 1...7 {
+            if let t = (self.library?.weeklyOpeningTimes[i]) {
+                localOpeningTime = dateFormatter.string(from:t)
+            }
+            if let t = (self.library?.weeklyClosingTimes[i]) {
+                localClosingTime = dateFormatter.string(from:t)
+            }
+            
+            var timeRange:String = localOpeningTime + " : " + localClosingTime
+            
+            if (localOpeningTime == "" && localClosingTime == "") {
+                timeRange = "CLOSED ALL DAY"
+            }
+            
+            var timeInfo = trivialDayStringsORDINAL[i] + "  " + timeRange
+            
+            weeklyTimes.append(timeInfo)
+        }
+        
+        print("wassap")
+        
+        
         setUpMap()
     }
     func getLibraryStatusHours() -> String{
