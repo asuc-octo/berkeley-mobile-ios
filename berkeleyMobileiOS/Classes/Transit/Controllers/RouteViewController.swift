@@ -2,6 +2,9 @@
 //  RouteViewController.swift
 //  berkeleyMobileiOS
 //
+//  Displays selected bus route and lists individual stops/transfers required
+//  Pushed from RouteResultViewController
+//
 //  Created by Akilesh Bapu on 3/5/17.
 //  Copyright © 2017 org.berkeleyMobile. All rights reserved.
 //
@@ -14,7 +17,6 @@ import SwiftyJSON
 import Alamofire
 
 class RouteViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, GMSMapViewDelegate {
-
     
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet var exitButton: IconButton!
@@ -37,7 +39,6 @@ class RouteViewController: UIViewController, UITableViewDelegate, UITableViewDat
         self.mapView.delegate = self
         exitButton.image = Icon.arrowBack?.tint(with: .black)
         setupMap()
-        // Do any additional setup after loading the view.
     }
     
     func setupMap() {
@@ -90,7 +91,7 @@ class RouteViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         let url = "https://maps.googleapis.com/maps/api/directions/json?origin=\(origin)&destination=\(destination)&mode=driving&key=AIzaSyBC8l95akDNvy_xZqa4j3XJCuATi2wFP_g"
         if (startStop.id == 15382 && destStop.id == 15383) {
-            var pat = GMSMutablePath.init()
+            let pat = GMSMutablePath.init()
             pat.addLatitude(startStop.latitude, longitude: startStop.longitude)
             pat.addLatitude(destStop.latitude, longitude: destStop.longitude)
             
@@ -129,13 +130,7 @@ class RouteViewController: UIViewController, UITableViewDelegate, UITableViewDat
             return 1
         }
     }
-//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        if section == 0 {
-//            return selectedRoute.busName
-//        } else {
-//            return selectedRoute.secondBusName
-//        }
-//    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return selectedRoute.stops.count
@@ -151,9 +146,6 @@ class RouteViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //        tableView.register(nearestBusTableViewCell.self, forCellReuseIdentifier: "Cell")
-        
-        
         var stopToDisplay: routeStop
         if indexPath.section == 0 {
             stopToDisplay = selectedRoute.stops[max(0, indexPath.row - 1)]
@@ -161,71 +153,66 @@ class RouteViewController: UIViewController, UITableViewDelegate, UITableViewDat
             stopToDisplay = (selectedRoute.secondRouteStops?[max(0, indexPath.row - 1)])!
         }
         
-        if (indexPath.row == 0) {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "titleCell", for: indexPath) as! RouteTitleTableViewCell
-            cell.busLabel.text = busType
-            cell.timeLabel.text = duration
-            
-            var b = selectedRoute.busName
-            switch b {
-            case "Southside Line":
-                b = "SOUTH"
-            case "Northside Line":
-                b = "NORTH"
-            case "Perimeter Line":
-                b = "PRMTR"
-            case "Central Line":
-                b = "CNTRL"
-            default:
-                b = "LINE"
-            }
-            
-            cell.busStartNum.text = b
-            if (selectedRoute.twoTrips) {
-                var b2 = selectedRoute.secondBusName!
-                switch b2 {
+        if (indexPath.section == 0) {
+            if (indexPath.row == 0) {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "titleCell", for: indexPath) as! RouteTitleTableViewCell
+                cell.busLabel.text = busType
+                cell.timeLabel.text = duration
+                
+                var b = selectedRoute.busName
+                switch b {
                 case "Southside Line":
-                    b2 = "SOUTH"
+                    b = "SOUTH"
                 case "Northside Line":
-                    b2 = "NORTH"
+                    b = "NORTH"
                 case "Perimeter Line":
-                    b2 = "PRMTR"
+                    b = "PRMTR"
                 case "Central Line":
-                    b2 = "CNTRL"
+                    b = "CNTRL"
                 default:
-                    b2 = "LINE"
+                    b = "LINE"
                 }
-                cell.busEndNum.text = b2
-            } else {
-                cell.busEndNum.isHidden = true
-                cell.bus2.isHidden = true
-                cell.arrow.isHidden = true
+                
+                cell.busStartNum.text = b
+                if (selectedRoute.twoTrips) {
+                    var b2 = selectedRoute.secondBusName!
+                    switch b2 {
+                    case "Southside Line":
+                        b2 = "SOUTH"
+                    case "Northside Line":
+                        b2 = "NORTH"
+                    case "Perimeter Line":
+                        b2 = "PRMTR"
+                    case "Central Line":
+                        b2 = "CNTRL"
+                    default:
+                        b2 = "LINE"
+                    }
+                    cell.busEndNum.text = b2
+                } else {
+                    cell.busEndNum.isHidden = true
+                    cell.bus2.isHidden = true
+                    cell.arrow.isHidden = true
+                }
+                
+                return cell
+            } else if indexPath.row == 1 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "startCell", for: indexPath) as! RouteDetailsTableViewCell
+                
+                cell.stopName.text = stopToDisplay.name
+                cell.timeLabel.text = time
+                return cell
             }
-            
-            
-//            cell.busStartNum.text = "\(bus1)"
-//            cell.busStartNum.text = "\(bus2)"
-            return cell
-        } else if indexPath.row == 1 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "startCell", for: indexPath) as! RouteDetailsTableViewCell
-//            if indexPath.section == 0 {
-//                stopToDisplay = selectedRoute.stops[indexPath.row - 1]
-//            } else {
-//                stopToDisplay = (selectedRoute.secondRouteStops?[indexPath.row - 1])!
-//            }
-            cell.stopName.text = stopToDisplay.name
-            cell.timeLabel.text = time
-            return cell
-        }
-        else if ((indexPath.row == (selectedRoute?.stops.count)! - 1) && (indexPath.section == 0)) {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "endCell", for: indexPath) as! RouteEndTableViewCell
-            cell.stopName.text = stopToDisplay.name
-            if (selectedRoute.twoTrips) {
-                cell.transferImage.isHidden = false
-            } else {
-                cell.transferImage.isHidden = true
+            else if ((indexPath.row == (selectedRoute?.stops.count)! - 1) && (indexPath.section == 0)) {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "endCell", for: indexPath) as! RouteEndTableViewCell
+                cell.stopName.text = stopToDisplay.name
+                if (selectedRoute.twoTrips) {
+                    cell.transferImage.isHidden = false
+                } else {
+                    cell.transferImage.isHidden = true
+                }
+                return cell
             }
-            return cell
         } else if (indexPath.section == 1) {
             if (indexPath.row == 0) {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "startCell", for: indexPath) as! RouteDetailsTableViewCell
@@ -242,14 +229,9 @@ class RouteViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 return cell
             }
         }
-        else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "midCell", for: indexPath) as! RouteMidTableViewCell
-            cell.stopName.text = stopToDisplay.name
-            return cell
-        }
-
-
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: "midCell", for: indexPath) as! RouteMidTableViewCell
+        cell.stopName.text = stopToDisplay.name
+        return cell
     }
     
     

@@ -2,6 +2,9 @@
 //  RouteTitleTableViewCell.swift
 //  berkeleyMobileiOS
 //
+//  UITableViewCell that displays header information regarding bus route.
+//  Used in RouteViewController.
+//
 //  Created by Anthony Kim on 3/19/18.
 //  Copyright © 2018 org.berkeleyMobile. All rights reserved.
 //
@@ -19,6 +22,7 @@ class RouteTitleTableViewCell: UITableViewCell {
     @IBOutlet weak var bus2: UIImageView!
     @IBOutlet weak var busStartNum: UILabel!
     @IBOutlet weak var busEndNum: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
