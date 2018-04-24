@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:/Users/marisawong/Desktop/clubs/berkeley-ios/berkeleyMobileiOS/secret.swift">
+   </FileRef>
+   <FileRef
       location = "group:berkeleyMobileiOS.xcodeproj">
    </FileRef>
    <FileRef

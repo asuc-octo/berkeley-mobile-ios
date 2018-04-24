@@ -100,6 +100,7 @@
 		555D40E72051F06300EA1E1C /* GymViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555D40E62051F06300EA1E1C /* GymViewController.swift */; };
 		555D40E92051FD3000EA1E1C /* GymNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555D40E82051FD3000EA1E1C /* GymNavigationController.swift */; };
 		55A520FA1FB92BD500C4C9E4 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A520F91FB92BD500C4C9E4 /* UIColor+Extension.swift */; };
+		55AE036B208EFF5600237AAD /* secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AE036A208EFF5600237AAD /* secret.swift */; };
 		55C44749206B273F00409499 /* GymCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C44748206B273F00409499 /* GymCollectionViewCell.swift */; };
 		55C4474B206B3EE600409499 /* SpecificGymViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C4474A206B3EE600409499 /* SpecificGymViewController.swift */; };
 		55C80BD3204E4EF300E64D05 /* CampusResourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C80BD2204E4EF300E64D05 /* CampusResourceViewController.swift */; };
@@ -225,6 +226,7 @@
 		555D40E62051F06300EA1E1C /* GymViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymViewController.swift; sourceTree = "<group>"; };
 		555D40E82051FD3000EA1E1C /* GymNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymNavigationController.swift; sourceTree = "<group>"; };
 		55A520F91FB92BD500C4C9E4 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		55AE036A208EFF5600237AAD /* secret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = secret.swift; path = "/Users/marisawong/Desktop/clubs/berkeley-ios/berkeleyMobileiOS/secret.swift"; sourceTree = "<absolute>"; };
 		55C44748206B273F00409499 /* GymCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymCollectionViewCell.swift; sourceTree = "<group>"; };
 		55C4474A206B3EE600409499 /* SpecificGymViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecificGymViewController.swift; sourceTree = "<group>"; };
 		55C80BD2204E4EF300E64D05 /* CampusResourceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusResourceViewController.swift; sourceTree = "<group>"; };
@@ -298,6 +300,7 @@
 		41E8438C1DAB3FE80096C049 /* berkeleyMobileiOS */ = {
 			isa = PBXGroup;
 			children = (
+				55AE036A208EFF5600237AAD /* secret.swift */,
 				41005D7A1FD12556009D8FB9 /* ls.png */,
 				41E843991DAB3FE80096C049 /* Info.plist */,
 				41E8438D1DAB3FE80096C049 /* AppDelegate.swift */,
@@ -872,6 +875,7 @@
 				4E4EC1431E504710000C63ED /* ResourceDataSource.swift in Sources */,
 				35E4945F20296C9000467C77 /* CafeDataSource.swift in Sources */,
 				55C4474B206B3EE600409499 /* SpecificGymViewController.swift in Sources */,
+				55AE036B208EFF5600237AAD /* secret.swift in Sources */,
 				55C80BD3204E4EF300E64D05 /* CampusResourceViewController.swift in Sources */,
 				41B0B5911E8CD95D00DA9297 /* routeStop.swift in Sources */,
 				41B0B58A1E8CD95D00DA9297 /* nearestBus.swift in Sources */,
