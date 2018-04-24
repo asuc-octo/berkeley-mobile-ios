@@ -16,16 +16,4 @@ class GymCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var gymStatus: UILabel!
     
-//    /// Configure any visual elements that does not require data.
-//    override func awakeFromNib()
-//    {
-//        let layer = self.layer
-//        layer.borderWidth = 1
-//        layer.borderColor = kColorGray.cgColor
-//
-//        layer.shadowRadius = 2.0
-//        layer.shadowOpacity = 0.2
-//        layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
-//    }
-    
 }

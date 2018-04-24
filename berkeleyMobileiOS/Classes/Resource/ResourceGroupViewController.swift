@@ -285,9 +285,9 @@ class ResourceGroupViewController: UIViewController, IBInitializable, UITableVie
 //                }
             }
             else if identifier == "GymDetailSegue" {
-                if segue.destination is GymDetailViewController {
+//                if segue.destination is GymDetailViewController {
 //                    let gym = Gym(name: , address: String, imageLink: String?, openingTimeToday: Date?, closingTimeToday: Date?)
-                }
+//                }
             }
         }
     }

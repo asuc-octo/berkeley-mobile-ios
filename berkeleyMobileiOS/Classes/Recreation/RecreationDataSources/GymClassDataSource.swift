@@ -11,7 +11,6 @@ import Alamofire
 import SwiftyJSON
 
 fileprivate let kGymClassEndpoint = kAPIURL + "/group_exs"
-//fileprivate let kGymClassEndpoint = "https://asuc-mobile.herokuapp.com/api/group_exs"
 
 var gymClassTypesSeen = [String]()
 
@@ -36,31 +35,6 @@ class GymClassDataSource: ResourceDataSource {
                 }
                 var totalClasses: [GymClass] = []
 
-//                for (key, subJson) in JSON(data: response.data!) {
-//                    for index in 1...subJson.count {
-//                        let dateString = subJson[index]["date"].rawString()!
-//                        let finalDate = dateString.date(format:"yyyy-MM-dd")
-//
-//                        let startDateString = subJson[index]["start_time"].rawString()!
-//                        let finalStartDate = startDateString.date(format:"yyyy-MM-dd'T'HH:mm:ss'.000Z'")
-//
-//
-//                        let endDateString = subJson[index]["end_time"].rawString()!
-//                        let finalEndDate = endDateString.date(format:"yyyy-MM-dd'T'HH:mm:ss'.000Z'")
-//
-//
-//                        let gymClass = GymClass(name: subJson[index]["name"].rawString()!,
-//                                                class_type: key,
-//                                                location: subJson[index]["location"].rawString()!,
-//                                                trainer: subJson[index]["trainer"].rawString()!,
-//                                                date: finalDate,
-//                                                start_time: finalStartDate,
-//                                                end_time: finalEndDate,
-//                                                imageLink: subJson[index]["image_link"].stringValue)
-//                        totalClasses.append(gymClass)
-//                    }
-//
-//                }
                 for (_, subJson) in JSON(data: response.data!) {
                  let gymClasses = subJson.map { (_, child) in parseGymClasses(child) }
                 totalClasses.append(contentsOf: gymClasses)
@@ -78,9 +52,7 @@ class GymClassDataSource: ResourceDataSource {
         let start  = formatter.date(from: json["start_time"].string ?? "")
         let end = formatter.date(from: json["end_time"].string ?? "")
         
-//        if !gymClassTypesSeen.contains(json["class_type"].stringValue){
-//            gymClassTypesSeen.append(json["class_type"].stringValue)
-            let gymClass = GymClass(name: json["name"].stringValue,
+        let gymClass = GymClass(name: json["name"].stringValue,
                                     class_type: json["class_type"].stringValue,
                                     location: json["location"].stringValue,
                                     trainer: json["trainer"].stringValue,
@@ -88,22 +60,7 @@ class GymClassDataSource: ResourceDataSource {
                                     start_time: start,
                                     end_time: end,
                                     imageLink: json["image_link"].stringValue)
-            return gymClass
-            
-//        } else {
-//            let gymClass = GymClass(name: "",
-//                                    class_type: "",
-//                                    location: "",
-//                                    trainer: "",
-//                                    date: Date(),
-//                                    start_time: Date(),
-//                                    end_time: Date(),
-//                                    imageLink: "")
-//            return gymClass
-//        }
-//
-
-        
+        return gymClass
     }
     
     private static func sharedDateFormatter() -> DateFormatter
@@ -123,8 +80,6 @@ class GymClassDataSource: ResourceDataSource {
         formatter.dateFormat = "yyyy-MM-dd"
         return formatter
     }
-
-
 
 }
 

@@ -17,8 +17,7 @@ class GymClass: Resource {
     }
     
     static var dataSource: ResourceDataSource.Type? = GymClassDataSource.self
-    static var detailProvider: ResourceDetailProvider.Type? = GymClassViewController.self
-    
+    static var detailProvider: ResourceDetailProvider.Type? = nil
     
     let name: String
     let imageURL: URL?
