@@ -26,7 +26,7 @@ class LibraryViewController: UIViewController, GMSMapViewDelegate, CLLocationMan
     @IBOutlet weak var libMap: GMSMapView!
     
     override func viewDidLoad() {
-        setUpMap()
+//        setUpMap()
         libTitle.bringSubview(toFront: libraryImage)
         
         libTitle.text = library.name
@@ -120,58 +120,58 @@ class LibraryViewController: UIViewController, GMSMapViewDelegate, CLLocationMan
         // Dispose of any resources that can be recreated.
     }
     
-    func setUpMap() {
-        //Setting up map view
-        libMap.delegate = self
-        libMap.isMyLocationEnabled = true
-        let camera = GMSCameraPosition.camera(withLatitude: 37.871853, longitude: -122.258423, zoom: 15)
-        self.libMap.camera = camera
-        self.libMap.frame = self.view.frame
-        self.libMap.isMyLocationEnabled = true
-        self.libMap.delegate = self
-        self.libMap.isUserInteractionEnabled = false
-        self.locationManager.startUpdatingLocation()
-        
-        let kMapStyle =
-            "[" +
-                "{ \"featureType\": \"administrative\", \"elementType\": \"geometry\", \"stylers\": [ {  \"visibility\": \"off\" } ] }, " +
-                "{ \"featureType\": \"poi\", \"stylers\": [ {  \"visibility\": \"off\" } ] }, " +
-                "{ \"featureType\": \"road\", \"elementType\": \"labels.icon\", \"stylers\": [ {  \"visibility\": \"off\" } ] }, " +
-                "{ \"featureType\": \"transit\", \"stylers\": [ {  \"visibility\": \"off\" } ] } " +
-        "]"
-        
-        do {
-            // Set the map style by passing a valid JSON string.
-            self.libMap.mapStyle = try GMSMapStyle(jsonString: kMapStyle)
-        } catch {
-            NSLog("The style definition could not be loaded: \(error)")
-        }
-        
-        var lat = 37.0
-        var lon = -37.0
-        if let la = library?.latitude {
-            lat = la
-        }
-        if let lo = library?.longitude {
-            lon = lo
-        }
-        let marker = GMSMarker()
-        
-        marker.position = CLLocationCoordinate2D(latitude: lat, longitude: lon)
-        marker.title = library?.name
-        
-        let status = library?.isOpen;
-        if status! {
-            marker.icon = #imageLiteral(resourceName: "blueStop")
-            marker.snippet = "Open"
-        } else {
-            marker.icon = #imageLiteral(resourceName: "blueStop")
-            marker.snippet = "Closed"
-            
-        }
-        marker.map = self.libMap
-        
-    }
+//    func setUpMap() {
+//        //Setting up map view
+//        libMap.delegate = self
+//        libMap.isMyLocationEnabled = true
+//        let camera = GMSCameraPosition.camera(withLatitude: 37.871853, longitude: -122.258423, zoom: 15)
+//        self.libMap.camera = camera
+//        self.libMap.frame = self.view.frame
+//        self.libMap.isMyLocationEnabled = true
+//        self.libMap.delegate = self
+//        self.libMap.isUserInteractionEnabled = false
+//        self.locationManager.startUpdatingLocation()
+//
+//        let kMapStyle =
+//            "[" +
+//                "{ \"featureType\": \"administrative\", \"elementType\": \"geometry\", \"stylers\": [ {  \"visibility\": \"off\" } ] }, " +
+//                "{ \"featureType\": \"poi\", \"stylers\": [ {  \"visibility\": \"off\" } ] }, " +
+//                "{ \"featureType\": \"road\", \"elementType\": \"labels.icon\", \"stylers\": [ {  \"visibility\": \"off\" } ] }, " +
+//                "{ \"featureType\": \"transit\", \"stylers\": [ {  \"visibility\": \"off\" } ] } " +
+//        "]"
+//
+//        do {
+//            // Set the map style by passing a valid JSON string.
+//            self.libMap.mapStyle = try GMSMapStyle(jsonString: kMapStyle)
+//        } catch {
+//            NSLog("The style definition could not be loaded: \(error)")
+//        }
+//
+//        var lat = 37.0
+//        var lon = -37.0
+//        if let la = library?.latitude {
+//            lat = la
+//        }
+//        if let lo = library?.longitude {
+//            lon = lo
+//        }
+//        let marker = GMSMarker()
+//
+//        marker.position = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+//        marker.title = library?.name
+//
+//        let status = library?.isOpen;
+//        if status! {
+//            marker.icon = #imageLiteral(resourceName: "blueStop")
+//            marker.snippet = "Open"
+//        } else {
+//            marker.icon = #imageLiteral(resourceName: "blueStop")
+//            marker.snippet = "Closed"
+//
+//        }
+//        marker.map = self.libMap
+//
+//    }
     
     func getLibraryStatusHours() -> String{
         let dateFormatter = DateFormatter()
@@ -234,7 +234,7 @@ class LibraryViewController: UIViewController, GMSMapViewDelegate, CLLocationMan
 extension LibraryViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 4
     }
         
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -243,13 +243,50 @@ extension LibraryViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if expandRow == true && indexPath.row == 0  {
-            return 170
+            return 220
+        } else if (indexPath.row == 3) {
+            return 400
         } else {
             return 55
         }
     }
 
-
+    func setUpMap(_ campResMap: GMSMapView) {
+        //Setting up map view
+        campResMap.delegate = self
+        campResMap.isMyLocationEnabled = true
+        let camera = GMSCameraPosition.camera(withLatitude: 37.871853, longitude: -122.258423, zoom: 15)
+        campResMap.camera = camera
+        campResMap.frame = self.view.frame
+        campResMap.isMyLocationEnabled = true
+        campResMap.isUserInteractionEnabled = false
+        campResMap.delegate = self
+        self.locationManager.startUpdatingLocation()
+        
+        let kMapStyle =
+            "[" +
+                "{ \"featureType\": \"administrative\", \"elementType\": \"geometry\", \"stylers\": [ {  \"visibility\": \"off\" } ] }, " +
+                "{ \"featureType\": \"poi\", \"stylers\": [ {  \"visibility\": \"off\" } ] }, " +
+                "{ \"featureType\": \"road\", \"elementType\": \"labels.icon\", \"stylers\": [ {  \"visibility\": \"off\" } ] }, " +
+                "{ \"featureType\": \"transit\", \"stylers\": [ {  \"visibility\": \"off\" } ] } " +
+        "]"
+        
+        do {
+            // Set the map style by passing a valid JSON string.
+            campResMap.mapStyle = try GMSMapStyle(jsonString: kMapStyle)
+        } catch {
+            NSLog("The style definition could not be loaded: \(error)")
+            //            print(error)
+        }
+        
+        let lat = library.latitude!
+        let lon = library.longitude!
+        let marker = GMSMarker()
+        marker.icon = #imageLiteral(resourceName: "blueStop")
+        marker.position = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+        marker.title = library?.name
+        marker.map = campResMap
+    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
             let cell = libTableView.dequeueReusableCell(withIdentifier: "dropdown", for: indexPath) as! WeeklyTimesTableViewCell
@@ -264,6 +301,10 @@ extension LibraryViewController: UITableViewDataSource, UITableViewDelegate {
                 cell.expandButton.setBackgroundImage(#imageLiteral(resourceName: "expand"), for: .normal)
             }
             return cell
+        } else if (indexPath.row == 3) {
+            let campResInfoCell = tableView.dequeueReusableCell(withIdentifier: "librarymapTable", for: indexPath) as! LibraryMapTableViewCell
+            setUpMap(campResInfoCell.mapView)
+            return campResInfoCell
         } else {
             let libraryInfoCell = libTableView.dequeueReusableCell(withIdentifier: "libraryCell", for: indexPath) as! LibraryDetailCell
             
