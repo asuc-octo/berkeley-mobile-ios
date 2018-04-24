@@ -67,12 +67,10 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
                 }
                 
                 self.libraries = nonEmptyList as! [Library]
-//                if (self.already_loaded != true) {
-//                    self.already_loaded = true
                 if let t = self.resourceTableView {
                     t.reloadData()
                 }
-//                }
+
 
         }
         
@@ -86,12 +84,11 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
                 }
                 
                 self.campusResources = nonEmptyList as! [CampusResource]
-//                if (self.already_loaded != true) {
-//                    self.already_loaded = true
+
                 if let t = self.resourceTableView {
                     t.reloadData()
                 }
-//                }
+
                 
         }
 
@@ -110,7 +107,6 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
         self.resourceTableView.delegate = self
         self.resourceTableView.dataSource = self
         resourceTableView.reloadData()
-        //banner.backgroundColor = UIColor(hex: "1A5679")
         banner.backgroundColor = UIColor(red: 0, green: 51/255.0, blue: 102/255.0, alpha: 1)
 
         
@@ -171,7 +167,6 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
             cell.resource_name.text = resource.name
             cell.category_name.text = resource.category
             
-//            cell.resourceHours.text = resource.hours
             return cell
         }
     
@@ -182,7 +177,6 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
         } else {
             return UITableViewAutomaticDimension
         }
-//        return 80
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (isLibrary == true) {
@@ -249,12 +243,7 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
                 status = "Open"
             }
         }
-        
-//        var timeInfo = status + "    " + timeRange
-//
-//        if (timeRange == "Closed Today") {
-//            timeInfo = timeRange
-//        }
+
         return timeRange
     }
 
