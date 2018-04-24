@@ -25,15 +25,12 @@
 		4103E0C21FBE3671009F2C90 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4103E0C11FBE3671009F2C90 /* Launch Screen.storyboard */; };
 		412460A12054BD6B0000DB54 /* LibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412460A02054BD6B0000DB54 /* LibraryViewController.swift */; };
 		412460A32054C42D0000DB54 /* CampusResourceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412460A22054C42D0000DB54 /* CampusResourceTableViewCell.swift */; };
-		4124FA911EAC027700F65FBA /* timeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4124FA901EAC027700F65FBA /* timeCell.swift */; };
 		41661D0A1DCEFC760044E7B4 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41661D021DCEFC110044E7B4 /* Material.framework */; };
 		41A884BC201BD4DF00EE85C7 /* NetworkingConvenienceMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A884BB201BD4DF00EE85C7 /* NetworkingConvenienceMethods.swift */; };
 		41B0B5871E8CD95D00DA9297 /* BearTransitNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B0B57A1E8CD95D00DA9297 /* BearTransitNavigationController.swift */; };
 		41B0B5881E8CD95D00DA9297 /* BearTransitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B0B57B1E8CD95D00DA9297 /* BearTransitViewController.swift */; };
 		41B0B5891E8CD95D00DA9297 /* fullRouteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B0B57C1E8CD95D00DA9297 /* fullRouteDataSource.swift */; };
 		41B0B58A1E8CD95D00DA9297 /* nearestBus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B0B57D1E8CD95D00DA9297 /* nearestBus.swift */; };
-		41B0B58B1E8CD95D00DA9297 /* NearestBusesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B0B57E1E8CD95D00DA9297 /* NearestBusesTableViewCell.swift */; };
-		41B0B58C1E8CD95D00DA9297 /* nearestBusTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B0B57F1E8CD95D00DA9297 /* nearestBusTableViewCell.swift */; };
 		41B0B58E1E8CD95D00DA9297 /* nearestStopsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B0B5811E8CD95D00DA9297 /* nearestStopsDataSource.swift */; };
 		41B0B58F1E8CD95D00DA9297 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B0B5821E8CD95D00DA9297 /* Route.swift */; };
 		41B0B5901E8CD95D00DA9297 /* routeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B0B5831E8CD95D00DA9297 /* routeCell.swift */; };
@@ -45,7 +42,6 @@
 		41C1A5151FC2272300D07E6F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 41C1A5141FC2272300D07E6F /* GoogleService-Info.plist */; };
 		41E8438E1DAB3FE80096C049 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E8438D1DAB3FE80096C049 /* AppDelegate.swift */; };
 		41E843951DAB3FE80096C049 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41E843941DAB3FE80096C049 /* Assets.xcassets */; };
-		41EB40621F9993640069A374 /* nearBusCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EB40611F9993640069A374 /* nearBusCollectionCell.swift */; };
 		4E06A05A1E5E9DE8007B946F /* ListMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E06A0591E5E9DE8007B946F /* ListMenuItem.swift */; };
 		4E106F221E9EFB380089934A /* UIStoryboard+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E106F211E9EFB380089934A /* UIStoryboard+Extension.swift */; };
 		4E106F241E9F02560089934A /* Transit.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E106F231E9F02560089934A /* Transit.storyboard */; };
@@ -158,15 +154,12 @@
 		4103E0C11FBE3671009F2C90 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		412460A02054BD6B0000DB54 /* LibraryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryViewController.swift; sourceTree = "<group>"; };
 		412460A22054C42D0000DB54 /* CampusResourceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusResourceTableViewCell.swift; sourceTree = "<group>"; };
-		4124FA901EAC027700F65FBA /* timeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = timeCell.swift; sourceTree = "<group>"; };
 		41661D021DCEFC110044E7B4 /* Material.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Material.framework; path = "../../Library/Developer/Xcode/DerivedData/berkeleyMobileiOS-fqwsgytduwzwkifixxlmawnrvtwq/Build/Products/Debug-iphonesimulator/Material/Material.framework"; sourceTree = "<group>"; };
 		41A884BB201BD4DF00EE85C7 /* NetworkingConvenienceMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingConvenienceMethods.swift; sourceTree = "<group>"; };
 		41B0B57A1E8CD95D00DA9297 /* BearTransitNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BearTransitNavigationController.swift; sourceTree = "<group>"; };
 		41B0B57B1E8CD95D00DA9297 /* BearTransitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BearTransitViewController.swift; sourceTree = "<group>"; };
 		41B0B57C1E8CD95D00DA9297 /* fullRouteDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = fullRouteDataSource.swift; sourceTree = "<group>"; };
 		41B0B57D1E8CD95D00DA9297 /* nearestBus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = nearestBus.swift; sourceTree = "<group>"; };
-		41B0B57E1E8CD95D00DA9297 /* NearestBusesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NearestBusesTableViewCell.swift; sourceTree = "<group>"; };
-		41B0B57F1E8CD95D00DA9297 /* nearestBusTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = nearestBusTableViewCell.swift; sourceTree = "<group>"; };
 		41B0B5811E8CD95D00DA9297 /* nearestStopsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = nearestStopsDataSource.swift; sourceTree = "<group>"; };
 		41B0B5821E8CD95D00DA9297 /* Route.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		41B0B5831E8CD95D00DA9297 /* routeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = routeCell.swift; sourceTree = "<group>"; };
@@ -180,7 +173,6 @@
 		41E8438D1DAB3FE80096C049 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		41E843941DAB3FE80096C049 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		41E843991DAB3FE80096C049 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		41EB40611F9993640069A374 /* nearBusCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = nearBusCollectionCell.swift; sourceTree = "<group>"; };
 		4E06A0591E5E9DE8007B946F /* ListMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListMenuItem.swift; sourceTree = "<group>"; };
 		4E106F211E9EFB380089934A /* UIStoryboard+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Extension.swift"; sourceTree = "<group>"; };
 		4E106F231E9F02560089934A /* Transit.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Transit.storyboard; sourceTree = "<group>"; };
@@ -367,6 +359,7 @@
 				41BD9E3F205791A800EF24FC /* MapTableViewCell.swift */,
 				4E4E7D091E5A6ACA00A45586 /* ResourceDetailProvider.swift */,
 				4EE63BA31E5464B800FE3F9E /* ResourceContainerController.swift */,
+				41A884BB201BD4DF00EE85C7 /* NetworkingConvenienceMethods.swift */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -446,25 +439,11 @@
 		4E505D3B1DD05A65004AC6C9 /* Transit */ = {
 			isa = PBXGroup;
 			children = (
+				92A24F5E208E7FA400EFF8C4 /* Transit Classes */,
+				92A24F5D208E7B1700EFF8C4 /* Controllers */,
+				92A24F5F208E802300EFF8C4 /* DataSource */,
 				92DD71922060754800B73233 /* RouteCells */,
 				94BCFD2A2072B3D90021A887 /* FABMenuImports */,
-				41B0B57A1E8CD95D00DA9297 /* BearTransitNavigationController.swift */,
-				41B0B57B1E8CD95D00DA9297 /* BearTransitViewController.swift */,
-				92DD7193206075CC00B73233 /* RouteResultViewController.swift */,
-				41A884BB201BD4DF00EE85C7 /* NetworkingConvenienceMethods.swift */,
-				41B0B57C1E8CD95D00DA9297 /* fullRouteDataSource.swift */,
-				41B0B57D1E8CD95D00DA9297 /* nearestBus.swift */,
-				4124FA901EAC027700F65FBA /* timeCell.swift */,
-				41B0B5941E8CDC6200DA9297 /* RouteViewController.swift */,
-				41B0B57E1E8CD95D00DA9297 /* NearestBusesTableViewCell.swift */,
-				41B0B57F1E8CD95D00DA9297 /* nearestBusTableViewCell.swift */,
-				41B0B5811E8CD95D00DA9297 /* nearestStopsDataSource.swift */,
-				41017CF91FB55BF4002D12BB /* livebusDataSource.swift */,
-				41017CFB1FB55C33002D12BB /* livebus.swift */,
-				41B0B5821E8CD95D00DA9297 /* Route.swift */,
-				41B0B5831E8CD95D00DA9297 /* routeCell.swift */,
-				41B0B5841E8CD95D00DA9297 /* routeStop.swift */,
-				41EB40611F9993640069A374 /* nearBusCollectionCell.swift */,
 			);
 			path = Transit;
 			sourceTree = "<group>";
@@ -614,13 +593,46 @@
 			path = AcademicsDataSource;
 			sourceTree = "<group>";
 		};
+		92A24F5D208E7B1700EFF8C4 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				41B0B57A1E8CD95D00DA9297 /* BearTransitNavigationController.swift */,
+				41B0B57B1E8CD95D00DA9297 /* BearTransitViewController.swift */,
+				92DD7193206075CC00B73233 /* RouteResultViewController.swift */,
+				41B0B5941E8CDC6200DA9297 /* RouteViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		92A24F5E208E7FA400EFF8C4 /* Transit Classes */ = {
+			isa = PBXGroup;
+			children = (
+				41017CFB1FB55C33002D12BB /* livebus.swift */,
+				41B0B57D1E8CD95D00DA9297 /* nearestBus.swift */,
+				41B0B5841E8CD95D00DA9297 /* routeStop.swift */,
+				41B0B5821E8CD95D00DA9297 /* Route.swift */,
+			);
+			path = "Transit Classes";
+			sourceTree = "<group>";
+		};
+		92A24F5F208E802300EFF8C4 /* DataSource */ = {
+			isa = PBXGroup;
+			children = (
+				41B0B57C1E8CD95D00DA9297 /* fullRouteDataSource.swift */,
+				41017CF91FB55BF4002D12BB /* livebusDataSource.swift */,
+				41B0B5811E8CD95D00DA9297 /* nearestStopsDataSource.swift */,
+			);
+			path = DataSource;
+			sourceTree = "<group>";
+		};
 		92DD71922060754800B73233 /* RouteCells */ = {
 			isa = PBXGroup;
 			children = (
-				F3CEBE01207D8006004C0E95 /* RouteEndTableViewCell.swift */,
+				41B0B5831E8CD95D00DA9297 /* routeCell.swift */,
+				92DD7190206072BD00B73233 /* RouteTitleTableViewCell.swift */,
 				F3CEBE03207D8019004C0E95 /* RouteDetailsTableViewCell.swift */,
 				F3CEBDFF207D7FF6004C0E95 /* RouteMidTableViewCell.swift */,
-				92DD7190206072BD00B73233 /* RouteTitleTableViewCell.swift */,
+				F3CEBE01207D8006004C0E95 /* RouteEndTableViewCell.swift */,
 			);
 			path = RouteCells;
 			sourceTree = "<group>";
@@ -838,7 +850,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -900,13 +912,11 @@
 				4EE89F261DDBEF9F00AC4EF7 /* UIImageView+Extension.swift in Sources */,
 				41B0B5961E8CDC6200DA9297 /* RouteViewController.swift in Sources */,
 				4E4D30AF1E57922600E418B8 /* CATransaction+Extension.swift in Sources */,
-				4124FA911EAC027700F65FBA /* timeCell.swift in Sources */,
 				282A4EEC1E63859900480201 /* GymClassDataSource.swift in Sources */,
 				4E4EC14C1E5118C9000C63ED /* FavoriteStore.swift in Sources */,
 				55D9A4BF20844FB00040110C /* TimeTableViewCell.swift in Sources */,
 				4E64B5701DD134F800DA5E73 /* Optional+Extension.swift in Sources */,
 				5552A68F2048C2F100F27AED /* AcademicViewController.swift in Sources */,
-				41EB40621F9993640069A374 /* nearBusCollectionCell.swift in Sources */,
 				41B0B58F1E8CD95D00DA9297 /* Route.swift in Sources */,
 				286D90241DDE9D86001DCBB6 /* LibraryMapViewController.swift in Sources */,
 				F3CEBE02207D8006004C0E95 /* RouteEndTableViewCell.swift in Sources */,
@@ -932,7 +942,6 @@
 				555D40E72051F06300EA1E1C /* GymViewController.swift in Sources */,
 				4E7F32AB1E6214E700D781B2 /* UIViewController+Extension.swift in Sources */,
 				354035402022D04F00A4AEB4 /* Dictionaries.swift in Sources */,
-				41B0B58C1E8CD95D00DA9297 /* nearestBusTableViewCell.swift in Sources */,
 				4E487A361DDBB59A0001F8CF /* Utils.swift in Sources */,
 				94C46117207C1B2200E61462 /* DayCollectionViewCell.swift in Sources */,
 				94C46119207C1B6F00E61462 /* GymClassInfoTableViewCell.swift in Sources */,
