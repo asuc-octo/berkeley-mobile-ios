@@ -28,7 +28,6 @@ class DiningHallViewController: UIViewController, IBInitializable, ResourceDetai
     private var pageController: PageTabBarController!
     private var pageTabBar: PageTabBar
     {
-        print("HURR")
         PageTabBar.appearance().tintColor = UIColor(hue: 0.5583, saturation: 0.79, brightness: 0.97, alpha: 1.0)
         
         return pageController.pageTabBar
@@ -204,11 +203,6 @@ class DiningHallViewController: UIViewController, IBInitializable, ResourceDetai
             
             let vc = storyboard!.instantiateViewController(withIdentifier: menuID) as! DiningMenuViewController
             
-            //var sss = breakfast
-            
-           
-            
-            
             if caf {
                  vc.setData(type: type, shift: cafe.meals[type]!)
                 
@@ -217,10 +211,6 @@ class DiningHallViewController: UIViewController, IBInitializable, ResourceDetai
                 
             }
         
-            
-          
-            
-            
             let barItem = vc.pageTabBarItem
             barItem.titleColor = kColorNavy
             barItem.pulseColor = kColorNavy//UIColor.white
@@ -236,12 +226,8 @@ class DiningHallViewController: UIViewController, IBInitializable, ResourceDetai
     
         let tabBar = pageController.pageTabBar
         tabBar.tintColor = UIColor(hue: 0.5583, saturation: 0.79, brightness: 0.97, alpha: 1.0)
-        tabBar.backgroundColor = UIColor.white//kColorNavy
-        tabBar.lineColor = kColorNavy//UIColor.white
-        
-       
-        
-        
+        tabBar.backgroundColor = UIColor.white
+        tabBar.lineColor = kColorNavy
         tabBar.lineHeight = 1
         tabBar.lineAlignment = .bottom
         

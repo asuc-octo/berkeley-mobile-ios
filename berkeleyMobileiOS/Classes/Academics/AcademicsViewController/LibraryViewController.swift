@@ -18,7 +18,6 @@ class LibraryViewController: UIViewController, GMSMapViewDelegate, CLLocationMan
     var weeklyTimes = [String]()
     var daysOfWeek = [String]()
     var expandRow: Bool!
-    @IBOutlet weak var timeTableview: UITableView!
     
     @IBOutlet weak var libTitle: UILabel!
     @IBOutlet weak var libraryImage: UIImageView!
@@ -27,6 +26,7 @@ class LibraryViewController: UIViewController, GMSMapViewDelegate, CLLocationMan
     
     override func viewDidLoad() {
         setUpMap()
+        
         libTitle.bringSubview(toFront: libraryImage)
         
         libTitle.text = library.name
@@ -54,7 +54,6 @@ class LibraryViewController: UIViewController, GMSMapViewDelegate, CLLocationMan
         dateFormatter.amSymbol = "AM"
         dateFormatter.pmSymbol = "PM"
         dateFormatter.timeZone = TimeZone(abbreviation: "PST")
-//        var trivialDayStringsORDINAL = ["", "SUN","MON","TUE","WED","THU","FRI","SAT"]
         var localOpeningTime = ""
         var localClosingTime = ""
         var timeArr = [String]()
@@ -71,10 +70,7 @@ class LibraryViewController: UIViewController, GMSMapViewDelegate, CLLocationMan
             if (localOpeningTime == "" && localClosingTime == "") {
                 timeRange = "CLOSED ALL DAY"
             }
-            
-//            var timeInfo = trivialDayStringsORDINAL[i] + "  " + timeRange
-//            var timeInfo = weekday + " " + timeRange
-            
+
             weeklyTimes.append(timeRange)
             
         }

@@ -17,7 +17,7 @@ class Library: Resource {
     }
     
     static var dataSource: ResourceDataSource.Type? = LibraryDataSource.self
-    static var detailProvider: ResourceDetailProvider.Type? = LibraryDetailViewController.self
+    static var detailProvider: ResourceDetailProvider.Type? = nil
     
     
     let name: String

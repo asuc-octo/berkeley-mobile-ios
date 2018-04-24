@@ -94,7 +94,6 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
         if (UserDefaults.standard.object(forKey: "favoritedLibraries") == nil) {
             // No favoriting enabled (first time opening libraries) - no favorites
             defaults.set(favLib, forKey:"favoritedLibraries")
-            var nonFavLib = self.libraries
         } else {
             favLib = defaults.object(forKey: "favoritedLibraries") as! [Library]
             for lib in self.libraries {
@@ -196,8 +195,8 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
         } else {
             return UITableViewAutomaticDimension
         }
-//        return 80
     }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (isLibrary == true) {
             return libraries.count
@@ -241,7 +240,6 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
         dateFormatter.amSymbol = "AM"
         dateFormatter.pmSymbol = "PM"
         dateFormatter.timeZone = TimeZone(abbreviation: "PST")
-        var trivialDayStringsORDINAL = ["", "SUN","MON","TUE","WED","THU","FRI","SAT"]
         let dow = Calendar.current.component(.weekday, from: Date())
         let translateddow = 0
         var localOpeningTime = ""
@@ -254,21 +252,11 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
         }
         
         var timeRange:String = localOpeningTime + " to " + localClosingTime
-        var status = "Closed"
+        
         
         if (localOpeningTime == "" && localClosingTime == "") {
             timeRange = "Closed Today"
-        } else {
-            if library.isOpen {
-                status = "Open"
-            }
         }
-        
-//        var timeInfo = status + "    " + timeRange
-//
-//        if (timeRange == "Closed Today") {
-//            timeInfo = timeRange
-//        }
         return timeRange
     }
 

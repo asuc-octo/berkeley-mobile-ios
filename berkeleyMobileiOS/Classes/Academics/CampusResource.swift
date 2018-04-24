@@ -17,7 +17,7 @@ class CampusResource: Resource {
     }
     
     static var dataSource: ResourceDataSource.Type? = CampusResourceDataSource.self
-    static var detailProvider: ResourceDetailProvider.Type? = CampusResourceDetailViewController.self
+    static var detailProvider: ResourceDetailProvider.Type? = nil
     
     
     let name: String
