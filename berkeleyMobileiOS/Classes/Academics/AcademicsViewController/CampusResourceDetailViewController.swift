@@ -69,7 +69,7 @@ class CampusResourceDetailViewController: UIViewController, GMSMapViewDelegate, 
         campusResDetailTableview.isScrollEnabled = false
 
         setUpMap()
-        setUpInformation()
+
   
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -89,21 +89,7 @@ class CampusResourceDetailViewController: UIViewController, GMSMapViewDelegate, 
     
 
 
-    func setUpInformation() {
-//        self.campusResStartEndTime.text = self.campusResource.hours
-//
-//        // For favoriting
-//        if (campusResource.isFavorited) {
-//            self.campusResFavoriteButton.setImage(#imageLiteral(resourceName: "heart-large-filled"), for: .normal)
-//        } else {
-//            self.campusResFavoriteButton.setImage(#imageLiteral(resourceName: "heart-large"), for: .normal)
-//        }
-//        self.campusResStartEndTime.text = self.campusResource.hours
-        
-        // For favoriting
-        
-        return
-    }
+   
 
     func setUpMap() {
         //Setting up map view
@@ -154,19 +140,7 @@ class CampusResourceDetailViewController: UIViewController, GMSMapViewDelegate, 
         }
     }
     
-//    @IBAction func favoriteCampusResource(_ sender: UIButton) {
-//        guard let campusResource = self.campusResource else {
-//            return
-//        }
-//        campusResource.isFavorited = !campusResource.isFavorited
-//        FavoriteStore.shared.update(campusResource)
-//
-//        if campusResource.isFavorited {
-//            (sender ).setImage(#imageLiteral(resourceName: "heart-large-filled"), for: .normal)
-//        } else {
-//            (sender ).setImage(#imageLiteral(resourceName: "heart-large"), for: .normal)
-//        }
-//    }
+
     func emailCampResWebsite() {
         if MFMailComposeViewController.canSendMail() {
             let mail = MFMailComposeViewController()
