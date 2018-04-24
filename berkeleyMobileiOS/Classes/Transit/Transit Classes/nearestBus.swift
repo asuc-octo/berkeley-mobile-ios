@@ -9,15 +9,18 @@
 import Foundation
 
 class nearestBus: NSObject {
+    
     var directionTitle: String = ""
     var busName: String = ""
     var timeLeft: [String]
+    
     init(directionTitle: String, busName: String, timeLeft: String) {
         self.directionTitle = directionTitle
         self.busName = busName
         self.timeLeft = []
         self.timeLeft.append(timeLeft)
     }
+    
     func addTime(_ timeLeft: String) {
         self.timeLeft.append(timeLeft)
     }

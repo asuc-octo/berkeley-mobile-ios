@@ -57,6 +57,7 @@ class fullRouteDataSource: NSObject {
         }
         return routeObj
     }
+    
     // Return a Gym object parsed from JSON.
     private static func parseRoute(_ json: JSON) -> Route
     {
