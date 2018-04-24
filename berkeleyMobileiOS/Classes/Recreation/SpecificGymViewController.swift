@@ -7,7 +7,9 @@
 //
 import GoogleMaps
 import UIKit
-
+import Firebase
+fileprivate let kColorGreen = UIColor(red: 16/255.0, green: 161/255.0, blue: 0, alpha:1)
+fileprivate let kColorRed = UIColor.red
 class SpecificGymViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate {
 
     var gym: Gym! 
@@ -22,7 +24,9 @@ class SpecificGymViewController: UIViewController, CLLocationManagerDelegate, GM
     
     var iconImages = [UIImage]()
     var gymInfo = [String]()
-    
+    override func viewDidAppear(_ animated: Bool) {
+        Analytics.logEvent("opened_gym", parameters: ["name": gym.name])
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         if gym.name == "Recreational Sports Facility (RSF)" {

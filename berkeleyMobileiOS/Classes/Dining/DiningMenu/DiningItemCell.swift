@@ -65,10 +65,7 @@ class DiningItemCell: UITableViewCell, RequiresData, ToggleButtonDelegate
             nameLabel.text = str
             costLabel.isHidden = true
         }
-        
-        
-        
-        
+
         favoriteButton.isSelected = item.isFavorited
         
         let restrictions = item.restrictions
@@ -99,9 +96,7 @@ class DiningItemCell: UITableViewCell, RequiresData, ToggleButtonDelegate
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         let widthConstraint = NSLayoutConstraint(item: nameLabel, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: width)
         self.contentView.addConstraint(widthConstraint)
-        
-        
-        
+
         // add diet restrictions to imageviews
         let dietImages: [UIImageView] = [dietImageView1, dietImageView2, dietImageView3, dietImageView4, dietImageView5, dietImageView5, dietImageView6]
         if (restrictions.count > 0) {

@@ -8,6 +8,9 @@
 import UIKit
 import GoogleMaps
 import Material
+import Firebase
+fileprivate let kColorGreen = UIColor(red: 16/255.0, green: 161/255.0, blue: 0, alpha:1)
+fileprivate let kColorRed = UIColor.red
 
 class LibraryViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDelegate {
     
@@ -18,15 +21,17 @@ class LibraryViewController: UIViewController, GMSMapViewDelegate, CLLocationMan
     var weeklyTimes = [String]()
     var daysOfWeek = [String]()
     var expandRow: Bool!
-    @IBOutlet weak var timeTableview: UITableView!
     
     @IBOutlet weak var libTitle: UILabel!
     @IBOutlet weak var libraryImage: UIImageView!
     @IBOutlet weak var libTableView: UITableView!
     @IBOutlet weak var libMap: GMSMapView!
-    
+    override func viewDidAppear(_ animated: Bool) {
+        Analytics.logEvent("opened_library", parameters: ["name" : library.name])
+    }
     override func viewDidLoad() {
 //        setUpMap()
+
         libTitle.bringSubview(toFront: libraryImage)
         
         libTitle.text = library.name
@@ -54,7 +59,6 @@ class LibraryViewController: UIViewController, GMSMapViewDelegate, CLLocationMan
         dateFormatter.amSymbol = "AM"
         dateFormatter.pmSymbol = "PM"
         dateFormatter.timeZone = TimeZone(abbreviation: "PST")
-//        var trivialDayStringsORDINAL = ["", "SUN","MON","TUE","WED","THU","FRI","SAT"]
         var localOpeningTime = ""
         var localClosingTime = ""
         var timeArr = [String]()
@@ -71,10 +75,7 @@ class LibraryViewController: UIViewController, GMSMapViewDelegate, CLLocationMan
             if (localOpeningTime == "" && localClosingTime == "") {
                 timeRange = "CLOSED ALL DAY"
             }
-            
-//            var timeInfo = trivialDayStringsORDINAL[i] + "  " + timeRange
-//            var timeInfo = weekday + " " + timeRange
-            
+
             weeklyTimes.append(timeRange)
             
         }
@@ -247,7 +248,7 @@ extension LibraryViewController: UITableViewDataSource, UITableViewDelegate {
         } else if (indexPath.row == 3) {
             return 400
         } else {
-            return 55
+            return UITableViewAutomaticDimension
         }
     }
 
@@ -291,7 +292,13 @@ extension LibraryViewController: UITableViewDataSource, UITableViewDelegate {
         if indexPath.row == 0 {
             let cell = libTableView.dequeueReusableCell(withIdentifier: "dropdown", for: indexPath) as! WeeklyTimesTableViewCell
             cell.icon.image = iconImages[indexPath.row]
-            cell.day.text = daysOfWeek[0]
+            if self.library.isOpen {
+                cell.day.text = "Open"
+                cell.day.textColor = kColorGreen
+            } else {
+                cell.day.text = "Closed"
+                cell.day.textColor = kColorRed
+            }
             cell.time.text = weeklyTimes[0]
             cell.days = daysOfWeek
             cell.times = weeklyTimes

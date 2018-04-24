@@ -8,14 +8,12 @@
 import UIKit
 import Material
 import GoogleMaps
-
+import Firebase
 class CampusResourceViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate {
     
     @IBOutlet weak var campResTitle: UILabel!
     @IBOutlet weak var campResImage: UIImageView!
     @IBOutlet weak var campResTableView: UITableView!
-//    @IBOutlet var campResMap: GMSMapView!
-    
     
     var campusResource:CampusResource!
     var locationManager = CLLocationManager()
@@ -26,9 +24,11 @@ class CampusResourceViewController: UIViewController, CLLocationManagerDelegate,
         UIImage(named:"location_2.0.png")!,
         UIImage(named:"info_2.0.png")!
     ]
+    
     var campResInfo = [String]()
-    
-    
+    override func viewDidAppear(_ animated: Bool) {
+        Analytics.logEvent("opened_resource", parameters: ["name" : campusResource.name])
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -49,7 +49,6 @@ class CampusResourceViewController: UIViewController, CLLocationManagerDelegate,
         
         campResTableView.delegate = self
         campResTableView.dataSource = self
-//        setUpMap()
         // Do any additional setup after loading the view.
     }
     
@@ -119,11 +118,7 @@ extension CampusResourceViewController: UITableViewDelegate, UITableViewDataSour
         if indexPath.row == 4 {
             return 200
         }
-//        if indexPath.row == 3 {
-            return UITableViewAutomaticDimension
-//        } else {
-//            return 55
-//        }
+        return UITableViewAutomaticDimension
     }
     
     
@@ -133,6 +128,7 @@ extension CampusResourceViewController: UITableViewDelegate, UITableViewDataSour
             setUpMap(campResInfoCell.campusResourceMap)
             return campResInfoCell
         }
+        
         let campResInfoCell = campResTableView.dequeueReusableCell(withIdentifier: "campusResourceDetail", for: indexPath) as! CampusResourceDetailCell
         
         campResInfoCell.campResIconImage.image = iconImages[indexPath.row]
@@ -145,10 +141,6 @@ extension CampusResourceViewController: UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell  = tableView.cellForRow(at: indexPath)
         cell?.selectionStyle = .none
-        
-        if indexPath.row == 1 {
-            //callCampRes()
-        }
     }
     
 }

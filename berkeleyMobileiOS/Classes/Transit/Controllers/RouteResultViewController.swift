@@ -2,6 +2,9 @@
 //  RouteResultViewController.swift
 //  berkeleyMobileiOS
 //
+//  Displays search results for potential bus routes.
+//  Pushed from BearTransitViewController
+//
 //  Created by Anthony Kim on 3/19/18.
 //  Copyright © 2018 org.berkeleyMobile. All rights reserved.
 //
@@ -77,7 +80,7 @@ class RouteResultViewController: UIViewController, UITableViewDelegate, UITableV
         let currentDate = serverToLocalFormatter.date(from: r.startTime)
         let endDate = serverToLocalFormatter.date(from: r.endTime)
         let timeElapsed = endDate?.timeIntervalSince(currentDate!)
-        var minutes = timeElapsed!/60
+        let minutes = timeElapsed!/60
         
         dest.duration = Int(minutes.rounded()).description + " mins"
         dest.time = timeFormatter.string(from: currentDate!)

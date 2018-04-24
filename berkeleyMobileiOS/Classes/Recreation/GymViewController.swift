@@ -39,7 +39,9 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
     
     var dayNames = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"]
     var daysOfWeek = [Date]()
-    
+    override func viewDidAppear(_ animated: Bool) {
+        Analytics.logEvent("opened_gym_screen", parameters: nil)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         noClasses.isHidden = true
