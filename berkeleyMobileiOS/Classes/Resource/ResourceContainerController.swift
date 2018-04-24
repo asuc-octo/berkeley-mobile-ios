@@ -133,8 +133,12 @@ class ResourceContainerController: UIViewController, IBInitializable, UIScrollVi
         super.viewDidLayoutSubviews()
         
         scrollView.contentSize.height = infoPanel.bounds.height + detailProvider.contentSize.height
+        scrollViewDidScroll(self.scrollView)
+
     }
-    
+    override func viewDidAppear(_ animated: Bool) {
+//        scrollViewDidScroll(self.scrollView)
+    }
     
     // ========================================
     // MARK: - Setup
