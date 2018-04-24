@@ -184,7 +184,22 @@ class DiningHallViewController: UIViewController, IBInitializable, ResourceDetai
     {
         let menuID = className(DiningMenuViewController.self)
         
-        menuControllers = MealType.allValues.map
+        var to_filter: [MealType] = []
+        for type in MealType.allValues {
+            
+            if caf {
+                let shift = cafe.meals[type]!
+                if type.name.split(separator: "_")[0].lowercased() != "limited" && !shift.hours.isNil && shift.menu.count != 0{
+                    to_filter.append(type)
+                }
+            } else {
+                let shift = hall.meals[type]!
+                if !shift.hours.isNil && shift.menu.count != 0 {
+                    to_filter.append(type)
+                }
+            }
+        }
+        menuControllers = to_filter.map
         { type in
             
             let vc = storyboard!.instantiateViewController(withIdentifier: menuID) as! DiningMenuViewController
@@ -210,7 +225,7 @@ class DiningHallViewController: UIViewController, IBInitializable, ResourceDetai
             barItem.titleColor = kColorNavy
             barItem.pulseColor = kColorNavy//UIColor.white
             
-            barItem.title = type.name
+            barItem.title = type.name.split(separator: "_")[0].capitalized
             barItem.titleLabel?.font = UIFont.systemFont(ofSize: 16)
             return vc
         }

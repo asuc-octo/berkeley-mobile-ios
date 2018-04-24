@@ -1,19 +1,17 @@
 //
-//  LibraryDetailCell.swift
+//  TimeTableViewCell.swift
 //  berkeleyMobileiOS
 //
-//  Created by Marisa Wong on 10/26/17.
-//  Copyright © 2017 org.berkeleyMobile. All rights reserved.
+//  Created by Marisa Wong on 4/15/18.
+//  Copyright © 2018 org.berkeleyMobile. All rights reserved.
 //
 
 import UIKit
 
-class LibraryDetailCell: UITableViewCell {
+class TimeTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var libraryIconImage: UIImageView!
-    @IBOutlet weak var libraryIconInfo: UILabel!
-
-    
+    @IBOutlet weak var day: UILabel!
+    @IBOutlet weak var time: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

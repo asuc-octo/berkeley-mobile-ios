@@ -17,7 +17,6 @@ class ResourceTableViewCell: UITableViewCell {
     
     @IBOutlet weak var resourceHours: UILabel!
     
-    @IBOutlet weak var resourceFav: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
