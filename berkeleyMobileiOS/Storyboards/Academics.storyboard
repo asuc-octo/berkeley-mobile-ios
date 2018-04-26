@@ -657,7 +657,6 @@
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="w4Z-jg-vmU" firstAttribute="top" secondItem="7eH-l6-xRx" secondAttribute="bottom" constant="-36" id="4zh-nN-wYj"/>
                             <constraint firstItem="7eH-l6-xRx" firstAttribute="leading" secondItem="pZe-YC-KwS" secondAttribute="leading" id="6xs-E9-2m8"/>
                             <constraint firstItem="w4Z-jg-vmU" firstAttribute="trailing" secondItem="Jgk-iy-ZfW" secondAttribute="trailingMargin" constant="12" id="92E-CJ-3h6"/>
                             <constraint firstItem="bS7-W7-DZ2" firstAttribute="leading" secondItem="Jgk-iy-ZfW" secondAttribute="leadingMargin" id="AtR-Xd-FXX"/>
@@ -672,6 +671,7 @@
                             <constraint firstItem="Xdb-lg-Vmc" firstAttribute="leading" secondItem="Jgk-iy-ZfW" secondAttribute="leading" id="Up7-eq-PvZ"/>
                             <constraint firstItem="pZe-YC-KwS" firstAttribute="top" secondItem="Jgk-iy-ZfW" secondAttribute="top" id="Wsh-IK-Tjw"/>
                             <constraint firstItem="Xdb-lg-Vmc" firstAttribute="top" secondItem="pZe-YC-KwS" secondAttribute="bottom" id="nQl-i9-m9p"/>
+                            <constraint firstItem="Xdb-lg-Vmc" firstAttribute="top" secondItem="w4Z-jg-vmU" secondAttribute="bottom" constant="5" id="oGO-e5-AUj"/>
                             <constraint firstItem="pZe-YC-KwS" firstAttribute="leading" secondItem="Jgk-iy-ZfW" secondAttribute="leading" id="vG4-vj-Uov"/>
                         </constraints>
                     </view>

@@ -57,8 +57,13 @@ extension WeeklyTimesTableViewCell: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = timeTableView.dequeueReusableCell(withIdentifier: "timeCell", for:indexPath) as! TimeTableViewCell
+
         cell.day.text = days![indexPath.row]
         cell.time.text = times![indexPath.row]
+        if indexPath.row == 0 {
+           cell.day.font = UIFont.boldSystemFont(ofSize: 15.0)
+            cell.time.font = UIFont.boldSystemFont(ofSize: 15.0)
+        }
         return cell
     }
     
