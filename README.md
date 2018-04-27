@@ -17,7 +17,7 @@ Created in 2012, Berkeley Mobile has acculumated over 20,000 downloads on iOS an
 
 ## Documentation
 
-For documentation, check out our [wiki](https://github.com/asuc-octo/berkeley-mobile-ios/wiki).
+For documentation, check out our [wiki](https://github.com/asuc-octo/berkeley-mobile-ios/wiki). The wiki is a work in progress and should be completed soon.
 
 The application consists of eight modules:
 * [Academics](berkeleyMobileiOS/Classes/Academics): for Libraries and Campus Resources features 
