@@ -11,10 +11,10 @@ PODS:
   - FirebaseAnalytics (4.0.4):
     - FirebaseCore (~> 4.0)
     - FirebaseInstanceID (~> 2.0)
-    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
+    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
     - nanopb (~> 0.3)
   - FirebaseCore (4.0.8):
-    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
+    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
     - nanopb (~> 0.3)
   - FirebaseInstanceID (2.0.4)
   - GoogleMaps (2.2.0):
@@ -28,7 +28,7 @@ PODS:
   - GooglePlaces (2.2.0):
     - GoogleMaps/Base (= 2.2.0)
   - GoogleToolboxForMac/Defines (2.1.3)
-  - GoogleToolboxForMac/NSData+zlib (2.1.3):
+  - "GoogleToolboxForMac/NSData+zlib (2.1.3)":
     - GoogleToolboxForMac/Defines (= 2.1.3)
   - KCFloatingActionButton (2.2.0)
   - Material (2.6.3):
@@ -64,6 +64,28 @@ DEPENDENCIES:
   - RealmSwift (from `https://github.com/realm/realm-cocoa.git`, branch `master`)
   - SDWebImage (~> 3.8)
   - SwiftyJSON
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - Alamofire
+    - Crashlytics
+    - DropDown
+    - ExpandingMenu
+    - Fabric
+    - Firebase
+    - FirebaseAnalytics
+    - FirebaseCore
+    - FirebaseInstanceID
+    - GoogleMaps
+    - GooglePlacePicker
+    - GooglePlaces
+    - GoogleToolboxForMac
+    - KCFloatingActionButton
+    - Material
+    - nanopb
+    - Realm
+    - SDWebImage
+    - SwiftyJSON
 
 EXTERNAL SOURCES:
   RealmSwift:
@@ -101,4 +123,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 08aef4dcf2629f4de9b4386c8a51bf583ef46ece
 
-COCOAPODS: 1.3.1
+COCOAPODS: 1.5.0
