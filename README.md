@@ -4,7 +4,7 @@ This is the official repository for the Berkeley Mobile iOS application.
 
 ## What is Berkeley Mobile?
 
-Created in 2012, Berkeley Mobile has acculumated over 20,000 downloads on iOS and Android and currently has about 2,000 Monthly Active Users (MAUs). It has Bear Transit routes, library and gym information, dining hall menus, and campus resources, all in one place for the busy Berkeley student. The mission of Berkeley Mobile is to use cool technology to help students navigate Berkeley. You can [download Berkeley Mobile on the Google Play Store](https://play.google.com/store/apps/details?id=com.asuc.asucmobile&hl=en_US).
+Created in 2012, Berkeley Mobile has acculumated over 20,000 downloads on iOS and Android and currently has about 2,000 Monthly Active Users (MAUs). It has Bear Transit routes, library and gym information, dining hall menus, and campus resources, all in one place for the busy Berkeley student. The mission of Berkeley Mobile is to use cool technology to help students navigate Berkeley. You can download Berkeley Mobile on [the Google Play Store](https://play.google.com/store/apps/details?id=com.asuc.asucmobile&hl=en_US) or [the App Store](https://itunes.apple.com/us/app/berkeley-mobile/id912243518?mt=8).
 
 <p align="center">
   <img src="/app_preview_images/screen1.png" width="200"/>
@@ -36,7 +36,10 @@ It is recommended you use XCode 9.2 or higher and Swift 3. Install [Cocoapods](h
 
 ### APIs
 
-* Get a Google API key through [Google Console](https://developers.google.com/maps/documentation/ios-sdk/get-api-key), enable the Google Maps and Google Places APIs, and paste it in [secret.xml](app/src/main/res/values/secret.xml)
+* Create a new project in the [Google Cloud Console](https://console.cloud.google.com)
+  * Under the APIs and Services tab, enable the Google Places API for iOS, Google Maps SDK for iOS, Google Maps Directions API, and Google Maps Geocoding API
+  * Under the Credentials tab, create an API key
+  * Paste your API key into [secret.xml](app/src/main/res/values/secret.xml)
 * We've configured this repository so that the application pulls from our sandbox backend, which just returns test data. If you would like access to our production backend API, please [contact us](#contact). 
 
 ## Contributing
