@@ -39,7 +39,7 @@ It is recommended you use XCode 9.2 or higher and Swift 3. Install [Cocoapods](h
 * Create a new project in the [Google Cloud Console](https://console.cloud.google.com)
   * Under the APIs and Services tab, enable the Google Places API for iOS, Google Maps SDK for iOS, Google Maps Directions API, and Google Maps Geocoding API
   * Under the Credentials tab, create an API key
-  * Paste your API key into [secret.xml](app/src/main/res/values/secret.xml)
+  * Paste your API key into [secret.swift](berkeleyMobileiOS/secret.swift) and [GoogleService-Info.plist](berkeleyMobileiOS/GoogleService-Info.plist)
 * We've configured this repository so that the application pulls from our sandbox backend, which just returns test data. If you would like access to our production backend API, please [contact us](#contact). 
 
 ## Contributing
