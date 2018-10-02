@@ -204,10 +204,10 @@ class DiningHallViewController: UIViewController, IBInitializable, ResourceDetai
             let vc = storyboard!.instantiateViewController(withIdentifier: menuID) as! DiningMenuViewController
             
             if caf {
-                 vc.setData(type: type, shift: cafe.meals[type]!)
+                vc.setData((type: type, shift: cafe.meals[type]!))
                 
             } else {
-                vc.setData(type: type, shift: hall.meals[type]!)
+                vc.setData((type: type, shift: hall.meals[type]!))
                 
             }
         
