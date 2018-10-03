@@ -146,8 +146,10 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
             let cell = resourceTableView.dequeueReusableCell(withIdentifier: "resource") as! ResourceTableViewCell
             // Populate cells with library information
             let library = libraries[indexPath.row]
+            cell.library = library
             cell.resourceName.text = library.name
             cell.resourceImage.load(resource: library)
+            cell.favoriteButton.isSelected = library.isFavorited
             
             var status = "OPEN"
             if library.isOpen == false {

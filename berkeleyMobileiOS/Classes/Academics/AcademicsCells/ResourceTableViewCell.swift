@@ -8,8 +8,11 @@
 
 import UIKit
 
-class ResourceTableViewCell: UITableViewCell {
+class ResourceTableViewCell: UITableViewCell, ToggleButtonDelegate {
 
+    var library: Library!
+    
+    @IBOutlet weak var favoriteButton: UIButton!
     @IBOutlet weak var resourceImage: UIImageView!
     
     @IBOutlet weak var resourceName: UILabel!
@@ -27,5 +30,22 @@ class ResourceTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
+    
+    // ========================================
+    // MARK: - ToggleButtonDelegate
+    // ========================================
+    /**
+     * When the favoriteButton is toggled, update the FavoriteStore.
+     *
+     * - Note:
+     *  Ideally updating the Store should be done in a controller,
+     *  but because that requires an extra layer of delegation/callback,
+     *  opted to include the Store write action here.
+     */
+    func buttonDidToggle(_ button: ToggleButton) {
+        library.isFavorited = button.isSelected
+        FavoriteStore.shared.update(library)
+        // Update Analytics
+        
+    }
 }
