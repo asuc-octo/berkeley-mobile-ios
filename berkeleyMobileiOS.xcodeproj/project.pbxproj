@@ -766,7 +766,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-berkeleyMobileiOS/Pods-berkeleyMobileiOS-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-berkeleyMobileiOS/Pods-berkeleyMobileiOS-resources.sh",
 				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle",
 				"${PODS_ROOT}/GooglePlacePicker/Frameworks/GooglePlacePicker.framework/Versions/A/Resources/GooglePlacePicker.bundle",
 				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Versions/A/Resources/GooglePlaces.bundle",
@@ -779,7 +779,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-berkeleyMobileiOS/Pods-berkeleyMobileiOS-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-berkeleyMobileiOS/Pods-berkeleyMobileiOS-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		870E1645707A169312C5FB2C /* [CP] Embed Pods Frameworks */ = {
@@ -788,7 +788,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-berkeleyMobileiOS/Pods-berkeleyMobileiOS-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-berkeleyMobileiOS/Pods-berkeleyMobileiOS-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/DropDown/DropDown.framework",
 				"${BUILT_PRODUCTS_DIR}/ExpandingMenu/ExpandingMenu.framework",
@@ -817,7 +817,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-berkeleyMobileiOS/Pods-berkeleyMobileiOS-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-berkeleyMobileiOS/Pods-berkeleyMobileiOS-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		A2A9E27ACE9FBC567AF40778 /* [CP] Check Pods Manifest.lock */ = {

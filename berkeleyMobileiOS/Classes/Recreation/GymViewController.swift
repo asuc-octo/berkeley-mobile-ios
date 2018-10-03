@@ -17,6 +17,7 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
     @IBOutlet weak var gymCollectionView: UICollectionView!
     
     @IBOutlet weak var weekCollectionView: UICollectionView!
+    @IBOutlet weak var weekCollectionViewHeightAnchor: NSLayoutConstraint!
     
     @IBOutlet weak var classTypesCollectionView: UICollectionView!
     
@@ -31,7 +32,6 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
     var gymClasses = [GymClass]()
     var subsetClasses = [GymClass]()
     
-    
     var selectedClassTypes: [String] = []
     var classBool = [true, true, true, true, true, true, true]
     var selectedDays: Date! = Date()
@@ -42,6 +42,7 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
     override func viewDidAppear(_ animated: Bool) {
         Analytics.logEvent("opened_gym_screen", parameters: nil)
     }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         noClasses.isHidden = true
@@ -111,6 +112,8 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
         
         weekCollectionView.delegate = self
         weekCollectionView.dataSource = self
+        // 16 points is the margin, 61 points (rounding issues) is for the spacing between cells
+        weekCollectionViewHeightAnchor.constant = (view.frame.width - 16.0 - 61.0) / 7 // so we can fit each of the 7 days on one row
         
         classTypesCollectionView.delegate = self
         classTypesCollectionView.dataSource = self
@@ -140,6 +143,18 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
         } else {
             return 0
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if collectionView == weekCollectionView {
+            let length = weekCollectionView.height
+            return CGSize(width: length, height: length)
+        } else if collectionView == gymCollectionView {
+            return CGSize(width: 200, height: 215)
+        } else if collectionView == classTypesCollectionView {
+            return CGSize(width: 75, height: 25)
+        }
+        return CGSize.zero
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -428,7 +443,6 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
             currDate = nextDate!
         }
         return days
-        
     }
 
     /*
@@ -441,8 +455,7 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
     }
     */
     
-    @IBAction func unwindToGym(segue: UIStoryboardSegue) {
-    }
+    @IBAction func unwindToGym(segue: UIStoryboardSegue) { }
     
 }
 
