@@ -8,8 +8,13 @@
 
 import UIKit
 
+protocol ResourceCellDelegate {
+    func reloadTableView()
+}
+
 class ResourceTableViewCell: UITableViewCell, ToggleButtonDelegate {
 
+    var delegate: ResourceCellDelegate?
     var library: Library!
     
     @IBOutlet weak var favoriteButton: UIButton!
@@ -46,6 +51,8 @@ class ResourceTableViewCell: UITableViewCell, ToggleButtonDelegate {
         library.isFavorited = button.isSelected
         FavoriteStore.shared.update(library)
         // Update Analytics
-        
+        if let vc = delegate {
+            vc.reloadTableView()
+        }
     }
 }

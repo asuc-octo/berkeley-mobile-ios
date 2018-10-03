@@ -14,7 +14,7 @@ fileprivate let kColorGray = UIColor(white: 189/255.0, alpha: 1)
 fileprivate let kColorNavy = UIColor(red: 0, green: 51/255.0, blue: 102/255.0, alpha: 1)
 fileprivate let kColorGreen = UIColor(red: 16/255.0, green: 161/255.0, blue: 0, alpha:1)
 
-class AcademicViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class AcademicViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ResourceCellDelegate {
 
     @IBOutlet weak var banner: UIImageView!
 
@@ -27,7 +27,7 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
         libButton.alpha = 1.0
         resourceButton.titleLabel?.textColor = UIColor(hex: "005581")
         resourceButton.alpha = 0.5
-        resourceTableView.reloadData()
+        reloadTableView()
     }
     
     @IBAction func resourceModeSelected(_ sender: Any) {
@@ -71,8 +71,8 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
                 }
                 
                 self.libraries = nonEmptyList as! [Library]
-                if let t = self.resourceTableView {
-                    t.reloadData()
+                if self.resourceTableView != nil {
+                    self.reloadTableView()
                 }
         }
         
@@ -137,6 +137,17 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
         // Dispose of any resources that can be recreated.
     }
     
+    // ResourceCellDelegate
+    
+    func reloadTableView() {
+        if isLibrary {
+            libraries.sort { (l1, l2) -> Bool in
+                l1.isFavorited
+            }
+        }
+        resourceTableView.reloadData()
+    }
+    
     //Table View Methods
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -146,6 +157,7 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
             let cell = resourceTableView.dequeueReusableCell(withIdentifier: "resource") as! ResourceTableViewCell
             // Populate cells with library information
             let library = libraries[indexPath.row]
+            cell.delegate = self
             cell.library = library
             cell.resourceName.text = library.name
             cell.resourceImage.load(resource: library)
