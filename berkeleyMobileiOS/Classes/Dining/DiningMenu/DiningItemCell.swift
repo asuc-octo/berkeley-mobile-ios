@@ -5,6 +5,9 @@ import Firebase
 fileprivate let kCellPadding: CGFloat = 12.0
 fileprivate let kContentHeight: CGFloat = 44.0
 
+protocol DiningItemCellDelegate {
+    func didFavoriteItem()
+}
 
 /**
  * TableViewCell to represent a single DiningMenu item. 
@@ -13,6 +16,8 @@ class DiningItemCell: UITableViewCell, RequiresData, ToggleButtonDelegate
 {
     // Data
     private var item: DiningItem!
+    
+    var delegate: DiningItemCellDelegate?
 
     // UI
     @IBOutlet private weak var nameLabel: UILabel!
@@ -32,16 +37,13 @@ class DiningItemCell: UITableViewCell, RequiresData, ToggleButtonDelegate
     // ========================================
     typealias DataType = DiningItem
     
-    /// Receive the DiningItem to represent, whehter it's already favorited, and an optional callback. 
-    func setData(_ item: DataType)
-    {
+    /// Receive the DiningItem to represent, whether it's already favorited, and an optional callback.
+    func setData(_ item: DataType) {
         self.item = item
         
-        var str = item.name
+        let str = item.name
         
-        if str.characters.contains("$"){
-            
-            
+        if str.contains("$") {
             let start = str.index(str.startIndex, offsetBy: 0)
             let end = str.index(str.endIndex, offsetBy: -5)
             let range = start..<end
@@ -55,8 +57,7 @@ class DiningItemCell: UITableViewCell, RequiresData, ToggleButtonDelegate
             let nameString = str[range]
         
             let costString = str[range2]
-        
-        
+            
             nameLabel.text = nameString
         
             costLabel.text = costString.trimmingCharacters(in: .whitespaces)
@@ -69,8 +70,6 @@ class DiningItemCell: UITableViewCell, RequiresData, ToggleButtonDelegate
         favoriteButton.isSelected = item.isFavorited
         
         let restrictions = item.restrictions
-        
-        let screenWidth = UIScreen.main.bounds.width
         
         // word wrapping dependent on number of images
         switch restrictions.count {
@@ -99,7 +98,7 @@ class DiningItemCell: UITableViewCell, RequiresData, ToggleButtonDelegate
 
         // add diet restrictions to imageviews
         let dietImages: [UIImageView] = [dietImageView1, dietImageView2, dietImageView3, dietImageView4, dietImageView5, dietImageView5, dietImageView6]
-        if (restrictions.count > 0) {
+        if restrictions.count > 0 {
             
             for index in 0...6 {
                 let dietImageView = dietImages[index]
@@ -147,14 +146,9 @@ class DiningItemCell: UITableViewCell, RequiresData, ToggleButtonDelegate
                 } else {
                     dietImageView.image = nil
                 }
-                
             }
         }
-        
-        
     }
-    
-    
     
     // ========================================
     // MARK: - ToggleButtonDelegate
@@ -167,11 +161,10 @@ class DiningItemCell: UITableViewCell, RequiresData, ToggleButtonDelegate
      *  but because that requires an extra layer of delegation/callback,
      *  opted to include the Store write action here.
      */
-    func buttonDidToggle(_ button: ToggleButton)
-    {
+    func buttonDidToggle(_ button: ToggleButton) {
         item.isFavorited = button.isSelected
         FavoriteStore.shared.update(item)
+        delegate?.didFavoriteItem()
         Analytics.logEvent("favorited_food_item", parameters: ["food_item" : item.name])
-
     }
 }

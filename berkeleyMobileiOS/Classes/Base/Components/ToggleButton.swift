@@ -2,8 +2,7 @@
 import UIKit
 
 
-protocol ToggleButtonDelegate
-{
+protocol ToggleButtonDelegate {
     func buttonDidToggle(_ button: ToggleButton)
 }
 
@@ -22,25 +21,20 @@ protocol ToggleButtonDelegate
  *  the `isSelected` state is not guaranteed to be flipped before the the action is called.
  *  Any action that requires the updated the state should implment 
  */
-class ToggleButton: UIButton
-{    
-    override func awakeFromNib()
-    {
+class ToggleButton: UIButton {
+    override func awakeFromNib() {
         self.addTarget(self, action: #selector(toggled), for: .touchUpInside)
     }
     
-    func toggled()
-    {
+    func toggled() {
         self.isSelected = !self.isSelected
         
         var next = self.next
-        while next.notNil && (next as? ToggleButtonDelegate).isNil  
-        {
+        while next.notNil && (next as? ToggleButtonDelegate).isNil {
             next = next?.next
         }
         
-        if let delegate = next as? ToggleButtonDelegate
-        {
+        if let delegate = next as? ToggleButtonDelegate {
             delegate.buttonDidToggle(self)
         }
     }
