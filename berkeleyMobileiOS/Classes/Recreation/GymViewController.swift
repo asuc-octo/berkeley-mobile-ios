@@ -17,6 +17,7 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
     @IBOutlet weak var gymCollectionView: UICollectionView!
     
     @IBOutlet weak var weekCollectionView: UICollectionView!
+    @IBOutlet weak var weekCollectionViewHeightAnchor: NSLayoutConstraint!
     
     @IBOutlet weak var classTypesCollectionView: UICollectionView!
     
@@ -31,7 +32,6 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
     var gymClasses = [GymClass]()
     var subsetClasses = [GymClass]()
     
-    
     var selectedClassTypes: [String] = []
     var classBool = [true, true, true, true, true, true, true]
     var selectedDays: Date! = Date()
@@ -42,6 +42,7 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
     override func viewDidAppear(_ animated: Bool) {
         Analytics.logEvent("opened_gym_screen", parameters: nil)
     }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         noClasses.isHidden = true
@@ -87,7 +88,7 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
                     a.start_time! < b.start_time!
                 })
                 
-                var ref: [String] = ["ALL-AROUND WORKOUT", "CARDIO", "MIND/BODY", "CORE", "DANCE", "STRENGTH", "AQUA"]
+                let ref: [String] = ["ALL-AROUND WORKOUT", "CARDIO", "MIND/BODY", "CORE", "DANCE", "STRENGTH", "AQUA"]
                 
                 self.classTypes = []
                 for s in ref {
@@ -111,6 +112,8 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
         
         weekCollectionView.delegate = self
         weekCollectionView.dataSource = self
+        // 16 points is the margin, 61 points (rounding issues) is for the spacing between cells
+        weekCollectionViewHeightAnchor.constant = (view.frame.width - 16.0 - 61.0) / 7 // so we can fit each of the 7 days on one row
         
         classTypesCollectionView.delegate = self
         classTypesCollectionView.dataSource = self
@@ -140,6 +143,18 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
         } else {
             return 0
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if collectionView == weekCollectionView {
+            let length = weekCollectionView.height
+            return CGSize(width: length, height: length)
+        } else if collectionView == gymCollectionView {
+            return CGSize(width: 200, height: 215)
+        } else if collectionView == classTypesCollectionView {
+            return CGSize(width: 75, height: 25)
+        }
+        return CGSize.zero
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -242,7 +257,7 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
             performSegue(withIdentifier: "toGym", sender: self)
         } else if collectionView == self.weekCollectionView {
             Analytics.logEvent("gym_date_clicked", parameters: nil)
-            var clickedDay = self.daysOfWeek[indexPath.row]
+            let clickedDay = self.daysOfWeek[indexPath.row]
             if (selectedDays != clickedDay) {
                 selectedDays = clickedDay
                 let calendar = Calendar.current
@@ -264,7 +279,7 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
             self.weekCollectionView.reloadData()
         } else if collectionView == self.classTypesCollectionView {
             Analytics.logEvent("clicked_exercise_filter", parameters: nil)
-            var selectedType = self.classTypes[indexPath.row]
+            let selectedType = self.classTypes[indexPath.row]
             if (!self.selectedClassTypes.contains(selectedType)) {
                 self.selectedClassTypes.append(selectedType)
                 self.classBool[indexPath.row] = true
@@ -338,13 +353,12 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "gymClass", for: indexPath) as! GymClassInfoTableViewCell
         let gymClass = subsetClasses[indexPath.row]
-        let classType = gymClass.class_type
         
         cell.name.text = gymClass.name
         cell.instructor.text = gymClass.trainer
         
         let loc = gymClass.location
-        if (loc?.characters.contains(","))! {
+        if (loc?.contains(","))! {
             cell.room.text = loc?.components(separatedBy:", ")[0]
             cell.gym.text = loc?.components(separatedBy:", ")[1]
         } else {
@@ -384,13 +398,13 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
         if (startHr == 0) {
             startHr = 12
         }
-        var startMin = calendar.component(.minute, from: startTime!)
+        let startMin = calendar.component(.minute, from: startTime!)
         var endHr = calendar.component(.hour, from: endTime!) % 12
-        if(endHr == 0) {
-            endHr == 12
+        if (endHr == 0) {
+            endHr = 12
         }
-        var endMin = calendar.component(.minute, from: endTime!)
-        var ampm = calendar.component(.era, from: endTime!)
+        let endMin = calendar.component(.minute, from: endTime!)
+        let ampm = calendar.component(.era, from: endTime!)
         var startStr = ""
         var endStr = ""
         if (startMin == 0) {
@@ -428,7 +442,6 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
             currDate = nextDate!
         }
         return days
-        
     }
 
     /*
@@ -441,8 +454,7 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
     }
     */
     
-    @IBAction func unwindToGym(segue: UIStoryboardSegue) {
-    }
+    @IBAction func unwindToGym(segue: UIStoryboardSegue) { }
     
 }
 
