@@ -27,7 +27,7 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
         libButton.alpha = 1.0
         resourceButton.titleLabel?.textColor = UIColor(hex: "005581")
         resourceButton.alpha = 0.5
-        reloadTableView()
+        self.sortBy = .favorites
     }
     
     @IBAction func resourceModeSelected(_ sender: Any) {
@@ -58,6 +58,17 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
     var favLib = [Library]()
     var nonFavLib = [Library]()
     
+    public var sortBy: FavorableSortBy = .favorites
+    {
+        didSet
+        {
+            if isLibrary {
+                libraries.sort(by: sortBy.comparator)
+            }
+            resourceTableView.reloadData()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -72,7 +83,7 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
                 
                 self.libraries = nonEmptyList as! [Library]
                 if self.resourceTableView != nil {
-                    self.reloadTableView()
+                    self.sortBy = .favorites
                 }
         }
         
@@ -139,13 +150,8 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
     
     // ResourceCellDelegate
     
-    func reloadTableView() {
-        if isLibrary {
-            libraries.sort { (l1, l2) -> Bool in
-                l1.isFavorited
-            }
-        }
-        resourceTableView.reloadData()
+    func didFavoriteItem() {
+        self.sortBy = .favorites
     }
     
     //Table View Methods

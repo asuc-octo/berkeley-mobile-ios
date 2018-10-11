@@ -9,7 +9,7 @@
 import UIKit
 
 protocol ResourceCellDelegate {
-    func reloadTableView()
+    func didFavoriteItem()
 }
 
 class ResourceTableViewCell: UITableViewCell, ToggleButtonDelegate {
@@ -52,7 +52,7 @@ class ResourceTableViewCell: UITableViewCell, ToggleButtonDelegate {
         FavoriteStore.shared.update(library)
         // Update Analytics
         if let vc = delegate {
-            vc.reloadTableView()
+            vc.didFavoriteItem()
         }
     }
 }
