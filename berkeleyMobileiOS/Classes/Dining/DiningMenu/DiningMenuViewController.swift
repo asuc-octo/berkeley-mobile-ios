@@ -6,11 +6,10 @@ fileprivate let kColorNavy = UIColor(red: 23/255.0, green: 85/255.0, blue: 122/2
 /**
  * ViewController to display list of menus of one MealType at a certain DiningHall.
  */
-class DiningMenuViewController: UIViewController, RequiresData, DelegatesScroll, UITableViewDataSource, UITableViewDelegate
+class DiningMenuViewController: UIViewController, RequiresData, DelegatesScroll, UITableViewDataSource, UITableViewDelegate, DiningItemCellDelegate
 {
     // Data
     private var shift: MealShift!
-    
     
     //UI
     @IBOutlet private weak var hoursView: UIView!
@@ -18,6 +17,13 @@ class DiningMenuViewController: UIViewController, RequiresData, DelegatesScroll,
     
     @IBOutlet private(set) weak var tableView: UITableView!
     
+    // ========================================
+    // MARK: - DiningItemCellDelegate
+    // ========================================
+    
+    func didFavoriteItem() {
+        sortBy = .favorites
+    }
     
     // ========================================
     // MARK: - RequiresData
@@ -37,7 +43,6 @@ class DiningMenuViewController: UIViewController, RequiresData, DelegatesScroll,
             tableView?.reloadData()
         }
     }
-    
     
     // ========================================
     // MARK: - DelegatesScroll
@@ -101,7 +106,6 @@ class DiningMenuViewController: UIViewController, RequiresData, DelegatesScroll,
         self.hoursLabel.text = self.shift.hours?.description(withFormatter: formatter)
     }
     
-    
     // ========================================
     // MARK: - UITableViewDataSource
     // ========================================
@@ -119,9 +123,11 @@ class DiningMenuViewController: UIViewController, RequiresData, DelegatesScroll,
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         let cell = tableView.dequeueReusableCell(withIdentifier: className(DiningItemCell.self)) as! DiningItemCell
+        cell.delegate = self
         cell.setData( shift.menu[indexPath.row] )
         return cell
     }
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 55
     }
