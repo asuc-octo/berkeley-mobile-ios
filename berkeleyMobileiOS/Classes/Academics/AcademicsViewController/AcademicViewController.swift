@@ -97,7 +97,6 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
                 }
                 
                 self.campusResources = nonEmptyList as! [CampusResource]
-                self.resourceTableView.reloadData()
         }
         
         // Check to see if user setting for favoriting exists
