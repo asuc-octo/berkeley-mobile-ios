@@ -77,6 +77,12 @@ class DiningMenuViewController: UIViewController, RequiresData, DelegatesScroll,
     {
         super.viewDidLoad()
         
+        if self.shift == nil {
+            self.tableView.isHidden = true
+            self.hoursView.isHidden = true
+            return
+        }
+        
         self.view!.clipsToBounds = true
         self.view!.sendSubview(toBack: self.tableView)
         
