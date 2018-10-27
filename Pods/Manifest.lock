@@ -53,7 +53,7 @@ DEPENDENCIES:
   - Alamofire (~> 4.0)
   - Crashlytics (~> 3.9.3)
   - DropDown
-  - ExpandingMenu (~> 0.3)
+  - ExpandingMenu (from `https://github.com/monoqlo/ExpandingMenu.git`, commit `6ce67f9049756f6714fa34e82aef49eb6b888423`)
   - Fabric (~> 1.7.2)
   - Firebase/Core
   - GoogleMaps
@@ -70,7 +70,6 @@ SPEC REPOS:
     - Alamofire
     - Crashlytics
     - DropDown
-    - ExpandingMenu
     - Fabric
     - Firebase
     - FirebaseAnalytics
@@ -88,12 +87,18 @@ SPEC REPOS:
     - SwiftyJSON
 
 EXTERNAL SOURCES:
+  ExpandingMenu:
+    :commit: 6ce67f9049756f6714fa34e82aef49eb6b888423
+    :git: https://github.com/monoqlo/ExpandingMenu.git
   RealmSwift:
     :branch: master
     :git: https://github.com/realm/realm-cocoa.git
     :submodules: true
 
 CHECKOUT OPTIONS:
+  ExpandingMenu:
+    :commit: 6ce67f9049756f6714fa34e82aef49eb6b888423
+    :git: https://github.com/monoqlo/ExpandingMenu.git
   RealmSwift:
     :commit: 899c0ada49e178e917e69680949f494ffe7f2f8a
     :git: https://github.com/realm/realm-cocoa.git
@@ -121,6 +126,6 @@ SPEC CHECKSUMS:
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: 08aef4dcf2629f4de9b4386c8a51bf583ef46ece
+PODFILE CHECKSUM: 2715b0800a2163010423388669d9f60bb97ff797
 
 COCOAPODS: 1.6.0.beta.1
