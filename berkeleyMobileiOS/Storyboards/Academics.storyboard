@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="HelveticaNeue.ttc">
-            <string>HelveticaNeue-Medium</string>
-        </array>
         <array key="Roboto-Medium.ttf">
             <string>Roboto-Medium</string>
         </array>
@@ -276,7 +272,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="library name " textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="EIk-AX-921">
-                                                    <rect key="frame" x="78" y="16" width="289" height="20.5"/>
+                                                    <rect key="frame" x="78" y="16" width="254" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -291,7 +287,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v5U-rx-tEX">
-                                                    <rect key="frame" x="165" y="44.5" width="202" height="20"/>
+                                                    <rect key="frame" x="165" y="45" width="167" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="8vx-Mu-uDh"/>
                                                     </constraints>
@@ -299,24 +295,37 @@
                                                     <color key="textColor" red="0.34509803919999998" green="0.34509803919999998" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EOL-82-3Rs" customClass="ToggleButton" customModule="berkeleyMobileiOS" customModuleProvider="target">
+                                                    <rect key="frame" x="340" y="29.5" width="20" height="18.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="20" id="0hL-Yv-nWI"/>
+                                                        <constraint firstAttribute="width" secondItem="EOL-82-3Rs" secondAttribute="height" multiplier="17:16" id="hHP-sH-kp0"/>
+                                                    </constraints>
+                                                    <state key="normal" image="heart_empty"/>
+                                                    <state key="selected" image="heart_filled"/>
+                                                </button>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="EOL-82-3Rs" firstAttribute="leading" secondItem="EIk-AX-921" secondAttribute="trailing" constant="8" id="4TQ-Cp-BfQ"/>
                                                 <constraint firstItem="v5U-rx-tEX" firstAttribute="leading" secondItem="RFW-Kc-P1Y" secondAttribute="trailing" constant="22" id="5iH-jh-y6D"/>
-                                                <constraint firstAttribute="trailing" secondItem="v5U-rx-tEX" secondAttribute="trailing" constant="8" id="IHG-5g-LWN"/>
+                                                <constraint firstItem="EOL-82-3Rs" firstAttribute="width" secondItem="EOL-82-3Rs" secondAttribute="height" multiplier="17:16" id="Aih-Wx-i1t"/>
                                                 <constraint firstItem="v5U-rx-tEX" firstAttribute="top" secondItem="EIk-AX-921" secondAttribute="bottom" constant="8" id="IS4-ZC-FPo"/>
+                                                <constraint firstItem="EOL-82-3Rs" firstAttribute="centerY" secondItem="YmK-X6-HdG" secondAttribute="centerY" id="IoQ-b5-Bvx"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="RFW-Kc-P1Y" secondAttribute="bottom" constant="3" id="KCB-xs-h1N"/>
                                                 <constraint firstItem="EIk-AX-921" firstAttribute="leading" secondItem="I5O-xc-rax" secondAttribute="trailing" constant="8" symbolic="YES" id="LTz-gq-Toh"/>
                                                 <constraint firstAttribute="bottom" secondItem="I5O-xc-rax" secondAttribute="bottom" constant="16" id="QAw-Ek-BCe"/>
                                                 <constraint firstItem="I5O-xc-rax" firstAttribute="leading" secondItem="YmK-X6-HdG" secondAttribute="leadingMargin" id="Tcl-Wo-yH4"/>
+                                                <constraint firstAttribute="trailing" secondItem="EOL-82-3Rs" secondAttribute="trailing" constant="15" id="Tgd-xY-kS6"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="v5U-rx-tEX" secondAttribute="bottom" constant="3" id="cgx-BW-oOI"/>
                                                 <constraint firstItem="RFW-Kc-P1Y" firstAttribute="leading" secondItem="EIk-AX-921" secondAttribute="leading" id="i4D-KH-PRT"/>
+                                                <constraint firstItem="v5U-rx-tEX" firstAttribute="trailing" secondItem="EIk-AX-921" secondAttribute="trailing" id="rd3-yo-n34"/>
                                                 <constraint firstItem="I5O-xc-rax" firstAttribute="top" secondItem="YmK-X6-HdG" secondAttribute="top" constant="16" id="uVq-dY-lHY"/>
-                                                <constraint firstAttribute="trailing" secondItem="EIk-AX-921" secondAttribute="trailing" constant="8" id="uwk-Rv-A2A"/>
                                                 <constraint firstItem="EIk-AX-921" firstAttribute="top" secondItem="YmK-X6-HdG" secondAttribute="top" constant="16" id="yze-bg-aOa"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <accessibility key="accessibilityConfiguration" identifier="resource"/>
                                         <connections>
+                                            <outlet property="favoriteButton" destination="EOL-82-3Rs" id="NNr-xq-tNK"/>
                                             <outlet property="resourceHours" destination="v5U-rx-tEX" id="3lE-zs-uS2"/>
                                             <outlet property="resourceImage" destination="I5O-xc-rax" id="bzt-KP-qkT"/>
                                             <outlet property="resourceName" destination="EIk-AX-921" id="p78-ex-1OK"/>
@@ -331,7 +340,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Q7y-NY-9vB">
-                                                    <rect key="frame" x="15" y="8" width="55" height="55.5"/>
+                                                    <rect key="frame" x="15" y="8" width="55" height="55"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="55" id="ZdF-bG-SaD"/>
                                                         <constraint firstAttribute="height" constant="55" id="dqi-2f-vcD"/>
@@ -451,7 +460,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bUH-cn-lkV">
-                                                    <rect key="frame" x="15" y="16" width="24" height="24"/>
+                                                    <rect key="frame" x="15" y="15.5" width="24" height="24"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="24" id="4bw-et-Blw"/>
                                                         <constraint firstAttribute="height" constant="24" id="PeV-HX-BBE"/>
@@ -499,7 +508,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DC7-3o-vYp">
-                                                    <rect key="frame" x="47" y="26.5" width="42" height="20.5"/>
+                                                    <rect key="frame" x="47" y="27" width="42" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -525,7 +534,7 @@
                                                     </connections>
                                                 </button>
                                                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="GtL-mk-Ebh">
-                                                    <rect key="frame" x="15" y="72.5" width="345" height="82.5"/>
+                                                    <rect key="frame" x="15" y="72.5" width="345" height="82"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <prototypes>
                                                         <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="timeCell" rowHeight="35" id="AOE-CZ-Cjd" customClass="TimeTableViewCell" customModule="berkeleyMobileiOS" customModuleProvider="target">
@@ -690,6 +699,8 @@
     <resources>
         <image name="bearsmallmed" width="36" height="19"/>
         <image name="forward-arrow" width="31" height="30"/>
+        <image name="heart_empty" width="32" height="32"/>
+        <image name="heart_filled" width="32" height="32"/>
         <image name="ic_arrow_back_white" width="24" height="24"/>
     </resources>
 </document>

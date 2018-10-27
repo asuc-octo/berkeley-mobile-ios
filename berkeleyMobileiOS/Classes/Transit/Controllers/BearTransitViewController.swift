@@ -151,7 +151,15 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
     var napPodsCoordinates = [LocationMarkersData]()
     var selectedIcons = [LocationMarkersData]()
     var chosenMarkers = [GMSMarker]()
-
+    
+    var waterMarkers = [GMSMarker]()
+    var waterToggled = false
+    
+    var napMarkers = [GMSMarker]()
+    var napToggled = false
+    
+    var microwaveMarkers = [GMSMarker]()
+    var microwaveToggled = false
 
     //**********************************
     // Views and Segues
@@ -262,60 +270,67 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
         tf.layer.shadowOffset = CGSize(width: 1, height: 1)
         tf.layer.shadowOpacity = 1
     }
+    
+    func createMapMarkers() {
+        for coordinate in self.waterFountainCoordinates {
+            let latitude =  Double(coordinate.lat)
+            let longitude =  Double(coordinate.lon)
+            let location = CLLocation(latitude: latitude!, longitude: longitude!)
+            let marker = GMSMarker(position: location.coordinate)
+            marker.map = nil
+            marker.title = coordinate.building
+            marker.icon = self.imageWithImage(image: #imageLiteral(resourceName: "water_fountains"), scaledToSize: CGSize(width: 50.0, height: 50.0))
+            self.waterMarkers.append(marker)
+        }
+        
+        for coordinate in self.microwaVeCoordinates {
+            let latitude =  Double(coordinate.lat)
+            let longitude =  Double(coordinate.lon)
+            let location = CLLocation(latitude: latitude!, longitude: longitude!)
+            let marker = GMSMarker(position: location.coordinate)
+            marker.map = nil
+            marker.title = coordinate.building
+            marker.icon = self.imageWithImage(image: #imageLiteral(resourceName: "microwaves"), scaledToSize: CGSize(width: 50.0, height: 50.0))
+            self.microwaveMarkers.append(marker)
+        }
+        
+        for coordinate in self.napPodsCoordinates {
+            let latitude =  Double(coordinate.lat)
+            let longitude =  Double(coordinate.lon)
+            let location = CLLocation(latitude: latitude!, longitude: longitude!)
+            let marker = GMSMarker(position: location.coordinate)
+            marker.map = nil
+            marker.title = coordinate.building
+            marker.icon = self.imageWithImage(image: #imageLiteral(resourceName: "nap_pods"), scaledToSize: CGSize(width: 50.0, height: 50.0))
+            self.napMarkers.append(marker)
+        }
+    }
+    
+    func toggleMarkers(markers: [GMSMarker], toggled: Bool) {
+        for marker in markers {
+            if toggled {
+                marker.map = nil
+            } else {
+                marker.map = mapView
+            }
+        }
+    }
 
     func setupUtilities(menuButton : ExpandingMenuButton) {
         let item1 = ExpandingMenuItem(size: menuButtonSize, title: "", image: #imageLiteral(resourceName: "water_fountains"), highlightedImage: #imageLiteral(resourceName: "water_fountains"), backgroundImage: #imageLiteral(resourceName: "water_fountains"), backgroundHighlightedImage: #imageLiteral(resourceName: "water_fountains")) { () -> Void in
             Analytics.logEvent("map_icon_clicked", parameters: ["Category": "Waterfountain"])
-            self.markers.append(contentsOf: self.chosenMarkers)
-            self.chosenMarkers.removeAll()
-            self.getCoordinates()
-            for coordinate in self.waterFountainCoordinates {
-                let latitude =  Double(coordinate.lat)
-                let longitude =  Double(coordinate.lon)
-                let location = CLLocation(latitude: latitude!, longitude: longitude!)
-                let marker = GMSMarker(position: location.coordinate)
-                marker.map = self.mapView
-                marker.title = coordinate.building
-                marker.icon = self.imageWithImage(image: #imageLiteral(resourceName: "water_fountains"), scaledToSize: CGSize(width: 50.0, height: 50.0))
-                self.chosenMarkers.append(marker)
-            }
-            self.selectedIcons = self.waterFountainCoordinates
+            self.toggleMarkers(markers: self.waterMarkers, toggled: self.waterToggled)
+            self.waterToggled = !self.waterToggled
         }
         let item2 = ExpandingMenuItem(size: menuButtonSize, title: "", image: #imageLiteral(resourceName: "microwaves"), highlightedImage: #imageLiteral(resourceName: "microwaves"), backgroundImage: #imageLiteral(resourceName: "microwaves"), backgroundHighlightedImage: #imageLiteral(resourceName: "microwaves")) { () -> Void in
             Analytics.logEvent("map_icon_clicked", parameters: ["Category": "Microwave"])
-
-            self.markers.append(contentsOf: self.chosenMarkers)
-            self.chosenMarkers.removeAll()
-            self.getCoordinates()
-            for coordinate in self.microwaVeCoordinates {
-                let latitude =  Double(coordinate.lat)
-                let longitude =  Double(coordinate.lon)
-                let location = CLLocation(latitude: latitude!, longitude: longitude!)
-                let marker = GMSMarker(position: location.coordinate)
-                marker.map = self.mapView
-                marker.title = coordinate.building
-                marker.icon = self.imageWithImage(image: #imageLiteral(resourceName: "microwaves"), scaledToSize: CGSize(width: 50.0, height: 50.0))
-                self.chosenMarkers.append(marker)
-            }
-            self.selectedIcons = self.microwaVeCoordinates
+            self.toggleMarkers(markers: self.microwaveMarkers, toggled: self.microwaveToggled)
+            self.microwaveToggled = !self.microwaveToggled
         }
         let item3 = ExpandingMenuItem(size: menuButtonSize, title: "", image: #imageLiteral(resourceName: "nap_pods"), highlightedImage: #imageLiteral(resourceName: "nap_pods"), backgroundImage: #imageLiteral(resourceName: "nap_pods"), backgroundHighlightedImage: #imageLiteral(resourceName: "nap_pods")) { () -> Void in
             Analytics.logEvent("map_icon_clicked", parameters: ["Category": "Nappod"])
-
-            self.markers.append(contentsOf: self.chosenMarkers)
-            self.chosenMarkers.removeAll()
-            self.getCoordinates()
-            for coordinate in self.napPodsCoordinates {
-                let latitude =  Double(coordinate.lat)
-                let longitude =  Double(coordinate.lon)
-                let location = CLLocation(latitude: latitude!, longitude: longitude!)
-                let marker = GMSMarker(position: location.coordinate)
-                marker.map = self.mapView
-                marker.title = coordinate.building
-                marker.icon = self.imageWithImage(image: #imageLiteral(resourceName: "nap_pods"), scaledToSize: CGSize(width: 50.0, height: 50.0))
-                self.chosenMarkers.append(marker)
-            }
-            self.selectedIcons = self.napPodsCoordinates
+            self.toggleMarkers(markers: self.napMarkers, toggled: self.napToggled)
+            self.napToggled = !self.napToggled
         }
 
         menuButton.addMenuItems([item1, item2, item3])
@@ -762,7 +777,7 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
                         self.microwaVeCoordinates.append(location)
                     }
 
-                    if let napData = self.self.dict["Nap Pod"] {
+                    if let napData = self.dict["Nap Pod"] {
                         for loc in napData {
                             let finalData = loc
                             let location = LocationMarkersData()
@@ -780,9 +795,7 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
                             self.napPodsCoordinates.append(location)
                         }
                     }
-
-
-
+                self.createMapMarkers()
                 }
             case .failure(let error):
                 let alert = UIAlertController.init(title: "Couldn't load icons", message: error.localizedDescription, preferredStyle: .alert)

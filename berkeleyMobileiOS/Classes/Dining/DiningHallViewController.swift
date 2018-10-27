@@ -198,17 +198,22 @@ class DiningHallViewController: UIViewController, IBInitializable, ResourceDetai
                 }
             }
         }
+        
+        if to_filter.count == 0 {
+            to_filter.append(MealType.none)
+        }
+        
         menuControllers = to_filter.map
         { type in
             
             let vc = storyboard!.instantiateViewController(withIdentifier: menuID) as! DiningMenuViewController
             
-            if caf {
-                vc.setData((type: type, shift: cafe.meals[type]!))
-                
-            } else {
-                vc.setData((type: type, shift: hall.meals[type]!))
-                
+            if type != MealType.none {
+                if caf {
+                    vc.setData((type: type, shift: cafe.meals[type]!))
+                } else {
+                    vc.setData((type: type, shift: hall.meals[type]!))
+                }
             }
         
             let barItem = vc.pageTabBarItem

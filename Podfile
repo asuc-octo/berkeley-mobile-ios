@@ -18,6 +18,6 @@ pod 'SDWebImage', '~>3.8'
 pod 'Fabric', '~> 1.7.2'
 pod 'Crashlytics', '~> 3.9.3'
 pod 'KCFloatingActionButton'
-pod 'ExpandingMenu', '~> 0.3'
+pod ‘ExpandingMenu’, :git => ’https://github.com/monoqlo/ExpandingMenu.git', :commit => ‘6ce67f9049756f6714fa34e82aef49eb6b888423'
 pod 'RealmSwift', :git => 'https://github.com/realm/realm-cocoa.git', :branch => 'master', submodules: true
 end
