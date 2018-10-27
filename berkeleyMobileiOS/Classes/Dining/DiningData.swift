@@ -21,7 +21,8 @@ enum MealType: String
         lunch     = "lunch",
         limited_lunch   = "limited_lunch",
         dinner    = "dinner",
-        limited_dinner   = "limited_dinner"
+        limited_dinner   = "limited_dinner",
+        none      = "none"
     
     
     static let allValues = [breakfast, lunch, limited_lunch, dinner, limited_dinner]
