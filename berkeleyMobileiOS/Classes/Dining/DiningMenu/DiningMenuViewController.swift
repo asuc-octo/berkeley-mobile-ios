@@ -16,6 +16,8 @@ class DiningMenuViewController: UIViewController, RequiresData, DelegatesScroll,
     @IBOutlet private weak var hoursLabel: UILabel!
     
     @IBOutlet private(set) weak var tableView: UITableView!
+    @IBOutlet weak var diningLegendView: DiningLegendView!
+    @IBOutlet weak var diningLegendHeight: NSLayoutConstraint!
     
     // ========================================
     // MARK: - DiningItemCellDelegate
@@ -110,6 +112,21 @@ class DiningMenuViewController: UIViewController, RequiresData, DelegatesScroll,
         formatter.timeStyle = .short
         
         self.hoursLabel.text = self.shift.hours?.description(withFormatter: formatter)
+        
+        // Setup the dining legend view
+        diningLegendView.model.resetModel()
+        for i in 0..<shift.menu.count {
+            diningLegendView.model.addRestrictions(restrictions: shift.menu[i].restrictions)
+        }
+        diningLegendView.reloadRestrictions()
+        
+        // If the number of restrictions can fit in a page, the height will be set to
+        // show all. Otherwise, the height will be set to maxLegendHeight
+        diningLegendHeight.constant = min(DiningLegendModel.Constants.restrictionCellHeight * CGFloat(diningLegendView.model.numberOfRestrictionsToDisplay()), DiningLegendModel.Constants.maxLegendHeight)
+    }
+    
+    @IBAction func getMoreInfo(_ sender: Any) {
+        diningLegendView.isHidden = !diningLegendView.isHidden
     }
     
     // ========================================
