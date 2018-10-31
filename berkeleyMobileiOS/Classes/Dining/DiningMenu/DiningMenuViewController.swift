@@ -123,6 +123,9 @@ class DiningMenuViewController: UIViewController, RequiresData, DelegatesScroll,
         // If the number of restrictions can fit in a page, the height will be set to
         // show all. Otherwise, the height will be set to maxLegendHeight
         diningLegendHeight.constant = min(DiningLegendModel.Constants.restrictionCellHeight * CGFloat(diningLegendView.model.numberOfRestrictionsToDisplay()), DiningLegendModel.Constants.maxLegendHeight)
+        
+        // If there are no restrictions to dipslay, hide the question mark button
+        diningLegendView.isHidden = diningLegendView.model.numberOfRestrictionsToDisplay() == 0
     }
     
     @IBAction func getMoreInfo(_ sender: Any) {
