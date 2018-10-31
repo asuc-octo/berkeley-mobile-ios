@@ -60,7 +60,7 @@ class Library: Resource {
         var ind = 0
         if let opening = (self.weeklyOpeningTimes[ind]) {
             if let closing = (self.weeklyClosingTimes[ind]) {
-                if (Date() >= opening && Date() <= closing) {
+                if (Date() >= opening && Date() <= closing || opening == closing) {
                     status = true
                 }
             }
