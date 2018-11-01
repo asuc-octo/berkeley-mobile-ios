@@ -14,6 +14,7 @@ class DiningMenuViewController: UIViewController, RequiresData, DelegatesScroll,
     //UI
     @IBOutlet private weak var hoursView: UIView!
     @IBOutlet private weak var hoursLabel: UILabel!
+    @IBOutlet private weak var dataLabel: UILabel!
     
     @IBOutlet private(set) weak var tableView: UITableView!
     
@@ -81,6 +82,8 @@ class DiningMenuViewController: UIViewController, RequiresData, DelegatesScroll,
             self.tableView.isHidden = true
             self.hoursView.isHidden = true
             return
+        } else {
+            self.dataLabel.isHidden = true
         }
         
         self.view!.clipsToBounds = true

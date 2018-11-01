@@ -211,6 +211,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="400"/>
                     <connections>
+                        <outlet property="dataLabel" destination="Yy1-85-ggM" id="Nyn-2h-LEd"/>
                         <outlet property="hoursLabel" destination="rfG-H4-z4y" id="yFd-j0-oma"/>
                         <outlet property="hoursView" destination="B4Q-Cg-UdC" id="e8e-oJ-2Ra"/>
                         <outlet property="tableView" destination="gQZ-yH-Z4N" id="I83-by-ADq"/>
