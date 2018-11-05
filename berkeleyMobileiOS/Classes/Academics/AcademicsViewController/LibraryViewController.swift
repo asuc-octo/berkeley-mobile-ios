@@ -9,15 +9,18 @@ import UIKit
 import GoogleMaps
 import Material
 import Firebase
+import MessageUI
+
 fileprivate let kColorGreen = UIColor(red: 16/255.0, green: 161/255.0, blue: 0, alpha:1)
 fileprivate let kColorRed = UIColor.red
 
-class LibraryViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDelegate {
+class LibraryViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDelegate, WeeklyTimesCellDelegate {
     
     var library: Library!
     var locationManager = CLLocationManager()
     var iconImages = [UIImage]()
     var libInfo = [String]()
+    var types = [TappableInfoType]()
     var weeklyTimes = [String]()
     var daysOfWeek = [String]()
     var expandRow: Bool!
@@ -48,6 +51,8 @@ class LibraryViewController: UIViewController, GMSMapViewDelegate, CLLocationMan
         libInfo.append(getLibraryStatusHours())
         libInfo.append(getLibraryPhoneNumber())
         libInfo.append(getLibraryLoc())
+        
+        types = [.none, .phone, .none]
         
         libTableView.delegate = self
         libTableView.dataSource = self
@@ -291,6 +296,7 @@ extension LibraryViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
             let cell = libTableView.dequeueReusableCell(withIdentifier: "dropdown", for: indexPath) as! WeeklyTimesTableViewCell
+            cell.delegate = self
             cell.icon.image = iconImages[indexPath.row]
             if self.library.isOpen {
                 cell.day.text = "Open"
@@ -318,6 +324,9 @@ extension LibraryViewController: UITableViewDataSource, UITableViewDelegate {
             libraryInfoCell.libraryIconImage.image = iconImages[indexPath.row]
             libraryInfoCell.libraryIconInfo.text = libInfo[indexPath.row]
             libraryInfoCell.libraryIconInfo.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightMedium)
+            libraryInfoCell.info = libraryInfoCell.libraryIconInfo.text
+            libraryInfoCell.type = types[indexPath.row]
+            libraryInfoCell.delegate = self
             return libraryInfoCell
         }
     }
@@ -325,9 +334,23 @@ extension LibraryViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 {
             let cell = tableView.cellForRow(at: indexPath) as! WeeklyTimesTableViewCell
-            expandRow = !expandRow
-            tableView.reloadData()
+            expandRow(cell: cell)
+        } else if let cell = tableView.cellForRow(at: indexPath) as? LibraryDetailCell {
+            cell.didTap()
         }
     }
     
+    // WeeklyTimesCellDelegate
+    
+    func expandRow(cell: WeeklyTimesTableViewCell) {
+        expandRow = !expandRow
+        libTableView.reloadData()
+    }
+}
+
+extension LibraryViewController: MFMailComposeViewControllerDelegate {
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
+    }
 }
