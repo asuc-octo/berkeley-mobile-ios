@@ -10,6 +10,7 @@
 //  Copyright © 2016 org.berkeleyMobile. All rights reserved.
 //
 
+
 import UIKit
 import Material
 import GoogleMaps
@@ -187,6 +188,10 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
             }
         }
         Analytics.logEvent("opened_transit_screen", parameters: nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        turnStopsOFF()
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -568,28 +573,30 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         menuButton.isHidden = true
         iconInfoView.isHidden = false
-        let selected = getSelectedMarker(name: marker.title!)
-        var title = ""
-        var color = UIColor()
-        if selected?.icon == #imageLiteral(resourceName: "water_fountains"){
-            title = "Bottle Filling Station"
-            color = UIColor.init(hex: "2EB8CF")
-        } else if selected?.icon == #imageLiteral(resourceName: "microwaves") {
-            title = "Microwave Station"
-            color = UIColor.init(hex: "FF702C")
-        } else if selected?.icon == #imageLiteral(resourceName: "nap_pods") {
-            title = "Nap Pod"
-            color = UIColor.init(hex: "FF2BA3")
-        } else {
-            return true
-        }
-
+        if let title = marker.title {
+            let selected = getSelectedMarker(name: title)
+            var title = ""
+            var color = UIColor()
+            if selected?.icon == #imageLiteral(resourceName: "water_fountains"){
+                title = "Bottle Filling Station"
+                color = UIColor.init(hex: "2EB8CF")
+            } else if selected?.icon == #imageLiteral(resourceName: "microwaves") {
+                title = "Microwave Station"
+                color = UIColor.init(hex: "FF702C")
+            } else if selected?.icon == #imageLiteral(resourceName: "nap_pods") {
+                title = "Nap Pod"
+                color = UIColor.init(hex: "FF2BA3")
+            } else {
+                return true
+            }
+            
         self.selectedIconDisplay.image = selected?.icon
         self.iconTitleDisplay.text = title
         self.iconTitleDisplay.textColor = color
         self.colorDisplay.backgroundColor = color
         self.info1DisplayLabel.text = selected?.building
         self.info2DisplayLabel.text = selected?.floor
+        }
 
         return false
     }
@@ -839,9 +846,9 @@ class BearTransitViewController: UIViewController, GMSMapViewDelegate, UITextFie
             if let result = json["results"] as? NSArray {
                 if let geometry = (result[0] as? NSDictionary)?["geometry"] as? NSDictionary {
                     if let location = geometry["location"] as? NSDictionary {
-                        let latitude = location["lat"] as! Float
-                        let longitude = location["lng"] as! Float
-                        return [Double(latitude), Double(longitude)]
+                        let latitude = location["lat"] as! Double
+                        let longitude = location["lng"] as! Double
+                        return [latitude, longitude]
                     }
                 }
             }
