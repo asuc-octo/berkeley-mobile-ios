@@ -64,7 +64,7 @@ class TappableInfoTableViewCell: UITableViewCell {
     }
     
     func email(address: String) {
-        if !MFMailComposeViewController.canSendMail() {
+        if MFMailComposeViewController.canSendMail() {
             let mail = MFMailComposeViewController()
             mail.mailComposeDelegate = delegate
             mail.setToRecipients([address])
