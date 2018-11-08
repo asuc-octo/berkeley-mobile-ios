@@ -18,6 +18,7 @@ class DiningMenuViewController: UIViewController, RequiresData, DelegatesScroll,
     @IBOutlet private(set) weak var tableView: UITableView!
     @IBOutlet weak var diningLegendView: DiningLegendView!
     @IBOutlet weak var diningLegendHeight: NSLayoutConstraint!
+    @IBOutlet weak var showDiningButton: UIButton!
     
     // ========================================
     // MARK: - DiningItemCellDelegate
@@ -125,7 +126,7 @@ class DiningMenuViewController: UIViewController, RequiresData, DelegatesScroll,
         diningLegendHeight.constant = min(DiningLegendModel.Constants.restrictionCellHeight * CGFloat(diningLegendView.model.numberOfRestrictionsToDisplay()), DiningLegendModel.Constants.maxLegendHeight)
         
         // If there are no restrictions to dipslay, hide the question mark button
-        diningLegendView.isHidden = diningLegendView.model.numberOfRestrictionsToDisplay() == 0
+        showDiningButton.isHidden = diningLegendView.model.numberOfRestrictionsToDisplay() == 0
     }
     
     @IBAction func getMoreInfo(_ sender: Any) {

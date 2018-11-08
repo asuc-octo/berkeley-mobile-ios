@@ -258,6 +258,7 @@
                         <outlet property="diningLegendView" destination="HZt-c1-a1b" id="b4L-gS-aL9"/>
                         <outlet property="hoursLabel" destination="rfG-H4-z4y" id="yFd-j0-oma"/>
                         <outlet property="hoursView" destination="B4Q-Cg-UdC" id="e8e-oJ-2Ra"/>
+                        <outlet property="showDiningButton" destination="zl4-qC-e2A" id="Nfy-U1-dEL"/>
                         <outlet property="tableView" destination="gQZ-yH-Z4N" id="I83-by-ADq"/>
                     </connections>
                 </viewController>
