@@ -8,8 +8,8 @@
 
 import UIKit
 
-class LibraryDetailCell: UITableViewCell {
-
+class LibraryDetailCell: TappableInfoTableViewCell {
+    
     @IBOutlet weak var libraryIconImage: UIImageView!
     @IBOutlet weak var libraryIconInfo: UILabel!
 

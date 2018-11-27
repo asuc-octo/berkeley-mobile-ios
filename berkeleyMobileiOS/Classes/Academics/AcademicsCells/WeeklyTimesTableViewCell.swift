@@ -8,7 +8,13 @@
 
 import UIKit
 
+protocol WeeklyTimesCellDelegate {
+    func expandRow(cell: WeeklyTimesTableViewCell)
+}
+
 class WeeklyTimesTableViewCell: UITableViewCell {
+    
+    var delegate: WeeklyTimesCellDelegate?
 
     @IBOutlet weak var icon: UIImageView!
     
@@ -21,8 +27,9 @@ class WeeklyTimesTableViewCell: UITableViewCell {
     @IBOutlet weak var timeTableView: UITableView!
     
     @IBAction func expand(_ sender: Any) {
-        
-        
+        if let vc = delegate {
+            vc.expandRow(cell: self)
+        }
     }
     
     
