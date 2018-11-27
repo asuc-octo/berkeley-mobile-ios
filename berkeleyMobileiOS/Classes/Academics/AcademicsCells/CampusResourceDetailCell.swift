@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CampusResourceDetailCell: UITableViewCell {
+class CampusResourceDetailCell: TappableInfoTableViewCell {
 
     @IBOutlet weak var campResIconInfo: UILabel!
     @IBOutlet weak var campResIconImage: UIImageView!

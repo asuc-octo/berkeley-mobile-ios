@@ -8,6 +8,8 @@
 import GoogleMaps
 import UIKit
 import Firebase
+import MessageUI
+
 fileprivate let kColorGreen = UIColor(red: 16/255.0, green: 161/255.0, blue: 0, alpha:1)
 fileprivate let kColorRed = UIColor.red
 class SpecificGymViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate {
@@ -24,6 +26,7 @@ class SpecificGymViewController: UIViewController, CLLocationManagerDelegate, GM
     
     var iconImages = [UIImage]()
     var gymInfo = [String]()
+    var types = [TappableInfoType]()
     override func viewDidAppear(_ animated: Bool) {
         Analytics.logEvent("opened_gym", parameters: ["name": gym.name])
     }
@@ -38,13 +41,15 @@ class SpecificGymViewController: UIViewController, CLLocationManagerDelegate, GM
      
         iconImages.append(#imageLiteral(resourceName: "hours_2.0"))
         iconImages.append(#imageLiteral(resourceName: "phone_2.0"))
-        iconImages.append(#imageLiteral(resourceName: "location_2.0"))
         iconImages.append(#imageLiteral(resourceName: "info_2.0"))
+        iconImages.append(#imageLiteral(resourceName: "location_2.0"))
         
         gymInfo.append(getGymStatusHours())
         gymInfo.append(getGymPhoneNumber())
         gymInfo.append(getGymWebsite())
         gymInfo.append(getGymLoc())
+        
+        types = [.none, .phone, .website, .none]
         
         gymInfoTableview.delegate = self
         gymInfoTableview.dataSource = self
@@ -191,25 +196,29 @@ extension SpecificGymViewController: UITableViewDataSource, UITableViewDelegate 
         infoCell.iconImage.image = iconImages[indexPath.row]
         infoCell.iconInfo.text = gymInfo[indexPath.row]
         infoCell.iconInfo.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightMedium)
+        infoCell.info = infoCell.iconInfo.text
+        infoCell.type = types[indexPath.row]
+        infoCell.delegate = self
         return infoCell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell  = tableView.cellForRow(at: indexPath)
-        cell?.selectionStyle = .none
-        
-        if indexPath.row == 1 {
-//            callGym()
-        } else if indexPath.row == 2 {
-//            viewGymWebsite()
-        } else if indexPath.row == 3 {
-//            getMap()
+        if let cell = tableView.cellForRow(at: indexPath) as? GymInformationTableViewCell {
+            cell.didTap()
         }
     }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 4 {
             return 300
         }
         return 55
+    }
+}
+
+extension SpecificGymViewController: MFMailComposeViewControllerDelegate {
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
     }
 }

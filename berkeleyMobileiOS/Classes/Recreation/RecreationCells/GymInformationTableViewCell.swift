@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GymInformationTableViewCell: UITableViewCell {
+class GymInformationTableViewCell: TappableInfoTableViewCell {
 
     
     @IBOutlet weak var iconImage: UIImageView!
