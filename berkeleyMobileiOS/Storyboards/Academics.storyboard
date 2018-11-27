@@ -55,11 +55,11 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="260"/>
                                 <color key="backgroundColor" red="0.074509803921568626" green="0.1764705882352941" blue="0.60784313725490191" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" alwaysBounceVertical="YES" pagingEnabled="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="HPH-0a-syO">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" alwaysBounceVertical="YES" pagingEnabled="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="HPH-0a-syO">
                                 <rect key="frame" x="0.0" y="260" width="375" height="363"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="campusResourceDetail" rowHeight="80" id="vde-kb-vZ7" customClass="CampusResourceDetailCell" customModule="berkeleyMobileiOS" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="campusResourceDetail" rowHeight="80" id="vde-kb-vZ7" customClass="CampusResourceDetailCell" customModule="berkeleyMobileiOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vde-kb-vZ7" id="Zzx-fn-wbe">
@@ -101,7 +101,7 @@
                                             <outlet property="campResIconInfo" destination="gTs-ST-qpV" id="MBS-hn-mkr"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="mapTable" id="bE0-fJ-aI7" customClass="MapTableViewCell" customModule="berkeleyMobileiOS" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="mapTable" id="bE0-fJ-aI7" customClass="MapTableViewCell" customModule="berkeleyMobileiOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="108" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bE0-fJ-aI7" id="0YU-mT-nmT">
@@ -287,7 +287,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v5U-rx-tEX">
-                                                    <rect key="frame" x="165" y="45" width="167" height="20"/>
+                                                    <rect key="frame" x="165" y="44.5" width="167" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="8vx-Mu-uDh"/>
                                                     </constraints>
@@ -452,7 +452,7 @@
                                 <rect key="frame" x="0.0" y="260" width="375" height="407"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="libraryCell" rowHeight="55" id="TTB-Rr-kqi" customClass="LibraryDetailCell" customModule="berkeleyMobileiOS" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="libraryCell" rowHeight="55" id="TTB-Rr-kqi" customClass="LibraryDetailCell" customModule="berkeleyMobileiOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="TTB-Rr-kqi" id="H1S-3J-Duy">
@@ -533,11 +533,11 @@
                                                         <action selector="expand:" destination="LKm-uf-A5V" eventType="touchUpInside" id="mRa-NP-3Pg"/>
                                                     </connections>
                                                 </button>
-                                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="GtL-mk-Ebh">
+                                                <tableView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="GtL-mk-Ebh">
                                                     <rect key="frame" x="15" y="72.5" width="345" height="82"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <prototypes>
-                                                        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="timeCell" rowHeight="35" id="AOE-CZ-Cjd" customClass="TimeTableViewCell" customModule="berkeleyMobileiOS" customModuleProvider="target">
+                                                        <tableViewCell opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="timeCell" rowHeight="35" id="AOE-CZ-Cjd" customClass="TimeTableViewCell" customModule="berkeleyMobileiOS" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="28" width="345" height="35"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="AOE-CZ-Cjd" id="YhI-qJ-cPP">
@@ -597,7 +597,7 @@
                                             <outlet property="timeTableView" destination="GtL-mk-Ebh" id="OCk-mW-QBf"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="librarymapTable" id="PUu-xT-wYx" customClass="LibraryMapTableViewCell" customModule="berkeleyMobileiOS" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="librarymapTable" id="PUu-xT-wYx" customClass="LibraryMapTableViewCell" customModule="berkeleyMobileiOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="238" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PUu-xT-wYx" id="YCn-rF-HU5">

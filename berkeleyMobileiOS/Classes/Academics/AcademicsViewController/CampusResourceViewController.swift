@@ -9,6 +9,8 @@ import UIKit
 import Material
 import GoogleMaps
 import Firebase
+import MessageUI
+
 class CampusResourceViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate {
     
     @IBOutlet weak var campResTitle: UILabel!
@@ -24,6 +26,7 @@ class CampusResourceViewController: UIViewController, CLLocationManagerDelegate,
         UIImage(named:"location_2.0.png")!,
         UIImage(named:"info_2.0.png")!
     ]
+    var types: [TappableInfoType] = [.none, .phone, .none, .none]
     
     var campResInfo = [String]()
     override func viewDidAppear(_ animated: Bool) {
@@ -134,14 +137,24 @@ extension CampusResourceViewController: UITableViewDelegate, UITableViewDataSour
         campResInfoCell.campResIconImage.image = iconImages[indexPath.row]
         campResInfoCell.campResIconInfo.text = campResInfo[indexPath.row]
         campResInfoCell.campResIconInfo.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightMedium)
+        campResInfoCell.info = campResInfoCell.campResIconInfo.text
+        campResInfoCell.type = types[indexPath.row]
+        campResInfoCell.delegate = self
         
         return campResInfoCell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell  = tableView.cellForRow(at: indexPath)
-        cell?.selectionStyle = .none
+        if let cell = tableView.cellForRow(at: indexPath) as? CampusResourceDetailCell {
+            cell.didTap()
+        }
     }
+}
+
+extension CampusResourceViewController: MFMailComposeViewControllerDelegate {
     
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
+    }
 }
 

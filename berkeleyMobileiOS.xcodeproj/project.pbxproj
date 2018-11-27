@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		13862784218A5A4E00350DD6 /* LibrarySortable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13862783218A5A4E00350DD6 /* LibrarySortable.swift */; };
+		137640C02190160F0044BC74 /* TappableInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137640BF2190160F0044BC74 /* TappableInfoTableViewCell.swift */; };
 		282A4EEA1E63839200480201 /* GymClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282A4EE91E63839200480201 /* GymClass.swift */; };
 		282A4EEC1E63859900480201 /* GymClassDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282A4EEB1E63859900480201 /* GymClassDataSource.swift */; };
 		284A3C851E316F1F00685A01 /* AddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284A3C841E316F1F00685A01 /* AddressCell.swift */; };
@@ -111,6 +112,9 @@
 		55D9A4BF20844FB00040110C /* TimeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D9A4BE20844FB00040110C /* TimeTableViewCell.swift */; };
 		55EC872F1FA2DC1E00C71C09 /* LibraryDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EC872E1FA2DC1E00C71C09 /* LibraryDetailCell.swift */; };
 		55EC87311FA2E70A00C71C09 /* CampusResourceDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EC87301FA2E70A00C71C09 /* CampusResourceDetailCell.swift */; };
+		64A9F0492188095C00419247 /* DiningLegendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64A9F0482188095C00419247 /* DiningLegendView.swift */; };
+		64A9F04C218809A500419247 /* DiningLegendModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64A9F04B218809A500419247 /* DiningLegendModel.swift */; };
+		64D237FE218A638000FF178E /* DiningLegendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D237FD218A638000FF178E /* DiningLegendTableViewCell.swift */; };
 		92DD7191206072BD00B73233 /* RouteTitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DD7190206072BD00B73233 /* RouteTitleTableViewCell.swift */; };
 		92DD7194206075CC00B73233 /* RouteResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DD7193206075CC00B73233 /* RouteResultViewController.swift */; };
 		94BCFD2C2072B4050021A887 /* RemindersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BCFD2B2072B4050021A887 /* RemindersViewController.swift */; };
@@ -132,6 +136,8 @@
 
 /* Begin PBXFileReference section */
 		13862783218A5A4E00350DD6 /* LibrarySortable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibrarySortable.swift; sourceTree = "<group>"; };
+		137640BF2190160F0044BC74 /* TappableInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TappableInfoTableViewCell.swift; sourceTree = "<group>"; };
+
 		2145738E109E31684887C5EE /* Pods_berkeleyMobileiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_berkeleyMobileiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		282A4EE91E63839200480201 /* GymClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GymClass.swift; sourceTree = "<group>"; };
 		282A4EEB1E63859900480201 /* GymClassDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GymClassDataSource.swift; sourceTree = "<group>"; };
@@ -239,6 +245,9 @@
 		55D9A4BE20844FB00040110C /* TimeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTableViewCell.swift; sourceTree = "<group>"; };
 		55EC872E1FA2DC1E00C71C09 /* LibraryDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryDetailCell.swift; sourceTree = "<group>"; };
 		55EC87301FA2E70A00C71C09 /* CampusResourceDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CampusResourceDetailCell.swift; path = berkeleyMobileiOS/Classes/Academics/AcademicsCells/CampusResourceDetailCell.swift; sourceTree = SOURCE_ROOT; };
+		64A9F0482188095C00419247 /* DiningLegendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiningLegendView.swift; sourceTree = "<group>"; };
+		64A9F04B218809A500419247 /* DiningLegendModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiningLegendModel.swift; sourceTree = "<group>"; };
+		64D237FD218A638000FF178E /* DiningLegendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiningLegendTableViewCell.swift; sourceTree = "<group>"; };
 		7BC35364DDC70E5590C55CCF /* Pods-berkeleyMobileiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeleyMobileiOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-berkeleyMobileiOS/Pods-berkeleyMobileiOS.release.xcconfig"; sourceTree = "<group>"; };
 		92DD7190206072BD00B73233 /* RouteTitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteTitleTableViewCell.swift; sourceTree = "<group>"; };
 		92DD7193206075CC00B73233 /* RouteResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteResultViewController.swift; sourceTree = "<group>"; };
@@ -275,6 +284,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		137640BE219015D70044BC74 /* Tappable */ = {
+			isa = PBXGroup;
+			children = (
+				137640BF2190160F0044BC74 /* TappableInfoTableViewCell.swift */,
+			);
+			path = Tappable;
+			sourceTree = "<group>";
+		};
 		411DD3D8207EC7DF0081C7A1 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
@@ -377,6 +394,7 @@
 				4EC865D91E9C275D00B51E30 /* Search */,
 				4E4EC13B1E50470F000C63ED /* Resource */,
 				4E4EC1481E5118C9000C63ED /* Favorites */,
+				137640BE219015D70044BC74 /* Tappable */,
 				4E505D2D1DD05A65004AC6C9 /* Academics */,
 				4E505D391DD05A65004AC6C9 /* Recreation */,
 				4E505D3B1DD05A65004AC6C9 /* Transit */,
@@ -523,6 +541,7 @@
 		4ED0D3561DDCE1C600956F9E /* DiningMenu */ = {
 			isa = PBXGroup;
 			children = (
+				64A9F04A2188099000419247 /* MenuLegend */,
 				4ED0D3581DDCE1C600956F9E /* DiningMenuViewController.swift */,
 				4ED0D3571DDCE1C600956F9E /* DiningItemCell.swift */,
 			);
@@ -579,6 +598,16 @@
 				B5F25D261DE8BFD50084A5C7 /* CampusResourceDataSource.swift */,
 			);
 			path = AcademicsDataSource;
+			sourceTree = "<group>";
+		};
+		64A9F04A2188099000419247 /* MenuLegend */ = {
+			isa = PBXGroup;
+			children = (
+				64A9F0482188095C00419247 /* DiningLegendView.swift */,
+				64A9F04B218809A500419247 /* DiningLegendModel.swift */,
+				64D237FD218A638000FF178E /* DiningLegendTableViewCell.swift */,
+			);
+			path = MenuLegend;
 			sourceTree = "<group>";
 		};
 		92A24F5D208E7B1700EFF8C4 /* Controllers */ = {
@@ -793,29 +822,45 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-berkeleyMobileiOS/Pods-berkeleyMobileiOS-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
 				"${BUILT_PRODUCTS_DIR}/DropDown/DropDown.framework",
 				"${BUILT_PRODUCTS_DIR}/ExpandingMenu/ExpandingMenu.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/KCFloatingActionButton/KCFloatingActionButton.framework",
 				"${BUILT_PRODUCTS_DIR}/Material/Material.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-C++/grpcpp.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-ProtoRPC/ProtoRPC.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-RxLibrary/RxLibrary.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DropDown.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ExpandingMenu.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KCFloatingActionButton.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Material.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpcpp.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProtoRPC.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxLibrary.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -853,6 +898,7 @@
 				4ED686AC1EA202C000091793 /* ResourceGroup.swift in Sources */,
 				284A3C851E316F1F00685A01 /* AddressCell.swift in Sources */,
 				41B0B5891E8CD95D00DA9297 /* fullRouteDataSource.swift in Sources */,
+				64D237FE218A638000FF178E /* DiningLegendTableViewCell.swift in Sources */,
 				B5F25D2B1DF519890084A5C7 /* LoadingScreen.swift in Sources */,
 				4EC865DC1E9C275D00B51E30 /* SearchDataSource.swift in Sources */,
 				41B0B58E1E8CD95D00DA9297 /* nearestStopsDataSource.swift in Sources */,
@@ -874,8 +920,10 @@
 				412460A32054C42D0000DB54 /* CampusResourceTableViewCell.swift in Sources */,
 				41B0B5881E8CD95D00DA9297 /* BearTransitViewController.swift in Sources */,
 				4E4E7D0C1E5A7ED000A45586 /* DiningHallViewController.swift in Sources */,
+				64A9F0492188095C00419247 /* DiningLegendView.swift in Sources */,
 				413E19E6208EEECA009D6621 /* LibraryMapTableViewCell.swift in Sources */,
 				555D40E92051FD3000EA1E1C /* GymNavigationController.swift in Sources */,
+				137640C02190160F0044BC74 /* TappableInfoTableViewCell.swift in Sources */,
 				4E4E7D0A1E5A6ACA00A45586 /* ResourceDetailProvider.swift in Sources */,
 				B5F25D211DE2B6DF0084A5C7 /* Library.swift in Sources */,
 				B5F25D251DE8BFC60084A5C7 /* CampusResource.swift in Sources */,
@@ -906,6 +954,7 @@
 				4E4EC1421E50470F000C63ED /* Resource.swift in Sources */,
 				55D9A4BB2084220F0040110C /* WeeklyTimesTableViewCell.swift in Sources */,
 				4E505D461DD05A65004AC6C9 /* LaunchViewController.swift in Sources */,
+				64A9F04C218809A500419247 /* DiningLegendModel.swift in Sources */,
 				4ED0D35C1DDCE1C600956F9E /* DiningItemCell.swift in Sources */,
 				4ED0D35D1DDCE1C600956F9E /* DiningMenuViewController.swift in Sources */,
 				4E505D491DD05A65004AC6C9 /* ConvenienceMethods.swift in Sources */,
