@@ -6,7 +6,8 @@ import Firebase
 //fileprivate let kColorNavy = UIColor(red: 23/255.0, green: 85/255.0, blue: 122/255.0, alpha: 1)
 
 fileprivate let kColorNavy = UIColor(red: 0, green: 51/255.0, blue: 102/255.0, alpha: 1)
-fileprivate let kColorLightGray = UIColor(red: 224/255, green: 224/255, blue: 224/255, alpha: 1)
+fileprivate let kColorSelectedSection = UIColor(red: 234/255, green: 234/255, blue: 234/255, alpha: 1)
+fileprivate let kColorUnselectedSection = UIColor(red: 247/255, green: 247/255, blue: 247/255, alpha: 1)
 fileprivate let kSectionHeaderHeight: CGFloat = 50
 
 
@@ -322,7 +323,7 @@ class ResourceGroupViewController: UIViewController, IBInitializable, UITableVie
         let headerView = ResourceGroupSectionHeaderView(frame: .zero)
         headerView.tag = section
         headerView.sectionLabel.text = section == 0 ? "Dining Halls" : "Cafes"
-        headerView.backgroundColor = selectedResources[section] ? kColorLightGray : UIColor.white
+        headerView.backgroundColor = selectedResources[section] ? kColorSelectedSection : kColorUnselectedSection
         headerView.caretImage.image = selectedResources[section] ? UIImage(named: "caretup") : UIImage(named: "caretdown")
         
         // Add a gesture recognizer so the user can click the header
