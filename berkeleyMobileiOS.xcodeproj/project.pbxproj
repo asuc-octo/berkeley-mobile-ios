@@ -112,6 +112,7 @@
 		64A9F0492188095C00419247 /* DiningLegendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64A9F0482188095C00419247 /* DiningLegendView.swift */; };
 		64A9F04C218809A500419247 /* DiningLegendModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64A9F04B218809A500419247 /* DiningLegendModel.swift */; };
 		64D237FE218A638000FF178E /* DiningLegendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D237FD218A638000FF178E /* DiningLegendTableViewCell.swift */; };
+		64E364CE21AE24C900D404B4 /* ResourceGroupSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E364CD21AE24C900D404B4 /* ResourceGroupSectionHeaderView.swift */; };
 		92DD7191206072BD00B73233 /* RouteTitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DD7190206072BD00B73233 /* RouteTitleTableViewCell.swift */; };
 		92DD7194206075CC00B73233 /* RouteResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DD7193206075CC00B73233 /* RouteResultViewController.swift */; };
 		94BCFD2C2072B4050021A887 /* RemindersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BCFD2B2072B4050021A887 /* RemindersViewController.swift */; };
@@ -241,6 +242,7 @@
 		64A9F0482188095C00419247 /* DiningLegendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiningLegendView.swift; sourceTree = "<group>"; };
 		64A9F04B218809A500419247 /* DiningLegendModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiningLegendModel.swift; sourceTree = "<group>"; };
 		64D237FD218A638000FF178E /* DiningLegendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiningLegendTableViewCell.swift; sourceTree = "<group>"; };
+		64E364CD21AE24C900D404B4 /* ResourceGroupSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceGroupSectionHeaderView.swift; sourceTree = "<group>"; };
 		7BC35364DDC70E5590C55CCF /* Pods-berkeleyMobileiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeleyMobileiOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-berkeleyMobileiOS/Pods-berkeleyMobileiOS.release.xcconfig"; sourceTree = "<group>"; };
 		92DD7190206072BD00B73233 /* RouteTitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteTitleTableViewCell.swift; sourceTree = "<group>"; };
 		92DD7193206075CC00B73233 /* RouteResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteResultViewController.swift; sourceTree = "<group>"; };
@@ -348,6 +350,7 @@
 				4ED686AB1EA202C000091793 /* ResourceGroup.swift */,
 				4E4EC13D1E50470F000C63ED /* ResourceDataSource.swift */,
 				4E4EC13E1E50470F000C63ED /* ResourceGroupCell.swift */,
+				64E364CD21AE24C900D404B4 /* ResourceGroupSectionHeaderView.swift */,
 				4E4EC13F1E50470F000C63ED /* ResourceGroupViewController.swift */,
 				4E4EC1401E50470F000C63ED /* ResourceNavigationController.swift */,
 				41BD9E3F205791A800EF24FC /* MapTableViewCell.swift */,
@@ -968,6 +971,7 @@
 				41A884BC201BD4DF00EE85C7 /* NetworkingConvenienceMethods.swift in Sources */,
 				4E4E7D151E5CBD8900A45586 /* ListMenuCell.swift in Sources */,
 				55EC87311FA2E70A00C71C09 /* CampusResourceDetailCell.swift in Sources */,
+				64E364CE21AE24C900D404B4 /* ResourceGroupSectionHeaderView.swift in Sources */,
 				B5F25D271DE8BFD50084A5C7 /* CampusResourceDataSource.swift in Sources */,
 				4E62CFE01DD7E38900B19722 /* DiningDataSource.swift in Sources */,
 			);

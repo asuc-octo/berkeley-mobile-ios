@@ -6,7 +6,6 @@ import Firebase
 //fileprivate let kColorNavy = UIColor(red: 23/255.0, green: 85/255.0, blue: 122/255.0, alpha: 1)
 
 fileprivate let kColorNavy = UIColor(red: 0, green: 51/255.0, blue: 102/255.0, alpha: 1)
-fileprivate let kColorBlue = UIColor(red: 50/255, green: 102/255, blue: 135/255, alpha: 1)
 fileprivate let kColorLightGray = UIColor(red: 224/255, green: 224/255, blue: 224/255, alpha: 1)
 fileprivate let kSectionHeaderHeight: CGFloat = 50
 
@@ -324,8 +323,9 @@ class ResourceGroupViewController: UIViewController, IBInitializable, UITableVie
         headerView.tag = section
         headerView.sectionLabel.text = section == 0 ? "Dining Halls" : "Cafes"
         headerView.backgroundColor = selectedResources[section] ? kColorLightGray : UIColor.white
-        headerView.caretImage.image = selectedResources[section] ? UIImage(named: "caretdown") : UIImage(named: "caretup")
+        headerView.caretImage.image = selectedResources[section] ? UIImage(named: "caretup") : UIImage(named: "caretdown")
         
+        // Add a gesture recognizer so the user can click the header
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didSelectSectionHeader(_:)))
         gestureRecognizer.numberOfTapsRequired = 1
         gestureRecognizer.numberOfTouchesRequired = 1
@@ -487,40 +487,5 @@ extension UIDevice {
         default:
             return .unknown
         }
-    }
-}
-
-
-class ResourceGroupSectionHeaderView: UIView {
-    let sectionLabel: UILabel = UILabel()
-    let caretImage = UIImageView()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        borderWidth = 0.5
-        
-        sectionLabel.font = UIFont.systemFont(ofSize: 25, weight: UIFontWeightBold)
-        sectionLabel.textColor = kColorBlue
-        sectionLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        caretImage.contentMode = .scaleAspectFit
-        caretImage.translatesAutoresizingMaskIntoConstraints = false
-        
-        addSubview(sectionLabel)
-        addSubview(caretImage)
-        
-        sectionLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 12).isActive = true
-        sectionLabel.rightAnchor.constraint(equalTo: caretImage.leftAnchor, constant: -12).isActive = true
-        sectionLabel.topAnchor.constraint(equalTo: topAnchor, constant: 8).isActive = true
-        sectionLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8).isActive = true
-        
-        caretImage.rightAnchor.constraint(equalTo: rightAnchor, constant: -12).isActive = true
-        caretImage.topAnchor.constraint(equalTo: topAnchor, constant: 8).isActive = true
-        caretImage.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8).isActive = true
-        caretImage.widthAnchor.constraint(equalTo: caretImage.heightAnchor).isActive = true
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }
