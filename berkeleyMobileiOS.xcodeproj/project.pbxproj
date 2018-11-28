@@ -57,7 +57,6 @@
 		4E4EC1441E504710000C63ED /* ResourceGroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4EC13E1E50470F000C63ED /* ResourceGroupCell.swift */; };
 		4E4EC1451E504710000C63ED /* ResourceGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4EC13F1E50470F000C63ED /* ResourceGroupViewController.swift */; };
 		4E4EC1461E504710000C63ED /* ResourceNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4EC1401E50470F000C63ED /* ResourceNavigationController.swift */; };
-		4E4EC1471E504710000C63ED /* ResourceTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4EC1411E50470F000C63ED /* ResourceTile.swift */; };
 		4E4EC14B1E5118C9000C63ED /* Favorable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4EC1491E5118C9000C63ED /* Favorable.swift */; };
 		4E4EC14C1E5118C9000C63ED /* FavoriteStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4EC14A1E5118C9000C63ED /* FavoriteStore.swift */; };
 		4E4EC14E1E51195E000C63ED /* DateRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4EC14D1E51195E000C63ED /* DateRange.swift */; };
@@ -186,7 +185,6 @@
 		4E4EC13E1E50470F000C63ED /* ResourceGroupCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceGroupCell.swift; sourceTree = "<group>"; };
 		4E4EC13F1E50470F000C63ED /* ResourceGroupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceGroupViewController.swift; sourceTree = "<group>"; };
 		4E4EC1401E50470F000C63ED /* ResourceNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceNavigationController.swift; sourceTree = "<group>"; };
-		4E4EC1411E50470F000C63ED /* ResourceTile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceTile.swift; sourceTree = "<group>"; };
 		4E4EC1491E5118C9000C63ED /* Favorable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Favorable.swift; sourceTree = "<group>"; };
 		4E4EC14A1E5118C9000C63ED /* FavoriteStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteStore.swift; sourceTree = "<group>"; };
 		4E4EC14D1E51195E000C63ED /* DateRange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateRange.swift; sourceTree = "<group>"; };
@@ -352,7 +350,6 @@
 				4E4EC13E1E50470F000C63ED /* ResourceGroupCell.swift */,
 				4E4EC13F1E50470F000C63ED /* ResourceGroupViewController.swift */,
 				4E4EC1401E50470F000C63ED /* ResourceNavigationController.swift */,
-				4E4EC1411E50470F000C63ED /* ResourceTile.swift */,
 				41BD9E3F205791A800EF24FC /* MapTableViewCell.swift */,
 				4E4E7D091E5A6ACA00A45586 /* ResourceDetailProvider.swift */,
 				4EE63BA31E5464B800FE3F9E /* ResourceContainerController.swift */,
@@ -951,7 +948,6 @@
 				55EC872F1FA2DC1E00C71C09 /* LibraryDetailCell.swift in Sources */,
 				92DD7191206072BD00B73233 /* RouteTitleTableViewCell.swift in Sources */,
 				4E4D30AD1E56F2D900E418B8 /* FadeTitleToolbar.swift in Sources */,
-				4E4EC1471E504710000C63ED /* ResourceTile.swift in Sources */,
 				4ED0D35F1DDCE9FA00956F9E /* Protocols.swift in Sources */,
 				41B0B5871E8CD95D00DA9297 /* BearTransitNavigationController.swift in Sources */,
 				4E64B56E1DD134EB00DA5E73 /* Date+Extension.swift in Sources */,

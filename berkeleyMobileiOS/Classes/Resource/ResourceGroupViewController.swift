@@ -6,6 +6,9 @@ import Firebase
 //fileprivate let kColorNavy = UIColor(red: 23/255.0, green: 85/255.0, blue: 122/255.0, alpha: 1)
 
 fileprivate let kColorNavy = UIColor(red: 0, green: 51/255.0, blue: 102/255.0, alpha: 1)
+fileprivate let kColorBlue = UIColor(red: 50/255, green: 102/255, blue: 135/255, alpha: 1)
+fileprivate let kColorLightGray = UIColor(red: 224/255, green: 224/255, blue: 224/255, alpha: 1)
+fileprivate let kSectionHeaderHeight: CGFloat = 50
 
 
 /**
@@ -15,10 +18,11 @@ fileprivate let kColorNavy = UIColor(red: 0, green: 51/255.0, blue: 102/255.0, a
 class ResourceGroupViewController: UIViewController, IBInitializable, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate
 {
     // Data
-//    private var types: [Resource.Type]!
     var types: [Resource.Type]!
 
     private var resources = [String : [Resource]]()
+    private var selectedResources = [Bool]()
+    private var caretImages = [UIImageView]()
     
     var searchableItems: [SearchItem] = []
     var searchResults: [SearchItem] = []
@@ -60,7 +64,6 @@ class ResourceGroupViewController: UIViewController, IBInitializable, UITableVie
         types = group.types
     }
     
-    
     // ========================================
     // MARK: - UIViewController
     // ========================================
@@ -79,6 +82,11 @@ class ResourceGroupViewController: UIViewController, IBInitializable, UITableVie
         // Connect tableView and load data
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        self.selectedResources = []
+        for _ in 0..<types.count {
+            // All sections are selected in the beginning
+            selectedResources.append(true)
+        }
         self.activityIndicator.startAnimating()
         
         types.forEach 
@@ -109,9 +117,7 @@ class ResourceGroupViewController: UIViewController, IBInitializable, UITableVie
         if UIDevice.current.screenType.rawValue == "iPhone 5, iPhone 5s, iPhone 5c or iPhone SE"{
             //edit
             self.tableView.rowHeight = 220
-            
         }
-        
         
     }
     
@@ -146,14 +152,17 @@ class ResourceGroupViewController: UIViewController, IBInitializable, UITableVie
             }
         }
     }
+
     override func viewDidDisappear(_ animated: Bool) {
         removeLoadingView()
     }
+
     override func viewDidAppear(_ animated: Bool) {
         if (!already_loaded) {
             addLoadingView()
         }
     }
+
     /// Place the pseudoNavbar backdrop behind the navbar.
     override func viewDidLayoutSubviews()
     {
@@ -207,34 +216,14 @@ class ResourceGroupViewController: UIViewController, IBInitializable, UITableVie
     private func setupSearchBar()
     {
         // Search bar
-
-        
-        var backView = UIView(frame: CGRect(x: 0, y: 0, width: (self.navigationController?.navigationBar.frame.width)!, height: (self.navigationController?.navigationBar.frame.height)!))
+        let backView = UIView(frame: CGRect(x: 0, y: 0, width: (self.navigationController?.navigationBar.frame.width)!, height: (self.navigationController?.navigationBar.frame.height)!))
         let image : UIImage = #imageLiteral(resourceName: "bearsmallmed")
         let imageView = UIImageView(frame: CGRect(x: ((self.navigationController?.navigationBar.frame.width)! - 36) / 2, y: 2, width: 36, height: 19))
         imageView.contentMode = .scaleAspectFit
         imageView.image = image
-        //        self.navigationItem.titleView = imageView
         
         backView.addSubview(imageView)
         self.navigationItem.titleView = backView
-        
-//        let iv = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: 24, height: 24))
-//        iv.image = #imageLiteral(resourceName: "bear")
-//        self.navigationItem.titleView = iv
-//        let textFieldInsideUISearchBar = searchBar.value(forKey: "searchField") as? UITextField
-//        textFieldInsideUISearchBar?.borderStyle = .none
-//        textFieldInsideUISearchBar?.backgroundColor = kColorNavy
-//        textFieldInsideUISearchBar?.textColor = UIColor.white
-        
-        
-//        searchBar.delegate = self
-////        searchDropDown.frame = CGRect(x: 0, y: -20, width: searchDropDown.frame.width, height: searchDropDown.frame.height)
-//        searchDropDown.anchorView = self.navigationItem.titleView
-//        searchDropDown.bottomOffset = CGPoint(x: 0, y: 50)
-//        // searchDropDown.dismissMode = .manual
-//        searchDropDown.selectionAction = selectedRow
-//        searchDropDown.cancelAction = cancelDropDown
     }
     
     func selectedRow(index: Int, name: String) -> Void
@@ -260,11 +249,11 @@ class ResourceGroupViewController: UIViewController, IBInitializable, UITableVie
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             if identifier == "DiningHallDetailSegue" {
-                if let dest = segue.destination as? DiningMenuViewController {
+                if let _ = segue.destination as? DiningMenuViewController {
                     let menuID = className(DiningMenuViewController.self)
                     let hall = DiningHall(name: diningRes.name, imageLink: nil, shifts: diningRes.meals)
 
-                    let menuControllers = MealType.allValues.map
+                    let _ = MealType.allValues.map
                         { type in
                     
                             let vc = storyboard!.instantiateViewController(withIdentifier: menuID) as! DiningMenuViewController
@@ -272,22 +261,12 @@ class ResourceGroupViewController: UIViewController, IBInitializable, UITableVie
 
                             let barItem = vc.pageTabBarItem
                             barItem.titleColor = kColorNavy
-                            barItem.pulseColor = kColorNavy//UIColor.white
+                            barItem.pulseColor = kColorNavy
 
                             barItem.title = type.name
                             barItem.titleLabel?.font = RobotoFont.regular(with: 16)
                         }
                     }
-            }
-            else if identifier == "LibraryDetailSegue" {
-//                if let dest = segue.destination as? SettingsViewController {
-//                    // do stuff in the settingsVC before it loads
-//                }
-            }
-            else if identifier == "GymDetailSegue" {
-//                if segue.destination is GymDetailViewController {
-//                    let gym = Gym(name: , address: String, imageLink: String?, openingTimeToday: Date?, closingTimeToday: Date?)
-//                }
             }
         }
     }
@@ -305,7 +284,6 @@ class ResourceGroupViewController: UIViewController, IBInitializable, UITableVie
         self.activityIndicator.hidesWhenStopped = true
         self.activityIndicator.center = self.view!.center
         self.activityIndicator.autoresizingMask = [.flexibleRightMargin, .flexibleBottomMargin]
-//        self.view.addSubview(self.activityIndicator)
     }
     
     
@@ -314,38 +292,51 @@ class ResourceGroupViewController: UIViewController, IBInitializable, UITableVie
     // ========================================
     
     /// Return the number of groups/categories for Dining.
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return resources.count
+    }
+    
+    /// Return the number of dining options within the category.
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         // TODO: temp returning 1, while backend is not up to date.
-        return self.resources.count
+        let type = types[section]
+        if let numberOfDiningOptions = resources[type.typeString]?.count, selectedResources[section] {
+            return numberOfDiningOptions
+        }
+        return 0
     }
     
     /// Pass the DiningGroupCell a name for the category, a list of halls, and a callback handler.
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        
-        print("Here1" )
         let cell = tableView.dequeueReusableCell(withIdentifier: className(ResourceGroupCell.self)) as! ResourceGroupCell
-        print("Here2" )
-        let type = types[indexPath.row]
-        print("HERE3")
+        let type = types[indexPath.section]
         
-        
-        if let resource_data = resources[type.typeString] {
-            
-            
-            
-            let data = (type.displayName(pluralized: true), resource_data, Optional(didSelectResource))
-            print("HERE4")
-            cell.setData(data)
-        } else {
-            
-            print("Here5")
-            
+        if let diningOptions = resources[type.typeString] {
+            cell.setData(diningOptions[indexPath.row])
         }
         return cell
     }
     
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = ResourceGroupSectionHeaderView(frame: .zero)
+        headerView.tag = section
+        headerView.sectionLabel.text = section == 0 ? "Dining Halls" : "Cafes"
+        headerView.backgroundColor = selectedResources[section] ? kColorLightGray : UIColor.white
+        headerView.caretImage.image = selectedResources[section] ? UIImage(named: "caretdown") : UIImage(named: "caretup")
+        
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didSelectSectionHeader(_:)))
+        gestureRecognizer.numberOfTapsRequired = 1
+        gestureRecognizer.numberOfTouchesRequired = 1
+        headerView.addGestureRecognizer(gestureRecognizer)
+        
+        return headerView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return kSectionHeaderHeight
+    }
     
     // ========================================
     // MARK: - UITableViewDelegate
@@ -354,26 +345,42 @@ class ResourceGroupViewController: UIViewController, IBInitializable, UITableVie
     /// When a row (not tile) is tapped, present the corresponding `ResourceMapListViewController`.
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
-        // TODO: MapList disabled temporarily.
+        let type = types[indexPath.section]
+        if let diningOptions = resources[type.typeString] {
+            let resource = diningOptions[indexPath.row]
+            guard let detailProvider = type(of: resource).detailProvider?.newInstance() else
+            {
+                return
+            }
+            detailProvider.resource = resource
+            
+            let container = ResourceContainerController.fromIB()
+            container.detailProvider = detailProvider
+            
+            container.modalPresentationStyle = .overFullScreen
+            present(container, animated: true, completion: nil)
+        }
     }
     
-    /// When a tile is tapped, present the corresponding `ResourceDetailViewController`.
-    func didSelectResource(_ resource: Resource)
-    {
-        guard let detailProvider = type(of: resource).detailProvider?.newInstance() else 
-        { 
-            return 
+    /// When a section header view is tapped, hide or show the appropriate section
+    @objc func didSelectSectionHeader(_ gestureRecognizer: UIGestureRecognizer) {
+        if let headerView = gestureRecognizer.view as? ResourceGroupSectionHeaderView {
+            selectedResources[headerView.tag] = !selectedResources[headerView.tag]
+            
+            // Have to check if at least one section is selected.
+            var isOneResourceSelected = false
+            for value in selectedResources {
+                isOneResourceSelected = isOneResourceSelected || value
+            }
+            
+            if isOneResourceSelected {
+                tableView.reloadData()
+            } else {
+                selectedResources[headerView.tag] = !selectedResources[headerView.tag]
+            }
         }
-        detailProvider.resource = resource
-        
-        let container = ResourceContainerController.fromIB()
-        container.detailProvider = detailProvider
-        
-        container.modalPresentationStyle = .overFullScreen
-        present(container, animated: true, completion: nil)
     }
 
-    
     // ========================================
     // MARK: - UISearchDelegate
     // ========================================
@@ -405,7 +412,6 @@ class ResourceGroupViewController: UIViewController, IBInitializable, UITableVie
         else {
             self.searchDropDown.dataSource = self.searchResults.map { item in item.name }
             self.searchDropDown.show()
-            
         }
     }
     
@@ -429,11 +435,13 @@ class ResourceGroupViewController: UIViewController, IBInitializable, UITableVie
             searchDropDown.dataSource = searchResults.map { item in item.name }
         }
     }
+    
     func removeLoadingView() {
         if let l = self.loading_label {
             l.removeFromSuperview()
         }
     }
+    
     func addLoadingView() {
         self.loading_label = UILabel.init(frame: CGRect.init(x: 0, y: 0, width: 60, height: 20))
         self.loading_label!.text = "Loading"
@@ -444,17 +452,17 @@ class ResourceGroupViewController: UIViewController, IBInitializable, UITableVie
         view.addSubview(self.loading_label!)
     }
     
-    
-    
 }
 
 extension UIDevice {
     var iPhoneX: Bool {
         return UIScreen.main.nativeBounds.height == 2436
     }
+    
     var iPhone: Bool {
         return UIDevice.current.userInterfaceIdiom == .phone
     }
+    
     enum ScreenType: String {
         case iPhone4_4S = "iPhone 4 or iPhone 4S"
         case iPhones_5_5s_5c_SE = "iPhone 5, iPhone 5s, iPhone 5c or iPhone SE"
@@ -463,6 +471,7 @@ extension UIDevice {
         case iPhoneX = "iPhone X"
         case unknown
     }
+    
     var screenType: ScreenType {
         switch UIScreen.main.nativeBounds.height {
         case 960:
@@ -478,5 +487,40 @@ extension UIDevice {
         default:
             return .unknown
         }
+    }
+}
+
+
+class ResourceGroupSectionHeaderView: UIView {
+    let sectionLabel: UILabel = UILabel()
+    let caretImage = UIImageView()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        borderWidth = 0.5
+        
+        sectionLabel.font = UIFont.systemFont(ofSize: 25, weight: UIFontWeightBold)
+        sectionLabel.textColor = kColorBlue
+        sectionLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        caretImage.contentMode = .scaleAspectFit
+        caretImage.translatesAutoresizingMaskIntoConstraints = false
+        
+        addSubview(sectionLabel)
+        addSubview(caretImage)
+        
+        sectionLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 12).isActive = true
+        sectionLabel.rightAnchor.constraint(equalTo: caretImage.leftAnchor, constant: -12).isActive = true
+        sectionLabel.topAnchor.constraint(equalTo: topAnchor, constant: 8).isActive = true
+        sectionLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8).isActive = true
+        
+        caretImage.rightAnchor.constraint(equalTo: rightAnchor, constant: -12).isActive = true
+        caretImage.topAnchor.constraint(equalTo: topAnchor, constant: 8).isActive = true
+        caretImage.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8).isActive = true
+        caretImage.widthAnchor.constraint(equalTo: caretImage.heightAnchor).isActive = true
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }

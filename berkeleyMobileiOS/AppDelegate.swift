@@ -31,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     func presentMainViewController()
     {
-        var resource_views: [UIViewController] = ResourceGroup.all.map
+        let resource_views: [UIViewController] = ResourceGroup.all.map
         {
             let resourceNav = ResourceNavigationController.fromIB()
             resourceNav.setGroup($0)
@@ -41,11 +41,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var viewControllers: [UIViewController] = []
         
         let bt = BearTransitNavigationController.fromIB()
-//        bt.childViewControllers.first!.viewDidLoad()
         let academic = AcademicNavigationController.fromIB()
         
         let gym = GymNavigationController.fromIB()
-//        gym.childViewControllers.first!.viewDidLoad()
         academic.childViewControllers.first!.viewDidLoad()
         viewControllers.append(bt)
         viewControllers.append(gym)
@@ -56,7 +54,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         indexViewController.modalTransitionStyle = .crossDissolve
         window?.rootViewController = indexViewController
-//        self.present(indexViewController, animated: true, completion: nil)
     }
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
