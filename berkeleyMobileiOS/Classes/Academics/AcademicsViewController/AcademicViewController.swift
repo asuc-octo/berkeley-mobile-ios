@@ -58,7 +58,7 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
     var favLib = [Library]()
     var nonFavLib = [Library]()
     
-    public var sortBy: FavorableSortBy = .favorites
+    public var sortBy: LibrarySortBy = .favorites
     {
         didSet
         {
@@ -181,15 +181,6 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
             let hours = getLibraryHours(library: library)
             cell.resourceHours.text = hours
             cell.resourceHours.textColor = UIColor(hex: "585858")
-            
-            var splitStr = hours.components(separatedBy: " to ")
-            if (splitStr.count == 2) {
-                if (splitStr[0] == splitStr[1]) {
-                    cell.resourceStatus.textColor = UIColor(hex: "18A408")
-                    cell.resourceStatus.text = "OPEN"
-                    cell.resourceStatus.textColor = UIColor(hex:"18A408")
-                }
-            }
             
             return cell
         } else {

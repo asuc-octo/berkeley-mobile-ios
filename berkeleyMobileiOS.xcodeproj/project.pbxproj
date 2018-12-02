@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		13862784218A5A4E00350DD6 /* LibrarySortable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13862783218A5A4E00350DD6 /* LibrarySortable.swift */; };
 		137640C02190160F0044BC74 /* TappableInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137640BF2190160F0044BC74 /* TappableInfoTableViewCell.swift */; };
 		282A4EEA1E63839200480201 /* GymClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282A4EE91E63839200480201 /* GymClass.swift */; };
 		282A4EEC1E63859900480201 /* GymClassDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282A4EEB1E63859900480201 /* GymClassDataSource.swift */; };
@@ -134,7 +135,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		13862783218A5A4E00350DD6 /* LibrarySortable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibrarySortable.swift; sourceTree = "<group>"; };
 		137640BF2190160F0044BC74 /* TappableInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TappableInfoTableViewCell.swift; sourceTree = "<group>"; };
+
 		2145738E109E31684887C5EE /* Pods_berkeleyMobileiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_berkeleyMobileiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		282A4EE91E63839200480201 /* GymClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GymClass.swift; sourceTree = "<group>"; };
 		282A4EEB1E63859900480201 /* GymClassDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GymClassDataSource.swift; sourceTree = "<group>"; };
@@ -404,6 +407,7 @@
 		4E505D2D1DD05A65004AC6C9 /* Academics */ = {
 			isa = PBXGroup;
 			children = (
+				13862783218A5A4E00350DD6 /* LibrarySortable.swift */,
 				5552A68C2048C03100F27AED /* AcademicNavigationController.swift */,
 				B5F25D201DE2B6DF0084A5C7 /* Library.swift */,
 				B5F25D241DE8BFC60084A5C7 /* CampusResource.swift */,
@@ -958,6 +962,7 @@
 				4E06A05A1E5E9DE8007B946F /* ListMenuItem.swift in Sources */,
 				4E4EC14B1E5118C9000C63ED /* Favorable.swift in Sources */,
 				55D9A4BD208448DD0040110C /* UIImageExtension.swift in Sources */,
+				13862784218A5A4E00350DD6 /* LibrarySortable.swift in Sources */,
 				4E62CFE71DD87CFB00B19722 /* UINavigationBar+Extension.swift in Sources */,
 				55026D561F9152E6005D9576 /* GymInformationTableViewCell.swift in Sources */,
 				55EC872F1FA2DC1E00C71C09 /* LibraryDetailCell.swift in Sources */,
