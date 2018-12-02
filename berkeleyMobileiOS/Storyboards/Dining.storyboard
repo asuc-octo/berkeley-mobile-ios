@@ -254,8 +254,12 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="669"/>
                     <connections>
+
+                        <outlet property="dataLabel" destination="Yy1-85-ggM" id="Nyn-2h-LEd"/>
+
                         <outlet property="diningLegendHeight" destination="l2N-fS-oYB" id="lVP-yZ-paw"/>
                         <outlet property="diningLegendView" destination="HZt-c1-a1b" id="b4L-gS-aL9"/>
+
                         <outlet property="hoursLabel" destination="rfG-H4-z4y" id="yFd-j0-oma"/>
                         <outlet property="hoursView" destination="B4Q-Cg-UdC" id="e8e-oJ-2Ra"/>
                         <outlet property="showDiningButton" destination="zl4-qC-e2A" id="Nfy-U1-dEL"/>
