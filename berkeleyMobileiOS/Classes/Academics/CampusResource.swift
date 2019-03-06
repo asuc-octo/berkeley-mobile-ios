@@ -29,7 +29,8 @@ class CampusResource: Resource {
     let phoneNumber: String?
     let alternatePhoneNumber: String?
     let email: String?
-    let hours: String?
+    let weeklyHours: [DateInterval?]
+    let byAppointment: Bool
     let latitude: Double?
     let longitude: Double?
     let notes: String?
@@ -37,15 +38,26 @@ class CampusResource: Resource {
     let category: String?
     
     var isOpen: Bool {
-        return false
+        if self.byAppointment || self.weeklyHours.count == 0 {
+            return false
+        }
+        var status = false
+        let dow = Calendar.current.component(.weekday, from: Date())
+        if let interval = self.weeklyHours[dow - 1] {
+            if interval.contains(Date()) || interval.duration == 0 {
+                status = true
+            }
+        }
+        return status
     }
     
-    init(name: String, campusLocation: String?, phoneNumber: String?, alternatePhoneNumber: String?, email: String?, hours: String?, latitude: Double?, longitude: Double?, notes: String?, imageLink: String?, description: String?, category: String?) {
-        self.campusLocation = campusLocation
-        self.phoneNumber = phoneNumber
-        self.alternatePhoneNumber = alternatePhoneNumber
-        self.email = email
-        self.hours = hours
+    init(name: String, campusLocation: String?, phoneNumber: String?, alternatePhoneNumber: String?, email: String?, weeklyHours: [DateInterval?], byAppointment: Bool, latitude: Double?, longitude: Double?, notes: String?, imageLink: String?, description: String?, category: String?) {
+        self.campusLocation = campusLocation?.lowercased() != "nan" ? campusLocation : nil
+        self.phoneNumber = TappableInfoType.formattedAs(.phone, str: phoneNumber) ? phoneNumber : nil
+        self.alternatePhoneNumber = TappableInfoType.formattedAs(.phone, str: alternatePhoneNumber) ? alternatePhoneNumber : nil
+        self.email = TappableInfoType.formattedAs(.email, str: email) ? email : nil
+        self.weeklyHours = weeklyHours
+        self.byAppointment = byAppointment
         self.latitude = latitude
         self.longitude = longitude
         self.notes = notes

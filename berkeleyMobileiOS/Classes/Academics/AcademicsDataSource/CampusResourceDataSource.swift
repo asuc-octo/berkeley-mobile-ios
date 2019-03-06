@@ -9,42 +9,60 @@
 import Foundation
 import Alamofire
 import SwiftyJSON
+import Firebase
 
-fileprivate let kCampusResourcesEndpoint = secretKAPIURL + "/resources"
+fileprivate let kCampusResourcesEndpoint = "Resources"
 
 
 class CampusResourceDataSource: ResourceDataSource 
 {
-    internal static func parseResource(_ json: JSON) -> Resource {
-        return parseCampusResource(json)
-    }
 
     typealias ResourceType = CampusResource
     
     // Fetch the list of campus resources and report back to the completionHandler.
     static func fetchResources(_ completion: @escaping ([Resource]?) -> Void)
     {
-        Alamofire.request(kCampusResourcesEndpoint).responseJSON
-        { response in
-            
-            if response.result.isFailure 
-            {
-                print("[Error @ CampusResourceDataSource.fetchCampusResources()]: request failed")
+        let db = Firestore.firestore()
+        db.collection(kCampusResourcesEndpoint).getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
                 return
+            } else {
+                let campusResources = querySnapshot!.documents.map { (document) -> CampusResource in
+                    let dict = document.data()
+                    return parseCampusResource(dict)
+                }
+                completion(campusResources)
             }
-            
-            let campusResources = JSON(data: response.data!)["resources"].map { (_, child) in parseCampusResource(child) }
-            completion(campusResources)
         }
     }
     
-    // Return a CampusResource object parsed from JSON.
-    private static func parseCampusResource(_ json: JSON) -> CampusResource
-    {
-        let campusResource = CampusResource(name: json["Resource"].stringValue, campusLocation: json["Office Location"].string, phoneNumber: json["Phone 1"].string, alternatePhoneNumber: json["Phone 2"].string, email: json["Email"].string, hours: json["Hours"].string, latitude: json["Latitude"].double, longitude: json["Longitude"].double, notes: json["Notes"].string, imageLink: json["Image"].string, description: json["Description"].string, category: json["Topic"].string)
-        
-        FavoriteStore.shared.restoreState(for: campusResource)
-        
+    static func parseResource(_ json: JSON) -> Resource {
+        return parseCampusResource(json.dictionaryObject ?? [:])
+    }
+    
+    // Return a CampusResource object parsed from a dictionary.
+    private static func parseCampusResource(_ dict: [String: Any]) -> CampusResource {
+        var byAppointment = false
+        var weeklyHours = [DateInterval?](repeating: nil, count: 7)
+        if let times = dict["open_close_array"] as? [[String: Any]] {
+            weeklyHours = parseWeeklyTimes(times, openKey: "open_time", closeKey: "close_time")
+        } else {
+            byAppointment = true
+        }
+        let campusResource = CampusResource(name: dict["name"] as? String ?? "Unnamed",
+                                            campusLocation: dict["address"] as? String,
+                                            phoneNumber: dict["phone"] as? String,
+                                            alternatePhoneNumber: nil,
+                                            email: dict["email"] as? String,
+                                            weeklyHours: weeklyHours,
+                                            byAppointment: byAppointment,
+                                            latitude: dict["latitude"] as? Double,
+                                            longitude: dict["longitude"] as? Double,
+                                            notes: nil,
+                                            imageLink: dict["picture"] as? String,
+                                            description: dict["description"] as? String,
+                                            category: nil)
         return campusResource
     }
 }

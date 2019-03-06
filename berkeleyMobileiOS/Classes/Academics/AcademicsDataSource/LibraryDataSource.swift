@@ -9,8 +9,9 @@
 import Foundation
 import Alamofire
 import SwiftyJSON
+import Firebase
 
-fileprivate let kLibrariesEndpoint = secretKAPIURL + "/weekly_libraries"
+fileprivate let kLibrariesEndpoint = "Libraries"
 
 class LibraryDataSource: ResourceDataSource {
     
@@ -19,53 +20,37 @@ class LibraryDataSource: ResourceDataSource {
     // Fetch the list of libraries and report back to the completionHandler.
     static func fetchResources(_ completion: @escaping ([Resource]?) -> Void) 
     {
-        Alamofire.request(encode_url_no_cache(kLibrariesEndpoint)).response { response in
-
-            if !response.error.isNil {
-                print("Error")
-            }
-            
-        }
-        
-        Alamofire.request(kLibrariesEndpoint).responseJSON
-        { response in
-            
-            if response.result.isFailure {
-                print("[Error @ LibraryDataSource.fetchLibraries()]: request failed")
+        let db = Firestore.firestore()
+        db.collection(kLibrariesEndpoint).getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
                 return
+            } else {
+                let libraries = querySnapshot!.documents.map { (document) -> Library in
+                    let dict = document.data()
+                    return parseLibrary(dict)
+                }
+                completion(libraries)
             }
-            
-            let libraries = JSON(data: response.data!)["libraries"].map { (_, child) in parseLibrary(child) }
-            completion(libraries)
         }
     }
     
     static func parseResource(_ json: JSON) -> Resource {
-        return parseLibrary(json)
+        return parseLibrary(json.dictionaryObject ?? [:])
     }
     
-    // Return a Library object parsed from JSON.
-    private static func parseLibrary(_ json: JSON) -> Library
-    {
-        let formatter = sharedDateFormatter()
-        let weeklyOpeningTimes  = json["weekly_opening_times"].map { (_, child) in formatter.date(from: child.string ?? "") }
-        let weeklyClosingTimes  = json["weekly_closing_times"].map { (_, child) in formatter.date(from: child.string ?? "") }
-        let weeklyByAppointment = json["weekly_by_appointment"].map { (_, child) in child.bool ?? false }
-        
-        let library = Library(name: json["name"].stringValue, campusLocation: json["campus_location"].string, phoneNumber: json["phone_number"].string, weeklyOpeningTimes: weeklyOpeningTimes, weeklyClosingTimes: weeklyClosingTimes, weeklyByAppointment: weeklyByAppointment, imageLink: json["image_link"].string, latitude: json["latitude"].double, longitude: json["longitude"].double)
-        
-        FavoriteStore.shared.restoreState(for: library)
-        
+    // Return a Library object parsed from a dictionary.
+    private static func parseLibrary(_ dict: [String: Any]) -> Library {
+        let weeklyHours = parseWeeklyTimes(dict["open_close_array"] as? [[String: Any]] ?? [[String: Any]](), openKey: "open_time", closeKey: "close_time")
+        let library = Library(name: dict["name"] as? String ?? "Unnamed",
+                              campusLocation: dict["address"] as? String,
+                              phoneNumber: dict["phone"] as? String,
+                              weeklyHours: weeklyHours,
+                              weeklyByAppointment: [],
+                              imageLink: dict["picture"] as? String,
+                              latitude: dict["latitude"] as? Double,
+                              longitude: dict["longitude"] as? Double)
         return library
-    }
-    
-    private static func sharedDateFormatter() -> DateFormatter
-    {
-        let formatter = DateFormatter()
-        formatter.timeZone = TimeZone(abbreviation: "UTC")!
-        formatter.locale = Locale(identifier: "en_US_POSIX")
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-        return formatter
     }
     
 }

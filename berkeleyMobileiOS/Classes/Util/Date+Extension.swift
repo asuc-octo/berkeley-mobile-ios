@@ -20,6 +20,15 @@ extension Date
         return calendar.date(from: components)
     }
     
+    // Returns soonest date with (weekday:hour:min) of this Date.
+    func sameDayThisWeek() -> Date?
+    {
+        let calendar = Calendar.current
+        
+        let components = calendar.dateComponents([.hour, .minute, .weekday], from: self)
+        return calendar.nextDate(after: calendar.startOfDay(for: Date()), matching: components, matchingPolicy: .nextTime, repeatedTimePolicy: .first, direction: .forward)
+    }
+    
     // Returns whether this Date is between Date range [a, b] inclusive.
     func isBetween(_ a: Date?, _ b: Date?) -> Bool
     {

@@ -33,7 +33,7 @@ class LibraryViewController: UIViewController, GMSMapViewDelegate, CLLocationMan
         Analytics.logEvent("opened_library", parameters: ["name" : library.name])
     }
     override func viewDidLoad() {
-//        setUpMap()
+        super.viewDidLoad()
 
         libTitle.bringSubview(toFront: libraryImage)
         
@@ -63,31 +63,17 @@ class LibraryViewController: UIViewController, GMSMapViewDelegate, CLLocationMan
         dateFormatter.dateFormat = "h:mm a"
         dateFormatter.amSymbol = "AM"
         dateFormatter.pmSymbol = "PM"
-        dateFormatter.timeZone = TimeZone(abbreviation: "PST")
-        var localOpeningTime = ""
-        var localClosingTime = ""
-        var timeArr = [String]()
+        
+        let calendar = Calendar.current
+        let dow = calendar.component(.weekday, from: Date())
         for i in 0...6 {
-            if let t = (self.library?.weeklyOpeningTimes[i]) {
-                localOpeningTime = dateFormatter.string(from:t)
+            var timeRange = "CLOSED ALL DAY"
+            if let t = self.library.weeklyHours[(dow - 1 + i) % 7] {
+                timeRange = dateFormatter.string(from:t.start) + " : " + dateFormatter.string(from:t.end)
             }
-            if let t = (self.library?.weeklyClosingTimes[i]) {
-                localClosingTime = dateFormatter.string(from:t)
-            }
-            
-            var timeRange:String = localOpeningTime + " : " + localClosingTime
-            
-            if (localOpeningTime == "" && localClosingTime == "") {
-                timeRange = "CLOSED ALL DAY"
-            }
-
             weeklyTimes.append(timeRange)
-            
         }
         
-        var dateComponent = DateComponents()
-        dateComponent.day = 1
-        let calendar = Calendar.current
         var currDate = Date()
         for _ in 0...6 {
             let currDateString = calendar.component(.weekday, from: currDate)
@@ -115,10 +101,6 @@ class LibraryViewController: UIViewController, GMSMapViewDelegate, CLLocationMan
         
             currDate = nextDate!
         }
-    
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
@@ -187,14 +169,11 @@ class LibraryViewController: UIViewController, GMSMapViewDelegate, CLLocationMan
         dateFormatter.timeZone = TimeZone(abbreviation: "PST")
         var trivialDayStringsORDINAL = ["", "SUN","MON","TUE","WED","THU","FRI","SAT"]
         let dow = Calendar.current.component(.weekday, from: Date())
-        let translateddow = 0
         var localOpeningTime = ""
         var localClosingTime = ""
-        if let t = (self.library?.weeklyOpeningTimes[translateddow]) {
-        localOpeningTime = dateFormatter.string(from:t)
-        }
-        if let t = (self.library?.weeklyClosingTimes[translateddow]) {
-        localClosingTime = dateFormatter.string(from:t)
+        if let t = (self.library.weeklyHours[dow - 1]) {
+            localOpeningTime = dateFormatter.string(from:t.start)
+            localClosingTime = dateFormatter.string(from:t.end)
         }
         
         var timeRange:String = localOpeningTime + " to " + localClosingTime
