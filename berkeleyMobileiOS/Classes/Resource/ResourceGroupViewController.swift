@@ -141,7 +141,7 @@ class ResourceGroupViewController: UIViewController, IBInitializable, UITableVie
         self.navbar?.setTransparent(true)
         setStatusBarStyle(self.preferredStatusBarStyle)
         for vc in (self.pageTabBarController?.viewControllers)! {
-            if (type(of: vc) == BearTransitNavigationController.self) {
+            if (type(of: vc) == CampusMapViewController.self) {
                 vc.pageTabBarItem.image = #imageLiteral(resourceName: "beartransit").withRenderingMode(.alwaysTemplate)
             }
         }

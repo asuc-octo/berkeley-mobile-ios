@@ -40,7 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         var viewControllers: [UIViewController] = []
         
-        let bt = BearTransitNavigationController.fromIB()
+        let bt = CampusMapViewController()
 //        bt.childViewControllers.first!.viewDidLoad()
         let academic = AcademicNavigationController.fromIB()
         
