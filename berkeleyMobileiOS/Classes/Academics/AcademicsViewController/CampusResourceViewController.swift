@@ -55,6 +55,8 @@ class CampusResourceViewController: UIViewController, CLLocationManagerDelegate,
             case .hours:
                 if campusResource.byAppointment {
                     campResInfo.append(kAppointmentMessage)
+                } else if campusResource.weeklyHours.isNil {
+                    campResInfo.append(nil)
                 } else {
                     cells[i] = .weekly
                     campResInfo.append("")
@@ -140,7 +142,7 @@ class CampusResourceViewController: UIViewController, CLLocationManagerDelegate,
         let dow = Date().weekday()
         for i in 0...6 {
             var timeRange = "CLOSED ALL DAY"
-            if let t = campusResource.weeklyHours[(dow + i) % 7] {
+            if let t = campusResource.weeklyHours![(dow + i) % 7] {
                 timeRange = dateFormatter.string(from:t.start) + " : " + dateFormatter.string(from:t.end)
             }
             weeklyTimes.append(timeRange)

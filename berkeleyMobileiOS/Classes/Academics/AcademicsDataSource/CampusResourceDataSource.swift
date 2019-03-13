@@ -43,20 +43,15 @@ class CampusResourceDataSource: ResourceDataSource
     
     // Return a CampusResource object parsed from a dictionary.
     private static func parseCampusResource(_ dict: [String: Any]) -> CampusResource {
-        var byAppointment = false
-        var weeklyHours = [DateInterval?](repeating: nil, count: 7)
-        if let times = dict["open_close_array"] as? [[String: Any]] {
-            weeklyHours = parseWeeklyTimes(times, openKey: "open_time", closeKey: "close_time")
-        } else {
-            byAppointment = true
-        }
+        let openClose = dict["open_close_array"] as? [[String: Any]]
+        let weeklyHours = parseWeeklyTimes(openClose)
         let campusResource = CampusResource(name: dict["name"] as? String ?? "Unnamed",
                                             campusLocation: dict["address"] as? String,
                                             phoneNumber: dict["phone"] as? String,
                                             alternatePhoneNumber: nil,
                                             email: dict["email"] as? String,
-                                            weeklyHours: weeklyHours,
-                                            byAppointment: byAppointment,
+                                            weeklyHours: openClose.isNil ? nil : weeklyHours,
+                                            byAppointment: dict["by_appointment"] as? Bool ?? false,
                                             latitude: dict["latitude"] as? Double,
                                             longitude: dict["longitude"] as? Double,
                                             notes: nil,
