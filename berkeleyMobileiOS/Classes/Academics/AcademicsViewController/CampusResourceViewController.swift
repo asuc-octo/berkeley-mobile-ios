@@ -11,44 +11,6 @@ import GoogleMaps
 import Firebase
 import MessageUI
 
-enum CampusResourceDetailCells {
-    case hours
-    case weekly
-    case phone
-    case email
-    case location
-    case description
-    case none
-    
-    var icon: UIImage? {
-        switch self {
-        case .hours:
-            return UIImage(named: "hours_2.0.png")
-        case .weekly:
-            return UIImage(named: "hours_2.0.png")
-        case .phone:
-            return UIImage(named: "phone_2.0.png")
-        case .email:
-            return UIImage(named: "mail_2.0.png")
-        case .location:
-            return UIImage(named: "location_2.0.png")
-        default:
-            return UIImage(named: "info_2.0.png")
-        }
-    }
-    
-    var tappableType: TappableInfoType {
-        switch self {
-        case .phone:
-            return .phone
-        case .email:
-            return .email
-        default:
-            return .none
-        }
-    }
-}
-
 fileprivate let kAppointmentMessage = "By Appointment"
 fileprivate let kColorGreen = UIColor(red: 16/255.0, green: 161/255.0, blue: 0, alpha:1)
 fileprivate let kColorRed = UIColor.red
@@ -66,7 +28,7 @@ class CampusResourceViewController: UIViewController, CLLocationManagerDelegate,
     var weeklyTimes = [String]()
     var daysOfWeek = [String]()
     
-    var cells: [CampusResourceDetailCells] = [
+    var cells: [AcademicDetailCellTypes] = [
         .hours,
         .phone,
         .email,

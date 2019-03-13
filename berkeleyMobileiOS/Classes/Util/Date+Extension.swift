@@ -26,6 +26,9 @@ extension Date
         let calendar = Calendar.current
         
         let components = calendar.dateComponents([.hour, .minute, .weekday], from: self)
+        if self == calendar.startOfDay(for: Date()) {
+            return self
+        }
         return calendar.nextDate(after: calendar.startOfDay(for: Date()), matching: components, matchingPolicy: .nextTime, repeatedTimePolicy: .first, direction: .forward)
     }
     

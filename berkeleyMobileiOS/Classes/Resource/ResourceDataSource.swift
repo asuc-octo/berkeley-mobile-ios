@@ -23,11 +23,14 @@ extension ResourceDataSource {
             if let open = open_close[openKey] as? Double,
                let close = open_close[closeKey] as? Double,
                let openDate = Date(timeIntervalSince1970: open).sameDayThisWeek(),
-               let closeDate = Date(timeIntervalSince1970: close).sameDayThisWeek() {
-                let weekday = openDate.weekday()
+               var closeDate = Date(timeIntervalSince1970: close).sameDayThisWeek() {
+                if openDate > closeDate {
+                    let components = Calendar.current.dateComponents([.hour, .minute, .weekday], from: closeDate)
+                    closeDate = Calendar.current.nextDate(after: openDate, matching: components, matchingPolicy: .nextTime, repeatedTimePolicy: .first, direction: .forward) ?? Date.distantPast
+                }
                 if openDate <= closeDate {
                     let interval = DateInterval(start: openDate, end: closeDate)
-                    parsedIntervals[weekday] = interval
+                    parsedIntervals[openDate.weekday()] = interval
                 }
             }
         }
