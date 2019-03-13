@@ -231,10 +231,9 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
         dateFormatter.amSymbol = "AM"
         dateFormatter.pmSymbol = "PM"
         dateFormatter.timeZone = TimeZone(abbreviation: "PST")
-        let dow = Calendar.current.component(.weekday, from: Date())
         var localOpeningTime = ""
         var localClosingTime = ""
-        if let t = (library.weeklyHours[dow - 1]) {
+        if let t = (library.weeklyHours[Date().weekday()]) {
             localOpeningTime = dateFormatter.string(from:t.start)
             localClosingTime = dateFormatter.string(from:t.end)
         }

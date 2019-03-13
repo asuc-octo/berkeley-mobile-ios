@@ -24,10 +24,10 @@ extension ResourceDataSource {
                let close = open_close[closeKey] as? Double,
                let openDate = Date(timeIntervalSince1970: open).sameDayThisWeek(),
                let closeDate = Date(timeIntervalSince1970: close).sameDayThisWeek() {
-                let weekday = Calendar.current.component(.weekday, from: openDate)
+                let weekday = openDate.weekday()
                 if openDate <= closeDate {
                     let interval = DateInterval(start: openDate, end: closeDate)
-                    parsedIntervals[weekday - 1] = interval
+                    parsedIntervals[weekday] = interval
                 }
             }
         }

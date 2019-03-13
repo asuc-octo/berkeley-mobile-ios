@@ -65,10 +65,10 @@ class LibraryViewController: UIViewController, GMSMapViewDelegate, CLLocationMan
         dateFormatter.pmSymbol = "PM"
         
         let calendar = Calendar.current
-        let dow = calendar.component(.weekday, from: Date())
+        let dow = Date().weekday()
         for i in 0...6 {
             var timeRange = "CLOSED ALL DAY"
-            if let t = self.library.weeklyHours[(dow - 1 + i) % 7] {
+            if let t = self.library.weeklyHours[(dow + i) % 7] {
                 timeRange = dateFormatter.string(from:t.start) + " : " + dateFormatter.string(from:t.end)
             }
             weeklyTimes.append(timeRange)
@@ -168,10 +168,9 @@ class LibraryViewController: UIViewController, GMSMapViewDelegate, CLLocationMan
         dateFormatter.pmSymbol = "PM"
         dateFormatter.timeZone = TimeZone(abbreviation: "PST")
         var trivialDayStringsORDINAL = ["", "SUN","MON","TUE","WED","THU","FRI","SAT"]
-        let dow = Calendar.current.component(.weekday, from: Date())
         var localOpeningTime = ""
         var localClosingTime = ""
-        if let t = (self.library.weeklyHours[dow - 1]) {
+        if let t = (self.library.weeklyHours[Date().weekday()]) {
             localOpeningTime = dateFormatter.string(from:t.start)
             localClosingTime = dateFormatter.string(from:t.end)
         }

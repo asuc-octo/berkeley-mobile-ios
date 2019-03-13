@@ -49,8 +49,7 @@ class Library: Resource {
             return false
         }
         var status = false
-        let dow = Calendar.current.component(.weekday, from: Date())
-        if let interval = self.weeklyHours[dow - 1] {
+        if let interval = self.weeklyHours[Date().weekday()] {
             if interval.contains(Date()) || interval.duration == 0 {
                 status = true
             }

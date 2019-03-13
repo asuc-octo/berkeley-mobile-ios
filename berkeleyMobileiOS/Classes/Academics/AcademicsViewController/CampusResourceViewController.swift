@@ -175,34 +175,15 @@ class CampusResourceViewController: UIViewController, CLLocationManagerDelegate,
         dateFormatter.pmSymbol = "PM"
         
         let calendar = Calendar.current
-        let dow = calendar.component(.weekday, from: Date())
+        let dow = Date().weekday()
         for i in 0...6 {
             var timeRange = "CLOSED ALL DAY"
-            if let t = campusResource.weeklyHours[(dow - 1 + i) % 7] {
+            if let t = campusResource.weeklyHours[(dow + i) % 7] {
                 timeRange = dateFormatter.string(from:t.start) + " : " + dateFormatter.string(from:t.end)
             }
             weeklyTimes.append(timeRange)
             daysOfWeek.append(calendar.weekdaySymbols[(dow + i) % 7])
         }
-    }
-    
-    #warning("Replace with Tappable Dropdown (like in Libraries)")
-    private func parseHours() -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "EEEE h:mm a"
-        dateFormatter.amSymbol = "AM"
-        dateFormatter.pmSymbol = "PM"
-        
-        let calendar = Calendar.current
-        let dow = calendar.component(.weekday, from: Date())
-        var hours = ""
-        for i in 0...6 {
-            if let t = self.campusResource.weeklyHours[(dow - 1 + i) % 7] {
-                let timeRange = dateFormatter.string(from:t.start) + " : " + dateFormatter.string(from:t.end)
-                hours += timeRange + "\n"
-            }
-        }
-        return hours != "" && !campusResource.byAppointment ? hours : kAppointmentMessage
     }
     
     /*
