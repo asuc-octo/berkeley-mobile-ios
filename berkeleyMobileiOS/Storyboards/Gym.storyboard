@@ -36,7 +36,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pgd-Jo-c56">
-                                <rect key="frame" x="0.0" y="86" width="375" height="581"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2R2-Az-6gw">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="657.5"/>
@@ -383,33 +383,13 @@
                                     <constraint firstAttribute="bottom" secondItem="2R2-Az-6gw" secondAttribute="bottom" id="r9I-jg-PVj"/>
                                 </constraints>
                             </scrollView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iZE-Ki-nbc">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="86"/>
-                                <color key="backgroundColor" red="0.074509803921568626" green="0.20000000000000001" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <color key="tintColor" red="0.0" green="0.20000000000000001" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="86" id="Bvx-NX-oHh"/>
-                                </constraints>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bearsmallmed" translatesAutoresizingMaskIntoConstraints="NO" id="Qjs-aD-AeQ">
-                                <rect key="frame" x="169.5" y="46" width="36" height="19"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="36" id="SqS-v9-vVQ"/>
-                                    <constraint firstAttribute="height" constant="19" id="Vix-g3-4Ht"/>
-                                </constraints>
-                            </imageView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.0" green="0.20000000000000001" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="pgd-Jo-c56" firstAttribute="top" secondItem="gQB-Fl-g31" secondAttribute="bottom" id="2fD-Uh-Zhf"/>
                             <constraint firstItem="pgd-Jo-c56" firstAttribute="leading" secondItem="4BM-v4-wyg" secondAttribute="leading" id="3R5-Im-kEY"/>
                             <constraint firstAttribute="trailing" secondItem="pgd-Jo-c56" secondAttribute="trailing" id="DDO-s2-CIV"/>
-                            <constraint firstItem="pgd-Jo-c56" firstAttribute="top" secondItem="iZE-Ki-nbc" secondAttribute="bottom" id="JvC-pn-f3e"/>
-                            <constraint firstItem="Qjs-aD-AeQ" firstAttribute="top" secondItem="iZE-Ki-nbc" secondAttribute="bottom" constant="-40" id="L4v-UB-JYH"/>
-                            <constraint firstAttribute="trailing" secondItem="iZE-Ki-nbc" secondAttribute="trailing" id="Mm2-dL-VRy"/>
-                            <constraint firstItem="Qjs-aD-AeQ" firstAttribute="centerX" secondItem="iZE-Ki-nbc" secondAttribute="centerX" id="Tv1-2N-sM5"/>
-                            <constraint firstItem="iZE-Ki-nbc" firstAttribute="top" secondItem="4BM-v4-wyg" secondAttribute="top" id="YM0-yK-roF"/>
                             <constraint firstItem="1h6-4n-2fC" firstAttribute="width" secondItem="4BM-v4-wyg" secondAttribute="width" id="aHI-1b-JhV"/>
-                            <constraint firstItem="iZE-Ki-nbc" firstAttribute="leading" secondItem="4BM-v4-wyg" secondAttribute="leading" id="jFP-Xk-4ko"/>
                             <constraint firstAttribute="bottom" secondItem="pgd-Jo-c56" secondAttribute="bottom" id="sP3-bT-TOP"/>
                         </constraints>
                     </view>
@@ -613,7 +593,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="bearsmallmed" width="36" height="19"/>
         <image name="ic_arrow_back_white" width="24" height="24"/>
     </resources>
 </document>

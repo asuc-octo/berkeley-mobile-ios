@@ -225,39 +225,17 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
 
     }
     
-    
-    func getLibraryStatus(library: Library) -> String {
-        
-        //Determining Status of library
-        let todayDate = NSDate()
-        
-        if (library.weeklyClosingTimes[0] == nil) {
-            return "Closed"
-        }
-        
-        var status = "Open"
-        if (library.weeklyClosingTimes[0]!.compare(todayDate as Date) == .orderedAscending) {
-            status = "Closed"
-        }
-        
-        return status
-    }
-    
     func getLibraryHours(library: Library) -> String{
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "h:mm a"
         dateFormatter.amSymbol = "AM"
         dateFormatter.pmSymbol = "PM"
         dateFormatter.timeZone = TimeZone(abbreviation: "PST")
-        let dow = Calendar.current.component(.weekday, from: Date())
-        let translateddow = 0
         var localOpeningTime = ""
         var localClosingTime = ""
-        if let t = (library.weeklyOpeningTimes[translateddow]) {
-            localOpeningTime = dateFormatter.string(from:t)
-        }
-        if let t = (library.weeklyClosingTimes[translateddow]) {
-            localClosingTime = dateFormatter.string(from:t)
+        if let t = (library.weeklyHours[Date().weekday()]) {
+            localOpeningTime = dateFormatter.string(from:t.start)
+            localClosingTime = dateFormatter.string(from:t.end)
         }
         
         var timeRange:String = localOpeningTime + " to " + localClosingTime

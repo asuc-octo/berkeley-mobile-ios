@@ -13,17 +13,24 @@ import MessageUI
 
 fileprivate let kColorGreen = UIColor(red: 16/255.0, green: 161/255.0, blue: 0, alpha:1)
 fileprivate let kColorRed = UIColor.red
+fileprivate let kBookingURL = "berkeley.libcal.com"
+fileprivate let kBookingStr = "Book Study Rooms"
 
 class LibraryViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDelegate, WeeklyTimesCellDelegate {
     
     var library: Library!
     var locationManager = CLLocationManager()
-    var iconImages = [UIImage]()
-    var libInfo = [String]()
-    var types = [TappableInfoType]()
     var weeklyTimes = [String]()
     var daysOfWeek = [String]()
     var expandRow: Bool!
+    
+    var cells: [AcademicDetailCellTypes] = [
+        .weekly,
+        .phone,
+        .location,
+        .website
+    ]
+    var libInfo = [String?]()
     
     @IBOutlet weak var libTitle: UILabel!
     @IBOutlet weak var libraryImage: UIImageView!
@@ -33,7 +40,7 @@ class LibraryViewController: UIViewController, GMSMapViewDelegate, CLLocationMan
         Analytics.logEvent("opened_library", parameters: ["name" : library.name])
     }
     override func viewDidLoad() {
-//        setUpMap()
+        super.viewDidLoad()
 
         libTitle.bringSubview(toFront: libraryImage)
         
@@ -44,86 +51,58 @@ class LibraryViewController: UIViewController, GMSMapViewDelegate, CLLocationMan
         libTableView.separatorStyle = .none
         
         libraryImage.load(resource: library)
-        iconImages.append(#imageLiteral(resourceName: "hours_2.0"))
-        iconImages.append(#imageLiteral(resourceName: "phone_2.0"))
-        iconImages.append(#imageLiteral(resourceName: "location_2.0"))
         
-        libInfo.append(getLibraryStatusHours())
-        libInfo.append(getLibraryPhoneNumber())
-        libInfo.append(getLibraryLoc())
+        for i in 0..<cells.count {
+            switch cells[i] {
+            case .weekly:
+                libInfo.append("")
+                initWeeklyTimes()
+            case .phone:
+                libInfo.append(library.phoneNumber)
+            case .location:
+                libInfo.append(library.campusLocation ?? "UC Berkeley")
+            case .website:
+                libInfo.append(kBookingURL)
+            default:
+                libInfo.append(nil)
+            }
+            
+            if libInfo[i].isNil {
+                cells[i] = .none
+            }
+        }
         
-        types = [.none, .phone, .none]
+        cells = cells.filter { $0 != .none }
+        libInfo = libInfo.filter { !$0.isNil }
         
         libTableView.delegate = self
         libTableView.dataSource = self
 
         expandRow = false
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "h:mm a"
-        dateFormatter.amSymbol = "AM"
-        dateFormatter.pmSymbol = "PM"
-        dateFormatter.timeZone = TimeZone(abbreviation: "PST")
-        var localOpeningTime = ""
-        var localClosingTime = ""
-        var timeArr = [String]()
-        for i in 0...6 {
-            if let t = (self.library?.weeklyOpeningTimes[i]) {
-                localOpeningTime = dateFormatter.string(from:t)
-            }
-            if let t = (self.library?.weeklyClosingTimes[i]) {
-                localClosingTime = dateFormatter.string(from:t)
-            }
-            
-            var timeRange:String = localOpeningTime + " : " + localClosingTime
-            
-            if (localOpeningTime == "" && localClosingTime == "") {
-                timeRange = "CLOSED ALL DAY"
-            }
-
-            weeklyTimes.append(timeRange)
-            
-        }
-        
-        var dateComponent = DateComponents()
-        dateComponent.day = 1
-        let calendar = Calendar.current
-        var currDate = Date()
-        for _ in 0...6 {
-            let currDateString = calendar.component(.weekday, from: currDate)
-
-            let nextDate = calendar.date(byAdding: .day, value: 1, to: currDate)
-            
-            switch currDateString {
-            case 1:
-                daysOfWeek.append("Sunday")
-            case 2:
-                daysOfWeek.append("Monday")
-            case 3:
-                daysOfWeek.append("Tuesday")
-            case 4:
-                daysOfWeek.append("Wednesday")
-            case 5:
-                daysOfWeek.append("Thursday")
-            case 6:
-                daysOfWeek.append("Friday")
-            case 7:
-                daysOfWeek.append("Saturday")
-            default:
-                daysOfWeek.append("")
-            }
-        
-            currDate = nextDate!
-        }
-    
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    private func initWeeklyTimes() {
+        expandRow = false
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "h:mm a"
+        dateFormatter.amSymbol = "AM"
+        dateFormatter.pmSymbol = "PM"
+        
+        let calendar = Calendar.current
+        let dow = Date().weekday()
+        for i in 0...6 {
+            var timeRange = "CLOSED ALL DAY"
+            if let t = library.weeklyHours[(dow + i) % 7] {
+                timeRange = dateFormatter.string(from:t.start) + " : " + dateFormatter.string(from:t.end)
+            }
+            weeklyTimes.append(timeRange)
+            daysOfWeek.append(calendar.weekdaySymbols[(dow + i) % 7])
+        }
     }
     
 //    func setUpMap() {
@@ -178,61 +157,6 @@ class LibraryViewController: UIViewController, GMSMapViewDelegate, CLLocationMan
 //        marker.map = self.libMap
 //
 //    }
-    
-    func getLibraryStatusHours() -> String{
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "h:mm a"
-        dateFormatter.amSymbol = "AM"
-        dateFormatter.pmSymbol = "PM"
-        dateFormatter.timeZone = TimeZone(abbreviation: "PST")
-        var trivialDayStringsORDINAL = ["", "SUN","MON","TUE","WED","THU","FRI","SAT"]
-        let dow = Calendar.current.component(.weekday, from: Date())
-        let translateddow = 0
-        var localOpeningTime = ""
-        var localClosingTime = ""
-        if let t = (self.library?.weeklyOpeningTimes[translateddow]) {
-        localOpeningTime = dateFormatter.string(from:t)
-        }
-        if let t = (self.library?.weeklyClosingTimes[translateddow]) {
-        localClosingTime = dateFormatter.string(from:t)
-        }
-        
-        var timeRange:String = localOpeningTime + " to " + localClosingTime
-        var status = "Closed"
-        
-        if (localOpeningTime == "" && localClosingTime == "") {
-        timeRange = "Closed Today"
-        } else {
-            if library.isOpen {
-                status = "Open"
-            }
-        }
-        
-        var timeInfo = status + "    " + timeRange
-        if (timeRange == "Closed Today") {
-        timeInfo = timeRange
-        }
-        return timeInfo
-    }
-    
-    func getLibraryPhoneNumber() -> String {
-        return (self.library?.phoneNumber)!
-    }
-    
-    func getLibraryWebsite() -> String {
-        //        return library.
-        return "marisawong.comlmao"
-        
-    }
-    
-    
-    func getLibraryLoc() -> String {
-        if let loc = library.campusLocation {
-            return loc
-        } else {
-            return "UC Berkeley"
-        }
-    }
 }
 
 
@@ -240,7 +164,7 @@ class LibraryViewController: UIViewController, GMSMapViewDelegate, CLLocationMan
 extension LibraryViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return cells.count + 1
     }
         
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -248,11 +172,11 @@ extension LibraryViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if expandRow == true && indexPath.row == 0  {
-            return 220
-        } else if (indexPath.row == 3) {
+        if indexPath.row == cells.count {
             return 400
-        } else {
+        } else if expandRow == true && cells[indexPath.row] == .weekly  {
+            return 220
+        }  else {
             return UITableViewAutomaticDimension
         }
     }
@@ -285,8 +209,8 @@ extension LibraryViewController: UITableViewDataSource, UITableViewDelegate {
             //            print(error)
         }
         
-        let lat = library.latitude!
-        let lon = library.longitude!
+        let lat = library.latitude ?? 0
+        let lon = library.longitude ?? 0
         let marker = GMSMarker()
         marker.icon = #imageLiteral(resourceName: "blueStop")
         marker.position = CLLocationCoordinate2D(latitude: lat, longitude: lon)
@@ -294,10 +218,14 @@ extension LibraryViewController: UITableViewDataSource, UITableViewDelegate {
         marker.map = campResMap
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == 0 {
+        if indexPath.row == cells.count {
+            let campResInfoCell = tableView.dequeueReusableCell(withIdentifier: "librarymapTable", for: indexPath) as! LibraryMapTableViewCell
+            setUpMap(campResInfoCell.mapView)
+            return campResInfoCell
+        } else if cells[indexPath.row] == .weekly {
             let cell = libTableView.dequeueReusableCell(withIdentifier: "dropdown", for: indexPath) as! WeeklyTimesTableViewCell
             cell.delegate = self
-            cell.icon.image = iconImages[indexPath.row]
+            cell.icon.image = cells[indexPath.row].icon ?? UIImage(named:"info_2.0.png")
             if self.library.isOpen {
                 cell.day.text = "Open"
                 cell.day.textColor = kColorGreen
@@ -314,18 +242,14 @@ extension LibraryViewController: UITableViewDataSource, UITableViewDelegate {
                 cell.expandButton.setBackgroundImage(#imageLiteral(resourceName: "expand"), for: .normal)
             }
             return cell
-        } else if (indexPath.row == 3) {
-            let campResInfoCell = tableView.dequeueReusableCell(withIdentifier: "librarymapTable", for: indexPath) as! LibraryMapTableViewCell
-            setUpMap(campResInfoCell.mapView)
-            return campResInfoCell
         } else {
             let libraryInfoCell = libTableView.dequeueReusableCell(withIdentifier: "libraryCell", for: indexPath) as! LibraryDetailCell
             
-            libraryInfoCell.libraryIconImage.image = iconImages[indexPath.row]
-            libraryInfoCell.libraryIconInfo.text = libInfo[indexPath.row]
+            libraryInfoCell.libraryIconImage.image = cells[indexPath.row].icon ?? UIImage(named:"info_2.0.png")
+            libraryInfoCell.libraryIconInfo.text = cells[indexPath.row] == .website ? kBookingStr : libInfo[indexPath.row]
             libraryInfoCell.libraryIconInfo.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightMedium)
-            libraryInfoCell.info = libraryInfoCell.libraryIconInfo.text
-            libraryInfoCell.type = types[indexPath.row]
+            libraryInfoCell.info = libInfo[indexPath.row]
+            libraryInfoCell.type = cells[indexPath.row].tappableType
             libraryInfoCell.delegate = self
             return libraryInfoCell
         }

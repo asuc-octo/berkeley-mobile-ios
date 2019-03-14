@@ -26,7 +26,8 @@ class Gym: Resource {
     
     var isFavorited: Bool = false
     
-    let address: String
+    let address: String?
+    let phoneNumber: String?
     
     var openingTimeToday: Date? = nil
     var closingTimeToday: Date? = nil
@@ -34,22 +35,19 @@ class Gym: Resource {
     var longitude: Double? = nil
     
     var isOpen: Bool {
-        var status = true
-        if let t = (openingTimeToday) {
-            if t > Date() {
-                status = false
-            }
-        }
-        if let t = (closingTimeToday) {
-            if t < Date() {
-                status = false
+        var status = false
+        if let open = openingTimeToday,
+           let close = closingTimeToday {
+            if Date().isBetween(open, close) || close == open {
+                status = true
             }
         }
         return status
     }
     
-    init(name: String, address: String, imageLink: String?, openingTimeToday: Date?, closingTimeToday: Date?) {
+    init(name: String, address: String?, phoneNumber: String?, imageLink: String?, openingTimeToday: Date?, closingTimeToday: Date?) {
         self.address = address
+        self.phoneNumber = phoneNumber
         self.openingTimeToday = openingTimeToday
         self.closingTimeToday = closingTimeToday
         

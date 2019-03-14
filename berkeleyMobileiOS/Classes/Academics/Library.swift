@@ -27,17 +27,15 @@ class Library: Resource {
     
     let campusLocation: String?
     let phoneNumber: String?
-    var weeklyOpeningTimes:[Date?]
-    var weeklyClosingTimes:[Date?]
+    let weeklyHours: [DateInterval?]
     var weeklyByAppointment:[Bool]
     let latitude: Double?
     let longitude: Double?
     
-    init(name: String, campusLocation: String?, phoneNumber: String?, weeklyOpeningTimes:[Date?], weeklyClosingTimes:[Date?], weeklyByAppointment:[Bool], imageLink: String?, latitude: Double?, longitude: Double?) {
+    init(name: String, campusLocation: String?, phoneNumber: String?, weeklyHours: [DateInterval?], weeklyByAppointment:[Bool], imageLink: String?, latitude: Double?, longitude: Double?) {
         self.campusLocation = campusLocation
         self.phoneNumber = phoneNumber
-        self.weeklyOpeningTimes = weeklyOpeningTimes
-        self.weeklyClosingTimes = weeklyClosingTimes
+        self.weeklyHours = weeklyHours
         self.weeklyByAppointment = weeklyByAppointment
         self.latitude = latitude
         self.longitude = longitude
@@ -47,22 +45,13 @@ class Library: Resource {
     }
     
     var isOpen: Bool {
-        if self.weeklyOpeningTimes.count == 0 {
+        if self.weeklyHours.count == 0 {
             return false
         }
         var status = false
-        let dow = Calendar.current.component(.weekday, from: Date())
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "h:mm a"
-        dateFormatter.amSymbol = "AM"
-        dateFormatter.pmSymbol = "PM"
-        dateFormatter.timeZone = TimeZone(abbreviation: "PST")
-        var ind = 0
-        if let opening = (self.weeklyOpeningTimes[ind]) {
-            if let closing = (self.weeklyClosingTimes[ind]) {
-                if (Date() >= opening && Date() <= closing || opening == closing) {
-                    status = true
-                }
+        if let interval = self.weeklyHours[Date().weekday()] {
+            if interval.contains(Date()) || interval.duration == 0 {
+                status = true
             }
         }
         return status
