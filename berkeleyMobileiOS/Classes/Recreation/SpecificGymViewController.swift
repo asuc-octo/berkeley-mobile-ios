@@ -93,7 +93,7 @@ class SpecificGymViewController: UIViewController, CLLocationManagerDelegate, GM
         marker.title = gym?.name
         
         var status = "Open"
-        if (self.gym?.closingTimeToday!.compare(NSDate() as Date) == .orderedAscending) {
+        if (!self.gym.isOpen) {
             status = "Closed"
         }
         
@@ -120,10 +120,14 @@ class SpecificGymViewController: UIViewController, CLLocationManagerDelegate, GM
         df.dateFormat = "MM-dd-yyyy HH:mm"
         df.timeZone = TimeZone(abbreviation: "PST")
         
-        let localOpeningTime = dateFormatter.string(from: (self.gym?.openingTimeToday)!)
-        let localClosingTime = dateFormatter.string(from: (self.gym?.closingTimeToday)!)
         
-        let timeRange = localOpeningTime + " to " + localClosingTime
+        var timeRange = ""
+        if let open = self.gym.openingTimeToday,
+            let close = self.gym.closingTimeToday {
+            let localOpeningTime = dateFormatter.string(from: open)
+            let localClosingTime = dateFormatter.string(from: close)
+            timeRange = localOpeningTime + " to " + localClosingTime
+        }
         
         var status = "Open"
         
@@ -136,7 +140,7 @@ class SpecificGymViewController: UIViewController, CLLocationManagerDelegate, GM
     
     
     func getGymPhoneNumber() -> String {
-        var number = ""
+        var number = gym.phoneNumber ?? "(510) 642-7796"
         if (gym?.name.contains("Recreational"))! {
             number = "(510) 643-8038"
             
@@ -146,15 +150,17 @@ class SpecificGymViewController: UIViewController, CLLocationManagerDelegate, GM
         return number
     }
     
+    #warning("Hardcoded websites")
     func getGymWebsite() -> String{
         var website = ""
         
         //Hardcoding websites for gyms
         if (gym?.name.contains("Recreational"))! {
             website = "recsports.berkeley.edu/rsf/"
-            
         } else if (gym?.name.contains("Stadium"))! {
             website = "recsports.berkeley.edu/stadium-fitness-center/"
+        } else {
+            website = "recsports.berkeley.edu"
         }
         return website
     }
@@ -162,7 +168,7 @@ class SpecificGymViewController: UIViewController, CLLocationManagerDelegate, GM
     func getGymLoc() -> String {
         let addr = gym?.address
         let addrArray = addr?.components(separatedBy: ",")
-        return addrArray![0]
+        return addrArray.isNil ? "UC Berkeley" : addrArray![0]
     }
 
     override func didReceiveMemoryWarning() {
