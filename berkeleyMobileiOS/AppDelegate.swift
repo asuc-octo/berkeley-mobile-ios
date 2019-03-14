@@ -54,8 +54,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let indexViewController: UIViewController  = TabBarController(viewControllers: viewControllers, selectedIndex: 0)
         
+        
         indexViewController.modalTransitionStyle = .crossDissolve
         window?.rootViewController = indexViewController
+        
+        indexViewController.tabBarController?.tabBar.items?[0].image = UIImage(named: "beartransit")!
+        indexViewController.tabBarController?.tabBar.items?[1].image = UIImage(named: "gym-uncolored")!
+        indexViewController.tabBarController?.tabBar.items?[2].image = UIImage(named: "DINING")!
+        indexViewController.tabBarController?.tabBar.items?[3].image = UIImage(named: "library-transparent")!
+        
 //        self.present(indexViewController, animated: true, completion: nil)
     }
     func applicationWillResignActive(_ application: UIApplication) {

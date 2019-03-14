@@ -58,8 +58,10 @@ class CampusMapDataSource {
                     queriesToLocations[formattedQuery] = locations
                     completedFetchingLocations = true
                 }
+                
             }
         }
+        
     }
 }
 
