@@ -50,6 +50,9 @@ class LibraryDataSource: ResourceDataSource {
                               imageLink: dict["picture"] as? String,
                               latitude: dict["latitude"] as? Double,
                               longitude: dict["longitude"] as? Double)
+        
+        FavoriteStore.shared.restoreState(for: library)
+        
         return library
     }
     

@@ -9,8 +9,9 @@
 import Foundation
 import Alamofire
 import SwiftyJSON
+import Firebase
 
-fileprivate let kGymsEndpoint = secretKAPIURL + "/gyms"
+fileprivate let kGymsEndpoint = "Gyms"
 
 class GymDataSource: ResourceDataSource 
 {
@@ -19,51 +20,43 @@ class GymDataSource: ResourceDataSource
     // Fetch the list of gyms and report back to the completionHandler.
     static func fetchResources(_ completion: @escaping ([Resource]?) -> Void)
     {
-        Alamofire.request(encode_url_no_cache(kGymsEndpoint)).responseJSON
-        { response in
-            
-            if response.result.isFailure
-            {
-                print("[Error @ GymDataSource.fetchGyms()]: request failed")
+        
+        let db = Firestore.firestore()
+        db.collection(kGymsEndpoint).getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("[Error @ GymDataSource.fetchGyms()]: \(err)")
                 return
+            } else {
+                let gyms = querySnapshot!.documents.map { (document) -> Gym in
+                    let dict = document.data()
+                    return parseGym(dict)
+                }
+                completion(gyms)
             }
-            
-            let gyms = JSON(data: response.data!)["gyms"].map { (_, child) in parseGym(child) }
-            completion(gyms)
         }
     }
     
     static func parseResource(_ json: JSON) -> Resource {
-        return parseGym(json)
+        return parseGym(json.dictionaryObject ?? [:])
     }
     
-    // Return a Gym object parsed from JSON.
-    private static func parseGym(_ json: JSON) -> Gym
-    {
-        let formatter = sharedDateFormatter()
-        let open  = formatter.date(from: json["opening_time_today"].string ?? "")
-        let close = formatter.date(from: json["closing_time_today"].string ?? "")
+    // Return a Gym object parsed from a dictionary.
+    private static func parseGym(_ dict: [String: Any]) -> Gym {
+        let weeklyHours = parseWeeklyTimes(dict["open_close_array"] as? [[String: Any]])
+        let timesToday = weeklyHours[Date().weekday()]
         
-        let gym = Gym(name: json["name"].stringValue,
-                      address: json["address"].stringValue,
-                      imageLink: json["image_link"].stringValue,
-                      openingTimeToday: open,
-                      closingTimeToday: close)
+        let gym = Gym(name: dict["name"] as? String ?? "Unnamed",
+                      address: dict["address"] as? String,
+                      phoneNumber: dict["phone"] as? String,
+                      imageLink: dict["picture"] as? String,
+                      openingTimeToday: timesToday?.start,
+                      closingTimeToday: timesToday?.end)
         
-        gym.latitude = json["latitude"].doubleValue
-        gym.longitude = json["longitude"].doubleValue
+        gym.latitude = dict["latitude"] as? Double
+        gym.longitude = dict["longitude"] as? Double
         
         FavoriteStore.shared.restoreState(for: gym)
         
         return gym
-    }
-    
-    private static func sharedDateFormatter() -> DateFormatter
-    {
-        let formatter = DateFormatter()
-        formatter.timeZone = TimeZone(abbreviation: "UTC")!
-        formatter.locale = Locale(identifier: "en_US_POSIX")
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-        return formatter
     }
 }
