@@ -13,6 +13,8 @@ import MessageUI
 
 fileprivate let kColorGreen = UIColor(red: 16/255.0, green: 161/255.0, blue: 0, alpha:1)
 fileprivate let kColorRed = UIColor.red
+fileprivate let kBookingURL = "berkeley.libcal.com"
+fileprivate let kBookingStr = "Book Study Rooms"
 
 class LibraryViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDelegate, WeeklyTimesCellDelegate {
     
@@ -25,7 +27,8 @@ class LibraryViewController: UIViewController, GMSMapViewDelegate, CLLocationMan
     var cells: [AcademicDetailCellTypes] = [
         .weekly,
         .phone,
-        .location
+        .location,
+        .website
     ]
     var libInfo = [String?]()
     
@@ -58,6 +61,8 @@ class LibraryViewController: UIViewController, GMSMapViewDelegate, CLLocationMan
                 libInfo.append(library.phoneNumber)
             case .location:
                 libInfo.append(library.campusLocation ?? "UC Berkeley")
+            case .website:
+                libInfo.append(kBookingURL)
             default:
                 libInfo.append(nil)
             }
@@ -241,9 +246,9 @@ extension LibraryViewController: UITableViewDataSource, UITableViewDelegate {
             let libraryInfoCell = libTableView.dequeueReusableCell(withIdentifier: "libraryCell", for: indexPath) as! LibraryDetailCell
             
             libraryInfoCell.libraryIconImage.image = cells[indexPath.row].icon ?? UIImage(named:"info_2.0.png")
-            libraryInfoCell.libraryIconInfo.text = libInfo[indexPath.row]
+            libraryInfoCell.libraryIconInfo.text = cells[indexPath.row] == .website ? kBookingStr : libInfo[indexPath.row]
             libraryInfoCell.libraryIconInfo.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightMedium)
-            libraryInfoCell.info = libraryInfoCell.libraryIconInfo.text
+            libraryInfoCell.info = libInfo[indexPath.row]
             libraryInfoCell.type = cells[indexPath.row].tappableType
             libraryInfoCell.delegate = self
             return libraryInfoCell

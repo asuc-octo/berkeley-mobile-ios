@@ -14,6 +14,7 @@ enum AcademicDetailCellTypes {
     case weekly
     case phone
     case email
+    case website
     case location
     case description
     case none
@@ -30,6 +31,8 @@ enum AcademicDetailCellTypes {
             return UIImage(named: "mail_2.0.png")
         case .location:
             return UIImage(named: "location_2.0.png")
+        case .website:
+            return UIImage(named: "website_2.0.png")
         default:
             return UIImage(named: "info_2.0.png")
         }
@@ -41,6 +44,8 @@ enum AcademicDetailCellTypes {
             return .phone
         case .email:
             return .email
+        case .website:
+            return .website
         default:
             return .none
         }
