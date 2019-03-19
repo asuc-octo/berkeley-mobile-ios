@@ -134,7 +134,7 @@ class CampusMapViewController: UIViewController, UICollectionViewDelegate, UICol
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         detailSubtitle4.font = UIFont.systemFont(ofSize: 12)
         detailSubtitle4.textColor = UIColor.darkGray
-        detailSubtitle3.font = UIFont.systemFont(ofSize: 17)
+        detailSubtitle2.font = UIFont.systemFont(ofSize: 17)
         
         busLineSegmentedControl.isHidden = true
         
@@ -218,7 +218,8 @@ class CampusMapViewController: UIViewController, UICollectionViewDelegate, UICol
             let selectedIndex = sender.selectedSegmentIndex >= 0 ? sender.selectedSegmentIndex : 0
             let lineName = sender.titleForSegment(at: selectedIndex)!
             
-            detailSubtitle3.font = UIFont.boldSystemFont(ofSize: 17)
+            detailSubtitle2.font = UIFont.boldSystemFont(ofSize: 17)
+            detailSubtitle2.textColor = .black
             
             detailSubtitle4.font = UIFont.boldSystemFont(ofSize: 17)
             detailSubtitle4.textColor = .black
@@ -226,14 +227,25 @@ class CampusMapViewController: UIViewController, UICollectionViewDelegate, UICol
             detailSubtitle1.text = "Next Bus:"
             if let lineDirections = lineDirections[lineName] {
                 detailSubtitle1.text = "Next Bus \(lineDirections.0):"
-                detailSubtitle2.text = "Next Bus \(lineDirections.1):"
-                detailSubtitle3.text = stop.nextTimeOnLine(line: lineName, direction: lineDirections.0)
+                detailSubtitle3.text = "Next Bus \(lineDirections.1):"
+                detailSubtitle2.text = stop.nextTimeOnLine(line: lineName, direction: lineDirections.0)
                 detailSubtitle4.text = stop.nextTimeOnLine(line: lineName, direction: lineDirections.1)
                 
-            } else {
-                detailSubtitle3.text = stop.nextTimeOnLine(line: lineName, direction: "")
+                if detailSubtitle4.text == "" {
+                    detailSubtitle3.text = ""
+                }
                 
-                detailSubtitle2.text = ""
+                if detailSubtitle2.text == "" {
+                    detailSubtitle1.text = detailSubtitle3.text
+                    detailSubtitle2.text = detailSubtitle4.text
+                    detailSubtitle3.text = ""
+                    detailSubtitle4.text = ""
+                }
+                
+            } else {
+                detailSubtitle2.text = stop.nextTimeOnLine(line: lineName, direction: "")
+                
+                detailSubtitle3.text = ""
                 detailSubtitle4.text = ""
             }
            

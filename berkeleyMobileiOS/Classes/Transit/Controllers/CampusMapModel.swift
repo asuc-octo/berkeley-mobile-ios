@@ -1165,7 +1165,7 @@ let populateBusStops: () -> [BusStop] = {
         case 7:
             strawberryStop.schedule["H"]!.append(("Towards Evans Hall", hillLineTimes[i]))
         default:
-            print("Error Adding Bus Stops")
+            ()
         }
     }
     
@@ -1273,7 +1273,7 @@ let populateBusStops: () -> [BusStop] = {
         case 7:
             buchanonStop.schedule["RFS"]!.append(("Towards Richmond", rfsTimes[i]))
         default:
-            print("Error Adding Bus Stops")
+            ()
         }
     }
     

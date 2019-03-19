@@ -13,11 +13,11 @@
 		282A4EEC1E63859900480201 /* GymClassDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282A4EEB1E63859900480201 /* GymClassDataSource.swift */; };
 		284A3C851E316F1F00685A01 /* AddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284A3C841E316F1F00685A01 /* AddressCell.swift */; };
 		2852AEDB1E90B4FD00092070 /* OptionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2852AEDA1E90B4FD00092070 /* OptionsCell.swift */; };
-		3014F067222F450E00BBB624 /* CampusMapView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3014F066222F450E00BBB624 /* CampusMapView.xib */; };
 		301588B921DC2830005A4D7C /* CampusMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301588B821DC2830005A4D7C /* CampusMapViewController.swift */; };
 		301AF74C221A48FA00F4C22A /* ShortcutCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301AF74A221A48FA00F4C22A /* ShortcutCollectionViewCell.swift */; };
 		301AF74D221A48FA00F4C22A /* ShortcutCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 301AF74B221A48FA00F4C22A /* ShortcutCollectionViewCell.xib */; };
 		301E81C1220D2387009CD074 /* CampusMapDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301E81C0220D2386009CD074 /* CampusMapDataSource.swift */; };
+		30662231223C655B007B076C /* CampusMapView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30662230223C655B007B076C /* CampusMapView.xib */; };
 		3073D65121E9B99E008F382B /* CampusMapModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3073D65021E9B99E008F382B /* CampusMapModel.swift */; };
 		30914CFE21B4615800153396 /* mapData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30914CFD21B4615800153396 /* mapData.swift */; };
 		30C5B9502213CDF100D1C43A /* SearchResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C5B94F2213CDF100D1C43A /* SearchResultsTableViewController.swift */; };
@@ -148,11 +148,11 @@
 		282A4EEB1E63859900480201 /* GymClassDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GymClassDataSource.swift; sourceTree = "<group>"; };
 		284A3C841E316F1F00685A01 /* AddressCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressCell.swift; sourceTree = "<group>"; };
 		2852AEDA1E90B4FD00092070 /* OptionsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionsCell.swift; sourceTree = "<group>"; };
-		3014F066222F450E00BBB624 /* CampusMapView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CampusMapView.xib; path = ../../../../.Trash/CampusMapView.xib; sourceTree = "<group>"; };
 		301588B821DC2830005A4D7C /* CampusMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusMapViewController.swift; sourceTree = "<group>"; };
 		301AF74A221A48FA00F4C22A /* ShortcutCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutCollectionViewCell.swift; sourceTree = "<group>"; };
 		301AF74B221A48FA00F4C22A /* ShortcutCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShortcutCollectionViewCell.xib; sourceTree = "<group>"; };
 		301E81C0220D2386009CD074 /* CampusMapDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusMapDataSource.swift; sourceTree = "<group>"; };
+		30662230223C655B007B076C /* CampusMapView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CampusMapView.xib; path = berkeleyMobileiOS/CampusMapView.xib; sourceTree = SOURCE_ROOT; };
 		3073D65021E9B99E008F382B /* CampusMapModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusMapModel.swift; sourceTree = "<group>"; };
 		30914CFD21B4615800153396 /* mapData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mapData.swift; sourceTree = "<group>"; };
 		30C5B94F2213CDF100D1C43A /* SearchResultsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsTableViewController.swift; sourceTree = "<group>"; };
@@ -460,7 +460,7 @@
 				301AF74B221A48FA00F4C22A /* ShortcutCollectionViewCell.xib */,
 				30F7775B222383AF002A9FAA /* MapAnnotationCalloutView.xib */,
 				30F7775D22238926002A9FAA /* SearchResultsTableView.xib */,
-				3014F066222F450E00BBB624 /* CampusMapView.xib */,
+				30662230223C655B007B076C /* CampusMapView.xib */,
 				92A24F5E208E7FA400EFF8C4 /* Transit Classes */,
 				92A24F5D208E7B1700EFF8C4 /* Controllers */,
 				92A24F5F208E802300EFF8C4 /* DataSource */,
@@ -779,10 +779,10 @@
 				4E8E0D8B1E0C08380052CC10 /* Roboto-BlackItalic.ttf in Resources */,
 				30F7775E22238926002A9FAA /* SearchResultsTableView.xib in Resources */,
 				4E8E0D941E0C08380052CC10 /* Roboto-Thin.ttf in Resources */,
-				3014F067222F450E00BBB624 /* CampusMapView.xib in Resources */,
 				4E8E0D931E0C08380052CC10 /* Roboto-Regular.ttf in Resources */,
 				4EEF90471DDBC7D0002CF7E4 /* Dining.storyboard in Resources */,
 				4E8E0D911E0C08380052CC10 /* Roboto-Medium.ttf in Resources */,
+				30662231223C655B007B076C /* CampusMapView.xib in Resources */,
 				4E8E0D951E0C08380052CC10 /* Roboto-ThinItalic.ttf in Resources */,
 				4103E0C01FBE2DEC009F2C90 /* Images.xcassets in Resources */,
 				41C1A5151FC2272300D07E6F /* GoogleService-Info.plist in Resources */,
