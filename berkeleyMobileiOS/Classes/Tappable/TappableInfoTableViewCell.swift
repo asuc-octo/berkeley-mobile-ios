@@ -14,15 +14,8 @@ enum TappableInfoType {
     case email
     case website
     case none
-}
-
-class TappableInfoTableViewCell: UITableViewCell {
     
-    var delegate: (UIViewController & MFMailComposeViewControllerDelegate)?
-    var type = TappableInfoType.none
-    var info: String!
-    
-    func formattedAs(_ type: TappableInfoType, str: String) -> Bool {
+    static func formattedAs(_ type: TappableInfoType, str: String?) -> Bool {
         let regex: String
         switch type {
         case .phone:
@@ -35,11 +28,18 @@ class TappableInfoTableViewCell: UITableViewCell {
             return true
         }
         
-        return str.range(of: regex, options: .regularExpression) != nil
+        return str?.range(of: regex, options: .regularExpression) != nil
     }
+}
+
+class TappableInfoTableViewCell: UITableViewCell {
+    
+    var delegate: (UIViewController & MFMailComposeViewControllerDelegate)?
+    var type = TappableInfoType.none
+    var info: String!
     
     func didTap() {
-        if info == nil || !formattedAs(type, str: info) {
+        if info == nil || !TappableInfoType.formattedAs(type, str: info) {
             return
         }
         

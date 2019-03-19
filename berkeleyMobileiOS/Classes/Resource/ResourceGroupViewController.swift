@@ -28,8 +28,6 @@ class ResourceGroupViewController: UIViewController, IBInitializable, UITableVie
     
     // UI
     override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
-    private weak var navbar: UINavigationBar?
-    private var pseudoNavbar: UIView!
     private var searchBar = UISearchBar()
     let searchDropDown = DropDown()
     
@@ -72,7 +70,6 @@ class ResourceGroupViewController: UIViewController, IBInitializable, UITableVie
     {
         super.viewDidLoad()
         
-        self.setupNavigationBar()
         self.setupSearchBar()
         self.setupActivityIndicator()
         
@@ -137,8 +134,6 @@ class ResourceGroupViewController: UIViewController, IBInitializable, UITableVie
                 print("Error")
             }
         }
-        self.navbar?.hideHairline = true
-        self.navbar?.setTransparent(true)
         setStatusBarStyle(self.preferredStatusBarStyle)
         for vc in (self.pageTabBarController?.viewControllers)! {
             if (type(of: vc) == CampusMapViewController.self) {
@@ -154,49 +149,6 @@ class ResourceGroupViewController: UIViewController, IBInitializable, UITableVie
             addLoadingView()
         }
     }
-    /// Place the pseudoNavbar backdrop behind the navbar.
-    override func viewDidLayoutSubviews()
-    {
-        super.viewDidLayoutSubviews()
-        
-        let view = self.view!
-        
-        let navbarMaxY = self.navbar?.frame.maxY ?? 0
-        let eliminateSpace: CGFloat = 12
-        self.pseudoNavbar.frame = CGRect(x: 0, y: -navbarMaxY - eliminateSpace, width: view.width, height: navbarMaxY + 10)
-    }
-    
-    
-    // ========================================
-    // MARK: - Setup
-    // ========================================
-    /**
-     * Makes the original UINavigationBar clear and inserts another view with solid color.
-     * This is to prevent strage transitions when pushing/popping ViewControllers with clear navbar.
-     * 
-     * - Attention: Transparent UINavigationBar and pseudoNavbar backdrop is a temporary solution.
-     *      NavigationController and bar should be reworked into a custom class.
-     */
-    private func setupNavigationBar()
-    {
-        // Insert a pseudo-background
-        self.pseudoNavbar = UIView()
-        self.pseudoNavbar.backgroundColor = kColorNavy
-        self.view!.addSubview(self.pseudoNavbar)
-        
-        
-        // Configure the navigationBar.
-        self.navbar = self.navigationController?.navigationBar
-        guard let navbar = self.navbar else {
-            return
-        } 
-        
-        // White content
-        navbar.tintColor = .white
-        navbar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
-        self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "", style: .plain, target: nil, action: nil)
-        
-    }
     
     // ========================================
     // MARK: - UISearchBar Setup
@@ -207,17 +159,6 @@ class ResourceGroupViewController: UIViewController, IBInitializable, UITableVie
     private func setupSearchBar()
     {
         // Search bar
-
-        
-        var backView = UIView(frame: CGRect(x: 0, y: 0, width: (self.navigationController?.navigationBar.frame.width)!, height: (self.navigationController?.navigationBar.frame.height)!))
-        let image : UIImage = #imageLiteral(resourceName: "bearsmallmed")
-        let imageView = UIImageView(frame: CGRect(x: ((self.navigationController?.navigationBar.frame.width)! - 36) / 2, y: 2, width: 36, height: 19))
-        imageView.contentMode = .scaleAspectFit
-        imageView.image = image
-        //        self.navigationItem.titleView = imageView
-        
-        backView.addSubview(imageView)
-        self.navigationItem.titleView = backView
         
 //        let iv = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: 24, height: 24))
 //        iv.image = #imageLiteral(resourceName: "bear")
