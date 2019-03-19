@@ -27,6 +27,8 @@ class CampusMapViewController: UIViewController, UICollectionViewDelegate, UICol
     @IBOutlet weak var detailColor: UIView!
     @IBOutlet weak var busLineSegmentedControl: UISegmentedControl!
     
+    let locationManager = CLLocationManager()
+    
     
     
     
@@ -57,6 +59,11 @@ class CampusMapViewController: UIViewController, UICollectionViewDelegate, UICol
 
         campusMapView.addAnnotations(populateBusStops())
         
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.requestLocation()
+        
+        campusMapView.showsUserLocation = true
     }
         
         
@@ -68,6 +75,29 @@ class CampusMapViewController: UIViewController, UICollectionViewDelegate, UICol
         pageTabBarItem.image = pageTabBarItem.image!.withRenderingMode(.alwaysTemplate)
         pageTabBarItem.imageView?.contentMode = .scaleAspectFit
     }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("error:: \(error.localizedDescription)")
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .authorizedWhenInUse {
+            locationManager.requestLocation()
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        if locations.first != nil {
+            print("location:: (location)")
+        }
+        
+    }
+    
+    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
+        
+    }
+
     
     func searchBarSearchButtonClicked(_ bar: UISearchBar) {
         campusMapView.removeAnnotations(campusMapView.annotations)
@@ -128,6 +158,11 @@ class CampusMapViewController: UIViewController, UICollectionViewDelegate, UICol
                 }
             }
         }
+        
+        if let _ = annotation as? MKUserLocation {
+            return nil
+        }
+        
         return MKAnnotationView()
     }
     
