@@ -8,7 +8,7 @@
 import Foundation
 
 
-let secretKAPIURL = "https://berkeleymobile-sandbox.herokuapp.com/api"
+let secretKAPIURL = "http://asuc-mobile-dev.herokuapp.com/api"
 
-let secretAPIKEY = "INSERT YOUR GOOGLE API KEY HERE"
+let secretAPIKEY = "AIzaSyCMnCLU444kw1W7ultwW-lZ_rWNNScr6Q4"
 

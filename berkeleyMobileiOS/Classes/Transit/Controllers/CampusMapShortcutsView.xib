@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CampusMapViewController" customModule="berkeleyMobileiOS" customModuleProvider="target">
+            <connections>
+                <outlet property="ShortcutStackView" destination="CdN-t8-nzZ" id="i6a-Ar-zwk"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" spacingType="standard" id="CdN-t8-nzZ">
+            <rect key="frame" x="0.0" y="0.0" width="2500" height="476"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <button opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ek4-71-vCB">
+                    <rect key="frame" x="0.0" y="0.0" width="476" height="476"/>
+                    <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="0.0"/>
+                    <state key="normal" image="printer-icon"/>
+                </button>
+                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fKW-Ma-Eel">
+                    <rect key="frame" x="506" y="0.0" width="476" height="476"/>
+                    <state key="normal" image="nap-pods-icon"/>
+                </button>
+                <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9vS-qQ-g88">
+                    <rect key="frame" x="1012" y="0.0" width="476" height="476"/>
+                    <state key="normal" image="mental-health-icon"/>
+                </button>
+                <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9ha-dr-7mU">
+                    <rect key="frame" x="1518" y="0.0" width="476" height="476"/>
+                    <state key="normal" image="water-bottle-icon"/>
+                </button>
+                <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y7V-7z-A8R">
+                    <rect key="frame" x="2024" y="0.0" width="476" height="476"/>
+                    <state key="normal" image="microwave-icon"/>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vee-mO-gK9"/>
+        </stackView>
+    </objects>
+    <resources>
+        <image name="mental-health-icon" width="476" height="476"/>
+        <image name="microwave-icon" width="476" height="476"/>
+        <image name="nap-pods-icon" width="476" height="476"/>
+        <image name="printer-icon" width="476" height="476"/>
+        <image name="water-bottle-icon" width="476" height="476"/>
+    </resources>
+</document>
