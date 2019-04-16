@@ -26,6 +26,8 @@ class CampusMapViewController: UIViewController, UICollectionViewDelegate, UICol
     @IBOutlet weak var detailSubtitle4: UILabel!
     @IBOutlet weak var detailColor: UIView!
     @IBOutlet weak var busLineSegmentedControl: UISegmentedControl!
+    var detailBigAnchor: NSLayoutConstraint!
+    var detailSmallAnchor: NSLayoutConstraint!
     
     let locationManager = CLLocationManager()
     
@@ -56,6 +58,7 @@ class CampusMapViewController: UIViewController, UICollectionViewDelegate, UICol
         shortcutCollectionView.dataSource = self
         
         detailView.isHidden = true
+        detailView.translatesAutoresizingMaskIntoConstraints = false
 
         campusMapView.addAnnotations(populateBusStops())
         
@@ -64,6 +67,9 @@ class CampusMapViewController: UIViewController, UICollectionViewDelegate, UICol
         locationManager.requestLocation()
         
         campusMapView.showsUserLocation = true
+        
+        detailBigAnchor = detailView.heightAnchor.constraint(equalToConstant: 180)
+        detailSmallAnchor = detailView.heightAnchor.constraint(equalToConstant: 100)
     }
         
         
@@ -167,14 +173,20 @@ class CampusMapViewController: UIViewController, UICollectionViewDelegate, UICol
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        detailSubtitle4.font = UIFont.systemFont(ofSize: 12)
-        detailSubtitle4.textColor = UIColor.darkGray
-        detailSubtitle2.font = UIFont.systemFont(ofSize: 17)
-        
         busLineSegmentedControl.isHidden = true
         
+        var needToGrow = false
+        var resetFont = true
+        
         if let location = view.annotation as? Location {
+            growDetailView()
             selectedLocation = location
+            
+            detailSubtitle1.text = ""
+            detailSubtitle2.text = ""
+            detailSubtitle3.text = ""
+            detailSubtitle4.text = ""
+            
             switch location.type {
             case "Mental Health Resource":
                 detailColor.backgroundColor = UIColor(red: 245, green: 210, blue: 71, alpha: 1)
@@ -198,45 +210,52 @@ class CampusMapViewController: UIViewController, UICollectionViewDelegate, UICol
             
             detailTitle.text = location.title
             
-            if let moreInfo = location.moreInfo {
-                detailSubtitle1.text = moreInfo
-                
-            } else {
-                detailSubtitle1.text = ""
-            }
-            
-            if let notes = location.notes {
-                detailSubtitle3.text = notes
-            } else {
-                detailSubtitle3.text = ""
-            }
-            
             if let (bool, time) = location.isOpen() {
+                resetFont = false
+                detailSubtitle1.text = bool ? "Open" : "Closed"
                 
-                detailSubtitle2.text = bool ? "Open" : "Closed"
                 if bool {
-                    detailSubtitle2.textColor = .green
+                    detailSubtitle1.textColor = .green
                 } else {
-                    detailSubtitle2.textColor = .red
+                    detailSubtitle1.textColor = .red
                 }
-                detailSubtitle4.text = time
+                detailSubtitle2.text = time
+                detailSubtitle2.font = UIFont.systemFont(ofSize: 13)
+                detailSubtitle2.textColor = UIColor.lightGray
+                
+                if let moreInfo = location.moreInfo {
+                    needToGrow = true
+                    detailSubtitle3.text = moreInfo
+                }
+                
+                if let notes = location.notes {
+                    needToGrow = true
+                    detailSubtitle4.text = notes
+                }
             } else {
-                detailSubtitle2.text = ""
-                detailSubtitle4.text = ""
+                needToGrow = false
+                
+                if let moreInfo = location.moreInfo {
+                    detailSubtitle1.text = moreInfo
+                }
+                
+                if let notes = location.notes {
+                    detailSubtitle2.text = notes
+                }
             }
             
             if let busStop = location as? BusStop {
+                needToGrow = true
                 busLineSegmentedControl.removeAllSegments()
+                
                 for i in 0..<busStop.busLines.count {
                     busLineSegmentedControl.insertSegment(withTitle: busStop.busLines[i], at: i, animated: true)
                 }
+                
                 busLineSegmentedControl.selectedSegmentIndex = 0
                 busLineSegmentedControl.isHidden = false
                 busLineChanged(busLineSegmentedControl)
-                
             }
-        
-            
         }
         
         UIView.animate(withDuration: 0.1, animations: {
@@ -245,6 +264,15 @@ class CampusMapViewController: UIViewController, UICollectionViewDelegate, UICol
         }) { (success) in
             self.detailView.isHidden = false
             self.shortcutCollectionView.isHidden = true
+           
+        }
+        
+        needToGrow ? growDetailView() : shrinkDetailView()
+        
+        if resetFont {
+            detailSubtitle1.textColor = .black
+            detailSubtitle2.textColor = .black
+            detailSubtitle2.font = UIFont.systemFont(ofSize: 17)
         }
     }
     
@@ -252,12 +280,6 @@ class CampusMapViewController: UIViewController, UICollectionViewDelegate, UICol
         if let stop = selectedLocation as? BusStop {
             let selectedIndex = sender.selectedSegmentIndex >= 0 ? sender.selectedSegmentIndex : 0
             let lineName = sender.titleForSegment(at: selectedIndex)!
-            
-            detailSubtitle2.font = UIFont.boldSystemFont(ofSize: 17)
-            detailSubtitle2.textColor = .black
-            
-            detailSubtitle4.font = UIFont.boldSystemFont(ofSize: 17)
-            detailSubtitle4.textColor = .black
             
             detailSubtitle1.text = "Next Bus:"
             if let lineDirections = lineDirections[lineName] {
@@ -285,6 +307,16 @@ class CampusMapViewController: UIViewController, UICollectionViewDelegate, UICol
             }
            
         }
+    }
+    
+    func growDetailView() {
+        detailBigAnchor.isActive = true
+        detailSmallAnchor.isActive = false
+    }
+    
+    func shrinkDetailView() {
+        detailSmallAnchor.isActive = true
+        detailBigAnchor.isActive = false
     }
     
 

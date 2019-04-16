@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -103,25 +103,24 @@
                             </constraints>
                         </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="defualt" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eqk-fE-n4r">
-                            <rect key="frame" x="20" y="51.333333333333371" width="269" height="45"/>
+                            <rect key="frame" x="20" y="51.333333333333371" width="207" height="45"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="default" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="egY-j5-ifL">
-                            <rect key="frame" x="294" y="51.333333333333371" width="110" height="45"/>
+                            <rect key="frame" x="232" y="51.333333333333371" width="172" height="45"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="default" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FK4-ZP-QVv">
-                            <rect key="frame" x="294" y="111.66666666666663" width="110" height="14.333333333333329"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="default" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FK4-ZP-QVv">
+                            <rect key="frame" x="232" y="108.66666666666663" width="172" height="20.333333333333343"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="default" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hZU-if-uIu">
-                            <rect key="frame" x="20" y="96.333333333333371" width="269" height="45"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="default" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hZU-if-uIu">
+                            <rect key="frame" x="20" y="96.333333333333371" width="207" height="45"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -151,7 +150,7 @@
                         <constraint firstItem="FK4-ZP-QVv" firstAttribute="centerY" secondItem="hZU-if-uIu" secondAttribute="centerY" id="acJ-Kl-AAO"/>
                         <constraint firstItem="ttH-ZF-McI" firstAttribute="top" secondItem="J8F-X1-tVZ" secondAttribute="top" constant="5" id="cL2-7E-rkJ"/>
                         <constraint firstItem="9ej-3Z-MOy" firstAttribute="bottom" secondItem="J8F-X1-tVZ" secondAttribute="bottom" constant="-10" id="cad-9N-4F9"/>
-                        <constraint firstItem="eqk-fE-n4r" firstAttribute="width" secondItem="J8F-X1-tVZ" secondAttribute="width" multiplier="0.65" id="dGz-uc-SUL"/>
+                        <constraint firstItem="eqk-fE-n4r" firstAttribute="width" secondItem="J8F-X1-tVZ" secondAttribute="width" multiplier="0.5" id="dGz-uc-SUL"/>
                         <constraint firstItem="hZU-if-uIu" firstAttribute="width" secondItem="eqk-fE-n4r" secondAttribute="width" id="dyR-0c-V2D"/>
                         <constraint firstItem="yvS-Yf-MwE" firstAttribute="height" secondItem="ttH-ZF-McI" secondAttribute="height" id="e6h-ag-wf6"/>
                         <constraint firstItem="9ej-3Z-MOy" firstAttribute="centerX" secondItem="J8F-X1-tVZ" secondAttribute="centerX" id="esY-jo-rJG"/>

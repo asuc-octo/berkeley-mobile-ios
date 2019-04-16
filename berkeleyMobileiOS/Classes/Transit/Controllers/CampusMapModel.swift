@@ -96,7 +96,7 @@ class Location: NSObject, MKAnnotation {
                         return (true, "Closes \(timeFormatter.string(from: closeDate))")
                     }
                     
-                    if openDate.isBetween(now, closestOpen) {
+                    if openDate > now && openDate < closestOpen {
                         closestOpen = openDate
                     }
                 }

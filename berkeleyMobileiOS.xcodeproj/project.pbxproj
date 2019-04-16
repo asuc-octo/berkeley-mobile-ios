@@ -22,7 +22,8 @@
 		3073D65121E9B99E008F382B /* CampusMapModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3073D65021E9B99E008F382B /* CampusMapModel.swift */; };
 		30914CFE21B4615800153396 /* mapData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30914CFD21B4615800153396 /* mapData.swift */; };
 		30C5B9502213CDF100D1C43A /* SearchResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C5B94F2213CDF100D1C43A /* SearchResultsTableViewController.swift */; };
-		30C7F4B122419B5800ECB426 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 30C7F4B022419B5700ECB426 /* GoogleService-Info.plist */; };
+		30CB5B60225D5F6300578376 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 30CB5B5F225D5F6300578376 /* GoogleService-Info.plist */; };
+		30CB5B62225D5FBD00578376 /* secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CB5B61225D5FBD00578376 /* secret.swift */; };
 		30F7775C222383AF002A9FAA /* MapAnnotationCalloutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30F7775B222383AF002A9FAA /* MapAnnotationCalloutView.xib */; };
 		30F7775E22238926002A9FAA /* SearchResultsTableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30F7775D22238926002A9FAA /* SearchResultsTableView.xib */; };
 		354035402022D04F00A4AEB4 /* Dictionaries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3540353F2022D04F00A4AEB4 /* Dictionaries.swift */; };
@@ -35,7 +36,6 @@
 		412460A12054BD6B0000DB54 /* LibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412460A02054BD6B0000DB54 /* LibraryViewController.swift */; };
 		412460A32054C42D0000DB54 /* CampusResourceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412460A22054C42D0000DB54 /* CampusResourceTableViewCell.swift */; };
 		413E19E6208EEECA009D6621 /* LibraryMapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413E19E5208EEECA009D6621 /* LibraryMapTableViewCell.swift */; };
-		413E19E8208FBCD9009D6621 /* secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413E19E7208FBCD9009D6621 /* secret.swift */; };
 		41661D0A1DCEFC760044E7B4 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41661D021DCEFC110044E7B4 /* Material.framework */; };
 		41A884BC201BD4DF00EE85C7 /* NetworkingConvenienceMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A884BB201BD4DF00EE85C7 /* NetworkingConvenienceMethods.swift */; };
 		41B0B5891E8CD95D00DA9297 /* fullRouteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B0B57C1E8CD95D00DA9297 /* fullRouteDataSource.swift */; };
@@ -158,7 +158,8 @@
 		3073D65021E9B99E008F382B /* CampusMapModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusMapModel.swift; sourceTree = "<group>"; };
 		30914CFD21B4615800153396 /* mapData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mapData.swift; sourceTree = "<group>"; };
 		30C5B94F2213CDF100D1C43A /* SearchResultsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsTableViewController.swift; sourceTree = "<group>"; };
-		30C7F4B022419B5700ECB426 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		30CB5B5F225D5F6300578376 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		30CB5B61225D5FBD00578376 /* secret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = secret.swift; sourceTree = "<group>"; };
 		30F7775B222383AF002A9FAA /* MapAnnotationCalloutView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MapAnnotationCalloutView.xib; sourceTree = "<group>"; };
 		30F7775D22238926002A9FAA /* SearchResultsTableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchResultsTableView.xib; sourceTree = "<group>"; };
 		3540353F2022D04F00A4AEB4 /* Dictionaries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dictionaries.swift; sourceTree = "<group>"; };
@@ -171,7 +172,6 @@
 		412460A02054BD6B0000DB54 /* LibraryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryViewController.swift; sourceTree = "<group>"; };
 		412460A22054C42D0000DB54 /* CampusResourceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusResourceTableViewCell.swift; sourceTree = "<group>"; };
 		413E19E5208EEECA009D6621 /* LibraryMapTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LibraryMapTableViewCell.swift; path = berkeleyMobileiOS/Classes/Academics/LibraryMapTableViewCell.swift; sourceTree = SOURCE_ROOT; };
-		413E19E7208FBCD9009D6621 /* secret.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = secret.swift; sourceTree = "<group>"; };
 		41661D021DCEFC110044E7B4 /* Material.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Material.framework; path = "../../Library/Developer/Xcode/DerivedData/berkeleyMobileiOS-fqwsgytduwzwkifixxlmawnrvtwq/Build/Products/Debug-iphonesimulator/Material/Material.framework"; sourceTree = "<group>"; };
 		41A884BB201BD4DF00EE85C7 /* NetworkingConvenienceMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingConvenienceMethods.swift; sourceTree = "<group>"; };
 		41B0B57C1E8CD95D00DA9297 /* fullRouteDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = fullRouteDataSource.swift; sourceTree = "<group>"; };
@@ -334,10 +334,10 @@
 		41E8438C1DAB3FE80096C049 /* berkeleyMobileiOS */ = {
 			isa = PBXGroup;
 			children = (
-				413E19E7208FBCD9009D6621 /* secret.swift */,
+				30CB5B61225D5FBD00578376 /* secret.swift */,
 				41005D7A1FD12556009D8FB9 /* ls.png */,
 				41E843991DAB3FE80096C049 /* Info.plist */,
-				30C7F4B022419B5700ECB426 /* GoogleService-Info.plist */,
+				30CB5B5F225D5F6300578376 /* GoogleService-Info.plist */,
 				41E8438D1DAB3FE80096C049 /* AppDelegate.swift */,
 				4103E0C11FBE3671009F2C90 /* Launch Screen.storyboard */,
 				4E505D2C1DD05A65004AC6C9 /* Classes */,
@@ -781,8 +781,8 @@
 				4E8E0D8D1E0C08380052CC10 /* Roboto-BoldItalic.ttf in Resources */,
 				4E8E0D8B1E0C08380052CC10 /* Roboto-BlackItalic.ttf in Resources */,
 				30F7775E22238926002A9FAA /* SearchResultsTableView.xib in Resources */,
-				30C7F4B122419B5800ECB426 /* GoogleService-Info.plist in Resources */,
 				4E8E0D941E0C08380052CC10 /* Roboto-Thin.ttf in Resources */,
+				30CB5B60225D5F6300578376 /* GoogleService-Info.plist in Resources */,
 				4E8E0D931E0C08380052CC10 /* Roboto-Regular.ttf in Resources */,
 				4EEF90471DDBC7D0002CF7E4 /* Dining.storyboard in Resources */,
 				4E8E0D911E0C08380052CC10 /* Roboto-Medium.ttf in Resources */,
@@ -958,7 +958,6 @@
 				35E4945F20296C9000467C77 /* CafeDataSource.swift in Sources */,
 				55C4474B206B3EE600409499 /* SpecificGymViewController.swift in Sources */,
 				55C80BD3204E4EF300E64D05 /* CampusResourceViewController.swift in Sources */,
-				413E19E8208FBCD9009D6621 /* secret.swift in Sources */,
 				41B0B5911E8CD95D00DA9297 /* routeStop.swift in Sources */,
 				41B0B58A1E8CD95D00DA9297 /* nearestBus.swift in Sources */,
 				4E4EC14E1E51195E000C63ED /* DateRange.swift in Sources */,
@@ -1001,6 +1000,7 @@
 				555D40E72051F06300EA1E1C /* GymViewController.swift in Sources */,
 				4E7F32AB1E6214E700D781B2 /* UIViewController+Extension.swift in Sources */,
 				354035402022D04F00A4AEB4 /* Dictionaries.swift in Sources */,
+				30CB5B62225D5FBD00578376 /* secret.swift in Sources */,
 				4E487A361DDBB59A0001F8CF /* Utils.swift in Sources */,
 				94C46117207C1B2200E61462 /* DayCollectionViewCell.swift in Sources */,
 				94C46119207C1B6F00E61462 /* GymClassInfoTableViewCell.swift in Sources */,
