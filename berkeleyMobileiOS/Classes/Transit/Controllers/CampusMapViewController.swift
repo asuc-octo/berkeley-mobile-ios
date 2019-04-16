@@ -174,6 +174,7 @@ class CampusMapViewController: UIViewController, UICollectionViewDelegate, UICol
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         busLineSegmentedControl.isHidden = true
+        detailSubtitle4.textAlignment = .left
         
         var needToGrow = false
         var resetFont = true
@@ -245,6 +246,7 @@ class CampusMapViewController: UIViewController, UICollectionViewDelegate, UICol
             }
             
             if let busStop = location as? BusStop {
+                detailSubtitle4.textAlignment = .right
                 needToGrow = true
                 busLineSegmentedControl.removeAllSegments()
                 
