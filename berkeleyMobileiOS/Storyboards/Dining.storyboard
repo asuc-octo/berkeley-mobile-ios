@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vwX-1f-TP7">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vwX-1f-TP7">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -102,7 +98,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="meal item" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Yh-nk-XE9">
-                                                    <rect key="frame" x="47" y="18" width="225" height="19.5"/>
+                                                    <rect key="frame" x="47" y="18" width="70.5" height="19.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.20000000000000001" green="0.37647058823529411" blue="0.47843137254901957" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -181,7 +177,6 @@
                                                 <constraint firstItem="vbJ-cS-Ufr" firstAttribute="leading" secondItem="ZCJ-QE-EM9" secondAttribute="trailing" constant="2" id="KPg-5W-3BK"/>
                                                 <constraint firstItem="UE3-Mg-Yp2" firstAttribute="centerY" secondItem="N53-Ez-ztG" secondAttribute="centerY" id="Kcu-AJ-a54"/>
                                                 <constraint firstItem="GjE-xK-GlY" firstAttribute="centerY" secondItem="N53-Ez-ztG" secondAttribute="centerY" id="OJ9-pl-dbq"/>
-                                                <constraint firstItem="0Yh-nk-XE9" firstAttribute="width" secondItem="N53-Ez-ztG" secondAttribute="width" multiplier="60%" id="PmS-aa-EH2"/>
                                                 <constraint firstItem="vbJ-cS-Ufr" firstAttribute="centerY" secondItem="N53-Ez-ztG" secondAttribute="centerY" id="VrQ-dQ-777"/>
                                                 <constraint firstItem="ZCJ-QE-EM9" firstAttribute="leading" secondItem="6od-Su-WqF" secondAttribute="trailing" constant="2" id="Ybh-BA-Phc"/>
                                                 <constraint firstItem="ZCJ-QE-EM9" firstAttribute="centerY" secondItem="N53-Ez-ztG" secondAttribute="centerY" id="byu-eZ-Bqi"/>
@@ -254,12 +249,9 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="669"/>
                     <connections>
-
                         <outlet property="dataLabel" destination="Yy1-85-ggM" id="Nyn-2h-LEd"/>
-
                         <outlet property="diningLegendHeight" destination="l2N-fS-oYB" id="lVP-yZ-paw"/>
                         <outlet property="diningLegendView" destination="HZt-c1-a1b" id="b4L-gS-aL9"/>
-
                         <outlet property="hoursLabel" destination="rfG-H4-z4y" id="yFd-j0-oma"/>
                         <outlet property="hoursView" destination="B4Q-Cg-UdC" id="e8e-oJ-2Ra"/>
                         <outlet property="showDiningButton" destination="zl4-qC-e2A" id="Nfy-U1-dEL"/>

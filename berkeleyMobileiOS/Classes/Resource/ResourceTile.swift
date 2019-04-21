@@ -1,10 +1,10 @@
 
 import UIKit
 
-fileprivate let kColorRed = UIColor.red
+fileprivate let kColorRed = UIColor(hex: "C80000")
 fileprivate let kColorGray = UIColor(white: 189/255.0, alpha: 1)
 fileprivate let kColorNavy = UIColor(red: 0, green: 51/255.0, blue: 102/255.0, alpha: 1)
-fileprivate let kColorGreen = UIColor(red: 16/255.0, green: 161/255.0, blue: 0, alpha:1)
+fileprivate let kColorGreen = UIColor(hex: "27AE60")
 
 
 /**

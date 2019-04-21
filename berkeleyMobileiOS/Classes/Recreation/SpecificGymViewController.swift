@@ -27,6 +27,9 @@ class SpecificGymViewController: UIViewController, CLLocationManagerDelegate, GM
     var iconImages = [UIImage]()
     var gymInfo = [String]()
     var types = [TappableInfoType]()
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
+    
     override func viewDidAppear(_ animated: Bool) {
         Analytics.logEvent("opened_gym", parameters: ["name": gym.name])
     }
