@@ -4,16 +4,27 @@ import UIKit
 /**
  * Base navigation controller for a single type of `Resource`.
  */
-class ResourceNavigationController: UINavigationController, IBInitializable
-{ 
+
+fileprivate let kColorNavy = UIColor(red: 0, green: 51/255.0, blue: 102/255.0, alpha: 1)
+
+class ResourceNavigationController: UINavigationController, IBInitializable, TabBarControllerView
+{
+    override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
+    
+    // ========================================
+    // MARK: - TabBarControllerView
+    // ========================================
+    var tabBarIcon: UIImage? { return pageTabBarItem.image }
+    
+    
     // ========================================
     // MARK: - IBInitializable
     // ========================================
     typealias IBComponent = ResourceNavigationController
     
-    static var componentID: String { return className(IBComponent.self) }
+    class var componentID: String { return className(IBComponent.self) }
     
-    static func fromIB() -> IBComponent 
+    class func fromIB() -> IBComponent
     {
         return UIStoryboard.resource.instantiateViewController(withIdentifier: self.componentID) as! IBComponent
     }
@@ -22,17 +33,15 @@ class ResourceNavigationController: UINavigationController, IBInitializable
     // ========================================
     // MARK: - UINavigationController
     // ========================================
-    
-    override func awakeFromNib()
-    {
-        self.pageTabBarItem.imageView?.contentMode = .scaleAspectFit
-    }
-    
     override func viewWillAppear(_ animated: Bool)
     {
         super.viewWillAppear(animated)
         
-        self.pageTabBarController?.highlightTabItem(of: self)
+        self.navigationBar.barTintColor = kColorNavy
+        
+        let imageView = UIImageView(image: #imageLiteral(resourceName: "bearsmallmed"))
+        imageView.contentMode = .scaleAspectFit
+        topViewController?.navigationItem.titleView = imageView
     }
     
     

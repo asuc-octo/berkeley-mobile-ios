@@ -57,13 +57,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         indexViewController.modalTransitionStyle = .crossDissolve
         window?.rootViewController = indexViewController
-        
-        indexViewController.tabBarController?.tabBar.items?[0].image = UIImage(named: "beartransit")!
-        indexViewController.tabBarController?.tabBar.items?[1].image = UIImage(named: "gym-uncolored")!
-        indexViewController.tabBarController?.tabBar.items?[2].image = UIImage(named: "DINING")!
-        indexViewController.tabBarController?.tabBar.items?[3].image = UIImage(named: "library-transparent")!
-        
-//        self.present(indexViewController, animated: true, completion: nil)
     }
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

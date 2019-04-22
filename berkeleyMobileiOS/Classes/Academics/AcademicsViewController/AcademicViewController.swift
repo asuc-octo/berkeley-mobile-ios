@@ -16,8 +16,6 @@ fileprivate let kColorGreen = UIColor(red: 16/255.0, green: 161/255.0, blue: 0, 
 
 class AcademicViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ResourceCellDelegate {
 
-    @IBOutlet weak var banner: UIImageView!
-
     @IBOutlet weak var libButton: UIButton!
     @IBOutlet weak var resourceButton: UIButton!
     
@@ -133,8 +131,6 @@ class AcademicViewController: UIViewController, UITableViewDelegate, UITableView
         self.resourceTableView.delegate = self
         self.resourceTableView.dataSource = self
         resourceTableView.reloadData()
-        //banner.backgroundColor = UIColor(hex: "1A5679")
-        banner.backgroundColor = UIColor(red: 0, green: 51/255.0, blue: 102/255.0, alpha: 1)
         Analytics.logEvent("opened_library_screen", parameters: nil)
     }
     

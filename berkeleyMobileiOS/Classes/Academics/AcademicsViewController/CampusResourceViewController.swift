@@ -17,6 +17,8 @@ fileprivate let kColorRed = UIColor.red
 
 class CampusResourceViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate, WeeklyTimesCellDelegate {
     
+    override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
+    
     @IBOutlet weak var campResTitle: UILabel!
     @IBOutlet weak var campResImage: UIImageView!
     @IBOutlet weak var campResTableView: UITableView!
@@ -173,7 +175,7 @@ extension CampusResourceViewController: UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == cells.count {
-            return 200
+            return 400
         } else if expandRow == true && cells[indexPath.row] == .weekly  {
             return 220
         }

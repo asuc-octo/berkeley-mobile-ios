@@ -11,7 +11,7 @@ import MapKit
 import CoreLocation
 
 
-class CampusMapViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UISearchBarDelegate, MKMapViewDelegate, CLLocationManagerDelegate {
+class CampusMapViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UISearchBarDelegate, MKMapViewDelegate, CLLocationManagerDelegate, TabBarControllerView {
     
     @IBOutlet weak var campusMapView: MKMapView!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -40,6 +40,8 @@ class CampusMapViewController: UIViewController, UICollectionViewDelegate, UICol
     var mapMarkers: [String: [MKPinAnnotationView]] = [:]
     
     var selectedLocation: Location? = nil
+    
+    var tabBarIcon: UIImage? { return UIImage(named: "beartransit") }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,16 +72,6 @@ class CampusMapViewController: UIViewController, UICollectionViewDelegate, UICol
         
         detailBigAnchor = detailView.heightAnchor.constraint(equalToConstant: 180)
         detailSmallAnchor = detailView.heightAnchor.constraint(equalToConstant: 100)
-    }
-        
-        
-        
-    
-    override func viewDidAppear(_ animated: Bool) {
-        ConvenienceMethods.setCurrentTabStyle(pageTabBarVC: pageTabBarController!, ForSelectedViewController: self)
-        pageTabBarItem.image = UIImage(named: "beartransit")
-        pageTabBarItem.image = pageTabBarItem.image!.withRenderingMode(.alwaysTemplate)
-        pageTabBarItem.imageView?.contentMode = .scaleAspectFit
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

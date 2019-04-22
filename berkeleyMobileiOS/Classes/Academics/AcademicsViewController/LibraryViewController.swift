@@ -18,6 +18,8 @@ fileprivate let kBookingStr = "Book Study Rooms"
 
 class LibraryViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDelegate, WeeklyTimesCellDelegate {
     
+    override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
+    
     var library: Library!
     var locationManager = CLLocationManager()
     var weeklyTimes = [String]()

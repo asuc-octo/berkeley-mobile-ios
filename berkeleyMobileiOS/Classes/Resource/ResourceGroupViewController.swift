@@ -103,12 +103,6 @@ class ResourceGroupViewController: UIViewController, IBInitializable, UITableVie
             }
         }
         
-        if UIDevice.current.screenType.rawValue == "iPhone 5, iPhone 5s, iPhone 5c or iPhone SE"{
-            //edit
-            self.tableView.rowHeight = 220
-            
-        }
-        
         
     }
     

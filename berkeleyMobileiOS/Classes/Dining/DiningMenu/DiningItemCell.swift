@@ -18,6 +18,7 @@ class DiningItemCell: UITableViewCell, RequiresData, ToggleButtonDelegate
     private var item: DiningItem!
     
     var delegate: DiningItemCellDelegate?
+    var labelWidth: NSLayoutConstraint?
 
     // UI
     @IBOutlet private weak var nameLabel: UILabel!
@@ -93,59 +94,59 @@ class DiningItemCell: UITableViewCell, RequiresData, ToggleButtonDelegate
         
         // programmatically set constraints for word wrapping
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        let widthConstraint = NSLayoutConstraint(item: nameLabel, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: width)
-        self.contentView.addConstraint(widthConstraint)
+        if !labelWidth.isNil {
+            self.contentView.removeConstraint(labelWidth!)
+        }
+        labelWidth = NSLayoutConstraint(item: nameLabel, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: width)
+        self.contentView.addConstraint(labelWidth!)
 
         // add diet restrictions to imageviews
         let dietImages: [UIImageView] = [dietImageView1, dietImageView2, dietImageView3, dietImageView4, dietImageView5, dietImageView5, dietImageView6]
-        if restrictions.count > 0 {
+        for index in 0...6 {
+            let dietImageView = dietImages[index]
             
-            for index in 0...6 {
-                let dietImageView = dietImages[index]
+            if (index <= restrictions.count - 1) {
+                let r = restrictions[index]
                 
-                if (index <= restrictions.count - 1) {
-                    let r = restrictions[index]
-                    
-                    // some cases are not yet supplied by back-end
-                    switch r {
-                    case "Contains Alcohol" :
-                        dietImageView.image = UIImage(named: "ALCOHOL")
-                    case "Egg" :
-                        dietImageView.image = UIImage(named: "EGG")
-                    case "Fish" :
-                        dietImageView.image = UIImage(named: "FISH")
-                    case "Contains Gluten" :
-                        dietImageView.image = UIImage(named: "GLUTEN")
-                    case "Halal" :
-                        dietImageView.image = UIImage(named: "HALAL")
-                    case "Kosher" :
-                        dietImageView.image = UIImage(named: "KOSHER")
-                    case "Milk" :
-                        dietImageView.image = UIImage(named: "MILK")
-                    case "Peanuts" :
-                        dietImageView.image = UIImage(named: "PEANUTS")
-                    case "Contains Pork" :
-                        dietImageView.image = UIImage(named: "PORK")
-                    case "Sesame" :
-                        dietImageView.image = UIImage(named: "SESAME")
-                    case "Shellfish" :
-                        dietImageView.image = UIImage(named: "SHELLFISH")
-                    case "Soybeans" :
-                        dietImageView.image = UIImage(named: "SOYBEAN")
-                    case "Tree Nuts" :
-                        dietImageView.image = UIImage(named: "TREENUTS")
-                    case "Vegan Option" :
-                        dietImageView.image = UIImage(named: "VEGAN")
-                    case "Vegetarian Option" :
-                        dietImageView.image = UIImage(named: "VEGETARIAN")
-                    case "Wheat" :
-                        dietImageView.image = UIImage(named: "WHEAT")
-                    default:
-                        dietImageView.image = nil
-                    }
-                } else {
+                // some cases are not yet supplied by back-end
+                switch r {
+                case "Contains Alcohol" :
+                    dietImageView.image = UIImage(named: "ALCOHOL")
+                case "Egg" :
+                    dietImageView.image = UIImage(named: "EGG")
+                case "Fish" :
+                    dietImageView.image = UIImage(named: "FISH")
+                case "Contains Gluten" :
+                    dietImageView.image = UIImage(named: "GLUTEN")
+                case "Halal" :
+                    dietImageView.image = UIImage(named: "HALAL")
+                case "Kosher" :
+                    dietImageView.image = UIImage(named: "KOSHER")
+                case "Milk" :
+                    dietImageView.image = UIImage(named: "MILK")
+                case "Peanuts" :
+                    dietImageView.image = UIImage(named: "PEANUTS")
+                case "Contains Pork" :
+                    dietImageView.image = UIImage(named: "PORK")
+                case "Sesame" :
+                    dietImageView.image = UIImage(named: "SESAME")
+                case "Shellfish" :
+                    dietImageView.image = UIImage(named: "SHELLFISH")
+                case "Soybeans" :
+                    dietImageView.image = UIImage(named: "SOYBEAN")
+                case "Tree Nuts" :
+                    dietImageView.image = UIImage(named: "TREENUTS")
+                case "Vegan Option" :
+                    dietImageView.image = UIImage(named: "VEGAN")
+                case "Vegetarian Option" :
+                    dietImageView.image = UIImage(named: "VEGETARIAN")
+                case "Wheat" :
+                    dietImageView.image = UIImage(named: "WHEAT")
+                default:
                     dietImageView.image = nil
                 }
+            } else {
+                dietImageView.image = nil
             }
         }
     }
