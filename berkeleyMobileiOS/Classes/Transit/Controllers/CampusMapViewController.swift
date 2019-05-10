@@ -11,7 +11,7 @@ import MapKit
 import CoreLocation
 
 
-class CampusMapViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UISearchBarDelegate, MKMapViewDelegate, CLLocationManagerDelegate {
+class CampusMapViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UISearchBarDelegate, MKMapViewDelegate, CLLocationManagerDelegate, TabBarControllerView {
     
     @IBOutlet weak var campusMapView: MKMapView!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -41,6 +41,8 @@ class CampusMapViewController: UIViewController, UICollectionViewDelegate, UICol
     
     var selectedLocation: Location? = nil
     
+    var tabBarIcon: UIImage? { return UIImage(named: "beartransit") }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -67,19 +69,17 @@ class CampusMapViewController: UIViewController, UICollectionViewDelegate, UICol
         locationManager.requestLocation()
         
         campusMapView.showsUserLocation = true
+<<<<<<< HEAD
         
         detailBigAnchor = detailView.heightAnchor.constraint(equalToConstant: 180)
         detailSmallAnchor = detailView.heightAnchor.constraint(equalToConstant: 100)
     }
         
+=======
+>>>>>>> a3cf93742f7d509d7b31566d878a0513d08e77f4
         
-        
-    
-    override func viewDidAppear(_ animated: Bool) {
-        ConvenienceMethods.setCurrentTabStyle(pageTabBarVC: pageTabBarController!, ForSelectedViewController: self)
-        pageTabBarItem.image = UIImage(named: "beartransit")
-        pageTabBarItem.image = pageTabBarItem.image!.withRenderingMode(.alwaysTemplate)
-        pageTabBarItem.imageView?.contentMode = .scaleAspectFit
+        detailBigAnchor = detailView.heightAnchor.constraint(equalToConstant: 180)
+        detailSmallAnchor = detailView.heightAnchor.constraint(equalToConstant: 100)
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -174,6 +174,10 @@ class CampusMapViewController: UIViewController, UICollectionViewDelegate, UICol
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         busLineSegmentedControl.isHidden = true
+        detailSubtitle4.textAlignment = .left
+        
+        var needToGrow = false
+        var resetFont = true
         
         var needToGrow = false
         var resetFont = true
@@ -245,6 +249,10 @@ class CampusMapViewController: UIViewController, UICollectionViewDelegate, UICol
             }
             
             if let busStop = location as? BusStop {
+<<<<<<< HEAD
+=======
+                detailSubtitle4.textAlignment = .right
+>>>>>>> a3cf93742f7d509d7b31566d878a0513d08e77f4
                 needToGrow = true
                 busLineSegmentedControl.removeAllSegments()
                 

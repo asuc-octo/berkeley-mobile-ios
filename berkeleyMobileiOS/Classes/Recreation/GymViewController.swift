@@ -169,16 +169,12 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
            
             weekCell.date.text = String(date)
             weekCell.date.textAlignment = .center
-            weekCell.date.font = UIFont.init(name: "Roboto", size: 16)
-            weekCell.day.font = UIFont.init(name: "Roboto", size: 11)
-            weekCell.date.textColor = UIColor(hex: "5B5B5B")
-            weekCell.day.textColor = UIColor(hex: "5B5B5B")
+            weekCell.date.font = UIFont.systemFont(ofSize: weekCell.date.font.pointSize)
+            weekCell.day.font = UIFont.systemFont(ofSize: weekCell.day.font.pointSize)
             
             if (calendar.component(.day, from: currDate) == calendar.component(.day, from: selectedDays)) {
-                weekCell.date.font = UIFont.init(name: "Roboto-Bold", size: 20)
-                weekCell.day.font = UIFont.init(name: "Roboto-Bold", size: 13)
-                weekCell.date.textColor = UIColor(hex: "2A2A2A")
-                weekCell.day.textColor = UIColor(hex: "2A2A2A")
+                weekCell.date.font = UIFont.boldSystemFont(ofSize: weekCell.date.font.pointSize)
+                weekCell.day.font = UIFont.boldSystemFont(ofSize: weekCell.day.font.pointSize)
             }
             return weekCell
         } else if collectionView == self.gymCollectionView {
@@ -196,10 +192,10 @@ class GymViewController: UIViewController, UITableViewDataSource, UITableViewDel
 
             if (gym.isOpen) {
                 gymCell.gymStatus.text = "OPEN"
-                gymCell.gymStatus.textColor = UIColor(hex: "18A408")
+                gymCell.gymStatus.textColor = UIColor(hex: "27AE60")
             } else {
                 gymCell.gymStatus.text = "CLOSED"
-                gymCell.gymStatus.textColor = UIColor(hex: "FF2828")
+                gymCell.gymStatus.textColor = UIColor(hex: "C80000")
             }
             if gym.name == "Recreational Sports Facility (RSF)" {
                 gymCell.gymImage.image = #imageLiteral(resourceName: "rsf")

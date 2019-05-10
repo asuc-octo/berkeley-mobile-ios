@@ -112,18 +112,12 @@ class ResourceContainerController: UIViewController, IBInitializable, UIScrollVi
         banner.frame = CGRect(x: 0, y: 0, width: size.width, height: bannerHeight)
         bannerGradient.frame = banner.bounds
         
-        titleLabel.frame = CGRect(x: 10, y: 200, width: size.width - 20, height: 30)
+        titleLabel.frame = CGRect(x: 10, y: bannerHeight - 50, width: size.width - 20, height: 30)
         
         scrollView.frame = CGRect(x: 0, y: toolbarBottom, width: size.width, height: size.height - toolbarBottom)
         scrollView.contentInset.top = banner.frame.maxY - toolbarBottom
-//        scrollView.contentOffset = CGPoint(x: 0, y: InfoPanel.fixedHeight)
-//        if (type(of: self.detailProvider!) == berkeleyMobileiOS.GymClassViewController.self) {
-//            scrollView.contentOffset = CGPoint(x:0, y: 0)
-//            toolbar.reveal = 1
-//        }
-        infoPanel.frame = CGRect(x: 0, y: bannerHeight, width: size.width, height: InfoPanel.fixedHeight)
         
-        infoPanel.y = -25
+        infoPanel.frame = CGRect(x: 0, y: 0, width: size.width, height: InfoPanel.fixedHeight)
         detailView.frame = CGRect(x: 0, y: InfoPanel.fixedHeight, width: size.width, height: scrollView.bounds.height)
     }
     
@@ -132,7 +126,7 @@ class ResourceContainerController: UIViewController, IBInitializable, UIScrollVi
     {
         super.viewDidLayoutSubviews()
         
-        scrollView.contentSize.height = infoPanel.bounds.height + detailProvider.contentSize.height
+        updateContentSize()
         scrollViewDidScroll(self.scrollView)
 
     }
@@ -195,11 +189,15 @@ class ResourceContainerController: UIViewController, IBInitializable, UIScrollVi
     private func setupScrollView()
     {
         scrollView.delegate = self
-        scrollView.clipsToBounds = false
+        scrollView.clipsToBounds = true
         scrollView.autoresizesSubviews = false
         
         scrollView.addSubview(infoPanel)
         scrollView.addSubview(detailView)
+    }
+    
+    private func updateContentSize() {
+        scrollView.contentSize.height = max(InfoPanel.fixedHeight + detailProvider.contentSize.height, scrollView.height)
     }
     
     
@@ -215,46 +213,22 @@ class ResourceContainerController: UIViewController, IBInitializable, UIScrollVi
         }
         let inset = scrollView.contentInset.top
         let offset = scrollView.contentOffset.y
-        
-        let toolbarMaxY = toolbar.frame.maxY
         let infoHeight = InfoPanel.fixedHeight
         
         // If scrollView is pulled down, increase banner height accordingly.
         let pulled = -(inset + offset)
-        banner.height = inset + (pulled > 0 ? pulled : 0) + toolbarMaxY
+        banner.height = scrollView.y + inset + (pulled > 0 ? pulled : 0)
         
         infoPanel.curtainCover = offset
-        if UIDevice().userInterfaceIdiom == .phone {
-            if UIScreen.main.nativeBounds.height == 2436 {
-                infoPanel.y = max(-25, offset - infoHeight)
-            } else {
-                infoPanel.y = max(0, offset - infoHeight)
-            }
-        }
-//        infoPanel.y = max(-25, offset - infoHeight)
-        if (offset >= 0) {
-            toolbar.reveal = 1
-        } else if (offset <= -164) {
-            toolbar.reveal = 0
-        } else {
-            toolbar.reveal = 1  + (offset/164)
-        }
+        infoPanel.y = max(0, offset - infoHeight)
         detailView.y = infoPanel.frame.maxY
         detailProvider.contentOffset.y = (offset < infoHeight) ? 0 : (offset - infoHeight);
         
+        toolbar.reveal = 1  - offset / (scrollView.y - titleLabel.frame.maxY)
+        
         // Detect end of scrolling (http://stackoverflow.com/a/1857162)
         NSObject.cancelPreviousPerformRequests(withTarget: self)
-        if detailView.y < 75 {
-            toolbar.isHidden = false
-            toolbar.title = detailViewController.title
-            showToolbarTitle()
-        } else {
-            doNotShowToolbarTitle()
-            
-        }
         self.perform(#selector(scrollViewDidEndScrollingAnimation(_:)), with: scrollView, afterDelay: 0.2)
-       
-        
     }
     
     /**
@@ -272,13 +246,13 @@ class ResourceContainerController: UIViewController, IBInitializable, UIScrollVi
         let inset = scrollView.contentInset.top
         let offset = scrollView.contentOffset.y
         
-        var lower = -inset
+        let lower = -inset
         let upper = InfoPanel.fixedHeight
         
         // If within banner area, snap to top or bottom.
         if (lower ..< upper).contains(offset)
         {
-            var finalY = (offset < round(lower/3)) ? lower : upper
+            let finalY = (offset < round(lower/3)) ? lower : upper
             let duration = 1 * Double( abs((finalY - offset) / inset) )
             // Animation duration depends on the the distance.
             UIView.animate(withDuration: duration)
@@ -306,7 +280,7 @@ class ResourceContainerController: UIViewController, IBInitializable, UIScrollVi
         
         
         // New content height is InfoPanel plus internal content height.
-        scrollView.contentSize.height = infoHeight + provider.contentSize.height
+        updateContentSize()
         
         // Offset is clamped to either inset or InfoHeight.
         scrollView.contentOffset.y = (offset < infoHeight) ? -inset : infoHeight

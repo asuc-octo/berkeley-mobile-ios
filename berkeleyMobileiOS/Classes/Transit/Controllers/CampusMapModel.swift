@@ -86,17 +86,27 @@ class Location: NSObject, MKAnnotation {
             timeFormatter.setLocalizedDateFormatFromTemplate("h:mma")
             let maxOpen: Date = Date(timeIntervalSince1970: CLTimeIntervalMax)
             var closestOpen: Date = maxOpen
-            
+          
+            let dateRef = dateFormatter.date(from: dateFormatter.string(from: now))!
+            print("now is \(now)")
             for interval in openTimes {
                 if let interval = interval as? [String: Any?], let openTime = interval["open_time"] as? Int, let closeTime = interval["close_time"] as? Int {
                     let openDate = Date(timeIntervalSince1970: TimeInterval(openTime))
                     let closeDate = Date(timeIntervalSince1970: TimeInterval(closeTime))
+                    print("Open at \(openDate)")
+                    print("Closed at \(closeDate)")
+                    let openRef = dateFormatter.date(from: dateFormatter.string(from: openDate))!
+                    let closeRef = dateFormatter.date(from: dateFormatter.string(from: closeDate))!
 
-                    if now.isBetween(openDate, closeDate) && closeDate < tomorrow {
-                        return (true, "Closes \(timeFormatter.string(from: closeDate))")
+                    if dateRef.isBetween(openRef, closeRef) {
+                        return (true, "Closes \(timeFormatter.string(from: closeRef))")
                     }
                     
+<<<<<<< HEAD
                     if openDate > now && openDate < closestOpen {
+=======
+                    if openRef.isBetween(dateRef, closestOpen) {
+>>>>>>> a3cf93742f7d509d7b31566d878a0513d08e77f4
                         closestOpen = openDate
                     }
                 }
@@ -140,6 +150,8 @@ class BusStop: Location {
     
         if let data = schedule[line] {
             var closestTime = Date(timeIntervalSince1970: CLTimeIntervalMax)
+            var earliestTime = closestTime
+            var earliestTimeString = ""
             var closestTimeString = ""
             
             for item in data {
@@ -151,9 +163,18 @@ class BusStop: Location {
                         closestTimeString = item.1
                     }
                     
+                    if date < earliestTime {
+                        earliestTime = date
+                        earliestTimeString = item.1
+                    }
                 }
             }
+            if closestTimeString == "" {
+                return earliestTimeString
+            }
+            
             return closestTimeString
+            
         }
         return ""
     }
