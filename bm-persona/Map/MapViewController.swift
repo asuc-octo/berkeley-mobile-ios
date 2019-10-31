@@ -7,13 +7,21 @@
 //
 
 import UIKit
+import MapKit
 
-class ViewController: UIViewController {
+class MapViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        let mapView = MKMapView()
+        mapView.bounds = self.view.bounds
+        self.view = mapView
+        
     }
+    
+  
+    
 
 
 }
