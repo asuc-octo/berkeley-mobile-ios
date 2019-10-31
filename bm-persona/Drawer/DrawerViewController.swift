@@ -48,12 +48,7 @@ class DrawerViewController: UIViewController {
         
         let tabBarViewController = TabBarViewController()
         self.add(child: tabBarViewController)
-        tabBarViewController.view.frame = CGRect(origin: CGPoint.zero, size: self.view.frame.size)
-        
-//        NSLayoutConstraint.activate([
-//            tabBarViewController.view.topAncher.constraint(equalTo: searchTextField.bottomAncher),
-//            tabBarViewController.view.leadingAncher.constraint(equalTo: self.view.leadingAncher),
-//        ])
+        tabBarViewController.view.frame = self.view.bounds
     }
     
     func setupGestures() {
