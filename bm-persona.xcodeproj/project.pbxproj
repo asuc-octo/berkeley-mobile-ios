@@ -29,6 +29,7 @@
 		55DCF79B237243D4001B01B8 /* MaterialTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF79A237243D4001B01B8 /* MaterialTextField.swift */; };
 		55DCF79D237243F5001B01B8 /* RippleLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF79C237243F5001B01B8 /* RippleLayer.swift */; };
 		55DCF79F237245BA001B01B8 /* Raleway-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 55DCF79E237245B9001B01B8 /* Raleway-SemiBold.ttf */; };
+		55DCF7A123724835001B01B8 /* MaterialButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF7A023724835001B01B8 /* MaterialButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		55DCF79A237243D4001B01B8 /* MaterialTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialTextField.swift; sourceTree = "<group>"; };
 		55DCF79C237243F5001B01B8 /* RippleLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RippleLayer.swift; sourceTree = "<group>"; };
 		55DCF79E237245B9001B01B8 /* Raleway-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-SemiBold.ttf"; sourceTree = "<group>"; };
+		55DCF7A023724835001B01B8 /* MaterialButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,6 +161,7 @@
 			children = (
 				55DCF79A237243D4001B01B8 /* MaterialTextField.swift */,
 				55DCF79C237243F5001B01B8 /* RippleLayer.swift */,
+				55DCF7A023724835001B01B8 /* MaterialButton.swift */,
 			);
 			path = External;
 			sourceTree = "<group>";
@@ -248,6 +251,7 @@
 				55DCF79B237243D4001B01B8 /* MaterialTextField.swift in Sources */,
 				303F6AE4236A931D007E37DD /* TabBarViewController.swift in Sources */,
 				303F6AE3236A931D007E37DD /* CardViewController.swift in Sources */,
+				55DCF7A123724835001B01B8 /* MaterialButton.swift in Sources */,
 				55DCF79623723CF2001B01B8 /* Extensions.swift in Sources */,
 				306A54EA23613E3A00D59A7F /* AppDelegate.swift in Sources */,
 				55DCF78923722CF1001B01B8 /* Fonts.swift in Sources */,
@@ -389,7 +393,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 4HBETBULVA;
+				DEVELOPMENT_TEAM = K8FUZZ3FQV;
 				INFOPLIST_FILE = "bm-persona/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -407,7 +411,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 4HBETBULVA;
+				DEVELOPMENT_TEAM = K8FUZZ3FQV;
 				INFOPLIST_FILE = "bm-persona/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

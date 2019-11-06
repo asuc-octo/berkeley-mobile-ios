@@ -22,8 +22,6 @@ class MapViewController: UIViewController {
         
         dim = self.view.frame.size
         
-        hideKeyboardWhenTappedAround()
-        
         mapView = MKMapView()
         searchBar = SearchBarView()
         
@@ -85,20 +83,5 @@ extension MapViewController: CLLocationManagerDelegate {
     }
 }
 
-extension MapViewController {
-   func hideKeyboardWhenTappedAround() {
-       let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(MapViewController.dismissKeyboard(_:)))
-       tap.cancelsTouchesInView = false
-       view.addGestureRecognizer(tap)
-   }
-
-   @objc func dismissKeyboard(_ sender: UITapGestureRecognizer) {
-       view.endEditing(true)
-
-       if let nav = self.navigationController {
-           nav.view.endEditing(true)
-       }
-   }
-}
 
 
