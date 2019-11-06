@@ -9,3 +9,8 @@
 import Foundation
 import UIKit
 
+struct Color {
+    static var primaryText: UIColor { return UIColor(displayP3Red: 35/255, green: 35/255, blue: 35/255, alpha: 1.0) }
+    static var secondaryText: UIColor { return UIColor(displayP3Red: 105/255, green: 105/255, blue: 105/255, alpha: 1.0) }
+}
+

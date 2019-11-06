@@ -19,4 +19,19 @@ struct Font {
         (size: CGFloat) in
         UIFont(name: "Raleway-Bold", size: size) ?? UIFont.systemFont(ofSize: size)
     }
+    
+    static let semibold = {
+        (size: CGFloat) in
+        UIFont(name: "Raleway-SemiBold", size: size) ?? UIFont.systemFont(ofSize: size)
+    }
+    
+    static let thin = {
+        (size: CGFloat) in
+        UIFont(name: "Raleway-Thin", size: size) ?? UIFont.systemFont(ofSize: size)
+    }
+    
+    static let medium = {
+        (size: CGFloat) in
+        UIFont(name: "Raleway-Medium", size: size) ?? UIFont.systemFont(ofSize: size)
+    }
 }

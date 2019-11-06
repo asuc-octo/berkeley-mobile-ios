@@ -44,9 +44,9 @@ class TabBarControl: UISegmentedControl {
         setBackgroundImage(UIImage().resized(size: frame.size), for: .normal, barMetrics: .default)
         setDividerImage(UIImage(), forLeftSegmentState: .normal, rightSegmentState: .normal, barMetrics: .default)
         
-        setTitleTextAttributes([NSAttributedString.Key.font: UIFont.systemFont(ofSize: 24, weight: .semibold)], for: .normal)
+        setTitleTextAttributes([NSAttributedString.Key.font: Font.semibold(24)], for: .normal)
         
-        setTitleTextAttributes([NSAttributedString.Key.font: UIFont.systemFont(ofSize: 24, weight: .bold)], for: .normal)
+        setTitleTextAttributes([NSAttributedString.Key.font: Font.bold(24)], for: .normal)
         
         self.apportionsSegmentWidthsByContent = true
         
