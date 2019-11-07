@@ -13,6 +13,7 @@ class MapViewController: UIViewController {
     
     private var mapView: MKMapView!
     private var searchBar: SearchBarView!
+    private var searchResultsView: SearchResultsView!
     private var dim: CGSize = .zero
     private var locationManager = CLLocationManager()
 
@@ -23,11 +24,15 @@ class MapViewController: UIViewController {
         dim = self.view.frame.size
         
         mapView = MKMapView()
+        
         searchBar = SearchBarView()
+        
+        searchResultsView = SearchResultsView()
+        searchResultsView.isHidden = true
         
         requestLocation()
         
-        self.view.addSubViews([mapView, searchBar])
+        self.view.addSubViews([mapView, searchResultsView, searchBar])
     }
     
     override func viewDidLayoutSubviews() {
@@ -43,9 +48,12 @@ class MapViewController: UIViewController {
                            toItem: self.view, attribute: .centerX,
                            multiplier: 1.0, constant: 0.0)
         ])
+        searchResultsView.setConstraintsToView(bottom: self.view, left: searchBar, right: searchBar)
         
         searchBar.setHeightConstraint(0.07*dim.height)
         searchBar.setWidthConstraint(0.9*dim.width)
+        
+        self.view.layoutIfNeeded()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -80,6 +88,24 @@ extension MapViewController: CLLocationManagerDelegate {
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("error: ", error)
+    }
+}
+
+extension MapViewController: SearchBarDelegate {
+    func searchbarTextDidChange(_ textField: UITextField) {
+        
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        searchResultsView.isHidden = false
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        searchResultsView.isHidden = true
+    }
+    
+    func searchbarTextShouldReturn(_ textField: UITextField) -> Bool {
+        return true
     }
 }
 
