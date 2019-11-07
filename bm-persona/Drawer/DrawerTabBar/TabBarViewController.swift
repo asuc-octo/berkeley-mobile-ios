@@ -72,10 +72,12 @@ class TabBarViewController: UIViewController {
         pageViewController.view.topAnchor.constraint(equalTo: control.bottomAnchor).isActive = true
         pageViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         
+        var viewControllersInCards = [UIViewController(), UIViewController(), UIViewController()]
+        
         pages = [
-            Page(viewController: CardViewController(UIViewController()), label: "Libraries"),
-            Page(viewController: CardViewController(UIViewController()), label: "Dining"),
-            Page(viewController: CardViewController(UIViewController()), label: "Fitness")
+            Page(viewController: CardViewController(viewControllersInCards[0]), label: "Libraries"),
+            Page(viewController: CardViewController(viewControllersInCards[1]), label: "Dining"),
+            Page(viewController: CardViewController(viewControllersInCards[2]), label: "Fitness")
         ]
     }
 
