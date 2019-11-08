@@ -31,7 +31,7 @@ class DrawerViewController: UIViewController {
     
     func setupBackgroundView() {
         let backgroundView = UIView()
-        backgroundView.backgroundColor = .white
+        backgroundView.backgroundColor = Color.modalBackground
         backgroundView.layer.cornerRadius = 10
         backgroundView.clipsToBounds = true
         

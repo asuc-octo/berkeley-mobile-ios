@@ -25,7 +25,9 @@ class SearchResultCell: MaterialTableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setCornerBorder(cornerRadius: 0.0)
         
-        icon = UIImageView(image: UIImage(named: "Placemark")?.colored(.darkGray))
+        backgroundColor = Color.searchBarBackground
+        
+        icon = UIImageView(image: UIImage(named: "Placemark")?.colored(Color.searchBarIconColor))
         title = UILabel()
         title.font = Font.regular(16)
         subTitle = UILabel()

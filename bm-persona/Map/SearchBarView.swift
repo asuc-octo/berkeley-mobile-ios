@@ -41,19 +41,19 @@ class SearchBarView: UIView, UITextFieldDelegate {
     }
 
     private func initSearchBar() {
-        self.backgroundColor = .white
+        self.backgroundColor = Color.searchBarBackground
         self.layer.shadowColor = UIColor.black.cgColor
         self.layer.shadowOpacity = 0.3
         self.layer.shadowOffset = .zero
         self.layer.shadowRadius = 10
         
-        textField = MaterialTextField(hint: "What are you looking for?", textColor: Color.primaryText, font: Font.regular(16.0), bgColor: .white, delegate: self)
+        textField = MaterialTextField(hint: "What are you looking for?", textColor: Color.primaryText, font: Font.regular(16.0), bgColor: Color.searchBarBackground, delegate: self)
         textField.autocorrectionType = .no
         textField.returnKeyType = .search
         textField.enablesReturnKeyAutomatically = true
         
-        leftButton = MaterialButton(icon: leftButtonImage.colored(.darkGray), textColor: Color.primaryText, font: Font.regular(16), bgColor: .white, cornerRadius: 0.0)
-        rightButton = MaterialButton(icon: UIImage(named: "Clear")?.colored(.darkGray), bgColor: .white, cornerRadius: 0.0)
+        leftButton = MaterialButton(icon: leftButtonImage.colored(Color.searchBarIconColor), textColor: Color.primaryText, font: Font.regular(16), bgColor: Color.searchBarBackground, cornerRadius: 0.0)
+        rightButton = MaterialButton(icon: UIImage(named: "Clear")?.colored(Color.searchBarIconColor), bgColor: Color.searchBarBackground, cornerRadius: 0.0)
         
         stackView = UIStackView(arrangedSubviews: [leftButton, textField, rightButton])
         stackView.spacing = 0.0
@@ -108,7 +108,7 @@ class SearchBarView: UIView, UITextFieldDelegate {
     func changeLeftButton(_ isSearching: Bool) {
         guard leftButton.tag != (isSearching ? 1 : 0) else { return }
         leftButton.tag = isSearching ? 1 : 0
-        leftButton.setImage(isSearching ? UIImage(named: "Back")! : leftButtonImage.colored(.darkGray)!, for: .normal)
+        leftButton.setImage(isSearching ? UIImage(named: "Back")! : leftButtonImage.colored(Color.searchBarIconColor)!, for: .normal)
         
         if !isSearching {
             textField.resignFirstResponder()

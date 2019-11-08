@@ -84,6 +84,7 @@ class SearchResultsView: UIView {
     
     private func initTableView() {
         tableView = UITableView()
+        tableView.backgroundColor = Color.searchBarBackground
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
@@ -145,6 +146,7 @@ class SearchResultsView: UIView {
     
 }
 
+// MARK: - TableView Delegeate and DS
 extension SearchResultsView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

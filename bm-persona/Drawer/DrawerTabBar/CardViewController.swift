@@ -18,7 +18,7 @@ class CardViewController: UIViewController {
         // Do any additional setup after loading the view.
         // Set up embeded view
         guard let vc = viewController else { return }
-        vc.view.backgroundColor = .white
+        vc.view.backgroundColor = Color.cardBackground
         add(child: vc, frame: view.frame)
         //vc.view.backgroundColor = .green
         vc.view.translatesAutoresizingMaskIntoConstraints = false
