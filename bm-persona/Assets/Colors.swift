@@ -52,7 +52,16 @@ struct Color {
         return UIColor(displayP3Red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0)
     }
     
-    static var primaryText: UIColor { UIColor(displayP3Red: 35/255, green: 35/255, blue: 35/255, alpha: 1.0) }
+    static var primaryText: UIColor {
+        if #available(iOS 13, *) {
+            return UIColor.init { (trait) -> UIColor in
+                return trait.userInterfaceStyle == .dark ?
+                    UIColor(displayP3Red: 250/255, green: 250/255, blue: 250/255, alpha: 1.0) :
+                    UIColor(displayP3Red: 35/255, green: 35/255, blue: 35/255, alpha: 1.0)
+            }
+        }
+        return UIColor(displayP3Red: 35/255, green: 35/255, blue: 35/255, alpha: 1.0)
+    }
 
     static var secondaryText: UIColor { return UIColor(displayP3Red: 105/255, green: 105/255, blue: 105/255, alpha: 1.0) }
 }

@@ -108,7 +108,7 @@ class SearchBarView: UIView, UITextFieldDelegate {
     func changeLeftButton(_ isSearching: Bool) {
         guard leftButton.tag != (isSearching ? 1 : 0) else { return }
         leftButton.tag = isSearching ? 1 : 0
-        leftButton.setImage(isSearching ? UIImage(named: "Back")! : leftButtonImage.colored(Color.searchBarIconColor)!, for: .normal)
+        leftButton.setImage(isSearching ? UIImage(named: "Back")?.colored(Color.searchBarIconColor)! : leftButtonImage.colored(Color.searchBarIconColor)!, for: .normal)
         
         if !isSearching {
             textField.resignFirstResponder()
