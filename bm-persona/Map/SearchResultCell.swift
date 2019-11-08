@@ -23,7 +23,7 @@ class SearchResultCell: MaterialTableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setCornerBorder()
+        setCornerBorder(cornerRadius: 0.0)
         
         icon = UIImageView(image: UIImage(named: "Placemark")?.colored(.darkGray))
         title = UILabel()

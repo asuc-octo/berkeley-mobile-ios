@@ -11,8 +11,10 @@ import MapKit
 
 // MARK: - Table State
 enum TableState {
+    case loading
     case populated([CLPlacemark])
     case empty
+    case error(Error)
     
     var placemarks: [CLPlacemark] {
         switch self {
@@ -28,14 +30,25 @@ enum TableState {
 class SearchResultsView: UIView {
     
     private var tableView: UITableView!
-    private var containerView: UIView!
+    private var loadingView: UIView!
+    private var emptyView: UIView!
+    private var errorView: UIView!
+    
     private var noResultsLabel: UILabel!
+    private var errorLabel: UILabel!
     
     private var cellIdentifier = "searchResultCell"
     
     public var rowHeight: CGFloat = 60.0
+    public var isScrolling = false
     
-    private var state = TableState.empty
+    var state = TableState.loading {
+        didSet {
+            self.updateView()
+            let sections = NSIndexSet(indexesIn: NSMakeRange(0, self.tableView.numberOfSections))
+            self.tableView.reloadSections(sections as IndexSet, with: .automatic)
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -43,15 +56,30 @@ class SearchResultsView: UIView {
     }
     
     private func initResultsView() {
-        self.setCornerBorder()
+        self.setCornerBorder(cornerRadius: 0.0)
         initTableView()
+        
+        loadingView = UIView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: self.rowHeight))
         
         noResultsLabel = UILabel()
         noResultsLabel.text = "Nothing found!"
         noResultsLabel.font = Font.regular(17)
+        noResultsLabel.textAlignment = .center
+        noResultsLabel.numberOfLines = 3
         
-        containerView = UIView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: self.rowHeight))
-        containerView.addSubview(noResultsLabel)
+        errorLabel = UILabel()
+        errorLabel.text = "Error. Please try again later."
+        errorLabel.font = Font.regular(17)
+        errorLabel.textAlignment = .center
+        errorLabel.numberOfLines = 3
+        
+        loadingView = UIView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: self.rowHeight))
+        
+        errorView = UIView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: self.rowHeight))
+        errorView.addSubViews([errorLabel])
+        
+        emptyView = UIView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: self.rowHeight))
+        emptyView.addSubViews([noResultsLabel])
     }
     
     private func initTableView() {
@@ -65,11 +93,19 @@ class SearchResultsView: UIView {
         tableView.isUserInteractionEnabled = true
         tableView.canCancelContentTouches = false
         
-        self.addSubview(tableView)
+        self.addSubViews([tableView])
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        
+        errorLabel.leftAnchor.constraint(equalTo: errorView.leftAnchor).isActive = true
+        errorLabel.rightAnchor.constraint(equalTo: errorView.rightAnchor).isActive = true
+        errorView.centerSubView(errorLabel)
+        
+        noResultsLabel.leftAnchor.constraint(equalTo: emptyView.leftAnchor).isActive = true
+        noResultsLabel.rightAnchor.constraint(equalTo: emptyView.rightAnchor).isActive = true
+        emptyView.centerSubView(noResultsLabel)
         
         tableView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
@@ -77,9 +113,23 @@ class SearchResultsView: UIView {
         tableView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
     }
     
+    func updateView() {
+        switch state {
+        case .error(let error):
+            errorLabel.text = error.localizedDescription
+            tableView.tableFooterView = errorView
+        case .loading:
+            tableView.tableFooterView = loadingView
+        case .empty:
+            tableView.tableFooterView = emptyView
+        case .populated:
+            tableView.tableFooterView = nil
+        }
+    }
+    
     func updateTable(newPlacemarks: [CLPlacemark]?, error: Error?) {
         if let error = error {
-            print(error)
+            state = .error(error)
             return
         }
         guard let newPlacemarks = newPlacemarks, !newPlacemarks.isEmpty else {
@@ -115,6 +165,14 @@ extension SearchResultsView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return rowHeight
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        isScrolling = true
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        isScrolling = false
     }
     
 }

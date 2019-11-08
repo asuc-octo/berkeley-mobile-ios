@@ -11,13 +11,16 @@ import UIKit
 class SearchBarView: UIView, UITextFieldDelegate {
     
     open weak var delegate: SearchBarDelegate?
-    
+
     var stackView: UIStackView!
     var textField: MaterialTextField!
     var leftButton: MaterialButton!
     var rightButton: MaterialButton!
-    
     var leftButtonImage: UIImage = UIImage(named: "Search")!
+    
+    private var onStartSearch: ((Bool) -> Void)?
+    private var onClearInput: (() -> Void)?
+    private var startSearch: DispatchWorkItem?
         
     // MARK: Init
     
@@ -28,6 +31,13 @@ class SearchBarView: UIView, UITextFieldDelegate {
         leftButton.addTarget(self, action: #selector(leftButtonTapped), for: .touchUpInside)
         rightButton.addTarget(self, action: #selector(rightButtonTapped), for: .touchUpInside)
         textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+    }
+    
+    convenience init(onStartSearch: ((Bool) -> Void)?, onClearInput: (() -> Void)?, delegate: SearchBarDelegate) {
+        self.init(frame: .zero)
+        self.delegate = delegate
+        self.onStartSearch = onStartSearch
+        self.onClearInput = onClearInput
     }
 
     private func initSearchBar() {
@@ -75,8 +85,10 @@ class SearchBarView: UIView, UITextFieldDelegate {
             // Go back
             textField.text = ""
             textFieldDidEndEditing(textField)
+            onStartSearch?(false)
         } else {
             textField.becomeFirstResponder()
+            onStartSearch?(true)
         }
     }
     
@@ -84,6 +96,7 @@ class SearchBarView: UIView, UITextFieldDelegate {
     @objc private func rightButtonTapped() {
         textField.text = ""
         rightButton.isHidden = true
+        onClearInput?()
     }
     
     // MARK: - Button Handlers
@@ -104,10 +117,16 @@ class SearchBarView: UIView, UITextFieldDelegate {
     
     // MARK: - Delegation Implementation
     @objc private func textFieldDidChange(_ textField: UITextField) {
+        startSearch?.cancel()
         textField.text = textField.text?.trimmingCharacters(in: .whitespaces).count == 0 ? "" : textField.text
         setButtonStates(hasInput: textField.text?.count != 0, isSearching: true)
         
-        // execute search here!
+        startSearch = DispatchWorkItem { [weak self] in
+            guard let self = self, let startSearch = self.startSearch, !startSearch.isCancelled else { return }
+            self.delegate?.searchbarTextDidChange(textField)
+        }
+        guard let search = self.startSearch else { return }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: search)
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
