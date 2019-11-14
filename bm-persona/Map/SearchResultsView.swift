@@ -73,6 +73,7 @@ class SearchResultsView: UIView {
         errorLabel.textAlignment = .center
         errorLabel.numberOfLines = 3
         
+        // TODO: - Insert spinner
         loadingView = UIView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: self.rowHeight))
         
         errorView = UIView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: self.rowHeight))
