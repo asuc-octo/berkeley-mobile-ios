@@ -17,6 +17,8 @@ class MapViewController: UIViewController {
     private var dim: CGSize = .zero
     private var locationManager = CLLocationManager()
 
+    let mapView = MKMapView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.

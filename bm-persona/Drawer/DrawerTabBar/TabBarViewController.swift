@@ -49,7 +49,7 @@ class TabBarViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         // Setup controls
-        control = TabBarControl(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: view.frame.width, height: 40)), barHeight: CGFloat(10), barColor: UIColor(displayP3Red: 250/255.0, green: 212/255.0, blue: 126/255.0, alpha: 1.0))
+        control = TabBarControl(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: view.frame.width, height: 40)), barHeight: CGFloat(13), barColor: UIColor(displayP3Red: 250/255.0, green: 212/255.0, blue: 126/255.0, alpha: 1.0))
         control.delegate = self
         control.tintColor = .darkGray
         
@@ -72,10 +72,17 @@ class TabBarViewController: UIViewController {
         pageViewController.view.topAnchor.constraint(equalTo: control.bottomAnchor).isActive = true
         pageViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         
+        let scrollViews = pageViewController.view.subviews.filter { $0 is UIScrollView }
+        if let scrollView = scrollViews.first as? UIScrollView {
+            scrollView.delegate = self
+        }
+        
+        let viewControllersInCards = [UIViewController(), UIViewController(), UIViewController()]
+        
         pages = [
-            Page(viewController: CardViewController(UIViewController()), label: "Libraries"),
-            Page(viewController: CardViewController(UIViewController()), label: "Dining"),
-            Page(viewController: CardViewController(UIViewController()), label: "Fitness")
+            Page(viewController: CardViewController(viewControllersInCards[0]), label: "Libraries"),
+            Page(viewController: CardViewController(viewControllersInCards[1]), label: "Dining"),
+            Page(viewController: CardViewController(viewControllersInCards[2]), label: "Fitness")
         ]
     }
 
@@ -99,6 +106,16 @@ extension TabBarViewController: UIPageViewControllerDelegate, UIPageViewControll
         if index < 0 { return nil }
         let nextIndex = min(pages.count - 1, index + 1)
         return nextIndex == index ? nil : pages[nextIndex].viewController
+    }
+    
+}
+
+// MARK: - UIScrollViewDelegate
+
+extension TabBarViewController: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        control.progress = Double((scrollView.contentOffset.x - scrollView.frame.size.width) / scrollView.frame.size.width)
     }
     
 }

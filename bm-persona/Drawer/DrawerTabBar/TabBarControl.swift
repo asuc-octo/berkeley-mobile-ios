@@ -31,6 +31,11 @@ class TabBarControl: UISegmentedControl {
             updateIndicator()
         }
     }
+    open var progress: Double! {
+        didSet {
+            updateIndicator()
+        }
+    }
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -53,6 +58,7 @@ class TabBarControl: UISegmentedControl {
         self.maxWidth = frame.width
         self.indicatorHeight = barHeight
         setupIndicator(color: barColor)
+        self.progress = 0
         
         addTarget(self, action: #selector(TabBarControl.changedValue), for: .valueChanged)
     }
@@ -87,15 +93,16 @@ class TabBarControl: UISegmentedControl {
         addSubview(indicator)
     }
     
-    func updateIndicator() {
+    open func updateIndicator() {
         // TODO: Don't hardcode
-        self.indicator.frame.origin.y = 1/2 * frame.height + 2
+        self.indicator.frame.origin.y = 1/2 * frame.height + 3
         if !(0..<widths.count ~= selectedSegmentIndex) { return }
         let width = widths[self.selectedSegmentIndex]
         let step = self.frame.width / CGFloat(self.numberOfSegments)
         UIView.animate(withDuration: 0.2) {
             self.indicator.frame.size.width = width
-            self.indicator.frame.origin.x = step * CGFloat(Double(self.selectedSegmentIndex) + 0.5) - width / CGFloat(2)
+            // TODO: Fix PageView progress moving indicator
+            self.indicator.frame.origin.x = step * CGFloat(Double(self.selectedSegmentIndex) + 0.5 /*+ self.progress*/) - width / CGFloat(2)
         }
     }
     
