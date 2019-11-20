@@ -18,6 +18,21 @@
 		306A54F623613E3D00D59A7F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 306A54F423613E3D00D59A7F /* LaunchScreen.storyboard */; };
 		306A54FE236142B800D59A7F /* DrawerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306A54FD236142B800D59A7F /* DrawerViewController.swift */; };
 		306A550023614C0000D59A7F /* MainContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306A54FF23614C0000D59A7F /* MainContainerViewController.swift */; };
+		559A7B6B2373DCBA004EA501 /* SearchResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559A7B6A2373DCBA004EA501 /* SearchResultsView.swift */; };
+		559A7B6D2373DEFA004EA501 /* MaterialTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559A7B6C2373DEFA004EA501 /* MaterialTableViewCell.swift */; };
+		559A7B6F2373DF39004EA501 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559A7B6E2373DF39004EA501 /* SearchResultCell.swift */; };
+		55DCF78723722CBD001B01B8 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF78623722CBD001B01B8 /* Colors.swift */; };
+		55DCF78923722CF1001B01B8 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF78823722CF1001B01B8 /* Fonts.swift */; };
+		55DCF78C2372324E001B01B8 /* Raleway-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 55DCF78B2372324E001B01B8 /* Raleway-Medium.ttf */; };
+		55DCF78E23723258001B01B8 /* Raleway-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 55DCF78D23723258001B01B8 /* Raleway-Regular.ttf */; };
+		55DCF79023723260001B01B8 /* Raleway-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 55DCF78F23723260001B01B8 /* Raleway-Thin.ttf */; };
+		55DCF7922372326A001B01B8 /* Raleway-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 55DCF7912372326A001B01B8 /* Raleway-Bold.ttf */; };
+		55DCF79423723452001B01B8 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF79323723452001B01B8 /* SearchBarView.swift */; };
+		55DCF79623723CF2001B01B8 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF79523723CF2001B01B8 /* Extensions.swift */; };
+		55DCF79B237243D4001B01B8 /* MaterialTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF79A237243D4001B01B8 /* MaterialTextField.swift */; };
+		55DCF79D237243F5001B01B8 /* RippleLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF79C237243F5001B01B8 /* RippleLayer.swift */; };
+		55DCF79F237245BA001B01B8 /* Raleway-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 55DCF79E237245B9001B01B8 /* Raleway-SemiBold.ttf */; };
+		55DCF7A123724835001B01B8 /* MaterialButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF7A023724835001B01B8 /* MaterialButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +49,21 @@
 		306A54F723613E3D00D59A7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		306A54FD236142B800D59A7F /* DrawerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerViewController.swift; sourceTree = "<group>"; };
 		306A54FF23614C0000D59A7F /* MainContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainContainerViewController.swift; sourceTree = "<group>"; };
+		559A7B6A2373DCBA004EA501 /* SearchResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsView.swift; sourceTree = "<group>"; };
+		559A7B6C2373DEFA004EA501 /* MaterialTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialTableViewCell.swift; sourceTree = "<group>"; };
+		559A7B6E2373DF39004EA501 /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
+		55DCF78623722CBD001B01B8 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		55DCF78823722CF1001B01B8 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
+		55DCF78B2372324E001B01B8 /* Raleway-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Medium.ttf"; sourceTree = "<group>"; };
+		55DCF78D23723258001B01B8 /* Raleway-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Regular.ttf"; sourceTree = "<group>"; };
+		55DCF78F23723260001B01B8 /* Raleway-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Thin.ttf"; sourceTree = "<group>"; };
+		55DCF7912372326A001B01B8 /* Raleway-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Bold.ttf"; sourceTree = "<group>"; };
+		55DCF79323723452001B01B8 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
+		55DCF79523723CF2001B01B8 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		55DCF79A237243D4001B01B8 /* MaterialTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialTextField.swift; sourceTree = "<group>"; };
+		55DCF79C237243F5001B01B8 /* RippleLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RippleLayer.swift; sourceTree = "<group>"; };
+		55DCF79E237245B9001B01B8 /* Raleway-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-SemiBold.ttf"; sourceTree = "<group>"; };
+		55DCF7A023724835001B01B8 /* MaterialButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,7 +100,12 @@
 		303F6AE6236A9C3D007E37DD /* Map */ = {
 			isa = PBXGroup;
 			children = (
+				55DCF799237243C5001B01B8 /* External */,
 				306A54ED23613E3A00D59A7F /* MapViewController.swift */,
+				559A7B6A2373DCBA004EA501 /* SearchResultsView.swift */,
+				559A7B6E2373DF39004EA501 /* SearchResultCell.swift */,
+				55DCF79323723452001B01B8 /* SearchBarView.swift */,
+				55DCF79523723CF2001B01B8 /* Extensions.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -94,6 +129,7 @@
 		306A54E823613E3A00D59A7F /* bm-persona */ = {
 			isa = PBXGroup;
 			children = (
+				55DCF78523722CAE001B01B8 /* Assets */,
 				306A54E923613E3A00D59A7F /* AppDelegate.swift */,
 				306A54EB23613E3A00D59A7F /* SceneDelegate.swift */,
 				306A54FF23614C0000D59A7F /* MainContainerViewController.swift */,
@@ -104,6 +140,39 @@
 				306A54F723613E3D00D59A7F /* Info.plist */,
 			);
 			path = "bm-persona";
+			sourceTree = "<group>";
+		};
+		55DCF78523722CAE001B01B8 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				55DCF78A23723238001B01B8 /* Fonts */,
+				55DCF78623722CBD001B01B8 /* Colors.swift */,
+				55DCF78823722CF1001B01B8 /* Fonts.swift */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		55DCF78A23723238001B01B8 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				55DCF79E237245B9001B01B8 /* Raleway-SemiBold.ttf */,
+				55DCF7912372326A001B01B8 /* Raleway-Bold.ttf */,
+				55DCF78F23723260001B01B8 /* Raleway-Thin.ttf */,
+				55DCF78D23723258001B01B8 /* Raleway-Regular.ttf */,
+				55DCF78B2372324E001B01B8 /* Raleway-Medium.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		55DCF799237243C5001B01B8 /* External */ = {
+			isa = PBXGroup;
+			children = (
+				55DCF79A237243D4001B01B8 /* MaterialTextField.swift */,
+				55DCF79C237243F5001B01B8 /* RippleLayer.swift */,
+				55DCF7A023724835001B01B8 /* MaterialButton.swift */,
+				559A7B6C2373DEFA004EA501 /* MaterialTableViewCell.swift */,
+			);
+			path = External;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -164,8 +233,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55DCF79023723260001B01B8 /* Raleway-Thin.ttf in Resources */,
+				55DCF7922372326A001B01B8 /* Raleway-Bold.ttf in Resources */,
 				306A54F623613E3D00D59A7F /* LaunchScreen.storyboard in Resources */,
+				55DCF78C2372324E001B01B8 /* Raleway-Medium.ttf in Resources */,
 				306A54F323613E3D00D59A7F /* Assets.xcassets in Resources */,
+				55DCF78E23723258001B01B8 /* Raleway-Regular.ttf in Resources */,
+				55DCF79F237245BA001B01B8 /* Raleway-SemiBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -177,13 +251,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				306A550023614C0000D59A7F /* MainContainerViewController.swift in Sources */,
+				55DCF78723722CBD001B01B8 /* Colors.swift in Sources */,
 				306A54EE23613E3A00D59A7F /* MapViewController.swift in Sources */,
 				306A54FE236142B800D59A7F /* DrawerViewController.swift in Sources */,
+				55DCF79D237243F5001B01B8 /* RippleLayer.swift in Sources */,
+				55DCF79423723452001B01B8 /* SearchBarView.swift in Sources */,
 				303F6AE2236A931D007E37DD /* Utils.swift in Sources */,
+				55DCF79B237243D4001B01B8 /* MaterialTextField.swift in Sources */,
 				303F6AE4236A931D007E37DD /* TabBarViewController.swift in Sources */,
 				303F6AE3236A931D007E37DD /* CardViewController.swift in Sources */,
+				559A7B6F2373DF39004EA501 /* SearchResultCell.swift in Sources */,
+				55DCF7A123724835001B01B8 /* MaterialButton.swift in Sources */,
+				55DCF79623723CF2001B01B8 /* Extensions.swift in Sources */,
 				306A54EA23613E3A00D59A7F /* AppDelegate.swift in Sources */,
+				559A7B6B2373DCBA004EA501 /* SearchResultsView.swift in Sources */,
+				55DCF78923722CF1001B01B8 /* Fonts.swift in Sources */,
 				306A54EC23613E3A00D59A7F /* SceneDelegate.swift in Sources */,
+				559A7B6D2373DEFA004EA501 /* MaterialTableViewCell.swift in Sources */,
 				303F6AE1236A931D007E37DD /* TabBarControl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -321,7 +405,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 4HBETBULVA;
+				DEVELOPMENT_TEAM = K8FUZZ3FQV;
 				INFOPLIST_FILE = "bm-persona/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -339,7 +423,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 4HBETBULVA;
+				DEVELOPMENT_TEAM = K8FUZZ3FQV;
 				INFOPLIST_FILE = "bm-persona/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

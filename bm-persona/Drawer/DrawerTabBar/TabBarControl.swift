@@ -49,13 +49,9 @@ class TabBarControl: UISegmentedControl {
         setBackgroundImage(UIImage().resized(size: frame.size), for: .normal, barMetrics: .default)
         setDividerImage(UIImage(), forLeftSegmentState: .normal, rightSegmentState: .normal, barMetrics: .default)
         
-        let textDict = [
-            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18, weight: .bold),
-            NSAttributedString.Key.foregroundColor: UIColor.init(displayP3Red: 216/255.0, green: 216/255.0, blue: 216/255.0, alpha: 1.0)
-        ]
+        setTitleTextAttributes([NSAttributedString.Key.font: Font.semibold(24)], for: .normal)
         
-        setTitleTextAttributes(textDict, for: .normal)
-        setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black], for: .selected)
+        setTitleTextAttributes([NSAttributedString.Key.font: Font.bold(24)], for: .normal)
         
         self.apportionsSegmentWidthsByContent = true
         
