@@ -16,8 +16,6 @@ class MapViewController: UIViewController {
     private var searchResultsView: SearchResultsView!
     private var dim: CGSize = .zero
     private var locationManager = CLLocationManager()
-
-    let mapView = MKMapView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
