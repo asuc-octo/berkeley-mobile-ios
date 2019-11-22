@@ -7,9 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1396013323865E2E005E4788 /* CardCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1396012F23865E2E005E4788 /* CardCollectionView.swift */; };
+		1396013423865E2E005E4788 /* CardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1396013023865E2E005E4788 /* CardCollectionViewCell.swift */; };
+		1396013523865E2E005E4788 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1396013123865E2E005E4788 /* CardView.swift */; };
+		1396013623865E2E005E4788 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1396013223865E2E005E4788 /* TagView.swift */; };
+		13960138238661A1005E4788 /* SampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13960137238661A1005E4788 /* SampleViewController.swift */; };
 		303F6AE1236A931D007E37DD /* TabBarControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303F6ADD236A931D007E37DD /* TabBarControl.swift */; };
 		303F6AE2236A931D007E37DD /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303F6ADE236A931D007E37DD /* Utils.swift */; };
-		303F6AE3236A931D007E37DD /* CardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303F6ADF236A931D007E37DD /* CardViewController.swift */; };
 		303F6AE4236A931D007E37DD /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303F6AE0236A931D007E37DD /* TabBarViewController.swift */; };
 		306A54EA23613E3A00D59A7F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306A54E923613E3A00D59A7F /* AppDelegate.swift */; };
 		306A54EC23613E3A00D59A7F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306A54EB23613E3A00D59A7F /* SceneDelegate.swift */; };
@@ -36,9 +40,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1396012F23865E2E005E4788 /* CardCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardCollectionView.swift; sourceTree = "<group>"; };
+		1396013023865E2E005E4788 /* CardCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardCollectionViewCell.swift; sourceTree = "<group>"; };
+		1396013123865E2E005E4788 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		1396013223865E2E005E4788 /* TagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
+		13960137238661A1005E4788 /* SampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleViewController.swift; sourceTree = "<group>"; };
 		303F6ADD236A931D007E37DD /* TabBarControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarControl.swift; sourceTree = "<group>"; };
 		303F6ADE236A931D007E37DD /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
-		303F6ADF236A931D007E37DD /* CardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardViewController.swift; sourceTree = "<group>"; };
 		303F6AE0236A931D007E37DD /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		306A54E623613E3A00D59A7F /* bm-persona.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "bm-persona.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		306A54E923613E3A00D59A7F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -77,6 +85,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1396012D23865E2E005E4788 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				13960137238661A1005E4788 /* SampleViewController.swift */,
+				1396012E23865E2E005E4788 /* CollectionView */,
+				1396013123865E2E005E4788 /* CardView.swift */,
+				1396013223865E2E005E4788 /* TagView.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		1396012E23865E2E005E4788 /* CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				1396012F23865E2E005E4788 /* CardCollectionView.swift */,
+				1396013023865E2E005E4788 /* CardCollectionViewCell.swift */,
+			);
+			path = CollectionView;
+			sourceTree = "<group>";
+		};
 		303F6ADC236A9274007E37DD /* Drawer */ = {
 			isa = PBXGroup;
 			children = (
@@ -89,7 +117,6 @@
 		303F6AE5236A9C0D007E37DD /* DrawerTabBar */ = {
 			isa = PBXGroup;
 			children = (
-				303F6ADF236A931D007E37DD /* CardViewController.swift */,
 				303F6ADD236A931D007E37DD /* TabBarControl.swift */,
 				303F6AE0236A931D007E37DD /* TabBarViewController.swift */,
 				303F6ADE236A931D007E37DD /* Utils.swift */,
@@ -135,6 +162,7 @@
 				306A54FF23614C0000D59A7F /* MainContainerViewController.swift */,
 				303F6AE6236A9C3D007E37DD /* Map */,
 				303F6ADC236A9274007E37DD /* Drawer */,
+				1396012D23865E2E005E4788 /* Common */,
 				306A54F223613E3D00D59A7F /* Assets.xcassets */,
 				306A54F423613E3D00D59A7F /* LaunchScreen.storyboard */,
 				306A54F723613E3D00D59A7F /* Info.plist */,
@@ -254,20 +282,24 @@
 				55DCF78723722CBD001B01B8 /* Colors.swift in Sources */,
 				306A54EE23613E3A00D59A7F /* MapViewController.swift in Sources */,
 				306A54FE236142B800D59A7F /* DrawerViewController.swift in Sources */,
+				1396013423865E2E005E4788 /* CardCollectionViewCell.swift in Sources */,
 				55DCF79D237243F5001B01B8 /* RippleLayer.swift in Sources */,
 				55DCF79423723452001B01B8 /* SearchBarView.swift in Sources */,
 				303F6AE2236A931D007E37DD /* Utils.swift in Sources */,
+				1396013623865E2E005E4788 /* TagView.swift in Sources */,
 				55DCF79B237243D4001B01B8 /* MaterialTextField.swift in Sources */,
 				303F6AE4236A931D007E37DD /* TabBarViewController.swift in Sources */,
-				303F6AE3236A931D007E37DD /* CardViewController.swift in Sources */,
 				559A7B6F2373DF39004EA501 /* SearchResultCell.swift in Sources */,
 				55DCF7A123724835001B01B8 /* MaterialButton.swift in Sources */,
 				55DCF79623723CF2001B01B8 /* Extensions.swift in Sources */,
 				306A54EA23613E3A00D59A7F /* AppDelegate.swift in Sources */,
+				13960138238661A1005E4788 /* SampleViewController.swift in Sources */,
 				559A7B6B2373DCBA004EA501 /* SearchResultsView.swift in Sources */,
 				55DCF78923722CF1001B01B8 /* Fonts.swift in Sources */,
+				1396013323865E2E005E4788 /* CardCollectionView.swift in Sources */,
 				306A54EC23613E3A00D59A7F /* SceneDelegate.swift in Sources */,
 				559A7B6D2373DEFA004EA501 /* MaterialTableViewCell.swift in Sources */,
+				1396013523865E2E005E4788 /* CardView.swift in Sources */,
 				303F6AE1236A931D007E37DD /* TabBarControl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

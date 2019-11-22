@@ -26,15 +26,22 @@ class TabBarControl: UISegmentedControl {
     private var maxWidth: CGFloat!
     private var widths: [CGFloat]!
     
-    override var selectedSegmentIndex: Int {
+    // Updates after animation completes
+    open var index: Int! = 0 {
+        didSet {
+            selectedSegmentIndex = index
+            updateIndicator()
+        }
+    }
+    open var progress: Double! = 0 {
         didSet {
             updateIndicator()
         }
     }
-    open var progress: Double! {
-        didSet {
-            updateIndicator()
-        }
+    
+    override var alpha: CGFloat {
+        get { return 1.0 }
+        set { }
     }
     
     override func layoutSubviews() {
@@ -49,16 +56,19 @@ class TabBarControl: UISegmentedControl {
         setBackgroundImage(UIImage().resized(size: frame.size), for: .normal, barMetrics: .default)
         setDividerImage(UIImage(), forLeftSegmentState: .normal, rightSegmentState: .normal, barMetrics: .default)
         
-        setTitleTextAttributes([NSAttributedString.Key.font: Font.semibold(24)], for: .normal)
-        
-        setTitleTextAttributes([NSAttributedString.Key.font: Font.bold(24)], for: .normal)
+        setTitleTextAttributes([
+            NSAttributedString.Key.font: Font.bold(18),
+            NSAttributedString.Key.foregroundColor: Color.secondaryText
+        ], for: .normal)
+        setTitleTextAttributes([
+            NSAttributedString.Key.foregroundColor: Color.primaryText
+        ], for: .selected)
         
         self.apportionsSegmentWidthsByContent = true
         
         self.maxWidth = frame.width
         self.indicatorHeight = barHeight
         setupIndicator(color: barColor)
-        self.progress = 0
         
         addTarget(self, action: #selector(TabBarControl.changedValue), for: .valueChanged)
     }
@@ -96,13 +106,16 @@ class TabBarControl: UISegmentedControl {
     open func updateIndicator() {
         // TODO: Don't hardcode
         self.indicator.frame.origin.y = 1/2 * frame.height + 3
-        if !(0..<widths.count ~= selectedSegmentIndex) { return }
-        let width = widths[self.selectedSegmentIndex]
+        if !(0..<widths.count ~= index) { return }
+        let curWidth = widths[index]
+        let newIndex = max(min(widths.count - 1, index + (progress > 0 ? 1 : -1)), 0)
+        let newWidth = widths[newIndex]
+        let width = curWidth + (newWidth - curWidth) * CGFloat(abs(progress))
+        let delta = max(abs(selectedSegmentIndex - index), 1)
         let step = self.frame.width / CGFloat(self.numberOfSegments)
-        UIView.animate(withDuration: 0.2) {
+        UIView.animate(withDuration: 0.1) {
             self.indicator.frame.size.width = width
-            // TODO: Fix PageView progress moving indicator
-            self.indicator.frame.origin.x = step * CGFloat(Double(self.selectedSegmentIndex) + 0.5 /*+ self.progress*/) - width / CGFloat(2)
+            self.indicator.frame.origin.x = step * CGFloat(Double(self.index) + 0.5 + Double(delta) * self.progress) - width / 2
         }
     }
     
