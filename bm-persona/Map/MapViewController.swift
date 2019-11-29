@@ -12,6 +12,7 @@ import MapKit
 class MapViewController: UIViewController {
     
     private var mapView: MKMapView!
+    private var maskView: UIView!
     private var searchBar: SearchBarView!
     private var searchResultsView: SearchResultsView!
     private var dim: CGSize = .zero
@@ -24,6 +25,9 @@ class MapViewController: UIViewController {
         dim = self.view.frame.size
         
         mapView = MKMapView()
+        
+        maskView = UIView()
+        maskView.backgroundColor = Color.searchBarBackground
         
         searchBar = SearchBarView(
             onStartSearch: { [weak self] (isSearching) in
@@ -40,12 +44,13 @@ class MapViewController: UIViewController {
         
         requestLocation()
         
-        self.view.addSubViews([mapView, searchResultsView, searchBar])
+        self.view.addSubViews([mapView, maskView, searchResultsView, searchBar])
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
+    
+        maskView.setConstraintsToView(top: self.view, bottom: self.view, left: self.view, right: self.view)
         mapView.setConstraintsToView(top: self.view, bottom: self.view, left: self.view, right: self.view)
         
         self.view.addConstraints([
@@ -66,7 +71,7 @@ class MapViewController: UIViewController {
                               toItem: searchBar, attribute: .bottom,
                               multiplier: 1.0, constant: 0.02*dim.height)
         ])
-        searchResultsView.setConstraintsToView(bottom: self.view, left: searchBar, right: searchBar)
+        searchResultsView.setConstraintsToView(bottom: maskView, left: searchBar, right: searchBar)
         
         searchBar.setHeightConstraint(0.07*dim.height)
         searchBar.setWidthConstraint(0.9*dim.width)
@@ -89,8 +94,10 @@ class MapViewController: UIViewController {
     
     private func showSearchResultsView(_ show: Bool) {
         if show {
+            self.maskView.isHidden = false
             self.searchResultsView.isHidden = false
         } else {
+            self.maskView.isHidden = true
             self.searchResultsView.isHidden = true
             self.searchResultsView.isScrolling = false
         }
