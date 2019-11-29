@@ -120,10 +120,11 @@ extension MapViewController: CLLocationManagerDelegate {
 
 extension MapViewController: SearchBarDelegate {
     func searchbarTextDidChange(_ textField: UITextField) {
+        searchResultsView.state = .loading
+
         if textField.text != nil {
             searchLocations(textField.text!)
         }
-        searchResultsView.state = .loading
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {

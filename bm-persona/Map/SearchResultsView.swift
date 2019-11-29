@@ -30,6 +30,7 @@ enum TableState {
 class SearchResultsView: UIView {
     
     private var tableView: UITableView!
+    private var activityIndicator: MaterialLoadingIndicator!
     private var loadingView: UIView!
     private var emptyView: UIView!
     private var errorView: UIView!
@@ -60,6 +61,8 @@ class SearchResultsView: UIView {
         initTableView()
         
         loadingView = UIView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: self.rowHeight))
+        activityIndicator = MaterialLoadingIndicator()
+        loadingView.addSubViews([activityIndicator])
         
         noResultsLabel = UILabel()
         noResultsLabel.text = "Nothing found!"
@@ -72,9 +75,6 @@ class SearchResultsView: UIView {
         errorLabel.font = Font.regular(17)
         errorLabel.textAlignment = .center
         errorLabel.numberOfLines = 3
-        
-        // TODO: - Insert spinner
-        loadingView = UIView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: self.rowHeight))
         
         errorView = UIView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: self.rowHeight))
         errorView.addSubViews([errorLabel])
@@ -101,6 +101,8 @@ class SearchResultsView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        loadingView.centerSubView(activityIndicator)
+        
         errorLabel.leftAnchor.constraint(equalTo: errorView.leftAnchor).isActive = true
         errorLabel.rightAnchor.constraint(equalTo: errorView.rightAnchor).isActive = true
         errorView.centerSubView(errorLabel)
@@ -121,6 +123,7 @@ class SearchResultsView: UIView {
             errorLabel.text = error.localizedDescription
             tableView.tableFooterView = errorView
         case .loading:
+            activityIndicator.startAnimating()
             tableView.tableFooterView = loadingView
         case .empty:
             tableView.tableFooterView = emptyView
