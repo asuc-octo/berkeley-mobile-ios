@@ -23,6 +23,7 @@
 		306A54FE236142B800D59A7F /* DrawerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306A54FD236142B800D59A7F /* DrawerViewController.swift */; };
 		306A550023614C0000D59A7F /* MainContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306A54FF23614C0000D59A7F /* MainContainerViewController.swift */; };
 		30D0C1732398BD52003137F1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 30D0C1722398BD52003137F1 /* GoogleService-Info.plist */; };
+		5532B67B2390CBF600293BE0 /* MaterialLoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532B67A2390CBF600293BE0 /* MaterialLoadingIndicator.swift */; };
 		559A7B6B2373DCBA004EA501 /* SearchResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559A7B6A2373DCBA004EA501 /* SearchResultsView.swift */; };
 		559A7B6D2373DEFA004EA501 /* MaterialTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559A7B6C2373DEFA004EA501 /* MaterialTableViewCell.swift */; };
 		559A7B6F2373DF39004EA501 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559A7B6E2373DF39004EA501 /* SearchResultCell.swift */; };
@@ -60,6 +61,7 @@
 		306A54FD236142B800D59A7F /* DrawerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerViewController.swift; sourceTree = "<group>"; };
 		306A54FF23614C0000D59A7F /* MainContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainContainerViewController.swift; sourceTree = "<group>"; };
 		30D0C1722398BD52003137F1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5532B67A2390CBF600293BE0 /* MaterialLoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialLoadingIndicator.swift; sourceTree = "<group>"; };
 		559A7B6A2373DCBA004EA501 /* SearchResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsView.swift; sourceTree = "<group>"; };
 		559A7B6C2373DEFA004EA501 /* MaterialTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialTableViewCell.swift; sourceTree = "<group>"; };
 		559A7B6E2373DF39004EA501 /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
@@ -209,6 +211,7 @@
 				55DCF79C237243F5001B01B8 /* RippleLayer.swift */,
 				55DCF7A023724835001B01B8 /* MaterialButton.swift */,
 				559A7B6C2373DEFA004EA501 /* MaterialTableViewCell.swift */,
+				5532B67A2390CBF600293BE0 /* MaterialLoadingIndicator.swift */,
 			);
 			path = External;
 			sourceTree = "<group>";
@@ -359,6 +362,7 @@
 				55DCF79423723452001B01B8 /* SearchBarView.swift in Sources */,
 				303F6AE2236A931D007E37DD /* Utils.swift in Sources */,
 				1396013623865E2E005E4788 /* TagView.swift in Sources */,
+				5532B67B2390CBF600293BE0 /* MaterialLoadingIndicator.swift in Sources */,
 				55DCF79B237243D4001B01B8 /* MaterialTextField.swift in Sources */,
 				303F6AE4236A931D007E37DD /* TabBarViewController.swift in Sources */,
 				559A7B6F2373DF39004EA501 /* SearchResultCell.swift in Sources */,
