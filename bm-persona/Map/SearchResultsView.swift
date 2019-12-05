@@ -71,7 +71,7 @@ class SearchResultsView: UIView {
         noResultsLabel.numberOfLines = 3
         
         errorLabel = UILabel()
-        errorLabel.text = "Error. Please try again later."
+        errorLabel.text = ""
         errorLabel.font = Font.regular(17)
         errorLabel.textAlignment = .center
         errorLabel.numberOfLines = 3
@@ -120,7 +120,9 @@ class SearchResultsView: UIView {
     func updateView() {
         switch state {
         case .error(let error):
-            errorLabel.text = error.localizedDescription
+            if error.localizedDescription != "The operation couldn’t be completed. (MKErrorDomain error 4.)" {  // Temporary workaround
+                errorLabel.text = error.localizedDescription
+            }
             tableView.tableFooterView = errorView
         case .loading:
             activityIndicator.startAnimating()
