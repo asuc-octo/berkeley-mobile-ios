@@ -37,9 +37,14 @@ class TabBarViewController: UIViewController {
         }
         set(newIndex) {
             if 0..<pages.count ~= newIndex {
-                control.selectedSegmentIndex = newIndex
+                control.index = newIndex
                 pageViewController.setViewControllers([pages[newIndex].viewController], direction: .forward, animated: true)
             }
+        }
+    }
+    private var animating: Bool = false {
+        didSet {
+            control.isEnabled = !animating
         }
     }
     
@@ -49,19 +54,21 @@ class TabBarViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         // Setup controls
-        control = TabBarControl(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: view.frame.width, height: 40)), barHeight: CGFloat(13), barColor: UIColor(displayP3Red: 250/255.0, green: 212/255.0, blue: 126/255.0, alpha: 1.0))
+        let size = CGSize(width: view.frame.width - view.layoutMargins.left - view.layoutMargins.right, height: 35)
+        control = TabBarControl(frame: CGRect(origin: .zero, size: size),
+                                barHeight: CGFloat(13),
+                                barColor: UIColor(displayP3Red: 250/255.0, green: 212/255.0, blue: 126/255.0, alpha: 1.0))
         control.delegate = self
-        control.tintColor = .darkGray
         
         view.addSubview(control)
         control.translatesAutoresizingMaskIntoConstraints = false
         control.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        control.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
+        control.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         
         // Setup UIPageViewController
         pageViewController = UIPageViewController(transitionStyle: .scroll,
-                                          navigationOrientation: .horizontal,
-                                                        options: nil)
+                                                  navigationOrientation: .horizontal,
+                                                  options: nil)
         pageViewController.delegate = self
         pageViewController.dataSource = self
         
@@ -80,9 +87,9 @@ class TabBarViewController: UIViewController {
         let viewControllersInCards = [UIViewController(), UIViewController(), UIViewController()]
         
         pages = [
-            Page(viewController: CardViewController(viewControllersInCards[0]), label: "Libraries"),
-            Page(viewController: CardViewController(viewControllersInCards[1]), label: "Dining"),
-            Page(viewController: CardViewController(viewControllersInCards[2]), label: "Fitness")
+            Page(viewController: viewControllersInCards[0], label: "Libraries"),
+            Page(viewController: viewControllersInCards[1], label: "Dining"),
+            Page(viewController: viewControllersInCards[2], label: "Fitness")
         ]
     }
 
@@ -93,7 +100,7 @@ class TabBarViewController: UIViewController {
 extension TabBarViewController: UIPageViewControllerDelegate, UIPageViewControllerDataSource {
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-        control.selectedSegmentIndex = index
+        control.index = index
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
@@ -116,6 +123,7 @@ extension TabBarViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         control.progress = Double((scrollView.contentOffset.x - scrollView.frame.size.width) / scrollView.frame.size.width)
+        animating = control.progress != 0
     }
     
 }
@@ -125,9 +133,11 @@ extension TabBarViewController: UIScrollViewDelegate {
 extension TabBarViewController: TabBarControlDelegate {
     
     func tabBarControl(_ tabBarControl: TabBarControl, didChangeValue value: Int) {
-        pageViewController.setViewControllers([pages[value].viewController],
-                                              direction: value > index ? .forward : .reverse,
-                                              animated: true)
+        if !animating {
+            pageViewController.setViewControllers([pages[value].viewController],
+                                                  direction: value > index ? .forward : .reverse,
+                                                  animated: true) { success in self.control.index = value }
+        }
     }
     
 }

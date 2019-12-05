@@ -49,6 +49,8 @@ class DrawerViewController: UIViewController {
         let tabBarViewController = TabBarViewController()
         self.add(child: tabBarViewController)
         tabBarViewController.view.frame = self.view.bounds
+        tabBarViewController.view.frame.origin.y = barView.frame.maxY + 16
+        tabBarViewController.view.layoutMargins = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
     }
     
     func setupGestures() {
