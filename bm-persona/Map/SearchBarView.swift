@@ -45,7 +45,7 @@ class SearchBarView: UIView, UITextFieldDelegate {
         self.layer.shadowColor = UIColor.black.cgColor
         self.layer.shadowOpacity = 0.3
         self.layer.shadowOffset = .zero
-        self.layer.shadowRadius = 10
+        self.layer.shadowRadius = 8
         
         textField = MaterialTextField(hint: "What are you looking for?", textColor: Color.primaryText, font: Font.regular(16.0), bgColor: Color.searchBarBackground, delegate: self)
         textField.autocorrectionType = .no
@@ -76,6 +76,12 @@ class SearchBarView: UIView, UITextFieldDelegate {
         
         leftButton.widthAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 0.8).isActive = true
         rightButton.widthAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 0.8).isActive = true
+        
+        let radius = self.frame.height / 2
+        self.layer.cornerRadius = radius
+        leftButton.cornerRadius = radius
+        rightButton.cornerRadius = radius
+        textField.cornerRadius = radius
     
     }
     
