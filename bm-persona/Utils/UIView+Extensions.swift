@@ -1,5 +1,5 @@
 //
-//  UIViewExtensions.swift
+//  UIView+Extensions.swift
 //  bm-persona
 //
 //  Created by Oscar Bjorkman on 11/5/19.

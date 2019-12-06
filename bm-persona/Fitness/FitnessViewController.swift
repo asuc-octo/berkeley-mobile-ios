@@ -21,6 +21,8 @@ class FitnessViewController: UIViewController {
     private var todayCard: CardView!
     private var gymCard: CardView!
     
+    private var gyms: [Gym]!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -31,6 +33,11 @@ class FitnessViewController: UIViewController {
         setupUpcomingClasses()
         setupTodayClasses()
         setupGyms()
+        
+        DataManager.shared.fetch(source: GymDataSource.self) { gyms in
+            self.gyms = gyms as? [Gym] ?? []
+            
+        }
     }
     
     @objc func willExpandClasses() {

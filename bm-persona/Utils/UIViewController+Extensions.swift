@@ -1,5 +1,5 @@
 //
-//  UIViewControllerExtensions.swift
+//  UIViewController+Extensions.swift
 //  bm-persona
 //
 //  Created by Kevin Hu on 12/4/19.
