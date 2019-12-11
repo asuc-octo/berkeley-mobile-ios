@@ -73,7 +73,7 @@ class MapViewController: UIViewController {
         ])
         searchResultsView.setConstraintsToView(bottom: maskView, left: searchBar, right: searchBar)
         
-        searchBar.setHeightConstraint(0.07*dim.height)
+        searchBar.setHeightConstraint(50)
         searchBar.setWidthConstraint(0.9*dim.width)
         
         self.view.layoutIfNeeded()
