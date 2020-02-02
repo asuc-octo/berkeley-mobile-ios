@@ -12,11 +12,11 @@ import MapKit
 // MARK: - Table State
 enum TableState {
     case loading
-    case populated([CLPlacemark])
+    case populated([MapPlacemark])
     case empty
     case error(Error)
     
-    var placemarks: [CLPlacemark] {
+    var placemarks: [MapPlacemark] {
         switch self {
         case .populated(let placemarks):
             return placemarks
@@ -134,7 +134,7 @@ class SearchResultsView: UIView {
         }
     }
     
-    func updateTable(newPlacemarks: [CLPlacemark]?, error: Error?) {
+    func updateTable(newPlacemarks: [MapPlacemark]?, error: Error?) {
         if let error = error {
             state = .error(error)
             return

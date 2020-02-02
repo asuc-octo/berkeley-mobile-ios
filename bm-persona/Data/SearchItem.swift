@@ -10,6 +10,8 @@ import UIKit
 
 protocol SearchItem {
     
-    var text: Set<String> { get }
+    var searchName: String { get }
+    var location: (Double, Double) { get }
+    var locationName: String { get }
     
 }

@@ -68,9 +68,9 @@ class SearchResultCell: MaterialTableViewCell {
         self.layoutIfNeeded()
     }
     
-    func cellConfigure(_ currentPlacemark: CLPlacemark) {
-        title.text = currentPlacemark.name
-        subTitle.text = parsePlacemark(currentPlacemark)
+    func cellConfigure(_ currentPlacemark: MapPlacemark) {
+        title.text = currentPlacemark.searchName
+        subTitle.text = currentPlacemark.locationName // TODO: - fix
         
         guard
             let userLoc = locationManager.location,

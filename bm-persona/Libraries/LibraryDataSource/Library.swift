@@ -10,8 +10,16 @@ import UIKit
 
 class Library: SearchItem {
     
-    var text: Set<String> {
-        return [name]
+    var searchName: String {
+        return name
+    }
+    
+    var location: (Double, Double) {
+        return (latitude ?? 0, longitude ?? 0)
+    }
+    
+    var locationName: String {
+        return campusLocation ?? "Berkeley, CA"
     }
     
     var image: UIImage?
