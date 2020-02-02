@@ -10,6 +10,6 @@ import UIKit
 
 protocol SearchItem {
     
-    var text: [String] { get }
+    var text: Set<String> { get }
     
 }

@@ -14,8 +14,7 @@ fileprivate let kGymsEndpoint = "Gyms"
 class GymDataSource: DataSource
 {
     // Fetch the list of gyms and report back to the completionHandler.
-    static func fetchItems(_ completion: @escaping ([Any]?) -> Void)
-    {
+    static func fetchItems(_ completion: @escaping DataSource.completionHandler) {
         let db = Firestore.firestore()
         db.collection(kGymsEndpoint).getDocuments() { (querySnapshot, err) in
             if let err = err {
@@ -33,15 +32,15 @@ class GymDataSource: DataSource
     
     // Return a Gym object parsed from a dictionary.
     private static func parseGym(_ dict: [String: Any]) -> Gym {
-        //let weeklyHours = [[String: Any]]()//parseWeeklyTimes(dict["open_close_array"] as? [[String: Any]])
-        //let timesToday: TimeInterval = nil//weeklyHours[Date().weekday()]
+        let weeklyHours = parseWeeklyTimes(dict["open_close_array"] as? [[String: Any]])
+        let timesToday = weeklyHours[Date().weekday()]
         
         let gym = Gym(name: dict["name"] as? String ?? "Unnamed",
                       address: dict["address"] as? String,
                       phoneNumber: dict["phone"] as? String,
                       imageLink: dict["picture"] as? String,
-                      openingTimeToday: nil,//timesToday?.start,
-                      closingTimeToday: nil)//timesToday?.end)
+                      openingTimeToday: timesToday?.start,
+                      closingTimeToday: timesToday?.end)
         
         gym.latitude = dict["latitude"] as? Double
         gym.longitude = dict["longitude"] as? Double

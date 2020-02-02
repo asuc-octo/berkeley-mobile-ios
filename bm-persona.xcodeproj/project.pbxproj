@@ -13,6 +13,12 @@
 		1396013423865E2E005E4788 /* CardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1396013023865E2E005E4788 /* CardCollectionViewCell.swift */; };
 		1396013523865E2E005E4788 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1396013123865E2E005E4788 /* CardView.swift */; };
 		1396013623865E2E005E4788 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1396013223865E2E005E4788 /* TagView.swift */; };
+		13B39A8B23E682850039FBA2 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39A8A23E682840039FBA2 /* Date+Extension.swift */; };
+		13B39A8D23E689BC0039FBA2 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39A8C23E689BC0039FBA2 /* DataSource.swift */; };
+		13B39A9523E6A3330039FBA2 /* CampusResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39A9323E6A3330039FBA2 /* CampusResource.swift */; };
+		13B39A9623E6A3330039FBA2 /* CampusResourceDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39A9423E6A3330039FBA2 /* CampusResourceDataSource.swift */; };
+		13B39A9923E6A33C0039FBA2 /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39A9723E6A33B0039FBA2 /* Library.swift */; };
+		13B39A9A23E6A33C0039FBA2 /* LibraryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39A9823E6A33B0039FBA2 /* LibraryDataSource.swift */; };
 		13E25DFD238C949E00B670B5 /* FitnessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E25DFC238C949E00B670B5 /* FitnessViewController.swift */; };
 		13EA64C82399CE0800FD8E13 /* GymDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13EA64C72399CE0800FD8E13 /* GymDataSource.swift */; };
 		13EA64CA2399CE5B00FD8E13 /* SearchItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13EA64C92399CE5B00FD8E13 /* SearchItem.swift */; };
@@ -54,6 +60,12 @@
 		1396013023865E2E005E4788 /* CardCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardCollectionViewCell.swift; sourceTree = "<group>"; };
 		1396013123865E2E005E4788 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		1396013223865E2E005E4788 /* TagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
+		13B39A8A23E682840039FBA2 /* Date+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
+		13B39A8C23E689BC0039FBA2 /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
+		13B39A9323E6A3330039FBA2 /* CampusResource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CampusResource.swift; sourceTree = "<group>"; };
+		13B39A9423E6A3330039FBA2 /* CampusResourceDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CampusResourceDataSource.swift; sourceTree = "<group>"; };
+		13B39A9723E6A33B0039FBA2 /* Library.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Library.swift; sourceTree = "<group>"; };
+		13B39A9823E6A33B0039FBA2 /* LibraryDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryDataSource.swift; sourceTree = "<group>"; };
 		13E25DFC238C949E00B670B5 /* FitnessViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FitnessViewController.swift; sourceTree = "<group>"; };
 		13EA64C72399CE0800FD8E13 /* GymDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDataSource.swift; sourceTree = "<group>"; };
 		13EA64C92399CE5B00FD8E13 /* SearchItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchItem.swift; sourceTree = "<group>"; };
@@ -132,9 +144,44 @@
 			path = CollectionView;
 			sourceTree = "<group>";
 		};
+		13B39A8E23E6A1ED0039FBA2 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				13B39A9123E6A2C20039FBA2 /* LibraryDataSource */,
+			);
+			path = Libraries;
+			sourceTree = "<group>";
+		};
+		13B39A9023E6A2760039FBA2 /* CampusResources */ = {
+			isa = PBXGroup;
+			children = (
+				13B39A9223E6A2D20039FBA2 /* CampusResourceDataSource */,
+			);
+			path = CampusResources;
+			sourceTree = "<group>";
+		};
+		13B39A9123E6A2C20039FBA2 /* LibraryDataSource */ = {
+			isa = PBXGroup;
+			children = (
+				13B39A9823E6A33B0039FBA2 /* LibraryDataSource.swift */,
+				13B39A9723E6A33B0039FBA2 /* Library.swift */,
+			);
+			path = LibraryDataSource;
+			sourceTree = "<group>";
+		};
+		13B39A9223E6A2D20039FBA2 /* CampusResourceDataSource */ = {
+			isa = PBXGroup;
+			children = (
+				13B39A9323E6A3330039FBA2 /* CampusResource.swift */,
+				13B39A9423E6A3330039FBA2 /* CampusResourceDataSource.swift */,
+			);
+			path = CampusResourceDataSource;
+			sourceTree = "<group>";
+		};
 		13E25E00238C9E1000B670B5 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				13B39A8A23E682840039FBA2 /* Date+Extension.swift */,
 				55DCF79523723CF2001B01B8 /* UIView+Extensions.swift */,
 				136DC97A2398B4D1009B1810 /* UIViewController+Extensions.swift */,
 				136DC97C2398B4F3009B1810 /* UIImage+Extensions.swift */,
@@ -156,6 +203,7 @@
 			children = (
 				13EA64C92399CE5B00FD8E13 /* SearchItem.swift */,
 				13EA64CF2399D50C00FD8E13 /* DataManager.swift */,
+				13B39A8C23E689BC0039FBA2 /* DataSource.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -216,6 +264,8 @@
 				306A54EB23613E3A00D59A7F /* SceneDelegate.swift */,
 				306A54FF23614C0000D59A7F /* MainContainerViewController.swift */,
 				13EA64CE2399D4A100FD8E13 /* Data */,
+				13B39A9023E6A2760039FBA2 /* CampusResources */,
+				13B39A8E23E6A1ED0039FBA2 /* Libraries */,
 				136DC9792398B43F009B1810 /* Fitness */,
 				303F6AE6236A9C3D007E37DD /* Map */,
 				303F6ADC236A9274007E37DD /* Drawer */,
@@ -400,11 +450,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				13B39A9523E6A3330039FBA2 /* CampusResource.swift in Sources */,
 				306A550023614C0000D59A7F /* MainContainerViewController.swift in Sources */,
 				55DCF78723722CBD001B01B8 /* Colors.swift in Sources */,
 				306A54EE23613E3A00D59A7F /* MapViewController.swift in Sources */,
+				13B39A9623E6A3330039FBA2 /* CampusResourceDataSource.swift in Sources */,
 				136DC97D2398B4F3009B1810 /* UIImage+Extensions.swift in Sources */,
 				306A54FE236142B800D59A7F /* DrawerViewController.swift in Sources */,
+				13B39A8B23E682850039FBA2 /* Date+Extension.swift in Sources */,
+				13B39A8D23E689BC0039FBA2 /* DataSource.swift in Sources */,
 				1396013423865E2E005E4788 /* CardCollectionViewCell.swift in Sources */,
 				55DCF79D237243F5001B01B8 /* RippleLayer.swift in Sources */,
 				55DCF79423723452001B01B8 /* SearchBarView.swift in Sources */,
@@ -413,6 +467,7 @@
 				13E25DFD238C949E00B670B5 /* FitnessViewController.swift in Sources */,
 				55DCF79B237243D4001B01B8 /* MaterialTextField.swift in Sources */,
 				13EA64CA2399CE5B00FD8E13 /* SearchItem.swift in Sources */,
+				13B39A9923E6A33C0039FBA2 /* Library.swift in Sources */,
 				303F6AE4236A931D007E37DD /* TabBarViewController.swift in Sources */,
 				559A7B6F2373DF39004EA501 /* SearchResultCell.swift in Sources */,
 				55DCF7A123724835001B01B8 /* MaterialButton.swift in Sources */,
@@ -423,6 +478,7 @@
 				55DCF78923722CF1001B01B8 /* Fonts.swift in Sources */,
 				13EA64D02399D50C00FD8E13 /* DataManager.swift in Sources */,
 				1396013323865E2E005E4788 /* CardCollectionView.swift in Sources */,
+				13B39A9A23E6A33C0039FBA2 /* LibraryDataSource.swift in Sources */,
 				306A54EC23613E3A00D59A7F /* SceneDelegate.swift in Sources */,
 				136DC97B2398B4D1009B1810 /* UIViewController+Extensions.swift in Sources */,
 				559A7B6D2373DEFA004EA501 /* MaterialTableViewCell.swift in Sources */,

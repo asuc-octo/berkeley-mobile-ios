@@ -11,10 +11,8 @@ import UIKit
 
 class Gym: SearchItem {
     
-    var text: [String] {
-        get {
-            return [name]
-        }
+    var text: Set<String> {
+        return [name]
     }
     
     var image: UIImage?
@@ -40,9 +38,9 @@ class Gym: SearchItem {
         var status = false
         if let open = openingTimeToday,
            let close = closingTimeToday {
-            //if Date().isBetween(open, close) || close == open {
+            if Date().isBetween(open, close) || close == open {
                 status = true
-            //}
+            }
         }
         return status
     }

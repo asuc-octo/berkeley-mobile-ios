@@ -8,20 +8,23 @@
 
 import Foundation
 
-// Use enum perhaps?
-fileprivate let kDataSources: [DataSource.Type] = [GymDataSource.self]
-
-protocol DataSource {
-    typealias completionHandler = (_ resources: [Any]?) -> Void
-    static func fetchItems(_ completion: @escaping DataSource.completionHandler)
-}
+fileprivate let kDataSources: [DataSource.Type] = [
+    CampusResourceDataSource.self,
+    LibraryDataSource.self,
+    GymDataSource.self
+]
 
 class DataManager {
     
     static let shared = DataManager()
     
-    var data: [String: [Any]?]
-    // TODO: Handle search items somehow.
+    var data: [String: [Any]]
+    // TODO: Make this O(1).
+    var searchable: [SearchItem] {
+        data.values.compactMap { items in
+            items as? [SearchItem]
+        }.flatMap { $0 }
+    }
     
     private init() {
         data = [:]
@@ -40,10 +43,11 @@ class DataManager {
     func fetch(source: DataSource.Type, _ completion: @escaping DataSource.completionHandler) {
         if let items = data[asKey(source)] {
             completion(items)
-        }
-        source.fetchItems { items in
-            self.data[self.asKey(source)] = items
-            completion(items)
+        } else {
+            source.fetchItems { items in
+                self.data[self.asKey(source)] = items
+                completion(items)
+            }
         }
     }
     
