@@ -21,6 +21,7 @@ class CardCollectionView: UICollectionView {
         super.init(frame: frame, collectionViewLayout: layout)
 
         backgroundColor = .clear
+        layer.masksToBounds = false
         showsVerticalScrollIndicator = false
         showsHorizontalScrollIndicator = false
         register(CardCollectionViewCell.self, forCellWithReuseIdentifier: CardCollectionView.kCellIdentifier)
