@@ -17,6 +17,8 @@ protocol DrawerViewDelegate {
 class MainContainerViewController: UIViewController {
     let mapViewController = MapViewController()
     let drawerViewController = DrawerViewController()
+    let tabBar = TabBarController()
+    
     var initialDrawerCenter = CGPoint()
     var drawerStatePositions: [DrawerState: CGFloat] = [:]
     
@@ -24,6 +26,8 @@ class MainContainerViewController: UIViewController {
         super.viewDidLoad()
         add(child: mapViewController)
         add(child: drawerViewController)
+        add(child: tabBar)
+        
         drawerViewController.delegate = self
         mapViewController.view.frame = self.view.frame
         
@@ -34,8 +38,8 @@ class MainContainerViewController: UIViewController {
             drawerViewController.view.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             drawerViewController.view.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: self.view.frame.maxY * 0.9)
         ])
-        
-        // Do any additional setup after loading the view.
+
+        self.view.bringSubviewToFront(tabBar.view)
     }
     
     override func viewDidAppear(_ animated: Bool) {

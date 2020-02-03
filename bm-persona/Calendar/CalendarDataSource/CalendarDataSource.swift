@@ -33,6 +33,7 @@ class CalendarDataSource: DataSource {
     
     // Return a CalendaryEntry object parsed from a dictionary.
     private static func parseCalendarResource(_ dict: [String: Any]) -> CalendarEntry {
-        
+        print(dict)
+        return CalendarEntry(name: "Testing name", campusLocation: "Somewhere", date: Date(), eventType: "L&S Advising")
     }
 }
