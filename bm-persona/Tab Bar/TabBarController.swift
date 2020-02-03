@@ -22,7 +22,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         mapView.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "Home"), tag: 0)
         mapView.tabBarItem.imageInsets = UIEdgeInsets.init(top: 6, left: 0, bottom: -6, right: 0)
         
-        let resourcesView = UIViewController()
+        let resourcesView = ResourcesViewController()
         resourcesView.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "Resources"), tag: 1)
         resourcesView.tabBarItem.imageInsets = UIEdgeInsets.init(top: 6, left: 0, bottom: -6, right: 0)
         

@@ -40,6 +40,7 @@
 		556CCD2823E77C7300F41BF9 /* CalendarEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556CCD2723E77C7300F41BF9 /* CalendarEntry.swift */; };
 		556CCD2A23E77C8400F41BF9 /* CalendarDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556CCD2923E77C8400F41BF9 /* CalendarDataSource.swift */; };
 		556CCD2D23E79EC100F41BF9 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556CCD2C23E79EC100F41BF9 /* TabBarController.swift */; };
+		556DB0DF23E7F60900F12721 /* ResourcesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DB0DE23E7F60900F12721 /* ResourcesViewController.swift */; };
 		559A7B6B2373DCBA004EA501 /* SearchResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559A7B6A2373DCBA004EA501 /* SearchResultsView.swift */; };
 		559A7B6D2373DEFA004EA501 /* MaterialTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559A7B6C2373DEFA004EA501 /* MaterialTableViewCell.swift */; };
 		559A7B6F2373DF39004EA501 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559A7B6E2373DF39004EA501 /* SearchResultCell.swift */; };
@@ -94,6 +95,7 @@
 		556CCD2723E77C7300F41BF9 /* CalendarEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEntry.swift; sourceTree = "<group>"; };
 		556CCD2923E77C8400F41BF9 /* CalendarDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDataSource.swift; sourceTree = "<group>"; };
 		556CCD2C23E79EC100F41BF9 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		556DB0DE23E7F60900F12721 /* ResourcesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcesViewController.swift; sourceTree = "<group>"; };
 		559A7B6A2373DCBA004EA501 /* SearchResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsView.swift; sourceTree = "<group>"; };
 		559A7B6C2373DEFA004EA501 /* MaterialTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialTableViewCell.swift; sourceTree = "<group>"; };
 		559A7B6E2373DF39004EA501 /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
@@ -278,6 +280,7 @@
 				13B39A9023E6A2760039FBA2 /* CampusResources */,
 				13B39A8E23E6A1ED0039FBA2 /* Libraries */,
 				556CCD2323E77C2E00F41BF9 /* Calendar */,
+				556DB0DD23E7F5ED00F12721 /* Resources */,
 				136DC9792398B43F009B1810 /* Fitness */,
 				556CCD2B23E79E9000F41BF9 /* Tab Bar */,
 				303F6AE6236A9C3D007E37DD /* Map */,
@@ -316,6 +319,14 @@
 				556CCD2C23E79EC100F41BF9 /* TabBarController.swift */,
 			);
 			path = "Tab Bar";
+			sourceTree = "<group>";
+		};
+		556DB0DD23E7F5ED00F12721 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				556DB0DE23E7F60900F12721 /* ResourcesViewController.swift */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		55DCF78523722CAE001B01B8 /* Assets */ = {
@@ -501,6 +512,7 @@
 				13B39A8D23E689BC0039FBA2 /* DataSource.swift in Sources */,
 				1396013423865E2E005E4788 /* CardCollectionViewCell.swift in Sources */,
 				55DCF79D237243F5001B01B8 /* RippleLayer.swift in Sources */,
+				556DB0DF23E7F60900F12721 /* ResourcesViewController.swift in Sources */,
 				55DCF79423723452001B01B8 /* SearchBarView.swift in Sources */,
 				1396013623865E2E005E4788 /* TagView.swift in Sources */,
 				5532B67B2390CBF600293BE0 /* MaterialLoadingIndicator.swift in Sources */,
