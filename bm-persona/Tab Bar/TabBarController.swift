@@ -14,13 +14,16 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         super.viewDidLoad()
         
         delegate = self
+        tabBar.isTranslucent = false
 
         // Do any additional setup after loading the view.
+        let mapView = MainContainerViewController()
+        mapView.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 0)
         
         let calendarView = CalendarViewController()
         calendarView.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 0)
         
-        self.viewControllers = [calendarView]
+        self.viewControllers = [mapView, calendarView]
     }
     
 
