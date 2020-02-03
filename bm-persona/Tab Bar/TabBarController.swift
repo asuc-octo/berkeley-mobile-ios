@@ -15,15 +15,22 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         
         delegate = self
         tabBar.isTranslucent = false
-
-        // Do any additional setup after loading the view.
+        
+        tabBar.tintColor = UIColor.black
+        
         let mapView = MainContainerViewController()
-        mapView.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 0)
+        mapView.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "Home"), tag: 0)
+        mapView.tabBarItem.imageInsets = UIEdgeInsets.init(top: 6, left: 0, bottom: -6, right: 0)
+        
+        let resourcesView = UIViewController()
+        resourcesView.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "Resources"), tag: 1)
+        resourcesView.tabBarItem.imageInsets = UIEdgeInsets.init(top: 6, left: 0, bottom: -6, right: 0)
         
         let calendarView = CalendarViewController()
-        calendarView.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 0)
+        calendarView.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "Calendar"), tag: 2)
+        calendarView.tabBarItem.imageInsets = UIEdgeInsets.init(top: 6, left: 0, bottom: -6, right: 0)
         
-        self.viewControllers = [mapView, calendarView]
+        self.viewControllers = [mapView, resourcesView, calendarView]
     }
     
 
