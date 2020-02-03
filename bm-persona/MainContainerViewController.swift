@@ -43,6 +43,7 @@ class MainContainerViewController: UIViewController {
         drawerStatePositions[.middle] = self.view.frame.midY * 1.1 + (self.view.frame.maxY / 2)
         drawerStatePositions[.full] = self.view.safeAreaInsets.top + (self.view.frame.maxY / 2)
         self.initialDrawerCenter = drawerViewController.view.center
+        moveDrawer(to: drawerViewController.state, duration: 0)
     }
 
     /*
@@ -58,7 +59,11 @@ class MainContainerViewController: UIViewController {
     func moveDrawer(to state: DrawerState, duration: Double) {
         UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
             self.drawerViewController.view.center = CGPoint(x: self.initialDrawerCenter.x, y: self.drawerStatePositions[state]!)
-        }, completion: nil)
+        }, completion: { success in
+            if success {
+                self.drawerViewController.state = state
+            }
+        })
     }
 
 }
