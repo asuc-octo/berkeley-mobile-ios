@@ -9,7 +9,7 @@
 import UIKit
 
 protocol SearchItem {
-    
+
     var searchName: String { get }
     var location: (Double, Double) { get }
     var locationName: String { get }

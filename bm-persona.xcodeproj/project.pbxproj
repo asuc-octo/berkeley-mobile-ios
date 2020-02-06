@@ -19,6 +19,8 @@
 		13B39A9623E6A3330039FBA2 /* CampusResourceDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39A9423E6A3330039FBA2 /* CampusResourceDataSource.swift */; };
 		13B39A9923E6A33C0039FBA2 /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39A9723E6A33B0039FBA2 /* Library.swift */; };
 		13B39A9A23E6A33C0039FBA2 /* LibraryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39A9823E6A33B0039FBA2 /* LibraryDataSource.swift */; };
+		13B39AA523E774600039FBA2 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39AA423E774600039FBA2 /* CustomTableViewCell.swift */; };
+		13B39AA723E7746C0039FBA2 /* LibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39AA623E7746C0039FBA2 /* LibraryViewController.swift */; };
 		13E25DFD238C949E00B670B5 /* FitnessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E25DFC238C949E00B670B5 /* FitnessViewController.swift */; };
 		13EA64C82399CE0800FD8E13 /* GymDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13EA64C72399CE0800FD8E13 /* GymDataSource.swift */; };
 		13EA64CA2399CE5B00FD8E13 /* SearchItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13EA64C92399CE5B00FD8E13 /* SearchItem.swift */; };
@@ -72,6 +74,8 @@
 		13B39A9423E6A3330039FBA2 /* CampusResourceDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CampusResourceDataSource.swift; sourceTree = "<group>"; };
 		13B39A9723E6A33B0039FBA2 /* Library.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Library.swift; sourceTree = "<group>"; };
 		13B39A9823E6A33B0039FBA2 /* LibraryDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryDataSource.swift; sourceTree = "<group>"; };
+		13B39AA423E774600039FBA2 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
+		13B39AA623E7746C0039FBA2 /* LibraryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryViewController.swift; sourceTree = "<group>"; };
 		13E25DFC238C949E00B670B5 /* FitnessViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FitnessViewController.swift; sourceTree = "<group>"; };
 		13EA64C72399CE0800FD8E13 /* GymDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDataSource.swift; sourceTree = "<group>"; };
 		13EA64C92399CE5B00FD8E13 /* SearchItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchItem.swift; sourceTree = "<group>"; };
@@ -143,6 +147,7 @@
 				1396012E23865E2E005E4788 /* CollectionView */,
 				1396013123865E2E005E4788 /* CardView.swift */,
 				1396013223865E2E005E4788 /* TagView.swift */,
+				13B39AA423E774600039FBA2 /* CustomTableViewCell.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -160,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				13B39A9123E6A2C20039FBA2 /* LibraryDataSource */,
+				13B39AA623E7746C0039FBA2 /* LibraryViewController.swift */,
 			);
 			path = Libraries;
 			sourceTree = "<group>";
@@ -283,6 +289,7 @@
 				556DB0DD23E7F5ED00F12721 /* Resources */,
 				136DC9792398B43F009B1810 /* Fitness */,
 				556CCD2B23E79E9000F41BF9 /* Tab Bar */,
+				136DC9792398B43F009B1810 /* Fitness */,
 				303F6AE6236A9C3D007E37DD /* Map */,
 				303F6ADC236A9274007E37DD /* Drawer */,
 				1396012D23865E2E005E4788 /* Common */,
