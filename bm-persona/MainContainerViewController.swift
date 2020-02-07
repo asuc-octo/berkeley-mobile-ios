@@ -17,6 +17,7 @@ protocol DrawerViewDelegate {
 class MainContainerViewController: UIViewController {
     let mapViewController = MapViewController()
     let drawerViewController = DrawerViewController()
+    
     var initialDrawerCenter = CGPoint()
     var drawerStatePositions: [DrawerState: CGFloat] = [:]
     
@@ -24,6 +25,7 @@ class MainContainerViewController: UIViewController {
         super.viewDidLoad()
         add(child: mapViewController)
         add(child: drawerViewController)
+        
         drawerViewController.delegate = self
         mapViewController.view.frame = self.view.frame
         
@@ -34,8 +36,6 @@ class MainContainerViewController: UIViewController {
             drawerViewController.view.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             drawerViewController.view.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: self.view.frame.maxY * 0.9)
         ])
-        
-        // Do any additional setup after loading the view.
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -43,6 +43,7 @@ class MainContainerViewController: UIViewController {
         drawerStatePositions[.middle] = self.view.frame.midY * 1.1 + (self.view.frame.maxY / 2)
         drawerStatePositions[.full] = self.view.safeAreaInsets.top + (self.view.frame.maxY / 2)
         self.initialDrawerCenter = drawerViewController.view.center
+        moveDrawer(to: drawerViewController.state, duration: 0)
     }
 
     /*
@@ -58,7 +59,11 @@ class MainContainerViewController: UIViewController {
     func moveDrawer(to state: DrawerState, duration: Double) {
         UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
             self.drawerViewController.view.center = CGPoint(x: self.initialDrawerCenter.x, y: self.drawerStatePositions[state]!)
-        }, completion: nil)
+        }, completion: { success in
+            if success {
+                self.drawerViewController.state = state
+            }
+        })
     }
 
 }

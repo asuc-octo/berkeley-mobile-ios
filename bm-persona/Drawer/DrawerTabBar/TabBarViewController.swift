@@ -84,7 +84,7 @@ class TabBarViewController: UIViewController {
             scrollView.delegate = self
         }
         
-        let viewControllersInCards = [LibraryViewController(), UIViewController(), FitnessViewController()]
+        let viewControllersInCards = [UIViewController(), UIViewController(), FitnessViewController()]
         
         pages = [
             Page(viewController: viewControllersInCards[0], label: "Libraries"),

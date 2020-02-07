@@ -18,6 +18,8 @@ class DrawerViewController: UIViewController {
     var delegate: DrawerViewDelegate!
     var state: DrawerState = .collapsed
     
+    var bInitialized: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -25,8 +27,11 @@ class DrawerViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        setupBackgroundView()
-        setupGestures()
+        if !bInitialized {
+            setupBackgroundView()
+            setupGestures()
+            bInitialized = true
+        }
     }
     
     func setupBackgroundView() {

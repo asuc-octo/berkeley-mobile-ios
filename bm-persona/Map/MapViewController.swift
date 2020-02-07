@@ -148,25 +148,25 @@ extension MapViewController: SearchBarDelegate {
         return true
     }
     
-    private func searchLocations(_ keyword: String, completion: (([CLPlacemark], Error?) -> Void)? = nil) {
+    private func searchLocations(_ keyword: String, completion: (([MapPlacemark], Error?) -> Void)? = nil) {
         DispatchQueue.global(qos: .userInteractive).async { [weak self] in
             guard let self = self else { return }
-            let request = MKLocalSearch.Request()
-            request.naturalLanguageQuery = keyword
-            request.region = self.mapView.region
-            let search = MKLocalSearch(request: request)
-            search.start { response, error in
-                var placemarks = [CLPlacemark]()
-                if let response = response {
-                    for item in response.mapItems {
-                        placemarks.append(item.placemark)
-                    }
-                }
-                DispatchQueue.main.async {
-                    self.searchResultsView.updateTable(newPlacemarks: placemarks, error: error)
-                    completion?(placemarks, error)
-                }
+
+            let data = DataManager.shared.searchable
+            let filtered = data.filter { ($0.searchName.contains(keyword) && $0.location.0 != 0 && $0.location.1 != 0) }
+            var placemarks = [MapPlacemark]()
+
+            for item in filtered {
+                let cl = CLLocation(latitude: CLLocationDegrees(item.location.0), longitude: CLLocationDegrees(item.location.1))
+                let place = MapPlacemark(loc: cl, name: item.searchName, locName: item.locationName)
+                
+                placemarks.append(place)
             }
+            DispatchQueue.main.async {
+                self.searchResultsView.updateTable(newPlacemarks: placemarks, error: nil)
+                completion?(placemarks, nil)
+            }
+            
         }
     }
 }
