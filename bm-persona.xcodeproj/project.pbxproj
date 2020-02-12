@@ -19,8 +19,6 @@
 		13B39A9623E6A3330039FBA2 /* CampusResourceDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39A9423E6A3330039FBA2 /* CampusResourceDataSource.swift */; };
 		13B39A9923E6A33C0039FBA2 /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39A9723E6A33B0039FBA2 /* Library.swift */; };
 		13B39A9A23E6A33C0039FBA2 /* LibraryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39A9823E6A33B0039FBA2 /* LibraryDataSource.swift */; };
-		13B39AA523E774600039FBA2 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39AA423E774600039FBA2 /* CustomTableViewCell.swift */; };
-		13B39AA723E7746C0039FBA2 /* LibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39AA623E7746C0039FBA2 /* LibraryViewController.swift */; };
 		13E25DFD238C949E00B670B5 /* FitnessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E25DFC238C949E00B670B5 /* FitnessViewController.swift */; };
 		13EA64C82399CE0800FD8E13 /* GymDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13EA64C72399CE0800FD8E13 /* GymDataSource.swift */; };
 		13EA64CA2399CE5B00FD8E13 /* SearchItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13EA64C92399CE5B00FD8E13 /* SearchItem.swift */; };
@@ -37,6 +35,7 @@
 		306A550023614C0000D59A7F /* MainContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306A54FF23614C0000D59A7F /* MainContainerViewController.swift */; };
 		5531CDA92398CA81004FD25A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5531CDA82398CA81004FD25A /* GoogleService-Info.plist */; };
 		5532B67B2390CBF600293BE0 /* MaterialLoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532B67A2390CBF600293BE0 /* MaterialLoadingIndicator.swift */; };
+		554CB9A023F3A83F00BB1715 /* EventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554CB99F23F3A83F00BB1715 /* EventTableViewCell.swift */; };
 		556CCD2223E7771800F41BF9 /* MapPlacemark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556CCD2123E7771800F41BF9 /* MapPlacemark.swift */; };
 		556CCD2523E77C4F00F41BF9 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556CCD2423E77C4F00F41BF9 /* CalendarViewController.swift */; };
 		556CCD2823E77C7300F41BF9 /* CalendarEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556CCD2723E77C7300F41BF9 /* CalendarEntry.swift */; };
@@ -94,6 +93,7 @@
 		306A54FF23614C0000D59A7F /* MainContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainContainerViewController.swift; sourceTree = "<group>"; };
 		5531CDA82398CA81004FD25A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5532B67A2390CBF600293BE0 /* MaterialLoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialLoadingIndicator.swift; sourceTree = "<group>"; };
+		554CB99F23F3A83F00BB1715 /* EventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTableViewCell.swift; sourceTree = "<group>"; };
 		556CCD2123E7771800F41BF9 /* MapPlacemark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPlacemark.swift; sourceTree = "<group>"; };
 		556CCD2423E77C4F00F41BF9 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		556CCD2723E77C7300F41BF9 /* CalendarEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEntry.swift; sourceTree = "<group>"; };
@@ -148,6 +148,7 @@
 				1396013123865E2E005E4788 /* CardView.swift */,
 				1396013223865E2E005E4788 /* TagView.swift */,
 				13B39AA423E774600039FBA2 /* CustomTableViewCell.swift */,
+				554CB99F23F3A83F00BB1715 /* EventTableViewCell.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -287,7 +288,6 @@
 				13B39A8E23E6A1ED0039FBA2 /* Libraries */,
 				556CCD2323E77C2E00F41BF9 /* Calendar */,
 				556DB0DD23E7F5ED00F12721 /* Resources */,
-				136DC9792398B43F009B1810 /* Fitness */,
 				556CCD2B23E79E9000F41BF9 /* Tab Bar */,
 				136DC9792398B43F009B1810 /* Fitness */,
 				303F6AE6236A9C3D007E37DD /* Map */,
@@ -525,6 +525,7 @@
 				5532B67B2390CBF600293BE0 /* MaterialLoadingIndicator.swift in Sources */,
 				13E25DFD238C949E00B670B5 /* FitnessViewController.swift in Sources */,
 				55DCF79B237243D4001B01B8 /* MaterialTextField.swift in Sources */,
+				554CB9A023F3A83F00BB1715 /* EventTableViewCell.swift in Sources */,
 				556CCD2823E77C7300F41BF9 /* CalendarEntry.swift in Sources */,
 				13EA64CA2399CE5B00FD8E13 /* SearchItem.swift in Sources */,
 				13B39A9923E6A33C0039FBA2 /* Library.swift in Sources */,

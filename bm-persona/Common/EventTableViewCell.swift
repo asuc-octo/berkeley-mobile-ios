@@ -1,0 +1,145 @@
+//
+//  EventTableViewCell.swift
+//  bm-persona
+//
+//  Created by Oscar Bjorkman on 2/11/20.
+//  Copyright © 2020 RJ Pimentel. All rights reserved.
+//
+
+import UIKit
+
+class EventTableViewCell: UITableViewCell {
+    
+    private var eventName: UILabel!
+    private var eventTime: UILabel!
+    private var eventCategory: UILabel!
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+    }
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        backgroundColor = Color.modalBackground
+        
+        selectedBackgroundView?.layer.masksToBounds = true
+        selectedBackgroundView?.layer.cornerRadius = 12
+        layer.masksToBounds = true
+        layer.cornerRadius = 12
+        
+        eventName = UILabel()
+        eventTime = UILabel()
+        eventCategory = UILabel()
+        
+        contentView.addSubview(eventName)
+        contentView.addSubview(eventTime)
+        contentView.addSubview(eventCategory)
+        
+        eventName.translatesAutoresizingMaskIntoConstraints = false
+        eventTime.translatesAutoresizingMaskIntoConstraints = false
+        eventCategory.translatesAutoresizingMaskIntoConstraints = false
+        
+        eventName.font = Font.bold(18)
+        eventName.numberOfLines = 2
+        eventName.lineBreakMode = .byWordWrapping
+        eventName.sizeToFit()
+        eventName.layoutMargins = UIEdgeInsets(top: 10, left: 15, bottom: 0, right: 0)
+        eventName.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 15).isActive = true
+        eventName.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
+        eventName.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -15).isActive = true
+        
+        eventTime.font = Font.regular(16)
+        eventTime.layoutMargins = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0)
+        eventTime.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 15).isActive = true
+        eventTime.rightAnchor.constraint(equalTo: contentView.rightAnchor).isActive = true
+        eventTime.topAnchor.constraint(equalTo: eventName.bottomAnchor, constant: 20).isActive = true
+        
+        eventCategory.font = Font.regular(14)
+        eventCategory.padding = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        eventCategory.frame.size.height = 18
+        eventCategory.layer.masksToBounds = true
+        eventCategory.layer.cornerRadius = eventCategory.frame.height / 2 + 5
+        eventCategory.backgroundColor = UIColor.systemBlue
+        eventCategory.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 15)
+        eventCategory.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -15).isActive = true
+        eventCategory.topAnchor.constraint(equalTo: eventName.bottomAnchor, constant: 15).isActive = true
+    }
+    
+    func cellConfigure(entry: CalendarEntry) {
+        eventName.text = entry.name
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+        eventTime.text = dateFormatter.string(from: entry.date!)
+        
+        eventCategory.text = entry.eventType
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
+
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+
+        // Configure the view for the selected state
+    }
+
+}
+
+
+extension UILabel {
+    private struct AssociatedKeys {
+        static var padding = UIEdgeInsets()
+    }
+
+    public var padding: UIEdgeInsets? {
+        get {
+            return objc_getAssociatedObject(self, &AssociatedKeys.padding) as? UIEdgeInsets
+        }
+        set {
+            if let newValue = newValue {
+                objc_setAssociatedObject(self, &AssociatedKeys.padding, newValue as UIEdgeInsets?, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            }
+        }
+    }
+
+    override open func draw(_ rect: CGRect) {
+        if let insets = padding {
+            self.drawText(in: rect.inset(by: insets))
+        } else {
+            self.drawText(in: rect)
+        }
+    }
+
+    override open var intrinsicContentSize: CGSize {
+        guard let text = self.text else { return super.intrinsicContentSize }
+
+        var contentSize = super.intrinsicContentSize
+        var textWidth: CGFloat = frame.size.width
+        var insetsHeight: CGFloat = 0.0
+        var insetsWidth: CGFloat = 0.0
+
+        if let insets = padding {
+            insetsWidth += insets.left + insets.right
+            insetsHeight += insets.top + insets.bottom
+            textWidth -= insetsWidth
+        }
+
+        let newSize = text.boundingRect(with: CGSize(width: textWidth, height: CGFloat.greatestFiniteMagnitude),
+                                        options: NSStringDrawingOptions.usesLineFragmentOrigin,
+                                        attributes: [NSAttributedString.Key.font: self.font], context: nil)
+
+        contentSize.height = ceil(newSize.size.height) + insetsHeight
+        contentSize.width = ceil(newSize.size.width) + insetsWidth
+
+        return contentSize
+    }
+}
+

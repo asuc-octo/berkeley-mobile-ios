@@ -35,6 +35,19 @@ class CalendarViewController: UIViewController {
         
         DataManager.shared.fetch(source: CalendarDataSource.self) { calendarEntries in
             self.calendarEntries = calendarEntries as? [CalendarEntry] ?? []
+            
+            // TODO: - Remove temporary event
+            self.calendarEntries.append(CalendarEntry(name: "Associated Students of California - OCTO Retreat", campusLocation: "Eshleman Hall", date: Calendar.current.date(byAdding: .day, value: 1, to: Date())!, eventType: "College of Engineering"))
+            
+            self.calendarEntries.append(CalendarEntry(name: "Phase II Deadline for Transfer Students", campusLocation: "Eshleman Hall", date: Calendar.current.date(byAdding: .day, value: 2, to: Date())!, eventType: "General"))
+            
+            self.calendarEntries = self.calendarEntries.sorted(by: {
+                $0.date!.compare($1.date!) == .orderedAscending
+            })
+        
+            self.calendarEntries = self.calendarEntries.filter({
+                $0.date! > Date()
+            })
             self.calendarTable.reloadData()
         }
     }
@@ -43,32 +56,51 @@ class CalendarViewController: UIViewController {
 
 // MARK: - UITableViewDelegate
 
-// Dummy Data
 extension CalendarViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return calendarEntries.count
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        let nameLabel = UILabel()
-        cell.addSubview(nameLabel)
-        nameLabel.text = calendarEntries[indexPath.row].name
-        nameLabel.sizeToFit()
+        let cell = EventTableViewCell()
+        cell.cellConfigure(entry: calendarEntries[indexPath.section])
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("Selected \(calendarEntries[indexPath.section].name)")
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return calendarEntries.count
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 86
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 15
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView()
+        headerView.backgroundColor = Color.cardBackground
+        return headerView
+    }
 }
 
 extension CalendarViewController {
     // Events Label and Blobs
     func setupHeader() {
         eventsLabel = UILabel()
-        eventsLabel.font = Font.bold(24)
+        eventsLabel.font = Font.bold(30)
         eventsLabel.text = "Events"
+        view.addSubview(eventsLabel)
         eventsLabel.translatesAutoresizingMaskIntoConstraints = false
-        eventsLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
+        eventsLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 15).isActive = true
         eventsLabel.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
     }
     
@@ -100,6 +132,7 @@ extension CalendarViewController {
         table.delegate = self
         table.dataSource = self
         scrollView.addSubview(table)
+        table.separatorStyle = .none
         table.translatesAutoresizingMaskIntoConstraints = false
         table.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true
         table.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
