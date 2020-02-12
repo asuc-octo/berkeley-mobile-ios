@@ -20,7 +20,10 @@ class CalendarViewController: UIViewController {
     private var calendarTable: UITableView!
     private var calendarCard: CardView!
     
+    private var sectionExpandedIndex: Int = -1
+    
     private var calendarEntries: [CalendarEntry] = []
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +40,9 @@ class CalendarViewController: UIViewController {
             self.calendarEntries = calendarEntries as? [CalendarEntry] ?? []
             
             // TODO: - Remove temporary event
-            self.calendarEntries.append(CalendarEntry(name: "Associated Students of California - OCTO Retreat", campusLocation: "Eshleman Hall", date: Calendar.current.date(byAdding: .day, value: 1, to: Date())!, eventType: "College of Engineering"))
+            self.calendarEntries.append(CalendarEntry(name: "Associated Students of California - OCTO Retreat", campusLocation: "Eshleman Hall", date: Calendar.current.date(byAdding: .day, value: 1, to: Date())!, eventType: "Academic"))
+            
+            self.calendarEntries.append(CalendarEntry(name: "Spring Recess", campusLocation: "N/A", date: Calendar.current.date(byAdding: .day, value: 10, to: Date())!, eventType: "Holiday"))
             
             self.calendarEntries.append(CalendarEntry(name: "Phase II Deadline for Transfer Students", campusLocation: "Eshleman Hall", date: Calendar.current.date(byAdding: .day, value: 2, to: Date())!, eventType: "General"))
             
@@ -57,7 +62,6 @@ class CalendarViewController: UIViewController {
 // MARK: - UITableViewDelegate
 
 extension CalendarViewController: UITableViewDelegate, UITableViewDataSource {
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
@@ -70,6 +74,15 @@ extension CalendarViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("Selected \(calendarEntries[indexPath.section].name)")
+        if indexPath.section != sectionExpandedIndex {
+            // pressed other section
+            sectionExpandedIndex = indexPath.section
+        } else if indexPath.section == sectionExpandedIndex {
+            // pressed same section, we will deselect
+            sectionExpandedIndex = -1
+        }
+        tableView.beginUpdates()
+        tableView.endUpdates()
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
@@ -78,6 +91,9 @@ extension CalendarViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if sectionExpandedIndex == indexPath.section {
+            return 86*2
+        }
         return 86
     }
     

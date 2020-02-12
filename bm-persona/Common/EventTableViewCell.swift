@@ -10,6 +10,7 @@ import UIKit
 
 class EventTableViewCell: UITableViewCell {
     
+    private var eventTaggingColor: UILabel!
     private var eventName: UILabel!
     private var eventTime: UILabel!
     private var eventCategory: UILabel!
@@ -27,43 +28,56 @@ class EventTableViewCell: UITableViewCell {
         selectedBackgroundView?.layer.cornerRadius = 12
         layer.masksToBounds = true
         layer.cornerRadius = 12
+        contentView.layer.masksToBounds = true
+        contentView.layer.cornerRadius = 12
         
+        eventTaggingColor = UILabel()
         eventName = UILabel()
         eventTime = UILabel()
         eventCategory = UILabel()
         
+        contentView.addSubview(eventTaggingColor)
         contentView.addSubview(eventName)
         contentView.addSubview(eventTime)
         contentView.addSubview(eventCategory)
         
+        eventTaggingColor.translatesAutoresizingMaskIntoConstraints = false
         eventName.translatesAutoresizingMaskIntoConstraints = false
         eventTime.translatesAutoresizingMaskIntoConstraints = false
         eventCategory.translatesAutoresizingMaskIntoConstraints = false
         
+        eventTaggingColor.backgroundColor = Color.eventDefault
+        eventTaggingColor.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        eventTaggingColor.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
+        eventTaggingColor.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+        eventTaggingColor.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        eventTaggingColor.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -contentView.frame.width - 10).isActive = true
+        eventTaggingColor.layer.masksToBounds = true
+        
         eventName.font = Font.bold(18)
-        eventName.numberOfLines = 2
+        eventName.numberOfLines = 0
         eventName.lineBreakMode = .byWordWrapping
         eventName.sizeToFit()
-        eventName.layoutMargins = UIEdgeInsets(top: 10, left: 15, bottom: 0, right: 0)
-        eventName.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 15).isActive = true
-        eventName.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
-        eventName.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -15).isActive = true
+        eventName.layoutMargins = UIEdgeInsets(top: 10, left: 20, bottom: 0, right: 20)
+        eventName.leftAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
+        eventName.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
+        eventName.rightAnchor.constraint(equalTo: contentView.layoutMarginsGuide.rightAnchor).isActive = true
         
         eventTime.font = Font.regular(16)
-        eventTime.layoutMargins = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0)
-        eventTime.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 15).isActive = true
-        eventTime.rightAnchor.constraint(equalTo: contentView.rightAnchor).isActive = true
-        eventTime.topAnchor.constraint(equalTo: eventName.bottomAnchor, constant: 20).isActive = true
+        eventTime.layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
+        eventTime.leftAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
+        eventTime.rightAnchor.constraint(equalTo: contentView.layoutMarginsGuide.rightAnchor).isActive = true
+        eventTime.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor).isActive = true
         
         eventCategory.font = Font.regular(14)
         eventCategory.padding = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         eventCategory.frame.size.height = 18
         eventCategory.layer.masksToBounds = true
         eventCategory.layer.cornerRadius = eventCategory.frame.height / 2 + 5
-        eventCategory.backgroundColor = UIColor.systemBlue
+        eventCategory.backgroundColor = Color.eventDefault
         eventCategory.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 15)
-        eventCategory.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -15).isActive = true
-        eventCategory.topAnchor.constraint(equalTo: eventName.bottomAnchor, constant: 15).isActive = true
+        eventCategory.rightAnchor.constraint(equalTo: contentView.layoutMarginsGuide.rightAnchor).isActive = true
+        eventCategory.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor, constant: 4).isActive = true
     }
     
     func cellConfigure(entry: CalendarEntry) {
@@ -74,6 +88,21 @@ class EventTableViewCell: UITableViewCell {
         eventTime.text = dateFormatter.string(from: entry.date!)
         
         eventCategory.text = entry.eventType
+        
+        let entryColor = getEntryColor(entry: entry)
+        eventTaggingColor.backgroundColor = entryColor
+        eventCategory.backgroundColor = entryColor
+    }
+    
+    func getEntryColor(entry: CalendarEntry) -> UIColor {
+        switch entry.eventType {
+        case "Academic":
+            return Color.eventAcademic
+        case "Holiday":
+            return Color.eventHoliday
+        default:
+            return Color.eventDefault
+        }
     }
     
     required init?(coder: NSCoder) {
