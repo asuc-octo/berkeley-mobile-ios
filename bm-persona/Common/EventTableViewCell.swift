@@ -100,6 +100,16 @@ class EventTableViewCell: UITableViewCell {
             return Color.eventAcademic
         case "Holiday":
             return Color.eventHoliday
+        case "General":
+            return Color.eventHoliday
+        case "College of Engineering":
+            return Color.eventAcademic
+        case "College of Letters and Sciences":
+            return Color.eventAcademic
+        case "College of Chemistry":
+            return Color.eventAcademic
+        case "College of Natural Resources":
+            return Color.eventAcademic
         default:
             return Color.eventDefault
         }

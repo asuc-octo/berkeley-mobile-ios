@@ -39,12 +39,13 @@ class CalendarViewController: UIViewController {
         DataManager.shared.fetch(source: CalendarDataSource.self) { calendarEntries in
             self.calendarEntries = calendarEntries as? [CalendarEntry] ?? []
             
-            // TODO: - Remove temporary event
-            self.calendarEntries.append(CalendarEntry(name: "Associated Students of California - OCTO Retreat", campusLocation: "Eshleman Hall", date: Calendar.current.date(byAdding: .day, value: 1, to: Date())!, eventType: "Academic"))
+            // TODO: - Remove temporary events
             
-            self.calendarEntries.append(CalendarEntry(name: "Spring Recess", campusLocation: "N/A", date: Calendar.current.date(byAdding: .day, value: 10, to: Date())!, eventType: "Holiday"))
-            
-            self.calendarEntries.append(CalendarEntry(name: "Phase II Deadline for Transfer Students", campusLocation: "Eshleman Hall", date: Calendar.current.date(byAdding: .day, value: 2, to: Date())!, eventType: "General"))
+//            self.calendarEntries.append(CalendarEntry(name: "Associated Students of California - OCTO Retreat", campusLocation: "Eshleman Hall", date: Calendar.current.date(byAdding: .day, value: 1, to: Date())!, eventType: "Academic"))
+//
+//            self.calendarEntries.append(CalendarEntry(name: "Spring Recess", campusLocation: "N/A", date: Calendar.current.date(byAdding: .day, value: 10, to: Date())!, eventType: "Holiday"))
+//
+//            self.calendarEntries.append(CalendarEntry(name: "Phase II Deadline for Transfer Students", campusLocation: "Eshleman Hall", date: Calendar.current.date(byAdding: .day, value: 2, to: Date())!, eventType: "General"))
             
             self.calendarEntries = self.calendarEntries.sorted(by: {
                 $0.date!.compare($1.date!) == .orderedAscending
