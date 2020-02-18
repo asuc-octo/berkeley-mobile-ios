@@ -63,6 +63,10 @@ struct Color {
         return UIColor(displayP3Red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0)
     }
     
+    static var selectedButtonBackground: UIColor {
+        return UIColor(displayP3Red: 251/255, green: 155/255, blue: 142/255, alpha: 1.0)
+    }
+    
     static var primaryText: UIColor {
         if #available(iOS 13, *) {
             return UIColor.init { (trait) -> UIColor in
