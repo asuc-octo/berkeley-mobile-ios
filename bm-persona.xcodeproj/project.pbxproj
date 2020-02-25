@@ -16,7 +16,7 @@
 		13B39A8B23E682850039FBA2 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39A8A23E682840039FBA2 /* Date+Extension.swift */; };
 		13B39A8D23E689BC0039FBA2 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39A8C23E689BC0039FBA2 /* DataSource.swift */; };
 		13B39A9523E6A3330039FBA2 /* CampusResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39A9323E6A3330039FBA2 /* CampusResource.swift */; };
-		13B39A9623E6A3330039FBA2 /* CampusResourceDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39A9423E6A3330039FBA2 /* CampusResourceDataSource.swift */; };
+		13B39A9623E6A3330039FBA2 /* ResourceDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39A9423E6A3330039FBA2 /* ResourceDataSource.swift */; };
 		13B39A9923E6A33C0039FBA2 /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39A9723E6A33B0039FBA2 /* Library.swift */; };
 		13B39A9A23E6A33C0039FBA2 /* LibraryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39A9823E6A33B0039FBA2 /* LibraryDataSource.swift */; };
 		13E25DFD238C949E00B670B5 /* FitnessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E25DFC238C949E00B670B5 /* FitnessViewController.swift */; };
@@ -35,6 +35,7 @@
 		306A550023614C0000D59A7F /* MainContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306A54FF23614C0000D59A7F /* MainContainerViewController.swift */; };
 		5531CDA92398CA81004FD25A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5531CDA82398CA81004FD25A /* GoogleService-Info.plist */; };
 		5532B67B2390CBF600293BE0 /* MaterialLoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532B67A2390CBF600293BE0 /* MaterialLoadingIndicator.swift */; };
+		553EF6AC2404E2C600D2955E /* ResourceEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553EF6AB2404E2C600D2955E /* ResourceEntry.swift */; };
 		554CB9A023F3A83F00BB1715 /* EventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554CB99F23F3A83F00BB1715 /* EventTableViewCell.swift */; };
 		556CCD2223E7771800F41BF9 /* MapPlacemark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556CCD2123E7771800F41BF9 /* MapPlacemark.swift */; };
 		556CCD2523E77C4F00F41BF9 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556CCD2423E77C4F00F41BF9 /* CalendarViewController.swift */; };
@@ -70,7 +71,7 @@
 		13B39A8A23E682840039FBA2 /* Date+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		13B39A8C23E689BC0039FBA2 /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
 		13B39A9323E6A3330039FBA2 /* CampusResource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CampusResource.swift; sourceTree = "<group>"; };
-		13B39A9423E6A3330039FBA2 /* CampusResourceDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CampusResourceDataSource.swift; sourceTree = "<group>"; };
+		13B39A9423E6A3330039FBA2 /* ResourceDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceDataSource.swift; sourceTree = "<group>"; };
 		13B39A9723E6A33B0039FBA2 /* Library.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Library.swift; sourceTree = "<group>"; };
 		13B39A9823E6A33B0039FBA2 /* LibraryDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryDataSource.swift; sourceTree = "<group>"; };
 		13B39AA423E774600039FBA2 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
@@ -93,6 +94,7 @@
 		306A54FF23614C0000D59A7F /* MainContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainContainerViewController.swift; sourceTree = "<group>"; };
 		5531CDA82398CA81004FD25A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5532B67A2390CBF600293BE0 /* MaterialLoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialLoadingIndicator.swift; sourceTree = "<group>"; };
+		553EF6AB2404E2C600D2955E /* ResourceEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceEntry.swift; sourceTree = "<group>"; };
 		554CB99F23F3A83F00BB1715 /* EventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTableViewCell.swift; sourceTree = "<group>"; };
 		556CCD2123E7771800F41BF9 /* MapPlacemark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPlacemark.swift; sourceTree = "<group>"; };
 		556CCD2423E77C4F00F41BF9 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
@@ -191,7 +193,6 @@
 		13B39A9223E6A2D20039FBA2 /* CampusResourceDataSource */ = {
 			isa = PBXGroup;
 			children = (
-				13B39A9423E6A3330039FBA2 /* CampusResourceDataSource.swift */,
 				13B39A9323E6A3330039FBA2 /* CampusResource.swift */,
 			);
 			path = CampusResourceDataSource;
@@ -302,6 +303,15 @@
 			path = "bm-persona";
 			sourceTree = "<group>";
 		};
+		553EF6AA2404E29800D2955E /* ResourcesDataSource */ = {
+			isa = PBXGroup;
+			children = (
+				13B39A9423E6A3330039FBA2 /* ResourceDataSource.swift */,
+				553EF6AB2404E2C600D2955E /* ResourceEntry.swift */,
+			);
+			path = ResourcesDataSource;
+			sourceTree = "<group>";
+		};
 		556CCD2323E77C2E00F41BF9 /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
@@ -331,6 +341,7 @@
 		556DB0DD23E7F5ED00F12721 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				553EF6AA2404E29800D2955E /* ResourcesDataSource */,
 				556DB0DE23E7F60900F12721 /* ResourcesViewController.swift */,
 			);
 			path = Resources;
@@ -511,7 +522,7 @@
 				306A550023614C0000D59A7F /* MainContainerViewController.swift in Sources */,
 				55DCF78723722CBD001B01B8 /* Colors.swift in Sources */,
 				306A54EE23613E3A00D59A7F /* MapViewController.swift in Sources */,
-				13B39A9623E6A3330039FBA2 /* CampusResourceDataSource.swift in Sources */,
+				13B39A9623E6A3330039FBA2 /* ResourceDataSource.swift in Sources */,
 				136DC97D2398B4F3009B1810 /* UIImage+Extensions.swift in Sources */,
 				306A54FE236142B800D59A7F /* DrawerViewController.swift in Sources */,
 				13B39A8B23E682850039FBA2 /* Date+Extension.swift in Sources */,
@@ -534,6 +545,7 @@
 				55DCF7A123724835001B01B8 /* MaterialButton.swift in Sources */,
 				55DCF79623723CF2001B01B8 /* UIView+Extensions.swift in Sources */,
 				306A54EA23613E3A00D59A7F /* AppDelegate.swift in Sources */,
+				553EF6AC2404E2C600D2955E /* ResourceEntry.swift in Sources */,
 				556CCD2523E77C4F00F41BF9 /* CalendarViewController.swift in Sources */,
 				559A7B6B2373DCBA004EA501 /* SearchResultsView.swift in Sources */,
 				13EA64C82399CE0800FD8E13 /* GymDataSource.swift in Sources */,
@@ -686,7 +698,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 4HBETBULVA;
+				DEVELOPMENT_TEAM = K8FUZZ3FQV;
 				INFOPLIST_FILE = "bm-persona/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -705,7 +717,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 4HBETBULVA;
+				DEVELOPMENT_TEAM = K8FUZZ3FQV;
 				INFOPLIST_FILE = "bm-persona/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

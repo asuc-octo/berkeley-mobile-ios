@@ -13,6 +13,8 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        overrideUserInterfaceStyle = .light
+        
         delegate = self
         tabBar.isTranslucent = false
         

@@ -22,6 +22,10 @@ class CampusResource: SearchItem {
         return campusLocation ?? "Berkeley, CA"
     }
     
+    var description: String {
+        return ""
+    }
+        
     var image: UIImage?
     
     static func displayName(pluralized: Bool) -> String {
@@ -42,7 +46,7 @@ class CampusResource: SearchItem {
     let latitude: Double?
     let longitude: Double?
     let notes: String?
-    let description: String?
+    let desc: String?
     let category: String?
     
     var isOpen: Bool {
@@ -72,7 +76,7 @@ class CampusResource: SearchItem {
         
         self.name = name
         self.imageURL = URL(string: imageLink ?? "")
-        self.description = description
+        self.desc = description
         self.category = category
     }
 }

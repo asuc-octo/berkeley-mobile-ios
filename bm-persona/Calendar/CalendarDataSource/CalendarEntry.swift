@@ -23,6 +23,10 @@ class CalendarEntry: SearchItem {
         return campusLocation ?? "N/A"
     }
     
+    var description: String {
+        return ""
+    }
+    
     let name: String
     let campusLocation: String?
     let date: Date?

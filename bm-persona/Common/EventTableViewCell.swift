@@ -55,13 +55,15 @@ class EventTableViewCell: UITableViewCell {
         eventTaggingColor.layer.masksToBounds = true
         
         eventName.font = Font.bold(18)
-        eventName.numberOfLines = 0
-        eventName.lineBreakMode = .byWordWrapping
+        eventName.numberOfLines = 2
+        eventName.adjustsFontSizeToFitWidth = true
+        eventName.minimumScaleFactor = 0.7
         eventName.sizeToFit()
         eventName.layoutMargins = UIEdgeInsets(top: 10, left: 20, bottom: 0, right: 20)
         eventName.leftAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
         eventName.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
         eventName.rightAnchor.constraint(equalTo: contentView.layoutMarginsGuide.rightAnchor).isActive = true
+        eventName.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         eventTime.font = Font.regular(16)
         eventTime.layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
@@ -69,11 +71,11 @@ class EventTableViewCell: UITableViewCell {
         eventTime.rightAnchor.constraint(equalTo: contentView.layoutMarginsGuide.rightAnchor).isActive = true
         eventTime.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor).isActive = true
         
-        eventCategory.font = Font.regular(14)
+        eventCategory.font = Font.regular(12)
         eventCategory.padding = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         eventCategory.frame.size.height = 18
         eventCategory.layer.masksToBounds = true
-        eventCategory.layer.cornerRadius = eventCategory.frame.height / 2 + 5
+        eventCategory.layer.cornerRadius = eventCategory.frame.height / 1.5
         eventCategory.backgroundColor = Color.eventDefault
         eventCategory.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 15)
         eventCategory.rightAnchor.constraint(equalTo: contentView.layoutMarginsGuide.rightAnchor).isActive = true

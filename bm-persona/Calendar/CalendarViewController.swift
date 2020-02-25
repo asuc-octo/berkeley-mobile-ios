@@ -19,9 +19,7 @@ class CalendarViewController: UIViewController {
     
     private var calendarTable: UITableView!
     private var calendarCard: CardView!
-    
-    private var sectionExpandedIndex: Int = -1
-    
+        
     private var calendarEntries: [CalendarEntry] = []
 
 
@@ -40,13 +38,6 @@ class CalendarViewController: UIViewController {
             self.calendarEntries = calendarEntries as? [CalendarEntry] ?? []
             
             // TODO: - Remove temporary events
-            
-//            self.calendarEntries.append(CalendarEntry(name: "Associated Students of California - OCTO Retreat", campusLocation: "Eshleman Hall", date: Calendar.current.date(byAdding: .day, value: 1, to: Date())!, eventType: "Academic"))
-//
-//            self.calendarEntries.append(CalendarEntry(name: "Spring Recess", campusLocation: "N/A", date: Calendar.current.date(byAdding: .day, value: 10, to: Date())!, eventType: "Holiday"))
-//
-//            self.calendarEntries.append(CalendarEntry(name: "Phase II Deadline for Transfer Students", campusLocation: "Eshleman Hall", date: Calendar.current.date(byAdding: .day, value: 2, to: Date())!, eventType: "General"))
-            
             self.calendarEntries = self.calendarEntries.sorted(by: {
                 $0.date!.compare($1.date!) == .orderedAscending
             })
@@ -74,16 +65,6 @@ extension CalendarViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("Selected \(calendarEntries[indexPath.section].name)")
-        if indexPath.section != sectionExpandedIndex {
-            // pressed other section
-            sectionExpandedIndex = indexPath.section
-        } else if indexPath.section == sectionExpandedIndex {
-            // pressed same section, we will deselect
-            sectionExpandedIndex = -1
-        }
-        tableView.beginUpdates()
-        tableView.endUpdates()
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
@@ -92,10 +73,7 @@ extension CalendarViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if sectionExpandedIndex == indexPath.section {
-            return 86*2
-        }
-        return 86
+        return 106
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -107,6 +85,7 @@ extension CalendarViewController: UITableViewDelegate, UITableViewDataSource {
         headerView.backgroundColor = Color.cardBackground
         return headerView
     }
+
 }
 
 extension CalendarViewController {

@@ -23,6 +23,10 @@ class Gym: SearchItem {
         return "Berkeley, CA"
     }
     
+    var description: String {
+        return ""
+    }
+    
     var image: UIImage?
     
     static func displayName(pluralized: Bool) -> String {
