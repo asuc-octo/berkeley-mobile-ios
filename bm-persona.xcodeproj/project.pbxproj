@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		132087AF23F3B05D00AE273C /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 132087AE23F3B05D00AE273C /* Filter.swift */; };
 		136DC97B2398B4D1009B1810 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136DC97A2398B4D1009B1810 /* UIViewController+Extensions.swift */; };
 		136DC97D2398B4F3009B1810 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136DC97C2398B4F3009B1810 /* UIImage+Extensions.swift */; };
 		1396013323865E2E005E4788 /* CardCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1396012F23865E2E005E4788 /* CardCollectionView.swift */; };
@@ -62,6 +63,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		132087AE23F3B05D00AE273C /* Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
 		136DC97A2398B4D1009B1810 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		136DC97C2398B4F3009B1810 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		1396012F23865E2E005E4788 /* CardCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardCollectionView.swift; sourceTree = "<group>"; };
@@ -76,6 +78,9 @@
 		13B39A9823E6A33B0039FBA2 /* LibraryDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryDataSource.swift; sourceTree = "<group>"; };
 		13B39AA423E774600039FBA2 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		13B39AA623E7746C0039FBA2 /* LibraryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryViewController.swift; sourceTree = "<group>"; };
+		13B39AB223E777AC0039FBA2 /* FilterViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterViewCell.swift; sourceTree = "<group>"; };
+		13B39AB323E777AC0039FBA2 /* FilterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
+		13B39AB623E77E160039FBA2 /* SampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleViewController.swift; sourceTree = "<group>"; };
 		13E25DFC238C949E00B670B5 /* FitnessViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FitnessViewController.swift; sourceTree = "<group>"; };
 		13EA64C72399CE0800FD8E13 /* GymDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDataSource.swift; sourceTree = "<group>"; };
 		13EA64C92399CE5B00FD8E13 /* SearchItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchItem.swift; sourceTree = "<group>"; };
@@ -146,6 +151,8 @@
 		1396012D23865E2E005E4788 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				13B39AB623E77E160039FBA2 /* SampleViewController.swift */,
+				13B39AB123E777AC0039FBA2 /* FilterView */,
 				1396012E23865E2E005E4788 /* CollectionView */,
 				1396013123865E2E005E4788 /* CardView.swift */,
 				1396013223865E2E005E4788 /* TagView.swift */,
@@ -196,6 +203,16 @@
 				13B39A9323E6A3330039FBA2 /* CampusResource.swift */,
 			);
 			path = CampusResourceDataSource;
+			sourceTree = "<group>";
+		};
+		13B39AB123E777AC0039FBA2 /* FilterView */ = {
+			isa = PBXGroup;
+			children = (
+				132087AE23F3B05D00AE273C /* Filter.swift */,
+				13B39AB323E777AC0039FBA2 /* FilterView.swift */,
+				13B39AB223E777AC0039FBA2 /* FilterViewCell.swift */,
+			);
+			path = FilterView;
 			sourceTree = "<group>";
 		};
 		13E25E00238C9E1000B670B5 /* Utils */ = {
@@ -285,14 +302,14 @@
 				306A54EB23613E3A00D59A7F /* SceneDelegate.swift */,
 				306A54FF23614C0000D59A7F /* MainContainerViewController.swift */,
 				13EA64CE2399D4A100FD8E13 /* Data */,
-				13B39A9023E6A2760039FBA2 /* CampusResources */,
 				13B39A8E23E6A1ED0039FBA2 /* Libraries */,
-				556CCD2323E77C2E00F41BF9 /* Calendar */,
+				13B39A9023E6A2760039FBA2 /* CampusResources */,
 				556DB0DD23E7F5ED00F12721 /* Resources */,
 				556CCD2B23E79E9000F41BF9 /* Tab Bar */,
 				136DC9792398B43F009B1810 /* Fitness */,
 				303F6AE6236A9C3D007E37DD /* Map */,
 				303F6ADC236A9274007E37DD /* Drawer */,
+				556CCD2B23E79E9000F41BF9 /* Tab Bar */,
 				1396012D23865E2E005E4788 /* Common */,
 				13E25E00238C9E1000B670B5 /* Utils */,
 				306A54F223613E3D00D59A7F /* Assets.xcassets */,
@@ -530,7 +547,10 @@
 				13B39A8D23E689BC0039FBA2 /* DataSource.swift in Sources */,
 				1396013423865E2E005E4788 /* CardCollectionViewCell.swift in Sources */,
 				55DCF79D237243F5001B01B8 /* RippleLayer.swift in Sources */,
+				132087AF23F3B05D00AE273C /* Filter.swift in Sources */,
 				556DB0DF23E7F60900F12721 /* ResourcesViewController.swift in Sources */,
+				13B39AB423E777AC0039FBA2 /* FilterViewCell.swift in Sources */,
+				13B39AB523E777AC0039FBA2 /* FilterView.swift in Sources */,
 				55DCF79423723452001B01B8 /* SearchBarView.swift in Sources */,
 				1396013623865E2E005E4788 /* TagView.swift in Sources */,
 				5532B67B2390CBF600293BE0 /* MaterialLoadingIndicator.swift in Sources */,
@@ -550,6 +570,7 @@
 				559A7B6B2373DCBA004EA501 /* SearchResultsView.swift in Sources */,
 				13EA64C82399CE0800FD8E13 /* GymDataSource.swift in Sources */,
 				55DCF78923722CF1001B01B8 /* Fonts.swift in Sources */,
+				13B39AB723E77E160039FBA2 /* SampleViewController.swift in Sources */,
 				13EA64D02399D50C00FD8E13 /* DataManager.swift in Sources */,
 				1396013323865E2E005E4788 /* CardCollectionView.swift in Sources */,
 				13B39A9A23E6A33C0039FBA2 /* LibraryDataSource.swift in Sources */,
