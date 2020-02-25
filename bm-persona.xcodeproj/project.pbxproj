@@ -11,8 +11,10 @@
 		133864AC2404E858001F9048 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133864A82404E857001F9048 /* CalendarViewController.swift */; };
 		133864AD2404E858001F9048 /* CalendarDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133864AA2404E857001F9048 /* CalendarDataSource.swift */; };
 		133864AE2404E858001F9048 /* CalendarEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133864AB2404E857001F9048 /* CalendarEntry.swift */; };
+		133864A42404DCCA001F9048 /* MapMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133864A32404DCCA001F9048 /* MapMarker.swift */; };
 		136DC97B2398B4D1009B1810 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136DC97A2398B4D1009B1810 /* UIViewController+Extensions.swift */; };
 		136DC97D2398B4F3009B1810 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136DC97C2398B4F3009B1810 /* UIImage+Extensions.swift */; };
+		13741B6C2400D866003D1EEB /* MapDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13741B6B2400D866003D1EEB /* MapDataSource.swift */; };
 		1396013323865E2E005E4788 /* CardCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1396012F23865E2E005E4788 /* CardCollectionView.swift */; };
 		1396013423865E2E005E4788 /* CardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1396013023865E2E005E4788 /* CardCollectionViewCell.swift */; };
 		1396013523865E2E005E4788 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1396013123865E2E005E4788 /* CardView.swift */; };
@@ -66,8 +68,10 @@
 		133864A82404E857001F9048 /* CalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		133864AA2404E857001F9048 /* CalendarDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarDataSource.swift; sourceTree = "<group>"; };
 		133864AB2404E857001F9048 /* CalendarEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarEntry.swift; sourceTree = "<group>"; };
+		133864A32404DCCA001F9048 /* MapMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMarker.swift; sourceTree = "<group>"; };
 		136DC97A2398B4D1009B1810 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		136DC97C2398B4F3009B1810 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
+		13741B6B2400D866003D1EEB /* MapDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapDataSource.swift; sourceTree = "<group>"; };
 		1396012F23865E2E005E4788 /* CardCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardCollectionView.swift; sourceTree = "<group>"; };
 		1396013023865E2E005E4788 /* CardCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardCollectionViewCell.swift; sourceTree = "<group>"; };
 		1396013123865E2E005E4788 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
@@ -178,6 +182,15 @@
 			path = Fitness;
 			sourceTree = "<group>";
 		};
+		13741B6A2400D830003D1EEB /* MapDataSource */ = {
+			isa = PBXGroup;
+			children = (
+				13741B6B2400D866003D1EEB /* MapDataSource.swift */,
+				133864A32404DCCA001F9048 /* MapMarker.swift */,
+			);
+			path = MapDataSource;
+			sourceTree = "<group>";
+		};
 		1396012D23865E2E005E4788 /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -281,6 +294,7 @@
 			isa = PBXGroup;
 			children = (
 				55DCF799237243C5001B01B8 /* External */,
+				13741B6A2400D830003D1EEB /* MapDataSource */,
 				306A54ED23613E3A00D59A7F /* MapViewController.swift */,
 				559A7B6A2373DCBA004EA501 /* SearchResultsView.swift */,
 				559A7B6E2373DF39004EA501 /* SearchResultCell.swift */,
@@ -535,6 +549,8 @@
 				55DCF78723722CBD001B01B8 /* Colors.swift in Sources */,
 				306A54EE23613E3A00D59A7F /* MapViewController.swift in Sources */,
 				13B39A9623E6A3330039FBA2 /* ResourceDataSource.swift in Sources */,
+				13B39A9623E6A3330039FBA2 /* CampusResourceDataSource.swift in Sources */,
+				133864A42404DCCA001F9048 /* MapMarker.swift in Sources */,
 				136DC97D2398B4F3009B1810 /* UIImage+Extensions.swift in Sources */,
 				306A54FE236142B800D59A7F /* DrawerViewController.swift in Sources */,
 				13B39A8B23E682850039FBA2 /* Date+Extension.swift in Sources */,
@@ -570,6 +586,7 @@
 				306A54EC23613E3A00D59A7F /* SceneDelegate.swift in Sources */,
 				136DC97B2398B4D1009B1810 /* UIViewController+Extensions.swift in Sources */,
 				556CCD2223E7771800F41BF9 /* MapPlacemark.swift in Sources */,
+				13741B6C2400D866003D1EEB /* MapDataSource.swift in Sources */,
 				559A7B6D2373DEFA004EA501 /* MaterialTableViewCell.swift in Sources */,
 				13EA64CD2399CEDA00FD8E13 /* Gym.swift in Sources */,
 				1396013523865E2E005E4788 /* CardView.swift in Sources */,
