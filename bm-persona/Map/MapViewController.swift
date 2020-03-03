@@ -9,7 +9,11 @@
 import UIKit
 import MapKit
 
+// MARK: - MapViewController
+
 class MapViewController: UIViewController {
+    
+    static let kAnnotationIdentifier = "MapMarkerAnnotation"
     
     private var mapView: MKMapView!
     private var maskView: UIView!
@@ -18,6 +22,12 @@ class MapViewController: UIViewController {
     private var dim: CGSize = .zero
     private var locationManager = CLLocationManager()
     
+    private var filterView: FilterView!
+    private var filters: [Filter<[MapMarker]>] = MapMarkerType.allCases.map { type in
+        Filter(label: type.rawValue) { $0.first?.type == type }
+    }
+    private var mapMarkers: [[MapMarker]] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -25,6 +35,8 @@ class MapViewController: UIViewController {
         dim = self.view.frame.size
         
         mapView = MKMapView()
+        mapView.delegate = self
+        mapView.register(MKAnnotationView.self, forAnnotationViewWithReuseIdentifier: MapViewController.kAnnotationIdentifier)
         
         maskView = UIView()
         maskView.backgroundColor = Color.searchBarBackground
@@ -42,14 +54,26 @@ class MapViewController: UIViewController {
         searchResultsView = SearchResultsView()
         showSearchResultsView(false)
         
+        filterView = FilterView(frame: .zero)
+        filterView.filterDelegate = self
+        filterView.labels = filters.map { $0.label }
+        DataManager.shared.fetch(source: MapDataSource.self) { markers in
+            self.mapMarkers = markers as? [[MapMarker]] ?? []
+        }
+        
         requestLocation()
         
-        self.view.addSubViews([mapView, maskView, searchResultsView, searchBar])
+        self.view.addSubViews([mapView, filterView, maskView, searchResultsView, searchBar])
+        setupSubviews()
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        (mapView.isZoomEnabled, mapView.showsUserLocation) = (true, true)
+        mapView.setUserTrackingMode(.follow, animated: true)
+    }
     
+    private func setupSubviews() {
         maskView.setConstraintsToView(top: self.view, bottom: self.view, left: self.view, right: self.view)
         mapView.setConstraintsToView(top: self.view, bottom: self.view, left: self.view, right: self.view)
         
@@ -76,13 +100,12 @@ class MapViewController: UIViewController {
         searchBar.setHeightConstraint(50)
         searchBar.setWidthConstraint(0.9*dim.width)
         
-        self.view.layoutIfNeeded()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(true)
-        (mapView.isZoomEnabled, mapView.showsUserLocation) = (true, true)
-        mapView.setUserTrackingMode(.follow, animated: true)
+        filterView.translatesAutoresizingMaskIntoConstraints = false
+        filterView.heightAnchor.constraint(equalToConstant: FilterViewCell.kCellSize.height).isActive = true
+        filterView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 24).isActive = true
+        filterView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        filterView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        filterView.contentInset = UIEdgeInsets(top: 0, left: 0.05*dim.width, bottom: 0, right: 0.05*dim.width)
     }
     
     private func requestLocation() {
@@ -102,8 +125,55 @@ class MapViewController: UIViewController {
             self.searchResultsView.isScrolling = false
         }
     }
+    
+    // MARK: - Map Markers
+    
+    var workItem: DispatchWorkItem?
+    private func updateMapMarkers() {
+        workItem?.cancel()
+        let selectedIndices = filterView.indexPathsForSelectedItems?.map { $0.row }
+        workItem = Filter.satisfiesAny(filters: filters, on: mapMarkers, indices: selectedIndices, completion: {
+            filtered in
+            DispatchQueue.main.async {
+                // TODO: Speed this up?
+                self.mapView.removeAnnotations(self.mapView.annotations)
+                self.mapView.addAnnotations(Array(filtered.joined()))
+            }
+        })
+    }
 
 }
+
+// MARK: FilterViewDelegate
+
+extension MapViewController: FilterViewDelegate {
+
+    func filterView(_ filterView: FilterView, didSelect index: Int) {
+        updateMapMarkers()
+    }
+    
+    func filterView(_ filterView: FilterView, didDeselect index: Int) {
+        updateMapMarkers()
+    }
+    
+}
+
+// MARK: MKMapViewDelegate {
+
+extension MapViewController: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if let marker = annotation as? MapMarker,
+            let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: MapViewController.kAnnotationIdentifier) {
+            annotationView.annotation = marker
+            annotationView.image = marker.type.icon()
+            return annotationView
+        }
+        return MKAnnotationView()
+    }
+}
+
+
+// MARK: - CLLocationManagerDelegate
 
 extension MapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
@@ -124,6 +194,8 @@ extension MapViewController: CLLocationManagerDelegate {
         print("error: ", error)
     }
 }
+
+// MARK: - SearchBarDelegate
 
 extension MapViewController: SearchBarDelegate {
     func searchbarTextDidChange(_ textField: UITextField) {
