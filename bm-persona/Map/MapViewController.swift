@@ -142,7 +142,7 @@ extension MapViewController: SearchBarDelegate {
         guard !searchResultsView.isScrolling else { return }
         showSearchResultsView(false)
         searchBar.setButtonStates(hasInput: textField.text?.count != 0, isSearching: false)
-    }
+    }   
     
     func searchbarTextShouldReturn(_ textField: UITextField) -> Bool {
         return true

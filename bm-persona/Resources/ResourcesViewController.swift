@@ -46,8 +46,8 @@ extension ResourcesViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        cell.textLabel?.text = resourceEntries[indexPath.section].name
+        let cell = ResourceTableViewCell()
+        cell.cellConfigure(entry: resourceEntries[indexPath.section])
         return cell
     }
     
