@@ -33,7 +33,12 @@ class CalendarDataSource: DataSource {
     
     // Return a CalendaryEntry object parsed from a dictionary.
     private static func parseCalendarResource(_ dict: [String: Any]) -> CalendarEntry {
-        print(dict)
-        return CalendarEntry(name: "Testing name", campusLocation: "Somewhere", date: Date(), eventType: "L&S Advising")
+        let date = Date(timeIntervalSince1970: dict["event_date"] as? Double ?? 0)
+        
+        let entry = CalendarEntry(name: dict["event_name"] as? String ?? "Unnamed",
+                                  campusLocation: "TBD",
+                                  date: Calendar.current.date(byAdding: .year, value: 1, to: date)!,
+                                  eventType: dict["event_type"] as? String ?? "Uncategorized")
+        return entry
     }
 }

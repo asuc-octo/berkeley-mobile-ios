@@ -28,6 +28,10 @@ class Library: SearchItem {
         return "Librar" + (pluralized ? "ies" : "y")
     }
     
+    var description: String {
+        return ""
+    }
+    
     let name: String
     let imageURL: URL?
     
