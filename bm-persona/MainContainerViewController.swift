@@ -13,6 +13,9 @@ protocol DrawerViewDelegate {
     func searchInitiated()
 }
 
+protocol DrawerContainer {
+    func moveDrawer(to state: DrawerState, duration: Double);
+}
 
 class MainContainerViewController: UIViewController {
     let mapViewController = MapViewController()
@@ -28,6 +31,7 @@ class MainContainerViewController: UIViewController {
         
         drawerViewController.delegate = self
         mapViewController.view.frame = self.view.frame
+        mapViewController.drawerContainer = self
         
         drawerViewController.view.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -39,6 +43,7 @@ class MainContainerViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        drawerStatePositions[.hidden] = self.view.frame.maxY + (self.view.frame.maxY / 2)
         drawerStatePositions[.collapsed] = self.view.frame.maxY * 0.9 + (self.view.frame.maxY / 2)
         drawerStatePositions[.middle] = self.view.frame.midY * 1.1 + (self.view.frame.maxY / 2)
         drawerStatePositions[.full] = self.view.safeAreaInsets.top + (self.view.frame.maxY / 2)
@@ -46,15 +51,9 @@ class MainContainerViewController: UIViewController {
         moveDrawer(to: drawerViewController.state, duration: 0)
     }
 
-    /*
-    // MARK: - Navigation
+}
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+extension MainContainerViewController: DrawerContainer {
     
     func moveDrawer(to state: DrawerState, duration: Double) {
         UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
@@ -65,7 +64,7 @@ class MainContainerViewController: UIViewController {
             }
         })
     }
-
+    
 }
 
 extension MainContainerViewController: DrawerViewDelegate {
@@ -131,13 +130,5 @@ extension MainContainerViewController: DrawerViewDelegate {
         } else {
             return .full
         }
-    }
-}
-
-extension UIViewController {
-    func add(child: UIViewController) {
-        self.addChild(child)
-        self.view.addSubview(child.view)
-        child.didMove(toParent: self)
     }
 }
