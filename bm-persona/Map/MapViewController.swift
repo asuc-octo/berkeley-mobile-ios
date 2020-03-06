@@ -61,6 +61,7 @@ class MapViewController: UIViewController {
         markerDetail.marker = nil
         
         filterView = FilterView(frame: .zero)
+        filterView.allowsMultipleSelection = false
         filterView.filterDelegate = self
         filterView.labels = filters.map { $0.label }
         
