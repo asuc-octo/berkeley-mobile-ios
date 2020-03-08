@@ -56,14 +56,12 @@ class TagView: UILabel {
 extension TagView {
     
     static var open: TagView {
-        let color = UIColor(displayP3Red: 133/255, green: 158/255, blue: 248/255, alpha: 1.0)
-        return TagView(origin: .zero, text: "Open", color: color)
+        return TagView(origin: .zero, text: "Open", color: Color.openTag)
     }
     
     static var closed: TagView {
         // TODO: Check if this should be a different color
-        let color = UIColor(displayP3Red: 133/255, green: 158/255, blue: 248/255, alpha: 1.0)
-        return TagView(origin: .zero, text: "Closed", color: color)
+        return TagView(origin: .zero, text: "Closed", color: Color.closedTag)
     }
     
 }
