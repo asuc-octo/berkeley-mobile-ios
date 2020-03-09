@@ -72,7 +72,7 @@ class EventTableViewCell: UITableViewCell {
         eventTime.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor).isActive = true
         
         eventCategory.font = Font.regular(12)
-        eventCategory.padding = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        eventCategory.padding = UIEdgeInsets(top: 5, left: 15, bottom: 5, right: 15)
         eventCategory.frame.size.height = 18
         eventCategory.layer.masksToBounds = true
         eventCategory.layer.cornerRadius = eventCategory.frame.height / 1.5
