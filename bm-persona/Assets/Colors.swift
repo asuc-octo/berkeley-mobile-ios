@@ -93,5 +93,15 @@ struct Color {
     static var eventDefault: UIColor {
         return UIColor(displayP3Red: 140/255, green: 140/255, blue: 140/255, alpha: 1.0)
     }
+    
+    // MARK: - TagView Colors
+    
+    static var openTag: UIColor {
+        return UIColor(displayP3Red: 133/255, green: 158/255, blue: 248/255, alpha: 1.0)
+    }
+    
+    static var closedTag: UIColor {
+        return UIColor(displayP3Red: 133/255, green: 158/255, blue: 248/255, alpha: 1.0)
+    }
 }
 

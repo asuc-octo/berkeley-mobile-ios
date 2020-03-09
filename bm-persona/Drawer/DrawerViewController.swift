@@ -9,6 +9,7 @@
 import UIKit
 
 enum DrawerState {
+    case hidden
     case collapsed
     case middle
     case full

@@ -9,6 +9,7 @@
 import Foundation
 
 fileprivate let kDataSources: [DataSource.Type] = [
+    MapDataSource.self,
     ResourceDataSource.self,
     LibraryDataSource.self,
     GymDataSource.self,

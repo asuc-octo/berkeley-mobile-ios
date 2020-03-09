@@ -10,14 +10,14 @@ import Foundation
 import UIKit
 
 extension UIViewController {
-    public func add(child: UIViewController, frame: CGRect) {
+    public func add(child: UIViewController, frame: CGRect = .zero) {
         addChild(child)
         view.addSubview(child.view)
         child.view.frame = frame
         child.didMove(toParent: self)
     }
     
-    public func add(child: UIViewController, toView view: UIView, frame: CGRect) {
+    public func add(child: UIViewController, toView view: UIView, frame: CGRect = .zero) {
         addChild(child)
         view.addSubview(child.view)
         child.view.frame = frame
