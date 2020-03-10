@@ -7,17 +7,19 @@
 //
 
 import UIKit
+import MapKit
 
 class LibraryViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     let tableView = UITableView(frame: .zero, style: .plain)
     var safeArea: UILayoutGuide!
     let cellSpacingHeight: CGFloat = 14
-    //think about when we are using Firebase for this? which takes in a URL
-    var labels: [String] = ["Moffitt Library", "Doe Library", "Main Stacks"]
-    var times: [String] = ["10 min", "15 min", "20 min", "25 min"]
-    var caps: [String] = ["High", "High", "High", "High"]
-    var recs: [String] = ["Recommended", "Recommended", "Recommended", "Recommended"]
+    var libraries: [Library] = []
+    let nearbyButton:ToggleView = {
+        let button = ToggleView(origin: .zero, text: "Nearby")
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -26,8 +28,13 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.register(MyCell.self, forCellReuseIdentifier: "cell")
+        self.tableView.register(ResourceTableViewCell.self, forCellReuseIdentifier: ResourceTableViewCell.kCellIdentifier)
         self.tableView.dataSource = self
+        
+        DataManager.shared.fetch(source: LibraryDataSource.self) { libraries in
+            self.libraries = libraries as? [Library] ?? []
+            self.tableView.reloadData()
+        }
     }
     
     override func loadView() {
@@ -50,12 +57,18 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
         card.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
         card.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
         
+        card.addSubview(nearbyButton)
+        nearbyButton.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true
+        nearbyButton.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapFunction))
+        nearbyButton.addGestureRecognizer(tap)
+        
         card.addSubview(tableView)
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true
+        tableView.topAnchor.constraint(equalTo: nearbyButton.layoutMarginsGuide.topAnchor, constant: 50).isActive = true
         tableView.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: card.layoutMarginsGuide.bottomAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: card.layoutMarginsGuide.bottomAnchor, constant: -50).isActive = true
         tableView.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
 
         //tableView.allowsSelection = false
@@ -67,21 +80,55 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
         tableView.layer.masksToBounds = false
     }
     
-    //number of rows to be shown in tableview
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.labels.count
+    @objc
+    func tapFunction(sender:UITapGestureRecognizer) {
+        nearbyButton.toggle()
     }
     
+    //number of rows to be shown in tableview
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.libraries.count
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: MyCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! MyCell
-        cell.nameLabel.text = self.labels[indexPath.row]
-        cell.timeLabel.text = self.times[indexPath.row]
-        cell.recLabel.text = self.recs[indexPath.row]
-        cell.capLabel.text = self.caps[indexPath.row]
-        cell.selectionStyle = .none
+        if let cell = tableView.dequeueReusableCell(withIdentifier: ResourceTableViewCell.kCellIdentifier, for: indexPath) as? ResourceTableViewCell {
+            let lib: Library = self.libraries[indexPath.row]
+            cell.nameLabel.text = lib.name
+            let locationManager = CLLocationManager()
+            if  let userLoc = locationManager.location,
+                let libLat = lib.latitude,
+                let libLong = lib.longitude,
+                !libLat.isNaN && !libLong.isNaN {
+                let libLoc = CLLocation(latitude: libLat, longitude: libLong)
+                let distance = round(userLoc.distance(from: libLoc) / 1600.0 * 10) / 10
+                cell.timeLabel.text = "\(distance) mi"
+            } else {
+                cell.timeLabel.text = ""
+            }
+            cell.recLabel.text = "Recommended"
+            cell.selectionStyle = .none
+            cell.capBadge.text = "High"
+            DispatchQueue.global().async {
+                guard let imageData = try? Data(contentsOf: lib.imageURL!) else { return }
+                let image = UIImage(data: imageData)
+                DispatchQueue.main.async {
+                    cell.cellImage.image = image
+                }
+            }
+            switch cell.capBadge.text!.lowercased() {
+            case "high":
+                cell.capBadge.backgroundColor = .red
+            case "medium":
+                cell.capBadge.backgroundColor = .orange
+            case "low":
+                cell.capBadge.backgroundColor = .green
+            default:
+                cell.capBadge.backgroundColor = .clear
+            }
 
-        return cell
+            return cell
+        }
+        return UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

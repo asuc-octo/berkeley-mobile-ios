@@ -1,5 +1,5 @@
 //
-//  CustomTableViewCell.swift
+//  ResourceTableViewCell.swift
 //  bm-persona
 //
 //  Created by Anna Gao on 11/6/19.
@@ -8,8 +8,9 @@
 
 import UIKit
 
-class MyCell: UITableViewCell {
-
+class ResourceTableViewCell: UITableViewCell {
+    
+    static let kCellIdentifier = "resourceCell"
 
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -38,7 +39,7 @@ class MyCell: UITableViewCell {
         contentView.addSubview(personImage)
         contentView.addSubview(timeLabel)
         contentView.addSubview(chairImage)
-        contentView.addSubview(capLabel)
+        contentView.addSubview(capBadge)
         
         nameLabel.heightAnchor.constraint(equalToConstant: 200).isActive = true
         nameLabel.widthAnchor.constraint(equalToConstant: 200).isActive = true
@@ -56,25 +57,27 @@ class MyCell: UITableViewCell {
         cellImage.trailingAnchor.constraint(equalTo:self.contentView.trailingAnchor, constant:-4.5).isActive = true
         cellImage.centerYAnchor.constraint(equalTo:self.contentView.centerYAnchor).isActive = true
         
-        personImage.topAnchor.constraint(equalTo:self.nameLabel.bottomAnchor, constant: 17).isActive = true
+        personImage.topAnchor.constraint(equalTo:self.nameLabel.bottomAnchor, constant: 16).isActive = true
         personImage.leadingAnchor.constraint(equalTo:self.contentView.leadingAnchor).isActive = true
         personImage.leftAnchor.constraint(equalTo:contentView.leftAnchor, constant: 16).isActive = true
-        personImage.widthAnchor.constraint(equalToConstant:15).isActive = true
-        personImage.heightAnchor.constraint(equalToConstant:15).isActive = true
+        personImage.widthAnchor.constraint(equalToConstant:16).isActive = true
+        personImage.heightAnchor.constraint(equalToConstant:16).isActive = true
+        personImage.contentMode = .scaleAspectFit
         
         timeLabel.topAnchor.constraint(equalTo:self.nameLabel.bottomAnchor, constant: 17).isActive = true
         timeLabel.leadingAnchor.constraint(equalTo:self.contentView.leadingAnchor).isActive = true
         timeLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 41).isActive = true
 
-        chairImage.topAnchor.constraint(equalTo:self.nameLabel.bottomAnchor, constant: 13).isActive = true
+        chairImage.topAnchor.constraint(equalTo:self.nameLabel.bottomAnchor, constant: 12).isActive = true
         chairImage.leadingAnchor.constraint(equalTo:self.contentView.leadingAnchor).isActive = true
-        chairImage.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 96).isActive = true
-        chairImage.widthAnchor.constraint(equalToConstant:24).isActive = true
-        chairImage.heightAnchor.constraint(equalToConstant:24).isActive = true
+        chairImage.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 87).isActive = true
+        chairImage.widthAnchor.constraint(equalToConstant:25).isActive = true
+        chairImage.heightAnchor.constraint(equalToConstant:25).isActive = true
+        chairImage.contentMode = .scaleAspectFit
         
-        capLabel.topAnchor.constraint(equalTo:self.nameLabel.bottomAnchor, constant: 18).isActive = true
-        capLabel.leadingAnchor.constraint(equalTo:self.contentView.leadingAnchor).isActive = true
-        capLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 152).isActive = true
+        capBadge.topAnchor.constraint(equalTo: self.nameLabel.bottomAnchor, constant: 17).isActive = true
+        capBadge.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor).isActive = true
+        capBadge.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 125).isActive = true
         
     }
     
@@ -101,7 +104,7 @@ class MyCell: UITableViewCell {
     
     let cellImage:UIImageView = {
         let img = UIImageView()
-        //img.image = UIImage(named: "yosemite.jpg")
+        img.image = UIImage()
         img.contentMode = .scaleAspectFill // image will never be strecthed vertially or horizontally
         img.translatesAutoresizingMaskIntoConstraints = false // enable autolayout
         img.clipsToBounds = true
@@ -119,7 +122,7 @@ class MyCell: UITableViewCell {
     let personImage:UIImageView = {
         let img = UIImageView()
         img.contentMode = .scaleAspectFill
-        //img.image = UIImage(named: "yosemite.jpg")
+        img.image = UIImage(named: "Walk")
         img.translatesAutoresizingMaskIntoConstraints = false
         img.clipsToBounds = true
         return img
@@ -136,18 +139,16 @@ class MyCell: UITableViewCell {
     let chairImage:UIImageView = {
         let img = UIImageView()
         img.contentMode = .scaleAspectFill
-        //img.image = UIImage(named: "yosemite.jpg")
+        img.image = UIImage(named: "Chair")
         img.translatesAutoresizingMaskIntoConstraints = false
         img.clipsToBounds = true
         return img
     }()
-     
-    let capLabel:UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 12)
-        label.textColor = UIColor(red: 98.0 / 255.0, green: 97.0 / 255.0, blue: 98.0 / 255.0, alpha: 1.0)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
+    
+    let capBadge:TagView = {
+        let cap = TagView(origin: .zero, text: "", color: .clear)
+        cap.translatesAutoresizingMaskIntoConstraints = false
+        return cap
     }()
     
     
