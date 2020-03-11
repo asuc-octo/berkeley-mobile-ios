@@ -9,16 +9,42 @@
 import UIKit
 import MapKit
 
-class LibraryViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class LibraryViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate {
+    
+    private static let highRed = UIColor(red: 221/255, green: 67/255, blue: 67/255, alpha: 1)
+    private static let medOrange = UIColor(red: 251/255, green: 179/255, blue: 43/255, alpha: 1)
+    private static let lowGreen = UIColor(red: 162/255, green: 183/255, blue: 14/255, alpha: 1)
     
     let tableView = UITableView(frame: .zero, style: .plain)
     var safeArea: UILayoutGuide!
     let cellSpacingHeight: CGFloat = 14
     var libraries: [Library] = []
-    let nearbyButton:ToggleView = {
-        let button = ToggleView(origin: .zero, text: "Nearby")
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
+    var filteredLibraries: [Library] = []
+    var filter: FilterView!
+    var filters: [Filter<Library>] = [
+        Filter(label: "Nearby", filter: {lib in lib.distanceToUser < 10}),
+        Filter(label: "Open", filter: {lib in lib.isOpen}),
+    ]
+    var locationManager = CLLocationManager()
+    var location: CLLocation?
+    var sortFunc: ((Library, Library) -> Bool)?
+    
+    let bookImage:UIImageView = {
+        let img = UIImageView()
+        img.contentMode = .scaleAspectFit
+        img.image = UIImage(named: "Book")
+        img.translatesAutoresizingMaskIntoConstraints = false
+        img.clipsToBounds = true
+        return img
+    }()
+    
+    let filterImage:UIImageView = {
+        let img = UIImageView()
+        img.contentMode = .scaleAspectFit
+        img.image = UIImage(named: "Filter")
+        img.translatesAutoresizingMaskIntoConstraints = false
+        img.clipsToBounds = true
+        return img
     }()
     
     override func didReceiveMemoryWarning() {
@@ -28,13 +54,48 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.register(ResourceTableViewCell.self, forCellReuseIdentifier: ResourceTableViewCell.kCellIdentifier)
+        self.tableView.register(LibraryTableViewCell.self, forCellReuseIdentifier: LibraryTableViewCell.kCellIdentifier)
         self.tableView.dataSource = self
-        
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.startUpdatingLocation()
+        location = locationManager.location
+        if sortFunc == nil {
+            sortFunc = sortClose(lib1:lib2:)
+        }
         DataManager.shared.fetch(source: LibraryDataSource.self) { libraries in
             self.libraries = libraries as? [Library] ?? []
+            self.filteredLibraries = self.libraries
+            self.filteredLibraries.sort(by: self.sortFunc!)
             self.tableView.reloadData()
         }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        self.filteredLibraries.sort(by: self.sortFunc!)
+        self.tableView.reloadData()
+    }
+    
+    func sortClose(lib1: Library, lib2: Library) -> Bool {
+        if location == nil {
+            location = locationManager.location
+            if location == nil {
+                return true
+            }
+        }
+        let d1 = lib1.getDistanceToUser(userLoc: location!)
+        let d2 = lib2.getDistanceToUser(userLoc: location!)
+        if d2.isNaN {
+            return true
+        } else if d1.isNaN {
+            return false
+        } else {
+            return d1 < d2
+        }
+    }
+    
+    func sortAlph(lib1: Library, lib2: Library) -> Bool {
+        return lib1.name < lib2.name
     }
     
     override func loadView() {
@@ -49,7 +110,7 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
         view.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
         
         let card = CardView()
-        card.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+        card.layoutMargins = UIEdgeInsets(top: 20, left: 16, bottom: 16, right: 16)
         view.addSubview(card)
         card.translatesAutoresizingMaskIntoConstraints = false
         card.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
@@ -57,16 +118,49 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
         card.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
         card.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
         
-        card.addSubview(nearbyButton)
-        nearbyButton.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true
-        nearbyButton.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
-        let tap = UITapGestureRecognizer(target: self, action: #selector(tapFunction))
-        nearbyButton.addGestureRecognizer(tap)
+        let studyLabel = UILabel()
+        studyLabel.textAlignment = .center
+        studyLabel.text = "Find your study spot"
+        studyLabel.font = UIFont.boldSystemFont(ofSize: 30)
+        studyLabel.adjustsFontSizeToFitWidth = true
+        studyLabel.textColor = .black
+        studyLabel.textColor = UIColor(red: 44.0 / 255.0, green: 44.0 / 255.0, blue: 45.0 / 255.0, alpha: 1.0)
+        card.addSubview(studyLabel)
         
+        card.addSubview(bookImage)
+        bookImage.centerYAnchor.constraint(equalTo: studyLabel.centerYAnchor).isActive = true
+        bookImage.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor, constant: 5).isActive = true
+        bookImage.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        bookImage.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        
+        card.addSubview(filterImage)
+        filterImage.centerYAnchor.constraint(equalTo: studyLabel.centerYAnchor).isActive = true
+        filterImage.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive
+            = true
+        filterImage.heightAnchor.constraint(equalToConstant: 25).isActive = true
+        filterImage.widthAnchor.constraint(equalToConstant: 25).isActive = true
+        
+        studyLabel.translatesAutoresizingMaskIntoConstraints = false
+        studyLabel.heightAnchor.constraint(equalToConstant: 35).isActive = true
+        studyLabel.leftAnchor.constraint(equalTo: bookImage.rightAnchor, constant: 16).isActive = true
+        studyLabel.rightAnchor.constraint(equalTo: filterImage.leftAnchor, constant: -25).isActive = true
+        studyLabel.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true
+        
+        filter = FilterView(frame: .zero)
+        card.addSubview(filter)
+        filter.translatesAutoresizingMaskIntoConstraints = false
+        filter.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
+        filter.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
+        filter.topAnchor.constraint(equalTo: studyLabel.layoutMarginsGuide.bottomAnchor, constant: 30).isActive = true
+        filter.heightAnchor.constraint(equalToConstant: FilterViewCell.kCellSize.height).isActive = true
+
+        filter.labels = filters.map { $0.label }
+        filter.filterDelegate = self
+
         card.addSubview(tableView)
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.topAnchor.constraint(equalTo: nearbyButton.layoutMarginsGuide.topAnchor, constant: 50).isActive = true
+        tableView.topAnchor.constraint(equalTo: filter.bottomAnchor, constant: 25).isActive = true
         tableView.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: card.layoutMarginsGuide.bottomAnchor, constant: -50).isActive = true
         tableView.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
@@ -74,40 +168,53 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
         //tableView.allowsSelection = false
         tableView.rowHeight = 131
 
-        //tableView.allowsSelection = false
-        tableView.rowHeight = 131
-        
-        tableView.layer.masksToBounds = false
+        tableView.layer.masksToBounds = true
+        tableView.contentInset = UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0)
+        tableView.setContentOffset(CGPoint(x: 0, y: -5), animated: false)
+        tableView.contentInsetAdjustmentBehavior = .never
     }
     
-    @objc
-    func tapFunction(sender:UITapGestureRecognizer) {
-        nearbyButton.toggle()
+    var workItem: DispatchWorkItem?
+    func update() {
+        workItem?.cancel()
+        let data = libraries
+        workItem = Filter.apply(filters: filters, on: data, indices: filter.indexPathsForSelectedItems?.map { $0.row }, completion: {
+          filtered in
+            self.filteredLibraries = filtered
+            self.filteredLibraries.sort(by: self.sortFunc!)
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        })
     }
     
     //number of rows to be shown in tableview
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.libraries.count
+        return self.filteredLibraries.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: ResourceTableViewCell.kCellIdentifier, for: indexPath) as? ResourceTableViewCell {
-            let lib: Library = self.libraries[indexPath.row]
+        if let cell = tableView.dequeueReusableCell(withIdentifier: LibraryTableViewCell.kCellIdentifier, for: indexPath) as? LibraryTableViewCell {
+            let lib: Library = self.filteredLibraries[indexPath.row]
             cell.nameLabel.text = lib.name
-            let locationManager = CLLocationManager()
-            if  let userLoc = locationManager.location,
-                let libLat = lib.latitude,
-                let libLong = lib.longitude,
-                !libLat.isNaN && !libLong.isNaN {
-                let libLoc = CLLocation(latitude: libLat, longitude: libLong)
-                let distance = round(userLoc.distance(from: libLoc) / 1600.0 * 10) / 10
+            var distance = Double.nan
+            if location != nil {
+                distance = lib.findDistanceToUser(userLoc: location!)
+            }
+            if !distance.isNaN && distance < 100 {
                 cell.timeLabel.text = "\(distance) mi"
-            } else {
-                cell.timeLabel.text = ""
             }
             cell.recLabel.text = "Recommended"
             cell.selectionStyle = .none
-            cell.capBadge.text = "High"
+            switch indexPath.row % 3 {
+            case 0:
+                cell.capBadge.text = "High"
+            case 1:
+                cell.capBadge.text = "Medium"
+            default:
+                cell.capBadge.text = "Low"
+            }
+            
             DispatchQueue.global().async {
                 guard let imageData = try? Data(contentsOf: lib.imageURL!) else { return }
                 let image = UIImage(data: imageData)
@@ -117,11 +224,11 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
             }
             switch cell.capBadge.text!.lowercased() {
             case "high":
-                cell.capBadge.backgroundColor = .red
+                cell.capBadge.backgroundColor = LibraryViewController.highRed
             case "medium":
-                cell.capBadge.backgroundColor = .orange
+                cell.capBadge.backgroundColor = LibraryViewController.medOrange
             case "low":
-                cell.capBadge.backgroundColor = .green
+                cell.capBadge.backgroundColor = LibraryViewController.lowGreen
             default:
                 cell.capBadge.backgroundColor = .clear
             }
@@ -140,3 +247,14 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
     }
 }
 
+extension LibraryViewController: FilterViewDelegate {
+    
+    func filterView(_ filterView: FilterView, didSelect index: Int) {
+        update()
+    }
+    
+    func filterView(_ filterView: FilterView, didDeselect index: Int) {
+        update()
+    }
+
+}

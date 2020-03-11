@@ -8,10 +8,22 @@
 
 import UIKit
 
-class ResourceTableViewCell: UITableViewCell {
+class LibraryTableViewCell: UITableViewCell {
     
-    static let kCellIdentifier = "resourceCell"
-
+    static let kCellIdentifier = "libraryCell"
+    
+    override var frame: CGRect {
+        get {
+            return super.frame
+        }
+        set (newFrame) {
+            var frame = newFrame
+            frame.origin.x += 5
+            frame.size.width -= 10
+            super.frame = frame
+        }
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top:0, left:0, bottom:10, right:0))
@@ -40,45 +52,44 @@ class ResourceTableViewCell: UITableViewCell {
         contentView.addSubview(timeLabel)
         contentView.addSubview(chairImage)
         contentView.addSubview(capBadge)
+        contentView.layoutMargins = UIEdgeInsets(top: 10, left: 16, bottom: 16, right: 5)
         
-        nameLabel.heightAnchor.constraint(equalToConstant: 200).isActive = true
+        recLabel.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
+        recLabel.leftAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
+        
+        nameLabel.heightAnchor.constraint(equalToConstant: 65).isActive = true
         nameLabel.widthAnchor.constraint(equalToConstant: 200).isActive = true
-        nameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
-        nameLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16).isActive = true
-        nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 26).isActive = true
-        nameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -53).isActive = true
+        nameLabel.leftAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
+        nameLabel.topAnchor.constraint(equalTo: recLabel.layoutMarginsGuide.bottomAnchor, constant: 5).isActive = true
+        nameLabel.adjustsFontSizeToFitWidth = true
+        nameLabel.minimumScaleFactor = 0.5
+        nameLabel.numberOfLines = 2
         
-        recLabel.bottomAnchor.constraint(equalTo: self.nameLabel.topAnchor, constant: -3).isActive = true
-        recLabel.leftAnchor.constraint(equalTo: self.contentView.leftAnchor, constant: 16).isActive = true
-        recLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 10).isActive = true
-        
-        cellImage.widthAnchor.constraint(equalToConstant:104.5).isActive = true
-        cellImage.heightAnchor.constraint(equalToConstant:93).isActive = true
-        cellImage.trailingAnchor.constraint(equalTo:self.contentView.trailingAnchor, constant:-4.5).isActive = true
-        cellImage.centerYAnchor.constraint(equalTo:self.contentView.centerYAnchor).isActive = true
-        
-        personImage.topAnchor.constraint(equalTo:self.nameLabel.bottomAnchor, constant: 16).isActive = true
-        personImage.leadingAnchor.constraint(equalTo:self.contentView.leadingAnchor).isActive = true
-        personImage.leftAnchor.constraint(equalTo:contentView.leftAnchor, constant: 16).isActive = true
-        personImage.widthAnchor.constraint(equalToConstant:16).isActive = true
-        personImage.heightAnchor.constraint(equalToConstant:16).isActive = true
+        cellImage.widthAnchor.constraint(equalToConstant: 104.5).isActive = true
+        cellImage.heightAnchor.constraint(equalToConstant: 93).isActive = true
+        cellImage.leftAnchor.constraint(equalTo: nameLabel.rightAnchor, constant: 12).isActive = true
+        cellImage.rightAnchor.constraint(equalTo: contentView.layoutMarginsGuide.rightAnchor).isActive = true
+        cellImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+
+        personImage.topAnchor.constraint(equalTo: nameLabel.bottomAnchor).isActive = true
+        personImage.leftAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
+        personImage.widthAnchor.constraint(equalToConstant: 16).isActive = true
+        personImage.heightAnchor.constraint(equalToConstant: 16).isActive = true
         personImage.contentMode = .scaleAspectFit
         
-        timeLabel.topAnchor.constraint(equalTo:self.nameLabel.bottomAnchor, constant: 17).isActive = true
-        timeLabel.leadingAnchor.constraint(equalTo:self.contentView.leadingAnchor).isActive = true
-        timeLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 41).isActive = true
+        capBadge.centerYAnchor.constraint(equalTo: personImage.centerYAnchor).isActive = true
+        capBadge.rightAnchor.constraint(equalTo: cellImage.leftAnchor, constant: -16).isActive = true
+        capBadge.widthAnchor.constraint(equalToConstant: 50).isActive = true
 
-        chairImage.topAnchor.constraint(equalTo:self.nameLabel.bottomAnchor, constant: 12).isActive = true
-        chairImage.leadingAnchor.constraint(equalTo:self.contentView.leadingAnchor).isActive = true
-        chairImage.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 87).isActive = true
-        chairImage.widthAnchor.constraint(equalToConstant:25).isActive = true
-        chairImage.heightAnchor.constraint(equalToConstant:25).isActive = true
+        chairImage.centerYAnchor.constraint(equalTo: personImage.centerYAnchor).isActive = true
+        chairImage.rightAnchor.constraint(equalTo: capBadge.leftAnchor, constant: -7).isActive = true
+        chairImage.widthAnchor.constraint(equalToConstant: 25).isActive = true
+        chairImage.heightAnchor.constraint(equalToConstant: 25).isActive = true
         chairImage.contentMode = .scaleAspectFit
-        
-        capBadge.topAnchor.constraint(equalTo: self.nameLabel.bottomAnchor, constant: 17).isActive = true
-        capBadge.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor).isActive = true
-        capBadge.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 125).isActive = true
-        
+
+        timeLabel.centerYAnchor.constraint(equalTo: personImage.centerYAnchor).isActive = true
+        timeLabel.leftAnchor.constraint(equalTo: personImage.rightAnchor, constant: 5).isActive = true
+        timeLabel.rightAnchor.constraint(equalTo: chairImage.leftAnchor, constant: -5).isActive = true
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -121,7 +132,7 @@ class ResourceTableViewCell: UITableViewCell {
      
     let personImage:UIImageView = {
         let img = UIImageView()
-        img.contentMode = .scaleAspectFill
+        img.contentMode = .scaleAspectFit
         img.image = UIImage(named: "Walk")
         img.translatesAutoresizingMaskIntoConstraints = false
         img.clipsToBounds = true
@@ -130,6 +141,7 @@ class ResourceTableViewCell: UITableViewCell {
      
     let timeLabel:UILabel = {
         let label = UILabel()
+        label.adjustsFontSizeToFitWidth = true
         label.font = UIFont.systemFont(ofSize: 12)
         label.textColor = UIColor(red: 98.0 / 255.0, green: 97.0 / 255.0, blue: 98.0 / 255.0, alpha: 1.0)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -138,7 +150,7 @@ class ResourceTableViewCell: UITableViewCell {
      
     let chairImage:UIImageView = {
         let img = UIImageView()
-        img.contentMode = .scaleAspectFill
+        img.contentMode = .scaleAspectFit
         img.image = UIImage(named: "Chair")
         img.translatesAutoresizingMaskIntoConstraints = false
         img.clipsToBounds = true
