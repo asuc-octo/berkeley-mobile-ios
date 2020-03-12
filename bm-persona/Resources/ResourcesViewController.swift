@@ -69,7 +69,7 @@ extension ResourcesViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView()
-        headerView.backgroundColor = Color.cardBackground
+        headerView.backgroundColor = .clear
         return headerView
     }
     
@@ -113,6 +113,7 @@ extension ResourcesViewController {
         let table = UITableView()
         table.delegate = self
         table.dataSource = self
+        table.layer.masksToBounds = false
         scrollView.addSubview(table)
         table.separatorStyle = .none
         table.translatesAutoresizingMaskIntoConstraints = false

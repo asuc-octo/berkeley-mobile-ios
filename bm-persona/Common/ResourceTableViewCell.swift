@@ -27,6 +27,10 @@ class ResourceTableViewCell: UITableViewCell {
         contentView.layer.masksToBounds = true
         contentView.layer.cornerRadius = 12
         
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowRadius = 5
+        layer.shadowOpacity = 0.25
+        
         resourceName = UILabel()
         resourceCategory = UILabel()
         resourceImage = UIImageView()
