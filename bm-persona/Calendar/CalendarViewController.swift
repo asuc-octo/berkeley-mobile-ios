@@ -126,7 +126,7 @@ extension CalendarViewController {
         
         let table = UITableView()
         table.delegate = self
-        table.dataSource = self
+        table.dataSource = self        
         scrollView.addSubview(table)
         table.separatorStyle = .none
         table.translatesAutoresizingMaskIntoConstraints = false
