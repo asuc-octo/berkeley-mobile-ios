@@ -51,3 +51,17 @@ class TagView: UILabel {
     }
 
 }
+
+// Common TagViews
+extension TagView {
+    
+    static var open: TagView {
+        return TagView(origin: .zero, text: "Open", color: Color.openTag)
+    }
+    
+    static var closed: TagView {
+        // TODO: Check if this should be a different color
+        return TagView(origin: .zero, text: "Closed", color: Color.closedTag)
+    }
+    
+}

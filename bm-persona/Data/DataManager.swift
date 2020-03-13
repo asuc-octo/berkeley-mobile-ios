@@ -9,9 +9,11 @@
 import Foundation
 
 fileprivate let kDataSources: [DataSource.Type] = [
-    CampusResourceDataSource.self,
+    MapDataSource.self,
+    ResourceDataSource.self,
     LibraryDataSource.self,
-    GymDataSource.self
+    GymDataSource.self,
+    CalendarDataSource.self
 ]
 
 class DataManager {

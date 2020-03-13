@@ -30,6 +30,10 @@ class Library: SearchItem, HasLocation {
         return "Librar" + (pluralized ? "ies" : "y")
     }
     
+    var description: String {
+        return ""
+    }
+    
     let name: String
     let imageURL: URL?
     

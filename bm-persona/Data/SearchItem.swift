@@ -13,5 +13,5 @@ protocol SearchItem {
     var searchName: String { get }
     var location: (Double, Double) { get }
     var locationName: String { get }
-    
+    var description: String { get }
 }
