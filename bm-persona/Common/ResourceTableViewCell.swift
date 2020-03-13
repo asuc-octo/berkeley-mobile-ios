@@ -63,15 +63,16 @@ class ResourceTableViewCell: UITableViewCell {
         resourceName.layoutMargins = UIEdgeInsets(top: 21, left: 14, bottom: 0, right: 0)
         resourceName.leftAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
         resourceName.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
-        resourceName.rightAnchor.constraint(equalTo: resourceImage.leftAnchor, constant: -70).isActive = true
+        resourceName.rightAnchor.constraint(equalTo: resourceImage.leftAnchor, constant: -10).isActive = true
         resourceName.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
-        resourceImage.image = UIImage(named: "DoeGlade")
-        resourceImage.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        resourceImage.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-        resourceImage.rightAnchor.constraint(equalTo: contentView.rightAnchor).isActive = true
-        resourceImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
-        resourceImage.widthAnchor.constraint(equalToConstant: contentView.frame.height * 1.33).isActive = true
+        resourceImage.image = UIImage(named: "DoeGlade")  // TODO: - Dynamically load once backend updated
+        resourceImage.layoutMargins = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: -5)
+        resourceImage.layer.masksToBounds = true
+        resourceImage.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
+        resourceImage.rightAnchor.constraint(equalTo: contentView.layoutMarginsGuide.rightAnchor).isActive = true
+        resourceImage.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor).isActive = true
+        resourceImage.widthAnchor.constraint(equalToConstant: contentView.frame.height * 2.33).isActive = true
         resourceImage.contentMode = .scaleAspectFill
 
         resourceCategory.font = Font.regular(12)
