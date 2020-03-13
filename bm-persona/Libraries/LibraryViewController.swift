@@ -14,6 +14,8 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
     private static let highRed = UIColor(red: 221/255, green: 67/255, blue: 67/255, alpha: 1)
     private static let medOrange = UIColor(red: 251/255, green: 179/255, blue: 43/255, alpha: 1)
     private static let lowGreen = UIColor(red: 162/255, green: 183/255, blue: 14/255, alpha: 1)
+    private static let nearbyDistance: Double = 10
+    private static let invalidDistance: Double = 100
     
     let tableView = UITableView(frame: .zero, style: .plain)
     var safeArea: UILayoutGuide!
@@ -22,7 +24,7 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
     var filteredLibraries: [Library] = []
     var filter: FilterView!
     var filters: [Filter<Library>] = [
-        Filter(label: "Nearby", filter: {lib in lib.distanceToUser < 10}),
+        Filter(label: "Nearby", filter: {lib in lib.distanceToUser < LibraryViewController.nearbyDistance}),
         Filter(label: "Open", filter: {lib in lib.isOpen}),
     ]
     var locationManager = CLLocationManager()
@@ -201,7 +203,7 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
             if location != nil {
                 distance = lib.findDistanceToUser(userLoc: location!)
             }
-            if !distance.isNaN && distance < 100 {
+            if !distance.isNaN && distance < LibraryViewController.invalidDistance {
                 cell.timeLabel.text = "\(distance) mi"
             }
             cell.recLabel.text = "Recommended"
