@@ -40,7 +40,8 @@ class ResourceTableViewCell: UITableViewCell {
         
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowRadius = 3
-        layer.shadowOpacity = 0.25
+        layer.shadowOpacity = 0.2
+        layer.shadowOffset = .zero
         
         resourceName = UILabel()
         resourceCategory = UILabel()
