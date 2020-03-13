@@ -68,6 +68,7 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        location = manager.location
         self.filteredLibraries.sort(by: self.sortFunc!)
         self.tableView.reloadData()
     }
