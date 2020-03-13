@@ -14,6 +14,17 @@ class ResourceTableViewCell: UITableViewCell {
     private var resourceCategory: UILabel!
     private var resourceImage: UIImageView!
     
+    override var frame: CGRect {
+        get {
+            return super.frame
+        }
+        set (newFrame) {
+            var frame = newFrame
+            frame.origin.x += 5
+            frame.size.width -= 10
+            super.frame = frame
+        }
+    }
    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -28,7 +39,7 @@ class ResourceTableViewCell: UITableViewCell {
         contentView.layer.cornerRadius = 12
         
         layer.shadowColor = UIColor.black.cgColor
-        layer.shadowRadius = 5
+        layer.shadowRadius = 3
         layer.shadowOpacity = 0.25
         
         resourceName = UILabel()

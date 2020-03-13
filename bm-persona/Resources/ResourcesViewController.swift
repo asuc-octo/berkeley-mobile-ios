@@ -113,7 +113,12 @@ extension ResourcesViewController {
         let table = UITableView()
         table.delegate = self
         table.dataSource = self
-        table.layer.masksToBounds = false
+        
+        table.layer.masksToBounds = true
+        table.contentInset = UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0)
+        table.setContentOffset(CGPoint(x: 0, y: -5), animated: false)
+        table.contentInsetAdjustmentBehavior = .never
+        
         scrollView.addSubview(table)
         table.separatorStyle = .none
         table.translatesAutoresizingMaskIntoConstraints = false
