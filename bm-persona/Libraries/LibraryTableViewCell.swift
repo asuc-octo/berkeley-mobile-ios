@@ -12,21 +12,9 @@ class LibraryTableViewCell: UITableViewCell {
     
     static let kCellIdentifier = "libraryCell"
     
-    override var frame: CGRect {
-        get {
-            return super.frame
-        }
-        set (newFrame) {
-            var frame = newFrame
-            frame.origin.x += 5
-            frame.size.width -= 10
-            super.frame = frame
-        }
-    }
-    
     override func layoutSubviews() {
         super.layoutSubviews()
-        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top:0, left:0, bottom:10, right:0))
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top:0, left:5, bottom:10, right:5))
         
         // add shadow on cell
         backgroundColor = .clear
@@ -52,25 +40,21 @@ class LibraryTableViewCell: UITableViewCell {
         contentView.addSubview(timeLabel)
         contentView.addSubview(chairImage)
         contentView.addSubview(capBadge)
-        contentView.layoutMargins = UIEdgeInsets(top: 10, left: 16, bottom: 16, right: 5)
+        contentView.layoutMargins = UIEdgeInsets(top: 5, left: 15, bottom: 5, right: -5)
         
         recLabel.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
         recLabel.leftAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
         
         nameLabel.heightAnchor.constraint(equalToConstant: 65).isActive = true
-        nameLabel.widthAnchor.constraint(equalToConstant: 200).isActive = true
         nameLabel.leftAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
         nameLabel.topAnchor.constraint(equalTo: recLabel.layoutMarginsGuide.bottomAnchor, constant: 5).isActive = true
-        nameLabel.adjustsFontSizeToFitWidth = true
-        nameLabel.minimumScaleFactor = 0.5
-        nameLabel.numberOfLines = 2
+        nameLabel.rightAnchor.constraint(equalTo: cellImage.leftAnchor, constant: -10).isActive = true
         
-        cellImage.widthAnchor.constraint(equalToConstant: 104.5).isActive = true
-        cellImage.heightAnchor.constraint(equalToConstant: 93).isActive = true
-        cellImage.leftAnchor.constraint(equalTo: nameLabel.rightAnchor, constant: 12).isActive = true
-        cellImage.rightAnchor.constraint(equalTo: contentView.layoutMarginsGuide.rightAnchor).isActive = true
-        cellImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
-
+        cellImage.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -5).isActive = true
+        cellImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5).isActive = true
+        cellImage.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor).isActive = true
+        cellImage.widthAnchor.constraint(equalToConstant: contentView.frame.height * 2.5).isActive = true
+        
         personImage.topAnchor.constraint(equalTo: nameLabel.bottomAnchor).isActive = true
         personImage.leftAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
         personImage.widthAnchor.constraint(equalToConstant: 16).isActive = true
@@ -107,9 +91,12 @@ class LibraryTableViewCell: UITableViewCell {
         label.textColor = .black
 
         label.font = UIFont.boldSystemFont(ofSize: 20)
-        label.textColor = UIColor(red: 44.0 / 255.0, green: 44.0 / 255.0, blue: 45.0 / 255.0, alpha: 1.0)
+        label.textColor = Color.blackText
 
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.5
+        label.numberOfLines = 2
         return label
     }()
     
@@ -125,7 +112,7 @@ class LibraryTableViewCell: UITableViewCell {
     let recLabel:UILabel = {
         let label = UILabel()
         label.font = UIFont.italicSystemFont(ofSize: 10)
-        label.textColor = UIColor(red: 138.0 / 255.0, green: 135.0 / 255.0, blue: 138.0 / 255.0, alpha: 1.0)
+        label.textColor = Color.darkGrayText
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -143,7 +130,7 @@ class LibraryTableViewCell: UITableViewCell {
         let label = UILabel()
         label.adjustsFontSizeToFitWidth = true
         label.font = UIFont.systemFont(ofSize: 12)
-        label.textColor = UIColor(red: 98.0 / 255.0, green: 97.0 / 255.0, blue: 98.0 / 255.0, alpha: 1.0)
+        label.textColor = Color.lightGrayText
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

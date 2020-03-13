@@ -11,9 +11,6 @@ import MapKit
 
 class LibraryViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate {
     
-    private static let highRed = UIColor(red: 221/255, green: 67/255, blue: 67/255, alpha: 1)
-    private static let medOrange = UIColor(red: 251/255, green: 179/255, blue: 43/255, alpha: 1)
-    private static let lowGreen = UIColor(red: 162/255, green: 183/255, blue: 14/255, alpha: 1)
     private static let nearbyDistance: Double = 10
     private static let invalidDistance: Double = 100
     
@@ -23,10 +20,7 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
     var libraries: [Library] = []
     var filteredLibraries: [Library] = []
     var filter: FilterView!
-    var filters: [Filter<Library>] = [
-        Filter(label: "Nearby", filter: {lib in lib.distanceToUser < LibraryViewController.nearbyDistance}),
-        Filter(label: "Open", filter: {lib in lib.isOpen}),
-    ]
+    var filters: [Filter<Library>] = []
     var locationManager = CLLocationManager()
     var location: CLLocation?
     var sortFunc: ((Library, Library) -> Bool)?
@@ -126,7 +120,7 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
         studyLabel.font = UIFont.boldSystemFont(ofSize: 30)
         studyLabel.adjustsFontSizeToFitWidth = true
         studyLabel.textColor = .black
-        studyLabel.textColor = UIColor(red: 44.0 / 255.0, green: 44.0 / 255.0, blue: 45.0 / 255.0, alpha: 1.0)
+        studyLabel.textColor = Color.blackText
         card.addSubview(studyLabel)
         
         card.addSubview(bookImage)
@@ -148,6 +142,11 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
         studyLabel.rightAnchor.constraint(equalTo: filterImage.leftAnchor, constant: -25).isActive = true
         studyLabel.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true
         
+        filters = [
+            Filter(label: "Nearby", filter: {lib in
+                lib.getDistanceToUser(userLoc: self.location) < LibraryViewController.nearbyDistance}),
+            Filter(label: "Open", filter: {lib in lib.isOpen}),
+        ]
         filter = FilterView(frame: .zero)
         card.addSubview(filter)
         filter.translatesAutoresizingMaskIntoConstraints = false
@@ -201,7 +200,7 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
             cell.nameLabel.text = lib.name
             var distance = Double.nan
             if location != nil {
-                distance = lib.findDistanceToUser(userLoc: location!)
+                distance = lib.getDistanceToUser(userLoc: location!)
             }
             if !distance.isNaN && distance < LibraryViewController.invalidDistance {
                 cell.timeLabel.text = "\(distance) mi"
@@ -226,11 +225,11 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
             }
             switch cell.capBadge.text!.lowercased() {
             case "high":
-                cell.capBadge.backgroundColor = LibraryViewController.highRed
+                cell.capBadge.backgroundColor = Color.highCapacityTag
             case "medium":
-                cell.capBadge.backgroundColor = LibraryViewController.medOrange
+                cell.capBadge.backgroundColor = Color.medCapacityTag
             case "low":
-                cell.capBadge.backgroundColor = LibraryViewController.lowGreen
+                cell.capBadge.backgroundColor = Color.lowCapacityTag
             default:
                 cell.capBadge.backgroundColor = .clear
             }

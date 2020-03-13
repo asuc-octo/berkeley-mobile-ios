@@ -9,14 +9,15 @@
 import UIKit
 import MapKit
 
-class Library: SearchItem {
+class Library: SearchItem, HasLocation {
+    
     
     var searchName: String {
         return name
     }
     
     var location: (Double, Double) {
-        return (latitude ?? 0, longitude ?? 0)
+        return (latitude, longitude)
     }
     
     var locationName: String {
@@ -38,40 +39,19 @@ class Library: SearchItem {
     let phoneNumber: String?
     let weeklyHours: [DateInterval?]
     var weeklyByAppointment:[Bool]
-    let latitude: Double?
-    let longitude: Double?
+    var latitude: Double
+    var longitude: Double
     
     init(name: String, campusLocation: String?, phoneNumber: String?, weeklyHours: [DateInterval?], weeklyByAppointment:[Bool], imageLink: String?, latitude: Double?, longitude: Double?) {
         self.campusLocation = campusLocation
         self.phoneNumber = phoneNumber
         self.weeklyHours = weeklyHours
         self.weeklyByAppointment = weeklyByAppointment
-        self.latitude = latitude
-        self.longitude = longitude
+        self.latitude = latitude ?? Double.nan
+        self.longitude = longitude ?? Double.nan
         
         self.name = name
         self.imageURL = URL(string: imageLink ?? "")
-    }
-    
-    var distanceToUser: Double = Double.nan
-    
-    func findDistanceToUser(userLoc: CLLocation) -> Double {
-        if  let libLat = self.latitude,
-            let libLong = self.longitude,
-            !libLat.isNaN && !libLong.isNaN {
-            let libLoc = CLLocation(latitude: libLat, longitude: libLong)
-            let distance = round(userLoc.distance(from: libLoc) / 1600.0 * 10) / 10
-            distanceToUser = distance
-            return distanceToUser
-        }
-        return Double.nan
-    }
-    
-    func getDistanceToUser(userLoc: CLLocation) -> Double {
-        if distanceToUser.isNaN {
-            return findDistanceToUser(userLoc: userLoc)
-        }
-        return distanceToUser
     }
     
     var isOpen: Bool {
