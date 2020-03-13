@@ -57,7 +57,7 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
         locationManager.startUpdatingLocation()
         location = locationManager.location
         if sortFunc == nil {
-            sortFunc = sortClose(lib1:lib2:)
+            sortFunc = {lib1, lib2 in SortingFunctions.sortClose(loc1: lib1, loc2: lib2, location: self.location, locationManager: self.locationManager)}
         }
         DataManager.shared.fetch(source: LibraryDataSource.self) { libraries in
             self.libraries = libraries as? [Library] ?? []
@@ -70,28 +70,6 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         self.filteredLibraries.sort(by: self.sortFunc!)
         self.tableView.reloadData()
-    }
-    
-    func sortClose(lib1: Library, lib2: Library) -> Bool {
-        if location == nil {
-            location = locationManager.location
-            if location == nil {
-                return true
-            }
-        }
-        let d1 = lib1.getDistanceToUser(userLoc: location!)
-        let d2 = lib2.getDistanceToUser(userLoc: location!)
-        if d2.isNaN {
-            return true
-        } else if d1.isNaN {
-            return false
-        } else {
-            return d1 < d2
-        }
-    }
-    
-    func sortAlph(lib1: Library, lib2: Library) -> Bool {
-        return lib1.name < lib2.name
     }
     
     override func loadView() {

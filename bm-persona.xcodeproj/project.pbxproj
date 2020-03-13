@@ -31,6 +31,7 @@
 		29061D41241C450E002BC9D9 /* HasLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29061D40241C450E002BC9D9 /* HasLocation.swift */; };
 		29CB28092404DD53009A2CFB /* LibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39AA623E7746C0039FBA2 /* LibraryViewController.swift */; };
 		29CB280A2404DD71009A2CFB /* LibraryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39AA423E774600039FBA2 /* LibraryTableViewCell.swift */; };
+		29EE163F241C4E310041482E /* SortingFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EE163E241C4E310041482E /* SortingFunctions.swift */; };
 		303F6AE1236A931D007E37DD /* TabBarControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303F6ADD236A931D007E37DD /* TabBarControl.swift */; };
 		303F6AE4236A931D007E37DD /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303F6AE0236A931D007E37DD /* TabBarViewController.swift */; };
 		306A54EA23613E3A00D59A7F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306A54E923613E3A00D59A7F /* AppDelegate.swift */; };
@@ -91,6 +92,7 @@
 		13EA64CC2399CEDA00FD8E13 /* Gym.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gym.swift; sourceTree = "<group>"; };
 		13EA64CF2399D50C00FD8E13 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		29061D40241C450E002BC9D9 /* HasLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasLocation.swift; sourceTree = "<group>"; };
+		29EE163E241C4E310041482E /* SortingFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingFunctions.swift; sourceTree = "<group>"; };
 		303F6ADD236A931D007E37DD /* TabBarControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarControl.swift; sourceTree = "<group>"; };
 		303F6AE0236A931D007E37DD /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		306A54E623613E3A00D59A7F /* bm-persona.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "bm-persona.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -245,6 +247,7 @@
 				13EA64CF2399D50C00FD8E13 /* DataManager.swift */,
 				13B39A8C23E689BC0039FBA2 /* DataSource.swift */,
 				29061D40241C450E002BC9D9 /* HasLocation.swift */,
+				29EE163E241C4E310041482E /* SortingFunctions.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -533,6 +536,7 @@
 				13B39A9523E6A3330039FBA2 /* CampusResource.swift in Sources */,
 				306A550023614C0000D59A7F /* MainContainerViewController.swift in Sources */,
 				55DCF78723722CBD001B01B8 /* Colors.swift in Sources */,
+				29EE163F241C4E310041482E /* SortingFunctions.swift in Sources */,
 				306A54EE23613E3A00D59A7F /* MapViewController.swift in Sources */,
 				13B39A9623E6A3330039FBA2 /* CampusResourceDataSource.swift in Sources */,
 				136DC97D2398B4F3009B1810 /* UIImage+Extensions.swift in Sources */,
