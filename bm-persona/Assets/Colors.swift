@@ -77,6 +77,15 @@ struct Color {
 //        }
         return UIColor(displayP3Red: 35/255, green: 35/255, blue: 35/255, alpha: 1.0)
     }
+    
+    static var highCapacityTag: UIColor { return UIColor(red: 221/255, green: 67/255, blue: 67/255, alpha: 1) }
+    static var medCapacityTag: UIColor { return UIColor(red: 251/255, green: 179/255, blue: 43/255, alpha: 1) }
+    static var lowCapacityTag: UIColor { return UIColor(red: 162/255, green: 183/255, blue: 14/255, alpha: 1) }
+    
+    static var blackText: UIColor { return UIColor(red: 44.0 / 255.0, green: 44.0 / 255.0, blue: 45.0 / 255.0, alpha: 1.0) }
+    static var lightGrayText: UIColor { return UIColor(red: 98.0 / 255.0, green: 97.0 / 255.0, blue: 98.0 / 255.0, alpha: 1.0) }
+    static var darkGrayText: UIColor { return UIColor(red: 138.0 / 255.0, green: 135.0 / 255.0, blue: 138.0 / 255.0, alpha: 1.0) }
+    
 
     static var secondaryText: UIColor { return UIColor(displayP3Red: 105/255, green: 105/255, blue: 105/255, alpha: 1.0) }
     
