@@ -91,7 +91,7 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
         
         card.addSubview(bookImage)
         bookImage.centerYAnchor.constraint(equalTo: studyLabel.centerYAnchor).isActive = true
-        bookImage.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor, constant: 5).isActive = true
+        bookImage.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor, constant: 8).isActive = true
         bookImage.heightAnchor.constraint(equalToConstant: 26).isActive = true
         bookImage.widthAnchor.constraint(equalToConstant: 26).isActive = true
         

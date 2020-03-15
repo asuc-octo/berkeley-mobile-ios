@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class Library: SearchItem, HasLocation, HasWeeklyHours {
+class Library: SearchItem, HasLocation, HasOpenTimes {
     
     static var nearbyDistance: Double = 10
     static var invalidDistance: Double = 100
@@ -34,6 +34,19 @@ class Library: SearchItem, HasLocation, HasWeeklyHours {
     
     var description: String {
         return ""
+    }
+    
+    var isOpen: Bool {
+        if self.weeklyHours.count == 0 {
+            return false
+        }
+        var status = false
+        if let interval = self.weeklyHours[Date().weekday()] {
+            if interval.contains(Date()) || interval.duration == 0 {
+                status = true
+            }
+        }
+        return status
     }
     
     let name: String

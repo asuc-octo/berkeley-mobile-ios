@@ -291,7 +291,7 @@ extension FitnessViewController {
         fitnessLabel.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true
         
         filterTableView.translatesAutoresizingMaskIntoConstraints = false
-        filterTableView.topAnchor.constraint(equalTo: fitnessLabel.bottomAnchor, constant: 14).isActive = true
+        filterTableView.topAnchor.constraint(equalTo: fitnessLabel.layoutMarginsGuide.bottomAnchor, constant: 14).isActive = true
         filterTableView.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
         filterTableView.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
         filterTableView.bottomAnchor.constraint(equalTo: card.layoutMarginsGuide.bottomAnchor, constant: -50).isActive = true

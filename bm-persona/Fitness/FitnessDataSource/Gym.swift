@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class Gym: SearchItem, HasLocation {
+class Gym: SearchItem, HasLocation, HasOpenTimes {
     
     static var nearbyDistance: Double = 10
     static var invalidDistance: Double = 100
@@ -20,7 +20,7 @@ class Gym: SearchItem, HasLocation {
     }
     
     var location: (Double, Double) {
-        return (latitude ?? 0, longitude ?? 0)
+        return (latitude, longitude)
     }
     
     var locationName: String {
