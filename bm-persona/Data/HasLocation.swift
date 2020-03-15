@@ -14,10 +14,13 @@ protocol HasLocation {
     var latitude: Double { get }
     var longitude: Double { get }
     func getDistanceToUser(userLoc: CLLocation?) -> Double
+    static var nearbyDistance: Double { get }
+    static var invalidDistance: Double { get }
     
 }
 
 extension HasLocation {
+    
     func getDistanceToUser(userLoc: CLLocation?) -> Double {
         if !latitude.isNaN && !longitude.isNaN && userLoc != nil {
             let itemLocation = CLLocation(latitude: latitude, longitude: longitude)

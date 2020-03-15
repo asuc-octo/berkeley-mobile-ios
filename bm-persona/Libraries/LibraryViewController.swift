@@ -11,19 +11,12 @@ import MapKit
 
 class LibraryViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate {
     
-    private static let nearbyDistance: Double = 10
-    private static let invalidDistance: Double = 100
-    
-    let tableView = UITableView(frame: .zero, style: .plain)
+    var filterTableView: FilterTableView = FilterTableView<Library>(frame: .zero, filters: [])
     var safeArea: UILayoutGuide!
     let cellSpacingHeight: CGFloat = 14
     var libraries: [Library] = []
-    var filteredLibraries: [Library] = []
-    var filter: FilterView!
-    var filters: [Filter<Library>] = []
     var locationManager = CLLocationManager()
     var location: CLLocation?
-    var sortFunc: ((Library, Library) -> Bool)?
     
     let bookImage:UIImageView = {
         let img = UIImageView()
@@ -50,27 +43,22 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.register(LibraryTableViewCell.self, forCellReuseIdentifier: LibraryTableViewCell.kCellIdentifier)
-        self.tableView.dataSource = self
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.startUpdatingLocation()
         location = locationManager.location
-        if sortFunc == nil {
-            sortFunc = {lib1, lib2 in SortingFunctions.sortClose(loc1: lib1, loc2: lib2, location: self.location, locationManager: self.locationManager)}
-        }
+        filterTableView.setSortFunc(newSortFunc: {lib1, lib2 in SortingFunctions.sortClose(loc1: lib1, loc2: lib2, location: self.location, locationManager: self.locationManager)})
         DataManager.shared.fetch(source: LibraryDataSource.self) { libraries in
             self.libraries = libraries as? [Library] ?? []
-            self.filteredLibraries = self.libraries
-            self.filteredLibraries.sort(by: self.sortFunc!)
-            self.tableView.reloadData()
+            self.filterTableView.setData(data: libraries as! [Library])
+            self.filterTableView.tableView.reloadData()
         }
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         location = manager.location
-        self.filteredLibraries.sort(by: self.sortFunc!)
-        self.tableView.reloadData()
+        self.filterTableView.sort()
+        self.filterTableView.tableView.reloadData()
     }
     
     override func loadView() {
@@ -121,67 +109,39 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
         studyLabel.rightAnchor.constraint(equalTo: filterImage.leftAnchor, constant: -25).isActive = true
         studyLabel.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true
         
-        filters = [
-            Filter(label: "Nearby", filter: {lib in
-                lib.getDistanceToUser(userLoc: self.location) < LibraryViewController.nearbyDistance}),
-            Filter(label: "Open", filter: {lib in lib.isOpen}),
-        ]
-        filter = FilterView(frame: .zero)
-        card.addSubview(filter)
-        filter.translatesAutoresizingMaskIntoConstraints = false
-        filter.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
-        filter.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
-        filter.topAnchor.constraint(equalTo: studyLabel.layoutMarginsGuide.bottomAnchor, constant: 30).isActive = true
-        filter.heightAnchor.constraint(equalToConstant: FilterViewCell.kCellSize.height).isActive = true
-
-        filter.labels = filters.map { $0.label }
-        filter.filterDelegate = self
-
-        card.addSubview(tableView)
-        tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.topAnchor.constraint(equalTo: filter.bottomAnchor, constant: 25).isActive = true
-        tableView.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: card.layoutMarginsGuide.bottomAnchor, constant: -50).isActive = true
-        tableView.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
-
-        //tableView.allowsSelection = false
-        tableView.rowHeight = 131
-
-        tableView.layer.masksToBounds = true
-        tableView.contentInset = UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0)
-        tableView.setContentOffset(CGPoint(x: 0, y: -5), animated: false)
-        tableView.contentInsetAdjustmentBehavior = .never
+        setupFilterTableView()
+        filterTableView.translatesAutoresizingMaskIntoConstraints = false
+        card.addSubview(filterTableView)
+        self.filterTableView.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
+        self.filterTableView.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
+        self.filterTableView.topAnchor.constraint(equalTo: studyLabel.layoutMarginsGuide.bottomAnchor, constant: 30).isActive = true
+        self.filterTableView.bottomAnchor.constraint(equalTo: card.layoutMarginsGuide.bottomAnchor, constant: -50).isActive = true
     }
     
-    var workItem: DispatchWorkItem?
-    func update() {
-        workItem?.cancel()
-        let data = libraries
-        workItem = Filter.apply(filters: filters, on: data, indices: filter.indexPathsForSelectedItems?.map { $0.row }, completion: {
-          filtered in
-            self.filteredLibraries = filtered
-            self.filteredLibraries.sort(by: self.sortFunc!)
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        })
+    func setupFilterTableView() {
+        let filters = [
+            Filter<Library>(label: "Nearby", filter: {lib in lib.getDistanceToUser(userLoc: self.location) < Library.nearbyDistance}),
+            Filter<Library>(label: "Open", filter: {lib in lib.isOpen}),
+        ]
+        filterTableView = FilterTableView(frame: .zero, filters: filters)
+        self.filterTableView.tableView.register(LibraryTableViewCell.self, forCellReuseIdentifier: LibraryTableViewCell.kCellIdentifier)
+        self.filterTableView.tableView.dataSource = self
     }
     
     //number of rows to be shown in tableview
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.filteredLibraries.count
+        return self.filterTableView.filteredData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: LibraryTableViewCell.kCellIdentifier, for: indexPath) as? LibraryTableViewCell {
-            let lib: Library = self.filteredLibraries[indexPath.row]
+            let lib: Library = self.filterTableView.filteredData[indexPath.row]
             cell.nameLabel.text = lib.name
             var distance = Double.nan
             if location != nil {
                 distance = lib.getDistanceToUser(userLoc: location!)
             }
-            if !distance.isNaN && distance < LibraryViewController.invalidDistance {
+            if !distance.isNaN && distance < Library.invalidDistance {
                 cell.timeLabel.text = "\(distance) mi"
             }
             cell.recLabel.text = "Recommended"
@@ -225,16 +185,4 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
         let radius = cell.contentView.layer.cornerRadius
         cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: radius).cgPath
     }
-}
-
-extension LibraryViewController: FilterViewDelegate {
-    
-    func filterView(_ filterView: FilterView, didSelect index: Int) {
-        update()
-    }
-    
-    func filterView(_ filterView: FilterView, didDeselect index: Int) {
-        update()
-    }
-
 }

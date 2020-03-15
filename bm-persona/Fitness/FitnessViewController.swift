@@ -7,16 +7,18 @@
 //
 
 import UIKit
+import MapKit
 
 fileprivate let kHeaderFont: UIFont = Font.bold(24)
 fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
 fileprivate let kViewMargin: CGFloat = 16
 fileprivate let kTodayClassesHeight: CGFloat = 300
 
-class FitnessViewController: UIViewController {
+class FitnessViewController: UIViewController, CLLocationManagerDelegate {
     
     private var scrollView: UIScrollView!
     private var content: UIView!
+    private var filterTableView = FilterTableView<Gym>(frame: .zero, filters: [])
     
     private var upcomingCard: CardView!
     private var todayCard: CardView!
@@ -28,6 +30,8 @@ class FitnessViewController: UIViewController {
     private var classesCollection: CardCollectionView!
     
     private var gyms: [Gym] = []
+    private var locationManager = CLLocationManager()
+    private var location: CLLocation?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,9 +44,16 @@ class FitnessViewController: UIViewController {
         setupTodayClasses()
         setupGyms()
         
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.startUpdatingLocation()
+        location = locationManager.location
+        filterTableView.setSortFunc(newSortFunc: {gym1, gym2 in SortingFunctions.sortClose(loc1: gym1, loc2: gym2, location: self.location, locationManager: self.locationManager)})
+        
         DataManager.shared.fetch(source: GymDataSource.self) { gyms in
             self.gyms = gyms as? [Gym] ?? []
-            self.gymsTable.reloadData()
+            self.filterTableView.setData(data: gyms as! [Gym])
+            self.filterTableView.tableView.reloadData()
         }
     }
     
@@ -60,6 +71,12 @@ class FitnessViewController: UIViewController {
             self.view.layoutIfNeeded()
             self.viewDidLayoutSubviews()
         }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        location = manager.location
+        self.filterTableView.sort()
+        self.filterTableView.tableView.reloadData()
     }
     
 }
@@ -92,16 +109,52 @@ extension FitnessViewController: UICollectionViewDelegate, UICollectionViewDataS
 extension FitnessViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return gyms.count
+        return self.filterTableView.filteredData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        let nameLabel = UILabel()
-        cell.addSubview(nameLabel)
-        nameLabel.text = gyms[indexPath.row].name
-        nameLabel.sizeToFit()
-        return cell
+        if let cell = tableView.dequeueReusableCell(withIdentifier: LibraryTableViewCell.kCellIdentifier, for: indexPath) as? LibraryTableViewCell {
+            let gym: Gym = self.filterTableView.filteredData[indexPath.row]
+            cell.nameLabel.text = gym.name
+            var distance = Double.nan
+            if location != nil {
+                distance = gym.getDistanceToUser(userLoc: location!)
+            }
+            if !distance.isNaN && distance < Gym.invalidDistance {
+                cell.timeLabel.text = "\(distance) mi"
+            }
+            cell.recLabel.text = "Recommended"
+            cell.selectionStyle = .none
+            switch indexPath.row % 3 {
+            case 0:
+                cell.capBadge.text = "High"
+            case 1:
+                cell.capBadge.text = "Medium"
+            default:
+                cell.capBadge.text = "Low"
+            }
+            
+            DispatchQueue.global().async {
+                guard let imageData = try? Data(contentsOf: gym.imageURL!) else { return }
+                let image = UIImage(data: imageData)
+                DispatchQueue.main.async {
+                    cell.cellImage.image = image
+                }
+            }
+            switch cell.capBadge.text!.lowercased() {
+            case "high":
+                cell.capBadge.backgroundColor = Color.highCapacityTag
+            case "medium":
+                cell.capBadge.backgroundColor = Color.medCapacityTag
+            case "low":
+                cell.capBadge.backgroundColor = Color.lowCapacityTag
+            default:
+                cell.capBadge.backgroundColor = .clear
+            }
+
+            return cell
+        }
+        return UITableViewCell()
     }
     
 }
@@ -213,18 +266,24 @@ extension FitnessViewController {
         card.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
         card.heightAnchor.constraint(equalTo: view.layoutMarginsGuide.heightAnchor).isActive = true
         
-        let table = UITableView()
-        table.delegate = self
-        table.dataSource = self
-        scrollView.addSubview(table)
-        table.translatesAutoresizingMaskIntoConstraints = false
-        table.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true
-        table.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
-        table.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
-        table.bottomAnchor.constraint(equalTo: card.layoutMarginsGuide.bottomAnchor).isActive = true
-        
         gymCard = card
-        gymsTable = table
+        setupFilterTableView()
+        scrollView.addSubview(filterTableView)
+        filterTableView.translatesAutoresizingMaskIntoConstraints = false
+        filterTableView.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true
+        filterTableView.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
+        filterTableView.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
+        filterTableView.bottomAnchor.constraint(equalTo: card.layoutMarginsGuide.bottomAnchor, constant: -50).isActive = true
+    }
+    
+    func setupFilterTableView() {
+        let filters = [
+            Filter<Gym>(label: "Nearby", filter: {gym in gym.getDistanceToUser(userLoc: self.location) < Gym.nearbyDistance}),
+            Filter<Gym>(label: "Open", filter: {gym in gym.isOpen}),
+        ]
+        filterTableView = FilterTableView(frame: .zero, filters: filters)
+        self.filterTableView.tableView.register(LibraryTableViewCell.self, forCellReuseIdentifier: LibraryTableViewCell.kCellIdentifier)
+        self.filterTableView.tableView.dataSource = self
     }
     
 }

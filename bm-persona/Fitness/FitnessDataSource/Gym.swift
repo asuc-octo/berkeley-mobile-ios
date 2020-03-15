@@ -9,7 +9,11 @@
 import Foundation
 import UIKit
 
-class Gym: SearchItem {
+class Gym: SearchItem, HasLocation {
+    
+    static var nearbyDistance: Double = 10
+    static var invalidDistance: Double = 100
+    
     
     var searchName: String {
         return name
@@ -43,8 +47,8 @@ class Gym: SearchItem {
     
     var openingTimeToday: Date? = nil
     var closingTimeToday: Date? = nil
-    var latitude: Double? = nil
-    var longitude: Double? = nil
+    var latitude: Double = Double.nan
+    var longitude: Double = Double.nan
     
     var isOpen: Bool {
         var status = false

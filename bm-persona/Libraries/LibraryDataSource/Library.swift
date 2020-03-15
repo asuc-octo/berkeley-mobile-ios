@@ -9,8 +9,10 @@
 import UIKit
 import MapKit
 
-class Library: SearchItem, HasLocation {
+class Library: SearchItem, HasLocation, HasWeeklyHours {
     
+    static var nearbyDistance: Double = 10
+    static var invalidDistance: Double = 100
     
     var searchName: String {
         return name
@@ -56,19 +58,6 @@ class Library: SearchItem, HasLocation {
         
         self.name = name
         self.imageURL = URL(string: imageLink ?? "")
-    }
-    
-    var isOpen: Bool {
-        if self.weeklyHours.count == 0 {
-            return false
-        }
-        var status = false
-        if let interval = self.weeklyHours[Date().weekday()] {
-            if interval.contains(Date()) || interval.duration == 0 {
-                status = true
-            }
-        }
-        return status
     }
 
 }
