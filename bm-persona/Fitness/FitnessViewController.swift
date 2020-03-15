@@ -275,7 +275,7 @@ extension FitnessViewController {
         
         let fitnessLabel = UILabel()
         fitnessLabel.text = "Fitness Centers"
-        fitnessLabel.font = UIFont.boldSystemFont(ofSize: 24)
+        fitnessLabel.font = kHeaderFont
         fitnessLabel.adjustsFontSizeToFitWidth = true
         fitnessLabel.textColor = .black
         fitnessLabel.textColor = Color.blackText

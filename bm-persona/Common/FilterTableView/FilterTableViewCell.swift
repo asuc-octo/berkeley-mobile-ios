@@ -87,10 +87,7 @@ class FilterTableViewCell: UITableViewCell {
     
     let nameLabel:UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 20)
-        label.textColor = .black
-
-        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.font = Font.bold(20)
         label.textColor = Color.blackText
 
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -111,7 +108,7 @@ class FilterTableViewCell: UITableViewCell {
     
     let recLabel:UILabel = {
         let label = UILabel()
-        label.font = UIFont.italicSystemFont(ofSize: 10)
+        label.font = Font.mediumItalic(10)
         label.textColor = Color.darkGrayText
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -129,7 +126,7 @@ class FilterTableViewCell: UITableViewCell {
     let timeLabel:UILabel = {
         let label = UILabel()
         label.adjustsFontSizeToFitWidth = true
-        label.font = UIFont.systemFont(ofSize: 12)
+        label.font = Font.light(12)
         label.textColor = Color.lightGrayText
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
