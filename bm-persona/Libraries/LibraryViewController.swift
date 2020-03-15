@@ -82,9 +82,8 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
         card.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
         
         let studyLabel = UILabel()
-        studyLabel.textAlignment = .center
         studyLabel.text = "Find your study spot"
-        studyLabel.font = UIFont.boldSystemFont(ofSize: 30)
+        studyLabel.font = UIFont.boldSystemFont(ofSize: 24)
         studyLabel.adjustsFontSizeToFitWidth = true
         studyLabel.textColor = .black
         studyLabel.textColor = Color.blackText
@@ -93,20 +92,20 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
         card.addSubview(bookImage)
         bookImage.centerYAnchor.constraint(equalTo: studyLabel.centerYAnchor).isActive = true
         bookImage.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor, constant: 5).isActive = true
-        bookImage.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        bookImage.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        bookImage.heightAnchor.constraint(equalToConstant: 26).isActive = true
+        bookImage.widthAnchor.constraint(equalToConstant: 26).isActive = true
         
         card.addSubview(filterImage)
         filterImage.centerYAnchor.constraint(equalTo: studyLabel.centerYAnchor).isActive = true
         filterImage.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive
             = true
-        filterImage.heightAnchor.constraint(equalToConstant: 25).isActive = true
-        filterImage.widthAnchor.constraint(equalToConstant: 25).isActive = true
+        filterImage.heightAnchor.constraint(equalToConstant: 22).isActive = true
+        filterImage.widthAnchor.constraint(equalToConstant: 22).isActive = true
         
         studyLabel.translatesAutoresizingMaskIntoConstraints = false
-        studyLabel.heightAnchor.constraint(equalToConstant: 35).isActive = true
-        studyLabel.leftAnchor.constraint(equalTo: bookImage.rightAnchor, constant: 16).isActive = true
-        studyLabel.rightAnchor.constraint(equalTo: filterImage.leftAnchor, constant: -25).isActive = true
+        studyLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        studyLabel.leftAnchor.constraint(equalTo: bookImage.rightAnchor, constant: 15).isActive = true
+        studyLabel.rightAnchor.constraint(equalTo: filterImage.leftAnchor, constant: -15).isActive = true
         studyLabel.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true
         
         setupFilterTableView()
@@ -114,7 +113,7 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
         card.addSubview(filterTableView)
         self.filterTableView.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
         self.filterTableView.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
-        self.filterTableView.topAnchor.constraint(equalTo: studyLabel.layoutMarginsGuide.bottomAnchor, constant: 30).isActive = true
+        self.filterTableView.topAnchor.constraint(equalTo: studyLabel.layoutMarginsGuide.bottomAnchor, constant: 14).isActive = true
         self.filterTableView.bottomAnchor.constraint(equalTo: card.layoutMarginsGuide.bottomAnchor, constant: -50).isActive = true
     }
     
@@ -124,7 +123,7 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
             Filter<Library>(label: "Open", filter: {lib in lib.isOpen}),
         ]
         filterTableView = FilterTableView(frame: .zero, filters: filters)
-        self.filterTableView.tableView.register(LibraryTableViewCell.self, forCellReuseIdentifier: LibraryTableViewCell.kCellIdentifier)
+        self.filterTableView.tableView.register(FilterTableViewCell.self, forCellReuseIdentifier: FilterTableViewCell.kCellIdentifier)
         self.filterTableView.tableView.dataSource = self
     }
     
@@ -134,7 +133,7 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: LibraryTableViewCell.kCellIdentifier, for: indexPath) as? LibraryTableViewCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: FilterTableViewCell.kCellIdentifier, for: indexPath) as? FilterTableViewCell {
             let lib: Library = self.filterTableView.filteredData[indexPath.row]
             cell.nameLabel.text = lib.name
             var distance = Double.nan
@@ -146,6 +145,8 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
             }
             cell.recLabel.text = "Recommended"
             cell.selectionStyle = .none
+            
+            //dummy capacities
             switch indexPath.row % 3 {
             case 0:
                 cell.capBadge.text = "High"
@@ -155,13 +156,6 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
                 cell.capBadge.text = "Low"
             }
             
-            DispatchQueue.global().async {
-                guard let imageData = try? Data(contentsOf: lib.imageURL!) else { return }
-                let image = UIImage(data: imageData)
-                DispatchQueue.main.async {
-                    cell.cellImage.image = image
-                }
-            }
             switch cell.capBadge.text!.lowercased() {
             case "high":
                 cell.capBadge.backgroundColor = Color.highCapacityTag
@@ -171,6 +165,19 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
                 cell.capBadge.backgroundColor = Color.lowCapacityTag
             default:
                 cell.capBadge.backgroundColor = .clear
+            }
+            
+            if lib.image == nil {
+                DispatchQueue.global().async {
+                    guard let imageData = try? Data(contentsOf: lib.imageURL!) else { return }
+                    let image = UIImage(data: imageData)
+                    DispatchQueue.main.async {
+                        cell.cellImage.image = image
+                        lib.image = image
+                    }
+                }
+            } else {
+                cell.cellImage.image = lib.image!
             }
 
             return cell
@@ -185,4 +192,5 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
         let radius = cell.contentView.layer.cornerRadius
         cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: radius).cgPath
     }
+    
 }

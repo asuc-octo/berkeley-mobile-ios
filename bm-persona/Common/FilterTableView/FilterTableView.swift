@@ -19,6 +19,7 @@ class FilterTableView<T>: UIView {
     
     override func layoutSubviews() {
         self.addSubview(filter)
+        
         filter.translatesAutoresizingMaskIntoConstraints = false
         filter.leftAnchor.constraint(equalTo: self.layoutMarginsGuide.leftAnchor).isActive = true
         filter.rightAnchor.constraint(equalTo: self.layoutMarginsGuide.rightAnchor).isActive = true
@@ -31,7 +32,7 @@ class FilterTableView<T>: UIView {
         self.addSubview(tableView)
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.topAnchor.constraint(equalTo: filter.bottomAnchor, constant: 25).isActive = true
+        tableView.topAnchor.constraint(equalTo: filter.bottomAnchor, constant: 24).isActive = true
         tableView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         tableView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true

@@ -38,7 +38,7 @@
 		29AB5BBF241D8766007C3ECA /* HasWeeklyHours.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AB5BBE241D8766007C3ECA /* HasWeeklyHours.swift */; };
 		29AB5BC5241D8CB4007C3ECA /* FilterTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AB5BC4241D8CB4007C3ECA /* FilterTableView.swift */; };
 		29CB28092404DD53009A2CFB /* LibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39AA623E7746C0039FBA2 /* LibraryViewController.swift */; };
-		29CB280A2404DD71009A2CFB /* LibraryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39AA423E774600039FBA2 /* LibraryTableViewCell.swift */; };
+		29CB280A2404DD71009A2CFB /* FilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39AA423E774600039FBA2 /* FilterTableViewCell.swift */; };
 		29EE163F241C4E310041482E /* SortingFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EE163E241C4E310041482E /* SortingFunctions.swift */; };
 		303F6AE1236A931D007E37DD /* TabBarControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303F6ADD236A931D007E37DD /* TabBarControl.swift */; };
 		303F6AE4236A931D007E37DD /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303F6AE0236A931D007E37DD /* TabBarViewController.swift */; };
@@ -93,7 +93,7 @@
 		13B39A9423E6A3330039FBA2 /* ResourceDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceDataSource.swift; sourceTree = "<group>"; };
 		13B39A9723E6A33B0039FBA2 /* Library.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Library.swift; sourceTree = "<group>"; };
 		13B39A9823E6A33B0039FBA2 /* LibraryDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryDataSource.swift; sourceTree = "<group>"; };
-		13B39AA423E774600039FBA2 /* LibraryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryTableViewCell.swift; sourceTree = "<group>"; };
+		13B39AA423E774600039FBA2 /* FilterTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterTableViewCell.swift; sourceTree = "<group>"; };
 		13B39AA623E7746C0039FBA2 /* LibraryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryViewController.swift; sourceTree = "<group>"; };
 		13B39AB223E777AC0039FBA2 /* FilterViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterViewCell.swift; sourceTree = "<group>"; };
 		13B39AB323E777AC0039FBA2 /* FilterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
@@ -211,6 +211,7 @@
 		1396012D23865E2E005E4788 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				29BED7BF241DF43B0049C022 /* FilterTableView */,
 				13B39AB623E77E160039FBA2 /* SampleViewController.swift */,
 				13B39AB123E777AC0039FBA2 /* FilterView */,
 				1396012E23865E2E005E4788 /* CollectionView */,
@@ -234,9 +235,7 @@
 			isa = PBXGroup;
 			children = (
 				13B39A9123E6A2C20039FBA2 /* LibraryDataSource */,
-				13B39AA423E774600039FBA2 /* LibraryTableViewCell.swift */,
 				13B39AA623E7746C0039FBA2 /* LibraryViewController.swift */,
-				29AB5BC4241D8CB4007C3ECA /* FilterTableView.swift */,
 			);
 			path = Libraries;
 			sourceTree = "<group>";
@@ -292,6 +291,15 @@
 				29AB5BBE241D8766007C3ECA /* HasWeeklyHours.swift */,
 			);
 			path = Data;
+			sourceTree = "<group>";
+		};
+		29BED7BF241DF43B0049C022 /* FilterTableView */ = {
+			isa = PBXGroup;
+			children = (
+				29AB5BC4241D8CB4007C3ECA /* FilterTableView.swift */,
+				13B39AA423E774600039FBA2 /* FilterTableViewCell.swift */,
+			);
+			path = FilterTableView;
 			sourceTree = "<group>";
 		};
 		303F6ADC236A9274007E37DD /* Drawer */ = {
@@ -604,7 +612,7 @@
 				559A7B6F2373DF39004EA501 /* SearchResultCell.swift in Sources */,
 				13135BB3241244370056B169 /* FilterViewCell.swift in Sources */,
 				55DCF7A123724835001B01B8 /* MaterialButton.swift in Sources */,
-				29CB280A2404DD71009A2CFB /* LibraryTableViewCell.swift in Sources */,
+				29CB280A2404DD71009A2CFB /* FilterTableViewCell.swift in Sources */,
 				55DCF79623723CF2001B01B8 /* UIView+Extensions.swift in Sources */,
 				306A54EA23613E3A00D59A7F /* AppDelegate.swift in Sources */,
 				553EF6AC2404E2C600D2955E /* ResourceEntry.swift in Sources */,

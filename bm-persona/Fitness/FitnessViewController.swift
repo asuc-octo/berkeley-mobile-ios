@@ -113,7 +113,7 @@ extension FitnessViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: LibraryTableViewCell.kCellIdentifier, for: indexPath) as? LibraryTableViewCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: FilterTableViewCell.kCellIdentifier, for: indexPath) as? FilterTableViewCell {
             let gym: Gym = self.filterTableView.filteredData[indexPath.row]
             cell.nameLabel.text = gym.name
             var distance = Double.nan
@@ -134,13 +134,6 @@ extension FitnessViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.capBadge.text = "Low"
             }
             
-            DispatchQueue.global().async {
-                guard let imageData = try? Data(contentsOf: gym.imageURL!) else { return }
-                let image = UIImage(data: imageData)
-                DispatchQueue.main.async {
-                    cell.cellImage.image = image
-                }
-            }
             switch cell.capBadge.text!.lowercased() {
             case "high":
                 cell.capBadge.backgroundColor = Color.highCapacityTag
@@ -150,6 +143,19 @@ extension FitnessViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.capBadge.backgroundColor = Color.lowCapacityTag
             default:
                 cell.capBadge.backgroundColor = .clear
+            }
+            
+            if gym.image == nil {
+                DispatchQueue.global().async {
+                    guard let imageData = try? Data(contentsOf: gym.imageURL!) else { return }
+                    let image = UIImage(data: imageData)
+                    DispatchQueue.main.async {
+                        cell.cellImage.image = image
+                        gym.image = image
+                    }
+                }
+            } else {
+                cell.cellImage.image = gym.image!
             }
 
             return cell
@@ -265,12 +271,27 @@ extension FitnessViewController {
         card.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
         card.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
         card.heightAnchor.constraint(equalTo: view.layoutMarginsGuide.heightAnchor).isActive = true
-        
         gymCard = card
+        
+        let fitnessLabel = UILabel()
+        fitnessLabel.text = "Fitness Centers"
+        fitnessLabel.font = UIFont.boldSystemFont(ofSize: 24)
+        fitnessLabel.adjustsFontSizeToFitWidth = true
+        fitnessLabel.textColor = .black
+        fitnessLabel.textColor = Color.blackText
+        card.addSubview(fitnessLabel)
+        
         setupFilterTableView()
-        scrollView.addSubview(filterTableView)
+        card.addSubview(filterTableView)
+        
+        fitnessLabel.translatesAutoresizingMaskIntoConstraints = false
+        fitnessLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        fitnessLabel.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor, constant: 8).isActive = true
+        fitnessLabel.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
+        fitnessLabel.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true
+        
         filterTableView.translatesAutoresizingMaskIntoConstraints = false
-        filterTableView.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true
+        filterTableView.topAnchor.constraint(equalTo: fitnessLabel.bottomAnchor, constant: 14).isActive = true
         filterTableView.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
         filterTableView.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
         filterTableView.bottomAnchor.constraint(equalTo: card.layoutMarginsGuide.bottomAnchor, constant: -50).isActive = true
@@ -282,7 +303,7 @@ extension FitnessViewController {
             Filter<Gym>(label: "Open", filter: {gym in gym.isOpen}),
         ]
         filterTableView = FilterTableView(frame: .zero, filters: filters)
-        self.filterTableView.tableView.register(LibraryTableViewCell.self, forCellReuseIdentifier: LibraryTableViewCell.kCellIdentifier)
+        self.filterTableView.tableView.register(FilterTableViewCell.self, forCellReuseIdentifier: FilterTableViewCell.kCellIdentifier)
         self.filterTableView.tableView.dataSource = self
     }
     

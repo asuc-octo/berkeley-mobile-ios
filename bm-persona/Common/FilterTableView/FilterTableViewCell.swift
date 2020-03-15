@@ -8,9 +8,9 @@
 
 import UIKit
 
-class LibraryTableViewCell: UITableViewCell {
+class FilterTableViewCell: UITableViewCell {
     
-    static let kCellIdentifier = "libraryCell"
+    static let kCellIdentifier = "filterCell"
     
     override func layoutSubviews() {
         super.layoutSubviews()
