@@ -8,6 +8,7 @@
 
 import Foundation
 
+/** The list of `DataSource` classes to fetch data from. Add to this list to add new data to the app. */
 fileprivate let kDataSources: [DataSource.Type] = [
     MapDataSource.self,
     ResourceDataSource.self,
@@ -18,9 +19,10 @@ fileprivate let kDataSources: [DataSource.Type] = [
 
 class DataManager {
     
+    /** Singleton instance */
     static let shared = DataManager()
     
-    var data: [String: [Any]]
+    private var data: AtomicDictionary<String, [Any]>
     // TODO: Make this O(1).
     var searchable: [SearchItem] {
         data.values.compactMap { items in
@@ -29,7 +31,7 @@ class DataManager {
     }
     
     private init() {
-        data = [:]
+        data = AtomicDictionary<String, [Any]>()
     }
     
     private func asKey(_ source: DataSource.Type) -> String {
