@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 struct Color {
+    
     static var searchBarBackground: UIColor {
 //        if #available(iOS 13, *) {
 //            return UIColor.init { (trait) -> UIColor in
@@ -67,50 +68,5 @@ struct Color {
         return UIColor(displayP3Red: 251/255, green: 155/255, blue: 142/255, alpha: 1.0)
     }
     
-    static var primaryText: UIColor {
-//        if #available(iOS 13, *) {
-//            return UIColor.init { (trait) -> UIColor in
-//                return trait.userInterfaceStyle == .dark ?
-//                    UIColor(displayP3Red: 250/255, green: 250/255, blue: 250/255, alpha: 1.0) :
-//                    UIColor(displayP3Red: 35/255, green: 35/255, blue: 35/255, alpha: 1.0)
-//            }
-//        }
-        return UIColor(displayP3Red: 35/255, green: 35/255, blue: 35/255, alpha: 1.0)
-    }
-    
-    static var highCapacityTag: UIColor { return UIColor(red: 221/255, green: 67/255, blue: 67/255, alpha: 1) }
-    static var medCapacityTag: UIColor { return UIColor(red: 251/255, green: 179/255, blue: 43/255, alpha: 1) }
-    static var lowCapacityTag: UIColor { return UIColor(red: 162/255, green: 183/255, blue: 14/255, alpha: 1) }
-    
-    static var blackText: UIColor { return UIColor(red: 44.0 / 255.0, green: 44.0 / 255.0, blue: 45.0 / 255.0, alpha: 1.0) }
-    static var lightGrayText: UIColor { return UIColor(red: 98.0 / 255.0, green: 97.0 / 255.0, blue: 98.0 / 255.0, alpha: 1.0) }
-    static var darkGrayText: UIColor { return UIColor(red: 138.0 / 255.0, green: 135.0 / 255.0, blue: 138.0 / 255.0, alpha: 1.0) }
-    
-
-    static var secondaryText: UIColor { return UIColor(displayP3Red: 105/255, green: 105/255, blue: 105/255, alpha: 1.0) }
-    
-    // MARK: - Event Colors
-    
-    static var eventAcademic: UIColor {
-        return UIColor(displayP3Red: 114/255, green: 151/255, blue: 230/255, alpha: 1.0)
-    }
-    
-    static var eventHoliday: UIColor {
-        return UIColor(displayP3Red: 243/255, green: 182/255, blue: 89/255, alpha: 1.0)
-    }
-    
-    static var eventDefault: UIColor {
-        return UIColor(displayP3Red: 140/255, green: 140/255, blue: 140/255, alpha: 1.0)
-    }
-    
-    // MARK: - TagView Colors
-    
-    static var openTag: UIColor {
-        return UIColor(displayP3Red: 133/255, green: 158/255, blue: 248/255, alpha: 1.0)
-    }
-    
-    static var closedTag: UIColor {
-        return UIColor(displayP3Red: 133/255, green: 158/255, blue: 248/255, alpha: 1.0)
-    }
 }
 
