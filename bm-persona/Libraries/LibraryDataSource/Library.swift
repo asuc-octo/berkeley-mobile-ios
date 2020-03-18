@@ -66,8 +66,8 @@ class Library: SearchItem, HasLocation, HasOpenTimes {
         self.phoneNumber = phoneNumber
         self.weeklyHours = weeklyHours
         self.weeklyByAppointment = weeklyByAppointment
-        self.latitude = latitude ?? nil
-        self.longitude = longitude ?? nil
+        self.latitude = latitude
+        self.longitude = longitude
         
         self.name = name
         self.imageURL = URL(string: imageLink ?? "")

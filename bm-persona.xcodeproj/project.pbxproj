@@ -43,6 +43,7 @@
 		29CB280A2404DD71009A2CFB /* FilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39AA423E774600039FBA2 /* FilterTableViewCell.swift */; };
 		29D8A2AB241ED13F00251FBE /* Raleway-Medium-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 29D8A2AA241ED13F00251FBE /* Raleway-Medium-Italic.ttf */; };
 		29D8A2AD241ED14900251FBE /* Raleway-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 29D8A2AC241ED14900251FBE /* Raleway-Light.ttf */; };
+		29CB28092404DD53009A2CFB /* LibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39AA623E7746C0039FBA2 /* LibraryViewController.swift */; };
 		29EE163F241C4E310041482E /* SortingFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EE163E241C4E310041482E /* SortingFunctions.swift */; };
 		303F6AE1236A931D007E37DD /* TabBarControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303F6ADD236A931D007E37DD /* TabBarControl.swift */; };
 		303F6AE4236A931D007E37DD /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303F6AE0236A931D007E37DD /* TabBarViewController.swift */; };
