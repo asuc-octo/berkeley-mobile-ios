@@ -12,14 +12,12 @@ fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 16, left: 16, bot
 fileprivate let kViewMargin: CGFloat = 128
 
 class ResourcesViewController: UIViewController {
-    private var scrollView: UIScrollView!
-    
     private var resourcesLabel: UILabel!
 
     private var resourcesCard: CardView!
     private var resourcesTable: UITableView!
     
-    private var resourceEntries: [ResourceEntry] = []
+    private var resourceEntries: [Resource] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,11 +26,10 @@ class ResourcesViewController: UIViewController {
         self.view.backgroundColor = Color.modalBackground
 
         setupHeader()
-        setupScrollView()
         setupResourcesList()
         
         DataManager.shared.fetch(source: ResourceDataSource.self) { resourceEntries in
-            self.resourceEntries = resourceEntries as? [ResourceEntry] ?? []
+            self.resourceEntries = resourceEntries as? [Resource] ?? []
             
             self.resourcesTable.reloadData()
         }
@@ -88,22 +85,10 @@ extension ResourcesViewController {
         resourcesLabel.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
     }
     
-    func setupScrollView() {
-        scrollView = UIScrollView()
-        view.addSubview(scrollView)
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.setConstraintsToView(top: view, bottom: view, left: view, right: view)
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        scrollView.contentSize.height = resourcesCard.frame.maxY + view.layoutMargins.bottom
-    }
-    
     func setupResourcesList() {
         let card = CardView()
         card.layoutMargins = kCardPadding
-        scrollView.addSubview(card)
+        view.addSubview(card)
         card.translatesAutoresizingMaskIntoConstraints = false
         card.topAnchor.constraint(equalTo: view.topAnchor, constant: kViewMargin).isActive = true
         card.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
@@ -119,7 +104,7 @@ extension ResourcesViewController {
         table.setContentOffset(CGPoint(x: 0, y: -5), animated: false)
         table.contentInsetAdjustmentBehavior = .never
         
-        scrollView.addSubview(table)
+        card.addSubview(table)
         table.separatorStyle = .none
         table.translatesAutoresizingMaskIntoConstraints = false
         table.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true

@@ -86,7 +86,7 @@ class ResourceTableViewCell: UITableViewCell {
         resourceCategory.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor).isActive = true
     }
     
-    func cellConfigure(entry: ResourceEntry) {
+    func cellConfigure(entry: Resource) {
         resourceName.text = entry.name
         
         resourceCategory.text = "Resource"
