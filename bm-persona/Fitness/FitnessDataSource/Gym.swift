@@ -20,7 +20,7 @@ class Gym: SearchItem, HasLocation, HasOpenTimes {
     }
     
     var location: (Double, Double) {
-        return (latitude, longitude)
+        return (latitude ?? 0, longitude ?? 0)
     }
     
     var locationName: String {
@@ -47,8 +47,8 @@ class Gym: SearchItem, HasLocation, HasOpenTimes {
     
     var openingTimeToday: Date? = nil
     var closingTimeToday: Date? = nil
-    var latitude: Double = Double.nan
-    var longitude: Double = Double.nan
+    var latitude: Double?
+    var longitude: Double?
     
     var isOpen: Bool {
         var status = false

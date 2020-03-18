@@ -11,8 +11,8 @@ import MapKit
 
 protocol HasLocation {
     
-    var latitude: Double { get }
-    var longitude: Double { get }
+    var latitude: Double? { get }
+    var longitude: Double? { get }
     func getDistanceToUser(userLoc: CLLocation?) -> Double
     static var nearbyDistance: Double { get }
     static var invalidDistance: Double { get }
@@ -22,8 +22,8 @@ protocol HasLocation {
 extension HasLocation {
     
     func getDistanceToUser(userLoc: CLLocation?) -> Double {
-        if !latitude.isNaN && !longitude.isNaN && userLoc != nil {
-            let itemLocation = CLLocation(latitude: latitude, longitude: longitude)
+        if let lat = latitude, let lon = longitude, userLoc != nil && lat != Double.nan && lon != Double.nan {
+            let itemLocation = CLLocation(latitude: lat, longitude: lon)
             let distance = round(userLoc!.distance(from: itemLocation) / 1600.0 * 10) / 10
             return distance
         }

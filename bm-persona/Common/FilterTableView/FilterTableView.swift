@@ -8,6 +8,8 @@
 
 import UIKit
 
+fileprivate let kViewMargin: CGFloat = 16
+
 class FilterTableView<T>: UIView {
     
     let tableView = UITableView(frame: .zero, style: .plain)
@@ -18,6 +20,7 @@ class FilterTableView<T>: UIView {
     var sortFunc: ((T, T) -> Bool) = {lib1, lib2 in true}
     
     override func layoutSubviews() {
+        self.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         self.addSubview(filter)
         
         filter.translatesAutoresizingMaskIntoConstraints = false
@@ -32,7 +35,7 @@ class FilterTableView<T>: UIView {
         self.addSubview(tableView)
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.topAnchor.constraint(equalTo: filter.bottomAnchor, constant: 24).isActive = true
+        tableView.topAnchor.constraint(equalTo: filter.bottomAnchor, constant: kViewMargin).isActive = true
         tableView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         tableView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true

@@ -9,6 +9,8 @@
 import UIKit
 import MapKit
 
+fileprivate let kViewMargin: CGFloat = 16
+
 class LibraryViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate {
     
     var filterTableView: FilterTableView = FilterTableView<Library>(frame: .zero, filters: [])
@@ -91,7 +93,7 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
         
         card.addSubview(bookImage)
         bookImage.centerYAnchor.constraint(equalTo: studyLabel.centerYAnchor).isActive = true
-        bookImage.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor, constant: 8).isActive = true
+        bookImage.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
         bookImage.heightAnchor.constraint(equalToConstant: 26).isActive = true
         bookImage.widthAnchor.constraint(equalToConstant: 26).isActive = true
         
@@ -103,7 +105,6 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
         filterImage.widthAnchor.constraint(equalToConstant: 22).isActive = true
         
         studyLabel.translatesAutoresizingMaskIntoConstraints = false
-        studyLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
         studyLabel.leftAnchor.constraint(equalTo: bookImage.rightAnchor, constant: 15).isActive = true
         studyLabel.rightAnchor.constraint(equalTo: filterImage.leftAnchor, constant: -15).isActive = true
         studyLabel.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true
@@ -113,8 +114,8 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
         card.addSubview(filterTableView)
         self.filterTableView.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
         self.filterTableView.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
-        self.filterTableView.topAnchor.constraint(equalTo: studyLabel.layoutMarginsGuide.bottomAnchor, constant: 14).isActive = true
-        self.filterTableView.bottomAnchor.constraint(equalTo: card.layoutMarginsGuide.bottomAnchor, constant: -50).isActive = true
+        self.filterTableView.topAnchor.constraint(equalTo: studyLabel.layoutMarginsGuide.bottomAnchor, constant: kViewMargin).isActive = true
+        self.filterTableView.bottomAnchor.constraint(equalTo: card.layoutMarginsGuide.bottomAnchor).isActive = true
     }
     
     func setupFilterTableView() {
@@ -169,6 +170,9 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
             
             if lib.image == nil {
                 DispatchQueue.global().async {
+                    if lib.imageURL == nil {
+                        return
+                    }
                     guard let imageData = try? Data(contentsOf: lib.imageURL!) else { return }
                     let image = UIImage(data: imageData)
                     DispatchQueue.main.async {

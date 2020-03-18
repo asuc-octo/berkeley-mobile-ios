@@ -32,7 +32,6 @@ class FilterTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        //branch, make PR / merge into develop , make sure base branch you are merging into is develop!!!!!
         contentView.addSubview(nameLabel)
         contentView.addSubview(cellImage)
         contentView.addSubview(recLabel)
@@ -78,11 +77,6 @@ class FilterTableViewCell: UITableViewCell {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-    }
-
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        
     }
     
     let nameLabel:UILabel = {

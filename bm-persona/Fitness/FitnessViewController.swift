@@ -147,6 +147,9 @@ extension FitnessViewController: UITableViewDelegate, UITableViewDataSource {
             
             if gym.image == nil {
                 DispatchQueue.global().async {
+                    if gym.imageURL == nil {
+                        return
+                    }
                     guard let imageData = try? Data(contentsOf: gym.imageURL!) else { return }
                     let image = UIImage(data: imageData)
                     DispatchQueue.main.async {
@@ -285,16 +288,15 @@ extension FitnessViewController {
         card.addSubview(filterTableView)
         
         fitnessLabel.translatesAutoresizingMaskIntoConstraints = false
-        fitnessLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        fitnessLabel.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor, constant: 8).isActive = true
+        fitnessLabel.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
         fitnessLabel.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
         fitnessLabel.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true
         
         filterTableView.translatesAutoresizingMaskIntoConstraints = false
-        filterTableView.topAnchor.constraint(equalTo: fitnessLabel.layoutMarginsGuide.bottomAnchor, constant: 14).isActive = true
+        filterTableView.topAnchor.constraint(equalTo: fitnessLabel.layoutMarginsGuide.bottomAnchor, constant: kViewMargin).isActive = true
         filterTableView.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
         filterTableView.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
-        filterTableView.bottomAnchor.constraint(equalTo: card.layoutMarginsGuide.bottomAnchor, constant: -50).isActive = true
+        filterTableView.bottomAnchor.constraint(equalTo: card.layoutMarginsGuide.bottomAnchor).isActive = true
     }
     
     func setupFilterTableView() {

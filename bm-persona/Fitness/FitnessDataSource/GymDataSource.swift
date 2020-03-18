@@ -42,8 +42,8 @@ class GymDataSource: DataSource
                       openingTimeToday: timesToday?.start,
                       closingTimeToday: timesToday?.end)
         
-        gym.latitude = dict["latitude"] as! Double
-        gym.longitude = dict["longitude"] as! Double
+        gym.latitude = dict["latitude"] as? Double
+        gym.longitude = dict["longitude"] as? Double
         
         return gym
     }
