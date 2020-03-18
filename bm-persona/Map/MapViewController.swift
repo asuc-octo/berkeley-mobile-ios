@@ -85,7 +85,8 @@ class MapViewController: UIViewController {
         maskView.setConstraintsToView(top: self.view, bottom: self.view, left: self.view, right: self.view)
         mapView.setConstraintsToView(top: self.view, bottom: self.view, left: self.view, right: self.view)
         
-        searchResultsView.setConstraintsToView(top: maskView, bottom: maskView, left: searchBar, right: searchBar)
+        searchResultsView.setConstraintsToView(bottom: maskView, left: searchBar, right: searchBar)
+        self.view.addConstraint(NSLayoutConstraint(item: searchResultsView, attribute: .top, relatedBy: .equal, toItem: searchBar, attribute: .bottom, multiplier: 1, constant: 0))
         
         searchBar.setHeightConstraint(50)
         searchBar.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true

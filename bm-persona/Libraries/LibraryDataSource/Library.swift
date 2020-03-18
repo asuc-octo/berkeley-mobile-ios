@@ -7,8 +7,12 @@
 //
 
 import UIKit
+import MapKit
 
-class Library: SearchItem {
+class Library: SearchItem, HasLocation, HasOpenTimes {
+    
+    static var nearbyDistance: Double = 10
+    static var invalidDistance: Double = 100
     
     var searchName: String {
         return name
@@ -32,30 +36,6 @@ class Library: SearchItem {
         return ""
     }
     
-    let name: String
-    let imageURL: URL?
-    
-    var isFavorited: Bool = false
-    
-    let campusLocation: String?
-    let phoneNumber: String?
-    let weeklyHours: [DateInterval?]
-    var weeklyByAppointment:[Bool]
-    let latitude: Double?
-    let longitude: Double?
-    
-    init(name: String, campusLocation: String?, phoneNumber: String?, weeklyHours: [DateInterval?], weeklyByAppointment:[Bool], imageLink: String?, latitude: Double?, longitude: Double?) {
-        self.campusLocation = campusLocation
-        self.phoneNumber = phoneNumber
-        self.weeklyHours = weeklyHours
-        self.weeklyByAppointment = weeklyByAppointment
-        self.latitude = latitude
-        self.longitude = longitude
-        
-        self.name = name
-        self.imageURL = URL(string: imageLink ?? "")
-    }
-    
     var isOpen: Bool {
         if self.weeklyHours.count == 0 {
             return false
@@ -67,6 +47,30 @@ class Library: SearchItem {
             }
         }
         return status
+    }
+    
+    let name: String
+    let imageURL: URL?
+    
+    var isFavorited: Bool = false
+    
+    let campusLocation: String?
+    let phoneNumber: String?
+    let weeklyHours: [DateInterval?]
+    var weeklyByAppointment:[Bool]
+    var latitude: Double?
+    var longitude: Double?
+    
+    init(name: String, campusLocation: String?, phoneNumber: String?, weeklyHours: [DateInterval?], weeklyByAppointment:[Bool], imageLink: String?, latitude: Double?, longitude: Double?) {
+        self.campusLocation = campusLocation
+        self.phoneNumber = phoneNumber
+        self.weeklyHours = weeklyHours
+        self.weeklyByAppointment = weeklyByAppointment
+        self.latitude = latitude
+        self.longitude = longitude
+        
+        self.name = name
+        self.imageURL = URL(string: imageLink ?? "")
     }
 
 }
