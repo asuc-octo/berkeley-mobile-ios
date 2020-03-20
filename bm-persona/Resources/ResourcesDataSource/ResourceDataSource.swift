@@ -36,10 +36,10 @@ class ResourceDataSource: DataSource {
         let openClose = dict["open_close_array"] as? [[String: Any]]
         let weeklyHours = parseWeeklyTimes(openClose)
         let campusResource = Resource(name: dict["name"] as? String ?? "Unnamed",
-                                            campusLocation: dict["address"] as? String ?? "N/A",
-                                            latitude: dict["latitude"] as? Double ?? 0.0,
-                                            longitude: dict["longitude"] as? Double ?? 0.0,
-                                            description: dict["description"] as? String ?? "",
+                                            campusLocation: dict["address"] as? String,
+                                            latitude: dict["latitude"] as? Double,
+                                            longitude: dict["longitude"] as? Double,
+                                            description: dict["description"] as? String,
                                             hours: weeklyHours)
         return campusResource
     }

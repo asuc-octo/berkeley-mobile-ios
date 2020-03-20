@@ -50,12 +50,12 @@ class Resource: SearchItem, HasLocation, HasOpenTimes {
     let desc: String
     let weeklyHours: [DateInterval?]
     
-    init(name: String, campusLocation: String, latitude: Double, longitude: Double, description: String, hours: [DateInterval?]) {
+    init(name: String, campusLocation: String?, latitude: Double?, longitude: Double?, description: String?, hours: [DateInterval?]) {
         self.name = name
         self.campusLocation = campusLocation
         self.latitude = latitude
         self.longitude = longitude
-        self.desc = description
+        self.desc = description ?? ""
         self.weeklyHours = hours
     }
 }
