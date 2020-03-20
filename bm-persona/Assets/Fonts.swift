@@ -34,4 +34,14 @@ struct Font {
         (size: CGFloat) in
         UIFont(name: "Raleway-Medium", size: size) ?? UIFont.systemFont(ofSize: size)
     }
+    
+    static let mediumItalic = {
+        (size: CGFloat) in
+        return UIFont(name: "Raleway-MediumItalic", size: size) ?? UIFont.systemFont(ofSize: size)
+    }
+    
+    static let light = {
+        (size: CGFloat) in
+        UIFont(name: "Raleway-Light", size: size) ?? UIFont.systemFont(ofSize: size)
+    }
 }

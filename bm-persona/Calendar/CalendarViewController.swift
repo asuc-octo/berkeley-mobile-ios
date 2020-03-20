@@ -14,12 +14,11 @@ fileprivate let kViewMargin: CGFloat = 128
 
 class CalendarViewController: UIViewController {
     private var scrollView: UIScrollView!
-    
     private var eventsLabel: UILabel!
     
+    private var upcomingCard: CardView!
     private var calendarTable: UITableView!
     private var calendarCard: CardView!
-        
     private var calendarEntries: [CalendarEntry] = []
 
 
@@ -32,6 +31,7 @@ class CalendarViewController: UIViewController {
         
         setupHeader()
         setupScrollView()
+        setupUpcoming()
         setupCalendarList()
         
         DataManager.shared.fetch(source: CalendarDataSource.self) { calendarEntries in
@@ -119,7 +119,7 @@ extension CalendarViewController {
         card.layoutMargins = kCardPadding
         scrollView.addSubview(card)
         card.translatesAutoresizingMaskIntoConstraints = false
-        card.topAnchor.constraint(equalTo: view.topAnchor, constant: kViewMargin).isActive = true
+        card.topAnchor.constraint(equalTo: upcomingCard.bottomAnchor, constant: 16).isActive = true
         card.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
         card.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
         card.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
@@ -137,5 +137,17 @@ extension CalendarViewController {
 
         calendarCard = card
         calendarTable = table
+    }
+    
+    func setupUpcoming() {
+        let card = CardView()
+        card.layoutMargins = kCardPadding
+        scrollView.addSubview(card)
+        card.translatesAutoresizingMaskIntoConstraints = false
+        card.topAnchor.constraint(equalTo: view.topAnchor, constant: kViewMargin).isActive = true
+        card.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
+        card.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
+        card.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        upcomingCard = card
     }
 }

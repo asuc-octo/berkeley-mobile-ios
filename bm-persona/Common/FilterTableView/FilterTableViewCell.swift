@@ -8,9 +8,9 @@
 
 import UIKit
 
-class LibraryTableViewCell: UITableViewCell {
+class FilterTableViewCell: UITableViewCell {
     
-    static let kCellIdentifier = "libraryCell"
+    static let kCellIdentifier = "filterCell"
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -32,7 +32,6 @@ class LibraryTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        //branch, make PR / merge into develop , make sure base branch you are merging into is develop!!!!!
         contentView.addSubview(nameLabel)
         contentView.addSubview(cellImage)
         contentView.addSubview(recLabel)
@@ -79,18 +78,10 @@ class LibraryTableViewCell: UITableViewCell {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        
-    }
     
     let nameLabel:UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 20)
-        label.textColor = .black
-
-        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.font = Font.bold(20)
         label.textColor = Color.blackText
 
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -111,7 +102,7 @@ class LibraryTableViewCell: UITableViewCell {
     
     let recLabel:UILabel = {
         let label = UILabel()
-        label.font = UIFont.italicSystemFont(ofSize: 10)
+        label.font = Font.mediumItalic(10)
         label.textColor = Color.darkGrayText
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -129,7 +120,7 @@ class LibraryTableViewCell: UITableViewCell {
     let timeLabel:UILabel = {
         let label = UILabel()
         label.adjustsFontSizeToFitWidth = true
-        label.font = UIFont.systemFont(ofSize: 12)
+        label.font = Font.light(12)
         label.textColor = Color.lightGrayText
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

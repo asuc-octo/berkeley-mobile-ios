@@ -35,8 +35,14 @@ class TagView: UILabel {
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
-        return intrinsicContentSize
+        let size = super.sizeThatFits(size)
+        return CGSize(
+            width: size.width + TagView.kPadding.width,
+            height: size.height + TagView.kPadding.height
+        )
     }
+    
+    // MARK: Initializers
     
     init(origin: CGPoint, text: String, color: UIColor) {
         super.init(frame: CGRect.zero)
@@ -46,13 +52,18 @@ class TagView: UILabel {
         }
     }
     
+    convenience init() {
+        self.init(origin: .zero, text: "", color: .clear)
+    }
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
 
 }
 
-// Common TagViews
+// MARK: - Static TagViews
+
 extension TagView {
     
     static var open: TagView {
