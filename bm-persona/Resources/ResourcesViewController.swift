@@ -15,7 +15,7 @@ class ResourcesViewController: UIViewController {
     private var resourcesLabel: UILabel!
 
     private var resourcesCard: CardView!
-    private var resourcesTable: UITableView!
+    private var resourcesTable: FilterTableView = FilterTableView<Resource>(frame: .zero, filters: [])
     
     private var resourceEntries: [Resource] = []
 
@@ -27,11 +27,11 @@ class ResourcesViewController: UIViewController {
 
         setupHeader()
         setupResourcesList()
-        
+                
         DataManager.shared.fetch(source: ResourceDataSource.self) { resourceEntries in
             self.resourceEntries = resourceEntries as? [Resource] ?? []
-            
-            self.resourcesTable.reloadData()
+            self.resourcesTable.setData(data: resourceEntries as! [Resource])
+            self.resourcesTable.tableView.reloadData()
         }
     }
 
@@ -70,6 +70,11 @@ extension ResourcesViewController: UITableViewDelegate, UITableViewDataSource {
         return headerView
     }
     
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.contentView.layer.masksToBounds = true
+        let radius = cell.contentView.layer.cornerRadius
+        cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: radius).cgPath
+    }
     
 }
 
@@ -95,25 +100,27 @@ extension ResourcesViewController {
         card.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
         card.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
         
-        let table = UITableView()
-        table.delegate = self
-        table.dataSource = self
+        let filters = [Filter<Resource>(label: "Open", filter: {resource in resource.isOpen})]
+        resourcesTable = FilterTableView(frame: .zero, filters: filters)
         
-        table.layer.masksToBounds = true
-        table.contentInset = UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0)
-        table.setContentOffset(CGPoint(x: 0, y: -5), animated: false)
-        table.contentInsetAdjustmentBehavior = .never
+        resourcesTable.tableView.delegate = self
+        resourcesTable.tableView.dataSource = self
         
-        card.addSubview(table)
-        table.separatorStyle = .none
-        table.translatesAutoresizingMaskIntoConstraints = false
-        table.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true
-        table.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
-        table.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
-        table.bottomAnchor.constraint(equalTo: card.layoutMarginsGuide.bottomAnchor).isActive = true
+        resourcesTable.translatesAutoresizingMaskIntoConstraints = false
+        card.addSubview(resourcesTable)
+        
+//        table.layer.masksToBounds = true
+//        table.contentInset = UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0)
+//        table.setContentOffset(CGPoint(x: 0, y: -5), animated: false)
+//        table.contentInsetAdjustmentBehavior = .never
+        
+        resourcesTable.tableView.separatorStyle = .none
+        resourcesTable.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true
+        resourcesTable.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
+        resourcesTable.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
+        resourcesTable.bottomAnchor.constraint(equalTo: card.layoutMarginsGuide.bottomAnchor).isActive = true
 
         resourcesCard = card
-        resourcesTable = table
     }
     
 }
