@@ -14,10 +14,10 @@
 		133864AC2404E858001F9048 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133864A82404E857001F9048 /* CalendarViewController.swift */; };
 		133864AD2404E858001F9048 /* CalendarDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133864AA2404E857001F9048 /* CalendarDataSource.swift */; };
 		133864AE2404E858001F9048 /* CalendarEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133864AB2404E857001F9048 /* CalendarEntry.swift */; };
-		13491DBC242098B30033F9AB /* AtomicDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13491DBB242098B30033F9AB /* AtomicDictionary.swift */; };
 		13491DB6241E21740033F9AB /* Colors+TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13491DB5241E21740033F9AB /* Colors+TagView.swift */; };
 		13491DB8241E22130033F9AB /* Colors+Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13491DB7241E22130033F9AB /* Colors+Event.swift */; };
 		13491DBA241E23630033F9AB /* Colors+Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13491DB9241E23630033F9AB /* Colors+Text.swift */; };
+		13491DBC242098B30033F9AB /* AtomicDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13491DBB242098B30033F9AB /* AtomicDictionary.swift */; };
 		13492D2D240E179F00AD3D1F /* MapMarkerDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13492D2C240E179F00AD3D1F /* MapMarkerDetailView.swift */; };
 		136DC97B2398B4D1009B1810 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136DC97A2398B4D1009B1810 /* UIViewController+Extensions.swift */; };
 		136DC97D2398B4F3009B1810 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136DC97C2398B4F3009B1810 /* UIImage+Extensions.swift */; };
@@ -86,10 +86,10 @@
 		133864A82404E857001F9048 /* CalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		133864AA2404E857001F9048 /* CalendarDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarDataSource.swift; sourceTree = "<group>"; };
 		133864AB2404E857001F9048 /* CalendarEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarEntry.swift; sourceTree = "<group>"; };
-		13491DBB242098B30033F9AB /* AtomicDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtomicDictionary.swift; sourceTree = "<group>"; };
 		13491DB5241E21740033F9AB /* Colors+TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+TagView.swift"; sourceTree = "<group>"; };
 		13491DB7241E22130033F9AB /* Colors+Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+Event.swift"; sourceTree = "<group>"; };
 		13491DB9241E23630033F9AB /* Colors+Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+Text.swift"; sourceTree = "<group>"; };
+		13491DBB242098B30033F9AB /* AtomicDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtomicDictionary.swift; sourceTree = "<group>"; };
 		13492D2C240E179F00AD3D1F /* MapMarkerDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMarkerDetailView.swift; sourceTree = "<group>"; };
 		136DC97A2398B4D1009B1810 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		136DC97C2398B4F3009B1810 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
@@ -121,7 +121,7 @@
 		29EE163E241C4E310041482E /* SortingFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingFunctions.swift; sourceTree = "<group>"; };
 		303F6ADD236A931D007E37DD /* TabBarControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarControl.swift; sourceTree = "<group>"; };
 		303F6AE0236A931D007E37DD /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
-		306A54E623613E3A00D59A7F /* bm-persona.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "bm-persona.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		306A54E623613E3A00D59A7F /* Berkeley Mobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Berkeley Mobile.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		306A54E923613E3A00D59A7F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		306A54EB23613E3A00D59A7F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		306A54ED23613E3A00D59A7F /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -373,7 +373,7 @@
 		306A54E723613E3A00D59A7F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				306A54E623613E3A00D59A7F /* bm-persona.app */,
+				306A54E623613E3A00D59A7F /* Berkeley Mobile.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -501,7 +501,7 @@
 			);
 			name = "bm-persona";
 			productName = "bm-persona";
-			productReference = 306A54E623613E3A00D59A7F /* bm-persona.app */;
+			productReference = 306A54E623613E3A00D59A7F /* Berkeley Mobile.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -809,7 +809,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.asuc.ASUC;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Berkeley Mobile";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -828,7 +828,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.asuc.ASUC;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Berkeley Mobile";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
