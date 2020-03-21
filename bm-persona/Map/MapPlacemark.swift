@@ -14,6 +14,12 @@ class MapPlacemark {
     var location: CLLocation?
     var searchName: String?
     var locationName: String?
+    var item: SearchItem?
+    
+    convenience init(loc: CLLocation, name: String?, locName: String?, item: SearchItem?) {
+        self.init(loc: loc, name: name, locName: locName)
+        self.item = item
+    }
     
     init(loc: CLLocation, name: String?, locName: String?) {
         location = loc

@@ -14,6 +14,7 @@ import MapKit
 class MapViewController: UIViewController {
     
     static let kAnnotationIdentifier = "MapMarkerAnnotation"
+    static let kSearchAnnotationIdentifier = "SearchAnnotation"
     
     open var drawerContainer: DrawerContainer?
     
@@ -39,6 +40,7 @@ class MapViewController: UIViewController {
         mapView = MKMapView()
         mapView.delegate = self
         mapView.register(MKAnnotationView.self, forAnnotationViewWithReuseIdentifier: MapViewController.kAnnotationIdentifier)
+        mapView.register(MKAnnotationView.self, forAnnotationViewWithReuseIdentifier: MapViewController.kSearchAnnotationIdentifier)
         
         maskView = UIView()
         maskView.backgroundColor = Color.searchBarBackground
@@ -54,6 +56,7 @@ class MapViewController: UIViewController {
         )
         
         searchResultsView = SearchResultsView()
+        searchResultsView.delegate = self
         showSearchResultsView(false)
         
         markerDetail = MapMarkerDetailView()
@@ -135,10 +138,20 @@ class MapViewController: UIViewController {
             filtered in
             DispatchQueue.main.async {
                 // TODO: Speed this up?
-                self.mapView.removeAnnotations(self.mapView.annotations)
+                self.removeAnnotations(type: MapMarker.self)
                 self.mapView.addAnnotations(Array(filtered.joined()))
             }
         })
+    }
+    
+    func removeAnnotations<T>(type: T.Type) {
+        var remove: [MKAnnotation] = []
+        for annotation in self.mapView.annotations {
+            if annotation.isKind(of: type as! AnyClass) {
+                remove.append(annotation)
+            }
+        }
+        self.mapView.removeAnnotations(remove)
     }
 
 }
@@ -167,19 +180,34 @@ extension MapViewController: MKMapViewDelegate {
             annotationView.annotation = marker
             annotationView.image = marker.type.icon()
             return annotationView
+        } else if let searchAnnotation = annotation as? SearchAnnotation,
+            let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier) as? MKMarkerAnnotationView {
+            annotationView.annotation = searchAnnotation
+            annotationView.glyphImage = searchAnnotation.icon()
+            annotationView.contentMode = .scaleToFill
+            annotationView.markerTintColor = searchAnnotation.color()
+            annotationView.glyphTintColor = .white
+            annotationView.isSelected = true
+            return annotationView
         }
         return MKAnnotationView()
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        markerDetail.marker = view.annotation as? MapMarker
-        drawerContainer?.moveDrawer(to: .hidden, duration: 0.2)
+        if (view.annotation as? SearchAnnotation) != nil {
+            removeAnnotations(type: SearchAnnotation.self)
+            drawerContainer?.moveDrawer(to: .collapsed, duration: 0.2)
+        } else {
+            markerDetail.marker = view.annotation as? MapMarker
+            drawerContainer?.moveDrawer(to: .hidden, duration: 0.2)
+        }
     }
     
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
         markerDetail.marker = nil
         drawerContainer?.moveDrawer(to: .collapsed, duration: 0.2)
     }
+    
 }
 
 // MARK: MapMarkerDetailViewDelegate
@@ -252,7 +280,7 @@ extension MapViewController: SearchBarDelegate {
 
             for item in filtered {
                 let cl = CLLocation(latitude: CLLocationDegrees(item.location.0), longitude: CLLocationDegrees(item.location.1))
-                let place = MapPlacemark(loc: cl, name: item.searchName, locName: item.locationName)
+                let place = MapPlacemark(loc: cl, name: item.searchName, locName: item.locationName, item: item)
                 
                 placemarks.append(place)
             }
@@ -265,5 +293,29 @@ extension MapViewController: SearchBarDelegate {
     }
 }
 
-
+extension MapViewController: SearchResultsViewDelegate {
+    func choosePlacemark(_ placemark: MapPlacemark) {
+        let location = placemark.location
+        showSearchResultsView(false)
+        searchBar.textFieldDidEndEditing(searchBar.textField)
+        searchBar.textField.text = ""
+        removeAnnotations(type: SearchAnnotation.self)
+        if location != nil {
+            let regionRadius: CLLocationDistance = 250
+            let coordinateRegion = MKCoordinateRegion(center: location!.coordinate,
+                                                      latitudinalMeters: regionRadius * 2.0, longitudinalMeters: regionRadius * 2.0)
+            mapView.setRegion(coordinateRegion, animated: true)
+            let item = placemark.item
+            if item != nil {
+                let annotation = SearchAnnotation(item: item!, location: location!.coordinate)
+                annotation.title = item!.searchName
+                mapView.addAnnotation(annotation)
+            }
+            drawerContainer?.moveDrawer(to: .hidden, duration: 0.2)
+            let detailView = UIView()
+            detailView.backgroundColor = .red
+            
+        }
+    }
+}
 

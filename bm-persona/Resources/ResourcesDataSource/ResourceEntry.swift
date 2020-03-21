@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 
 class ResourceEntry: SearchItem {
+    var icon: UIImage?
+    
     var searchName: String {
         return name
     }
