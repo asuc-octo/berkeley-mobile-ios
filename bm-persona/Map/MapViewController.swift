@@ -14,7 +14,6 @@ import MapKit
 class MapViewController: UIViewController {
     
     static let kAnnotationIdentifier = "MapMarkerAnnotation"
-    static let kSearchAnnotationIdentifier = "SearchAnnotation"
     
     open var drawerContainer: DrawerContainer?
     
@@ -23,6 +22,9 @@ class MapViewController: UIViewController {
     private var searchBar: SearchBarView!
     private var searchResultsView: SearchResultsView!
     private var locationManager = CLLocationManager()
+    private var detailViewController = SearchDetailViewController()
+    private var initialDetailCenter = CGPoint()
+    private var searchDetailStatePositions: [SearchDetailState: CGFloat] = [:]
     
     private var filterView: FilterView!
     private var filters: [Filter<[MapMarker]>] = MapMarkerType.allCases.map { type in
@@ -40,7 +42,6 @@ class MapViewController: UIViewController {
         mapView = MKMapView()
         mapView.delegate = self
         mapView.register(MKAnnotationView.self, forAnnotationViewWithReuseIdentifier: MapViewController.kAnnotationIdentifier)
-        mapView.register(MKAnnotationView.self, forAnnotationViewWithReuseIdentifier: MapViewController.kSearchAnnotationIdentifier)
         
         maskView = UIView()
         maskView.backgroundColor = Color.searchBarBackground
@@ -82,6 +83,7 @@ class MapViewController: UIViewController {
         super.viewDidAppear(animated)
         (mapView.isZoomEnabled, mapView.showsUserLocation) = (true, true)
         mapView.setUserTrackingMode(.follow, animated: true)
+        add(child: detailViewController)
     }
     
     private func setupSubviews() {
@@ -121,10 +123,12 @@ class MapViewController: UIViewController {
         if show {
             self.maskView.isHidden = false
             self.searchResultsView.isHidden = false
+            self.detailViewController.view.isHidden = true
         } else {
             self.maskView.isHidden = true
             self.searchResultsView.isHidden = true
             self.searchResultsView.isScrolling = false
+            self.detailViewController.view.isHidden = false
         }
     }
     
@@ -196,6 +200,8 @@ extension MapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         if (view.annotation as? SearchAnnotation) != nil {
             removeAnnotations(type: SearchAnnotation.self)
+            detailViewController.view = UIView()
+            detailViewController.setupBarView()
             drawerContainer?.moveDrawer(to: .collapsed, duration: 0.2)
         } else {
             markerDetail.marker = view.annotation as? MapMarker
@@ -204,8 +210,15 @@ extension MapViewController: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
-        markerDetail.marker = nil
-        drawerContainer?.moveDrawer(to: .collapsed, duration: 0.2)
+        if (view.annotation as? SearchAnnotation) != nil {
+            removeAnnotations(type: SearchAnnotation.self)
+            detailViewController.view = UIView()
+            detailViewController.setupBarView()
+            drawerContainer?.moveDrawer(to: .collapsed, duration: 0.2)
+        } else {
+            markerDetail.marker = nil
+            drawerContainer?.moveDrawer(to: .collapsed, duration: 0.2)
+        }
     }
     
 }
@@ -293,7 +306,8 @@ extension MapViewController: SearchBarDelegate {
     }
 }
 
-extension MapViewController: SearchResultsViewDelegate {
+extension MapViewController: SearchResultsViewDelegate, SearchDetailViewDelegate {
+    
     func choosePlacemark(_ placemark: MapPlacemark) {
         let location = placemark.location
         showSearchResultsView(false)
@@ -312,10 +326,100 @@ extension MapViewController: SearchResultsViewDelegate {
                 mapView.addAnnotation(annotation)
             }
             drawerContainer?.moveDrawer(to: .hidden, duration: 0.2)
+            
             let detailView = UIView()
             detailView.backgroundColor = .red
+            detailView.layer.cornerRadius = 40
+            detailView.clipsToBounds = true
+            detailViewController.view = detailView
             
+            let superView = detailViewController.view.superview!
+            detailViewController.delegate = self
+            detailViewController.view.translatesAutoresizingMaskIntoConstraints = false
+            detailViewController.view.heightAnchor.constraint(equalTo: superView.heightAnchor).isActive = true
+            detailViewController.view.widthAnchor.constraint(equalTo: superView.widthAnchor).isActive = true
+            detailViewController.view.centerXAnchor.constraint(equalTo: superView.centerXAnchor).isActive = true
+            detailViewController.view.centerYAnchor.constraint(equalTo: superView.centerYAnchor, constant: self.view.frame.maxY * 0.7).isActive = true
+            detailViewController.view.layoutIfNeeded()
+            detailViewController.setupBarView()
+            
+            searchDetailStatePositions[.hidden] = superView.frame.maxY + superView.frame.maxY / 2
+            searchDetailStatePositions[.middle] = superView.frame.midY + superView.frame.maxY * 0.7
+            searchDetailStatePositions[.full] = superView.safeAreaInsets.top + (superView.frame.maxY / 2)
+            initialDetailCenter = detailViewController.view.center
+            detailViewController.setupGestures()
+            moveSearchDetailView(to: .middle, duration: 0)
         }
+    }
+    
+    func handlePanGesture(gesture: UIPanGestureRecognizer) {
+        if gesture.state == .began {
+            self.initialDetailCenter = detailViewController.view.center
+        }
+        
+        let translation = gesture.translation(in: self.view)
+        let velocity = gesture.velocity(in: self.view).y
+        var newCenter = CGPoint(x: self.initialDetailCenter.x, y: self.initialDetailCenter.y + translation.y)
+        
+        if newCenter.y < self.view.center.y {
+            newCenter = self.view.center
+        }
+        
+        if gesture.state == .ended {
+            let searchDetailState = computeSearchDetailPosition(from: newCenter.y, with: velocity)
+            let pixelDiff = abs(newCenter.y - searchDetailStatePositions[searchDetailState]!)
+            var animationTime = pixelDiff / abs(velocity)
+            
+            if pixelDiff / animationTime < 300 {
+                animationTime = pixelDiff / 300
+            } else if pixelDiff / animationTime > 700 {
+                animationTime = pixelDiff / 700
+            }
+            
+            moveSearchDetailView(to: searchDetailState, duration: Double(animationTime))
+            
+        } else {
+            self.detailViewController.view.center = newCenter
+        }
+        
+        
+    }
+    
+    private func computeSearchDetailPosition(from yPosition: CGFloat, with yVelocity: CGFloat) -> SearchDetailState {
+        guard let hiddenPos = searchDetailStatePositions[SearchDetailState.hidden], let middlePos = searchDetailStatePositions[SearchDetailState.middle], let fullPos = searchDetailStatePositions[SearchDetailState.full] else { return .middle }
+        
+        let betweenBottom = (hiddenPos + middlePos) / 2
+        let betweenTop = (middlePos + fullPos) / 2
+        
+        if yPosition > betweenBottom {
+            if yVelocity < -800 {
+                return .middle
+            } else {
+                return .hidden
+            }
+        } else if yPosition > betweenTop {
+            if yVelocity > 800 {
+                return .hidden
+            } else if yVelocity < -800 {
+                return .full
+            } else {
+                return .middle
+            }
+        } else if yVelocity > 800 {
+            return .middle
+        } else {
+            return .full
+        }
+    }
+    
+    func moveSearchDetailView(to state: SearchDetailState, duration: Double) {
+        UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
+            self.detailViewController.view.center = CGPoint(x: self.initialDetailCenter.x, y: self.searchDetailStatePositions[state]!)
+        }, completion: { success in
+            if success {
+                self.detailViewController.state = state
+            }
+        })
     }
 }
 
