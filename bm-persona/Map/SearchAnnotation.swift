@@ -14,6 +14,7 @@ class SearchAnnotation: NSObject, MKAnnotation {
     var coordinate: CLLocationCoordinate2D
     var title: String?
     var subtitle: String?
+    var selectedFromTap: Bool = true
     
     var item: SearchItem
     
@@ -26,7 +27,7 @@ class SearchAnnotation: NSObject, MKAnnotation {
         if let icon = item.icon {
             return icon
         } else {
-            #warning("TODO: Use default icon for search item with no icon")
+            // TODO: Use default icon for search item with no icon
             return (UIImage(named: "Placemark")!)
         }
     }

@@ -25,6 +25,7 @@ class MapViewController: UIViewController {
     private var detailViewController = SearchDetailViewController()
     private var initialDetailCenter = CGPoint()
     private var searchDetailStatePositions: [SearchDetailState: CGFloat] = [:]
+    private var searchAnnotation: SearchAnnotation?
     
     private var filterView: FilterView!
     private var filters: [Filter<[MapMarker]>] = MapMarkerType.allCases.map { type in
@@ -191,18 +192,17 @@ extension MapViewController: MKMapViewDelegate {
             annotationView.contentMode = .scaleToFill
             annotationView.markerTintColor = searchAnnotation.color()
             annotationView.glyphTintColor = .white
-            annotationView.isSelected = true
+            annotationView.setSelected(true, animated: true)
             return annotationView
         }
         return MKAnnotationView()
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        if (view.annotation as? SearchAnnotation) != nil {
-            removeAnnotations(type: SearchAnnotation.self)
-            detailViewController.view = UIView()
-            detailViewController.setupBarView()
-            drawerContainer?.moveDrawer(to: .collapsed, duration: 0.2)
+        if let annotation = view.annotation as? SearchAnnotation {
+            if annotation.selectedFromTap {
+                moveSearchDetailView(to: .middle, duration: 0.2)
+            }
         } else {
             markerDetail.marker = view.annotation as? MapMarker
             drawerContainer?.moveDrawer(to: .hidden, duration: 0.2)
@@ -210,11 +210,14 @@ extension MapViewController: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
-        if (view.annotation as? SearchAnnotation) != nil {
-            removeAnnotations(type: SearchAnnotation.self)
-            detailViewController.view = UIView()
-            detailViewController.setupBarView()
-            drawerContainer?.moveDrawer(to: .collapsed, duration: 0.2)
+        if let annotation = view.annotation as? SearchAnnotation {
+            if annotation.selectedFromTap {
+                removeAnnotations(type: SearchAnnotation.self)
+                detailViewController.view = UIView()
+                detailViewController.setupBarView()
+                searchAnnotation = nil
+                drawerContainer?.moveDrawer(to: .collapsed, duration: 0.2)
+            }
         } else {
             markerDetail.marker = nil
             drawerContainer?.moveDrawer(to: .collapsed, duration: 0.2)
@@ -229,7 +232,9 @@ extension MapViewController: MapMarkerDetailViewDelegate {
     
     func didCloseMarkerDetailView(_ sender: MapMarkerDetailView) {
         mapView.selectedAnnotations.forEach { annotation in
-            mapView.deselectAnnotation(annotation, animated: true)
+            if annotation.isKind(of: MapMarker.self) {
+                mapView.deselectAnnotation(annotation, animated: true)
+            }
         }
     }
     
@@ -323,32 +328,37 @@ extension MapViewController: SearchResultsViewDelegate, SearchDetailViewDelegate
             if item != nil {
                 let annotation = SearchAnnotation(item: item!, location: location!.coordinate)
                 annotation.title = item!.searchName
+                searchAnnotation = annotation
                 mapView.addAnnotation(annotation)
+                drawerContainer?.moveDrawer(to: .hidden, duration: 0.2)
+                
+                //TODO: set up actual detail view
+                let detailView = UIView()
+                detailView.backgroundColor = .red
+                detailView.layer.cornerRadius = 40
+                detailView.clipsToBounds = true
+                detailViewController.view = detailView
+                
+                let superView = detailViewController.view.superview!
+                detailViewController.delegate = self
+                detailViewController.view.translatesAutoresizingMaskIntoConstraints = false
+                detailViewController.view.heightAnchor.constraint(equalTo: superView.heightAnchor).isActive = true
+                detailViewController.view.widthAnchor.constraint(equalTo: superView.widthAnchor).isActive = true
+                detailViewController.view.centerXAnchor.constraint(equalTo: superView.centerXAnchor).isActive = true
+                detailViewController.view.centerYAnchor.constraint(equalTo: superView.centerYAnchor, constant: self.view.frame.maxY * 0.7).isActive = true
+                detailViewController.view.layoutIfNeeded()
+                detailViewController.setupBarView()
+                
+                searchDetailStatePositions[.hidden] = superView.frame.maxY + superView.frame.maxY / 2
+                searchDetailStatePositions[.middle] = superView.frame.midY + superView.frame.maxY * 0.7
+                searchDetailStatePositions[.full] = superView.safeAreaInsets.top + (superView.frame.maxY / 2)
+                initialDetailCenter = detailViewController.view.center
+                detailViewController.setupGestures()
+                moveSearchDetailView(to: .middle, duration: 0)
+                annotation.selectedFromTap = false
+                mapView.selectAnnotation(annotation, animated: true)
+                annotation.selectedFromTap = true
             }
-            drawerContainer?.moveDrawer(to: .hidden, duration: 0.2)
-            
-            let detailView = UIView()
-            detailView.backgroundColor = .red
-            detailView.layer.cornerRadius = 40
-            detailView.clipsToBounds = true
-            detailViewController.view = detailView
-            
-            let superView = detailViewController.view.superview!
-            detailViewController.delegate = self
-            detailViewController.view.translatesAutoresizingMaskIntoConstraints = false
-            detailViewController.view.heightAnchor.constraint(equalTo: superView.heightAnchor).isActive = true
-            detailViewController.view.widthAnchor.constraint(equalTo: superView.widthAnchor).isActive = true
-            detailViewController.view.centerXAnchor.constraint(equalTo: superView.centerXAnchor).isActive = true
-            detailViewController.view.centerYAnchor.constraint(equalTo: superView.centerYAnchor, constant: self.view.frame.maxY * 0.7).isActive = true
-            detailViewController.view.layoutIfNeeded()
-            detailViewController.setupBarView()
-            
-            searchDetailStatePositions[.hidden] = superView.frame.maxY + superView.frame.maxY / 2
-            searchDetailStatePositions[.middle] = superView.frame.midY + superView.frame.maxY * 0.7
-            searchDetailStatePositions[.full] = superView.safeAreaInsets.top + (superView.frame.maxY / 2)
-            initialDetailCenter = detailViewController.view.center
-            detailViewController.setupGestures()
-            moveSearchDetailView(to: .middle, duration: 0)
         }
     }
     
@@ -377,6 +387,13 @@ extension MapViewController: SearchResultsViewDelegate, SearchDetailViewDelegate
             }
             
             moveSearchDetailView(to: searchDetailState, duration: Double(animationTime))
+            if searchDetailState == .hidden {
+                if searchAnnotation != nil {
+                    searchAnnotation!.selectedFromTap = false
+                    mapView.deselectAnnotation(searchAnnotation, animated: true)
+                    searchAnnotation!.selectedFromTap = true
+                }
+            }
             
         } else {
             self.detailViewController.view.center = newCenter

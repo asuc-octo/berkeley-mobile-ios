@@ -33,7 +33,6 @@ class SearchDetailViewController: UIViewController {
     func setupBarView() {
         view.translatesAutoresizingMaskIntoConstraints = false
         let barView = UIView(frame: CGRect(x: self.view.frame.width / 2 - self.view.frame.width / 30, y: 7, width: self.view.frame.width / 15, height: 5))
-        print(barView.frame)
         barView.backgroundColor = .lightGray
         barView.alpha = 0.5
         barView.layer.cornerRadius = barView.frame.height / 2
