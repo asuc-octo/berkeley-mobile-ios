@@ -25,6 +25,7 @@ class LibraryDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = .white
         
         //location stuff
         locationManager.delegate = self
@@ -39,7 +40,7 @@ class LibraryDetailViewController: UIViewController {
         setUpScrollView()
         setUpOverviewCard()
         setUpHoursCard()
-        setUpTrafficCard()
+        //setUpTrafficCard()
         setUpBookButton()
         
         
@@ -96,6 +97,7 @@ extension LibraryDetailViewController {
         }
         card.addSubview(addressLabel)
         addressLabel.font = Font.thin(12)
+        addressLabel.numberOfLines = 2
         addressLabel.textColor = UIColor.black
         addressLabel.translatesAutoresizingMaskIntoConstraints = false
         addressLabel.topAnchor.constraint(equalTo: nameLabel.layoutMarginsGuide.bottomAnchor, constant: 20).isActive = true
@@ -177,6 +179,7 @@ extension LibraryDetailViewController {
         card.heightAnchor.constraint(equalToConstant: 180).isActive = true
         
         let openLabel = UILabel()
+        openLabel.layer.masksToBounds = true
         openLabel.layer.cornerRadius = 10
         openLabel.font = Font.semibold(14)
         openLabel.backgroundColor = .systemBlue
@@ -276,7 +279,8 @@ extension LibraryDetailViewController {
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowPath = UIBezierPath(rect: button.layer.bounds.insetBy(dx: 4, dy: 4)).cgPath
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.topAnchor.constraint(equalTo: contentHelper.layoutMarginsGuide.topAnchor, constant: 610).isActive = true
+        button.topAnchor.constraint(equalTo: contentHelper.layoutMarginsGuide.topAnchor, constant: 400).isActive = true
+        //change the top anchor constant to 610 when including the card with usage information
         button.leftAnchor.constraint(equalTo: scrollView.layoutMarginsGuide.leftAnchor).isActive = true
         button.rightAnchor.constraint(equalTo: scrollView.layoutMarginsGuide.rightAnchor).isActive = true
         button.heightAnchor.constraint(equalToConstant: 50).isActive = true
