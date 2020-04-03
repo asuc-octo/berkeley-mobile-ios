@@ -91,13 +91,13 @@ class EventTableViewCell: UITableViewCell {
         
         eventCategory.text = entry.eventType
         
-        let entryColor = getEntryColor(entry: entry)
+        let entryColor = EventTableViewCell.getEntryColor(entryType: entry.eventType ?? "")
         eventTaggingColor.backgroundColor = entryColor
         eventCategory.backgroundColor = entryColor
     }
     
-    func getEntryColor(entry: CalendarEntry) -> UIColor {
-        switch entry.eventType {
+    class func getEntryColor(entryType: String) -> UIColor {
+        switch entryType {
         case "Academic":
             return Color.eventAcademic
         case "Holiday":
