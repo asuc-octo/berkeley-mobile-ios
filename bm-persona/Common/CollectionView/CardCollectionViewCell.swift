@@ -39,7 +39,7 @@ class CardCollectionViewCell: UICollectionViewCell {
         badge.rightAnchor.constraint(equalTo: layoutMarginsGuide.rightAnchor).isActive = true
         
         subtitle = UILabel()
-        subtitle.font = Font.thin(10)
+        subtitle.font = Font.thin(12)
         contentView.addSubview(subtitle)
         subtitle.translatesAutoresizingMaskIntoConstraints = false
         subtitle.centerYAnchor.constraint(equalTo: badge.centerYAnchor).isActive = true
