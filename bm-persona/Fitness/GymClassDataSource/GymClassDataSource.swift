@@ -35,7 +35,12 @@ class GymClassDataSource: DataSource {
         let gymClasses = AtomicDictionary<String, [GymClass]>()
         let requests = DispatchGroup()
         let db = Firestore.firestore()
+#if DEBUG
+        // 2019-02-24
+        let startDate = Date(timeIntervalSince1970: 1551024900)
+#else
         let startDate = Date()
+#endif
         guard let endDate = Calendar.current.date(byAdding: .day, value: kDateLookahead, to: startDate) else { return }
         for collection in dateRangeCollections(interval: DateInterval(start: startDate, end: endDate)) {
             requests.enter()
