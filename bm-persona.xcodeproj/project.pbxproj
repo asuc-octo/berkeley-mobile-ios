@@ -10,10 +10,18 @@
 		13135BB22412442C0056B169 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39AB323E777AC0039FBA2 /* FilterView.swift */; };
 		13135BB3241244370056B169 /* FilterViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39AB223E777AC0039FBA2 /* FilterViewCell.swift */; };
 		132087AF23F3B05D00AE273C /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 132087AE23F3B05D00AE273C /* Filter.swift */; };
+		1336A31A241C3FD300949F32 /* GymClassDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1336A319241C3FD300949F32 /* GymClassDataSource.swift */; };
+		1336A31C241C400800949F32 /* GymClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1336A31B241C400800949F32 /* GymClass.swift */; };
+		1336A320241D924300949F32 /* DiningItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1336A31F241D924300949F32 /* DiningItem.swift */; };
+		1336A322241D92F700949F32 /* MealType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1336A321241D92F700949F32 /* MealType.swift */; };
+		1336A326241D9B9900949F32 /* DiningHall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1336A325241D9B9900949F32 /* DiningHall.swift */; };
+		1336A329241DA56100949F32 /* DiningHallDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1336A328241DA56100949F32 /* DiningHallDataSource.swift */; };
 		133864A42404DCCA001F9048 /* MapMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133864A32404DCCA001F9048 /* MapMarker.swift */; };
 		133864AC2404E858001F9048 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133864A82404E857001F9048 /* CalendarViewController.swift */; };
 		133864AD2404E858001F9048 /* CalendarDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133864AA2404E857001F9048 /* CalendarDataSource.swift */; };
 		133864AE2404E858001F9048 /* CalendarEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133864AB2404E857001F9048 /* CalendarEntry.swift */; };
+		1346B9172420AA4500383399 /* DayOfWeek.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1346B9162420AA4500383399 /* DayOfWeek.swift */; };
+		1346B9192420AD4800383399 /* WeeklyHours.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1346B9182420AD4800383399 /* WeeklyHours.swift */; };
 		13491DB6241E21740033F9AB /* Colors+TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13491DB5241E21740033F9AB /* Colors+TagView.swift */; };
 		13491DB8241E22130033F9AB /* Colors+Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13491DB7241E22130033F9AB /* Colors+Event.swift */; };
 		13491DBA241E23630033F9AB /* Colors+Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13491DB9241E23630033F9AB /* Colors+Text.swift */; };
@@ -28,9 +36,9 @@
 		1396013623865E2E005E4788 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1396013223865E2E005E4788 /* TagView.swift */; };
 		13B39A8B23E682850039FBA2 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39A8A23E682840039FBA2 /* Date+Extension.swift */; };
 		13B39A8D23E689BC0039FBA2 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39A8C23E689BC0039FBA2 /* DataSource.swift */; };
-		13B39A9623E6A3330039FBA2 /* ResourceDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39A9423E6A3330039FBA2 /* ResourceDataSource.swift */; };
 		13B39A9923E6A33C0039FBA2 /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39A9723E6A33B0039FBA2 /* Library.swift */; };
 		13B39A9A23E6A33C0039FBA2 /* LibraryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39A9823E6A33B0039FBA2 /* LibraryDataSource.swift */; };
+		13B8E9592425819D00E7FCBF /* ResourceDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39A9423E6A3330039FBA2 /* ResourceDataSource.swift */; };
 		13DACD222411DF7200A09982 /* UIStackView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DACD212411DF7200A09982 /* UIStackView+Extensions.swift */; };
 		13E25DFD238C949E00B670B5 /* FitnessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E25DFC238C949E00B670B5 /* FitnessViewController.swift */; };
 		13EA64C82399CE0800FD8E13 /* GymDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13EA64C72399CE0800FD8E13 /* GymDataSource.swift */; };
@@ -82,10 +90,18 @@
 
 /* Begin PBXFileReference section */
 		132087AE23F3B05D00AE273C /* Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
+		1336A319241C3FD300949F32 /* GymClassDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymClassDataSource.swift; sourceTree = "<group>"; };
+		1336A31B241C400800949F32 /* GymClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymClass.swift; sourceTree = "<group>"; };
+		1336A31F241D924300949F32 /* DiningItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiningItem.swift; sourceTree = "<group>"; };
+		1336A321241D92F700949F32 /* MealType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealType.swift; sourceTree = "<group>"; };
+		1336A325241D9B9900949F32 /* DiningHall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiningHall.swift; sourceTree = "<group>"; };
+		1336A328241DA56100949F32 /* DiningHallDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiningHallDataSource.swift; sourceTree = "<group>"; };
 		133864A32404DCCA001F9048 /* MapMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMarker.swift; sourceTree = "<group>"; };
 		133864A82404E857001F9048 /* CalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		133864AA2404E857001F9048 /* CalendarDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarDataSource.swift; sourceTree = "<group>"; };
 		133864AB2404E857001F9048 /* CalendarEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarEntry.swift; sourceTree = "<group>"; };
+		1346B9162420AA4500383399 /* DayOfWeek.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayOfWeek.swift; sourceTree = "<group>"; };
+		1346B9182420AD4800383399 /* WeeklyHours.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyHours.swift; sourceTree = "<group>"; };
 		13491DB5241E21740033F9AB /* Colors+TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+TagView.swift"; sourceTree = "<group>"; };
 		13491DB7241E22130033F9AB /* Colors+Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+Event.swift"; sourceTree = "<group>"; };
 		13491DB9241E23630033F9AB /* Colors+Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+Text.swift"; sourceTree = "<group>"; };
@@ -173,6 +189,42 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1336A31D241C400F00949F32 /* GymClassDataSource */ = {
+			isa = PBXGroup;
+			children = (
+				1336A319241C3FD300949F32 /* GymClassDataSource.swift */,
+				1336A31B241C400800949F32 /* GymClass.swift */,
+			);
+			path = GymClassDataSource;
+			sourceTree = "<group>";
+		};
+		1336A31E241D90B800949F32 /* Dining */ = {
+			isa = PBXGroup;
+			children = (
+				1336A327241D9BA200949F32 /* DiningDataSource */,
+			);
+			path = Dining;
+			sourceTree = "<group>";
+		};
+		1336A327241D9BA200949F32 /* DiningDataSource */ = {
+			isa = PBXGroup;
+			children = (
+				1336A32A241DA64B00949F32 /* DiningHalls */,
+				1336A31F241D924300949F32 /* DiningItem.swift */,
+				1336A321241D92F700949F32 /* MealType.swift */,
+			);
+			path = DiningDataSource;
+			sourceTree = "<group>";
+		};
+		1336A32A241DA64B00949F32 /* DiningHalls */ = {
+			isa = PBXGroup;
+			children = (
+				1336A325241D9B9900949F32 /* DiningHall.swift */,
+				1336A328241DA56100949F32 /* DiningHallDataSource.swift */,
+			);
+			path = DiningHalls;
+			sourceTree = "<group>";
+		};
 		133864A62404E7C4001F9048 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
@@ -216,7 +268,8 @@
 		136DC9792398B43F009B1810 /* Fitness */ = {
 			isa = PBXGroup;
 			children = (
-				13EA64C62399CDF900FD8E13 /* FitnessDataSource */,
+				13EA64C62399CDF900FD8E13 /* GymDataSource */,
+				1336A31D241C400F00949F32 /* GymClassDataSource */,
 				13E25DFC238C949E00B670B5 /* FitnessViewController.swift */,
 			);
 			path = Fitness;
@@ -282,10 +335,22 @@
 			path = FilterView;
 			sourceTree = "<group>";
 		};
+		13B8E95724256E4F00E7FCBF /* ItemProtocols */ = {
+			isa = PBXGroup;
+			children = (
+				13EA64C92399CE5B00FD8E13 /* SearchItem.swift */,
+				29061D40241C450E002BC9D9 /* HasLocation.swift */,
+				29AB5BBE241D8766007C3ECA /* HasOpenTimes.swift */,
+			);
+			path = ItemProtocols;
+			sourceTree = "<group>";
+		};
 		13E25E00238C9E1000B670B5 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
 				13491DBB242098B30033F9AB /* AtomicDictionary.swift */,
+				1346B9182420AD4800383399 /* WeeklyHours.swift */,
+				1346B9162420AA4500383399 /* DayOfWeek.swift */,
 				13B39A8A23E682840039FBA2 /* Date+Extension.swift */,
 				55DCF79523723CF2001B01B8 /* UIView+Extensions.swift */,
 				136DC97A2398B4D1009B1810 /* UIViewController+Extensions.swift */,
@@ -295,24 +360,22 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
-		13EA64C62399CDF900FD8E13 /* FitnessDataSource */ = {
+		13EA64C62399CDF900FD8E13 /* GymDataSource */ = {
 			isa = PBXGroup;
 			children = (
 				13EA64C72399CE0800FD8E13 /* GymDataSource.swift */,
 				13EA64CC2399CEDA00FD8E13 /* Gym.swift */,
 			);
-			path = FitnessDataSource;
+			path = GymDataSource;
 			sourceTree = "<group>";
 		};
 		13EA64CE2399D4A100FD8E13 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				13EA64C92399CE5B00FD8E13 /* SearchItem.swift */,
+				13B8E95724256E4F00E7FCBF /* ItemProtocols */,
 				13EA64CF2399D50C00FD8E13 /* DataManager.swift */,
 				13B39A8C23E689BC0039FBA2 /* DataSource.swift */,
-				29061D40241C450E002BC9D9 /* HasLocation.swift */,
 				29EE163E241C4E310041482E /* SortingFunctions.swift */,
-				29AB5BBE241D8766007C3ECA /* HasOpenTimes.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -389,6 +452,7 @@
 				13B39A8E23E6A1ED0039FBA2 /* Libraries */,
 				556DB0DD23E7F5ED00F12721 /* Resources */,
 				136DC9792398B43F009B1810 /* Fitness */,
+				1336A31E241D90B800949F32 /* Dining */,
 				303F6AE6236A9C3D007E37DD /* Map */,
 				133864A72404E857001F9048 /* Calendar */,
 				303F6ADC236A9274007E37DD /* Drawer */,
@@ -604,15 +668,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				13B8E9592425819D00E7FCBF /* ResourceDataSource.swift in Sources */,
 				29CB28092404DD53009A2CFB /* LibraryViewController.swift in Sources */,
 				306A550023614C0000D59A7F /* MainContainerViewController.swift in Sources */,
 				55DCF78723722CBD001B01B8 /* Colors.swift in Sources */,
 				29EE163F241C4E310041482E /* SortingFunctions.swift in Sources */,
 				29AB5BBF241D8766007C3ECA /* HasOpenTimes.swift in Sources */,
 				306A54EE23613E3A00D59A7F /* MapViewController.swift in Sources */,
-				13B39A9623E6A3330039FBA2 /* ResourceDataSource.swift in Sources */,
 				13DACD222411DF7200A09982 /* UIStackView+Extensions.swift in Sources */,
-				13B39A9623E6A3330039FBA2 /* ResourceDataSource.swift in Sources */,
 				133864A42404DCCA001F9048 /* MapMarker.swift in Sources */,
 				13491DBA241E23630033F9AB /* Colors+Text.swift in Sources */,
 				136DC97D2398B4F3009B1810 /* UIImage+Extensions.swift in Sources */,
@@ -632,6 +695,7 @@
 				556DB0DF23E7F60900F12721 /* ResourcesViewController.swift in Sources */,
 				55DCF79423723452001B01B8 /* SearchBarView.swift in Sources */,
 				133864AC2404E858001F9048 /* CalendarViewController.swift in Sources */,
+				1346B9172420AA4500383399 /* DayOfWeek.swift in Sources */,
 				1396013623865E2E005E4788 /* TagView.swift in Sources */,
 				5532B67B2390CBF600293BE0 /* MaterialLoadingIndicator.swift in Sources */,
 				13E25DFD238C949E00B670B5 /* FitnessViewController.swift in Sources */,
@@ -648,22 +712,30 @@
 				55DCF79623723CF2001B01B8 /* UIView+Extensions.swift in Sources */,
 				306A54EA23613E3A00D59A7F /* AppDelegate.swift in Sources */,
 				553EF6AC2404E2C600D2955E /* Resource.swift in Sources */,
+				553EF6AC2404E2C600D2955E /* Resource.swift in Sources */,
+				1336A31C241C400800949F32 /* GymClass.swift in Sources */,
 				559A7B6B2373DCBA004EA501 /* SearchResultsView.swift in Sources */,
 				13EA64C82399CE0800FD8E13 /* GymDataSource.swift in Sources */,
 				55DCF78923722CF1001B01B8 /* Fonts.swift in Sources */,
 				13492D2D240E179F00AD3D1F /* MapMarkerDetailView.swift in Sources */,
+				1346B9192420AD4800383399 /* WeeklyHours.swift in Sources */,
 				13EA64D02399D50C00FD8E13 /* DataManager.swift in Sources */,
+				1336A326241D9B9900949F32 /* DiningHall.swift in Sources */,
 				29061D41241C450E002BC9D9 /* HasLocation.swift in Sources */,
+				1336A31A241C3FD300949F32 /* GymClassDataSource.swift in Sources */,
 				1396013323865E2E005E4788 /* CardCollectionView.swift in Sources */,
 				13B39A9A23E6A33C0039FBA2 /* LibraryDataSource.swift in Sources */,
 				306A54EC23613E3A00D59A7F /* SceneDelegate.swift in Sources */,
+				1336A329241DA56100949F32 /* DiningHallDataSource.swift in Sources */,
 				136DC97B2398B4D1009B1810 /* UIViewController+Extensions.swift in Sources */,
 				13491DB6241E21740033F9AB /* Colors+TagView.swift in Sources */,
 				556CCD2223E7771800F41BF9 /* MapPlacemark.swift in Sources */,
 				13741B6C2400D866003D1EEB /* MapDataSource.swift in Sources */,
+				1336A320241D924300949F32 /* DiningItem.swift in Sources */,
 				559A7B6D2373DEFA004EA501 /* MaterialTableViewCell.swift in Sources */,
 				13EA64CD2399CEDA00FD8E13 /* Gym.swift in Sources */,
 				1396013523865E2E005E4788 /* CardView.swift in Sources */,
+				1336A322241D92F700949F32 /* MealType.swift in Sources */,
 				303F6AE1236A931D007E37DD /* TabBarControl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

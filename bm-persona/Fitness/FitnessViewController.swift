@@ -302,7 +302,7 @@ extension FitnessViewController {
     func setupFilterTableView() {
         let filters = [
             Filter<Gym>(label: "Nearby", filter: {gym in gym.getDistanceToUser(userLoc: self.location) < Gym.nearbyDistance}),
-            Filter<Gym>(label: "Open", filter: {gym in gym.isOpen}),
+            Filter<Gym>(label: "Open", filter: {gym in gym.isOpen ?? false}),
         ]
         filterTableView = FilterTableView(frame: .zero, filters: filters)
         self.filterTableView.tableView.register(FilterTableViewCell.self, forCellReuseIdentifier: FilterTableViewCell.kCellIdentifier)

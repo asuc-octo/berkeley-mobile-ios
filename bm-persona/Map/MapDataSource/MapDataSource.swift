@@ -42,10 +42,7 @@ class MapDataSource: DataSource {
             return nil
         }
         let cl = CLLocationCoordinate2D(latitude: lat, longitude: lon)
-        var weeklyHours: [DateInterval?]? = nil
-        if let openClose = dict["open_close_array"] as? [[String: Any]] {
-            weeklyHours = parseWeeklyTimes(openClose)
-        }
+        let weeklyHours = MapMarker.parseWeeklyHours(dict: dict["open_close_array"] as? [[String: Any]])
         return MapMarker(type: type,
                          location: cl,
                          name: dict["name"] as? String,

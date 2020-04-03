@@ -124,7 +124,7 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
     func setupFilterTableView() {
         let filters = [
             Filter<Library>(label: "Nearby", filter: {lib in lib.getDistanceToUser(userLoc: self.location) < Library.nearbyDistance}),
-            Filter<Library>(label: "Open", filter: {lib in lib.isOpen}),
+            Filter<Library>(label: "Open", filter: {lib in lib.isOpen ?? false}),
         ]
         filterTableView = FilterTableView(frame: .zero, filters: filters)
         self.filterTableView.tableView.register(FilterTableViewCell.self, forCellReuseIdentifier: FilterTableViewCell.kCellIdentifier)

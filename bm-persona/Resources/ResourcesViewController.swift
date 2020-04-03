@@ -100,7 +100,7 @@ extension ResourcesViewController {
         card.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
         card.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
         
-        let filters = [Filter<Resource>(label: "Open", filter: {resource in resource.isOpen})]
+        let filters = [Filter<Resource>(label: "Open", filter: {resource in resource.isOpen ?? false})]
         resourcesTable = FilterTableView(frame: .zero, filters: filters)
         
         resourcesTable.tableView.delegate = self
