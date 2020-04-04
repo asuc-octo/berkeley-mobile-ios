@@ -45,27 +45,15 @@ class Gym: SearchItem, HasLocation, HasOpenTimes {
     let address: String?
     let phoneNumber: String?
     
-    var openingTimeToday: Date? = nil
-    var closingTimeToday: Date? = nil
+    let weeklyHours: WeeklyHours?
+    
     var latitude: Double?
     var longitude: Double?
     
-    var isOpen: Bool {
-        var status = false
-        if let open = openingTimeToday,
-           let close = closingTimeToday {
-            if Date().isBetween(open, close) || close == open {
-                status = true
-            }
-        }
-        return status
-    }
-    
-    init(name: String, address: String?, phoneNumber: String?, imageLink: String?, openingTimeToday: Date?, closingTimeToday: Date?) {
+    init(name: String, address: String?, phoneNumber: String?, imageLink: String?, weeklyHours: WeeklyHours?) {
         self.address = address
         self.phoneNumber = phoneNumber
-        self.openingTimeToday = openingTimeToday
-        self.closingTimeToday = closingTimeToday
+        self.weeklyHours = weeklyHours
         
         self.name = name
         self.imageURL = URL(string: imageLink ?? "")
