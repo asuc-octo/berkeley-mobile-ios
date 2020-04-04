@@ -146,6 +146,7 @@ extension FitnessViewController: UITableViewDelegate, UITableViewDataSource {
             }
             
             if gym.image == nil {
+                cell.cellImage.image = UIImage(named: "DoeGlade")
                 DispatchQueue.global().async {
                     if gym.imageURL == nil {
                         return
@@ -153,8 +154,10 @@ extension FitnessViewController: UITableViewDelegate, UITableViewDataSource {
                     guard let imageData = try? Data(contentsOf: gym.imageURL!) else { return }
                     let image = UIImage(data: imageData)
                     DispatchQueue.main.async {
-                        cell.cellImage.image = image
                         gym.image = image
+                        if tableView.visibleCells.contains(cell) {
+                            cell.cellImage.image = image
+                        }
                     }
                 }
             } else {
