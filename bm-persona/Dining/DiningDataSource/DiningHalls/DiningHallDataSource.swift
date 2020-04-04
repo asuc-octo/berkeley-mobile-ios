@@ -77,7 +77,9 @@ class DiningHallDataSource: DataSource {
         let diningHall = DiningHall(name: dict["name"] as? String ?? "Unnamed",
                                   imageLink: dict["picture"] as? String,
                                   shifts: MealMap(),
-                                  hours: weeklyHours)
+                                  hours: weeklyHours,
+                                  latitude: dict["latitude"] as? Double,
+                                  longitude: dict["longitude"] as? Double)
         return diningHall
     }
     
