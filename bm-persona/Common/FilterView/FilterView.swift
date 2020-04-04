@@ -34,6 +34,7 @@ class FilterView: UICollectionView {
         layout.minimumLineSpacing = 13
         
         super.init(frame: frame, collectionViewLayout: layout)
+
         delegate = self
         dataSource = self
         backgroundColor = .clear
@@ -51,6 +52,7 @@ class FilterView: UICollectionView {
     }
 
 }
+
 
 // MARK: - UICollectionViewDelegate
 

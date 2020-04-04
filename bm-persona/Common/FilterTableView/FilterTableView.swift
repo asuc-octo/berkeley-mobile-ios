@@ -13,6 +13,8 @@ fileprivate let kViewMargin: CGFloat = 16
 class FilterTableView<T>: UIView {
     
     let tableView = UITableView(frame: .zero, style: .plain)
+    var missingView: MissingDataView!
+
     var filter: FilterView = FilterView(frame: .zero)
     var data: [T] = []
     var filteredData: [T] = []
@@ -49,7 +51,10 @@ class FilterTableView<T>: UIView {
     
     init(frame: CGRect, filters: [Filter<T>]) {
         super.init(frame: frame)
+        
+        self.setupMissingView()
         self.filters = filters
+        self.update()
     }
     
     func setData(data: [T]) {
@@ -79,6 +84,13 @@ class FilterTableView<T>: UIView {
           filtered in
             self.filteredData = filtered
             self.sort()
+            
+            if (self.filteredData.count == 0) {
+                self.missingView.isHidden = false
+            } else {
+                self.missingView.isHidden = true
+            }
+            
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
@@ -86,6 +98,24 @@ class FilterTableView<T>: UIView {
     }
     
 }
+
+extension FilterTableView {
+    func setupMissingView() {
+        let view = MissingDataView()
+        
+        view.isHidden = true
+        self.addSubview(view)
+        
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.topAnchor.constraint(equalTo: self.layoutMarginsGuide.topAnchor).isActive = true
+        view.leftAnchor.constraint(equalTo: self.layoutMarginsGuide.leftAnchor).isActive = true
+        view.rightAnchor.constraint(equalTo: self.layoutMarginsGuide.rightAnchor).isActive = true
+        view.bottomAnchor.constraint(equalTo: self.layoutMarginsGuide.bottomAnchor).isActive = true
+        
+        missingView = view
+    }
+}
+
 
 extension FilterTableView: FilterViewDelegate {
     

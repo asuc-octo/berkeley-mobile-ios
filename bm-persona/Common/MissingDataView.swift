@@ -19,7 +19,7 @@ class MissingDataView: UIView {
         label.textColor = Color.darkGrayText
         label.textAlignment = .center
         label.font = Font.medium(18)
-        label.text = "Looks like we don't have any data"
+        label.text = "No items found"
         
         label.translatesAutoresizingMaskIntoConstraints = false
         
