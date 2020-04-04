@@ -15,6 +15,7 @@ class CalendarViewController: UIViewController {
     private var eventsLabel: UILabel!
     
     private var upcomingCard: CardView!
+    private var missingView: MissingDataView!
     private var eventsCollection: CardCollectionView!
     
     private var calendarTable: UITableView!
@@ -33,6 +34,7 @@ class CalendarViewController: UIViewController {
         setupScrollView()
         setupUpcoming()
         setupCalendarList()
+        setupMissingView()
         
         DataManager.shared.fetch(source: CalendarDataSource.self) { calendarEntries in
             self.calendarEntries = calendarEntries as? [CalendarEntry] ?? []
@@ -45,6 +47,14 @@ class CalendarViewController: UIViewController {
             self.calendarEntries = self.calendarEntries.filter({
                 $0.date! > Date()
             })
+            if (self.calendarEntries.count == 0) {
+                self.missingView.isHidden = false
+                self.calendarTable.isHidden = true
+            } else {
+                self.missingView.isHidden = true
+                self.calendarTable.isHidden = false
+            }
+            
             self.calendarTable.reloadData()
         }
     }
@@ -79,7 +89,7 @@ extension CalendarViewController: UITableViewDelegate, UITableViewDataSource {
 extension CalendarViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return min(calendarEntries.count, 4)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -152,6 +162,20 @@ extension CalendarViewController {
 
         calendarCard = card
         calendarTable = table
+    }
+    
+    // Missing Content View
+    func setupMissingView() {
+        missingView = MissingDataView()
+        missingView.isHidden = true
+        
+        calendarCard.addSubview(missingView)
+        
+        missingView.translatesAutoresizingMaskIntoConstraints = false
+        missingView.topAnchor.constraint(equalTo: calendarCard.layoutMarginsGuide.topAnchor).isActive = true
+        missingView.leftAnchor.constraint(equalTo: calendarCard.layoutMarginsGuide.leftAnchor).isActive = true
+        missingView.rightAnchor.constraint(equalTo: calendarCard.layoutMarginsGuide.rightAnchor).isActive = true
+        missingView.bottomAnchor.constraint(equalTo: calendarCard.layoutMarginsGuide.bottomAnchor).isActive = true
     }
     
     func setupUpcoming() {
