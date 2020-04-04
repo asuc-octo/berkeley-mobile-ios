@@ -7,24 +7,48 @@
 //
 
 import Foundation
+import UIKit
 
 /**
     `DiningHall` represents a single physical dining location.
     Each hall contains the `DiningMenu`, Open & Close times for every `MealType`.
 */
-#warning("TODO: Make DiningHall implement SearchItem and HasLocation")
-class DiningHall: HasOpenTimes {
+class DiningHall: HasOpenTimes, SearchItem, HasLocation {
+    static var nearbyDistance: Double = 10
+    static var invalidDistance: Double = 100
+    
+    var searchName: String {
+        return name
+    }
+    
+    var location: (Double, Double) {
+        return (latitude ?? 0, longitude ?? 0)
+    }
+    
+    var locationName: String {
+        return "Berkeley, CA"
+    }
+    
+    var description: String {
+        return ""
+    }
     
     let name: String
     let imageURL: URL?
     var meals: MealMap
     var weeklyHours: WeeklyHours?
+    var image: UIImage?
     
-    init(name: String, imageLink: String?, shifts: MealMap, hours: WeeklyHours?) {
+    var latitude: Double?
+    var longitude: Double?
+    
+    init(name: String, imageLink: String?, shifts: MealMap, hours: WeeklyHours?, latitude: Double?, longitude: Double?) {
         self.name = name
         self.imageURL = URL(string: imageLink ?? "")
         self.meals = shifts
         self.weeklyHours = hours
+        self.latitude = latitude
+        self.longitude = longitude
     }
     
 }
