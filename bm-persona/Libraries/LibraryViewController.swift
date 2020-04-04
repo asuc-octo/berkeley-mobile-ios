@@ -36,7 +36,7 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
-      
+        
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.startUpdatingLocation()
@@ -62,6 +62,16 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
         //removes separator lines
         safeArea = view.layoutMarginsGuide
         setupTableView()
+    }
+    
+    #warning("remove this")
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = DiningDetailViewController()
+        print("a")
+        DataManager.shared.fetch(source: DiningHallDataSource.self) { halls in
+            vc.diningHall = halls[0] as! DiningHall
+            self.present(vc, animated: true, completion: nil)
+        }
     }
     
     func setupTableView() {
@@ -113,6 +123,7 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
         filterTableView = FilterTableView(frame: .zero, filters: filters)
         self.filterTableView.tableView.register(FilterTableViewCell.self, forCellReuseIdentifier: FilterTableViewCell.kCellIdentifier)
         self.filterTableView.tableView.dataSource = self
+        self.filterTableView.tableView.delegate = self
     }
     
     //number of rows to be shown in tableview
