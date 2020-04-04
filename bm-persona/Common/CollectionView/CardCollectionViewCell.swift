@@ -23,10 +23,14 @@ class CardCollectionViewCell: UICollectionViewCell {
         
         title = UILabel()
         title.font = Font.bold(18)
+        title.lineBreakMode = .byTruncatingTail
+        title.sizeToFit()
+        title.numberOfLines = 1
         contentView.addSubview(title)
         title.translatesAutoresizingMaskIntoConstraints = false
         title.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor).isActive = true
         title.leftAnchor.constraint(equalTo: layoutMarginsGuide.leftAnchor).isActive = true
+        title.rightAnchor.constraint(equalTo: layoutMarginsGuide.rightAnchor).isActive = true
         
         badge = TagView(origin: .zero, text: "", color: .clear)
         contentView.addSubview(badge)
@@ -35,7 +39,7 @@ class CardCollectionViewCell: UICollectionViewCell {
         badge.rightAnchor.constraint(equalTo: layoutMarginsGuide.rightAnchor).isActive = true
         
         subtitle = UILabel()
-        subtitle.font = Font.thin(10)
+        subtitle.font = Font.thin(12)
         contentView.addSubview(subtitle)
         subtitle.translatesAutoresizingMaskIntoConstraints = false
         subtitle.centerYAnchor.constraint(equalTo: badge.centerYAnchor).isActive = true

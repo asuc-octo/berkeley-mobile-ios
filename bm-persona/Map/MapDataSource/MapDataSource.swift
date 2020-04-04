@@ -14,7 +14,7 @@ class MapDataSource: DataSource {
     
     // Calls the completion handler once markers of all types have finished parsing
     static func fetchItems(_ completion: @escaping DataSource.completionHandler) {
-        var markers = [String: [MapMarker]]()
+        let markers = AtomicDictionary<String, [MapMarker]>()
         let requests = DispatchGroup()
         let db = Firestore.firestore()
         for query in MapMarkerType.allCases {
