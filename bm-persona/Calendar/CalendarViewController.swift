@@ -54,13 +54,14 @@ class CalendarViewController: UIViewController {
 // MARK: - UITableViewDelegate
 
 extension CalendarViewController: UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return calendarEntries.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = EventTableViewCell()
-        cell.cellConfigure(entry: calendarEntries[indexPath.section])
+        cell.cellConfigure(entry: calendarEntries[indexPath.row])
         return cell
     }
     
@@ -68,22 +69,8 @@ extension CalendarViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return calendarEntries.count
-    }
-    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 106
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 15
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UIView()
-        headerView.backgroundColor = Color.cardBackground
-        return headerView
+        return 86
     }
 
 }
@@ -154,6 +141,7 @@ extension CalendarViewController {
         let table = UITableView()
         table.delegate = self
         table.dataSource = self
+        table.showsVerticalScrollIndicator = false
         scrollView.addSubview(table)
         table.separatorStyle = .none
         table.translatesAutoresizingMaskIntoConstraints = false
