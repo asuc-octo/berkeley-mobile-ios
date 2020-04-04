@@ -34,6 +34,8 @@ class DiningViewController: UIViewController {
         locationManager.startUpdatingLocation()
         location = locationManager.location
         
+        filterTableView.setSortFunc(newSortFunc: {dh1, dh2 in SortingFunctions.sortClose(loc1: dh1, loc2: dh2, location: self.location, locationManager: self.locationManager)})
+        
         DataManager.shared.fetch(source: DiningHallDataSource.self) { diningLocations in
             self.diningLocations = diningLocations as? [DiningHall] ?? []
             self.filterTableView.setData(data: diningLocations as! [DiningHall])
@@ -156,10 +158,10 @@ extension DiningViewController {
     
     // Table of dining locations
     func setupTableView() {
-        let filters = [Filter<DiningHall>(label: "Open", filter: {dh in dh.isOpen ?? false})]
+        let filters = [Filter<DiningHall>(label: "Nearby", filter: {dh in dh.getDistanceToUser(userLoc: self.location) < DiningHall.nearbyDistance}),
+            Filter<DiningHall>(label: "Open", filter: {dh in dh.isOpen ?? false})]
         self.filterTableView = FilterTableView(frame: .zero, filters: filters)
         self.filterTableView.tableView.register(FilterTableViewCell.self, forCellReuseIdentifier: FilterTableViewCell.kCellIdentifier)
         self.filterTableView.tableView.dataSource = self
-        self.filterTableView.tableView.delegate = self
     }
 }
