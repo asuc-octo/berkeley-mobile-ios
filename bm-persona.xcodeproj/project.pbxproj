@@ -27,7 +27,7 @@
 		13491DBA241E23630033F9AB /* Colors+Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13491DB9241E23630033F9AB /* Colors+Text.swift */; };
 		13491DBC242098B30033F9AB /* AtomicDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13491DBB242098B30033F9AB /* AtomicDictionary.swift */; };
 		13492D2D240E179F00AD3D1F /* MapMarkerDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13492D2C240E179F00AD3D1F /* MapMarkerDetailView.swift */; };
-		13580AF82439262100D309AA /* DiningRestriction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13580AF72439262100D309AA /* DiningRestriction.swift */; };
+		13580AFE24393B9D00D309AA /* DiningRestriction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13580AFD24393B9D00D309AA /* DiningRestriction.swift */; };
 		136DC97B2398B4D1009B1810 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136DC97A2398B4D1009B1810 /* UIViewController+Extensions.swift */; };
 		136DC97D2398B4F3009B1810 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136DC97C2398B4F3009B1810 /* UIImage+Extensions.swift */; };
 		13741B6C2400D866003D1EEB /* MapDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13741B6B2400D866003D1EEB /* MapDataSource.swift */; };
@@ -109,7 +109,7 @@
 		13491DB9241E23630033F9AB /* Colors+Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+Text.swift"; sourceTree = "<group>"; };
 		13491DBB242098B30033F9AB /* AtomicDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtomicDictionary.swift; sourceTree = "<group>"; };
 		13492D2C240E179F00AD3D1F /* MapMarkerDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMarkerDetailView.swift; sourceTree = "<group>"; };
-		13580AF72439262100D309AA /* DiningRestriction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiningRestriction.swift; sourceTree = "<group>"; };
+		13580AFD24393B9D00D309AA /* DiningRestriction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningRestriction.swift; sourceTree = "<group>"; };
 		136DC97A2398B4D1009B1810 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		136DC97C2398B4F3009B1810 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		13741B6B2400D866003D1EEB /* MapDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapDataSource.swift; sourceTree = "<group>"; };
@@ -216,7 +216,7 @@
 			children = (
 				1336A32A241DA64B00949F32 /* DiningHalls */,
 				1336A31F241D924300949F32 /* DiningItem.swift */,
-				13580AF72439262100D309AA /* DiningRestriction.swift */
+				13580AFD24393B9D00D309AA /* DiningRestriction.swift */,
 				1336A321241D92F700949F32 /* MealType.swift */,
 			);
 			path = DiningDataSource;
@@ -723,7 +723,6 @@
 				559A7B6B2373DCBA004EA501 /* SearchResultsView.swift in Sources */,
 				13EA64C82399CE0800FD8E13 /* GymDataSource.swift in Sources */,
 				55DCF78923722CF1001B01B8 /* Fonts.swift in Sources */,
-				13580AF82439262100D309AA /* DiningRestriction.swift in Sources */,
 				13492D2D240E179F00AD3D1F /* MapMarkerDetailView.swift in Sources */,
 				1346B9192420AD4800383399 /* WeeklyHours.swift in Sources */,
 				13EA64D02399D50C00FD8E13 /* DataManager.swift in Sources */,
@@ -737,6 +736,7 @@
 				1336A329241DA56100949F32 /* DiningHallDataSource.swift in Sources */,
 				136DC97B2398B4D1009B1810 /* UIViewController+Extensions.swift in Sources */,
 				13491DB6241E21740033F9AB /* Colors+TagView.swift in Sources */,
+				13580AFE24393B9D00D309AA /* DiningRestriction.swift in Sources */,
 				556CCD2223E7771800F41BF9 /* MapPlacemark.swift in Sources */,
 				13741B6C2400D866003D1EEB /* MapDataSource.swift in Sources */,
 				1336A320241D924300949F32 /* DiningItem.swift in Sources */,
