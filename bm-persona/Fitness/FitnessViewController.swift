@@ -181,6 +181,7 @@ extension FitnessViewController {
         view.addSubview(scrollView)
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.setConstraintsToView(top: view, bottom: view, left: view, right: view)
+        scrollView.showsVerticalScrollIndicator = false
         
         content = UIView()
         scrollView.addSubview(content)
