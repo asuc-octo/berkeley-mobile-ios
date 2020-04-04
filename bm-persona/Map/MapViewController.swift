@@ -316,8 +316,8 @@ extension MapViewController: SearchResultsViewDelegate, SearchDetailViewDelegate
     func choosePlacemark(_ placemark: MapPlacemark) {
         let location = placemark.location
         showSearchResultsView(false)
-        searchBar.textFieldDidEndEditing(searchBar.textField)
         searchBar.textField.text = ""
+        searchBar.textFieldDidEndEditing(searchBar.textField)
         removeAnnotations(type: SearchAnnotation.self)
         if location != nil {
             let regionRadius: CLLocationDistance = 250
@@ -335,8 +335,9 @@ extension MapViewController: SearchResultsViewDelegate, SearchDetailViewDelegate
                 //TODO: set up actual detail view
                 let detailView = UIView()
                 detailView.backgroundColor = .red
-                detailView.layer.cornerRadius = 40
+                detailView.layer.cornerRadius = 50
                 detailView.clipsToBounds = true
+                detailView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
                 detailViewController.view = detailView
                 
                 let superView = detailViewController.view.superview!

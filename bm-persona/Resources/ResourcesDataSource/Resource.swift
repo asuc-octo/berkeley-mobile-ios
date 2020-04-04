@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 
 class Resource: SearchItem, HasLocation, HasOpenTimes {
+    var icon: UIImage?
+    
     static var nearbyDistance: Double = 10
     static var invalidDistance: Double = 100
     
