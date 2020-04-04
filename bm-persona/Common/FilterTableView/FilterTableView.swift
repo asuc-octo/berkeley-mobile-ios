@@ -44,6 +44,7 @@ class FilterTableView<T>: UIView {
         tableView.contentInset = UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0)
         tableView.setContentOffset(CGPoint(x: 0, y: -5), animated: false)
         tableView.contentInsetAdjustmentBehavior = .never
+        tableView.showsVerticalScrollIndicator = false
     }
     
     init(frame: CGRect, filters: [Filter<T>]) {
