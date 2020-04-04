@@ -29,15 +29,6 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
         return img
     }()
     
-    let filterImage:UIImageView = {
-        let img = UIImageView()
-        img.contentMode = .scaleAspectFit
-        img.image = UIImage(named: "Filter")
-        img.translatesAutoresizingMaskIntoConstraints = false
-        img.clipsToBounds = true
-        return img
-    }()
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -99,16 +90,9 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
         bookImage.heightAnchor.constraint(equalToConstant: 26).isActive = true
         bookImage.widthAnchor.constraint(equalToConstant: 26).isActive = true
         
-        card.addSubview(filterImage)
-        filterImage.centerYAnchor.constraint(equalTo: studyLabel.centerYAnchor).isActive = true
-        filterImage.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive
-            = true
-        filterImage.heightAnchor.constraint(equalToConstant: 22).isActive = true
-        filterImage.widthAnchor.constraint(equalToConstant: 22).isActive = true
-        
         studyLabel.translatesAutoresizingMaskIntoConstraints = false
         studyLabel.leftAnchor.constraint(equalTo: bookImage.rightAnchor, constant: 15).isActive = true
-        studyLabel.rightAnchor.constraint(equalTo: filterImage.leftAnchor, constant: -15).isActive = true
+        studyLabel.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
         studyLabel.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true
         
         setupFilterTableView()
@@ -171,6 +155,7 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
             }
             
             if lib.image == nil {
+                cell.cellImage.image = UIImage(named: "DoeGlade")
                 DispatchQueue.global().async {
                     if lib.imageURL == nil {
                         return
@@ -178,8 +163,10 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
                     guard let imageData = try? Data(contentsOf: lib.imageURL!) else { return }
                     let image = UIImage(data: imageData)
                     DispatchQueue.main.async {
-                        cell.cellImage.image = image
                         lib.image = image
+                        if tableView.visibleCells.contains(cell) {
+                            cell.cellImage.image = image
+                        }
                     }
                 }
             } else {
@@ -189,14 +176,6 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
             return cell
         }
         return UITableViewCell()
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        // this will turn on `masksToBounds` just before showing the cell
-        cell.contentView.layer.masksToBounds = true
-        //to prevent laggy scrolling
-        let radius = cell.contentView.layer.cornerRadius
-        cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: radius).cgPath
     }
     
 }

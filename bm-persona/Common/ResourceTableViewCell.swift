@@ -11,40 +11,43 @@ import UIKit
 class ResourceTableViewCell: UITableViewCell {
 
     private var resourceName: UILabel!
-    private var resourceCategory: UILabel!
+    private var resourceCategory: TagView!
     private var resourceImage: UIImageView!
-    
-    override var frame: CGRect {
-        get {
-            return super.frame
-        }
-        set (newFrame) {
-            var frame = newFrame
-            frame.origin.x += 5
-            frame.size.width -= 10
-            super.frame = frame
-        }
-    }
    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        // Setup spacing between cells
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top:7.5, left:5, bottom:7.5, right:5))
+        backgroundView?.frame = contentView.frame
+        selectedBackgroundView?.frame = contentView.frame
+        
+        // Setup corner radius and drop shadow
+        backgroundColor = .clear
+        backgroundView?.backgroundColor = Color.modalBackground
+        
+        backgroundView?.layer.masksToBounds = false
+        backgroundView?.layer.cornerRadius = 6
+        selectedBackgroundView?.layer.masksToBounds = true
+        selectedBackgroundView?.layer.cornerRadius = 6
+        contentView.layer.masksToBounds = true
+        contentView.layer.cornerRadius = 6
+        
+        backgroundView?.layer.shadowOpacity = 0.25
+        backgroundView?.layer.shadowRadius = 5
+        backgroundView?.layer.shadowOffset = .zero
+        backgroundView?.layer.shadowColor = UIColor.black.cgColor
+        backgroundView?.layer.shadowPath = UIBezierPath(rect: contentView.bounds.insetBy(dx: 4, dy: 4)).cgPath
+    }
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        backgroundColor = Color.modalBackground
-            
-        selectedBackgroundView?.layer.masksToBounds = true
-        selectedBackgroundView?.layer.cornerRadius = 12
-        layer.masksToBounds = true
-        layer.cornerRadius = 12
-        contentView.layer.masksToBounds = true
-        contentView.layer.cornerRadius = 12
+        contentView.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
         
-        layer.shadowColor = UIColor.black.cgColor
-        layer.shadowRadius = 3
-        layer.shadowOpacity = 0.2
-        layer.shadowOffset = .zero
-        
+        backgroundView = UIView()
         resourceName = UILabel()
-        resourceCategory = UILabel()
+        resourceCategory = TagView()
         resourceImage = UIImageView()
         
         contentView.addSubview(resourceName)
@@ -59,29 +62,22 @@ class ResourceTableViewCell: UITableViewCell {
         resourceName.numberOfLines = 2
         resourceName.adjustsFontSizeToFitWidth = true
         resourceName.minimumScaleFactor = 0.7
-        resourceName.sizeToFit()
-        resourceName.layoutMargins = UIEdgeInsets(top: 21, left: 14, bottom: 0, right: 0)
+        resourceName.setContentHuggingPriority(.required, for: .vertical)
         resourceName.leftAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
         resourceName.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
         resourceName.rightAnchor.constraint(equalTo: resourceImage.leftAnchor, constant: -10).isActive = true
-        resourceName.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        resourceName.bottomAnchor.constraint(lessThanOrEqualTo: resourceCategory.topAnchor, constant: -5).isActive = true
         
         resourceImage.image = UIImage(named: "DoeGlade")  // TODO: - Dynamically load once backend updated
-        resourceImage.layoutMargins = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: -5)
         resourceImage.layer.masksToBounds = true
-        resourceImage.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
-        resourceImage.rightAnchor.constraint(equalTo: contentView.layoutMarginsGuide.rightAnchor).isActive = true
-        resourceImage.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor).isActive = true
+        resourceImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5).isActive = true
+        resourceImage.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -5).isActive = true
+        resourceImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5).isActive = true
         resourceImage.widthAnchor.constraint(equalToConstant: contentView.frame.height * 2.33).isActive = true
         resourceImage.contentMode = .scaleAspectFill
 
-        resourceCategory.font = Font.regular(12)
-        resourceCategory.padding = UIEdgeInsets(top: 5, left: 15, bottom: 5, right: 15)
-        resourceCategory.frame.size.height = 18
-        resourceCategory.layer.masksToBounds = true
-        resourceCategory.layer.cornerRadius = resourceCategory.frame.height / 1.5
         resourceCategory.backgroundColor = Color.eventDefault
-        resourceCategory.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 14, right: 0)
+        resourceCategory.setContentCompressionResistancePriority(.required, for: .vertical)
         resourceCategory.leftAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
         resourceCategory.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor).isActive = true
     }
@@ -96,12 +92,6 @@ class ResourceTableViewCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
 
 }

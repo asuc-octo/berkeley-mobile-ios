@@ -17,11 +17,13 @@ class DiningItem {
     let name: String
     
     // Additional information regarding food such as allergens or alternative options
-    let restrictions: [String]
+    let restrictions: [DiningRestriction]
     
     init(name: String, restrictions: [String]) {
         self.name = name
-        self.restrictions = restrictions
+        self.restrictions = restrictions.map { (rawValue) -> DiningRestriction in
+            return DiningRestriction(rawValue: rawValue)
+        }
     }
 }
 
