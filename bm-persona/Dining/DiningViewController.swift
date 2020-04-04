@@ -19,6 +19,15 @@ class DiningViewController: UIViewController {
     
     private var locationManager = CLLocationManager()
     private var location: CLLocation?
+    
+    let bookImage:UIImageView = {
+        let img = UIImageView()
+        img.contentMode = .scaleAspectFit
+        img.image = UIImage(named: "Book")
+        img.translatesAutoresizingMaskIntoConstraints = false
+        img.clipsToBounds = true
+        return img
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +36,6 @@ class DiningViewController: UIViewController {
         view.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
         
         setupCardView()
-        setupTableView()
         
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -138,9 +146,16 @@ extension DiningViewController {
         header.adjustsFontSizeToFitWidth = true
         header.textColor = Color.blackText
         card.addSubview(header)
+        
+        card.addSubview(bookImage)
+        bookImage.centerYAnchor.constraint(equalTo: header.centerYAnchor).isActive = true
+        bookImage.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
+        bookImage.heightAnchor.constraint(equalToConstant: 26).isActive = true
+        bookImage.widthAnchor.constraint(equalToConstant: 26).isActive = true
+        
         header.translatesAutoresizingMaskIntoConstraints = false
         header.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true
-        header.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
+        header.leftAnchor.constraint(equalTo: bookImage.rightAnchor, constant: 15).isActive = true
         header.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
         
         setupTableView()
