@@ -12,69 +12,315 @@ import CoreLocation
 fileprivate let kHeaderFont: UIFont = Font.bold(24)
 fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
 fileprivate let kViewMargin: CGFloat = 16
-
 class DiningDetailViewController: UIViewController {
     
     var diningHall: DiningHall?
-    var contentHelper: UIView!
     var locationManager = CLLocationManager()
     var location: CLLocation?
-    var distLabel = UILabel()
+    var control: TabBarControl!
+    var meals: MealMap!
+    var mealNames: [MealType]!
+    var menuView: FilterTableView = FilterTableView<DiningItem>(frame: .zero, filters: [])
+    static let cellHeight: CGFloat = 45
+    static let cellSpacingHeight: CGFloat = 5
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
         
         locationManager.delegate = self
-        view.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         setUpOverviewCard()
+        setupMenuControl()
+        setupMenu()
         
         if CLLocationManager.locationServicesEnabled() {
             locationManager.requestLocation()
         }
     }
+    
+    let nameLabel: UILabel = {
+        let label = UILabel()
+        label.font = Font.semibold(24)
+        label.textColor = Color.blackText
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.75
+        label.numberOfLines = 2
+        return label
+    }()
+    
+    let card: CardView = {
+        let card = CardView()
+        card.isUserInteractionEnabled = true
+        card.layoutMargins = kCardPadding
+        card.translatesAutoresizingMaskIntoConstraints = false
+        return card
+    }()
+    
+    let diningImage: UIImageView = {
+        let image = UIImageView()
+        image.translatesAutoresizingMaskIntoConstraints = false
+        return image
+    }()
+    
+    let addressIcon: UIImageView = {
+        let image = UIImageView()
+        image.image = UIImage(named: "Placemark")
+        image.translatesAutoresizingMaskIntoConstraints = false
+        image.contentMode = .scaleAspectFit
+        image.clipsToBounds = true
+        return image
+    }()
+    
+    let addressLabel: UILabel = {
+        let label = UILabel()
+        label.font = Font.light(12)
+        label.textColor = Color.blackText
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.75
+        label.numberOfLines = 1
+        return label
+    }()
+    
+    let clockIcon: UIImageView = {
+        let image = UIImageView()
+        image.image = UIImage(named: "Placemark")
+        image.translatesAutoresizingMaskIntoConstraints = false
+        image.contentMode = .scaleAspectFit
+        image.clipsToBounds = true
+        return image
+    }()
+    
+    let openTimeLabel: UILabel = {
+        let label = UILabel()
+        label.font = Font.light(12)
+        label.textColor = Color.blackText
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.75
+        label.numberOfLines = 1
+        return label
+    }()
+    
+    let openTag: TagView = {
+        let tag = TagView(origin: .zero, text: "", color: .clear)
+        tag.translatesAutoresizingMaskIntoConstraints = false
+        return tag
+    }()
+    
+    let chairImage:UIImageView = {
+        let img = UIImageView()
+        img.contentMode = .scaleAspectFit
+        img.image = UIImage(named: "Chair")
+        img.translatesAutoresizingMaskIntoConstraints = false
+        img.clipsToBounds = true
+        return img
+    }()
+    
+    let capBadge:TagView = {
+        let cap = TagView(origin: .zero, text: "", color: .clear)
+        cap.translatesAutoresizingMaskIntoConstraints = false
+        return cap
+    }()
+    
+    let faveButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .clear
+        button.addTarget(self, action: #selector(toggleFave(sender:)), for: .touchUpInside)
+        button.isUserInteractionEnabled = true
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    let phoneIcon: UIImageView = {
+        let image = UIImageView()
+        image.image = UIImage(named: "Placemark")
+        image.translatesAutoresizingMaskIntoConstraints = false
+        image.contentMode = .scaleAspectFit
+        image.clipsToBounds = true
+        return image
+    }()
+    
+    let phoneLabel: UILabel =  {
+        let label = UILabel()
+        label.font = Font.light(12)
+        label.textColor = Color.blackText
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.75
+        label.numberOfLines = 1
+        return label
+    }()
+    
+    let distIcon: UIImageView = {
+        let image = UIImageView()
+        image.image = UIImage(named: "Walk")
+        image.translatesAutoresizingMaskIntoConstraints = false
+        image.contentMode = .scaleAspectFit
+        image.clipsToBounds = true
+        return image
+    }()
+    
+    let distLabel: UILabel =  {
+        let label = UILabel()
+        label.font = Font.light(12)
+        label.textColor = Color.blackText
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.75
+        label.numberOfLines = 1
+        return label
+    }()
 }
 
 extension DiningDetailViewController {
     
     func setUpOverviewCard() {
-        contentHelper = UIView()
-        view.addSubview(contentHelper)
+        view.layoutMargins = UIEdgeInsets(top: kViewMargin, left: kViewMargin, bottom: kViewMargin, right: kViewMargin)
         
-        let card = CardView()
-        card.isUserInteractionEnabled = true
-        card.layoutMargins = kCardPadding
         view.addSubview(card)
-        card.translatesAutoresizingMaskIntoConstraints = false
-        card.topAnchor.constraint(equalTo: contentHelper.layoutMarginsGuide.topAnchor).isActive = true
+        card.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
         card.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
         card.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
         card.heightAnchor.constraint(equalToConstant: 200).isActive = true
+        view.layoutSubviews()
         
-        let nameLabel = UILabel()
-        nameLabel.font = Font.semibold(20)
-        nameLabel.text = diningHall!.searchName
-        card.addSubview(nameLabel)
-        nameLabel.lineBreakMode = .byWordWrapping
-        nameLabel.numberOfLines = 0
-        nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        nameLabel.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true
-        nameLabel.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
-        nameLabel.widthAnchor.constraint(equalTo: card.layoutMarginsGuide.widthAnchor, multiplier: 0.5).isActive = true
-        nameLabel.heightAnchor.constraint(equalTo: card.layoutMarginsGuide.heightAnchor, multiplier: 0.5).isActive = true
-        nameLabel.adjustsFontSizeToFitWidth = true
-        
-        let addressIcon = UIImageView()
-        addressIcon.image = UIImage(named: "Placemark")
+        card.addSubview(clockIcon)
+        card.addSubview(openTimeLabel)
+        card.addSubview(openTag)
+        card.addSubview(chairImage)
+        card.addSubview(capBadge)
+        card.addSubview(faveButton)
+        card.addSubview(diningImage)
+        card.addSubview(phoneIcon)
+        card.addSubview(phoneLabel)
+        card.addSubview(distIcon)
+        card.addSubview(distLabel)
         card.addSubview(addressIcon)
-        addressIcon.translatesAutoresizingMaskIntoConstraints = false
+        card.addSubview(addressLabel)
+        card.addSubview(nameLabel)
+        
+        clockIcon.bottomAnchor.constraint(equalTo: card.layoutMarginsGuide.bottomAnchor).isActive = true
+        clockIcon.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
+        clockIcon.widthAnchor.constraint(equalToConstant: 16).isActive = true
+        clockIcon.heightAnchor.constraint(equalToConstant: 16).isActive = true
+        
+        let formatter = DateIntervalFormatter()
+        formatter.dateStyle = .none
+        formatter.timeStyle = .short
+        let date = Date()
+        openTimeLabel.text = "     "
+        if let intervals = diningHall!.weeklyHours?.hoursForWeekday(DayOfWeek.weekday(date)) {
+            openTimeLabel.text = "Closed Today"
+            var nextOpenInterval: DateInterval? = nil
+            for interval in intervals {
+                if interval.contains(date) {
+                    nextOpenInterval = nil
+                    openTimeLabel.text = formatter.string(from: interval.start, to: interval.end)
+                    break
+                } else if date.compare(interval.start) == .orderedAscending {
+                    if nextOpenInterval == nil {
+                        nextOpenInterval = interval
+                    } else if interval.compare(nextOpenInterval!) == .orderedAscending {
+                        nextOpenInterval = interval
+                    }
+                }
+            }
+            if nextOpenInterval != nil {
+                openTimeLabel.text = formatter.string(from: nextOpenInterval!.start, to: nextOpenInterval!.end)
+            }
+        }
+        openTimeLabel.centerYAnchor.constraint(equalTo: clockIcon.centerYAnchor).isActive = true
+        openTimeLabel.leftAnchor.constraint(equalTo: clockIcon.rightAnchor, constant: 5).isActive = true
+        
+        openTag.text = "Open"
+        openTag.backgroundColor = Color.openTag
+        openTag.leftAnchor.constraint(equalTo: openTimeLabel.rightAnchor, constant: kViewMargin).isActive = true
+        openTag.centerYAnchor.constraint(equalTo: clockIcon.centerYAnchor).isActive = true
+        openTag.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        
+        chairImage.centerYAnchor.constraint(equalTo: clockIcon.centerYAnchor).isActive = true
+        chairImage.leftAnchor.constraint(greaterThanOrEqualTo: openTag.rightAnchor, constant: kViewMargin).isActive = true
+        chairImage.widthAnchor.constraint(equalToConstant: 25).isActive = true
+        chairImage.heightAnchor.constraint(equalToConstant: 25).isActive = true
+        chairImage.contentMode = .scaleAspectFit
+
+        //TODO: use actual capacity
+        capBadge.text = "High"
+        capBadge.backgroundColor = Color.highCapacityTag
+        capBadge.leftAnchor.constraint(equalTo: chairImage.rightAnchor, constant: 5).isActive = true
+        capBadge.centerYAnchor.constraint(equalTo: clockIcon.centerYAnchor).isActive = true
+        capBadge.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        capBadge.rightAnchor.constraint(equalTo: faveButton.leftAnchor, constant: -1 * kViewMargin).isActive = true
+
+        //TODO: use favorite icons
+        if diningHall!.isFavorited {
+            faveButton.setImage(UIImage(named: "Placemark"), for: .normal)
+        } else {
+            faveButton.setImage(UIImage(named: "Search"), for: .normal)
+        }
+        faveButton.centerYAnchor.constraint(equalTo: clockIcon.centerYAnchor).isActive = true
+        faveButton.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
+        faveButton.widthAnchor.constraint(equalToConstant: 25).isActive = true
+        faveButton.heightAnchor.constraint(equalToConstant: 25).isActive = true
+        
+        if diningHall!.image != nil {
+            diningImage.image = diningHall!.image
+        } else {
+            DispatchQueue.global().async {
+                guard let imageData = try? Data(contentsOf: self.diningHall!.imageURL!) else { return }
+                let image = UIImage(data: imageData)
+                DispatchQueue.main.async {
+                    self.diningHall!.image = image
+                    self.diningImage.image = image
+                }
+            }
+        }
+        diningImage.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
+        diningImage.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true
+        diningImage.bottomAnchor.constraint(equalTo: faveButton.topAnchor, constant: -1 * kViewMargin).isActive = true
+        diningImage.widthAnchor.constraint(equalTo: card.layoutMarginsGuide.widthAnchor, multiplier: 0.45).isActive = true
+        
+        phoneIcon.bottomAnchor.constraint(equalTo: clockIcon.topAnchor, constant: -1 * kViewMargin).isActive = true
+        phoneIcon.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
+        phoneIcon.widthAnchor.constraint(equalToConstant: 16).isActive = true
+        phoneIcon.heightAnchor.constraint(equalToConstant: 16).isActive = true
+        
+        if diningHall!.phoneNumber != nil {
+            phoneLabel.text = diningHall!.phoneNumber
+        } else {
+            phoneLabel.text = "     "
+        }
+        phoneLabel.centerYAnchor.constraint(equalTo: phoneIcon.centerYAnchor).isActive = true
+        phoneLabel.leftAnchor.constraint(equalTo: phoneIcon.layoutMarginsGuide.rightAnchor, constant:  kViewMargin).isActive = true
+        phoneLabel.rightAnchor.constraint(lessThanOrEqualTo: distIcon.leftAnchor, constant: -5).isActive = true
+        
+        distIcon.centerYAnchor.constraint(equalTo: phoneIcon.centerYAnchor).isActive = true
+        distIcon.widthAnchor.constraint(equalToConstant: 16).isActive = true
+        distIcon.heightAnchor.constraint(equalToConstant: 16).isActive = true
+        
+        if location != nil {
+            let dist = self.diningHall!.getDistanceToUser(userLoc: location)
+            if dist < DiningHall.invalidDistance {
+                self.distLabel.text = String(dist) + " mi"
+            } else {
+                self.distLabel.text = "     "
+            }
+        } else {
+            self.distLabel.text = "     "
+        }
+        
+        distLabel.centerYAnchor.constraint(equalTo: distIcon.centerYAnchor).isActive = true
+        distLabel.rightAnchor.constraint(equalTo: diningImage.leftAnchor, constant: -1 * kViewMargin).isActive = true
+        distLabel.leftAnchor.constraint(equalTo: distIcon.rightAnchor, constant: 5).isActive = true
+        distLabel.widthAnchor.constraint(equalToConstant: 35).isActive = true
+        
         addressIcon.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
-        addressIcon.topAnchor.constraint(equalTo: nameLabel.layoutMarginsGuide.bottomAnchor, constant: 20).isActive = true
-        addressIcon.widthAnchor.constraint(equalTo: card.layoutMarginsGuide.widthAnchor, multiplier: 0.06).isActive = true
-        addressIcon.contentMode = .scaleAspectFit
+        addressIcon.bottomAnchor.constraint(equalTo: phoneIcon.topAnchor, constant: -1 * kViewMargin).isActive = true
+        addressIcon.widthAnchor.constraint(equalToConstant: 16).isActive = true
+        addressIcon.heightAnchor.constraint(equalToConstant: 16).isActive = true
         
-        
-        let addressLabel = UILabel()
         if let longAddress = diningHall!.campusLocation {
             if let ind = longAddress.range(of: "Berkeley")?.upperBound {
                 let newAdress = longAddress[..<ind]
@@ -82,183 +328,87 @@ extension DiningDetailViewController {
             } else {
                 addressLabel.text = longAddress
             }
-        }
-        card.addSubview(addressLabel)
-        addressLabel.font = Font.light(12)
-        addressLabel.numberOfLines = 2
-        addressLabel.textColor = UIColor.black
-        addressLabel.translatesAutoresizingMaskIntoConstraints = false
-        addressLabel.topAnchor.constraint(equalTo: nameLabel.layoutMarginsGuide.bottomAnchor, constant: 20).isActive = true
-        addressLabel.leftAnchor.constraint(equalTo: addressIcon.layoutMarginsGuide.rightAnchor, constant: 8).isActive = true
-        addressLabel.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor, constant: -160).isActive = true
-        addressLabel.adjustsFontSizeToFitWidth = true
-        
-        let phoneIcon = UIImageView()
-        phoneIcon.image = UIImage(named: "Placemark")
-        card.addSubview(phoneIcon)
-        phoneIcon.translatesAutoresizingMaskIntoConstraints = false
-        phoneIcon.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
-        phoneIcon.topAnchor.constraint(equalTo: addressLabel.layoutMarginsGuide.bottomAnchor, constant: 20).isActive = true
-        phoneIcon.widthAnchor.constraint(equalTo: card.layoutMarginsGuide.widthAnchor, multiplier: 0.06).isActive = true
-        phoneIcon.contentMode = .scaleAspectFit
-        
-        let phoneLabel = UILabel()
-        phoneLabel.text = diningHall!.phoneNumber
-        card.addSubview(phoneLabel)
-        phoneLabel.font = Font.light(12)
-        phoneLabel.textColor = UIColor.black
-        phoneLabel.translatesAutoresizingMaskIntoConstraints = false
-        phoneLabel.topAnchor.constraint(equalTo: addressLabel.layoutMarginsGuide.bottomAnchor, constant: 20).isActive = true
-        phoneLabel.leftAnchor.constraint(equalTo: phoneIcon.layoutMarginsGuide.rightAnchor, constant:  8).isActive = true
-        phoneLabel.widthAnchor.constraint(equalTo: card.layoutMarginsGuide.widthAnchor, multiplier: 0.25).isActive = true
-        phoneLabel.adjustsFontSizeToFitWidth = true
-        
-//        let distIcon = UIImageView()
-//        distIcon.image = UIImage(named: "Walking")
-//        card.addSubview(distIcon)
-//        distIcon.translatesAutoresizingMaskIntoConstraints = false
-//        distIcon.leftAnchor.constraint(equalTo: phoneLabel.layoutMarginsGuide.rightAnchor, constant:  20).isActive = true
-//        distIcon.topAnchor.constraint(equalTo: addressLabel.layoutMarginsGuide.bottomAnchor, constant: 20).isActive = true
-//        distIcon.widthAnchor.constraint(equalTo: card.layoutMarginsGuide.widthAnchor, multiplier: 0.06).isActive = true
-//        distIcon.contentMode = .scaleAspectFit
-//        
-//        if self.diningHall != nil && location != nil {
-//            let dist = self.diningHall!.getDistanceToUser(userLoc: location)
-//            self.distLabel.text = String(dist) + " mi"
-//        } else {
-//            self.distLabel.text = ""
-//        }
-//        card.addSubview(distLabel)
-//        distLabel.font = Font.thin(12)
-//        distLabel.textColor = UIColor.black
-//        distLabel.translatesAutoresizingMaskIntoConstraints = false
-//        distLabel.topAnchor.constraint(equalTo: addressLabel.layoutMarginsGuide.bottomAnchor, constant: 20).isActive = true
-//        distLabel.leftAnchor.constraint(equalTo: addressIcon.layoutMarginsGuide.rightAnchor, constant: 8).isActive = true
-//        distLabel.widthAnchor.constraint(equalTo: card.layoutMarginsGuide.widthAnchor, multiplier: 0.25).isActive = true
-//        distLabel.adjustsFontSizeToFitWidth = true
-        
-        let diningPic = UIImageView()
-        if diningHall!.image != nil {
-            diningPic.image = diningHall!.image
         } else {
-            DispatchQueue.global().async {
-                guard let imageData = try? Data(contentsOf: self.diningHall!.imageURL!) else { return }
-                let image = UIImage(data: imageData)
-                DispatchQueue.main.async {
-                    self.diningHall!.image = image
-                    diningPic.image = image
-                }
-            }
+            addressLabel.text = ""
         }
-        card.addSubview(diningPic)
-        diningPic.translatesAutoresizingMaskIntoConstraints = false
-        diningPic.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor, constant: 5).isActive = true
-        diningPic.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
-        diningPic.widthAnchor.constraint(equalTo: card.layoutMarginsGuide.widthAnchor, multiplier: 0.48).isActive = true
-        diningPic.heightAnchor.constraint(equalTo: card.layoutMarginsGuide.heightAnchor, multiplier: 0.66).isActive = true
-        diningPic.contentMode = .scaleAspectFit
+        addressLabel.leftAnchor.constraint(equalTo: addressIcon.rightAnchor, constant: 5).isActive = true
+        addressLabel.centerYAnchor.constraint(equalTo: addressIcon.centerYAnchor).isActive = true
+        addressLabel.rightAnchor.constraint(equalTo: diningImage.leftAnchor, constant: -1 * kViewMargin).isActive = true
         
-//        let faveButton = UIButton()
-//        faveButton.backgroundColor = .clear
-//        if diningHall!.isFavorited {
-//            faveButton.setImage(#imageLiteral(resourceName: "favorited-icon"), for: .normal)
-//        } else {
-//            faveButton.setImage(#imageLiteral(resourceName: "not-favorited-icon"), for: .normal)
-//        }
-//        faveButton.addTarget(self, action: #selector(toggleFave(sender:)), for: .touchUpInside)
-//        faveButton.isUserInteractionEnabled = true
-//        card.addSubview(faveButton)
-//        faveButton.translatesAutoresizingMaskIntoConstraints = false
-//        faveButton.bottomAnchor.constraint(equalTo: card.layoutMarginsGuide.bottomAnchor).isActive = true
-//        faveButton.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
-//        faveButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
-//        faveButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        nameLabel.text = diningHall!.searchName
+        nameLabel.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true
+        nameLabel.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
+        nameLabel.rightAnchor.constraint(equalTo: diningImage.leftAnchor, constant: -1 * kViewMargin).isActive = true
+        nameLabel.bottomAnchor.constraint(lessThanOrEqualTo: addressIcon.topAnchor, constant: -1 * kViewMargin).isActive = true
     }
     
-//    func setUpHoursCard() {
-//        let card = CardView()
-//        card.layoutMargins = kCardPadding
-//        scrollView.addSubview(card)
-//        card.translatesAutoresizingMaskIntoConstraints = false
-//        card.topAnchor.constraint(equalTo: contentHelper.layoutMarginsGuide.topAnchor, constant: 210).isActive = true
-//        card.leftAnchor.constraint(equalTo: scrollView.layoutMarginsGuide.leftAnchor).isActive = true
-//        card.rightAnchor.constraint(equalTo: scrollView.layoutMarginsGuide.rightAnchor).isActive = true
-//        card.heightAnchor.constraint(equalToConstant: 180).isActive = true
-//
-//        let openLabel = UILabel()
-//        openLabel.layer.masksToBounds = true
-//        openLabel.layer.cornerRadius = 10
-//        openLabel.font = Font.semibold(14)
-//        openLabel.backgroundColor = .systemBlue
-//        openLabel.textColor = .white
-//        openLabel.text = library!.isOpen ? "  Open  " : "  Closed  "
-//        card.addSubview(openLabel)
-//        openLabel.translatesAutoresizingMaskIntoConstraints = false
-//        openLabel.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true
-//        openLabel.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor, constant: 20).isActive = true
-//
-//        let formatter = DateIntervalFormatter()
-//        formatter.dateStyle = .none
-//        formatter.timeStyle = .short
-//        let currentHours = UILabel()
-//        currentHours.font = Font.bold(14)
-//        let date = Date()
-//        if let interval = library!.weeklyHours[date.weekday()] {
-//            if interval.contains(date) {
-//                currentHours.text = formatter.string(from: interval.start, to: interval.end)
-//            }
-//        }
-//        card.addSubview(currentHours)
-//        currentHours.translatesAutoresizingMaskIntoConstraints = false
-//        currentHours.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true
-//        currentHours.leftAnchor.constraint(equalTo: openLabel.layoutMarginsGuide.rightAnchor, constant: 40).isActive = true
-//
-//
-//        let nameLabel = UILabel()
-//        nameLabel.font = Font.thin(12)
-//        nameLabel.numberOfLines = 7
-//        card.addSubview(nameLabel)
-//        nameLabel.translatesAutoresizingMaskIntoConstraints = false
-//        nameLabel.topAnchor.constraint(equalTo: openLabel.layoutMarginsGuide.bottomAnchor, constant: 12).isActive = true
-//        nameLabel.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor, constant: 25).isActive = true
-//        nameLabel.widthAnchor.constraint(equalTo: card.layoutMarginsGuide.widthAnchor, multiplier: 0.5).isActive = true
-//        nameLabel.bottomAnchor.constraint(equalTo: card.layoutMarginsGuide.bottomAnchor, constant: -10).isActive = true
-//        let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-//        nameLabel.text = ""
-//        for dayName in days {
-//            nameLabel.text = nameLabel.text! + (dayName == "Sunday" ? "" : "\n") + dayName
-//        }
-//
-//        let timeLabel = UILabel()
-//        timeLabel.font = Font.thin(12)
-//        timeLabel.numberOfLines = 7
-//        card.addSubview(timeLabel)
-//        timeLabel.translatesAutoresizingMaskIntoConstraints = false
-//        timeLabel.topAnchor.constraint(equalTo: nameLabel.layoutMarginsGuide.topAnchor).isActive = true
-//        timeLabel.leftAnchor.constraint(equalTo: nameLabel.layoutMarginsGuide.rightAnchor, constant: 5).isActive = true
-//        timeLabel.widthAnchor.constraint(equalTo: card.layoutMarginsGuide.widthAnchor, multiplier: 0.5).isActive = true
-//        timeLabel.bottomAnchor.constraint(equalTo: card.layoutMarginsGuide.bottomAnchor, constant: -10).isActive = true
-//        timeLabel.text = ""
-//        for i in 0...6 {
-//            if let timeInverval = library!.weeklyHours[i] {
-//                if timeInverval.start == timeInverval.end {
-//                    timeLabel.text = timeLabel.text! + (i == 0 ? "" : "\n") + "Closed"
-//                } else {
-//                    timeLabel.text = timeLabel.text! + (i == 0 ? "" : "\n") + formatter.string(from: timeInverval.start, to: timeInverval.end)
-//                }
-//            }
-//        }
-//
-//
-//        let dataLabel = UILabel()
-//        dataLabel.font = Font.thin(12)
-//        dataLabel.numberOfLines = 7
-//        card.addSubview(dataLabel)
-//        dataLabel.translatesAutoresizingMaskIntoConstraints = false
-//        dataLabel.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true
-//        dataLabel.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
-//        dataLabel.widthAnchor.constraint(equalTo: card.layoutMarginsGuide.widthAnchor, multiplier: 0.3).isActive = true
-//    }
+    func setupMenuControl() {
+        meals = diningHall!.meals
+        if meals.count == 0 {
+            return
+        }
+        let size = CGSize(width: view.frame.width - view.layoutMargins.left - view.layoutMargins.right, height: 35)
+        control = TabBarControl(frame: CGRect(origin: .zero, size: size),
+                                barHeight: CGFloat(13),
+                                barColor: UIColor(displayP3Red: 250/255.0, green: 212/255.0, blue: 126/255.0, alpha: 1.0))
+        control.delegate = self
+        view.addSubview(control)
+        control.translatesAutoresizingMaskIntoConstraints = false
+        control.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        control.topAnchor.constraint(equalTo: card.bottomAnchor, constant: kViewMargin).isActive = true
+        mealNames = Array(meals.keys)
+        control.setItems(mealNames)
+        control.index = 0
+    }
+    
+    func setupMenu() {
+        var filters: [Filter<DiningItem>] = [Filter<DiningItem>]()
+        filters.append(filterForRestriction(name: "Vegetarian", restriction: KnownRestriction.vegetarian, matches: true))
+        filters.append(filterForRestriction(name: "Vegan", restriction: KnownRestriction.vegan, matches: true))
+        filters.append(filterForRestriction(name: "Gluten-Free", restriction: KnownRestriction.gluten, matches: false))
+        filters.append(filterForRestriction(name: "Kosher", restriction: KnownRestriction.kosher, matches: true))
+        filters.append(filterForRestriction(name: "Halal", restriction: KnownRestriction.halal, matches: true))
+        filters.append(filterForRestriction(name: "No Tree Nuts", restriction: KnownRestriction.treenut, matches: false))
+        filters.append(filterForRestriction(name: "No Peanuts", restriction: KnownRestriction.peanut, matches: false))
+        filters.append(filterForRestriction(name: "No Pork", restriction: KnownRestriction.pork, matches: false))
+        filters.append(filterForRestriction(name: "No Milk", restriction: KnownRestriction.milk, matches: false))
+        filters.append(filterForRestriction(name: "Fish", restriction: KnownRestriction.fish, matches: true))
+        filters.append(filterForRestriction(name: "No Shellfish", restriction: KnownRestriction.shellfish, matches: false))
+        filters.append(filterForRestriction(name: "No Egg", restriction: KnownRestriction.egg, matches: false))
+        filters.append(filterForRestriction(name: "No Alcohol", restriction: KnownRestriction.alcohol, matches: false))
+        filters.append(filterForRestriction(name: "Soybeans", restriction: KnownRestriction.soybean, matches: true))
+        filters.append(filterForRestriction(name: "Wheat", restriction: KnownRestriction.wheat, matches: true))
+        filters.append(filterForRestriction(name: "No Sesame", restriction: KnownRestriction.sesame, matches: false))
+        menuView = FilterTableView(frame: .zero, filters: filters)
+        self.menuView.tableView.register(DiningMenuCell.self, forCellReuseIdentifier: DiningMenuCell.kCellIdentifier)
+        self.menuView.tableView.dataSource = self
+        self.menuView.tableView.delegate = self
+        
+        menuView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(menuView)
+        self.menuView.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
+        self.menuView.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
+        self.menuView.topAnchor.constraint(equalTo: control.bottomAnchor, constant: kViewMargin).isActive = true
+        self.menuView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
+        
+        //TODO: sort func?
+        self.menuView.setData(data: meals[mealNames[control.index]]!)
+        self.menuView.tableView.reloadData()
+    }
+    
+    func filterForRestriction(name: String, restriction: KnownRestriction, matches: Bool) -> Filter<DiningItem> {
+        if matches {
+            return Filter<DiningItem>(label: name, filter: {item in
+            item.restrictions.contains(where: { (restr) -> Bool in
+                return restr.known != nil && restr.known == restriction
+            })})
+        } else {
+            return Filter<DiningItem>(label: name, filter: {item in
+            !item.restrictions.contains(where: { (restr) -> Bool in
+                return restr.known != nil && restr.known == restriction
+            })})
+        }
+    }
     
 }
 
@@ -266,10 +416,10 @@ extension DiningDetailViewController {
     
     @objc func toggleFave(sender: UIButton) {
         if diningHall!.isFavorited {
-            sender.setImage(#imageLiteral(resourceName: "not-favorited-icon"), for: .normal)
+            sender.setImage(UIImage(named: "Search"), for: .normal)
             diningHall!.isFavorited = false
         } else {
-            sender.setImage(#imageLiteral(resourceName: "favorited-icon"), for: .normal)
+            sender.setImage(UIImage(named: "Placemark"), for: .normal)
             diningHall!.isFavorited = true
         }
     }
@@ -281,7 +431,6 @@ extension  DiningDetailViewController : CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let userLocation : CLLocation = locations[0] as CLLocation
         DispatchQueue.main.async {
-            //reloads card with distance marker
             if self.diningHall != nil {
                 let dist = self.diningHall!.getDistanceToUser(userLoc: userLocation)
                 self.distLabel.text = String(dist) + " mi"
@@ -293,10 +442,40 @@ extension  DiningDetailViewController : CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        // might be that user didn't enable location service on the device
-        // or there might be no GPS signal inside a building
-        // might be a good idea to show an alert to user to ask them to walk to a place with GPS signal
         print(error)
     }
     
+}
+
+extension DiningDetailViewController: TabBarControlDelegate {
+    func tabBarControl(_ tabBarControl: TabBarControl, didChangeValue value: Int) {
+        control.index = value
+        self.menuView.setData(data: meals[mealNames[control.index]]!)
+        self.menuView.tableView.reloadData()
+    }
+}
+
+extension DiningDetailViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.menuView.filteredData.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: DiningMenuCell.kCellIdentifier, for: indexPath) as? DiningMenuCell {
+            let item: DiningItem = self.menuView.filteredData[indexPath.row]
+            cell.nameLabel.text = item.name
+            cell.item = item
+            cell.updateFaveButton()
+            return cell
+        }
+        return UITableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return DiningDetailViewController.cellHeight
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return DiningDetailViewController.cellSpacingHeight
+    }
 }

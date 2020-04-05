@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 // The set of known restrictions. The `rawValue` is the string representation in Firebase.
-enum KnownRestriction: String {
+enum KnownRestriction: String, CaseIterable {
     
     case alcohol    = "Contains Alcohol"
     case egg        = "Egg"
@@ -36,7 +36,7 @@ class DiningRestriction {
     
     var rawValue: String
     // `nil` if restriction is unknown.
-    private var known: KnownRestriction?
+    var known: KnownRestriction?
     
     init(rawValue: String) {
         self.rawValue = rawValue

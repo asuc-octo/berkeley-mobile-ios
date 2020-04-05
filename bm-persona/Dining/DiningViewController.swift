@@ -126,6 +126,12 @@ extension DiningViewController: UITableViewDelegate, UITableViewDataSource {
         let radius = cell.contentView.layer.cornerRadius
         cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: radius).cgPath
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = DiningDetailViewController()
+        vc.diningHall = self.filterTableView.filteredData[indexPath.row]
+        self.present(vc, animated: true, completion: nil)
+    }
 }
 
 extension DiningViewController {
@@ -178,5 +184,7 @@ extension DiningViewController {
         self.filterTableView = FilterTableView(frame: .zero, filters: filters)
         self.filterTableView.tableView.register(FilterTableViewCell.self, forCellReuseIdentifier: FilterTableViewCell.kCellIdentifier)
         self.filterTableView.tableView.dataSource = self
+        self.filterTableView.tableView.delegate = self
     }
+    
 }

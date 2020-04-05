@@ -16,11 +16,7 @@ class DiningHall: HasOpenTimes, SearchItem, HasLocation {
     static var nearbyDistance: Double = 10
     static var invalidDistance: Double = 100
     
-<<<<<<< HEAD
     var isFavorited: Bool = false
-    
-=======
->>>>>>> origin/develop
     var searchName: String {
         return name
     }
@@ -49,11 +45,7 @@ class DiningHall: HasOpenTimes, SearchItem, HasLocation {
     var latitude: Double?
     var longitude: Double?
     
-<<<<<<< HEAD
     init(name: String, campusLocation: String?, phoneNumber: String?, imageLink: String?, shifts: MealMap, hours: WeeklyHours?, latitude: Double?, longitude: Double?) {
-=======
-    init(name: String, imageLink: String?, shifts: MealMap, hours: WeeklyHours?, latitude: Double?, longitude: Double?) {
->>>>>>> origin/develop
         self.name = name
         self.campusLocation = campusLocation
         self.phoneNumber = phoneNumber

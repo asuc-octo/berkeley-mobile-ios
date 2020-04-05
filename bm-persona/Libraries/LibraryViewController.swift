@@ -64,16 +64,6 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
         setupTableView()
     }
     
-    #warning("remove this")
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = DiningDetailViewController()
-        print("a")
-        DataManager.shared.fetch(source: DiningHallDataSource.self) { halls in
-            vc.diningHall = halls[0] as! DiningHall
-            self.present(vc, animated: true, completion: nil)
-        }
-    }
-    
     func setupTableView() {
         //general setup and constraints
         view.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)

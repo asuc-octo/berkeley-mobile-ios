@@ -15,6 +15,7 @@ typealias DiningMenu = Array<DiningItem>
 class DiningItem {
     
     let name: String
+    var isFavorited: Bool = false
     
     // Additional information regarding food such as allergens or alternative options
     let restrictions: [DiningRestriction]

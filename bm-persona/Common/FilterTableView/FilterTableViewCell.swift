@@ -94,8 +94,8 @@ class FilterTableViewCell: UITableViewCell {
     let cellImage:UIImageView = {
         let img = UIImageView()
         img.image = UIImage()
-        img.contentMode = .scaleAspectFill // image will never be strecthed vertially or horizontally
-        img.translatesAutoresizingMaskIntoConstraints = false // enable autolayout
+        img.contentMode = .scaleAspectFill
+        img.translatesAutoresizingMaskIntoConstraints = false
         img.clipsToBounds = true
        return img
     }()
