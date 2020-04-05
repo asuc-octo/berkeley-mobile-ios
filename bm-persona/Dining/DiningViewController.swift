@@ -95,6 +95,7 @@ extension DiningViewController: UITableViewDelegate, UITableViewDataSource {
             }
             
             if diningHall.image == nil {
+                cell.cellImage.image = UIImage(named: "DoeGlade")
                 DispatchQueue.global().async {
                     if diningHall.imageURL == nil {
                         return
@@ -102,8 +103,10 @@ extension DiningViewController: UITableViewDelegate, UITableViewDataSource {
                     guard let imageData = try? Data(contentsOf: diningHall.imageURL!) else { return }
                     let image = UIImage(data: imageData)
                     DispatchQueue.main.async {
-                        cell.cellImage.image = image
                         diningHall.image = image
+                        if tableView.visibleCells.contains(cell) {
+                            cell.cellImage.image = image
+                        }
                     }
                 }
             } else {

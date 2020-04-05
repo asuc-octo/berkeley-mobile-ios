@@ -16,7 +16,7 @@ class DiningMenuCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top:0, left:5, bottom:0, right:5))
-        self.isUserInteractionEnabled = false
+        self.selectionStyle = .none
         
         backgroundColor = .clear
         contentView.layer.masksToBounds = false
@@ -34,6 +34,7 @@ class DiningMenuCell: UITableViewCell {
         
         contentView.addSubview(nameLabel)
         contentView.addSubview(faveButton)
+        contentView.addSubview(restrictionIcon)
         contentView.layoutMargins = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         
         nameLabel.leftAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
@@ -45,6 +46,18 @@ class DiningMenuCell: UITableViewCell {
         faveButton.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
         faveButton.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor).isActive = true
         faveButton.widthAnchor.constraint(equalTo: faveButton.heightAnchor).isActive = true
+        
+        restrictionIcon.rightAnchor.constraint(equalTo: faveButton.leftAnchor, constant: -10).isActive = true
+        restrictionIcon.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
+        restrictionIcon.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor).isActive = true
+        restrictionIcon.widthAnchor.constraint(equalTo: faveButton.heightAnchor).isActive = true
+    }
+    
+    func updateRestrictionIcon() {
+        if item.restrictions.count > 0 && item.restrictions[0].icon != nil {
+            restrictionIcon.image = item.restrictions[0].icon
+        }
+        print(item.restrictions.count)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -81,6 +94,14 @@ class DiningMenuCell: UITableViewCell {
         button.isUserInteractionEnabled = true
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
+    }()
+    
+    let restrictionIcon: UIImageView = {
+        let image = UIImageView()
+        image.translatesAutoresizingMaskIntoConstraints = false
+        image.contentMode = .scaleAspectFit
+        image.clipsToBounds = true
+        return image
     }()
 
 }

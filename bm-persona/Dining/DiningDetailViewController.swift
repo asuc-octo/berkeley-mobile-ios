@@ -234,8 +234,13 @@ extension DiningDetailViewController {
         openTimeLabel.centerYAnchor.constraint(equalTo: clockIcon.centerYAnchor).isActive = true
         openTimeLabel.leftAnchor.constraint(equalTo: clockIcon.rightAnchor, constant: 5).isActive = true
         
-        openTag.text = "Open"
-        openTag.backgroundColor = Color.openTag
+        if diningHall!.isOpen! {
+            openTag.text = "Open"
+            openTag.backgroundColor = Color.openTag
+        } else {
+            openTag.text = "Closed"
+            openTag.backgroundColor = Color.closedTag
+        }
         openTag.leftAnchor.constraint(equalTo: openTimeLabel.rightAnchor, constant: kViewMargin).isActive = true
         openTag.centerYAnchor.constraint(equalTo: clockIcon.centerYAnchor).isActive = true
         openTag.widthAnchor.constraint(equalToConstant: 50).isActive = true
@@ -371,14 +376,14 @@ extension DiningDetailViewController {
         filters.append(filterForRestriction(name: "No Tree Nuts", restriction: KnownRestriction.treenut, matches: false))
         filters.append(filterForRestriction(name: "No Peanuts", restriction: KnownRestriction.peanut, matches: false))
         filters.append(filterForRestriction(name: "No Pork", restriction: KnownRestriction.pork, matches: false))
-        filters.append(filterForRestriction(name: "No Milk", restriction: KnownRestriction.milk, matches: false))
-        filters.append(filterForRestriction(name: "Fish", restriction: KnownRestriction.fish, matches: true))
-        filters.append(filterForRestriction(name: "No Shellfish", restriction: KnownRestriction.shellfish, matches: false))
-        filters.append(filterForRestriction(name: "No Egg", restriction: KnownRestriction.egg, matches: false))
-        filters.append(filterForRestriction(name: "No Alcohol", restriction: KnownRestriction.alcohol, matches: false))
-        filters.append(filterForRestriction(name: "Soybeans", restriction: KnownRestriction.soybean, matches: true))
-        filters.append(filterForRestriction(name: "Wheat", restriction: KnownRestriction.wheat, matches: true))
-        filters.append(filterForRestriction(name: "No Sesame", restriction: KnownRestriction.sesame, matches: false))
+//        filters.append(filterForRestriction(name: "No Milk", restriction: KnownRestriction.milk, matches: false))
+//        filters.append(filterForRestriction(name: "Fish", restriction: KnownRestriction.fish, matches: true))
+//        filters.append(filterForRestriction(name: "No Shellfish", restriction: KnownRestriction.shellfish, matches: false))
+//        filters.append(filterForRestriction(name: "No Egg", restriction: KnownRestriction.egg, matches: false))
+//        filters.append(filterForRestriction(name: "No Alcohol", restriction: KnownRestriction.alcohol, matches: false))
+//        filters.append(filterForRestriction(name: "Soybeans", restriction: KnownRestriction.soybean, matches: true))
+//        filters.append(filterForRestriction(name: "Wheat", restriction: KnownRestriction.wheat, matches: true))
+//        filters.append(filterForRestriction(name: "No Sesame", restriction: KnownRestriction.sesame, matches: false))
         menuView = FilterTableView(frame: .zero, filters: filters)
         self.menuView.tableView.register(DiningMenuCell.self, forCellReuseIdentifier: DiningMenuCell.kCellIdentifier)
         self.menuView.tableView.dataSource = self
@@ -465,6 +470,7 @@ extension DiningDetailViewController: UITableViewDelegate, UITableViewDataSource
             let item: DiningItem = self.menuView.filteredData[indexPath.row]
             cell.nameLabel.text = item.name
             cell.item = item
+            cell.updateRestrictionIcon()
             cell.updateFaveButton()
             return cell
         }
