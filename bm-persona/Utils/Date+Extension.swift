@@ -6,11 +6,11 @@ import Foundation
  */
 extension Date
 {
-    // Returns today with (hour:min) of this Date. 
-    func sameTimeToday() -> Date?
+    // Returns `date` with (hour:min) of this Date.
+    func sameTime(on date: Date) -> Date?
     {
         let calendar = Calendar.current
-        let now = calendar.dateComponents([.year, .month, .day], from: Date())
+        let now = calendar.dateComponents([.year, .month, .day], from: date)
         
         var components = calendar.dateComponents([.hour, .minute], from: self)
         components.year = now.year
@@ -18,6 +18,12 @@ extension Date
         components.day = now.day
         
         return calendar.date(from: components)
+    }
+    
+    // Returns today with (hour:min) of this Date. 
+    func sameTimeToday() -> Date?
+    {
+        return sameTime(on: Date())
     }
     
     // Returns soonest date with (weekday:hour:min) of this Date.
