@@ -109,7 +109,6 @@ class DiningMenuCell: UITableViewCell {
 extension DiningMenuCell {
     
     @objc func toggleFave(sender: UIButton) {
-        //TODO: use fave icons
         item.isFavorited = !item.isFavorited
         updateFaveButton()
     }
@@ -117,9 +116,9 @@ extension DiningMenuCell {
     func updateFaveButton() {
         //TODO: use fave icons
         if item.isFavorited {
-            faveButton.setImage(UIImage(named: "Placemark"), for: .normal)
+            faveButton.setImage(UIImage(named: "Gold Star"), for: .normal)
         } else {
-            faveButton.setImage(UIImage(named: "Search"), for: .normal)
+            faveButton.setImage(UIImage(named: "Grey Star"), for: .normal)
         }
     }
     

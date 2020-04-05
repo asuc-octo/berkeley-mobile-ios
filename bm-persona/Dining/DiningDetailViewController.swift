@@ -23,6 +23,7 @@ class DiningDetailViewController: UIViewController {
     var menuView: FilterTableView = FilterTableView<DiningItem>(frame: .zero, filters: [])
     static let cellHeight: CGFloat = 45
     static let cellSpacingHeight: CGFloat = 5
+    static let mealTimesChronological = ["breakfast": 0, "brunch": 1, "lunch": 2, "dinner": 3, "late night": 4, "other": 5]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,9 +59,12 @@ class DiningDetailViewController: UIViewController {
     }()
     
     let diningImage: UIImageView = {
-        let image = UIImageView()
-        image.translatesAutoresizingMaskIntoConstraints = false
-        return image
+        let img = UIImageView()
+        img.image = UIImage()
+        img.contentMode = .scaleAspectFill
+        img.translatesAutoresizingMaskIntoConstraints = false
+        img.clipsToBounds = true
+        return img
     }()
     
     let addressIcon: UIImageView = {
@@ -85,7 +89,7 @@ class DiningDetailViewController: UIViewController {
     
     let clockIcon: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "Placemark")
+        image.image = UIImage(named: "Clock")
         image.translatesAutoresizingMaskIntoConstraints = false
         image.contentMode = .scaleAspectFit
         image.clipsToBounds = true
@@ -135,7 +139,7 @@ class DiningDetailViewController: UIViewController {
     
     let phoneIcon: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "Placemark")
+        image.image = UIImage(named: "Phone")
         image.translatesAutoresizingMaskIntoConstraints = false
         image.contentMode = .scaleAspectFit
         image.clipsToBounds = true
@@ -246,7 +250,7 @@ extension DiningDetailViewController {
         openTag.widthAnchor.constraint(equalToConstant: 50).isActive = true
         
         chairImage.centerYAnchor.constraint(equalTo: clockIcon.centerYAnchor).isActive = true
-        chairImage.leftAnchor.constraint(greaterThanOrEqualTo: openTag.rightAnchor, constant: kViewMargin).isActive = true
+        chairImage.leftAnchor.constraint(equalTo: openTag.rightAnchor, constant: kViewMargin).isActive = true
         chairImage.widthAnchor.constraint(equalToConstant: 25).isActive = true
         chairImage.heightAnchor.constraint(equalToConstant: 25).isActive = true
         chairImage.contentMode = .scaleAspectFit
@@ -257,13 +261,12 @@ extension DiningDetailViewController {
         capBadge.leftAnchor.constraint(equalTo: chairImage.rightAnchor, constant: 5).isActive = true
         capBadge.centerYAnchor.constraint(equalTo: clockIcon.centerYAnchor).isActive = true
         capBadge.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        capBadge.rightAnchor.constraint(equalTo: faveButton.leftAnchor, constant: -1 * kViewMargin).isActive = true
-
-        //TODO: use favorite icons
+        capBadge.rightAnchor.constraint(lessThanOrEqualTo: faveButton.leftAnchor, constant: -1 * kViewMargin).isActive = true
+        
         if diningHall!.isFavorited {
-            faveButton.setImage(UIImage(named: "Placemark"), for: .normal)
+            faveButton.setImage(UIImage(named: "Gold Star"), for: .normal)
         } else {
-            faveButton.setImage(UIImage(named: "Search"), for: .normal)
+            faveButton.setImage(UIImage(named: "Grey Star"), for: .normal)
         }
         faveButton.centerYAnchor.constraint(equalTo: clockIcon.centerYAnchor).isActive = true
         faveButton.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
@@ -361,7 +364,13 @@ extension DiningDetailViewController {
         control.translatesAutoresizingMaskIntoConstraints = false
         control.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         control.topAnchor.constraint(equalTo: card.bottomAnchor, constant: kViewMargin).isActive = true
-        mealNames = Array(meals.keys)
+        mealNames = Array(meals.keys).sorted(by: { (meal1, meal2) -> Bool in
+            let m1Priority = DiningDetailViewController.mealTimesChronological[meal1.lowercased()] ??
+                             DiningDetailViewController.mealTimesChronological["other"]!
+            let m2Priority = DiningDetailViewController.mealTimesChronological[meal1.lowercased()] ??
+                             DiningDetailViewController.mealTimesChronological["other"]!
+            return m1Priority > m2Priority
+        })
         control.setItems(mealNames)
         control.index = 0
     }
@@ -396,7 +405,7 @@ extension DiningDetailViewController {
         self.menuView.topAnchor.constraint(equalTo: control.bottomAnchor, constant: kViewMargin).isActive = true
         self.menuView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
         
-        //TODO: sort func?
+        //TODO: sort func? currently same order as read in
         self.menuView.setData(data: meals[mealNames[control.index]]!)
         self.menuView.tableView.reloadData()
     }
@@ -421,10 +430,10 @@ extension DiningDetailViewController {
     
     @objc func toggleFave(sender: UIButton) {
         if diningHall!.isFavorited {
-            sender.setImage(UIImage(named: "Search"), for: .normal)
+            sender.setImage(UIImage(named: "Grey Star"), for: .normal)
             diningHall!.isFavorited = false
         } else {
-            sender.setImage(UIImage(named: "Placemark"), for: .normal)
+            sender.setImage(UIImage(named: "Gold Star"), for: .normal)
             diningHall!.isFavorited = true
         }
     }
