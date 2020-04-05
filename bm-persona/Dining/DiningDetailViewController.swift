@@ -367,9 +367,9 @@ extension DiningDetailViewController {
         mealNames = Array(meals.keys).sorted(by: { (meal1, meal2) -> Bool in
             let m1Priority = DiningDetailViewController.mealTimesChronological[meal1.lowercased()] ??
                              DiningDetailViewController.mealTimesChronological["other"]!
-            let m2Priority = DiningDetailViewController.mealTimesChronological[meal1.lowercased()] ??
+            let m2Priority = DiningDetailViewController.mealTimesChronological[meal2.lowercased()] ??
                              DiningDetailViewController.mealTimesChronological["other"]!
-            return m1Priority > m2Priority
+            return m1Priority < m2Priority
         })
         control.setItems(mealNames)
         control.index = 0
@@ -479,7 +479,7 @@ extension DiningDetailViewController: UITableViewDelegate, UITableViewDataSource
             let item: DiningItem = self.menuView.filteredData[indexPath.row]
             cell.nameLabel.text = item.name
             cell.item = item
-            cell.updateRestrictionIcon()
+            cell.setRestrictionIcons()
             cell.updateFaveButton()
             return cell
         }

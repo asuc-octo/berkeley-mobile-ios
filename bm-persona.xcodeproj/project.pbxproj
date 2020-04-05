@@ -210,8 +210,8 @@
 			isa = PBXGroup;
 			children = (
 				1336A327241D9BA200949F32 /* DiningDataSource */,
-				296F1B262439341300924C8D /* DiningDetailViewController.swift */,
 				5516088524392E5100B1E55B /* DiningViewController.swift */,
+				296F1B262439341300924C8D /* DiningDetailViewController.swift */,
 				29B3A1732439A60A00093750 /* DiningMenuCell.swift */,
 			);
 			path = Dining;
