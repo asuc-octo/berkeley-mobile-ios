@@ -16,7 +16,7 @@ class DiningMenuCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top:0, left:5, bottom:0, right:5))
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top:0, left:5, bottom:DiningDetailViewController.cellSpacingHeight, right:5))
         self.selectionStyle = .none
         
         backgroundColor = .clear
@@ -27,7 +27,7 @@ class DiningMenuCell: UITableViewCell {
         contentView.layer.shadowColor = UIColor.black.cgColor
         contentView.layer.shadowPath = UIBezierPath(rect: contentView.bounds.insetBy(dx: 4, dy: 4)).cgPath
         contentView.backgroundColor = .white
-        contentView.layer.cornerRadius = 7
+        contentView.layer.cornerRadius = 12
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -47,6 +47,7 @@ class DiningMenuCell: UITableViewCell {
         faveButton.widthAnchor.constraint(equalTo: faveButton.heightAnchor).isActive = true
     }
     
+    /*Adds restriction icons from right to left after item has been set.*/
     func setRestrictionIcons() {
         for icon in icons {
             icon.removeFromSuperview()

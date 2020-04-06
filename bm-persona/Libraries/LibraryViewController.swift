@@ -15,7 +15,6 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
     
     var filterTableView: FilterTableView = FilterTableView<Library>(frame: .zero, filters: [])
     var safeArea: UILayoutGuide!
-    let cellSpacingHeight: CGFloat = 14
     var libraries: [Library] = []
     var locationManager = CLLocationManager()
     var location: CLLocation?

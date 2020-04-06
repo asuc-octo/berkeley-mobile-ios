@@ -30,7 +30,7 @@ class WeeklyHours {
         self.weeklyHours = weeklyHours
     }
     
-    public func  hoursForWeekday(_ weekday: DayOfWeek) -> DailyHoursType {
+    public func hoursForWeekday(_ weekday: DayOfWeek) -> DailyHoursType {
         return weeklyHours[weekday, default: []]
     }
     

@@ -9,12 +9,12 @@
 import UIKit
 import CoreLocation
 
-fileprivate let kHeaderFont: UIFont = Font.bold(24)
 fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
 fileprivate let kViewMargin: CGFloat = 16
+
 class DiningDetailViewController: UIViewController {
     
-    var diningHall: DiningHall?
+    var diningHall: DiningHall!
     var locationManager = CLLocationManager()
     var location: CLLocation?
     var control: TabBarControl!
@@ -215,7 +215,10 @@ extension DiningDetailViewController {
         formatter.timeStyle = .short
         let date = Date()
         openTimeLabel.text = "     "
-        if let intervals = diningHall!.weeklyHours?.hoursForWeekday(DayOfWeek.weekday(date)) {
+        if let intervals = diningHall.weeklyHours?.hoursForWeekday(DayOfWeek.weekday(date)) {
+            /*If dining hall has open hours for today, set the label to show the current
+             or next open interval. If there are no open times in the rest of the day,
+             set label to "Closed Today".*/
             openTimeLabel.text = "Closed Today"
             var nextOpenInterval: DateInterval? = nil
             for interval in intervals {
@@ -238,7 +241,7 @@ extension DiningDetailViewController {
         openTimeLabel.centerYAnchor.constraint(equalTo: clockIcon.centerYAnchor).isActive = true
         openTimeLabel.leftAnchor.constraint(equalTo: clockIcon.rightAnchor, constant: 5).isActive = true
         
-        if diningHall!.isOpen! {
+        if diningHall.isOpen! {
             openTag.text = "Open"
             openTag.backgroundColor = Color.openTag
         } else {
@@ -254,7 +257,7 @@ extension DiningDetailViewController {
         chairImage.widthAnchor.constraint(equalToConstant: 25).isActive = true
         chairImage.heightAnchor.constraint(equalToConstant: 25).isActive = true
         chairImage.contentMode = .scaleAspectFit
-
+        
         //TODO: use actual capacity
         capBadge.text = "High"
         capBadge.backgroundColor = Color.highCapacityTag
@@ -263,7 +266,7 @@ extension DiningDetailViewController {
         capBadge.widthAnchor.constraint(equalToConstant: 50).isActive = true
         capBadge.rightAnchor.constraint(lessThanOrEqualTo: faveButton.leftAnchor, constant: -1 * kViewMargin).isActive = true
         
-        if diningHall!.isFavorited {
+        if diningHall.isFavorited {
             faveButton.setImage(UIImage(named: "Gold Star"), for: .normal)
         } else {
             faveButton.setImage(UIImage(named: "Grey Star"), for: .normal)
@@ -273,14 +276,14 @@ extension DiningDetailViewController {
         faveButton.widthAnchor.constraint(equalToConstant: 25).isActive = true
         faveButton.heightAnchor.constraint(equalToConstant: 25).isActive = true
         
-        if diningHall!.image != nil {
-            diningImage.image = diningHall!.image
+        if diningHall.image != nil {
+            diningImage.image = diningHall.image
         } else {
             DispatchQueue.global().async {
-                guard let imageData = try? Data(contentsOf: self.diningHall!.imageURL!) else { return }
+                guard let imageData = try? Data(contentsOf: self.diningHall.imageURL!) else { return }
                 let image = UIImage(data: imageData)
                 DispatchQueue.main.async {
-                    self.diningHall!.image = image
+                    self.diningHall.image = image
                     self.diningImage.image = image
                 }
             }
@@ -288,15 +291,15 @@ extension DiningDetailViewController {
         diningImage.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
         diningImage.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true
         diningImage.bottomAnchor.constraint(equalTo: faveButton.topAnchor, constant: -1 * kViewMargin).isActive = true
-        diningImage.widthAnchor.constraint(equalTo: card.layoutMarginsGuide.widthAnchor, multiplier: 0.45).isActive = true
+        diningImage.widthAnchor.constraint(equalTo: diningImage.heightAnchor, multiplier: 1.3).isActive = true
         
         phoneIcon.bottomAnchor.constraint(equalTo: clockIcon.topAnchor, constant: -1 * kViewMargin).isActive = true
         phoneIcon.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
         phoneIcon.widthAnchor.constraint(equalToConstant: 16).isActive = true
         phoneIcon.heightAnchor.constraint(equalToConstant: 16).isActive = true
         
-        if diningHall!.phoneNumber != nil {
-            phoneLabel.text = diningHall!.phoneNumber
+        if diningHall.phoneNumber != nil {
+            phoneLabel.text = diningHall.phoneNumber
         } else {
             phoneLabel.text = "     "
         }
@@ -308,8 +311,10 @@ extension DiningDetailViewController {
         distIcon.widthAnchor.constraint(equalToConstant: 16).isActive = true
         distIcon.heightAnchor.constraint(equalToConstant: 16).isActive = true
         
+        /*Display location from user, or nothing if the user's location can't be
+         determined or if the user is too far away.*/
         if location != nil {
-            let dist = self.diningHall!.getDistanceToUser(userLoc: location)
+            let dist = self.diningHall.getDistanceToUser(userLoc: location)
             if dist < DiningHall.invalidDistance {
                 self.distLabel.text = String(dist) + " mi"
             } else {
@@ -329,7 +334,8 @@ extension DiningDetailViewController {
         addressIcon.widthAnchor.constraint(equalToConstant: 16).isActive = true
         addressIcon.heightAnchor.constraint(equalToConstant: 16).isActive = true
         
-        if let longAddress = diningHall!.campusLocation {
+        //Get shortened version of address
+        if let longAddress = diningHall.campusLocation {
             if let ind = longAddress.range(of: "Berkeley")?.upperBound {
                 let newAdress = longAddress[..<ind]
                 addressLabel.text = String(newAdress)
@@ -343,7 +349,7 @@ extension DiningDetailViewController {
         addressLabel.centerYAnchor.constraint(equalTo: addressIcon.centerYAnchor).isActive = true
         addressLabel.rightAnchor.constraint(equalTo: diningImage.leftAnchor, constant: -1 * kViewMargin).isActive = true
         
-        nameLabel.text = diningHall!.searchName
+        nameLabel.text = diningHall.searchName
         nameLabel.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true
         nameLabel.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
         nameLabel.rightAnchor.constraint(equalTo: diningImage.leftAnchor, constant: -1 * kViewMargin).isActive = true
@@ -351,7 +357,7 @@ extension DiningDetailViewController {
     }
     
     func setupMenuControl() {
-        meals = diningHall!.meals
+        meals = diningHall.meals
         if meals.count == 0 {
             return
         }
@@ -364,11 +370,13 @@ extension DiningDetailViewController {
         control.translatesAutoresizingMaskIntoConstraints = false
         control.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         control.topAnchor.constraint(equalTo: card.bottomAnchor, constant: kViewMargin).isActive = true
+        /*Sort meal times chronologically using the mealTimesChronological dictionary
+         Currently supports Breakfast, Brunch, Lunch, Dinner, Late Night*/
         mealNames = Array(meals.keys).sorted(by: { (meal1, meal2) -> Bool in
             let m1Priority = DiningDetailViewController.mealTimesChronological[meal1.lowercased()] ??
-                             DiningDetailViewController.mealTimesChronological["other"]!
+                DiningDetailViewController.mealTimesChronological["other"]!
             let m2Priority = DiningDetailViewController.mealTimesChronological[meal2.lowercased()] ??
-                             DiningDetailViewController.mealTimesChronological["other"]!
+                DiningDetailViewController.mealTimesChronological["other"]!
             return m1Priority < m2Priority
         })
         control.setItems(mealNames)
@@ -377,6 +385,7 @@ extension DiningDetailViewController {
     
     func setupMenu() {
         var filters: [Filter<DiningItem>] = [Filter<DiningItem>]()
+        //Add filters for some common restrictions
         filters.append(filterForRestriction(name: "Vegetarian", restriction: KnownRestriction.vegetarian, matches: true))
         filters.append(filterForRestriction(name: "Vegan", restriction: KnownRestriction.vegan, matches: true))
         filters.append(filterForRestriction(name: "Gluten-Free", restriction: KnownRestriction.gluten, matches: false))
@@ -385,14 +394,14 @@ extension DiningDetailViewController {
         filters.append(filterForRestriction(name: "No Tree Nuts", restriction: KnownRestriction.treenut, matches: false))
         filters.append(filterForRestriction(name: "No Peanuts", restriction: KnownRestriction.peanut, matches: false))
         filters.append(filterForRestriction(name: "No Pork", restriction: KnownRestriction.pork, matches: false))
-//        filters.append(filterForRestriction(name: "No Milk", restriction: KnownRestriction.milk, matches: false))
-//        filters.append(filterForRestriction(name: "Fish", restriction: KnownRestriction.fish, matches: true))
-//        filters.append(filterForRestriction(name: "No Shellfish", restriction: KnownRestriction.shellfish, matches: false))
-//        filters.append(filterForRestriction(name: "No Egg", restriction: KnownRestriction.egg, matches: false))
-//        filters.append(filterForRestriction(name: "No Alcohol", restriction: KnownRestriction.alcohol, matches: false))
-//        filters.append(filterForRestriction(name: "Soybeans", restriction: KnownRestriction.soybean, matches: true))
-//        filters.append(filterForRestriction(name: "Wheat", restriction: KnownRestriction.wheat, matches: true))
-//        filters.append(filterForRestriction(name: "No Sesame", restriction: KnownRestriction.sesame, matches: false))
+        //        filters.append(filterForRestriction(name: "No Milk", restriction: KnownRestriction.milk, matches: false))
+        //        filters.append(filterForRestriction(name: "Fish", restriction: KnownRestriction.fish, matches: true))
+        //        filters.append(filterForRestriction(name: "No Shellfish", restriction: KnownRestriction.shellfish, matches: false))
+        //        filters.append(filterForRestriction(name: "No Egg", restriction: KnownRestriction.egg, matches: false))
+        //        filters.append(filterForRestriction(name: "No Alcohol", restriction: KnownRestriction.alcohol, matches: false))
+        //        filters.append(filterForRestriction(name: "Soybeans", restriction: KnownRestriction.soybean, matches: true))
+        //        filters.append(filterForRestriction(name: "Wheat", restriction: KnownRestriction.wheat, matches: true))
+        //        filters.append(filterForRestriction(name: "No Sesame", restriction: KnownRestriction.sesame, matches: false))
         menuView = FilterTableView(frame: .zero, filters: filters)
         self.menuView.tableView.register(DiningMenuCell.self, forCellReuseIdentifier: DiningMenuCell.kCellIdentifier)
         self.menuView.tableView.dataSource = self
@@ -410,17 +419,20 @@ extension DiningDetailViewController {
         self.menuView.tableView.reloadData()
     }
     
+    /*Create a filter named NAME which filters based on RESTRICTION.
+     If MATCHES is true: includes items with RESTRICTION.
+     If MATCHES is false: excludes items with RESTRICTION.*/
     func filterForRestriction(name: String, restriction: KnownRestriction, matches: Bool) -> Filter<DiningItem> {
         if matches {
             return Filter<DiningItem>(label: name, filter: {item in
-            item.restrictions.contains(where: { (restr) -> Bool in
-                return restr.known != nil && restr.known == restriction
-            })})
+                item.restrictions.contains(where: { (restr) -> Bool in
+                    return restr.known != nil && restr.known == restriction
+                })})
         } else {
             return Filter<DiningItem>(label: name, filter: {item in
-            !item.restrictions.contains(where: { (restr) -> Bool in
-                return restr.known != nil && restr.known == restriction
-            })})
+                !item.restrictions.contains(where: { (restr) -> Bool in
+                    return restr.known != nil && restr.known == restriction
+                })})
         }
     }
     
@@ -429,12 +441,12 @@ extension DiningDetailViewController {
 extension DiningDetailViewController {
     
     @objc func toggleFave(sender: UIButton) {
-        if diningHall!.isFavorited {
+        if diningHall.isFavorited {
             sender.setImage(UIImage(named: "Grey Star"), for: .normal)
-            diningHall!.isFavorited = false
+            diningHall.isFavorited = false
         } else {
             sender.setImage(UIImage(named: "Gold Star"), for: .normal)
-            diningHall!.isFavorited = true
+            diningHall.isFavorited = true
         }
     }
     
@@ -446,7 +458,7 @@ extension  DiningDetailViewController : CLLocationManagerDelegate {
         let userLocation : CLLocation = locations[0] as CLLocation
         DispatchQueue.main.async {
             if self.diningHall != nil {
-                let dist = self.diningHall!.getDistanceToUser(userLoc: userLocation)
+                let dist = self.diningHall.getDistanceToUser(userLoc: userLocation)
                 self.distLabel.text = String(dist) + " mi"
                 self.location = userLocation
             } else {
@@ -487,10 +499,6 @@ extension DiningDetailViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return DiningDetailViewController.cellHeight
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return DiningDetailViewController.cellSpacingHeight
+        return DiningDetailViewController.cellHeight + DiningDetailViewController.cellSpacingHeight
     }
 }
