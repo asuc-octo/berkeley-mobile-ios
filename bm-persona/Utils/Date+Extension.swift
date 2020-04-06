@@ -4,11 +4,9 @@ import Foundation
 /**
  * Provides several conviences methods for Date.
  */
-extension Date
-{
+extension Date {
     // Returns `date` with (hour:min) of this Date.
-    func sameTime(on date: Date) -> Date?
-    {
+    func sameTime(on date: Date) -> Date? {
         let calendar = Calendar.current
         let now = calendar.dateComponents([.year, .month, .day], from: date)
         
@@ -21,14 +19,12 @@ extension Date
     }
     
     // Returns today with (hour:min) of this Date. 
-    func sameTimeToday() -> Date?
-    {
+    func sameTimeToday() -> Date? {
         return sameTime(on: Date())
     }
     
     // Returns soonest date with (weekday:hour:min) of this Date.
-    func sameDayThisWeek() -> Date?
-    {
+    func sameDayThisWeek() -> Date? {
         let calendar = Calendar.current
         
         let components = calendar.dateComponents([.hour, .minute, .weekday], from: self)
@@ -39,14 +35,12 @@ extension Date
     }
     
     // Returns the weekday as an integer (0 -> Sunday, 6 -> Saturday)
-    func weekday() -> Int
-    {
+    func weekday() -> Int {
         return Calendar.current.component(.weekday, from: self) - 1
     }
     
     // Returns whether this Date is between Date range [a, b] inclusive.
-    func isBetween(_ a: Date?, _ b: Date?) -> Bool
-    {
+    func isBetween(_ a: Date?, _ b: Date?) -> Bool {
         if a == nil || b == nil {
             return false 
         }
@@ -55,14 +49,12 @@ extension Date
     }
     
     // Returns true if this Date is earlier or equal to given other.
-    static func <= (_ this: inout Date, _ other: Date) -> Bool
-    {
+    static func <= (_ this: inout Date, _ other: Date) -> Bool {
         return (this < other) || (this == other)
     }
     
     // Returns true if this Date is later or equal to given other.
-    static func >= (_ this: inout Date, _ other: Date) -> Bool
-    {
+    static func >= (_ this: inout Date, _ other: Date) -> Bool {
         return (this < other) || (this == other)
     }
 }
