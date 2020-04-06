@@ -41,7 +41,7 @@ class DiningDetailViewController: UIViewController {
     
     let nameLabel: UILabel = {
         let label = UILabel()
-        label.font = Font.semibold(24)
+        label.font = Font.bold(24)
         label.textColor = Color.blackText
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontSizeToFitWidth = true
