@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 // The set of known restrictions. The `rawValue` is the string representation in Firebase.
-enum KnownRestriction: String {
+enum KnownRestriction: String, CaseIterable {
     
     case alcohol    = "Contains Alcohol"
     case egg        = "Egg"
@@ -36,7 +36,7 @@ class DiningRestriction {
     
     var rawValue: String
     // `nil` if restriction is unknown.
-    private var known: KnownRestriction?
+    var known: KnownRestriction?
     
     init(rawValue: String) {
         self.rawValue = rawValue
@@ -46,11 +46,38 @@ class DiningRestriction {
     var icon: UIImage? {
         guard let restriction = known else { return nil }
         switch restriction {
-        // TODO: Fill out
         case .alcohol:
-            return UIImage()
+            return UIImage(named: "ALCOHOL")
+        case .egg:
+            return UIImage(named: "EGG")
+        case .fish:
+            return UIImage(named: "FISH")
+        case .gluten:
+            return UIImage(named: "GLUTEN")
+        case .halal:
+            return UIImage(named: "HALAL")
+        case .kosher:
+            return UIImage(named: "KOSHER")
+        case .milk:
+            return UIImage(named: "MILK")
+        case .peanut:
+            return UIImage(named: "PEANUTS")
+        case .sesame:
+            return UIImage(named: "SESAME")
+        case .shellfish:
+            return UIImage(named: "SHELLFISH")
+        case .soybean:
+            return UIImage(named: "SOYBEAN")
+        case .treenut:
+            return UIImage(named: "TREENUTS")
+        case .vegan:
+            return UIImage(named: "VEGAN")
+        case .vegetarian:
+            return UIImage(named: "VEGETARIAN")
+        case .wheat:
+            return UIImage(named: "WHEAT")
         default:
-            return UIImage()
+            return nil
         }
     }
     
@@ -59,11 +86,11 @@ class DiningRestriction {
 extension DiningRestriction {
     
     static func == (lhs: DiningRestriction, rhs: DiningRestriction) -> Bool {
-         return lhs.rawValue == rhs.rawValue
+        return lhs.rawValue == rhs.rawValue
     }
     
     static func == (lhs: DiningRestriction, rhs: KnownRestriction) -> Bool {
-         return lhs.rawValue == rhs.rawValue
+        return lhs.rawValue == rhs.rawValue
     }
     
 }

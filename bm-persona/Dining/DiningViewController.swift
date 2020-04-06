@@ -95,6 +95,7 @@ extension DiningViewController: UITableViewDelegate, UITableViewDataSource {
             }
             
             if diningHall.image == nil {
+                cell.cellImage.image = UIImage(named: "DoeGlade")
                 DispatchQueue.global().async {
                     if diningHall.imageURL == nil {
                         return
@@ -102,8 +103,10 @@ extension DiningViewController: UITableViewDelegate, UITableViewDataSource {
                     guard let imageData = try? Data(contentsOf: diningHall.imageURL!) else { return }
                     let image = UIImage(data: imageData)
                     DispatchQueue.main.async {
-                        cell.cellImage.image = image
                         diningHall.image = image
+                        if tableView.visibleCells.contains(cell) {
+                            cell.cellImage.image = image
+                        }
                     }
                 }
             } else {
@@ -125,6 +128,12 @@ extension DiningViewController: UITableViewDelegate, UITableViewDataSource {
         //to prevent laggy scrolling
         let radius = cell.contentView.layer.cornerRadius
         cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: radius).cgPath
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = DiningDetailViewController()
+        vc.diningHall = self.filterTableView.filteredData[indexPath.row]
+        self.present(vc, animated: true, completion: nil)
     }
 }
 
@@ -178,5 +187,7 @@ extension DiningViewController {
         self.filterTableView = FilterTableView(frame: .zero, filters: filters)
         self.filterTableView.tableView.register(FilterTableViewCell.self, forCellReuseIdentifier: FilterTableViewCell.kCellIdentifier)
         self.filterTableView.tableView.dataSource = self
+        self.filterTableView.tableView.delegate = self
     }
+    
 }

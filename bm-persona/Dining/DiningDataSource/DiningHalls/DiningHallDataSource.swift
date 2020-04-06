@@ -5,7 +5,6 @@
 //  Created by Kevin Hu on 3/14/20.
 //  Copyright © 2020 RJ Pimentel. All rights reserved.
 //
-
 import Foundation
 import Firebase
 
@@ -75,6 +74,8 @@ class DiningHallDataSource: DataSource {
     private static func parseDiningHall(_ dict: [String: Any]) -> DiningHall {
         let weeklyHours = DiningHall.parseWeeklyHours(dict: dict["open_close_array"] as? [[String: Any]])
         let diningHall = DiningHall(name: dict["name"] as? String ?? "Unnamed",
+                                  campusLocation: dict["address"] as? String,
+                                  phoneNumber: dict["phone"] as? String,
                                   imageLink: dict["picture"] as? String,
                                   shifts: MealMap(),
                                   hours: weeklyHours,
