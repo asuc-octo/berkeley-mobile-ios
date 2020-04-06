@@ -81,7 +81,6 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
         studyLabel.text = "Find your study spot"
         studyLabel.font = Font.bold(24)
         studyLabel.adjustsFontSizeToFitWidth = true
-        studyLabel.textColor = .black
         studyLabel.textColor = Color.blackText
         card.addSubview(studyLabel)
         
