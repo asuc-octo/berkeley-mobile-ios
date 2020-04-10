@@ -39,12 +39,12 @@ class ResourcesViewController: UIViewController {
 
 extension ResourcesViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return resourceEntries.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = ResourceTableViewCell()
-        cell.cellConfigure(entry: resourceEntries[indexPath.section])
+        cell.cellConfigure(entry: resourceEntries[indexPath.row])
         return cell
     }
     
@@ -52,28 +52,8 @@ extension ResourcesViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return resourceEntries.count
-    }
-    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 106
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 15
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UIView()
-        headerView.backgroundColor = .clear
-        return headerView
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        cell.contentView.layer.masksToBounds = true
-        let radius = cell.contentView.layer.cornerRadius
-        cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: radius).cgPath
+        return 103
     }
     
 }
@@ -100,7 +80,7 @@ extension ResourcesViewController {
         card.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
         card.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
         
-        let filters = [Filter<Resource>(label: "Open", filter: {resource in resource.isOpen})]
+        let filters = [Filter<Resource>(label: "Open", filter: {resource in resource.isOpen ?? false})]
         resourcesTable = FilterTableView(frame: .zero, filters: filters)
         
         resourcesTable.tableView.delegate = self

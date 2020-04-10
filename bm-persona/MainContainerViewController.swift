@@ -28,11 +28,9 @@ class MainContainerViewController: UIViewController {
         super.viewDidLoad()
         add(child: mapViewController)
         add(child: drawerViewController)
-        
         drawerViewController.delegate = self
         mapViewController.view.frame = self.view.frame
         mapViewController.drawerContainer = self
-        
         drawerViewController.view.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             drawerViewController.view.heightAnchor.constraint(equalTo: self.view.heightAnchor),
@@ -47,6 +45,7 @@ class MainContainerViewController: UIViewController {
         drawerStatePositions[.collapsed] = self.view.frame.maxY * 0.9 + (self.view.frame.maxY / 2)
         drawerStatePositions[.middle] = self.view.frame.midY * 1.1 + (self.view.frame.maxY / 2)
         drawerStatePositions[.full] = self.view.safeAreaInsets.top + (self.view.frame.maxY / 2)
+        drawerViewController.heightOffset = self.view.safeAreaInsets.top
         self.initialDrawerCenter = drawerViewController.view.center
         moveDrawer(to: drawerViewController.state, duration: 0)
     }

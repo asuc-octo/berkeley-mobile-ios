@@ -32,15 +32,13 @@ class GymDataSource: DataSource
     
     // Return a Gym object parsed from a dictionary.
     private static func parseGym(_ dict: [String: Any]) -> Gym {
-        let weeklyHours = parseWeeklyTimes(dict["open_close_array"] as? [[String: Any]])
-        let timesToday = weeklyHours[Date().weekday()]
+        let weeklyHours = Gym.parseWeeklyHours(dict: dict["open_close_array"] as? [[String: Any]])
         
         let gym = Gym(name: dict["name"] as? String ?? "Unnamed",
                       address: dict["address"] as? String,
                       phoneNumber: dict["phone"] as? String,
                       imageLink: dict["picture"] as? String,
-                      openingTimeToday: timesToday?.start,
-                      closingTimeToday: timesToday?.end)
+                      weeklyHours: weeklyHours)
         
         gym.latitude = dict["latitude"] as? Double
         gym.longitude = dict["longitude"] as? Double

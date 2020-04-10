@@ -18,12 +18,12 @@ import MapKit
  */
 enum MapMarkerType: String, CaseIterable {
     
-    case mentalHealth = "Mental Health Resources"
-    case microwave = "Microwaves"
-    case napPod = "Nap Pods"
-    case printer = "Printers"
-    case water = "Water Fountains"
-    case bikes = "Ford Go Bikes"
+    case mentalHealth = "Mental Health"
+    case microwave = "Microwave"
+    case napPod = "Nap Pod"
+    case printer = "Printer"
+    case water = "Water Fountain"
+    case bikes = "Ford Go Bike"
     
     /** The icon to be shown on the map at the marker location  */
     func icon() -> UIImage {
@@ -74,7 +74,7 @@ enum MapMarkerType: String, CaseIterable {
 // MARK: - MapMarker
 
 /** Object describing resource locations (Microwaves, Bikes, Nap Pods, etc.) */
-class MapMarker: NSObject, MKAnnotation {
+class MapMarker: NSObject, MKAnnotation, HasOpenTimes {
     
     var type: MapMarkerType
     
@@ -84,19 +84,7 @@ class MapMarker: NSObject, MKAnnotation {
     
     var notes: String?
     var phone: String?
-    var weeklyHours: [DateInterval?]?
-    
-    var isOpen: Bool? {
-        guard let weeklyHours = weeklyHours else { return nil }
-        if let todayTimes = weeklyHours[Date().weekday()] {
-            let open = todayTimes.start
-            let close = todayTimes.end
-            if Date().isBetween(open, close) || close == open {
-                return true
-            }
-        }
-        return false
-    }
+    var weeklyHours: WeeklyHours?
     
     init(type: MapMarkerType,
          location: CLLocationCoordinate2D,
@@ -104,7 +92,7 @@ class MapMarker: NSObject, MKAnnotation {
          description: String? = nil,
          notes: String? = nil,
          phone: String? = nil,
-         weeklyHours: [DateInterval?]? = nil) {
+         weeklyHours: WeeklyHours? = nil) {
         self.type = type
         self.coordinate = location
         self.title = name

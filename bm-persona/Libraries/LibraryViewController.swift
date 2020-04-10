@@ -15,7 +15,6 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
     
     var filterTableView: FilterTableView = FilterTableView<Library>(frame: .zero, filters: [])
     var safeArea: UILayoutGuide!
-    let cellSpacingHeight: CGFloat = 14
     var libraries: [Library] = []
     var locationManager = CLLocationManager()
     var location: CLLocation?
@@ -29,15 +28,6 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
         return img
     }()
     
-    let filterImage:UIImageView = {
-        let img = UIImageView()
-        img.contentMode = .scaleAspectFit
-        img.image = UIImage(named: "Filter")
-        img.translatesAutoresizingMaskIntoConstraints = false
-        img.clipsToBounds = true
-        return img
-    }()
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -45,7 +35,7 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
-      
+        
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.startUpdatingLocation()
@@ -90,7 +80,6 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
         studyLabel.text = "Find your study spot"
         studyLabel.font = Font.bold(24)
         studyLabel.adjustsFontSizeToFitWidth = true
-        studyLabel.textColor = .black
         studyLabel.textColor = Color.blackText
         card.addSubview(studyLabel)
         
@@ -100,16 +89,9 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
         bookImage.heightAnchor.constraint(equalToConstant: 26).isActive = true
         bookImage.widthAnchor.constraint(equalToConstant: 26).isActive = true
         
-        card.addSubview(filterImage)
-        filterImage.centerYAnchor.constraint(equalTo: studyLabel.centerYAnchor).isActive = true
-        filterImage.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive
-            = true
-        filterImage.heightAnchor.constraint(equalToConstant: 22).isActive = true
-        filterImage.widthAnchor.constraint(equalToConstant: 22).isActive = true
-        
         studyLabel.translatesAutoresizingMaskIntoConstraints = false
         studyLabel.leftAnchor.constraint(equalTo: bookImage.rightAnchor, constant: 15).isActive = true
-        studyLabel.rightAnchor.constraint(equalTo: filterImage.leftAnchor, constant: -15).isActive = true
+        studyLabel.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
         studyLabel.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true
         
         setupFilterTableView()
@@ -124,18 +106,21 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
     func setupFilterTableView() {
         let filters = [
             Filter<Library>(label: "Nearby", filter: {lib in lib.getDistanceToUser(userLoc: self.location) < Library.nearbyDistance}),
-            Filter<Library>(label: "Open", filter: {lib in lib.isOpen}),
+            Filter<Library>(label: "Open", filter: {lib in lib.isOpen ?? false}),
         ]
         filterTableView = FilterTableView(frame: .zero, filters: filters)
         self.filterTableView.tableView.register(FilterTableViewCell.self, forCellReuseIdentifier: FilterTableViewCell.kCellIdentifier)
         self.filterTableView.tableView.dataSource = self
         self.filterTableView.tableView.delegate = self
+<<<<<<< HEAD
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = LibraryDetailViewController()
         vc.library = self.filterTableView.filteredData[indexPath.row]
         present(vc, animated: true, completion: nil)
+=======
+>>>>>>> develop
     }
     
     //number of rows to be shown in tableview
@@ -179,6 +164,7 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
             }
             
             if lib.image == nil {
+                cell.cellImage.image = UIImage(named: "DoeGlade")
                 DispatchQueue.global().async {
                     if lib.imageURL == nil {
                         return
@@ -186,8 +172,10 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
                     guard let imageData = try? Data(contentsOf: lib.imageURL!) else { return }
                     let image = UIImage(data: imageData)
                     DispatchQueue.main.async {
-                        cell.cellImage.image = image
                         lib.image = image
+                        if tableView.visibleCells.contains(cell) {
+                            cell.cellImage.image = image
+                        }
                     }
                 }
             } else {
@@ -197,14 +185,6 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
             return cell
         }
         return UITableViewCell()
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        // this will turn on `masksToBounds` just before showing the cell
-        cell.contentView.layer.masksToBounds = true
-        //to prevent laggy scrolling
-        let radius = cell.contentView.layer.cornerRadius
-        cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: radius).cgPath
     }
     
 }
