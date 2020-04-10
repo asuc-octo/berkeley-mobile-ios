@@ -88,6 +88,7 @@ extension LibraryDetailViewController {
         libPic.rightAnchor.constraint(equalTo: overviewCard.layoutMarginsGuide.rightAnchor).isActive = true
         libPic.widthAnchor.constraint(equalTo: overviewCard.layoutMarginsGuide.widthAnchor, multiplier: 0.48).isActive = true
         libPic.contentMode = .scaleAspectFit
+        libPic.isUserInteractionEnabled = true
         
         let addressIcon = UIImageView()
         addressIcon.image = #imageLiteral(resourceName: "map")
@@ -110,9 +111,9 @@ extension LibraryDetailViewController {
             }
         }
         overviewCard.addSubview(addressLabel)
-        addressLabel.font = Font.thin(12)
+        addressLabel.font = Font.light(12)
         addressLabel.numberOfLines = 0
-        addressLabel.textColor = UIColor.black
+        addressLabel.textColor = Color.blackText
         addressLabel.translatesAutoresizingMaskIntoConstraints = false
         addressLabel.bottomAnchor.constraint(equalTo: addressIcon.layoutMarginsGuide.bottomAnchor).isActive = true
         addressLabel.leftAnchor.constraint(equalTo: addressIcon.layoutMarginsGuide.rightAnchor, constant: 15).isActive = true
@@ -134,8 +135,8 @@ extension LibraryDetailViewController {
         let phoneLabel = UILabel()
         phoneLabel.text = library!.phoneNumber
         overviewCard.addSubview(phoneLabel)
-        phoneLabel.font = Font.thin(12)
-        phoneLabel.textColor = UIColor.black
+        phoneLabel.font = Font.light(12)
+        phoneLabel.textColor = Color.blackText
         phoneLabel.translatesAutoresizingMaskIntoConstraints = false
         phoneLabel.topAnchor.constraint(equalTo: addressIcon.layoutMarginsGuide.bottomAnchor, constant: 10).isActive = true
         phoneLabel.leftAnchor.constraint(equalTo: phoneIcon.layoutMarginsGuide.rightAnchor, constant: 15).isActive = true
@@ -165,15 +166,14 @@ extension LibraryDetailViewController {
         distIcon.heightAnchor.constraint(equalToConstant: 20).isActive = true
        
         overviewCard.addSubview(distLabel)
-        distLabel.font = Font.thin(12)
-        distLabel.textColor = UIColor.black
+        distLabel.font = Font.light(12)
+        distLabel.textColor = Color.blackText
         distLabel.translatesAutoresizingMaskIntoConstraints = false
         distLabel.topAnchor.constraint(equalTo: addressIcon.layoutMarginsGuide.bottomAnchor, constant: 10).isActive = true
         distLabel.leftAnchor.constraint(equalTo: distIcon.layoutMarginsGuide.rightAnchor, constant: 15).isActive = true
         distLabel.widthAnchor.constraint(equalTo: overviewCard.layoutMarginsGuide.widthAnchor, multiplier: 0.25).isActive = true
         distLabel.adjustsFontSizeToFitWidth = true
         distLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
-
         
         let faveButton = UIButton()
         faveButton.backgroundColor = .clear
@@ -188,10 +188,10 @@ extension LibraryDetailViewController {
         faveButton.translatesAutoresizingMaskIntoConstraints = false
         faveButton.topAnchor.constraint(equalTo: libPic.layoutMarginsGuide.bottomAnchor).isActive = true
         faveButton.rightAnchor.constraint(equalTo: overviewCard.layoutMarginsGuide.rightAnchor).isActive = true
-        faveButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
-        faveButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        faveButton.widthAnchor.constraint(equalToConstant: 25).isActive = true
+        faveButton.heightAnchor.constraint(equalToConstant: 25).isActive = true
         faveButton.imageView?.contentMode = .scaleAspectFit
-        //faveButton.bottomAnchor.constraint(equalTo: distLabel.layoutMarginsGuide.bottomAnchor).isActive = true
+        faveButton.imageView?.isUserInteractionEnabled = true
         
         overviewCard.topAnchor.constraint(equalTo: contentHelper.layoutMarginsGuide.topAnchor).isActive = true
         overviewCard.bottomAnchor.constraint(equalTo: faveButton.layoutMarginsGuide.bottomAnchor, constant: 10).isActive = true
@@ -210,7 +210,7 @@ extension LibraryDetailViewController {
         openLabel.layer.masksToBounds = true
         openLabel.layer.cornerRadius = 10
         openLabel.font = Font.semibold(14)
-        openLabel.backgroundColor = .systemBlue
+        openLabel.backgroundColor = Color.openTag
         openLabel.textColor = .white
         openLabel.text = library!.isOpen ? "  Open  " : "  Closed  "
         hoursCard.addSubview(openLabel)
@@ -235,13 +235,14 @@ extension LibraryDetailViewController {
         currentHours.leftAnchor.constraint(equalTo: openLabel.layoutMarginsGuide.rightAnchor, constant: 40).isActive = true
         
         let nameLabel = UILabel()
-        nameLabel.font = Font.thin(12)
+        nameLabel.font = Font.light(12)
         nameLabel.numberOfLines = 7
         hoursCard.addSubview(nameLabel)
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.topAnchor.constraint(equalTo: openLabel.layoutMarginsGuide.bottomAnchor, constant: 12).isActive = true
         nameLabel.leftAnchor.constraint(equalTo: hoursCard.layoutMarginsGuide.leftAnchor, constant: 25).isActive = true
         nameLabel.widthAnchor.constraint(equalTo: hoursCard.layoutMarginsGuide.widthAnchor, multiplier: 0.5).isActive = true
+
         let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
         nameLabel.text = ""
         for dayName in days {
@@ -249,7 +250,7 @@ extension LibraryDetailViewController {
         }
         
         let timeLabel = UILabel()
-        timeLabel.font = Font.thin(12)
+        timeLabel.font = Font.light(12)
         timeLabel.numberOfLines = 7
         hoursCard.addSubview(timeLabel)
         timeLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -324,41 +325,40 @@ extension LibraryDetailViewController {
 extension LibraryDetailViewController {
     
     @objc func toggleFave(sender: UIButton) {
-               if library!.isFavorited {
-                sender.setImage(#imageLiteral(resourceName: "not-favorited-icon"), for: .normal)
-                library!.isFavorited = false
-               } else {
-                sender.setImage(#imageLiteral(resourceName: "favorited-icon"), for: .normal)
-                library!.isFavorited = true
+        print("toggle fave funtion")
+        if library!.isFavorited {
+            sender.setImage(#imageLiteral(resourceName: "not-favorited-icon"), for: .normal)
+            library!.isFavorited = false
+        } else {
+            sender.setImage(#imageLiteral(resourceName: "favorited-icon"), for: .normal)
+            library!.isFavorited = true
         }
     }
 }
     
-    extension  LibraryDetailViewController : CLLocationManagerDelegate {
-        
-        func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-            let userLocation : CLLocation = locations[0] as CLLocation
-            userCoords.latitude = userLocation.coordinate.latitude
-            userCoords.longitude = userLocation.coordinate.longitude
-            DispatchQueue.main.async {
-                //reloads overviewCard with distance marker
-                var distance = Double.nan
-                let userLoc = CLLocation(latitude: self.userCoords.latitude, longitude: self.userCoords.longitude)
-                distance = self.library.getDistanceToUser(userLoc: userLoc)
-                if !distance.isNaN && distance < Library.invalidDistance {
-                    self.distLabel.text = "\(distance) miles away"
-                }
-                else {
-                    self.distLabel.text = ""
-                }
+extension  LibraryDetailViewController : CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let userLocation : CLLocation = locations[0] as CLLocation
+        userCoords.latitude = userLocation.coordinate.latitude
+        userCoords.longitude = userLocation.coordinate.longitude
+        DispatchQueue.main.async {
+            //reloads overviewCard with distance marker
+            var distance = Double.nan
+            let userLoc = CLLocation(latitude: self.userCoords.latitude, longitude: self.userCoords.longitude)
+            distance = self.library.getDistanceToUser(userLoc: userLoc)
+            if !distance.isNaN && distance < Library.invalidDistance {
+                self.distLabel.text = "\(distance) miles away"
+            }
+            else {
+                self.distLabel.text = ""
             }
         }
-        
-        func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-            // might be that user didn't enable location service on the device
-            // or there might be no GPS signal inside a building
-            // might be a good idea to show an alert to user to ask them to walk to a place with GPS signal
-            print(error)
-        }
+    }
     
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        // might be that user didn't enable location service on the device
+        // or there might be no GPS signal inside a building
+        // might be a good idea to show an alert to user to ask them to walk to a place with GPS signal
+        print(error)
+    }
 }
