@@ -181,7 +181,7 @@ class DiningDetailViewController: SearchDetailViewController {
 extension DiningDetailViewController {
     
     func setUpOverviewCard() {
-        view.layoutMargins = UIEdgeInsets(top: kViewMargin, left: kViewMargin, bottom: kViewMargin, right: kViewMargin)
+        view.layoutMargins = UIEdgeInsets(top: 3*kViewMargin, left: kViewMargin, bottom: kViewMargin, right: kViewMargin)
         
         view.addSubview(card)
         card.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true

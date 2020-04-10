@@ -84,7 +84,6 @@ class MapViewController: UIViewController {
         super.viewDidAppear(animated)
         (mapView.isZoomEnabled, mapView.showsUserLocation) = (true, true)
         mapView.setUserTrackingMode(.follow, animated: true)
-        add(child: detailViewController)
     }
     
     private func setupSubviews() {
@@ -340,16 +339,20 @@ extension MapViewController: SearchResultsViewDelegate, SearchDetailViewDelegate
                 mapView.addAnnotation(annotation)
                 drawerContainer?.moveDrawer(to: .hidden, duration: 0.2)
                 
-                let superView = detailViewController.view.superview!
+                var superView: UIView!
                 var positions: [SearchDetailState: CGFloat] = [:]
                 if let hall = item as? DiningHall {
                     detailViewController = DiningDetailViewController()
                     (detailViewController as! DiningDetailViewController).diningHall = hall
+                    add(child: detailViewController)
+                    superView = detailViewController.view.superview!
                     positions[.hidden] = superView.frame.maxY + superView.frame.maxY / 2
                     positions[.middle] = superView.frame.midY + superView.frame.maxY * 0.7
                     positions[.full] = superView.safeAreaInsets.top + (superView.frame.maxY / 2)
                 } else {
                     detailViewController = SearchDetailViewController()
+                    add(child: detailViewController)
+                    superView = detailViewController.view.superview!
                     detailViewController.view.backgroundColor = .red
                     positions[.hidden] = superView.frame.maxY + superView.frame.maxY / 2
                     positions[.middle] = superView.frame.midY + superView.frame.maxY * 0.7
