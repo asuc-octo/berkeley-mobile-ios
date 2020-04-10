@@ -104,7 +104,7 @@ class MapMarkerDetailView: UIView {
         notesLabel.font = Font.thin(10)
         notesLabel.textColor = Color.primaryText
         
-        detailStack = UIStackView(axis: .horizontal, distribution: .fillProportionally, spacing: kViewMargin)
+        detailStack = UIStackView(axis: .horizontal, distribution: .fill, spacing: kViewMargin)
         detailStack.alignment = .center
         
         verticalStack.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor).isActive = true
@@ -128,7 +128,7 @@ class MapMarkerDetailView: UIView {
         verticalStack.removeAllArrangedSubviews()
         nameLabel.text = marker.title
         typeColorView.backgroundColor = marker.type.color()
-        notesLabel.text = marker.notes
+        notesLabel.text = marker.subtitle
         
         detailStack.removeAllArrangedSubviews()
         for property: MapMarkerDetail in [.distance, .openNow, .location] {
@@ -167,6 +167,8 @@ enum MapMarkerDetail {
         let container = UIView()
         
         let imageView = UIImageView(image: icon?.resized(size: CGSize(width: 17, height: 17)))
+        imageView.setContentHuggingPriority(.required, for: .horizontal)
+        imageView.setContentHuggingPriority(.required, for: .vertical)
         container.addSubview(imageView)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.setConstraintsToView(top: container, bottom: container, left: container)
@@ -175,6 +177,7 @@ enum MapMarkerDetail {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.centerYAnchor.constraint(equalTo: imageView.centerYAnchor).isActive = true
         view.leftAnchor.constraint(equalTo: imageView.rightAnchor, constant: 10).isActive = true
+        view.rightAnchor.constraint(equalTo: container.rightAnchor).isActive = true
         
         return container
     }
@@ -188,12 +191,11 @@ enum MapMarkerDetail {
         switch self {
         case .openNow:
             guard let isOpen = marker.isOpen else { return nil }
-            #warning("TODO: Set proper icon")
-            let icon = UIImage(named: "Placemark")
+            let icon = UIImage(named: "Clock")
             let tag = isOpen ? TagView.open : TagView.closed
             return viewWithIcon(icon, view: tag)
         case .location:
-            guard let description = marker.subtitle else { return nil }
+            guard let description = marker.address else { return nil }
             let icon = UIImage(named: "Placemark")
             let label = UILabel()
             label.numberOfLines = 0
@@ -202,6 +204,7 @@ enum MapMarkerDetail {
             label.text = description
             return viewWithIcon(icon, view: label)
         default:
+            // TODO: Get distance to marker
             return nil
         }
     }

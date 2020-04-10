@@ -47,7 +47,7 @@ class MapDataSource: DataSource {
                          location: cl,
                          name: dict["name"] as? String,
                          description: dict["description"] as? String,
-                         notes: dict["notes"] as? String,
+                         address: dict["address"] as? String,
                          phone: dict["phone"] as? String,
                          weeklyHours: weeklyHours)
     }
