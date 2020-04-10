@@ -74,6 +74,17 @@ extension FilterView: UICollectionViewDataSource, UICollectionViewDelegate, UICo
         return cell.intrinsicContentSize
     }
     
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        // Deselect on second tap when multiple selection is disabled.
+        guard let item = collectionView.cellForItem(at: indexPath) else { return true }
+        if item.isSelected {
+            collectionView.deselectItem(at: indexPath, animated: false)
+            self.collectionView(collectionView, didDeselectItemAt: indexPath)
+            return false
+        }
+        return true
+    }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         filterDelegate?.filterView(self, didSelect: indexPath.row)
     }
