@@ -191,7 +191,7 @@ extension LibraryDetailViewController {
         faveButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
         faveButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
         faveButton.imageView?.contentMode = .scaleAspectFit
-        faveButton.bottomAnchor.constraint(equalTo: distLabel.layoutMarginsGuide.bottomAnchor).isActive = true
+        //faveButton.bottomAnchor.constraint(equalTo: distLabel.layoutMarginsGuide.bottomAnchor).isActive = true
         
         overviewCard.topAnchor.constraint(equalTo: contentHelper.layoutMarginsGuide.topAnchor).isActive = true
         overviewCard.bottomAnchor.constraint(equalTo: faveButton.layoutMarginsGuide.bottomAnchor, constant: 10).isActive = true
@@ -242,7 +242,6 @@ extension LibraryDetailViewController {
         nameLabel.topAnchor.constraint(equalTo: openLabel.layoutMarginsGuide.bottomAnchor, constant: 12).isActive = true
         nameLabel.leftAnchor.constraint(equalTo: hoursCard.layoutMarginsGuide.leftAnchor, constant: 25).isActive = true
         nameLabel.widthAnchor.constraint(equalTo: hoursCard.layoutMarginsGuide.widthAnchor, multiplier: 0.5).isActive = true
-        nameLabel.bottomAnchor.constraint(equalTo: hoursCard.layoutMarginsGuide.bottomAnchor, constant: -10).isActive = true
         let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
         nameLabel.text = ""
         for dayName in days {
@@ -257,7 +256,7 @@ extension LibraryDetailViewController {
         timeLabel.topAnchor.constraint(equalTo: nameLabel.layoutMarginsGuide.topAnchor).isActive = true
         timeLabel.leftAnchor.constraint(equalTo: nameLabel.layoutMarginsGuide.rightAnchor, constant: 5).isActive = true
         timeLabel.widthAnchor.constraint(equalTo: hoursCard.layoutMarginsGuide.widthAnchor, multiplier: 0.5).isActive = true
-        timeLabel.bottomAnchor.constraint(equalTo: hoursCard.layoutMarginsGuide.bottomAnchor, constant: -10).isActive = true
+        timeLabel.bottomAnchor.constraint(equalTo: nameLabel.layoutMarginsGuide.bottomAnchor).isActive = true
         timeLabel.text = ""
         for i in 0...6 {
             if let timeInverval = library!.weeklyHours[i] {
@@ -269,7 +268,7 @@ extension LibraryDetailViewController {
             }
         }
         
-        hoursCard.bottomAnchor.constraint(equalTo: timeLabel.layoutMarginsGuide.bottomAnchor).isActive = true
+        hoursCard.bottomAnchor.constraint(equalTo: timeLabel.layoutMarginsGuide.bottomAnchor, constant: 20).isActive = true
     }
     
     func setUpTrafficCard() {
