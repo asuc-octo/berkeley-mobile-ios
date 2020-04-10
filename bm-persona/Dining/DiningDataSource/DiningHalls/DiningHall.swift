@@ -13,6 +13,8 @@ import UIKit
     Each hall contains the `DiningMenu`, Open & Close times for every `MealType`.
 */
 class DiningHall: HasOpenTimes, SearchItem, HasLocation {
+    var icon: UIImage?
+    
     static var nearbyDistance: Double = 10
     static var invalidDistance: Double = 100
     
@@ -54,6 +56,7 @@ class DiningHall: HasOpenTimes, SearchItem, HasLocation {
         self.weeklyHours = hours
         self.latitude = latitude
         self.longitude = longitude
+        self.icon = UIImage(named: "Dining")
     }
     
 }

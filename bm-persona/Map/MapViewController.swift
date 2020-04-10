@@ -124,12 +124,20 @@ class MapViewController: UIViewController {
         if show {
             self.maskView.isHidden = false
             self.searchResultsView.isHidden = false
-            self.detailViewController.view.isHidden = true
+            if searchAnnotation != nil {
+                self.detailViewController.view.isHidden = true
+            } else {
+                self.drawerContainer?.moveDrawer(to: .hidden, duration: 0.2)
+            }
         } else {
             self.maskView.isHidden = true
             self.searchResultsView.isHidden = true
             self.searchResultsView.isScrolling = false
-            self.detailViewController.view.isHidden = false
+            if searchAnnotation != nil {
+                self.detailViewController.view.isHidden = false
+            } else {
+                self.drawerContainer?.moveDrawer(to: .collapsed, duration: 0.2)
+            }
         }
     }
     
@@ -332,15 +340,26 @@ extension MapViewController: SearchResultsViewDelegate, SearchDetailViewDelegate
                 mapView.addAnnotation(annotation)
                 drawerContainer?.moveDrawer(to: .hidden, duration: 0.2)
                 
-                //TODO: set up actual detail view
-                let detailView = UIView()
-                detailView.backgroundColor = .red
+                let superView = detailViewController.view.superview!
+                var positions: [SearchDetailState: CGFloat] = [:]
+                if let hall = item as? DiningHall {
+                    detailViewController = DiningDetailViewController()
+                    (detailViewController as! DiningDetailViewController).diningHall = hall
+                    positions[.hidden] = superView.frame.maxY + superView.frame.maxY / 2
+                    positions[.middle] = superView.frame.midY + superView.frame.maxY * 0.7
+                    positions[.full] = superView.safeAreaInsets.top + (superView.frame.maxY / 2)
+                } else {
+                    detailViewController = SearchDetailViewController()
+                    detailViewController.view.backgroundColor = .red
+                    positions[.hidden] = superView.frame.maxY + superView.frame.maxY / 2
+                    positions[.middle] = superView.frame.midY + superView.frame.maxY * 0.7
+                    positions[.full] = superView.safeAreaInsets.top + (superView.frame.maxY / 2)
+                }
+                let detailView = detailViewController.view!
                 detailView.layer.cornerRadius = 50
                 detailView.clipsToBounds = true
                 detailView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
-                detailViewController.view = detailView
                 
-                let superView = detailViewController.view.superview!
                 detailViewController.delegate = self
                 detailViewController.view.translatesAutoresizingMaskIntoConstraints = false
                 detailViewController.view.heightAnchor.constraint(equalTo: superView.heightAnchor).isActive = true
@@ -350,9 +369,7 @@ extension MapViewController: SearchResultsViewDelegate, SearchDetailViewDelegate
                 detailViewController.view.layoutIfNeeded()
                 detailViewController.setupBarView()
                 
-                searchDetailStatePositions[.hidden] = superView.frame.maxY + superView.frame.maxY / 2
-                searchDetailStatePositions[.middle] = superView.frame.midY + superView.frame.maxY * 0.7
-                searchDetailStatePositions[.full] = superView.safeAreaInsets.top + (superView.frame.maxY / 2)
+                searchDetailStatePositions = positions
                 initialDetailCenter = detailViewController.view.center
                 detailViewController.setupGestures()
                 moveSearchDetailView(to: .middle, duration: 0)

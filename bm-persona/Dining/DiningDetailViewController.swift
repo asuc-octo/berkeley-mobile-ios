@@ -12,7 +12,7 @@ import CoreLocation
 fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
 fileprivate let kViewMargin: CGFloat = 16
 
-class DiningDetailViewController: UIViewController {
+class DiningDetailViewController: SearchDetailViewController {
     
     var diningHall: DiningHall!
     var locationManager = CLLocationManager()
