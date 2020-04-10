@@ -210,6 +210,7 @@ extension FitnessViewController {
         scheduleButton.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
         
         classesTable = UITableView()
+        classesTable.allowsSelection = false
         classesTable.separatorStyle = .none
         classesTable.showsVerticalScrollIndicator = false
         classesTable.rowHeight = EventTableViewCell.kCellHeight
