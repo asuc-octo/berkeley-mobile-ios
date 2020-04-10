@@ -65,6 +65,7 @@ extension DiningViewController: UITableViewDelegate, UITableViewDataSource {
         if let cell = tableView.dequeueReusableCell(withIdentifier: FilterTableViewCell.kCellIdentifier, for: indexPath) as? FilterTableViewCell {
             let diningHall: DiningHall = self.filterTableView.filteredData[indexPath.row]
             cell.nameLabel.text = diningHall.name
+            cell.selectionStyle = .none
             var distance = Double.nan
             if location != nil {
                 distance = diningHall.getDistanceToUser(userLoc: location!)
@@ -73,7 +74,6 @@ extension DiningViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.timeLabel.text = "\(distance) mi"
             }
             cell.recLabel.text = "Recommended"
-            cell.selectionStyle = .none
             switch indexPath.row % 3 {
             case 0:
                 cell.capBadge.text = "High"

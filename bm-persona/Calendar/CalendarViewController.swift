@@ -64,11 +64,7 @@ extension CalendarViewController: UITableViewDelegate, UITableViewDataSource {
         cell.cellConfigure(entry: calendarEntries[indexPath.row])
         return cell
     }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
-    
+   
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return EventTableViewCell.kCellHeight
     }
@@ -142,6 +138,7 @@ extension CalendarViewController {
         table.delegate = self
         table.dataSource = self
         table.showsVerticalScrollIndicator = false
+        table.allowsSelection = false
         scrollView.addSubview(table)
         table.separatorStyle = .none
         table.translatesAutoresizingMaskIntoConstraints = false

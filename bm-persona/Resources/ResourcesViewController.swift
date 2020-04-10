@@ -48,10 +48,6 @@ extension ResourcesViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
-    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 103
     }
@@ -94,6 +90,7 @@ extension ResourcesViewController {
 //        table.setContentOffset(CGPoint(x: 0, y: -5), animated: false)
 //        table.contentInsetAdjustmentBehavior = .never
         
+        resourcesTable.tableView.allowsSelection = false
         resourcesTable.tableView.separatorStyle = .none
         resourcesTable.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true
         resourcesTable.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
