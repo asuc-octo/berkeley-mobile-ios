@@ -10,6 +10,7 @@ import UIKit
 
 fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
 fileprivate let kViewMargin: CGFloat = 16
+fileprivate let kButtonSize: CGFloat = 24
 
 // MARK: - MapMarkerDetailViewDelegate
 
@@ -77,15 +78,21 @@ class MapMarkerDetailView: UIView {
         contentView.setConstraintsToView(top: containerView, bottom: containerView, right: containerView)
         contentView.leftAnchor.constraint(equalTo: typeColorView.rightAnchor).isActive = true
         
-        let closeImage = UIImage(named: "Clear")?.resized(size: CGSize(width: 12, height: 12))
+        let iconSize: CGFloat = 12
+        let offset = (kButtonSize - iconSize) / 2
+        let closeImage = UIImage(named: "Clear")?.resized(size: CGSize(width: iconSize, height: iconSize))
         closeButton = UIButton(type: .system)
         closeButton.tintColor = Color.primaryText
         closeButton.setImage(closeImage, for: .normal)
+        closeButton.imageView?.contentMode = .center
         closeButton.addTarget(self, action: #selector(closeView), for: .touchUpInside)
         addSubview(closeButton)
         closeButton.translatesAutoresizingMaskIntoConstraints = false
-        closeButton.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
-        closeButton.rightAnchor.constraint(equalTo: contentView.layoutMarginsGuide.rightAnchor).isActive = true
+        // The button is larger for user interaction, so we offset the constraints so the image is still visually in the correct place.
+        closeButton.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor, constant: -offset).isActive = true
+        closeButton.rightAnchor.constraint(equalTo: contentView.layoutMarginsGuide.rightAnchor, constant: offset).isActive = true
+        closeButton.widthAnchor.constraint(equalToConstant: kButtonSize).isActive = true
+        closeButton.heightAnchor.constraint(equalToConstant: kButtonSize).isActive = true
         
         verticalStack = UIStackView(axis: .vertical, distribution: .fill, spacing: kViewMargin)
         contentView.addSubview(verticalStack)
