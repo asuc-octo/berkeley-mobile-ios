@@ -18,7 +18,6 @@ class FitnessViewController: UIViewController, CLLocationManagerDelegate {
     
     private var scrollView: UIScrollView!
     private var content: UIView!
-    private var filterTableView = FilterTableView<Gym>(frame: .zero, filters: [])
     
     private var upcomingCard: CardView!
     private var todayCard: CardView!
@@ -26,12 +25,22 @@ class FitnessViewController: UIViewController, CLLocationManagerDelegate {
     
     private var bClassesExpanded = false
     
-    private var gymsTable: UITableView!
+    // For use in the "Today" card
+    private var classesTable: UITableView!
+    // For use in the "Upcoming" card
     private var classesCollection: CardCollectionView!
+    // To display a list of gyms in the "Fitness Centers" card
+    var filterTableView = FilterTableView<Gym>(frame: .zero, filters: [])
     
-    private var gyms: [Gym] = []
+    var gyms: [Gym] = []
+    var upcomingClasses: [GymClass] = []
+    var todayClasses: [GymClass] = []
+    
+    private var classesController = GymClassesController()
+    private var gymsController = GymsController()
+    
     private var locationManager = CLLocationManager()
-    private var location: CLLocation?
+    var location: CLLocation?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,6 +59,32 @@ class FitnessViewController: UIViewController, CLLocationManagerDelegate {
         location = locationManager.location
         filterTableView.setSortFunc(newSortFunc: {gym1, gym2 in SortingFunctions.sortClose(loc1: gym1, loc2: gym2, location: self.location, locationManager: self.locationManager)})
         
+        classesController.vc = self
+        gymsController.vc = self
+        
+        // Fetch Gym Classes
+        DataManager.shared.fetch(source: GymClassDataSource.self) { classes in
+            let classes = classes as? [[GymClass]] ?? []
+            // How the classes are sorted (start time, then alphabetical)
+            let sortFn = { (lhs: GymClass, rhs: GymClass) -> Bool in
+                lhs.start_time == rhs.start_time ? lhs.name < rhs.name :  lhs.start_time < rhs.start_time
+            }
+            
+            self.todayClasses = classes.filter { (classes) -> Bool in
+                guard let start = classes.first?.start_time else { return false }
+#if DEBUG
+                return true
+#else
+                return Calendar.current.isDateInToday(start)
+#endif
+            }.first?.sorted(by: sortFn) ?? []
+            self.upcomingClasses = classes.reduce([], +).sorted(by: sortFn)
+            
+            self.classesTable.reloadData()
+            self.classesCollection.reloadData()
+        }
+        
+        // Fetch Gyms
         DataManager.shared.fetch(source: GymDataSource.self) { gyms in
             self.gyms = gyms as? [Gym] ?? []
             self.filterTableView.setData(data: gyms as! [Gym])
@@ -77,96 +112,6 @@ class FitnessViewController: UIViewController, CLLocationManagerDelegate {
         location = manager.location
         self.filterTableView.sort()
         self.filterTableView.tableView.reloadData()
-    }
-    
-}
-
-// MARK: - UICollectionViewDelegate
-
-// Dummy Data
-extension FitnessViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CardCollectionView.kCellIdentifier, for: indexPath)
-        if let card = cell as? CardCollectionViewCell {
-            card.title.text = "Mat Pilates"
-            card.subtitle.text = "Nov 10 / 1:00 PM"
-            card.badge.text = "Core"
-            card.badge.backgroundColor = .orange
-        }
-        return cell
-    }
-    
-}
-
-// MARK: - UITableViewDelegate
-
-// Dummy Data
-extension FitnessViewController: UITableViewDelegate, UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.filterTableView.filteredData.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: FilterTableViewCell.kCellIdentifier, for: indexPath) as? FilterTableViewCell {
-            let gym: Gym = self.filterTableView.filteredData[indexPath.row]
-            cell.nameLabel.text = gym.name
-            var distance = Double.nan
-            if location != nil {
-                distance = gym.getDistanceToUser(userLoc: location!)
-            }
-            if !distance.isNaN && distance < Gym.invalidDistance {
-                cell.timeLabel.text = "\(distance) mi"
-            }
-            cell.recLabel.text = "Recommended"
-            cell.selectionStyle = .none
-            switch indexPath.row % 3 {
-            case 0:
-                cell.capBadge.text = "High"
-            case 1:
-                cell.capBadge.text = "Medium"
-            default:
-                cell.capBadge.text = "Low"
-            }
-            
-            switch cell.capBadge.text!.lowercased() {
-            case "high":
-                cell.capBadge.backgroundColor = Color.highCapacityTag
-            case "medium":
-                cell.capBadge.backgroundColor = Color.medCapacityTag
-            case "low":
-                cell.capBadge.backgroundColor = Color.lowCapacityTag
-            default:
-                cell.capBadge.backgroundColor = .clear
-            }
-            
-            if gym.image == nil {
-                cell.cellImage.image = UIImage(named: "DoeGlade")
-                DispatchQueue.global().async {
-                    if gym.imageURL == nil {
-                        return
-                    }
-                    guard let imageData = try? Data(contentsOf: gym.imageURL!) else { return }
-                    let image = UIImage(data: imageData)
-                    DispatchQueue.main.async {
-                        gym.image = image
-                        if tableView.visibleCells.contains(cell) {
-                            cell.cellImage.image = image
-                        }
-                    }
-                }
-            } else {
-                cell.cellImage.image = gym.image!
-            }
-
-            return cell
-        }
-        return UITableViewCell()
     }
     
 }
@@ -219,8 +164,7 @@ extension FitnessViewController {
         headerLabel.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
         
         let collectionView = CardCollectionView(frame: .zero)
-        collectionView.delegate = self
-        collectionView.dataSource = self
+        collectionView.dataSource = classesController
         collectionView.contentInset = UIEdgeInsets(top: 0, left: card.layoutMargins.left, bottom: 0, right: card.layoutMargins.right)
         contentView.addSubview(collectionView)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -264,6 +208,19 @@ extension FitnessViewController {
         scheduleButton.translatesAutoresizingMaskIntoConstraints = false
         scheduleButton.centerYAnchor.constraint(equalTo: headerLabel.centerYAnchor).isActive = true
         scheduleButton.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
+        
+        classesTable = UITableView()
+        classesTable.separatorStyle = .none
+        classesTable.showsVerticalScrollIndicator = false
+        classesTable.rowHeight = EventTableViewCell.kCellHeight
+        classesTable.dataSource = classesController
+        classesTable.register(EventTableViewCell.self, forCellReuseIdentifier: GymClassesController.kCellIdentifier)
+        card.addSubview(classesTable)
+        classesTable.translatesAutoresizingMaskIntoConstraints = false
+        classesTable.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: kViewMargin).isActive = true
+        classesTable.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
+        classesTable.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
+        classesTable.bottomAnchor.constraint(equalTo: card.layoutMarginsGuide.bottomAnchor).isActive = true
         
         todayCard = card
     }
@@ -310,7 +267,7 @@ extension FitnessViewController {
         ]
         filterTableView = FilterTableView(frame: .zero, filters: filters)
         self.filterTableView.tableView.register(FilterTableViewCell.self, forCellReuseIdentifier: FilterTableViewCell.kCellIdentifier)
-        self.filterTableView.tableView.dataSource = self
+        self.filterTableView.tableView.dataSource = gymsController
     }
     
 }

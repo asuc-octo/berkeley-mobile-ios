@@ -10,10 +10,12 @@ import UIKit
 
 class EventTableViewCell: UITableViewCell {
     
-    private var eventTaggingColor: UIView!
-    private var eventName: UILabel!
-    private var eventTime: UILabel!
-    private var eventCategory: TagView!
+    static let kCellHeight: CGFloat = 86
+    
+    var eventTaggingColor: UIView!
+    var eventName: UILabel!
+    var eventTime: UILabel!
+    var eventCategory: TagView!
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -79,14 +81,15 @@ class EventTableViewCell: UITableViewCell {
         eventName.bottomAnchor.constraint(lessThanOrEqualTo: eventTime.topAnchor, constant: -5).isActive = true
         
         eventTime.font = Font.thin(12)
+        eventTime.numberOfLines = 2
         eventTime.setContentCompressionResistancePriority(.required, for: .vertical)
-        eventTime.leftAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
-        eventTime.rightAnchor.constraint(equalTo: contentView.layoutMarginsGuide.rightAnchor).isActive = true
         eventTime.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor).isActive = true
+        eventTime.leftAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
+        eventTime.rightAnchor.constraint(equalTo: eventCategory.leftAnchor, constant: -5).isActive = true
         
         eventCategory.backgroundColor = Color.eventDefault
         eventCategory.rightAnchor.constraint(equalTo: contentView.layoutMarginsGuide.rightAnchor).isActive = true
-        eventCategory.centerYAnchor.constraint(equalTo: eventTime.centerYAnchor).isActive = true
+        eventCategory.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor).isActive = true
     }
     
     func cellConfigure(entry: CalendarEntry) {

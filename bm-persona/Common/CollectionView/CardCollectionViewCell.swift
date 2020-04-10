@@ -23,9 +23,11 @@ class CardCollectionViewCell: UICollectionViewCell {
         
         title = UILabel()
         title.font = Font.bold(18)
-        title.lineBreakMode = .byTruncatingTail
-        title.sizeToFit()
-        title.numberOfLines = 1
+        title.lineBreakMode = .byWordWrapping
+        title.numberOfLines = 2
+        title.adjustsFontSizeToFitWidth = true
+        title.minimumScaleFactor = 0.7
+        title.setContentHuggingPriority(.required, for: .vertical)
         contentView.addSubview(title)
         title.translatesAutoresizingMaskIntoConstraints = false
         title.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor).isActive = true
@@ -40,10 +42,17 @@ class CardCollectionViewCell: UICollectionViewCell {
         
         subtitle = UILabel()
         subtitle.font = Font.thin(12)
+        subtitle.numberOfLines = 2
+        subtitle.setContentHuggingPriority(.required, for: .vertical)
+        subtitle.setContentCompressionResistancePriority(.required, for: .vertical)
         contentView.addSubview(subtitle)
         subtitle.translatesAutoresizingMaskIntoConstraints = false
-        subtitle.centerYAnchor.constraint(equalTo: badge.centerYAnchor).isActive = true
+        subtitle.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor).isActive = true
         subtitle.leftAnchor.constraint(equalTo: layoutMarginsGuide.leftAnchor).isActive = true
+        subtitle.rightAnchor.constraint(equalTo: badge.leftAnchor, constant: -5).isActive = true
+        let spacingConstraint = subtitle.topAnchor.constraint(greaterThanOrEqualTo: title.bottomAnchor, constant: 5)
+        spacingConstraint.priority = .defaultHigh
+        spacingConstraint.isActive = true
         
         contentView.backgroundColor = Color.cellBackground
         contentView.layer.masksToBounds = true

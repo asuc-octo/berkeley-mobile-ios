@@ -14,11 +14,15 @@ fileprivate let kDateLookahead = 7
 
 class GymClassDataSource: DataSource {
     
+    static var dateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter
+    }()
+    
     // Returns the list of collection names for the given date interval (inclusive). Must match the names on Firebase.
     private static func dateRangeCollections(interval: DateInterval) -> [String] {
         var collections = [String]()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
         var date = interval.start
         while date <= interval.end {
             collections.append(dateFormatter.string(from: date))
@@ -49,9 +53,10 @@ class GymClassDataSource: DataSource {
                     print("[Error @ GymClassDataSource.fetchItems()]: \(err)")
                     return
                 } else {
-                    gymClasses[collection] = querySnapshot!.documents.map { (document) -> GymClass in
+                    gymClasses[collection] = querySnapshot!.documents.compactMap { (document) -> GymClass? in
+                        guard let date = dateFormatter.date(from: collection) else { return nil }
                         let dict = document.data()
-                        return parseGymClasses(dict)
+                        return parseGymClasses(dict, date: date)
                     }
                 }
                 requests.leave()
@@ -63,9 +68,22 @@ class GymClassDataSource: DataSource {
     }
     
     // Return a GymClass object parsed from a dictionary.
-    private static func parseGymClasses(_ dict: [String: Any]) -> GymClass {
-        let start  = Date(timeIntervalSince1970: dict["start_time"] as? Double ?? 0)
-        let end  = Date(timeIntervalSince1970: dict["end_time"] as? Double ?? 0)
+    private static func parseGymClasses(_ dict: [String: Any], date: Date) -> GymClass? {
+        // Gym Class start and end times in Firebase have date of when scraper was run.
+        guard let start_time = dict["start_time"] as? Double,
+              let end_time = dict["end_time"] as? Double,
+              let start = Date(timeIntervalSince1970: start_time).sameTime(on: date),
+              var end = Date(timeIntervalSince1970: end_time).sameTime(on: date) else {
+                return nil
+        }
+        // Case when interval contans midnight - end time is in next day.
+        if end < start {
+            let components = Calendar.current.dateComponents([.hour, .minute, .weekday], from: end)
+            end = Calendar.current.nextDate(after: start, matching: components, matchingPolicy: .nextTime, repeatedTimePolicy: .first, direction: .forward) ?? Date.distantPast
+            if end < start {
+                return nil
+            }
+        }
         
         let gymClass = GymClass(name: dict["name"] as? String ?? "Unnamed",
                                 start_time: start,
