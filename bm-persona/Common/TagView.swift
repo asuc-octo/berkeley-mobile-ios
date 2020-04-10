@@ -46,6 +46,10 @@ class TagView: UILabel {
     
     init(origin: CGPoint, text: String, color: UIColor) {
         super.init(frame: CGRect.zero)
+        setContentCompressionResistancePriority(.required, for: .vertical)
+        setContentCompressionResistancePriority(.required, for: .horizontal)
+        setContentHuggingPriority(.required, for: .vertical)
+        setContentHuggingPriority(.required, for: .horizontal)
         defer {
             self.text = text
             self.backgroundColor = color

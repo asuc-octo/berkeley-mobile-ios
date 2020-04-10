@@ -15,7 +15,6 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
     
     var filterTableView: FilterTableView = FilterTableView<Library>(frame: .zero, filters: [])
     var safeArea: UILayoutGuide!
-    let cellSpacingHeight: CGFloat = 14
     var libraries: [Library] = []
     var locationManager = CLLocationManager()
     var location: CLLocation?
@@ -36,7 +35,7 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
-      
+        
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.startUpdatingLocation()
@@ -81,7 +80,6 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
         studyLabel.text = "Find your study spot"
         studyLabel.font = Font.bold(24)
         studyLabel.adjustsFontSizeToFitWidth = true
-        studyLabel.textColor = .black
         studyLabel.textColor = Color.blackText
         card.addSubview(studyLabel)
         
@@ -108,11 +106,12 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
     func setupFilterTableView() {
         let filters = [
             Filter<Library>(label: "Nearby", filter: {lib in lib.getDistanceToUser(userLoc: self.location) < Library.nearbyDistance}),
-            Filter<Library>(label: "Open", filter: {lib in lib.isOpen}),
+            Filter<Library>(label: "Open", filter: {lib in lib.isOpen ?? false}),
         ]
         filterTableView = FilterTableView(frame: .zero, filters: filters)
         self.filterTableView.tableView.register(FilterTableViewCell.self, forCellReuseIdentifier: FilterTableViewCell.kCellIdentifier)
         self.filterTableView.tableView.dataSource = self
+        self.filterTableView.tableView.delegate = self
     }
     
     //number of rows to be shown in tableview

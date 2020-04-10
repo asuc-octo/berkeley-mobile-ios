@@ -34,25 +34,12 @@ class Resource: SearchItem, HasLocation, HasOpenTimes {
     var latitude: Double?
     var longitude: Double?
     
-    var isOpen: Bool {
-        if self.weeklyHours.count == 0 {
-            return false
-        }
-        var status = false
-        if let interval = self.weeklyHours[Date().weekday()] {
-            if interval.contains(Date()) || interval.duration == 0 {
-                status = true
-            }
-        }
-        return status
-    }
-    
     let name: String
     let campusLocation: String?
     let desc: String
-    let weeklyHours: [DateInterval?]
+    var weeklyHours: WeeklyHours?
     
-    init(name: String, campusLocation: String?, latitude: Double?, longitude: Double?, description: String?, hours: [DateInterval?]) {
+    init(name: String, campusLocation: String?, latitude: Double?, longitude: Double?, description: String?, hours: WeeklyHours?) {
         self.name = name
         self.campusLocation = campusLocation
         self.latitude = latitude

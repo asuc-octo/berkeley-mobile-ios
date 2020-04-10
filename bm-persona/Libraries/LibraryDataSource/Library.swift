@@ -37,19 +37,6 @@ class Library: SearchItem, HasLocation, HasOpenTimes {
         return ""
     }
     
-    var isOpen: Bool {
-        if self.weeklyHours.count == 0 {
-            return false
-        }
-        var status = false
-        if let interval = self.weeklyHours[Date().weekday()] {
-            if interval.contains(Date()) || interval.duration == 0 {
-                status = true
-            }
-        }
-        return status
-    }
-    
     let name: String
     let imageURL: URL?
     
@@ -57,12 +44,12 @@ class Library: SearchItem, HasLocation, HasOpenTimes {
     
     let campusLocation: String?
     let phoneNumber: String?
-    let weeklyHours: [DateInterval?]
+    let weeklyHours: WeeklyHours?
     var weeklyByAppointment:[Bool]
     var latitude: Double?
     var longitude: Double?
     
-    init(name: String, campusLocation: String?, phoneNumber: String?, weeklyHours: [DateInterval?], weeklyByAppointment:[Bool], imageLink: String?, latitude: Double?, longitude: Double?) {
+    init(name: String, campusLocation: String?, phoneNumber: String?, weeklyHours: WeeklyHours?, weeklyByAppointment:[Bool], imageLink: String?, latitude: Double?, longitude: Double?) {
         self.campusLocation = campusLocation
         self.phoneNumber = phoneNumber
         self.weeklyHours = weeklyHours
