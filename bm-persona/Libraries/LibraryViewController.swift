@@ -112,15 +112,14 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
         self.filterTableView.tableView.register(FilterTableViewCell.self, forCellReuseIdentifier: FilterTableViewCell.kCellIdentifier)
         self.filterTableView.tableView.dataSource = self
         self.filterTableView.tableView.delegate = self
-<<<<<<< HEAD
+
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = LibraryDetailViewController()
         vc.library = self.filterTableView.filteredData[indexPath.row]
         present(vc, animated: true, completion: nil)
-=======
->>>>>>> develop
+
     }
     
     //number of rows to be shown in tableview

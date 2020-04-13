@@ -212,7 +212,7 @@ extension LibraryDetailViewController {
         openLabel.font = Font.semibold(14)
         openLabel.backgroundColor = Color.openTag
         openLabel.textColor = .white
-        openLabel.text = library!.isOpen ? "  Open  " : "  Closed  "
+        openLabel.text = library!.isOpen! ? "  Open  " : "  Closed  "
         hoursCard.addSubview(openLabel)
         openLabel.translatesAutoresizingMaskIntoConstraints = false
         openLabel.topAnchor.constraint(equalTo: hoursCard.layoutMarginsGuide.topAnchor).isActive = true
@@ -224,9 +224,12 @@ extension LibraryDetailViewController {
         let currentHours = UILabel()
         currentHours.font = Font.bold(14)
         let date = Date()
-        if let interval = library!.weeklyHours[date.weekday()] {
-            if interval.contains(date) {
-                currentHours.text = formatter.string(from: interval.start, to: interval.end)
+        if let intervals = library!.weeklyHours?.hoursForWeekday(.weekday(date)) {
+            for interval in intervals {
+                if interval.contains(date) {
+                    currentHours.text = formatter.string(from: interval.start, to: interval.end)
+                    break
+                }
             }
         }
         hoursCard.addSubview(currentHours)
@@ -260,13 +263,14 @@ extension LibraryDetailViewController {
         timeLabel.bottomAnchor.constraint(equalTo: nameLabel.layoutMarginsGuide.bottomAnchor).isActive = true
         timeLabel.text = ""
         for i in 0...6 {
-            if let timeInverval = library!.weeklyHours[i] {
-                if timeInverval.start == timeInverval.end {
+            let hours = library!.weeklyHours?.hoursForWeekday(DayOfWeek(rawValue: i)!)
+                if hours == [] {
                     timeLabel.text = timeLabel.text! + (i == 0 ? "" : "\n") + "Closed"
                 } else {
-                    timeLabel.text = timeLabel.text! + (i == 0 ? "" : "\n") + formatter.string(from: timeInverval.start, to: timeInverval.end)
+               
+                    timeLabel.text = timeLabel.text! + (i == 0 ? "" : "\n") + formatter.string(from: hours![0].start, to: hours![0].end)
                 }
-            }
+            
         }
         
         hoursCard.bottomAnchor.constraint(equalTo: timeLabel.layoutMarginsGuide.bottomAnchor, constant: 20).isActive = true
