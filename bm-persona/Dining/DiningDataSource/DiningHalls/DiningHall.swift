@@ -12,7 +12,7 @@ import UIKit
     `DiningHall` represents a single physical dining location.
     Each hall contains the `DiningMenu`, Open & Close times for every `MealType`.
 */
-class DiningHall: HasOpenTimes, SearchItem, HasLocation {
+class DiningHall: HasOpenTimes, SearchItem, HasLocation, HasOccupancy {
     static var nearbyDistance: Double = 10
     static var invalidDistance: Double = 100
     
@@ -40,6 +40,7 @@ class DiningHall: HasOpenTimes, SearchItem, HasLocation {
     
     var meals: MealMap
     var weeklyHours: WeeklyHours?
+    var occupancy: Occupancy?
     var image: UIImage?
     
     var latitude: Double?

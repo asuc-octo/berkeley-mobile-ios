@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class Gym: SearchItem, HasLocation, HasOpenTimes {
+class Gym: SearchItem, HasLocation, HasOpenTimes, HasOccupancy {
     
     static var nearbyDistance: Double = 10
     static var invalidDistance: Double = 100
@@ -46,6 +46,7 @@ class Gym: SearchItem, HasLocation, HasOpenTimes {
     let phoneNumber: String?
     
     let weeklyHours: WeeklyHours?
+    var occupancy: Occupancy?
     
     var latitude: Double?
     var longitude: Double?
