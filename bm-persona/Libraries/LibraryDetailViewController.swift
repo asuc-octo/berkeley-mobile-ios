@@ -77,6 +77,7 @@ extension LibraryDetailViewController {
                 let image = UIImage(data: imageData)
                 DispatchQueue.main.async {
                     libPic.image = image
+                    self.library.image = image
                 }
             }
         }
@@ -267,8 +268,10 @@ extension LibraryDetailViewController {
                 if hours == [] {
                     timeLabel.text = timeLabel.text! + (i == 0 ? "" : "\n") + "Closed"
                 } else {
-               
                     timeLabel.text = timeLabel.text! + (i == 0 ? "" : "\n") + formatter.string(from: hours![0].start, to: hours![0].end)
+                    if hours![0].start == hours![0].end {
+                        timeLabel.text! += " - "
+                    }
                 }
             
         }
