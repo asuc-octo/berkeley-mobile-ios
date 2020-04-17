@@ -207,6 +207,15 @@ extension LibraryDetailViewController {
         hoursCard.rightAnchor.constraint(equalTo: scrollView.layoutMarginsGuide.rightAnchor).isActive = true
         hoursCard.topAnchor.constraint(equalTo: overviewCard.layoutMarginsGuide.bottomAnchor, constant: 10).isActive = true
         
+        let clockIcon = UIImageView()
+        clockIcon.image = #imageLiteral(resourceName: "Clock")
+        hoursCard.addSubview(clockIcon)
+        clockIcon.translatesAutoresizingMaskIntoConstraints = false
+        clockIcon.leftAnchor.constraint(equalTo: hoursCard.layoutMarginsGuide.leftAnchor).isActive = true
+        clockIcon.topAnchor.constraint(equalTo: hoursCard.layoutMarginsGuide.topAnchor).isActive = true
+        clockIcon.contentMode = .scaleAspectFit
+        clockIcon.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        
         let openLabel = UILabel()
         openLabel.layer.masksToBounds = true
         openLabel.layer.cornerRadius = 10
@@ -217,7 +226,7 @@ extension LibraryDetailViewController {
         hoursCard.addSubview(openLabel)
         openLabel.translatesAutoresizingMaskIntoConstraints = false
         openLabel.topAnchor.constraint(equalTo: hoursCard.layoutMarginsGuide.topAnchor).isActive = true
-        openLabel.leftAnchor.constraint(equalTo: hoursCard.layoutMarginsGuide.leftAnchor, constant: 20).isActive = true
+        openLabel.leftAnchor.constraint(equalTo: clockIcon.layoutMarginsGuide.rightAnchor, constant: 20).isActive = true
         
         let formatter = DateIntervalFormatter()
         formatter.dateStyle = .none
@@ -244,8 +253,8 @@ extension LibraryDetailViewController {
         hoursCard.addSubview(nameLabel)
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.topAnchor.constraint(equalTo: openLabel.layoutMarginsGuide.bottomAnchor, constant: 12).isActive = true
-        nameLabel.leftAnchor.constraint(equalTo: hoursCard.layoutMarginsGuide.leftAnchor, constant: 25).isActive = true
-        nameLabel.widthAnchor.constraint(equalTo: hoursCard.layoutMarginsGuide.widthAnchor, multiplier: 0.5).isActive = true
+        nameLabel.leftAnchor.constraint(equalTo: openLabel.layoutMarginsGuide.leftAnchor).isActive = true
+        nameLabel.widthAnchor.constraint(equalTo: hoursCard.layoutMarginsGuide.widthAnchor, multiplier: 0.45).isActive = true
 
         let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
         nameLabel.text = ""
