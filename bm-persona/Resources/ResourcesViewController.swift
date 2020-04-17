@@ -82,6 +82,7 @@ extension ResourcesViewController {
         
         let filters = [Filter<Resource>(label: "Open", filter: {resource in resource.isOpen ?? false})]
         resourcesTable = FilterTableView(frame: .zero, filters: filters)
+        resourcesTable.tableView.allowsSelection = false
         
         resourcesTable.tableView.delegate = self
         resourcesTable.tableView.dataSource = self

@@ -139,6 +139,7 @@ extension CalendarViewController {
         card.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
         
         let table = UITableView()
+        table.allowsSelection = false
         table.delegate = self
         table.dataSource = self
         table.showsVerticalScrollIndicator = false
