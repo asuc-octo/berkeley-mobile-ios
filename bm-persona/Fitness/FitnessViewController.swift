@@ -72,11 +72,7 @@ class FitnessViewController: UIViewController, CLLocationManagerDelegate {
             
             self.todayClasses = classes.filter { (classes) -> Bool in
                 guard let start = classes.first?.start_time else { return false }
-#if DEBUG
-                return true
-#else
                 return Calendar.current.isDateInToday(start)
-#endif
             }.first?.sorted(by: sortFn) ?? []
             self.upcomingClasses = classes.reduce([], +).sorted(by: sortFn)
             
