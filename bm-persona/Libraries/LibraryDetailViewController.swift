@@ -13,7 +13,7 @@ fileprivate let kHeaderFont: UIFont = Font.bold(24)
 fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
 fileprivate let kViewMargin: CGFloat = 16
 
-class LibraryDetailViewController: UIViewController {
+class LibraryDetailViewController: SearchDetailViewController {
 
     var scrollView: UIScrollView!
     var library : Library!
@@ -32,7 +32,7 @@ class LibraryDetailViewController: UIViewController {
         //location stuff
         locationManager.delegate = self
         
-        view.layoutMargins = UIEdgeInsets(top: 16, left: 0, bottom: 0, right: 0)
+        view.layoutMargins = UIEdgeInsets(top: 3*kViewMargin, left: kViewMargin, bottom: kViewMargin, right: kViewMargin)
         setUpScrollView()
         setUpOverviewCard()
         setUpHoursCard()
@@ -92,7 +92,7 @@ extension LibraryDetailViewController {
         libPic.isUserInteractionEnabled = true
         
         let addressIcon = UIImageView()
-        addressIcon.image = #imageLiteral(resourceName: "map")
+        addressIcon.image = UIImage(named: "Placemark")
         overviewCard.addSubview(addressIcon)
         addressIcon.translatesAutoresizingMaskIntoConstraints = false
         addressIcon.leftAnchor.constraint(equalTo: overviewCard.layoutMarginsGuide.leftAnchor).isActive = true

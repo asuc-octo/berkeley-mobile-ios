@@ -14,7 +14,6 @@ class SearchAnnotation: NSObject, MKAnnotation {
     var coordinate: CLLocationCoordinate2D
     var title: String?
     var subtitle: String?
-    var selectedFromTap: Bool = true
     
     var item: SearchItem
     

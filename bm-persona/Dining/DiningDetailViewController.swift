@@ -223,8 +223,7 @@ extension DiningDetailViewController {
             var nextOpenInterval: DateInterval? = nil
             for interval in intervals {
                 if interval.contains(date) {
-                    nextOpenInterval = nil
-                    openTimeLabel.text = formatter.string(from: interval.start, to: interval.end)
+                    nextOpenInterval = interval
                     break
                 } else if date.compare(interval.start) == .orderedAscending {
                     if nextOpenInterval == nil {
@@ -234,8 +233,10 @@ extension DiningDetailViewController {
                     }
                 }
             }
-            if nextOpenInterval != nil {
-                openTimeLabel.text = formatter.string(from: nextOpenInterval!.start, to: nextOpenInterval!.end)
+            if nextOpenInterval != nil,
+                let start = Calendar.current.date(from: Calendar.current.dateComponents([.hour, .minute], from: nextOpenInterval!.start)),
+                let end = Calendar.current.date(from: Calendar.current.dateComponents([.hour, .minute], from: nextOpenInterval!.end)) {
+                openTimeLabel.text = formatter.string(from: start, to: end)
             }
         }
         openTimeLabel.centerYAnchor.constraint(equalTo: clockIcon.centerYAnchor).isActive = true
