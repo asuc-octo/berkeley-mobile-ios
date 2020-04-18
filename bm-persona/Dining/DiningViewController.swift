@@ -73,7 +73,6 @@ extension DiningViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.timeLabel.text = "\(distance) mi"
             }
             cell.recLabel.text = "Recommended"
-            cell.selectionStyle = .none
             switch indexPath.row % 3 {
             case 0:
                 cell.capBadge.text = "High"
@@ -122,18 +121,11 @@ extension DiningViewController: UITableViewDelegate, UITableViewDataSource {
         return self.filterTableView.filteredData.count
     }
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        // this will turn on `masksToBounds` just before showing the cell
-        cell.contentView.layer.masksToBounds = true
-        //to prevent laggy scrolling
-        let radius = cell.contentView.layer.cornerRadius
-        cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: radius).cgPath
-    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = DiningDetailViewController()
         vc.diningHall = self.filterTableView.filteredData[indexPath.row]
         self.present(vc, animated: true, completion: nil)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 

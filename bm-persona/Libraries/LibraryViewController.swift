@@ -109,6 +109,7 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
             Filter<Library>(label: "Open", filter: {lib in lib.isOpen ?? false}),
         ]
         filterTableView = FilterTableView(frame: .zero, filters: filters)
+        self.filterTableView.tableView.allowsSelection = false
         self.filterTableView.tableView.register(FilterTableViewCell.self, forCellReuseIdentifier: FilterTableViewCell.kCellIdentifier)
         self.filterTableView.tableView.dataSource = self
         self.filterTableView.tableView.delegate = self
@@ -139,7 +140,6 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
                 cell.timeLabel.text = "\(distance) mi"
             }
             cell.recLabel.text = "Recommended"
-            cell.selectionStyle = .none
             
             //dummy capacities
             switch indexPath.row % 3 {
