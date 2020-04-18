@@ -38,7 +38,8 @@ class LibraryDetailViewController: SearchDetailViewController {
         setUpHoursCard()
         //setUpTrafficCard()
         setUpBookButton()
-        
+        //self.view.layoutIfNeeded()
+        middleCutoffPosition = overviewCard.frame.maxY
         
         if CLLocationManager.locationServicesEnabled() {
             locationManager.requestLocation()

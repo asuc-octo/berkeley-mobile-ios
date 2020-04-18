@@ -208,14 +208,22 @@ extension MapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         if let annotation = view.annotation as? MapMarker {
             markerDetail.marker = annotation
-            drawerContainer?.moveDrawer(to: .hidden, duration: 0.2)
+            if searchAnnotation != nil {
+                detailViewController.view.isHidden = true
+            } else {
+                drawerContainer?.moveDrawer(to: .hidden, duration: 0.2)
+            }
         }
     }
     
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
         if (view.annotation as? MapMarker) != nil {
             markerDetail.marker = nil
-            drawerContainer?.moveDrawer(to: .collapsed, duration: 0.2)
+            if searchAnnotation != nil {
+                detailViewController.view.isHidden = false
+            } else {
+                drawerContainer?.moveDrawer(to: .collapsed, duration: 0.2)
+            }
         }
     }
     
@@ -325,7 +333,6 @@ extension MapViewController: SearchResultsViewDelegate, SearchDetailViewDelegate
                 annotation.title = item!.searchName
                 searchAnnotation = annotation
                 var superView: UIView!
-                var middleScaleFactor: CGFloat = 0.7
                 if let hall = item as? DiningHall {
                     detailViewController.removeFromParent()
                     detailViewController.view.removeFromSuperview()
@@ -333,7 +340,6 @@ extension MapViewController: SearchResultsViewDelegate, SearchDetailViewDelegate
                     (detailViewController as! DiningDetailViewController).diningHall = hall
                     add(child: detailViewController)
                     superView = detailViewController.view.superview!
-                    middleScaleFactor = 0.68
                 } else if let lib = item as? Library {
                     detailViewController.removeFromParent()
                     detailViewController.view.removeFromSuperview()
@@ -341,15 +347,15 @@ extension MapViewController: SearchResultsViewDelegate, SearchDetailViewDelegate
                     (detailViewController as! LibraryDetailViewController).library = lib
                     add(child: detailViewController)
                     superView = detailViewController.view.superview!
-                    middleScaleFactor = 0.615
                 } else {
                     return
                 }
-                searchDetailStatePositions[.hidden] = superView.frame.maxY + superView.frame.maxY / 2
-                searchDetailStatePositions[.full] = superView.safeAreaInsets.top + (superView.frame.maxY / 2)
-                searchDetailStatePositions[.middle] = superView.frame.midY + superView.frame.maxY * middleScaleFactor
+                self.view.layoutIfNeeded()
+                print(detailViewController.middleCutoffPosition)
+                
                 mapView.addAnnotation(annotation)
                 drawerContainer?.moveDrawer(to: .hidden, duration: 0.2)
+                mapView.deselectAnnotation(markerDetail.marker, animated: true)
                 
                 let detailView = detailViewController.view!
                 detailView.layer.cornerRadius = 50
@@ -361,11 +367,20 @@ extension MapViewController: SearchResultsViewDelegate, SearchDetailViewDelegate
                 detailViewController.view.heightAnchor.constraint(equalTo: superView.heightAnchor).isActive = true
                 detailViewController.view.widthAnchor.constraint(equalTo: superView.widthAnchor).isActive = true
                 detailViewController.view.centerXAnchor.constraint(equalTo: superView.centerXAnchor).isActive = true
-                detailViewController.view.centerYAnchor.constraint(equalTo: superView.centerYAnchor, constant: self.view.frame.maxY * middleScaleFactor).isActive = true
+//                if let cutoff = detailViewController.middleCutoffPosition {
+//                    print(cutoff)
+//                    detailViewController.view.centerYAnchor.constraint(equalTo: superView.centerYAnchor, constant: superView.frame.maxY / 2 - cutoff).isActive = true
+//                    searchDetailStatePositions[.middle] = superView.frame.midY + superView.frame.maxY / 2 - cutoff
+//                } else {
+                    detailViewController.view.centerYAnchor.constraint(equalTo: superView.centerYAnchor, constant: self.view.frame.maxY * 0.7).isActive = true
+                    searchDetailStatePositions[.middle] = superView.frame.midY + superView.frame.maxY * 0.7
+//                }
                 detailViewController.view.layoutIfNeeded()
                 detailViewController.setupBarView()
                 
                 view.layoutIfNeeded()
+                searchDetailStatePositions[.hidden] = superView.frame.maxY + superView.frame.maxY / 2
+                searchDetailStatePositions[.full] = superView.safeAreaInsets.top + (superView.frame.maxY / 2)
                 initialDetailCenter = detailViewController.view.center
                 detailViewController.setupGestures()
                 moveSearchDetailView(to: .middle, duration: 0)
@@ -405,7 +420,11 @@ extension MapViewController: SearchResultsViewDelegate, SearchDetailViewDelegate
                     detailViewController.removeFromParent()
                     detailViewController.view.removeFromSuperview()
                     searchAnnotation = nil
-                    drawerContainer?.moveDrawer(to: .collapsed, duration: 0.2)
+                    if markerDetail.marker != nil {
+                        mapView.selectAnnotation(markerDetail.marker!, animated: true)
+                    } else {
+                        drawerContainer?.moveDrawer(to: .collapsed, duration: 0.2)
+                    }
                 }
             } else {
                 moveSearchDetailView(to: searchDetailState, duration: Double(animationTime))
@@ -447,7 +466,6 @@ extension MapViewController: SearchResultsViewDelegate, SearchDetailViewDelegate
     func moveSearchDetailView(to state: SearchDetailState, duration: Double) {
         UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
             self.detailViewController.view.center = CGPoint(x: self.initialDetailCenter.x, y: self.searchDetailStatePositions[state]!)
-            print(self.detailViewController.view.center)
         }, completion: { success in
             if success {
                 self.detailViewController.state = state

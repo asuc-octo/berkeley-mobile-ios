@@ -23,6 +23,7 @@ protocol SearchDetailViewDelegate {
 class SearchDetailViewController: UIViewController {
     var delegate: SearchDetailViewDelegate!
     var state: SearchDetailState = .middle
+    var middleCutoffPosition: CGFloat? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
