@@ -82,22 +82,22 @@ class MapMarker: NSObject, MKAnnotation, HasOpenTimes {
     var title: String?
     var subtitle: String?
     
-    var notes: String?
     var phone: String?
+    var address: String?
     var weeklyHours: WeeklyHours?
     
     init(type: MapMarkerType,
          location: CLLocationCoordinate2D,
          name: String? = nil,
          description: String? = nil,
-         notes: String? = nil,
+         address: String? = nil,
          phone: String? = nil,
          weeklyHours: WeeklyHours? = nil) {
         self.type = type
         self.coordinate = location
         self.title = name
         self.subtitle = description
-        self.notes = notes
+        self.address = address
         self.phone = phone
         self.weeklyHours = weeklyHours
     }

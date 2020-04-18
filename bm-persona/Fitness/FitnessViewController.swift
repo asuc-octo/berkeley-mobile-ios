@@ -72,11 +72,7 @@ class FitnessViewController: UIViewController, CLLocationManagerDelegate {
             
             self.todayClasses = classes.filter { (classes) -> Bool in
                 guard let start = classes.first?.start_time else { return false }
-#if DEBUG
-                return true
-#else
                 return Calendar.current.isDateInToday(start)
-#endif
             }.first?.sorted(by: sortFn) ?? []
             self.upcomingClasses = classes.reduce([], +).sorted(by: sortFn)
             
@@ -267,6 +263,7 @@ extension FitnessViewController {
             Filter<Gym>(label: "Open", filter: {gym in gym.isOpen ?? false}),
         ]
         filterTableView = FilterTableView(frame: .zero, filters: filters)
+        self.filterTableView.tableView.allowsSelection = false
         self.filterTableView.tableView.register(FilterTableViewCell.self, forCellReuseIdentifier: FilterTableViewCell.kCellIdentifier)
         self.filterTableView.tableView.dataSource = gymsController
     }

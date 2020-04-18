@@ -29,6 +29,7 @@
 		13491DBA241E23630033F9AB /* Colors+Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13491DB9241E23630033F9AB /* Colors+Text.swift */; };
 		13491DBC242098B30033F9AB /* AtomicDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13491DBB242098B30033F9AB /* AtomicDictionary.swift */; };
 		13492D2D240E179F00AD3D1F /* MapMarkerDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13492D2C240E179F00AD3D1F /* MapMarkerDetailView.swift */; };
+		13580AF62437D7E700D309AA /* LibraryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13580AF52437D7E700D309AA /* LibraryDetailViewController.swift */; };
 		13580AFA243934BF00D309AA /* GymClassesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13580AF9243934BF00D309AA /* GymClassesController.swift */; };
 		13580AFC243934C800D309AA /* GymsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13580AFB243934C800D309AA /* GymsController.swift */; };
 		135D7F75243A9AB3003F8BD1 /* GymClassType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135D7F74243A9AB3003F8BD1 /* GymClassType.swift */; };
@@ -118,6 +119,7 @@
 		13491DB9241E23630033F9AB /* Colors+Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+Text.swift"; sourceTree = "<group>"; };
 		13491DBB242098B30033F9AB /* AtomicDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtomicDictionary.swift; sourceTree = "<group>"; };
 		13492D2C240E179F00AD3D1F /* MapMarkerDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMarkerDetailView.swift; sourceTree = "<group>"; };
+		13580AF52437D7E700D309AA /* LibraryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryDetailViewController.swift; sourceTree = "<group>"; };
 		13580AF9243934BF00D309AA /* GymClassesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymClassesController.swift; sourceTree = "<group>"; };
 		13580AFB243934C800D309AA /* GymsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymsController.swift; sourceTree = "<group>"; };
 		135D7F74243A9AB3003F8BD1 /* GymClassType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymClassType.swift; sourceTree = "<group>"; };
@@ -348,6 +350,7 @@
 			children = (
 				13B39A9123E6A2C20039FBA2 /* LibraryDataSource */,
 				13B39AA623E7746C0039FBA2 /* LibraryViewController.swift */,
+				13580AF52437D7E700D309AA /* LibraryDetailViewController.swift */,
 			);
 			path = Libraries;
 			sourceTree = "<group>";
@@ -750,6 +753,7 @@
 				303F6AE4236A931D007E37DD /* TabBarViewController.swift in Sources */,
 				559A7B6F2373DF39004EA501 /* SearchResultCell.swift in Sources */,
 				13135BB3241244370056B169 /* FilterViewCell.swift in Sources */,
+				13580AF62437D7E700D309AA /* LibraryDetailViewController.swift in Sources */,
 				135D7F77243A9BD1003F8BD1 /* Colors+GymClass.swift in Sources */,
 				55DCF7A123724835001B01B8 /* MaterialButton.swift in Sources */,
 				297678892426D2C500FDD1EB /* SearchDetailViewController.swift in Sources */,

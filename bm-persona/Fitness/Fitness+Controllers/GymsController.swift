@@ -38,7 +38,6 @@ extension GymsController: UITableViewDataSource {
                 cell.timeLabel.text = "\(distance) mi"
             }
             cell.recLabel.text = "Recommended"
-            cell.selectionStyle = .none
             switch indexPath.row % 3 {
             case 0:
                 cell.capBadge.text = "High"
