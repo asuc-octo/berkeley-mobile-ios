@@ -33,8 +33,8 @@ class DiningDetailViewController: SearchDetailViewController {
         setUpOverviewCard()
         setupMenuControl()
         setupMenu()
-        //self.view.layoutIfNeeded()
-        middleCutoffPosition = card.frame.maxY
+        view.layoutSubviews()
+        middleCutoffPosition = card.frame.maxY + 5
         
         if CLLocationManager.locationServicesEnabled() {
             locationManager.requestLocation()

@@ -43,7 +43,6 @@ class MapViewController: UIViewController {
         mapView = MKMapView()
         mapView.delegate = self
         mapView.register(MKAnnotationView.self, forAnnotationViewWithReuseIdentifier: MapViewController.kAnnotationIdentifier)
-        
         maskView = UIView()
         maskView.backgroundColor = Color.searchBarBackground
         
@@ -199,7 +198,6 @@ extension MapViewController: MKMapViewDelegate {
             annotationView.contentMode = .scaleToFill
             annotationView.markerTintColor = searchAnnotation.color()
             annotationView.glyphTintColor = .white
-            annotationView.setSelected(true, animated: true)
             return annotationView
         }
         return MKAnnotationView()
@@ -221,6 +219,7 @@ extension MapViewController: MKMapViewDelegate {
             markerDetail.marker = nil
             if searchAnnotation != nil {
                 detailViewController.view.isHidden = false
+                mapView.selectAnnotation(searchAnnotation!, animated: true)
             } else {
                 drawerContainer?.moveDrawer(to: .collapsed, duration: 0.2)
             }
@@ -350,12 +349,12 @@ extension MapViewController: SearchResultsViewDelegate, SearchDetailViewDelegate
                 } else {
                     return
                 }
-                self.view.layoutIfNeeded()
-                print(detailViewController.middleCutoffPosition)
                 
                 mapView.addAnnotation(annotation)
                 drawerContainer?.moveDrawer(to: .hidden, duration: 0.2)
-                mapView.deselectAnnotation(markerDetail.marker, animated: true)
+                if markerDetail.marker != nil {
+                    mapView.deselectAnnotation(markerDetail.marker, animated: true)
+                }
                 
                 let detailView = detailViewController.view!
                 detailView.layer.cornerRadius = 50
@@ -367,23 +366,22 @@ extension MapViewController: SearchResultsViewDelegate, SearchDetailViewDelegate
                 detailViewController.view.heightAnchor.constraint(equalTo: superView.heightAnchor).isActive = true
                 detailViewController.view.widthAnchor.constraint(equalTo: superView.widthAnchor).isActive = true
                 detailViewController.view.centerXAnchor.constraint(equalTo: superView.centerXAnchor).isActive = true
-//                if let cutoff = detailViewController.middleCutoffPosition {
-//                    print(cutoff)
-//                    detailViewController.view.centerYAnchor.constraint(equalTo: superView.centerYAnchor, constant: superView.frame.maxY / 2 - cutoff).isActive = true
-//                    searchDetailStatePositions[.middle] = superView.frame.midY + superView.frame.maxY / 2 - cutoff
-//                } else {
+                if let cutoff = detailViewController.middleCutoffPosition {
+                    detailViewController.view.centerYAnchor.constraint(equalTo: superView.centerYAnchor, constant: superView.frame.maxY - cutoff).isActive = true
+                    searchDetailStatePositions[.middle] = superView.frame.maxY + superView.frame.maxY / 2 - cutoff
+                } else {
                     detailViewController.view.centerYAnchor.constraint(equalTo: superView.centerYAnchor, constant: self.view.frame.maxY * 0.7).isActive = true
                     searchDetailStatePositions[.middle] = superView.frame.midY + superView.frame.maxY * 0.7
-//                }
+                }
                 detailViewController.view.layoutIfNeeded()
                 detailViewController.setupBarView()
                 
-                view.layoutIfNeeded()
                 searchDetailStatePositions[.hidden] = superView.frame.maxY + superView.frame.maxY / 2
                 searchDetailStatePositions[.full] = superView.safeAreaInsets.top + (superView.frame.maxY / 2)
                 initialDetailCenter = detailViewController.view.center
                 detailViewController.setupGestures()
                 moveSearchDetailView(to: .middle, duration: 0)
+                mapView.layoutIfNeeded()
                 mapView.selectAnnotation(annotation, animated: true)
             }
         }
