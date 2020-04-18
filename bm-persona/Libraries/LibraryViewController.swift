@@ -47,6 +47,11 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
             self.libraries = libraries as? [Library] ?? []
             self.filterTableView.setData(data: libraries as! [Library])
             self.filterTableView.tableView.reloadData()
+            DataManager.shared.fetch(source: OccupancyDataSource.self) {_ in
+                DispatchQueue.main.async {
+                    self.filterTableView.tableView.reloadData()
+                }
+            }
         }
     }
     
@@ -133,25 +138,25 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
             cell.recLabel.text = "Recommended"
             cell.selectionStyle = .none
             
-            //dummy capacities
-            switch indexPath.row % 3 {
-            case 0:
-                cell.capBadge.text = "High"
-            case 1:
-                cell.capBadge.text = "Medium"
-            default:
-                cell.capBadge.text = "Low"
+            if cell.nameLabel.text == "Anthropology Library" {
+                print("a")
             }
             
-            switch cell.capBadge.text!.lowercased() {
-            case "high":
-                cell.capBadge.backgroundColor = Color.highCapacityTag
-            case "medium":
-                cell.capBadge.backgroundColor = Color.medCapacityTag
-            case "low":
-                cell.capBadge.backgroundColor = Color.lowCapacityTag
-            default:
-                cell.capBadge.backgroundColor = .clear
+            if let occ = lib.occupancy, let status = occ.getOccupancyStatus(date: Date()) {
+                cell.capBadge.isHidden = false
+                switch status {
+                case OccupancyStatus.high:
+                    cell.capBadge.text = "High"
+                    cell.capBadge.backgroundColor = Color.highCapacityTag
+                case OccupancyStatus.medium:
+                    cell.capBadge.text = "Medium"
+                    cell.capBadge.backgroundColor = Color.medCapacityTag
+                case OccupancyStatus.low:
+                    cell.capBadge.text = "Low"
+                    cell.capBadge.backgroundColor = Color.lowCapacityTag
+                }
+            } else {
+                cell.capBadge.isHidden = true
             }
             
             if lib.image == nil {

@@ -48,8 +48,11 @@ class OccupancyDataSource: DataSource {
                         let locationName = (document.documentID).lowercased().trimmingCharacters(in: .whitespaces)
                         if occupancyObjects[locationName] != nil {
                             occupancyObjects[locationName]!.occupancy = parseOccupancy(data: data)
+                            print(occupancyObjects[locationName]!.searchName)
+                            print(occupancyObjects[locationName]!.occupancy == nil)
                         }
                     }
+                    completion([] as [Any])
                 }
             }
         }

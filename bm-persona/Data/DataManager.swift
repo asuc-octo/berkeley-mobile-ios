@@ -16,8 +16,7 @@ fileprivate let kDataSources: [DataSource.Type] = [
     DiningHallDataSource.self,
     GymDataSource.self,
     GymClassDataSource.self,
-    CalendarDataSource.self,
-    OccupancyDataSource.self
+    CalendarDataSource.self
 ]
 
 class DataManager {
@@ -42,8 +41,13 @@ class DataManager {
     }
     
     func fetchAll() {
+        let requests = DispatchGroup()
         for source in kDataSources {
-            fetch(source: source) { _ in }
+            requests.enter()
+            fetch(source: source) { _ in requests.leave() }
+        }
+        requests.notify(queue: .global(qos: .utility)) {
+            self.fetch(source: OccupancyDataSource.self) { _ in }
         }
     }
 
