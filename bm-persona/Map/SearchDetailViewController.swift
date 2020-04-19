@@ -10,6 +10,7 @@ import UIKit
 
 import UIKit
 
+// possible states for the detail position
 enum SearchDetailState {
     case middle
     case full
@@ -21,8 +22,11 @@ protocol SearchDetailViewDelegate {
 }
 
 class SearchDetailViewController: UIViewController {
+    
     var delegate: SearchDetailViewDelegate!
     var state: SearchDetailState = .middle
+    // bottom cutoff position for middle position of the view
+    // (e.g. bottom of overview card for library detail)
     var middleCutoffPosition: CGFloat? = nil
     
     override func viewDidLoad() {

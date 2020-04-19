@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 
+// map annotation for searched items
 class SearchAnnotation: NSObject, MKAnnotation {
     
     var coordinate: CLLocationCoordinate2D
@@ -22,6 +23,7 @@ class SearchAnnotation: NSObject, MKAnnotation {
         self.coordinate = location
     }
     
+    // icon to show on the map, depending on the search item
     func icon() -> UIImage {
         if let icon = item.icon {
             return icon

@@ -34,6 +34,8 @@ class DiningDetailViewController: SearchDetailViewController {
         setupMenuControl()
         setupMenu()
         view.layoutSubviews()
+        // set the bottom cutoff point for when view appears due to map search
+        // the "middle" position for the view will show everything in the overview card
         middleCutoffPosition = card.frame.maxY + 5
         
         if CLLocationManager.locationServicesEnabled() {
@@ -235,6 +237,8 @@ extension DiningDetailViewController {
                     }
                 }
             }
+            /* Remove the date, and only include hour and minute in string display.
+             Otherwise, string is too long when interval spans two days (e.g. 9pm-12:30am) */
             if nextOpenInterval != nil,
                 let start = Calendar.current.date(from: Calendar.current.dateComponents([.hour, .minute], from: nextOpenInterval!.start)),
                 let end = Calendar.current.date(from: Calendar.current.dateComponents([.hour, .minute], from: nextOpenInterval!.end)) {
