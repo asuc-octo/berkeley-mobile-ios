@@ -38,11 +38,11 @@ class DiningMenuCell: UITableViewCell {
         contentView.layoutMargins = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         
         nameLabel.leftAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
-        nameLabel.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
+        nameLabel.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor, constant: -4).isActive = true
         nameLabel.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor).isActive = true
         
         faveButton.rightAnchor.constraint(equalTo: contentView.layoutMarginsGuide.rightAnchor).isActive = true
-        faveButton.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
+        faveButton.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor, constant: -4).isActive = true
         faveButton.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor).isActive = true
         faveButton.widthAnchor.constraint(equalTo: faveButton.heightAnchor).isActive = true
     }
@@ -67,14 +67,14 @@ class DiningMenuCell: UITableViewCell {
             } else {
                 image.rightAnchor.constraint(equalTo: lastLeftAnchor).isActive = true
             }
-            image.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
-            image.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor).isActive = true
-            image.widthAnchor.constraint(equalTo: faveButton.heightAnchor).isActive = true
+
+            image.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: -2).isActive = true
+            image.widthAnchor.constraint(equalToConstant: self.frame.height / 2.5).isActive = true
             image.image = restriction.icon!
             icons.append(image)
             lastLeftAnchor = image.leftAnchor
         }
-        nameLabel.rightAnchor.constraint(lessThanOrEqualTo: lastLeftAnchor, constant: -10).isActive = true
+        nameLabel.rightAnchor.constraint(lessThanOrEqualTo: lastLeftAnchor, constant: -16).isActive = true
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -94,7 +94,7 @@ class DiningMenuCell: UITableViewCell {
     
     let nameLabel:UILabel = {
         let label = UILabel()
-        label.font = Font.medium(16)
+        label.font = Font.semibold(16)
         label.textColor = Color.blackText
 
         label.translatesAutoresizingMaskIntoConstraints = false

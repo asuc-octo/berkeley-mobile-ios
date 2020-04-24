@@ -80,7 +80,7 @@ class EventTableViewCell: UITableViewCell {
         eventName.rightAnchor.constraint(equalTo: contentView.layoutMarginsGuide.rightAnchor).isActive = true
         eventName.bottomAnchor.constraint(lessThanOrEqualTo: eventTime.topAnchor, constant: -5).isActive = true
         
-        eventTime.font = Font.thin(12)
+        eventTime.font = Font.light(12)
         eventTime.numberOfLines = 2
         eventTime.setContentCompressionResistancePriority(.required, for: .vertical)
         eventTime.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor).isActive = true

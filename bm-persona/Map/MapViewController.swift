@@ -100,7 +100,7 @@ class MapViewController: UIViewController {
         
         filterView.translatesAutoresizingMaskIntoConstraints = false
         filterView.heightAnchor.constraint(equalToConstant: FilterViewCell.kCellSize.height).isActive = true
-        filterView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 24).isActive = true
+        filterView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 17).isActive = true
         filterView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         filterView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         filterView.contentInset = UIEdgeInsets(top: 0, left: view.layoutMargins.left,

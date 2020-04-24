@@ -41,7 +41,7 @@ class CardCollectionViewCell: UICollectionViewCell {
         badge.rightAnchor.constraint(equalTo: layoutMarginsGuide.rightAnchor).isActive = true
         
         subtitle = UILabel()
-        subtitle.font = Font.thin(12)
+        subtitle.font = Font.light(12)
         subtitle.numberOfLines = 2
         subtitle.setContentHuggingPriority(.required, for: .vertical)
         subtitle.setContentCompressionResistancePriority(.required, for: .vertical)

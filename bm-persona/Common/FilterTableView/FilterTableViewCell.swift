@@ -52,7 +52,7 @@ class FilterTableViewCell: UITableViewCell {
         contentView.addSubview(capBadge)
         contentView.layoutMargins = UIEdgeInsets(top: 5, left: 15, bottom: 5, right: -5)
         
-        recLabel.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
+        recLabel.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor, constant: 10).isActive = true
         recLabel.leftAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
         
         nameLabel.heightAnchor.constraint(equalToConstant: 65).isActive = true
@@ -132,7 +132,7 @@ class FilterTableViewCell: UITableViewCell {
         let label = UILabel()
         label.adjustsFontSizeToFitWidth = true
         label.font = Font.light(12)
-        label.textColor = Color.lightGrayText
+        label.textColor = Color.blackText
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
