@@ -81,6 +81,9 @@
 		559A7B6B2373DCBA004EA501 /* SearchResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559A7B6A2373DCBA004EA501 /* SearchResultsView.swift */; };
 		559A7B6D2373DEFA004EA501 /* MaterialTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559A7B6C2373DEFA004EA501 /* MaterialTableViewCell.swift */; };
 		559A7B6F2373DF39004EA501 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559A7B6E2373DF39004EA501 /* SearchResultCell.swift */; };
+		55AF44272453A49D00F13232 /* Cafe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AF44262453A49D00F13232 /* Cafe.swift */; };
+		55AF44292453A4EC00F13232 /* CafeDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AF44282453A4EC00F13232 /* CafeDataSource.swift */; };
+		55AF442B2453A80B00F13232 /* CafeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AF442A2453A80B00F13232 /* CafeItem.swift */; };
 		55C6936B240E143500400B60 /* ResourceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C6936A240E143500400B60 /* ResourceTableViewCell.swift */; };
 		55DCF78723722CBD001B01B8 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF78623722CBD001B01B8 /* Colors.swift */; };
 		55DCF78923722CF1001B01B8 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF78823722CF1001B01B8 /* Fonts.swift */; };
@@ -177,6 +180,9 @@
 		559A7B6A2373DCBA004EA501 /* SearchResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsView.swift; sourceTree = "<group>"; };
 		559A7B6C2373DEFA004EA501 /* MaterialTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialTableViewCell.swift; sourceTree = "<group>"; };
 		559A7B6E2373DF39004EA501 /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
+		55AF44262453A49D00F13232 /* Cafe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cafe.swift; sourceTree = "<group>"; };
+		55AF44282453A4EC00F13232 /* CafeDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeDataSource.swift; sourceTree = "<group>"; };
+		55AF442A2453A80B00F13232 /* CafeItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeItem.swift; sourceTree = "<group>"; };
 		55C6936A240E143500400B60 /* ResourceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceTableViewCell.swift; sourceTree = "<group>"; };
 		55DCF78623722CBD001B01B8 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		55DCF78823722CF1001B01B8 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
@@ -231,8 +237,10 @@
 		1336A327241D9BA200949F32 /* DiningDataSource */ = {
 			isa = PBXGroup;
 			children = (
+				55AF44252453A49000F13232 /* Cafes */,
 				1336A32A241DA64B00949F32 /* DiningHalls */,
 				1336A31F241D924300949F32 /* DiningItem.swift */,
+				55AF442A2453A80B00F13232 /* CafeItem.swift */,
 				130FA59D243B1243005DC752 /* DiningRestriction.swift */,
 				1336A321241D92F700949F32 /* MealType.swift */,
 			);
@@ -528,6 +536,15 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		55AF44252453A49000F13232 /* Cafes */ = {
+			isa = PBXGroup;
+			children = (
+				55AF44262453A49D00F13232 /* Cafe.swift */,
+				55AF44282453A4EC00F13232 /* CafeDataSource.swift */,
+			);
+			path = Cafes;
+			sourceTree = "<group>";
+		};
 		55DCF78523722CAE001B01B8 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
@@ -706,6 +723,7 @@
 				130FA59F243B12B3005DC752 /* Resource.swift in Sources */,
 				13B8E9592425819D00E7FCBF /* ResourceDataSource.swift in Sources */,
 				29CB28092404DD53009A2CFB /* LibraryViewController.swift in Sources */,
+				55AF44292453A4EC00F13232 /* CafeDataSource.swift in Sources */,
 				306A550023614C0000D59A7F /* MainContainerViewController.swift in Sources */,
 				55DCF78723722CBD001B01B8 /* Colors.swift in Sources */,
 				29EE163F241C4E310041482E /* SortingFunctions.swift in Sources */,
@@ -741,6 +759,8 @@
 				13E25DFD238C949E00B670B5 /* FitnessViewController.swift in Sources */,
 				55DCF79B237243D4001B01B8 /* MaterialTextField.swift in Sources */,
 				554CB9A023F3A83F00BB1715 /* EventTableViewCell.swift in Sources */,
+				55AF442B2453A80B00F13232 /* CafeItem.swift in Sources */,
+				55AF44272453A49D00F13232 /* Cafe.swift in Sources */,
 				13EA64CA2399CE5B00FD8E13 /* SearchItem.swift in Sources */,
 				13491DB8241E22130033F9AB /* Colors+Event.swift in Sources */,
 				13B39A9923E6A33C0039FBA2 /* Library.swift in Sources */,

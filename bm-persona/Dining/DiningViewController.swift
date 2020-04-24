@@ -49,6 +49,10 @@ class DiningViewController: UIViewController {
             self.filterTableView.setData(data: diningLocations as! [DiningHall])
             self.filterTableView.tableView.reloadData()
         }
+        
+        DataManager.shared.fetch(source: CafeDataSource.self) { cafeLocations in
+            
+        }
     }
 }
 
