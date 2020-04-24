@@ -38,7 +38,7 @@ class DrawerViewController: UIViewController {
         let backgroundView = UIView()
         backgroundView.backgroundColor = Color.modalBackground
         
-        backgroundView.layer.cornerRadius = 50
+        backgroundView.layer.cornerRadius = 15
         backgroundView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         backgroundView.clipsToBounds = true
         

@@ -92,7 +92,7 @@ extension LibraryDetailViewController {
         libPic.isUserInteractionEnabled = true
         
         let addressIcon = UIImageView()
-        addressIcon.image = #imageLiteral(resourceName: "map")
+        addressIcon.image = UIImage(named: "Placemark")
         overviewCard.addSubview(addressIcon)
         addressIcon.translatesAutoresizingMaskIntoConstraints = false
         addressIcon.leftAnchor.constraint(equalTo: overviewCard.layoutMarginsGuide.leftAnchor).isActive = true

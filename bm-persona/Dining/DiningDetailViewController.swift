@@ -301,8 +301,9 @@ extension DiningDetailViewController {
         if diningHall.phoneNumber != nil {
             phoneLabel.text = diningHall.phoneNumber
         } else {
-            phoneLabel.text = "     "
+            phoneLabel.text = "Unknown"
         }
+        
         phoneLabel.centerYAnchor.constraint(equalTo: phoneIcon.centerYAnchor).isActive = true
         phoneLabel.leftAnchor.constraint(equalTo: phoneIcon.layoutMarginsGuide.rightAnchor, constant:  kViewMargin).isActive = true
         phoneLabel.rightAnchor.constraint(lessThanOrEqualTo: distIcon.leftAnchor, constant: -5).isActive = true
@@ -319,9 +320,13 @@ extension DiningDetailViewController {
                 self.distLabel.text = String(dist) + " mi"
             } else {
                 self.distLabel.text = "     "
+                distIcon.isHidden = true
+                distLabel.isHidden = true
             }
         } else {
             self.distLabel.text = "     "
+            distIcon.isHidden = true
+            distLabel.isHidden = true
         }
         
         distLabel.centerYAnchor.constraint(equalTo: distIcon.centerYAnchor).isActive = true
