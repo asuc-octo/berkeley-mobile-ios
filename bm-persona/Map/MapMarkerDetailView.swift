@@ -206,7 +206,7 @@ enum MapMarkerDetail {
             let icon = UIImage(named: "Placemark")
             let label = UILabel()
             label.numberOfLines = 0
-            label.font = Font.light(10)
+            label.font = Font.light(12)
             label.textColor = Color.primaryText
             label.text = description
             return viewWithIcon(icon, view: label)
