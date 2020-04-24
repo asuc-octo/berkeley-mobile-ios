@@ -11,11 +11,12 @@ import MapKit
 
 // MARK: - MapViewController
 
-class MapViewController: UIViewController {
+class MapViewController: UIViewController, DrawerViewDelegate {
     
     static let kAnnotationIdentifier = "MapMarkerAnnotation"
     
-    open var drawerContainer: DrawerContainer?
+    // this allows the map to move the main drawer
+    open var drawerContainer: DrawerViewDelegate?
     
     private var mapView: MKMapView!
     private var maskView: UIView!
@@ -23,11 +24,12 @@ class MapViewController: UIViewController {
     private var searchResultsView: SearchResultsView!
     private var locationManager = CLLocationManager()
     
-    private var detailViewController: SearchDetailViewController?
+    // this is for the detail view drawer
+    var drawerViewController: DrawerViewController?
     // center of detail view before snapping into place
-    private var initialDetailCenter = CGPoint()
+    var initialDrawerCenter = CGPoint()
     // y positions for each state (hidden, middle, full)
-    private var searchDetailStatePositions: [SearchDetailState: CGFloat] = [:]
+    var drawerStatePositions: [DrawerState : CGFloat] = [:]
     private var searchAnnotation: SearchAnnotation?
     
     private var filterView: FilterView!
@@ -126,8 +128,8 @@ class MapViewController: UIViewController {
             self.maskView.isHidden = false
             self.searchResultsView.isHidden = false
             // hide detail view or drawer depending on which is currently visible
-            if detailViewController != nil {
-                self.detailViewController!.view.isHidden = true
+            if drawerViewController != nil {
+                self.drawerViewController!.view.isHidden = true
             } else {
                 self.drawerContainer?.moveDrawer(to: .hidden, duration: 0.2)
             }
@@ -136,8 +138,8 @@ class MapViewController: UIViewController {
             self.searchResultsView.isHidden = true
             self.searchResultsView.isScrolling = false
             // show detail view or drawer depending on which was visible before hiding
-            if detailViewController != nil {
-                self.detailViewController!.view.isHidden = false
+            if drawerViewController != nil {
+                self.drawerViewController!.view.isHidden = false
             } else {
                 self.drawerContainer?.moveDrawer(to: .collapsed, duration: 0.2)
             }
@@ -215,8 +217,8 @@ extension MapViewController: MKMapViewDelegate {
         if let annotation = view.annotation as? MapMarker {
             markerDetail.marker = annotation
             // hide either search detail or drawer
-            if detailViewController != nil {
-                detailViewController!.view.isHidden = true
+            if drawerViewController != nil {
+                drawerViewController!.view.isHidden = true
             } else {
                 drawerContainer?.moveDrawer(to: .hidden, duration: 0.2)
             }
@@ -227,8 +229,8 @@ extension MapViewController: MKMapViewDelegate {
         if (view.annotation as? MapMarker) != nil {
             markerDetail.marker = nil
             // show either search detail or drawer
-            if detailViewController != nil {
-                detailViewController!.view.isHidden = false
+            if drawerViewController != nil {
+                drawerViewController!.view.isHidden = false
                 mapView.selectAnnotation(searchAnnotation!, animated: true)
             } else {
                 drawerContainer?.moveDrawer(to: .collapsed, duration: 0.2)
@@ -323,7 +325,7 @@ extension MapViewController: SearchBarDelegate {
     }
 }
 
-extension MapViewController: SearchResultsViewDelegate, SearchDetailViewDelegate {
+extension MapViewController: SearchResultsViewDelegate {
     
     // drop new pin and show detail view on search
     func choosePlacemark(_ placemark: MapPlacemark) {
@@ -354,85 +356,82 @@ extension MapViewController: SearchResultsViewDelegate, SearchDetailViewDelegate
                 var superView: UIView!
                 // if search item has detail view - remove past detail view, show new one
                 if let hall = item as? DiningHall {
-                    if let detailvc = detailViewController {
+                    if let detailvc = drawerViewController {
                         detailvc.removeFromParent()
                         detailvc.view.removeFromSuperview()
                     }
-                    detailViewController = DiningDetailViewController()
-                    (detailViewController as! DiningDetailViewController).diningHall = hall
-                    add(child: detailViewController!)
-                    superView = detailViewController!.view.superview!
+                    drawerViewController = DiningDetailViewController()
+                    (drawerViewController as! DiningDetailViewController).diningHall = hall
+                    add(child: drawerViewController!)
+                    superView = drawerViewController!.view.superview!
                 } else if let lib = item as? Library {
-                    if let detailvc = detailViewController {
+                    if let detailvc = drawerViewController {
                         detailvc.removeFromParent()
                         detailvc.view.removeFromSuperview()
                     }
-                    detailViewController = LibraryDetailViewController()
-                    (detailViewController as! LibraryDetailViewController).library = lib
-                    add(child: detailViewController!)
-                    superView = detailViewController!.view.superview!
+                    drawerViewController = LibraryDetailViewController()
+                    (drawerViewController as! LibraryDetailViewController).library = lib
+                    add(child: drawerViewController!)
+                    superView = drawerViewController!.view.superview!
                 } else {
                     /* don't show detail view if search item isn't dining hall or library
                      dismiss any past detail views, show drawer, pin is already dropped */
-                    if let detailvc = detailViewController {
+                    if let detailvc = drawerViewController {
                         detailvc.removeFromParent()
                         detailvc.view.removeFromSuperview()
-                        detailViewController = nil
+                        drawerViewController = nil
                         drawerContainer?.moveDrawer(to: .collapsed, duration: 0.2)
                     }
                     return
                 }
                 drawerContainer?.moveDrawer(to: .hidden, duration: 0.2)
                 
-                //round top corners of detail view
-                let detailView = detailViewController!.view!
-                detailView.layer.cornerRadius = 50
-                detailView.clipsToBounds = true
-                detailView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
-                
-                detailViewController!.delegate = self
-                detailViewController!.view.translatesAutoresizingMaskIntoConstraints = false
-                detailViewController!.view.heightAnchor.constraint(equalTo: superView.heightAnchor).isActive = true
-                detailViewController!.view.widthAnchor.constraint(equalTo: superView.widthAnchor).isActive = true
-                detailViewController!.view.centerXAnchor.constraint(equalTo: superView.centerXAnchor).isActive = true
+                drawerViewController!.delegate = self
+                drawerViewController!.view.translatesAutoresizingMaskIntoConstraints = false
+                drawerViewController!.view.heightAnchor.constraint(equalTo: superView.heightAnchor).isActive = true
+                drawerViewController!.view.widthAnchor.constraint(equalTo: superView.widthAnchor).isActive = true
+                drawerViewController!.view.centerXAnchor.constraint(equalTo: superView.centerXAnchor).isActive = true
                 // use cutoff position on detail view to determine "middle" state
-                if let cutoff = detailViewController!.middleCutoffPosition {
-                    detailViewController!.view.centerYAnchor.constraint(equalTo: superView.centerYAnchor, constant: superView.frame.maxY - cutoff).isActive = true
-                    searchDetailStatePositions[.middle] = superView.frame.maxY + superView.frame.maxY / 2 - cutoff
+                if let cutoff = (drawerViewController! as! SearchDrawerViewController).middleCutoffPosition {
+                    drawerViewController!.view.centerYAnchor.constraint(equalTo: superView.centerYAnchor, constant: superView.frame.maxY - cutoff).isActive = true
+                    drawerStatePositions[.middle] = superView.frame.maxY + superView.frame.maxY / 2 - cutoff
                 } else {
                     // default to showing 30% of the view if no cutoff set
-                    detailViewController!.view.centerYAnchor.constraint(equalTo: superView.centerYAnchor, constant: self.view.frame.maxY * 0.7).isActive = true
-                    searchDetailStatePositions[.middle] = superView.frame.midY + superView.frame.maxY * 0.7
+                    drawerViewController!.view.centerYAnchor.constraint(equalTo: superView.centerYAnchor, constant: self.view.frame.maxY * 0.7).isActive = true
+                    drawerStatePositions[.middle] = superView.frame.midY + superView.frame.maxY * 0.7
                 }
-                detailViewController!.view.layoutIfNeeded()
-                detailViewController!.setupBarView()
                 
-                searchDetailStatePositions[.hidden] = superView.frame.maxY + superView.frame.maxY / 2
-                searchDetailStatePositions[.full] = superView.safeAreaInsets.top + (superView.frame.maxY / 2)
-                initialDetailCenter = detailViewController!.view.center
-                detailViewController!.setupGestures()
-                moveSearchDetailView(to: .middle, duration: 0)
+                drawerStatePositions[.hidden] = superView.frame.maxY + superView.frame.maxY / 2
+                drawerStatePositions[.full] = superView.safeAreaInsets.top + (superView.frame.maxY / 2)
+                view.layoutIfNeeded()
+                initialDrawerCenter = drawerViewController!.view.center
+                moveDrawer(to: .middle, duration: 0)
             }
         }
     }
+
+}
+ 
+// for search detail drawer
+extension MapViewController {
     
     // copied from drawer, snaps view into preset position when user pans
     func handlePanGesture(gesture: UIPanGestureRecognizer) {
         if gesture.state == .began {
-            self.initialDetailCenter = detailViewController!.view.center
+            self.initialDrawerCenter = drawerViewController!.view.center
         }
         
         let translation = gesture.translation(in: self.view)
         let velocity = gesture.velocity(in: self.view).y
-        var newCenter = CGPoint(x: self.initialDetailCenter.x, y: self.initialDetailCenter.y + translation.y)
+        var newCenter = CGPoint(x: self.initialDrawerCenter.x, y: self.initialDrawerCenter.y + translation.y)
         
         if newCenter.y < self.view.center.y {
             newCenter = self.view.center
         }
         
         if gesture.state == .ended {
-            let searchDetailState = computeSearchDetailPosition(from: newCenter.y, with: velocity)
-            let pixelDiff = abs(newCenter.y - searchDetailStatePositions[searchDetailState]!)
+            let drawerState = computeSearchDetailPosition(from: newCenter.y, with: velocity)
+            let pixelDiff = abs(newCenter.y - drawerStatePositions[drawerState]!)
             var animationTime = pixelDiff / abs(velocity)
             
             if pixelDiff / animationTime < 300 {
@@ -441,63 +440,27 @@ extension MapViewController: SearchResultsViewDelegate, SearchDetailViewDelegate
                 animationTime = pixelDiff / 700
             }
             
-            if searchDetailState == .hidden {
+            if drawerState == .hidden {
                 // if user swipes view all the way down, remove detail view and pin, show drawer
-                if detailViewController != nil {
+                if drawerViewController != nil {
                     removeAnnotations(type: SearchAnnotation.self)
-                    detailViewController!.removeFromParent()
-                    detailViewController!.view.removeFromSuperview()
+                    drawerViewController!.removeFromParent()
+                    drawerViewController!.view.removeFromSuperview()
                     searchAnnotation = nil
-                    detailViewController = nil
+                    drawerViewController = nil
                     drawerContainer?.moveDrawer(to: .collapsed, duration: 0.2)
                 }
             } else {
-                moveSearchDetailView(to: searchDetailState, duration: Double(animationTime))
+                moveDrawer(to: drawerState, duration: Double(animationTime))
             }
         } else {
-            self.detailViewController!.view.center = newCenter
+            self.drawerViewController!.view.center = newCenter
         }
-        
-        
     }
     
     // copied from drawer, calculate position to snap to depending on pan gesture
-    private func computeSearchDetailPosition(from yPosition: CGFloat, with yVelocity: CGFloat) -> SearchDetailState {
-        guard let hiddenPos = searchDetailStatePositions[SearchDetailState.hidden], let middlePos = searchDetailStatePositions[SearchDetailState.middle], let fullPos = searchDetailStatePositions[SearchDetailState.full] else { return .middle }
-        
-        let betweenBottom = (hiddenPos + middlePos) / 2
-        let betweenTop = (middlePos + fullPos) / 2
-        
-        if yPosition > betweenBottom {
-            if yVelocity < -800 {
-                return .middle
-            } else {
-                return .hidden
-            }
-        } else if yPosition > betweenTop {
-            if yVelocity > 800 {
-                return .hidden
-            } else if yVelocity < -800 {
-                return .full
-            } else {
-                return .middle
-            }
-        } else if yVelocity > 800 {
-            return .middle
-        } else {
-            return .full
-        }
-    }
-    
-    // move the detail view to one of the set states
-    func moveSearchDetailView(to state: SearchDetailState, duration: Double) {
-        UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
-            self.detailViewController!.view.center = CGPoint(x: self.initialDetailCenter.x, y: self.searchDetailStatePositions[state]!)
-        }, completion: { success in
-            if success {
-                self.detailViewController!.state = state
-            }
-        })
+    private func computeSearchDetailPosition(from yPosition: CGFloat, with yVelocity: CGFloat) -> DrawerState {
+        computePosition(from: yPosition, with: yVelocity, bottom: .hidden, middle: .middle, top: .full)
     }
 }
 

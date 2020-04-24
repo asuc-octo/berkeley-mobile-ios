@@ -8,35 +8,27 @@
 
 import UIKit
 
-protocol DrawerViewDelegate {
-    func handlePanGesture(gesture: UIPanGestureRecognizer)
-    func searchInitiated()
-}
-
-protocol DrawerContainer {
-    func moveDrawer(to state: DrawerState, duration: Double);
-}
-
-class MainContainerViewController: UIViewController {
+class MainContainerViewController: UIViewController, DrawerViewDelegate {
     let mapViewController = MapViewController()
-    let drawerViewController = DrawerViewController()
     
+    var drawerViewController: DrawerViewController? = MainDrawerViewController()
     var initialDrawerCenter = CGPoint()
     var drawerStatePositions: [DrawerState: CGFloat] = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let drawerVC = drawerViewController as! MainDrawerViewController
         add(child: mapViewController)
-        add(child: drawerViewController)
-        drawerViewController.delegate = self
+        add(child: drawerVC)
+        drawerVC.delegate = self
         mapViewController.view.frame = self.view.frame
         mapViewController.drawerContainer = self
-        drawerViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        drawerVC.view.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            drawerViewController.view.heightAnchor.constraint(equalTo: self.view.heightAnchor),
-            drawerViewController.view.widthAnchor.constraint(equalTo: self.view.widthAnchor),
-            drawerViewController.view.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            drawerViewController.view.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: self.view.frame.maxY * 0.9)
+            drawerVC.view.heightAnchor.constraint(equalTo: self.view.heightAnchor),
+            drawerVC.view.widthAnchor.constraint(equalTo: self.view.widthAnchor),
+            drawerVC.view.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            drawerVC.view.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: self.view.frame.maxY * 0.9)
         ])
     }
     
@@ -45,31 +37,19 @@ class MainContainerViewController: UIViewController {
         drawerStatePositions[.collapsed] = self.view.frame.maxY * 0.9 + (self.view.frame.maxY / 2)
         drawerStatePositions[.middle] = self.view.frame.midY * 1.1 + (self.view.frame.maxY / 2)
         drawerStatePositions[.full] = self.view.safeAreaInsets.top + (self.view.frame.maxY / 2)
-        drawerViewController.heightOffset = self.view.safeAreaInsets.top
-        self.initialDrawerCenter = drawerViewController.view.center
-        moveDrawer(to: drawerViewController.state, duration: 0)
+        (drawerViewController as! MainDrawerViewController).heightOffset = self.view.safeAreaInsets.top
+        self.initialDrawerCenter = drawerViewController!.view.center
+        moveDrawer(to: drawerViewController!.state, duration: 0)
     }
 
 }
 
-extension MainContainerViewController: DrawerContainer {
+// for main drawer view
+extension MainContainerViewController {
     
-    func moveDrawer(to state: DrawerState, duration: Double) {
-        UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
-            self.drawerViewController.view.center = CGPoint(x: self.initialDrawerCenter.x, y: self.drawerStatePositions[state]!)
-        }, completion: { success in
-            if success {
-                self.drawerViewController.state = state
-            }
-        })
-    }
-    
-}
-
-extension MainContainerViewController: DrawerViewDelegate {
     func handlePanGesture(gesture: UIPanGestureRecognizer) {
         if gesture.state == .began {
-            self.initialDrawerCenter = drawerViewController.view.center
+            initialDrawerCenter = drawerViewController!.view.center
         }
         
         let translation = gesture.translation(in: self.view)
@@ -92,42 +72,12 @@ extension MainContainerViewController: DrawerViewDelegate {
             }
             
             moveDrawer(to: drawerState, duration: Double(animationTime))
-            
         } else {
-            self.drawerViewController.view.center = newCenter
+            self.drawerViewController!.view.center = newCenter
         }
-        
-        
-    }
-    
-    func searchInitiated() {
-        moveDrawer(to: .full, duration: 0.5)
     }
     
     private func computeDrawerPosition(from yPosition: CGFloat, with yVelocity: CGFloat) -> DrawerState {
-        guard let collapsedPos = drawerStatePositions[DrawerState.collapsed], let middlePos = drawerStatePositions[DrawerState.middle], let fullPos = drawerStatePositions[DrawerState.full] else { return .collapsed }
-        
-        let betweenBottom = (collapsedPos + middlePos) / 2
-        let betweenTop = (middlePos + fullPos) / 2
-        
-        if yPosition > betweenBottom {
-            if yVelocity < -800 {
-                return .middle
-            } else {
-                return .collapsed
-            }
-        } else if yPosition > betweenTop {
-            if yVelocity > 800 {
-                return .collapsed
-            } else if yVelocity < -800 {
-                return .full
-            } else {
-                return .middle
-            }
-        } else if yVelocity > 800 {
-            return .middle
-        } else {
-            return .full
-        }
+        computePosition(from: yPosition, with: yVelocity, bottom: .collapsed, middle: .middle, top: .full)
     }
 }

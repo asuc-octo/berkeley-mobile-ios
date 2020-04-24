@@ -12,7 +12,7 @@ import CoreLocation
 fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
 fileprivate let kViewMargin: CGFloat = 16
 
-class DiningDetailViewController: SearchDetailViewController {
+class DiningDetailViewController: SearchDrawerViewController {
     
     var diningHall: DiningHall!
     var locationManager = CLLocationManager()
@@ -27,7 +27,6 @@ class DiningDetailViewController: SearchDetailViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .white
         
         locationManager.delegate = self
         setUpOverviewCard()

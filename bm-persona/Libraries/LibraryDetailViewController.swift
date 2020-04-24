@@ -13,7 +13,7 @@ fileprivate let kHeaderFont: UIFont = Font.bold(24)
 fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
 fileprivate let kViewMargin: CGFloat = 16
 
-class LibraryDetailViewController: SearchDetailViewController {
+class LibraryDetailViewController: SearchDrawerViewController {
 
     var scrollView: UIScrollView!
     var library : Library!
@@ -27,7 +27,6 @@ class LibraryDetailViewController: SearchDetailViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .white
         
         //location stuff
         locationManager.delegate = self
