@@ -84,6 +84,7 @@
 		55AF44272453A49D00F13232 /* Cafe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AF44262453A49D00F13232 /* Cafe.swift */; };
 		55AF44292453A4EC00F13232 /* CafeDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AF44282453A4EC00F13232 /* CafeDataSource.swift */; };
 		55AF442B2453A80B00F13232 /* CafeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AF442A2453A80B00F13232 /* CafeItem.swift */; };
+		55AF442D2453ACE600F13232 /* DiningLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AF442C2453ACE600F13232 /* DiningLocation.swift */; };
 		55C6936B240E143500400B60 /* ResourceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C6936A240E143500400B60 /* ResourceTableViewCell.swift */; };
 		55DCF78723722CBD001B01B8 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF78623722CBD001B01B8 /* Colors.swift */; };
 		55DCF78923722CF1001B01B8 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF78823722CF1001B01B8 /* Fonts.swift */; };
@@ -183,6 +184,7 @@
 		55AF44262453A49D00F13232 /* Cafe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cafe.swift; sourceTree = "<group>"; };
 		55AF44282453A4EC00F13232 /* CafeDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeDataSource.swift; sourceTree = "<group>"; };
 		55AF442A2453A80B00F13232 /* CafeItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeItem.swift; sourceTree = "<group>"; };
+		55AF442C2453ACE600F13232 /* DiningLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiningLocation.swift; sourceTree = "<group>"; };
 		55C6936A240E143500400B60 /* ResourceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceTableViewCell.swift; sourceTree = "<group>"; };
 		55DCF78623722CBD001B01B8 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		55DCF78823722CF1001B01B8 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
@@ -240,6 +242,7 @@
 				55AF44252453A49000F13232 /* Cafes */,
 				1336A32A241DA64B00949F32 /* DiningHalls */,
 				1336A31F241D924300949F32 /* DiningItem.swift */,
+				55AF442C2453ACE600F13232 /* DiningLocation.swift */,
 				55AF442A2453A80B00F13232 /* CafeItem.swift */,
 				130FA59D243B1243005DC752 /* DiningRestriction.swift */,
 				1336A321241D92F700949F32 /* MealType.swift */,
@@ -789,6 +792,7 @@
 				1396013323865E2E005E4788 /* CardCollectionView.swift in Sources */,
 				13B39A9A23E6A33C0039FBA2 /* LibraryDataSource.swift in Sources */,
 				306A54EC23613E3A00D59A7F /* SceneDelegate.swift in Sources */,
+				55AF442D2453ACE600F13232 /* DiningLocation.swift in Sources */,
 				1336A329241DA56100949F32 /* DiningHallDataSource.swift in Sources */,
 				136DC97B2398B4D1009B1810 /* UIViewController+Extensions.swift in Sources */,
 				13491DB6241E21740033F9AB /* Colors+TagView.swift in Sources */,

@@ -37,6 +37,9 @@ class CafeDataSource: DataSource {
             }
             requests.leave()
         }
+        requests.notify(queue: .global(qos: .utility)) {
+            completion(Array(cafes.values))
+        }
     }
     
     // Return a Cafe object parsed from a dictionary.
@@ -51,7 +54,11 @@ class CafeDataSource: DataSource {
                                   latitude: dict["latitude"] as? Double,
                                   longitude: dict["longitude"] as? Double)
         
+        let breakfast = parseDiningMenu(dict["Breakfast"] as? [String : Any] ?? [:])
+        let lunch = parseDiningMenu(dict["Lunch"] as? [String : Any] ?? [:])
         
+        cafe.meals["Breakfast"] = breakfast
+        cafe.meals["Lunch"] = lunch
         return cafe
     }
     

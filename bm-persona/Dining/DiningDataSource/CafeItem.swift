@@ -12,20 +12,12 @@ import Foundation
 typealias CafeMenu = Array<CafeItem>
 
 /** Object representing a single dish/item. */
-class CafeItem {
+class CafeItem: DiningItem {
     
-    let name: String
     let cost: Double
-    var isFavorited: Bool = false
-    
-    // Additional information regarding food such as allergens or alternative options
-    let restrictions: [DiningRestriction]
     
     init(name: String, cost: Double, restrictions: [String]) {
-        self.name = name
         self.cost = cost
-        self.restrictions = restrictions.map { (rawValue) -> DiningRestriction in
-            return DiningRestriction(rawValue: rawValue)
-        }
+        super.init(name: name, restrictions: restrictions)
     }
 }
