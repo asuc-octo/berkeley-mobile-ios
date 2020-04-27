@@ -54,8 +54,8 @@ class CafeDataSource: DataSource {
                                   latitude: dict["latitude"] as? Double,
                                   longitude: dict["longitude"] as? Double)
         
-        let breakfast = parseDiningMenu(dict["Breakfast"] as? [String : Any] ?? [:])
-        let lunch = parseDiningMenu(dict["Lunch"] as? [String : Any] ?? [:])
+        let breakfast = parseDiningMenu(dict["Breakfast"] as? [Any] ?? [])
+        let lunch = parseDiningMenu(dict["Lunch"] as? [Any] ?? [])
         
         cafe.meals["Breakfast"] = breakfast
         cafe.meals["Lunch"] = lunch
@@ -63,14 +63,12 @@ class CafeDataSource: DataSource {
     }
     
     // Return a MealMap object parsed from a dictionary.
-    private static func parseDiningMenu(_ dict: [String: Any]) -> CafeMenu {
+    private static func parseDiningMenu(_ dict: [Any]) -> CafeMenu {
         var menu = CafeMenu()
-        if let items = dict["items"] as? [[String: Any]] {
-            menu = items.compactMap { (item) -> CafeItem? in
-                if let name = item["name"] as? String {
-                    return CafeItem(name: name, cost: item["cost"] as? Double ?? 0.0, restrictions: item["food_types"] as? [String] ?? [])
-                }
-                return nil
+        for item in dict {
+            if let item = item as? [String: Any] {
+                // TODO: - Backend doesn't have food restrictions
+                menu.append(CafeItem(name: item["name"] as? String ?? "", cost: item["cost"] as? Double ?? 0.0, restrictions: item["food_types"] as? [String] ?? []))
             }
         }
         return menu

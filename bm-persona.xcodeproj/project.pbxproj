@@ -242,8 +242,8 @@
 				55AF44252453A49000F13232 /* Cafes */,
 				1336A32A241DA64B00949F32 /* DiningHalls */,
 				1336A31F241D924300949F32 /* DiningItem.swift */,
-				55AF442C2453ACE600F13232 /* DiningLocation.swift */,
 				55AF442A2453A80B00F13232 /* CafeItem.swift */,
+				55AF442C2453ACE600F13232 /* DiningLocation.swift */,
 				130FA59D243B1243005DC752 /* DiningRestriction.swift */,
 				1336A321241D92F700949F32 /* MealType.swift */,
 			);
