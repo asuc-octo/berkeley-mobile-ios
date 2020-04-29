@@ -15,13 +15,14 @@ enum DrawerState {
     case full
 }
 
-protocol DrawerViewDelegate {
+protocol DrawerViewDelegate: class {
     func handlePanGesture(gesture: UIPanGestureRecognizer)
     func moveDrawer(to state: DrawerState, duration: Double)
+    func computeDrawerPosition(from yPosition: CGFloat, with yVelocity: CGFloat) -> DrawerState
     
     var initialDrawerCenter: CGPoint { get set }
     var drawerStatePositions: [DrawerState: CGFloat] { get set }
-    var drawerViewController: DrawerViewController? { get }
+    var drawerViewController: DrawerViewController? { get set }
 }
 
 extension DrawerViewDelegate where Self: UIViewController {
@@ -35,6 +36,8 @@ extension DrawerViewDelegate where Self: UIViewController {
         }, completion: { success in
             if success {
                 self.drawerViewController!.state = state
+                // TODO: why does this fix it?
+                self.drawerViewController!.view.center = CGPoint(x: self.initialDrawerCenter.x, y: self.drawerStatePositions[state]!)
             }
         })
     }
@@ -66,4 +69,37 @@ extension DrawerViewDelegate where Self: UIViewController {
         }
     }
     
+    @discardableResult func handlePan(gesture: UIPanGestureRecognizer) -> DrawerState {
+        if gesture.state == .began {
+            initialDrawerCenter = drawerViewController!.view.center
+        }
+        
+        let translation = gesture.translation(in: self.view)
+        let velocity = gesture.velocity(in: self.view).y
+        var newCenter = CGPoint(x: self.initialDrawerCenter.x, y: self.initialDrawerCenter.y + translation.y)
+        
+        if newCenter.y < self.view.center.y {
+            newCenter = self.view.center
+        }
+        
+        if gesture.state == .ended {
+            let drawerState = computeDrawerPosition(from: newCenter.y, with: velocity)
+            let pixelDiff = abs(newCenter.y - drawerStatePositions[drawerState]!)
+            var animationTime = pixelDiff / abs(velocity)
+            
+            if pixelDiff / animationTime < 300 {
+                animationTime = pixelDiff / 300
+            } else if pixelDiff / animationTime > 700 {
+                animationTime = pixelDiff / 700
+            }
+            print("a")
+            print(drawerViewController!.view.center)
+            moveDrawer(to: drawerState, duration: Double(animationTime))
+            print(drawerViewController!.view.center)
+            return drawerState
+        } else {
+            self.drawerViewController!.view.center = newCenter
+            return .middle
+        }
+    }
 }

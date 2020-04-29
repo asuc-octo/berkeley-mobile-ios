@@ -88,7 +88,6 @@ extension LibraryDetailViewController {
             }
         }
         
-        
         overviewCard.addSubview(libPic)
         libPic.translatesAutoresizingMaskIntoConstraints = false
         libPic.topAnchor.constraint(equalTo: nameLabel.layoutMarginsGuide.topAnchor).isActive = true

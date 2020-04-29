@@ -8,6 +8,7 @@
 
 import UIKit
 
+// General drawer with a gray bar at the top, can handle pan gesture to change position
 class DrawerViewController: UIViewController {
     var delegate: DrawerViewDelegate!
     var state: DrawerState = .collapsed

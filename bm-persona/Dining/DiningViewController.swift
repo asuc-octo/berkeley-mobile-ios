@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class DiningViewController: UIViewController {
+class DiningViewController: UIViewController, SearchDrawerViewDelegate {
     
     private var filterTableView: FilterTableView = FilterTableView<DiningHall>(frame: .zero, filters: [])
     private var diningLocations: [DiningHall] = []
@@ -19,6 +19,14 @@ class DiningViewController: UIViewController {
     
     private var locationManager = CLLocationManager()
     private var location: CLLocation?
+    
+    // this is for the detail view drawer
+    var drawerViewController: DrawerViewController?
+    // center of detail view before snapping into place
+    var initialDrawerCenter = CGPoint()
+    // y positions for each state (hidden, middle, full)
+    var drawerStatePositions: [DrawerState : CGFloat] = [:]
+    var drawerContainer: DrawerViewDelegate?
     
     let diningImage:UIImageView = {
         let img = UIImageView()
@@ -122,9 +130,7 @@ extension DiningViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = DiningDetailViewController()
-        vc.diningHall = self.filterTableView.filteredData[indexPath.row]
-        self.present(vc, animated: true, completion: nil)
+        presentDetail(type: DiningHall.self, item: self.filterTableView.filteredData[indexPath.row], containingVC: drawerContainer as! UIViewController, position: .full)
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
@@ -182,4 +188,18 @@ extension DiningViewController {
         self.filterTableView.tableView.delegate = self
     }
     
+}
+
+extension DiningViewController {
+    func handlePanGesture(gesture: UIPanGestureRecognizer) {
+        let state = handlePan(gesture: gesture)
+        if state == .hidden {
+            if drawerViewController != nil {
+                drawerViewController!.removeFromParent()
+                drawerViewController!.view.removeFromSuperview()
+                drawerViewController = nil
+                drawerContainer?.moveDrawer(to: .full, duration: 0.2)
+            }
+        }
+    }
 }

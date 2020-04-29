@@ -11,13 +11,14 @@ import UIKit
 class MainContainerViewController: UIViewController, DrawerViewDelegate {
     let mapViewController = MapViewController()
     
-    var drawerViewController: DrawerViewController? = MainDrawerViewController()
+    var drawerViewController: DrawerViewController?
     var initialDrawerCenter = CGPoint()
     var drawerStatePositions: [DrawerState: CGFloat] = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let drawerVC = drawerViewController as! MainDrawerViewController
+        let drawerVC = MainDrawerViewController(container: self)
+        drawerViewController = drawerVC
         add(child: mapViewController)
         add(child: drawerVC)
         drawerVC.delegate = self
@@ -46,38 +47,11 @@ class MainContainerViewController: UIViewController, DrawerViewDelegate {
 
 // for main drawer view
 extension MainContainerViewController {
-    
     func handlePanGesture(gesture: UIPanGestureRecognizer) {
-        if gesture.state == .began {
-            initialDrawerCenter = drawerViewController!.view.center
-        }
-        
-        let translation = gesture.translation(in: self.view)
-        let velocity = gesture.velocity(in: self.view).y
-        var newCenter = CGPoint(x: self.initialDrawerCenter.x, y: self.initialDrawerCenter.y + translation.y)
-        
-        if newCenter.y < self.view.center.y {
-            newCenter = self.view.center
-        }
-        
-        if gesture.state == .ended {
-            let drawerState = computeDrawerPosition(from: newCenter.y, with: velocity)
-            let pixelDiff = abs(newCenter.y - drawerStatePositions[drawerState]!)
-            var animationTime = pixelDiff / abs(velocity)
-            
-            if pixelDiff / animationTime < 300 {
-                animationTime = pixelDiff / 300
-            } else if pixelDiff / animationTime > 700 {
-                animationTime = pixelDiff / 700
-            }
-            
-            moveDrawer(to: drawerState, duration: Double(animationTime))
-        } else {
-            self.drawerViewController!.view.center = newCenter
-        }
+        handlePan(gesture: gesture)
     }
     
-    private func computeDrawerPosition(from yPosition: CGFloat, with yVelocity: CGFloat) -> DrawerState {
+    func computeDrawerPosition(from yPosition: CGFloat, with yVelocity: CGFloat) -> DrawerState {
         computePosition(from: yPosition, with: yVelocity, bottom: .collapsed, middle: .middle, top: .full)
     }
 }

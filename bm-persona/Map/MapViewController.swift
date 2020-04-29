@@ -11,7 +11,7 @@ import MapKit
 
 // MARK: - MapViewController
 
-class MapViewController: UIViewController, DrawerViewDelegate {
+class MapViewController: UIViewController, SearchDrawerViewDelegate {
     
     static let kAnnotationIdentifier = "MapMarkerAnnotation"
     
@@ -230,8 +230,12 @@ extension MapViewController: MKMapViewDelegate {
             markerDetail.marker = nil
             // show either search detail or drawer
             if drawerViewController != nil {
-                drawerViewController!.view.isHidden = false
-                mapView.selectAnnotation(searchAnnotation!, animated: true)
+                DispatchQueue.main.async {
+                    if self.markerDetail.marker == nil {
+                        self.drawerViewController!.view.isHidden = false
+                        mapView.selectAnnotation(self.searchAnnotation!, animated: true)
+                    }
+                }
             } else {
                 drawerContainer?.moveDrawer(to: .collapsed, duration: 0.2)
             }
@@ -336,7 +340,7 @@ extension MapViewController: SearchResultsViewDelegate {
         searchBar.textFieldDidEndEditing(searchBar.textField)
         // remove last search pin
         removeAnnotations(type: SearchAnnotation.self)
-        if location != nil {
+        if location != nil && location?.coordinate.latitude != Double.nan && location?.coordinate.longitude != Double.nan {
             let regionRadius: CLLocationDistance = 250
             // center map on searched location
             let coordinateRegion = MKCoordinateRegion(center: location!.coordinate,
@@ -411,56 +415,20 @@ extension MapViewController: SearchResultsViewDelegate {
     }
 
 }
- 
-// for search detail drawer
+
+
 extension MapViewController {
-    
-    // copied from drawer, snaps view into preset position when user pans
     func handlePanGesture(gesture: UIPanGestureRecognizer) {
-        if gesture.state == .began {
-            self.initialDrawerCenter = drawerViewController!.view.center
-        }
-        
-        let translation = gesture.translation(in: self.view)
-        let velocity = gesture.velocity(in: self.view).y
-        var newCenter = CGPoint(x: self.initialDrawerCenter.x, y: self.initialDrawerCenter.y + translation.y)
-        
-        if newCenter.y < self.view.center.y {
-            newCenter = self.view.center
-        }
-        
-        if gesture.state == .ended {
-            let drawerState = computeSearchDetailPosition(from: newCenter.y, with: velocity)
-            let pixelDiff = abs(newCenter.y - drawerStatePositions[drawerState]!)
-            var animationTime = pixelDiff / abs(velocity)
-            
-            if pixelDiff / animationTime < 300 {
-                animationTime = pixelDiff / 300
-            } else if pixelDiff / animationTime > 700 {
-                animationTime = pixelDiff / 700
+        let state = handlePan(gesture: gesture)
+        if state == .hidden {
+            if drawerViewController != nil {
+                removeAnnotations(type: SearchAnnotation.self)
+                drawerViewController!.removeFromParent()
+                drawerViewController!.view.removeFromSuperview()
+                searchAnnotation = nil
+                drawerViewController = nil
+                drawerContainer?.moveDrawer(to: .collapsed, duration: 0.2)
             }
-            
-            if drawerState == .hidden {
-                // if user swipes view all the way down, remove detail view and pin, show drawer
-                if drawerViewController != nil {
-                    removeAnnotations(type: SearchAnnotation.self)
-                    drawerViewController!.removeFromParent()
-                    drawerViewController!.view.removeFromSuperview()
-                    searchAnnotation = nil
-                    drawerViewController = nil
-                    drawerContainer?.moveDrawer(to: .collapsed, duration: 0.2)
-                }
-            } else {
-                moveDrawer(to: drawerState, duration: Double(animationTime))
-            }
-        } else {
-            self.drawerViewController!.view.center = newCenter
         }
-    }
-    
-    // copied from drawer, calculate position to snap to depending on pan gesture
-    private func computeSearchDetailPosition(from yPosition: CGFloat, with yVelocity: CGFloat) -> DrawerState {
-        computePosition(from: yPosition, with: yVelocity, bottom: .hidden, middle: .middle, top: .full)
     }
 }
-

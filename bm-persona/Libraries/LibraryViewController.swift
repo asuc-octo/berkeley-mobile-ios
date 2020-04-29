@@ -11,7 +11,15 @@ import MapKit
 
 fileprivate let kViewMargin: CGFloat = 16
 
-class LibraryViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate {
+class LibraryViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate, SearchDrawerViewDelegate {
+    
+    // this is for the detail view drawer
+    var drawerViewController: DrawerViewController?
+    // center of detail view before snapping into place
+    var initialDrawerCenter = CGPoint()
+    // y positions for each state (hidden, middle, full)
+    var drawerStatePositions: [DrawerState : CGFloat] = [:]
+    var drawerContainer: DrawerViewDelegate?
     
     var filterTableView: FilterTableView = FilterTableView<Library>(frame: .zero, filters: [])
     var safeArea: UILayoutGuide!
@@ -116,9 +124,7 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = LibraryDetailViewController()
-        vc.library = self.filterTableView.filteredData[indexPath.row]
-        present(vc, animated: true, completion: nil)
+        presentDetail(type: Library.self, item: self.filterTableView.filteredData[indexPath.row], containingVC: drawerContainer as! UIViewController, position: .full)
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
@@ -185,4 +191,18 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
         return UITableViewCell()
     }
     
+}
+
+extension LibraryViewController {
+    func handlePanGesture(gesture: UIPanGestureRecognizer) {
+        let state = handlePan(gesture: gesture)
+        if state == .hidden {
+            if drawerViewController != nil {
+                drawerViewController!.removeFromParent()
+                drawerViewController!.view.removeFromSuperview()
+                drawerViewController = nil
+                drawerContainer?.moveDrawer(to: .full, duration: 0.2)
+            }
+        }
+    }
 }
