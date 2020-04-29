@@ -16,7 +16,6 @@ extension SearchDrawerViewDelegate where Self: UIViewController {
     
     func presentDetail(type: AnyClass, item: SearchItem, containingVC: UIViewController, position: DrawerState) {
         let containingView = containingVC.view!
-        drawerContainer?.moveDrawer(to: .hidden, duration: 0.2)
         if type == DiningHall.self {
             drawerViewController = DiningDetailViewController()
             (drawerViewController as! DiningDetailViewController).diningHall = (item as! DiningHall)
@@ -43,8 +42,12 @@ extension SearchDrawerViewDelegate where Self: UIViewController {
         drawerStatePositions[.full] = containingView.safeAreaInsets.top + (containingView.frame.maxY / 2)
         drawerViewController!.view.centerYAnchor.constraint(equalTo: containingView.centerYAnchor, constant: drawerStatePositions[position]! - containingView.frame.midY).isActive = true
         containingVC.view.layoutIfNeeded()
-        initialDrawerCenter = drawerViewController!.view.center
-        moveDrawer(to: position, duration: 0.2)
+        // made this asynchronous because of issues with search: before, there were some cases where searching and tapping on a location would move the main drawer to .middle because the search detail vc was nil, then this function runs and moves the drawer to .hidden, but the drawer ends up in .middle position because of concurrency?
+        DispatchQueue.main.async {
+            self.initialDrawerCenter = self.drawerViewController!.view.center
+            self.drawerContainer?.moveDrawer(to: .hidden, duration: 0.2)
+            self.moveDrawer(to: position, duration: 0.2)
+        }
     }
     
     // copied from drawer, calculate position to snap to depending on pan gesture

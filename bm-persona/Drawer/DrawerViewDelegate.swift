@@ -37,7 +37,9 @@ extension DrawerViewDelegate where Self: UIViewController {
             if success {
                 self.drawerViewController!.state = state
                 // TODO: why does this fix it?
-                self.drawerViewController!.view.center = CGPoint(x: self.initialDrawerCenter.x, y: self.drawerStatePositions[state]!)
+                UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
+                    self.drawerViewController!.view.center = CGPoint(x: self.initialDrawerCenter.x, y: self.drawerStatePositions[state]!)
+                })
             }
         })
     }
@@ -92,10 +94,7 @@ extension DrawerViewDelegate where Self: UIViewController {
             } else if pixelDiff / animationTime > 700 {
                 animationTime = pixelDiff / 700
             }
-            print("a")
-            print(drawerViewController!.view.center)
             moveDrawer(to: drawerState, duration: Double(animationTime))
-            print(drawerViewController!.view.center)
             return drawerState
         } else {
             self.drawerViewController!.view.center = newCenter

@@ -129,7 +129,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
             self.searchResultsView.isHidden = false
             // hide detail view or drawer depending on which is currently visible
             if drawerViewController != nil {
-                self.drawerViewController!.view.isHidden = true
+                moveDrawer(to: .hidden, duration: 0.2)
             } else {
                 self.drawerContainer?.moveDrawer(to: .hidden, duration: 0.2)
             }
@@ -138,8 +138,8 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
             self.searchResultsView.isHidden = true
             self.searchResultsView.isScrolling = false
             // show detail view or drawer depending on which was visible before hiding
-            if drawerViewController != nil {
-                self.drawerViewController!.view.isHidden = false
+            if self.drawerViewController != nil {
+                self.moveDrawer(to: .middle, duration: 0.2)
             } else {
                 self.drawerContainer?.moveDrawer(to: .collapsed, duration: 0.2)
             }
@@ -218,7 +218,7 @@ extension MapViewController: MKMapViewDelegate {
             markerDetail.marker = annotation
             // hide either search detail or drawer
             if drawerViewController != nil {
-                drawerViewController!.view.isHidden = true
+                moveDrawer(to: .hidden, duration: 0.2)
             } else {
                 drawerContainer?.moveDrawer(to: .hidden, duration: 0.2)
             }
@@ -232,7 +232,7 @@ extension MapViewController: MKMapViewDelegate {
             if drawerViewController != nil {
                 DispatchQueue.main.async {
                     if self.markerDetail.marker == nil {
-                        self.drawerViewController!.view.isHidden = false
+                        self.moveDrawer(to: .middle, duration: 0.2)
                         mapView.selectAnnotation(self.searchAnnotation!, animated: true)
                     }
                 }
@@ -357,26 +357,19 @@ extension MapViewController: SearchResultsViewDelegate {
                 if markerDetail.marker != nil {
                     mapView.deselectAnnotation(markerDetail.marker, animated: true)
                 }
-                var superView: UIView!
                 // if search item has detail view - remove past detail view, show new one
                 if let hall = item as? DiningHall {
                     if let detailvc = drawerViewController {
                         detailvc.removeFromParent()
                         detailvc.view.removeFromSuperview()
                     }
-                    drawerViewController = DiningDetailViewController()
-                    (drawerViewController as! DiningDetailViewController).diningHall = hall
-                    add(child: drawerViewController!)
-                    superView = drawerViewController!.view.superview!
+                    presentDetail(type: DiningHall.self, item: hall, containingVC: drawerContainer as! UIViewController, position: .middle)
                 } else if let lib = item as? Library {
                     if let detailvc = drawerViewController {
                         detailvc.removeFromParent()
                         detailvc.view.removeFromSuperview()
                     }
-                    drawerViewController = LibraryDetailViewController()
-                    (drawerViewController as! LibraryDetailViewController).library = lib
-                    add(child: drawerViewController!)
-                    superView = drawerViewController!.view.superview!
+                    presentDetail(type: Library.self, item: lib, containingVC: drawerContainer as! UIViewController, position: .middle)
                 } else {
                     /* don't show detail view if search item isn't dining hall or library
                      dismiss any past detail views, show drawer, pin is already dropped */
@@ -388,28 +381,6 @@ extension MapViewController: SearchResultsViewDelegate {
                     }
                     return
                 }
-                drawerContainer?.moveDrawer(to: .hidden, duration: 0.2)
-                
-                drawerViewController!.delegate = self
-                drawerViewController!.view.translatesAutoresizingMaskIntoConstraints = false
-                drawerViewController!.view.heightAnchor.constraint(equalTo: superView.heightAnchor).isActive = true
-                drawerViewController!.view.widthAnchor.constraint(equalTo: superView.widthAnchor).isActive = true
-                drawerViewController!.view.centerXAnchor.constraint(equalTo: superView.centerXAnchor).isActive = true
-                // use cutoff position on detail view to determine "middle" state
-                if let cutoff = (drawerViewController! as! SearchDrawerViewController).middleCutoffPosition {
-                    drawerViewController!.view.centerYAnchor.constraint(equalTo: superView.centerYAnchor, constant: superView.frame.maxY - cutoff).isActive = true
-                    drawerStatePositions[.middle] = superView.frame.maxY + superView.frame.maxY / 2 - cutoff
-                } else {
-                    // default to showing 30% of the view if no cutoff set
-                    drawerViewController!.view.centerYAnchor.constraint(equalTo: superView.centerYAnchor, constant: self.view.frame.maxY * 0.7).isActive = true
-                    drawerStatePositions[.middle] = superView.frame.midY + superView.frame.maxY * 0.7
-                }
-                
-                drawerStatePositions[.hidden] = superView.frame.maxY + superView.frame.maxY / 2
-                drawerStatePositions[.full] = superView.safeAreaInsets.top + (superView.frame.maxY / 2)
-                view.layoutIfNeeded()
-                initialDrawerCenter = drawerViewController!.view.center
-                moveDrawer(to: .middle, duration: 0)
             }
         }
     }
