@@ -57,8 +57,12 @@ class CafeDataSource: DataSource {
         let breakfast = parseDiningMenu(dict["Breakfast"] as? [Any] ?? [])
         let lunch = parseDiningMenu(dict["Lunch"] as? [Any] ?? [])
         
-        cafe.meals["Breakfast"] = breakfast
-        cafe.meals["Lunch"] = lunch
+        if breakfast.count != 0 {
+            cafe.meals["Breakfast"] = breakfast
+        }
+        if lunch.count != 0 {
+            cafe.meals["Lunch"] = lunch
+        }
         return cafe
     }
     
