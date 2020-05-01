@@ -14,7 +14,7 @@ fileprivate let kViewMargin: CGFloat = 16
 
 class DiningDetailViewController: UIViewController {
     
-    var diningHall: DiningHall!
+    var diningHall: DiningLocation!
     var locationManager = CLLocationManager()
     var location: CLLocation?
     var control: TabBarControl!
