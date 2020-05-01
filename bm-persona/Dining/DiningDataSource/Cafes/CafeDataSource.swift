@@ -56,7 +56,10 @@ class CafeDataSource: DataSource {
         
         for (key, value) in dict {
             if value is NSArray && key != "open_close_array" {
-                cafe.meals[key] = parseDiningMenu(value as? [Any] ?? [])
+                let meal = parseDiningMenu(value as? [Any] ?? [])
+                if meal.count > 0 {
+                    cafe.meals[key] = meal
+                }
             }
         }
         
