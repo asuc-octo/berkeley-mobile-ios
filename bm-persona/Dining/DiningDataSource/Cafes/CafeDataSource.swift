@@ -54,15 +54,12 @@ class CafeDataSource: DataSource {
                                   latitude: dict["latitude"] as? Double,
                                   longitude: dict["longitude"] as? Double)
         
-        let breakfast = parseDiningMenu(dict["Breakfast"] as? [Any] ?? [])
-        let lunch = parseDiningMenu(dict["Lunch"] as? [Any] ?? [])
+        for (key, value) in dict {
+            if value is NSArray && key != "open_close_array" {
+                cafe.meals[key] = parseDiningMenu(value as? [Any] ?? [])
+            }
+        }
         
-        if breakfast.count != 0 {
-            cafe.meals["Breakfast"] = breakfast
-        }
-        if lunch.count != 0 {
-            cafe.meals["Lunch"] = lunch
-        }
         return cafe
     }
     
