@@ -16,7 +16,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
     static let kAnnotationIdentifier = "MapMarkerAnnotation"
     
     // this allows the map to move the main drawer
-    open var drawerContainer: DrawerViewDelegate?
+    open var mainContainer: MainContainerViewController?
     
     private var mapView: MKMapView!
     private var maskView: UIView!
@@ -127,22 +127,12 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         if show {
             self.maskView.isHidden = false
             self.searchResultsView.isHidden = false
-            // hide detail view or drawer depending on which is currently visible
-            if drawerViewController != nil {
-                moveDrawer(to: .hidden, duration: 0.2)
-            } else {
-                self.drawerContainer?.moveDrawer(to: .hidden, duration: 0.2)
-            }
+            mainContainer?.hideTop()
         } else {
             self.maskView.isHidden = true
             self.searchResultsView.isHidden = true
             self.searchResultsView.isScrolling = false
-            // show detail view or drawer depending on which was visible before hiding
-            if self.drawerViewController != nil {
-                self.moveDrawer(to: .middle, duration: 0.2)
-            } else {
-                self.drawerContainer?.moveDrawer(to: .collapsed, duration: 0.2)
-            }
+            mainContainer?.showTop()
         }
     }
     
@@ -216,28 +206,18 @@ extension MapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         if let annotation = view.annotation as? MapMarker {
             markerDetail.marker = annotation
-            // hide either search detail or drawer
-            if drawerViewController != nil {
-                moveDrawer(to: .hidden, duration: 0.2)
-            } else {
-                drawerContainer?.moveDrawer(to: .hidden, duration: 0.2)
-            }
+            mainContainer?.hideTop()
         }
     }
     
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
         if (view.annotation as? MapMarker) != nil {
             markerDetail.marker = nil
-            // show either search detail or drawer
-            if drawerViewController != nil {
-                DispatchQueue.main.async {
-                    if self.markerDetail.marker == nil {
-                        self.moveDrawer(to: .middle, duration: 0.2)
-                        mapView.selectAnnotation(self.searchAnnotation!, animated: true)
-                    }
+            // may want to select search annotation in certain scenarios in the future
+            DispatchQueue.main.async {
+                if self.markerDetail.marker == nil {
+                    self.mainContainer?.showTop()
                 }
-            } else {
-                drawerContainer?.moveDrawer(to: .collapsed, duration: 0.2)
             }
         }
     }
@@ -359,25 +339,20 @@ extension MapViewController: SearchResultsViewDelegate {
                 }
                 // if search item has detail view - remove past detail view, show new one
                 if let hall = item as? DiningHall {
-                    if let detailvc = drawerViewController {
-                        detailvc.removeFromParent()
-                        detailvc.view.removeFromSuperview()
+                    if drawerViewController != nil {
+                        mainContainer?.dismissTop(showNext: false)
                     }
-                    presentDetail(type: DiningHall.self, item: hall, containingVC: drawerContainer as! UIViewController, position: .middle)
+                    presentDetail(type: DiningHall.self, item: hall, containingVC: mainContainer!, position: .middle)
                 } else if let lib = item as? Library {
-                    if let detailvc = drawerViewController {
-                        detailvc.removeFromParent()
-                        detailvc.view.removeFromSuperview()
+                    if drawerViewController != nil {
+                        mainContainer?.dismissTop(showNext: false)
                     }
-                    presentDetail(type: Library.self, item: lib, containingVC: drawerContainer as! UIViewController, position: .middle)
+                    presentDetail(type: Library.self, item: lib, containingVC: mainContainer!, position: .middle)
                 } else {
                     /* don't show detail view if search item isn't dining hall or library
                      dismiss any past detail views, show drawer, pin is already dropped */
-                    if let detailvc = drawerViewController {
-                        detailvc.removeFromParent()
-                        detailvc.view.removeFromSuperview()
-                        drawerViewController = nil
-                        drawerContainer?.moveDrawer(to: .collapsed, duration: 0.2)
+                    if drawerViewController != nil {
+                        mainContainer?.dismissTop()
                     }
                     return
                 }
@@ -392,14 +367,9 @@ extension MapViewController {
     func handlePanGesture(gesture: UIPanGestureRecognizer) {
         let state = handlePan(gesture: gesture)
         if state == .hidden {
-            if drawerViewController != nil {
-                removeAnnotations(type: SearchAnnotation.self)
-                drawerViewController!.removeFromParent()
-                drawerViewController!.view.removeFromSuperview()
-                searchAnnotation = nil
-                drawerViewController = nil
-                drawerContainer?.moveDrawer(to: .collapsed, duration: 0.2)
-            }
+            removeAnnotations(type: SearchAnnotation.self)
+            searchAnnotation = nil
+            mainContainer?.dismissTop()
         }
     }
 }

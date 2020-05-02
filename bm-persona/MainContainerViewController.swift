@@ -8,10 +8,15 @@
 
 import UIKit
 
-class MainContainerViewController: UIViewController, DrawerViewDelegate {
+class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
+    
+    var positions: [DrawerState?] = []
+    var mainDrawerPosition: DrawerState?
+    
     let mapViewController = MapViewController()
     
     var drawerViewController: DrawerViewController?
+    var drawerStack: [DrawerViewDelegate] = []
     var initialDrawerCenter = CGPoint()
     var drawerStatePositions: [DrawerState: CGFloat] = [:]
     
@@ -23,7 +28,7 @@ class MainContainerViewController: UIViewController, DrawerViewDelegate {
         add(child: drawerVC)
         drawerVC.delegate = self
         mapViewController.view.frame = self.view.frame
-        mapViewController.drawerContainer = self
+        mapViewController.mainContainer = self
         drawerVC.view.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             drawerVC.view.heightAnchor.constraint(equalTo: self.view.heightAnchor),

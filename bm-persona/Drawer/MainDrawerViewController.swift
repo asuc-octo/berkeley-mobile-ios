@@ -11,7 +11,7 @@ import UIKit
 class MainDrawerViewController: DrawerViewController {
     
     var heightOffset: CGFloat?
-    var container: DrawerViewDelegate
+    var container: MainContainerViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +22,7 @@ class MainDrawerViewController: DrawerViewController {
         setupGestures()
     }
     
-    init(container: DrawerViewDelegate) {
+    init(container: MainContainerViewController) {
         self.container = container
         super.init(nibName: nil, bundle: nil)
     }
@@ -39,9 +39,9 @@ class MainDrawerViewController: DrawerViewController {
         tabBarViewController.view.layoutMargins = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         for page in tabBarViewController.pages {
             if let dining = page.viewController as? DiningViewController {
-                dining.drawerContainer = container
+                dining.mainContainer = container
             } else if let library = page.viewController as? LibraryViewController {
-                library.drawerContainer = container
+                library.mainContainer = container
             }
         }
     }

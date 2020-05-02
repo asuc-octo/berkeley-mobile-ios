@@ -35,7 +35,9 @@ extension DrawerViewDelegate where Self: UIViewController {
             self.drawerViewController!.view.center = CGPoint(x: self.initialDrawerCenter.x, y: self.drawerStatePositions[state]!)
         }, completion: { success in
             if success {
-                self.drawerViewController!.state = state
+                if state != .hidden {
+                    self.drawerViewController!.state = state
+                }
                 // TODO: why does this fix it?
                 UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
                     self.drawerViewController!.view.center = CGPoint(x: self.initialDrawerCenter.x, y: self.drawerStatePositions[state]!)

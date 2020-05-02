@@ -26,7 +26,7 @@ class DiningViewController: UIViewController, SearchDrawerViewDelegate {
     var initialDrawerCenter = CGPoint()
     // y positions for each state (hidden, middle, full)
     var drawerStatePositions: [DrawerState : CGFloat] = [:]
-    var drawerContainer: DrawerViewDelegate?
+    var mainContainer: MainContainerViewController?
     
     let diningImage:UIImageView = {
         let img = UIImageView()
@@ -130,7 +130,7 @@ extension DiningViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presentDetail(type: DiningHall.self, item: self.filterTableView.filteredData[indexPath.row], containingVC: drawerContainer as! UIViewController, position: .full)
+        presentDetail(type: DiningHall.self, item: self.filterTableView.filteredData[indexPath.row], containingVC: mainContainer!, position: .full)
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
@@ -194,12 +194,7 @@ extension DiningViewController {
     func handlePanGesture(gesture: UIPanGestureRecognizer) {
         let state = handlePan(gesture: gesture)
         if state == .hidden {
-            if drawerViewController != nil {
-                drawerViewController!.removeFromParent()
-                drawerViewController!.view.removeFromSuperview()
-                drawerViewController = nil
-                drawerContainer?.moveDrawer(to: .full, duration: 0.2)
-            }
+            mainContainer?.dismissTop()
         }
     }
 }

@@ -458,7 +458,7 @@ extension DiningDetailViewController {
     
 }
 
-extension  DiningDetailViewController : CLLocationManagerDelegate {
+extension DiningDetailViewController : CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let userLocation : CLLocation = locations[0] as CLLocation

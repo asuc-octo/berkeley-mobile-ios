@@ -19,7 +19,7 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
     var initialDrawerCenter = CGPoint()
     // y positions for each state (hidden, middle, full)
     var drawerStatePositions: [DrawerState : CGFloat] = [:]
-    var drawerContainer: DrawerViewDelegate?
+    var mainContainer: MainContainerViewController?
     
     var filterTableView: FilterTableView = FilterTableView<Library>(frame: .zero, filters: [])
     var safeArea: UILayoutGuide!
@@ -124,7 +124,7 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presentDetail(type: Library.self, item: self.filterTableView.filteredData[indexPath.row], containingVC: drawerContainer as! UIViewController, position: .full)
+        presentDetail(type: Library.self, item: self.filterTableView.filteredData[indexPath.row], containingVC: mainContainer!, position: .full)
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
@@ -197,12 +197,7 @@ extension LibraryViewController {
     func handlePanGesture(gesture: UIPanGestureRecognizer) {
         let state = handlePan(gesture: gesture)
         if state == .hidden {
-            if drawerViewController != nil {
-                drawerViewController!.removeFromParent()
-                drawerViewController!.view.removeFromSuperview()
-                drawerViewController = nil
-                drawerContainer?.moveDrawer(to: .full, duration: 0.2)
-            }
+            mainContainer?.dismissTop()
         }
     }
 }

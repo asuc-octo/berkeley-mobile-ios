@@ -9,7 +9,7 @@
 import UIKit
 
 protocol SearchDrawerViewDelegate: DrawerViewDelegate {
-    var drawerContainer: DrawerViewDelegate? { get set }
+    var mainContainer: MainContainerViewController? { get set }
 }
 
 extension SearchDrawerViewDelegate where Self: UIViewController {
@@ -45,8 +45,7 @@ extension SearchDrawerViewDelegate where Self: UIViewController {
         // made this asynchronous because of issues with search: before, there were some cases where searching and tapping on a location would move the main drawer to .middle because the search detail vc was nil, then this function runs and moves the drawer to .hidden, but the drawer ends up in .middle position because of concurrency?
         DispatchQueue.main.async {
             self.initialDrawerCenter = self.drawerViewController!.view.center
-            self.drawerContainer?.moveDrawer(to: .hidden, duration: 0.2)
-            self.moveDrawer(to: position, duration: 0.2)
+            self.mainContainer?.coverTop(newTop: self, newState: position)
         }
     }
     
