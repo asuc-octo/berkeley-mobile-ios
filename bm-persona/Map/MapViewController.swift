@@ -314,10 +314,6 @@ extension MapViewController: SearchResultsViewDelegate {
     // drop new pin and show detail view on search
     func choosePlacemark(_ placemark: MapPlacemark) {
         let location = placemark.location
-        // clear text field
-        showSearchResultsView(false)
-        searchBar.textField.text = ""
-        searchBar.textFieldDidEndEditing(searchBar.textField)
         // remove last search pin
         removeAnnotations(type: SearchAnnotation.self)
         if location != nil && location?.coordinate.latitude != Double.nan && location?.coordinate.longitude != Double.nan {
@@ -357,6 +353,12 @@ extension MapViewController: SearchResultsViewDelegate {
                     return
                 }
             }
+        }
+        DispatchQueue.main.async {
+            // clear text field
+            self.showSearchResultsView(false)
+            self.searchBar.textField.text = ""
+            self.searchBar.textFieldDidEndEditing(self.searchBar.textField)
         }
     }
 
