@@ -135,7 +135,7 @@ extension DiningViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presentDetail(type: DiningHall.self, item: self.filterTableView.filteredData[indexPath.row], containingVC: mainContainer!, position: .full)
+        presentDetail(type: DiningLocation.self, item: self.filterTableView.filteredData[indexPath.row], containingVC: mainContainer!, position: .full)
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }

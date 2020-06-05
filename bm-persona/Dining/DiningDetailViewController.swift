@@ -190,7 +190,7 @@ extension DiningDetailViewController {
         view.layoutMargins = kCardPadding
         
         view.addSubview(card)
-        card.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
+        card.topAnchor.constraint(equalTo: barView.bottomAnchor, constant: kViewMargin).isActive = true
         card.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
         card.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
         card.heightAnchor.constraint(equalToConstant: 200).isActive = true
