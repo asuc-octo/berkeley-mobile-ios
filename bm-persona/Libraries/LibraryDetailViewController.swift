@@ -31,7 +31,7 @@ class LibraryDetailViewController: SearchDrawerViewController {
         //location stuff
         locationManager.delegate = self
         
-        view.layoutMargins = UIEdgeInsets(top: 3*kViewMargin, left: kViewMargin, bottom: kViewMargin, right: kViewMargin)
+        view.layoutMargins = UIEdgeInsets(top: kViewMargin, left: kViewMargin, bottom: kViewMargin, right: kViewMargin)
         setUpScrollView()
         setUpOverviewCard()
         setUpHoursCard()
@@ -41,14 +41,18 @@ class LibraryDetailViewController: SearchDrawerViewController {
         view.layoutSubviews()
         scrollView.layoutSubviews()
         contentHelper.layoutSubviews()
-        /* Set the bottom cutoff point for when view appears due to map search
-         The "middle" position for the view will show everything in the overview card
-         When collapsible open time card is added, change this to show that card as well. */
-        middleCutoffPosition = scrollView.frame.minY + contentHelper.frame.minY + overviewCard.frame.maxY + 5
         
         if CLLocationManager.locationServicesEnabled() {
             locationManager.requestLocation()
         }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        /* Set the bottom cutoff point for when view appears due to map search
+        The "middle" position for the view will show everything in the overview card
+        When collapsible open time card is added, change this to show that card as well. */
+        middleCutoffPosition = scrollView.frame.minY + contentHelper.frame.minY + overviewCard.frame.maxY + 5
+        print(middleCutoffPosition)
     }
 }
 

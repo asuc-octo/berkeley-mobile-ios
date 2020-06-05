@@ -29,13 +29,14 @@ class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
         drawerVC.delegate = self
         mapViewController.view.frame = self.view.frame
         mapViewController.mainContainer = self
-        drawerVC.view.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            drawerVC.view.heightAnchor.constraint(equalTo: self.view.heightAnchor),
-            drawerVC.view.widthAnchor.constraint(equalTo: self.view.widthAnchor),
-            drawerVC.view.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            drawerVC.view.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: 2 * self.view.frame.maxY)
-        ])
+        drawerVC.view.frame = self.view.frame
+        drawerVC.view.translatesAutoresizingMaskIntoConstraints = true
+//        NSLayoutConstraint.activate([
+//            drawerVC.view.heightAnchor.constraint(equalTo: self.view.heightAnchor),
+//            drawerVC.view.widthAnchor.constraint(equalTo: self.view.widthAnchor),
+//            drawerVC.view.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+//            drawerVC.view.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: 2 * self.view.frame.maxY)
+//        ])
     }
     
     override func viewDidAppear(_ animated: Bool) {

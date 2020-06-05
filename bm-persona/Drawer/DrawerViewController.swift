@@ -25,10 +25,10 @@ class DrawerViewController: UIViewController {
         setupGestures()
     }
     
-    override func loadView() {
-        super.loadView()
-        view = DrawerView(frame: view.frame, vc: self)
-    }
+//    override func loadView() {
+//        super.loadView()
+//        view = DrawerView(frame: view.frame, vc: self)
+//    }
     
     func setupBackgroundView() {
         view.backgroundColor = Color.modalBackground

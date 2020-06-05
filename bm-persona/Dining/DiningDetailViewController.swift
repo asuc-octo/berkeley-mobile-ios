@@ -33,13 +33,17 @@ class DiningDetailViewController: SearchDrawerViewController {
         setupMenuControl()
         setupMenu()
         view.layoutSubviews()
-        // set the bottom cutoff point for when view appears due to map search
-        // the "middle" position for the view will show everything in the overview card
-        middleCutoffPosition = card.frame.maxY + 5
         
         if CLLocationManager.locationServicesEnabled() {
             locationManager.requestLocation()
         }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        // set the bottom cutoff point for when view appears due to map search
+        // the "middle" position for the view will show everything in the overview card
+        middleCutoffPosition = card.frame.maxY + 5
+        print(middleCutoffPosition)
     }
     
     let nameLabel: UILabel = {
@@ -184,7 +188,7 @@ class DiningDetailViewController: SearchDrawerViewController {
 extension DiningDetailViewController {
     
     func setUpOverviewCard() {
-        view.layoutMargins = UIEdgeInsets(top: 3*kViewMargin, left: kViewMargin, bottom: kViewMargin, right: kViewMargin)
+        view.layoutMargins = kCardPadding
         
         view.addSubview(card)
         card.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true

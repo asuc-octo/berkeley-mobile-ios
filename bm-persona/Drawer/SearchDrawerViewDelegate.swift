@@ -27,11 +27,11 @@ extension SearchDrawerViewDelegate where Self: UIViewController {
         }
         containingVC.add(child: drawerViewController!)
         drawerViewController!.delegate = self
-        drawerViewController!.view.translatesAutoresizingMaskIntoConstraints = false
-        drawerViewController!.view.heightAnchor.constraint(equalTo: containingView.heightAnchor).isActive = true
-        drawerViewController!.view.widthAnchor.constraint(equalTo: containingView.widthAnchor).isActive = true
-        drawerViewController!.view.centerXAnchor.constraint(equalTo: containingView.centerXAnchor).isActive = true
-        // use cutoff position on detail view to determine "middle" state
+        drawerViewController!.view.frame = containingView.frame
+        drawerViewController!.view.center.y = containingView.frame.maxY * 1.5
+        drawerViewController!.view.translatesAutoresizingMaskIntoConstraints = true
+        drawerViewController!.view.layoutIfNeeded()
+        
         if let cutoff = (drawerViewController as! SearchDrawerViewController).middleCutoffPosition {
             drawerStatePositions[.middle] = containingView.frame.maxY + containingView.frame.maxY / 2 - cutoff
         } else {
@@ -40,7 +40,6 @@ extension SearchDrawerViewDelegate where Self: UIViewController {
         }
         drawerStatePositions[.hidden] = containingView.frame.maxY + containingView.frame.maxY / 2
         drawerStatePositions[.full] = containingView.safeAreaInsets.top + (containingView.frame.maxY / 2)
-        drawerViewController!.view.centerYAnchor.constraint(equalTo: containingView.centerYAnchor, constant: 2 * containingView.frame.maxY).isActive = true
         containingVC.view.layoutIfNeeded()
         self.initialDrawerCenter = self.drawerViewController!.view.center
         self.mainContainer?.coverTop(newTop: self, newState: position)

@@ -37,15 +37,7 @@ extension DrawerViewDelegate where Self: UIViewController {
             }
             self.drawerViewController!.currState = state
             self.drawerViewController!.view.center = CGPoint(x: self.initialDrawerCenter.x, y: self.drawerStatePositions[state]!)
-        }
-//            , completion: {success in
-//            if let drawer = self.drawerViewController {
-//                if self.drawerStatePositions[state]! != drawer.view.center.y {
-//                    self.drawerViewController!.view.center = CGPoint(x: self.initialDrawerCenter.x, y: self.drawerStatePositions[state]!)
-//                }
-//            }
-//        }
-        )
+        })
     }
     
     func computePosition(from yPosition: CGFloat, with yVelocity: CGFloat, bottom: DrawerState, middle: DrawerState, top: DrawerState) -> DrawerState {
