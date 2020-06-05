@@ -34,7 +34,7 @@ class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
             drawerVC.view.heightAnchor.constraint(equalTo: self.view.heightAnchor),
             drawerVC.view.widthAnchor.constraint(equalTo: self.view.widthAnchor),
             drawerVC.view.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            drawerVC.view.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: self.view.frame.maxY * 0.9)
+            drawerVC.view.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: 2 * self.view.frame.maxY)
         ])
     }
     
@@ -44,8 +44,9 @@ class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
         drawerStatePositions[.middle] = self.view.frame.midY * 1.1 + (self.view.frame.maxY / 2)
         drawerStatePositions[.full] = self.view.safeAreaInsets.top + (self.view.frame.maxY / 2)
         (drawerViewController as! MainDrawerViewController).heightOffset = self.view.safeAreaInsets.top
+        self.view.layoutSubviews()
         self.initialDrawerCenter = drawerViewController!.view.center
-        moveDrawer(to: drawerViewController!.state, duration: 0)
+        moveDrawer(to: drawerViewController!.currState, duration: 0)
     }
 
 }
@@ -54,9 +55,5 @@ class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
 extension MainContainerViewController {
     func handlePanGesture(gesture: UIPanGestureRecognizer) {
         handlePan(gesture: gesture)
-    }
-    
-    func computeDrawerPosition(from yPosition: CGFloat, with yVelocity: CGFloat) -> DrawerState {
-        computePosition(from: yPosition, with: yVelocity, bottom: .collapsed, middle: .middle, top: .full)
     }
 }

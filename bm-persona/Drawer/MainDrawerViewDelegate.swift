@@ -14,7 +14,7 @@ protocol MainDrawerViewDelegate: DrawerViewDelegate {
     var mainDrawerPosition: DrawerState? { get set }
 }
 
-extension MainDrawerViewDelegate {
+extension MainDrawerViewDelegate where Self: UIViewController {
     func dismissTop(showNext: Bool = true) {
         if drawerStack.count > 0 {
             let topDrawer = drawerStack.last
@@ -40,10 +40,17 @@ extension MainDrawerViewDelegate {
     
     func hideTop() {
         if drawerStack.count > 0 {
-            let positionBeforeHidden = drawerStack.last!.drawerViewController?.state
+            var positionBeforeHidden = drawerStack.last!.drawerViewController?.currState
+            if positionBeforeHidden == .hidden {
+                positionBeforeHidden = drawerStack.last!.drawerViewController?.prevState
+            }
             positions[drawerStack.count - 1] = positionBeforeHidden
         } else {
-            mainDrawerPosition = self.drawerViewController?.state
+            var positionBeforeHidden = self.drawerViewController?.currState
+            if positionBeforeHidden == .hidden {
+                positionBeforeHidden = self.drawerViewController?.prevState
+            }
+            mainDrawerPosition = positionBeforeHidden
         }
         moveCurrentDrawer(to: .hidden, duration: 0.2)
     }
@@ -70,4 +77,7 @@ extension MainDrawerViewDelegate {
         }
     }
     
+    func computeDrawerPosition(from yPosition: CGFloat, with yVelocity: CGFloat) -> DrawerState {
+        computePosition(from: yPosition, with: yVelocity, bottom: .collapsed, middle: .middle, top: .full)
+    }
 }

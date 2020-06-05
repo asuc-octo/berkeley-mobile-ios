@@ -11,12 +11,23 @@ import UIKit
 // General drawer with a gray bar at the top, can handle pan gesture to change position
 class DrawerViewController: UIViewController {
     var delegate: DrawerViewDelegate!
-    var state: DrawerState = .collapsed
+    var currState: DrawerState!
+    var prevState: DrawerState!
     var barView: UIView = UIView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        currState = .collapsed
+        prevState = .collapsed
+        
+        setupBackgroundView()
+        setupGestures()
+    }
+    
+    override func loadView() {
+        super.loadView()
+        view = DrawerView(frame: view.frame, vc: self)
     }
     
     func setupBackgroundView() {
@@ -52,4 +63,26 @@ class DrawerViewController: UIViewController {
     }
     */
 
+}
+
+class DrawerView: UIView {
+    private var vc: DrawerViewController
+    
+    override var center: CGPoint {
+        didSet {
+            let positions = self.vc.delegate.drawerStatePositions
+            if let hiddenPos = positions[.hidden], center.y > hiddenPos {
+                center.y = positions[self.vc.currState]!
+            }
+        }
+    }
+    
+    init(frame: CGRect, vc: DrawerViewController) {
+        self.vc = vc
+        super.init(frame: frame)
+    }
+
+    required init(coder aDecoder: NSCoder) {
+        fatalError("This class does not support NSCoding")
+    }
 }

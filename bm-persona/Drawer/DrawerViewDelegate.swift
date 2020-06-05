@@ -32,21 +32,20 @@ extension DrawerViewDelegate where Self: UIViewController {
             return
         }
         UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
-            print(self.drawerViewController)
-            print(self.drawerViewController!.view.center)
-            self.drawerViewController!.view.center = CGPoint(x: self.initialDrawerCenter.x, y: self.drawerStatePositions[state]!)
-            print(self.drawerViewController!.view.center)
-        }, completion: { success in
-            if success {
-                if state != .hidden {
-                    self.drawerViewController!.state = state
-                }
-                // TODO: why does this fix it?
-                UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
-                    self.drawerViewController!.view.center = CGPoint(x: self.initialDrawerCenter.x, y: self.drawerStatePositions[state]!)
-                })
+            if self.drawerViewController!.currState != .hidden {
+                self.drawerViewController!.prevState = self.drawerViewController!.currState
             }
-        })
+            self.drawerViewController!.currState = state
+            self.drawerViewController!.view.center = CGPoint(x: self.initialDrawerCenter.x, y: self.drawerStatePositions[state]!)
+        }
+//            , completion: {success in
+//            if let drawer = self.drawerViewController {
+//                if self.drawerStatePositions[state]! != drawer.view.center.y {
+//                    self.drawerViewController!.view.center = CGPoint(x: self.initialDrawerCenter.x, y: self.drawerStatePositions[state]!)
+//                }
+//            }
+//        }
+        )
     }
     
     func computePosition(from yPosition: CGFloat, with yVelocity: CGFloat, bottom: DrawerState, middle: DrawerState, top: DrawerState) -> DrawerState {

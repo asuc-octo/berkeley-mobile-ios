@@ -17,9 +17,7 @@ class MainDrawerViewController: DrawerViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        setupBackgroundView()
         setupTabBar()
-        setupGestures()
     }
     
     init(container: MainContainerViewController) {

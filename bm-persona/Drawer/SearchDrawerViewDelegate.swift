@@ -40,13 +40,12 @@ extension SearchDrawerViewDelegate where Self: UIViewController {
         }
         drawerStatePositions[.hidden] = containingView.frame.maxY + containingView.frame.maxY / 2
         drawerStatePositions[.full] = containingView.safeAreaInsets.top + (containingView.frame.maxY / 2)
-        drawerViewController!.view.centerYAnchor.constraint(equalTo: containingView.centerYAnchor, constant: drawerStatePositions[position]! - containingView.frame.midY).isActive = true
+        drawerViewController!.view.centerYAnchor.constraint(equalTo: containingView.centerYAnchor, constant: 2 * containingView.frame.maxY).isActive = true
         containingVC.view.layoutIfNeeded()
         self.initialDrawerCenter = self.drawerViewController!.view.center
         self.mainContainer?.coverTop(newTop: self, newState: position)
     }
     
-    // copied from drawer, calculate position to snap to depending on pan gesture
     func computeDrawerPosition(from yPosition: CGFloat, with yVelocity: CGFloat) -> DrawerState {
         computePosition(from: yPosition, with: yVelocity, bottom: .hidden, middle: .middle, top: .full)
     }

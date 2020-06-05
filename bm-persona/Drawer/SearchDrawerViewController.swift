@@ -18,9 +18,10 @@ class SearchDrawerViewController: DrawerViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        setupBackgroundView()
-        setupGestures()
-    }
 
+        // Do any additional setup after loading the view.
+        currState = .middle
+        prevState = .middle
+    }
+    
 }
