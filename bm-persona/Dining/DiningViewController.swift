@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class DiningViewController: UIViewController {
+class DiningViewController: UIViewController, SearchDrawerViewDelegate {
     
     private var filterTableView: FilterTableView = FilterTableView<DiningLocation>(frame: .zero, filters: [])
     private var diningLocations: [DiningLocation] = []
@@ -19,6 +19,13 @@ class DiningViewController: UIViewController {
     
     private var locationManager = CLLocationManager()
     private var location: CLLocation?
+    
+    // DrawerViewDelegate properties
+    var drawerViewController: DrawerViewController?
+    var initialDrawerCenter = CGPoint()
+    var drawerStatePositions: [DrawerState : CGFloat] = [:]
+    // SearchDrawerViewDelegate property
+    var mainContainer: MainContainerViewController?
     
     let diningImage:UIImageView = {
         let img = UIImageView()
@@ -128,9 +135,7 @@ extension DiningViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = DiningDetailViewController()
-        vc.diningHall = self.filterTableView.filteredData[indexPath.row]
-        self.present(vc, animated: true, completion: nil)
+        presentDetail(type: DiningLocation.self, item: self.filterTableView.filteredData[indexPath.row], containingVC: mainContainer!, position: .full)
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
@@ -188,4 +193,14 @@ extension DiningViewController {
         self.filterTableView.tableView.delegate = self
     }
     
+}
+
+extension DiningViewController {
+    func handlePanGesture(gesture: UIPanGestureRecognizer) {
+        let state = handlePan(gesture: gesture)
+        // get rid of the top detail drawer if user sends it to bottom of screen
+        if state == .hidden {
+            mainContainer?.dismissTop()
+        }
+    }
 }

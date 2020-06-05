@@ -19,7 +19,7 @@ struct Page {
 
 class TabBarViewController: UIViewController {
     
-    private var control: TabBarControl!
+    var control: TabBarControl!
     private var pageViewController: UIPageViewController!
     
     open var pages: [Page]! {

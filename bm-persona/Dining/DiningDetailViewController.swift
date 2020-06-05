@@ -12,7 +12,7 @@ import CoreLocation
 fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
 fileprivate let kViewMargin: CGFloat = 16
 
-class DiningDetailViewController: UIViewController {
+class DiningDetailViewController: SearchDrawerViewController {
     
     var diningHall: DiningLocation!
     var locationManager = CLLocationManager()
@@ -27,16 +27,22 @@ class DiningDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .white
         
         locationManager.delegate = self
         setUpOverviewCard()
         setupMenuControl()
         setupMenu()
+        view.layoutSubviews()
         
         if CLLocationManager.locationServicesEnabled() {
             locationManager.requestLocation()
         }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        // set the bottom cutoff point for when drawer appears
+        // the "middle" position for the view will show everything in the overview card
+        middleCutoffPosition = card.frame.maxY + 5
     }
     
     let nameLabel: UILabel = {
@@ -181,10 +187,10 @@ class DiningDetailViewController: UIViewController {
 extension DiningDetailViewController {
     
     func setUpOverviewCard() {
-        view.layoutMargins = UIEdgeInsets(top: kViewMargin, left: kViewMargin, bottom: kViewMargin, right: kViewMargin)
+        view.layoutMargins = kCardPadding
         
         view.addSubview(card)
-        card.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
+        card.topAnchor.constraint(equalTo: barView.bottomAnchor, constant: kViewMargin).isActive = true
         card.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
         card.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
         card.heightAnchor.constraint(equalToConstant: 200).isActive = true
@@ -233,6 +239,8 @@ extension DiningDetailViewController {
                     }
                 }
             }
+            /* Remove the date, and only include hour and minute in string display.
+             Otherwise, string is too long when interval spans two days (e.g. 9pm-12:30am) */
             if nextOpenInterval != nil,
                 let start = Calendar.current.date(from: Calendar.current.dateComponents([.hour, .minute], from: nextOpenInterval!.start)),
                 let end = Calendar.current.date(from: Calendar.current.dateComponents([.hour, .minute], from: nextOpenInterval!.end)) {
@@ -458,7 +466,7 @@ extension DiningDetailViewController {
     
 }
 
-extension  DiningDetailViewController : CLLocationManagerDelegate {
+extension DiningDetailViewController : CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let userLocation : CLLocation = locations[0] as CLLocation

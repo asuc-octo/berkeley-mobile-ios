@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 class CalendarEntry: SearchItem {
+    var icon: UIImage?
     
     var searchName: String {
         return name

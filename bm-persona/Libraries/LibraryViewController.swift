@@ -11,7 +11,14 @@ import MapKit
 
 fileprivate let kViewMargin: CGFloat = 16
 
-class LibraryViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate {
+class LibraryViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate, SearchDrawerViewDelegate {
+    
+    // DrawerViewDelegate properties
+    var drawerViewController: DrawerViewController?
+    var initialDrawerCenter = CGPoint()
+    var drawerStatePositions: [DrawerState : CGFloat] = [:]
+    // SearchDrawerViewDelegate property
+    var mainContainer: MainContainerViewController?
     
     var filterTableView: FilterTableView = FilterTableView<Library>(frame: .zero, filters: [])
     var safeArea: UILayoutGuide!
@@ -121,9 +128,7 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = LibraryDetailViewController()
-        vc.library = self.filterTableView.filteredData[indexPath.row]
-        present(vc, animated: true, completion: nil)
+        presentDetail(type: Library.self, item: self.filterTableView.filteredData[indexPath.row], containingVC: mainContainer!, position: .full)
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
@@ -190,4 +195,14 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
         return UITableViewCell()
     }
     
+}
+
+extension LibraryViewController {
+    func handlePanGesture(gesture: UIPanGestureRecognizer) {
+        let state = handlePan(gesture: gesture)
+        if state == .hidden {
+            // get rid of the top detail drawer if user sends it to bottom of screen
+            mainContainer?.dismissTop()
+        }
+    }
 }

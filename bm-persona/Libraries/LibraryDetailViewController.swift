@@ -13,11 +13,10 @@ fileprivate let kHeaderFont: UIFont = Font.bold(24)
 fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
 fileprivate let kViewMargin: CGFloat = 16
 
-class LibraryDetailViewController: UIViewController {
+class LibraryDetailViewController: SearchDrawerViewController {
 
     var scrollView: UIScrollView!
     var library : Library!
-    var contentHelper: UIView!
     var locationManager = CLLocationManager()
     var userCoords = CLLocationCoordinate2D(latitude: 0.0 , longitude: 0.0 )
     var distLabel = UILabel()
@@ -27,22 +26,31 @@ class LibraryDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .white
         
         //location stuff
         locationManager.delegate = self
         
-        view.layoutMargins = UIEdgeInsets(top: 16, left: 0, bottom: 0, right: 0)
+        view.layoutMargins = UIEdgeInsets(top: kViewMargin, left: kViewMargin, bottom: kViewMargin, right: kViewMargin)
         setUpScrollView()
         setUpOverviewCard()
         setUpHoursCard()
         //setUpTrafficCard()
         setUpBookButton()
         
+        // in order to set the cutoff correctly
+        view.layoutSubviews()
+        scrollView.layoutSubviews()
         
         if CLLocationManager.locationServicesEnabled() {
             locationManager.requestLocation()
         }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        /* Set the bottom cutoff point for when the drawer appears
+        The "middle" position for the view will show everything in the overview card
+        When collapsible open time card is added, change this to show that card as well. */
+        middleCutoffPosition = scrollView.frame.minY + overviewCard.frame.maxY + 5
     }
 }
 
@@ -51,7 +59,7 @@ extension LibraryDetailViewController {
     func setUpOverviewCard() {
         overviewCard.isUserInteractionEnabled = true
         overviewCard.layoutMargins = kCardPadding
-        contentHelper.addSubview(overviewCard)
+        scrollView.addSubview(overviewCard)
         overviewCard.translatesAutoresizingMaskIntoConstraints = false
         overviewCard.leftAnchor.constraint(equalTo: scrollView.layoutMarginsGuide.leftAnchor).isActive = true
         overviewCard.rightAnchor.constraint(equalTo: scrollView.layoutMarginsGuide.rightAnchor).isActive = true
@@ -81,7 +89,6 @@ extension LibraryDetailViewController {
                 }
             }
         }
-        
         
         overviewCard.addSubview(libPic)
         libPic.translatesAutoresizingMaskIntoConstraints = false
@@ -194,14 +201,14 @@ extension LibraryDetailViewController {
         faveButton.imageView?.contentMode = .scaleAspectFit
         faveButton.imageView?.isUserInteractionEnabled = true
         
-        overviewCard.topAnchor.constraint(equalTo: contentHelper.layoutMarginsGuide.topAnchor).isActive = true
+        overviewCard.topAnchor.constraint(equalTo: scrollView.layoutMarginsGuide.topAnchor).isActive = true
         overviewCard.bottomAnchor.constraint(equalTo: faveButton.layoutMarginsGuide.bottomAnchor, constant: 10).isActive = true
     }
     
     func setUpHoursCard() {
         hoursCard.isUserInteractionEnabled = true
         hoursCard.layoutMargins = kCardPadding
-        contentHelper.addSubview(hoursCard)
+        scrollView.addSubview(hoursCard)
         hoursCard.translatesAutoresizingMaskIntoConstraints = false
         hoursCard.leftAnchor.constraint(equalTo: scrollView.layoutMarginsGuide.leftAnchor).isActive = true
         hoursCard.rightAnchor.constraint(equalTo: scrollView.layoutMarginsGuide.rightAnchor).isActive = true
@@ -288,22 +295,22 @@ extension LibraryDetailViewController {
         hoursCard.bottomAnchor.constraint(equalTo: timeLabel.layoutMarginsGuide.bottomAnchor, constant: 20).isActive = true
     }
     
-    func setUpTrafficCard() {
-        let overviewCard = CardView()
-        overviewCard.layoutMargins = kCardPadding
-        scrollView.addSubview(overviewCard)
-        overviewCard.translatesAutoresizingMaskIntoConstraints = false
-        overviewCard.topAnchor.constraint(equalTo: contentHelper.layoutMarginsGuide.topAnchor, constant: 400).isActive = true
-        overviewCard.leftAnchor.constraint(equalTo: scrollView.layoutMarginsGuide.leftAnchor).isActive = true
-        overviewCard.rightAnchor.constraint(equalTo: scrollView.layoutMarginsGuide.rightAnchor).isActive = true
-        overviewCard.heightAnchor.constraint(equalToConstant: 200).isActive = true
-    }
-    
+//    func setUpTrafficCard() {
+//        let overviewCard = CardView()
+//        overviewCard.layoutMargins = kCardPadding
+//        scrollView.addSubview(overviewCard)
+//        overviewCard.translatesAutoresizingMaskIntoConstraints = false
+//        overviewCard.topAnchor.constraint(equalTo: scrollView.layoutMarginsGuide.topAnchor, constant: 400).isActive = true
+//        overviewCard.leftAnchor.constraint(equalTo: scrollView.layoutMarginsGuide.leftAnchor).isActive = true
+//        overviewCard.rightAnchor.constraint(equalTo: scrollView.layoutMarginsGuide.rightAnchor).isActive = true
+//        overviewCard.heightAnchor.constraint(equalToConstant: 200).isActive = true
+//    }
+//
     
     func setUpBookButton() {
         bookButton.isUserInteractionEnabled = true
         bookButton.layoutMargins = kCardPadding
-        contentHelper.addSubview(bookButton)
+        scrollView.addSubview(bookButton)
         bookButton.backgroundColor =  Color.eventAcademic
         bookButton.layer.cornerRadius = 10
         bookButton.layer.shadowRadius = 5
@@ -324,17 +331,15 @@ extension LibraryDetailViewController {
     
     func setUpScrollView() {
         scrollView = UIScrollView(frame: .zero)
-        scrollView.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 0, right: 10)
+        scrollView.contentInsetAdjustmentBehavior = .never
+        scrollView.layoutMargins = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
         scrollView.alwaysBounceVertical = true
         view.addSubview(scrollView)
         scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
+        scrollView.topAnchor.constraint(equalTo: barView.topAnchor, constant: kViewMargin).isActive = true
         scrollView.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
         scrollView.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
         scrollView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
-        contentHelper = UIView()
-        contentHelper.isUserInteractionEnabled = true
-        scrollView.addSubview(contentHelper)
     }
 }
 
@@ -352,7 +357,7 @@ extension LibraryDetailViewController {
     }
 }
     
-extension  LibraryDetailViewController : CLLocationManagerDelegate {
+extension LibraryDetailViewController : CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let userLocation : CLLocation = locations[0] as CLLocation
         userCoords.latitude = userLocation.coordinate.latitude
