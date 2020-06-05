@@ -39,6 +39,7 @@ extension SearchDrawerViewDelegate where Self: UIViewController {
         drawerViewController!.view.translatesAutoresizingMaskIntoConstraints = true
         // necessary to set the correct cutoff for the 'middle' position of the drawer
         drawerViewController!.view.layoutIfNeeded()
+        drawerViewController!.viewDidLayoutSubviews()
         
         if let cutoff = (drawerViewController as! SearchDrawerViewController).middleCutoffPosition {
             drawerStatePositions[.middle] = containingView.frame.maxY + containingView.frame.maxY / 2 - cutoff

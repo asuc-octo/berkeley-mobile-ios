@@ -335,11 +335,11 @@ extension MapViewController: SearchResultsViewDelegate {
                     mapView.deselectAnnotation(markerDetail.marker, animated: true)
                 }
                 // if the new search item has a detail view: remove the old detail view, show the new one
-                if let hall = item as? DiningHall {
+                if let hall = item as? DiningLocation {
                     if drawerViewController != nil {
                         mainContainer?.dismissTop(showNext: false)
                     }
-                    presentDetail(type: DiningHall.self, item: hall, containingVC: mainContainer!, position: .middle)
+                    presentDetail(type: DiningLocation.self, item: hall, containingVC: mainContainer!, position: .middle)
                 } else if let lib = item as? Library {
                     if drawerViewController != nil {
                         mainContainer?.dismissTop(showNext: false)
