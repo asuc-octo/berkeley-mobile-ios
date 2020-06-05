@@ -39,7 +39,10 @@ class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         drawerStatePositions[.hidden] = self.view.frame.maxY + (self.view.frame.maxY / 2)
-        drawerStatePositions[.collapsed] = self.view.frame.maxY * 0.91 + (self.view.frame.maxY / 2)
+        // set the collapsed position to show the tab bar control at the top
+        let tabBarVC = (drawerViewController as! MainDrawerViewController).tabBarViewController
+        let offset = tabBarVC.control.frame.maxY + tabBarVC.view.frame.minY + 5
+        drawerStatePositions[.collapsed] = self.view.frame.maxY * 1.5 - offset
         drawerStatePositions[.middle] = self.view.frame.midY * 1.1 + (self.view.frame.maxY / 2)
         drawerStatePositions[.full] = self.view.safeAreaInsets.top + (self.view.frame.maxY / 2)
         (drawerViewController as! MainDrawerViewController).heightOffset = self.view.safeAreaInsets.top

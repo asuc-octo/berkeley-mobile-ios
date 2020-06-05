@@ -15,6 +15,8 @@ class MainDrawerViewController: DrawerViewController {
     // the view controller this is added onto
     var container: MainContainerViewController
     
+    var tabBarViewController = TabBarViewController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -33,7 +35,6 @@ class MainDrawerViewController: DrawerViewController {
     
     // set up the libraries, dining, and fitness tabs
     func setupTabBar() {
-        let tabBarViewController = TabBarViewController()
         self.add(child: tabBarViewController)
         tabBarViewController.view.frame = self.view.bounds.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: (heightOffset ?? 0) + 20, right: 0))
         tabBarViewController.view.frame.origin.y = barView.frame.maxY + 16
