@@ -136,7 +136,7 @@ open class MaterialTextField : UITextField {
         self.init()
         
         self.attributedPlaceholder = NSAttributedString(string: hint,
-                                                        attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
+                                                        attributes: [NSAttributedString.Key.foregroundColor: Color.blackText])
         self.textColor = textColor
         
         if let font = font {
