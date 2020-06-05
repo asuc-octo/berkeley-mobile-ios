@@ -75,9 +75,8 @@ extension DrawerViewDelegate where Self: UIViewController {
         let translation = gesture.translation(in: self.view)
         let velocity = gesture.velocity(in: self.view).y
         var newCenter = CGPoint(x: self.initialDrawerCenter.x, y: self.initialDrawerCenter.y + translation.y)
-        
-        if newCenter.y < self.view.center.y {
-            newCenter = self.view.center
+        if newCenter.y - drawerViewController!.view.frame.height / 2 < 0 {
+            newCenter.y = drawerViewController!.view.frame.height / 2
         }
         
         if gesture.state == .ended {

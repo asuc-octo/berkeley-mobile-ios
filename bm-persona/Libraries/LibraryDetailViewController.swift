@@ -52,7 +52,6 @@ class LibraryDetailViewController: SearchDrawerViewController {
         The "middle" position for the view will show everything in the overview card
         When collapsible open time card is added, change this to show that card as well. */
         middleCutoffPosition = scrollView.frame.minY + contentHelper.frame.minY + overviewCard.frame.maxY + 5
-        print(middleCutoffPosition)
     }
 }
 

@@ -25,11 +25,6 @@ class DrawerViewController: UIViewController {
         setupGestures()
     }
     
-//    override func loadView() {
-//        super.loadView()
-//        view = DrawerView(frame: view.frame, vc: self)
-//    }
-    
     func setupBackgroundView() {
         view.backgroundColor = Color.modalBackground
         view.layer.cornerRadius = 50
@@ -63,26 +58,4 @@ class DrawerViewController: UIViewController {
     }
     */
 
-}
-
-class DrawerView: UIView {
-    private var vc: DrawerViewController
-    
-    override var center: CGPoint {
-        didSet {
-            let positions = self.vc.delegate.drawerStatePositions
-            if let hiddenPos = positions[.hidden], center.y > hiddenPos {
-                center.y = positions[self.vc.currState]!
-            }
-        }
-    }
-    
-    init(frame: CGRect, vc: DrawerViewController) {
-        self.vc = vc
-        super.init(frame: frame)
-    }
-
-    required init(coder aDecoder: NSCoder) {
-        fatalError("This class does not support NSCoding")
-    }
 }
