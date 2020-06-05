@@ -53,5 +53,6 @@ class DiningLocation: HasOpenTimes, SearchItem, HasLocation {
         self.weeklyHours = hours
         self.latitude = latitude
         self.longitude = longitude
+        self.icon = UIImage(named: "Dining")
     }
 }

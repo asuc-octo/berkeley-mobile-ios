@@ -39,7 +39,7 @@ class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         drawerStatePositions[.hidden] = self.view.frame.maxY + (self.view.frame.maxY / 2)
-        drawerStatePositions[.collapsed] = self.view.frame.maxY * 0.9 + (self.view.frame.maxY / 2)
+        drawerStatePositions[.collapsed] = self.view.frame.maxY * 0.91 + (self.view.frame.maxY / 2)
         drawerStatePositions[.middle] = self.view.frame.midY * 1.1 + (self.view.frame.maxY / 2)
         drawerStatePositions[.full] = self.view.safeAreaInsets.top + (self.view.frame.maxY / 2)
         (drawerViewController as! MainDrawerViewController).heightOffset = self.view.safeAreaInsets.top
