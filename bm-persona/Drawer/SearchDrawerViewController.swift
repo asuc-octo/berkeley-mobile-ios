@@ -11,8 +11,8 @@ import UIKit
 // Additional detail drawers to show details for dining halls, libraries, etc.
 class SearchDrawerViewController: DrawerViewController {
     
-    // bottom cutoff position for middle position of the view
-    // (e.g. bottom of overview card for library detail)
+    // cutoff for the 'middle' position of the drawer
+    // (e.g. for the library detail drawer, this is set to be just below the overview card)
     var middleCutoffPosition: CGFloat?
     
     override func viewDidLoad() {

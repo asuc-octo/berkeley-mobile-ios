@@ -334,7 +334,7 @@ extension MapViewController: SearchResultsViewDelegate {
                 if markerDetail.marker != nil {
                     mapView.deselectAnnotation(markerDetail.marker, animated: true)
                 }
-                // if search item has detail view - remove old detail view, show new one
+                // if the new search item has a detail view: remove the old detail view, show the new one
                 if let hall = item as? DiningHall {
                     if drawerViewController != nil {
                         mainContainer?.dismissTop(showNext: false)
@@ -346,8 +346,8 @@ extension MapViewController: SearchResultsViewDelegate {
                     }
                     presentDetail(type: Library.self, item: lib, containingVC: mainContainer!, position: .middle)
                 } else {
-                    /* don't show detail view if search item isn't dining hall or library
-                     dismiss any past detail views, show drawer, pin is already dropped */
+                    /* if the search item isn't a dining hall or library, don't show any detail view
+                     still dismiss any past detail views and show the drawer underneath */
                     if drawerViewController != nil {
                         mainContainer?.dismissTop()
                     }

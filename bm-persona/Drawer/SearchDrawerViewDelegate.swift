@@ -17,8 +17,7 @@ protocol SearchDrawerViewDelegate: DrawerViewDelegate {
 extension SearchDrawerViewDelegate where Self: UIViewController {
     
     /* present a detail view drawer
-     type is set to DiningHall, Library, etc. to determine what type of detail view is needed
-     */
+     type is set to DiningHall, Library, etc. to determine what type of detail view is needed */
     func presentDetail(type: AnyClass, item: SearchItem, containingVC: UIViewController, position: DrawerState) {
         let containingView = containingVC.view!
         if type == DiningHall.self {
