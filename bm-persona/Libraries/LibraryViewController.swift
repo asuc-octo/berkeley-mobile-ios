@@ -13,12 +13,11 @@ fileprivate let kViewMargin: CGFloat = 16
 
 class LibraryViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate, SearchDrawerViewDelegate {
     
-    // this is for the detail view drawer
+    // DrawerViewDelegate properties
     var drawerViewController: DrawerViewController?
-    // center of detail view before snapping into place
     var initialDrawerCenter = CGPoint()
-    // y positions for each state (hidden, middle, full)
     var drawerStatePositions: [DrawerState : CGFloat] = [:]
+    // SearchDrawerViewDelegate property
     var mainContainer: MainContainerViewController?
     
     var filterTableView: FilterTableView = FilterTableView<Library>(frame: .zero, filters: [])
@@ -197,6 +196,7 @@ extension LibraryViewController {
     func handlePanGesture(gesture: UIPanGestureRecognizer) {
         let state = handlePan(gesture: gesture)
         if state == .hidden {
+            // get rid of the top detail drawer if user sends it to bottom of screen
             mainContainer?.dismissTop()
         }
     }

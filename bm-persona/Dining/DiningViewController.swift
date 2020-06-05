@@ -20,12 +20,11 @@ class DiningViewController: UIViewController, SearchDrawerViewDelegate {
     private var locationManager = CLLocationManager()
     private var location: CLLocation?
     
-    // this is for the detail view drawer
+    // DrawerViewDelegate properties
     var drawerViewController: DrawerViewController?
-    // center of detail view before snapping into place
     var initialDrawerCenter = CGPoint()
-    // y positions for each state (hidden, middle, full)
     var drawerStatePositions: [DrawerState : CGFloat] = [:]
+    // SearchDrawerViewDelegate property
     var mainContainer: MainContainerViewController?
     
     let diningImage:UIImageView = {
@@ -193,6 +192,7 @@ extension DiningViewController {
 extension DiningViewController {
     func handlePanGesture(gesture: UIPanGestureRecognizer) {
         let state = handlePan(gesture: gesture)
+        // get rid of the top detail drawer if user sends it to bottom of screen
         if state == .hidden {
             mainContainer?.dismissTop()
         }

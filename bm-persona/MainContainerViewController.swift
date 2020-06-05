@@ -10,13 +10,15 @@ import UIKit
 
 class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
     
+    let mapViewController = MapViewController()
+    
+    // MainDrawerViewDelegate properties
+    var drawerStack: [DrawerViewDelegate] = []
     var positions: [DrawerState?] = []
     var mainDrawerPosition: DrawerState?
     
-    let mapViewController = MapViewController()
-    
+    // DrawerViewDelegate properties
     var drawerViewController: DrawerViewController?
-    var drawerStack: [DrawerViewDelegate] = []
     var initialDrawerCenter = CGPoint()
     var drawerStatePositions: [DrawerState: CGFloat] = [:]
     
@@ -29,14 +31,10 @@ class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
         drawerVC.delegate = self
         mapViewController.view.frame = self.view.frame
         mapViewController.mainContainer = self
+         // set the size of the main drawer to be equal to the size of the containing view
         drawerVC.view.frame = self.view.frame
+        // necessary to move the center of the drawer later on
         drawerVC.view.translatesAutoresizingMaskIntoConstraints = true
-//        NSLayoutConstraint.activate([
-//            drawerVC.view.heightAnchor.constraint(equalTo: self.view.heightAnchor),
-//            drawerVC.view.widthAnchor.constraint(equalTo: self.view.widthAnchor),
-//            drawerVC.view.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-//            drawerVC.view.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: 2 * self.view.frame.maxY)
-//        ])
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -52,7 +50,6 @@ class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
 
 }
 
-// for main drawer view
 extension MainContainerViewController {
     func handlePanGesture(gesture: UIPanGestureRecognizer) {
         handlePan(gesture: gesture)

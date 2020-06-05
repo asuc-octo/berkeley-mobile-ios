@@ -8,8 +8,7 @@
 
 import UIKit
 
-import UIKit
-
+// Additional detail drawers to show details for dining halls, libraries, etc.
 class SearchDrawerViewController: DrawerViewController {
     
     // bottom cutoff position for middle position of the view
@@ -20,6 +19,7 @@ class SearchDrawerViewController: DrawerViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        // default to middle position when created
         currState = .middle
         prevState = .middle
     }

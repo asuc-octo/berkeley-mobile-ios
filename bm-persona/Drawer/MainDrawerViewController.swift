@@ -8,9 +8,11 @@
 
 import UIKit
 
+// Main drawer containing the library, dining, and fitness tabs; can't be dismissed
 class MainDrawerViewController: DrawerViewController {
     
     var heightOffset: CGFloat?
+    // the view controller this is added onto
     var container: MainContainerViewController
     
     override func viewDidLoad() {
@@ -29,12 +31,15 @@ class MainDrawerViewController: DrawerViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // set up the libraries, dining, and fitness tabs
     func setupTabBar() {
         let tabBarViewController = TabBarViewController()
         self.add(child: tabBarViewController)
         tabBarViewController.view.frame = self.view.bounds.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: (heightOffset ?? 0) + 20, right: 0))
         tabBarViewController.view.frame.origin.y = barView.frame.maxY + 16
         tabBarViewController.view.layoutMargins = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        // set the containers for other views that can present drawers
+        // currently, only dining and library views have detail views; add fitness view later
         for page in tabBarViewController.pages {
             if let dining = page.viewController as? DiningViewController {
                 dining.mainContainer = container

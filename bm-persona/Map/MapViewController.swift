@@ -24,12 +24,11 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
     private var searchResultsView: SearchResultsView!
     private var locationManager = CLLocationManager()
     
-    // this is for the detail view drawer
+    // DrawerViewDelegate properties
     var drawerViewController: DrawerViewController?
-    // center of detail view before snapping into place
     var initialDrawerCenter = CGPoint()
-    // y positions for each state (hidden, middle, full)
     var drawerStatePositions: [DrawerState : CGFloat] = [:]
+    
     private var searchAnnotation: SearchAnnotation?
     
     private var filterView: FilterView!
@@ -204,6 +203,7 @@ extension MapViewController: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        // if map marker is selected, hide the top drawer to show the marker detail
         if let annotation = view.annotation as? MapMarker {
             markerDetail.marker = annotation
             mainContainer?.hideTop()
@@ -213,8 +213,9 @@ extension MapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
         if (view.annotation as? MapMarker) != nil {
             markerDetail.marker = nil
-            // may want to select search annotation in certain scenarios in the future
+            // if a marker is deselected wait to see if another marker was selected
             DispatchQueue.main.async {
+                // if no other marker was selected, show the top drawer
                 if self.markerDetail.marker == nil {
                     self.mainContainer?.showTop()
                 }
@@ -333,7 +334,7 @@ extension MapViewController: SearchResultsViewDelegate {
                 if markerDetail.marker != nil {
                     mapView.deselectAnnotation(markerDetail.marker, animated: true)
                 }
-                // if search item has detail view - remove past detail view, show new one
+                // if search item has detail view - remove old detail view, show new one
                 if let hall = item as? DiningHall {
                     if drawerViewController != nil {
                         mainContainer?.dismissTop(showNext: false)
@@ -368,6 +369,7 @@ extension MapViewController: SearchResultsViewDelegate {
 extension MapViewController {
     func handlePanGesture(gesture: UIPanGestureRecognizer) {
         let state = handlePan(gesture: gesture)
+        // get rid of the top detail drawer and remove associated annotation if user sends the drawer to the bottom of the screen
         if state == .hidden {
             removeAnnotations(type: SearchAnnotation.self)
             searchAnnotation = nil

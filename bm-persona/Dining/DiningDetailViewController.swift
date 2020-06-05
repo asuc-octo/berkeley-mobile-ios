@@ -40,7 +40,7 @@ class DiningDetailViewController: SearchDrawerViewController {
     }
     
     override func viewDidLayoutSubviews() {
-        // set the bottom cutoff point for when view appears due to map search
+        // set the bottom cutoff point for when drawer appears
         // the "middle" position for the view will show everything in the overview card
         middleCutoffPosition = card.frame.maxY + 5
     }

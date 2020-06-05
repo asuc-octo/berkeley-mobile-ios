@@ -38,6 +38,7 @@ class LibraryDetailViewController: SearchDrawerViewController {
         //setUpTrafficCard()
         setUpBookButton()
         
+        // in order to set the cutoff correctly
         view.layoutSubviews()
         scrollView.layoutSubviews()
         contentHelper.layoutSubviews()

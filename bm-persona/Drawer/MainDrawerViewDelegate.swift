@@ -8,13 +8,20 @@
 
 import UIKit
 
+// Drawer delegate to handle stacks of drawers
+// Used only for the top-level main drawer that can't be dismissed
 protocol MainDrawerViewDelegate: DrawerViewDelegate {
+    // all drawers currently being used
     var drawerStack: [DrawerViewDelegate] { get set }
+    // positions to return drawers to once they're no longer hidden
     var positions: [DrawerState?] { get set }
+    // position to return main drawer to
     var mainDrawerPosition: DrawerState? { get set }
 }
 
 extension MainDrawerViewDelegate where Self: UIViewController {
+    // get rid of the top drawer entirely
+    // if the top drawer is being removed so it can be replaced, showNext should be set to false to prevent the underlying drawer from showing and immediately being covered
     func dismissTop(showNext: Bool = true) {
         if drawerStack.count > 0 {
             let topDrawer = drawerStack.last
@@ -25,12 +32,14 @@ extension MainDrawerViewDelegate where Self: UIViewController {
             drawerStack.last!.drawerViewController = nil
             drawerStack.removeLast()
             positions.removeLast()
+            // depending on whether the top drawer is being replaced, show the drawer below
             if showNext {
                 moveCurrentDrawer(to: (drawerStack.count == 0 ? mainDrawerPosition : positions.last!)!, duration: 0.2)
             }
         }
     }
     
+    // add a new drawer on top of the stack
     func coverTop(newTop: DrawerViewDelegate, newState: DrawerState) {
         self.hideTop()
         drawerStack.append(newTop)
@@ -38,6 +47,7 @@ extension MainDrawerViewDelegate where Self: UIViewController {
         moveCurrentDrawer(to: newState, duration: 0.2)
     }
     
+    // hide the top drawer without deleting it, save the last non-hidden position it was in
     func hideTop() {
         if drawerStack.count > 0 {
             var positionBeforeHidden = drawerStack.last!.drawerViewController?.currState
@@ -55,6 +65,7 @@ extension MainDrawerViewDelegate where Self: UIViewController {
         moveCurrentDrawer(to: .hidden, duration: 0.2)
     }
     
+    // show the top drawer again and update the positions list
     func showTop() {
         let movePosition = drawerStack.count == 0 ? mainDrawerPosition : positions.last!
         if movePosition == nil {
@@ -68,6 +79,7 @@ extension MainDrawerViewDelegate where Self: UIViewController {
         }
     }
     
+    // move the current top drawer to a specific state
     func moveCurrentDrawer(to state: DrawerState, duration: Double) {
         if drawerStack.count > 0 {
             let topDrawer = drawerStack.last!
@@ -77,6 +89,7 @@ extension MainDrawerViewDelegate where Self: UIViewController {
         }
     }
     
+    // depending on a pan gesture, return which position to go to
     func computeDrawerPosition(from yPosition: CGFloat, with yVelocity: CGFloat) -> DrawerState {
         computePosition(from: yPosition, with: yVelocity, bottom: .collapsed, middle: .middle, top: .full)
     }
