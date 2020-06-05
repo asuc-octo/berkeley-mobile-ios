@@ -47,13 +47,15 @@ class SearchBarView: UIView, UITextFieldDelegate {
         self.layer.shadowOffset = .zero
         self.layer.shadowRadius = 8
         
-        textField = MaterialTextField(hint: "What are you looking for?", textColor: Color.primaryText, font: Font.regular(16.0), bgColor: Color.searchBarBackground, delegate: self)
+        textField = MaterialTextField(hint: "What are you looking for?", textColor: Color.blackText, font: Font.regular(16.0), bgColor: Color.searchBarBackground, delegate: self)
+        textField.cornerRadius = 15.0
+        textField.setCornerBorder(color: Color.searchBarBackground, cornerRadius: 15.0, borderWidth: 0.0)
         textField.autocorrectionType = .no
         textField.returnKeyType = .search
         textField.enablesReturnKeyAutomatically = true
         
-        leftButton = MaterialButton(icon: leftButtonImage.colored(Color.searchBarIconColor), textColor: Color.primaryText, font: Font.regular(16), bgColor: Color.searchBarBackground, cornerRadius: 0.0)
-        rightButton = MaterialButton(icon: UIImage(named: "Clear")?.colored(Color.searchBarIconColor), bgColor: Color.searchBarBackground, cornerRadius: 0.0)
+        leftButton = MaterialButton(icon: leftButtonImage.colored(Color.searchBarIconColor), textColor: Color.blackText, font: Font.regular(16), bgColor: Color.searchBarBackground, cornerRadius: 15.0)
+        rightButton = MaterialButton(icon: UIImage(named: "Clear")?.colored(Color.searchBarIconColor), bgColor: Color.searchBarBackground, cornerRadius: 15.0)
         
         stackView = UIStackView(arrangedSubviews: [leftButton, textField, rightButton])
         stackView.spacing = 0.0
@@ -77,11 +79,11 @@ class SearchBarView: UIView, UITextFieldDelegate {
         leftButton.widthAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 0.8).isActive = true
         rightButton.widthAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 0.8).isActive = true
         
-        let radius = self.frame.height / 2
+        let radius = self.frame.height / 2.5
         self.layer.cornerRadius = radius
-        leftButton.cornerRadius = radius
-        rightButton.cornerRadius = radius
-        textField.cornerRadius = radius
+//        leftButton.cornerRadius = radius
+//        rightButton.cornerRadius = radius
+//        textField.cornerRadius = radius
     
     }
     

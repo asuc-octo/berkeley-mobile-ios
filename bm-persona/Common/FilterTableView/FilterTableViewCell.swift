@@ -14,23 +14,34 @@ class FilterTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top:0, left:5, bottom:10, right:5))
         
-        // add shadow on cell
+        // Setup spacing between cells
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top:5, left:5, bottom:5, right:5))
+        backgroundView?.frame = contentView.frame
+        selectedBackgroundView?.frame = contentView.frame
+        
+        // Setup corner radius and drop shadow
         backgroundColor = .clear
-        contentView.layer.masksToBounds = false
-        contentView.layer.shadowOpacity = 0.25
-        contentView.layer.shadowRadius = 5
-        contentView.layer.shadowOffset = .zero
-        contentView.layer.shadowColor = UIColor.black.cgColor
-        contentView.layer.shadowPath = UIBezierPath(rect: contentView.bounds.insetBy(dx: 4, dy: 4)).cgPath
-        // add corner radius on `contentView`
-        contentView.backgroundColor = .white
+        backgroundView?.backgroundColor = Color.modalBackground
+        
+        backgroundView?.layer.masksToBounds = false
+        backgroundView?.layer.cornerRadius = 7
+        selectedBackgroundView?.layer.masksToBounds = true
+        selectedBackgroundView?.layer.cornerRadius = 7
+        contentView.layer.masksToBounds = true
         contentView.layer.cornerRadius = 7
+        
+        backgroundView?.layer.shadowOpacity = 0.25
+        backgroundView?.layer.shadowRadius = 5
+        backgroundView?.layer.shadowOffset = .zero
+        backgroundView?.layer.shadowColor = UIColor.black.cgColor
+        backgroundView?.layer.shadowPath = UIBezierPath(rect: contentView.bounds.insetBy(dx: 4, dy: 4)).cgPath
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        backgroundView = UIView()
         
         contentView.addSubview(nameLabel)
         contentView.addSubview(cellImage)
@@ -41,7 +52,7 @@ class FilterTableViewCell: UITableViewCell {
         contentView.addSubview(capBadge)
         contentView.layoutMargins = UIEdgeInsets(top: 5, left: 15, bottom: 5, right: -5)
         
-        recLabel.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
+        recLabel.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor, constant: 10).isActive = true
         recLabel.leftAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
         
         nameLabel.heightAnchor.constraint(equalToConstant: 65).isActive = true
@@ -121,7 +132,7 @@ class FilterTableViewCell: UITableViewCell {
         let label = UILabel()
         label.adjustsFontSizeToFitWidth = true
         label.font = Font.light(12)
-        label.textColor = Color.lightGrayText
+        label.textColor = Color.blackText
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

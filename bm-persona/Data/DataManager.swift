@@ -53,11 +53,15 @@ class DataManager {
 
     func fetch(source: DataSource.Type, _ completion: @escaping DataSource.completionHandler) {
         if let items = data[asKey(source)] {
-            completion(items)
+            DispatchQueue.main.async {
+                completion(items)
+            }
         } else {
             source.fetchItems { items in
                 self.data[self.asKey(source)] = items
-                completion(items)
+                DispatchQueue.main.async {
+                    completion(items)
+                }
             }
         }
     }

@@ -11,8 +11,8 @@ import MapKit
 
 class DiningViewController: UIViewController {
     
-    private var filterTableView: FilterTableView = FilterTableView<DiningHall>(frame: .zero, filters: [])
-    private var diningLocations: [DiningHall] = []
+    private var filterTableView: FilterTableView = FilterTableView<DiningLocation>(frame: .zero, filters: [])
+    private var diningLocations: [DiningLocation] = []
     
     private var headerLabel: UILabel!
     private var diningCard: CardView!
@@ -45,8 +45,14 @@ class DiningViewController: UIViewController {
         filterTableView.setSortFunc(newSortFunc: {dh1, dh2 in SortingFunctions.sortClose(loc1: dh1, loc2: dh2, location: self.location, locationManager: self.locationManager)})
         
         DataManager.shared.fetch(source: DiningHallDataSource.self) { diningLocations in
-            self.diningLocations = diningLocations as? [DiningHall] ?? []
-            self.filterTableView.setData(data: diningLocations as! [DiningHall])
+            self.diningLocations = diningLocations as? [DiningLocation] ?? []
+            self.filterTableView.setData(data: diningLocations as! [DiningLocation])
+            self.filterTableView.tableView.reloadData()
+        }
+        
+        DataManager.shared.fetch(source: CafeDataSource.self) { cafeLocations in
+            self.diningLocations.append(contentsOf: cafeLocations as? [DiningLocation] ?? [])
+            self.filterTableView.setData(data: self.diningLocations as! [DiningLocation])
             self.filterTableView.tableView.reloadData()
         }
     }
@@ -63,7 +69,7 @@ extension DiningViewController: CLLocationManagerDelegate {
 extension DiningViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: FilterTableViewCell.kCellIdentifier, for: indexPath) as? FilterTableViewCell {
-            let diningHall: DiningHall = self.filterTableView.filteredData[indexPath.row]
+            let diningHall: DiningLocation = self.filterTableView.filteredData[indexPath.row]
             cell.nameLabel.text = diningHall.name
             var distance = Double.nan
             if location != nil {
@@ -73,7 +79,6 @@ extension DiningViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.timeLabel.text = "\(distance) mi"
             }
             cell.recLabel.text = "Recommended"
-            cell.selectionStyle = .none
             switch indexPath.row % 3 {
             case 0:
                 cell.capBadge.text = "High"
@@ -122,18 +127,11 @@ extension DiningViewController: UITableViewDelegate, UITableViewDataSource {
         return self.filterTableView.filteredData.count
     }
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        // this will turn on `masksToBounds` just before showing the cell
-        cell.contentView.layer.masksToBounds = true
-        //to prevent laggy scrolling
-        let radius = cell.contentView.layer.cornerRadius
-        cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: radius).cgPath
-    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = DiningDetailViewController()
         vc.diningHall = self.filterTableView.filteredData[indexPath.row]
         self.present(vc, animated: true, completion: nil)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
@@ -182,8 +180,8 @@ extension DiningViewController {
     
     // Table of dining locations
     func setupTableView() {
-        let filters = [Filter<DiningHall>(label: "Nearby", filter: {dh in dh.getDistanceToUser(userLoc: self.location) < DiningHall.nearbyDistance}),
-            Filter<DiningHall>(label: "Open", filter: {dh in dh.isOpen ?? false})]
+        let filters = [Filter<DiningLocation>(label: "Nearby", filter: {dh in dh.getDistanceToUser(userLoc: self.location) < DiningLocation.nearbyDistance}),
+            Filter<DiningLocation>(label: "Open", filter: {dh in dh.isOpen ?? false})]
         self.filterTableView = FilterTableView(frame: .zero, filters: filters)
         self.filterTableView.tableView.register(FilterTableViewCell.self, forCellReuseIdentifier: FilterTableViewCell.kCellIdentifier)
         self.filterTableView.tableView.dataSource = self

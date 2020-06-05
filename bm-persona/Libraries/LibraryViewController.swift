@@ -117,6 +117,14 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
         self.filterTableView.tableView.register(FilterTableViewCell.self, forCellReuseIdentifier: FilterTableViewCell.kCellIdentifier)
         self.filterTableView.tableView.dataSource = self
         self.filterTableView.tableView.delegate = self
+
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = LibraryDetailViewController()
+        vc.library = self.filterTableView.filteredData[indexPath.row]
+        present(vc, animated: true, completion: nil)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     //number of rows to be shown in tableview
@@ -136,7 +144,6 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
                 cell.timeLabel.text = "\(distance) mi"
             }
             cell.recLabel.text = "Recommended"
-            cell.selectionStyle = .none
             
             if cell.nameLabel.text == "Anthropology Library" {
                 print("a")

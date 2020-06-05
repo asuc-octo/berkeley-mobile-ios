@@ -29,6 +29,7 @@
 		13491DBA241E23630033F9AB /* Colors+Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13491DB9241E23630033F9AB /* Colors+Text.swift */; };
 		13491DBC242098B30033F9AB /* AtomicDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13491DBB242098B30033F9AB /* AtomicDictionary.swift */; };
 		13492D2D240E179F00AD3D1F /* MapMarkerDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13492D2C240E179F00AD3D1F /* MapMarkerDetailView.swift */; };
+		13580AF62437D7E700D309AA /* LibraryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13580AF52437D7E700D309AA /* LibraryDetailViewController.swift */; };
 		13580AFA243934BF00D309AA /* GymClassesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13580AF9243934BF00D309AA /* GymClassesController.swift */; };
 		13580AFC243934C800D309AA /* GymsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13580AFB243934C800D309AA /* GymsController.swift */; };
 		135D7F75243A9AB3003F8BD1 /* GymClassType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135D7F74243A9AB3003F8BD1 /* GymClassType.swift */; };
@@ -83,6 +84,10 @@
 		559A7B6B2373DCBA004EA501 /* SearchResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559A7B6A2373DCBA004EA501 /* SearchResultsView.swift */; };
 		559A7B6D2373DEFA004EA501 /* MaterialTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559A7B6C2373DEFA004EA501 /* MaterialTableViewCell.swift */; };
 		559A7B6F2373DF39004EA501 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559A7B6E2373DF39004EA501 /* SearchResultCell.swift */; };
+		55AF44272453A49D00F13232 /* Cafe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AF44262453A49D00F13232 /* Cafe.swift */; };
+		55AF44292453A4EC00F13232 /* CafeDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AF44282453A4EC00F13232 /* CafeDataSource.swift */; };
+		55AF442B2453A80B00F13232 /* CafeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AF442A2453A80B00F13232 /* CafeItem.swift */; };
+		55AF442D2453ACE600F13232 /* DiningLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AF442C2453ACE600F13232 /* DiningLocation.swift */; };
 		55C6936B240E143500400B60 /* ResourceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C6936A240E143500400B60 /* ResourceTableViewCell.swift */; };
 		55DCF78723722CBD001B01B8 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF78623722CBD001B01B8 /* Colors.swift */; };
 		55DCF78923722CF1001B01B8 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF78823722CF1001B01B8 /* Fonts.swift */; };
@@ -119,6 +124,7 @@
 		13491DB9241E23630033F9AB /* Colors+Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+Text.swift"; sourceTree = "<group>"; };
 		13491DBB242098B30033F9AB /* AtomicDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtomicDictionary.swift; sourceTree = "<group>"; };
 		13492D2C240E179F00AD3D1F /* MapMarkerDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMarkerDetailView.swift; sourceTree = "<group>"; };
+		13580AF52437D7E700D309AA /* LibraryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryDetailViewController.swift; sourceTree = "<group>"; };
 		13580AF9243934BF00D309AA /* GymClassesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymClassesController.swift; sourceTree = "<group>"; };
 		13580AFB243934C800D309AA /* GymsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymsController.swift; sourceTree = "<group>"; };
 		135D7F74243A9AB3003F8BD1 /* GymClassType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymClassType.swift; sourceTree = "<group>"; };
@@ -181,6 +187,10 @@
 		559A7B6A2373DCBA004EA501 /* SearchResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsView.swift; sourceTree = "<group>"; };
 		559A7B6C2373DEFA004EA501 /* MaterialTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialTableViewCell.swift; sourceTree = "<group>"; };
 		559A7B6E2373DF39004EA501 /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
+		55AF44262453A49D00F13232 /* Cafe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cafe.swift; sourceTree = "<group>"; };
+		55AF44282453A4EC00F13232 /* CafeDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeDataSource.swift; sourceTree = "<group>"; };
+		55AF442A2453A80B00F13232 /* CafeItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeItem.swift; sourceTree = "<group>"; };
+		55AF442C2453ACE600F13232 /* DiningLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiningLocation.swift; sourceTree = "<group>"; };
 		55C6936A240E143500400B60 /* ResourceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceTableViewCell.swift; sourceTree = "<group>"; };
 		55DCF78623722CBD001B01B8 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		55DCF78823722CF1001B01B8 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
@@ -235,8 +245,11 @@
 		1336A327241D9BA200949F32 /* DiningDataSource */ = {
 			isa = PBXGroup;
 			children = (
+				55AF44252453A49000F13232 /* Cafes */,
 				1336A32A241DA64B00949F32 /* DiningHalls */,
 				1336A31F241D924300949F32 /* DiningItem.swift */,
+				55AF442A2453A80B00F13232 /* CafeItem.swift */,
+				55AF442C2453ACE600F13232 /* DiningLocation.swift */,
 				130FA59D243B1243005DC752 /* DiningRestriction.swift */,
 				1336A321241D92F700949F32 /* MealType.swift */,
 			);
@@ -350,6 +363,7 @@
 			children = (
 				13B39A9123E6A2C20039FBA2 /* LibraryDataSource */,
 				13B39AA623E7746C0039FBA2 /* LibraryViewController.swift */,
+				13580AF52437D7E700D309AA /* LibraryDetailViewController.swift */,
 			);
 			path = Libraries;
 			sourceTree = "<group>";
@@ -541,6 +555,15 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		55AF44252453A49000F13232 /* Cafes */ = {
+			isa = PBXGroup;
+			children = (
+				55AF44262453A49D00F13232 /* Cafe.swift */,
+				55AF44282453A4EC00F13232 /* CafeDataSource.swift */,
+			);
+			path = Cafes;
+			sourceTree = "<group>";
+		};
 		55DCF78523722CAE001B01B8 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
@@ -720,6 +743,7 @@
 				130FA59F243B12B3005DC752 /* Resource.swift in Sources */,
 				13B8E9592425819D00E7FCBF /* ResourceDataSource.swift in Sources */,
 				29CB28092404DD53009A2CFB /* LibraryViewController.swift in Sources */,
+				55AF44292453A4EC00F13232 /* CafeDataSource.swift in Sources */,
 				306A550023614C0000D59A7F /* MainContainerViewController.swift in Sources */,
 				55DCF78723722CBD001B01B8 /* Colors.swift in Sources */,
 				29EE163F241C4E310041482E /* SortingFunctions.swift in Sources */,
@@ -756,6 +780,8 @@
 				13E25DFD238C949E00B670B5 /* FitnessViewController.swift in Sources */,
 				55DCF79B237243D4001B01B8 /* MaterialTextField.swift in Sources */,
 				554CB9A023F3A83F00BB1715 /* EventTableViewCell.swift in Sources */,
+				55AF442B2453A80B00F13232 /* CafeItem.swift in Sources */,
+				55AF44272453A49D00F13232 /* Cafe.swift in Sources */,
 				13EA64CA2399CE5B00FD8E13 /* SearchItem.swift in Sources */,
 				13491DB8241E22130033F9AB /* Colors+Event.swift in Sources */,
 				13B39A9923E6A33C0039FBA2 /* Library.swift in Sources */,
@@ -763,6 +789,7 @@
 				559A7B6F2373DF39004EA501 /* SearchResultCell.swift in Sources */,
 				299ACFB0244A58CD000F3E86 /* OccupancyDataSource.swift in Sources */,
 				13135BB3241244370056B169 /* FilterViewCell.swift in Sources */,
+				13580AF62437D7E700D309AA /* LibraryDetailViewController.swift in Sources */,
 				135D7F77243A9BD1003F8BD1 /* Colors+GymClass.swift in Sources */,
 				55DCF7A123724835001B01B8 /* MaterialButton.swift in Sources */,
 				29CB280A2404DD71009A2CFB /* FilterTableViewCell.swift in Sources */,
@@ -784,6 +811,7 @@
 				1396013323865E2E005E4788 /* CardCollectionView.swift in Sources */,
 				13B39A9A23E6A33C0039FBA2 /* LibraryDataSource.swift in Sources */,
 				306A54EC23613E3A00D59A7F /* SceneDelegate.swift in Sources */,
+				55AF442D2453ACE600F13232 /* DiningLocation.swift in Sources */,
 				1336A329241DA56100949F32 /* DiningHallDataSource.swift in Sources */,
 				136DC97B2398B4D1009B1810 /* UIViewController+Extensions.swift in Sources */,
 				13491DB6241E21740033F9AB /* Colors+TagView.swift in Sources */,
@@ -933,16 +961,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = K8FUZZ3FQV;
+				CURRENT_PROJECT_VERSION = 3;
+				DEVELOPMENT_TEAM = 4HBETBULVA;
 				INFOPLIST_FILE = "bm-persona/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 10.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.asuc.ASUC;
 				PRODUCT_NAME = "Berkeley Mobile";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -952,16 +982,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = K8FUZZ3FQV;
+				CURRENT_PROJECT_VERSION = 3;
+				DEVELOPMENT_TEAM = 4HBETBULVA;
 				INFOPLIST_FILE = "bm-persona/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 10.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.asuc.ASUC;
 				PRODUCT_NAME = "Berkeley Mobile";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
