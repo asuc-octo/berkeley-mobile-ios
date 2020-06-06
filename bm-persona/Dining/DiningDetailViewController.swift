@@ -308,7 +308,7 @@ extension DiningDetailViewController {
             }
         }
         diningImage.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
-        diningImage.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true
+        diningImage.topAnchor.constraint(equalTo: card.topAnchor, constant: kViewMargin).isActive = true
         diningImage.bottomAnchor.constraint(equalTo: faveButton.topAnchor, constant: -1 * kViewMargin).isActive = true
         diningImage.widthAnchor.constraint(equalTo: card.widthAnchor, multiplier: 0.4).isActive = true
         
@@ -374,8 +374,7 @@ extension DiningDetailViewController {
         addressLabel.rightAnchor.constraint(equalTo: diningImage.leftAnchor, constant: -1 * kViewMargin).isActive = true
         
         nameLabel.text = diningHall.searchName
-        print(card.layoutMargins)
-        nameLabel.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true
+        nameLabel.topAnchor.constraint(equalTo: card.topAnchor, constant: kViewMargin).isActive = true
         nameLabel.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
         nameLabel.rightAnchor.constraint(equalTo: diningImage.leftAnchor, constant: -1 * kViewMargin).isActive = true
         nameLabel.bottomAnchor.constraint(lessThanOrEqualTo: addressIcon.topAnchor, constant: -1 * kViewMargin).isActive = true
