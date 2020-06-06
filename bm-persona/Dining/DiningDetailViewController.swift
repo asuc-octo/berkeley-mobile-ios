@@ -312,7 +312,7 @@ extension DiningDetailViewController {
         diningImage.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
         diningImage.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true
         diningImage.bottomAnchor.constraint(equalTo: faveButton.topAnchor, constant: -1 * kViewMargin).isActive = true
-        diningImage.widthAnchor.constraint(equalTo: diningImage.heightAnchor, multiplier: 1.3).isActive = true
+        diningImage.widthAnchor.constraint(equalTo: card.widthAnchor, multiplier: 0.4).isActive = true
         
         phoneIcon.bottomAnchor.constraint(equalTo: clockIcon.topAnchor, constant: -1 * kViewMargin).isActive = true
         phoneIcon.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
@@ -340,12 +340,12 @@ extension DiningDetailViewController {
             if dist < DiningHall.invalidDistance {
                 self.distLabel.text = String(dist) + " mi"
             } else {
-                self.distLabel.text = "     "
+                self.distLabel.text = ""
                 distIcon.isHidden = true
                 distLabel.isHidden = true
             }
         } else {
-            self.distLabel.text = "     "
+            self.distLabel.text = ""
             distIcon.isHidden = true
             distLabel.isHidden = true
         }
@@ -376,6 +376,7 @@ extension DiningDetailViewController {
         addressLabel.rightAnchor.constraint(equalTo: diningImage.leftAnchor, constant: -1 * kViewMargin).isActive = true
         
         nameLabel.text = diningHall.searchName
+        print(card.layoutMargins)
         nameLabel.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true
         nameLabel.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
         nameLabel.rightAnchor.constraint(equalTo: diningImage.leftAnchor, constant: -1 * kViewMargin).isActive = true
@@ -486,8 +487,12 @@ extension DiningDetailViewController : CLLocationManagerDelegate {
             if self.diningHall != nil {
                 let dist = self.diningHall.getDistanceToUser(userLoc: userLocation)
                 self.distLabel.text = String(dist) + " mi"
+                self.distLabel.isHidden = false
+                self.distIcon.isHidden = false
                 self.location = userLocation
             } else {
+                self.distLabel.isHidden = true
+                self.distIcon.isHidden = true
                 self.distLabel.text = ""
             }
         }
