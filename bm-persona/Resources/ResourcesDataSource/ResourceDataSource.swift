@@ -13,6 +13,8 @@ fileprivate let kCampusResourcesEndpoint = "Campus Resource"
 
 class ResourceDataSource: DataSource {
     
+    static var fetchDispatch: DispatchGroup = DispatchGroup()
+    
     // Fetch the list of campus resources and report back to the completionHandler.
     static func fetchItems(_ completion: @escaping DataSource.completionHandler)
     {

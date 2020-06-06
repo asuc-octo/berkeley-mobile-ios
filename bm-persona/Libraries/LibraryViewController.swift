@@ -150,10 +150,6 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
             }
             cell.recLabel.text = "Recommended"
             
-            if cell.nameLabel.text == "Anthropology Library" {
-                print("a")
-            }
-            
             if let occ = lib.occupancy, let status = occ.getOccupancyStatus(date: Date()) {
                 cell.capBadge.isHidden = false
                 switch status {

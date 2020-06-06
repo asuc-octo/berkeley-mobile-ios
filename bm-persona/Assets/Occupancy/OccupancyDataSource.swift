@@ -19,9 +19,10 @@ fileprivate let kOccupancySources: [DataSource.Type] = [
 
 class OccupancyDataSource: DataSource {
     
+    static var fetchDispatch: DispatchGroup = DispatchGroup()
+    
     // Fetch the list of libraries and report back to the completionHandler.
-    static func fetchItems(_ completion: @escaping DataSource.completionHandler)
-    {
+    static func fetchItems(_ completion: @escaping DataSource.completionHandler) {
         let db = Firestore.firestore()
         db.collection(kOccupancyEndpoint).getDocuments() { (querySnapshot, err) in
             if let err = err {
@@ -48,8 +49,6 @@ class OccupancyDataSource: DataSource {
                         let locationName = (document.documentID).lowercased().trimmingCharacters(in: .whitespaces)
                         if occupancyObjects[locationName] != nil {
                             occupancyObjects[locationName]!.occupancy = parseOccupancy(data: data)
-                            print(occupancyObjects[locationName]!.searchName)
-                            print(occupancyObjects[locationName]!.occupancy == nil)
                         }
                     }
                     completion([] as [Any])

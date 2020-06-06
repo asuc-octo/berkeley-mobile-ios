@@ -59,8 +59,13 @@ class DiningViewController: UIViewController, SearchDrawerViewDelegate {
         
         DataManager.shared.fetch(source: CafeDataSource.self) { cafeLocations in
             self.diningLocations.append(contentsOf: cafeLocations as? [DiningLocation] ?? [])
-            self.filterTableView.setData(data: self.diningLocations as! [DiningLocation])
+            self.filterTableView.setData(data: self.diningLocations)
             self.filterTableView.tableView.reloadData()
+            DataManager.shared.fetch(source: OccupancyDataSource.self) {_ in
+                DispatchQueue.main.async {
+                    self.filterTableView.tableView.reloadData()
+                }
+            }
         }
     }
 }
@@ -86,24 +91,22 @@ extension DiningViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.timeLabel.text = "\(distance) mi"
             }
             cell.recLabel.text = "Recommended"
-            switch indexPath.row % 3 {
-            case 0:
-                cell.capBadge.text = "High"
-            case 1:
-                cell.capBadge.text = "Medium"
-            default:
-                cell.capBadge.text = "Low"
-            }
             
-            switch cell.capBadge.text!.lowercased() {
-            case "high":
-                cell.capBadge.backgroundColor = Color.highCapacityTag
-            case "medium":
-                cell.capBadge.backgroundColor = Color.medCapacityTag
-            case "low":
-                cell.capBadge.backgroundColor = Color.lowCapacityTag
-            default:
-                cell.capBadge.backgroundColor = .clear
+            if let occ = diningHall.occupancy, let status = occ.getOccupancyStatus(date: Date()) {
+                cell.capBadge.isHidden = false
+                switch status {
+                case OccupancyStatus.high:
+                    cell.capBadge.text = "High"
+                    cell.capBadge.backgroundColor = Color.highCapacityTag
+                case OccupancyStatus.medium:
+                    cell.capBadge.text = "Medium"
+                    cell.capBadge.backgroundColor = Color.medCapacityTag
+                case OccupancyStatus.low:
+                    cell.capBadge.text = "Low"
+                    cell.capBadge.backgroundColor = Color.lowCapacityTag
+                }
+            } else {
+                cell.capBadge.isHidden = true
             }
             
             if diningHall.image == nil {

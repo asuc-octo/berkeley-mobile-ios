@@ -52,15 +52,21 @@ class DataManager {
     }
 
     func fetch(source: DataSource.Type, _ completion: @escaping DataSource.completionHandler) {
-        if let items = data[asKey(source)] {
-            DispatchQueue.main.async {
-                completion(items)
-            }
-        } else {
-            source.fetchItems { items in
-                self.data[self.asKey(source)] = items
+        // make sure that all data sources are only fetched form Firebase once
+        let dispatch = source.fetchDispatch
+        dispatch.notify(queue: .global(qos: .utility)) {
+            if let items = self.data[self.asKey(source)] {
                 DispatchQueue.main.async {
                     completion(items)
+                }
+            } else {
+                dispatch.enter()
+                source.fetchItems { items in
+                    self.data[self.asKey(source)] = items
+                    DispatchQueue.main.async {
+                        dispatch.leave()
+                        completion(items)
+                    }
                 }
             }
         }

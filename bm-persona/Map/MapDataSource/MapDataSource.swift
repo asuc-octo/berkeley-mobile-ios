@@ -12,6 +12,8 @@ import MapKit
 
 class MapDataSource: DataSource {
     
+    static var fetchDispatch: DispatchGroup = DispatchGroup()
+    
     // Calls the completion handler once markers of all types have finished parsing
     static func fetchItems(_ completion: @escaping DataSource.completionHandler) {
         let markers = AtomicDictionary<String, [MapMarker]>()

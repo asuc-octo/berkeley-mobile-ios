@@ -267,9 +267,21 @@ extension DiningDetailViewController {
         chairImage.heightAnchor.constraint(equalToConstant: 25).isActive = true
         chairImage.contentMode = .scaleAspectFit
         
-        //TODO: use actual capacity
-        capBadge.text = "High"
-        capBadge.backgroundColor = Color.highCapacityTag
+        if let occ = diningHall.occupancy, let status = occ.getOccupancyStatus(date: Date()) {
+            switch status {
+            case OccupancyStatus.high:
+                capBadge.text = "High"
+                capBadge.backgroundColor = Color.highCapacityTag
+            case OccupancyStatus.medium:
+                capBadge.text = "Medium"
+                capBadge.backgroundColor = Color.medCapacityTag
+            case OccupancyStatus.low:
+                capBadge.text = "Low"
+                capBadge.backgroundColor = Color.lowCapacityTag
+            }
+        } else {
+            capBadge.isHidden = true
+        }
         capBadge.leftAnchor.constraint(equalTo: chairImage.rightAnchor, constant: 5).isActive = true
         capBadge.centerYAnchor.constraint(equalTo: clockIcon.centerYAnchor).isActive = true
         capBadge.widthAnchor.constraint(equalToConstant: 50).isActive = true

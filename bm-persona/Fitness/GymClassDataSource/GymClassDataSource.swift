@@ -13,6 +13,8 @@ fileprivate let kGymClassesEndpoint = "Gym Classes"
 
 class GymClassDataSource: DataSource {
     
+    static var fetchDispatch: DispatchGroup = DispatchGroup()
+    
     // Fetch the list of gyms and report back to the completionHandler.
     static func fetchItems(_ completion: @escaping DataSource.completionHandler) {
         let now = Date()
