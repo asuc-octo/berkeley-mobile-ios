@@ -187,8 +187,6 @@ class DiningDetailViewController: SearchDrawerViewController {
 extension DiningDetailViewController {
     
     func setUpOverviewCard() {
-        view.layoutMargins = kCardPadding
-        
         view.addSubview(card)
         card.topAnchor.constraint(equalTo: barView.bottomAnchor, constant: kViewMargin).isActive = true
         card.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true

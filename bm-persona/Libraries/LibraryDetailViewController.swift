@@ -30,7 +30,6 @@ class LibraryDetailViewController: SearchDrawerViewController {
         //location stuff
         locationManager.delegate = self
         
-        view.layoutMargins = UIEdgeInsets(top: kViewMargin, left: kViewMargin, bottom: kViewMargin, right: kViewMargin)
         setUpScrollView()
         setUpOverviewCard()
         setUpHoursCard()
