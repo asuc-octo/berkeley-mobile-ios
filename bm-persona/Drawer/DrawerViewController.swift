@@ -19,12 +19,16 @@ class DrawerViewController: UIViewController {
     var prevState: DrawerState!
     var barView: UIView = UIView()
     
+    static var bottomOffsetY: CGFloat = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         // default to collapsed initial position
         currState = .collapsed
         prevState = .collapsed
+        
+        view.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: DrawerViewController.bottomOffsetY + 20, right: 16)
         
         setupBackgroundView()
         setupGestures()

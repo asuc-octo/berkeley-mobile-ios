@@ -45,10 +45,13 @@ class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
         drawerStatePositions[.collapsed] = self.view.frame.maxY * 1.5 - offset
         drawerStatePositions[.middle] = self.view.frame.midY * 1.1 + (self.view.frame.maxY / 2)
         drawerStatePositions[.full] = self.view.safeAreaInsets.top + (self.view.frame.maxY / 2)
-        (drawerViewController as! MainDrawerViewController).heightOffset = self.view.safeAreaInsets.top
-        self.view.layoutSubviews()
         self.initialDrawerCenter = drawerViewController!.view.center
         moveDrawer(to: drawerViewController!.currState, duration: 0)
+    }
+    
+    override func viewSafeAreaInsetsDidChange() {
+        (drawerViewController as! MainDrawerViewController).bottomOffset = self.view.safeAreaInsets.top
+        DrawerViewController.bottomOffsetY = self.view.safeAreaInsets.top
     }
 
 }

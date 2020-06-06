@@ -59,7 +59,7 @@ class DiningViewController: UIViewController, SearchDrawerViewDelegate {
         
         DataManager.shared.fetch(source: CafeDataSource.self) { cafeLocations in
             self.diningLocations.append(contentsOf: cafeLocations as? [DiningLocation] ?? [])
-            self.filterTableView.setData(data: self.diningLocations as! [DiningLocation])
+            self.filterTableView.setData(data: self.diningLocations)
             self.filterTableView.tableView.reloadData()
         }
     }
