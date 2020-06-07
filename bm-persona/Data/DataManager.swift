@@ -16,7 +16,8 @@ fileprivate let kDataSources: [DataSource.Type] = [
     DiningHallDataSource.self,
     GymDataSource.self,
     GymClassDataSource.self,
-    CalendarDataSource.self
+    CalendarDataSource.self,
+    CafeDataSource.self
 ]
 
 class DataManager {

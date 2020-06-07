@@ -27,6 +27,7 @@ class Library: SearchItem, HasLocation, HasOpenTimes {
     }
     
     var image: UIImage?
+    var icon: UIImage?
     
     static func displayName(pluralized: Bool) -> String {
         return "Librar" + (pluralized ? "ies" : "y")
@@ -58,6 +59,7 @@ class Library: SearchItem, HasLocation, HasOpenTimes {
         
         self.name = name
         self.imageURL = URL(string: imageLink ?? "")
+        self.icon = UIImage(named: "Book")
     }
 
 }

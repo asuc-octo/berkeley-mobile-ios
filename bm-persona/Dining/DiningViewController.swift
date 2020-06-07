@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class DiningViewController: UIViewController {
+class DiningViewController: UIViewController, SearchDrawerViewDelegate {
     
     private var filterTableView: FilterTableView = FilterTableView<DiningLocation>(frame: .zero, filters: [])
     private var diningLocations: [DiningLocation] = []
@@ -19,6 +19,13 @@ class DiningViewController: UIViewController {
     
     private var locationManager = CLLocationManager()
     private var location: CLLocation?
+    
+    // DrawerViewDelegate properties
+    var drawerViewController: DrawerViewController?
+    var initialDrawerCenter = CGPoint()
+    var drawerStatePositions: [DrawerState : CGFloat] = [:]
+    // SearchDrawerViewDelegate property
+    var mainContainer: MainContainerViewController?
     
     let diningImage:UIImageView = {
         let img = UIImageView()
@@ -45,14 +52,14 @@ class DiningViewController: UIViewController {
         filterTableView.setSortFunc(newSortFunc: {dh1, dh2 in SortingFunctions.sortClose(loc1: dh1, loc2: dh2, location: self.location, locationManager: self.locationManager)})
         
         DataManager.shared.fetch(source: DiningHallDataSource.self) { diningLocations in
-            self.diningLocations = diningLocations as? [DiningLocation] ?? []
-            self.filterTableView.setData(data: diningLocations as! [DiningLocation])
+            self.diningLocations.append(contentsOf: diningLocations as? [DiningLocation] ?? [])
+            self.filterTableView.setData(data: self.diningLocations)
             self.filterTableView.tableView.reloadData()
         }
         
         DataManager.shared.fetch(source: CafeDataSource.self) { cafeLocations in
             self.diningLocations.append(contentsOf: cafeLocations as? [DiningLocation] ?? [])
-            self.filterTableView.setData(data: self.diningLocations as! [DiningLocation])
+            self.filterTableView.setData(data: self.diningLocations)
             self.filterTableView.tableView.reloadData()
         }
     }
@@ -128,9 +135,7 @@ extension DiningViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = DiningDetailViewController()
-        vc.diningHall = self.filterTableView.filteredData[indexPath.row]
-        self.present(vc, animated: true, completion: nil)
+        presentDetail(type: DiningLocation.self, item: self.filterTableView.filteredData[indexPath.row], containingVC: mainContainer!, position: .full)
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
@@ -188,4 +193,14 @@ extension DiningViewController {
         self.filterTableView.tableView.delegate = self
     }
     
+}
+
+extension DiningViewController {
+    func handlePanGesture(gesture: UIPanGestureRecognizer) {
+        let state = handlePan(gesture: gesture)
+        // get rid of the top detail drawer if user sends it to bottom of screen
+        if state == .hidden {
+            mainContainer?.dismissTop()
+        }
+    }
 }
