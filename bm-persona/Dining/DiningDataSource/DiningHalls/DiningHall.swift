@@ -12,6 +12,6 @@ import UIKit
     `DiningHall` represents a single physical dining hall.
 */
 class DiningHall: DiningLocation {
-
+    
     
 }

@@ -13,7 +13,7 @@ class Gym: SearchItem, HasLocation, HasOpenTimes {
     
     static var nearbyDistance: Double = 10
     static var invalidDistance: Double = 100
-    
+    var icon: UIImage?
     
     var searchName: String {
         return name
@@ -57,6 +57,7 @@ class Gym: SearchItem, HasLocation, HasOpenTimes {
         
         self.name = name
         self.imageURL = URL(string: imageLink ?? "")
+        self.icon = UIImage(named: "Walk")
     }
 
 }

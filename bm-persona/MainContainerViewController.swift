@@ -8,126 +8,56 @@
 
 import UIKit
 
-protocol DrawerViewDelegate {
-    func handlePanGesture(gesture: UIPanGestureRecognizer)
-    func searchInitiated()
-}
-
-protocol DrawerContainer {
-    func moveDrawer(to state: DrawerState, duration: Double);
-}
-
-class MainContainerViewController: UIViewController {
-    let mapViewController = MapViewController()
-    let drawerViewController = DrawerViewController()
+class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
     
+    let mapViewController = MapViewController()
+    
+    // MainDrawerViewDelegate properties
+    var drawerStack: [DrawerViewDelegate] = []
+    var positions: [DrawerState?] = []
+    var mainDrawerPosition: DrawerState?
+    
+    // DrawerViewDelegate properties
+    var drawerViewController: DrawerViewController?
     var initialDrawerCenter = CGPoint()
     var drawerStatePositions: [DrawerState: CGFloat] = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let drawerVC = MainDrawerViewController(container: self)
+        drawerViewController = drawerVC
         add(child: mapViewController)
-        add(child: drawerViewController)
-        drawerViewController.delegate = self
+        add(child: drawerVC)
+        drawerVC.delegate = self
         mapViewController.view.frame = self.view.frame
-        mapViewController.drawerContainer = self
-        drawerViewController.view.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            drawerViewController.view.heightAnchor.constraint(equalTo: self.view.heightAnchor),
-            drawerViewController.view.widthAnchor.constraint(equalTo: self.view.widthAnchor),
-            drawerViewController.view.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            drawerViewController.view.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: self.view.frame.maxY * 0.9)
-        ])
+        mapViewController.mainContainer = self
+         // set the size of the main drawer to be equal to the size of the containing view
+        drawerVC.view.frame = self.view.frame
+        // necessary to move the center of the drawer later on
+        drawerVC.view.translatesAutoresizingMaskIntoConstraints = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
         drawerStatePositions[.hidden] = self.view.frame.maxY + (self.view.frame.maxY / 2)
-        drawerStatePositions[.collapsed] = self.view.frame.maxY * 0.9 + (self.view.frame.maxY / 2)
+        // set the collapsed position to show the tab bar control at the top
+        let tabBarVC = (drawerViewController as! MainDrawerViewController).tabBarViewController
+        let offset = tabBarVC.control.frame.maxY + tabBarVC.view.frame.minY + 5
+        drawerStatePositions[.collapsed] = self.view.frame.maxY * 1.5 - offset
         drawerStatePositions[.middle] = self.view.frame.midY * 1.1 + (self.view.frame.maxY / 2)
         drawerStatePositions[.full] = self.view.safeAreaInsets.top + (self.view.frame.maxY / 2)
-        drawerViewController.heightOffset = self.view.safeAreaInsets.top
-        self.initialDrawerCenter = drawerViewController.view.center
-        moveDrawer(to: drawerViewController.state, duration: 0)
+        self.initialDrawerCenter = drawerViewController!.view.center
+        moveDrawer(to: drawerViewController!.currState, duration: 0)
+    }
+    
+    override func viewSafeAreaInsetsDidChange() {
+        (drawerViewController as! MainDrawerViewController).bottomOffset = self.view.safeAreaInsets.top
+        DrawerViewController.bottomOffsetY = self.view.safeAreaInsets.top
     }
 
 }
 
-extension MainContainerViewController: DrawerContainer {
-    
-    func moveDrawer(to state: DrawerState, duration: Double) {
-        UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
-            self.drawerViewController.view.center = CGPoint(x: self.initialDrawerCenter.x, y: self.drawerStatePositions[state]!)
-        }, completion: { success in
-            if success {
-                self.drawerViewController.state = state
-            }
-        })
-    }
-    
-}
-
-extension MainContainerViewController: DrawerViewDelegate {
+extension MainContainerViewController {
     func handlePanGesture(gesture: UIPanGestureRecognizer) {
-        if gesture.state == .began {
-            self.initialDrawerCenter = drawerViewController.view.center
-        }
-        
-        let translation = gesture.translation(in: self.view)
-        let velocity = gesture.velocity(in: self.view).y
-        var newCenter = CGPoint(x: self.initialDrawerCenter.x, y: self.initialDrawerCenter.y + translation.y)
-        
-        if newCenter.y < self.view.center.y {
-            newCenter = self.view.center
-        }
-        
-        if gesture.state == .ended {
-            let drawerState = computeDrawerPosition(from: newCenter.y, with: velocity)
-            let pixelDiff = abs(newCenter.y - drawerStatePositions[drawerState]!)
-            var animationTime = pixelDiff / abs(velocity)
-            
-            if pixelDiff / animationTime < 300 {
-                animationTime = pixelDiff / 300
-            } else if pixelDiff / animationTime > 700 {
-                animationTime = pixelDiff / 700
-            }
-            
-            moveDrawer(to: drawerState, duration: Double(animationTime))
-            
-        } else {
-            self.drawerViewController.view.center = newCenter
-        }
-        
-        
-    }
-    
-    func searchInitiated() {
-        moveDrawer(to: .full, duration: 0.5)
-    }
-    
-    private func computeDrawerPosition(from yPosition: CGFloat, with yVelocity: CGFloat) -> DrawerState {
-        guard let collapsedPos = drawerStatePositions[DrawerState.collapsed], let middlePos = drawerStatePositions[DrawerState.middle], let fullPos = drawerStatePositions[DrawerState.full] else { return .collapsed }
-        
-        let betweenBottom = (collapsedPos + middlePos) / 2
-        let betweenTop = (middlePos + fullPos) / 2
-        
-        if yPosition > betweenBottom {
-            if yVelocity < -800 {
-                return .middle
-            } else {
-                return .collapsed
-            }
-        } else if yPosition > betweenTop {
-            if yVelocity > 800 {
-                return .collapsed
-            } else if yVelocity < -800 {
-                return .full
-            } else {
-                return .middle
-            }
-        } else if yVelocity > 800 {
-            return .middle
-        } else {
-            return .full
-        }
+        handlePan(gesture: gesture)
     }
 }

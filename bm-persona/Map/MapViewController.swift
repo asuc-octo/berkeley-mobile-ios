@@ -11,17 +11,25 @@ import MapKit
 
 // MARK: - MapViewController
 
-class MapViewController: UIViewController {
+class MapViewController: UIViewController, SearchDrawerViewDelegate {
     
     static let kAnnotationIdentifier = "MapMarkerAnnotation"
     
-    open var drawerContainer: DrawerContainer?
+    // this allows the map to move the main drawer
+    open var mainContainer: MainContainerViewController?
     
     private var mapView: MKMapView!
     private var maskView: UIView!
     private var searchBar: SearchBarView!
     private var searchResultsView: SearchResultsView!
     private var locationManager = CLLocationManager()
+    
+    // DrawerViewDelegate properties
+    var drawerViewController: DrawerViewController?
+    var initialDrawerCenter = CGPoint()
+    var drawerStatePositions: [DrawerState : CGFloat] = [:]
+    
+    private var searchAnnotation: SearchAnnotation?
     
     private var filterView: FilterView!
     private var filters: [Filter<[MapMarker]>] = MapMarkerType.allCases.map { type in
@@ -39,7 +47,6 @@ class MapViewController: UIViewController {
         mapView = MKMapView()
         mapView.delegate = self
         mapView.register(MKAnnotationView.self, forAnnotationViewWithReuseIdentifier: MapViewController.kAnnotationIdentifier)
-        
         maskView = UIView()
         maskView.backgroundColor = Color.searchBarBackground
         
@@ -54,6 +61,7 @@ class MapViewController: UIViewController {
         )
         
         searchResultsView = SearchResultsView()
+        searchResultsView.delegate = self
         showSearchResultsView(false)
         
         markerDetail = MapMarkerDetailView()
@@ -118,10 +126,12 @@ class MapViewController: UIViewController {
         if show {
             self.maskView.isHidden = false
             self.searchResultsView.isHidden = false
+            mainContainer?.hideTop()
         } else {
             self.maskView.isHidden = true
             self.searchResultsView.isHidden = true
             self.searchResultsView.isScrolling = false
+            mainContainer?.showTop()
         }
     }
     
@@ -135,10 +145,22 @@ class MapViewController: UIViewController {
             filtered in
             DispatchQueue.main.async {
                 // TODO: Speed this up?
-                self.mapView.removeAnnotations(self.mapView.annotations)
+                // remove only map markers, not search annotations
+                self.removeAnnotations(type: MapMarker.self)
                 self.mapView.addAnnotations(Array(filtered.joined()))
             }
         })
+    }
+    
+    // remove all annotations on the map of one type
+    func removeAnnotations<T>(type: T.Type) {
+        var remove: [MKAnnotation] = []
+        for annotation in self.mapView.annotations {
+            if annotation.isKind(of: type as! AnyClass) {
+                remove.append(annotation)
+            }
+        }
+        self.mapView.removeAnnotations(remove)
     }
 
 }
@@ -167,19 +189,40 @@ extension MapViewController: MKMapViewDelegate {
             annotationView.annotation = marker
             annotationView.image = marker.type.icon()
             return annotationView
+        } else if let searchAnnotation = annotation as? SearchAnnotation,
+            // create new pin on map for searched item
+            let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier) as? MKMarkerAnnotationView {
+            annotationView.annotation = searchAnnotation
+            annotationView.glyphImage = searchAnnotation.icon()
+            annotationView.contentMode = .scaleToFill
+            annotationView.markerTintColor = searchAnnotation.color()
+            annotationView.glyphTintColor = .white
+            return annotationView
         }
         return MKAnnotationView()
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        markerDetail.marker = view.annotation as? MapMarker
-        drawerContainer?.moveDrawer(to: .hidden, duration: 0.2)
+        // if map marker is selected, hide the top drawer to show the marker detail
+        if let annotation = view.annotation as? MapMarker {
+            markerDetail.marker = annotation
+            mainContainer?.hideTop()
+        }
     }
     
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
-        markerDetail.marker = nil
-        drawerContainer?.moveDrawer(to: .collapsed, duration: 0.2)
+        if (view.annotation as? MapMarker) != nil {
+            markerDetail.marker = nil
+            // if a marker is deselected wait to see if another marker was selected
+            DispatchQueue.main.async {
+                // if no other marker was selected, show the top drawer
+                if self.markerDetail.marker == nil {
+                    self.mainContainer?.showTop()
+                }
+            }
+        }
     }
+    
 }
 
 // MARK: MapMarkerDetailViewDelegate
@@ -188,7 +231,9 @@ extension MapViewController: MapMarkerDetailViewDelegate {
     
     func didCloseMarkerDetailView(_ sender: MapMarkerDetailView) {
         mapView.selectedAnnotations.forEach { annotation in
-            mapView.deselectAnnotation(annotation, animated: true)
+            if annotation.isKind(of: MapMarker.self) {
+                mapView.deselectAnnotation(annotation, animated: true)
+            }
         }
     }
     
@@ -252,7 +297,7 @@ extension MapViewController: SearchBarDelegate {
 
             for item in filtered {
                 let cl = CLLocation(latitude: CLLocationDegrees(item.location.0), longitude: CLLocationDegrees(item.location.1))
-                let place = MapPlacemark(loc: cl, name: item.searchName, locName: item.locationName)
+                let place = MapPlacemark(loc: cl, name: item.searchName, locName: item.locationName, item: item)
                 
                 placemarks.append(place)
             }
@@ -265,5 +310,70 @@ extension MapViewController: SearchBarDelegate {
     }
 }
 
+extension MapViewController: SearchResultsViewDelegate {
+    
+    // drop new pin and show detail view on search
+    func choosePlacemark(_ placemark: MapPlacemark) {
+        let location = placemark.location
+        // remove last search pin
+        removeAnnotations(type: SearchAnnotation.self)
+        if location != nil && location?.coordinate.latitude != Double.nan && location?.coordinate.longitude != Double.nan {
+            let regionRadius: CLLocationDistance = 250
+            // center map on searched location
+            let coordinateRegion = MKCoordinateRegion(center: location!.coordinate,
+                                                      latitudinalMeters: regionRadius * 2.0, longitudinalMeters: regionRadius * 2.0)
+            mapView.setRegion(coordinateRegion, animated: true)
+            let item = placemark.item
+            if item != nil {
+                let annotation = SearchAnnotation(item: item!, location: location!.coordinate)
+                annotation.title = item!.searchName
+                searchAnnotation = annotation
+                // add and select marker for search item, remove resource view if any
+                mapView.addAnnotation(annotation)
+                mapView.selectAnnotation(annotation, animated: true)
+                if markerDetail.marker != nil {
+                    mapView.deselectAnnotation(markerDetail.marker, animated: true)
+                }
+                // if the new search item has a detail view: remove the old detail view, show the new one
+                if let hall = item as? DiningLocation {
+                    if drawerViewController != nil {
+                        mainContainer?.dismissTop(showNext: false)
+                    }
+                    presentDetail(type: DiningLocation.self, item: hall, containingVC: mainContainer!, position: .middle)
+                } else if let lib = item as? Library {
+                    if drawerViewController != nil {
+                        mainContainer?.dismissTop(showNext: false)
+                    }
+                    presentDetail(type: Library.self, item: lib, containingVC: mainContainer!, position: .middle)
+                } else {
+                    /* if the search item isn't a dining hall or library, don't show any detail view
+                     still dismiss any past detail views and show the drawer underneath */
+                    if drawerViewController != nil {
+                        mainContainer?.dismissTop()
+                    }
+                    return
+                }
+            }
+        }
+        DispatchQueue.main.async {
+            // clear text field
+            self.showSearchResultsView(false)
+            self.searchBar.textField.text = ""
+            self.searchBar.textFieldDidEndEditing(self.searchBar.textField)
+        }
+    }
+
+}
 
 
+extension MapViewController {
+    func handlePanGesture(gesture: UIPanGestureRecognizer) {
+        let state = handlePan(gesture: gesture)
+        // get rid of the top detail drawer and remove associated annotation if user sends the drawer to the bottom of the screen
+        if state == .hidden {
+            removeAnnotations(type: SearchAnnotation.self)
+            searchAnnotation = nil
+            mainContainer?.dismissTop()
+        }
+    }
+}

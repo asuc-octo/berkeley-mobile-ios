@@ -26,6 +26,10 @@ enum TableState {
     }
 }
 
+protocol SearchResultsViewDelegate {
+    func choosePlacemark(_ placemark: MapPlacemark)
+}
+
 // MARK: - SearchResultsView
 class SearchResultsView: UIView {
     
@@ -42,6 +46,8 @@ class SearchResultsView: UIView {
     
     public var rowHeight: CGFloat = 60.0
     public var isScrolling = false
+    
+    open var delegate: SearchResultsViewDelegate?
     
     var state = TableState.loading {
         didSet {
@@ -169,6 +175,9 @@ extension SearchResultsView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        if (delegate != nil) {
+            delegate!.choosePlacemark(state.placemarks[indexPath.row])
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

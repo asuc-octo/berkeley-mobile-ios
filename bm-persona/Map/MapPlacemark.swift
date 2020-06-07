@@ -14,6 +14,13 @@ class MapPlacemark {
     var location: CLLocation?
     var searchName: String?
     var locationName: String?
+    var item: SearchItem?
+    
+    // initializer with a search item (library, dining hall, etc.) so that detail view can show details
+    convenience init(loc: CLLocation, name: String?, locName: String?, item: SearchItem?) {
+        self.init(loc: loc, name: name, locName: locName)
+        self.item = item
+    }
     
     init(loc: CLLocation, name: String?, locName: String?) {
         location = loc
