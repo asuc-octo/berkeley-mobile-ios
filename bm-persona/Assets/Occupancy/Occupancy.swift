@@ -14,9 +14,12 @@ enum OccupancyStatus {
     case low
 }
 
+// Object containing occupancy data for a location based on day of week and hour of day.
 class Occupancy {
-
+    
+    // dictionary mapping day of week and hour of day to a percent occupancy
     var dailyOccupancy: [DayOfWeek: [Int: Int]]
+    // ranges for what percentage constitutes each status (high, medium, low)
     static let statusBounds: [OccupancyStatus: ClosedRange<Int>] = [OccupancyStatus.high: 70...100, OccupancyStatus.medium: 30...69, OccupancyStatus.low: 0...29]
     //nice
     
@@ -24,6 +27,7 @@ class Occupancy {
         self.dailyOccupancy = dailyOccupancy
     }
     
+    // get a percent occupancy based on a date object (current day and time)
     func getOccupancyPercent(date: Date) -> Int? {
         let day = DayOfWeek.weekday(date)
         let hour = Calendar.current.component(.hour, from: date)
@@ -33,6 +37,7 @@ class Occupancy {
         return nil
     }
     
+    // get a status (high, medium, low) based on a date object
     func getOccupancyStatus(date: Date) -> OccupancyStatus? {
         let percent = getOccupancyPercent(date: date)
         if percent == nil {

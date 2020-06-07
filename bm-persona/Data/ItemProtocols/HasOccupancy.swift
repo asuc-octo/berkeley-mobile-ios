@@ -8,24 +8,17 @@
 
 import Foundation
 
+// protocol for objects that have occupancy data
 protocol HasOccupancy {
     var occupancy: Occupancy? { get set }
 }
 
 extension HasOccupancy {
     func getOccupancyPercent(date: Date) -> Int? {
-        if occupancy != nil {
-            return occupancy!.getOccupancyPercent(date: date)
-        } else {
-            return nil
-        }
+        return occupancy!.getOccupancyPercent(date: date)
     }
     
     func getOccupancyStatus(date: Date) -> OccupancyStatus? {
-        if occupancy != nil {
-            return occupancy!.getOccupancyStatus(date: date)
-        } else {
-            return nil
-        }
+        return occupancy!.getOccupancyStatus(date: date)
     }
 }

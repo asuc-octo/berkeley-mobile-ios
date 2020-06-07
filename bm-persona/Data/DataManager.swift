@@ -42,6 +42,8 @@ class DataManager {
     }
     
     func fetchAll() {
+        // make sure to fetch occupancy data last after fetching all other data sources
+        // this is to ensure library, gym, dining hall objects have already been created
         let requests = DispatchGroup()
         for source in kDataSources {
             requests.enter()
@@ -54,13 +56,16 @@ class DataManager {
 
     func fetch(source: DataSource.Type, _ completion: @escaping DataSource.completionHandler) {
         // make sure that all data sources are only fetched form Firebase once
+        // this also prevents issues with having two objects for the same library overriding each other
         let dispatch = source.fetchDispatch
         dispatch.notify(queue: .global(qos: .utility)) {
+            // if data source already loaded, use existing item
             if let items = self.data[self.asKey(source)] {
                 DispatchQueue.main.async {
                     completion(items)
                 }
             } else {
+                // if this is the first time fetching for this source, pause all other fetches and get data from Firebase
                 dispatch.enter()
                 source.fetchItems { items in
                     self.data[self.asKey(source)] = items

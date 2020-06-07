@@ -51,10 +51,16 @@ class DiningViewController: UIViewController, SearchDrawerViewDelegate {
         
         filterTableView.setSortFunc(newSortFunc: {dh1, dh2 in SortingFunctions.sortClose(loc1: dh1, loc2: dh2, location: self.location, locationManager: self.locationManager)})
         
+        // fetch dining hall and cafe data, make sure occupancy data has been fetched after each one is complete
         DataManager.shared.fetch(source: DiningHallDataSource.self) { diningLocations in
             self.diningLocations.append(contentsOf: diningLocations as? [DiningLocation] ?? [])
             self.filterTableView.setData(data: self.diningLocations)
             self.filterTableView.tableView.reloadData()
+            DataManager.shared.fetch(source: OccupancyDataSource.self) {_ in
+                DispatchQueue.main.async {
+                    self.filterTableView.tableView.reloadData()
+                }
+            }
         }
         
         DataManager.shared.fetch(source: CafeDataSource.self) { cafeLocations in

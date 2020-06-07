@@ -80,7 +80,7 @@ class FitnessViewController: UIViewController, CLLocationManagerDelegate {
             self.classesCollection.reloadData()
         }
         
-        // Fetch Gyms
+        // fetch gyms and fetch occupancy data afterwards
         DataManager.shared.fetch(source: GymDataSource.self) { gyms in
             self.gyms = gyms as? [Gym] ?? []
             self.filterTableView.setData(data: gyms as! [Gym])
