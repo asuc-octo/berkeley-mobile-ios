@@ -45,8 +45,8 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
         filterTableView.setSortFunc(newSortFunc: {lib1, lib2 in SortingFunctions.sortClose(loc1: lib1, loc2: lib2, location: self.location, locationManager: self.locationManager)})
       
         DataManager.shared.fetch(source: LibraryDataSource.self) { libraries in
-//            self.libraries = libraries as? [Library] ?? []
-//            self.filterTableView.setData(data: libraries as! [Library])
+            self.libraries = libraries as? [Library] ?? []
+            self.filterTableView.setData(data: libraries as! [Library])
             self.filterTableView.tableView.reloadData()
         }
     }
