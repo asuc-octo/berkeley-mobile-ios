@@ -98,7 +98,7 @@ extension DiningViewController: UITableViewDelegate, UITableViewDataSource {
             }
             cell.recLabel.text = "Recommended"
             
-            if let occ = diningHall.occupancy, let status = occ.getOccupancyStatus(date: Date()) {
+            if let status = diningHall.getOccupancyStatus(date: Date()) {
                 cell.capBadge.isHidden = false
                 switch status {
                 case OccupancyStatus.high:
