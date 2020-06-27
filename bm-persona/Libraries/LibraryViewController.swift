@@ -151,7 +151,7 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
             }
             cell.recLabel.text = "Recommended"
             
-            if let occ = lib.occupancy, let status = occ.getOccupancyStatus(date: Date()) {
+            if let status = lib.getOccupancyStatus(date: Date()) {
                 cell.capBadge.isHidden = false
                 switch status {
                 case OccupancyStatus.high:

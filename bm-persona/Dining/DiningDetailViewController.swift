@@ -265,7 +265,7 @@ extension DiningDetailViewController {
         chairImage.heightAnchor.constraint(equalToConstant: 25).isActive = true
         chairImage.contentMode = .scaleAspectFit
         
-        if let occ = diningHall.occupancy, let status = occ.getOccupancyStatus(date: Date()) {
+        if let status = diningHall.getOccupancyStatus(date: Date()) {
             switch status {
             case OccupancyStatus.high:
                 capBadge.text = "High"

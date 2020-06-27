@@ -39,7 +39,7 @@ extension GymsController: UITableViewDataSource {
             }
             cell.recLabel.text = "Recommended"
             
-            if let occ = gym.occupancy, let status = occ.getOccupancyStatus(date: Date()) {
+            if let status = gym.getOccupancyStatus(date: Date()) {
                 cell.capBadge.isHidden = false
                 switch status {
                 case OccupancyStatus.high:

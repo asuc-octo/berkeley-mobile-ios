@@ -15,10 +15,10 @@ protocol HasOccupancy {
 
 extension HasOccupancy {
     func getOccupancyPercent(date: Date) -> Int? {
-        return occupancy!.getOccupancyPercent(date: date)
+        return occupancy?.getOccupancyPercent(date: date)
     }
     
     func getOccupancyStatus(date: Date) -> OccupancyStatus? {
-        return occupancy!.getOccupancyStatus(date: date)
+        return occupancy?.getOccupancyStatus(date: date)
     }
 }
