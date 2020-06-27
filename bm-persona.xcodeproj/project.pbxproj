@@ -53,6 +53,10 @@
 		13EA64CD2399CEDA00FD8E13 /* Gym.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13EA64CC2399CEDA00FD8E13 /* Gym.swift */; };
 		13EA64D02399D50C00FD8E13 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13EA64CF2399D50C00FD8E13 /* DataManager.swift */; };
 		29061D41241C450E002BC9D9 /* HasLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29061D40241C450E002BC9D9 /* HasLocation.swift */; };
+		29345E2724A7E76300859A88 /* OverviewCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29345E2624A7E76300859A88 /* OverviewCardView.swift */; };
+		29345E2924A7E7AC00859A88 /* HasPhoneNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29345E2824A7E7AC00859A88 /* HasPhoneNumber.swift */; };
+		29345E2B24A7EC2B00859A88 /* HasImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29345E2A24A7EC2B00859A88 /* HasImage.swift */; };
+		29345E2D24A7FFB600859A88 /* CanFavorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29345E2C24A7FFB600859A88 /* CanFavorite.swift */; };
 		2954F592245CD4B600DA66DA /* MainDrawerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2954F591245CD4B600DA66DA /* MainDrawerViewDelegate.swift */; };
 		296F1B272439341300924C8D /* DiningDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296F1B262439341300924C8D /* DiningDetailViewController.swift */; };
 		2975D5402459301B00514B43 /* SearchDrawerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2975D53F2459301B00514B43 /* SearchDrawerViewDelegate.swift */; };
@@ -159,6 +163,10 @@
 		13EA64CC2399CEDA00FD8E13 /* Gym.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gym.swift; sourceTree = "<group>"; };
 		13EA64CF2399D50C00FD8E13 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		29061D40241C450E002BC9D9 /* HasLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasLocation.swift; sourceTree = "<group>"; };
+		29345E2624A7E76300859A88 /* OverviewCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewCardView.swift; sourceTree = "<group>"; };
+		29345E2824A7E7AC00859A88 /* HasPhoneNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasPhoneNumber.swift; sourceTree = "<group>"; };
+		29345E2A24A7EC2B00859A88 /* HasImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasImage.swift; sourceTree = "<group>"; };
+		29345E2C24A7FFB600859A88 /* CanFavorite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanFavorite.swift; sourceTree = "<group>"; };
 		2954F591245CD4B600DA66DA /* MainDrawerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainDrawerViewDelegate.swift; sourceTree = "<group>"; };
 		296F1B262439341300924C8D /* DiningDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiningDetailViewController.swift; sourceTree = "<group>"; };
 		2975D53F2459301B00514B43 /* SearchDrawerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDrawerViewDelegate.swift; sourceTree = "<group>"; };
@@ -356,6 +364,7 @@
 				13B39AB123E777AC0039FBA2 /* FilterView */,
 				1396012E23865E2E005E4788 /* CollectionView */,
 				1396013123865E2E005E4788 /* CardView.swift */,
+				29345E2624A7E76300859A88 /* OverviewCardView.swift */,
 				1396013223865E2E005E4788 /* TagView.swift */,
 				554CB99F23F3A83F00BB1715 /* EventTableViewCell.swift */,
 				55C6936A240E143500400B60 /* ResourceTableViewCell.swift */,
@@ -407,6 +416,9 @@
 			children = (
 				13EA64C92399CE5B00FD8E13 /* SearchItem.swift */,
 				29061D40241C450E002BC9D9 /* HasLocation.swift */,
+				29345E2C24A7FFB600859A88 /* CanFavorite.swift */,
+				29345E2824A7E7AC00859A88 /* HasPhoneNumber.swift */,
+				29345E2A24A7EC2B00859A88 /* HasImage.swift */,
 				29AB5BBE241D8766007C3ECA /* HasOpenTimes.swift */,
 				299ACFB3244A5F90000F3E86 /* HasOccupancy.swift */,
 			);
@@ -783,6 +795,7 @@
 				306A54FE236142B800D59A7F /* DrawerViewController.swift in Sources */,
 				13B39A8B23E682850039FBA2 /* Date+Extension.swift in Sources */,
 				135D7F75243A9AB3003F8BD1 /* GymClassType.swift in Sources */,
+				29345E2924A7E7AC00859A88 /* HasPhoneNumber.swift in Sources */,
 				130FA59E243B1243005DC752 /* DiningRestriction.swift in Sources */,
 				556CCD2D23E79EC100F41BF9 /* TabBarController.swift in Sources */,
 				13B39A8D23E689BC0039FBA2 /* DataSource.swift in Sources */,
@@ -800,6 +813,7 @@
 				55DCF79423723452001B01B8 /* SearchBarView.swift in Sources */,
 				133864AC2404E858001F9048 /* CalendarViewController.swift in Sources */,
 				1346B9172420AA4500383399 /* DayOfWeek.swift in Sources */,
+				29345E2D24A7FFB600859A88 /* CanFavorite.swift in Sources */,
 				1396013623865E2E005E4788 /* TagView.swift in Sources */,
 				5532B67B2390CBF600293BE0 /* MaterialLoadingIndicator.swift in Sources */,
 				13E25DFD238C949E00B670B5 /* FitnessViewController.swift in Sources */,
@@ -813,6 +827,7 @@
 				303F6AE4236A931D007E37DD /* TabBarViewController.swift in Sources */,
 				559A7B6F2373DF39004EA501 /* SearchResultCell.swift in Sources */,
 				299ACFB0244A58CD000F3E86 /* OccupancyDataSource.swift in Sources */,
+				29345E2B24A7EC2B00859A88 /* HasImage.swift in Sources */,
 				13135BB3241244370056B169 /* FilterViewCell.swift in Sources */,
 				13580AF62437D7E700D309AA /* LibraryDetailViewController.swift in Sources */,
 				135D7F77243A9BD1003F8BD1 /* Colors+GymClass.swift in Sources */,
@@ -837,6 +852,7 @@
 				1396013323865E2E005E4788 /* CardCollectionView.swift in Sources */,
 				13B39A9A23E6A33C0039FBA2 /* LibraryDataSource.swift in Sources */,
 				306A54EC23613E3A00D59A7F /* SceneDelegate.swift in Sources */,
+				29345E2724A7E76300859A88 /* OverviewCardView.swift in Sources */,
 				55AF442D2453ACE600F13232 /* DiningLocation.swift in Sources */,
 				1336A329241DA56100949F32 /* DiningHallDataSource.swift in Sources */,
 				136DC97B2398B4D1009B1810 /* UIViewController+Extensions.swift in Sources */,
