@@ -55,7 +55,7 @@ class LibraryDetailViewController: SearchDrawerViewController {
 
 extension LibraryDetailViewController {
     func setUpOverviewCard() {
-        overviewCard = OverviewCardView(item: library, userLocation: locationManager.location)
+        overviewCard = OverviewCardView(item: library, excludedElements: [.openTimes, .occupancy], userLocation: locationManager.location)
         view.addSubview(overviewCard)
         overviewCard.topAnchor.constraint(equalTo: barView.bottomAnchor, constant: kViewMargin).isActive = true
         overviewCard.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true

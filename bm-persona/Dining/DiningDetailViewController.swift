@@ -49,7 +49,7 @@ class DiningDetailViewController: SearchDrawerViewController {
 
 extension DiningDetailViewController {
     func setUpOverviewCard() {
-        overviewCard = OverviewCardView(item: diningHall, excludedElements: [.address, .distance, .openTimes, .phone], userLocation: location)
+        overviewCard = OverviewCardView(item: diningHall, userLocation: location)
         view.addSubview(overviewCard)
         overviewCard.topAnchor.constraint(equalTo: barView.bottomAnchor, constant: kViewMargin).isActive = true
         overviewCard.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true

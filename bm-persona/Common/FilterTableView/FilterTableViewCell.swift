@@ -68,6 +68,7 @@ class FilterTableViewCell: UITableViewCell {
         distanceOccupancyStack.leftAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
     }
     
+    // sets the contents of the cell based on an item passed in, the user's current location, and a closure to call if there is no image available
     func updateContents(item: SearchItem, location: CLLocation?, imageUpdate: () -> Void) {
         nameLabel.text = item.searchName
         distanceOccupancyStack.removeAllArrangedSubviews()
@@ -143,6 +144,8 @@ class FilterTableViewCell: UITableViewCell {
         stack.axis = .horizontal
         stack.alignment = .center
         stack.distribution = .equalSpacing
+        // arbitrary number that's large enough so that the left view is on the left edge and the right view is on the right edge
+        // didn't set distribution to be .fill because that would stretch out the occupancy badge if only occupancy is available
         stack.spacing = 30
         return stack
     }()

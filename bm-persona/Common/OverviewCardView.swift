@@ -12,6 +12,7 @@ import MapKit
 fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
 fileprivate let kViewMargin: CGFloat = 16
 
+// all the possible elements on the card, used to exclude certain elements even if they are available
 enum OverviewElements {
     case address
     case phone
@@ -24,8 +25,10 @@ enum OverviewElements {
 class OverviewCardView: CardView {
     var item: SearchItem!
     var userLocation: CLLocation?
+    // tracks if the distance information is added to prevent adding multiple times when user location updates
     var distanceViewAdded = false
     var addressView: UIView?
+    // elements to exclude from the card even if they are available
     var excludedElements: [OverviewElements] = []
     
     public init(item: SearchItem, excludedElements: [OverviewElements] = [], userLocation: CLLocation? = nil) {
@@ -77,6 +80,7 @@ class OverviewCardView: CardView {
         }
     }
     
+    // for each element on the card, checks if item conforms to associated protocol, has non-nil value for the element, and is not excluded before adding
     func setUpOptionalElements() {
         // TODO: Make SearchItem's address optional and check here before adding
         if !excludedElements.contains(.address) {
@@ -98,6 +102,7 @@ class OverviewCardView: CardView {
 
         updateDistanceDisplay()
 
+        // if the row stack has any elements add it to the vertical stack, otherwise don't add it to prevent spacing issues
         if secondRowHorizontalStack.arrangedSubviews.count > 0 {
             leftVerticalStack.addArrangedSubview(secondRowHorizontalStack)
             secondRowHorizontalStack.leftAnchor.constraint(equalTo: leftVerticalStack.leftAnchor).isActive = true
@@ -152,6 +157,7 @@ class OverviewCardView: CardView {
             openTimesStack.rightAnchor.constraint(lessThanOrEqualTo: leftVerticalStack.rightAnchor).isActive = true
         }
         
+        // add the vertical stack to the card if it contains any elements
         if leftVerticalStack.arrangedSubviews.count > 0 {
             self.addSubview(leftVerticalStack)
             leftVerticalStack.leftAnchor.constraint(equalTo: self.layoutMarginsGuide.leftAnchor).isActive = true
@@ -188,6 +194,7 @@ class OverviewCardView: CardView {
             belowImageHorizontalStack.addArrangedSubview(faveButton)
         }
 
+        // add the stack below the image if it contains any elements. otherwise, the image will stretch down to the bottom of the card
         if belowImageHorizontalStack.arrangedSubviews.count > 0 {
             self.addSubview(belowImageHorizontalStack)
             belowImageHorizontalStack.leftAnchor.constraint(greaterThanOrEqualTo: imageView.leftAnchor).isActive = true
@@ -209,6 +216,7 @@ class OverviewCardView: CardView {
             if !distanceViewAdded, dist < type(of: itemWithLocation).invalidDistance {
                 secondRowHorizontalStack.addArrangedSubview(UIView.iconPairView(icon: distIcon, iconHeight: 16, attachedView: distLabel))
                 distanceViewAdded = true
+                // if the row stack wasn't originally added (no phone and distance initially), add it under the address view or at the top if address view isn't added
                 if !leftVerticalStack.arrangedSubviews.contains(secondRowHorizontalStack) {
                     if let addressView = self.addressView, let index = leftVerticalStack.arrangedSubviews.firstIndex(of: addressView) {
                         leftVerticalStack.insertArrangedSubview(secondRowHorizontalStack, at: index + 1)
