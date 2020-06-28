@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class DiningLocation: HasOpenTimes, SearchItem, HasLocation, HasOccupancy {
+class DiningLocation: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasImage, HasOpenTimes, HasOccupancy {
     var icon: UIImage?
     
     static var nearbyDistance: Double = 10
@@ -25,7 +25,7 @@ class DiningLocation: HasOpenTimes, SearchItem, HasLocation, HasOccupancy {
     }
     
     var locationName: String {
-        return "Berkeley, CA"
+        return campusLocation ?? "Berkeley, CA"
     }
     
     var description: String {

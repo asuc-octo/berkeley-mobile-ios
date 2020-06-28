@@ -25,6 +25,7 @@ class OverviewCardView: CardView {
     var item: SearchItem!
     var userLocation: CLLocation?
     var distanceViewAdded = false
+    var addressView: UIView?
     var excludedElements: [OverviewElements] = []
     
     public init(item: SearchItem, excludedElements: [OverviewElements] = [], userLocation: CLLocation? = nil) {
@@ -81,33 +82,32 @@ class OverviewCardView: CardView {
         if !excludedElements.contains(.address) {
             let longAddress = item.locationName
             if let ind = longAddress.range(of: "Berkeley")?.upperBound {
-                let newAdress = longAddress[..<ind]
-                addressLabel.text = String(newAdress)
+                let newAddress = longAddress[..<ind]
+                addressLabel.text = String(newAddress)
             } else {
                 addressLabel.text = longAddress
             }
-            leftVerticalStack.addArrangedSubview(iconPairView(icon: addressIcon, iconSize: 16, attachedView: addressLabel))
+            addressView = iconPairView(icon: addressIcon, iconHeight: 16, attachedView: addressLabel)
+            leftVerticalStack.addArrangedSubview(addressView!)
         }
         
-        if !excludedElements.contains(.phone), let itemWithPhone = item as? HasPhoneNumber, let phoneNumber = itemWithPhone.phoneNumber {
-            phoneLabel.text = phoneNumber
-            secondRowHorizontalStack.addArrangedSubview(iconPairView(icon: phoneIcon, iconSize: 16, attachedView: phoneLabel))
-        }
-        
+        //if !excludedElements.contains(.phone), let itemWithPhone = item as? HasPhoneNumber, let phoneNumber = itemWithPhone.phoneNumber {
+            phoneLabel.text = "650-650-6506" //phoneNumber
+            secondRowHorizontalStack.addArrangedSubview(iconPairView(icon: phoneIcon, iconHeight: 16, attachedView: phoneLabel))
+        //}
+
         updateDistanceDisplay()
-        
+
         if secondRowHorizontalStack.arrangedSubviews.count > 0 {
             leftVerticalStack.addArrangedSubview(secondRowHorizontalStack)
+            secondRowHorizontalStack.leftAnchor.constraint(equalTo: leftVerticalStack.leftAnchor).isActive = true
+            secondRowHorizontalStack.rightAnchor.constraint(equalTo: leftVerticalStack.rightAnchor).isActive = true
         }
-        
+
         let date = Date()
         if !excludedElements.contains(.openTimes), let itemWithOpenTimes = item as? HasOpenTimes, let intervals = itemWithOpenTimes.weeklyHours?.hoursForWeekday(DayOfWeek.weekday(date)) {
-            let openTimesStack = UIStackView()
-            openTimesStack.axis = .horizontal
-            openTimesStack.alignment = .center
-            openTimesStack.distribution = .fill
-            openTimesStack.addArrangedSubview(iconPairView(icon: clockIcon, iconSize: 16, attachedView: openTimeLabel))
-            
+            openTimesStack.addArrangedSubview(iconPairView(icon: clockIcon, iconHeight: 16, attachedView: openTimeLabel))
+
             let formatter = DateIntervalFormatter()
             formatter.dateStyle = .none
             formatter.timeStyle = .short
@@ -135,7 +135,7 @@ class OverviewCardView: CardView {
                 let end = Calendar.current.date(from: Calendar.current.dateComponents([.hour, .minute], from: nextOpenInterval!.end)) {
                 openTimeLabel.text = formatter.string(from: start, to: end)
             }
-            
+
             if let isOpen = itemWithOpenTimes.isOpen {
                 if isOpen {
                     openTag.text = "Open"
@@ -148,14 +148,33 @@ class OverviewCardView: CardView {
                 openTimesStack.addArrangedSubview(openTag)
             }
             leftVerticalStack.addArrangedSubview(openTimesStack)
+            openTimesStack.leftAnchor.constraint(equalTo: leftVerticalStack.leftAnchor).isActive = true
+            openTimesStack.rightAnchor.constraint(equalTo: leftVerticalStack.rightAnchor).isActive = true
         }
         
         if leftVerticalStack.arrangedSubviews.count > 0 {
             self.addSubview(leftVerticalStack)
             leftVerticalStack.leftAnchor.constraint(equalTo: self.layoutMarginsGuide.leftAnchor).isActive = true
             leftVerticalStack.rightAnchor.constraint(equalTo: imageView.leftAnchor, constant: -1 * kViewMargin).isActive = true
-            leftVerticalStack.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: kViewMargin).isActive = true
+            leftVerticalStack.topAnchor.constraint(greaterThanOrEqualTo: nameLabel.bottomAnchor, constant: kViewMargin).isActive = true
             leftVerticalStack.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -1 * kViewMargin).isActive = true
+        }
+
+        if !excludedElements.contains(.occupancy), let itemWithOccupancy = item as? HasOccupancy, let status = itemWithOccupancy.getOccupancyStatus(date: Date()) {
+            occupancyBadge.widthAnchor.constraint(equalToConstant: 50).isActive = true
+            let occupancyView = iconPairView(icon: chairImage, iconHeight: 16, iconWidth: 28, attachedView: occupancyBadge)
+            switch status {
+            case OccupancyStatus.high:
+                occupancyBadge.text = "High"
+                occupancyBadge.backgroundColor = Color.highCapacityTag
+            case OccupancyStatus.medium:
+                occupancyBadge.text = "Medium"
+                occupancyBadge.backgroundColor = Color.medCapacityTag
+            case OccupancyStatus.low:
+                occupancyBadge.text = "Low"
+                occupancyBadge.backgroundColor = Color.lowCapacityTag
+            }
+            belowImageHorizontalStack.addArrangedSubview(occupancyView)
         }
         
         if !excludedElements.contains(.favorite), let favoritableItem = item as? CanFavorite {
@@ -168,42 +187,30 @@ class OverviewCardView: CardView {
             faveButton.heightAnchor.constraint(equalToConstant: 25).isActive = true
             belowImageHorizontalStack.addArrangedSubview(faveButton)
         }
-        
-        if !excludedElements.contains(.occupancy), let itemWithOccupancy = item as? HasOccupancy, let status = itemWithOccupancy.getOccupancyStatus(date: Date()) {
-            occupancyBadge.widthAnchor.constraint(equalToConstant: 50).isActive = true
-            let occupancyView = iconPairView(icon: chairImage, iconSize: 25, attachedView: occupancyBadge)
-            switch status {
-            case OccupancyStatus.high:
-                occupancyBadge.text = "High"
-                occupancyBadge.backgroundColor = Color.highCapacityTag
-            case OccupancyStatus.medium:
-                occupancyBadge.text = "Medium"
-                occupancyBadge.backgroundColor = Color.medCapacityTag
-            case OccupancyStatus.low:
-                occupancyBadge.text = "Low"
-                occupancyBadge.backgroundColor = Color.lowCapacityTag
-            }
-            belowImageHorizontalStack.addSubview(occupancyView)
-        }
-        
+
         if belowImageHorizontalStack.arrangedSubviews.count > 0 {
             self.addSubview(belowImageHorizontalStack)
-            belowImageHorizontalStack.leftAnchor.constraint(equalTo: imageView.leftAnchor).isActive = true
-            belowImageHorizontalStack.rightAnchor.constraint(equalTo: imageView.leftAnchor).isActive = true
+            belowImageHorizontalStack.leftAnchor.constraint(greaterThanOrEqualTo: imageView.leftAnchor).isActive = true
+            belowImageHorizontalStack.rightAnchor.constraint(equalTo: imageView.rightAnchor).isActive = true
             belowImageHorizontalStack.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: kViewMargin).isActive = true
             belowImageHorizontalStack.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -1 * kViewMargin).isActive = true
         }
     }
     
-    private func iconPairView(icon: UIImageView, iconSize: CGFloat, attachedView: UILabel) -> UIView {
+    private func iconPairView(icon: UIImageView, iconHeight: CGFloat, iconWidth: CGFloat? = nil, attachedView: UILabel) -> UIView {
         let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(icon)
+        view.addSubview(attachedView)
         icon.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         icon.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        icon.widthAnchor.constraint(equalToConstant: iconSize).isActive = true
-        icon.heightAnchor.constraint(equalToConstant: iconSize).isActive = true
+        icon.widthAnchor.constraint(equalToConstant: iconWidth ?? iconHeight).isActive = true
+        icon.heightAnchor.constraint(equalToConstant: iconHeight).isActive = true
         attachedView.leftAnchor.constraint(equalTo: icon.rightAnchor, constant: 5).isActive = true
         attachedView.centerYAnchor.constraint(equalTo: icon.centerYAnchor).isActive = true
         attachedView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        view.heightAnchor.constraint(greaterThanOrEqualTo: icon.heightAnchor).isActive = true
+        view.heightAnchor.constraint(greaterThanOrEqualTo: attachedView.heightAnchor).isActive = true
         return view
     }
     
@@ -217,8 +224,15 @@ class OverviewCardView: CardView {
             let dist = itemWithLocation.getDistanceToUser(userLoc: userLocation)
             distLabel.text = String(dist) + " mi"
             if !distanceViewAdded, dist < type(of: itemWithLocation).invalidDistance {
-                secondRowHorizontalStack.addArrangedSubview(iconPairView(icon: distIcon, iconSize: 16, attachedView: distLabel))
+                secondRowHorizontalStack.addArrangedSubview(iconPairView(icon: distIcon, iconHeight: 16, attachedView: distLabel))
                 distanceViewAdded = true
+                if !leftVerticalStack.arrangedSubviews.contains(secondRowHorizontalStack) {
+                    if let addressView = self.addressView, let index = leftVerticalStack.arrangedSubviews.firstIndex(of: addressView) {
+                        leftVerticalStack.insertArrangedSubview(secondRowHorizontalStack, at: index + 1)
+                    } else {
+                        leftVerticalStack.insertArrangedSubview(secondRowHorizontalStack, at: 0)
+                    }
+                }
             }
         }
     }
@@ -226,6 +240,7 @@ class OverviewCardView: CardView {
     // MARK: - StackViews
     let leftVerticalStack: UIStackView = {
         let stack = UIStackView()
+        stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
         stack.alignment = .leading
         stack.distribution = .equalSpacing
@@ -235,6 +250,16 @@ class OverviewCardView: CardView {
     
     let secondRowHorizontalStack: UIStackView = {
         let stack = UIStackView()
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.axis = .horizontal
+        stack.alignment = .center
+        stack.distribution = .fill
+        return stack
+    }()
+    
+    let openTimesStack: UIStackView = {
+        let stack = UIStackView()
+        stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .horizontal
         stack.alignment = .center
         stack.distribution = .fill
@@ -243,11 +268,11 @@ class OverviewCardView: CardView {
     
     let belowImageHorizontalStack: UIStackView = {
         let stack = UIStackView()
+        stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .horizontal
-        stack.alignment = .center
+        stack.alignment = .bottom
         stack.distribution = .equalSpacing
         stack.spacing = kViewMargin
-        stack.semanticContentAttribute = .forceRightToLeft
         return stack
     }()
     
