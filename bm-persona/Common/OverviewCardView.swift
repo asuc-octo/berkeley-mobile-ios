@@ -405,6 +405,7 @@ class OverviewCardView: CardView {
 }
 
 extension UIView {
+    // returns a view containing an icon next to another view, used for overview card and table cells
     public static func iconPairView(icon: UIImageView, iconHeight: CGFloat, iconWidth: CGFloat? = nil, attachedView: UILabel) -> UIView {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
