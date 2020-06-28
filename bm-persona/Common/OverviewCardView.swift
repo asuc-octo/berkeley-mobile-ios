@@ -34,7 +34,7 @@ class OverviewCardView: CardView {
         self.layoutMargins = kCardPadding
         self.translatesAutoresizingMaskIntoConstraints = false
         self.item = item
-        self.excludedElements = []
+        self.excludedElements = excludedElements
         self.userLocation = userLocation
         
         setupStaticElements()
@@ -149,7 +149,7 @@ class OverviewCardView: CardView {
             }
             leftVerticalStack.addArrangedSubview(openTimesStack)
             openTimesStack.leftAnchor.constraint(equalTo: leftVerticalStack.leftAnchor).isActive = true
-            openTimesStack.rightAnchor.constraint(equalTo: leftVerticalStack.rightAnchor).isActive = true
+            openTimesStack.rightAnchor.constraint(lessThanOrEqualTo: leftVerticalStack.rightAnchor).isActive = true
         }
         
         if leftVerticalStack.arrangedSubviews.count > 0 {
@@ -253,7 +253,8 @@ class OverviewCardView: CardView {
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .horizontal
         stack.alignment = .center
-        stack.distribution = .fill
+        stack.distribution = .fillProportionally
+        stack.spacing = 5
         return stack
     }()
     
@@ -262,7 +263,8 @@ class OverviewCardView: CardView {
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .horizontal
         stack.alignment = .center
-        stack.distribution = .fill
+        stack.distribution = .equalSpacing
+        stack.spacing = kViewMargin
         return stack
     }()
     

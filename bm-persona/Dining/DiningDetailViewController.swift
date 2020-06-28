@@ -30,7 +30,10 @@ class DiningDetailViewController: SearchDrawerViewController {
         super.viewDidLoad()
         
         locationManager.delegate = self
-        overviewCard = OverviewCardView(item: diningHall, userLocation: location)
+        
+        let testExclude: [OverviewElements] = []
+        
+        overviewCard = OverviewCardView(item: diningHall, excludedElements: testExclude, userLocation: location)
         view.addSubview(overviewCard)
         overviewCard.topAnchor.constraint(equalTo: barView.bottomAnchor, constant: kViewMargin).isActive = true
         overviewCard.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
