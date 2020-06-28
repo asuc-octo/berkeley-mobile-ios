@@ -1,5 +1,5 @@
 //
-//  ResourceTableViewCell.swift
+//  FilterTableViewCell.swift
 //  bm-persona
 //
 //  Created by Anna Gao on 11/6/19.
@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 class FilterTableViewCell: UITableViewCell {
     
@@ -46,13 +47,9 @@ class FilterTableViewCell: UITableViewCell {
         contentView.addSubview(nameLabel)
         contentView.addSubview(cellImage)
         contentView.addSubview(recLabel)
-        contentView.addSubview(personImage)
-        contentView.addSubview(timeLabel)
-        contentView.addSubview(chairImage)
-        contentView.addSubview(capBadge)
-        contentView.layoutMargins = UIEdgeInsets(top: 5, left: 15, bottom: 5, right: -5)
+        contentView.addSubview(distanceOccupancyStack)
         
-        recLabel.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor, constant: 10).isActive = true
+        recLabel.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
         recLabel.leftAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
         
         nameLabel.heightAnchor.constraint(equalToConstant: 65).isActive = true
@@ -61,29 +58,51 @@ class FilterTableViewCell: UITableViewCell {
         nameLabel.rightAnchor.constraint(equalTo: cellImage.leftAnchor, constant: -10).isActive = true
         
         cellImage.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -5).isActive = true
-        cellImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5).isActive = true
+        cellImage.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
         cellImage.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor).isActive = true
-        cellImage.widthAnchor.constraint(equalToConstant: contentView.frame.height * 2.5).isActive = true
+        cellImage.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.35).isActive = true
         
-        personImage.topAnchor.constraint(equalTo: nameLabel.bottomAnchor).isActive = true
-        personImage.leftAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
-        personImage.widthAnchor.constraint(equalToConstant: 16).isActive = true
-        personImage.heightAnchor.constraint(equalToConstant: 16).isActive = true
-        personImage.contentMode = .scaleAspectFit
+        distanceOccupancyStack.rightAnchor.constraint(lessThanOrEqualTo: cellImage.leftAnchor, constant: -10).isActive = true
+        distanceOccupancyStack.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 5).isActive = true
+        distanceOccupancyStack.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor, constant: -5).isActive = true
+        distanceOccupancyStack.leftAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
+    }
+    
+    func updateContents(item: SearchItem, location: CLLocation?, imageUpdate: () -> Void) {
+        nameLabel.text = item.searchName
+        distanceOccupancyStack.removeAllArrangedSubviews()
+        if let itemWithLocation = item as? HasLocation, let userLocation = location {
+            let distance = itemWithLocation.getDistanceToUser(userLoc: userLocation)
+            if distance < type(of: itemWithLocation).invalidDistance {
+                distLabel.text = "\(distance) mi"
+                distanceOccupancyStack.addArrangedSubview(UIView.iconPairView(icon: distImage, iconHeight: 16, attachedView: distLabel))
+            }
+        }
+        self.recLabel.text = "Recommended"
         
-        capBadge.centerYAnchor.constraint(equalTo: personImage.centerYAnchor).isActive = true
-        capBadge.rightAnchor.constraint(equalTo: cellImage.leftAnchor, constant: -16).isActive = true
-        capBadge.widthAnchor.constraint(equalToConstant: 50).isActive = true
-
-        chairImage.centerYAnchor.constraint(equalTo: personImage.centerYAnchor).isActive = true
-        chairImage.rightAnchor.constraint(equalTo: capBadge.leftAnchor, constant: -7).isActive = true
-        chairImage.widthAnchor.constraint(equalToConstant: 25).isActive = true
-        chairImage.heightAnchor.constraint(equalToConstant: 25).isActive = true
-        chairImage.contentMode = .scaleAspectFit
-
-        timeLabel.centerYAnchor.constraint(equalTo: personImage.centerYAnchor).isActive = true
-        timeLabel.leftAnchor.constraint(equalTo: personImage.rightAnchor, constant: 5).isActive = true
-        timeLabel.rightAnchor.constraint(equalTo: chairImage.leftAnchor, constant: -5).isActive = true
+        if let itemWithOccupancy = item as? HasOccupancy, let status = itemWithOccupancy.getOccupancyStatus(date: Date()) {
+            switch status {
+            case OccupancyStatus.high:
+                occupancyBadge.text = "High"
+                occupancyBadge.backgroundColor = Color.highCapacityTag
+            case OccupancyStatus.medium:
+                occupancyBadge.text = "Medium"
+                occupancyBadge.backgroundColor = Color.medCapacityTag
+            case OccupancyStatus.low:
+                occupancyBadge.text = "Low"
+                occupancyBadge.backgroundColor = Color.lowCapacityTag
+            }
+            distanceOccupancyStack.addArrangedSubview(UIView.iconPairView(icon: chairImage, iconHeight: 16, iconWidth: 28, attachedView: occupancyBadge))
+        }
+        
+        cellImage.image = UIImage(named: "DoeGlade")
+        if let itemWithImage = item as? HasImage {
+            if let itemImage = itemWithImage.image {
+                cellImage.image = itemImage
+            } else {
+                imageUpdate()
+            }
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -94,7 +113,6 @@ class FilterTableViewCell: UITableViewCell {
         let label = UILabel()
         label.font = Font.bold(20)
         label.textColor = Color.blackText
-
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.5
@@ -108,7 +126,7 @@ class FilterTableViewCell: UITableViewCell {
         img.contentMode = .scaleAspectFill
         img.translatesAutoresizingMaskIntoConstraints = false
         img.clipsToBounds = true
-       return img
+        return img
     }()
     
     let recLabel:UILabel = {
@@ -118,17 +136,27 @@ class FilterTableViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-     
-    let personImage:UIImageView = {
+    
+    let distanceOccupancyStack: UIStackView = {
+        let stack = UIStackView()
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.axis = .horizontal
+        stack.alignment = .center
+        stack.distribution = .equalSpacing
+        stack.spacing = 30
+        return stack
+    }()
+    
+    let distImage:UIImageView = {
         let img = UIImageView()
         img.contentMode = .scaleAspectFit
         img.image = UIImage(named: "Walk")
         img.translatesAutoresizingMaskIntoConstraints = false
         img.clipsToBounds = true
         return img
-     }()
-     
-    let timeLabel:UILabel = {
+    }()
+    
+    let distLabel:UILabel = {
         let label = UILabel()
         label.adjustsFontSizeToFitWidth = true
         label.font = Font.light(12)
@@ -136,7 +164,7 @@ class FilterTableViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-     
+    
     let chairImage:UIImageView = {
         let img = UIImageView()
         img.contentMode = .scaleAspectFit
@@ -146,10 +174,10 @@ class FilterTableViewCell: UITableViewCell {
         return img
     }()
     
-    let capBadge:TagView = {
-        let cap = TagView(origin: .zero, text: "", color: .clear)
-        cap.translatesAutoresizingMaskIntoConstraints = false
-        return cap
+    let occupancyBadge:TagView = {
+        let occ = TagView(origin: .zero, text: "", color: .clear)
+        occ.translatesAutoresizingMaskIntoConstraints = false
+        return occ
     }()
     
     

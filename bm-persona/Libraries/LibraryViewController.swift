@@ -141,40 +141,9 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: FilterTableViewCell.kCellIdentifier, for: indexPath) as? FilterTableViewCell {
             let lib: Library = self.filterTableView.filteredData[indexPath.row]
-            cell.nameLabel.text = lib.name
-            var distance = Double.nan
-            if location != nil {
-                distance = lib.getDistanceToUser(userLoc: location!)
-            }
-            if !distance.isNaN && distance < Library.invalidDistance {
-                cell.timeLabel.text = "\(distance) mi"
-            }
-            cell.recLabel.text = "Recommended"
-            
-            if let status = lib.getOccupancyStatus(date: Date()) {
-                cell.capBadge.isHidden = false
-                switch status {
-                case OccupancyStatus.high:
-                    cell.capBadge.text = "High"
-                    cell.capBadge.backgroundColor = Color.highCapacityTag
-                case OccupancyStatus.medium:
-                    cell.capBadge.text = "Medium"
-                    cell.capBadge.backgroundColor = Color.medCapacityTag
-                case OccupancyStatus.low:
-                    cell.capBadge.text = "Low"
-                    cell.capBadge.backgroundColor = Color.lowCapacityTag
-                }
-            } else {
-                cell.capBadge.isHidden = true
-            }
-            
-            if lib.image == nil {
-                cell.cellImage.image = UIImage(named: "DoeGlade")
+            cell.updateContents(item: lib, location: location, imageUpdate: {
                 DispatchQueue.global().async {
-                    if lib.imageURL == nil {
-                        return
-                    }
-                    guard let imageData = try? Data(contentsOf: lib.imageURL!) else { return }
+                    guard let imageURL = lib.imageURL, let imageData = try? Data(contentsOf: imageURL) else { return }
                     let image = UIImage(data: imageData)
                     DispatchQueue.main.async {
                         lib.image = image
@@ -183,10 +152,7 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
                         }
                     }
                 }
-            } else {
-                cell.cellImage.image = lib.image!
-            }
-
+            })
             return cell
         }
         return UITableViewCell()

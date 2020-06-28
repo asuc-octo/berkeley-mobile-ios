@@ -88,40 +88,9 @@ extension DiningViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: FilterTableViewCell.kCellIdentifier, for: indexPath) as? FilterTableViewCell {
             let diningHall: DiningLocation = self.filterTableView.filteredData[indexPath.row]
-            cell.nameLabel.text = diningHall.name
-            var distance = Double.nan
-            if location != nil {
-                distance = diningHall.getDistanceToUser(userLoc: location!)
-            }
-            if !distance.isNaN && distance < DiningHall.invalidDistance {
-                cell.timeLabel.text = "\(distance) mi"
-            }
-            cell.recLabel.text = "Recommended"
-            
-            if let status = diningHall.getOccupancyStatus(date: Date()) {
-                cell.capBadge.isHidden = false
-                switch status {
-                case OccupancyStatus.high:
-                    cell.capBadge.text = "High"
-                    cell.capBadge.backgroundColor = Color.highCapacityTag
-                case OccupancyStatus.medium:
-                    cell.capBadge.text = "Medium"
-                    cell.capBadge.backgroundColor = Color.medCapacityTag
-                case OccupancyStatus.low:
-                    cell.capBadge.text = "Low"
-                    cell.capBadge.backgroundColor = Color.lowCapacityTag
-                }
-            } else {
-                cell.capBadge.isHidden = true
-            }
-            
-            if diningHall.image == nil {
-                cell.cellImage.image = UIImage(named: "DoeGlade")
+            cell.updateContents(item: diningHall, location: location, imageUpdate: {
                 DispatchQueue.global().async {
-                    if diningHall.imageURL == nil {
-                        return
-                    }
-                    guard let imageData = try? Data(contentsOf: diningHall.imageURL!) else { return }
+                    guard let imageURL = diningHall.imageURL, let imageData = try? Data(contentsOf: imageURL) else { return }
                     let image = UIImage(data: imageData)
                     DispatchQueue.main.async {
                         diningHall.image = image
@@ -130,10 +99,7 @@ extension DiningViewController: UITableViewDelegate, UITableViewDataSource {
                         }
                     }
                 }
-            } else {
-                cell.cellImage.image = diningHall.image!
-            }
-
+            })
             return cell
         }
         return UITableViewCell()

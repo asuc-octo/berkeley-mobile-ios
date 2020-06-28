@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class Library: SearchItem, HasLocation, HasOpenTimes, HasOccupancy {
+class Library: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasImage, HasOpenTimes, HasOccupancy {
     
     static var nearbyDistance: Double = 10
     static var invalidDistance: Double = 100

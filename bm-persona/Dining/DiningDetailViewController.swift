@@ -30,19 +30,9 @@ class DiningDetailViewController: SearchDrawerViewController {
         super.viewDidLoad()
         
         locationManager.delegate = self
-        
-        let testExclude: [OverviewElements] = []
-        
-        overviewCard = OverviewCardView(item: diningHall, excludedElements: testExclude, userLocation: location)
-        view.addSubview(overviewCard)
-        overviewCard.topAnchor.constraint(equalTo: barView.bottomAnchor, constant: kViewMargin).isActive = true
-        overviewCard.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
-        overviewCard.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
-        overviewCard.heightAnchor.constraint(equalToConstant: 200).isActive = true
-        view.layoutSubviews()
-        
-        setupMenuControl()
-        setupMenu()
+        setUpOverviewCard()
+        setUpMenuControl()
+        setUpMenu()
         view.layoutSubviews()
         
         if CLLocationManager.locationServicesEnabled() {
@@ -53,12 +43,22 @@ class DiningDetailViewController: SearchDrawerViewController {
     override func viewDidLayoutSubviews() {
         // set the bottom cutoff point for when drawer appears
         // the "middle" position for the view will show everything in the overview card
-        middleCutoffPosition = overviewCard.frame.maxY + 5
+        middleCutoffPosition = overviewCard.frame.maxY + 8
     }
 }
 
 extension DiningDetailViewController {
-    func setupMenuControl() {
+    func setUpOverviewCard() {
+        overviewCard = OverviewCardView(item: diningHall, excludedElements: [.address, .distance, .openTimes, .phone], userLocation: location)
+        view.addSubview(overviewCard)
+        overviewCard.topAnchor.constraint(equalTo: barView.bottomAnchor, constant: kViewMargin).isActive = true
+        overviewCard.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
+        overviewCard.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
+        overviewCard.heightAnchor.constraint(equalToConstant: 200).isActive = true
+        view.layoutSubviews()
+    }
+    
+    func setUpMenuControl() {
         meals = diningHall.meals
         if meals.count == 0 {
             return
@@ -85,7 +85,7 @@ extension DiningDetailViewController {
         control.index = 0
     }
     
-    func setupMenu() {
+    func setUpMenu() {
         var filters: [Filter<DiningItem>] = [Filter<DiningItem>]()
         //Add filters for some common restrictions
         filters.append(filterForRestriction(name: "Vegetarian", restriction: KnownRestriction.vegetarian, matches: true))
@@ -140,7 +140,6 @@ extension DiningDetailViewController {
 }
 
 extension DiningDetailViewController : CLLocationManagerDelegate {
-    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let userLocation : CLLocation = locations[0] as CLLocation
         DispatchQueue.main.async {
@@ -151,7 +150,6 @@ extension DiningDetailViewController : CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error)
     }
-    
 }
 
 extension DiningDetailViewController: TabBarControlDelegate {
