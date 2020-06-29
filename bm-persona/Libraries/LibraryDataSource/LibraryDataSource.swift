@@ -13,6 +13,8 @@ fileprivate let kLibrariesEndpoint = "Libraries"
 
 class LibraryDataSource: DataSource {
     
+    static var fetchDispatch: DispatchGroup = DispatchGroup()
+    
     typealias ResourceType = Library
     
     // Fetch the list of libraries and report back to the completionHandler.

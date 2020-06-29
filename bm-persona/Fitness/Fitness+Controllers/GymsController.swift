@@ -38,24 +38,22 @@ extension GymsController: UITableViewDataSource {
                 cell.timeLabel.text = "\(distance) mi"
             }
             cell.recLabel.text = "Recommended"
-            switch indexPath.row % 3 {
-            case 0:
-                cell.capBadge.text = "High"
-            case 1:
-                cell.capBadge.text = "Medium"
-            default:
-                cell.capBadge.text = "Low"
-            }
             
-            switch cell.capBadge.text!.lowercased() {
-            case "high":
-                cell.capBadge.backgroundColor = Color.highCapacityTag
-            case "medium":
-                cell.capBadge.backgroundColor = Color.medCapacityTag
-            case "low":
-                cell.capBadge.backgroundColor = Color.lowCapacityTag
-            default:
-                cell.capBadge.backgroundColor = .clear
+            if let status = gym.getOccupancyStatus(date: Date()) {
+                cell.capBadge.isHidden = false
+                switch status {
+                case OccupancyStatus.high:
+                    cell.capBadge.text = "High"
+                    cell.capBadge.backgroundColor = Color.highCapacityTag
+                case OccupancyStatus.medium:
+                    cell.capBadge.text = "Medium"
+                    cell.capBadge.backgroundColor = Color.medCapacityTag
+                case OccupancyStatus.low:
+                    cell.capBadge.text = "Low"
+                    cell.capBadge.backgroundColor = Color.lowCapacityTag
+                }
+            } else {
+                cell.capBadge.isHidden = true
             }
             
             if gym.image == nil {

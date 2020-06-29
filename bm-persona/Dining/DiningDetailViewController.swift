@@ -265,9 +265,21 @@ extension DiningDetailViewController {
         chairImage.heightAnchor.constraint(equalToConstant: 25).isActive = true
         chairImage.contentMode = .scaleAspectFit
         
-        //TODO: use actual capacity
-        capBadge.text = "High"
-        capBadge.backgroundColor = Color.highCapacityTag
+        if let status = diningHall.getOccupancyStatus(date: Date()) {
+            switch status {
+            case OccupancyStatus.high:
+                capBadge.text = "High"
+                capBadge.backgroundColor = Color.highCapacityTag
+            case OccupancyStatus.medium:
+                capBadge.text = "Medium"
+                capBadge.backgroundColor = Color.medCapacityTag
+            case OccupancyStatus.low:
+                capBadge.text = "Low"
+                capBadge.backgroundColor = Color.lowCapacityTag
+            }
+        } else {
+            capBadge.isHidden = true
+        }
         capBadge.leftAnchor.constraint(equalTo: chairImage.rightAnchor, constant: 5).isActive = true
         capBadge.centerYAnchor.constraint(equalTo: clockIcon.centerYAnchor).isActive = true
         capBadge.widthAnchor.constraint(equalToConstant: 50).isActive = true
@@ -298,7 +310,8 @@ extension DiningDetailViewController {
         diningImage.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
         diningImage.topAnchor.constraint(equalTo: card.topAnchor, constant: kViewMargin).isActive = true
         diningImage.bottomAnchor.constraint(equalTo: faveButton.topAnchor, constant: -1 * kViewMargin).isActive = true
-        diningImage.widthAnchor.constraint(equalTo: diningImage.heightAnchor, multiplier: 1.3).isActive = true
+        // constrain width of the image to be 40% of card width, to prevent image from taking up too much space on the card
+        diningImage.widthAnchor.constraint(equalTo: card.widthAnchor, multiplier: 0.4).isActive = true
         
         phoneIcon.bottomAnchor.constraint(equalTo: clockIcon.topAnchor, constant: -1 * kViewMargin).isActive = true
         phoneIcon.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
@@ -319,22 +332,7 @@ extension DiningDetailViewController {
         distIcon.widthAnchor.constraint(equalToConstant: 16).isActive = true
         distIcon.heightAnchor.constraint(equalToConstant: 16).isActive = true
         
-        /*Display location from user, or nothing if the user's location can't be
-         determined or if the user is too far away.*/
-        if location != nil {
-            let dist = self.diningHall.getDistanceToUser(userLoc: location)
-            if dist < DiningHall.invalidDistance {
-                self.distLabel.text = String(dist) + " mi"
-            } else {
-                self.distLabel.text = "     "
-                distIcon.isHidden = true
-                distLabel.isHidden = true
-            }
-        } else {
-            self.distLabel.text = "     "
-            distIcon.isHidden = true
-            distLabel.isHidden = true
-        }
+        setDistanceLabel()
         
         distLabel.centerYAnchor.constraint(equalTo: distIcon.centerYAnchor).isActive = true
         distLabel.rightAnchor.constraint(equalTo: diningImage.leftAnchor, constant: -1 * kViewMargin).isActive = true
@@ -448,6 +446,22 @@ extension DiningDetailViewController {
         }
     }
     
+    /* Set label to be distance from user, or hide the label if the user's location can't be
+    determined or if the user is too far away. */
+    func setDistanceLabel() {
+        if location != nil {
+            let dist = self.diningHall.getDistanceToUser(userLoc: location)
+            if dist < DiningHall.invalidDistance {
+                self.distLabel.text = String(dist) + " mi"
+                distIcon.isHidden = false
+                distLabel.isHidden = false
+                return
+            }
+        }
+        self.distLabel.text = ""
+        distIcon.isHidden = true
+        distLabel.isHidden = true
+    }
 }
 
 extension DiningDetailViewController {
@@ -470,10 +484,12 @@ extension DiningDetailViewController : CLLocationManagerDelegate {
         let userLocation : CLLocation = locations[0] as CLLocation
         DispatchQueue.main.async {
             if self.diningHall != nil {
-                let dist = self.diningHall.getDistanceToUser(userLoc: userLocation)
-                self.distLabel.text = String(dist) + " mi"
+                // update distance label if location updates
                 self.location = userLocation
+                self.setDistanceLabel()
             } else {
+                self.distLabel.isHidden = true
+                self.distIcon.isHidden = true
                 self.distLabel.text = ""
             }
         }

@@ -13,6 +13,8 @@ fileprivate let kGymsEndpoint = "Gyms"
 
 class GymDataSource: DataSource
 {
+    static var fetchDispatch: DispatchGroup = DispatchGroup()
+    
     // Fetch the list of gyms and report back to the completionHandler.
     static func fetchItems(_ completion: @escaping DataSource.completionHandler) {
         let db = Firestore.firestore()

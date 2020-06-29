@@ -51,16 +51,27 @@ class DiningViewController: UIViewController, SearchDrawerViewDelegate {
         
         filterTableView.setSortFunc(newSortFunc: {dh1, dh2 in SortingFunctions.sortClose(loc1: dh1, loc2: dh2, location: self.location, locationManager: self.locationManager)})
         
+        // fetch dining hall and cafe data, make sure occupancy data has been fetched after each one is complete
         DataManager.shared.fetch(source: DiningHallDataSource.self) { diningLocations in
             self.diningLocations.append(contentsOf: diningLocations as? [DiningLocation] ?? [])
             self.filterTableView.setData(data: self.diningLocations)
             self.filterTableView.tableView.reloadData()
+            DataManager.shared.fetch(source: OccupancyDataSource.self) {_ in
+                DispatchQueue.main.async {
+                    self.filterTableView.tableView.reloadData()
+                }
+            }
         }
         
         DataManager.shared.fetch(source: CafeDataSource.self) { cafeLocations in
             self.diningLocations.append(contentsOf: cafeLocations as? [DiningLocation] ?? [])
             self.filterTableView.setData(data: self.diningLocations)
             self.filterTableView.tableView.reloadData()
+            DataManager.shared.fetch(source: OccupancyDataSource.self) {_ in
+                DispatchQueue.main.async {
+                    self.filterTableView.tableView.reloadData()
+                }
+            }
         }
     }
 }
@@ -86,24 +97,22 @@ extension DiningViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.timeLabel.text = "\(distance) mi"
             }
             cell.recLabel.text = "Recommended"
-            switch indexPath.row % 3 {
-            case 0:
-                cell.capBadge.text = "High"
-            case 1:
-                cell.capBadge.text = "Medium"
-            default:
-                cell.capBadge.text = "Low"
-            }
             
-            switch cell.capBadge.text!.lowercased() {
-            case "high":
-                cell.capBadge.backgroundColor = Color.highCapacityTag
-            case "medium":
-                cell.capBadge.backgroundColor = Color.medCapacityTag
-            case "low":
-                cell.capBadge.backgroundColor = Color.lowCapacityTag
-            default:
-                cell.capBadge.backgroundColor = .clear
+            if let status = diningHall.getOccupancyStatus(date: Date()) {
+                cell.capBadge.isHidden = false
+                switch status {
+                case OccupancyStatus.high:
+                    cell.capBadge.text = "High"
+                    cell.capBadge.backgroundColor = Color.highCapacityTag
+                case OccupancyStatus.medium:
+                    cell.capBadge.text = "Medium"
+                    cell.capBadge.backgroundColor = Color.medCapacityTag
+                case OccupancyStatus.low:
+                    cell.capBadge.text = "Low"
+                    cell.capBadge.backgroundColor = Color.lowCapacityTag
+                }
+            } else {
+                cell.capBadge.isHidden = true
             }
             
             if diningHall.image == nil {

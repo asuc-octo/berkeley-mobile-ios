@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class DiningLocation: HasOpenTimes, SearchItem, HasLocation {
+class DiningLocation: HasOpenTimes, SearchItem, HasLocation, HasOccupancy {
     var icon: UIImage?
     
     static var nearbyDistance: Double = 10
@@ -39,6 +39,7 @@ class DiningLocation: HasOpenTimes, SearchItem, HasLocation {
     
     var meals: MealMap
     var weeklyHours: WeeklyHours?
+    var occupancy: Occupancy?
     var image: UIImage?
     
     var latitude: Double?

@@ -11,4 +11,6 @@ import Foundation
 protocol DataSource {
     typealias completionHandler = (_ resources: [Any]) -> Void
     static func fetchItems(_ completion: @escaping DataSource.completionHandler)
+    // dispatch group to ensure data sources only fetch from Firebase once
+    static var fetchDispatch: DispatchGroup { get set }
 }

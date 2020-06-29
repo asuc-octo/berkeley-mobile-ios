@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class Library: SearchItem, HasLocation, HasOpenTimes {
+class Library: SearchItem, HasLocation, HasOpenTimes, HasOccupancy {
     
     static var nearbyDistance: Double = 10
     static var invalidDistance: Double = 100
@@ -45,6 +45,7 @@ class Library: SearchItem, HasLocation, HasOpenTimes {
     let campusLocation: String?
     let phoneNumber: String?
     let weeklyHours: WeeklyHours?
+    var occupancy: Occupancy?
     var weeklyByAppointment:[Bool]
     var latitude: Double?
     var longitude: Double?
@@ -56,7 +57,6 @@ class Library: SearchItem, HasLocation, HasOpenTimes {
         self.weeklyByAppointment = weeklyByAppointment
         self.latitude = latitude
         self.longitude = longitude
-        
         self.name = name
         self.imageURL = URL(string: imageLink ?? "")
         self.icon = UIImage(named: "Book")

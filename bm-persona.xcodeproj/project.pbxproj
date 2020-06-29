@@ -58,6 +58,9 @@
 		2975D5402459301B00514B43 /* SearchDrawerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2975D53F2459301B00514B43 /* SearchDrawerViewDelegate.swift */; };
 		297678872426B7BA00FDD1EB /* SearchAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297678862426B7BA00FDD1EB /* SearchAnnotation.swift */; };
 		297678892426D2C500FDD1EB /* SearchDrawerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297678882426D2C500FDD1EB /* SearchDrawerViewController.swift */; };
+		299ACFB0244A58CD000F3E86 /* OccupancyDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299ACFAF244A58CD000F3E86 /* OccupancyDataSource.swift */; };
+		299ACFB2244A5A15000F3E86 /* Occupancy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299ACFB1244A5A15000F3E86 /* Occupancy.swift */; };
+		299ACFB4244A5F90000F3E86 /* HasOccupancy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299ACFB3244A5F90000F3E86 /* HasOccupancy.swift */; };
 		29AB5BBF241D8766007C3ECA /* HasOpenTimes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AB5BBE241D8766007C3ECA /* HasOpenTimes.swift */; };
 		29AB5BC5241D8CB4007C3ECA /* FilterTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AB5BC4241D8CB4007C3ECA /* FilterTableView.swift */; };
 		29B3A1742439A60A00093750 /* DiningMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B3A1732439A60A00093750 /* DiningMenuCell.swift */; };
@@ -160,6 +163,9 @@
 		2975D53F2459301B00514B43 /* SearchDrawerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDrawerViewDelegate.swift; sourceTree = "<group>"; };
 		297678862426B7BA00FDD1EB /* SearchAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAnnotation.swift; sourceTree = "<group>"; };
 		297678882426D2C500FDD1EB /* SearchDrawerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDrawerViewController.swift; sourceTree = "<group>"; };
+		299ACFAF244A58CD000F3E86 /* OccupancyDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OccupancyDataSource.swift; sourceTree = "<group>"; };
+		299ACFB1244A5A15000F3E86 /* Occupancy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Occupancy.swift; sourceTree = "<group>"; };
+		299ACFB3244A5F90000F3E86 /* HasOccupancy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasOccupancy.swift; sourceTree = "<group>"; };
 		29AB5BBE241D8766007C3ECA /* HasOpenTimes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasOpenTimes.swift; sourceTree = "<group>"; };
 		29AB5BC4241D8CB4007C3ECA /* FilterTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTableView.swift; sourceTree = "<group>"; };
 		29B3A1732439A60A00093750 /* DiningMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiningMenuCell.swift; sourceTree = "<group>"; };
@@ -399,6 +405,7 @@
 				13EA64C92399CE5B00FD8E13 /* SearchItem.swift */,
 				29061D40241C450E002BC9D9 /* HasLocation.swift */,
 				29AB5BBE241D8766007C3ECA /* HasOpenTimes.swift */,
+				299ACFB3244A5F90000F3E86 /* HasOccupancy.swift */,
 			);
 			path = ItemProtocols;
 			sourceTree = "<group>";
@@ -430,12 +437,22 @@
 		13EA64CE2399D4A100FD8E13 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				299ACFAE244A58A8000F3E86 /* Occupancy */,
 				13B8E95724256E4F00E7FCBF /* ItemProtocols */,
 				13EA64CF2399D50C00FD8E13 /* DataManager.swift */,
 				13B39A8C23E689BC0039FBA2 /* DataSource.swift */,
 				29EE163E241C4E310041482E /* SortingFunctions.swift */,
 			);
 			path = Data;
+			sourceTree = "<group>";
+		};
+		299ACFAE244A58A8000F3E86 /* Occupancy */ = {
+			isa = PBXGroup;
+			children = (
+				299ACFAF244A58CD000F3E86 /* OccupancyDataSource.swift */,
+				299ACFB1244A5A15000F3E86 /* Occupancy.swift */,
+			);
+			path = Occupancy;
 			sourceTree = "<group>";
 		};
 		29BED7BF241DF43B0049C022 /* FilterTableView */ = {
@@ -766,6 +783,7 @@
 				130FA59E243B1243005DC752 /* DiningRestriction.swift in Sources */,
 				556CCD2D23E79EC100F41BF9 /* TabBarController.swift in Sources */,
 				13B39A8D23E689BC0039FBA2 /* DataSource.swift in Sources */,
+				299ACFB2244A5A15000F3E86 /* Occupancy.swift in Sources */,
 				133864AD2404E858001F9048 /* CalendarDataSource.swift in Sources */,
 				13580AFC243934C800D309AA /* GymsController.swift in Sources */,
 				133864AE2404E858001F9048 /* CalendarEntry.swift in Sources */,
@@ -791,6 +809,7 @@
 				13B39A9923E6A33C0039FBA2 /* Library.swift in Sources */,
 				303F6AE4236A931D007E37DD /* TabBarViewController.swift in Sources */,
 				559A7B6F2373DF39004EA501 /* SearchResultCell.swift in Sources */,
+				299ACFB0244A58CD000F3E86 /* OccupancyDataSource.swift in Sources */,
 				13135BB3241244370056B169 /* FilterViewCell.swift in Sources */,
 				13580AF62437D7E700D309AA /* LibraryDetailViewController.swift in Sources */,
 				135D7F77243A9BD1003F8BD1 /* Colors+GymClass.swift in Sources */,
@@ -823,6 +842,7 @@
 				297678872426B7BA00FDD1EB /* SearchAnnotation.swift in Sources */,
 				13741B6C2400D866003D1EEB /* MapDataSource.swift in Sources */,
 				1336A320241D924300949F32 /* DiningItem.swift in Sources */,
+				299ACFB4244A5F90000F3E86 /* HasOccupancy.swift in Sources */,
 				559A7B6D2373DEFA004EA501 /* MaterialTableViewCell.swift in Sources */,
 				13EA64CD2399CEDA00FD8E13 /* Gym.swift in Sources */,
 				1396013523865E2E005E4788 /* CardView.swift in Sources */,
@@ -965,7 +985,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
 				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 4HBETBULVA;
 				INFOPLIST_FILE = "bm-persona/Info.plist";
@@ -987,7 +1006,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
 				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 4HBETBULVA;
 				INFOPLIST_FILE = "bm-persona/Info.plist";

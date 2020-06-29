@@ -12,6 +12,8 @@ fileprivate let kDiningHallEndpoint = "Dining Halls"
 
 class DiningHallDataSource: DataSource {
     
+    static var fetchDispatch: DispatchGroup = DispatchGroup()
+    
     // Returns the collection name for the given date. Must match the name on Firebase.
     private static func collectionForDate(_ date: Date) -> String {
         let dateFormatter = DateFormatter()
