@@ -83,8 +83,7 @@ class OverviewCardView: CardView {
     // for each element on the card, checks if item conforms to associated protocol, has non-nil value for the element, and is not excluded before adding
     func setUpOptionalElements() {
         // TODO: Make SearchItem's address optional and check here before adding
-        if !excludedElements.contains(.address) {
-            let longAddress = item.locationName
+        if !excludedElements.contains(.address), let itemWithLocation = item as? HasLocation, let longAddress = itemWithLocation.address {
             if let ind = longAddress.range(of: "Berkeley")?.upperBound {
                 let newAddress = longAddress[..<ind]
                 addressLabel.text = String(newAddress)

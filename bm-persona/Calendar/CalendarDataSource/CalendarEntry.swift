@@ -21,7 +21,7 @@ class CalendarEntry: SearchItem {
     }
     
     var locationName: String {
-        return campusLocation ?? "N/A"
+        return address ?? "N/A"
     }
     
     var description: String {
@@ -29,13 +29,13 @@ class CalendarEntry: SearchItem {
     }
     
     let name: String
-    let campusLocation: String?
+    let address: String?
     let date: Date?
     let eventType: String?
     
-    init(name: String, campusLocation: String, date: Date, eventType: String) {
+    init(name: String, address: String, date: Date, eventType: String) {
         self.name = name
-        self.campusLocation = campusLocation
+        self.address = address
         self.date = date
         self.eventType = eventType
     }

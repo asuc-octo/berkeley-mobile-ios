@@ -25,7 +25,7 @@ class DiningLocation: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasI
     }
     
     var locationName: String {
-        return campusLocation ?? "Berkeley, CA"
+        return address ?? "Berkeley, CA"
     }
     
     var description: String {
@@ -34,7 +34,7 @@ class DiningLocation: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasI
     
     let name: String
     let imageURL: URL?
-    let campusLocation: String?
+    let address: String?
     let phoneNumber: String?
     
     var meals: MealMap
@@ -45,9 +45,9 @@ class DiningLocation: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasI
     var latitude: Double?
     var longitude: Double?
     
-    init(name: String, campusLocation: String?, phoneNumber: String?, imageLink: String?, shifts: MealMap, hours: WeeklyHours?, latitude: Double?, longitude: Double?) {
+    init(name: String, address: String?, phoneNumber: String?, imageLink: String?, shifts: MealMap, hours: WeeklyHours?, latitude: Double?, longitude: Double?) {
         self.name = name
-        self.campusLocation = campusLocation
+        self.address = address
         self.phoneNumber = phoneNumber
         self.imageURL = URL(string: imageLink ?? "")
         self.meals = shifts

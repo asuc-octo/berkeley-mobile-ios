@@ -39,7 +39,7 @@ class LibraryDataSource: DataSource {
     private static func parseLibrary(_ dict: [String: Any]) -> Library {
         let weeklyHours = Library.parseWeeklyHours(dict: dict["open_close_array"] as? [[String: Any]])
         let library = Library(name: dict["name"] as? String ?? "Unnamed",
-                              campusLocation: dict["address"] as? String,
+                              address: dict["address"] as? String,
                               phoneNumber: dict["phone"] as? String,
                               weeklyHours: weeklyHours,
                               weeklyByAppointment: [],

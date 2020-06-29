@@ -23,7 +23,7 @@ class Library: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasImage, H
     }
     
     var locationName: String {
-        return campusLocation ?? "Berkeley, CA"
+        return address ?? "Berkeley, CA"
     }
     
     var image: UIImage?
@@ -42,7 +42,7 @@ class Library: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasImage, H
     
     var isFavorited: Bool = false
     
-    let campusLocation: String?
+    let address: String?
     let phoneNumber: String?
     let weeklyHours: WeeklyHours?
     var occupancy: Occupancy?
@@ -50,8 +50,8 @@ class Library: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasImage, H
     var latitude: Double?
     var longitude: Double?
     
-    init(name: String, campusLocation: String?, phoneNumber: String?, weeklyHours: WeeklyHours?, weeklyByAppointment:[Bool], imageLink: String?, latitude: Double?, longitude: Double?) {
-        self.campusLocation = campusLocation
+    init(name: String, address: String?, phoneNumber: String?, weeklyHours: WeeklyHours?, weeklyByAppointment:[Bool], imageLink: String?, latitude: Double?, longitude: Double?) {
+        self.address = address
         self.phoneNumber = phoneNumber
         self.weeklyHours = weeklyHours
         self.weeklyByAppointment = weeklyByAppointment
