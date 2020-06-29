@@ -48,7 +48,7 @@ class CafeDataSource: DataSource {
     private static func parseCafe(_ dict: [String: Any]) -> Cafe {
         let weeklyHours = Cafe.parseWeeklyHours(dict: dict["open_close_array"] as? [[String: Any]])
         let cafe = Cafe(name: dict["name"] as? String ?? "Unnamed",
-                        address: dict["address"] as? String,
+                                  address: dict["address"] as? String,
                                   phoneNumber: dict["phone"] as? String,
                                   imageLink: dict["picture"] as? String,
                                   shifts: MealMap(),
