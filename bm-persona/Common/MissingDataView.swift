@@ -22,13 +22,11 @@ class MissingDataView: UIView {
         label.text = "No items found"
         
         label.translatesAutoresizingMaskIntoConstraints = false
-        
-        label.center = self.center
-        
-        self.addSubview(label)
-        
+                        
         label.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         label.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        
+        self.addSubview(label)
         
         missingLabel = label
     }
