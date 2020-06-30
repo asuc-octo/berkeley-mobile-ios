@@ -101,23 +101,6 @@ class FilterTableView<T>: UIView {
     
 }
 
-extension FilterTableView {
-    func setupMissingView(parentView: UIView) {
-        let view = MissingDataView()
-        
-        view.isHidden = true
-        parentView.addSubview(view)
-        
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.topAnchor.constraint(equalTo: parentView.layoutMarginsGuide.topAnchor).isActive = true
-        view.leftAnchor.constraint(equalTo: parentView.layoutMarginsGuide.leftAnchor).isActive = true
-        view.rightAnchor.constraint(equalTo: parentView.layoutMarginsGuide.rightAnchor).isActive = true
-        view.bottomAnchor.constraint(equalTo: parentView.layoutMarginsGuide.bottomAnchor).isActive = true
-        
-        missingView = view
-    }
-}
-
 
 extension FilterTableView: FilterViewDelegate {
     
