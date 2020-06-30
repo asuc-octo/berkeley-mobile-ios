@@ -22,14 +22,28 @@ class MissingDataView: UIView {
         label.text = "No items found"
         
         label.translatesAutoresizingMaskIntoConstraints = false
-                        
+        
+        self.addSubview(label)
+
         label.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         label.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         
-        self.addSubview(label)
-        
         missingLabel = label
     }
+    
+    func setupMissingView(parentView: UIView) {
+        let view = MissingDataView()
+        
+        view.isHidden = false
+        parentView.addSubview(view)
+        
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.topAnchor.constraint(equalTo: parentView.layoutMarginsGuide.topAnchor).isActive = true
+        view.leftAnchor.constraint(equalTo: parentView.layoutMarginsGuide.leftAnchor).isActive = true
+        view.rightAnchor.constraint(equalTo: parentView.layoutMarginsGuide.rightAnchor).isActive = true
+        view.bottomAnchor.constraint(equalTo: parentView.layoutMarginsGuide.bottomAnchor).isActive = true
+    }
+    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

@@ -34,7 +34,6 @@ class CalendarViewController: UIViewController {
         setupScrollView()
         setupUpcoming()
         setupCalendarList()
-        setupMissingView()
         
         DataManager.shared.fetch(source: CalendarDataSource.self) { calendarEntries in
             self.calendarEntries = calendarEntries as? [CalendarEntry] ?? []
@@ -162,20 +161,9 @@ extension CalendarViewController {
 
         calendarCard = card
         calendarTable = table
-    }
-    
-    // Missing Content View
-    func setupMissingView() {
+        
         missingView = MissingDataView()
-        missingView.isHidden = true
-        
-        calendarCard.addSubview(missingView)
-        
-        missingView.translatesAutoresizingMaskIntoConstraints = false
-        missingView.topAnchor.constraint(equalTo: calendarCard.layoutMarginsGuide.topAnchor).isActive = true
-        missingView.leftAnchor.constraint(equalTo: calendarCard.layoutMarginsGuide.leftAnchor).isActive = true
-        missingView.rightAnchor.constraint(equalTo: calendarCard.layoutMarginsGuide.rightAnchor).isActive = true
-        missingView.bottomAnchor.constraint(equalTo: calendarCard.layoutMarginsGuide.bottomAnchor).isActive = true
+        missingView.setupMissingView(parentView: calendarCard)
     }
     
     func setupUpcoming() {
