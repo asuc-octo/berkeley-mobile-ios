@@ -37,9 +37,9 @@ class CalendarDataSource: DataSource {
     private static func parseCalendarResource(_ dict: [String: Any]) -> CalendarEntry {
         var date = Date(timeIntervalSince1970: dict["event_date"] as? Double ?? 0)
         
-#if DEBUG
-        date = Calendar.current.date(byAdding: .year, value: 1, to: date)!
-#endif
+//#if DEBUG
+//        date = Calendar.current.date(byAdding: .year, value: 1, to: date)!
+//#endif
         
         let entry = CalendarEntry(name: dict["event_name"] as? String ?? "Unnamed",
                                   campusLocation: "TBD",

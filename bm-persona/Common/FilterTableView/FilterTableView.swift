@@ -13,6 +13,8 @@ fileprivate let kViewMargin: CGFloat = 16
 class FilterTableView<T>: UIView {
     
     let tableView = UITableView(frame: .zero, style: .plain)
+    var missingView: MissingDataView!
+
     var filter: FilterView = FilterView(frame: .zero)
     var data: [T] = []
     var filteredData: [T] = []
@@ -49,7 +51,12 @@ class FilterTableView<T>: UIView {
     
     init(frame: CGRect, filters: [Filter<T>]) {
         super.init(frame: frame)
+        
+        missingView = MissingDataView()
+        missingView.setupMissingView(parentView: tableView)
+        
         self.filters = filters
+        self.update()
     }
     
     func setData(data: [T]) {
@@ -79,6 +86,13 @@ class FilterTableView<T>: UIView {
           filtered in
             self.filteredData = filtered
             self.sort()
+            
+            if (self.filteredData.count == 0) {
+                self.missingView.isHidden = false
+            } else {
+                self.missingView.isHidden = true
+            }
+            
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
@@ -86,6 +100,7 @@ class FilterTableView<T>: UIView {
     }
     
 }
+
 
 extension FilterTableView: FilterViewDelegate {
     
