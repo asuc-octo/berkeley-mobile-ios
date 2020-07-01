@@ -17,7 +17,7 @@ class DiningDetailViewController: SearchDrawerViewController {
     var diningHall: DiningLocation!
     var locationManager = CLLocationManager()
     var location: CLLocation?
-    var control: TabBarControl!
+    var control: TabBarControl?
     var meals: MealMap!
     var mealNames: [MealType]!
     var menuView: FilterTableView = FilterTableView<DiningItem>(frame: .zero, filters: [])
@@ -368,13 +368,12 @@ extension DiningDetailViewController {
     
     func setupMenuControl() {
         meals = diningHall.meals
-        if meals.count == 0 {
-            return
-        }
+        guard meals.count > 0 else { return }
         let size = CGSize(width: view.frame.width - view.layoutMargins.left - view.layoutMargins.right, height: 35)
         control = TabBarControl(frame: CGRect(origin: .zero, size: size),
                                 barHeight: CGFloat(13),
                                 barColor: UIColor(displayP3Red: 250/255.0, green: 212/255.0, blue: 126/255.0, alpha: 1.0))
+        guard let control = self.control else { return }
         control.delegate = self
         view.addSubview(control)
         control.translatesAutoresizingMaskIntoConstraints = false
@@ -394,6 +393,7 @@ extension DiningDetailViewController {
     }
     
     func setupMenu() {
+        guard let control = self.control else { return }
         var filters: [Filter<DiningItem>] = [Filter<DiningItem>]()
         //Add filters for some common restrictions
         filters.append(filterForRestriction(name: "Vegetarian", restriction: KnownRestriction.vegetarian, matches: true))
@@ -503,6 +503,7 @@ extension DiningDetailViewController : CLLocationManagerDelegate {
 
 extension DiningDetailViewController: TabBarControlDelegate {
     func tabBarControl(_ tabBarControl: TabBarControl, didChangeValue value: Int) {
+        guard let control = self.control else { return }
         control.index = value
         self.menuView.setData(data: meals[mealNames[control.index]]!)
         self.menuView.tableView.reloadData()
