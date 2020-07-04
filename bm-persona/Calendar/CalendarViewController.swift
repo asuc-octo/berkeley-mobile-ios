@@ -163,8 +163,7 @@ extension CalendarViewController {
         calendarCard = card
         calendarTable = table
         
-        missingView = MissingDataView()
-        missingView.setupMissingView(parentView: calendarCard)
+        missingView = MissingDataView(parentView: calendarCard)
     }
     
     func setupUpcoming() {

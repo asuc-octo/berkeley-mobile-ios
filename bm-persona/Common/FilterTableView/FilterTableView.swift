@@ -52,8 +52,7 @@ class FilterTableView<T>: UIView {
     init(frame: CGRect, filters: [Filter<T>]) {
         super.init(frame: frame)
         
-        missingView = MissingDataView()
-        missingView.setupMissingView(parentView: tableView)
+        missingView = MissingDataView(parentView: tableView)
         
         self.filters = filters
         self.update()
@@ -87,13 +86,12 @@ class FilterTableView<T>: UIView {
             self.filteredData = filtered
             self.sort()
             
-            if (self.filteredData.count == 0) {
-                self.missingView.isHidden = false
-            } else {
-                self.missingView.isHidden = true
-            }
-            
             DispatchQueue.main.async {
+                if (self.filteredData.count == 0) {
+                    self.missingView.isHidden = false
+                } else {
+                    self.missingView.isHidden = true
+                }
                 self.tableView.reloadData()
             }
         })
