@@ -40,7 +40,11 @@ class OpenTimesCardView: CollapsibleCardView {
         }
         
         if let nextOpenInterval = item.nextOpenInterval() {
-            rightView = timeSpanLabel(interval: nextOpenInterval, shouldBoldIfCurrent: false)
+            if nextOpenInterval.duration > 0 {
+                rightView = timeSpanLabel(interval: nextOpenInterval, shouldBoldIfCurrent: false)
+            } else {
+                rightView = closedLabel()
+            }
         }
         
         return leftRightView(leftView: leftView, rightView: rightView, centered: true) ?? UIView()
@@ -83,7 +87,12 @@ class OpenTimesCardView: CollapsibleCardView {
         view.spacing = 5
         
         for interval in intervals {
-            view.addArrangedSubview(timeSpanLabel(interval: interval))
+            if interval.duration > 0 {
+                view.addArrangedSubview(timeSpanLabel(interval: interval))
+            }
+        }
+        if view.arrangedSubviews.count == 0 {
+            view.addArrangedSubview(closedLabel(bold: DayOfWeek.weekday(Date()) == weekday))
         }
         return view
     }
@@ -96,6 +105,18 @@ class OpenTimesCardView: CollapsibleCardView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = formatter.string(from: interval.start, to: interval.end)
         if shouldBoldIfCurrent, let currInterval = item.nextOpenInterval(), interval == currInterval {
+            label.font = Font.bold(10)
+        } else {
+            label.font = Font.light(10)
+        }
+        return label
+    }
+    
+    private func closedLabel(bold: Bool = false) -> UILabel {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Closed"
+        if bold {
             label.font = Font.bold(10)
         } else {
             label.font = Font.light(10)
