@@ -45,7 +45,7 @@ extension HasOpenTimes {
         let today = DayOfWeek.weekday(now)
         let intervals = weeklyHours.hoursForWeekday(today)
         return intervals.contains { interval in
-            interval.contains(now) || interval.duration == 0
+            interval.contains(now)
         }
     }
     
@@ -59,7 +59,7 @@ extension HasOpenTimes {
             if interval.contains(date) {
                 nextOpenInterval = interval
                 break
-            } else if date.compare(interval.start) == .orderedAscending {
+            } else if date.compare(interval.start) == .orderedAscending && interval.duration > 0 {
                 if nextOpenInterval == nil {
                     nextOpenInterval = interval
                 } else if interval.compare(nextOpenInterval!) == .orderedAscending {

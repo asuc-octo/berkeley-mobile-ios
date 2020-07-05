@@ -40,11 +40,9 @@ class OpenTimesCardView: CollapsibleCardView {
         }
         
         if let nextOpenInterval = item.nextOpenInterval() {
-            if nextOpenInterval.duration > 0 {
-                rightView = timeSpanLabel(interval: nextOpenInterval, shouldBoldIfCurrent: false)
-            } else {
-                rightView = closedLabel()
-            }
+            rightView = timeSpanLabel(interval: nextOpenInterval, shouldBoldIfCurrent: false)
+        } else {
+            rightView = closedLabel()
         }
         
         return leftRightView(leftView: leftView, rightView: rightView, centered: true) ?? UIView()
