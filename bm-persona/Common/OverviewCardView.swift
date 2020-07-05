@@ -276,7 +276,7 @@ class OverviewCardView: CardView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.75
-        label.numberOfLines = 2
+        label.numberOfLines = 0
         return label
     }()
     
