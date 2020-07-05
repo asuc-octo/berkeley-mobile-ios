@@ -109,9 +109,8 @@ class OverviewCardView: CardView {
             secondRowHorizontalStack.leftAnchor.constraint(equalTo: leftVerticalStack.leftAnchor).isActive = true
             secondRowHorizontalStack.rightAnchor.constraint(equalTo: leftVerticalStack.rightAnchor).isActive = true
         }
-
-        let date = Date()
-        if !excludedElements.contains(.openTimes), let itemWithOpenTimes = item as? HasOpenTimes, let intervals = itemWithOpenTimes.weeklyHours?.hoursForWeekday(DayOfWeek.weekday(date)) {
+        
+        if !excludedElements.contains(.openTimes), let itemWithOpenTimes = item as? HasOpenTimes, let intervals = itemWithOpenTimes.weeklyHours?.hoursForWeekday(DayOfWeek.weekday(Date())) {
             openTimesStack.addArrangedSubview(UIView.iconPairView(icon: clockIcon, iconHeight: 16, attachedView: openTimeLabel))
 
             let formatter = DateIntervalFormatter()
@@ -121,19 +120,7 @@ class OverviewCardView: CardView {
              or next open interval. If there are no open times in the rest of the day,
              set label to "Closed Today".*/
             openTimeLabel.text = "Closed Today"
-            var nextOpenInterval: DateInterval? = nil
-            for interval in intervals {
-                if interval.contains(date) {
-                    nextOpenInterval = interval
-                    break
-                } else if date.compare(interval.start) == .orderedAscending {
-                    if nextOpenInterval == nil {
-                        nextOpenInterval = interval
-                    } else if interval.compare(nextOpenInterval!) == .orderedAscending {
-                        nextOpenInterval = interval
-                    }
-                }
-            }
+            let nextOpenInterval = itemWithOpenTimes.nextOpenInterval(intervals: intervals)
             /* Remove the date, and only include hour and minute in string display.
              Otherwise, string is too long when interval spans two days (e.g. 9pm-12:30am) */
             if nextOpenInterval != nil,
