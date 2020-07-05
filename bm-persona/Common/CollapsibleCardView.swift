@@ -88,6 +88,11 @@ class CollapsibleCardView: CardView {
     
     func toggleState() {
         setState(opened: !isOpen)
+        if isOpen {
+            chevronIcon.transform = chevronIcon.transform.rotated(by: -1 * .pi / 2)
+        } else {
+            chevronIcon.transform = chevronIcon.transform.rotated(by: .pi / 2)
+        }
     }
     
     func setState(opened: Bool) {
