@@ -16,7 +16,7 @@ class OpenTimesCardView: CollapsibleCardView {
     public init(item: HasOpenTimes, openedAction: (() -> Void)? = nil) {
         super.init()
         self.item = item
-        super.setContents(collapsedView: collapsedView(), openedView: openedView(), leftIcon: clockIcon)
+        super.setContents(collapsedView: collapsedView(), openedView: openedView(), openedAction: openedAction, leftIcon: clockIcon)
     }
     
     required init?(coder: NSCoder) {

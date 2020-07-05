@@ -64,7 +64,9 @@ extension LibraryDetailViewController {
     }
     
     func setUpOpenTimesCard() {
-        openTimesCard = OpenTimesCardView(item: library)
+        openTimesCard = OpenTimesCardView(item: library, openedAction: {
+            self.delegate.moveDrawer(to: .full, duration: 0.2)
+        })
         view.addSubview(openTimesCard)
         openTimesCard.topAnchor.constraint(equalTo: overviewCard.bottomAnchor, constant: kViewMargin).isActive = true
         openTimesCard.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
@@ -90,7 +92,6 @@ extension LibraryDetailViewController {
         bookButton.setTitle("Book a Study Room >", for: .normal)
         bookButton.titleLabel!.font = Font.semibold(14)
         bookButton.titleLabel!.textColor = .white
-        
     }
     
     func setUpScrollView() {

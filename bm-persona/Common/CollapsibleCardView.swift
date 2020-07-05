@@ -45,7 +45,7 @@ class CollapsibleCardView: CardView {
     
     @objc func viewTapped(_ sender: UITapGestureRecognizer) {
         toggleState()
-        if let openedAction = openedAction {
+        if isOpen, let openedAction = openedAction {
             openedAction()
         }
     }
