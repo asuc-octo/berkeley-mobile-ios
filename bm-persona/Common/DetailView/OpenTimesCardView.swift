@@ -75,7 +75,6 @@ class OpenTimesCardView: CollapsibleCardView {
     func hourSpanLabelStack(weekday: DayOfWeek) -> UIStackView? {
         guard let weeklyHours = item.weeklyHours else { return nil }
         let intervals = weeklyHours.hoursForWeekday(weekday)
-        guard intervals.count > 0 else { return nil }
         
         let view = UIStackView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -102,7 +101,7 @@ class OpenTimesCardView: CollapsibleCardView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = formatter.string(from: interval.start, to: interval.end)
-        if shouldBoldIfCurrent, let currInterval = item.nextOpenInterval(), interval == currInterval {
+        if shouldBoldIfCurrent, interval.contains(Date()) {
             label.font = Font.bold(10)
         } else {
             label.font = Font.light(10)

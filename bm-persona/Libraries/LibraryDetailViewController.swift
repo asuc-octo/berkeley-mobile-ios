@@ -34,7 +34,7 @@ class LibraryDetailViewController: SearchDrawerViewController {
         setUpOverviewCard()
         setUpOpenTimesCard()
         //setUpTrafficCard()
-        //setUpBookButton()
+        setUpBookButton()
         
         // in order to set the cutoff correctly
         view.layoutSubviews()
@@ -49,7 +49,7 @@ class LibraryDetailViewController: SearchDrawerViewController {
         /* Set the bottom cutoff point for when the drawer appears
         The "middle" position for the view will show everything in the overview card
         When collapsible open time card is added, change this to show that card as well. */
-        middleCutoffPosition = overviewCard.frame.maxY + 8
+        middleCutoffPosition = openTimesCard.frame.maxY + 8
     }
 }
 
@@ -83,7 +83,7 @@ extension LibraryDetailViewController {
         bookButton.layer.shadowColor = UIColor.black.cgColor
         bookButton.layer.shadowPath = UIBezierPath(rect: bookButton.layer.bounds.insetBy(dx: 4, dy: 4)).cgPath
         bookButton.translatesAutoresizingMaskIntoConstraints = false
-        bookButton.topAnchor.constraint(equalTo: openTimesCard.layoutMarginsGuide.bottomAnchor, constant: kViewMargin).isActive = true
+        bookButton.topAnchor.constraint(equalTo: openTimesCard.layoutMarginsGuide.bottomAnchor, constant: 2 * kViewMargin).isActive = true
         bookButton.leftAnchor.constraint(equalTo: scrollView.layoutMarginsGuide.leftAnchor).isActive = true
         bookButton.rightAnchor.constraint(equalTo: scrollView.layoutMarginsGuide.rightAnchor).isActive = true
         bookButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
