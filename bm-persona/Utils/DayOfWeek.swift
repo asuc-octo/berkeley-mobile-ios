@@ -26,4 +26,23 @@ enum DayOfWeek: Int, CaseIterable {
         return DayOfWeek(rawValue: (self.rawValue + num) % 7)!
     }
     
+    func stringRepresentation() -> String {
+        switch self {
+        case .sunday:
+            return "Sunday"
+        case .monday:
+            return "Monday"
+        case .tuesday:
+            return "Tuesday"
+        case .wednesday:
+            return "Wednesday"
+        case .thursday:
+            return "Thursday"
+        case .friday:
+            return "Friday"
+        case .saturday:
+            return "Saturday"
+        }
+    }
+    
 }

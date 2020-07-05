@@ -11,7 +11,8 @@ import Foundation
 protocol HasOpenTimes {
     
     var weeklyHours: WeeklyHours? { get }
-    func nextOpenInterval(intervals: DailyHoursType) -> DateInterval?
+    func nextOpenInterval() -> DateInterval?
+    
 }
 
 extension HasOpenTimes {
@@ -48,9 +49,12 @@ extension HasOpenTimes {
         }
     }
     
-    func nextOpenInterval(intervals: DailyHoursType) -> DateInterval? {
-        var nextOpenInterval: DateInterval?
+    // The current or next open interval for the day
+    func nextOpenInterval() -> DateInterval? {
+        guard let weeklyHours = self.weeklyHours else { return nil }
         let date = Date()
+        let intervals = weeklyHours.hoursForWeekday(DayOfWeek.weekday(date))
+        var nextOpenInterval: DateInterval?
         for interval in intervals {
             if interval.contains(date) {
                 nextOpenInterval = interval
@@ -65,5 +69,4 @@ extension HasOpenTimes {
         }
         return nextOpenInterval
     }
-    
 }

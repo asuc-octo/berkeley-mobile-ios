@@ -110,17 +110,17 @@ class OverviewCardView: CardView {
             secondRowHorizontalStack.rightAnchor.constraint(equalTo: leftVerticalStack.rightAnchor).isActive = true
         }
         
-        if !excludedElements.contains(.openTimes), let itemWithOpenTimes = item as? HasOpenTimes, let intervals = itemWithOpenTimes.weeklyHours?.hoursForWeekday(DayOfWeek.weekday(Date())) {
+        if !excludedElements.contains(.openTimes), let itemWithOpenTimes = item as? HasOpenTimes, itemWithOpenTimes.weeklyHours != nil {
             openTimesStack.addArrangedSubview(UIView.iconPairView(icon: clockIcon, iconHeight: 16, attachedView: openTimeLabel))
 
             let formatter = DateIntervalFormatter()
             formatter.dateStyle = .none
             formatter.timeStyle = .short
-            /*If dining hall has open hours for today, set the label to show the current
+            /* If dining hall has open hours for today, set the label to show the current
              or next open interval. If there are no open times in the rest of the day,
              set label to "Closed Today".*/
             openTimeLabel.text = "Closed Today"
-            let nextOpenInterval = itemWithOpenTimes.nextOpenInterval(intervals: intervals)
+            let nextOpenInterval = itemWithOpenTimes.nextOpenInterval()
             /* Remove the date, and only include hour and minute in string display.
              Otherwise, string is too long when interval spans two days (e.g. 9pm-12:30am) */
             if nextOpenInterval != nil,

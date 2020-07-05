@@ -21,8 +21,11 @@ class CollapsibleCardView: CardView {
     var collapsedConstraint: NSLayoutConstraint!
     var openConstraint: NSLayoutConstraint!
     
-    public init(collapsedView: UIView, openedView: UIView, isOpen: Bool = false, openedAction: (() -> Void)? = nil, leftIcon: UIImageView? = nil) {
+    public init() {
         super.init(frame: CGRect.zero)
+    }
+    
+    public func setContents(collapsedView: UIView, openedView: UIView, isOpen: Bool = false, openedAction: (() -> Void)? = nil, leftIcon: UIImageView? = nil) {
         self.collapsedView = collapsedView
         self.openedView = openedView
         self.isOpen = isOpen
