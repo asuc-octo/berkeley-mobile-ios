@@ -54,10 +54,10 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
         DataManager.shared.fetch(source: LibraryDataSource.self) { libraries in
             self.libraries = libraries as? [Library] ?? []
             self.filterTableView.setData(data: libraries as! [Library])
-            self.filterTableView.tableView.reloadData()
+            self.filterTableView.update()
             DataManager.shared.fetch(source: OccupancyDataSource.self) {_ in
                 DispatchQueue.main.async {
-                    self.filterTableView.tableView.reloadData()
+                    self.filterTableView.update()
                 }
             }
         }
@@ -65,8 +65,7 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         location = manager.location
-        self.filterTableView.sort()
-        self.filterTableView.tableView.reloadData()
+        self.filterTableView.update()
     }
     
     override func loadView() {

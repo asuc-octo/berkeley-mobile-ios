@@ -9,7 +9,7 @@
 import Foundation
 import Firebase
 
-fileprivate let kCafeEndpoint = "Cafes"
+fileprivate let kCafeEndpoint = "Cafe"
 
 class CafeDataSource: DataSource {
     
