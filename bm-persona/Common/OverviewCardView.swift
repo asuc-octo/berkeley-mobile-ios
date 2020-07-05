@@ -92,6 +92,8 @@ class OverviewCardView: CardView {
             }
             addressView = UIView.iconPairView(icon: addressIcon, iconHeight: 16, attachedView: addressLabel)
             leftVerticalStack.addArrangedSubview(addressView!)
+            addressView!.leftAnchor.constraint(equalTo: leftVerticalStack.leftAnchor).isActive = true
+            addressView!.rightAnchor.constraint(equalTo: leftVerticalStack.rightAnchor).isActive = true
         }
         
         if !excludedElements.contains(.phone), let itemWithPhone = item as? HasPhoneNumber, let phoneNumber = itemWithPhone.phoneNumber {
@@ -275,8 +277,8 @@ class OverviewCardView: CardView {
         label.textColor = Color.blackText
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontSizeToFitWidth = true
-        label.minimumScaleFactor = 0.75
-        label.numberOfLines = 0
+        label.minimumScaleFactor = 0.6
+        label.numberOfLines = 3
         return label
     }()
     
@@ -305,7 +307,7 @@ class OverviewCardView: CardView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.75
-        label.numberOfLines = 1
+        label.numberOfLines = 2
         return label
     }()
     
