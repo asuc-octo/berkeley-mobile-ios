@@ -12,8 +12,8 @@ class MissingDataView: UIView {
     
     private var missingLabel: UILabel!
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init() {
+        super.init(frame: CGRect.zero)
         
         let label = UILabel()
         label.textColor = Color.darkGrayText
@@ -31,19 +31,18 @@ class MissingDataView: UIView {
         missingLabel = label
     }
     
-    func setupMissingView(parentView: UIView) {
-        let view = MissingDataView()
+    convenience init(parentView: UIView) {
+        self.init()
         
-        view.isHidden = false
-        parentView.addSubview(view)
+        self.isHidden = true
+        parentView.addSubview(self)
         
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.topAnchor.constraint(equalTo: parentView.layoutMarginsGuide.topAnchor).isActive = true
-        view.leftAnchor.constraint(equalTo: parentView.layoutMarginsGuide.leftAnchor).isActive = true
-        view.rightAnchor.constraint(equalTo: parentView.layoutMarginsGuide.rightAnchor).isActive = true
-        view.bottomAnchor.constraint(equalTo: parentView.layoutMarginsGuide.bottomAnchor).isActive = true
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.topAnchor.constraint(equalTo: parentView.layoutMarginsGuide.topAnchor).isActive = true
+        self.leftAnchor.constraint(equalTo: parentView.layoutMarginsGuide.leftAnchor).isActive = true
+        self.rightAnchor.constraint(equalTo: parentView.layoutMarginsGuide.rightAnchor).isActive = true
+        self.bottomAnchor.constraint(equalTo: parentView.layoutMarginsGuide.bottomAnchor).isActive = true
     }
-    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

@@ -18,7 +18,7 @@ class DiningDetailViewController: SearchDrawerViewController {
     var locationManager = CLLocationManager()
     var location: CLLocation?
     var overviewCard: OverviewCardView!
-    var control: TabBarControl!
+    var control: TabBarControl?
     var meals: MealMap!
     var mealNames: [MealType]!
     var menuView: FilterTableView = FilterTableView<DiningItem>(frame: .zero, filters: [])
@@ -60,19 +60,18 @@ extension DiningDetailViewController {
     
     func setUpMenuControl() {
         meals = diningHall.meals
-        if meals.count == 0 {
-            return
-        }
+        guard meals.count > 0 else { return }
         let size = CGSize(width: view.frame.width - view.layoutMargins.left - view.layoutMargins.right, height: 35)
         control = TabBarControl(frame: CGRect(origin: .zero, size: size),
                                 barHeight: CGFloat(13),
                                 barColor: UIColor(displayP3Red: 250/255.0, green: 212/255.0, blue: 126/255.0, alpha: 1.0))
+        guard let control = self.control else { return }
         control.delegate = self
         view.addSubview(control)
         control.translatesAutoresizingMaskIntoConstraints = false
         control.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         control.topAnchor.constraint(equalTo: overviewCard.bottomAnchor, constant: kViewMargin).isActive = true
-        /*Sort meal times chronologically using the mealTimesChronological dictionary
+        /* Sort meal times chronologically using the mealTimesChronological dictionary
          Currently supports Breakfast, Brunch, Lunch, Dinner, Late Night*/
         mealNames = Array(meals.keys).sorted(by: { (meal1, meal2) -> Bool in
             let m1Priority = DiningDetailViewController.mealTimesChronological[meal1.lowercased()] ??
@@ -86,8 +85,9 @@ extension DiningDetailViewController {
     }
     
     func setUpMenu() {
+        guard let control = self.control else { return }
         var filters: [Filter<DiningItem>] = [Filter<DiningItem>]()
-        //Add filters for some common restrictions
+        // Add filters for some common restrictions
         filters.append(filterForRestriction(name: "Vegetarian", restriction: KnownRestriction.vegetarian, matches: true))
         filters.append(filterForRestriction(name: "Vegan", restriction: KnownRestriction.vegan, matches: true))
         filters.append(filterForRestriction(name: "Gluten-Free", restriction: KnownRestriction.gluten, matches: false))
@@ -121,7 +121,7 @@ extension DiningDetailViewController {
         self.menuView.tableView.reloadData()
     }
     
-    /*Create a filter named NAME which filters based on RESTRICTION.
+    /* Create a filter named NAME which filters based on RESTRICTION.
      If MATCHES is true: includes items with RESTRICTION.
      If MATCHES is false: excludes items with RESTRICTION.*/
     func filterForRestriction(name: String, restriction: KnownRestriction, matches: Bool) -> Filter<DiningItem> {
@@ -154,6 +154,7 @@ extension DiningDetailViewController : CLLocationManagerDelegate {
 
 extension DiningDetailViewController: TabBarControlDelegate {
     func tabBarControl(_ tabBarControl: TabBarControl, didChangeValue value: Int) {
+        guard let control = self.control else { return }
         control.index = value
         self.menuView.setData(data: meals[mealNames[control.index]]!)
         self.menuView.tableView.reloadData()

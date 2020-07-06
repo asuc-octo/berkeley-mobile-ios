@@ -31,7 +31,7 @@ class ResourcesViewController: UIViewController {
         DataManager.shared.fetch(source: ResourceDataSource.self) { resourceEntries in
             self.resourceEntries = resourceEntries as? [Resource] ?? []
             self.resourcesTable.setData(data: resourceEntries as! [Resource])
-            self.resourcesTable.tableView.reloadData()
+            self.resourcesTable.update()
         }
     }
 
