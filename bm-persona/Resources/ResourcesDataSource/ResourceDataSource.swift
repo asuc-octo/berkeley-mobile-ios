@@ -37,7 +37,7 @@ class ResourceDataSource: DataSource {
     private static func parseCampusResource(_ dict: [String: Any]) -> Resource {
         let weeklyHours = Resource.parseWeeklyHours(dict: dict["open_close_array"] as? [[String: Any]])
         let campusResource = Resource(name: dict["name"] as? String ?? "Unnamed",
-                                            campusLocation: dict["address"] as? String,
+                                            address: dict["address"] as? String,
                                             latitude: dict["latitude"] as? Double,
                                             longitude: dict["longitude"] as? Double,
                                             description: dict["description"] as? String,

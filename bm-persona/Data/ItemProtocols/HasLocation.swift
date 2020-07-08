@@ -13,6 +13,7 @@ protocol HasLocation {
     
     var latitude: Double? { get }
     var longitude: Double? { get }
+    var address: String? { get }
     func getDistanceToUser(userLoc: CLLocation?) -> Double
     static var nearbyDistance: Double { get }
     static var invalidDistance: Double { get }

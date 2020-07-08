@@ -1,5 +1,5 @@
 //
-//  HasCapacity.swift
+//  HasOpenTimes.swift
 //  bm-persona
 //
 //  Created by Shawn Huang on 3/14/20.
@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import MapKit
 
 protocol HasOpenTimes {
     

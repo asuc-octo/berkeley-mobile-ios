@@ -29,40 +29,9 @@ extension GymsController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: FilterTableViewCell.kCellIdentifier, for: indexPath) as? FilterTableViewCell {
             let gym: Gym = vc.filterTableView.filteredData[indexPath.row]
-            cell.nameLabel.text = gym.name
-            var distance = Double.nan
-            if vc.location != nil {
-                distance = gym.getDistanceToUser(userLoc: vc.location!)
-            }
-            if !distance.isNaN && distance < Gym.invalidDistance {
-                cell.timeLabel.text = "\(distance) mi"
-            }
-            cell.recLabel.text = "Recommended"
-            
-            if let status = gym.getOccupancyStatus(date: Date()) {
-                cell.capBadge.isHidden = false
-                switch status {
-                case OccupancyStatus.high:
-                    cell.capBadge.text = "High"
-                    cell.capBadge.backgroundColor = Color.highCapacityTag
-                case OccupancyStatus.medium:
-                    cell.capBadge.text = "Medium"
-                    cell.capBadge.backgroundColor = Color.medCapacityTag
-                case OccupancyStatus.low:
-                    cell.capBadge.text = "Low"
-                    cell.capBadge.backgroundColor = Color.lowCapacityTag
-                }
-            } else {
-                cell.capBadge.isHidden = true
-            }
-            
-            if gym.image == nil {
-                cell.cellImage.image = UIImage(named: "DoeGlade")
+            cell.updateContents(item: gym, location: vc.location, imageUpdate: {
                 DispatchQueue.global().async {
-                    if gym.imageURL == nil {
-                        return
-                    }
-                    guard let imageData = try? Data(contentsOf: gym.imageURL!) else { return }
+                    guard let imageURL = gym.imageURL, let imageData = try? Data(contentsOf: imageURL) else { return }
                     let image = UIImage(data: imageData)
                     DispatchQueue.main.async {
                         gym.image = image
@@ -71,10 +40,7 @@ extension GymsController: UITableViewDataSource {
                         }
                     }
                 }
-            } else {
-                cell.cellImage.image = gym.image!
-            }
-
+            })
             return cell
         }
         return UITableViewCell()

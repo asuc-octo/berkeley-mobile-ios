@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class DiningLocation: HasOpenTimes, SearchItem, HasLocation, HasOccupancy {
+class DiningLocation: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasImage, HasOpenTimes, HasOccupancy {
     var icon: UIImage?
     
     static var nearbyDistance: Double = 10
@@ -25,7 +25,7 @@ class DiningLocation: HasOpenTimes, SearchItem, HasLocation, HasOccupancy {
     }
     
     var locationName: String {
-        return "Berkeley, CA"
+        return address ?? "Berkeley, CA"
     }
     
     var description: String {
@@ -34,7 +34,7 @@ class DiningLocation: HasOpenTimes, SearchItem, HasLocation, HasOccupancy {
     
     let name: String
     let imageURL: URL?
-    let campusLocation: String?
+    let address: String?
     let phoneNumber: String?
     
     var meals: MealMap
@@ -45,9 +45,9 @@ class DiningLocation: HasOpenTimes, SearchItem, HasLocation, HasOccupancy {
     var latitude: Double?
     var longitude: Double?
     
-    init(name: String, campusLocation: String?, phoneNumber: String?, imageLink: String?, shifts: MealMap, hours: WeeklyHours?, latitude: Double?, longitude: Double?) {
+    init(name: String, address: String?, phoneNumber: String?, imageLink: String?, shifts: MealMap, hours: WeeklyHours?, latitude: Double?, longitude: Double?) {
         self.name = name
-        self.campusLocation = campusLocation
+        self.address = address
         self.phoneNumber = phoneNumber
         self.imageURL = URL(string: imageLink ?? "")
         self.meals = shifts

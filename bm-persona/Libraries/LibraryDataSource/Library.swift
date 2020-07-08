@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class Library: SearchItem, HasLocation, HasOpenTimes, HasOccupancy {
+class Library: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasImage, HasOpenTimes, HasOccupancy {
     
     static var nearbyDistance: Double = 10
     static var invalidDistance: Double = 100
@@ -23,7 +23,7 @@ class Library: SearchItem, HasLocation, HasOpenTimes, HasOccupancy {
     }
     
     var locationName: String {
-        return campusLocation ?? "Berkeley, CA"
+        return address ?? "Berkeley, CA"
     }
     
     var image: UIImage?
@@ -42,7 +42,7 @@ class Library: SearchItem, HasLocation, HasOpenTimes, HasOccupancy {
     
     var isFavorited: Bool = false
     
-    let campusLocation: String?
+    let address: String?
     let phoneNumber: String?
     let weeklyHours: WeeklyHours?
     var occupancy: Occupancy?
@@ -50,8 +50,8 @@ class Library: SearchItem, HasLocation, HasOpenTimes, HasOccupancy {
     var latitude: Double?
     var longitude: Double?
     
-    init(name: String, campusLocation: String?, phoneNumber: String?, weeklyHours: WeeklyHours?, weeklyByAppointment:[Bool], imageLink: String?, latitude: Double?, longitude: Double?) {
-        self.campusLocation = campusLocation
+    init(name: String, address: String?, phoneNumber: String?, weeklyHours: WeeklyHours?, weeklyByAppointment:[Bool], imageLink: String?, latitude: Double?, longitude: Double?) {
+        self.address = address
         self.phoneNumber = phoneNumber
         self.weeklyHours = weeklyHours
         self.weeklyByAppointment = weeklyByAppointment

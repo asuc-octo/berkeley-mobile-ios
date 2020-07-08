@@ -42,7 +42,7 @@ class CalendarDataSource: DataSource {
 //#endif
         
         let entry = CalendarEntry(name: dict["event_name"] as? String ?? "Unnamed",
-                                  campusLocation: "TBD",
+                                  address: "TBD",
                                   date: date,
                                   eventType: dict["event_type"] as? String ?? "Uncategorized")
         return entry
