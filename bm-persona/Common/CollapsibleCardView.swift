@@ -11,13 +11,19 @@ import UIKit
 fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
 fileprivate let kViewMargin: CGFloat = 16
 
+// Generalized card view that can collapse and expand when touched.
 class CollapsibleCardView: CardView {
+    // view to show when collapsed
     var collapsedView: UIView!
+    // view to show below collapsedView when opened
     var openedView: UIView!
     var isOpen: Bool!
+    // any actions to be taken when the card opens
     var openedAction: (() -> Void)?
+    // icon to display to the left of the collapsedView, if any
     var leftIcon: UIImageView?
     
+    // card opens and closes by changing the constraint which is active and clipping to bounds
     var collapsedConstraint: NSLayoutConstraint!
     var openConstraint: NSLayoutConstraint!
     
@@ -38,6 +44,7 @@ class CollapsibleCardView: CardView {
         setUpGestures()
     }
     
+    // card opens and closes when any part of the card is tapped. Can change this behavior by adding the gesture to any other view
     func setUpGestures() {
         let gesture = UITapGestureRecognizer(target: self, action: #selector(self.viewTapped(_:)))
         self.addGestureRecognizer(gesture)
@@ -66,6 +73,7 @@ class CollapsibleCardView: CardView {
         chevronIcon.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
         chevronIcon.centerYAnchor.constraint(equalTo: collapsedView.centerYAnchor).isActive = true
         
+        // constrain the collapsedView to icon or the left of the card if no icon
         var leftConstraint = collapsedView.leftAnchor.constraint(equalTo: self.layoutMarginsGuide.leftAnchor)
         if let leftIcon = leftIcon {
             self.addSubview(leftIcon)
@@ -89,6 +97,7 @@ class CollapsibleCardView: CardView {
         setState(opened: isOpen)
     }
     
+    // rotate the chevron depending on the opened state (point left or down)
     func toggleState() {
         setState(opened: !isOpen)
         if isOpen {
@@ -114,6 +123,7 @@ class CollapsibleCardView: CardView {
         super.init(coder: coder)
     }
     
+    // contains all contents of the collapsible card. this is necessary because clipsToBounds must be true to open/close successfully, but setting it to true for the entire view would get rid of the shadows on the card view.
     let containerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
