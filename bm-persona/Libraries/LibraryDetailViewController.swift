@@ -17,6 +17,7 @@ class LibraryDetailViewController: SearchDrawerViewController {
     var locationManager = CLLocationManager()
     var overviewCard: OverviewCardView!
     var openTimesCard: OpenTimesCardView?
+    var occupancyCard: OccupancyGraphCardView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +26,7 @@ class LibraryDetailViewController: SearchDrawerViewController {
         setUpScrollView()
         setUpOverviewCard()
         setUpOpenTimesCard()
+        setUpOccupancyCard()
         setUpBookButton()
         
         // in order to set the cutoff correctly
@@ -108,6 +110,15 @@ extension LibraryDetailViewController {
         openTimesCard.topAnchor.constraint(equalTo: overviewCard.bottomAnchor, constant: kViewMargin).isActive = true
         openTimesCard.leftAnchor.constraint(equalTo: scrollContent.leftAnchor).isActive = true
         openTimesCard.rightAnchor.constraint(equalTo: scrollContent.rightAnchor).isActive = true
+    }
+    
+    func setUpOccupancyCard() {
+        guard let occupancy = library.occupancy else { return }
+        occupancyCard = OccupancyGraphCardView(occupancy: occupancy, date: Date())
+        view.addSubview(occupancyCard)
+        occupancyCard.topAnchor.constraint(equalTo: openTimesCard.bottomAnchor, constant: kViewMargin).isActive = true
+        occupancyCard.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
+        occupancyCard.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
     }
     
     func setUpBookButton() {

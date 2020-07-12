@@ -12,6 +12,24 @@ enum OccupancyStatus {
     case high
     case medium
     case low
+    
+    func badge() -> TagView {
+        let badge = TagView()
+        badge.translatesAutoresizingMaskIntoConstraints = false
+        badge.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        switch self {
+        case OccupancyStatus.high:
+            badge.text = "High"
+            badge.backgroundColor = Color.highOccupancyTag
+        case OccupancyStatus.medium:
+            badge.text = "Medium"
+            badge.backgroundColor = Color.medOccupancyTag
+        case OccupancyStatus.low:
+            badge.text = "Low"
+            badge.backgroundColor = Color.lowOccupancyTag
+        }
+        return badge
+    }
 }
 
 // Object containing occupancy data for a location based on day of week and hour of day.
@@ -53,5 +71,9 @@ class Occupancy {
             return nil
         }
     }
-
+    
+    // get occupancy dictionary for one day of the week
+    func occupancy(for day: DayOfWeek) -> [Int: Int]? {
+        return dailyOccupancy[day]
+    }
 }

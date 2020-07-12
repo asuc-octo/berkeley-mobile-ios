@@ -68,5 +68,9 @@ struct Color {
         return UIColor(displayP3Red: 251/255, green: 155/255, blue: 142/255, alpha: 1.0)
     }
     
+    static func barGraphEntry(alpha: CGFloat) -> UIColor {
+        return UIColor(displayP3Red: 248/255, green: 162/255, blue: 150/255, alpha: alpha)
+    }
+    
 }
 

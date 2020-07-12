@@ -59,6 +59,11 @@
 		29345E2924A7E7AC00859A88 /* HasPhoneNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29345E2824A7E7AC00859A88 /* HasPhoneNumber.swift */; };
 		29345E2B24A7EC2B00859A88 /* HasImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29345E2A24A7EC2B00859A88 /* HasImage.swift */; };
 		29345E2D24A7FFB600859A88 /* CanFavorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29345E2C24A7FFB600859A88 /* CanFavorite.swift */; };
+		29387E9524BBBC1000070BCE /* BarGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29387E9424BBBC1000070BCE /* BarGraph.swift */; };
+		29387E9724BBBC6100070BCE /* BarGraphPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29387E9624BBBC6100070BCE /* BarGraphPresenter.swift */; };
+		29387E9924BBBC9300070BCE /* BarEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29387E9824BBBC9300070BCE /* BarEntry.swift */; };
+		29387E9B24BBBD9D00070BCE /* CALayerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29387E9A24BBBD9D00070BCE /* CALayerExtension.swift */; };
+		29387E9D24BBBE8E00070BCE /* OccupancyGraphCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29387E9C24BBBE8E00070BCE /* OccupancyGraphCardView.swift */; };
 		2954F592245CD4B600DA66DA /* MainDrawerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2954F591245CD4B600DA66DA /* MainDrawerViewDelegate.swift */; };
 		296F1B272439341300924C8D /* DiningDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296F1B262439341300924C8D /* DiningDetailViewController.swift */; };
 		2975D5402459301B00514B43 /* SearchDrawerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2975D53F2459301B00514B43 /* SearchDrawerViewDelegate.swift */; };
@@ -171,6 +176,11 @@
 		29345E2824A7E7AC00859A88 /* HasPhoneNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasPhoneNumber.swift; sourceTree = "<group>"; };
 		29345E2A24A7EC2B00859A88 /* HasImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasImage.swift; sourceTree = "<group>"; };
 		29345E2C24A7FFB600859A88 /* CanFavorite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanFavorite.swift; sourceTree = "<group>"; };
+		29387E9424BBBC1000070BCE /* BarGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarGraph.swift; sourceTree = "<group>"; };
+		29387E9624BBBC6100070BCE /* BarGraphPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarGraphPresenter.swift; sourceTree = "<group>"; };
+		29387E9824BBBC9300070BCE /* BarEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarEntry.swift; sourceTree = "<group>"; };
+		29387E9A24BBBD9D00070BCE /* CALayerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayerExtension.swift; sourceTree = "<group>"; };
+		29387E9C24BBBE8E00070BCE /* OccupancyGraphCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OccupancyGraphCardView.swift; sourceTree = "<group>"; };
 		2954F591245CD4B600DA66DA /* MainDrawerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainDrawerViewDelegate.swift; sourceTree = "<group>"; };
 		296F1B262439341300924C8D /* DiningDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiningDetailViewController.swift; sourceTree = "<group>"; };
 		2975D53F2459301B00514B43 /* SearchDrawerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDrawerViewDelegate.swift; sourceTree = "<group>"; };
@@ -364,6 +374,7 @@
 		1396012D23865E2E005E4788 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				29387E9324BBBBDF00070BCE /* Bar Graph */,
 				2913595524B135B600DE9AD6 /* DetailView */,
 				29BED7BF241DF43B0049C022 /* FilterTableView */,
 				13B39AB123E777AC0039FBA2 /* FilterView */,
@@ -471,8 +482,20 @@
 			children = (
 				29345E2624A7E76300859A88 /* OverviewCardView.swift */,
 				2913595824B13DF200DE9AD6 /* OpenTimesCardView.swift */,
+				29387E9C24BBBE8E00070BCE /* OccupancyGraphCardView.swift */,
 			);
 			path = DetailView;
+			sourceTree = "<group>";
+		};
+		29387E9324BBBBDF00070BCE /* Bar Graph */ = {
+			isa = PBXGroup;
+			children = (
+				29387E9424BBBC1000070BCE /* BarGraph.swift */,
+				29387E9A24BBBD9D00070BCE /* CALayerExtension.swift */,
+				29387E9624BBBC6100070BCE /* BarGraphPresenter.swift */,
+				29387E9824BBBC9300070BCE /* BarEntry.swift */,
+			);
+			path = "Bar Graph";
 			sourceTree = "<group>";
 		};
 		299ACFAE244A58A8000F3E86 /* Occupancy */ = {
@@ -858,19 +881,24 @@
 				296F1B272439341300924C8D /* DiningDetailViewController.swift in Sources */,
 				13492D2D240E179F00AD3D1F /* MapMarkerDetailView.swift in Sources */,
 				1346B9192420AD4800383399 /* WeeklyHours.swift in Sources */,
+				29387E9D24BBBE8E00070BCE /* OccupancyGraphCardView.swift in Sources */,
 				13EA64D02399D50C00FD8E13 /* DataManager.swift in Sources */,
 				29B3A1742439A60A00093750 /* DiningMenuCell.swift in Sources */,
 				1336A326241D9B9900949F32 /* DiningHall.swift in Sources */,
 				29061D41241C450E002BC9D9 /* HasLocation.swift in Sources */,
 				1336A31A241C3FD300949F32 /* GymClassDataSource.swift in Sources */,
+				29387E9524BBBC1000070BCE /* BarGraph.swift in Sources */,
 				5516088624392E5100B1E55B /* DiningViewController.swift in Sources */,
+				29387E9B24BBBD9D00070BCE /* CALayerExtension.swift in Sources */,
 				1396013323865E2E005E4788 /* CardCollectionView.swift in Sources */,
 				13B39A9A23E6A33C0039FBA2 /* LibraryDataSource.swift in Sources */,
+				29387E9924BBBC9300070BCE /* BarEntry.swift in Sources */,
 				306A54EC23613E3A00D59A7F /* SceneDelegate.swift in Sources */,
 				29345E2724A7E76300859A88 /* OverviewCardView.swift in Sources */,
 				55AF442D2453ACE600F13232 /* DiningLocation.swift in Sources */,
 				1336A329241DA56100949F32 /* DiningHallDataSource.swift in Sources */,
 				136DC97B2398B4D1009B1810 /* UIViewController+Extensions.swift in Sources */,
+				29387E9724BBBC6100070BCE /* BarGraphPresenter.swift in Sources */,
 				2913595724B136BE00DE9AD6 /* CollapsibleCardView.swift in Sources */,
 				13491DB6241E21740033F9AB /* Colors+TagView.swift in Sources */,
 				556CCD2223E7771800F41BF9 /* MapPlacemark.swift in Sources */,
