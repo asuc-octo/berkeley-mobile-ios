@@ -25,6 +25,11 @@ class OpenTimesCardView: CollapsibleCardView {
     }
     
     func collapsedView() -> UIView {
+        let defaultView = UIView()
+        defaultView.translatesAutoresizingMaskIntoConstraints = false
+        guard let weeklyHours = item.weeklyHours, weeklyHours.hoursForWeekday(DayOfWeek.weekday(Date())).count > 0 else {
+            return defaultView
+        }
         var leftView: UIView?
         var rightView: UIView?
         
@@ -47,7 +52,7 @@ class OpenTimesCardView: CollapsibleCardView {
             rightView = closedLabel()
         }
         
-        return leftRightView(leftView: leftView, rightView: rightView, centered: true) ?? UIView()
+        return leftRightView(leftView: leftView, rightView: rightView, centered: true) ?? defaultView
     }
     
     func openedView() -> UIStackView {

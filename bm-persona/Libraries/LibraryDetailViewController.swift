@@ -21,7 +21,7 @@ class LibraryDetailViewController: SearchDrawerViewController {
     var userCoords = CLLocationCoordinate2D(latitude: 0.0 , longitude: 0.0 )
     var distLabel = UILabel()
     var overviewCard: OverviewCardView!
-    var openTimesCard: OpenTimesCardView!
+    var openTimesCard: OpenTimesCardView?
     var bookButton = UIButton()
     
     override func viewDidLoad() {
@@ -49,28 +49,30 @@ class LibraryDetailViewController: SearchDrawerViewController {
         /* Set the bottom cutoff point for when the drawer appears
         The "middle" position for the view will show everything in the overview card
         When collapsible open time card is added, change this to show that card as well. */
-        middleCutoffPosition = openTimesCard.frame.maxY + 8
+        middleCutoffPosition = (openTimesCard?.frame.maxY ?? overviewCard.frame.maxY) + 8
     }
 }
 
 extension LibraryDetailViewController {
     func setUpOverviewCard() {
         overviewCard = OverviewCardView(item: library, excludedElements: [.openTimes, .occupancy], userLocation: locationManager.location)
-        view.addSubview(overviewCard)
+        scrollView.addSubview(overviewCard)
         overviewCard.topAnchor.constraint(equalTo: barView.bottomAnchor, constant: kViewMargin).isActive = true
-        overviewCard.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
-        overviewCard.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
+        overviewCard.leftAnchor.constraint(equalTo: scrollView.layoutMarginsGuide.leftAnchor).isActive = true
+        overviewCard.rightAnchor.constraint(equalTo: scrollView.layoutMarginsGuide.rightAnchor).isActive = true
         overviewCard.heightAnchor.constraint(equalToConstant: 200).isActive = true
     }
     
     func setUpOpenTimesCard() {
+        guard library.weeklyHours != nil else { return }
         openTimesCard = OpenTimesCardView(item: library, openedAction: {
             self.delegate.moveDrawer(to: .full, duration: 0.2)
         })
-        view.addSubview(openTimesCard)
+        let openTimesCard = self.openTimesCard!
+        scrollView.addSubview(openTimesCard)
         openTimesCard.topAnchor.constraint(equalTo: overviewCard.bottomAnchor, constant: kViewMargin).isActive = true
-        openTimesCard.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
-        openTimesCard.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
+        openTimesCard.leftAnchor.constraint(equalTo: scrollView.layoutMarginsGuide.leftAnchor).isActive = true
+        openTimesCard.rightAnchor.constraint(equalTo: scrollView.layoutMarginsGuide.rightAnchor).isActive = true
     }
     
     func setUpBookButton() {
@@ -85,7 +87,7 @@ extension LibraryDetailViewController {
         bookButton.layer.shadowColor = UIColor.black.cgColor
         bookButton.layer.shadowPath = UIBezierPath(rect: bookButton.layer.bounds.insetBy(dx: 4, dy: 4)).cgPath
         bookButton.translatesAutoresizingMaskIntoConstraints = false
-        bookButton.topAnchor.constraint(equalTo: openTimesCard.layoutMarginsGuide.bottomAnchor, constant: 2 * kViewMargin).isActive = true
+        bookButton.topAnchor.constraint(equalTo: openTimesCard?.bottomAnchor ?? overviewCard.bottomAnchor, constant: kViewMargin).isActive = true
         bookButton.leftAnchor.constraint(equalTo: scrollView.layoutMarginsGuide.leftAnchor).isActive = true
         bookButton.rightAnchor.constraint(equalTo: scrollView.layoutMarginsGuide.rightAnchor).isActive = true
         bookButton.heightAnchor.constraint(equalToConstant: 50).isActive = true

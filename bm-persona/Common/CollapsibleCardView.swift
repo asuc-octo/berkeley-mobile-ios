@@ -86,6 +86,7 @@ class CollapsibleCardView: CardView {
         
         collapsedView.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
         collapsedView.rightAnchor.constraint(equalTo: chevronIcon.leftAnchor, constant: -1 * kViewMargin).isActive = true
+        collapsedView.heightAnchor.constraint(greaterThanOrEqualTo: chevronIcon.heightAnchor).isActive = true
         leftConstraint.isActive = true
         
         openedView.leftAnchor.constraint(equalTo: collapsedView.leftAnchor).isActive = true
