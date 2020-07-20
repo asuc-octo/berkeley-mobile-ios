@@ -113,7 +113,7 @@ extension LibraryDetailViewController {
     }
     
     func setUpOccupancyCard() {
-        guard let occupancy = library.occupancy else { return }
+        guard let occupancy = library.occupancy, let forDay = occupancy.occupancy(for: DayOfWeek.weekday(Date())), forDay.count > 0 else { return }
         occupancyCard = OccupancyGraphCardView(occupancy: occupancy, date: Date())
         view.addSubview(occupancyCard)
         occupancyCard.topAnchor.constraint(equalTo: openTimesCard.bottomAnchor, constant: kViewMargin).isActive = true

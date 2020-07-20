@@ -33,29 +33,32 @@ class OccupancyGraphCardView: CardView {
     private func setUpViews(occupancy: Occupancy) {
         let topLabelView = UIView()
         topLabelView.translatesAutoresizingMaskIntoConstraints = false
-        topLabelView.addSubview(label)
-        label.leftAnchor.constraint(equalTo: topLabelView.leftAnchor).isActive = true
-        topLabelView.topAnchor.constraint(lessThanOrEqualTo: label.topAnchor).isActive = true
-        topLabelView.bottomAnchor.constraint(greaterThanOrEqualTo: label.bottomAnchor).isActive = true
-        var rightConstraint = label.rightAnchor.constraint(equalTo: topLabelView.rightAnchor)
+        topLabelView.addSubview(occupancyLabel)
+        occupancyLabel.leftAnchor.constraint(equalTo: topLabelView.leftAnchor).isActive = true
+        topLabelView.topAnchor.constraint(lessThanOrEqualTo: occupancyLabel.topAnchor).isActive = true
+        topLabelView.bottomAnchor.constraint(greaterThanOrEqualTo: occupancyLabel.bottomAnchor).isActive = true
+        var rightConstraint = occupancyLabel.rightAnchor.constraint(equalTo: topLabelView.rightAnchor)
         if let status = occupancy.getOccupancyStatus(date: date) {
             let badge = status.badge()
             topLabelView.addSubview(badge)
             badge.rightAnchor.constraint(equalTo: topLabelView.rightAnchor).isActive = true
             topLabelView.topAnchor.constraint(lessThanOrEqualTo: badge.topAnchor).isActive = true
             topLabelView.bottomAnchor.constraint(greaterThanOrEqualTo: badge.bottomAnchor).isActive = true
-            rightConstraint = label.rightAnchor.constraint(equalTo: badge.leftAnchor, constant: kViewMargin)
+            rightConstraint = occupancyLabel.rightAnchor.constraint(equalTo: badge.leftAnchor, constant: -1 * kViewMargin)
         }
         rightConstraint.isActive = true
         self.addSubview(topLabelView)
         topLabelView.topAnchor.constraint(equalTo: self.layoutMarginsGuide.topAnchor).isActive = true
         topLabelView.leftAnchor.constraint(equalTo: self.layoutMarginsGuide.leftAnchor).isActive = true
+        topLabelView.bottomAnchor.constraint(lessThanOrEqualTo: self.layoutMarginsGuide.bottomAnchor).isActive = true
+        topLabelView.rightAnchor.constraint(lessThanOrEqualTo: self.layoutMarginsGuide.rightAnchor).isActive = true
         
         self.addSubview(graph)
-        topLabelView.topAnchor.constraint(equalTo: topLabelView.bottomAnchor, constant: kViewMargin).isActive = true
-        topLabelView.bottomAnchor.constraint(equalTo: self.layoutMarginsGuide.bottomAnchor).isActive = true
-        topLabelView.leftAnchor.constraint(equalTo: self.layoutMarginsGuide.leftAnchor).isActive = true
-        topLabelView.rightAnchor.constraint(equalTo: self.layoutMarginsGuide.rightAnchor).isActive = true
+        graph.topAnchor.constraint(equalTo: topLabelView.bottomAnchor, constant: kViewMargin).isActive = true
+        graph.bottomAnchor.constraint(equalTo: self.layoutMarginsGuide.bottomAnchor).isActive = true
+        graph.leftAnchor.constraint(equalTo: self.layoutMarginsGuide.leftAnchor).isActive = true
+        graph.rightAnchor.constraint(equalTo: self.layoutMarginsGuide.rightAnchor).isActive = true
+        graph.heightAnchor.constraint(equalToConstant: 200).isActive = true
     }
     
     private func setOrderedEntries(occupancy: Occupancy, day: DayOfWeek) {
@@ -64,7 +67,10 @@ class OccupancyGraphCardView: CardView {
         for (index, hour) in occupancyForDay.keys.sorted().enumerated() {
             let percent = CGFloat(occupancyForDay[hour]!) / 100.0
             let bottomText = (index % 3 == 0) ? timeLabel(time: hour) : ""
-            occupancyEntries.append(DataEntry(color: Color.barGraphEntry(alpha: percent), height: percent, bottomText: bottomText))
+            let alpha = 0.2 + percent * 0.8
+            let dateHour = Calendar.current.component(.hour, from: Date())
+            let color = dateHour == hour ? Color.barGraphEntryCurrent : Color.barGraphEntry(alpha: alpha)
+            occupancyEntries.append(DataEntry(color: color, height: percent, bottomText: bottomText))
         }
     }
     
@@ -73,8 +79,10 @@ class OccupancyGraphCardView: CardView {
             return "12a"
         } else if time <= 11 {
             return String(time) + "a"
+        } else if time == 12 {
+            return "12p"
         } else if time <= 23 {
-            return String(time) + "p"
+            return String(time - 12) + "p"
         } else {
             return ""
         }
@@ -84,10 +92,11 @@ class OccupancyGraphCardView: CardView {
         super.init(coder: coder)
     }
     
-    let label: UILabel = {
+    let occupancyLabel: UILabel = {
         let label = UILabel()
-        label.font = Font.bold(18)
+        label.font = Font.bold(16)
         label.textColor = Color.blackText
+        label.text = "Occupancy"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

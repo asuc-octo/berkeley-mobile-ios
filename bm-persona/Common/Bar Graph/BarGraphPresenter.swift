@@ -14,7 +14,7 @@ import CoreGraphics.CGGeometry
 class BarGraphPresenter {
     let barWidth: CGFloat
     let space: CGFloat
-    private let bottomSpace: CGFloat = 40.0
+    private let bottomSpace: CGFloat = 30.0
     
     var dataEntries: [DataEntry] = []
     

@@ -43,9 +43,11 @@ class BarGraph: UIView {
     }
     
     private func setupView() {
+        self.translatesAutoresizingMaskIntoConstraints = false
         scrollView.layer.addSublayer(mainLayer)
         self.addSubview(scrollView)
         
+        scrollView.showsHorizontalScrollIndicator = false
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
         scrollView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
@@ -66,6 +68,6 @@ class BarGraph: UIView {
         mainLayer.addRectangleLayer(frame: entry.barFrame, color: cgColor, oldFrame: oldEntry?.barFrame)
         
         // Show a title below the bar
-        mainLayer.addTextLayer(frame: entry.bottomTitleFrame, color: cgColor, fontSize: 14, text: entry.data.bottomText, oldFrame: oldEntry?.bottomTitleFrame)
+        mainLayer.addTextLayer(frame: entry.bottomTitleFrame, color: Color.blackText.cgColor, fontSize: 10, text: entry.data.bottomText, oldFrame: oldEntry?.bottomTitleFrame)
     }
 }

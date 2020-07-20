@@ -18,18 +18,6 @@ extension CALayer {
         self.addSublayer(layer)
     }
     
-    func addLineLayer(lineSegment: LineSegment, color: CGColor, width: CGFloat, isDashed: Bool, oldSegment: LineSegment?) {
-        let layer = CAShapeLayer()
-        layer.path = UIBezierPath(lineSegment: lineSegment).cgPath
-        layer.fillColor = UIColor.clear.cgColor
-        layer.strokeColor = color
-        layer.lineWidth = width
-        if isDashed {
-            layer.lineDashPattern = [4, 4]
-        }
-        self.addSublayer(layer)
-    }
-    
     func addTextLayer(frame: CGRect, color: CGColor, fontSize: CGFloat, text: String, oldFrame: CGRect?) {
         let textLayer = CATextLayer()
         textLayer.frame = frame
@@ -37,7 +25,7 @@ extension CALayer {
         textLayer.backgroundColor = UIColor.clear.cgColor
         textLayer.alignmentMode = CATextLayerAlignmentMode.center
         textLayer.contentsScale = UIScreen.main.scale
-        textLayer.font = CTFontCreateWithName(UIFont.systemFont(ofSize: 0).fontName as CFString, 0, nil)
+        textLayer.font = Font.light(fontSize)
         textLayer.fontSize = fontSize
         textLayer.string = text
         self.addSublayer(textLayer)
