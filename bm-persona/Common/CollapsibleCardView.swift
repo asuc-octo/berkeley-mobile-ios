@@ -18,24 +18,23 @@ class CollapsibleCardView: CardView {
     // view to show below collapsedView when opened
     var openedView: UIView!
     var isOpen: Bool!
-    // any actions to be taken when the card opens
-    var openedAction: (() -> Void)?
+    // any actions to be taken when the card opens/closes, passes in the new state
+    var toggleAction: ((Bool) -> Void)?
     // icon to display to the left of the collapsedView, if any
     var leftIcon: UIImageView?
-    
-    // card opens and closes by changing the constraint which is active and clipping to bounds
-    var collapsedConstraint: NSLayoutConstraint!
-    var openConstraint: NSLayoutConstraint!
+    // view to call layoutIfNeeded() on to animate open/close; must be parent view containing all subviews which will be adjusted to prevent 'jumping'
+    var animationView: UIView!
     
     public init() {
         super.init(frame: CGRect.zero)
     }
     
-    public func setContents(collapsedView: UIView, openedView: UIView, isOpen: Bool = false, openedAction: (() -> Void)? = nil, leftIcon: UIImageView? = nil) {
+    public func setContents(collapsedView: UIView, openedView: UIView, animationView: UIView, isOpen: Bool = false, toggleAction: ((Bool) -> Void)? = nil, leftIcon: UIImageView? = nil) {
         self.collapsedView = collapsedView
         self.openedView = openedView
+        self.animationView = animationView
         self.isOpen = isOpen
-        self.openedAction = openedAction
+        self.toggleAction = toggleAction
         self.leftIcon = leftIcon
         self.layoutMargins = kCardPadding
         self.translatesAutoresizingMaskIntoConstraints = false
@@ -51,10 +50,10 @@ class CollapsibleCardView: CardView {
     }
     
     @objc func viewTapped(_ sender: UITapGestureRecognizer) {
-        toggleState()
-        if isOpen, let openedAction = openedAction {
-            openedAction()
+        if let toggleAction = self.toggleAction {
+            toggleAction(!self.isOpen)
         }
+        toggleState()
     }
     
     func setUpViews() {
@@ -93,31 +92,30 @@ class CollapsibleCardView: CardView {
         openedView.topAnchor.constraint(equalTo: collapsedView.bottomAnchor, constant: kViewMargin).isActive = true
         openedView.rightAnchor.constraint(equalTo: collapsedView.rightAnchor).isActive = true
         
-        collapsedConstraint = collapsedView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
-        openConstraint = openedView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
+        self.layoutIfNeeded()
         setState(opened: isOpen)
     }
     
     // rotate the chevron depending on the opened state (point left or down)
     func toggleState() {
-        setState(opened: !isOpen)
-        if isOpen {
-            chevronIcon.transform = chevronIcon.transform.rotated(by: -1 * .pi / 2)
-        } else {
-            chevronIcon.transform = chevronIcon.transform.rotated(by: .pi / 2)
+        UIView.animate(withDuration: 0.2) {
+            self.setState(opened: !self.isOpen)
+            if self.isOpen {
+                self.chevronIcon.transform = self.chevronIcon.transform.rotated(by: -1 * .pi / 2)
+            } else {
+                self.chevronIcon.transform = self.chevronIcon.transform.rotated(by: .pi / 2)
+            }
         }
     }
     
     func setState(opened: Bool) {
         // the order of these matters otherwise constraints get broken. one must be set to false first; otherwise two conflicting constraints are active at the same time
         if opened {
-            collapsedConstraint.isActive = false
-            openConstraint.isActive = true
+            containerView.setHeightConstraint(openedView.frame.maxY)
         } else {
-            openConstraint.isActive = false
-            collapsedConstraint.isActive = true
+            containerView.setHeightConstraint(collapsedView.frame.maxY)
         }
-        self.layoutIfNeeded()
+        animationView.layoutIfNeeded()
         isOpen = opened
     }
     

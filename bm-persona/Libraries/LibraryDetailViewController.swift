@@ -10,30 +10,22 @@ import UIKit
 import CoreLocation
 
 fileprivate let kHeaderFont: UIFont = Font.bold(24)
-fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
+fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
 fileprivate let kViewMargin: CGFloat = 16
 
 class LibraryDetailViewController: SearchDrawerViewController {
-
-    var scrollView: UIScrollView!
     var library : Library!
     var locationManager = CLLocationManager()
-    var userCoords = CLLocationCoordinate2D(latitude: 0.0 , longitude: 0.0 )
-    var distLabel = UILabel()
     var overviewCard: OverviewCardView!
     var openTimesCard: OpenTimesCardView?
-    var bookButton = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //location stuff
         locationManager.delegate = self
-        
         setUpScrollView()
         setUpOverviewCard()
         setUpOpenTimesCard()
-        //setUpTrafficCard()
         setUpBookButton()
         
         // in order to set the cutoff correctly
@@ -49,64 +41,101 @@ class LibraryDetailViewController: SearchDrawerViewController {
         /* Set the bottom cutoff point for when the drawer appears
         The "middle" position for the view will show everything in the overview card
         When collapsible open time card is added, change this to show that card as well. */
-        middleCutoffPosition = (openTimesCard?.frame.maxY ?? overviewCard.frame.maxY) + 8
+        middleCutoffPosition = (openTimesCard?.frame.maxY ?? overviewCard.frame.maxY) + scrollView.frame.minY + scrollView.contentInset.top + 8
+        updateScrollView()
     }
+    
+    func updateScrollView() {
+        scrollView.contentSize.height = scrollContent.frame.height
+    }
+    
+    var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.contentInsetAdjustmentBehavior = .never
+        scrollView.contentInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+        return scrollView
+    }()
+    var scrollContainer: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    var scrollContent: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    var bookButton: UIButton = {
+        let button = UIButton()
+        // bookButton.isUserInteractionEnabled = true
+        button.layoutMargins = kCardPadding
+        button.backgroundColor =  Color.eventAcademic
+        button.layer.cornerRadius = 10
+        button.layer.shadowRadius = 5
+        button.layer.shadowOpacity = 0.25
+        button.layer.shadowOffset = .zero
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowPath = UIBezierPath(rect: button.layer.bounds.insetBy(dx: 4, dy: 4)).cgPath
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Book a Study Room >", for: .normal)
+        button.titleLabel!.font = Font.semibold(14)
+        button.titleLabel!.textColor = .white
+        return button
+    }()
 }
 
 extension LibraryDetailViewController {
     func setUpOverviewCard() {
         overviewCard = OverviewCardView(item: library, excludedElements: [.openTimes, .occupancy], userLocation: locationManager.location)
-        scrollView.addSubview(overviewCard)
-        overviewCard.topAnchor.constraint(equalTo: barView.bottomAnchor, constant: kViewMargin).isActive = true
-        overviewCard.leftAnchor.constraint(equalTo: scrollView.layoutMarginsGuide.leftAnchor).isActive = true
-        overviewCard.rightAnchor.constraint(equalTo: scrollView.layoutMarginsGuide.rightAnchor).isActive = true
+        scrollContent.addSubview(overviewCard)
+        overviewCard.topAnchor.constraint(equalTo: scrollContent.topAnchor).isActive = true
+        overviewCard.leftAnchor.constraint(equalTo: scrollContent.leftAnchor).isActive = true
+        overviewCard.rightAnchor.constraint(equalTo: scrollContent.rightAnchor).isActive = true
         overviewCard.heightAnchor.constraint(equalToConstant: 200).isActive = true
     }
     
     func setUpOpenTimesCard() {
         guard library.weeklyHours != nil else { return }
-        openTimesCard = OpenTimesCardView(item: library, openedAction: {
-            self.delegate.moveDrawer(to: .full, duration: 0.2)
+        openTimesCard = OpenTimesCardView(item: library, animationView: scrollView, toggleAction: { open in
+            if open {
+                self.delegate.moveDrawer(to: .full, duration: 0.2)
+            }
+            self.updateScrollView()
         })
         let openTimesCard = self.openTimesCard!
-        scrollView.addSubview(openTimesCard)
+        scrollContent.addSubview(openTimesCard)
         openTimesCard.topAnchor.constraint(equalTo: overviewCard.bottomAnchor, constant: kViewMargin).isActive = true
-        openTimesCard.leftAnchor.constraint(equalTo: scrollView.layoutMarginsGuide.leftAnchor).isActive = true
-        openTimesCard.rightAnchor.constraint(equalTo: scrollView.layoutMarginsGuide.rightAnchor).isActive = true
+        openTimesCard.leftAnchor.constraint(equalTo: scrollContent.leftAnchor).isActive = true
+        openTimesCard.rightAnchor.constraint(equalTo: scrollContent.rightAnchor).isActive = true
     }
     
     func setUpBookButton() {
-        bookButton.isUserInteractionEnabled = true
-        bookButton.layoutMargins = kCardPadding
-        scrollView.addSubview(bookButton)
-        bookButton.backgroundColor =  Color.eventAcademic
-        bookButton.layer.cornerRadius = 10
-        bookButton.layer.shadowRadius = 5
-        bookButton.layer.shadowOpacity = 0.25
-        bookButton.layer.shadowOffset = .zero
-        bookButton.layer.shadowColor = UIColor.black.cgColor
-        bookButton.layer.shadowPath = UIBezierPath(rect: bookButton.layer.bounds.insetBy(dx: 4, dy: 4)).cgPath
-        bookButton.translatesAutoresizingMaskIntoConstraints = false
+        scrollContent.addSubview(bookButton)
         bookButton.topAnchor.constraint(equalTo: openTimesCard?.bottomAnchor ?? overviewCard.bottomAnchor, constant: kViewMargin).isActive = true
-        bookButton.leftAnchor.constraint(equalTo: scrollView.layoutMarginsGuide.leftAnchor).isActive = true
-        bookButton.rightAnchor.constraint(equalTo: scrollView.layoutMarginsGuide.rightAnchor).isActive = true
+        bookButton.leftAnchor.constraint(equalTo: scrollContent.leftAnchor).isActive = true
+        bookButton.rightAnchor.constraint(equalTo: scrollContent.rightAnchor).isActive = true
+        bookButton.bottomAnchor.constraint(equalTo: scrollContent.bottomAnchor).isActive = true
         bookButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        bookButton.setTitle("Book a Study Room >", for: .normal)
-        bookButton.titleLabel!.font = Font.semibold(14)
-        bookButton.titleLabel!.textColor = .white
     }
     
     func setUpScrollView() {
-        scrollView = UIScrollView(frame: .zero)
-        scrollView.contentInsetAdjustmentBehavior = .never
-        scrollView.layoutMargins = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
-        scrollView.alwaysBounceVertical = true
-        view.addSubview(scrollView)
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.topAnchor.constraint(equalTo: barView.topAnchor, constant: kViewMargin).isActive = true
-        scrollView.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
-        scrollView.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
-        scrollView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
+        view.addSubview(scrollContainer)
+        scrollContainer.topAnchor.constraint(equalTo: barView.topAnchor, constant: kViewMargin).isActive = true
+        scrollContainer.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
+        scrollContainer.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
+        scrollContainer.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
+        
+        scrollContainer.addSubview(scrollView)
+        scrollView.topAnchor.constraint(equalTo: scrollContainer.topAnchor).isActive = true
+        scrollView.leftAnchor.constraint(equalTo: scrollContainer.leftAnchor).isActive = true
+        scrollView.rightAnchor.constraint(equalTo: scrollContainer.rightAnchor).isActive = true
+        scrollView.bottomAnchor.constraint(equalTo: scrollContainer.bottomAnchor).isActive = true
+        
+        scrollView.addSubview(scrollContent)
+        scrollContent.widthAnchor.constraint(equalTo: scrollContainer.widthAnchor, constant: -1 * (scrollView.contentInset.left + scrollView.contentInset.right)).isActive = true
+        scrollContent.centerXAnchor.constraint(equalTo: scrollContainer.centerXAnchor).isActive = true
     }
 }
     
