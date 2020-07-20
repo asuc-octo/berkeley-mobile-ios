@@ -20,6 +20,8 @@ class CollapsibleCardView: CardView {
     var isOpen: Bool!
     // any actions to be taken when the card opens/closes, passes in the new state
     var toggleAction: ((Bool) -> Void)?
+    // any actions to be taken after the card has finished opening/closing animation, passes in new state
+    var toggleCompletionAction: ((Bool) -> Void)?
     // icon to display to the left of the collapsedView, if any
     var leftIcon: UIImageView?
     // view to call layoutIfNeeded() on to animate open/close; must be parent view containing all subviews which will be adjusted to prevent 'jumping'
@@ -29,12 +31,13 @@ class CollapsibleCardView: CardView {
         super.init(frame: CGRect.zero)
     }
     
-    public func setContents(collapsedView: UIView, openedView: UIView, animationView: UIView, isOpen: Bool = false, toggleAction: ((Bool) -> Void)? = nil, leftIcon: UIImageView? = nil) {
+    public func setContents(collapsedView: UIView, openedView: UIView, animationView: UIView, isOpen: Bool = false, toggleAction: ((Bool) -> Void)? = nil, toggleCompletionAction: ((Bool) -> Void)? = nil, leftIcon: UIImageView? = nil) {
         self.collapsedView = collapsedView
         self.openedView = openedView
         self.animationView = animationView
         self.isOpen = isOpen
         self.toggleAction = toggleAction
+        self.toggleCompletionAction = toggleCompletionAction
         self.leftIcon = leftIcon
         self.layoutMargins = kCardPadding
         self.translatesAutoresizingMaskIntoConstraints = false
@@ -50,10 +53,10 @@ class CollapsibleCardView: CardView {
     }
     
     @objc func viewTapped(_ sender: UITapGestureRecognizer) {
-        if let toggleAction = self.toggleAction {
-            toggleAction(!self.isOpen)
+        toggleAction?(!self.isOpen)
+        toggleState() {
+            self.toggleCompletionAction?(self.isOpen)
         }
-        toggleState()
     }
     
     func setUpViews() {
@@ -97,7 +100,7 @@ class CollapsibleCardView: CardView {
     }
     
     // rotate the chevron depending on the opened state (point left or down)
-    func toggleState() {
+    func toggleState(completion: (() -> Void)? = nil) {
         UIView.animate(withDuration: 0.2) {
             self.setState(opened: !self.isOpen)
             if self.isOpen {
@@ -105,6 +108,8 @@ class CollapsibleCardView: CardView {
             } else {
                 self.chevronIcon.transform = self.chevronIcon.transform.rotated(by: .pi / 2)
             }
+        } completion: { _ in
+            completion?()
         }
     }
     

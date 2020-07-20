@@ -14,10 +14,10 @@ fileprivate let kViewMargin: CGFloat = 16
 class OpenTimesCardView: CollapsibleCardView {
     var item: HasOpenTimes!
 
-    public init(item: HasOpenTimes, animationView: UIView, toggleAction: ((Bool) -> Void)? = nil) {
+    public init(item: HasOpenTimes, animationView: UIView, toggleAction: ((Bool) -> Void)? = nil, toggleCompletionAction: ((Bool) -> Void)? = nil) {
         super.init()
         self.item = item
-        super.setContents(collapsedView: collapsedView(), openedView: openedView(), animationView: animationView, toggleAction: toggleAction, leftIcon: clockIcon)
+        super.setContents(collapsedView: collapsedView(), openedView: openedView(), animationView: animationView, toggleAction: toggleAction, toggleCompletionAction: toggleCompletionAction, leftIcon: clockIcon)
     }
     
     required init?(coder: NSCoder) {

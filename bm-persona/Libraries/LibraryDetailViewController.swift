@@ -100,6 +100,7 @@ extension LibraryDetailViewController {
             if open, self.currState != .full {
                 self.delegate.moveDrawer(to: .full, duration: 0.6)
             }
+        }, toggleCompletionAction: { _ in
             self.updateScrollView()
         })
         let openTimesCard = self.openTimesCard!
