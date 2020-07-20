@@ -109,7 +109,6 @@ class CollapsibleCardView: CardView {
     }
     
     func setState(opened: Bool) {
-        // the order of these matters otherwise constraints get broken. one must be set to false first; otherwise two conflicting constraints are active at the same time
         if opened {
             containerView.setHeightConstraint(openedView.frame.maxY)
         } else {
