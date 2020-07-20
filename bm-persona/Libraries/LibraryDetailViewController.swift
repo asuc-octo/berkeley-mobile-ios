@@ -68,7 +68,6 @@ class LibraryDetailViewController: SearchDrawerViewController {
     }()
     var bookButton: UIButton = {
         let button = UIButton()
-        // bookButton.isUserInteractionEnabled = true
         button.layoutMargins = kCardPadding
         button.backgroundColor =  Color.eventAcademic
         button.layer.cornerRadius = 10
