@@ -40,7 +40,7 @@ class LibraryDetailViewController: SearchDrawerViewController {
         /* Set the bottom cutoff point for when the drawer appears
         The "middle" position for the view will show everything in the overview card
         When collapsible open time card is added, change this to show that card as well. */
-        middleCutoffPosition = (openTimesCard?.frame.maxY ?? overviewCard.frame.maxY) + scrollView.frame.minY + scrollView.contentInset.top + 8
+        middleCutoffPosition = (openTimesCard?.frame.maxY ?? overviewCard.frame.maxY) + scrollContainer.frame.minY + scrollView.contentInset.top + 8
         updateScrollView()
     }
     
