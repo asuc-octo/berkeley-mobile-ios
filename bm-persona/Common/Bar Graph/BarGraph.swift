@@ -12,6 +12,7 @@ class BarGraph: UIView {
     private let mainLayer: CALayer = CALayer()
     private let scrollView: UIScrollView = UIScrollView()
     private let presenter = BarGraphPresenter(barWidth: 16, space: 1)
+    private let barRadius: CGFloat = 7
     
     /// An array of bar entries. Each BasicBarEntry contain information about line segments, curved line segments, positions and frames of all elements on a bar.
     private var barEntries: [BarEntry] = [] {
@@ -22,7 +23,7 @@ class BarGraph: UIView {
             mainLayer.frame = CGRect(x: 0, y: 0, width: scrollView.contentSize.width, height: scrollView.contentSize.height)
             
             for (index, entry) in barEntries.enumerated() {
-                showEntry(index: index, entry: entry, oldEntry: index < oldValue.count ? oldValue[index] : nil)
+                showEntry(index: index, entry: entry)
             }
         }
     }
@@ -60,14 +61,10 @@ class BarGraph: UIView {
         self.updateDataEntries(dataEntries: presenter.dataEntries)
     }
     
-    private func showEntry(index: Int, entry: BarEntry, oldEntry: BarEntry?) {
-        
+    private func showEntry(index: Int, entry: BarEntry) {
         let cgColor = entry.data.color.cgColor
         
-        // Show the main bar
-        mainLayer.addRectangleLayer(frame: entry.barFrame, color: cgColor, oldFrame: oldEntry?.barFrame)
-        
-        // Show a title below the bar
-        mainLayer.addTextLayer(frame: entry.bottomTitleFrame, color: Color.blackText.cgColor, fontSize: 10, text: entry.data.bottomText, oldFrame: oldEntry?.bottomTitleFrame)
+        mainLayer.addRoundedRectangleLayer(frame: entry.barFrame, cornerRadius: barRadius, color: cgColor)
+        mainLayer.addTextLayer(frame: entry.bottomTitleFrame, color: Color.blackText.cgColor, fontSize: 10, text: entry.data.bottomText)
     }
 }
