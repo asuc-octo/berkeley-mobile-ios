@@ -34,7 +34,7 @@ extension MainDrawerViewDelegate where Self: UIViewController {
             positions.removeLast()
             // depending on whether the top drawer is being replaced, show the drawer below
             if showNext {
-                moveCurrentDrawer(to: (drawerStack.count == 0 ? mainDrawerPosition : positions.last!)!, duration: 0.2)
+                moveCurrentDrawer(to: (drawerStack.count == 0 ? mainDrawerPosition : positions.last!)!)
             }
         }
     }
@@ -44,7 +44,7 @@ extension MainDrawerViewDelegate where Self: UIViewController {
         self.hideTop()
         drawerStack.append(newTop)
         positions.append(nil)
-        moveCurrentDrawer(to: newState, duration: 0.2)
+        moveCurrentDrawer(to: newState)
     }
     
     // hide the top drawer without deleting it, save the last non-hidden position it was in
@@ -62,7 +62,7 @@ extension MainDrawerViewDelegate where Self: UIViewController {
             }
             mainDrawerPosition = positionBeforeHidden
         }
-        moveCurrentDrawer(to: .hidden, duration: 0.2)
+        moveCurrentDrawer(to: .hidden)
     }
     
     // show the top drawer again and update the positions list
@@ -71,7 +71,7 @@ extension MainDrawerViewDelegate where Self: UIViewController {
         if movePosition == nil {
             return
         }
-        moveCurrentDrawer(to: movePosition!, duration: 0.2)
+        moveCurrentDrawer(to: movePosition!)
         if drawerStack.count > 0 {
             positions[drawerStack.count - 1] = nil
         } else {
@@ -80,12 +80,16 @@ extension MainDrawerViewDelegate where Self: UIViewController {
     }
     
     // move the current top drawer to a specific state
-    func moveCurrentDrawer(to state: DrawerState, duration: Double) {
+    func moveCurrentDrawer(to state: DrawerState, duration: Double? = nil) {
+        var moveDuration = duration
+        if moveDuration == nil {
+            moveDuration = state == .full ? 0.6 : 0.2
+        }
         if drawerStack.count > 0 {
             let topDrawer = drawerStack.last!
-            topDrawer.moveDrawer(to: state, duration: duration)
+            topDrawer.moveDrawer(to: state, duration: moveDuration!)
         } else {
-            self.moveDrawer(to: state, duration: duration)
+            self.moveDrawer(to: state, duration: moveDuration!)
         }
     }
     

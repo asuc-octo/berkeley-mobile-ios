@@ -98,8 +98,8 @@ extension LibraryDetailViewController {
     func setUpOpenTimesCard() {
         guard library.weeklyHours != nil else { return }
         openTimesCard = OpenTimesCardView(item: library, animationView: scrollView, toggleAction: { open in
-            if open {
-                self.delegate.moveDrawer(to: .full, duration: 0.2)
+            if open, self.currState != .full {
+                self.delegate.moveDrawer(to: .full, duration: 0.6)
             }
             self.updateScrollView()
         })
