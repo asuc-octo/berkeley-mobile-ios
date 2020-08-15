@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import CoreGraphics.CGGeometry
 
+/// The frames associated with a single bar
 struct BarEntry {
     let origin: CGPoint
     let barWidth: CGFloat
@@ -21,15 +22,12 @@ struct BarEntry {
         return CGRect(x: origin.x - horizontalSpace/2, y: origin.y + 10 + barHeight, width: barWidth + horizontalSpace, height: 22)
     }
     
-    var textValueFrame: CGRect {
-        return CGRect(x: origin.x - horizontalSpace/2, y: origin.y - 30, width: barWidth + horizontalSpace, height: 22)
-    }
-    
     var barFrame: CGRect {
         return CGRect(x: origin.x, y: origin.y, width: barWidth, height: barHeight)
     }
 }
 
+/// The data required for a single bar
 struct DataEntry {
     let color: UIColor
     let height: CGFloat

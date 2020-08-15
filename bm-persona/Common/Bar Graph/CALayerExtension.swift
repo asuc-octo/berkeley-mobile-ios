@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Functions to add text or a rounded rectangle to a layer
 extension CALayer {
     func addTextLayer(frame: CGRect, color: CGColor, fontSize: CGFloat, text: String) {
         let textLayer = CATextLayer()

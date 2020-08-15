@@ -11,8 +11,10 @@ import UIKit
 fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
 fileprivate let kViewMargin: CGFloat = 16
 
+/// A card with a bar graph showing occupancy by hour
 class OccupancyGraphCardView: CardView {
     var occupancyEntries: [DataEntry] = []
+    /// The date used to populate the graph and indicate the current hour (likely the current date)
     var date: Date = Date()
     var graph: BarGraph = BarGraph()
     
@@ -21,13 +23,8 @@ class OccupancyGraphCardView: CardView {
         self.date = date
         self.layoutMargins = kCardPadding
         self.translatesAutoresizingMaskIntoConstraints = false
-        updateValues(occupancy: occupancy, day: DayOfWeek.weekday(date))
+        setOrderedEntries(occupancy: occupancy, day: DayOfWeek.weekday(date))
         setUpViews(occupancy: occupancy)
-    }
-    
-    public func updateValues(occupancy: Occupancy, day: DayOfWeek) {
-        setOrderedEntries(occupancy: occupancy, day: day)
-        graph.dataEntries = occupancyEntries
     }
     
     private func setUpViews(occupancy: Occupancy) {
@@ -61,20 +58,33 @@ class OccupancyGraphCardView: CardView {
         graph.heightAnchor.constraint(equalToConstant: 200).isActive = true
     }
     
+    /**
+     Sets the entries for the graph by sorting occupancy hours chronologically and determining the color, height, and text for each bar.
+     - parameter occupancy: occupancy object used to set the entries
+     - parameter day: the day of the week displayed in the graph
+     */
     private func setOrderedEntries(occupancy: Occupancy, day: DayOfWeek) {
         occupancyEntries = []
         guard let occupancyForDay = occupancy.occupancy(for: day) else { return }
         for (index, hour) in occupancyForDay.keys.sorted().enumerated() {
             let percent = CGFloat(occupancyForDay[hour]!) / 100.0
-            let bottomText = (index % 3 == 0) ? timeLabel(time: hour) : ""
+            // hour is shown for hours that are a multiple of 3
+            let bottomText = (index % 3 == 0) ? timeText(time: hour) : ""
+            // alpha for bar color linearly scales from 0.2 to 1.0 based on percentage occupancy
             let alpha = 0.2 + percent * 0.8
             let dateHour = Calendar.current.component(.hour, from: Date())
+            // if the bar is for the current hour, make it blue
             let color = dateHour == hour ? Color.barGraphEntryCurrent : Color.barGraphEntry(alpha: alpha)
             occupancyEntries.append(DataEntry(color: color, height: percent, bottomText: bottomText))
         }
+        graph.dataEntries = occupancyEntries
     }
     
-    private func timeLabel(time: Int) -> String {
+    /**
+     - parameter time: the hour of the day (24 hr time)
+     - returns: text for this hour that should be displayed below the bar
+     */
+    private func timeText(time: Int) -> String {
         if time == 0 {
             return "12a"
         } else if time <= 11 {

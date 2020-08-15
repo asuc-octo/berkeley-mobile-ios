@@ -8,19 +8,24 @@
 
 import UIKit
 
+/// A view containing a horizontally scrolling bar graph with rounded rectangle entries
 class BarGraph: UIView {
     private let mainLayer: CALayer = CALayer()
+    /// Horizontal scroll view in case there are many entries
     private let scrollView: UIScrollView = UIScrollView()
     private var barWidth: CGFloat = 16
     private var horizontalSpace: CGFloat = 1
     private let barRadius: CGFloat = 7
+    /// Space below the bars to allow for text
     private let bottomSpace: CGFloat = 30.0
     
+    /// The data for each bar to be included in the graph. Changing this variable will update the graph.
     public var dataEntries: [DataEntry] = [] {
         didSet {
             setBarEntries()
         }
     }
+    /// The bars included in the graph
     private var barEntries: [BarEntry] = [] {
         didSet {
             mainLayer.sublayers?.forEach({$0.removeFromSuperlayer()})
@@ -28,8 +33,8 @@ class BarGraph: UIView {
             scrollView.contentSize = CGSize(width: computeContentWidth(), height: self.frame.size.height)
             mainLayer.frame = CGRect(x: 0, y: 0, width: scrollView.contentSize.width, height: scrollView.contentSize.height)
             
-            for (index, entry) in barEntries.enumerated() {
-                addEntry(index: index, entry: entry)
+            for (index, bar) in barEntries.enumerated() {
+                addBar(index: index, bar: bar)
             }
         }
     }
@@ -38,15 +43,15 @@ class BarGraph: UIView {
         super.init(frame: frame)
         self.barWidth = barWidth
         self.horizontalSpace = horizontalSpace
-        setupView()
+        setUpView()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        setupView()
+        setUpView()
     }
     
-    private func setupView() {
+    private func setUpView() {
         self.translatesAutoresizingMaskIntoConstraints = false
         scrollView.layer.addSublayer(mainLayer)
         self.addSubview(scrollView)
@@ -64,15 +69,22 @@ class BarGraph: UIView {
         setBarEntries()
     }
     
-    private func addEntry(index: Int, entry: BarEntry) {
-        mainLayer.addRoundedRectangleLayer(frame: entry.barFrame, cornerRadius: barRadius, color: entry.data.color.cgColor)
-        mainLayer.addTextLayer(frame: entry.bottomTitleFrame, color: Color.blackText.cgColor, fontSize: 10, text: entry.data.bottomText)
+    /**
+     Adds a bar to the graph (including rounded rectangle and text below)
+     - parameter index: the position of the bar
+     - parameter bar: the data needed to add the bar
+     */
+    private func addBar(index: Int, bar: BarEntry) {
+        mainLayer.addRoundedRectangleLayer(frame: bar.barFrame, cornerRadius: barRadius, color: bar.data.color.cgColor)
+        mainLayer.addTextLayer(frame: bar.bottomTitleFrame, color: Color.blackText.cgColor, fontSize: 10, text: bar.data.bottomText)
     }
     
+    /// Computes the total width necessary to include all entries
     private func computeContentWidth() -> CGFloat {
         return (barWidth + horizontalSpace) * CGFloat(dataEntries.count) + horizontalSpace
     }
     
+    /// Updates the bar entries based on the data entries
     private func setBarEntries() {
         var result: [BarEntry] = []
         
