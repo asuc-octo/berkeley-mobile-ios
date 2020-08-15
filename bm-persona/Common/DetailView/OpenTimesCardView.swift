@@ -73,7 +73,7 @@ class OpenTimesCardView: CollapsibleCardView {
         return view
     }
     
-    /// creates a vertical stack with all hour intervals for one day
+    /// Creates a vertical stack with all hour intervals for one day
     private func hourSpanLabelStack(weekday: DayOfWeek) -> UIStackView? {
         guard let weeklyHours = item.weeklyHours else { return nil }
         let intervals = weeklyHours.hoursForWeekday(weekday)
@@ -103,7 +103,7 @@ class OpenTimesCardView: CollapsibleCardView {
     
     /**
      Creates a label displaying the given time interval.
-     - parameter shouldBoldIfCurrent:whether the interval should be bold if the current time falls within its bounds (set to false for the collapsedView)
+     - parameter shouldBoldIfCurrent: whether the interval should be bold if the current time falls within its bounds (set to false for the collapsedView)
      - returns: label displaying the given interval
      */
     private func timeSpanLabel(interval: DateInterval, shouldBoldIfCurrent: Bool = true) -> UILabel {
