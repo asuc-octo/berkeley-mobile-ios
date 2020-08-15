@@ -17,7 +17,7 @@ class LibraryDetailViewController: SearchDrawerViewController {
     var locationManager = CLLocationManager()
     var overviewCard: OverviewCardView!
     var openTimesCard: OpenTimesCardView?
-    var occupancyCard: OccupancyGraphCardView!
+    var occupancyCard: OccupancyGraphCardView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -115,15 +115,16 @@ extension LibraryDetailViewController {
     func setUpOccupancyCard() {
         guard let occupancy = library.occupancy, let forDay = occupancy.occupancy(for: DayOfWeek.weekday(Date())), forDay.count > 0 else { return }
         occupancyCard = OccupancyGraphCardView(occupancy: occupancy, date: Date())
-        view.addSubview(occupancyCard)
-        occupancyCard.topAnchor.constraint(equalTo: openTimesCard.bottomAnchor, constant: kViewMargin).isActive = true
-        occupancyCard.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
-        occupancyCard.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
+        let occupancyCard = self.occupancyCard!
+        scrollContent.addSubview(occupancyCard)
+        occupancyCard.topAnchor.constraint(equalTo: openTimesCard?.bottomAnchor ?? overviewCard.bottomAnchor, constant: kViewMargin).isActive = true
+        occupancyCard.leftAnchor.constraint(equalTo: scrollContent.leftAnchor).isActive = true
+        occupancyCard.rightAnchor.constraint(equalTo: scrollContent.rightAnchor).isActive = true
     }
     
     func setUpBookButton() {
         scrollContent.addSubview(bookButton)
-        bookButton.topAnchor.constraint(equalTo: openTimesCard?.bottomAnchor ?? overviewCard.bottomAnchor, constant: kViewMargin).isActive = true
+        bookButton.topAnchor.constraint(equalTo: occupancyCard?.bottomAnchor ?? openTimesCard?.bottomAnchor ?? overviewCard.bottomAnchor, constant: kViewMargin).isActive = true
         bookButton.leftAnchor.constraint(equalTo: scrollContent.leftAnchor).isActive = true
         bookButton.rightAnchor.constraint(equalTo: scrollContent.rightAnchor).isActive = true
         bookButton.bottomAnchor.constraint(equalTo: scrollContent.bottomAnchor).isActive = true
