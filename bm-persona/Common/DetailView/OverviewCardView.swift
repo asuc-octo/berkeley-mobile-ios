@@ -109,31 +109,18 @@ class OverviewCardView: CardView {
             secondRowHorizontalStack.leftAnchor.constraint(equalTo: leftVerticalStack.leftAnchor).isActive = true
             secondRowHorizontalStack.rightAnchor.constraint(equalTo: leftVerticalStack.rightAnchor).isActive = true
         }
-
-        let date = Date()
-        if !excludedElements.contains(.openTimes), let itemWithOpenTimes = item as? HasOpenTimes, let intervals = itemWithOpenTimes.weeklyHours?.hoursForWeekday(DayOfWeek.weekday(date)) {
+        
+        if !excludedElements.contains(.openTimes), let itemWithOpenTimes = item as? HasOpenTimes, itemWithOpenTimes.weeklyHours != nil {
             openTimesStack.addArrangedSubview(UIView.iconPairView(icon: clockIcon, iconHeight: 16, attachedView: openTimeLabel))
 
             let formatter = DateIntervalFormatter()
             formatter.dateStyle = .none
             formatter.timeStyle = .short
-            /*If dining hall has open hours for today, set the label to show the current
+            /* If dining hall has open hours for today, set the label to show the current
              or next open interval. If there are no open times in the rest of the day,
              set label to "Closed Today".*/
             openTimeLabel.text = "Closed Today"
-            var nextOpenInterval: DateInterval? = nil
-            for interval in intervals {
-                if interval.contains(date) {
-                    nextOpenInterval = interval
-                    break
-                } else if date.compare(interval.start) == .orderedAscending {
-                    if nextOpenInterval == nil {
-                        nextOpenInterval = interval
-                    } else if interval.compare(nextOpenInterval!) == .orderedAscending {
-                        nextOpenInterval = interval
-                    }
-                }
-            }
+            let nextOpenInterval = itemWithOpenTimes.nextOpenInterval()
             /* Remove the date, and only include hour and minute in string display.
              Otherwise, string is too long when interval spans two days (e.g. 9pm-12:30am) */
             if nextOpenInterval != nil,
@@ -143,15 +130,7 @@ class OverviewCardView: CardView {
             }
 
             if let isOpen = itemWithOpenTimes.isOpen {
-                if isOpen {
-                    openTag.text = "Open"
-                    openTag.backgroundColor = Color.openTag
-                } else {
-                    openTag.text = "Closed"
-                    openTag.backgroundColor = Color.closedTag
-                }
-                openTag.widthAnchor.constraint(equalToConstant: 50).isActive = true
-                openTimesStack.addArrangedSubview(openTag)
+                openTimesStack.addArrangedSubview(isOpen ? TagView.open: TagView.closed)
             }
             leftVerticalStack.addArrangedSubview(openTimesStack)
             openTimesStack.leftAnchor.constraint(equalTo: leftVerticalStack.leftAnchor).isActive = true
@@ -329,12 +308,6 @@ class OverviewCardView: CardView {
         label.minimumScaleFactor = 0.75
         label.numberOfLines = 1
         return label
-    }()
-    
-    let openTag: TagView = {
-        let tag = TagView(origin: .zero, text: "", color: .clear)
-        tag.translatesAutoresizingMaskIntoConstraints = false
-        return tag
     }()
     
     let chairImage:UIImageView = {
