@@ -22,13 +22,6 @@ extension CALayer {
         self.addSublayer(textLayer)
     }
     
-    func addRectangleLayer(frame: CGRect, color: CGColor) {
-        let layer = CALayer()
-        layer.frame = frame
-        layer.backgroundColor = color
-        self.addSublayer(layer)
-    }
-    
     func addRoundedRectangleLayer(frame: CGRect, cornerRadius: CGFloat, color: CGColor) {
         let layer = CAShapeLayer()
         layer.path = UIBezierPath(roundedRect: frame, cornerRadius: cornerRadius).cgPath

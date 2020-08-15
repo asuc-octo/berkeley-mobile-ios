@@ -27,7 +27,7 @@ class OccupancyGraphCardView: CardView {
     
     public func updateValues(occupancy: Occupancy, day: DayOfWeek) {
         setOrderedEntries(occupancy: occupancy, day: day)
-        graph.updateDataEntries(dataEntries: occupancyEntries)
+        graph.dataEntries = occupancyEntries
     }
     
     private func setUpViews(occupancy: Occupancy) {

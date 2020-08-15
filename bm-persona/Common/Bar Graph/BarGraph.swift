@@ -11,30 +11,33 @@ import UIKit
 class BarGraph: UIView {
     private let mainLayer: CALayer = CALayer()
     private let scrollView: UIScrollView = UIScrollView()
-    private let presenter = BarGraphPresenter(barWidth: 16, space: 1)
+    private var barWidth: CGFloat = 16
+    private var horizontalSpace: CGFloat = 1
     private let barRadius: CGFloat = 7
+    private let bottomSpace: CGFloat = 30.0
     
-    /// An array of bar entries. Each BasicBarEntry contain information about line segments, curved line segments, positions and frames of all elements on a bar.
+    public var dataEntries: [DataEntry] = [] {
+        didSet {
+            setBarEntries()
+        }
+    }
     private var barEntries: [BarEntry] = [] {
         didSet {
             mainLayer.sublayers?.forEach({$0.removeFromSuperlayer()})
             
-            scrollView.contentSize = CGSize(width: presenter.computeContentWidth(), height: self.frame.size.height)
+            scrollView.contentSize = CGSize(width: computeContentWidth(), height: self.frame.size.height)
             mainLayer.frame = CGRect(x: 0, y: 0, width: scrollView.contentSize.width, height: scrollView.contentSize.height)
             
             for (index, entry) in barEntries.enumerated() {
-                showEntry(index: index, entry: entry)
+                addEntry(index: index, entry: entry)
             }
         }
     }
     
-    func updateDataEntries(dataEntries: [DataEntry]) {
-        self.presenter.dataEntries = dataEntries
-        self.barEntries = self.presenter.computeBarEntries(viewHeight: self.frame.height)
-    }
-    
-    override init(frame: CGRect) {
+    init(frame: CGRect = CGRect.zero, barWidth: CGFloat = 16, horizontalSpace: CGFloat = 1) {
         super.init(frame: frame)
+        self.barWidth = barWidth
+        self.horizontalSpace = horizontalSpace
         setupView()
     }
     
@@ -50,21 +53,38 @@ class BarGraph: UIView {
         
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        scrollView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        scrollView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+        scrollView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         scrollView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         scrollView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.updateDataEntries(dataEntries: presenter.dataEntries)
+        setBarEntries()
     }
     
-    private func showEntry(index: Int, entry: BarEntry) {
-        let cgColor = entry.data.color.cgColor
-        
-        mainLayer.addRoundedRectangleLayer(frame: entry.barFrame, cornerRadius: barRadius, color: cgColor)
+    private func addEntry(index: Int, entry: BarEntry) {
+        mainLayer.addRoundedRectangleLayer(frame: entry.barFrame, cornerRadius: barRadius, color: entry.data.color.cgColor)
         mainLayer.addTextLayer(frame: entry.bottomTitleFrame, color: Color.blackText.cgColor, fontSize: 10, text: entry.data.bottomText)
+    }
+    
+    private func computeContentWidth() -> CGFloat {
+        return (barWidth + horizontalSpace) * CGFloat(dataEntries.count) + horizontalSpace
+    }
+    
+    private func setBarEntries() {
+        var result: [BarEntry] = []
+        
+        for (index, entry) in dataEntries.enumerated() {
+            let entryHeight = CGFloat(entry.height) * (frame.height - bottomSpace)
+            let xPosition: CGFloat = horizontalSpace + CGFloat(index) * (barWidth + horizontalSpace)
+            let yPosition = frame.height - bottomSpace - entryHeight
+            let origin = CGPoint(x: xPosition, y: yPosition)
+            
+            let barEntry = BarEntry(origin: origin, barWidth: barWidth, barHeight: entryHeight, horizontalSpace: horizontalSpace, data: entry)
+            result.append(barEntry)
+        }
+        barEntries = result
     }
 }

@@ -60,8 +60,7 @@
 		29345E2B24A7EC2B00859A88 /* HasImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29345E2A24A7EC2B00859A88 /* HasImage.swift */; };
 		29345E2D24A7FFB600859A88 /* CanFavorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29345E2C24A7FFB600859A88 /* CanFavorite.swift */; };
 		29387E9524BBBC1000070BCE /* BarGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29387E9424BBBC1000070BCE /* BarGraph.swift */; };
-		29387E9724BBBC6100070BCE /* BarGraphPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29387E9624BBBC6100070BCE /* BarGraphPresenter.swift */; };
-		29387E9924BBBC9300070BCE /* BarEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29387E9824BBBC9300070BCE /* BarEntry.swift */; };
+		29387E9924BBBC9300070BCE /* BarEntry+DataEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29387E9824BBBC9300070BCE /* BarEntry+DataEntry.swift */; };
 		29387E9B24BBBD9D00070BCE /* CALayerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29387E9A24BBBD9D00070BCE /* CALayerExtension.swift */; };
 		29387E9D24BBBE8E00070BCE /* OccupancyGraphCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29387E9C24BBBE8E00070BCE /* OccupancyGraphCardView.swift */; };
 		2954F592245CD4B600DA66DA /* MainDrawerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2954F591245CD4B600DA66DA /* MainDrawerViewDelegate.swift */; };
@@ -177,8 +176,7 @@
 		29345E2A24A7EC2B00859A88 /* HasImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasImage.swift; sourceTree = "<group>"; };
 		29345E2C24A7FFB600859A88 /* CanFavorite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanFavorite.swift; sourceTree = "<group>"; };
 		29387E9424BBBC1000070BCE /* BarGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarGraph.swift; sourceTree = "<group>"; };
-		29387E9624BBBC6100070BCE /* BarGraphPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarGraphPresenter.swift; sourceTree = "<group>"; };
-		29387E9824BBBC9300070BCE /* BarEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarEntry.swift; sourceTree = "<group>"; };
+		29387E9824BBBC9300070BCE /* BarEntry+DataEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BarEntry+DataEntry.swift"; sourceTree = "<group>"; };
 		29387E9A24BBBD9D00070BCE /* CALayerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayerExtension.swift; sourceTree = "<group>"; };
 		29387E9C24BBBE8E00070BCE /* OccupancyGraphCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OccupancyGraphCardView.swift; sourceTree = "<group>"; };
 		2954F591245CD4B600DA66DA /* MainDrawerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainDrawerViewDelegate.swift; sourceTree = "<group>"; };
@@ -492,8 +490,7 @@
 			children = (
 				29387E9424BBBC1000070BCE /* BarGraph.swift */,
 				29387E9A24BBBD9D00070BCE /* CALayerExtension.swift */,
-				29387E9624BBBC6100070BCE /* BarGraphPresenter.swift */,
-				29387E9824BBBC9300070BCE /* BarEntry.swift */,
+				29387E9824BBBC9300070BCE /* BarEntry+DataEntry.swift */,
 			);
 			path = "Bar Graph";
 			sourceTree = "<group>";
@@ -892,13 +889,12 @@
 				29387E9B24BBBD9D00070BCE /* CALayerExtension.swift in Sources */,
 				1396013323865E2E005E4788 /* CardCollectionView.swift in Sources */,
 				13B39A9A23E6A33C0039FBA2 /* LibraryDataSource.swift in Sources */,
-				29387E9924BBBC9300070BCE /* BarEntry.swift in Sources */,
+				29387E9924BBBC9300070BCE /* BarEntry+DataEntry.swift in Sources */,
 				306A54EC23613E3A00D59A7F /* SceneDelegate.swift in Sources */,
 				29345E2724A7E76300859A88 /* OverviewCardView.swift in Sources */,
 				55AF442D2453ACE600F13232 /* DiningLocation.swift in Sources */,
 				1336A329241DA56100949F32 /* DiningHallDataSource.swift in Sources */,
 				136DC97B2398B4D1009B1810 /* UIViewController+Extensions.swift in Sources */,
-				29387E9724BBBC6100070BCE /* BarGraphPresenter.swift in Sources */,
 				2913595724B136BE00DE9AD6 /* CollapsibleCardView.swift in Sources */,
 				13491DB6241E21740033F9AB /* Colors+TagView.swift in Sources */,
 				556CCD2223E7771800F41BF9 /* MapPlacemark.swift in Sources */,
