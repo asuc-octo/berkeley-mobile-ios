@@ -121,7 +121,7 @@ extension LibraryDetailViewController {
     
     func setUpScrollView() {
         view.addSubview(scrollContainer)
-        scrollContainer.topAnchor.constraint(equalTo: barView.topAnchor, constant: kViewMargin).isActive = true
+        scrollContainer.topAnchor.constraint(equalTo: barView.bottomAnchor, constant: kViewMargin).isActive = true
         scrollContainer.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
         scrollContainer.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
         scrollContainer.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true

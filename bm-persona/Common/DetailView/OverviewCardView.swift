@@ -130,15 +130,16 @@ class OverviewCardView: CardView {
             }
 
             if let isOpen = itemWithOpenTimes.isOpen {
-                if isOpen {
-                    openTag.text = "Open"
-                    openTag.backgroundColor = Color.openTag
-                } else {
-                    openTag.text = "Closed"
-                    openTag.backgroundColor = Color.closedTag
-                }
-                openTag.widthAnchor.constraint(equalToConstant: 50).isActive = true
-                openTimesStack.addArrangedSubview(openTag)
+                openTimesStack.addArrangedSubview(isOpen ? TagView.open: TagView.closed)
+//                if isOpen {
+//                    openTag.text = "Open"
+//                    openTag.backgroundColor = Color.openTag
+//                } else {
+//                    openTag.text = "Closed"
+//                    openTag.backgroundColor = Color.closedTag
+//                }
+//                openTag.widthAnchor.constraint(equalToConstant: 50).isActive = true
+//                openTimesStack.addArrangedSubview(openTag)
             }
             leftVerticalStack.addArrangedSubview(openTimesStack)
             openTimesStack.leftAnchor.constraint(equalTo: leftVerticalStack.leftAnchor).isActive = true
@@ -318,11 +319,11 @@ class OverviewCardView: CardView {
         return label
     }()
     
-    let openTag: TagView = {
-        let tag = TagView(origin: .zero, text: "", color: .clear)
-        tag.translatesAutoresizingMaskIntoConstraints = false
-        return tag
-    }()
+//    let openTag: TagView = {
+//        let tag = TagView(origin: .zero, text: "", color: .clear)
+//        tag.translatesAutoresizingMaskIntoConstraints = false
+//        return tag
+//    }()
     
     let chairImage:UIImageView = {
         let img = UIImageView()

@@ -11,21 +11,21 @@ import UIKit
 fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
 fileprivate let kViewMargin: CGFloat = 16
 
-// Generalized card view that can collapse and expand when touched.
+/// Generalized card view that can collapse and expand when touched.
 class CollapsibleCardView: CardView {
-    // view to show when collapsed
-    var collapsedView: UIView!
-    // view to show below collapsedView when opened
-    var openedView: UIView!
-    var isOpen: Bool!
-    // any actions to be taken when the card opens/closes, passes in the new state
-    var toggleAction: ((Bool) -> Void)?
-    // any actions to be taken after the card has finished opening/closing animation, passes in new state
-    var toggleCompletionAction: ((Bool) -> Void)?
-    // icon to display to the left of the collapsedView, if any
-    var leftIcon: UIImageView?
-    // view to call layoutIfNeeded() on to animate open/close; must be parent view containing all subviews which will be adjusted to prevent 'jumping'
-    var animationView: UIView!
+    /// view to show when collapsed
+    private var collapsedView: UIView!
+    /// view to show below collapsedView when opened
+    private var openedView: UIView!
+    private var isOpen: Bool!
+    /// any actions to be taken when the card opens/closes
+    public var toggleAction: ((_ open: Bool) -> Void)?
+    /// any actions to be taken after the card has finished opening/closing
+    public var toggleCompletionAction: ((_ open: Bool) -> Void)?
+    /// icon to display to the left of the collapsedView
+    private var leftIcon: UIImageView?
+    /// view to call layoutIfNeeded() on to animate open/close; must be parent view containing all subviews which will be adjusted to prevent 'jumping'
+    public var animationView: UIView!
     
     public init() {
         super.init(frame: CGRect.zero)
@@ -46,20 +46,20 @@ class CollapsibleCardView: CardView {
         setUpGestures()
     }
     
-    // card opens and closes when any part of the card is tapped. Can change this behavior by adding the gesture to any other view
-    func setUpGestures() {
+    /// Sets up gesture recognizer so the card opens/closes when any part of the card is tapped
+    private func setUpGestures() {
         let gesture = UITapGestureRecognizer(target: self, action: #selector(self.viewTapped(_:)))
         self.addGestureRecognizer(gesture)
     }
     
-    @objc func viewTapped(_ sender: UITapGestureRecognizer) {
+    @objc private func viewTapped(_ sender: UITapGestureRecognizer) {
         toggleAction?(!self.isOpen)
         toggleState() {
             self.toggleCompletionAction?(self.isOpen)
         }
     }
     
-    func setUpViews() {
+    private func setUpViews() {
         self.addSubview(containerView)
         containerView.leftAnchor.constraint(equalTo: self.layoutMarginsGuide.leftAnchor).isActive = true
         containerView.rightAnchor.constraint(equalTo: self.layoutMarginsGuide.rightAnchor).isActive = true
@@ -99,21 +99,21 @@ class CollapsibleCardView: CardView {
         setState(opened: isOpen)
     }
     
-    // rotate the chevron depending on the opened state (point left or down)
-    func toggleState(completion: (() -> Void)? = nil) {
-        UIView.animate(withDuration: 0.2) {
+    /// Open or close the card and rotate the chevron
+    private func toggleState(completion: (() -> Void)? = nil) {
+        UIView.animate(withDuration: 0.2, animations: {
             self.setState(opened: !self.isOpen)
             if self.isOpen {
                 self.chevronIcon.transform = self.chevronIcon.transform.rotated(by: -1 * .pi / 2)
             } else {
                 self.chevronIcon.transform = self.chevronIcon.transform.rotated(by: .pi / 2)
             }
-        } completion: { _ in
+        }) { _ in
             completion?()
         }
     }
     
-    func setState(opened: Bool) {
+    private func setState(opened: Bool) {
         if opened {
             containerView.setHeightConstraint(openedView.frame.maxY)
         } else {
@@ -127,15 +127,15 @@ class CollapsibleCardView: CardView {
         super.init(coder: coder)
     }
     
-    // contains all contents of the collapsible card. this is necessary because clipsToBounds must be true to open/close successfully, but setting it to true for the entire view would get rid of the shadows on the card view.
-    let containerView: UIView = {
+    /// contains all contents of the collapsible card. this is necessary because clipsToBounds must be true to open/close successfully, but setting it to true for the entire view would get rid of the shadows on the card view.
+    private let containerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.clipsToBounds = true
         return view
     }()
     
-    let chevronIcon: UIImageView = {
+    private let chevronIcon: UIImageView = {
         let img = UIImageView()
         img.contentMode = .scaleAspectFit
         img.image = UIImage(named: "Back")
