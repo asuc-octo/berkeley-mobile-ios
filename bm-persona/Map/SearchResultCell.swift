@@ -19,8 +19,6 @@ class SearchResultCell: MaterialTableViewCell {
     private var leftStack: UIStackView!
     private var rightStack: UIStackView!
     
-    private var locationManager: CLLocationManager = CLLocationManager()
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setCornerBorder(cornerRadius: 0.0)
@@ -73,7 +71,7 @@ class SearchResultCell: MaterialTableViewCell {
         subTitle.text = currentPlacemark.locationName // TODO: - fix
         
         guard
-            let userLoc = locationManager.location,
+            let userLoc = LocationManager.shared.userLocation,
             let placemarkLoc = currentPlacemark.location
         else {
             return

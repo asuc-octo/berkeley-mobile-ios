@@ -14,14 +14,12 @@ fileprivate let kViewMargin: CGFloat = 16
 
 class LibraryDetailViewController: SearchDrawerViewController {
     var library : Library!
-    var locationManager = CLLocationManager()
     var overviewCard: OverviewCardView!
     var openTimesCard: OpenTimesCardView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        locationManager.delegate = self
+
         setUpScrollView()
         setUpOverviewCard()
         setUpOpenTimesCard()
@@ -30,10 +28,6 @@ class LibraryDetailViewController: SearchDrawerViewController {
         // in order to set the cutoff correctly
         view.layoutSubviews()
         scrollView.layoutSubviews()
-        
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.requestLocation()
-        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -86,7 +80,7 @@ class LibraryDetailViewController: SearchDrawerViewController {
 
 extension LibraryDetailViewController {
     func setUpOverviewCard() {
-        overviewCard = OverviewCardView(item: library, excludedElements: [.openTimes, .occupancy], userLocation: locationManager.location)
+        overviewCard = OverviewCardView(item: library, excludedElements: [.openTimes, .occupancy])
         scrollContent.addSubview(overviewCard)
         overviewCard.topAnchor.constraint(equalTo: scrollContent.topAnchor).isActive = true
         overviewCard.leftAnchor.constraint(equalTo: scrollContent.leftAnchor).isActive = true
@@ -135,18 +129,5 @@ extension LibraryDetailViewController {
         scrollView.addSubview(scrollContent)
         scrollContent.widthAnchor.constraint(equalTo: scrollContainer.widthAnchor, constant: -1 * (scrollView.contentInset.left + scrollView.contentInset.right)).isActive = true
         scrollContent.centerXAnchor.constraint(equalTo: scrollContainer.centerXAnchor).isActive = true
-    }
-}
-    
-extension LibraryDetailViewController : CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let userLocation : CLLocation = locations[0] as CLLocation
-        DispatchQueue.main.async {
-            self.overviewCard.updateLocation(userLocation: userLocation)
-        }
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print(error)
     }
 }

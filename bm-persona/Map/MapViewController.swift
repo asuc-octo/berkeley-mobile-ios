@@ -22,7 +22,6 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
     private var maskView: UIView!
     private var searchBar: SearchBarView!
     private var searchResultsView: SearchResultsView!
-    private var locationManager = CLLocationManager()
     
     // DrawerViewDelegate properties
     var drawerViewController: DrawerViewController?
@@ -77,8 +76,6 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
             self.mapMarkers = markers as? [[MapMarker]] ?? []
         }
         
-        requestLocation()
-        
         self.view.addSubViews([mapView, filterView, markerDetail, maskView, searchResultsView, searchBar])
         setupSubviews()
     }
@@ -120,13 +117,6 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         filterView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         filterView.contentInset = UIEdgeInsets(top: 0, left: view.layoutMargins.left,
                                                bottom: 0, right: view.layoutMargins.right)
-    }
-    
-    private func requestLocation() {
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.requestLocation()
     }
     
     private func showSearchResultsView(_ show: Bool) {
@@ -244,29 +234,6 @@ extension MapViewController: MapMarkerDetailViewDelegate {
         }
     }
     
-}
-
-
-// MARK: - CLLocationManagerDelegate
-
-extension MapViewController: CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        if status == .authorizedWhenInUse {
-            locationManager.requestLocation()
-        }
-    }
-
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.first {
-            let span = MKCoordinateSpan.init(latitudeDelta: 0.05, longitudeDelta: 0.05)
-            let region = MKCoordinateRegion(center: location.coordinate, span: span)
-            mapView.setRegion(region, animated: true)
-        }
-    }
-
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("error: ", error)
-    }
 }
 
 // MARK: - SearchBarDelegate
