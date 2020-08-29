@@ -97,7 +97,7 @@ class EventTableViewCell: UITableViewCell {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/dd/yyyy"
-        eventTime.text = dateFormatter.string(from: entry.date!)
+        eventTime.text = dateFormatter.string(from: entry.date)
         
         eventCategory.text = entry.eventType
         

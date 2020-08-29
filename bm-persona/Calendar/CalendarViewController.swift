@@ -40,11 +40,11 @@ class CalendarViewController: UIViewController {
             
             // TODO: - Remove temporary events
             self.calendarEntries = self.calendarEntries.sorted(by: {
-                $0.date!.compare($1.date!) == .orderedAscending
+                $0.date.compare($1.date) == .orderedAscending
             })
         
             self.calendarEntries = self.calendarEntries.filter({
-                $0.date! > Date()
+                $0.date > Date()
             })
             if (self.calendarEntries.count == 0) {
                 self.missingView.isHidden = false
@@ -55,6 +55,7 @@ class CalendarViewController: UIViewController {
             }
             
             self.calendarTable.reloadData()
+            self.eventsCollection.reloadData()
         }
     }
 
@@ -96,14 +97,19 @@ extension CalendarViewController: UICollectionViewDelegate, UICollectionViewData
         if let card = cell as? CardCollectionViewCell {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "MM/dd/yyyy"
-            var dateString = dateFormatter.string(from: calendarEntries[indexPath.row].date!)
+            var dateString = dateFormatter.string(from: calendarEntries[indexPath.row].date)
             if calendarEntries[indexPath.row].date == Date() {
                 dateString = "Today / " + dateString
             }
             card.title.text = calendarEntries[indexPath.row].name
             card.subtitle.text = dateString
-            card.badge.text = "Academic"
-            card.badge.backgroundColor = EventTableViewCell.getEntryColor(entryType: calendarEntries[indexPath.row].eventType ?? "")
+            if let type = calendarEntries[indexPath.row].eventType {
+                card.badge.isHidden = false
+                card.badge.text = type
+                card.badge.backgroundColor = EventTableViewCell.getEntryColor(entryType: type)
+            } else {
+                card.badge.isHidden = true
+            }
         }
         return cell
     }

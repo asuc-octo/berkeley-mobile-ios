@@ -9,13 +9,20 @@
 import Foundation
 import Firebase
 
-fileprivate let kCampusResourcesEndpoint = "Academic Calendar Events"
+fileprivate let kCampusResourcesEndpoint = "Events"
 
 class CalendarDataSource: DataSource {
     
     static var fetchDispatch: DispatchGroup = DispatchGroup()
+
+    /// Returns the date for the given document name. Must match the format on Firebase.
+    private static func dateForDocumentName(_ documentName: String) -> Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter.date(from: documentName)
+    }
     
-    // Fetch the list of campus resources and report back to the completionHandler.
+    /// Fetch the list of events and report back to the completionHandler.
     static func fetchItems(_ completion: @escaping DataSource.completionHandler)
     {
         let db = Firestore.firestore()
@@ -24,27 +31,28 @@ class CalendarDataSource: DataSource {
                 print("Error getting documents: \(err)")
                 return
             } else {
-                let calendar = querySnapshot!.documents.map { (document) -> CalendarEntry in
+                let calendar = querySnapshot!.documents.map { (document) -> [CalendarEntry] in
                     let dict = document.data()
-                    return parseCalendarResource(dict)
+                    return parseCalendarDay(document.documentID, dict: dict)
                 }
-                completion(calendar)
+                completion(Array(calendar.joined()))
             }
         }
     }
+
+    /// Parses a Firestore document representing a single day and returns a list of `CalendarEntry` objects for the day.
+    private static func parseCalendarDay(_ day: String, dict: [String: Any]) -> [CalendarEntry] {
+        guard let date = dateForDocumentName(day) else { return [] }
+        let events = dict["Events"] as? [[String: Any]] ?? []
+        return events.map { parseCalendarResource($0, date: date) }
+    }
     
-    // Return a CalendaryEntry object parsed from a dictionary.
-    private static func parseCalendarResource(_ dict: [String: Any]) -> CalendarEntry {
-        var date = Date(timeIntervalSince1970: dict["event_date"] as? Double ?? 0)
-        
-//#if DEBUG
-//        date = Calendar.current.date(byAdding: .year, value: 1, to: date)!
-//#endif
-        
-        let entry = CalendarEntry(name: dict["event_name"] as? String ?? "Unnamed",
-                                  address: "TBD",
+    /// Return a `CalendaryEntry` object parsed from a dictionary on the given `date`.
+    private static func parseCalendarResource(_ dict: [String: Any], date: Date) -> CalendarEntry {
+        let entry = CalendarEntry(name: dict["title"] as? String ?? "Unnamed",
+                                  address: dict["location"] as? String,
                                   date: date,
-                                  eventType: dict["event_type"] as? String ?? "Uncategorized")
+                                  eventType: dict["category"] as? String ?? "Uncategorized")
         return entry
     }
 }
