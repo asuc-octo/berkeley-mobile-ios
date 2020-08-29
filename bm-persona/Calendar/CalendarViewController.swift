@@ -38,7 +38,6 @@ class CalendarViewController: UIViewController {
         DataManager.shared.fetch(source: CalendarDataSource.self) { calendarEntries in
             self.calendarEntries = calendarEntries as? [CalendarEntry] ?? []
             
-            // TODO: - Remove temporary events
             self.calendarEntries = self.calendarEntries.sorted(by: {
                 $0.date.compare($1.date) == .orderedAscending
             })
