@@ -29,7 +29,7 @@ class LocationDetailView: IconPairView, DetailView {
 
     func configure(for item: HasLocation) {
         self.item = item
-        label.text = "Unknonw"
+        label.text = "Unknown"
         if let distance = item.distanceToUser {
             label.text = String(format: "%.1f mi", distance)
         }
