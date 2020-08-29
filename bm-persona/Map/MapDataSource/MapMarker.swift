@@ -20,10 +20,14 @@ enum MapMarkerType: String, CaseIterable {
     
     case mentalHealth = "Mental Health"
     case microwave = "Microwave"
-    case napPod = "Nap Pod"
+    case rest = "Rest"
     case printer = "Printer"
-    case water = "Water Fountain"
-    case bikes = "Ford Go Bike"
+    case water = "Water"
+    case bikes = "Lyft Bike"
+    case lactation = "Lactation"
+    case waste = "Waste"
+    case garden = "Campus Garden"
+    case cafe = "Cafe"
     
     /** The icon to be shown on the map at the marker location  */
     func icon() -> UIImage {
@@ -35,7 +39,7 @@ enum MapMarkerType: String, CaseIterable {
         case .microwave:
             icon = UIImage(named: "microwave-icon")
             break
-        case .napPod:
+        case .rest:
             icon = UIImage(named: "nap-pods-icon")
             break
         case .printer:
@@ -46,6 +50,10 @@ enum MapMarkerType: String, CaseIterable {
             break
         case .bikes:
             icon = UIImage(named: "bike-icon")
+            break
+        default:
+            #warning("TODO: FIXME")
+            icon = UIImage(named: "Placemark")
             break
         }
         return (icon ?? UIImage()).resized(size: CGSize(width: 20, height: 20))
@@ -58,7 +66,7 @@ enum MapMarkerType: String, CaseIterable {
             return UIColor(displayP3Red: 251/255, green: 210/255, blue: 0/255, alpha: 1.0)
         case .microwave:
             return UIColor(displayP3Red: 255/255, green: 114/255, blue: 9/255, alpha: 1.0)
-        case .napPod:
+        case .rest:
             return UIColor(displayP3Red: 253/255, green: 43/255, blue: 168/255, alpha: 1.0)
         case .printer:
             return UIColor(displayP3Red: 93/255, green: 187/255, blue: 68/255, alpha: 1.0)
@@ -66,6 +74,9 @@ enum MapMarkerType: String, CaseIterable {
             return UIColor(displayP3Red: 62/255, green: 183/255, blue: 210/255, alpha: 1.0)
         case .bikes:
             return UIColor(displayP3Red: 45/255, green: 53/255, blue: 255/255, alpha: 1.0)
+        default:
+            #warning("TODO: FIXME")
+            return .magenta
         }
     }
     
@@ -85,6 +96,8 @@ class MapMarker: NSObject, MKAnnotation, HasOpenTimes {
     var phone: String?
     var address: String?
     var weeklyHours: WeeklyHours?
+
+    var mealPrice: String?
     
     init(type: MapMarkerType,
          location: CLLocationCoordinate2D,
@@ -92,7 +105,8 @@ class MapMarker: NSObject, MKAnnotation, HasOpenTimes {
          description: String? = nil,
          address: String? = nil,
          phone: String? = nil,
-         weeklyHours: WeeklyHours? = nil) {
+         weeklyHours: WeeklyHours? = nil,
+         mealPrice: String? = nil) {
         self.type = type
         self.coordinate = location
         self.title = name
@@ -100,6 +114,7 @@ class MapMarker: NSObject, MKAnnotation, HasOpenTimes {
         self.address = address
         self.phone = phone
         self.weeklyHours = weeklyHours
+        self.mealPrice = mealPrice
     }
     
 }

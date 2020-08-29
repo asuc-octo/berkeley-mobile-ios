@@ -138,7 +138,11 @@ class MapMarkerDetailView: UIView {
         notesLabel.text = marker.subtitle
         
         detailStack.removeAllArrangedSubviews()
-        for property: MapMarkerDetail in [.distance, .openNow, .location] {
+        // Show average meal price only for cafe markers
+        let details: [MapMarkerDetail] = marker.type == .cafe ?
+            [.distance, .openNow, .location, .price] :
+            [.distance, .openNow, .location]
+        for property: MapMarkerDetail in details {
             if let view = property.view(marker) {
                 detailStack.addArrangedSubview(view)
             }
@@ -168,6 +172,7 @@ enum MapMarkerDetail {
     case location
     case openNow
     case distance
+    case price
     
     /** Helper that returns a view next to an icon */
     func viewWithIcon(_ icon: UIImage?, view: UIView) -> UIView {
@@ -209,6 +214,16 @@ enum MapMarkerDetail {
             label.font = Font.light(12)
             label.textColor = Color.primaryText
             label.text = description
+            return viewWithIcon(icon, view: label)
+        case .price:
+            guard let price = marker.mealPrice else { return nil }
+            let icon = UIImage(named: "Dining")
+            let label = UILabel()
+            label.numberOfLines = 1
+            label.setContentCompressionResistancePriority(.required, for: .horizontal)
+            label.font = Font.light(12)
+            label.textColor = Color.primaryText
+            label.text = price
             return viewWithIcon(icon, view: label)
         default:
             // TODO: Get distance to marker

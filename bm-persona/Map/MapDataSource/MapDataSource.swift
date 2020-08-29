@@ -51,6 +51,7 @@ class MapDataSource: DataSource {
                          description: dict["description"] as? String,
                          address: dict["address"] as? String,
                          phone: dict["phone"] as? String,
-                         weeklyHours: weeklyHours)
+                         weeklyHours: weeklyHours,
+                         mealPrice: dict["Average_Meal"] as? String)
     }
 }
