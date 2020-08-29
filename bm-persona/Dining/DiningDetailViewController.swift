@@ -15,8 +15,6 @@ fileprivate let kViewMargin: CGFloat = 16
 class DiningDetailViewController: SearchDrawerViewController {
     
     var diningHall: DiningLocation!
-    var locationManager = CLLocationManager()
-    var location: CLLocation?
     var overviewCard: OverviewCardView!
     var control: TabBarControl?
     var meals: MealMap!
@@ -28,16 +26,11 @@ class DiningDetailViewController: SearchDrawerViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        locationManager.delegate = self
+
         setUpOverviewCard()
         setUpMenuControl()
         setUpMenu()
         view.layoutSubviews()
-        
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.requestLocation()
-        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -49,7 +42,7 @@ class DiningDetailViewController: SearchDrawerViewController {
 
 extension DiningDetailViewController {
     func setUpOverviewCard() {
-        overviewCard = OverviewCardView(item: diningHall, userLocation: location)
+        overviewCard = OverviewCardView(item: diningHall)
         view.addSubview(overviewCard)
         overviewCard.topAnchor.constraint(equalTo: barView.bottomAnchor, constant: kViewMargin).isActive = true
         overviewCard.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
@@ -136,19 +129,6 @@ extension DiningDetailViewController {
                     return restr.known != nil && restr.known == restriction
                 })})
         }
-    }
-}
-
-extension DiningDetailViewController : CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let userLocation : CLLocation = locations[0] as CLLocation
-        DispatchQueue.main.async {
-            self.overviewCard.updateLocation(userLocation: userLocation)
-        }
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print(error)
     }
 }
 
