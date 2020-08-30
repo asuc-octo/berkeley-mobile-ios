@@ -20,7 +20,7 @@ extension SearchDrawerViewDelegate where Self: UIViewController {
      type is set to DiningHall, Library, etc. to determine what type of detail view is needed */
     func presentDetail(type: AnyClass, item: SearchItem, containingVC: UIViewController, position: DrawerState) {
         let containingView = containingVC.view!
-        if type == DiningLocation.self {
+        if type == DiningHall.self {
             drawerViewController = DiningDetailViewController()
             (drawerViewController as! DiningDetailViewController).diningHall = (item as! DiningLocation)
         } else if type == Library.self {
