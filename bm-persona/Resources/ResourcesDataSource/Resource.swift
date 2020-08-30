@@ -13,7 +13,6 @@ class Resource: SearchItem, HasLocation, HasOpenTimes {
     var icon: UIImage?
     
     static var nearbyDistance: Double = 10
-    static var invalidDistance: Double = 100
     
     var searchName: String {
         return name

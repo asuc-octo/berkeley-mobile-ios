@@ -11,7 +11,7 @@ import MapKit
 
 fileprivate let kViewMargin: CGFloat = 16
 
-class LibraryViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate, SearchDrawerViewDelegate {
+class LibraryViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, SearchDrawerViewDelegate {
     
     // DrawerViewDelegate properties
     var drawerViewController: DrawerViewController?
@@ -23,8 +23,6 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
     var filterTableView: FilterTableView = FilterTableView<Library>(frame: .zero, filters: [])
     var safeArea: UILayoutGuide!
     var libraries: [Library] = []
-    var locationManager = CLLocationManager()
-    var location: CLLocation?
     
     let bookImage:UIImageView = {
         let img = UIImageView()
@@ -42,13 +40,15 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.startUpdatingLocation()
-        location = locationManager.location
-      
-        filterTableView.setSortFunc(newSortFunc: {lib1, lib2 in SortingFunctions.sortClose(loc1: lib1, loc2: lib2, location: self.location, locationManager: self.locationManager)})
+
+        filterTableView.setSortFunc(newSortFunc: Library.locationComparator())
+        // Update `filterTableView` when user location is updated.
+        LocationManager.notificationCenter.addObserver(
+            filterTableView,
+            selector: #selector(filterTableView.update),
+            name: .locationUpdated,
+            object: nil
+        )
       
         // fetch libraries and fetch occupancy data afterwards
         DataManager.shared.fetch(source: LibraryDataSource.self) { libraries in
@@ -61,11 +61,6 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
                 }
             }
         }
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        location = manager.location
-        self.filterTableView.update()
     }
     
     override func loadView() {
@@ -117,7 +112,7 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func setupFilterTableView() {
         let filters = [
-            Filter<Library>(label: "Nearby", filter: {lib in lib.getDistanceToUser(userLoc: self.location) < Library.nearbyDistance}),
+            Filter<Library>(label: "Nearby", filter: Library.locationFilter(by: Library.nearbyDistance)),
             Filter<Library>(label: "Open", filter: {lib in lib.isOpen ?? false}),
         ]
         filterTableView = FilterTableView(frame: .zero, filters: filters)
@@ -140,7 +135,7 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: FilterTableViewCell.kCellIdentifier, for: indexPath) as? FilterTableViewCell {
             let lib: Library = self.filterTableView.filteredData[indexPath.row]
-            cell.updateContents(item: lib, location: location, imageUpdate: {
+            cell.updateContents(item: lib, imageUpdate: {
                 DispatchQueue.global().async {
                     guard let imageURL = lib.imageURL, let imageData = try? Data(contentsOf: imageURL) else { return }
                     let image = UIImage(data: imageData)

@@ -24,21 +24,17 @@ enum OverviewElements {
 
 class OverviewCardView: CardView {
     var item: SearchItem!
-    var userLocation: CLLocation?
-    // tracks if the distance information is added to prevent adding multiple times when user location updates
-    var distanceViewAdded = false
     var addressView: UIView?
     // elements to exclude from the card even if they are available
     var excludedElements: [OverviewElements] = []
     
-    public init(item: SearchItem, excludedElements: [OverviewElements] = [], userLocation: CLLocation? = nil) {
+    public init(item: SearchItem, excludedElements: [OverviewElements] = []) {
         super.init(frame: CGRect.zero)
         self.isUserInteractionEnabled = true
         self.layoutMargins = kCardPadding
         self.translatesAutoresizingMaskIntoConstraints = false
         self.item = item
         self.excludedElements = excludedElements
-        self.userLocation = userLocation
         
         setUpStaticElements()
         setUpOptionalElements()
@@ -90,7 +86,7 @@ class OverviewCardView: CardView {
             } else {
                 addressLabel.text = longAddress
             }
-            addressView = UIView.iconPairView(icon: addressIcon, iconHeight: 16, attachedView: addressLabel)
+            addressView = IconPairView(icon: addressIcon, iconHeight: 16, attachedView: addressLabel)
             leftVerticalStack.addArrangedSubview(addressView!)
             addressView!.leftAnchor.constraint(equalTo: leftVerticalStack.leftAnchor).isActive = true
             addressView!.rightAnchor.constraint(equalTo: leftVerticalStack.rightAnchor).isActive = true
@@ -98,20 +94,24 @@ class OverviewCardView: CardView {
         
         if !excludedElements.contains(.phone), let itemWithPhone = item as? HasPhoneNumber, let phoneNumber = itemWithPhone.phoneNumber {
             phoneLabel.text = phoneNumber
-            secondRowHorizontalStack.addArrangedSubview(UIView.iconPairView(icon: phoneIcon, iconHeight: 16, attachedView: phoneLabel))
+            secondRowHorizontalStack.addArrangedSubview(IconPairView(icon: phoneIcon, iconHeight: 16, attachedView: phoneLabel))
         }
 
-        updateDistanceDisplay()
+        if !excludedElements.contains(.distance), let itemWithLocation = item as? HasLocation {
+            locationDetailView.delegate = self
+            locationDetailView.configure(for: itemWithLocation)
+            secondRowHorizontalStack.addArrangedSubview(locationDetailView)
+        }
 
         // if the row stack has any elements add it to the vertical stack, otherwise don't add it to prevent spacing issues
-        if secondRowHorizontalStack.arrangedSubviews.count > 0 {
+        if !secondRowHorizontalStack.emptyOrChildrenHidden {
             leftVerticalStack.addArrangedSubview(secondRowHorizontalStack)
             secondRowHorizontalStack.leftAnchor.constraint(equalTo: leftVerticalStack.leftAnchor).isActive = true
             secondRowHorizontalStack.rightAnchor.constraint(equalTo: leftVerticalStack.rightAnchor).isActive = true
         }
         
         if !excludedElements.contains(.openTimes), let itemWithOpenTimes = item as? HasOpenTimes, itemWithOpenTimes.weeklyHours != nil {
-            openTimesStack.addArrangedSubview(UIView.iconPairView(icon: clockIcon, iconHeight: 16, attachedView: openTimeLabel))
+            openTimesStack.addArrangedSubview(IconPairView(icon: clockIcon, iconHeight: 16, attachedView: openTimeLabel))
 
             let formatter = DateIntervalFormatter()
             formatter.dateStyle = .none
@@ -147,7 +147,7 @@ class OverviewCardView: CardView {
         }
 
         if !excludedElements.contains(.occupancy), let itemWithOccupancy = item as? HasOccupancy, let status = itemWithOccupancy.getOccupancyStatus(date: Date(), isOpen: (item as? HasOpenTimes)?.isOpen) {
-            let occupancyView = UIView.iconPairView(icon: chairImage, iconHeight: 16, iconWidth: 28, attachedView: status.badge())
+            let occupancyView = IconPairView(icon: chairImage, iconHeight: 16, iconWidth: 28, attachedView: status.badge())
             belowImageHorizontalStack.addArrangedSubview(occupancyView)
         }
         
@@ -169,30 +169,6 @@ class OverviewCardView: CardView {
             belowImageHorizontalStack.rightAnchor.constraint(equalTo: imageView.rightAnchor).isActive = true
             belowImageHorizontalStack.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: kViewMargin).isActive = true
             belowImageHorizontalStack.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -1 * kViewMargin).isActive = true
-        }
-    }
-    
-    public func updateLocation(userLocation: CLLocation) {
-        self.userLocation = userLocation
-        updateDistanceDisplay()
-    }
-    
-    private func updateDistanceDisplay() {
-        if !excludedElements.contains(.distance), let itemWithLocation = item as? HasLocation, let userLocation = self.userLocation {
-            let dist = itemWithLocation.getDistanceToUser(userLoc: userLocation)
-            distLabel.text = String(dist) + " mi"
-            if !distanceViewAdded, dist < type(of: itemWithLocation).invalidDistance {
-                secondRowHorizontalStack.addArrangedSubview(UIView.iconPairView(icon: distIcon, iconHeight: 16, attachedView: distLabel))
-                distanceViewAdded = true
-                // if the row stack wasn't originally added (no phone and distance initially), add it under the address view or at the top if address view isn't added
-                if !leftVerticalStack.arrangedSubviews.contains(secondRowHorizontalStack) {
-                    if let addressView = self.addressView, let index = leftVerticalStack.arrangedSubviews.firstIndex(of: addressView) {
-                        leftVerticalStack.insertArrangedSubview(secondRowHorizontalStack, at: index + 1)
-                    } else {
-                        leftVerticalStack.insertArrangedSubview(secondRowHorizontalStack, at: 0)
-                    }
-                }
-            }
         }
     }
     
@@ -347,43 +323,26 @@ class OverviewCardView: CardView {
         return label
     }()
     
-    let distIcon: UIImageView = {
-        let image = UIImageView()
-        image.image = UIImage(named: "Walk")
-        image.translatesAutoresizingMaskIntoConstraints = false
-        image.contentMode = .scaleAspectFit
-        image.clipsToBounds = true
-        return image
-    }()
-    
-    let distLabel: UILabel =  {
-        let label = UILabel()
-        label.font = Font.light(12)
-        label.textColor = Color.blackText
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.adjustsFontSizeToFitWidth = true
-        label.minimumScaleFactor = 0.75
-        label.numberOfLines = 1
-        return label
+    let locationDetailView: LocationDetailView = {
+        return LocationDetailView()
     }()
 }
 
-extension UIView {
-    // returns a view containing an icon next to another view, used for overview card and table cells
-    public static func iconPairView(icon: UIImageView, iconHeight: CGFloat, iconWidth: CGFloat? = nil, attachedView: UILabel) -> UIView {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(icon)
-        view.addSubview(attachedView)
-        icon.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        icon.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        icon.widthAnchor.constraint(equalToConstant: iconWidth ?? iconHeight).isActive = true
-        icon.heightAnchor.constraint(equalToConstant: iconHeight).isActive = true
-        attachedView.leftAnchor.constraint(equalTo: icon.rightAnchor, constant: 5).isActive = true
-        attachedView.centerYAnchor.constraint(equalTo: icon.centerYAnchor).isActive = true
-        attachedView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        view.heightAnchor.constraint(greaterThanOrEqualTo: icon.heightAnchor).isActive = true
-        view.heightAnchor.constraint(greaterThanOrEqualTo: attachedView.heightAnchor).isActive = true
-        return view
+// MARK: - DetailView Delegate
+
+extension OverviewCardView: DetailViewDelegate {
+    func detailsUpdated(for view: UIView) {
+        if let locationDetailView = view as? LocationDetailView {
+            locationDetailView.isHidden = locationDetailView.missingData
+
+            // if the row stack wasn't originally added (no phone and distance initially), add it under the address view or at the top if address view isn't added
+            if !locationDetailView.isHidden && !leftVerticalStack.arrangedSubviews.contains(secondRowHorizontalStack) {
+                if let addressView = self.addressView, let index = leftVerticalStack.arrangedSubviews.firstIndex(of: addressView) {
+                    leftVerticalStack.insertArrangedSubview(secondRowHorizontalStack, at: index + 1)
+                } else {
+                    leftVerticalStack.insertArrangedSubview(secondRowHorizontalStack, at: 0)
+                }
+            }
+        }
     }
 }

@@ -12,17 +12,17 @@ import CoreLocation
 fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
 fileprivate let kViewMargin: CGFloat = 16
 
+fileprivate let kBookingURL = "https://berkeley.libcal.com"
+
 class LibraryDetailViewController: SearchDrawerViewController {
     var library : Library!
-    var locationManager = CLLocationManager()
     var overviewCard: OverviewCardView!
     var openTimesCard: OpenTimesCardView?
     var occupancyCard: OccupancyGraphCardView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        locationManager.delegate = self
+
         setUpScrollView()
         setUpOverviewCard()
         setUpOpenTimesCard()
@@ -32,10 +32,6 @@ class LibraryDetailViewController: SearchDrawerViewController {
         // in order to set the cutoff correctly
         view.layoutSubviews()
         scrollView.layoutSubviews()
-        
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.requestLocation()
-        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -48,6 +44,12 @@ class LibraryDetailViewController: SearchDrawerViewController {
     
     func updateScrollView() {
         scrollView.contentSize.height = scrollContent.frame.height
+    }
+
+    /// Opens `kBookingURL` in Safari.
+    @objc private func bookButtonClicked(sender: UIButton) {
+        guard let url = URL(string: kBookingURL) else { return }
+        UIApplication.shared.open(url)
     }
     
     var scrollView: UIScrollView = {
@@ -82,13 +84,14 @@ class LibraryDetailViewController: SearchDrawerViewController {
         button.setTitle("Book a Study Room >", for: .normal)
         button.titleLabel!.font = Font.semibold(14)
         button.titleLabel!.textColor = .white
+        button.addTarget(self, action: #selector(bookButtonClicked), for: .touchUpInside)
         return button
     }()
 }
 
 extension LibraryDetailViewController {
     func setUpOverviewCard() {
-        overviewCard = OverviewCardView(item: library, excludedElements: [.openTimes, .occupancy], userLocation: locationManager.location)
+        overviewCard = OverviewCardView(item: library, excludedElements: [.openTimes, .occupancy])
         scrollContent.addSubview(overviewCard)
         overviewCard.topAnchor.constraint(equalTo: scrollContent.topAnchor).isActive = true
         overviewCard.leftAnchor.constraint(equalTo: scrollContent.leftAnchor).isActive = true
@@ -147,18 +150,5 @@ extension LibraryDetailViewController {
         scrollView.addSubview(scrollContent)
         scrollContent.widthAnchor.constraint(equalTo: scrollContainer.widthAnchor, constant: -1 * (scrollView.contentInset.left + scrollView.contentInset.right)).isActive = true
         scrollContent.centerXAnchor.constraint(equalTo: scrollContainer.centerXAnchor).isActive = true
-    }
-}
-    
-extension LibraryDetailViewController : CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let userLocation : CLLocation = locations[0] as CLLocation
-        DispatchQueue.main.async {
-            self.overviewCard.updateLocation(userLocation: userLocation)
-        }
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print(error)
     }
 }

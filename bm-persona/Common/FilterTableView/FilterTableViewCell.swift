@@ -68,21 +68,19 @@ class FilterTableViewCell: UITableViewCell {
         distanceOccupancyStack.leftAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
     }
     
-    // sets the contents of the cell based on an item passed in, the user's current location, and a closure to call if there is no image available
-    func updateContents(item: SearchItem, location: CLLocation?, imageUpdate: () -> Void) {
+    // Sets the contents of the cell based on an item passed in and a closure to call if there is no image available
+    func updateContents(item: SearchItem, imageUpdate: () -> Void) {
         nameLabel.text = item.searchName
         distanceOccupancyStack.removeAllArrangedSubviews()
-        if let itemWithLocation = item as? HasLocation, let userLocation = location {
-            let distance = itemWithLocation.getDistanceToUser(userLoc: userLocation)
-            if distance < type(of: itemWithLocation).invalidDistance {
-                distLabel.text = "\(distance) mi"
-                distanceOccupancyStack.addArrangedSubview(UIView.iconPairView(icon: distImage, iconHeight: 16, attachedView: distLabel))
-            }
+        if let itemWithLocation = item as? HasLocation {
+            locationDetailView.delegate = self
+            locationDetailView.configure(for: itemWithLocation)
+            distanceOccupancyStack.addArrangedSubview(locationDetailView)
         }
         self.recLabel.text = "Recommended"
         
         if let itemWithOccupancy = item as? HasOccupancy, let status = itemWithOccupancy.getOccupancyStatus(date: Date(), isOpen: (item as? HasOpenTimes)?.isOpen) {
-            distanceOccupancyStack.addArrangedSubview(UIView.iconPairView(icon: chairImage, iconHeight: 16, iconWidth: 28, attachedView: status.badge()))
+            distanceOccupancyStack.addArrangedSubview(IconPairView(icon: chairImage, iconHeight: 16, iconWidth: 28, attachedView: status.badge()))
         }
         
         cellImage.image = UIImage(named: "DoeGlade")
@@ -138,23 +136,9 @@ class FilterTableViewCell: UITableViewCell {
         stack.spacing = 30
         return stack
     }()
-    
-    let distImage:UIImageView = {
-        let img = UIImageView()
-        img.contentMode = .scaleAspectFit
-        img.image = UIImage(named: "Walk")
-        img.translatesAutoresizingMaskIntoConstraints = false
-        img.clipsToBounds = true
-        return img
-    }()
-    
-    let distLabel:UILabel = {
-        let label = UILabel()
-        label.adjustsFontSizeToFitWidth = true
-        label.font = Font.light(12)
-        label.textColor = Color.blackText
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
+
+    let locationDetailView: LocationDetailView = {
+        return LocationDetailView()
     }()
     
     let chairImage:UIImageView = {
@@ -165,4 +149,14 @@ class FilterTableViewCell: UITableViewCell {
         img.clipsToBounds = true
         return img
     }()
+}
+
+// MARK: - DetailViewDelegate
+
+extension FilterTableViewCell: DetailViewDelegate {
+    func detailsUpdated(for view: UIView) {
+        if let locationDetailView = view as? LocationDetailView {
+            locationDetailView.isHidden = locationDetailView.missingData
+        }
+    }
 }

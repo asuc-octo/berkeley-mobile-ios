@@ -78,7 +78,7 @@ class FilterTableView<T>: UIView {
     }
     
     var workItem: DispatchWorkItem?
-    func update() {
+    @objc func update() {
         workItem?.cancel()
         let data = self.data
         workItem = Filter.apply(filters: filters, on: data, indices: filter.indexPathsForSelectedItems?.map { $0.row }, completion: {
