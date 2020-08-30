@@ -8,7 +8,6 @@
 
 import Foundation
 import UIKit
-import CoreGraphics.CGGeometry
 
 /// The frames associated with a single bar
 struct BarEntry {
@@ -19,7 +18,7 @@ struct BarEntry {
     let data: DataEntry
     
     var bottomTitleFrame: CGRect {
-        return CGRect(x: origin.x - horizontalSpace/2, y: origin.y + 10 + barHeight, width: barWidth + horizontalSpace, height: 22)
+        return CGRect(x: origin.x - horizontalSpace/2, y: origin.y + 9 + barHeight, width: barWidth + horizontalSpace, height: 11)
     }
     
     var barFrame: CGRect {

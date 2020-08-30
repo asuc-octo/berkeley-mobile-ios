@@ -30,6 +30,7 @@ class OccupancyGraphCardView: CardView {
     private func setUpViews(occupancy: Occupancy) {
         let topLabelView = UIView()
         topLabelView.translatesAutoresizingMaskIntoConstraints = false
+        topLabelView.setContentHuggingPriority(.required, for: .vertical)
         topLabelView.addSubview(occupancyLabel)
         occupancyLabel.leftAnchor.constraint(equalTo: topLabelView.leftAnchor).isActive = true
         topLabelView.topAnchor.constraint(lessThanOrEqualTo: occupancyLabel.topAnchor).isActive = true
@@ -66,16 +67,22 @@ class OccupancyGraphCardView: CardView {
     private func setOrderedEntries(occupancy: Occupancy, day: DayOfWeek) {
         occupancyEntries = []
         guard let occupancyForDay = occupancy.occupancy(for: day) else { return }
-        for (index, hour) in occupancyForDay.keys.sorted().enumerated() {
-            let percent = CGFloat(occupancyForDay[hour]!) / 100.0
+        let sortedHours = occupancyForDay.keys.sorted()
+        guard let minHour = sortedHours.first, let maxHour = sortedHours.last else { return }
+        for hour in minHour...maxHour {
             // hour is shown for hours that are a multiple of 3
-            let bottomText = (index % 3 == 0) ? timeText(time: hour) : ""
-            // alpha for bar color linearly scales from 0.2 to 1.0 based on percentage occupancy
-            let alpha = 0.2 + percent * 0.8
-            let dateHour = Calendar.current.component(.hour, from: Date())
-            // if the bar is for the current hour, make it blue
-            let color = dateHour == hour ? Color.barGraphEntryCurrent : Color.barGraphEntry(alpha: alpha)
-            occupancyEntries.append(DataEntry(color: color, height: percent, bottomText: bottomText))
+            let bottomText = (hour % 3 == 0) ? timeText(time: hour) : ""
+            if let occupancyForHour = occupancyForDay[hour] {
+                let percent = CGFloat(occupancyForHour) / 100.0
+                // alpha for bar color linearly scales from 0.2 to 1.0 based on percentage occupancy
+                let alpha = 0.2 + percent * 0.8
+                let dateHour = Calendar.current.component(.hour, from: Date())
+                // if the bar is for the current hour, make it blue
+                let color = dateHour == hour ? Color.barGraphEntryCurrent : Color.barGraphEntry(alpha: alpha)
+                occupancyEntries.append(DataEntry(color: color, height: percent, bottomText: bottomText))
+            } else {
+                occupancyEntries.append(DataEntry(color: UIColor.clear, height: 0, bottomText: bottomText))
+            }
         }
         graph.dataEntries = occupancyEntries
     }

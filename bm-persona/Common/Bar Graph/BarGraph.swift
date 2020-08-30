@@ -33,8 +33,8 @@ class BarGraph: UIView {
             scrollView.contentSize = CGSize(width: computeContentWidth(), height: self.frame.size.height)
             mainLayer.frame = CGRect(x: 0, y: 0, width: scrollView.contentSize.width, height: scrollView.contentSize.height)
             
-            for (index, bar) in barEntries.enumerated() {
-                addBar(index: index, bar: bar)
+            for bar in barEntries {
+                addBar(bar)
             }
         }
     }
@@ -71,10 +71,9 @@ class BarGraph: UIView {
     
     /**
      Adds a bar to the graph (including rounded rectangle and text below)
-     - parameter index: the position of the bar
      - parameter bar: the data needed to add the bar
      */
-    private func addBar(index: Int, bar: BarEntry) {
+    private func addBar(_ bar: BarEntry) {
         mainLayer.addRoundedRectangleLayer(frame: bar.barFrame, cornerRadius: barRadius, color: bar.data.color.cgColor)
         mainLayer.addTextLayer(frame: bar.bottomTitleFrame, color: Color.blackText.cgColor, fontSize: 10, text: bar.data.bottomText)
     }
@@ -89,7 +88,7 @@ class BarGraph: UIView {
         var result: [BarEntry] = []
         
         for (index, entry) in dataEntries.enumerated() {
-            let entryHeight = CGFloat(entry.height) * (frame.height - bottomSpace)
+            let entryHeight = entry.height * (frame.height - bottomSpace)
             let xPosition: CGFloat = horizontalSpace + CGFloat(index) * (barWidth + horizontalSpace)
             let yPosition = frame.height - bottomSpace - entryHeight
             let origin = CGPoint(x: xPosition, y: yPosition)
