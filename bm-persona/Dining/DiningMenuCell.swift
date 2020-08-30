@@ -34,17 +34,17 @@ class DiningMenuCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         contentView.addSubview(nameLabel)
-        contentView.addSubview(faveButton)
+//        contentView.addSubview(faveButton)
         contentView.layoutMargins = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         
         nameLabel.leftAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
         nameLabel.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor, constant: -4).isActive = true
         nameLabel.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor).isActive = true
         
-        faveButton.rightAnchor.constraint(equalTo: contentView.layoutMarginsGuide.rightAnchor).isActive = true
-        faveButton.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor, constant: -4).isActive = true
-        faveButton.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor).isActive = true
-        faveButton.widthAnchor.constraint(equalTo: faveButton.heightAnchor).isActive = true
+//        faveButton.rightAnchor.constraint(equalTo: contentView.layoutMarginsGuide.rightAnchor).isActive = true
+//        faveButton.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor, constant: -4).isActive = true
+//        faveButton.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor).isActive = true
+//        faveButton.widthAnchor.constraint(equalTo: faveButton.heightAnchor).isActive = true
     }
     
     /*Adds restriction icons from right to left after item has been set.*/
@@ -52,7 +52,8 @@ class DiningMenuCell: UITableViewCell {
         for icon in icons {
             icon.removeFromSuperview()
         }
-        var lastLeftAnchor = faveButton.leftAnchor
+//        var lastLeftAnchor = faveButton.leftAnchor
+        var lastLeftAnchor = rightAnchor
         for restriction in item.restrictions {
             if restriction.icon == nil {
                 continue
@@ -62,8 +63,8 @@ class DiningMenuCell: UITableViewCell {
             image.translatesAutoresizingMaskIntoConstraints = false
             image.contentMode = .scaleAspectFit
             image.clipsToBounds = true
-            if lastLeftAnchor == faveButton.leftAnchor {
-                image.rightAnchor.constraint(equalTo: lastLeftAnchor, constant: -10).isActive = true
+            if lastLeftAnchor == rightAnchor {
+                image.rightAnchor.constraint(equalTo: lastLeftAnchor, constant: -16).isActive = true
             } else {
                 image.rightAnchor.constraint(equalTo: lastLeftAnchor).isActive = true
             }
@@ -110,7 +111,6 @@ class DiningMenuCell: UITableViewCell {
         button.addTarget(self, action: #selector(toggleFave(sender:)), for: .touchUpInside)
         button.isUserInteractionEnabled = true
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.isHidden = true
         return button
     }()
 
