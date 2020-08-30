@@ -77,7 +77,7 @@ class OccupancyGraphCardView: CardView {
             // hour is shown for hours that are a multiple of 3
             let bottomText = (hour % 3 == 0) ? timeText(time: hour) : ""
             // add blue live data bar
-            if hour == dateHour, isOpen ?? true, let live = occupancy.liveOccupancy {
+            if hour == dateHour/*, isOpen ?? true*/, let live = occupancy.liveOccupancy {
                 occupancyEntries.append(DataEntry(color: Color.barGraphEntryCurrent, height: CGFloat(live) / 100.0, bottomText: bottomText, overlapping: true))
             }
             if let occupancyForHour = occupancyForDay[hour] {
