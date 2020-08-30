@@ -12,6 +12,8 @@ import CoreLocation
 fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
 fileprivate let kViewMargin: CGFloat = 16
 
+fileprivate let kBookingURL = "https://berkeley.libcal.com"
+
 class LibraryDetailViewController: SearchDrawerViewController {
     var library : Library!
     var overviewCard: OverviewCardView!
@@ -40,6 +42,12 @@ class LibraryDetailViewController: SearchDrawerViewController {
     
     func updateScrollView() {
         scrollView.contentSize.height = scrollContent.frame.height
+    }
+
+    /// Opens `kBookingURL` in Safari.
+    @objc private func bookButtonClicked(sender: UIButton) {
+        guard let url = URL(string: kBookingURL) else { return }
+        UIApplication.shared.open(url)
     }
     
     var scrollView: UIScrollView = {
@@ -74,6 +82,7 @@ class LibraryDetailViewController: SearchDrawerViewController {
         button.setTitle("Book a Study Room >", for: .normal)
         button.titleLabel!.font = Font.semibold(14)
         button.titleLabel!.textColor = .white
+        button.addTarget(self, action: #selector(bookButtonClicked), for: .touchUpInside)
         return button
     }()
 }
