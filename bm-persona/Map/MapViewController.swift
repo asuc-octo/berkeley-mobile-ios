@@ -302,18 +302,17 @@ extension MapViewController: SearchResultsViewDelegate {
     
     // drop new pin and show detail view on search
     func choosePlacemark(_ placemark: MapPlacemark) {
-        let location = placemark.location
         // remove last search pin
         removeAnnotations(type: SearchAnnotation.self)
-        if location != nil && location?.coordinate.latitude != Double.nan && location?.coordinate.longitude != Double.nan {
+        if let location = placemark.location, location.coordinate.latitude != Double.nan && location.coordinate.longitude != Double.nan {
             let regionRadius: CLLocationDistance = 250
             // center map on searched location
-            let coordinateRegion = MKCoordinateRegion(center: location!.coordinate,
+            let coordinateRegion = MKCoordinateRegion(center: location.coordinate,
                                                       latitudinalMeters: regionRadius * 2.0, longitudinalMeters: regionRadius * 2.0)
             mapView.setRegion(coordinateRegion, animated: true)
             let item = placemark.item
             if item != nil {
-                let annotation = SearchAnnotation(item: item!, location: location!.coordinate)
+                let annotation = SearchAnnotation(item: item!, location: location.coordinate)
                 annotation.title = item!.searchName
                 searchAnnotation = annotation
                 // add and select marker for search item, remove resource view if any
@@ -323,11 +322,11 @@ extension MapViewController: SearchResultsViewDelegate {
                     mapView.deselectAnnotation(markerDetail.marker, animated: true)
                 }
                 // if the new search item has a detail view: remove the old detail view, show the new one
-                if let hall = item as? DiningLocation {
+                if let hall = item as? DiningHall {
                     if drawerViewController != nil {
                         mainContainer?.dismissTop(showNext: false)
                     }
-                    presentDetail(type: DiningLocation.self, item: hall, containingVC: mainContainer!, position: .middle)
+                    presentDetail(type: DiningHall.self, item: hall, containingVC: mainContainer!, position: .middle)
                 } else if let lib = item as? Library {
                     if drawerViewController != nil {
                         mainContainer?.dismissTop(showNext: false)
@@ -339,7 +338,6 @@ extension MapViewController: SearchResultsViewDelegate {
                     if drawerViewController != nil {
                         mainContainer?.dismissTop()
                     }
-                    return
                 }
             }
         }
