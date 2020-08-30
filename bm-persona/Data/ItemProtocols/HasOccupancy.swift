@@ -18,7 +18,10 @@ extension HasOccupancy {
         return occupancy?.getOccupancyPercent(date: date)
     }
     
-    func getOccupancyStatus(date: Date) -> OccupancyStatus? {
+    func getOccupancyStatus(date: Date, isOpen: Bool?) -> OccupancyStatus? {
+        if let isOpen = isOpen, !isOpen {
+            return nil
+        }
         return occupancy?.getOccupancyStatus(date: date)
     }
 }

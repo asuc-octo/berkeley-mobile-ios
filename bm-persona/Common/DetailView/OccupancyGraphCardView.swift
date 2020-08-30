@@ -15,12 +15,14 @@ fileprivate let kViewMargin: CGFloat = 16
 class OccupancyGraphCardView: CardView {
     var occupancyEntries: [DataEntry] = []
     /// The date used to populate the graph and indicate the current hour (likely the current date)
-    var date: Date = Date()
-    var graph: BarGraph = BarGraph()
+    var date = Date()
+    var graph = BarGraph()
+    var isOpen: Bool?
     
-    public init(occupancy: Occupancy, date: Date) {
+    public init(occupancy: Occupancy, date: Date, isOpen: Bool?) {
         super.init(frame: CGRect.zero)
         self.date = date
+        self.isOpen = isOpen
         self.layoutMargins = kCardPadding
         self.translatesAutoresizingMaskIntoConstraints = false
         setOrderedEntries(occupancy: occupancy, day: DayOfWeek.weekday(date))
@@ -36,7 +38,7 @@ class OccupancyGraphCardView: CardView {
         topLabelView.topAnchor.constraint(lessThanOrEqualTo: occupancyLabel.topAnchor).isActive = true
         topLabelView.bottomAnchor.constraint(greaterThanOrEqualTo: occupancyLabel.bottomAnchor).isActive = true
         var rightConstraint = occupancyLabel.rightAnchor.constraint(equalTo: topLabelView.rightAnchor)
-        if let status = occupancy.getOccupancyStatus(date: date) {
+        if isOpen ?? true, let status = occupancy.getOccupancyStatus(date: date) {
             let badge = status.badge()
             topLabelView.addSubview(badge)
             badge.rightAnchor.constraint(equalTo: topLabelView.rightAnchor).isActive = true
@@ -78,7 +80,7 @@ class OccupancyGraphCardView: CardView {
                 let alpha = 0.2 + percent * 0.8
                 let dateHour = Calendar.current.component(.hour, from: Date())
                 // if the bar is for the current hour, make it blue
-                let color = dateHour == hour ? Color.barGraphEntryCurrent : Color.barGraphEntry(alpha: alpha)
+                let color = isOpen ?? true && dateHour == hour ? Color.barGraphEntryCurrent : Color.barGraphEntry(alpha: alpha)
                 occupancyEntries.append(DataEntry(color: color, height: percent, bottomText: bottomText))
             } else {
                 occupancyEntries.append(DataEntry(color: UIColor.clear, height: 0, bottomText: bottomText))

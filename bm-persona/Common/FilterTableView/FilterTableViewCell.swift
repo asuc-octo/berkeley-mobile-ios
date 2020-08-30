@@ -81,7 +81,7 @@ class FilterTableViewCell: UITableViewCell {
         }
         self.recLabel.text = "Recommended"
         
-        if let itemWithOccupancy = item as? HasOccupancy, let status = itemWithOccupancy.getOccupancyStatus(date: Date()) {
+        if let itemWithOccupancy = item as? HasOccupancy, let status = itemWithOccupancy.getOccupancyStatus(date: Date(), isOpen: (item as? HasOpenTimes)?.isOpen) {
             distanceOccupancyStack.addArrangedSubview(UIView.iconPairView(icon: chairImage, iconHeight: 16, iconWidth: 28, attachedView: status.badge()))
         }
         
