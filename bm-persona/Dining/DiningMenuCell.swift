@@ -110,6 +110,7 @@ class DiningMenuCell: UITableViewCell {
         button.addTarget(self, action: #selector(toggleFave(sender:)), for: .touchUpInside)
         button.isUserInteractionEnabled = true
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.isHidden = true
         return button
     }()
 
