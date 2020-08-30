@@ -9,6 +9,8 @@
 import UIKit
 import MapKit
 
+fileprivate let kViewMargin: CGFloat = 16
+
 // MARK: - MapViewController
 
 class MapViewController: UIViewController, SearchDrawerViewDelegate {
@@ -84,6 +86,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         super.viewDidAppear(animated)
         mapView.isZoomEnabled = true
         centerMapOnLocation(CLLocation(latitude: CLLocationDegrees(exactly: 37.871684)!, longitude: CLLocationDegrees(-122.259934)), mapView: mapView)
+        updateCompassPosition()
     }
     
     private func centerMapOnLocation(_ location: CLLocation, mapView: MKMapView) {
@@ -91,6 +94,17 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         let coordinateRegion = MKCoordinateRegion(center: location.coordinate,
                                                   latitudinalMeters: regionRadius * 2.0, longitudinalMeters: regionRadius * 2.0)
         mapView.setRegion(coordinateRegion, animated: true)
+    }
+
+    /// Repoisitions the map's compass so that it is not obscured by the search bar.
+    private func updateCompassPosition() {
+        mapView.showsCompass = false
+        let compass = MKCompassButton(mapView: mapView)
+        view.addSubview(compass)
+        // Position the compass to bottom-right of `FilterView`
+        compass.translatesAutoresizingMaskIntoConstraints = false
+        compass.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
+        compass.topAnchor.constraint(equalTo: filterView.bottomAnchor, constant: kViewMargin).isActive = true
     }
     
     private func setupSubviews() {
@@ -112,7 +126,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         
         filterView.translatesAutoresizingMaskIntoConstraints = false
         filterView.heightAnchor.constraint(equalToConstant: FilterViewCell.kCellSize.height).isActive = true
-        filterView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 17).isActive = true
+        filterView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: kViewMargin).isActive = true
         filterView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         filterView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         filterView.contentInset = UIEdgeInsets(top: 0, left: view.layoutMargins.left,
