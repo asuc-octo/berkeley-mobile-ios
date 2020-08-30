@@ -71,22 +71,46 @@ class OccupancyGraphCardView: CardView {
         guard let occupancyForDay = occupancy.occupancy(for: day) else { return }
         let sortedHours = occupancyForDay.keys.sorted()
         guard let minHour = sortedHours.first, let maxHour = sortedHours.last else { return }
-        let dateHour = Calendar.current.component(.hour, from: Date())
+        let currentHour = Calendar.current.component(.hour, from: Date())
         let liveDataAvailable = occupancy.liveOccupancy != nil
-        for hour in min(minHour, dateHour)...max(maxHour, dateHour) {
+        for hour in min(minHour, currentHour)...max(maxHour, currentHour) {
             // hour is shown for hours that are a multiple of 3
             let bottomText = (hour % 3 == 0) ? timeText(time: hour) : ""
-            // add blue live data bar
-            if hour == dateHour/*, isOpen ?? true*/, let live = occupancy.liveOccupancy {
-                occupancyEntries.append(DataEntry(color: Color.barGraphEntryCurrent, height: CGFloat(live) / 100.0, bottomText: bottomText, overlapping: true))
+            // add blue live data bar if necessary
+            var liveData: DataEntry?
+            if hour == currentHour/*, isOpen ?? true*/, let live = occupancy.liveOccupancy {
+                liveData = DataEntry(color: Color.barGraphEntryCurrent, height: CGFloat(live) / 100.0, bottomText: bottomText)
             }
             if let occupancyForHour = occupancyForDay[hour] {
                 let percent = CGFloat(occupancyForHour) / 100.0
                 // alpha for bar color linearly scales from 0.2 to 1.0 based on percentage occupancy
                 let alpha = 0.2 + percent * 0.8
                 // make bar blue only if current hour, no live data, and not closed
-                let color = hour == dateHour && !liveDataAvailable && isOpen ?? true ? Color.barGraphEntryCurrent : Color.barGraphEntry(alpha: alpha)
-                occupancyEntries.append(DataEntry(color: color, height: percent, bottomText: bottomText))
+                var color: UIColor
+                if hour == currentHour /*&& isOpen ?? true*/ {
+                    if liveDataAvailable {
+                        color = Color.barGraphEntry(alpha: 1)
+                    } else {
+                        color = Color.barGraphEntryCurrent
+                    }
+                } else {
+                    color = Color.barGraphEntry(alpha: alpha)
+                }
+                // append entries in proper order. first one added is behind the second one so we must add the taller one first
+                var nextEntry = DataEntry(color: color, height: percent, bottomText: bottomText)
+                if var liveEntry = liveData {
+                    var nextEntries: [DataEntry] = []
+                    if liveEntry.height > nextEntry.height {
+                        nextEntry.overlapping = true
+                        nextEntries = [liveEntry, nextEntry]
+                    } else {
+                        liveEntry.overlapping = true
+                        nextEntries = [nextEntry, liveEntry]
+                    }
+                    occupancyEntries.append(contentsOf: nextEntries)
+                } else {
+                    occupancyEntries.append(nextEntry)
+                }
             } else {
                 occupancyEntries.append(DataEntry(color: UIColor.clear, height: 0, bottomText: bottomText))
             }

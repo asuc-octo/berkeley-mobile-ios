@@ -31,7 +31,7 @@ struct DataEntry {
     let color: UIColor
     let height: CGFloat
     let bottomText: String
-    let overlapping: Bool
+    var overlapping: Bool
     init(color: UIColor, height: CGFloat, bottomText: String, overlapping: Bool = false) {
         self.color = color
         self.height = height
