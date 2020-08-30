@@ -18,7 +18,7 @@ struct BarEntry {
     let data: DataEntry
     
     var bottomTitleFrame: CGRect {
-        return CGRect(x: origin.x - horizontalSpace/2, y: origin.y + 9 + barHeight, width: barWidth + horizontalSpace, height: 11)
+        return CGRect(x: origin.x - horizontalSpace / 2, y: origin.y + 9 + barHeight, width: barWidth + horizontalSpace, height: 11)
     }
     
     var barFrame: CGRect {
@@ -31,4 +31,11 @@ struct DataEntry {
     let color: UIColor
     let height: CGFloat
     let bottomText: String
+    let overlapping: Bool
+    init(color: UIColor, height: CGFloat, bottomText: String, overlapping: Bool = false) {
+        self.color = color
+        self.height = height
+        self.bottomText = bottomText
+        self.overlapping = overlapping
+    }
 }

@@ -71,16 +71,21 @@ class OccupancyGraphCardView: CardView {
         guard let occupancyForDay = occupancy.occupancy(for: day) else { return }
         let sortedHours = occupancyForDay.keys.sorted()
         guard let minHour = sortedHours.first, let maxHour = sortedHours.last else { return }
-        for hour in minHour...maxHour {
+        let dateHour = Calendar.current.component(.hour, from: Date())
+        let liveDataAvailable = occupancy.liveOccupancy != nil
+        for hour in min(minHour, dateHour)...max(maxHour, dateHour) {
             // hour is shown for hours that are a multiple of 3
             let bottomText = (hour % 3 == 0) ? timeText(time: hour) : ""
+            // add blue live data bar
+            if hour == dateHour, isOpen ?? true, let live = occupancy.liveOccupancy {
+                occupancyEntries.append(DataEntry(color: Color.barGraphEntryCurrent, height: CGFloat(live) / 100.0, bottomText: bottomText, overlapping: true))
+            }
             if let occupancyForHour = occupancyForDay[hour] {
                 let percent = CGFloat(occupancyForHour) / 100.0
                 // alpha for bar color linearly scales from 0.2 to 1.0 based on percentage occupancy
                 let alpha = 0.2 + percent * 0.8
-                let dateHour = Calendar.current.component(.hour, from: Date())
-                // if the bar is for the current hour, make it blue
-                let color = isOpen ?? true && dateHour == hour ? Color.barGraphEntryCurrent : Color.barGraphEntry(alpha: alpha)
+                // make bar blue only if current hour, no live data, and not closed
+                let color = hour == dateHour && !liveDataAvailable && isOpen ?? true ? Color.barGraphEntryCurrent : Color.barGraphEntry(alpha: alpha)
                 occupancyEntries.append(DataEntry(color: color, height: percent, bottomText: bottomText))
             } else {
                 occupancyEntries.append(DataEntry(color: UIColor.clear, height: 0, bottomText: bottomText))

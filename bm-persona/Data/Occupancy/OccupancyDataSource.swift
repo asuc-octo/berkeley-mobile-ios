@@ -52,8 +52,8 @@ class OccupancyDataSource: DataSource {
                         let data = document.data()
                         // only way to match occupancy with an object right now seeing if the names match
                         let locationName = (document.documentID).lowercased().trimmingCharacters(in: .whitespaces)
-                        if occupancyObjects[locationName] != nil {
-                            occupancyObjects[locationName]!.occupancy = parseOccupancy(data: data)
+                        if var object = occupancyObjects[locationName] {
+                            object.occupancy = parseOccupancy(data: data)
                         }
                     }
                     completion([] as [Any])
@@ -65,6 +65,7 @@ class OccupancyDataSource: DataSource {
     // parse occupancy data from Firebase into an occupancy object
     static func parseOccupancy(data: [String: Any]) -> Occupancy {
         var occupancyData: [DayOfWeek: [Int: Int]] = [:]
+        var liveOccupancy: Int?
         for key in data.keys {
             var dayOfWeek: DayOfWeek? = nil
             switch key {
@@ -82,6 +83,12 @@ class OccupancyDataSource: DataSource {
                 dayOfWeek = DayOfWeek.thursday
             case "Fr":
                 dayOfWeek = DayOfWeek.friday
+            case "live":
+                #if DEBUG
+                liveOccupancy = Int.random(in: 0...100)
+                #else
+                liveOccupancy = data[key] as? Int
+                #endif
             default:
                 break
             }
@@ -94,6 +101,6 @@ class OccupancyDataSource: DataSource {
                 }
             }
         }
-        return Occupancy(dailyOccupancy: occupancyData)
+        return Occupancy(dailyOccupancy: occupancyData, live: liveOccupancy)
     }
 }
