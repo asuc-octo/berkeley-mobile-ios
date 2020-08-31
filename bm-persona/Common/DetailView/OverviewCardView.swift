@@ -9,8 +9,8 @@
 import UIKit
 import MapKit
 
-fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
-fileprivate let kViewMargin: CGFloat = 16
+fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+fileprivate let kViewMargin: CGFloat = 10
 
 // all the possible elements on the card, used to exclude certain elements even if they are available
 enum OverviewElements {
@@ -211,7 +211,7 @@ class OverviewCardView: CardView {
         stack.axis = .horizontal
         stack.alignment = .center
         stack.distribution = .equalSpacing
-        stack.spacing = kViewMargin
+        stack.spacing = 5
         return stack
     }()
     
@@ -337,7 +337,7 @@ class OverviewCardView: CardView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.75
-        label.numberOfLines = 1
+        label.numberOfLines = 2
         return label
     }()
     
