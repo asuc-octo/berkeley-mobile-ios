@@ -307,6 +307,7 @@ class OverviewCardView: CardView {
         button.addTarget(self, action: #selector(toggleFave(sender:)), for: .touchUpInside)
         button.isUserInteractionEnabled = true
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.isHidden = true
         return button
     }()
     @objc func toggleFave(sender: UIButton) {
