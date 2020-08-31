@@ -19,6 +19,11 @@ class DrawerViewController: UIViewController {
     var prevState: DrawerState!
     var barView: UIView = UIView()
     
+    // maximum upper position to limit the drawer to (or nil if limit is top of screen)
+    var upperLimitState: DrawerState? {
+        get { return nil }
+    }
+    
     static var bottomOffsetY: CGFloat = 0
     
     override func viewDidLoad() {
