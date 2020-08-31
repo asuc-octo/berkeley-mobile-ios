@@ -108,19 +108,15 @@ class EventTableViewCell: UITableViewCell {
     
     class func getEntryColor(entryType: String) -> UIColor {
         switch entryType {
-        case "Academic":
+        case let type where type.contains("Exhibit"):
+            return Color.eventExhibit
+        case "Seminar":
             return Color.eventAcademic
-        case "Holiday":
-            return Color.eventHoliday
-        case "General":
-            return Color.eventHoliday
-        case "College of Engineering":
+        case "Lecture":
             return Color.eventAcademic
-        case "College of Letters and Sciences":
+        case "Workshop":
             return Color.eventAcademic
-        case "College of Chemistry":
-            return Color.eventAcademic
-        case "College of Natural Resources":
+        case "Course":
             return Color.eventAcademic
         default:
             return Color.eventDefault
