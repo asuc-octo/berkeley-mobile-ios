@@ -37,18 +37,18 @@ class LibraryDataSource: DataSource {
     
     // Return a Library object parsed from a dictionary.
     private static func parseLibrary(_ dict: [String: Any]) -> Library {
-//        #if DEBUG
-//        var weeklyHours: WeeklyHours?
-//        if let name = dict["name"] as? String, name < "I" {
-//            weeklyHours = Library.parseWeeklyHours(dict: LibraryDataSource.testOpenTimes0)
-//        } else if let name = dict["name"] as? String, name < "M" {
-//            weeklyHours = Library.parseWeeklyHours(dict: LibraryDataSource.testOpenTimes1)
-//        } else {
-//            weeklyHours = Library.parseWeeklyHours(dict: dict["open_close_array"] as? [[String: Any]])
-//        }
-//        #else
+        #if DEBUG
+        var weeklyHours: WeeklyHours?
+        if let name = dict["name"] as? String, name < "I" {
+            weeklyHours = Library.parseWeeklyHours(dict: LibraryDataSource.testOpenTimes0)
+        } else if let name = dict["name"] as? String, name < "M" {
+            weeklyHours = Library.parseWeeklyHours(dict: LibraryDataSource.testOpenTimes1)
+        } else {
+            weeklyHours = Library.parseWeeklyHours(dict: dict["open_close_array"] as? [[String: Any]])
+        }
+        #else
         let weeklyHours = Library.parseWeeklyHours(dict: dict["open_close_array"] as? [[String: Any]])
-//        #endif
+        #endif
         let library = Library(name: dict["name"] as? String ?? "Unnamed",
                               address: dict["address"] as? String,
                               phoneNumber: dict["phone"] as? String,
