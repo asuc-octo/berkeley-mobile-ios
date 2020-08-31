@@ -49,7 +49,7 @@ class LocationDetailView: IconPairView, DetailView {
         label.textColor = Color.blackText
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.75
-        label.numberOfLines = 1
+        label.numberOfLines = 2
 
         super.init(icon: icon, iconHeight: 16, iconWidth: 16, attachedView: label)
 
