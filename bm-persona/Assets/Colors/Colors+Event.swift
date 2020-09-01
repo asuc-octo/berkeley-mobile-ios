@@ -16,7 +16,7 @@ extension Color {
         return UIColor(displayP3Red: 114/255, green: 151/255, blue: 230/255, alpha: 1.0)
     }
     
-    static var eventHoliday: UIColor {
+    static var eventExhibit: UIColor {
         return UIColor(displayP3Red: 243/255, green: 182/255, blue: 89/255, alpha: 1.0)
     }
     

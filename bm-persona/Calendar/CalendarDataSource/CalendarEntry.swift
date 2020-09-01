@@ -30,10 +30,10 @@ class CalendarEntry: SearchItem {
     
     let name: String
     let address: String?
-    let date: Date?
+    let date: Date
     let eventType: String?
     
-    init(name: String, address: String, date: Date, eventType: String) {
+    init(name: String, address: String?, date: Date, eventType: String) {
         self.name = name
         self.address = address
         self.date = date
