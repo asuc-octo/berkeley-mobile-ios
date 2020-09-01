@@ -17,9 +17,14 @@ class DiningDetailViewController: SearchDrawerViewController {
     var diningHall: DiningLocation!
     var overviewCard: OverviewCardView!
     var control: TabBarControl?
-    var meals: MealMap!
-    var mealNames: [MealType]!
+    var meals: MealMap = [:]
+    var mealNames: [MealType] = []
     var menuView: FilterTableView = FilterTableView<DiningItem>(frame: .zero, filters: [])
+    override var upperLimitState: DrawerState? {
+        get {
+            return control == nil ? .middle : nil
+        }
+    }
     static let cellHeight: CGFloat = 45
     static let cellSpacingHeight: CGFloat = 5
     static let mealTimesChronological = ["breakfast": 0, "brunch": 1, "lunch": 2, "dinner": 3, "late night": 4, "other": 5]

@@ -81,15 +81,11 @@ extension MainDrawerViewDelegate where Self: UIViewController {
     
     // move the current top drawer to a specific state
     func moveCurrentDrawer(to state: DrawerState, duration: Double? = nil) {
-        var moveDuration = duration
-        if moveDuration == nil {
-            moveDuration = state == .full ? 0.6 : 0.2
-        }
         if drawerStack.count > 0 {
             let topDrawer = drawerStack.last!
-            topDrawer.moveDrawer(to: state, duration: moveDuration!)
+            topDrawer.moveDrawer(to: state, duration: duration)
         } else {
-            self.moveDrawer(to: state, duration: moveDuration!)
+            self.moveDrawer(to: state, duration: duration)
         }
     }
     
