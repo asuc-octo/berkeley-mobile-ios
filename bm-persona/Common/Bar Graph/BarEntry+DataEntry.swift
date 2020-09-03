@@ -31,6 +31,7 @@ struct DataEntry {
     let color: UIColor
     let height: CGFloat
     let bottomText: String
+    /// if true, this bar is added on top of the previous bar in the graph
     var overlapping: Bool
     init(color: UIColor, height: CGFloat, bottomText: String, overlapping: Bool = false) {
         self.color = color
