@@ -78,25 +78,27 @@ class OccupancyGraphCardView: CardView {
             let bottomText = (hour % 3 == 0) ? timeText(time: hour) : ""
             // add blue live data bar if necessary
             var liveData: DataEntry?
-            if hour == currentHour/*, isOpen ?? true*/, let live = occupancy.liveOccupancy {
+            if hour == currentHour, isOpen ?? true, let live = occupancy.liveOccupancy {
                 liveData = DataEntry(color: Color.barGraphEntryCurrent, height: CGFloat(live) / 100.0, bottomText: bottomText)
             }
             if let occupancyForHour = occupancyForDay[hour] {
                 let percent = CGFloat(occupancyForHour) / 100.0
                 // alpha for bar color linearly scales from 0.2 to 1.0 based on percentage occupancy
                 let alpha = 0.2 + percent * 0.8
-                // make bar blue only if current hour, no live data, and not closed
                 var color: UIColor
-                if hour == currentHour /*&& isOpen ?? true*/ {
+                if hour == currentHour && isOpen ?? true {
                     if liveDataAvailable {
+                        // both live and historic bars solid
                         color = Color.barGraphEntry(alpha: 1)
                     } else {
+                        // historic bar is blue
                         color = Color.barGraphEntryCurrent
                     }
                 } else {
                     color = Color.barGraphEntry(alpha: alpha)
                 }
-                // append entries in proper order. first one added is behind the second one so we must add the taller one first
+                // append entries in proper order if live data and historic data available
+                // taller bar added first because the taller bar must be behind
                 var nextEntry = DataEntry(color: color, height: percent, bottomText: bottomText)
                 if var liveEntry = liveData {
                     var nextEntries: [DataEntry] = []

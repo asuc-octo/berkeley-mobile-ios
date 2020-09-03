@@ -85,7 +85,7 @@ class OccupancyDataSource: DataSource {
                 dayOfWeek = DayOfWeek.friday
             case "live":
                 #if DEBUG
-                liveOccupancy = Int.random(in: 0...100)
+                liveOccupancy = data[key] as? Int ?? Int.random(in: 0...100)
                 #else
                 liveOccupancy = data[key] as? Int
                 #endif
