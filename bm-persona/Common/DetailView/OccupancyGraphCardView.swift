@@ -102,15 +102,13 @@ class OccupancyGraphCardView: CardView {
                 if let liveEntry = liveData {
                     let nextEntries: [DataEntry] = liveEntry.height > nextEntry.height ? [liveEntry, nextEntry] : [nextEntry, liveEntry]
                     occupancyEntries.append(contentsOf: nextEntries)
-                    index += nextEntries.count
                 } else {
                     occupancyEntries.append(nextEntry)
-                    index += 1
                 }
             } else {
                 occupancyEntries.append(DataEntry(color: UIColor.clear, height: 0, bottomText: bottomText, index: index))
-                index += 1
             }
+            index += 1
         }
         graph.dataEntries = occupancyEntries
     }
