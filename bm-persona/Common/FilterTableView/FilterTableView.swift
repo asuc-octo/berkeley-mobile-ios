@@ -57,6 +57,7 @@ class FilterTableView<T>: UIView {
         filter.labels = tableFunctions.map { $0.label }
         filter.filterDelegate = self
         for index in initialSelectedIndices {
+            guard index < filter.labels.count else { continue }
             filter.selectItem(index: index)
         }
         isInitialSetup = false
