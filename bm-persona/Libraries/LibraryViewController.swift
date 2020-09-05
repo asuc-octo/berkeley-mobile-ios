@@ -20,7 +20,7 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
     // SearchDrawerViewDelegate property
     var mainContainer: MainContainerViewController?
     
-    var filterTableView: FilterTableView = FilterTableView<Library>(frame: .zero, filters: [])
+    var filterTableView: FilterTableView = FilterTableView<Library>(frame: .zero, tableFunctions: [], defaultSort: SortingFunctions.sortAlph(item1:item2:))
     var safeArea: UILayoutGuide!
     var libraries: [Library] = []
     
@@ -40,8 +40,7 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        filterTableView.setSortFunc(newSortFunc: Library.locationComparator())
+        
         // Update `filterTableView` when user location is updated.
         LocationManager.notificationCenter.addObserver(
             filterTableView,
@@ -111,11 +110,11 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func setupFilterTableView() {
-        let filters = [
-            Filter<Library>(label: "Nearby", filter: Library.locationFilter(by: Library.nearbyDistance)),
+        let functions: [TableFunction] = [
+            Sort<Library>(label: "Nearby", sort: Library.locationComparator()),
             Filter<Library>(label: "Open", filter: {lib in lib.isOpen ?? false}),
         ]
-        filterTableView = FilterTableView(frame: .zero, filters: filters)
+        filterTableView = FilterTableView<Library>(frame: .zero, tableFunctions: functions, defaultSort: SortingFunctions.sortAlph(item1:item2:))
         self.filterTableView.tableView.register(FilterTableViewCell.self, forCellReuseIdentifier: FilterTableViewCell.kCellIdentifier)
         self.filterTableView.tableView.dataSource = self
         self.filterTableView.tableView.delegate = self

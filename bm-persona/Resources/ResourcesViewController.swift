@@ -15,7 +15,7 @@ class ResourcesViewController: UIViewController {
     private var resourcesLabel: UILabel!
 
     private var resourcesCard: CardView!
-    private var resourcesTable: FilterTableView = FilterTableView<Resource>(frame: .zero, filters: [])
+    private var resourcesTable: FilterTableView = FilterTableView<Resource>(frame: .zero, tableFunctions: [], defaultSort: SortingFunctions.sortAlph(item1:item2:))
     
     private var resourceEntries: [Resource] = []
 
@@ -81,7 +81,7 @@ extension ResourcesViewController {
         card.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
         
         let filters = [Filter<Resource>(label: "Open", filter: {resource in resource.isOpen ?? false})]
-        resourcesTable = FilterTableView(frame: .zero, filters: filters)
+        resourcesTable = FilterTableView(frame: .zero, tableFunctions: filters, defaultSort: SortingFunctions.sortAlph(item1:item2:))
         resourcesTable.tableView.allowsSelection = false
         
         resourcesTable.tableView.delegate = self

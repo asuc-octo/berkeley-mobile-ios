@@ -19,7 +19,7 @@ class DiningDetailViewController: SearchDrawerViewController {
     var control: TabBarControl?
     var meals: MealMap = [:]
     var mealNames: [MealType] = []
-    var menuView: FilterTableView = FilterTableView<DiningItem>(frame: .zero, filters: [])
+    var menuView: FilterTableView = FilterTableView<DiningItem>(frame: .zero, tableFunctions: [], defaultSort: SortingFunctions.sortAlph(item1:item2:))
     override var upperLimitState: DrawerState? {
         get {
             return control == nil ? .middle : nil
@@ -102,7 +102,7 @@ extension DiningDetailViewController {
         //        filters.append(filterForRestriction(name: "Soybeans", restriction: KnownRestriction.soybean, matches: true))
         //        filters.append(filterForRestriction(name: "Wheat", restriction: KnownRestriction.wheat, matches: true))
         //        filters.append(filterForRestriction(name: "No Sesame", restriction: KnownRestriction.sesame, matches: false))
-        menuView = FilterTableView(frame: .zero, filters: filters)
+        menuView = FilterTableView(frame: .zero, tableFunctions: filters, defaultSort: SortingFunctions.sortAlph(item1:item2:))
         self.menuView.tableView.register(DiningMenuCell.self, forCellReuseIdentifier: DiningMenuCell.kCellIdentifier)
         self.menuView.tableView.dataSource = self
         self.menuView.tableView.delegate = self
