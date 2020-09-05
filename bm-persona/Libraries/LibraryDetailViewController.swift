@@ -117,7 +117,7 @@ extension LibraryDetailViewController {
     
     func setUpOccupancyCard() {
         guard let occupancy = library.occupancy, let forDay = occupancy.occupancy(for: DayOfWeek.weekday(Date())), forDay.count > 0 else { return }
-        occupancyCard = OccupancyGraphCardView(occupancy: occupancy, date: Date(), isOpen: library.isOpen)
+        occupancyCard = OccupancyGraphCardView(occupancy: occupancy, isOpen: library.isOpen)
         let occupancyCard = self.occupancyCard!
         scrollContent.addSubview(occupancyCard)
         occupancyCard.topAnchor.constraint(equalTo: openTimesCard?.bottomAnchor ?? overviewCard.bottomAnchor, constant: kViewMargin).isActive = true

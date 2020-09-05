@@ -14,18 +14,15 @@ fileprivate let kViewMargin: CGFloat = 16
 /// A card with a bar graph showing occupancy by hour
 class OccupancyGraphCardView: CardView {
     var occupancyEntries: [DataEntry] = []
-    /// The date used to populate the graph and indicate the current hour (likely the current date)
-    var date = Date()
     var graph = BarGraph()
     var isOpen: Bool?
     
-    public init(occupancy: Occupancy, date: Date, isOpen: Bool?) {
+    public init(occupancy: Occupancy, isOpen: Bool?) {
         super.init(frame: CGRect.zero)
-        self.date = date
         self.isOpen = isOpen
         self.layoutMargins = kCardPadding
         self.translatesAutoresizingMaskIntoConstraints = false
-        setOrderedEntries(occupancy: occupancy, day: DayOfWeek.weekday(date))
+        setOrderedEntries(occupancy: occupancy, day: DayOfWeek.weekday(Date()))
         setUpViews(occupancy: occupancy)
     }
     
@@ -38,7 +35,7 @@ class OccupancyGraphCardView: CardView {
         topLabelView.topAnchor.constraint(lessThanOrEqualTo: occupancyLabel.topAnchor).isActive = true
         topLabelView.bottomAnchor.constraint(greaterThanOrEqualTo: occupancyLabel.bottomAnchor).isActive = true
         var rightConstraint = occupancyLabel.rightAnchor.constraint(equalTo: topLabelView.rightAnchor)
-        if isOpen ?? true, let status = occupancy.getOccupancyStatus(date: date) {
+        if isOpen ?? true, let status = occupancy.getCurrentOccupancyStatus() {
             let badge = status.badge()
             topLabelView.addSubview(badge)
             badge.rightAnchor.constraint(equalTo: topLabelView.rightAnchor).isActive = true
@@ -73,20 +70,22 @@ class OccupancyGraphCardView: CardView {
         guard let minHour = sortedHours.first, let maxHour = sortedHours.last else { return }
         let currentHour = Calendar.current.component(.hour, from: Date())
         let liveDataAvailable = occupancy.liveOccupancy != nil
+        // the position of the bar in the graph
+        var index = 0
         for hour in min(minHour, currentHour)...max(maxHour, currentHour) {
             // hour is shown for hours that are a multiple of 3
             let bottomText = (hour % 3 == 0) ? timeText(time: hour) : ""
             // add blue live data bar if necessary
             var liveData: DataEntry?
-            if hour == currentHour, isOpen ?? true, let live = occupancy.liveOccupancy {
-                liveData = DataEntry(color: Color.barGraphEntryCurrent, height: CGFloat(live) / 100.0, bottomText: bottomText)
+            if hour == currentHour,/* isOpen ?? true,*/ let live = occupancy.liveOccupancy {
+                liveData = DataEntry(color: Color.barGraphEntryCurrent, height: CGFloat(live) / 100.0, bottomText: bottomText, index: index)
             }
             if let occupancyForHour = occupancyForDay[hour] {
                 let percent = CGFloat(occupancyForHour) / 100.0
                 // alpha for bar color linearly scales from 0.2 to 1.0 based on percentage occupancy
                 let alpha = 0.2 + percent * 0.8
                 var color: UIColor
-                if hour == currentHour && isOpen ?? true {
+                if hour == currentHour/* && isOpen ?? true*/ {
                     if liveDataAvailable {
                         // both live and historic bars solid
                         color = Color.barGraphEntry(alpha: 1)
@@ -99,22 +98,18 @@ class OccupancyGraphCardView: CardView {
                 }
                 // append entries in proper order if live data and historic data available
                 // taller bar added first because the taller bar must be behind
-                var nextEntry = DataEntry(color: color, height: percent, bottomText: bottomText)
-                if var liveEntry = liveData {
-                    var nextEntries: [DataEntry] = []
-                    if liveEntry.height > nextEntry.height {
-                        nextEntry.overlapping = true
-                        nextEntries = [liveEntry, nextEntry]
-                    } else {
-                        liveEntry.overlapping = true
-                        nextEntries = [nextEntry, liveEntry]
-                    }
+                let nextEntry = DataEntry(color: color, height: percent, bottomText: bottomText, index: index)
+                if let liveEntry = liveData {
+                    let nextEntries: [DataEntry] = liveEntry.height > nextEntry.height ? [liveEntry, nextEntry] : [nextEntry, liveEntry]
                     occupancyEntries.append(contentsOf: nextEntries)
+                    index += nextEntries.count
                 } else {
                     occupancyEntries.append(nextEntry)
+                    index += 1
                 }
             } else {
-                occupancyEntries.append(DataEntry(color: UIColor.clear, height: 0, bottomText: bottomText))
+                occupancyEntries.append(DataEntry(color: UIColor.clear, height: 0, bottomText: bottomText, index: index))
+                index += 1
             }
         }
         graph.dataEntries = occupancyEntries

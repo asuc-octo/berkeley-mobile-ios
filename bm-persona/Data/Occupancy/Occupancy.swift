@@ -46,11 +46,16 @@ class Occupancy {
         self.liveOccupancy = live
     }
     
-    // get a percent occupancy based on a date object (current day and time)
-    func getOccupancyPercent(date: Date) -> Int? {
+    // get a percent occupancy for the current date, with live data taking priority
+    func getCurrentOccupancyPercent() -> Int? {
         if let live = liveOccupancy {
             return live
         }
+        return getHistoricOccupancyPercent(date: Date())
+    }
+    
+    // get a percent occupancy based on a date object (current day and time)
+    func getHistoricOccupancyPercent(date: Date) -> Int? {
         let day = DayOfWeek.weekday(date)
         let hour = Calendar.current.component(.hour, from: date)
         if let forDay = dailyOccupancy[day] {
@@ -59,9 +64,17 @@ class Occupancy {
         return nil
     }
     
+    // get a status (high, medium, low) for the current date, with live data taking priority
+    func getCurrentOccupancyStatus() -> OccupancyStatus? {
+        return occupancyStatusFrom(percent: getCurrentOccupancyPercent())
+    }
+    
     // get a status (high, medium, low) based on a date object
-    func getOccupancyStatus(date: Date) -> OccupancyStatus? {
-        let percent = getOccupancyPercent(date: date)
+    func getHistoricOccupancyStatus(date: Date) -> OccupancyStatus? {
+        return occupancyStatusFrom(percent: getHistoricOccupancyPercent(date: date))
+    }
+    
+    private func occupancyStatusFrom(percent: Int?) -> OccupancyStatus? {
         if percent == nil {
             return nil
         }

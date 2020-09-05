@@ -86,11 +86,9 @@ class BarGraph: UIView {
     /// Updates the bar entries based on the data entries
     private func setBarEntries() {
         var result: [BarEntry] = []
-        var overlappingCount = 0
-        for (index, entry) in dataEntries.enumerated() {
-            overlappingCount += entry.overlapping ? 1 : 0
+        for entry in dataEntries {
             let entryHeight = entry.height * (frame.height - bottomSpace)
-            let xPosition: CGFloat = horizontalSpace + CGFloat(index - overlappingCount) * (barWidth + horizontalSpace)
+            let xPosition: CGFloat = horizontalSpace + CGFloat(entry.index) * (barWidth + horizontalSpace)
             let yPosition = frame.height - bottomSpace - entryHeight
             let origin = CGPoint(x: xPosition, y: yPosition)
             

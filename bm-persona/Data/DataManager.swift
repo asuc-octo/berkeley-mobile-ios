@@ -46,9 +46,10 @@ class DataManager {
     
     private var lastFetched: Date?
     func fetchIfNecessary() {
-        if let lastFetched = self.lastFetched, Date().timeIntervalSince(lastFetched) > DataManager.fetchInterval {
-            fetchAll()
+        if let lastFetched = self.lastFetched, Date().timeIntervalSince(lastFetched) < DataManager.fetchInterval {
+            return
         }
+        fetchAll()
     }
     
     func fetchAll() {
