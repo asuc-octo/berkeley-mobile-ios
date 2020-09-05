@@ -13,6 +13,7 @@ fileprivate let kHeaderFont: UIFont = Font.bold(24)
 fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
 fileprivate let kViewMargin: CGFloat = 16
 fileprivate let kTodayClassesHeight: CGFloat = 300
+fileprivate let kTodayClassesCollapsedHeight: CGFloat = 86
 
 class FitnessViewController: UIViewController {
     
@@ -22,6 +23,8 @@ class FitnessViewController: UIViewController {
     private var upcomingCard: CardView!
     private var todayCard: CardView!
     private var gymCard: CardView!
+    
+    private var showButton: UIButton!
     
     private var bClassesExpanded = false
     
@@ -75,6 +78,15 @@ class FitnessViewController: UIViewController {
                 return Calendar.current.isDateInToday(start)
             }.first?.sorted(by: sortFn) ?? []
             self.upcomingClasses = classes.reduce([], +).sorted(by: sortFn)
+            
+            if (self.upcomingClasses.count == 0) {
+                self.classesCollection.setHeightConstraint(8)
+            }
+            
+            if (self.todayClasses.count == 0) {
+                self.showButton.isHidden = true
+                self.todayCard.setHeightConstraint(kTodayClassesCollapsedHeight)
+            }
             
             self.classesTable.reloadData()
             self.classesCollection.reloadData()
@@ -219,6 +231,7 @@ extension FitnessViewController {
         classesTable.bottomAnchor.constraint(equalTo: card.layoutMarginsGuide.bottomAnchor).isActive = true
         
         todayCard = card
+        showButton = scheduleButton
     }
     
     // Gyms

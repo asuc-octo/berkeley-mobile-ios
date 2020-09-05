@@ -48,6 +48,7 @@ class CalendarViewController: UIViewController {
             if (self.calendarEntries.count == 0) {
                 self.missingView.isHidden = false
                 self.calendarTable.isHidden = true
+                self.eventsCollection.setHeightConstraint(8)
             } else {
                 self.missingView.isHidden = true
                 self.calendarTable.isHidden = false
