@@ -138,10 +138,16 @@ class MapMarkerDetailView: UIView {
         notesLabel.text = marker.subtitle
         
         detailStack.removeAllArrangedSubviews()
+        var containsFlexibleView = false
         for property: MapMarkerDetail in [.distance, .openNow, .location] {
             if let view = property.view(marker) {
                 detailStack.addArrangedSubview(view)
+                containsFlexibleView = containsFlexibleView || !property.inflexible
             }
+        }
+        // Add empty 'padding' view to prevent stretching of 'inflexible' views.
+        if !containsFlexibleView {
+            detailStack.addArrangedSubview(UIView())
         }
         
         verticalStack.addArrangedSubview(nameLabel)
@@ -168,6 +174,11 @@ enum MapMarkerDetail {
     case location
     case openNow
     case distance
+
+    /** Boolean that is `true` if the view for this detail should not be stretched horizontally. */
+    var inflexible: Bool {
+        return self != .location
+    }
     
     /** Helper that returns a view next to an icon */
     func viewWithIcon(_ icon: UIImage?, view: UIView) -> UIView {
