@@ -22,6 +22,8 @@ class FilterTableView<T>: UIView {
     var sortIndex: Int?
     var defaultSort: ((T, T) -> Bool)
     
+    var isInitialSetup = true
+    
     override func layoutSubviews() {
         self.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         self.addSubview(filter)
@@ -31,9 +33,6 @@ class FilterTableView<T>: UIView {
         filter.rightAnchor.constraint(equalTo: self.layoutMarginsGuide.rightAnchor).isActive = true
         filter.topAnchor.constraint(equalTo: self.layoutMarginsGuide.topAnchor).isActive = true
         filter.heightAnchor.constraint(equalToConstant: FilterViewCell.kCellSize.height).isActive = true
-
-        filter.labels = tableFunctions.map { $0.label }
-        filter.filterDelegate = self
         
         self.addSubview(tableView)
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
@@ -50,11 +49,17 @@ class FilterTableView<T>: UIView {
         tableView.showsVerticalScrollIndicator = false
     }
     
-    init(frame: CGRect, tableFunctions: [TableFunction], defaultSort: @escaping ((T, T) -> Bool)) {
+    init(frame: CGRect, tableFunctions: [TableFunction], defaultSort: @escaping ((T, T) -> Bool), initialSelectedIndices: [Int] = []) {
         self.defaultSort = defaultSort
         super.init(frame: frame)
         missingView = MissingDataView(parentView: tableView)
         self.tableFunctions = tableFunctions
+        filter.labels = tableFunctions.map { $0.label }
+        filter.filterDelegate = self
+        for index in initialSelectedIndices {
+            filter.selectItem(index: index)
+        }
+        isInitialSetup = false
         self.update()
     }
     
@@ -88,18 +93,19 @@ class FilterTableView<T>: UIView {
     
     var workItem: DispatchWorkItem?
     @objc func update() {
+        guard !isInitialSetup else { return }
         workItem?.cancel()
         let data = self.data
         guard let paths = filter.indexPathsForSelectedItems else { return }
-        let rows = paths.map { $0.row }
+        let indices = paths.map { $0.row }
         var filters: [Filter<T>] = []
         sortIndex = nil
-        for row in rows {
-            guard row < tableFunctions.count else { continue }
-            if let filter = tableFunctions[row] as? Filter<T> {
+        for index in indices {
+            guard index < tableFunctions.count else { continue }
+            if let filter = tableFunctions[index] as? Filter<T> {
                 filters.append(filter)
-            } else if tableFunctions[row] as? Sort<T> != nil {
-                setSortFunc(index: row)
+            } else if tableFunctions[index] as? Sort<T> != nil {
+                setSortFunc(index: index)
             }
         }
         workItem = Filter.apply(filters: filters, on: data, completion: {

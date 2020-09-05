@@ -39,12 +39,12 @@ class ResourcesViewController: UIViewController {
 
 extension ResourcesViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return resourceEntries.count
+        return self.resourcesTable.filteredData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = ResourceTableViewCell()
-        cell.cellConfigure(entry: resourceEntries[indexPath.row])
+        cell.cellConfigure(entry: self.resourcesTable.filteredData[indexPath.row])
         return cell
     }
     
@@ -81,7 +81,7 @@ extension ResourcesViewController {
         card.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
         
         let filters = [Filter<Resource>(label: "Open", filter: {resource in resource.isOpen ?? false})]
-        resourcesTable = FilterTableView(frame: .zero, tableFunctions: filters, defaultSort: SortingFunctions.sortAlph(item1:item2:))
+        resourcesTable = FilterTableView(frame: .zero, tableFunctions: filters, defaultSort: SortingFunctions.sortAlph(item1:item2:), initialSelectedIndices: [0])
         resourcesTable.tableView.allowsSelection = false
         
         resourcesTable.tableView.delegate = self
