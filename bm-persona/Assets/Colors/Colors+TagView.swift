@@ -20,15 +20,15 @@ extension Color {
         return UIColor(displayP3Red: 133/255, green: 158/255, blue: 248/255, alpha: 1.0)
     }
     
-    static var highCapacityTag: UIColor {
+    static var highOccupancyTag: UIColor {
         return UIColor(red: 221/255, green: 67/255, blue: 67/255, alpha: 1)
     }
     
-    static var medCapacityTag: UIColor {
+    static var medOccupancyTag: UIColor {
         return UIColor(red: 251/255, green: 179/255, blue: 43/255, alpha: 1)
     }
     
-    static var lowCapacityTag: UIColor {
+    static var lowOccupancyTag: UIColor {
         return UIColor(red: 162/255, green: 183/255, blue: 14/255, alpha: 1)
     }
     

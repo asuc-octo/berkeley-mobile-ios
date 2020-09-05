@@ -14,11 +14,25 @@ protocol HasOccupancy {
 }
 
 extension HasOccupancy {
-    func getOccupancyPercent(date: Date) -> Int? {
-        return occupancy?.getOccupancyPercent(date: date)
+    func getCurrentOccupancyPercent() -> Int? {
+        return occupancy?.getCurrentOccupancyPercent()
     }
     
-    func getOccupancyStatus(date: Date) -> OccupancyStatus? {
-        return occupancy?.getOccupancyStatus(date: date)
+    func getHistoricOccupancyPercent(date: Date) -> Int? {
+        return occupancy?.getHistoricOccupancyPercent(date: date)
+    }
+    
+    func getCurrentOccupancyStatus(isOpen: Bool?) -> OccupancyStatus? {
+        if let isOpen = isOpen, !isOpen {
+            return nil
+        }
+        return occupancy?.getCurrentOccupancyStatus()
+    }
+    
+    func getHistoricOccupancyStatus(date: Date, isOpen: Bool?) -> OccupancyStatus? {
+        if let isOpen = isOpen, !isOpen {
+            return nil
+        }
+        return occupancy?.getHistoricOccupancyStatus(date: date)
     }
 }

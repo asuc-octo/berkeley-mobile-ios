@@ -146,20 +146,8 @@ class OverviewCardView: CardView {
             leftVerticalStack.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -1 * kViewMargin).isActive = true
         }
 
-        if !excludedElements.contains(.occupancy), let itemWithOccupancy = item as? HasOccupancy, let status = itemWithOccupancy.getOccupancyStatus(date: Date()) {
-            occupancyBadge.widthAnchor.constraint(equalToConstant: 50).isActive = true
-            let occupancyView = IconPairView(icon: chairImage, iconHeight: 16, iconWidth: 28, attachedView: occupancyBadge)
-            switch status {
-            case OccupancyStatus.high:
-                occupancyBadge.text = "High"
-                occupancyBadge.backgroundColor = Color.highCapacityTag
-            case OccupancyStatus.medium:
-                occupancyBadge.text = "Medium"
-                occupancyBadge.backgroundColor = Color.medCapacityTag
-            case OccupancyStatus.low:
-                occupancyBadge.text = "Low"
-                occupancyBadge.backgroundColor = Color.lowCapacityTag
-            }
+        if !excludedElements.contains(.occupancy), let itemWithOccupancy = item as? HasOccupancy, let status = itemWithOccupancy.getCurrentOccupancyStatus(isOpen: (item as? HasOpenTimes)?.isOpen) {
+            let occupancyView = IconPairView(icon: chairImage, iconHeight: 16, iconWidth: 28, attachedView: status.badge())
             belowImageHorizontalStack.addArrangedSubview(occupancyView)
         }
         
@@ -293,12 +281,6 @@ class OverviewCardView: CardView {
         img.translatesAutoresizingMaskIntoConstraints = false
         img.clipsToBounds = true
         return img
-    }()
-    
-    let occupancyBadge:TagView = {
-        let occ = TagView(origin: .zero, text: "", color: .clear)
-        occ.translatesAutoresizingMaskIntoConstraints = false
-        return occ
     }()
     
     let faveButton: UIButton = {
