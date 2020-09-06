@@ -17,6 +17,10 @@ class ResourceDetailViewController: SearchDrawerViewController {
     var overviewCard: OverviewCardView!
     var openTimesCard: OpenTimesCardView?
 
+    override var upperLimitState: DrawerState? {
+        return openTimesCard == nil ? .middle : nil
+    }
+
     /// Boolean indicating whether this view is presented modally or through a drawer.
     private var presentedModally: Bool = false
 
