@@ -1,24 +1,27 @@
 //
-//  CalendarViewController.swift
+//  GymDetailViewController.swift
 //  bm-persona
 //
-//  Created by Oscar Bjorkman on 2/2/20.
+//  Created by Kevin Hu on 9/5/20.
 //  Copyright © 2020 RJ Pimentel. All rights reserved.
 //
 
 import UIKit
 
-fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
 fileprivate let kViewMargin: CGFloat = 16
 
-fileprivate let kBookingURL = "https://berkeley.libcal.com"
+class GymDetailViewController: SearchDrawerViewController {
 
-class LibraryDetailViewController: SearchDrawerViewController {
-    var library : Library!
+    var gym: Gym!
+
     var overviewCard: OverviewCardView!
     var openTimesCard: OpenTimesCardView?
     var occupancyCard: OccupancyGraphCardView?
-    
+
+    override var upperLimitState: DrawerState? {
+        return openTimesCard == nil && occupancyCard == nil ? .middle : nil
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -26,20 +29,13 @@ class LibraryDetailViewController: SearchDrawerViewController {
         setUpOverviewCard()
         setUpOpenTimesCard()
         setUpOccupancyCard()
-        setUpBookButton()
     }
-    
+
     override func viewDidLayoutSubviews() {
         /* Set the bottom cutoff point for when the drawer appears
         The "middle" position for the view will show everything in the overview card
         When collapsible open time card is added, change this to show that card as well. */
         middleCutoffPosition = (openTimesCard?.frame.maxY ?? overviewCard.frame.maxY) + scrollingStackView.yOffset + 8
-    }
-
-    /// Opens `kBookingURL` in Safari.
-    @objc private func bookButtonClicked(sender: UIButton) {
-        guard let url = URL(string: kBookingURL) else { return }
-        UIApplication.shared.open(url)
     }
 
     var scrollingStackView: ScrollingStackView = {
@@ -48,56 +44,36 @@ class LibraryDetailViewController: SearchDrawerViewController {
         scrollingStackView.stackView.spacing = kViewMargin
         return scrollingStackView
     }()
-
-    var bookButton: UIButton = {
-        let button = UIButton()
-        button.layoutMargins = kCardPadding
-        button.backgroundColor =  Color.eventAcademic
-        button.layer.cornerRadius = 10
-        button.layer.shadowRadius = 5
-        button.layer.shadowOpacity = 0.25
-        button.layer.shadowOffset = .zero
-        button.layer.shadowColor = UIColor.black.cgColor
-        button.layer.shadowPath = UIBezierPath(rect: button.layer.bounds.insetBy(dx: 4, dy: 4)).cgPath
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Book a Study Room >", for: .normal)
-        button.titleLabel!.font = Font.semibold(14)
-        button.titleLabel!.textColor = .white
-        button.addTarget(self, action: #selector(bookButtonClicked), for: .touchUpInside)
-        return button
-    }()
 }
 
-extension LibraryDetailViewController {
+// MARK: - View
+
+extension GymDetailViewController {
+
     func setUpOverviewCard() {
-        overviewCard = OverviewCardView(item: library, excludedElements: [.openTimes, .occupancy])
+        overviewCard = OverviewCardView(item: gym, excludedElements: [.openTimes, .occupancy])
         overviewCard.heightAnchor.constraint(equalToConstant: 200).isActive = true
         scrollingStackView.stackView.addArrangedSubview(overviewCard)
     }
-    
+
     func setUpOpenTimesCard() {
-        guard library.weeklyHours != nil else { return }
-        openTimesCard = OpenTimesCardView(item: library, animationView: scrollingStackView, toggleAction: { open in
+        guard gym.weeklyHours != nil else { return }
+        openTimesCard = OpenTimesCardView(item: gym, animationView: scrollingStackView, toggleAction: { open in
             if open, self.currState != .full {
                 self.delegate.moveDrawer(to: .full, duration: 0.6)
             }
-        }, toggleCompletionAction: nil)
+        })
         guard let openTimesCard = self.openTimesCard else { return }
         scrollingStackView.stackView.addArrangedSubview(openTimesCard)
     }
-    
+
     func setUpOccupancyCard() {
-        guard let occupancy = library.occupancy, let forDay = occupancy.occupancy(for: DayOfWeek.weekday(Date())), forDay.count > 0 else { return }
-        occupancyCard = OccupancyGraphCardView(occupancy: occupancy, isOpen: library.isOpen)
+        guard let occupancy = gym.occupancy, let forDay = occupancy.occupancy(for: DayOfWeek.weekday(Date())), forDay.count > 0 else { return }
+        occupancyCard = OccupancyGraphCardView(occupancy: occupancy, isOpen: gym.isOpen)
         guard let occupancyCard = self.occupancyCard else { return }
         scrollingStackView.stackView.addArrangedSubview(occupancyCard)
     }
-    
-    func setUpBookButton() {
-        bookButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        scrollingStackView.stackView.addArrangedSubview(bookButton)
-    }
-    
+
     func setUpScrollView() {
         view.addSubview(scrollingStackView)
         scrollingStackView.topAnchor.constraint(equalTo: barView.bottomAnchor, constant: kViewMargin).isActive = true

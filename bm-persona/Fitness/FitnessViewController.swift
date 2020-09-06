@@ -14,8 +14,27 @@ fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 16, left: 16, bot
 fileprivate let kViewMargin: CGFloat = 16
 fileprivate let kTodayClassesHeight: CGFloat = 300
 
-class FitnessViewController: UIViewController {
-    
+class FitnessViewController: UIViewController, SearchDrawerViewDelegate {
+
+    // MARK: SearchDrawerViewDelegate
+
+    // DrawerViewDelegate properties
+    var drawerViewController: DrawerViewController?
+    var initialDrawerCenter = CGPoint()
+    var drawerStatePositions: [DrawerState : CGFloat] = [:]
+    // SearchDrawerViewDelegate property
+    var mainContainer: MainContainerViewController?
+
+    func handlePanGesture(gesture: UIPanGestureRecognizer) {
+        let state = handlePan(gesture: gesture)
+        if state == .hidden {
+            // get rid of the top detail drawer if user sends it to bottom of screen
+            mainContainer?.dismissTop()
+        }
+    }
+
+    // MARK: FitnessViewController
+
     private var scrollView: UIScrollView!
     private var content: UIView!
     
@@ -262,9 +281,9 @@ extension FitnessViewController {
             Filter<Gym>(label: "Open", filter: {gym in gym.isOpen ?? false}),
         ]
         filterTableView = FilterTableView(frame: .zero, filters: filters)
-        self.filterTableView.tableView.allowsSelection = false
         self.filterTableView.tableView.register(FilterTableViewCell.self, forCellReuseIdentifier: FilterTableViewCell.kCellIdentifier)
         self.filterTableView.tableView.dataSource = gymsController
+        self.filterTableView.tableView.delegate = gymsController
     }
     
 }

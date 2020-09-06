@@ -20,8 +20,13 @@ class FilterTableView<T>: UIView {
     var filteredData: [T] = []
     var filters: [Filter<T>] = []
     var sortFunc: ((T, T) -> Bool) = {lib1, lib2 in true}
-    
+
     override func layoutSubviews() {
+        super.layoutSubviews()
+        filter.labels = filters.map { $0.label }
+    }
+
+    private func setupSubviews() {
         self.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         self.addSubview(filter)
         
@@ -53,6 +58,7 @@ class FilterTableView<T>: UIView {
         super.init(frame: frame)
         
         missingView = MissingDataView(parentView: tableView)
+        setupSubviews()
         
         self.filters = filters
         self.update()

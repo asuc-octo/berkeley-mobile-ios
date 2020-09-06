@@ -26,6 +26,12 @@ extension SearchDrawerViewDelegate where Self: UIViewController {
         } else if type == Library.self {
             drawerViewController = LibraryDetailViewController()
             (drawerViewController as! LibraryDetailViewController).library = (item as! Library)
+        } else if type == Gym.self {
+            drawerViewController = GymDetailViewController()
+            (drawerViewController as! GymDetailViewController).gym = (item as! Gym)
+        } else if type == Resource.self {
+            drawerViewController = ResourceDetailViewController()
+            (drawerViewController as! ResourceDetailViewController).resource = (item as! Resource)
         } else {
             return
         }

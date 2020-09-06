@@ -10,6 +10,8 @@ import UIKit
 
 class ResourceTableViewCell: UITableViewCell {
 
+    static let kCellIdentifier = "resourceCell"
+
     private var resourceName: UILabel!
     private var resourceCategory: TagView!
     private var resourceImage: UIImageView!
