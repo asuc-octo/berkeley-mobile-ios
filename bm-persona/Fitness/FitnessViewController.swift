@@ -257,8 +257,8 @@ extension FitnessViewController {
     
     func setupFilterTableView() {
         let functions: [TableFunction] = [
-            Sort<Gym>(label: "Nearby", sort: Library.locationComparator()),
-            Filter<Gym>(label: "Open", filter: {lib in lib.isOpen ?? false}),
+            Sort<Gym>(label: "Nearby", sort: Gym.locationComparator()),
+            Filter<Gym>(label: "Open", filter: {gym in gym.isOpen ?? false}),
         ]
         filterTableView = FilterTableView<Gym>(frame: .zero, tableFunctions: functions, defaultSort: SortingFunctions.sortAlph(item1:item2:), initialSelectedIndices: [0, 1])
         self.filterTableView.tableView.allowsSelection = false

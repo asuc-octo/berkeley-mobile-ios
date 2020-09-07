@@ -140,8 +140,8 @@ extension DiningViewController {
     // Table of dining locations
     func setupTableView() {
         let functions: [TableFunction] = [
-            Sort<DiningLocation>(label: "Nearby", sort: Library.locationComparator()),
-            Filter<DiningLocation>(label: "Open", filter: {lib in lib.isOpen ?? false}),
+            Sort<DiningLocation>(label: "Nearby", sort: DiningHall.locationComparator()),
+            Filter<DiningLocation>(label: "Open", filter: {diningHall in diningHall.isOpen ?? false}),
         ]
         filterTableView = FilterTableView<DiningLocation>(frame: .zero, tableFunctions: functions, defaultSort: SortingFunctions.sortAlph(item1:item2:), initialSelectedIndices: [0, 1])
         self.filterTableView.tableView.register(FilterTableViewCell.self, forCellReuseIdentifier: FilterTableViewCell.kCellIdentifier)
