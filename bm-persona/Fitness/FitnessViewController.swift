@@ -30,7 +30,7 @@ class FitnessViewController: UIViewController {
     // For use in the "Upcoming" card
     private var classesCollection: CardCollectionView!
     // To display a list of gyms in the "Fitness Centers" card
-    var filterTableView = FilterTableView<Gym>(frame: .zero, filters: [])
+    var filterTableView = FilterTableView<Gym>(frame: .zero, tableFunctions: [], defaultSort: SortingFunctions.sortAlph(item1:item2:))
     
     var gyms: [Gym] = []
     var upcomingClasses: [GymClass] = []
@@ -49,8 +49,7 @@ class FitnessViewController: UIViewController {
         setupUpcomingClasses()
         setupTodayClasses()
         setupGyms()
-
-        filterTableView.setSortFunc(newSortFunc: Gym.locationComparator())
+        
         // Update `filterTableView` when user location is updated.
         LocationManager.notificationCenter.addObserver(
             filterTableView,
@@ -257,11 +256,11 @@ extension FitnessViewController {
     }
     
     func setupFilterTableView() {
-        let filters = [
-            Filter<Gym>(label: "Nearby", filter: Gym.locationFilter(by: Gym.nearbyDistance)),
+        let functions: [TableFunction] = [
+            Sort<Gym>(label: "Nearby", sort: Gym.locationComparator()),
             Filter<Gym>(label: "Open", filter: {gym in gym.isOpen ?? false}),
         ]
-        filterTableView = FilterTableView(frame: .zero, filters: filters)
+        filterTableView = FilterTableView<Gym>(frame: .zero, tableFunctions: functions, defaultSort: SortingFunctions.sortAlph(item1:item2:), initialSelectedIndices: [0, 1])
         self.filterTableView.tableView.allowsSelection = false
         self.filterTableView.tableView.register(FilterTableViewCell.self, forCellReuseIdentifier: FilterTableViewCell.kCellIdentifier)
         self.filterTableView.tableView.dataSource = gymsController

@@ -16,7 +16,7 @@ class SortingFunctions {
         if d1 == d2,
             let loc1 = loc1 as? SearchItem,
             let loc2 = loc2 as? SearchItem {
-            return sortAlph(loc1: loc1, loc2: loc2)
+            return sortAlph(item1: loc1, item2: loc2)
         } else if d2 == nil {
             return true
         } else if d1 == nil {
@@ -26,7 +26,7 @@ class SortingFunctions {
         }
     }
     
-    static func sortAlph(loc1: SearchItem, loc2: SearchItem) -> Bool {
-        return loc1.searchName < loc2.searchName
+    static func sortAlph(item1: HasName, item2: HasName) -> Bool {
+        return item1.name < item2.name
     }
 }

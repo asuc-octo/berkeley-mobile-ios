@@ -18,8 +18,11 @@ class FilterTableView<T>: UIView {
     var filter: FilterView = FilterView(frame: .zero)
     var data: [T] = []
     var filteredData: [T] = []
-    var filters: [Filter<T>] = []
-    var sortFunc: ((T, T) -> Bool) = {lib1, lib2 in true}
+    var tableFunctions: [TableFunction] = []
+    var sortIndex: Int?
+    var defaultSort: ((T, T) -> Bool)
+    
+    var isInitialSetup = true
     
     override func layoutSubviews() {
         self.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
@@ -30,9 +33,6 @@ class FilterTableView<T>: UIView {
         filter.rightAnchor.constraint(equalTo: self.layoutMarginsGuide.rightAnchor).isActive = true
         filter.topAnchor.constraint(equalTo: self.layoutMarginsGuide.topAnchor).isActive = true
         filter.heightAnchor.constraint(equalToConstant: FilterViewCell.kCellSize.height).isActive = true
-
-        filter.labels = filters.map { $0.label }
-        filter.filterDelegate = self
         
         self.addSubview(tableView)
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
@@ -49,28 +49,43 @@ class FilterTableView<T>: UIView {
         tableView.showsVerticalScrollIndicator = false
     }
     
-    init(frame: CGRect, filters: [Filter<T>]) {
+    init(frame: CGRect, tableFunctions: [TableFunction], defaultSort: @escaping ((T, T) -> Bool), initialSelectedIndices: [Int] = []) {
+        self.defaultSort = defaultSort
         super.init(frame: frame)
-        
         missingView = MissingDataView(parentView: tableView)
-        
-        self.filters = filters
+        self.tableFunctions = tableFunctions
+        filter.labels = tableFunctions.map { $0.label }
+        filter.filterDelegate = self
+        for index in initialSelectedIndices {
+            guard index < filter.labels.count else { continue }
+            filter.selectItem(index: index)
+        }
+        isInitialSetup = false
         self.update()
     }
     
     func setData(data: [T]) {
         self.data = data
         self.filteredData = data
-        self.filteredData.sort(by: sortFunc)
+        sort()
     }
     
     func sort() {
-        self.filteredData.sort(by: sortFunc)
+        if let sortIndex = self.sortIndex,
+           sortIndex < tableFunctions.count,
+           let sort = tableFunctions[sortIndex] as? Sort<T> {
+            self.filteredData.sort(by: sort.sort)
+        } else {
+            self.filteredData.sort(by: defaultSort)
+        }
     }
     
-    func setSortFunc(newSortFunc: @escaping ((T, T) -> Bool)) {
-        sortFunc = newSortFunc
-        sort()
+    func setSortFunc(index: Int) {
+        if index < tableFunctions.count,
+           tableFunctions[index] as? Sort<T> != nil {
+            sortIndex = index
+            sort()
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -79,9 +94,22 @@ class FilterTableView<T>: UIView {
     
     var workItem: DispatchWorkItem?
     @objc func update() {
+        guard !isInitialSetup else { return }
         workItem?.cancel()
         let data = self.data
-        workItem = Filter.apply(filters: filters, on: data, indices: filter.indexPathsForSelectedItems?.map { $0.row }, completion: {
+        guard let paths = filter.indexPathsForSelectedItems else { return }
+        let indices = paths.map { $0.row }
+        var filters: [Filter<T>] = []
+        sortIndex = nil
+        for index in indices {
+            guard index < tableFunctions.count else { continue }
+            if let filter = tableFunctions[index] as? Filter<T> {
+                filters.append(filter)
+            } else if tableFunctions[index] as? Sort<T> != nil {
+                setSortFunc(index: index)
+            }
+        }
+        workItem = Filter.apply(filters: filters, on: data, completion: {
           filtered in
             self.filteredData = filtered
             self.sort()

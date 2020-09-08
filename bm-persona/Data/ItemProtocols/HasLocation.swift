@@ -26,10 +26,6 @@ protocol HasLocation {
 
     /// Returns a comparator used to compare two items by their distance to the user.
     static func locationComparator() -> ((HasLocation, HasLocation) -> Bool)
-
-    /// Returns a closure that filters items by their distance to the user.
-    static func locationFilter(by maxDistance: Double) -> ((HasLocation) -> Bool)
-    
 }
 
 extension HasLocation {
@@ -49,14 +45,5 @@ extension HasLocation {
 
     static func locationComparator() -> ((HasLocation, HasLocation) -> Bool) {
         return SortingFunctions.sortClose(loc1:loc2:)
-    }
-
-    static func locationFilter(by maxDistance: Double) -> ((HasLocation) -> Bool) {
-        return { item in
-            if let distance = item.distanceToUser, distance <= maxDistance {
-                return true
-            }
-            return false
-        }
     }
 }

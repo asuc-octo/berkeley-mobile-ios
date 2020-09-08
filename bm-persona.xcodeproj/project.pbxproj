@@ -59,6 +59,8 @@
 		29061D41241C450E002BC9D9 /* HasLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29061D40241C450E002BC9D9 /* HasLocation.swift */; };
 		2913595724B136BE00DE9AD6 /* CollapsibleCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2913595624B136BE00DE9AD6 /* CollapsibleCardView.swift */; };
 		2913595924B13DF200DE9AD6 /* OpenTimesCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2913595824B13DF200DE9AD6 /* OpenTimesCardView.swift */; };
+		291B11E025043FF100F737A8 /* Sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291B11DF25043FF100F737A8 /* Sort.swift */; };
+		291B11E225044BDB00F737A8 /* HasName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291B11E125044BDB00F737A8 /* HasName.swift */; };
 		29345E2724A7E76300859A88 /* OverviewCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29345E2624A7E76300859A88 /* OverviewCardView.swift */; };
 		29345E2924A7E7AC00859A88 /* HasPhoneNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29345E2824A7E7AC00859A88 /* HasPhoneNumber.swift */; };
 		29345E2B24A7EC2B00859A88 /* HasImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29345E2A24A7EC2B00859A88 /* HasImage.swift */; };
@@ -179,6 +181,8 @@
 		29061D40241C450E002BC9D9 /* HasLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasLocation.swift; sourceTree = "<group>"; };
 		2913595624B136BE00DE9AD6 /* CollapsibleCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsibleCardView.swift; sourceTree = "<group>"; };
 		2913595824B13DF200DE9AD6 /* OpenTimesCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenTimesCardView.swift; sourceTree = "<group>"; };
+		291B11DF25043FF100F737A8 /* Sort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sort.swift; sourceTree = "<group>"; };
+		291B11E125044BDB00F737A8 /* HasName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasName.swift; sourceTree = "<group>"; };
 		29345E2624A7E76300859A88 /* OverviewCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewCardView.swift; sourceTree = "<group>"; };
 		29345E2824A7E7AC00859A88 /* HasPhoneNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasPhoneNumber.swift; sourceTree = "<group>"; };
 		29345E2A24A7EC2B00859A88 /* HasImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasImage.swift; sourceTree = "<group>"; };
@@ -428,6 +432,7 @@
 			isa = PBXGroup;
 			children = (
 				132087AE23F3B05D00AE273C /* Filter.swift */,
+				291B11DF25043FF100F737A8 /* Sort.swift */,
 				13B39AB323E777AC0039FBA2 /* FilterView.swift */,
 				13B39AB223E777AC0039FBA2 /* FilterViewCell.swift */,
 			);
@@ -444,6 +449,7 @@
 				29345E2A24A7EC2B00859A88 /* HasImage.swift */,
 				29AB5BBE241D8766007C3ECA /* HasOpenTimes.swift */,
 				299ACFB3244A5F90000F3E86 /* HasOccupancy.swift */,
+				291B11E125044BDB00F737A8 /* HasName.swift */,
 			);
 			path = ItemProtocols;
 			sourceTree = "<group>";
@@ -842,6 +848,7 @@
 				306A54FE236142B800D59A7F /* DrawerViewController.swift in Sources */,
 				13B39A8B23E682850039FBA2 /* Date+Extension.swift in Sources */,
 				135D7F75243A9AB3003F8BD1 /* GymClassType.swift in Sources */,
+				291B11E025043FF100F737A8 /* Sort.swift in Sources */,
 				29345E2924A7E7AC00859A88 /* HasPhoneNumber.swift in Sources */,
 				130FA59E243B1243005DC752 /* DiningRestriction.swift in Sources */,
 				556CCD2D23E79EC100F41BF9 /* TabBarController.swift in Sources */,
@@ -884,6 +891,7 @@
 				297678892426D2C500FDD1EB /* SearchDrawerViewController.swift in Sources */,
 				29CB280A2404DD71009A2CFB /* FilterTableViewCell.swift in Sources */,
 				55DCF79623723CF2001B01B8 /* UIView+Extensions.swift in Sources */,
+				291B11E225044BDB00F737A8 /* HasName.swift in Sources */,
 				01BC8EB224E8D920005B4969 /* IconPairView.swift in Sources */,
 				306A54EA23613E3A00D59A7F /* AppDelegate.swift in Sources */,
 				1336A31C241C400800949F32 /* GymClass.swift in Sources */,
