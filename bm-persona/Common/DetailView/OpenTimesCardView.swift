@@ -112,10 +112,12 @@ class OpenTimesCardView: CollapsibleCardView {
         formatter.timeStyle = .short
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        // Set to the same day (today) so formatter will not display dates for intervals spanning multiple days
-        let start = interval.start.sameTimeToday() ?? interval.start
-        let end = interval.end.sameTimeToday() ?? interval.end
-        label.text = formatter.string(from: start, to: end)
+        /* Remove the date, and only include hour and minute in string display.
+        Otherwise, string is too long when interval spans two days (e.g. 9pm-12:30am) */
+        if let start = interval.start.timeOnly(),
+            let end = interval.end.timeOnly() {
+            label.text = formatter.string(from: start, to: end)
+        }
         // bold label if the current time is in the interval and it's in the openedView
         if shouldBoldIfCurrent, interval.contains(Date()) {
             label.font = Font.bold(10)

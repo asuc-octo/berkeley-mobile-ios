@@ -123,9 +123,9 @@ class OverviewCardView: CardView {
             let nextOpenInterval = itemWithOpenTimes.nextOpenInterval()
             /* Remove the date, and only include hour and minute in string display.
              Otherwise, string is too long when interval spans two days (e.g. 9pm-12:30am) */
-            if nextOpenInterval != nil,
-                let start = Calendar.current.date(from: Calendar.current.dateComponents([.hour, .minute], from: nextOpenInterval!.start)),
-                let end = Calendar.current.date(from: Calendar.current.dateComponents([.hour, .minute], from: nextOpenInterval!.end)) {
+            if let interval = nextOpenInterval,
+                let start = interval.start.timeOnly(),
+                let end = interval.end.timeOnly() {
                 openTimeLabel.text = formatter.string(from: start, to: end)
             }
 
