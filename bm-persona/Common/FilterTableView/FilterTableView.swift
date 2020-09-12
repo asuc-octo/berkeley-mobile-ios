@@ -52,7 +52,8 @@ class FilterTableView<T>: UIView {
     init(frame: CGRect, tableFunctions: [TableFunction], defaultSort: @escaping ((T, T) -> Bool), initialSelectedIndices: [Int] = []) {
         self.defaultSort = defaultSort
         super.init(frame: frame)
-        missingView = MissingDataView(parentView: tableView)
+
+        missingView = MissingDataView(parentView: tableView, text: "No items found")
         self.tableFunctions = tableFunctions
         filter.labels = tableFunctions.map { $0.label }
         filter.filterDelegate = self
@@ -61,6 +62,7 @@ class FilterTableView<T>: UIView {
             filter.selectItem(index: index)
         }
         isInitialSetup = false
+
         self.update()
     }
     
