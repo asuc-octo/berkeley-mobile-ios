@@ -25,14 +25,6 @@ class FitnessViewController: UIViewController, SearchDrawerViewDelegate {
     // SearchDrawerViewDelegate property
     var mainContainer: MainContainerViewController?
 
-    func handlePanGesture(gesture: UIPanGestureRecognizer) {
-        let state = handlePan(gesture: gesture)
-        if state == .hidden {
-            // get rid of the top detail drawer if user sends it to bottom of screen
-            mainContainer?.dismissTop()
-        }
-    }
-
     // MARK: FitnessViewController
 
     private var scrollView: UIScrollView!

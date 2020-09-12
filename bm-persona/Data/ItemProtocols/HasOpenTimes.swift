@@ -35,7 +35,7 @@ extension HasOpenTimes {
                 }
             }
         }
-        return weeklyHours
+        return weeklyHours.isEmpty ? nil : weeklyHours
     }
     
     // TODO: Fixme, Dining halls may have open/close times that overlap multiple days.

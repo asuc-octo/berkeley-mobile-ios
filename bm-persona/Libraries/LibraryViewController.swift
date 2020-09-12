@@ -153,13 +153,3 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
 }
-
-extension LibraryViewController {
-    func handlePanGesture(gesture: UIPanGestureRecognizer) {
-        let state = handlePan(gesture: gesture)
-        if state == .hidden {
-            // get rid of the top detail drawer if user sends it to bottom of screen
-            mainContainer?.dismissTop()
-        }
-    }
-}

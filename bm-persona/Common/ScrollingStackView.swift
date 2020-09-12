@@ -65,7 +65,6 @@ class ScrollingStackView: UIView {
         stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
         stackView.leftAnchor.constraint(equalTo: scrollView.layoutMarginsGuide.leftAnchor).isActive = true
         stackView.rightAnchor.constraint(equalTo: scrollView.layoutMarginsGuide.rightAnchor).isActive = true
-        stackView.widthAnchor.constraint(equalTo: scrollView.layoutMarginsGuide.widthAnchor).isActive = true
     }
 
 }

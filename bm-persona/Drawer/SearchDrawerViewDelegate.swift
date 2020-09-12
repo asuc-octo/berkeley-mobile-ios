@@ -65,5 +65,15 @@ extension SearchDrawerViewDelegate where Self: UIViewController {
     func computeDrawerPosition(from yPosition: CGFloat, with yVelocity: CGFloat) -> DrawerState {
         computePosition(from: yPosition, with: yVelocity, bottom: .hidden, middle: .middle, top: .full)
     }
+
+    // A default implentation of the `DrawerViewDelegate` method that removes the drawer when swiped down completely.
+    // This implementation can be overridden if needed.
+    func handlePanGesture(gesture: UIPanGestureRecognizer) {
+        let state = handlePan(gesture: gesture)
+        if state == .hidden {
+            // get rid of the top detail drawer if user sends it to bottom of screen
+            mainContainer?.dismissTop()
+        }
+    }
     
 }
