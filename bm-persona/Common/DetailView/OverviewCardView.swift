@@ -123,9 +123,9 @@ class OverviewCardView: CardView {
             let nextOpenInterval = itemWithOpenTimes.nextOpenInterval()
             /* Remove the date, and only include hour and minute in string display.
              Otherwise, string is too long when interval spans two days (e.g. 9pm-12:30am) */
-            if nextOpenInterval != nil,
-                let start = Calendar.current.date(from: Calendar.current.dateComponents([.hour, .minute], from: nextOpenInterval!.start)),
-                let end = Calendar.current.date(from: Calendar.current.dateComponents([.hour, .minute], from: nextOpenInterval!.end)) {
+            if let interval = nextOpenInterval,
+                let start = interval.start.timeOnly(),
+                let end = interval.end.timeOnly() {
                 openTimeLabel.text = formatter.string(from: start, to: end)
             }
 
@@ -146,20 +146,8 @@ class OverviewCardView: CardView {
             leftVerticalStack.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -1 * kViewMargin).isActive = true
         }
 
-        if !excludedElements.contains(.occupancy), let itemWithOccupancy = item as? HasOccupancy, let status = itemWithOccupancy.getOccupancyStatus(date: Date()) {
-            occupancyBadge.widthAnchor.constraint(equalToConstant: 50).isActive = true
-            let occupancyView = IconPairView(icon: chairImage, iconHeight: 16, iconWidth: 28, attachedView: occupancyBadge)
-            switch status {
-            case OccupancyStatus.high:
-                occupancyBadge.text = "High"
-                occupancyBadge.backgroundColor = Color.highCapacityTag
-            case OccupancyStatus.medium:
-                occupancyBadge.text = "Medium"
-                occupancyBadge.backgroundColor = Color.medCapacityTag
-            case OccupancyStatus.low:
-                occupancyBadge.text = "Low"
-                occupancyBadge.backgroundColor = Color.lowCapacityTag
-            }
+        if !excludedElements.contains(.occupancy), let itemWithOccupancy = item as? HasOccupancy, let status = itemWithOccupancy.getCurrentOccupancyStatus(isOpen: (item as? HasOpenTimes)?.isOpen) {
+            let occupancyView = IconPairView(icon: chairImage, iconHeight: 16, iconWidth: 28, attachedView: status.badge())
             belowImageHorizontalStack.addArrangedSubview(occupancyView)
         }
         
@@ -293,12 +281,6 @@ class OverviewCardView: CardView {
         img.translatesAutoresizingMaskIntoConstraints = false
         img.clipsToBounds = true
         return img
-    }()
-    
-    let occupancyBadge:TagView = {
-        let occ = TagView(origin: .zero, text: "", color: .clear)
-        occ.translatesAutoresizingMaskIntoConstraints = false
-        return occ
     }()
     
     let faveButton: UIButton = {

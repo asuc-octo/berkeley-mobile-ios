@@ -21,6 +21,11 @@ typealias WeeklyHoursType = [DayOfWeek: DailyHoursType]
 class WeeklyHours {
     
     private var weeklyHours: WeeklyHoursType
+
+    /// Boolean indicating if the object contains no intervals.
+    open var isEmpty: Bool {
+        return weeklyHours.isEmpty
+    }
     
     init() {
         self.weeklyHours = [:]

@@ -15,7 +15,7 @@ import UIKit
  */
 class GymClassesController: NSObject {
     
-    var vc: FitnessViewController!
+    weak var vc: FitnessViewController!
 }
 
 // MARK: - "Upcoming" UICollectionView

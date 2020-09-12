@@ -9,13 +9,13 @@
 import UIKit
 
 fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
-fileprivate let kViewMargin: CGFloat = 128
+fileprivate let kViewMargin: CGFloat = 16
 
 class ResourcesViewController: UIViewController {
     private var resourcesLabel: UILabel!
 
     private var resourcesCard: CardView!
-    private var resourcesTable: FilterTableView = FilterTableView<Resource>(frame: .zero, filters: [])
+    private var resourcesTable: FilterTableView = FilterTableView<Resource>(frame: .zero, tableFunctions: [], defaultSort: SortingFunctions.sortAlph(item1:item2:))
     
     private var resourceEntries: [Resource] = []
 
@@ -39,23 +39,23 @@ class ResourcesViewController: UIViewController {
 
 extension ResourcesViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return resourceEntries.count
+        return resourcesTable.filteredData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = ResourceTableViewCell()
-        cell.cellConfigure(entry: resourceEntries[indexPath.row])
-        return cell
+        if let cell = tableView.dequeueReusableCell(withIdentifier: ResourceTableViewCell.kCellIdentifier, for: indexPath) as? ResourceTableViewCell {
+            cell.cellConfigure(entry: resourcesTable.filteredData[indexPath.row])
+            return cell
+        }
+        return UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = ResourceDetailViewController(presentedModally: true)
+        vc.resource = resourcesTable.filteredData[indexPath.row]
+        present(vc, animated: true)
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 103
-    }
-    
 }
 
 extension ResourcesViewController {
@@ -75,25 +75,24 @@ extension ResourcesViewController {
         card.layoutMargins = kCardPadding
         view.addSubview(card)
         card.translatesAutoresizingMaskIntoConstraints = false
-        card.topAnchor.constraint(equalTo: view.topAnchor, constant: kViewMargin).isActive = true
+        card.topAnchor.constraint(equalTo: resourcesLabel.bottomAnchor, constant: kViewMargin).isActive = true
         card.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
         card.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
         card.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
-        
-        let filters = [Filter<Resource>(label: "Open", filter: {resource in resource.isOpen ?? false})]
-        resourcesTable = FilterTableView(frame: .zero, filters: filters)
-        resourcesTable.tableView.allowsSelection = false
+
+        let functions: [TableFunction] = [
+            Sort<Resource>(label: "Nearby", sort: Resource.locationComparator()),
+            Filter<Resource>(label: "Open", filter: {resource in resource.isOpen ?? false})
+        ]
+        resourcesTable = FilterTableView(frame: .zero, tableFunctions: functions, defaultSort: SortingFunctions.sortAlph(item1:item2:), initialSelectedIndices: [0, 1])
+        resourcesTable.tableView.register(ResourceTableViewCell.self, forCellReuseIdentifier: ResourceTableViewCell.kCellIdentifier)
+        resourcesTable.tableView.rowHeight = 103
         
         resourcesTable.tableView.delegate = self
         resourcesTable.tableView.dataSource = self
         
         resourcesTable.translatesAutoresizingMaskIntoConstraints = false
         card.addSubview(resourcesTable)
-        
-//        table.layer.masksToBounds = true
-//        table.contentInset = UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0)
-//        table.setContentOffset(CGPoint(x: 0, y: -5), animated: false)
-//        table.contentInsetAdjustmentBehavior = .never
         
         resourcesTable.tableView.separatorStyle = .none
         resourcesTable.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true

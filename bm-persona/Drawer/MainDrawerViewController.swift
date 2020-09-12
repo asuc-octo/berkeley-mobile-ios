@@ -51,6 +51,8 @@ class MainDrawerViewController: DrawerViewController {
                 dining.mainContainer = container
             } else if let library = page.viewController as? LibraryViewController {
                 library.mainContainer = container
+            } else if let gym = page.viewController as? FitnessViewController {
+                gym.mainContainer = container
             }
         }
     }

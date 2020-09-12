@@ -25,6 +25,9 @@ class DataManager {
     /** Singleton instance */
     static let shared = DataManager()
     
+    // minimum time between fetches to avoid excessive fetching
+    static let fetchInterval: TimeInterval = 60 * 60
+    
     private var data: AtomicDictionary<String, [Any]>
     // TODO: Make this O(1).
     var searchable: [SearchItem] {
@@ -41,9 +44,18 @@ class DataManager {
         return String(describing: source)
     }
     
+    private var lastFetched: Date?
+    func fetchIfNecessary() {
+        if let lastFetched = self.lastFetched, Date().timeIntervalSince(lastFetched) < DataManager.fetchInterval {
+            return
+        }
+        fetchAll()
+    }
+    
     func fetchAll() {
         // make sure to fetch occupancy data last after fetching all other data sources
         // this is to ensure library, gym, dining hall objects have already been created
+        lastFetched = Date()
         let requests = DispatchGroup()
         for source in kDataSources {
             requests.enter()

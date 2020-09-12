@@ -79,19 +79,8 @@ class FilterTableViewCell: UITableViewCell {
         }
         self.recLabel.text = "Recommended"
         
-        if let itemWithOccupancy = item as? HasOccupancy, let status = itemWithOccupancy.getOccupancyStatus(date: Date()) {
-            switch status {
-            case OccupancyStatus.high:
-                occupancyBadge.text = "High"
-                occupancyBadge.backgroundColor = Color.highCapacityTag
-            case OccupancyStatus.medium:
-                occupancyBadge.text = "Medium"
-                occupancyBadge.backgroundColor = Color.medCapacityTag
-            case OccupancyStatus.low:
-                occupancyBadge.text = "Low"
-                occupancyBadge.backgroundColor = Color.lowCapacityTag
-            }
-            distanceOccupancyStack.addArrangedSubview(IconPairView(icon: chairImage, iconHeight: 16, iconWidth: 28, attachedView: occupancyBadge))
+        if let itemWithOccupancy = item as? HasOccupancy, let status = itemWithOccupancy.getCurrentOccupancyStatus(isOpen: (item as? HasOpenTimes)?.isOpen) {
+            distanceOccupancyStack.addArrangedSubview(IconPairView(icon: chairImage, iconHeight: 16, iconWidth: 28, attachedView: status.badge()))
         }
         
         cellImage.image = UIImage(named: "DoeGlade")
@@ -159,12 +148,6 @@ class FilterTableViewCell: UITableViewCell {
         img.translatesAutoresizingMaskIntoConstraints = false
         img.clipsToBounds = true
         return img
-    }()
-    
-    let occupancyBadge: TagView = {
-        let occ = TagView(origin: .zero, text: "", color: .clear)
-        occ.translatesAutoresizingMaskIntoConstraints = false
-        return occ
     }()
 }
 
