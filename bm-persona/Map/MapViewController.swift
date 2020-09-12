@@ -280,7 +280,7 @@ extension MapViewController: SearchBarDelegate {
             guard let self = self else { return }
 
             let data = DataManager.shared.searchable
-            let filtered = data.filter { ($0.searchName.contains(keyword) && $0.location.0 != 0 && $0.location.1 != 0) }
+            let filtered = data.filter { ($0.searchName.lowercased().contains(keyword.lowercased()) && $0.location.0 != 0 && $0.location.1 != 0) }
             var placemarks = [MapPlacemark]()
 
             for item in filtered {
