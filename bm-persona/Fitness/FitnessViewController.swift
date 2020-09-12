@@ -14,8 +14,19 @@ fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 16, left: 16, bot
 fileprivate let kViewMargin: CGFloat = 16
 fileprivate let kTodayClassesHeight: CGFloat = 300
 
-class FitnessViewController: UIViewController {
-    
+class FitnessViewController: UIViewController, SearchDrawerViewDelegate {
+
+    // MARK: SearchDrawerViewDelegate
+
+    // DrawerViewDelegate properties
+    var drawerViewController: DrawerViewController?
+    var initialDrawerCenter = CGPoint()
+    var drawerStatePositions: [DrawerState : CGFloat] = [:]
+    // SearchDrawerViewDelegate property
+    var mainContainer: MainContainerViewController?
+
+    // MARK: FitnessViewController
+
     private var scrollView: UIScrollView!
     private var content: UIView!
     
@@ -261,9 +272,9 @@ extension FitnessViewController {
             Filter<Gym>(label: "Open", filter: {gym in gym.isOpen ?? false}),
         ]
         filterTableView = FilterTableView<Gym>(frame: .zero, tableFunctions: functions, defaultSort: SortingFunctions.sortAlph(item1:item2:), initialSelectedIndices: [0, 1])
-        self.filterTableView.tableView.allowsSelection = false
         self.filterTableView.tableView.register(FilterTableViewCell.self, forCellReuseIdentifier: FilterTableViewCell.kCellIdentifier)
         self.filterTableView.tableView.dataSource = gymsController
+        self.filterTableView.tableView.delegate = gymsController
     }
     
 }

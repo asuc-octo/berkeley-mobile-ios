@@ -15,13 +15,18 @@ import UIKit
  */
 class GymsController: NSObject {
     
-    var vc: FitnessViewController!
+    weak var vc: FitnessViewController!
 }
 
 // MARK: - "Fitness Centers" UITableView
 
-extension GymsController: UITableViewDataSource {
-    
+extension GymsController: UITableViewDataSource, UITableViewDelegate {
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        vc.presentDetail(type: Gym.self, item: vc.filterTableView.filteredData[indexPath.row], containingVC: vc.mainContainer!, position: .full)
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return vc.filterTableView.filteredData.count
     }

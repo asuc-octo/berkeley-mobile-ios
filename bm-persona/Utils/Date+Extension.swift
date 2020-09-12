@@ -33,6 +33,12 @@ extension Date {
         }
         return calendar.nextDate(after: calendar.startOfDay(for: Date()), matching: components, matchingPolicy: .nextTime, repeatedTimePolicy: .first, direction: .forward)
     }
+
+    // Returns a date with this date's hour and minute component only.
+    func timeOnly() -> Date? {
+        let calendar = Calendar.current
+        return calendar.date(from: calendar.dateComponents([.hour, .minute], from: self))
+    }
     
     // Returns the weekday as an integer (0 -> Sunday, 6 -> Saturday)
     func weekday() -> Int {
