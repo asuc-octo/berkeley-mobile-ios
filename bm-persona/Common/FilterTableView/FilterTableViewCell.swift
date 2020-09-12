@@ -51,8 +51,7 @@ class FilterTableViewCell: UITableViewCell {
         
         recLabel.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
         recLabel.leftAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
-        
-        nameLabel.heightAnchor.constraint(equalToConstant: 65).isActive = true
+
         nameLabel.leftAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
         nameLabel.topAnchor.constraint(equalTo: recLabel.layoutMarginsGuide.bottomAnchor, constant: 5).isActive = true
         nameLabel.rightAnchor.constraint(equalTo: cellImage.leftAnchor, constant: -10).isActive = true
@@ -63,7 +62,7 @@ class FilterTableViewCell: UITableViewCell {
         cellImage.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.35).isActive = true
         
         distanceOccupancyStack.rightAnchor.constraint(lessThanOrEqualTo: cellImage.leftAnchor, constant: -10).isActive = true
-        distanceOccupancyStack.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 5).isActive = true
+        distanceOccupancyStack.topAnchor.constraint(greaterThanOrEqualTo: nameLabel.bottomAnchor, constant: 5).isActive = true
         distanceOccupancyStack.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor, constant: -5).isActive = true
         distanceOccupancyStack.leftAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
     }
@@ -78,6 +77,7 @@ class FilterTableViewCell: UITableViewCell {
             distanceOccupancyStack.addArrangedSubview(locationDetailView)
         }
         self.recLabel.text = "Recommended"
+        self.recLabel.isHidden = true
         
         if let itemWithOccupancy = item as? HasOccupancy, let status = itemWithOccupancy.getCurrentOccupancyStatus(isOpen: (item as? HasOpenTimes)?.isOpen) {
             distanceOccupancyStack.addArrangedSubview(IconPairView(icon: chairImage, iconHeight: 16, iconWidth: 28, attachedView: status.badge()))
