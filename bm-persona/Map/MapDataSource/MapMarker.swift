@@ -52,8 +52,7 @@ enum MapMarkerType: String, CaseIterable {
             icon = UIImage(named: "bike-icon")
             break
         default:
-            #warning("TODO: FIXME")
-            icon = UIImage(named: "Placemark")
+            icon = UIImage(named: "Placemark")?.colored(Color.mapAnnotationColor)
             break
         }
         return (icon ?? UIImage()).resized(size: CGSize(width: 20, height: 20))
@@ -75,8 +74,7 @@ enum MapMarkerType: String, CaseIterable {
         case .bikes:
             return UIColor(displayP3Red: 45/255, green: 53/255, blue: 255/255, alpha: 1.0)
         default:
-            #warning("TODO: FIXME")
-            return .magenta
+            return Color.mapAnnotationColor
         }
     }
     

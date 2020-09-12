@@ -34,7 +34,7 @@ class SearchAnnotation: NSObject, MKAnnotation {
     }
     
     func color() -> UIColor {
-        return UIColor(displayP3Red: 129/255, green: 164/255, blue: 255/255, alpha: 1.0)
+        return Color.mapAnnotationColor
     }
     
 }
