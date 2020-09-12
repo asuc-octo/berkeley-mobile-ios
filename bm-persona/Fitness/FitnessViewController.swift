@@ -13,7 +13,7 @@ fileprivate let kHeaderFont: UIFont = Font.bold(24)
 fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
 fileprivate let kViewMargin: CGFloat = 16
 fileprivate let kTodayClassesHeight: CGFloat = 300
-fileprivate let kTodayClassesCollapsedHeight: CGFloat = 86
+fileprivate let kTodayClassesCollapsedHeight: CGFloat = 92
 fileprivate let kUpcomingCollapsedHeight: CGFloat = 16  // Same as TableView 0 elements
 
 class FitnessViewController: UIViewController {
