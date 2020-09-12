@@ -25,6 +25,7 @@ class FitnessViewController: UIViewController {
     private var gymCard: CardView!
     
     private var showButton: UIButton!
+    private var missingClassesView: MissingDataView!
     
     private var bClassesExpanded = false
     
@@ -85,7 +86,8 @@ class FitnessViewController: UIViewController {
             
             if (self.todayClasses.count == 0) {
                 self.showButton.isHidden = true
-                self.todayCard.setHeightConstraint(kTodayClassesCollapsedHeight)
+                self.missingClassesView.isHidden = false
+//                self.todayCard.setHeightConstraint(kTodayClassesCollapsedHeight)
             }
             
             self.classesTable.reloadData()
@@ -230,8 +232,11 @@ extension FitnessViewController {
         classesTable.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
         classesTable.bottomAnchor.constraint(equalTo: card.layoutMarginsGuide.bottomAnchor).isActive = true
         
+        let missingView = MissingDataView(parentView: card, text: "No classes found")
+        
         todayCard = card
         showButton = scheduleButton
+        missingClassesView = missingView
     }
     
     // Gyms

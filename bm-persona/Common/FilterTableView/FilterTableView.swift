@@ -52,7 +52,7 @@ class FilterTableView<T>: UIView {
     init(frame: CGRect, filters: [Filter<T>]) {
         super.init(frame: frame)
         
-        missingView = MissingDataView(parentView: tableView)
+        missingView = MissingDataView(parentView: tableView, text: "No items found")
         
         self.filters = filters
         self.update()
