@@ -68,32 +68,19 @@ class FilterTableViewCell: UITableViewCell {
         distanceOccupancyStack.leftAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
     }
     
-    // sets the contents of the cell based on an item passed in, the user's current location, and a closure to call if there is no image available
-    func updateContents(item: SearchItem, location: CLLocation?, imageUpdate: () -> Void) {
+    // Sets the contents of the cell based on an item passed in and a closure to call if there is no image available
+    func updateContents(item: SearchItem, imageUpdate: () -> Void) {
         nameLabel.text = item.searchName
         distanceOccupancyStack.removeAllArrangedSubviews()
-        if let itemWithLocation = item as? HasLocation, let userLocation = location {
-            let distance = itemWithLocation.getDistanceToUser(userLoc: userLocation)
-            if distance < type(of: itemWithLocation).invalidDistance {
-                distLabel.text = "\(distance) mi"
-                distanceOccupancyStack.addArrangedSubview(UIView.iconPairView(icon: distImage, iconHeight: 16, attachedView: distLabel))
-            }
+        if let itemWithLocation = item as? HasLocation {
+            locationDetailView.delegate = self
+            locationDetailView.configure(for: itemWithLocation)
+            distanceOccupancyStack.addArrangedSubview(locationDetailView)
         }
         self.recLabel.text = "Recommended"
         
-        if let itemWithOccupancy = item as? HasOccupancy, let status = itemWithOccupancy.getOccupancyStatus(date: Date()) {
-            switch status {
-            case OccupancyStatus.high:
-                occupancyBadge.text = "High"
-                occupancyBadge.backgroundColor = Color.highCapacityTag
-            case OccupancyStatus.medium:
-                occupancyBadge.text = "Medium"
-                occupancyBadge.backgroundColor = Color.medCapacityTag
-            case OccupancyStatus.low:
-                occupancyBadge.text = "Low"
-                occupancyBadge.backgroundColor = Color.lowCapacityTag
-            }
-            distanceOccupancyStack.addArrangedSubview(UIView.iconPairView(icon: chairImage, iconHeight: 16, iconWidth: 28, attachedView: occupancyBadge))
+        if let itemWithOccupancy = item as? HasOccupancy, let status = itemWithOccupancy.getCurrentOccupancyStatus(isOpen: (item as? HasOpenTimes)?.isOpen) {
+            distanceOccupancyStack.addArrangedSubview(IconPairView(icon: chairImage, iconHeight: 16, iconWidth: 28, attachedView: status.badge()))
         }
         
         cellImage.image = UIImage(named: "DoeGlade")
@@ -149,23 +136,9 @@ class FilterTableViewCell: UITableViewCell {
         stack.spacing = 30
         return stack
     }()
-    
-    let distImage:UIImageView = {
-        let img = UIImageView()
-        img.contentMode = .scaleAspectFit
-        img.image = UIImage(named: "Walk")
-        img.translatesAutoresizingMaskIntoConstraints = false
-        img.clipsToBounds = true
-        return img
-    }()
-    
-    let distLabel:UILabel = {
-        let label = UILabel()
-        label.adjustsFontSizeToFitWidth = true
-        label.font = Font.light(12)
-        label.textColor = Color.blackText
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
+
+    let locationDetailView: LocationDetailView = {
+        return LocationDetailView()
     }()
     
     let chairImage:UIImageView = {
@@ -176,12 +149,14 @@ class FilterTableViewCell: UITableViewCell {
         img.clipsToBounds = true
         return img
     }()
-    
-    let occupancyBadge:TagView = {
-        let occ = TagView(origin: .zero, text: "", color: .clear)
-        occ.translatesAutoresizingMaskIntoConstraints = false
-        return occ
-    }()
-    
-    
+}
+
+// MARK: - DetailViewDelegate
+
+extension FilterTableViewCell: DetailViewDelegate {
+    func detailsUpdated(for view: UIView) {
+        if let locationDetailView = view as? LocationDetailView {
+            locationDetailView.isHidden = locationDetailView.missingData
+        }
+    }
 }

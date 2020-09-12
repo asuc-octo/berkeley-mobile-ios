@@ -18,7 +18,7 @@ enum DrawerState {
 // Handles all moving of drawers and user gestures related to drawers
 protocol DrawerViewDelegate: class {
     func handlePanGesture(gesture: UIPanGestureRecognizer)
-    func moveDrawer(to state: DrawerState, duration: Double)
+    func moveDrawer(to state: DrawerState, duration: Double?)
     // set the drawer to a preset position based on user's panning gesture
     func computeDrawerPosition(from yPosition: CGFloat, with yVelocity: CGFloat) -> DrawerState
     
@@ -33,17 +33,23 @@ protocol DrawerViewDelegate: class {
 extension DrawerViewDelegate where Self: UIViewController {
     
     // moves this delegate's drawer to a position
-    func moveDrawer(to state: DrawerState, duration: Double) {
-        if drawerViewController == nil {
-            return
+    func moveDrawer(to state: DrawerState, duration: Double? = nil) {
+        guard let drawerViewController = self.drawerViewController, var position = drawerStatePositions[state] else { return }
+        var moveState = state
+        if let upperLimitState = drawerViewController.upperLimitState,
+           let upperLimitPosition = drawerStatePositions[upperLimitState],
+           position < upperLimitPosition {
+            position = upperLimitPosition
+            moveState = upperLimitState
         }
-        UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
+        let moveDuration = duration ?? (moveState == .full ? 0.6 : 0.2)
+        UIView.animate(withDuration: moveDuration, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
             // save last non-hidden position in prevState
-            if self.drawerViewController!.currState != .hidden {
-                self.drawerViewController!.prevState = self.drawerViewController!.currState
+            if drawerViewController.currState != .hidden {
+                drawerViewController.prevState = drawerViewController.currState
             }
-            self.drawerViewController!.currState = state
-            self.drawerViewController!.view.center = CGPoint(x: self.initialDrawerCenter.x, y: self.drawerStatePositions[state]!)
+            drawerViewController.currState = state
+            drawerViewController.view.center = CGPoint(x: self.initialDrawerCenter.x, y: position)
         })
     }
     
@@ -77,8 +83,9 @@ extension DrawerViewDelegate where Self: UIViewController {
     
     // default version of handling pan that returns the new state of the drawer
     @discardableResult func handlePan(gesture: UIPanGestureRecognizer) -> DrawerState {
+        guard let drawerViewController = self.drawerViewController else { return .middle }
         if gesture.state == .began {
-            initialDrawerCenter = drawerViewController!.view.center
+            initialDrawerCenter = drawerViewController.view.center
         }
         
         let translation = gesture.translation(in: self.view)
@@ -86,14 +93,19 @@ extension DrawerViewDelegate where Self: UIViewController {
         var newCenter = CGPoint(x: self.initialDrawerCenter.x, y: self.initialDrawerCenter.y + translation.y)
         
         // prevent the view from going off the top of the screen
-        if newCenter.y - drawerViewController!.view.frame.height / 2 < 0 {
-            newCenter.y = drawerViewController!.view.frame.height / 2
+        if let upperLimitState = drawerViewController.upperLimitState, let centerLimit = drawerStatePositions[upperLimitState] {
+            if newCenter.y < centerLimit {
+                newCenter.y = centerLimit
+            }
+        } else if newCenter.y < drawerViewController.view.frame.height / 2 {
+            newCenter.y = drawerViewController.view.frame.height / 2
         }
         
         // lock to a preset position if user stops panning
         if gesture.state == .ended {
             let drawerState = computeDrawerPosition(from: newCenter.y, with: velocity)
-            let pixelDiff = abs(newCenter.y - drawerStatePositions[drawerState]!)
+            guard let position = drawerStatePositions[drawerState] else { return .middle }
+            let pixelDiff = abs(newCenter.y - position)
             var animationTime = pixelDiff / abs(velocity)
             
             if pixelDiff / animationTime < 300 {
@@ -105,7 +117,7 @@ extension DrawerViewDelegate where Self: UIViewController {
             return drawerState
         } else {
             // otherwise follow the motion of the pan
-            self.drawerViewController!.view.center = newCenter
+            drawerViewController.view.center = newCenter
             return .middle
         }
     }

@@ -16,6 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         FirebaseApp.configure()
         DataManager.shared.fetchAll()
+        LocationManager.shared.requestLocation()
         return true
     }
 

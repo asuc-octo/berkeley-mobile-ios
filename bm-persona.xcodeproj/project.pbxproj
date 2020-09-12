@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		01BC8EB024E8C3E3005B4969 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BC8EAF24E8C3E3005B4969 /* DetailView.swift */; };
+		01BC8EB224E8D920005B4969 /* IconPairView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BC8EB124E8D920005B4969 /* IconPairView.swift */; };
+		01FA50F124E8B33100DCC490 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FA50F024E8B33100DCC490 /* LocationManager.swift */; };
+		01FA50F324E8BA5400DCC490 /* LocationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FA50F224E8BA5400DCC490 /* LocationDetailView.swift */; };
 		130FA59E243B1243005DC752 /* DiningRestriction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130FA59D243B1243005DC752 /* DiningRestriction.swift */; };
 		130FA59F243B12B3005DC752 /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553EF6AB2404E2C600D2955E /* Resource.swift */; };
 		13135BB22412442C0056B169 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39AB323E777AC0039FBA2 /* FilterView.swift */; };
@@ -55,10 +59,16 @@
 		29061D41241C450E002BC9D9 /* HasLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29061D40241C450E002BC9D9 /* HasLocation.swift */; };
 		2913595724B136BE00DE9AD6 /* CollapsibleCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2913595624B136BE00DE9AD6 /* CollapsibleCardView.swift */; };
 		2913595924B13DF200DE9AD6 /* OpenTimesCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2913595824B13DF200DE9AD6 /* OpenTimesCardView.swift */; };
+		291B11E025043FF100F737A8 /* Sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291B11DF25043FF100F737A8 /* Sort.swift */; };
+		291B11E225044BDB00F737A8 /* HasName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291B11E125044BDB00F737A8 /* HasName.swift */; };
 		29345E2724A7E76300859A88 /* OverviewCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29345E2624A7E76300859A88 /* OverviewCardView.swift */; };
 		29345E2924A7E7AC00859A88 /* HasPhoneNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29345E2824A7E7AC00859A88 /* HasPhoneNumber.swift */; };
 		29345E2B24A7EC2B00859A88 /* HasImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29345E2A24A7EC2B00859A88 /* HasImage.swift */; };
 		29345E2D24A7FFB600859A88 /* CanFavorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29345E2C24A7FFB600859A88 /* CanFavorite.swift */; };
+		29387E9524BBBC1000070BCE /* BarGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29387E9424BBBC1000070BCE /* BarGraph.swift */; };
+		29387E9924BBBC9300070BCE /* BarEntry+DataEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29387E9824BBBC9300070BCE /* BarEntry+DataEntry.swift */; };
+		29387E9B24BBBD9D00070BCE /* CALayerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29387E9A24BBBD9D00070BCE /* CALayerExtension.swift */; };
+		29387E9D24BBBE8E00070BCE /* OccupancyGraphCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29387E9C24BBBE8E00070BCE /* OccupancyGraphCardView.swift */; };
 		2954F592245CD4B600DA66DA /* MainDrawerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2954F591245CD4B600DA66DA /* MainDrawerViewDelegate.swift */; };
 		296F1B272439341300924C8D /* DiningDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296F1B262439341300924C8D /* DiningDetailViewController.swift */; };
 		2975D5402459301B00514B43 /* SearchDrawerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2975D53F2459301B00514B43 /* SearchDrawerViewDelegate.swift */; };
@@ -118,6 +128,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		01BC8EAF24E8C3E3005B4969 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		01BC8EB124E8D920005B4969 /* IconPairView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = IconPairView.swift; path = "bm-persona/Common/IconPairView.swift"; sourceTree = SOURCE_ROOT; };
+		01FA50F024E8B33100DCC490 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		01FA50F224E8BA5400DCC490 /* LocationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailView.swift; sourceTree = "<group>"; };
 		130FA59D243B1243005DC752 /* DiningRestriction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningRestriction.swift; sourceTree = "<group>"; };
 		132087AE23F3B05D00AE273C /* Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
 		1336A319241C3FD300949F32 /* GymClassDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymClassDataSource.swift; sourceTree = "<group>"; };
@@ -167,10 +181,16 @@
 		29061D40241C450E002BC9D9 /* HasLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasLocation.swift; sourceTree = "<group>"; };
 		2913595624B136BE00DE9AD6 /* CollapsibleCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsibleCardView.swift; sourceTree = "<group>"; };
 		2913595824B13DF200DE9AD6 /* OpenTimesCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenTimesCardView.swift; sourceTree = "<group>"; };
+		291B11DF25043FF100F737A8 /* Sort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sort.swift; sourceTree = "<group>"; };
+		291B11E125044BDB00F737A8 /* HasName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasName.swift; sourceTree = "<group>"; };
 		29345E2624A7E76300859A88 /* OverviewCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewCardView.swift; sourceTree = "<group>"; };
 		29345E2824A7E7AC00859A88 /* HasPhoneNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasPhoneNumber.swift; sourceTree = "<group>"; };
 		29345E2A24A7EC2B00859A88 /* HasImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasImage.swift; sourceTree = "<group>"; };
 		29345E2C24A7FFB600859A88 /* CanFavorite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanFavorite.swift; sourceTree = "<group>"; };
+		29387E9424BBBC1000070BCE /* BarGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarGraph.swift; sourceTree = "<group>"; };
+		29387E9824BBBC9300070BCE /* BarEntry+DataEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BarEntry+DataEntry.swift"; sourceTree = "<group>"; };
+		29387E9A24BBBD9D00070BCE /* CALayerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayerExtension.swift; sourceTree = "<group>"; };
+		29387E9C24BBBE8E00070BCE /* OccupancyGraphCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OccupancyGraphCardView.swift; sourceTree = "<group>"; };
 		2954F591245CD4B600DA66DA /* MainDrawerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainDrawerViewDelegate.swift; sourceTree = "<group>"; };
 		296F1B262439341300924C8D /* DiningDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiningDetailViewController.swift; sourceTree = "<group>"; };
 		2975D53F2459301B00514B43 /* SearchDrawerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDrawerViewDelegate.swift; sourceTree = "<group>"; };
@@ -364,12 +384,14 @@
 		1396012D23865E2E005E4788 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				29387E9324BBBBDF00070BCE /* Bar Graph */,
 				2913595524B135B600DE9AD6 /* DetailView */,
 				29BED7BF241DF43B0049C022 /* FilterTableView */,
 				13B39AB123E777AC0039FBA2 /* FilterView */,
 				1396012E23865E2E005E4788 /* CollectionView */,
 				1396013123865E2E005E4788 /* CardView.swift */,
 				1396013223865E2E005E4788 /* TagView.swift */,
+				01BC8EB124E8D920005B4969 /* IconPairView.swift */,
 				554CB99F23F3A83F00BB1715 /* EventTableViewCell.swift */,
 				55C6936A240E143500400B60 /* ResourceTableViewCell.swift */,
 				5516088724393F3F00B1E55B /* MissingDataView.swift */,
@@ -410,6 +432,7 @@
 			isa = PBXGroup;
 			children = (
 				132087AE23F3B05D00AE273C /* Filter.swift */,
+				291B11DF25043FF100F737A8 /* Sort.swift */,
 				13B39AB323E777AC0039FBA2 /* FilterView.swift */,
 				13B39AB223E777AC0039FBA2 /* FilterViewCell.swift */,
 			);
@@ -426,6 +449,7 @@
 				29345E2A24A7EC2B00859A88 /* HasImage.swift */,
 				29AB5BBE241D8766007C3ECA /* HasOpenTimes.swift */,
 				299ACFB3244A5F90000F3E86 /* HasOccupancy.swift */,
+				291B11E125044BDB00F737A8 /* HasName.swift */,
 			);
 			path = ItemProtocols;
 			sourceTree = "<group>";
@@ -461,6 +485,7 @@
 				13B8E95724256E4F00E7FCBF /* ItemProtocols */,
 				13EA64CF2399D50C00FD8E13 /* DataManager.swift */,
 				13B39A8C23E689BC0039FBA2 /* DataSource.swift */,
+				01FA50F024E8B33100DCC490 /* LocationManager.swift */,
 				29EE163E241C4E310041482E /* SortingFunctions.swift */,
 			);
 			path = Data;
@@ -469,10 +494,23 @@
 		2913595524B135B600DE9AD6 /* DetailView */ = {
 			isa = PBXGroup;
 			children = (
+				01BC8EAF24E8C3E3005B4969 /* DetailView.swift */,
+				01FA50F224E8BA5400DCC490 /* LocationDetailView.swift */,
 				29345E2624A7E76300859A88 /* OverviewCardView.swift */,
 				2913595824B13DF200DE9AD6 /* OpenTimesCardView.swift */,
+				29387E9C24BBBE8E00070BCE /* OccupancyGraphCardView.swift */,
 			);
 			path = DetailView;
+			sourceTree = "<group>";
+		};
+		29387E9324BBBBDF00070BCE /* Bar Graph */ = {
+			isa = PBXGroup;
+			children = (
+				29387E9424BBBC1000070BCE /* BarGraph.swift */,
+				29387E9A24BBBD9D00070BCE /* CALayerExtension.swift */,
+				29387E9824BBBC9300070BCE /* BarEntry+DataEntry.swift */,
+			);
+			path = "Bar Graph";
 			sourceTree = "<group>";
 		};
 		299ACFAE244A58A8000F3E86 /* Occupancy */ = {
@@ -789,6 +827,7 @@
 			files = (
 				130FA59F243B12B3005DC752 /* Resource.swift in Sources */,
 				13B8E9592425819D00E7FCBF /* ResourceDataSource.swift in Sources */,
+				01FA50F324E8BA5400DCC490 /* LocationDetailView.swift in Sources */,
 				29CB28092404DD53009A2CFB /* LibraryViewController.swift in Sources */,
 				55AF44292453A4EC00F13232 /* CafeDataSource.swift in Sources */,
 				306A550023614C0000D59A7F /* MainContainerViewController.swift in Sources */,
@@ -809,6 +848,7 @@
 				306A54FE236142B800D59A7F /* DrawerViewController.swift in Sources */,
 				13B39A8B23E682850039FBA2 /* Date+Extension.swift in Sources */,
 				135D7F75243A9AB3003F8BD1 /* GymClassType.swift in Sources */,
+				291B11E025043FF100F737A8 /* Sort.swift in Sources */,
 				29345E2924A7E7AC00859A88 /* HasPhoneNumber.swift in Sources */,
 				130FA59E243B1243005DC752 /* DiningRestriction.swift in Sources */,
 				556CCD2D23E79EC100F41BF9 /* TabBarController.swift in Sources */,
@@ -819,6 +859,7 @@
 				133864AE2404E858001F9048 /* CalendarEntry.swift in Sources */,
 				29B3D78824539FF3006762E5 /* MainDrawerViewController.swift in Sources */,
 				13491DBC242098B30033F9AB /* AtomicDictionary.swift in Sources */,
+				01BC8EB024E8C3E3005B4969 /* DetailView.swift in Sources */,
 				13580AFA243934BF00D309AA /* GymClassesController.swift in Sources */,
 				1396013423865E2E005E4788 /* CardCollectionViewCell.swift in Sources */,
 				55DCF79D237243F5001B01B8 /* RippleLayer.swift in Sources */,
@@ -850,6 +891,8 @@
 				297678892426D2C500FDD1EB /* SearchDrawerViewController.swift in Sources */,
 				29CB280A2404DD71009A2CFB /* FilterTableViewCell.swift in Sources */,
 				55DCF79623723CF2001B01B8 /* UIView+Extensions.swift in Sources */,
+				291B11E225044BDB00F737A8 /* HasName.swift in Sources */,
+				01BC8EB224E8D920005B4969 /* IconPairView.swift in Sources */,
 				306A54EA23613E3A00D59A7F /* AppDelegate.swift in Sources */,
 				1336A31C241C400800949F32 /* GymClass.swift in Sources */,
 				559A7B6B2373DCBA004EA501 /* SearchResultsView.swift in Sources */,
@@ -858,15 +901,20 @@
 				296F1B272439341300924C8D /* DiningDetailViewController.swift in Sources */,
 				13492D2D240E179F00AD3D1F /* MapMarkerDetailView.swift in Sources */,
 				1346B9192420AD4800383399 /* WeeklyHours.swift in Sources */,
+				29387E9D24BBBE8E00070BCE /* OccupancyGraphCardView.swift in Sources */,
 				13EA64D02399D50C00FD8E13 /* DataManager.swift in Sources */,
 				29B3A1742439A60A00093750 /* DiningMenuCell.swift in Sources */,
 				1336A326241D9B9900949F32 /* DiningHall.swift in Sources */,
 				29061D41241C450E002BC9D9 /* HasLocation.swift in Sources */,
 				1336A31A241C3FD300949F32 /* GymClassDataSource.swift in Sources */,
+				29387E9524BBBC1000070BCE /* BarGraph.swift in Sources */,
 				5516088624392E5100B1E55B /* DiningViewController.swift in Sources */,
+				29387E9B24BBBD9D00070BCE /* CALayerExtension.swift in Sources */,
 				1396013323865E2E005E4788 /* CardCollectionView.swift in Sources */,
 				13B39A9A23E6A33C0039FBA2 /* LibraryDataSource.swift in Sources */,
+				29387E9924BBBC9300070BCE /* BarEntry+DataEntry.swift in Sources */,
 				306A54EC23613E3A00D59A7F /* SceneDelegate.swift in Sources */,
+				01FA50F124E8B33100DCC490 /* LocationManager.swift in Sources */,
 				29345E2724A7E76300859A88 /* OverviewCardView.swift in Sources */,
 				55AF442D2453ACE600F13232 /* DiningLocation.swift in Sources */,
 				1336A329241DA56100949F32 /* DiningHallDataSource.swift in Sources */,

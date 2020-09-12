@@ -12,9 +12,6 @@ import UIKit
 class DiningLocation: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasImage, HasOpenTimes, HasOccupancy {
     var icon: UIImage?
     
-    static var nearbyDistance: Double = 10
-    static var invalidDistance: Double = 100
-    
     var isFavorited: Bool = false
     var searchName: String {
         return name

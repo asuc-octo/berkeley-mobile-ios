@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Filter<T> {
+struct Filter<T>: TableFunction {
   
     var label: String
     var filter: ((T) -> Bool)?

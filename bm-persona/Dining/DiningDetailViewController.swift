@@ -15,29 +15,27 @@ fileprivate let kViewMargin: CGFloat = 16
 class DiningDetailViewController: SearchDrawerViewController {
     
     var diningHall: DiningLocation!
-    var locationManager = CLLocationManager()
-    var location: CLLocation?
     var overviewCard: OverviewCardView!
     var control: TabBarControl?
-    var meals: MealMap!
-    var mealNames: [MealType]!
-    var menuView: FilterTableView = FilterTableView<DiningItem>(frame: .zero, filters: [])
+    var meals: MealMap = [:]
+    var mealNames: [MealType] = []
+    var menuView: FilterTableView = FilterTableView<DiningItem>(frame: .zero, tableFunctions: [], defaultSort: SortingFunctions.sortAlph(item1:item2:))
+    override var upperLimitState: DrawerState? {
+        get {
+            return control == nil ? .middle : nil
+        }
+    }
     static let cellHeight: CGFloat = 45
     static let cellSpacingHeight: CGFloat = 5
     static let mealTimesChronological = ["breakfast": 0, "brunch": 1, "lunch": 2, "dinner": 3, "late night": 4, "other": 5]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        locationManager.delegate = self
+
         setUpOverviewCard()
         setUpMenuControl()
         setUpMenu()
         view.layoutSubviews()
-        
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.requestLocation()
-        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -49,7 +47,7 @@ class DiningDetailViewController: SearchDrawerViewController {
 
 extension DiningDetailViewController {
     func setUpOverviewCard() {
-        overviewCard = OverviewCardView(item: diningHall, userLocation: location)
+        overviewCard = OverviewCardView(item: diningHall)
         view.addSubview(overviewCard)
         overviewCard.topAnchor.constraint(equalTo: barView.bottomAnchor, constant: kViewMargin).isActive = true
         overviewCard.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
@@ -104,7 +102,7 @@ extension DiningDetailViewController {
         //        filters.append(filterForRestriction(name: "Soybeans", restriction: KnownRestriction.soybean, matches: true))
         //        filters.append(filterForRestriction(name: "Wheat", restriction: KnownRestriction.wheat, matches: true))
         //        filters.append(filterForRestriction(name: "No Sesame", restriction: KnownRestriction.sesame, matches: false))
-        menuView = FilterTableView(frame: .zero, filters: filters)
+        menuView = FilterTableView(frame: .zero, tableFunctions: filters, defaultSort: SortingFunctions.sortAlph(item1:item2:))
         self.menuView.tableView.register(DiningMenuCell.self, forCellReuseIdentifier: DiningMenuCell.kCellIdentifier)
         self.menuView.tableView.dataSource = self
         self.menuView.tableView.delegate = self
@@ -139,25 +137,13 @@ extension DiningDetailViewController {
     }
 }
 
-extension DiningDetailViewController : CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let userLocation : CLLocation = locations[0] as CLLocation
-        DispatchQueue.main.async {
-            self.overviewCard.updateLocation(userLocation: userLocation)
-        }
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print(error)
-    }
-}
-
 extension DiningDetailViewController: TabBarControlDelegate {
     func tabBarControl(_ tabBarControl: TabBarControl, didChangeValue value: Int) {
         guard let control = self.control else { return }
         control.index = value
         self.menuView.setData(data: meals[mealNames[control.index]]!)
         self.menuView.tableView.reloadData()
+        self.menuView.filter.deselectAllItems()
     }
 }
 

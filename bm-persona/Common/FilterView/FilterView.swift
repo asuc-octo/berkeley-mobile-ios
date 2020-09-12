@@ -50,7 +50,6 @@ class FilterView: UICollectionView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
 }
 
 
@@ -95,4 +94,15 @@ extension FilterView: UICollectionViewDataSource, UICollectionViewDelegate, UICo
         filterDelegate?.filterView(self, didDeselect: indexPath.row)
     }
     
+    func deselectAllItems() {
+        guard let selectedItems = indexPathsForSelectedItems else { return }
+        for indexPath in selectedItems {
+            deselectItem(at: indexPath, animated: false)
+        }
+    }
+    
+    func selectItem(index: Int) {
+        guard index < labels.count else { return }
+        self.selectItem(at: IndexPath(row: index, section: 0), animated: false, scrollPosition: .left)
+    }
 }

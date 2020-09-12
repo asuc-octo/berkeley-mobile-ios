@@ -14,7 +14,7 @@ fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 16, left: 16, bot
 fileprivate let kViewMargin: CGFloat = 16
 fileprivate let kTodayClassesHeight: CGFloat = 300
 
-class FitnessViewController: UIViewController, CLLocationManagerDelegate {
+class FitnessViewController: UIViewController {
     
     private var scrollView: UIScrollView!
     private var content: UIView!
@@ -30,7 +30,7 @@ class FitnessViewController: UIViewController, CLLocationManagerDelegate {
     // For use in the "Upcoming" card
     private var classesCollection: CardCollectionView!
     // To display a list of gyms in the "Fitness Centers" card
-    var filterTableView = FilterTableView<Gym>(frame: .zero, filters: [])
+    var filterTableView = FilterTableView<Gym>(frame: .zero, tableFunctions: [], defaultSort: SortingFunctions.sortAlph(item1:item2:))
     
     var gyms: [Gym] = []
     var upcomingClasses: [GymClass] = []
@@ -38,9 +38,6 @@ class FitnessViewController: UIViewController, CLLocationManagerDelegate {
     
     private var classesController = GymClassesController()
     private var gymsController = GymsController()
-    
-    private var locationManager = CLLocationManager()
-    var location: CLLocation?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,11 +50,13 @@ class FitnessViewController: UIViewController, CLLocationManagerDelegate {
         setupTodayClasses()
         setupGyms()
         
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.startUpdatingLocation()
-        location = locationManager.location
-        filterTableView.setSortFunc(newSortFunc: {gym1, gym2 in SortingFunctions.sortClose(loc1: gym1, loc2: gym2, location: self.location, locationManager: self.locationManager)})
+        // Update `filterTableView` when user location is updated.
+        LocationManager.notificationCenter.addObserver(
+            filterTableView,
+            selector: #selector(filterTableView.update),
+            name: .locationUpdated,
+            object: nil
+        )
         
         classesController.vc = self
         gymsController.vc = self
@@ -107,11 +106,6 @@ class FitnessViewController: UIViewController, CLLocationManagerDelegate {
             self.view.layoutIfNeeded()
             self.viewDidLayoutSubviews()
         }
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        location = manager.location
-        self.filterTableView.update()
     }
     
 }
@@ -262,11 +256,11 @@ extension FitnessViewController {
     }
     
     func setupFilterTableView() {
-        let filters = [
-            Filter<Gym>(label: "Nearby", filter: {gym in gym.getDistanceToUser(userLoc: self.location) < Gym.nearbyDistance}),
+        let functions: [TableFunction] = [
+            Sort<Gym>(label: "Nearby", sort: Gym.locationComparator()),
             Filter<Gym>(label: "Open", filter: {gym in gym.isOpen ?? false}),
         ]
-        filterTableView = FilterTableView(frame: .zero, filters: filters)
+        filterTableView = FilterTableView<Gym>(frame: .zero, tableFunctions: functions, defaultSort: SortingFunctions.sortAlph(item1:item2:), initialSelectedIndices: [0, 1])
         self.filterTableView.tableView.allowsSelection = false
         self.filterTableView.tableView.register(FilterTableViewCell.self, forCellReuseIdentifier: FilterTableViewCell.kCellIdentifier)
         self.filterTableView.tableView.dataSource = gymsController

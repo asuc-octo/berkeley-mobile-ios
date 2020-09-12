@@ -10,9 +10,6 @@ import Foundation
 import UIKit
 
 class Gym: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasImage, HasOpenTimes, HasOccupancy {
-    
-    static var nearbyDistance: Double = 10
-    static var invalidDistance: Double = 100
     var icon: UIImage?
     
     var searchName: String {

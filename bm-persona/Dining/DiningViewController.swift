@@ -11,14 +11,11 @@ import MapKit
 
 class DiningViewController: UIViewController, SearchDrawerViewDelegate {
     
-    private var filterTableView: FilterTableView = FilterTableView<DiningLocation>(frame: .zero, filters: [])
+    private var filterTableView: FilterTableView = FilterTableView<DiningLocation>(frame: .zero, tableFunctions: [], defaultSort: SortingFunctions.sortAlph(item1:item2:))
     private var diningLocations: [DiningLocation] = []
     
     private var headerLabel: UILabel!
     private var diningCard: CardView!
-    
-    private var locationManager = CLLocationManager()
-    private var location: CLLocation?
     
     // DrawerViewDelegate properties
     var drawerViewController: DrawerViewController?
@@ -44,12 +41,13 @@ class DiningViewController: UIViewController, SearchDrawerViewDelegate {
         
         setupCardView()
         
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.startUpdatingLocation()
-        location = locationManager.location
-        
-        filterTableView.setSortFunc(newSortFunc: {dh1, dh2 in SortingFunctions.sortClose(loc1: dh1, loc2: dh2, location: self.location, locationManager: self.locationManager)})
+        // Update `filterTableView` when user location is updated.
+        LocationManager.notificationCenter.addObserver(
+            filterTableView,
+            selector: #selector(filterTableView.update),
+            name: .locationUpdated,
+            object: nil
+        )
         
         // fetch dining hall and cafe data, make sure occupancy data has been fetched after each one is complete
         DataManager.shared.fetch(source: DiningHallDataSource.self) { diningLocations in
@@ -65,18 +63,11 @@ class DiningViewController: UIViewController, SearchDrawerViewDelegate {
     }
 }
 
-extension DiningViewController: CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        location = manager.location
-        self.filterTableView.update()
-    }
-}
-
 extension DiningViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: FilterTableViewCell.kCellIdentifier, for: indexPath) as? FilterTableViewCell {
             let diningHall: DiningLocation = self.filterTableView.filteredData[indexPath.row]
-            cell.updateContents(item: diningHall, location: location, imageUpdate: {
+            cell.updateContents(item: diningHall, imageUpdate: {
                 DispatchQueue.global().async {
                     guard let imageURL = diningHall.imageURL, let imageData = try? Data(contentsOf: imageURL) else { return }
                     let image = UIImage(data: imageData)
@@ -98,7 +89,7 @@ extension DiningViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presentDetail(type: DiningLocation.self, item: self.filterTableView.filteredData[indexPath.row], containingVC: mainContainer!, position: .full)
+        presentDetail(type: DiningHall.self, item: self.filterTableView.filteredData[indexPath.row], containingVC: mainContainer!, position: .full)
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
@@ -148,9 +139,11 @@ extension DiningViewController {
     
     // Table of dining locations
     func setupTableView() {
-        let filters = [Filter<DiningLocation>(label: "Nearby", filter: {dh in dh.getDistanceToUser(userLoc: self.location) < DiningLocation.nearbyDistance}),
-            Filter<DiningLocation>(label: "Open", filter: {dh in dh.isOpen ?? false})]
-        self.filterTableView = FilterTableView(frame: .zero, filters: filters)
+        let functions: [TableFunction] = [
+            Sort<DiningLocation>(label: "Nearby", sort: DiningHall.locationComparator()),
+            Filter<DiningLocation>(label: "Open", filter: {diningHall in diningHall.isOpen ?? false}),
+        ]
+        filterTableView = FilterTableView<DiningLocation>(frame: .zero, tableFunctions: functions, defaultSort: SortingFunctions.sortAlph(item1:item2:), initialSelectedIndices: [0, 1])
         self.filterTableView.tableView.register(FilterTableViewCell.self, forCellReuseIdentifier: FilterTableViewCell.kCellIdentifier)
         self.filterTableView.tableView.dataSource = self
         self.filterTableView.tableView.delegate = self
