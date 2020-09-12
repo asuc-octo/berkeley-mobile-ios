@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol SearchItem {
+protocol SearchItem: HasName {
 
     var searchName: String { get }
     var location: (Double, Double) { get }

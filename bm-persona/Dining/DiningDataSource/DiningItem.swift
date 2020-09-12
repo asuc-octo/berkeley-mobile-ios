@@ -12,7 +12,7 @@ import Foundation
 typealias DiningMenu = Array<DiningItem>
 
 /** Object representing a single dish/item. */
-class DiningItem {
+class DiningItem: HasName {
     
     let name: String
     var isFavorited: Bool = false

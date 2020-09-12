@@ -100,4 +100,9 @@ extension FilterView: UICollectionViewDataSource, UICollectionViewDelegate, UICo
             deselectItem(at: indexPath, animated: false)
         }
     }
+    
+    func selectItem(index: Int) {
+        guard index < labels.count else { return }
+        self.selectItem(at: IndexPath(row: index, section: 0), animated: false, scrollPosition: .left)
+    }
 }

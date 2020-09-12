@@ -15,7 +15,7 @@ class ResourcesViewController: UIViewController {
     private var resourcesLabel: UILabel!
 
     private var resourcesCard: CardView!
-    private var resourcesTable: FilterTableView = FilterTableView<Resource>(frame: .zero, filters: [])
+    private var resourcesTable: FilterTableView = FilterTableView<Resource>(frame: .zero, tableFunctions: [], defaultSort: SortingFunctions.sortAlph(item1:item2:))
     
     private var resourceEntries: [Resource] = []
 
@@ -79,12 +79,12 @@ extension ResourcesViewController {
         card.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
         card.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
         card.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
-        
-        let filters = [
-            Filter<Resource>(label: "Nearby", filter: Resource.locationFilter(by: Resource.nearbyDistance)),
+
+        let functions: [TableFunction] = [
+            Sort<Resource>(label: "Nearby", sort: Resource.locationComparator()),
             Filter<Resource>(label: "Open", filter: {resource in resource.isOpen ?? false})
         ]
-        resourcesTable = FilterTableView(frame: .zero, filters: filters)
+        resourcesTable = FilterTableView(frame: .zero, tableFunctions: functions, defaultSort: SortingFunctions.sortAlph(item1:item2:), initialSelectedIndices: [0, 1])
         resourcesTable.tableView.register(ResourceTableViewCell.self, forCellReuseIdentifier: ResourceTableViewCell.kCellIdentifier)
         resourcesTable.tableView.rowHeight = 103
         

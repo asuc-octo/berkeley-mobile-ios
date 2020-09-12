@@ -10,9 +10,6 @@ import UIKit
 import MapKit
 
 class Library: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasImage, HasOpenTimes, HasOccupancy {
-    
-    static var nearbyDistance: Double = 10
-    
     var searchName: String {
         return name
     }
