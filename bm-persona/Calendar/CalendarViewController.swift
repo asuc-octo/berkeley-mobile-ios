@@ -129,6 +129,29 @@ extension CalendarViewController {
         eventsLabel.translatesAutoresizingMaskIntoConstraints = false
         eventsLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 15).isActive = true
         eventsLabel.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
+        
+        // Yellow blob
+        let blob2 = UIImage(named: "Blob2")
+        let blob2ImageView = UIImageView(image: blob2)
+        blob2ImageView.contentMode = .scaleAspectFit
+        
+        view.addSubview(blob2ImageView)
+        blob2ImageView.translatesAutoresizingMaskIntoConstraints = false
+        blob2ImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: -30).isActive = true
+        blob2ImageView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        blob2ImageView.widthAnchor.constraint(equalToConstant: view.frame.size.width / 2).isActive = true
+        
+        // Blue blob
+        let blob1 = UIImage(named: "Blob1")
+        let blob1ImageView = UIImageView(image: blob1)
+        blob1ImageView.contentMode = .scaleAspectFit
+        
+        view.addSubview(blob1ImageView)
+        blob1ImageView.translatesAutoresizingMaskIntoConstraints = false
+        blob1ImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: -30).isActive = true
+        blob1ImageView.rightAnchor.constraint(equalTo: blob2ImageView.leftAnchor).isActive = true
+        blob1ImageView.widthAnchor.constraint(equalToConstant: view.frame.size.width / 2.5).isActive = true
+        blob1ImageView.heightAnchor.constraint(equalToConstant: eventsLabel.frame.size.height / 2).isActive = true
     }
     
     // ScrollView
