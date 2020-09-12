@@ -14,6 +14,7 @@ fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 16, left: 16, bot
 fileprivate let kViewMargin: CGFloat = 16
 fileprivate let kTodayClassesHeight: CGFloat = 300
 fileprivate let kTodayClassesCollapsedHeight: CGFloat = 86
+fileprivate let kUpcomingCollapsedHeight: CGFloat = 16  // Same as TableView 0 elements
 
 class FitnessViewController: UIViewController {
     
@@ -26,6 +27,7 @@ class FitnessViewController: UIViewController {
     
     private var showButton: UIButton!
     private var missingClassesView: MissingDataView!
+    private var missingUpcomingView: MissingDataView!
     
     private var bClassesExpanded = false
     
@@ -81,13 +83,14 @@ class FitnessViewController: UIViewController {
             self.upcomingClasses = classes.reduce([], +).sorted(by: sortFn)
             
             if (self.upcomingClasses.count == 0) {
-                self.classesCollection.setHeightConstraint(8)
+                self.missingUpcomingView.isHidden = false
+                self.classesCollection.setHeightConstraint(kUpcomingCollapsedHeight)
             }
             
             if (self.todayClasses.count == 0) {
                 self.showButton.isHidden = true
                 self.missingClassesView.isHidden = false
-//                self.todayCard.setHeightConstraint(kTodayClassesCollapsedHeight)
+                self.todayCard.setHeightConstraint(kTodayClassesCollapsedHeight)
             }
             
             self.classesTable.reloadData()
@@ -165,7 +168,7 @@ extension FitnessViewController {
         
         let headerLabel = UILabel()
         headerLabel.font = kHeaderFont
-        headerLabel.text = "Upcoming Classes"
+        headerLabel.text = "Upcoming"
         contentView.addSubview(headerLabel)
         headerLabel.translatesAutoresizingMaskIntoConstraints = false
         headerLabel.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true
@@ -185,6 +188,8 @@ extension FitnessViewController {
         collectionView.bottomAnchor.constraint(equalTo: card.layoutMarginsGuide.bottomAnchor).isActive = true
         upcomingCard = card
         classesCollection = collectionView
+        
+        missingUpcomingView = MissingDataView(parentView: collectionView, text: "No upcoming classes")
     }
     
     // Upcoming Classes
@@ -200,7 +205,7 @@ extension FitnessViewController {
         
         let headerLabel = UILabel()
         headerLabel.font = kHeaderFont
-        headerLabel.text = "Today's Classes"
+        headerLabel.text = "Today"
         card.addSubview(headerLabel)
         headerLabel.translatesAutoresizingMaskIntoConstraints = false
         headerLabel.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true
@@ -231,12 +236,10 @@ extension FitnessViewController {
         classesTable.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
         classesTable.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
         classesTable.bottomAnchor.constraint(equalTo: card.layoutMarginsGuide.bottomAnchor).isActive = true
-        
-        let missingView = MissingDataView(parentView: card, text: "No classes found")
-        
+                
         todayCard = card
         showButton = scheduleButton
-        missingClassesView = missingView
+        missingClassesView = MissingDataView(parentView: classesTable, text: "No classes found")
     }
     
     // Gyms
@@ -255,8 +258,6 @@ extension FitnessViewController {
         fitnessLabel.text = "Fitness Centers"
         fitnessLabel.font = kHeaderFont
         fitnessLabel.adjustsFontSizeToFitWidth = true
-        fitnessLabel.textColor = .black
-        fitnessLabel.textColor = Color.blackText
         card.addSubview(fitnessLabel)
         
         setupFilterTableView()
