@@ -40,16 +40,22 @@ enum MapMarkerType: String, CaseIterable {
             icon = UIImage(named: "microwave-icon")
             break
         case .rest:
-            icon = UIImage(named: "nap-pods-icon")
+            icon = UIImage(named: "nap-pods-icon")?
+                .withRoundedBorder(width: 30, color: .white)?
+                .withShadow(blur: 10, offset: CGSize(width: 0, height: 10))
             break
         case .printer:
-            icon = UIImage(named: "printer-icon")
+            icon = UIImage(named: "printer-icon")?
+                .withRoundedBorder(width: 3, color: .white)?
+                .withShadow()
             break
         case .water:
             icon = UIImage(named: "water-bottle-icon")
             break
         case .bikes:
-            icon = UIImage(named: "bike-icon")
+            icon = UIImage(named: "bike-icon")?
+                .withRoundedBorder(width: 3, color: .white)?
+                .withShadow()
             break
         case .lactation:
             icon = UIImage(named: "lactation-icon")
