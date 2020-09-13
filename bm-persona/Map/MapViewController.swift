@@ -14,9 +14,9 @@ fileprivate let kViewMargin: CGFloat = 16
 // MARK: - MapViewController
 
 class MapViewController: UIViewController, SearchDrawerViewDelegate {
-    
+
     static let kAnnotationIdentifier = "MapMarkerAnnotation"
-    
+
     // this allows the map to move the main drawer
     open var mainContainer: MainContainerViewController?
     
@@ -195,7 +195,9 @@ extension MapViewController: FilterViewDelegate {
 extension MapViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        if let marker = annotation as? MapMarker,
+        if annotation is MKUserLocation {
+            return nil
+        } else if let marker = annotation as? MapMarker,
             let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: MapViewController.kAnnotationIdentifier) {
             annotationView.annotation = marker
             annotationView.image = marker.type.icon()

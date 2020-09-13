@@ -51,30 +51,45 @@ enum MapMarkerType: String, CaseIterable {
         case .bikes:
             icon = UIImage(named: "bike-icon")
             break
-        default:
-            icon = UIImage(named: "Placemark")?.colored(Color.mapAnnotationColor)
+        case .lactation:
+            icon = UIImage(named: "lactation-icon")
+            break
+        case .waste:
+            icon = UIImage(named: "waste-icon")
+            break
+        case .garden:
+            icon = UIImage(named: "garden-icon")
+            break
+        case .cafe:
+            icon = UIImage(named: "cafe-icon")
             break
         }
-        return (icon ?? UIImage()).resized(size: CGSize(width: 20, height: 20))
+        return (icon ?? UIImage()).resized(size: CGSize(width: 30, height: 30))
     }
     
     /** The color describing this marker type */
     func color() -> UIColor {
         switch self {
         case .mentalHealth:
-            return UIColor(displayP3Red: 251/255, green: 210/255, blue: 0/255, alpha: 1.0)
+            return UIColor(displayP3Red: 249/255, green: 180/255, blue: 35/255, alpha: 1.0)
         case .microwave:
-            return UIColor(displayP3Red: 255/255, green: 114/255, blue: 9/255, alpha: 1.0)
+            return UIColor(displayP3Red: 248/255, green: 95/255, blue: 73/255, alpha: 1.0)
         case .rest:
             return UIColor(displayP3Red: 253/255, green: 43/255, blue: 168/255, alpha: 1.0)
         case .printer:
             return UIColor(displayP3Red: 93/255, green: 187/255, blue: 68/255, alpha: 1.0)
         case .water:
-            return UIColor(displayP3Red: 62/255, green: 183/255, blue: 210/255, alpha: 1.0)
+            return UIColor(displayP3Red: 45/255, green: 121/255, blue: 176/255, alpha: 1.0)
         case .bikes:
             return UIColor(displayP3Red: 45/255, green: 53/255, blue: 255/255, alpha: 1.0)
-        default:
-            return Color.mapAnnotationColor
+        case .lactation:
+            return UIColor(displayP3Red: 249/255, green: 134/255, blue: 49/255, alpha: 1.0)
+        case .waste:
+            return UIColor(displayP3Red: 101/255, green: 54/255, blue: 17/255, alpha: 1.0)
+        case .garden:
+            return UIColor(displayP3Red: 124/255, green: 190/255, blue: 49/255, alpha: 1.0)
+        case .cafe:
+            return UIColor(displayP3Red: 146/255, green: 83/255, blue: 163/255, alpha: 1.0)
         }
     }
     
