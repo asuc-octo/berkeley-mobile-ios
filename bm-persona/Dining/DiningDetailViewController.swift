@@ -142,7 +142,6 @@ extension DiningDetailViewController: TabBarControlDelegate {
         guard let control = self.control else { return }
         control.index = value
         self.menuView.setData(data: meals[mealNames[control.index]]!)
-        self.menuView.tableView.reloadData()
         self.menuView.filter.deselectAllItems()
         self.menuView.update()
     }
