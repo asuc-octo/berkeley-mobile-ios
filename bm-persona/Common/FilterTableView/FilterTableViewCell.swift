@@ -47,7 +47,7 @@ class FilterTableViewCell: UITableViewCell {
         contentView.addSubview(nameLabel)
         contentView.addSubview(cellImage)
         contentView.addSubview(recLabel)
-        contentView.addSubview(distanceOccupancyStack)
+        contentView.addSubview(locationOccupancyView)
         
         recLabel.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
         recLabel.leftAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
@@ -62,25 +62,42 @@ class FilterTableViewCell: UITableViewCell {
         cellImage.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor).isActive = true
         cellImage.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.35).isActive = true
         
-        distanceOccupancyStack.rightAnchor.constraint(lessThanOrEqualTo: cellImage.leftAnchor, constant: -10).isActive = true
-        distanceOccupancyStack.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 5).isActive = true
-        distanceOccupancyStack.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor, constant: -5).isActive = true
-        distanceOccupancyStack.leftAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
+        locationOccupancyView.rightAnchor.constraint(equalTo: cellImage.leftAnchor, constant: -10).isActive = true
+        locationOccupancyView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 5).isActive = true
+        locationOccupancyView.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor, constant: -5).isActive = true
+        locationOccupancyView.leftAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
     }
     
     // Sets the contents of the cell based on an item passed in and a closure to call if there is no image available
     func updateContents(item: SearchItem, imageUpdate: () -> Void) {
+        locationOccupancyView.subviews.forEach({ $0.removeFromSuperview() })
+        
         nameLabel.text = item.searchName
-        distanceOccupancyStack.removeAllArrangedSubviews()
+        var locationDetailVisible = false
         if let itemWithLocation = item as? HasLocation {
+            locationDetailVisible = true
             locationDetailView.delegate = self
             locationDetailView.configure(for: itemWithLocation)
-            distanceOccupancyStack.addArrangedSubview(locationDetailView)
+            locationOccupancyView.addSubview(locationDetailView)
+            locationDetailView.rightAnchor.constraint(lessThanOrEqualTo: locationOccupancyView.rightAnchor).isActive = true
+            locationDetailView.topAnchor.constraint(equalTo: locationOccupancyView.topAnchor).isActive = true
+            locationDetailView.bottomAnchor.constraint(equalTo: locationOccupancyView.bottomAnchor).isActive = true
+            locationDetailView.leftAnchor.constraint(equalTo: locationOccupancyView.leftAnchor).isActive = true
         }
         self.recLabel.text = "Recommended"
         
         if let itemWithOccupancy = item as? HasOccupancy, let status = itemWithOccupancy.getCurrentOccupancyStatus(isOpen: (item as? HasOpenTimes)?.isOpen) {
-            distanceOccupancyStack.addArrangedSubview(IconPairView(icon: chairImage, iconHeight: 16, iconWidth: 28, attachedView: status.badge()))
+            let occupancyView = IconPairView(icon: chairImage, iconHeight: 16, iconWidth: 28, attachedView: status.badge())
+            locationOccupancyView.addSubview(occupancyView)
+            occupancyView.topAnchor.constraint(equalTo: locationOccupancyView.topAnchor).isActive = true
+            occupancyView.bottomAnchor.constraint(equalTo: locationOccupancyView.bottomAnchor).isActive = true
+            if locationDetailVisible {
+                occupancyView.rightAnchor.constraint(equalTo: locationOccupancyView.rightAnchor).isActive = true
+                occupancyView.leftAnchor.constraint(greaterThanOrEqualTo: locationDetailView.rightAnchor, constant: 5).isActive = true
+            } else {
+                occupancyView.rightAnchor.constraint(lessThanOrEqualTo: locationOccupancyView.rightAnchor).isActive = true
+                occupancyView.leftAnchor.constraint(equalTo: locationOccupancyView.leftAnchor).isActive = true
+            }
         }
         
         cellImage.image = UIImage(named: "DoeGlade")
@@ -125,20 +142,14 @@ class FilterTableViewCell: UITableViewCell {
         return label
     }()
     
-    let distanceOccupancyStack: UIStackView = {
-        let stack = UIStackView()
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.axis = .horizontal
-        stack.alignment = .center
-        stack.distribution = .equalSpacing
-        // arbitrary number that's large enough so that the left view is on the left edge and the right view is on the right edge
-        // didn't set distribution to be .fill because that would stretch out the occupancy badge if only occupancy is available
-        stack.spacing = 30
-        return stack
-    }()
-
     let locationDetailView: LocationDetailView = {
         return LocationDetailView()
+    }()
+    
+    let locationOccupancyView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
     let chairImage:UIImageView = {
@@ -156,7 +167,7 @@ class FilterTableViewCell: UITableViewCell {
 extension FilterTableViewCell: DetailViewDelegate {
     func detailsUpdated(for view: UIView) {
         if let locationDetailView = view as? LocationDetailView {
-            locationDetailView.isHidden = locationDetailView.missingData
+            locationDetailView.isHidden = false//locationDetailView.missingData
         }
     }
 }
