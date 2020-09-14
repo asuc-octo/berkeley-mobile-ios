@@ -192,6 +192,8 @@ enum MapMarkerDetail {
         let imageView = UIImageView(image: icon?.resized(size: CGSize(width: 17, height: 17)))
         imageView.setContentHuggingPriority(.required, for: .horizontal)
         imageView.setContentHuggingPriority(.required, for: .vertical)
+        imageView.setContentCompressionResistancePriority(.required, for: .horizontal)
+        imageView.setContentCompressionResistancePriority(.required, for: .vertical)
         container.addSubview(imageView)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.setConstraintsToView(top: container, bottom: container, left: container)
