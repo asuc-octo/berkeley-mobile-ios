@@ -220,7 +220,7 @@ class OverviewCardView: CardView {
         label.textColor = Color.blackText
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontSizeToFitWidth = true
-        label.minimumScaleFactor = 0.5
+        label.minimumScaleFactor = 0.4
         label.numberOfLines = 3
         return label
     }()
