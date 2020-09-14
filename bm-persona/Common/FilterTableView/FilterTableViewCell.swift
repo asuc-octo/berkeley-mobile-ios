@@ -51,8 +51,7 @@ class FilterTableViewCell: UITableViewCell {
         
         recLabel.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
         recLabel.leftAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
-        
-        nameLabel.heightAnchor.constraint(equalToConstant: 65).isActive = true
+
         nameLabel.leftAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
         nameLabel.topAnchor.constraint(equalTo: recLabel.layoutMarginsGuide.bottomAnchor, constant: 5).isActive = true
         nameLabel.rightAnchor.constraint(equalTo: cellImage.leftAnchor, constant: -10).isActive = true
@@ -85,6 +84,7 @@ class FilterTableViewCell: UITableViewCell {
             locationDetailView.leftAnchor.constraint(equalTo: locationOccupancyView.leftAnchor).isActive = true
         }
         self.recLabel.text = "Recommended"
+        self.recLabel.isHidden = true
         
         if let itemWithOccupancy = item as? HasOccupancy, let status = itemWithOccupancy.getCurrentOccupancyStatus(isOpen: (item as? HasOpenTimes)?.isOpen) {
             let occupancyView = IconPairView(icon: chairImage, iconHeight: 16, iconWidth: 28, attachedView: status.badge())

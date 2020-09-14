@@ -15,7 +15,8 @@ class CalendarViewController: UIViewController {
     private var eventsLabel: UILabel!
     
     private var upcomingCard: CardView!
-    private var missingView: MissingDataView!
+    private var upcomingMissingView: MissingDataView!
+    private var eventsMissingView: MissingDataView!
     private var eventsCollection: CardCollectionView!
     
     private var calendarTable: UITableView!
@@ -46,10 +47,12 @@ class CalendarViewController: UIViewController {
                 $0.date > Date()
             })
             if (self.calendarEntries.count == 0) {
-                self.missingView.isHidden = false
+                self.upcomingMissingView.isHidden = false
+                self.eventsMissingView.isHidden = false
                 self.calendarTable.isHidden = true
             } else {
-                self.missingView.isHidden = true
+                self.upcomingMissingView.isHidden = true
+                self.eventsMissingView.isHidden = true
                 self.calendarTable.isHidden = false
             }
             
@@ -167,8 +170,7 @@ extension CalendarViewController {
 
         calendarCard = card
         calendarTable = table
-        
-        missingView = MissingDataView(parentView: calendarCard)
+        eventsMissingView = MissingDataView(parentView: calendarCard, text: "No events found")
     }
     
     func setupUpcoming() {
@@ -206,8 +208,9 @@ extension CalendarViewController {
         collectionView.leftAnchor.constraint(equalTo: card.leftAnchor).isActive = true
         collectionView.rightAnchor.constraint(equalTo: card.rightAnchor).isActive = true
         collectionView.bottomAnchor.constraint(equalTo: card.layoutMarginsGuide.bottomAnchor).isActive = true
-        
+                
         upcomingCard = card
         eventsCollection = collectionView
+        upcomingMissingView = MissingDataView(parentView: collectionView, text: "No upcoming events")
     }
 }

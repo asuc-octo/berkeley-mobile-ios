@@ -150,13 +150,3 @@ extension DiningViewController {
     }
     
 }
-
-extension DiningViewController {
-    func handlePanGesture(gesture: UIPanGestureRecognizer) {
-        let state = handlePan(gesture: gesture)
-        // get rid of the top detail drawer if user sends it to bottom of screen
-        if state == .hidden {
-            mainContainer?.dismissTop()
-        }
-    }
-}

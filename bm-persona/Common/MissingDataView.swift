@@ -12,14 +12,15 @@ class MissingDataView: UIView {
     
     private var missingLabel: UILabel!
 
-    init() {
+    init(text: String) {
         super.init(frame: CGRect.zero)
         
         let label = UILabel()
         label.textColor = Color.darkGrayText
         label.textAlignment = .center
         label.font = Font.medium(18)
-        label.text = "No items found"
+        label.text = text
+        label.backgroundColor = UIColor.white.withAlphaComponent(0.0)
         
         label.translatesAutoresizingMaskIntoConstraints = false
         
@@ -31,8 +32,8 @@ class MissingDataView: UIView {
         missingLabel = label
     }
     
-    convenience init(parentView: UIView) {
-        self.init()
+    convenience init(parentView: UIView, text: String) {
+        self.init(text: text)
         
         self.isHidden = true
         parentView.addSubview(self)

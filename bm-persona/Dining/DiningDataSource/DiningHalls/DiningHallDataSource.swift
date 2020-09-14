@@ -91,8 +91,11 @@ class DiningHallDataSource: DataSource {
         var menu = DiningMenu()
         if let items = dict["items"] as? [[String: Any]] {
             menu = items.compactMap { (item) -> DiningItem? in
-                if let name = item["name"] as? String {
-                    return DiningItem(name: name, restrictions: item["food_types"] as? [String] ?? [])
+                if let name = (item["name"] as? String)?.trimmingCharacters(in: .whitespacesAndNewlines) {
+                    if name.count > 1 && !name.hasPrefix("Cal Dining") {
+                        // Removes occasional "." and garbage data from backend
+                        return DiningItem(name: name, restrictions: item["food_types"] as? [String] ?? [])
+                    }
                 }
                 return nil
             }

@@ -23,17 +23,17 @@ class FilterTableView<T>: UIView {
     var defaultSort: ((T, T) -> Bool)
     
     var isInitialSetup = true
-    
-    override func layoutSubviews() {
+
+    func setupSubviews() {
         self.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         self.addSubview(filter)
-        
+
         filter.translatesAutoresizingMaskIntoConstraints = false
         filter.leftAnchor.constraint(equalTo: self.layoutMarginsGuide.leftAnchor).isActive = true
         filter.rightAnchor.constraint(equalTo: self.layoutMarginsGuide.rightAnchor).isActive = true
         filter.topAnchor.constraint(equalTo: self.layoutMarginsGuide.topAnchor).isActive = true
         filter.heightAnchor.constraint(equalToConstant: FilterViewCell.kCellSize.height).isActive = true
-        
+
         self.addSubview(tableView)
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -52,7 +52,9 @@ class FilterTableView<T>: UIView {
     init(frame: CGRect, tableFunctions: [TableFunction], defaultSort: @escaping ((T, T) -> Bool), initialSelectedIndices: [Int] = []) {
         self.defaultSort = defaultSort
         super.init(frame: frame)
-        missingView = MissingDataView(parentView: tableView)
+        self.setupSubviews()
+
+        missingView = MissingDataView(parentView: tableView, text: "No items found")
         self.tableFunctions = tableFunctions
         filter.labels = tableFunctions.map { $0.label }
         filter.filterDelegate = self
@@ -61,6 +63,7 @@ class FilterTableView<T>: UIView {
             filter.selectItem(index: index)
         }
         isInitialSetup = false
+
         self.update()
     }
     

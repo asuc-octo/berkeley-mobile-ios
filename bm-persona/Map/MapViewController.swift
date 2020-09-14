@@ -85,15 +85,15 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         mapView.isZoomEnabled = true
-        centerMapOnLocation(CLLocation(latitude: CLLocationDegrees(exactly: 37.871684)!, longitude: CLLocationDegrees(-122.259934)), mapView: mapView)
+        centerMapOnLocation(CLLocation(latitude: CLLocationDegrees(exactly: 37.871684)!, longitude: CLLocationDegrees(-122.259934)), mapView: mapView, animated: false)
         updateCompassPosition()
     }
     
-    private func centerMapOnLocation(_ location: CLLocation, mapView: MKMapView) {
+    private func centerMapOnLocation(_ location: CLLocation, mapView: MKMapView, animated: Bool) {
         let regionRadius: CLLocationDistance = 1000
         let coordinateRegion = MKCoordinateRegion(center: location.coordinate,
                                                   latitudinalMeters: regionRadius * 2.0, longitudinalMeters: regionRadius * 2.0)
-        mapView.setRegion(coordinateRegion, animated: true)
+        mapView.setRegion(coordinateRegion, animated: animated)
     }
 
     /// Repoisitions the map's compass so that it is not obscured by the search bar.
@@ -280,7 +280,7 @@ extension MapViewController: SearchBarDelegate {
             guard let self = self else { return }
 
             let data = DataManager.shared.searchable
-            let filtered = data.filter { ($0.searchName.contains(keyword) && $0.location.0 != 0 && $0.location.1 != 0) }
+            let filtered = data.filter { ($0.searchName.lowercased().contains(keyword.lowercased()) && $0.location.0 != 0 && $0.location.1 != 0) }
             var placemarks = [MapPlacemark]()
 
             for item in filtered {
@@ -311,9 +311,9 @@ extension MapViewController: SearchResultsViewDelegate {
                                                       latitudinalMeters: regionRadius * 2.0, longitudinalMeters: regionRadius * 2.0)
             mapView.setRegion(coordinateRegion, animated: true)
             let item = placemark.item
-            if item != nil {
-                let annotation = SearchAnnotation(item: item!, location: location.coordinate)
-                annotation.title = item!.searchName
+            if let item = item {
+                let annotation = SearchAnnotation(item: item, location: location.coordinate)
+                annotation.title = item.searchName
                 searchAnnotation = annotation
                 // add and select marker for search item, remove resource view if any
                 mapView.addAnnotation(annotation)
@@ -322,22 +322,12 @@ extension MapViewController: SearchResultsViewDelegate {
                     mapView.deselectAnnotation(markerDetail.marker, animated: true)
                 }
                 // if the new search item has a detail view: remove the old detail view, show the new one
-                if let hall = item as? DiningHall {
-                    if drawerViewController != nil {
-                        mainContainer?.dismissTop(showNext: false)
-                    }
-                    presentDetail(type: DiningHall.self, item: hall, containingVC: mainContainer!, position: .middle)
-                } else if let lib = item as? Library {
-                    if drawerViewController != nil {
-                        mainContainer?.dismissTop(showNext: false)
-                    }
-                    presentDetail(type: Library.self, item: lib, containingVC: mainContainer!, position: .middle)
-                } else {
-                    /* if the search item isn't a dining hall or library, don't show any detail view
-                     still dismiss any past detail views and show the drawer underneath */
-                    if drawerViewController != nil {
-                        mainContainer?.dismissTop()
-                    }
+                // otherwise: still dismiss any past detail views and show the drawer underneath
+                if drawerViewController != nil {
+                    mainContainer?.dismissTop()
+                }
+                if let type = type(of: item) as? AnyClass {
+                    presentDetail(type: type, item: item, containingVC: mainContainer!, position: .middle)
                 }
             }
         }

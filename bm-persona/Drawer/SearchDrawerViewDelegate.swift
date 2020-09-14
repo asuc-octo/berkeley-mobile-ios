@@ -26,6 +26,12 @@ extension SearchDrawerViewDelegate where Self: UIViewController {
         } else if type == Library.self {
             drawerViewController = LibraryDetailViewController()
             (drawerViewController as! LibraryDetailViewController).library = (item as! Library)
+        } else if type == Gym.self {
+            drawerViewController = GymDetailViewController()
+            (drawerViewController as! GymDetailViewController).gym = (item as! Gym)
+        } else if type == Resource.self {
+            drawerViewController = ResourceDetailViewController()
+            (drawerViewController as! ResourceDetailViewController).resource = (item as! Resource)
         } else {
             return
         }
@@ -58,6 +64,16 @@ extension SearchDrawerViewDelegate where Self: UIViewController {
     // depending on a pan gesture, return which position to go to
     func computeDrawerPosition(from yPosition: CGFloat, with yVelocity: CGFloat) -> DrawerState {
         computePosition(from: yPosition, with: yVelocity, bottom: .hidden, middle: .middle, top: .full)
+    }
+
+    // A default implentation of the `DrawerViewDelegate` method that removes the drawer when swiped down completely.
+    // This implementation can be overridden if needed.
+    func handlePanGesture(gesture: UIPanGestureRecognizer) {
+        let state = handlePan(gesture: gesture)
+        if state == .hidden {
+            // get rid of the top detail drawer if user sends it to bottom of screen
+            mainContainer?.dismissTop()
+        }
     }
     
 }

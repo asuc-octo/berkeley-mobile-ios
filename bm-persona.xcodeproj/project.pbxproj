@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		01BC8EB024E8C3E3005B4969 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BC8EAF24E8C3E3005B4969 /* DetailView.swift */; };
 		01BC8EB224E8D920005B4969 /* IconPairView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BC8EB124E8D920005B4969 /* IconPairView.swift */; };
+		01D11B8E2504453B00BDF660 /* ScrollingStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D11B8D2504453B00BDF660 /* ScrollingStackView.swift */; };
+		01D11B902504560700BDF660 /* GymDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D11B8F2504560700BDF660 /* GymDetailViewController.swift */; };
+		01D11B9225045FC900BDF660 /* ResourceDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D11B9125045FC900BDF660 /* ResourceDetailViewController.swift */; };
 		01FA50F124E8B33100DCC490 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FA50F024E8B33100DCC490 /* LocationManager.swift */; };
 		01FA50F324E8BA5400DCC490 /* LocationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FA50F224E8BA5400DCC490 /* LocationDetailView.swift */; };
 		130FA59E243B1243005DC752 /* DiningRestriction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130FA59D243B1243005DC752 /* DiningRestriction.swift */; };
@@ -130,6 +133,9 @@
 /* Begin PBXFileReference section */
 		01BC8EAF24E8C3E3005B4969 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		01BC8EB124E8D920005B4969 /* IconPairView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = IconPairView.swift; path = "bm-persona/Common/IconPairView.swift"; sourceTree = SOURCE_ROOT; };
+		01D11B8D2504453B00BDF660 /* ScrollingStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollingStackView.swift; sourceTree = "<group>"; };
+		01D11B8F2504560700BDF660 /* GymDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailViewController.swift; sourceTree = "<group>"; };
+		01D11B9125045FC900BDF660 /* ResourceDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceDetailViewController.swift; sourceTree = "<group>"; };
 		01FA50F024E8B33100DCC490 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		01FA50F224E8BA5400DCC490 /* LocationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailView.swift; sourceTree = "<group>"; };
 		130FA59D243B1243005DC752 /* DiningRestriction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningRestriction.swift; sourceTree = "<group>"; };
@@ -366,6 +372,7 @@
 			children = (
 				13EA64C62399CDF900FD8E13 /* GymDataSource */,
 				1336A31D241C400F00949F32 /* GymClassDataSource */,
+				01D11B8F2504560700BDF660 /* GymDetailViewController.swift */,
 				13E25DFC238C949E00B670B5 /* FitnessViewController.swift */,
 				135D7F78243AA6B1003F8BD1 /* Fitness+Controllers */,
 			);
@@ -396,6 +403,7 @@
 				55C6936A240E143500400B60 /* ResourceTableViewCell.swift */,
 				5516088724393F3F00B1E55B /* MissingDataView.swift */,
 				2913595624B136BE00DE9AD6 /* CollapsibleCardView.swift */,
+				01D11B8D2504453B00BDF660 /* ScrollingStackView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -636,6 +644,7 @@
 			isa = PBXGroup;
 			children = (
 				553EF6AA2404E29800D2955E /* ResourcesDataSource */,
+				01D11B9125045FC900BDF660 /* ResourceDetailViewController.swift */,
 				556DB0DE23E7F60900F12721 /* ResourcesViewController.swift */,
 			);
 			path = Resources;
@@ -885,6 +894,7 @@
 				29345E2B24A7EC2B00859A88 /* HasImage.swift in Sources */,
 				2913595924B13DF200DE9AD6 /* OpenTimesCardView.swift in Sources */,
 				13135BB3241244370056B169 /* FilterViewCell.swift in Sources */,
+				01D11B9225045FC900BDF660 /* ResourceDetailViewController.swift in Sources */,
 				13580AF62437D7E700D309AA /* LibraryDetailViewController.swift in Sources */,
 				135D7F77243A9BD1003F8BD1 /* Colors+GymClass.swift in Sources */,
 				55DCF7A123724835001B01B8 /* MaterialButton.swift in Sources */,
@@ -912,10 +922,12 @@
 				29387E9B24BBBD9D00070BCE /* CALayerExtension.swift in Sources */,
 				1396013323865E2E005E4788 /* CardCollectionView.swift in Sources */,
 				13B39A9A23E6A33C0039FBA2 /* LibraryDataSource.swift in Sources */,
+				01D11B8E2504453B00BDF660 /* ScrollingStackView.swift in Sources */,
 				29387E9924BBBC9300070BCE /* BarEntry+DataEntry.swift in Sources */,
 				306A54EC23613E3A00D59A7F /* SceneDelegate.swift in Sources */,
 				01FA50F124E8B33100DCC490 /* LocationManager.swift in Sources */,
 				29345E2724A7E76300859A88 /* OverviewCardView.swift in Sources */,
+				01D11B902504560700BDF660 /* GymDetailViewController.swift in Sources */,
 				55AF442D2453ACE600F13232 /* DiningLocation.swift in Sources */,
 				1336A329241DA56100949F32 /* DiningHallDataSource.swift in Sources */,
 				136DC97B2398B4D1009B1810 /* UIViewController+Extensions.swift in Sources */,
