@@ -205,6 +205,7 @@ extension MapViewController: MKMapViewDelegate {
         } else if let searchAnnotation = annotation as? SearchAnnotation,
             // create new pin on map for searched item
             let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier) as? MKMarkerAnnotationView {
+            annotationView.displayPriority = .required
             annotationView.annotation = searchAnnotation
             annotationView.glyphImage = searchAnnotation.icon()
             annotationView.contentMode = .scaleToFill
