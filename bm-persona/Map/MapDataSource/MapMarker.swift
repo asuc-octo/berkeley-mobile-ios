@@ -77,25 +77,25 @@ enum MapMarkerType: String, CaseIterable {
     func color() -> UIColor {
         switch self {
         case .mentalHealth:
-            return UIColor(displayP3Red: 249/255, green: 180/255, blue: 35/255, alpha: 1.0)
+            return Color.MapMarker.mentalHealth
         case .microwave:
-            return UIColor(displayP3Red: 248/255, green: 95/255, blue: 73/255, alpha: 1.0)
+            return Color.MapMarker.microwave
         case .rest:
-            return UIColor(displayP3Red: 253/255, green: 43/255, blue: 168/255, alpha: 1.0)
+            return Color.MapMarker.rest
         case .printer:
-            return UIColor(displayP3Red: 93/255, green: 187/255, blue: 68/255, alpha: 1.0)
+            return Color.MapMarker.printer
         case .water:
-            return UIColor(displayP3Red: 45/255, green: 121/255, blue: 176/255, alpha: 1.0)
+            return Color.MapMarker.water
         case .bikes:
-            return UIColor(displayP3Red: 45/255, green: 53/255, blue: 255/255, alpha: 1.0)
+            return Color.MapMarker.bikes
         case .lactation:
-            return UIColor(displayP3Red: 249/255, green: 134/255, blue: 49/255, alpha: 1.0)
+            return Color.MapMarker.lactation
         case .waste:
-            return UIColor(displayP3Red: 101/255, green: 54/255, blue: 17/255, alpha: 1.0)
+            return Color.MapMarker.waste
         case .garden:
-            return UIColor(displayP3Red: 124/255, green: 190/255, blue: 49/255, alpha: 1.0)
+            return Color.MapMarker.garden
         case .cafe:
-            return UIColor(displayP3Red: 146/255, green: 83/255, blue: 163/255, alpha: 1.0)
+            return Color.MapMarker.cafe
         }
     }
     

@@ -33,7 +33,7 @@ extension UIImage {
     }
     
     public func resized(size: CGSize)-> UIImage{
-        UIGraphicsBeginImageContext(size)
+        UIGraphicsBeginImageContextWithOptions(size, false, scale)
         self.draw(in: CGRect(origin: CGPoint.zero, size: size))
 
         let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
@@ -63,7 +63,7 @@ extension UIImage {
     /** Adds a drop shadow to the image with the given parameters.
         Taken from https://stackoverflow.com/questions/2936443/create-new-uiimage-by-adding-shadow-to-existing-uiimage */
     func withShadow(blur: CGFloat = 1, shadowColor: UIColor = UIColor(white: 0, alpha: 0.5), offset: CGSize = CGSize(width: 0, height: 1) ) -> UIImage? {
-        UIGraphicsBeginImageContextWithOptions(CGSize(width: size.width + 2 * blur, height: size.height + 2 * blur), false, 0)
+        UIGraphicsBeginImageContextWithOptions(CGSize(width: size.width + 2 * blur, height: size.height + 2 * blur), false, scale)
         guard let context = UIGraphicsGetCurrentContext() else { return nil }
         context.setShadow(offset: offset, blur: blur, color: shadowColor.cgColor)
         draw(in: CGRect(x: blur - offset.width / 2, y: blur - offset.height / 2, width: size.width, height: size.height))
