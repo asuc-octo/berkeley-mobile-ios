@@ -167,7 +167,7 @@ class FilterTableViewCell: UITableViewCell {
 extension FilterTableViewCell: DetailViewDelegate {
     func detailsUpdated(for view: UIView) {
         if let locationDetailView = view as? LocationDetailView {
-            locationDetailView.isHidden = false//locationDetailView.missingData
+            locationDetailView.isHidden = locationDetailView.missingData
         }
     }
 }
