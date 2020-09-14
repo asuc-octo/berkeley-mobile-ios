@@ -186,6 +186,8 @@ extension FitnessViewController {
         let headerLabel = UILabel()
         headerLabel.font = kHeaderFont
         headerLabel.text = "Today's Classes"
+        headerLabel.adjustsFontSizeToFitWidth = true
+        headerLabel.minimumScaleFactor = 0.6
         card.addSubview(headerLabel)
         headerLabel.translatesAutoresizingMaskIntoConstraints = false
         headerLabel.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true
@@ -202,6 +204,7 @@ extension FitnessViewController {
         scheduleButton.translatesAutoresizingMaskIntoConstraints = false
         scheduleButton.centerYAnchor.constraint(equalTo: headerLabel.centerYAnchor).isActive = true
         scheduleButton.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
+        scheduleButton.leftAnchor.constraint(greaterThanOrEqualTo: headerLabel.rightAnchor, constant: 5).isActive = true
         
         classesTable = UITableView()
         classesTable.allowsSelection = false
