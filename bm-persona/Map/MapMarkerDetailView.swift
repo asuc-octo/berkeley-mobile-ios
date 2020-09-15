@@ -138,8 +138,12 @@ class MapMarkerDetailView: UIView {
         notesLabel.text = marker.subtitle
         
         detailStack.removeAllArrangedSubviews()
+        // Show average meal price only for cafe markers
+        let details: [MapMarkerDetail] = marker.type == .cafe ?
+            [.distance, .openNow, .location, .price] :
+            [.distance, .openNow, .location]
         var containsFlexibleView = false
-        for property: MapMarkerDetail in [.distance, .openNow, .location] {
+        for property: MapMarkerDetail in details {
             if let view = property.view(marker) {
                 detailStack.addArrangedSubview(view)
                 containsFlexibleView = containsFlexibleView || !property.inflexible
@@ -174,6 +178,7 @@ enum MapMarkerDetail {
     case location
     case openNow
     case distance
+    case price
 
     /** Boolean that is `true` if the view for this detail should not be stretched horizontally. */
     var inflexible: Bool {
@@ -187,6 +192,8 @@ enum MapMarkerDetail {
         let imageView = UIImageView(image: icon?.resized(size: CGSize(width: 17, height: 17)))
         imageView.setContentHuggingPriority(.required, for: .horizontal)
         imageView.setContentHuggingPriority(.required, for: .vertical)
+        imageView.setContentCompressionResistancePriority(.required, for: .horizontal)
+        imageView.setContentCompressionResistancePriority(.required, for: .vertical)
         container.addSubview(imageView)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.setConstraintsToView(top: container, bottom: container, left: container)
@@ -220,6 +227,16 @@ enum MapMarkerDetail {
             label.font = Font.light(12)
             label.textColor = Color.primaryText
             label.text = description
+            return viewWithIcon(icon, view: label)
+        case .price:
+            guard let price = marker.mealPrice else { return nil }
+            let icon = UIImage(named: "Dining")
+            let label = UILabel()
+            label.numberOfLines = 1
+            label.setContentCompressionResistancePriority(.required, for: .horizontal)
+            label.font = Font.light(12)
+            label.textColor = Color.primaryText
+            label.text = price
             return viewWithIcon(icon, view: label)
         default:
             // TODO: Get distance to marker

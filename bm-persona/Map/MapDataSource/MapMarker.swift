@@ -20,10 +20,14 @@ enum MapMarkerType: String, CaseIterable {
     
     case mentalHealth = "Mental Health"
     case microwave = "Microwave"
-    case napPod = "Nap Pod"
+    case rest = "Rest"
     case printer = "Printer"
-    case water = "Water Fountain"
-    case bikes = "Ford Go Bike"
+    case water = "Water"
+    case bikes = "Lyft Bike"
+    case lactation = "Lactation"
+    case waste = "Waste"
+    case garden = "Campus Garden"
+    case cafe = "Cafe"
     
     /** The icon to be shown on the map at the marker location  */
     func icon() -> UIImage {
@@ -35,37 +39,63 @@ enum MapMarkerType: String, CaseIterable {
         case .microwave:
             icon = UIImage(named: "microwave-icon")
             break
-        case .napPod:
-            icon = UIImage(named: "nap-pods-icon")
+        case .rest:
+            icon = UIImage(named: "nap-pods-icon")?
+                .withRoundedBorder(width: 30, color: .white)?
+                .withShadow(blur: 10, offset: CGSize(width: 0, height: 10))
             break
         case .printer:
-            icon = UIImage(named: "printer-icon")
+            icon = UIImage(named: "printer-icon")?
+                .withRoundedBorder(width: 3, color: .white)?
+                .withShadow()
             break
         case .water:
             icon = UIImage(named: "water-bottle-icon")
             break
         case .bikes:
-            icon = UIImage(named: "bike-icon")
+            icon = UIImage(named: "bike-icon")?
+                .withRoundedBorder(width: 3, color: .white)?
+                .withShadow()
+            break
+        case .lactation:
+            icon = UIImage(named: "lactation-icon")
+            break
+        case .waste:
+            icon = UIImage(named: "waste-icon")
+            break
+        case .garden:
+            icon = UIImage(named: "garden-icon")
+            break
+        case .cafe:
+            icon = UIImage(named: "cafe-icon")
             break
         }
-        return (icon ?? UIImage()).resized(size: CGSize(width: 20, height: 20))
+        return (icon ?? UIImage()).resized(size: CGSize(width: 30, height: 30))
     }
     
     /** The color describing this marker type */
     func color() -> UIColor {
         switch self {
         case .mentalHealth:
-            return UIColor(displayP3Red: 251/255, green: 210/255, blue: 0/255, alpha: 1.0)
+            return Color.MapMarker.mentalHealth
         case .microwave:
-            return UIColor(displayP3Red: 255/255, green: 114/255, blue: 9/255, alpha: 1.0)
-        case .napPod:
-            return UIColor(displayP3Red: 253/255, green: 43/255, blue: 168/255, alpha: 1.0)
+            return Color.MapMarker.microwave
+        case .rest:
+            return Color.MapMarker.rest
         case .printer:
-            return UIColor(displayP3Red: 93/255, green: 187/255, blue: 68/255, alpha: 1.0)
+            return Color.MapMarker.printer
         case .water:
-            return UIColor(displayP3Red: 62/255, green: 183/255, blue: 210/255, alpha: 1.0)
+            return Color.MapMarker.water
         case .bikes:
-            return UIColor(displayP3Red: 45/255, green: 53/255, blue: 255/255, alpha: 1.0)
+            return Color.MapMarker.bikes
+        case .lactation:
+            return Color.MapMarker.lactation
+        case .waste:
+            return Color.MapMarker.waste
+        case .garden:
+            return Color.MapMarker.garden
+        case .cafe:
+            return Color.MapMarker.cafe
         }
     }
     
@@ -85,6 +115,8 @@ class MapMarker: NSObject, MKAnnotation, HasOpenTimes {
     var phone: String?
     var address: String?
     var weeklyHours: WeeklyHours?
+
+    var mealPrice: String?
     
     init(type: MapMarkerType,
          location: CLLocationCoordinate2D,
@@ -92,7 +124,8 @@ class MapMarker: NSObject, MKAnnotation, HasOpenTimes {
          description: String? = nil,
          address: String? = nil,
          phone: String? = nil,
-         weeklyHours: WeeklyHours? = nil) {
+         weeklyHours: WeeklyHours? = nil,
+         mealPrice: String? = nil) {
         self.type = type
         self.coordinate = location
         self.title = name
@@ -100,6 +133,7 @@ class MapMarker: NSObject, MKAnnotation, HasOpenTimes {
         self.address = address
         self.phone = phone
         self.weeklyHours = weeklyHours
+        self.mealPrice = mealPrice
     }
     
 }
