@@ -62,7 +62,7 @@ class FilterTableViewCell: UITableViewCell {
         cellImage.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.35).isActive = true
         
         locationOccupancyView.rightAnchor.constraint(equalTo: cellImage.leftAnchor, constant: -10).isActive = true
-        locationOccupancyView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 5).isActive = true
+        locationOccupancyView.topAnchor.constraint(greaterThanOrEqualTo: nameLabel.bottomAnchor, constant: 5).isActive = true
         locationOccupancyView.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor, constant: -5).isActive = true
         locationOccupancyView.leftAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
     }
