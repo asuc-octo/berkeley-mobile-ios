@@ -88,9 +88,8 @@ class TabBarControl: UISegmentedControl {
         layoutIfNeeded()
         widths = []
         setLabelsAdjustFont(view: self)
-        layoutIfNeeded()
         for i in 0..<min(segments.count, numberOfSegments) {
-            widths.append(segments[i].frame.size.width)
+            widths.append(min(segments[i].frame.size.width, maxWidth / CGFloat(segments.count)))
             setWidth(maxWidth / CGFloat(segments.count), forSegmentAt: i)
         }
         layoutIfNeeded()
