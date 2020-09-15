@@ -232,6 +232,7 @@ extension FitnessViewController {
         scheduleButton.translatesAutoresizingMaskIntoConstraints = false
         scheduleButton.centerYAnchor.constraint(equalTo: headerLabel.centerYAnchor).isActive = true
         scheduleButton.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
+        scheduleButton.leftAnchor.constraint(greaterThanOrEqualTo: headerLabel.rightAnchor, constant: 5).isActive = true
         
         classesTable = UITableView()
         classesTable.allowsSelection = false
@@ -290,7 +291,7 @@ extension FitnessViewController {
             Sort<Gym>(label: "Nearby", sort: Gym.locationComparator()),
             Filter<Gym>(label: "Open", filter: {gym in gym.isOpen ?? false}),
         ]
-        filterTableView = FilterTableView<Gym>(frame: .zero, tableFunctions: functions, defaultSort: SortingFunctions.sortAlph(item1:item2:), initialSelectedIndices: [0, 1])
+        filterTableView = FilterTableView<Gym>(frame: .zero, tableFunctions: functions, defaultSort: SortingFunctions.sortAlph(item1:item2:), initialSelectedIndices: [0])
         self.filterTableView.tableView.register(FilterTableViewCell.self, forCellReuseIdentifier: FilterTableViewCell.kCellIdentifier)
         self.filterTableView.tableView.dataSource = gymsController
         self.filterTableView.tableView.delegate = gymsController

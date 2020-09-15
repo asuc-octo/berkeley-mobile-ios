@@ -84,7 +84,7 @@ extension ResourcesViewController {
             Sort<Resource>(label: "Nearby", sort: Resource.locationComparator()),
             Filter<Resource>(label: "Open", filter: {resource in resource.isOpen ?? false})
         ]
-        resourcesTable = FilterTableView(frame: .zero, tableFunctions: functions, defaultSort: SortingFunctions.sortAlph(item1:item2:), initialSelectedIndices: [0, 1])
+        resourcesTable = FilterTableView(frame: .zero, tableFunctions: functions, defaultSort: SortingFunctions.sortAlph(item1:item2:), initialSelectedIndices: [0])
         resourcesTable.tableView.register(ResourceTableViewCell.self, forCellReuseIdentifier: ResourceTableViewCell.kCellIdentifier)
         resourcesTable.tableView.rowHeight = 103
         

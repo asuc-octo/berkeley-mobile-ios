@@ -63,7 +63,7 @@ class ResourceTableViewCell: UITableViewCell {
         resourceName.font = Font.bold(18)
         resourceName.numberOfLines = 2
         resourceName.adjustsFontSizeToFitWidth = true
-        resourceName.minimumScaleFactor = 0.7
+        resourceName.minimumScaleFactor = 0.4
         resourceName.setContentHuggingPriority(.required, for: .vertical)
         resourceName.leftAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
         resourceName.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true

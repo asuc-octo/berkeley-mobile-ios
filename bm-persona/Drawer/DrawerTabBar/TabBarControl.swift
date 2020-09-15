@@ -87,12 +87,25 @@ class TabBarControl: UISegmentedControl {
         segments = segments.filter { $0 != indicator }
         layoutIfNeeded()
         widths = []
+        setLabelsAdjustFont(view: self)
         for i in 0..<min(segments.count, numberOfSegments) {
-            widths.append(segments[i].frame.size.width)
+            widths.append(min(segments[i].frame.size.width, maxWidth / CGFloat(segments.count)))
             setWidth(maxWidth / CGFloat(segments.count), forSegmentAt: i)
         }
         layoutIfNeeded()
         updateIndicator()
+    }
+    
+    func setLabelsAdjustFont(view: UIView)  {
+        let subviews = view.subviews
+        for subview in subviews {
+            if let label = subview as? UILabel {
+                label.adjustsFontSizeToFitWidth = true
+                label.minimumScaleFactor = 0.6
+            } else {
+                setLabelsAdjustFont(view: subview)
+            }
+        }
     }
     
     func setupIndicator(color: UIColor) {

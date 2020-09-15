@@ -114,7 +114,7 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
             Sort<Library>(label: "Nearby", sort: Library.locationComparator()),
             Filter<Library>(label: "Open", filter: {lib in lib.isOpen ?? false}),
         ]
-        filterTableView = FilterTableView<Library>(frame: .zero, tableFunctions: functions, defaultSort: SortingFunctions.sortAlph(item1:item2:), initialSelectedIndices: [0, 1])
+        filterTableView = FilterTableView<Library>(frame: .zero, tableFunctions: functions, defaultSort: SortingFunctions.sortAlph(item1:item2:), initialSelectedIndices: [0])
         self.filterTableView.tableView.register(FilterTableViewCell.self, forCellReuseIdentifier: FilterTableViewCell.kCellIdentifier)
         self.filterTableView.tableView.dataSource = self
         self.filterTableView.tableView.delegate = self
