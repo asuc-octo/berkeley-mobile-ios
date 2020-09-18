@@ -217,7 +217,7 @@
 		29EE163E241C4E310041482E /* SortingFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingFunctions.swift; sourceTree = "<group>"; };
 		303F6ADD236A931D007E37DD /* TabBarControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarControl.swift; sourceTree = "<group>"; };
 		303F6AE0236A931D007E37DD /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
-		306A54E623613E3A00D59A7F /* Berkeley Mobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Berkeley Mobile.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		306A54E623613E3A00D59A7F /* Berkeley.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Berkeley.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		306A54E923613E3A00D59A7F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		306A54EB23613E3A00D59A7F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		306A54ED23613E3A00D59A7F /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -595,7 +595,7 @@
 		306A54E723613E3A00D59A7F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				306A54E623613E3A00D59A7F /* Berkeley Mobile.app */,
+				306A54E623613E3A00D59A7F /* Berkeley.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -734,7 +734,7 @@
 			);
 			name = "bm-persona";
 			productName = "bm-persona";
-			productReference = 306A54E623613E3A00D59A7F /* Berkeley Mobile.app */;
+			productReference = 306A54E623613E3A00D59A7F /* Berkeley.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1085,7 +1085,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 4HBETBULVA;
 				INFOPLIST_FILE = "bm-persona/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1094,7 +1094,7 @@
 				);
 				MARKETING_VERSION = 10.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.asuc.ASUC;
-				PRODUCT_NAME = "Berkeley Mobile";
+				PRODUCT_NAME = Berkeley;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1106,7 +1106,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 4HBETBULVA;
 				INFOPLIST_FILE = "bm-persona/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1115,7 +1115,7 @@
 				);
 				MARKETING_VERSION = 10.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.asuc.ASUC;
-				PRODUCT_NAME = "Berkeley Mobile";
+				PRODUCT_NAME = Berkeley;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
