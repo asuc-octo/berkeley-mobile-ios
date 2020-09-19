@@ -47,7 +47,7 @@ xcuserdata/
 *.moved-aside
 *.xccheckout
 *.xcscmblueprint
-
+GoogleService-Info.plist
 
 ## Cocoapods
 ##Pods/
