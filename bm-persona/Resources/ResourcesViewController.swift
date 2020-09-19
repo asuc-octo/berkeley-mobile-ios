@@ -68,6 +68,32 @@ extension ResourcesViewController {
         resourcesLabel.translatesAutoresizingMaskIntoConstraints = false
         resourcesLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 15).isActive = true
         resourcesLabel.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
+        
+        if UIDevice.current.hasNotch {
+            let blob = UIImage(named: "BlobRight2")
+            let blobView = UIImageView(image: blob)
+            blobView.contentMode = .scaleAspectFit
+            
+            view.addSubview(blobView)
+            blobView.translatesAutoresizingMaskIntoConstraints = false
+            
+            blobView.topAnchor.constraint(equalTo: view.topAnchor, constant: -20).isActive = true
+            blobView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        } else {
+            let blob = UIImage(named: "BlobRight1")
+            let blobView = UIImageView(image: blob)
+            blobView.contentMode = .scaleAspectFit
+            
+            view.addSubview(blobView)
+            blobView.translatesAutoresizingMaskIntoConstraints = false
+            
+            let window = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
+            let statusBarHeight = window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
+            print(statusBarHeight)
+            
+            blobView.topAnchor.constraint(equalTo: view.topAnchor, constant: -statusBarHeight).isActive = true
+            blobView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        }
     }
     
     func setupResourcesList() {
