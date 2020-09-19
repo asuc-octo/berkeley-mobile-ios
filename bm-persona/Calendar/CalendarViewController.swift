@@ -130,28 +130,36 @@ extension CalendarViewController {
         eventsLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 15).isActive = true
         eventsLabel.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
         
-        // Yellow blob
-        let blob2 = UIImage(named: "Blob2")
-        let blob2ImageView = UIImageView(image: blob2)
-        blob2ImageView.contentMode = .scaleAspectFit
-        
-        view.addSubview(blob2ImageView)
-        blob2ImageView.translatesAutoresizingMaskIntoConstraints = false
-        blob2ImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: -30).isActive = true
-        blob2ImageView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        blob2ImageView.widthAnchor.constraint(equalToConstant: view.frame.size.width / 2).isActive = true
-        
-        // Blue blob
-        let blob1 = UIImage(named: "Blob1")
-        let blob1ImageView = UIImageView(image: blob1)
-        blob1ImageView.contentMode = .scaleAspectFit
-        
-        view.addSubview(blob1ImageView)
-        blob1ImageView.translatesAutoresizingMaskIntoConstraints = false
-        blob1ImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: -30).isActive = true
-        blob1ImageView.rightAnchor.constraint(equalTo: blob2ImageView.leftAnchor).isActive = true
-        blob1ImageView.widthAnchor.constraint(equalToConstant: view.frame.size.width / 2.5).isActive = true
-        blob1ImageView.heightAnchor.constraint(equalToConstant: eventsLabel.frame.size.height / 2).isActive = true
+        // Blob
+        if UIDevice.current.hasNotch {
+            let blob = UIImage(named: "BlobTopRight2")
+            let blobView = UIImageView(image: blob)
+            blobView.contentMode = .scaleAspectFit
+            
+            view.addSubview(blobView)
+            blobView.translatesAutoresizingMaskIntoConstraints = false
+            
+            blobView.topAnchor.constraint(equalTo: view.topAnchor, constant: -20).isActive = true
+            blobView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+            blobView.widthAnchor.constraint(equalToConstant: view.frame.size.width / 1.3).isActive = true
+            
+        } else {
+            let blob = UIImage(named: "BlobTopRight1")
+            let blobView = UIImageView(image: blob)
+            blobView.contentMode = .scaleAspectFit
+            
+            view.addSubview(blobView)
+            blobView.translatesAutoresizingMaskIntoConstraints = false
+            
+            let window = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
+            let statusBarHeight = window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
+            print(statusBarHeight)
+            
+            blobView.topAnchor.constraint(equalTo: view.topAnchor, constant: -statusBarHeight).isActive = true
+            blobView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+            blobView.widthAnchor.constraint(equalToConstant: view.frame.size.width / 1.3).isActive = true
+        }
+//        blobView.heightAnchor.constraint(equalToConstant: 145).isActive = true
     }
     
     // ScrollView
@@ -235,5 +243,18 @@ extension CalendarViewController {
         upcomingCard = card
         eventsCollection = collectionView
         upcomingMissingView = MissingDataView(parentView: collectionView, text: "No upcoming events")
+    }
+}
+
+extension UIDevice {
+    var hasNotch: Bool {
+        if #available(iOS 11.0, *) {
+            if UIApplication.shared.windows.count == 0 { return false }
+            let top = UIApplication.shared.windows[0].safeAreaInsets.top
+            return top > 20
+        } else {
+            // Fallback on earlier versions
+            return false
+        }
     }
 }

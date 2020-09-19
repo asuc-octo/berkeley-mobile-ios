@@ -8,5 +8,4 @@ target 'bm-persona' do
   # Pods for bm-persona
   pod 'Firebase/Core'
   pod 'Firebase/Firestore'
-  pod 'lottie-ios', '~> 3.1.6'
 end
