@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "306A54E523613E3A00D59A7F"
-               BuildableName = "Berkeley Mobile.app"
-               BlueprintName = "bm-persona"
-               ReferencedContainer = "container:bm-persona.xcodeproj">
+               BuildableName = "Berkeley.app"
+               BlueprintName = "berkeley-mobile"
+               ReferencedContainer = "container:berkeley-mobile.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,9 +45,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "306A54E523613E3A00D59A7F"
-            BuildableName = "Berkeley Mobile.app"
-            BlueprintName = "bm-persona"
-            ReferencedContainer = "container:bm-persona.xcodeproj">
+            BuildableName = "Berkeley.app"
+            BlueprintName = "berkeley-mobile"
+            ReferencedContainer = "container:berkeley-mobile.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <LocationScenarioReference
@@ -66,9 +66,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "306A54E523613E3A00D59A7F"
-            BuildableName = "Berkeley Mobile.app"
-            BlueprintName = "bm-persona"
-            ReferencedContainer = "container:bm-persona.xcodeproj">
+            BuildableName = "Berkeley.app"
+            BlueprintName = "berkeley-mobile"
+            ReferencedContainer = "container:berkeley-mobile.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

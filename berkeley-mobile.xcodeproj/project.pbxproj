@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		017C0B26251018BA00BFA80A /* Colors+MapMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017C0B25251018BA00BFA80A /* Colors+MapMarker.swift */; };
+		01B250282516AD4F00CBA459 /* IconPairView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B250272516AD4F00CBA459 /* IconPairView.swift */; };
 		01BC8EB024E8C3E3005B4969 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BC8EAF24E8C3E3005B4969 /* DetailView.swift */; };
-		01BC8EB224E8D920005B4969 /* IconPairView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BC8EB124E8D920005B4969 /* IconPairView.swift */; };
 		01D11B8E2504453B00BDF660 /* ScrollingStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D11B8D2504453B00BDF660 /* ScrollingStackView.swift */; };
 		01D11B902504560700BDF660 /* GymDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D11B8F2504560700BDF660 /* GymDetailViewController.swift */; };
 		01D11B9225045FC900BDF660 /* ResourceDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D11B9125045FC900BDF660 /* ResourceDetailViewController.swift */; };
@@ -133,8 +133,8 @@
 
 /* Begin PBXFileReference section */
 		017C0B25251018BA00BFA80A /* Colors+MapMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+MapMarker.swift"; sourceTree = "<group>"; };
+		01B250272516AD4F00CBA459 /* IconPairView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconPairView.swift; sourceTree = "<group>"; };
 		01BC8EAF24E8C3E3005B4969 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
-		01BC8EB124E8D920005B4969 /* IconPairView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = IconPairView.swift; path = "bm-persona/Common/IconPairView.swift"; sourceTree = SOURCE_ROOT; };
 		01D11B8D2504453B00BDF660 /* ScrollingStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollingStackView.swift; sourceTree = "<group>"; };
 		01D11B8F2504560700BDF660 /* GymDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailViewController.swift; sourceTree = "<group>"; };
 		01D11B9125045FC900BDF660 /* ResourceDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceDetailViewController.swift; sourceTree = "<group>"; };
@@ -336,7 +336,7 @@
 				133864A82404E857001F9048 /* CalendarViewController.swift */,
 			);
 			name = Calendar;
-			path = "bm-persona/Calendar";
+			path = "berkeley-mobile/Calendar";
 			sourceTree = SOURCE_ROOT;
 		};
 		133864A92404E857001F9048 /* CalendarDataSource */ = {
@@ -401,7 +401,7 @@
 				1396012E23865E2E005E4788 /* CollectionView */,
 				1396013123865E2E005E4788 /* CardView.swift */,
 				1396013223865E2E005E4788 /* TagView.swift */,
-				01BC8EB124E8D920005B4969 /* IconPairView.swift */,
+				01B250272516AD4F00CBA459 /* IconPairView.swift */,
 				554CB99F23F3A83F00BB1715 /* EventTableViewCell.swift */,
 				55C6936A240E143500400B60 /* ResourceTableViewCell.swift */,
 				5516088724393F3F00B1E55B /* MissingDataView.swift */,
@@ -584,7 +584,7 @@
 		306A54DD23613E3A00D59A7F = {
 			isa = PBXGroup;
 			children = (
-				306A54E823613E3A00D59A7F /* bm-persona */,
+				306A54E823613E3A00D59A7F /* berkeley-mobile */,
 				306A54E723613E3A00D59A7F /* Products */,
 				D7D8E5ACD8A49B3560D555D9 /* Pods */,
 				EFBAA93ECD25CDA3980CB668 /* Frameworks */,
@@ -600,7 +600,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		306A54E823613E3A00D59A7F /* bm-persona */ = {
+		306A54E823613E3A00D59A7F /* berkeley-mobile */ = {
 			isa = PBXGroup;
 			children = (
 				55DCF78523722CAE001B01B8 /* Assets */,
@@ -623,7 +623,7 @@
 				306A54F723613E3D00D59A7F /* Info.plist */,
 				5531CDA82398CA81004FD25A /* GoogleService-Info.plist */,
 			);
-			path = "bm-persona";
+			path = "berkeley-mobile";
 			sourceTree = "<group>";
 		};
 		553EF6AA2404E29800D2955E /* ResourcesDataSource */ = {
@@ -718,9 +718,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		306A54E523613E3A00D59A7F /* bm-persona */ = {
+		306A54E523613E3A00D59A7F /* berkeley-mobile */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 306A54FA23613E3D00D59A7F /* Build configuration list for PBXNativeTarget "bm-persona" */;
+			buildConfigurationList = 306A54FA23613E3D00D59A7F /* Build configuration list for PBXNativeTarget "berkeley-mobile" */;
 			buildPhases = (
 				BBBE26AE3875108F120389DA /* [CP] Check Pods Manifest.lock */,
 				306A54E223613E3A00D59A7F /* Sources */,
@@ -732,7 +732,7 @@
 			);
 			dependencies = (
 			);
-			name = "bm-persona";
+			name = "berkeley-mobile";
 			productName = "bm-persona";
 			productReference = 306A54E623613E3A00D59A7F /* Berkeley.app */;
 			productType = "com.apple.product-type.application";
@@ -745,14 +745,14 @@
 			attributes = {
 				LastSwiftUpdateCheck = 1100;
 				LastUpgradeCheck = 1100;
-				ORGANIZATIONNAME = "RJ Pimentel";
+				ORGANIZATIONNAME = "ASUC OCTO";
 				TargetAttributes = {
 					306A54E523613E3A00D59A7F = {
 						CreatedOnToolsVersion = 11.0;
 					};
 				};
 			};
-			buildConfigurationList = 306A54E123613E3A00D59A7F /* Build configuration list for PBXProject "bm-persona" */;
+			buildConfigurationList = 306A54E123613E3A00D59A7F /* Build configuration list for PBXProject "berkeley-mobile" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -765,7 +765,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				306A54E523613E3A00D59A7F /* bm-persona */,
+				306A54E523613E3A00D59A7F /* berkeley-mobile */,
 			);
 		};
 /* End PBXProject section */
@@ -886,6 +886,7 @@
 				13E25DFD238C949E00B670B5 /* FitnessViewController.swift in Sources */,
 				55DCF79B237243D4001B01B8 /* MaterialTextField.swift in Sources */,
 				554CB9A023F3A83F00BB1715 /* EventTableViewCell.swift in Sources */,
+				01B250282516AD4F00CBA459 /* IconPairView.swift in Sources */,
 				55AF442B2453A80B00F13232 /* CafeItem.swift in Sources */,
 				55AF44272453A49D00F13232 /* Cafe.swift in Sources */,
 				13EA64CA2399CE5B00FD8E13 /* SearchItem.swift in Sources */,
@@ -905,7 +906,6 @@
 				29CB280A2404DD71009A2CFB /* FilterTableViewCell.swift in Sources */,
 				55DCF79623723CF2001B01B8 /* UIView+Extensions.swift in Sources */,
 				291B11E225044BDB00F737A8 /* HasName.swift in Sources */,
-				01BC8EB224E8D920005B4969 /* IconPairView.swift in Sources */,
 				306A54EA23613E3A00D59A7F /* AppDelegate.swift in Sources */,
 				1336A31C241C400800949F32 /* GymClass.swift in Sources */,
 				559A7B6B2373DCBA004EA501 /* SearchResultsView.swift in Sources */,
@@ -1087,7 +1087,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 4HBETBULVA;
-				INFOPLIST_FILE = "bm-persona/Info.plist";
+				INFOPLIST_FILE = "berkeley-mobile/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1108,7 +1108,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 4HBETBULVA;
-				INFOPLIST_FILE = "bm-persona/Info.plist";
+				INFOPLIST_FILE = "berkeley-mobile/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1124,7 +1124,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		306A54E123613E3A00D59A7F /* Build configuration list for PBXProject "bm-persona" */ = {
+		306A54E123613E3A00D59A7F /* Build configuration list for PBXProject "berkeley-mobile" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				306A54F823613E3D00D59A7F /* Debug */,
@@ -1133,7 +1133,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		306A54FA23613E3D00D59A7F /* Build configuration list for PBXNativeTarget "bm-persona" */ = {
+		306A54FA23613E3D00D59A7F /* Build configuration list for PBXNativeTarget "berkeley-mobile" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				306A54FB23613E3D00D59A7F /* Debug */,
