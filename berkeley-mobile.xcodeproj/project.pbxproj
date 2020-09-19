@@ -128,7 +128,7 @@
 		55DCF79D237243F5001B01B8 /* RippleLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF79C237243F5001B01B8 /* RippleLayer.swift */; };
 		55DCF79F237245BA001B01B8 /* Raleway-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 55DCF79E237245B9001B01B8 /* Raleway-SemiBold.ttf */; };
 		55DCF7A123724835001B01B8 /* MaterialButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF7A023724835001B01B8 /* MaterialButton.swift */; };
-		F847E49B5431F533AAFF249A /* Pods_bm_persona.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF0FFE0D3F7632120D79DBE9 /* Pods_bm_persona.framework */; };
+		9620FEE3341D5D1FBAB6302B /* Pods_berkeley_mobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A826C1BD0A2BCA2F083C6EE /* Pods_berkeley_mobile.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -140,6 +140,7 @@
 		01D11B9125045FC900BDF660 /* ResourceDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceDetailViewController.swift; sourceTree = "<group>"; };
 		01FA50F024E8B33100DCC490 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		01FA50F224E8BA5400DCC490 /* LocationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailView.swift; sourceTree = "<group>"; };
+		081BAB7CA4F458D5676821B0 /* Pods-berkeley-mobile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeley-mobile.debug.xcconfig"; path = "Target Support Files/Pods-berkeley-mobile/Pods-berkeley-mobile.debug.xcconfig"; sourceTree = "<group>"; };
 		130FA59D243B1243005DC752 /* DiningRestriction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningRestriction.swift; sourceTree = "<group>"; };
 		132087AE23F3B05D00AE273C /* Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
 		1336A319241C3FD300949F32 /* GymClassDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymClassDataSource.swift; sourceTree = "<group>"; };
@@ -226,6 +227,7 @@
 		306A54F723613E3D00D59A7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		306A54FD236142B800D59A7F /* DrawerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerViewController.swift; sourceTree = "<group>"; };
 		306A54FF23614C0000D59A7F /* MainContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainContainerViewController.swift; sourceTree = "<group>"; };
+		3A826C1BD0A2BCA2F083C6EE /* Pods_berkeley_mobile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_berkeley_mobile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5516088524392E5100B1E55B /* DiningViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiningViewController.swift; sourceTree = "<group>"; };
 		5516088724393F3F00B1E55B /* MissingDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissingDataView.swift; sourceTree = "<group>"; };
 		5531CDA82398CA81004FD25A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -259,7 +261,7 @@
 		55DCF79E237245B9001B01B8 /* Raleway-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-SemiBold.ttf"; sourceTree = "<group>"; };
 		55DCF7A023724835001B01B8 /* MaterialButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialButton.swift; sourceTree = "<group>"; };
 		B5DD1FA9F5CF4BCFD4A64306 /* Pods-bm-persona.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bm-persona.debug.xcconfig"; path = "Target Support Files/Pods-bm-persona/Pods-bm-persona.debug.xcconfig"; sourceTree = "<group>"; };
-		BF0FFE0D3F7632120D79DBE9 /* Pods_bm_persona.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bm_persona.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB9A33BEF33ABF885BD30304 /* Pods-berkeley-mobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeley-mobile.release.xcconfig"; path = "Target Support Files/Pods-berkeley-mobile/Pods-berkeley-mobile.release.xcconfig"; sourceTree = "<group>"; };
 		EC01CCF388C7E41052CEB683 /* Pods-bm-persona.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bm-persona.release.xcconfig"; path = "Target Support Files/Pods-bm-persona/Pods-bm-persona.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -268,7 +270,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F847E49B5431F533AAFF249A /* Pods_bm_persona.framework in Frameworks */,
+				9620FEE3341D5D1FBAB6302B /* Pods_berkeley_mobile.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -703,6 +705,8 @@
 			children = (
 				B5DD1FA9F5CF4BCFD4A64306 /* Pods-bm-persona.debug.xcconfig */,
 				EC01CCF388C7E41052CEB683 /* Pods-bm-persona.release.xcconfig */,
+				081BAB7CA4F458D5676821B0 /* Pods-berkeley-mobile.debug.xcconfig */,
+				CB9A33BEF33ABF885BD30304 /* Pods-berkeley-mobile.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -710,7 +714,7 @@
 		EFBAA93ECD25CDA3980CB668 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				BF0FFE0D3F7632120D79DBE9 /* Pods_bm_persona.framework */,
+				3A826C1BD0A2BCA2F083C6EE /* Pods_berkeley_mobile.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -797,15 +801,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-bm-persona/Pods-bm-persona-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-berkeley-mobile/Pods-berkeley-mobile-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-bm-persona/Pods-bm-persona-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-berkeley-mobile/Pods-berkeley-mobile-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-bm-persona/Pods-bm-persona-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-berkeley-mobile/Pods-berkeley-mobile-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		BBBE26AE3875108F120389DA /* [CP] Check Pods Manifest.lock */ = {
@@ -823,7 +827,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-bm-persona-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-berkeley-mobile-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1081,7 +1085,7 @@
 		};
 		306A54FB23613E3D00D59A7F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B5DD1FA9F5CF4BCFD4A64306 /* Pods-bm-persona.debug.xcconfig */;
+			baseConfigurationReference = 081BAB7CA4F458D5676821B0 /* Pods-berkeley-mobile.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -1102,7 +1106,7 @@
 		};
 		306A54FC23613E3D00D59A7F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EC01CCF388C7E41052CEB683 /* Pods-bm-persona.release.xcconfig */;
+			baseConfigurationReference = CB9A33BEF33ABF885BD30304 /* Pods-berkeley-mobile.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

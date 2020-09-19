@@ -8,5 +8,4 @@ target 'berkeley-mobile' do
   # Pods for berkeley-mobile
   pod 'Firebase/Core'
   pod 'Firebase/Firestore'
-  pod 'lottie-ios', '~> 3.1.6'
 end
