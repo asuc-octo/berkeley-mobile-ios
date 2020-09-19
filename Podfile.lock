@@ -99,7 +99,6 @@ PODS:
     - nanopb (~> 0.3)
   - gRPC-Core/Interface (1.21.0)
   - leveldb-library (1.22)
-  - lottie-ios (3.1.6)
   - nanopb (0.3.904):
     - nanopb/decode (= 0.3.904)
     - nanopb/encode (= 0.3.904)
@@ -110,10 +109,9 @@ PODS:
 DEPENDENCIES:
   - Firebase/Core
   - Firebase/Firestore
-  - lottie-ios (~> 3.1.6)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
     - BoringSSL-GRPC
     - Firebase
     - FirebaseAnalytics
@@ -130,7 +128,6 @@ SPEC REPOS:
     - "gRPC-C++"
     - gRPC-Core
     - leveldb-library
-    - lottie-ios
     - nanopb
     - Protobuf
 
@@ -151,10 +148,9 @@ SPEC CHECKSUMS:
   "gRPC-C++": 9dfe7b44821e7b3e44aacad2af29d2c21f7cde83
   gRPC-Core: c9aef9a261a1247e881b18059b84d597293c9947
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
-  lottie-ios: 85ce835dd8c53e02509f20729fc7d6a4e6645a0a
   nanopb: 06f6030d554e6473f5e172460173fcf80f5548f4
   Protobuf: a4dc852ad69c027ca2166ed287b856697814375b
 
-PODFILE CHECKSUM: ddfb66c5775aeab0871c4e58d7a3eceba71cbb55
+PODFILE CHECKSUM: 08b990b6a0794354db9956ba6224a0f3aa758485
 
-COCOAPODS: 1.7.4
+COCOAPODS: 1.9.3
