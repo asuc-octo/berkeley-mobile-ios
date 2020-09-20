@@ -131,35 +131,17 @@ extension CalendarViewController {
         eventsLabel.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
         
         // Blob
-        if UIDevice.current.hasNotch {
-            let blob = UIImage(named: "BlobTopRight2")
-            let blobView = UIImageView(image: blob)
-            blobView.contentMode = .scaleAspectFit
-            
-            view.addSubview(blobView)
-            blobView.translatesAutoresizingMaskIntoConstraints = false
-            
-            blobView.topAnchor.constraint(equalTo: view.topAnchor, constant: -20).isActive = true
-            blobView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-            blobView.widthAnchor.constraint(equalToConstant: view.frame.size.width / 1.3).isActive = true
-            
-        } else {
-            let blob = UIImage(named: "BlobTopRight1")
-            let blobView = UIImageView(image: blob)
-            blobView.contentMode = .scaleAspectFit
-            
-            view.addSubview(blobView)
-            blobView.translatesAutoresizingMaskIntoConstraints = false
-            
-            let window = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
-            let statusBarHeight = window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
-            print(statusBarHeight)
-            
-            blobView.topAnchor.constraint(equalTo: view.topAnchor, constant: -statusBarHeight).isActive = true
-            blobView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-            blobView.widthAnchor.constraint(equalToConstant: view.frame.size.width / 1.3).isActive = true
-        }
-//        blobView.heightAnchor.constraint(equalToConstant: 145).isActive = true
+        guard let blob = UIImage(named: UIDevice.current.hasNotch ? "BlobTopRight2" : "BlobTopRight1") else { return }
+        let aspectRatio = blob.size.width / blob.size.height
+        let blobView = UIImageView(image: blob)
+        blobView.contentMode = .scaleAspectFit
+
+        view.addSubview(blobView)
+        blobView.translatesAutoresizingMaskIntoConstraints = false
+        blobView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1 / 1.3).isActive = true
+        blobView.heightAnchor.constraint(equalTo: blobView.widthAnchor, multiplier: 1 / aspectRatio).isActive = true
+        blobView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        blobView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
     }
     
     // ScrollView
