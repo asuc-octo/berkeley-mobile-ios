@@ -83,11 +83,11 @@ class FitnessViewController: UIViewController, SearchDrawerViewDelegate {
             let classes = classes as? [[GymClass]] ?? []
             // How the classes are sorted (start time, then alphabetical)
             let sortFn = { (lhs: GymClass, rhs: GymClass) -> Bool in
-                lhs.start_time == rhs.start_time ? lhs.name < rhs.name :  lhs.start_time < rhs.start_time
+                lhs.date == rhs.date ? lhs.name < rhs.name :  lhs.date < rhs.date
             }
             
             self.todayClasses = classes.filter { (classes) -> Bool in
-                guard let start = classes.first?.start_time else { return false }
+                guard let start = classes.first?.date else { return false }
                 return Calendar.current.isDateInToday(start)
             }.first?.sorted(by: sortFn) ?? []
             self.upcomingClasses = classes.reduce([], +).sorted(by: sortFn)

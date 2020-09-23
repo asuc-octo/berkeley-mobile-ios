@@ -1,28 +1,35 @@
 //
-//  TabBarControl.swift
-//  TabBarPoC
+//  SegmentedControl.swift
+//  berkeley-mobile
 //
 //  Created by Kevin Hu on 10/25/19.
-//  Copyright © 2019 hu. All rights reserved.
+//  Copyright © 2019 ASUC-OCTO. All rights reserved.
 //
 
 import UIKit
 
 // MARK: - Delegate
 
-protocol TabBarControlDelegate {
-    func tabBarControl(_ tabBarControl: TabBarControl, didChangeValue value: Int)
+/// Methods for listening for updates in the value of a `SegmentedControl`.
+protocol SegmentedControlDelegate: AnyObject {
+
+    /// Called when `segmentedControl` changes its selection to the item in index `value`.
+    func segmentedControl(_ segmentedControl: SegmentedControl, didChangeValue value: Int)
 }
 
-// MARK: - TabBarControl
+// MARK: - SegmentedControl
 
-class TabBarControl: UISegmentedControl {
-    
-    open var delegate: TabBarControlDelegate?
-    
+/// A custom `UISegmentedControl` subclass with a selection indicator that animates when the selection is changed.
+class SegmentedControl: UISegmentedControl {
+
+    /// The `SegmentedControlDelegate` to notify on value change.
+    open weak var delegate: SegmentedControlDelegate?
+
+    // Selection Indicator
     private var indicator: UIView!
     private var indicatorHeight: CGFloat!
-    
+
+    // Selection Label Widths
     private var maxWidth: CGFloat!
     private var widths: [CGFloat]!
     
@@ -70,7 +77,7 @@ class TabBarControl: UISegmentedControl {
         self.indicatorHeight = barHeight
         setupIndicator(color: barColor)
         
-        addTarget(self, action: #selector(TabBarControl.changedValue), for: .valueChanged)
+        addTarget(self, action: #selector(SegmentedControl.changedValue), for: .valueChanged)
     }
     
     required init?(coder: NSCoder) {
@@ -136,7 +143,7 @@ class TabBarControl: UISegmentedControl {
     
     @objc func changedValue() {
         updateIndicator()
-        delegate?.tabBarControl(self, didChangeValue: selectedSegmentIndex)
+        delegate?.segmentedControl(self, didChangeValue: selectedSegmentIndex)
     }
     
 }
