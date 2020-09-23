@@ -27,7 +27,8 @@ class CampusCalendarViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.view.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+        // Note: The top inset value will be also used as a vertical margin for `scrollingStackView`.
+        self.view.layoutMargins = UIEdgeInsets(top: 8, left: 16, bottom: 16, right: 16)
 
         setupScrollView()
         setupUpcoming()
@@ -128,7 +129,7 @@ extension CampusCalendarViewController {
         scrollingStackView.scrollView.showsVerticalScrollIndicator = false
         scrollingStackView.stackView.spacing = kViewMargin
         view.addSubview(scrollingStackView)
-        scrollingStackView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        scrollingStackView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
         scrollingStackView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         scrollingStackView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         scrollingStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
@@ -179,7 +180,7 @@ extension CampusCalendarViewController {
         card.layoutMargins = kCardPadding
         scrollingStackView.stackView.addArrangedSubview(card)
         card.translatesAutoresizingMaskIntoConstraints = false
-        card.heightAnchor.constraint(equalTo: view.layoutMarginsGuide.heightAnchor).isActive = true
+        card.heightAnchor.constraint(equalTo: view.layoutMarginsGuide.heightAnchor, constant: -view.layoutMargins.top).isActive = true
 
         let table = UITableView()
         table.register(EventTableViewCell.self, forCellReuseIdentifier: EventTableViewCell.kCellIdentifier)
