@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		016A56D8251C930D00531A12 /* AppDelegate+Migration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016A56D7251C930D00531A12 /* AppDelegate+Migration.swift */; };
 		017C0B26251018BA00BFA80A /* Colors+MapMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017C0B25251018BA00BFA80A /* Colors+MapMarker.swift */; };
 		01B250282516AD4F00CBA459 /* IconPairView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B250272516AD4F00CBA459 /* IconPairView.swift */; };
 		01BC8EB024E8C3E3005B4969 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BC8EAF24E8C3E3005B4969 /* DetailView.swift */; };
@@ -132,6 +133,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		016A56D7251C930D00531A12 /* AppDelegate+Migration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Migration.swift"; sourceTree = "<group>"; };
 		017C0B25251018BA00BFA80A /* Colors+MapMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+MapMarker.swift"; sourceTree = "<group>"; };
 		01B250272516AD4F00CBA459 /* IconPairView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconPairView.swift; sourceTree = "<group>"; };
 		01BC8EAF24E8C3E3005B4969 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
@@ -607,6 +609,7 @@
 			children = (
 				55DCF78523722CAE001B01B8 /* Assets */,
 				306A54E923613E3A00D59A7F /* AppDelegate.swift */,
+				016A56D7251C930D00531A12 /* AppDelegate+Migration.swift */,
 				306A54EB23613E3A00D59A7F /* SceneDelegate.swift */,
 				306A54FF23614C0000D59A7F /* MainContainerViewController.swift */,
 				13EA64CE2399D4A100FD8E13 /* Data */,
@@ -914,6 +917,7 @@
 				1336A31C241C400800949F32 /* GymClass.swift in Sources */,
 				559A7B6B2373DCBA004EA501 /* SearchResultsView.swift in Sources */,
 				13EA64C82399CE0800FD8E13 /* GymDataSource.swift in Sources */,
+				016A56D8251C930D00531A12 /* AppDelegate+Migration.swift in Sources */,
 				55DCF78923722CF1001B01B8 /* Fonts.swift in Sources */,
 				296F1B272439341300924C8D /* DiningDetailViewController.swift in Sources */,
 				13492D2D240E179F00AD3D1F /* MapMarkerDetailView.swift in Sources */,
@@ -1089,14 +1093,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4HBETBULVA;
 				INFOPLIST_FILE = "berkeley-mobile/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 10.0;
+				MARKETING_VERSION = 10.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = org.asuc.ASUC;
 				PRODUCT_NAME = Berkeley;
 				SWIFT_VERSION = 5.0;
@@ -1110,14 +1114,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4HBETBULVA;
 				INFOPLIST_FILE = "berkeley-mobile/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 10.0;
+				MARKETING_VERSION = 10.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = org.asuc.ASUC;
 				PRODUCT_NAME = Berkeley;
 				SWIFT_VERSION = 5.0;
