@@ -59,6 +59,7 @@ extension AppDelegate {
         // Begin migrations
         group.enter()
         if last < Version(version: "10.0.1") {
+            // https://www.notion.so/KERN_INVALID_ADDRESS-segfault-3ca79b7958424e32b36929009c2ca5c6
             clearCache { success in
                 // Since this block is called on the main thread, no need to synchronize accesses to `failed`
                 failed = failed || !success
