@@ -8,6 +8,8 @@
 
 import UIKit
 
+fileprivate let kLogoHeight: CGFloat = 20
+
 class EventTableViewCell: UITableViewCell {
     
     static let kCellHeight: CGFloat = 86
@@ -81,15 +83,14 @@ class EventTableViewCell: UITableViewCell {
         eventName.setContentHuggingPriority(.required, for: .vertical)
         eventName.leftAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
         eventName.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
-        eventName.rightAnchor.constraint(equalTo: contentView.layoutMarginsGuide.rightAnchor).isActive = true
+        eventName.rightAnchor.constraint(equalTo: eventLogo.leftAnchor, constant: 15).isActive = true
         eventName.bottomAnchor.constraint(lessThanOrEqualTo: eventTime.topAnchor, constant: -5).isActive = true
         
-//        eventLogo.isHidden = true
         eventLogo.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
         eventLogo.rightAnchor.constraint(equalTo: contentView.layoutMarginsGuide.rightAnchor).isActive = true
-        eventLogo.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        eventLogo.widthAnchor.constraint(equalToConstant: kLogoHeight).isActive = true
+        eventLogo.heightAnchor.constraint(equalToConstant: kLogoHeight).isActive = true
         eventLogo.contentMode = .scaleAspectFit
-        
         
         eventTime.font = Font.light(12)
         eventTime.numberOfLines = 2
@@ -117,8 +118,10 @@ class EventTableViewCell: UITableViewCell {
         eventCategory.backgroundColor = entryColor
     }
     
-    func cellSetImage(image: UIImage) {
+    func cellSetImage(image: UIImage, tapGesture: UITapGestureRecognizer) {
         eventLogo.image = image
+        eventLogo.addGestureRecognizer(tapGesture)
+        eventLogo.isUserInteractionEnabled = true
     }
     
     class func getEntryColor(entryType: String) -> UIColor {
