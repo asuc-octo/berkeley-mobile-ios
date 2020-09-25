@@ -18,18 +18,20 @@ class GymClass {
     
     var class_type: String?
     var location: String?
+    var website_link: String?
     var trainer: String?
     
     var color: UIColor {
         return GymClassType(rawValue: class_type ?? "")?.color ?? Color.eventDefault
     }
 
-    init(name: String, start_time: Date, end_time: Date, class_type: String?, location: String?, trainer: String?) {
+    init(name: String, start_time: Date, end_time: Date, class_type: String?, location: String?, website_link: String?, trainer: String?) {
         self.name = name
         self.start_time = start_time
         self.end_time = end_time
         self.class_type = class_type
         self.location = location
+        self.website_link = website_link
         self.trainer = trainer
     }
     

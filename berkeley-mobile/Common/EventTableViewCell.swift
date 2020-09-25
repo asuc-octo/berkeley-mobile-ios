@@ -16,6 +16,7 @@ class EventTableViewCell: UITableViewCell {
     var eventName: UILabel!
     var eventTime: UILabel!
     var eventCategory: TagView!
+    var eventLogo: UIImageView!
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -53,16 +54,19 @@ class EventTableViewCell: UITableViewCell {
         eventName = UILabel()
         eventTime = UILabel()
         eventCategory = TagView()
+        eventLogo = UIImageView()
         
         contentView.addSubview(eventTaggingColor)
         contentView.addSubview(eventName)
         contentView.addSubview(eventTime)
         contentView.addSubview(eventCategory)
+        contentView.addSubview(eventLogo)
         
         eventTaggingColor.translatesAutoresizingMaskIntoConstraints = false
         eventName.translatesAutoresizingMaskIntoConstraints = false
         eventTime.translatesAutoresizingMaskIntoConstraints = false
         eventCategory.translatesAutoresizingMaskIntoConstraints = false
+        eventLogo.translatesAutoresizingMaskIntoConstraints = false
         
         eventTaggingColor.backgroundColor = Color.eventDefault
         eventTaggingColor.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
@@ -79,6 +83,13 @@ class EventTableViewCell: UITableViewCell {
         eventName.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
         eventName.rightAnchor.constraint(equalTo: contentView.layoutMarginsGuide.rightAnchor).isActive = true
         eventName.bottomAnchor.constraint(lessThanOrEqualTo: eventTime.topAnchor, constant: -5).isActive = true
+        
+//        eventLogo.isHidden = true
+        eventLogo.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
+        eventLogo.rightAnchor.constraint(equalTo: contentView.layoutMarginsGuide.rightAnchor).isActive = true
+        eventLogo.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        eventLogo.contentMode = .scaleAspectFit
+        
         
         eventTime.font = Font.light(12)
         eventTime.numberOfLines = 2
@@ -104,6 +115,10 @@ class EventTableViewCell: UITableViewCell {
         let entryColor = EventTableViewCell.getEntryColor(entryType: entry.eventType ?? "")
         eventTaggingColor.backgroundColor = entryColor
         eventCategory.backgroundColor = entryColor
+    }
+    
+    func cellSetImage(image: UIImage) {
+        eventLogo.image = image
     }
     
     class func getEntryColor(entryType: String) -> UIColor {

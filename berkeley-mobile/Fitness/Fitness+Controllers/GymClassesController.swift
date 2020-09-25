@@ -62,6 +62,8 @@ extension GymClassesController: UITableViewDataSource {
             cell.eventCategory.backgroundColor = gymClass.color
             cell.eventCategory.isHidden = gymClass.class_type == nil
             cell.eventTaggingColor.backgroundColor = gymClass.color
+            
+            cell.cellSetImage(image: UIImage(named: "Zoom Logo")!)
         }
         return cell
     }
