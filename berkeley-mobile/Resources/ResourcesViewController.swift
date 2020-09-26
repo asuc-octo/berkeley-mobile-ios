@@ -62,6 +62,8 @@ extension ResourcesViewController {
     // Header Label and Blobs
     func setupHeader() {
         resourcesLabel = UILabel()
+        resourcesLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        resourcesLabel.numberOfLines = 0
         resourcesLabel.font = Font.bold(30)
         resourcesLabel.text = "What do you need?"
         view.addSubview(resourcesLabel)
@@ -73,11 +75,15 @@ extension ResourcesViewController {
         guard let blob = UIImage(named: UIDevice.current.hasNotch ? "BlobRight2" : "BlobRight1") else { return }
         let blobView = UIImageView(image: blob)
         blobView.contentMode = .scaleAspectFit
+        blobView.setContentCompressionResistancePriority(.required, for: .horizontal)
+        blobView.setContentHuggingPriority(.required, for: .horizontal)
 
         view.addSubview(blobView)
         blobView.translatesAutoresizingMaskIntoConstraints = false
         blobView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         blobView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        // Assumes that it is safe to overlap the text with half of the blob.
+        blobView.centerXAnchor.constraint(equalTo: resourcesLabel.rightAnchor).isActive = true
     }
     
     func setupResourcesList() {
