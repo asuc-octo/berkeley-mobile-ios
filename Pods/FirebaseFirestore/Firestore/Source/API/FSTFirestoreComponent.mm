@@ -16,36 +16,32 @@
 
 #import "Firestore/Source/API/FSTFirestoreComponent.h"
 
-#import <FirebaseAuthInterop/FIRAuthInterop.h>
-#import <FirebaseCore/FIRAppInternal.h>
-#import <FirebaseCore/FIRComponent.h>
-#import <FirebaseCore/FIRComponentContainer.h>
-#import <FirebaseCore/FIRDependency.h>
-#import <FirebaseCore/FIRLibrary.h>
-#import <FirebaseCore/FIROptions.h>
-
 #include <memory>
 #include <string>
 #include <utility>
 
+#import "FirebaseCore/Sources/Private/FirebaseCoreInternal.h"
 #import "Firestore/Source/API/FIRFirestore+Internal.h"
+#import "Interop/Auth/Public/FIRAuthInterop.h"
+
 #include "Firestore/core/include/firebase/firestore/firestore_version.h"
-#include "Firestore/core/src/firebase/firestore/api/firestore.h"
-#include "Firestore/core/src/firebase/firestore/api/input_validation.h"
-#include "Firestore/core/src/firebase/firestore/auth/credentials_provider.h"
-#include "Firestore/core/src/firebase/firestore/auth/firebase_credentials_provider_apple.h"
-#include "Firestore/core/src/firebase/firestore/util/async_queue.h"
-#include "Firestore/core/src/firebase/firestore/util/executor_libdispatch.h"
-#include "Firestore/core/src/firebase/firestore/util/hard_assert.h"
+#include "Firestore/core/src/api/firestore.h"
+#include "Firestore/core/src/auth/credentials_provider.h"
+#include "Firestore/core/src/auth/firebase_credentials_provider_apple.h"
+#include "Firestore/core/src/model/maybe_document.h"
+#include "Firestore/core/src/util/async_queue.h"
+#include "Firestore/core/src/util/exception.h"
+#include "Firestore/core/src/util/executor.h"
+#include "Firestore/core/src/util/hard_assert.h"
 #include "absl/memory/memory.h"
 
 namespace util = firebase::firestore::util;
 using firebase::firestore::api::Firestore;
-using firebase::firestore::api::ThrowInvalidArgument;
 using firebase::firestore::auth::CredentialsProvider;
 using firebase::firestore::auth::FirebaseCredentialsProvider;
-using util::AsyncQueue;
-using util::ExecutorLibdispatch;
+using firebase::firestore::util::AsyncQueue;
+using firebase::firestore::util::Executor;
+using firebase::firestore::util::ThrowInvalidArgument;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -97,9 +93,8 @@ NS_ASSUME_NONNULL_BEGIN
         absl::StrAppend(&queue_name, ".", util::MakeString(self.app.name));
       }
 
-      auto executor = absl::make_unique<ExecutorLibdispatch>(
-          dispatch_queue_create(queue_name.c_str(), DISPATCH_QUEUE_SERIAL));
-      auto workerQueue = absl::make_unique<AsyncQueue>(std::move(executor));
+      auto executor = Executor::CreateSerial(queue_name.c_str());
+      auto workerQueue = AsyncQueue::Create(std::move(executor));
 
       id<FIRAuthInterop> auth = FIR_COMPONENT(FIRAuthInterop, self.app.container);
       auto credentialsProvider = std::make_shared<FirebaseCredentialsProvider>(self.app, auth);
@@ -127,7 +122,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - FIRComponentLifecycleMaintainer
 
-- (void)appWillBeDeleted:(FIRApp *)app {
+- (void)appWillBeDeleted:(__unused FIRApp *)app {
   NSDictionary<NSString *, FIRFirestore *> *instances;
   @synchronized(_instances) {
     instances = [_instances copy];
