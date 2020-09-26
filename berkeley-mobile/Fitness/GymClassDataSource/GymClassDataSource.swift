@@ -30,7 +30,7 @@ class GymClassDataSource: DataSource {
                         guard let classDict = val as? [String: Any] else { return nil }
                         let gymClass = parseGymClass(classDict)
                         // Only return classes that have yet to finish.
-                        return (gymClass?.end_time ?? Date.distantPast) > now ? gymClass : nil
+                        return (gymClass?.end ?? Date.distantPast) > now ? gymClass : nil
                     }
                 }
                 completion(gymClasses)

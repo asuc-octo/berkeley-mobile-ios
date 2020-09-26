@@ -13,6 +13,7 @@ fileprivate let kLogoHeight: CGFloat = 20
 class EventTableViewCell: UITableViewCell {
     
     static let kCellHeight: CGFloat = 86
+    static let kCellIdentifier: String = "eventCell"
     
     var eventTaggingColor: UIView!
     var eventName: UILabel!
@@ -104,7 +105,7 @@ class EventTableViewCell: UITableViewCell {
         eventCategory.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor).isActive = true
     }
     
-    func cellConfigure(entry: CalendarEntry) {
+    func cellConfigure(entry: CalendarEvent, type: String?, color: UIColor?) {
         eventName.text = entry.name
         
         let dateFormatter = DateFormatter()
@@ -139,6 +140,11 @@ class EventTableViewCell: UITableViewCell {
         default:
             return Color.eventDefault
         }
+
+        eventCategory.text = type
+        eventCategory.isHidden = type == nil
+        eventCategory.backgroundColor = color
+        eventTaggingColor.backgroundColor = color ?? Color.eventDefault
     }
     
     required init?(coder: NSCoder) {
