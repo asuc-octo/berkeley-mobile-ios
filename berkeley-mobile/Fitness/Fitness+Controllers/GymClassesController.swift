@@ -56,12 +56,8 @@ extension GymClassesController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: GymClassesController.kCellIdentifier, for: indexPath)
         if let cell = cell as? EventTableViewCell {
             let gymClass = vc.todayClasses[indexPath.row]
-            cell.eventName.text = gymClass.name
+            cell.cellConfigure(entry: gymClass, type: gymClass.type, color: gymClass.color)
             cell.eventTime.text = gymClass.description(components: [.startTime, .duration, .location])
-            cell.eventCategory.text = gymClass.type
-            cell.eventCategory.backgroundColor = gymClass.color
-            cell.eventCategory.isHidden = gymClass.type == nil
-            cell.eventTaggingColor.backgroundColor = gymClass.color
         }
         return cell
     }
