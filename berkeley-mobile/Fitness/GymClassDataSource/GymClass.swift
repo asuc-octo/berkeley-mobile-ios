@@ -9,26 +9,34 @@
 import Foundation
 import UIKit
 
-class GymClass {
-    
-    let name: String
-    
-    var start_time: Date
-    var end_time: Date
-    
-    var class_type: String?
+class GymClass: CalendarEvent {
+
+    // MARK: CalendarEvent Fields
+
+    var name: String
+    var date: Date
+    var end: Date?
+    var description: String?
     var location: String?
+
+    // MARK: Additional Fields
+
+    /// The trainer leading this gym class.
     var trainer: String?
-    
+
+    /// The category for this class. See `GymClassType` for expected values.
+    var type: String?
+
+    /// The color associated with`type`. See `GymClassType` for provided colors.
     var color: UIColor {
-        return GymClassType(rawValue: class_type ?? "")?.color ?? Color.eventDefault
+        return GymClassType(rawValue: type ?? "")?.color ?? Color.eventDefault
     }
 
     init(name: String, start_time: Date, end_time: Date, class_type: String?, location: String?, trainer: String?) {
         self.name = name
-        self.start_time = start_time
-        self.end_time = end_time
-        self.class_type = class_type
+        self.date = start_time
+        self.end = end_time
+        self.type = class_type
         self.location = location
         self.trainer = trainer
     }
@@ -56,12 +64,13 @@ enum GymClassDescriptor {
         switch self {
         case .date:
             dateFormatter.dateFormat = "MMM d"
-            return dateFormatter.string(from: gymClass.start_time)
+            return dateFormatter.string(from: gymClass.date)
         case .startTime:
             dateFormatter.dateFormat = "h:mm a"
-            return dateFormatter.string(from: gymClass.start_time)
+            return dateFormatter.string(from: gymClass.date)
         case .duration:
-            return componentsFormatter.string(from: gymClass.start_time, to: gymClass.end_time)
+            guard let end = gymClass.end else { return nil }
+            return componentsFormatter.string(from: gymClass.date, to: end)
         case .location:
             return gymClass.location
         }

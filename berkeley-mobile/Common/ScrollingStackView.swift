@@ -40,6 +40,12 @@ class ScrollingStackView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// Sets the padding to match the insets provided by `layoutMargins`.
+    open func setLayoutMargins(_ layoutMargins: UIEdgeInsets) {
+        scrollView.contentInset = UIEdgeInsets(top: layoutMargins.top, left: 0, bottom: layoutMargins.bottom, right: 0)
+        scrollView.layoutMargins = UIEdgeInsets(top: 0, left: layoutMargins.left, bottom: 0, right: layoutMargins.right)
+    }
+
     // MARK: Views
 
     func setupScrollView() {
