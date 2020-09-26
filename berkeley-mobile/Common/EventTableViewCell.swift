@@ -93,14 +93,17 @@ class EventTableViewCell: UITableViewCell {
         eventCategory.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor).isActive = true
     }
     
-    func cellConfigure(entry: CalendarEvent) {
+    func cellConfigure(entry: CalendarEvent, type: String?, color: UIColor?) {
         eventName.text = entry.name
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/dd/yyyy"
         eventTime.text = dateFormatter.string(from: entry.date)
 
-        eventCategory.backgroundColor = .clear
+        eventCategory.text = type
+        eventCategory.isHidden = type == nil
+        eventCategory.backgroundColor = color
+        eventTaggingColor.backgroundColor = color ?? Color.eventDefault
     }
     
     required init?(coder: NSCoder) {

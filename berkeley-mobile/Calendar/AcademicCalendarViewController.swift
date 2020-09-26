@@ -71,11 +71,7 @@ extension AcademicCalendarViewController: UITableViewDelegate, UITableViewDataSo
         if let cell = tableView.dequeueReusableCell(withIdentifier: EventTableViewCell.kCellIdentifier, for: indexPath)
             as? EventTableViewCell {
             let entry = calendarEntries[indexPath.row]
-            cell.cellConfigure(entry: entry)
-            cell.eventCategory.text = entry.type
-            cell.eventCategory.isHidden = entry.type == nil
-            cell.eventCategory.backgroundColor = entry.color
-            cell.eventTaggingColor.backgroundColor = entry.color
+            cell.cellConfigure(entry: entry, type: entry.type, color: entry.color)
             return cell
         }
         return UITableViewCell()
