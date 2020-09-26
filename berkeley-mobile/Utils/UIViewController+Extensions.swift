@@ -25,16 +25,14 @@ extension UIViewController {
     }
     
     // Presents an alert with multiple options and completion handler
-    public func presentAlertWithTitle(title: String, message: String, options: String..., completion: @escaping (Int) -> Void) {
+    public func presentAlertLinkUrl(title: String, message: String, options: String..., website_url: URL) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         for (index, option) in options.enumerated() {
             if (index == 0) {
-                alertController.addAction(UIAlertAction.init(title: option, style: .cancel, handler: { (action) in
-                    completion(index)
-                }))
+                alertController.addAction(UIAlertAction.init(title: option, style: .cancel))
             } else {
-                alertController.addAction(UIAlertAction.init(title: option, style: .default, handler: { (action) in
-                    completion(index)
+                alertController.addAction(UIAlertAction.init(title: option, style: .default, handler: { _ in
+                    UIApplication.shared.open(website_url, options: [:])
                 }))
             }
         }

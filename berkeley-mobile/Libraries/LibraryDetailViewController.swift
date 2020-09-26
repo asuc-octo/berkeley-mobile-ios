@@ -40,18 +40,7 @@ class LibraryDetailViewController: SearchDrawerViewController {
     @objc private func bookButtonClicked(sender: UIButton) {
         guard let url = URL(string: kBookingURL) else { return }
         
-        presentAlertWithTitle(title: "Are you sure you want to open Safari?", message: "Berkeley Mobile wants to open Libcal to book a study room", options: "Cancel", "Yes") { (option) in
-            switch (option) {
-              case 0:
-                  break
-              case 1:
-                  UIApplication.shared.open(url, options: [:])
-                  break
-              default:
-                  // Should never occur
-                  break
-              }
-        }
+        presentAlertLinkUrl(title: "Are you sure you want to open Safari?", message: "Berkeley Mobile wants to open Libcal to book a study room", options: "Cancel", "Yes", website_url: url)
     }
 
     var scrollingStackView: ScrollingStackView = {

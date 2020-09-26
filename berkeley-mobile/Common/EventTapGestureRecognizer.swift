@@ -14,6 +14,6 @@ import UIKit
  */
 class EventTapGestureRecognizer: UITapGestureRecognizer {
     
-    var eventUrl = String()
+    var eventUrl = URL(string: "")
     
 }
