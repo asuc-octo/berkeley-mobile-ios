@@ -104,6 +104,7 @@
 		5516088824393F3F00B1E55B /* MissingDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5516088724393F3F00B1E55B /* MissingDataView.swift */; };
 		5531CDA92398CA81004FD25A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5531CDA82398CA81004FD25A /* GoogleService-Info.plist */; };
 		5532B67B2390CBF600293BE0 /* MaterialLoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532B67A2390CBF600293BE0 /* MaterialLoadingIndicator.swift */; };
+		5546CB91251B0A4500BE1876 /* UIDevice+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5546CB90251B0A4500BE1876 /* UIDevice+Extensions.swift */; };
 		554CB9A023F3A83F00BB1715 /* EventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554CB99F23F3A83F00BB1715 /* EventTableViewCell.swift */; };
 		556CCD2223E7771800F41BF9 /* MapPlacemark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556CCD2123E7771800F41BF9 /* MapPlacemark.swift */; };
 		556CCD2D23E79EC100F41BF9 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556CCD2C23E79EC100F41BF9 /* TabBarController.swift */; };
@@ -234,6 +235,7 @@
 		5531CDA82398CA81004FD25A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5532B67A2390CBF600293BE0 /* MaterialLoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialLoadingIndicator.swift; sourceTree = "<group>"; };
 		553EF6AB2404E2C600D2955E /* Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
+		5546CB90251B0A4500BE1876 /* UIDevice+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extensions.swift"; sourceTree = "<group>"; };
 		554CB99F23F3A83F00BB1715 /* EventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTableViewCell.swift; sourceTree = "<group>"; };
 		556CCD2123E7771800F41BF9 /* MapPlacemark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPlacemark.swift; sourceTree = "<group>"; };
 		556CCD2423E77C4F00F41BF9 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
@@ -479,6 +481,7 @@
 				13B39A8A23E682840039FBA2 /* Date+Extension.swift */,
 				55DCF79523723CF2001B01B8 /* UIView+Extensions.swift */,
 				136DC97A2398B4D1009B1810 /* UIViewController+Extensions.swift */,
+				5546CB90251B0A4500BE1876 /* UIDevice+Extensions.swift */,
 				136DC97C2398B4F3009B1810 /* UIImage+Extensions.swift */,
 				13DACD212411DF7200A09982 /* UIStackView+Extensions.swift */,
 			);
@@ -858,6 +861,7 @@
 				306A54EE23613E3A00D59A7F /* MapViewController.swift in Sources */,
 				13DACD222411DF7200A09982 /* UIStackView+Extensions.swift in Sources */,
 				2954F592245CD4B600DA66DA /* MainDrawerViewDelegate.swift in Sources */,
+				5546CB91251B0A4500BE1876 /* UIDevice+Extensions.swift in Sources */,
 				2975D5402459301B00514B43 /* SearchDrawerViewDelegate.swift in Sources */,
 				133864A42404DCCA001F9048 /* MapMarker.swift in Sources */,
 				13491DBA241E23630033F9AB /* Colors+Text.swift in Sources */,

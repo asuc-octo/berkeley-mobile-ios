@@ -129,6 +129,19 @@ extension CalendarViewController {
         eventsLabel.translatesAutoresizingMaskIntoConstraints = false
         eventsLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 15).isActive = true
         eventsLabel.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
+        
+        // Blob
+        guard let blob = UIImage(named: UIDevice.current.hasNotch ? "BlobTopRight2" : "BlobTopRight1") else { return }
+        let aspectRatio = blob.size.width / blob.size.height
+        let blobView = UIImageView(image: blob)
+        blobView.contentMode = .scaleAspectFit
+
+        view.addSubview(blobView)
+        blobView.translatesAutoresizingMaskIntoConstraints = false
+        blobView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1 / 1.3).isActive = true
+        blobView.heightAnchor.constraint(equalTo: blobView.widthAnchor, multiplier: 1 / aspectRatio).isActive = true
+        blobView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        blobView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
     }
     
     // ScrollView
@@ -214,3 +227,4 @@ extension CalendarViewController {
         upcomingMissingView = MissingDataView(parentView: collectionView, text: "No upcoming events")
     }
 }
+
