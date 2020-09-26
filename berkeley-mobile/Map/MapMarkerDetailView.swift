@@ -157,6 +157,7 @@ class MapMarkerDetailView: UIView {
         verticalStack.addArrangedSubview(nameLabel)
         if (notesLabel.text?.count ?? 0) > 0 {
             verticalStack.addArrangedSubview(notesLabel)
+            nameLabel.rightAnchor.constraint(equalTo: closeButton.rightAnchor, constant: -10).isActive = true
         }
         if !detailStack.arrangedSubviews.isEmpty {
             verticalStack.addArrangedSubview(detailStack)

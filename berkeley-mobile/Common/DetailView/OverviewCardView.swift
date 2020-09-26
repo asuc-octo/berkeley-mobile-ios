@@ -8,9 +8,11 @@
 
 import UIKit
 import MapKit
+import CoreLocation
 
 fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
 fileprivate let kViewMargin: CGFloat = 10
+
 
 // all the possible elements on the card, used to exclude certain elements even if they are available
 enum OverviewElements {
@@ -25,6 +27,7 @@ enum OverviewElements {
 class OverviewCardView: CardView {
     var item: SearchItem!
     var addressView: UIView?
+//    let tap = UITapGestureRecognizer(target: self, action: #selector(self.openAddressInMap(_:)))
     // elements to exclude from the card even if they are available
     var excludedElements: [OverviewElements] = []
     
@@ -35,6 +38,7 @@ class OverviewCardView: CardView {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.item = item
         self.excludedElements = excludedElements
+        
         
         setUpStaticElements()
         setUpOptionalElements()
@@ -251,8 +255,24 @@ class OverviewCardView: CardView {
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.75
         label.numberOfLines = 0
+        
+        label.isUserInteractionEnabled = true
+//        label.addGestureRecognizer(tap)
+        
         return label
     }()
+    
+    @objc func openAddressInMap(_ sender: UITapGestureRecognizer? = nil) {
+//        let myAddress = addressLabel.text
+//        let geoCoder = CLGeocoder()
+//        geoCoder.geocodeAddressString(myAddress!) { (placemarks, error) in
+//            guard let placemarks = placemarks?.first else { return }
+//            let location = placemarks.location?.coordinate ?? CLLocationCoordinate2D()
+//            guard let url = URL(string:"http://maps.apple.com/?daddr=\(location.latitude),\(location.longitude)") else { return }
+//            UIApplication.shared.open(url)
+//        }
+        print("tapped")
+    }
     
     let clockIcon: UIImageView = {
         let image = UIImageView()
