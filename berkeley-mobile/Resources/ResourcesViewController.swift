@@ -82,8 +82,8 @@ extension ResourcesViewController {
         blobView.translatesAutoresizingMaskIntoConstraints = false
         blobView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         blobView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        // Assumes that it is safe to overlap the text with half of the blob.
-        blobView.centerXAnchor.constraint(equalTo: resourcesLabel.rightAnchor).isActive = true
+        // Hacky workaround. Assumes that it is safe to overlap the text with half (and some) of the blob.
+        blobView.centerXAnchor.constraint(equalTo: resourcesLabel.rightAnchor, constant: -20).isActive = true
     }
     
     func setupResourcesList() {
