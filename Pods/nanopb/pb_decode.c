@@ -491,6 +491,16 @@ static bool checkreturn allocate_field(pb_istream_t *stream, void *pData, size_t
     if (data_size == 0 || array_size == 0)
         PB_RETURN_ERROR(stream, "invalid size");
     
+#ifdef __AVR__
+    /* Workaround for AVR libc bug 53284: http://savannah.nongnu.org/bugs/?53284
+     * Realloc to size of 1 byte can cause corruption of the malloc structures.
+     */
+    if (data_size == 1 && array_size == 1)
+    {
+        data_size = 2;
+    }
+#endif
+
     /* Check for multiplication overflows.
      * This code avoids the costly division if the sizes are small enough.
      * Multiplication is safe as long as only half of bits are set
@@ -597,12 +607,25 @@ static bool checkreturn decode_pointer_field(pb_istream_t *stream, pb_wire_type_
                 
                 while (substream.bytes_left)
                 {
+                    if (*size == PB_SIZE_MAX)
+                    {
+#ifndef PB_NO_ERRMSG
+                        stream->errmsg = "too many array entries";
+#endif
+                        status = false;
+                        break;
+                    }
+
                     if ((size_t)*size + 1 > allocated_size)
                     {
                         /* Allocate more storage. This tries to guess the
                          * number of remaining entries. Round the division
                          * upwards. */
-                        allocated_size += (substream.bytes_left - 1) / iter->pos->data_size + 1;
+                        size_t remain = (substream.bytes_left - 1) / iter->pos->data_size + 1;
+                        if (remain < PB_SIZE_MAX - allocated_size)
+                            allocated_size += remain;
+                        else
+                            allocated_size += 1;
                         
                         if (!allocate_field(&substream, iter->pData, iter->pos->data_size, allocated_size))
                         {
@@ -616,15 +639,6 @@ static bool checkreturn decode_pointer_field(pb_istream_t *stream, pb_wire_type_
                     initialize_pointer_field(pItem, iter);
                     if (!func(&substream, iter->pos, pItem))
                     {
-                        status = false;
-                        break;
-                    }
-                    
-                    if (*size == PB_SIZE_MAX)
-                    {
-#ifndef PB_NO_ERRMSG
-                        stream->errmsg = "too many array entries";
-#endif
                         status = false;
                         break;
                     }
@@ -645,11 +659,11 @@ static bool checkreturn decode_pointer_field(pb_istream_t *stream, pb_wire_type_
                 if (*size == PB_SIZE_MAX)
                     PB_RETURN_ERROR(stream, "too many array entries");
                 
-                (*size)++;
-                if (!allocate_field(stream, iter->pData, iter->pos->data_size, *size))
+                if (!allocate_field(stream, iter->pData, iter->pos->data_size, (size_t)(*size + 1)))
                     return false;
             
-                pItem = *(char**)iter->pData + iter->pos->data_size * (*size - 1);
+                pItem = *(char**)iter->pData + iter->pos->data_size * (*size);
+                (*size)++;
                 initialize_pointer_field(pItem, iter);
                 return func(stream, iter->pos, pItem);
             }
