@@ -24,6 +24,9 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
     private var maskView: UIView!
     private var searchBar: SearchBarView!
     private var searchResultsView: SearchResultsView!
+    private var userLocationButton: UIButton!
+    private var compass: MKCompassButton!
+    private var locationButtonTapped = false
     
     // DrawerViewDelegate properties
     var drawerViewController: DrawerViewController?
@@ -50,6 +53,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         mapView.register(MKAnnotationView.self, forAnnotationViewWithReuseIdentifier: MapViewController.kAnnotationIdentifier)
         maskView = UIView()
         maskView.backgroundColor = Color.searchBarBackground
+        mapView.showsUserLocation = true
         
         searchBar = SearchBarView(
             onStartSearch: { [weak self] (isSearching) in
@@ -87,6 +91,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         mapView.isZoomEnabled = true
         centerMapOnLocation(CLLocation(latitude: CLLocationDegrees(exactly: 37.871684)!, longitude: CLLocationDegrees(-122.259934)), mapView: mapView, animated: false)
         updateCompassPosition()
+        setUpUserLocationButton()
     }
     
     private func centerMapOnLocation(_ location: CLLocation, mapView: MKMapView, animated: Bool) {
@@ -99,12 +104,42 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
     /// Repoisitions the map's compass so that it is not obscured by the search bar.
     private func updateCompassPosition() {
         mapView.showsCompass = false
-        let compass = MKCompassButton(mapView: mapView)
+        compass = MKCompassButton(mapView: mapView)
         view.addSubview(compass)
         // Position the compass to bottom-right of `FilterView`
         compass.translatesAutoresizingMaskIntoConstraints = false
         compass.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
         compass.topAnchor.constraint(equalTo: filterView.bottomAnchor, constant: kViewMargin).isActive = true
+    }
+    
+    /// Sets up the button that jumps to user location
+    private func setUpUserLocationButton() {
+        let _buttonWidth = mapView.frame.width * 0.12
+        userLocationButton = UIButton(type: .custom)
+        view.addSubview(userLocationButton)
+        userLocationButton.translatesAutoresizingMaskIntoConstraints = false
+        userLocationButton.backgroundColor = UIColor.white
+        userLocationButton.widthAnchor.constraint(equalToConstant: _buttonWidth).isActive = true
+        userLocationButton.heightAnchor.constraint(equalToConstant: _buttonWidth).isActive = true
+        userLocationButton.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
+        userLocationButton.topAnchor.constraint(equalTo: filterView.bottomAnchor, constant: kViewMargin).isActive = true
+        userLocationButton.clipsToBounds = true
+        userLocationButton.layer.masksToBounds = false
+        userLocationButton.layer.cornerRadius = mapView.frame.width * 0.12 * 0.5
+        userLocationButton.layer.shadowRadius = 5
+        userLocationButton.layer.shadowOpacity = 0.2
+        userLocationButton.layer.shadowColor = UIColor.black.cgColor
+        userLocationButton.layer.shadowOffset = CGSize(width: 0, height: 10)
+        userLocationButton.setImage(UIImage(named: "Navigation")!, for: .normal)
+        userLocationButton.addTarget(self, action: #selector(jumpToUserLocation), for: .touchUpInside)
+    }
+    
+    @objc func jumpToUserLocation() {
+        let _manager = LocationManager()
+        guard let _location = _manager.userLocation else {return}
+        centerMapOnLocation(_location, mapView: mapView, animated: true)
+        userLocationButton.alpha = 0
+        locationButtonTapped = true
     }
     
     private func setupSubviews() {
@@ -131,6 +166,9 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         filterView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         filterView.contentInset = UIEdgeInsets(top: 0, left: view.layoutMargins.left,
                                                bottom: 0, right: view.layoutMargins.right)
+        
+        
+        
     }
     
     private func showSearchResultsView(_ show: Bool) {
@@ -234,6 +272,16 @@ extension MapViewController: MKMapViewDelegate {
                     self.mainContainer?.showTop()
                 }
             }
+        }
+    }
+    
+    func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
+        guard let _userLocation = LocationManager().userLocation else {return}
+        guard userLocationButton != nil else {return}
+        if locationButtonTapped {
+            userLocationButton.alpha = 1
+        } else {
+            userLocationButton.alpha = 0
         }
     }
     
