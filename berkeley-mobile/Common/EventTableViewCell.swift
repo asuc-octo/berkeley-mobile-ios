@@ -112,39 +112,16 @@ class EventTableViewCell: UITableViewCell {
         dateFormatter.dateFormat = "MM/dd/yyyy"
         eventTime.text = dateFormatter.string(from: entry.date)
         
-        eventCategory.text = entry.eventType
-        
-        let entryColor = EventTableViewCell.getEntryColor(entryType: entry.eventType ?? "")
-        eventTaggingColor.backgroundColor = entryColor
-        eventCategory.backgroundColor = entryColor
+        eventCategory.text = type
+        eventCategory.isHidden = type == nil
+        eventCategory.backgroundColor = color
+        eventTaggingColor.backgroundColor = color ?? Color.eventDefault
     }
     
     func cellSetImage(image: UIImage, tapGesture: UITapGestureRecognizer) {
         eventLogo.image = image
         eventLogo.addGestureRecognizer(tapGesture)
         eventLogo.isUserInteractionEnabled = true
-    }
-    
-    class func getEntryColor(entryType: String) -> UIColor {
-        switch entryType {
-        case let type where type.contains("Exhibit"):
-            return Color.eventExhibit
-        case "Seminar":
-            return Color.eventAcademic
-        case "Lecture":
-            return Color.eventAcademic
-        case "Workshop":
-            return Color.eventAcademic
-        case "Course":
-            return Color.eventAcademic
-        default:
-            return Color.eventDefault
-        }
-
-        eventCategory.text = type
-        eventCategory.isHidden = type == nil
-        eventCategory.backgroundColor = color
-        eventTaggingColor.backgroundColor = color ?? Color.eventDefault
     }
     
     required init?(coder: NSCoder) {

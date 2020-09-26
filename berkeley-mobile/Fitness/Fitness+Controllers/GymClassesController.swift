@@ -58,9 +58,9 @@ extension GymClassesController: UITableViewDataSource {
             let gymClass = vc.todayClasses[indexPath.row]
             cell.cellConfigure(entry: gymClass, type: gymClass.type, color: gymClass.color)
             cell.eventTime.text = gymClass.description(components: [.startTime, .duration, .location])
-            cell.eventCategory.text = gymClass.class_type
+            cell.eventCategory.text = gymClass.type
             cell.eventCategory.backgroundColor = gymClass.color
-            cell.eventCategory.isHidden = gymClass.class_type == nil
+            cell.eventCategory.isHidden = gymClass.type == nil
             cell.eventTaggingColor.backgroundColor = gymClass.color
             
             if let url = gymClass.website_link, gymClass.location == "Zoom" {
