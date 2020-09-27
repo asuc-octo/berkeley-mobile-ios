@@ -58,10 +58,6 @@ extension GymClassesController: UITableViewDataSource {
             let gymClass = vc.todayClasses[indexPath.row]
             cell.cellConfigure(entry: gymClass, type: gymClass.type, color: gymClass.color)
             cell.eventTime.text = gymClass.description(components: [.startTime, .duration, .location])
-            cell.eventCategory.text = gymClass.type
-            cell.eventCategory.backgroundColor = gymClass.color
-            cell.eventCategory.isHidden = gymClass.type == nil
-            cell.eventTaggingColor.backgroundColor = gymClass.color
             
             if let url = gymClass.website_link, gymClass.location == "Zoom" {
                 let tapGesture = EventTapGestureRecognizer(target: self, action:
@@ -76,8 +72,8 @@ extension GymClassesController: UITableViewDataSource {
     }
     
     @objc func zoomTapped(gesture: EventTapGestureRecognizer) {
-        if (gesture.view as? UIImageView) != nil {
-            vc.presentAlertLinkUrl(title: "Are you sure you want to open Zoom?", message: "Berkeley Mobile wants to open an online fitness class in Zoom", options: "Cancel", "Yes", website_url: gesture.eventUrl!)
+        if (gesture.view as? UIImageView) != nil, let url = gesture.eventUrl {
+            vc.presentAlertLinkUrl(title: "Are you sure you want to open Zoom?", message: "Berkeley Mobile wants to open an online fitness class in Zoom", options: "Cancel", "Yes", website_url: url)
         }
     }
     

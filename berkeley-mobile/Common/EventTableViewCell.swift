@@ -84,7 +84,7 @@ class EventTableViewCell: UITableViewCell {
         eventName.setContentHuggingPriority(.required, for: .vertical)
         eventName.leftAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
         eventName.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
-        eventName.rightAnchor.constraint(equalTo: eventLogo.leftAnchor, constant: 15).isActive = true
+        eventName.rightAnchor.constraint(equalTo: eventLogo.leftAnchor, constant: -15).isActive = true
         eventName.bottomAnchor.constraint(lessThanOrEqualTo: eventTime.topAnchor, constant: -5).isActive = true
         
         eventLogo.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
@@ -119,6 +119,11 @@ class EventTableViewCell: UITableViewCell {
     }
     
     func cellSetImage(image: UIImage, tapGesture: UITapGestureRecognizer) {
+        // Ensure each cell only has 1 recognizer for the image
+        for r in eventLogo.gestureRecognizers ?? [] {
+            eventLogo.removeGestureRecognizer(r)
+        }
+        
         eventLogo.image = image
         eventLogo.addGestureRecognizer(tapGesture)
         eventLogo.isUserInteractionEnabled = true
