@@ -129,17 +129,17 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         userLocationButton.layer.shadowRadius = 5
         userLocationButton.layer.shadowOpacity = 0.2
         userLocationButton.layer.shadowColor = UIColor.black.cgColor
-        userLocationButton.layer.shadowOffset = CGSize(width: 0, height: 10)
+        userLocationButton.layer.shadowOffset = CGSize(width: 0, height: 5)
         userLocationButton.setImage(UIImage(named: "Navigation")!, for: .normal)
         userLocationButton.addTarget(self, action: #selector(jumpToUserLocation), for: .touchUpInside)
     }
     
     @objc func jumpToUserLocation() {
-        let _manager = LocationManager()
-        guard let _location = _manager.userLocation else {return}
-        centerMapOnLocation(_location, mapView: mapView, animated: true)
-        userLocationButton.alpha = 0
-        locationButtonTapped = true
+        if LocationManager.shared.userLocation != nil {
+            centerMapOnLocation(LocationManager.shared.userLocation!, mapView: mapView, animated: true)
+            userLocationButton.isHidden = true
+            locationButtonTapped = true
+        }
     }
     
     private func setupSubviews() {
@@ -276,12 +276,12 @@ extension MapViewController: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
-        guard let _userLocation = LocationManager().userLocation else {return}
+        
         guard userLocationButton != nil else {return}
         if locationButtonTapped {
-            userLocationButton.alpha = 1
+            userLocationButton.isHidden = false
         } else {
-            userLocationButton.alpha = 0
+            userLocationButton.isHidden = true
         }
     }
     
