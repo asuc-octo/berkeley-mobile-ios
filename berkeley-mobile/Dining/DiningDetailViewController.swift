@@ -16,7 +16,7 @@ class DiningDetailViewController: SearchDrawerViewController {
     
     var diningHall: DiningLocation!
     var overviewCard: OverviewCardView!
-    var control: TabBarControl?
+    var control: SegmentedControl?
     var meals: MealMap = [:]
     var mealNames: [MealType] = []
     var menuView: FilterTableView = FilterTableView<DiningItem>(frame: .zero, tableFunctions: [], defaultSort: SortingFunctions.sortAlph(item1:item2:))
@@ -60,7 +60,7 @@ extension DiningDetailViewController {
         meals = diningHall.meals
         guard meals.count > 0 else { return }
         let size = CGSize(width: view.frame.width - view.layoutMargins.left - view.layoutMargins.right, height: 35)
-        control = TabBarControl(frame: CGRect(origin: .zero, size: size),
+        control = SegmentedControl(frame: CGRect(origin: .zero, size: size),
                                 barHeight: CGFloat(13),
                                 barColor: UIColor(displayP3Red: 250/255.0, green: 212/255.0, blue: 126/255.0, alpha: 1.0))
         guard let control = self.control else { return }
@@ -137,8 +137,8 @@ extension DiningDetailViewController {
     }
 }
 
-extension DiningDetailViewController: TabBarControlDelegate {
-    func tabBarControl(_ tabBarControl: TabBarControl, didChangeValue value: Int) {
+extension DiningDetailViewController: SegmentedControlDelegate {
+    func segmentedControl(_ segmentedControl: SegmentedControl, didChangeValue value: Int) {
         guard let control = self.control else { return }
         control.index = value
         self.menuView.setData(data: meals[mealNames[control.index]]!)
