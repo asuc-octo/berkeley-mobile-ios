@@ -11,6 +11,7 @@ import UIKit
 class EventTableViewCell: UITableViewCell {
     
     static let kCellHeight: CGFloat = 86
+    static let kCellIdentifier: String = "eventCell"
     
     var eventTaggingColor: UIView!
     var eventName: UILabel!
@@ -92,35 +93,17 @@ class EventTableViewCell: UITableViewCell {
         eventCategory.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor).isActive = true
     }
     
-    func cellConfigure(entry: CalendarEntry) {
+    func cellConfigure(entry: CalendarEvent, type: String?, color: UIColor?) {
         eventName.text = entry.name
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/dd/yyyy"
         eventTime.text = dateFormatter.string(from: entry.date)
-        
-        eventCategory.text = entry.eventType
-        
-        let entryColor = EventTableViewCell.getEntryColor(entryType: entry.eventType ?? "")
-        eventTaggingColor.backgroundColor = entryColor
-        eventCategory.backgroundColor = entryColor
-    }
-    
-    class func getEntryColor(entryType: String) -> UIColor {
-        switch entryType {
-        case let type where type.contains("Exhibit"):
-            return Color.eventExhibit
-        case "Seminar":
-            return Color.eventAcademic
-        case "Lecture":
-            return Color.eventAcademic
-        case "Workshop":
-            return Color.eventAcademic
-        case "Course":
-            return Color.eventAcademic
-        default:
-            return Color.eventDefault
-        }
+
+        eventCategory.text = type
+        eventCategory.isHidden = type == nil
+        eventCategory.backgroundColor = color
+        eventTaggingColor.backgroundColor = color ?? Color.eventDefault
     }
     
     required init?(coder: NSCoder) {

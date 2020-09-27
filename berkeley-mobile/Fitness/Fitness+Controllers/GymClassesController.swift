@@ -33,9 +33,9 @@ extension GymClassesController: UICollectionViewDataSource {
             let gymClass = vc.upcomingClasses[indexPath.row]
             card.title.text = gymClass.name
             card.subtitle.text = gymClass.description(components: [.date, .startTime])
-            card.badge.text = gymClass.class_type
+            card.badge.text = gymClass.type
             card.badge.backgroundColor = gymClass.color
-            card.badge.isHidden = gymClass.class_type == nil
+            card.badge.isHidden = gymClass.type == nil
         }
         return cell
     }
@@ -56,12 +56,8 @@ extension GymClassesController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: GymClassesController.kCellIdentifier, for: indexPath)
         if let cell = cell as? EventTableViewCell {
             let gymClass = vc.todayClasses[indexPath.row]
-            cell.eventName.text = gymClass.name
+            cell.cellConfigure(entry: gymClass, type: gymClass.type, color: gymClass.color)
             cell.eventTime.text = gymClass.description(components: [.startTime, .duration, .location])
-            cell.eventCategory.text = gymClass.class_type
-            cell.eventCategory.backgroundColor = gymClass.color
-            cell.eventCategory.isHidden = gymClass.class_type == nil
-            cell.eventTaggingColor.backgroundColor = gymClass.color
         }
         return cell
     }
