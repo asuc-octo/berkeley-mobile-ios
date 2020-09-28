@@ -176,7 +176,7 @@ extension CampusCalendarViewController {
         card.layoutMargins = kCardPadding
         scrollingStackView.stackView.addArrangedSubview(card)
         card.translatesAutoresizingMaskIntoConstraints = false
-        card.heightAnchor.constraint(equalTo: view.layoutMarginsGuide.heightAnchor, constant: -view.layoutMargins.top).isActive = true
+        card.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
 
         let table = UITableView()
         table.register(EventTableViewCell.self, forCellReuseIdentifier: EventTableViewCell.kCellIdentifier)
