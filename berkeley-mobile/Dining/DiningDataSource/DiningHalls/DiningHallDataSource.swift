@@ -44,11 +44,8 @@ class DiningHallDataSource: DataSource {
     }
     
     static func fetchMenus(_ diningHalls: [String: DiningHall], completion: @escaping DataSource.completionHandler) {
-#if DEBUG
-        let collectionToday = "2020-03-14"
-#else
         let collectionToday = collectionForDate(Date())
-#endif
+        
         let requests = DispatchGroup()
         let db = Firestore.firestore()
         for (documentID, diningHall) in diningHalls {
