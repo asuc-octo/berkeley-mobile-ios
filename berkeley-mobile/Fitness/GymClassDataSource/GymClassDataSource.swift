@@ -30,7 +30,7 @@ class GymClassDataSource: DataSource {
                         guard let classDict = val as? [String: Any] else { return nil }
                         let gymClass = parseGymClass(classDict)
                         // Only return classes that have yet to finish.
-                        return (gymClass?.end_time ?? Date.distantPast) > now ? gymClass : nil
+                        return (gymClass?.end ?? Date.distantPast) > now ? gymClass : nil
                     }
                 }
                 completion(gymClasses)
@@ -52,6 +52,7 @@ class GymClassDataSource: DataSource {
                                 end_time: Date(timeIntervalSince1970: end_time),
                                 class_type: dict["class type"] as? String,
                                 location: dict["location"] as? String,
+                                website_link: dict["link"] as? String,
                                 trainer: dict["trainer"] as? String)
         return gymClass
     }
