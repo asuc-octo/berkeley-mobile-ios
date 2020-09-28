@@ -21,15 +21,11 @@ For documentation, check out our [wiki](https://github.com/asuc-octo/berkeley-mo
 
 ## Getting set up
 
-It is recommended you use XCode 9.2 or higher and Swift 3. Install [Cocoapods](https://guides.cocoapods.org/using/getting-started.html) and be sure to run pod install in the berkeley-mobile-ios directory. 
+It is recommended you use XCode 10.2 or higher and Swift 5. Install [Cocoapods](https://guides.cocoapods.org/using/getting-started.html) and be sure to run pod install in the berkeley-mobile-ios directory. 
 
 ### APIs
 
-* Create a new project in the [Google Cloud Console](https://console.cloud.google.com)
-  * Under the APIs and Services tab, enable the Google Places API for iOS, Google Maps SDK for iOS, Google Maps Directions API, and Google Maps Geocoding API
-  * Under the Credentials tab, create an API key
-  * Paste your API key into [GoogleService-Info.plist](berkeley-mobile/GoogleService-Info.plist)
-* We've configured this repository so that the application pulls from our sandbox backend, which just returns test data. If you would like access to our production backend API, please [contact us](#contact). 
+The application pulls data from [Google Cloud Firestore](https://firebase.google.com/docs/firestore). The production backend API key and [GoogleService-Info.plist](berkeley-mobile/GoogleService-Info.plist) are not included in this repository. If you would like access to our production backend API, please [contact us](#contact).
 
 ## Contributing
 
