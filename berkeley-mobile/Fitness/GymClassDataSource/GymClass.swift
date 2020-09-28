@@ -18,6 +18,7 @@ class GymClass: CalendarEvent {
     var end: Date?
     var description: String?
     var location: String?
+    var website_link: String?
 
     // MARK: Additional Fields
 
@@ -32,12 +33,13 @@ class GymClass: CalendarEvent {
         return GymClassType(rawValue: type ?? "")?.color ?? Color.eventDefault
     }
 
-    init(name: String, start_time: Date, end_time: Date, class_type: String?, location: String?, trainer: String?) {
+    init(name: String, start_time: Date, end_time: Date, class_type: String?, location: String?, website_link: String?, trainer: String?) {
         self.name = name
         self.date = start_time
         self.end = end_time
         self.type = class_type
         self.location = location
+        self.website_link = website_link
         self.trainer = trainer
     }
     

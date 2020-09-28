@@ -52,6 +52,7 @@ class GymClassDataSource: DataSource {
                                 end_time: Date(timeIntervalSince1970: end_time),
                                 class_type: dict["class type"] as? String,
                                 location: dict["location"] as? String,
+                                website_link: dict["link"] as? String,
                                 trainer: dict["trainer"] as? String)
         return gymClass
     }

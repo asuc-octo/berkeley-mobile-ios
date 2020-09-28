@@ -8,6 +8,8 @@
 
 import UIKit
 
+fileprivate let kLogoHeight: CGFloat = 20
+
 class EventTableViewCell: UITableViewCell {
     
     static let kCellHeight: CGFloat = 86
@@ -17,6 +19,7 @@ class EventTableViewCell: UITableViewCell {
     var eventName: UILabel!
     var eventTime: UILabel!
     var eventCategory: TagView!
+    var eventLogo: UIImageView!
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -54,16 +57,19 @@ class EventTableViewCell: UITableViewCell {
         eventName = UILabel()
         eventTime = UILabel()
         eventCategory = TagView()
+        eventLogo = UIImageView()
         
         contentView.addSubview(eventTaggingColor)
         contentView.addSubview(eventName)
         contentView.addSubview(eventTime)
         contentView.addSubview(eventCategory)
+        contentView.addSubview(eventLogo)
         
         eventTaggingColor.translatesAutoresizingMaskIntoConstraints = false
         eventName.translatesAutoresizingMaskIntoConstraints = false
         eventTime.translatesAutoresizingMaskIntoConstraints = false
         eventCategory.translatesAutoresizingMaskIntoConstraints = false
+        eventLogo.translatesAutoresizingMaskIntoConstraints = false
         
         eventTaggingColor.backgroundColor = Color.eventDefault
         eventTaggingColor.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
@@ -78,8 +84,14 @@ class EventTableViewCell: UITableViewCell {
         eventName.setContentHuggingPriority(.required, for: .vertical)
         eventName.leftAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
         eventName.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
-        eventName.rightAnchor.constraint(equalTo: contentView.layoutMarginsGuide.rightAnchor).isActive = true
+        eventName.rightAnchor.constraint(equalTo: eventLogo.leftAnchor, constant: -15).isActive = true
         eventName.bottomAnchor.constraint(lessThanOrEqualTo: eventTime.topAnchor, constant: -5).isActive = true
+        
+        eventLogo.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
+        eventLogo.rightAnchor.constraint(equalTo: contentView.layoutMarginsGuide.rightAnchor).isActive = true
+        eventLogo.widthAnchor.constraint(equalToConstant: kLogoHeight).isActive = true
+        eventLogo.heightAnchor.constraint(equalToConstant: kLogoHeight).isActive = true
+        eventLogo.contentMode = .scaleAspectFit
         
         eventTime.font = Font.light(12)
         eventTime.numberOfLines = 2
@@ -99,11 +111,22 @@ class EventTableViewCell: UITableViewCell {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/dd/yyyy"
         eventTime.text = dateFormatter.string(from: entry.date)
-
+        
         eventCategory.text = type
         eventCategory.isHidden = type == nil
         eventCategory.backgroundColor = color
         eventTaggingColor.backgroundColor = color ?? Color.eventDefault
+    }
+    
+    func cellSetImage(image: UIImage, tapGesture: UITapGestureRecognizer) {
+        // Ensure each cell only has 1 recognizer for the image
+        for r in eventLogo.gestureRecognizers ?? [] {
+            eventLogo.removeGestureRecognizer(r)
+        }
+        
+        eventLogo.image = image
+        eventLogo.addGestureRecognizer(tapGesture)
+        eventLogo.isUserInteractionEnabled = true
     }
     
     required init?(coder: NSCoder) {
