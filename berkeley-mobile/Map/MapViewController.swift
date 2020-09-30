@@ -26,7 +26,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
     private var searchResultsView: SearchResultsView!
     private var userLocationButton: UIButton!
     private var compass: MKCompassButton!
-    private var locationButtonTapped = false
+    private var locationButtonTapped: Bool!
     
     // DrawerViewDelegate properties
     var drawerViewController: DrawerViewController?
@@ -130,14 +130,14 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         userLocationButton.layer.shadowOpacity = 0.2
         userLocationButton.layer.shadowColor = UIColor.black.cgColor
         userLocationButton.layer.shadowOffset = CGSize(width: 0, height: 5)
-        userLocationButton.setImage(UIImage(named: "Navigation")!, for: .normal)
+        userLocationButton.setImage(UIImage(named: "navigation-outline")!, for: .normal)
         userLocationButton.addTarget(self, action: #selector(jumpToUserLocation), for: .touchUpInside)
     }
     
     @objc func jumpToUserLocation() {
         if LocationManager.shared.userLocation != nil {
             centerMapOnLocation(LocationManager.shared.userLocation!, mapView: mapView, animated: true)
-            userLocationButton.isHidden = true
+            userLocationButton.setImage(UIImage(named: "navigation-filled")!, for: .normal)
             locationButtonTapped = true
         }
     }
@@ -234,7 +234,7 @@ extension MapViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is MKUserLocation {
-            return nil
+           return nil
         } else if let marker = annotation as? MapMarker,
             let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: MapViewController.kAnnotationIdentifier) {
             annotationView.annotation = marker
@@ -254,6 +254,8 @@ extension MapViewController: MKMapViewDelegate {
         return MKAnnotationView()
     }
     
+    
+    
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         // if map marker is selected, hide the top drawer to show the marker detail
         if let annotation = view.annotation as? MapMarker {
@@ -261,6 +263,7 @@ extension MapViewController: MKMapViewDelegate {
             mainContainer?.hideTop()
         }
     }
+ 
     
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
         if (view.annotation as? MapMarker) != nil {
@@ -278,10 +281,11 @@ extension MapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
         
         guard userLocationButton != nil else {return}
-        if locationButtonTapped {
-            userLocationButton.isHidden = false
+        guard locationButtonTapped != nil else {return}
+        if !locationButtonTapped {
+            userLocationButton.setImage(UIImage(named: "navigation-filled")!, for: .normal)
         } else {
-            userLocationButton.isHidden = true
+            userLocationButton.setImage(UIImage(named: "navigation-outline")!, for: .normal)
         }
     }
     
