@@ -102,7 +102,7 @@ class MapMarkerDetailView: UIView {
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor, constant: -offset).isActive = true
         nameLabel.leftAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
-        nameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10).isActive = true
+        nameLabel.rightAnchor.constraint(equalTo: closeButton.leftAnchor).isActive = true
         
         verticalStack = UIStackView(axis: .vertical, distribution: .fill, spacing: kViewMargin)
         contentView.addSubview(verticalStack)
