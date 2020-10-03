@@ -44,6 +44,11 @@ class LocalStore;
 
 namespace remote {
 
+<<<<<<< HEAD
+=======
+class ConnectivityMonitor;
+
+>>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
 /**
  * A callback interface for events from remote store.
  */
@@ -109,6 +114,10 @@ class RemoteStore : public TargetMetadataProvider,
   RemoteStore(local::LocalStore* local_store,
               std::shared_ptr<Datastore> datastore,
               const std::shared_ptr<util::AsyncQueue>& worker_queue,
+<<<<<<< HEAD
+=======
+              ConnectivityMonitor* connectivity_monitor,
+>>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
               std::function<void(model::OnlineState)> online_state_handler);
 
   void set_sync_engine(RemoteStoreCallback* sync_engine) {
@@ -205,6 +214,10 @@ class RemoteStore : public TargetMetadataProvider,
       std::vector<model::MutationResult> mutation_results) override;
 
  private:
+<<<<<<< HEAD
+=======
+  void RestartNetwork();
+>>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
   void DisableNetworkInternal();
 
   void SendWatchRequest(const local::TargetData& target_data);
@@ -270,6 +283,11 @@ class RemoteStore : public TargetMetadataProvider,
 
   OnlineStateTracker online_state_tracker_;
 
+<<<<<<< HEAD
+=======
+  ConnectivityMonitor* connectivity_monitor_ = nullptr;
+
+>>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
   /**
    * Set to true by `EnableNetwork` and false by `DisableNetwork` and indicates
    * the user-preferred network state.

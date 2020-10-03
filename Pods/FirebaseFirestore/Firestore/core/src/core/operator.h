@@ -29,7 +29,13 @@ inline bool IsArrayOperator(Filter::Operator op) {
 }
 
 inline bool IsDisjunctiveOperator(Filter::Operator op) {
+<<<<<<< HEAD
   return op == Filter::Operator::In || op == Filter::Operator::ArrayContainsAny;
+=======
+  return op == Filter::Operator::In ||
+         op == Filter::Operator::ArrayContainsAny ||
+         op == Filter::Operator::NotIn;
+>>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
 }
 
 }  // namespace core

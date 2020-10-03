@@ -14,16 +14,31 @@
  * limitations under the License.
  */
 
+<<<<<<< HEAD
 #import <GoogleUtilities/GULHeartbeatDateStorage.h>
 #import <GoogleUtilities/GULSecureCoding.h>
+=======
+#import "GoogleUtilities/Environment/Private/GULHeartbeatDateStorage.h"
+#import "GoogleUtilities/Environment/Private/GULSecureCoding.h"
+>>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
 
 @interface GULHeartbeatDateStorage ()
 /** The storage to store the date of the last sent heartbeat. */
 @property(nonatomic, readonly) NSFileCoordinator *fileCoordinator;
+<<<<<<< HEAD
+=======
+/** The name of the file that stores heartbeat information. */
+@property(nonatomic, readonly) NSString *fileName;
+>>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
 @end
 
 @implementation GULHeartbeatDateStorage
 
+<<<<<<< HEAD
+=======
+@synthesize fileURL = _fileURL;
+
+>>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
 - (instancetype)initWithFileName:(NSString *)fileName {
   if (fileName == nil) {
     return nil;
@@ -32,11 +47,29 @@
   self = [super init];
   if (self) {
     _fileCoordinator = [[NSFileCoordinator alloc] initWithFilePresenter:nil];
+<<<<<<< HEAD
     NSURL *directoryURL = [[self class] directoryPathURL];
     [[self class] checkAndCreateDirectory:directoryURL fileCoordinator:_fileCoordinator];
     _fileURL = [directoryURL URLByAppendingPathComponent:fileName];
   }
   return self;
+=======
+    _fileName = fileName;
+  }
+  return self;
+}
+
+/** Lazy getter for fileURL
+ * @return fileURL where heartbeat information is stored.
+ */
+- (NSURL *)fileURL {
+  if (!_fileURL) {
+    NSURL *directoryURL = [[self class] directoryPathURL];
+    [[self class] checkAndCreateDirectory:directoryURL fileCoordinator:_fileCoordinator];
+    _fileURL = [directoryURL URLByAppendingPathComponent:_fileName];
+  }
+  return _fileURL;
+>>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
 }
 
 /** Returns the URL path of the Application Support folder.

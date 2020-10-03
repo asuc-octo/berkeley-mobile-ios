@@ -41,12 +41,15 @@ Executor::TimePoint Immediate() {
   return Executor::TimePoint{};
 }
 
+<<<<<<< HEAD
 // The minimum time point, used to enqueue things at the absolute front of the
 // schedule.
 Executor::TimePoint Min() {
   return Executor::TimePoint{Executor::TimePoint::duration::min()};
 }
 
+=======
+>>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
 // The only guarantee is that different `thread_id`s will produce different
 // values.
 std::string ThreadIdToString(const std::thread::id thread_id) {
@@ -80,6 +83,7 @@ ExecutorStd::~ExecutorStd() {
 }
 
 void ExecutorStd::Dispose() {
+<<<<<<< HEAD
   std::lock_guard<std::mutex> lock(mutex_);
 
   // Do nothing if already disposed.
@@ -104,6 +108,36 @@ void ExecutorStd::Dispose() {
 
   state_ = nullptr;
 
+=======
+  {
+    std::lock_guard<std::mutex> lock(mutex_);
+
+    // Do nothing if already disposed.
+    if (state_ == nullptr) {
+      return;
+    }
+
+    state_->schedule_.Clear();
+
+    // Enqueue one Task with the kShutdownTag for each worker. Workers will
+    // finish whatever task they're currently working on, execute this task,
+    // and then quit.
+    //
+    // Note that this destructor may be running on a thread managed by this
+    // Executor. This means that these tasks cannot be Awaited, though we do so
+    // indirectly by joining threads if possible. On the thread currently
+    // running this destructor, the kShutdownTag Task will execute after the
+    // destructor completes.
+    for (size_t i = 0; i < worker_thread_pool_.size(); ++i) {
+      PushOnScheduleLocked(Immediate(), kShutdownTag, [] {});
+    }
+
+    state_ = nullptr;
+  }
+
+  // Now that `state_` has been released, join any threads while not holding
+  // the lock to avoid deadlocks where the thread tries to access the executor.
+>>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
   for (std::thread& thread : worker_thread_pool_) {
     // If the current thread is running this destructor, we can't join the
     // thread. Instead detach it and rely on PollingThread to exit cleanly.

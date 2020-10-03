@@ -14,7 +14,11 @@
  * limitations under the License.
  */
 
+<<<<<<< HEAD
 #import "FIRInstallations.h"
+=======
+#import "FirebaseInstallations/Source/Library/Public/FirebaseInstallations/FIRInstallations.h"
+>>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
 
 #if __has_include(<FBLPromises/FBLPromises.h>)
 #import <FBLPromises/FBLPromises.h>
@@ -22,6 +26,7 @@
 #import "FBLPromises.h"
 #endif
 
+<<<<<<< HEAD
 #import <FirebaseCore/FIRAppInternal.h>
 #import <FirebaseCore/FIRComponent.h>
 #import <FirebaseCore/FIRComponentContainer.h>
@@ -37,6 +42,18 @@
 #import "FIRInstallationsLogger.h"
 #import "FIRInstallationsStoredAuthToken.h"
 #import "FIRInstallationsVersion.h"
+=======
+#import "FirebaseCore/Sources/Private/FirebaseCoreInternal.h"
+
+#import "FirebaseInstallations/Source/Library/FIRInstallationsAuthTokenResultInternal.h"
+
+#import "FirebaseInstallations/Source/Library/Errors/FIRInstallationsErrorUtil.h"
+#import "FirebaseInstallations/Source/Library/FIRInstallationsItem.h"
+#import "FirebaseInstallations/Source/Library/FIRInstallationsLogger.h"
+#import "FirebaseInstallations/Source/Library/InstallationsIDController/FIRInstallationsIDController.h"
+#import "FirebaseInstallations/Source/Library/InstallationsStore/FIRInstallationsStoredAuthToken.h"
+#import "FirebaseInstallations/Source/Library/Public/FirebaseInstallations/FIRInstallationsVersion.h"
+>>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
 
 NS_ASSUME_NONNULL_BEGIN
 

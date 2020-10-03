@@ -18,12 +18,20 @@
 
 #if defined(__APPLE__)
 
+<<<<<<< HEAD
 #import <FirebaseCore/FIRLogger.h>
+=======
+>>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
 #import <Foundation/Foundation.h>
 
 #include <cstdarg>
 #include <string>
 
+<<<<<<< HEAD
+=======
+#import "FirebaseCore/Sources/Private/FirebaseCoreInternal.h"
+
+>>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
 #include "Firestore/core/src/util/string_apple.h"
 
 namespace firebase {

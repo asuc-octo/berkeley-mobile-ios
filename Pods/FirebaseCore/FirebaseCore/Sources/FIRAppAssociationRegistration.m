@@ -12,7 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+<<<<<<< HEAD
 #import "FirebaseCore/Sources/Private/FIRAppAssociationRegistration.h"
+=======
+#import "FirebaseCore/Sources/FIRAppAssociationRegistration.h"
+>>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
 
 #import <objc/runtime.h>
 

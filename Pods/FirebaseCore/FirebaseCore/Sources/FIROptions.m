@@ -90,10 +90,16 @@ NSString *const kFIRExceptionBadModification =
 
 static FIROptions *sDefaultOptions = nil;
 static NSDictionary *sDefaultOptionsDictionary = nil;
+<<<<<<< HEAD
+=======
+static dispatch_once_t sDefaultOptionsOnceToken;
+static dispatch_once_t sDefaultOptionsDictionaryOnceToken;
+>>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
 
 #pragma mark - Public only for internal class methods
 
 + (FIROptions *)defaultOptions {
+<<<<<<< HEAD
   if (sDefaultOptions != nil) {
     return sDefaultOptions;
   }
@@ -104,12 +110,23 @@ static NSDictionary *sDefaultOptionsDictionary = nil;
   }
 
   sDefaultOptions = [[FIROptions alloc] initInternalWithOptionsDictionary:defaultOptionsDictionary];
+=======
+  dispatch_once(&sDefaultOptionsOnceToken, ^{
+    NSDictionary *defaultOptionsDictionary = [self defaultOptionsDictionary];
+    if (defaultOptionsDictionary != nil) {
+      sDefaultOptions =
+          [[FIROptions alloc] initInternalWithOptionsDictionary:defaultOptionsDictionary];
+    }
+  });
+
+>>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
   return sDefaultOptions;
 }
 
 #pragma mark - Private class methods
 
 + (NSDictionary *)defaultOptionsDictionary {
+<<<<<<< HEAD
   if (sDefaultOptionsDictionary != nil) {
     return sDefaultOptionsDictionary;
   }
@@ -124,6 +141,22 @@ static NSDictionary *sDefaultOptionsDictionary = nil;
                 @"'%@.%@'.",
                 kServiceInfoFileName, kServiceInfoFileType);
   }
+=======
+  dispatch_once(&sDefaultOptionsDictionaryOnceToken, ^{
+    NSString *plistFilePath = [FIROptions plistFilePathWithName:kServiceInfoFileName];
+    if (plistFilePath == nil) {
+      return;
+    }
+    sDefaultOptionsDictionary = [NSDictionary dictionaryWithContentsOfFile:plistFilePath];
+    if (sDefaultOptionsDictionary == nil) {
+      FIRLogError(kFIRLoggerCore, @"I-COR000011",
+                  @"The configuration file is not a dictionary: "
+                  @"'%@.%@'.",
+                  kServiceInfoFileName, kServiceInfoFileType);
+    }
+  });
+
+>>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
   return sDefaultOptionsDictionary;
 }
 
@@ -144,6 +177,11 @@ static NSDictionary *sDefaultOptionsDictionary = nil;
 + (void)resetDefaultOptions {
   sDefaultOptions = nil;
   sDefaultOptionsDictionary = nil;
+<<<<<<< HEAD
+=======
+  sDefaultOptionsOnceToken = 0;
+  sDefaultOptionsDictionaryOnceToken = 0;
+>>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
 }
 
 #pragma mark - Private instance methods

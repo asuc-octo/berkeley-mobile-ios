@@ -15,7 +15,17 @@
  */
 
 #import <FirebaseCore/FIRApp.h>
+<<<<<<< HEAD
 #import <FirebaseCore/FIRErrors.h>
+=======
+
+// The has_include is a workaround so the old IID needed for the FIS tests can find FIRErrors.h
+#if __has_include("FirebaseCore/Sources/Private/FIRErrors.h")
+#import "FirebaseCore/Sources/Private/FIRErrors.h"
+#else
+#import <FirebaseCore/FIRErrors.h>
+#endif
+>>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
 
 @class FIRComponentContainer;
 @protocol FIRLibrary;

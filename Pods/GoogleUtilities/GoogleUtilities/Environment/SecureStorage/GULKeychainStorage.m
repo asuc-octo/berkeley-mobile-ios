@@ -14,7 +14,11 @@
  * limitations under the License.
  */
 
+<<<<<<< HEAD
 #import <GoogleUtilities/GULKeychainStorage.h>
+=======
+#import "GoogleUtilities/Environment/Private/GULKeychainStorage.h"
+>>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
 #import <Security/Security.h>
 
 #if __has_include(<FBLPromises/FBLPromises.h>)
@@ -23,8 +27,13 @@
 #import "FBLPromises.h"
 #endif
 
+<<<<<<< HEAD
 #import <GoogleUtilities/GULKeychainUtils.h>
 #import <GoogleUtilities/GULSecureCoding.h>
+=======
+#import "GoogleUtilities/Environment/Private/GULKeychainUtils.h"
+#import "GoogleUtilities/Environment/Private/GULSecureCoding.h"
+>>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
 
 @interface GULKeychainStorage ()
 @property(nonatomic, readonly) dispatch_queue_t keychainQueue;

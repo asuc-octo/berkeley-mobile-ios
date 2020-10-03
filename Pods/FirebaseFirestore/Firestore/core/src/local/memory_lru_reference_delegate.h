@@ -65,7 +65,11 @@ class MemoryLruReferenceDelegate : public LruDelegate {
 
   LruGarbageCollector* garbage_collector() override;
 
+<<<<<<< HEAD
   int64_t CalculateByteSize() override;
+=======
+  util::StatusOr<int64_t> CalculateByteSize() override;
+>>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
   size_t GetSequenceNumberCount() override;
 
   void EnumerateTargets(const TargetCallback& callback) override;

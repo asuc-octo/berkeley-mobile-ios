@@ -84,7 +84,11 @@ class FieldValue {
 
   FieldValue();
 
+<<<<<<< HEAD
   FieldValue(ObjectValue object);  // NOLINT(runtime/explicit)
+=======
+  FieldValue(const ObjectValue& object);  // NOLINT(runtime/explicit)
+>>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
 
   /** Returns the true type for this value. */
   Type type() const {
@@ -409,7 +413,11 @@ class FieldValue::ServerTimestamp {
 };
 
 // Pretend you can automatically upcast from ObjectValue to FieldValue.
+<<<<<<< HEAD
 inline FieldValue::FieldValue(ObjectValue object)
+=======
+inline FieldValue::FieldValue(const ObjectValue& object)
+>>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
     : FieldValue(object.AsFieldValue()) {
 }
 

@@ -38,12 +38,16 @@ class KeyFieldInFilter::Rep : public FieldFilter::Rep {
  public:
   Rep(FieldPath field, FieldValue value)
       : FieldFilter::Rep(std::move(field), Operator::In, std::move(value)) {
+<<<<<<< HEAD
     const FieldValue::Array& array_value = this->value().array_value();
     for (const auto& ref_value : array_value) {
       HARD_ASSERT(ref_value.type() == FieldValue::Type::Reference,
                   "Comparing on key with IN, but an array value was not"
                   " a Reference");
     }
+=======
+    ValidateArrayValue(this->value());
+>>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
   }
 
   Type type() const override {
@@ -60,6 +64,14 @@ KeyFieldInFilter::KeyFieldInFilter(FieldPath field, FieldValue value)
 
 bool KeyFieldInFilter::Rep::Matches(const Document& doc) const {
   const FieldValue::Array& array_value = value().array_value();
+<<<<<<< HEAD
+=======
+  return Contains(array_value, doc);
+}
+
+bool KeyFieldInFilter::Contains(const FieldValue::Array& array_value,
+                                const Document& doc) {
+>>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
   for (const auto& rhs : array_value) {
     if (doc.key() == rhs.reference_value().key()) {
       return true;
@@ -68,6 +80,20 @@ bool KeyFieldInFilter::Rep::Matches(const Document& doc) const {
   return false;
 }
 
+<<<<<<< HEAD
+=======
+void KeyFieldInFilter::ValidateArrayValue(const FieldValue& value) {
+  HARD_ASSERT(value.type() == FieldValue::Type::Array,
+              "Comparing on key with In/NotIn, but the value was not an Array");
+  const FieldValue::Array& array_value = value.array_value();
+  for (const auto& ref_value : array_value) {
+    HARD_ASSERT(ref_value.type() == FieldValue::Type::Reference,
+                "Comparing on key with In/NotIn, but an array value was not"
+                " a Reference");
+  }
+}
+
+>>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
 }  // namespace core
 }  // namespace firestore
 }  // namespace firebase

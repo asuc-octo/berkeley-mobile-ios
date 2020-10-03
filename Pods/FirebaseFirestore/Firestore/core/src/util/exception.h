@@ -37,6 +37,10 @@
 
 #include "Firestore/core/src/util/string_format.h"
 #include "absl/base/attributes.h"
+<<<<<<< HEAD
+=======
+#include "absl/base/config.h"
+>>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
 
 namespace firebase {
 namespace firestore {

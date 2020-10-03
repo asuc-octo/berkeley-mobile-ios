@@ -42,6 +42,10 @@
 #include "Firestore/core/src/model/database_id.h"
 #include "Firestore/core/src/model/document_set.h"
 #include "Firestore/core/src/model/mutation.h"
+<<<<<<< HEAD
+=======
+#include "Firestore/core/src/remote/connectivity_monitor.h"
+>>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
 #include "Firestore/core/src/remote/datastore.h"
 #include "Firestore/core/src/remote/remote_store.h"
 #include "Firestore/core/src/remote/serializer.h"
@@ -84,6 +88,10 @@ using model::DocumentMap;
 using model::MaybeDocument;
 using model::Mutation;
 using model::OnlineState;
+<<<<<<< HEAD
+=======
+using remote::ConnectivityMonitor;
+>>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
 using remote::Datastore;
 using remote::RemoteStore;
 using remote::Serializer;
@@ -193,6 +201,7 @@ void FirestoreClient::Initialize(const User& user, const Settings& settings) {
   query_engine_ = absl::make_unique<IndexFreeQueryEngine>();
   local_store_ = absl::make_unique<LocalStore>(persistence_.get(),
                                                query_engine_.get(), user);
+<<<<<<< HEAD
 
   auto datastore = std::make_shared<Datastore>(database_info_, worker_queue_,
                                                credentials_provider_);
@@ -200,6 +209,16 @@ void FirestoreClient::Initialize(const User& user, const Settings& settings) {
   remote_store_ = absl::make_unique<RemoteStore>(
       local_store_.get(), std::move(datastore), worker_queue_,
       [this](OnlineState online_state) {
+=======
+  connectivity_monitor_ = ConnectivityMonitor::Create(worker_queue_);
+  auto datastore = std::make_shared<Datastore>(database_info_, worker_queue_,
+                                               credentials_provider_,
+                                               connectivity_monitor_.get());
+
+  remote_store_ = absl::make_unique<RemoteStore>(
+      local_store_.get(), std::move(datastore), worker_queue_,
+      connectivity_monitor_.get(), [this](OnlineState online_state) {
+>>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
         sync_engine_->HandleOnlineStateChange(online_state);
       });
 

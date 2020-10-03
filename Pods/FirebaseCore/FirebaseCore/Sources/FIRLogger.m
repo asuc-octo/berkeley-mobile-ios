@@ -14,9 +14,15 @@
 
 #import "FirebaseCore/Sources/Private/FIRLogger.h"
 
+<<<<<<< HEAD
 #import <FirebaseCore/FIRLoggerLevel.h>
 #import <GoogleUtilities/GULAppEnvironmentUtil.h>
 #import <GoogleUtilities/GULLogger.h>
+=======
+#import "FirebaseCore/Sources/Public/FirebaseCore/FIRLoggerLevel.h"
+#import "GoogleUtilities/Environment/Private/GULAppEnvironmentUtil.h"
+#import "GoogleUtilities/Logger/Private/GULLogger.h"
+>>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
 
 #import "FirebaseCore/Sources/FIRVersion.h"
 

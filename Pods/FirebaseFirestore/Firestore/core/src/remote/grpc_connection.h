@@ -85,6 +85,11 @@ class GrpcConnection {
   void Register(GrpcCall* call);
   void Unregister(GrpcCall* call);
 
+<<<<<<< HEAD
+=======
+  static void SetClientLanguage(std::string language_token);
+
+>>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
   /**
    * Don't use SSL, send all traffic unencrypted. Call before creating any
    * streams or calls.

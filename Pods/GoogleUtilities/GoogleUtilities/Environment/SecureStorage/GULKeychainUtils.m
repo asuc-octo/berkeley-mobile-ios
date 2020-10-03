@@ -14,7 +14,11 @@
  * limitations under the License.
  */
 
+<<<<<<< HEAD
 #import <GoogleUtilities/GULKeychainUtils.h>
+=======
+#import "GoogleUtilities/Environment/Private/GULKeychainUtils.h"
+>>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
 
 NSString *const kGULKeychainUtilsErrorDomain = @"com.gul.keychain.ErrorDomain";
 

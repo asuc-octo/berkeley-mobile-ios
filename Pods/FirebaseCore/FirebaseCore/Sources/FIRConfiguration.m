@@ -12,9 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+<<<<<<< HEAD
 #import "FirebaseCore/Sources/Private/FIRConfigurationInternal.h"
 
 #import "FirebaseCore/Sources/Private/FIRAnalyticsConfiguration.h"
+=======
+#import "FirebaseCore/Sources/FIRConfigurationInternal.h"
+
+#import "FirebaseCore/Sources/FIRAnalyticsConfiguration.h"
+>>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
 
 extern void FIRSetLoggerLevel(FIRLoggerLevel loggerLevel);
 

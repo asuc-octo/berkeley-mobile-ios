@@ -22,6 +22,7 @@
 #import <AppKit/AppKit.h>
 #endif
 
+<<<<<<< HEAD
 #import <FirebaseCore/FIRApp.h>
 
 #import "FirebaseCore/Sources/FIRBundleUtil.h"
@@ -30,12 +31,26 @@
 #import "FirebaseCore/Sources/Private/FIRAppInternal.h"
 #import "FirebaseCore/Sources/Private/FIRComponentContainerInternal.h"
 #import "FirebaseCore/Sources/Private/FIRConfigurationInternal.h"
+=======
+#import "FirebaseCore/Sources/Public/FirebaseCore/FIRApp.h"
+
+#import "FirebaseCore/Sources/FIRAnalyticsConfiguration.h"
+#import "FirebaseCore/Sources/FIRBundleUtil.h"
+#import "FirebaseCore/Sources/FIRComponentContainerInternal.h"
+#import "FirebaseCore/Sources/FIRConfigurationInternal.h"
+#import "FirebaseCore/Sources/FIRVersion.h"
+#import "FirebaseCore/Sources/Private/FIRAppInternal.h"
+>>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
 #import "FirebaseCore/Sources/Private/FIRCoreDiagnosticsConnector.h"
 #import "FirebaseCore/Sources/Private/FIRLibrary.h"
 #import "FirebaseCore/Sources/Private/FIRLogger.h"
 #import "FirebaseCore/Sources/Private/FIROptionsInternal.h"
 
+<<<<<<< HEAD
 #import <GoogleUtilities/GULAppEnvironmentUtil.h>
+=======
+#import "GoogleUtilities/Environment/Private/GULAppEnvironmentUtil.h"
+>>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
 
 #import <objc/runtime.h>
 

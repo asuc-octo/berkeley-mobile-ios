@@ -36,10 +36,19 @@ void SnapshotsInSyncListenerRegistration::Remove() {
   if (async_listener) {
     async_listener->Mute();
     async_listener_.reset();
+<<<<<<< HEAD
   }
 
   client_->RemoveSnapshotsInSyncListener(async_listener);
   client_.reset();
+=======
+
+    if (client_) {
+      client_->RemoveSnapshotsInSyncListener(async_listener);
+      client_.reset();
+    }
+  }
+>>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
 }
 
 }  // namespace api
