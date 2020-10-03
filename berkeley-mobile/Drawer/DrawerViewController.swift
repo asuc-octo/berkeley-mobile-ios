@@ -17,7 +17,7 @@ class DrawerViewController: UIViewController {
     
     // the last non-hidden position of the drawer (used to return drawer to correct position if it's currently hidden/covered)
     var prevState: DrawerState!
-    var barView: UIView = UIView()
+    var barView: BarView!
     
     // maximum upper position to limit the drawer to (or nil if limit is top of screen)
     var upperLimitState: DrawerState? {
@@ -45,11 +45,7 @@ class DrawerViewController: UIViewController {
         view.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         view.clipsToBounds = true
         
-        barView = UIView(frame: CGRect(x: self.view.frame.width / 2 - self.view.frame.width / 30, y: 7, width: self.view.frame.width / 15, height: 5))
-        barView.backgroundColor = .lightGray
-        barView.alpha = 0.5
-        barView.layer.cornerRadius = barView.frame.height / 2
-        barView.clipsToBounds = true
+        barView = BarView(superViewWidth: view.frame.width)
         view.addSubview(barView)
     }
     

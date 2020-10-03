@@ -9,45 +9,44 @@
 import Foundation
 import UIKit
 
-/// An event on the Campus-Wide Calendar.
-class CampusCalendarEntry: CalendarEvent {
+//
+//  CampusCalendarEntry.swift
+//  bm-persona
+//
+//  Created by Oscar Bjorkman on 2/2/20.
+//  Copyright © 2020 RJ Pimentel. All rights reserved.
+//
 
-    // MARK: CalendarEvent Fields
+import Foundation
+import UIKit
 
-    var name: String
-    var date: Date
-    var end: Date?
+class CampusCalendarEntry: HasName {
+    var eventType: String?
+    // date from Firebase document name (used for upcoming events, filters, sorts, etc)
+    let date: Date
+    // date 'description' from Firebase entry (e.g. 'March 9 - May 1, 2020 every day') (used for detail view, user-facing)
+    var dateString: String?
     var description: String?
+    var imageURL: URL?
+    var image: UIImage?
+    var link: URL?
     var location: String?
-
-    // MARK: Additional Fields
-
-    /// The category this event belongs to, if any.
-    let type: String?
-
-    /// The color associated with this event's `type`.
-    var color: UIColor {
-        guard let type = type else { return Color.eventDefault }
-        switch type {
-        case let type where type.contains("Exhibit"):
-            return Color.eventExhibit
-        case "Seminar":
-            return Color.eventAcademic
-        case "Lecture":
-            return Color.eventAcademic
-        case "Workshop":
-            return Color.eventAcademic
-        case "Course":
-            return Color.eventAcademic
-        default:
-            return Color.eventDefault
-        }
+    var status: String?
+    var time: String?
+    let name: String
+    
+    init(name: String, date: Date, dateString: String?, eventType: String?, description: String?, imageLink: String?,
+         link: String?, location: String?, status: String?, time: String?) {
+        self.name = name
+        self.date = date
+        self.dateString = dateString
+        self.eventType = eventType
+        self.description = description
+        self.imageURL = URL(string: imageLink ?? "")
+        self.link = URL(string: link ?? "")
+        self.location = location
+        self.status = status
+        self.time = time
     }
     
-    init(name: String, address: String?, date: Date, eventType: String) {
-        self.name = name
-        self.location = address
-        self.date = date
-        self.type = eventType
-    }
 }
