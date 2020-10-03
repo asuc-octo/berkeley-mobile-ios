@@ -256,23 +256,8 @@ class OverviewCardView: CardView {
         label.minimumScaleFactor = 0.75
         label.numberOfLines = 0
         
-        label.isUserInteractionEnabled = true
-//        label.addGestureRecognizer(tap)
-        
         return label
     }()
-    
-    @objc func openAddressInMap(_ sender: UITapGestureRecognizer? = nil) {
-//        let myAddress = addressLabel.text
-//        let geoCoder = CLGeocoder()
-//        geoCoder.geocodeAddressString(myAddress!) { (placemarks, error) in
-//            guard let placemarks = placemarks?.first else { return }
-//            let location = placemarks.location?.coordinate ?? CLLocationCoordinate2D()
-//            guard let url = URL(string:"http://maps.apple.com/?daddr=\(location.latitude),\(location.longitude)") else { return }
-//            UIApplication.shared.open(url)
-//        }
-        print("tapped")
-    }
     
     let clockIcon: UIImageView = {
         let image = UIImageView()
