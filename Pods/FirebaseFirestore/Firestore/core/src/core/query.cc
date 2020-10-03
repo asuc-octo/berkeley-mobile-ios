@@ -77,32 +77,12 @@ const FieldPath* Query::InequalityFilterField() const {
   return nullptr;
 }
 
-<<<<<<< HEAD
-absl::optional<Operator> Query::FirstArrayOperator() const {
-  for (const auto& filter : filters_) {
-    if (filter.IsAFieldFilter()) {
-      FieldFilter relation_filter(filter);
-      if (IsArrayOperator(relation_filter.op())) {
-        return relation_filter.op();
-      }
-    }
-  }
-  return absl::nullopt;
-}
-
-absl::optional<Operator> Query::FirstDisjunctiveOperator() const {
-  for (const auto& filter : filters_) {
-    if (filter.IsAFieldFilter()) {
-      FieldFilter relation_filter(filter);
-      if (IsDisjunctiveOperator(relation_filter.op())) {
-=======
 absl::optional<Operator> Query::FindOperator(
     const std::vector<Operator>& ops) const {
   for (const auto& filter : filters_) {
     if (filter.IsAFieldFilter()) {
       FieldFilter relation_filter(filter);
       if (absl::c_linear_search(ops, relation_filter.op())) {
->>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
         return relation_filter.op();
       }
     }

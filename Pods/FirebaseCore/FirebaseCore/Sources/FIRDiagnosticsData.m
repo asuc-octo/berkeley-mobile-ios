@@ -14,15 +14,9 @@
  * limitations under the License.
  */
 
-<<<<<<< HEAD
-#import "FirebaseCore/Sources/Private/FIRDiagnosticsData.h"
-
-#import <FirebaseCore/FIRApp.h>
-=======
 #import "FirebaseCore/Sources/FIRDiagnosticsData.h"
 
 #import "FirebaseCore/Sources/Public/FirebaseCore/FIRApp.h"
->>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
 
 #import "FirebaseCore/Sources/Private/FIRAppInternal.h"
 #import "FirebaseCore/Sources/Private/FIROptionsInternal.h"

@@ -27,10 +27,7 @@
 #include "Firestore/core/src/local/target_data.h"
 #include "Firestore/core/src/model/resource_path.h"
 #include "Firestore/core/src/model/types.h"
-<<<<<<< HEAD
-=======
 #include "Firestore/core/src/util/statusor.h"
->>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
 #include "absl/memory/memory.h"
 #include "absl/strings/match.h"
 
@@ -41,10 +38,7 @@ namespace local {
 using model::DocumentKey;
 using model::ListenSequenceNumber;
 using model::ResourcePath;
-<<<<<<< HEAD
-=======
 using util::StatusOr;
->>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
 
 LevelDbLruReferenceDelegate::LevelDbLruReferenceDelegate(
     LevelDbPersistence* persistence, LruParams lru_params)
@@ -112,11 +106,7 @@ LruGarbageCollector* LevelDbLruReferenceDelegate::garbage_collector() {
   return gc_.get();
 }
 
-<<<<<<< HEAD
-int64_t LevelDbLruReferenceDelegate::CalculateByteSize() {
-=======
 StatusOr<int64_t> LevelDbLruReferenceDelegate::CalculateByteSize() {
->>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
   return db_->CalculateByteSize();
 }
 

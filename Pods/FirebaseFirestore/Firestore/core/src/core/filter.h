@@ -45,19 +45,13 @@ class Filter {
     LessThan,
     LessThanOrEqual,
     Equal,
-<<<<<<< HEAD
-=======
     NotEqual,
->>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
     GreaterThanOrEqual,
     GreaterThan,
     ArrayContains,
     In,
     ArrayContainsAny,
-<<<<<<< HEAD
-=======
     NotIn,
->>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
   };
 
   // For lack of RTTI, all subclasses must identify themselves so that
@@ -67,15 +61,10 @@ class Filter {
     kArrayContainsFilter,
     kFieldFilter,
     kInFilter,
-<<<<<<< HEAD
-    kKeyFieldFilter,
-    kKeyFieldInFilter,
-=======
     kNotInFilter,
     kKeyFieldFilter,
     kKeyFieldInFilter,
     kKeyFieldNotInFilter,
->>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
   };
 
   Type type() const {

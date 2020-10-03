@@ -31,10 +31,7 @@
 #include "Firestore/core/src/local/leveldb_persistence.h"
 #include "Firestore/core/src/model/document_key.h"
 #include "Firestore/core/src/model/resource_path.h"
-<<<<<<< HEAD
-=======
 #include "Firestore/core/src/remote/grpc_connection.h"
->>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
 #include "Firestore/core/src/util/async_queue.h"
 #include "Firestore/core/src/util/executor.h"
 #include "Firestore/core/src/util/hard_assert.h"
@@ -53,10 +50,7 @@ using core::Transaction;
 using local::LevelDbPersistence;
 using model::DocumentKey;
 using model::ResourcePath;
-<<<<<<< HEAD
-=======
 using remote::GrpcConnection;
->>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
 using util::AsyncQueue;
 using util::Empty;
 using util::Executor;
@@ -199,13 +193,10 @@ void Firestore::DisableNetwork(util::StatusCallback callback) {
   client_->DisableNetwork(std::move(callback));
 }
 
-<<<<<<< HEAD
-=======
 void Firestore::SetClientLanguage(std::string language_token) {
   GrpcConnection::SetClientLanguage(std::move(language_token));
 }
 
->>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
 std::unique_ptr<ListenerRegistration> Firestore::AddSnapshotsInSyncListener(
     std::unique_ptr<core::EventListener<Empty>> listener) {
   EnsureClientConfigured();

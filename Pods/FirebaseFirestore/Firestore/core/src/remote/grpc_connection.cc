@@ -32,11 +32,6 @@
 #include "Firestore/core/src/util/log.h"
 #include "Firestore/core/src/util/statusor.h"
 #include "Firestore/core/src/util/string_format.h"
-<<<<<<< HEAD
-#include "absl/memory/memory.h"
-#include "absl/strings/str_cat.h"
-#include "grpcpp/create_channel.h"
-=======
 #include "Firestore/core/src/util/warnings.h"
 #include "absl/memory/memory.h"
 #include "absl/strings/str_cat.h"
@@ -45,7 +40,6 @@ SUPPRESS_DOCUMENTATION_WARNINGS_BEGIN()
 #include "grpcpp/create_channel.h"
 #include "grpcpp/grpcpp.h"
 SUPPRESS_END()
->>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
 
 namespace firebase {
 namespace firestore {
@@ -130,10 +124,6 @@ class HostConfigMap {
 };
 
 HostConfigMap& Config() {
-<<<<<<< HEAD
-  static HostConfigMap config_by_host_;
-  return config_by_host_;
-=======
   static HostConfigMap config_by_host;
   return config_by_host;
 }
@@ -187,7 +177,6 @@ void AddCloudApiHeader(grpc::ClientContext& context) {
   auto api_tokens = StringFormat("%s fire/%s grpc/%s", LanguageToken().Get(),
                                  kFirestoreVersionString, grpc::Version());
   context.AddMetadata(kXGoogAPIClientHeader, api_tokens);
->>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
 }
 
 #if __APPLE__
@@ -240,20 +229,7 @@ std::unique_ptr<grpc::ClientContext> GrpcConnection::CreateContext(
     context->AddMetadata(kAuthorizationHeader, absl::StrCat("Bearer ", token));
   }
 
-<<<<<<< HEAD
-  // TODO(dimond): This should ideally also include the gRPC version, however,
-  // gRPC defines the version as a macro, so it would be hardcoded based on
-  // version we have at compile time of the Firestore library, rather than the
-  // version available at runtime/at compile time by the user of the library.
-  //
-  // TODO(varconst): this should be configurable (e.g., "gl-cpp" or similar for
-  // C++ SDK, etc.).
-  context->AddMetadata(
-      kXGoogAPIClientHeader,
-      StringFormat("gl-objc/ fire/%s grpc/", kFirestoreVersionString));
-=======
   AddCloudApiHeader(*context);
->>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
 
   // This header is used to improve routing and project isolation by the
   // backend.
@@ -378,19 +354,6 @@ void GrpcConnection::Unregister(GrpcCall* call) {
   active_calls_.erase(found);
 }
 
-<<<<<<< HEAD
-/*static*/ void GrpcConnection::UseTestCertificate(
-    const std::string& host,
-    const Path& certificate_path,
-    const std::string& target_name) {
-  Config().UseTestCertificate(host, certificate_path, target_name);
-}
-
-/*static*/ void GrpcConnection::UseInsecureChannel(const std::string& host) {
-  Config().UseInsecureChannel(host);
-}
-
-=======
 void GrpcConnection::SetClientLanguage(std::string language_token) {
   LanguageToken().Set(std::move(language_token));
 }
@@ -405,7 +368,6 @@ void GrpcConnection::UseTestCertificate(const std::string& host,
   Config().UseTestCertificate(host, certificate_path, target_name);
 }
 
->>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
 }  // namespace remote
 }  // namespace firestore
 }  // namespace firebase

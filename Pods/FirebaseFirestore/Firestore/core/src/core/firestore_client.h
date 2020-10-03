@@ -51,10 +51,7 @@ class Mutation;
 }  // namespace model
 
 namespace remote {
-<<<<<<< HEAD
-=======
 class ConnectivityMonitor;
->>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
 class RemoteStore;
 }  // namespace remote
 
@@ -208,10 +205,7 @@ class FirestoreClient : public std::enable_shared_from_this<FirestoreClient> {
   std::unique_ptr<local::Persistence> persistence_;
   std::unique_ptr<local::LocalStore> local_store_;
   std::unique_ptr<local::QueryEngine> query_engine_;
-<<<<<<< HEAD
-=======
   std::unique_ptr<remote::ConnectivityMonitor> connectivity_monitor_;
->>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
   std::unique_ptr<remote::RemoteStore> remote_store_;
   std::unique_ptr<SyncEngine> sync_engine_;
   std::unique_ptr<EventManager> event_manager_;

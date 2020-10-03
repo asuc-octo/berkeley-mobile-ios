@@ -15,13 +15,8 @@
  */
 
 #import <Foundation/Foundation.h>
-<<<<<<< HEAD
-#import <GoogleUtilities/GULMutableDictionary.h>
-#import <GoogleUtilities/GULSceneDelegateSwizzler.h>
-=======
 #import "GoogleUtilities/Network/Private/GULMutableDictionary.h"
 #import "GoogleUtilities/SceneDelegateSwizzler/Private/GULSceneDelegateSwizzler.h"
->>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
 
 NS_ASSUME_NONNULL_BEGIN
 

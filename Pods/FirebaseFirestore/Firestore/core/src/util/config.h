@@ -14,29 +14,6 @@
  * limitations under the License.
  */
 
-<<<<<<< HEAD
-#ifndef FIRESTORE_CORE_SRC_FIREBASE_FIRESTORE_UTIL_CONFIG_H_
-#define FIRESTORE_CORE_SRC_FIREBASE_FIRESTORE_UTIL_CONFIG_H_
-
-// This header defines macros for all available platform configuration values.
-// When building with CMake, it will substitute the lines marked with
-// cmakedefine with values corresponding to the local configuration.
-//
-// On Apple platforms we support building via CocoaPods without CMake. When
-// building this way we can't test the presence of features before building so
-// predefine all the platform-support feature macros to their expected values.
-
-#if COCOAPODS
-#  define HAVE_ARC4RANDOM 1
-#endif
-
-#if COCOAPODS
-#  define HAVE_LIBDISPATCH 1
-#endif
-
-
-#endif  // FIRESTORE_CORE_SRC_FIREBASE_FIRESTORE_UTIL_CONFIG_H_
-=======
 #ifndef FIRESTORE_CORE_SRC_UTIL_CONFIG_H_
 #define FIRESTORE_CORE_SRC_UTIL_CONFIG_H_
 
@@ -78,4 +55,3 @@
 #endif  // FIRESTORE_HAVE_CONFIG_DETECTED_H
 
 #endif  // FIRESTORE_CORE_SRC_UTIL_CONFIG_H_
->>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3

@@ -76,11 +76,7 @@ std::set<std::string> CollectUserSet(LevelDbTransaction* transaction) {
 
 }  // namespace
 
-<<<<<<< HEAD
-util::StatusOr<std::unique_ptr<LevelDbPersistence>> LevelDbPersistence::Create(
-=======
 StatusOr<std::unique_ptr<LevelDbPersistence>> LevelDbPersistence::Create(
->>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
     util::Path dir, LocalSerializer serializer, const LruParams& lru_params) {
   auto* fs = Filesystem::Default();
   Status status = EnsureDirectory(dir);
@@ -182,23 +178,6 @@ util::Status LevelDbPersistence::ClearPersistence(
   return fs->RecursivelyRemove(leveldb_dir);
 }
 
-<<<<<<< HEAD
-int64_t LevelDbPersistence::CalculateByteSize() {
-  auto* fs = Filesystem::Default();
-
-  int64_t count = 0;
-  auto iter = util::DirectoryIterator::Create(directory_);
-  for (; iter->Valid(); iter->Next()) {
-    int64_t file_size = fs->FileSize(iter->file()).ValueOrDie();
-    count += file_size;
-  }
-
-  HARD_ASSERT(iter->status().ok(), "Failed to iterate LevelDB directory: %s",
-              iter->status().error_message().c_str());
-  HARD_ASSERT(count >= 0 && count <= std::numeric_limits<int64_t>::max(),
-              "Overflowed counting bytes cached");
-  return count;
-=======
 StatusOr<int64_t> LevelDbPersistence::CalculateByteSize() {
   auto* fs = Filesystem::Default();
 
@@ -228,7 +207,6 @@ StatusOr<int64_t> LevelDbPersistence::CalculateByteSize() {
                              iter->status());
   }
   return static_cast<int64_t>(count);
->>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
 }
 
 // MARK: - Persistence

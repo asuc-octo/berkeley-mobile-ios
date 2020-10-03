@@ -12,11 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-<<<<<<< HEAD
-#import "GoogleUtilities/Environment/Public/GULSecureCoding.h"
-=======
 #import "GoogleUtilities/Environment/Private/GULSecureCoding.h"
->>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
 
 NSString *const kGULSecureCodingError = @"GULSecureCodingError";
 

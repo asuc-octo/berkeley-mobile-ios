@@ -118,24 +118,11 @@ class Query {
   const model::FieldPath* InequalityFilterField() const;
 
   /**
-<<<<<<< HEAD
-   * Returns the first array operator (array-contains or array-contains-any)
-   * found on a filter, or absl::nullopt if there are no array operators.
-   */
-  absl::optional<Filter::Operator> FirstArrayOperator() const;
-
-  /**
-   * Returns the first disjunctive operator (IN or array-contains-any) found
-   * on a filter, or absl::nullopt if there are no disjunctive operators.
-   */
-  absl::optional<Filter::Operator> FirstDisjunctiveOperator() const;
-=======
    * Checks if any of the provided filter operators are included in the query
    * and returns the first one that is, or null if none are.
    */
   absl::optional<Filter::Operator> FindOperator(
       const std::vector<Filter::Operator>& ops) const;
->>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
 
   /**
    * Returns the list of ordering constraints that were explicitly requested on

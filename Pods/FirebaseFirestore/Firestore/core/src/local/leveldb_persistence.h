@@ -69,11 +69,7 @@ class LevelDbPersistence : public Persistence {
 
   static util::Status ClearPersistence(const core::DatabaseInfo& database_info);
 
-<<<<<<< HEAD
-  int64_t CalculateByteSize();
-=======
   util::StatusOr<int64_t> CalculateByteSize();
->>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
 
   // MARK: Persistence overrides
 

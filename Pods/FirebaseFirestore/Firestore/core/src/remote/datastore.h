@@ -42,11 +42,8 @@ namespace firebase {
 namespace firestore {
 namespace remote {
 
-<<<<<<< HEAD
-=======
 class ConnectivityMonitor;
 
->>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
 /**
  * `Datastore` represents a proxy for the remote server, hiding details of the
  * RPC layer. It:
@@ -70,12 +67,8 @@ class Datastore : public std::enable_shared_from_this<Datastore> {
 
   Datastore(const core::DatabaseInfo& database_info,
             const std::shared_ptr<util::AsyncQueue>& worker_queue,
-<<<<<<< HEAD
-            std::shared_ptr<auth::CredentialsProvider> credentials);
-=======
             std::shared_ptr<auth::CredentialsProvider> credentials,
             ConnectivityMonitor* connectivity_monitor);
->>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
 
   virtual ~Datastore() = default;
 
@@ -137,15 +130,6 @@ class Datastore : public std::enable_shared_from_this<Datastore> {
   Datastore& operator=(Datastore&& other) = delete;
 
  protected:
-<<<<<<< HEAD
-  /** Test-only constructor */
-  Datastore(const core::DatabaseInfo& database_info,
-            const std::shared_ptr<util::AsyncQueue>& worker_queue,
-            std::shared_ptr<auth::CredentialsProvider> credentials,
-            std::unique_ptr<ConnectivityMonitor> connectivity_monitor);
-
-=======
->>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
   /** Test-only method */
   grpc::CompletionQueue* grpc_queue() {
     return &grpc_queue_;
@@ -197,12 +181,7 @@ class Datastore : public std::enable_shared_from_this<Datastore> {
   // shared for all spawned gRPC streams and calls).
   std::unique_ptr<util::Executor> rpc_executor_;
   grpc::CompletionQueue grpc_queue_;
-<<<<<<< HEAD
-  // TODO(varconst): move `ConnectivityMonitor` to `FirestoreClient`.
-  std::unique_ptr<ConnectivityMonitor> connectivity_monitor_;
-=======
   ConnectivityMonitor* connectivity_monitor_ = nullptr;
->>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
   GrpcConnection grpc_connection_;
 
   std::vector<std::unique_ptr<GrpcCall>> active_calls_;

@@ -61,13 +61,6 @@ constexpr int kMaxPendingWrites = 10;
 RemoteStore::RemoteStore(
     LocalStore* local_store,
     std::shared_ptr<Datastore> datastore,
-<<<<<<< HEAD
-    const std::shared_ptr<AsyncQueue>& worker_queue,
-    std::function<void(model::OnlineState)> online_state_handler)
-    : local_store_{local_store},
-      datastore_{std::move(datastore)},
-      online_state_tracker_{worker_queue, std::move(online_state_handler)} {
-=======
     const std::shared_ptr<util::AsyncQueue>& worker_queue,
     ConnectivityMonitor* connectivity_monitor,
     std::function<void(model::OnlineState)> online_state_handler)
@@ -75,7 +68,6 @@ RemoteStore::RemoteStore(
       datastore_{std::move(datastore)},
       online_state_tracker_{worker_queue, std::move(online_state_handler)},
       connectivity_monitor_{NOT_NULL(connectivity_monitor)} {
->>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
   datastore_->Start();
 
   // Create streams (but note they're not started yet)
@@ -87,8 +79,6 @@ void RemoteStore::Start() {
   // For now, all setup is handled by `EnableNetwork`. We might expand on this
   // in the future.
   EnableNetwork();
-<<<<<<< HEAD
-=======
 
   connectivity_monitor_->AddCallback(
       [this](ConnectivityMonitor::NetworkStatus network_status) {
@@ -106,7 +96,6 @@ void RemoteStore::Start() {
           RestartNetwork();
         }
       });
->>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
 }
 
 void RemoteStore::EnableNetwork() {
@@ -558,8 +547,6 @@ absl::optional<TargetData> RemoteStore::GetTargetDataForTarget(
                                         : absl::optional<TargetData>{};
 }
 
-<<<<<<< HEAD
-=======
 void RemoteStore::RestartNetwork() {
   is_network_enabled_ = false;
   DisableNetworkInternal();
@@ -569,21 +556,13 @@ void RemoteStore::RestartNetwork() {
   EnableNetwork();
 }
 
->>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
 void RemoteStore::HandleCredentialChange() {
   if (CanUseNetwork()) {
     // Tear down and re-create our network streams. This will ensure we get a
     // fresh auth token for the new user and re-fill the write pipeline with new
     // mutations from the `LocalStore` (since mutations are per-user).
     LOG_DEBUG("RemoteStore %s restarting streams for new credential", this);
-<<<<<<< HEAD
-    is_network_enabled_ = false;
-    DisableNetworkInternal();
-    online_state_tracker_.UpdateState(OnlineState::Unknown);
-    EnableNetwork();
-=======
     RestartNetwork();
->>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
   }
 }
 

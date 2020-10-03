@@ -16,35 +16,15 @@
 
 #import <Foundation/Foundation.h>
 
-<<<<<<< HEAD
-#import <GoogleDataTransport/GDTCORLifecycle.h>
-#import <GoogleDataTransport/GDTCORStorageProtocol.h>
-=======
 #import "GoogleDataTransport/GDTCORLibrary/Public/GoogleDataTransport/GDTCORLifecycle.h"
 #import "GoogleDataTransport/GDTCORLibrary/Public/GoogleDataTransport/GDTCORStorageEventSelector.h"
 #import "GoogleDataTransport/GDTCORLibrary/Public/GoogleDataTransport/GDTCORStorageProtocol.h"
->>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
 
 @class GDTCOREvent;
 @class GDTCORUploadCoordinator;
 
 NS_ASSUME_NONNULL_BEGIN
 
-<<<<<<< HEAD
-/** Manages the storage of events. This class is thread-safe. */
-@interface GDTCORFlatFileStorage
-    : NSObject <NSSecureCoding, GDTCORStorageProtocol, GDTCORLifecycleProtocol>
-
-/** The queue on which all storage work will occur. */
-@property(nonatomic) dispatch_queue_t storageQueue;
-
-/** A map of targets to a set of stored events. */
-@property(nonatomic)
-    NSMutableDictionary<NSNumber *, NSMutableSet<GDTCOREvent *> *> *targetToEventSet;
-
-/** All the events that have been stored. */
-@property(readonly, nonatomic) NSMutableDictionary<NSNumber *, GDTCOREvent *> *storedEvents;
-=======
 /** The event components eventID dictionary key. */
 FOUNDATION_EXPORT NSString *const kGDTCOREventComponentsEventIDKey;
 
@@ -91,7 +71,6 @@ typedef NS_ENUM(NSInteger, GDTCORFlatFileStorageError) {
 
 /** The queue on which all storage work will occur. */
 @property(nonatomic) dispatch_queue_t storageQueue;
->>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
 
 /** The upload coordinator instance used by this storage instance. */
 @property(nonatomic) GDTCORUploadCoordinator *uploadCoordinator;
@@ -102,14 +81,6 @@ typedef NS_ENUM(NSInteger, GDTCORFlatFileStorageError) {
  */
 + (instancetype)sharedInstance;
 
-<<<<<<< HEAD
-/** Returns the path to the keyed archive of the singleton. This is where the singleton is saved
- * to disk during certain app lifecycle events.
- *
- * @return File path to serialized singleton.
- */
-+ (NSString *)archivePath;
-=======
 /** Returns the base directory under which all events will be stored.
  *
  * @return The base directory under which all events will be stored.
@@ -181,7 +152,6 @@ typedef NS_ENUM(NSInteger, GDTCORFlatFileStorageError) {
  * @return The dictionary of batch component keys to their values.
  */
 - (nullable NSDictionary<NSString *, id> *)batchComponentsFromFilename:(NSString *)fileName;
->>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
 
 @end
 

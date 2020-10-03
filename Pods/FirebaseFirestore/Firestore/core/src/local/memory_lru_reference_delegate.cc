@@ -27,10 +27,7 @@
 #include "Firestore/core/src/local/remote_document_cache.h"
 #include "Firestore/core/src/local/sizer.h"
 #include "Firestore/core/src/local/target_data.h"
-<<<<<<< HEAD
-=======
 #include "Firestore/core/src/util/statusor.h"
->>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
 #include "absl/memory/memory.h"
 
 namespace firebase {
@@ -39,10 +36,7 @@ namespace local {
 
 using model::DocumentKey;
 using model::ListenSequenceNumber;
-<<<<<<< HEAD
-=======
 using util::StatusOr;
->>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
 
 MemoryLruReferenceDelegate::MemoryLruReferenceDelegate(
     MemoryPersistence* persistence,
@@ -180,11 +174,7 @@ bool MemoryLruReferenceDelegate::IsPinnedAtSequenceNumber(
   return false;
 }
 
-<<<<<<< HEAD
-int64_t MemoryLruReferenceDelegate::CalculateByteSize() {
-=======
 StatusOr<int64_t> MemoryLruReferenceDelegate::CalculateByteSize() {
->>>>>>> 6003df508faf8985a6bf077aee5b922b16b948e3
   // Note that this method is only used for testing because this delegate is
   // only used for testing. The algorithm here (loop through everything,
   // serialize it and count bytes) is inefficient and inexact, but won't run in
