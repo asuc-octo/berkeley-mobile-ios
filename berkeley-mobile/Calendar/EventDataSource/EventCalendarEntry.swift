@@ -1,5 +1,5 @@
 //
-//  AcademicCalendarEntry.swift
+//  EventCalendarEntry.swift
 //  berkeley-mobile
 //
 //  Created by Oscar Bjorkman on 2/2/20.

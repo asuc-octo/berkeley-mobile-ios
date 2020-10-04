@@ -108,9 +108,16 @@ class EventTableViewCell: UITableViewCell {
     func cellConfigure(entry: CalendarEvent, type: String?, color: UIColor?) {
         eventName.text = entry.name
         
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM/dd/yyyy"
-        eventTime.text = dateFormatter.string(from: entry.date)
+        // format date string to use "Today" or the actual date for other days
+        var dateString = ""
+        if entry.date.dateOnly() == Date().dateOnly() {
+            dateString += "Today"
+        } else {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MM/dd/yyyy"
+            dateString = dateFormatter.string(from: entry.date)
+        }
+        eventTime.text = dateString
         
         eventCategory.text = type
         eventCategory.isHidden = type == nil

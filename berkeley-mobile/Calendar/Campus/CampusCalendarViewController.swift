@@ -13,7 +13,7 @@ fileprivate let kViewMargin: CGFloat = 16
 
 /// Displays the campus-wide and org. events in the Calendar tab.
 class CampusCalendarViewController: UIViewController {
-    
+    /// Categories to include from all events
     private static let categories = ["Career"]
 
     private var scrollingStackView: ScrollingStackView!
@@ -44,10 +44,13 @@ class CampusCalendarViewController: UIViewController {
             self.calendarEntries = self.calendarEntries.sorted(by: {
                 $0.date.compare($1.date) == .orderedAscending
             })
-
-//            self.calendarEntries = self.calendarEntries.filter({
-//                $0.date > Date()
-//            })
+            
+            // no current data, use old data for testing
+            #if !DEBUG
+            self.calendarEntries = self.calendarEntries.filter({
+                $0.date > Date()
+            })
+            #endif
             if (self.calendarEntries.count == 0) {
                 self.upcomingMissingView.isHidden = false
                 self.calendarMissingView.isHidden = false

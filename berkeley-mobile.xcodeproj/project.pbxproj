@@ -99,7 +99,7 @@
 		29D8A2AB241ED13F00251FBE /* Raleway-Medium-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 29D8A2AA241ED13F00251FBE /* Raleway-Medium-Italic.ttf */; };
 		29D8A2AD241ED14900251FBE /* Raleway-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 29D8A2AC241ED14900251FBE /* Raleway-Light.ttf */; };
 		29EE163F241C4E310041482E /* SortingFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EE163E241C4E310041482E /* SortingFunctions.swift */; };
-		29F11EC72516C150007DCFD7 /* BarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F11EC62516C150007DCFD7 /* BarViewController.swift */; };
+		29F11EC72516C150007DCFD7 /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F11EC62516C150007DCFD7 /* BarView.swift */; };
 		29F11EC92516C527007DCFD7 /* CampusEventDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F11EC82516C527007DCFD7 /* CampusEventDetailViewController.swift */; };
 		303F6AE1236A931D007E37DD /* SegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303F6ADD236A931D007E37DD /* SegmentedControl.swift */; };
 		303F6AE4236A931D007E37DD /* SegmentedControlViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303F6AE0236A931D007E37DD /* SegmentedControlViewController.swift */; };
@@ -236,7 +236,7 @@
 		29D8A2AA241ED13F00251FBE /* Raleway-Medium-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Medium-Italic.ttf"; sourceTree = "<group>"; };
 		29D8A2AC241ED14900251FBE /* Raleway-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Light.ttf"; sourceTree = "<group>"; };
 		29EE163E241C4E310041482E /* SortingFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingFunctions.swift; sourceTree = "<group>"; };
-		29F11EC62516C150007DCFD7 /* BarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarViewController.swift; sourceTree = "<group>"; };
+		29F11EC62516C150007DCFD7 /* BarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarView.swift; sourceTree = "<group>"; };
 		29F11EC82516C527007DCFD7 /* CampusEventDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusEventDetailViewController.swift; sourceTree = "<group>"; };
 		303F6ADD236A931D007E37DD /* SegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedControl.swift; sourceTree = "<group>"; };
 		303F6AE0236A931D007E37DD /* SegmentedControlViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedControlViewController.swift; sourceTree = "<group>"; };
@@ -607,7 +607,7 @@
 		303F6ADC236A9274007E37DD /* Drawer */ = {
 			isa = PBXGroup;
 			children = (
-				29F11EC62516C150007DCFD7 /* BarViewController.swift */,
+				29F11EC62516C150007DCFD7 /* BarView.swift */,
 				306A54FD236142B800D59A7F /* DrawerViewController.swift */,
 				29B3D78724539FF3006762E5 /* MainDrawerViewController.swift */,
 				297678882426D2C500FDD1EB /* SearchDrawerViewController.swift */,
@@ -908,7 +908,7 @@
 				29CB28092404DD53009A2CFB /* LibraryViewController.swift in Sources */,
 				55AF44292453A4EC00F13232 /* CafeDataSource.swift in Sources */,
 				306A550023614C0000D59A7F /* MainContainerViewController.swift in Sources */,
-				29F11EC72516C150007DCFD7 /* BarViewController.swift in Sources */,
+				29F11EC72516C150007DCFD7 /* BarView.swift in Sources */,
 				55DCF78723722CBD001B01B8 /* Colors.swift in Sources */,
 				29B3D7862453984A006762E5 /* DrawerViewDelegate.swift in Sources */,
 				559AF6E0251EAA2800463E2A /* EventTapGestureRecognizer.swift in Sources */,

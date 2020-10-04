@@ -1,5 +1,5 @@
 //
-//  AcademicCalendarDataSource.swift
+//  EventDataSource.swift
 //  berkeley-mobile
 //
 //  Created by Oscar Bjorkman on 2/2/20.
@@ -23,15 +23,9 @@ class EventDataSource: DataSource {
                 print("Error getting documents: \(err)")
                 return
             } else {
-//                let df = DateFormatter()
-//                df.dateFormat = "yyyy-MM-dd hh:mm:ss"
                 let calendar = querySnapshot!.documents.compactMap { (document) -> EventCalendarEntry? in
                     let dict = document.data()
                     let entry = parseCalendarEntry(dict)
-//                    guard let tmp = entry else { return entry }
-//                    if tmp.name == "Academic and Administrative Holiday" && df.string(from: tmp.date) == "2020-12-24 12:00:00" {
-//                        print(document.documentID)
-//                    }
                     return entry
                 }
                 completion(calendar)

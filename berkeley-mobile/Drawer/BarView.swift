@@ -8,7 +8,9 @@
 
 import UIKit
 
+/// Gray bar to indicate that a view can be pulled
 class BarView: UIView {
+    /// Initialize with superview width so that bar is proportional to superview
     init(superViewWidth: CGFloat) {
         super.init(frame: CGRect.zero)
         self.frame = defaultFrame(superViewWidth: superViewWidth)

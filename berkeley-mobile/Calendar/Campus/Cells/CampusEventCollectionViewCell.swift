@@ -12,7 +12,7 @@ class CampusEventCollectionViewCell: UICollectionViewCell {
     
     static let kCardSize: CGSize = CGSize(width: 223, height: 100)
     
-    var containedView: CampusEventCellView = CampusEventCellView()
+    var containedView: CampusEventCellView = CampusEventCellView(upcoming: true)
     
     var cellImage: UIImageView {
         get {

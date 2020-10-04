@@ -11,6 +11,7 @@ import UIKit
 fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 10, left: 15, bottom: 15, right: 10)
 fileprivate let kViewMargin: CGFloat = 5
 
+/// Contained view to be used in CollectionView and TableView cells for campus-wide events
 class CampusEventCellView: UIView {
 
     init(upcoming: Bool = false) {
@@ -39,13 +40,19 @@ class CampusEventCellView: UIView {
         
         leftVerticalStack.addArrangedSubview(nameLabel)
         leftVerticalStack.addArrangedSubview(timeLabel)
+        // must constrain heights to prevent name label from taking up all the space
         timeLabel.heightAnchor.constraint(equalToConstant: 14).isActive = true
         locationLabel.heightAnchor.constraint(equalToConstant: 14).isActive = true
     }
     
+    /**
+     Update the values in the cell based on a new event (when collection/table is scrolled)
+     imageUpdate called to update cell image if cell is still visible
+     */
     public func updateContents(event: EventCalendarEntry, imageUpdate: () -> Void) {
         nameLabel.text = event.name
         
+        // format date string to use "Today" or the actual date for other days
         var dateString = ""
         if event.date.dateOnly() == Date().dateOnly() {
             dateString += "Today / "
