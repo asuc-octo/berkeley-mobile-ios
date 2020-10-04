@@ -13,8 +13,8 @@
 		016A56D8251C930D00531A12 /* AppDelegate+Migration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016A56D7251C930D00531A12 /* AppDelegate+Migration.swift */; };
 		017C0B26251018BA00BFA80A /* Colors+MapMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017C0B25251018BA00BFA80A /* Colors+MapMarker.swift */; };
 		01B250282516AD4F00CBA459 /* IconPairView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B250272516AD4F00CBA459 /* IconPairView.swift */; };
-		01B2502D2516C42E00CBA459 /* AcademicEventsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B2502C2516C42E00CBA459 /* AcademicEventsDataSource.swift */; };
-		01B2502F2516C45800CBA459 /* AcademicCalendarEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B2502E2516C45800CBA459 /* AcademicCalendarEntry.swift */; };
+		01B2502D2516C42E00CBA459 /* EventDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B2502C2516C42E00CBA459 /* EventDataSource.swift */; };
+		01B2502F2516C45800CBA459 /* EventCalendarEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B2502E2516C45800CBA459 /* EventCalendarEntry.swift */; };
 		01BC8EB024E8C3E3005B4969 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BC8EAF24E8C3E3005B4969 /* DetailView.swift */; };
 		01D11B8E2504453B00BDF660 /* ScrollingStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D11B8D2504453B00BDF660 /* ScrollingStackView.swift */; };
 		01D11B902504560700BDF660 /* GymDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D11B8F2504560700BDF660 /* GymDetailViewController.swift */; };
@@ -34,8 +34,6 @@
 		1336A329241DA56100949F32 /* DiningHallDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1336A328241DA56100949F32 /* DiningHallDataSource.swift */; };
 		133864A42404DCCA001F9048 /* MapMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133864A32404DCCA001F9048 /* MapMarker.swift */; };
 		133864AC2404E858001F9048 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133864A82404E857001F9048 /* CalendarViewController.swift */; };
-		133864AD2404E858001F9048 /* CampusCalendarDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133864AA2404E857001F9048 /* CampusCalendarDataSource.swift */; };
-		133864AE2404E858001F9048 /* CampusCalendarEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133864AB2404E857001F9048 /* CampusCalendarEntry.swift */; };
 		1346B9172420AA4500383399 /* DayOfWeek.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1346B9162420AA4500383399 /* DayOfWeek.swift */; };
 		1346B9192420AD4800383399 /* WeeklyHours.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1346B9182420AD4800383399 /* WeeklyHours.swift */; };
 		13491DB6241E21740033F9AB /* Colors+TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13491DB5241E21740033F9AB /* Colors+TagView.swift */; };
@@ -71,6 +69,10 @@
 		2913595924B13DF200DE9AD6 /* OpenTimesCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2913595824B13DF200DE9AD6 /* OpenTimesCardView.swift */; };
 		291B11E025043FF100F737A8 /* Sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291B11DF25043FF100F737A8 /* Sort.swift */; };
 		291B11E225044BDB00F737A8 /* HasName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291B11E125044BDB00F737A8 /* HasName.swift */; };
+		2925D5F825293F2A00BBA266 /* CampusEventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2925D5F725293F2A00BBA266 /* CampusEventTableViewCell.swift */; };
+		2925D5FA2529405500BBA266 /* CampusEventCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2925D5F92529405500BBA266 /* CampusEventCellView.swift */; };
+		2925D5FC2529546A00BBA266 /* CampusEventCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2925D5FB2529546A00BBA266 /* CampusEventCollectionViewCell.swift */; };
+		2925D5FF2529577E00BBA266 /* CampusEventCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2925D5FE2529577E00BBA266 /* CampusEventCollectionView.swift */; };
 		29345E2724A7E76300859A88 /* OverviewCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29345E2624A7E76300859A88 /* OverviewCardView.swift */; };
 		29345E2924A7E7AC00859A88 /* HasPhoneNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29345E2824A7E7AC00859A88 /* HasPhoneNumber.swift */; };
 		29345E2B24A7EC2B00859A88 /* HasImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29345E2A24A7EC2B00859A88 /* HasImage.swift */; };
@@ -97,10 +99,10 @@
 		29D8A2AB241ED13F00251FBE /* Raleway-Medium-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 29D8A2AA241ED13F00251FBE /* Raleway-Medium-Italic.ttf */; };
 		29D8A2AD241ED14900251FBE /* Raleway-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 29D8A2AC241ED14900251FBE /* Raleway-Light.ttf */; };
 		29EE163F241C4E310041482E /* SortingFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EE163E241C4E310041482E /* SortingFunctions.swift */; };
-        303F6AE1236A931D007E37DD /* SegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303F6ADD236A931D007E37DD /* SegmentedControl.swift */; };
-        303F6AE4236A931D007E37DD /* SegmentedControlViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303F6AE0236A931D007E37DD /* SegmentedControlViewController.swift */; };
 		29F11EC72516C150007DCFD7 /* BarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F11EC62516C150007DCFD7 /* BarViewController.swift */; };
 		29F11EC92516C527007DCFD7 /* CampusEventDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F11EC82516C527007DCFD7 /* CampusEventDetailViewController.swift */; };
+		303F6AE1236A931D007E37DD /* SegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303F6ADD236A931D007E37DD /* SegmentedControl.swift */; };
+		303F6AE4236A931D007E37DD /* SegmentedControlViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303F6AE0236A931D007E37DD /* SegmentedControlViewController.swift */; };
 		306A54EA23613E3A00D59A7F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306A54E923613E3A00D59A7F /* AppDelegate.swift */; };
 		306A54EC23613E3A00D59A7F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306A54EB23613E3A00D59A7F /* SceneDelegate.swift */; };
 		306A54EE23613E3A00D59A7F /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306A54ED23613E3A00D59A7F /* MapViewController.swift */; };
@@ -148,8 +150,8 @@
 		016A56D7251C930D00531A12 /* AppDelegate+Migration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Migration.swift"; sourceTree = "<group>"; };
 		017C0B25251018BA00BFA80A /* Colors+MapMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+MapMarker.swift"; sourceTree = "<group>"; };
 		01B250272516AD4F00CBA459 /* IconPairView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconPairView.swift; sourceTree = "<group>"; };
-		01B2502C2516C42E00CBA459 /* AcademicEventsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcademicEventsDataSource.swift; sourceTree = "<group>"; };
-		01B2502E2516C45800CBA459 /* AcademicCalendarEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcademicCalendarEntry.swift; sourceTree = "<group>"; };
+		01B2502C2516C42E00CBA459 /* EventDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDataSource.swift; sourceTree = "<group>"; };
+		01B2502E2516C45800CBA459 /* EventCalendarEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCalendarEntry.swift; sourceTree = "<group>"; };
 		01BC8EAF24E8C3E3005B4969 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		01D11B8D2504453B00BDF660 /* ScrollingStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollingStackView.swift; sourceTree = "<group>"; };
 		01D11B8F2504560700BDF660 /* GymDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailViewController.swift; sourceTree = "<group>"; };
@@ -167,8 +169,6 @@
 		1336A328241DA56100949F32 /* DiningHallDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiningHallDataSource.swift; sourceTree = "<group>"; };
 		133864A32404DCCA001F9048 /* MapMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMarker.swift; sourceTree = "<group>"; };
 		133864A82404E857001F9048 /* CalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
-		133864AA2404E857001F9048 /* CampusCalendarDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CampusCalendarDataSource.swift; sourceTree = "<group>"; };
-		133864AB2404E857001F9048 /* CampusCalendarEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CampusCalendarEntry.swift; sourceTree = "<group>"; };
 		1346B9162420AA4500383399 /* DayOfWeek.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayOfWeek.swift; sourceTree = "<group>"; };
 		1346B9182420AD4800383399 /* WeeklyHours.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyHours.swift; sourceTree = "<group>"; };
 		13491DB5241E21740033F9AB /* Colors+TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+TagView.swift"; sourceTree = "<group>"; };
@@ -208,6 +208,10 @@
 		2913595824B13DF200DE9AD6 /* OpenTimesCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenTimesCardView.swift; sourceTree = "<group>"; };
 		291B11DF25043FF100F737A8 /* Sort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sort.swift; sourceTree = "<group>"; };
 		291B11E125044BDB00F737A8 /* HasName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasName.swift; sourceTree = "<group>"; };
+		2925D5F725293F2A00BBA266 /* CampusEventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusEventTableViewCell.swift; sourceTree = "<group>"; };
+		2925D5F92529405500BBA266 /* CampusEventCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusEventCellView.swift; sourceTree = "<group>"; };
+		2925D5FB2529546A00BBA266 /* CampusEventCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusEventCollectionViewCell.swift; sourceTree = "<group>"; };
+		2925D5FE2529577E00BBA266 /* CampusEventCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusEventCollectionView.swift; sourceTree = "<group>"; };
 		29345E2624A7E76300859A88 /* OverviewCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewCardView.swift; sourceTree = "<group>"; };
 		29345E2824A7E7AC00859A88 /* HasPhoneNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasPhoneNumber.swift; sourceTree = "<group>"; };
 		29345E2A24A7EC2B00859A88 /* HasImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasImage.swift; sourceTree = "<group>"; };
@@ -232,10 +236,10 @@
 		29D8A2AA241ED13F00251FBE /* Raleway-Medium-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Medium-Italic.ttf"; sourceTree = "<group>"; };
 		29D8A2AC241ED14900251FBE /* Raleway-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Light.ttf"; sourceTree = "<group>"; };
 		29EE163E241C4E310041482E /* SortingFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingFunctions.swift; sourceTree = "<group>"; };
-        303F6ADD236A931D007E37DD /* SegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedControl.swift; sourceTree = "<group>"; };
-        303F6AE0236A931D007E37DD /* SegmentedControlViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedControlViewController.swift; sourceTree = "<group>"; };
 		29F11EC62516C150007DCFD7 /* BarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarViewController.swift; sourceTree = "<group>"; };
 		29F11EC82516C527007DCFD7 /* CampusEventDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusEventDetailViewController.swift; sourceTree = "<group>"; };
+		303F6ADD236A931D007E37DD /* SegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedControl.swift; sourceTree = "<group>"; };
+		303F6AE0236A931D007E37DD /* SegmentedControlViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedControlViewController.swift; sourceTree = "<group>"; };
 		306A54E623613E3A00D59A7F /* Berkeley.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Berkeley.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		306A54E923613E3A00D59A7F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		306A54EB23613E3A00D59A7F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -297,15 +301,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		01B2502B2516C39400CBA459 /* AcademicCalendarDataSource */ = {
-			isa = PBXGroup;
-			children = (
-				01B2502C2516C42E00CBA459 /* AcademicEventsDataSource.swift */,
-				01B2502E2516C45800CBA459 /* AcademicCalendarEntry.swift */,
-			);
-			path = AcademicCalendarDataSource;
-			sourceTree = "<group>";
-		};
 		1336A31D241C400F00949F32 /* GymClassDataSource */ = {
 			isa = PBXGroup;
 			children = (
@@ -363,25 +358,14 @@
 		133864A72404E857001F9048 /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
-				01B2502B2516C39400CBA459 /* AcademicCalendarDataSource */,
-				133864A92404E857001F9048 /* CampusCalendarDataSource */,
+				2925D5F525293E7B00BBA266 /* Academic */,
+				2925D5F425293E5A00BBA266 /* Campus */,
+				2925D5F625293E9D00BBA266 /* EventDataSource */,
 				133864A82404E857001F9048 /* CalendarViewController.swift */,
-				016A56D12519E90300531A12 /* AcademicCalendarViewController.swift */,
-				016A56D32519E96800531A12 /* CampusCalendarViewController.swift */,
-				29F11EC82516C527007DCFD7 /* CampusEventDetailViewController.swift */,
 			);
 			name = Calendar;
 			path = "berkeley-mobile/Calendar";
 			sourceTree = SOURCE_ROOT;
-		};
-		133864A92404E857001F9048 /* CampusCalendarDataSource */ = {
-			isa = PBXGroup;
-			children = (
-				133864AA2404E857001F9048 /* CampusCalendarDataSource.swift */,
-				133864AB2404E857001F9048 /* CampusCalendarEntry.swift */,
-			);
-			path = CampusCalendarDataSource;
-			sourceTree = "<group>";
 		};
 		13491DB4241E215E0033F9AB /* Colors */ = {
 			isa = PBXGroup;
@@ -553,6 +537,45 @@
 			path = DetailView;
 			sourceTree = "<group>";
 		};
+		2925D5F425293E5A00BBA266 /* Campus */ = {
+			isa = PBXGroup;
+			children = (
+				016A56D32519E96800531A12 /* CampusCalendarViewController.swift */,
+				2925D5FD2529547300BBA266 /* Cells */,
+				29F11EC82516C527007DCFD7 /* CampusEventDetailViewController.swift */,
+			);
+			path = Campus;
+			sourceTree = "<group>";
+		};
+		2925D5F525293E7B00BBA266 /* Academic */ = {
+			isa = PBXGroup;
+			children = (
+				016A56D12519E90300531A12 /* AcademicCalendarViewController.swift */,
+			);
+			name = Academic;
+			path = ../..;
+			sourceTree = "<group>";
+		};
+		2925D5F625293E9D00BBA266 /* EventDataSource */ = {
+			isa = PBXGroup;
+			children = (
+				01B2502C2516C42E00CBA459 /* EventDataSource.swift */,
+				01B2502E2516C45800CBA459 /* EventCalendarEntry.swift */,
+			);
+			path = EventDataSource;
+			sourceTree = "<group>";
+		};
+		2925D5FD2529547300BBA266 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				2925D5FB2529546A00BBA266 /* CampusEventCollectionViewCell.swift */,
+				2925D5FE2529577E00BBA266 /* CampusEventCollectionView.swift */,
+				2925D5F725293F2A00BBA266 /* CampusEventTableViewCell.swift */,
+				2925D5F92529405500BBA266 /* CampusEventCellView.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		29387E9324BBBBDF00070BCE /* Bar Graph */ = {
 			isa = PBXGroup;
 			children = (
@@ -599,7 +622,7 @@
 			isa = PBXGroup;
 			children = (
 				303F6ADD236A931D007E37DD /* SegmentedControl.swift */,
-                303F6AE0236A931D007E37DD /* SegmentedControlViewController.swift */,
+				303F6AE0236A931D007E37DD /* SegmentedControlViewController.swift */,
 			);
 			path = SegmentedControl;
 			sourceTree = "<group>";
@@ -911,11 +934,9 @@
 				556CCD2D23E79EC100F41BF9 /* TabBarController.swift in Sources */,
 				13B39A8D23E689BC0039FBA2 /* DataSource.swift in Sources */,
 				299ACFB2244A5A15000F3E86 /* Occupancy.swift in Sources */,
-				133864AD2404E858001F9048 /* CampusCalendarDataSource.swift in Sources */,
 				016A56D6251AD38F00531A12 /* CalendarEvent.swift in Sources */,
 				13580AFC243934C800D309AA /* GymsController.swift in Sources */,
-				133864AE2404E858001F9048 /* CampusCalendarEntry.swift in Sources */,
-				01B2502D2516C42E00CBA459 /* AcademicEventsDataSource.swift in Sources */,
+				01B2502D2516C42E00CBA459 /* EventDataSource.swift in Sources */,
 				29B3D78824539FF3006762E5 /* MainDrawerViewController.swift in Sources */,
 				13491DBC242098B30033F9AB /* AtomicDictionary.swift in Sources */,
 				01BC8EB024E8C3E3005B4969 /* DetailView.swift in Sources */,
@@ -923,6 +944,7 @@
 				1396013423865E2E005E4788 /* CardCollectionViewCell.swift in Sources */,
 				55DCF79D237243F5001B01B8 /* RippleLayer.swift in Sources */,
 				132087AF23F3B05D00AE273C /* Filter.swift in Sources */,
+				2925D5FC2529546A00BBA266 /* CampusEventCollectionViewCell.swift in Sources */,
 				556DB0DF23E7F60900F12721 /* ResourcesViewController.swift in Sources */,
 				55DCF79423723452001B01B8 /* SearchBarView.swift in Sources */,
 				133864AC2404E858001F9048 /* CalendarViewController.swift in Sources */,
@@ -934,8 +956,10 @@
 				13E25DFD238C949E00B670B5 /* FitnessViewController.swift in Sources */,
 				55DCF79B237243D4001B01B8 /* MaterialTextField.swift in Sources */,
 				554CB9A023F3A83F00BB1715 /* EventTableViewCell.swift in Sources */,
+				2925D5FF2529577E00BBA266 /* CampusEventCollectionView.swift in Sources */,
 				01B250282516AD4F00CBA459 /* IconPairView.swift in Sources */,
 				55AF442B2453A80B00F13232 /* CafeItem.swift in Sources */,
+				2925D5F825293F2A00BBA266 /* CampusEventTableViewCell.swift in Sources */,
 				55AF44272453A49D00F13232 /* Cafe.swift in Sources */,
 				13EA64CA2399CE5B00FD8E13 /* SearchItem.swift in Sources */,
 				13491DB8241E22130033F9AB /* Colors+Event.swift in Sources */,
@@ -972,7 +996,8 @@
 				29061D41241C450E002BC9D9 /* HasLocation.swift in Sources */,
 				1336A31A241C3FD300949F32 /* GymClassDataSource.swift in Sources */,
 				29387E9524BBBC1000070BCE /* BarGraph.swift in Sources */,
-				01B2502F2516C45800CBA459 /* AcademicCalendarEntry.swift in Sources */,
+				01B2502F2516C45800CBA459 /* EventCalendarEntry.swift in Sources */,
+				2925D5FA2529405500BBA266 /* CampusEventCellView.swift in Sources */,
 				5516088624392E5100B1E55B /* DiningViewController.swift in Sources */,
 				29387E9B24BBBD9D00070BCE /* CALayerExtension.swift in Sources */,
 				1396013323865E2E005E4788 /* CardCollectionView.swift in Sources */,

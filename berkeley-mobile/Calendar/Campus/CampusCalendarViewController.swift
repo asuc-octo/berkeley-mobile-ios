@@ -13,16 +13,18 @@ fileprivate let kViewMargin: CGFloat = 16
 
 /// Displays the campus-wide and org. events in the Calendar tab.
 class CampusCalendarViewController: UIViewController {
+    
+    private static let categories = ["Career"]
 
     private var scrollingStackView: ScrollingStackView!
 
     private var upcomingMissingView: MissingDataView!
-    private var eventsCollection: CardCollectionView!
+    private var eventsCollection: CampusEventCollectionView!
 
     private var calendarMissingView: MissingDataView!
     private var calendarTable: UITableView!
 
-    private var calendarEntries: [CampusCalendarEntry] = []
+    private var calendarEntries: [EventCalendarEntry] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,16 +36,18 @@ class CampusCalendarViewController: UIViewController {
         setupUpcoming()
         setupCalendarList()
 
-        DataManager.shared.fetch(source: CampusCalendarDataSource.self) { calendarEntries in
-            self.calendarEntries = calendarEntries as? [CampusCalendarEntry] ?? []
+        DataManager.shared.fetch(source: EventDataSource.self) { calendarEntries in
+            self.calendarEntries = (calendarEntries as? [EventCalendarEntry])?.filter({ entry -> Bool in
+                return CampusCalendarViewController.categories.contains(entry.category)
+            }) ?? []
 
             self.calendarEntries = self.calendarEntries.sorted(by: {
                 $0.date.compare($1.date) == .orderedAscending
             })
 
-            self.calendarEntries = self.calendarEntries.filter({
-                $0.date > Date()
-            })
+//            self.calendarEntries = self.calendarEntries.filter({
+//                $0.date > Date()
+//            })
             if (self.calendarEntries.count == 0) {
                 self.upcomingMissingView.isHidden = false
                 self.calendarMissingView.isHidden = false
@@ -69,10 +73,21 @@ extension CampusCalendarViewController: UITableViewDelegate, UITableViewDataSour
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: EventTableViewCell.kCellIdentifier, for: indexPath)
-            as? EventTableViewCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: CampusEventTableViewCell.kCellIdentifier, for: indexPath)
+            as? CampusEventTableViewCell {
             let entry = calendarEntries[indexPath.row]
-            cell.cellConfigure(entry: entry, type: entry.type, color: entry.color)
+            cell.updateContents(event: entry) {
+                DispatchQueue.global().async {
+                    guard let imageURL = entry.imageURL, let imageData = try? Data(contentsOf: imageURL) else { return }
+                    let image = UIImage(data: imageData)
+                    entry.image = image
+                    DispatchQueue.main.async {
+                        if tableView.visibleCells.contains(cell) {
+                            cell.cellImage.image = image
+                        }
+                    }
+                }
+            }
             return cell
         }
         return UITableViewCell()
@@ -92,23 +107,18 @@ extension CampusCalendarViewController: UICollectionViewDelegate, UICollectionVi
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CardCollectionView.kCellIdentifier, for: indexPath)
-        if let card = cell as? CardCollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CampusEventCollectionView.kCellIdentifier, for: indexPath)
+        if let card = cell as? CampusEventCollectionViewCell {
             let entry = calendarEntries[indexPath.row]
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MM/dd/yyyy"
-            var dateString = dateFormatter.string(from: entry.date)
-            if entry.date == Date() {
-                dateString = "Today / " + dateString
-            }
-            card.title.text = entry.name
-            card.subtitle.text = dateString
-            if let type = entry.type {
-                card.badge.isHidden = false
-                card.badge.text = type
-                card.badge.backgroundColor = entry.color
-            } else {
-                card.badge.isHidden = true
+            card.updateContents(event: entry) {
+                DispatchQueue.global().async {
+                    guard let imageURL = entry.imageURL, let imageData = try? Data(contentsOf: imageURL) else { return }
+                    let image = UIImage(data: imageData)
+                    entry.image = image
+                    DispatchQueue.main.async {
+                        card.cellImage.image = image
+                    }
+                }
             }
         }
         return cell
@@ -153,14 +163,14 @@ extension CampusCalendarViewController {
         headerLabel.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
         headerLabel.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
 
-        let collectionView = CardCollectionView(frame: .zero)
+        let collectionView = CampusEventCollectionView(frame: .zero)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.contentInset = UIEdgeInsets(top: 0, left: card.layoutMargins.left, bottom: 0, right: card.layoutMargins.right)
         contentView.addSubview(collectionView)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 16).isActive = true
-        collectionView.heightAnchor.constraint(equalToConstant: CardCollectionViewCell.kCardSize.height).isActive = true
+        collectionView.heightAnchor.constraint(equalToConstant: CampusEventCollectionViewCell.kCardSize.height).isActive = true
         collectionView.leftAnchor.constraint(equalTo: card.leftAnchor).isActive = true
         collectionView.rightAnchor.constraint(equalTo: card.rightAnchor).isActive = true
         collectionView.bottomAnchor.constraint(equalTo: card.layoutMarginsGuide.bottomAnchor).isActive = true
@@ -179,8 +189,8 @@ extension CampusCalendarViewController {
         card.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
 
         let table = UITableView()
-        table.register(EventTableViewCell.self, forCellReuseIdentifier: EventTableViewCell.kCellIdentifier)
-        table.rowHeight = EventTableViewCell.kCellHeight
+        table.register(CampusEventTableViewCell.self, forCellReuseIdentifier: CampusEventTableViewCell.kCellIdentifier)
+        table.rowHeight = CampusEventTableViewCell.kCellHeight
         table.allowsSelection = false
         table.delegate = self
         table.dataSource = self

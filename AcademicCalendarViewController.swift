@@ -13,6 +13,8 @@ fileprivate let kViewMargin: CGFloat = 16
 
 /// Displays the 'Academic' events in the Calendar tab.
 class AcademicCalendarViewController: UIViewController {
+    
+    private static let categories = ["Academic Calendar"]
 
     private var scrollingStackView: ScrollingStackView!
 
@@ -22,7 +24,7 @@ class AcademicCalendarViewController: UIViewController {
     private var calendarMissingView: MissingDataView!
     private var calendarTable: UITableView!
 
-    private var calendarEntries: [AcademicCalendarEntry] = []
+    private var calendarEntries: [EventCalendarEntry] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,8 +36,10 @@ class AcademicCalendarViewController: UIViewController {
         setupUpcoming()
         setupCalendarList()
 
-        DataManager.shared.fetch(source: AcademicCalendarDataSource.self) { calendarEntries in
-            self.calendarEntries = calendarEntries as? [AcademicCalendarEntry] ?? []
+        DataManager.shared.fetch(source: EventDataSource.self) { calendarEntries in
+            self.calendarEntries = (calendarEntries as? [EventCalendarEntry])?.filter({ entry -> Bool in
+                return AcademicCalendarViewController.categories.contains(entry.category)
+            }) ?? []
 
             self.calendarEntries = self.calendarEntries.filter({
                 $0.date > Date()

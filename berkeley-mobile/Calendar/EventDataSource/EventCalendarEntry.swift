@@ -9,16 +9,20 @@
 import Foundation
 import UIKit
 
-/// An event on the Academic Calendar (e.g. 'First Day of Instruction').
-class AcademicCalendarEntry: CalendarEvent {
+class EventCalendarEntry: CalendarEvent {
 
     // MARK: CalendarEvent Fields
 
+    var category: String
     var name: String
     var date: Date
     var end: Date?
     var description: String?
     var location: String?
+    var link: URL?
+    var imageURL: URL?
+    var image: UIImage?
+    var sourceLink: URL?
 
     // MARK: Additional Fields
 
@@ -38,11 +42,15 @@ class AcademicCalendarEntry: CalendarEvent {
         }
     }
 
-    init(name: String, date: Date, description: String? = nil, location: String? = nil, type: String? = nil) {
+    init(category: String, name: String, date: Date, description: String? = nil, location: String? = nil, link: String? = nil, imageURL: String? = nil, sourceLink: String? = nil, type: String? = nil) {
+        self.category = category
         self.name = name
         self.date = date
         self.description = description
         self.location = location
+        self.link = URL(string: link ?? "")
+        self.imageURL = URL(string: imageURL ?? "")
+        self.sourceLink = URL(string: sourceLink ?? "")
         self.type = type
     }
 }
