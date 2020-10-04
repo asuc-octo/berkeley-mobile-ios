@@ -111,7 +111,7 @@ class EventTableViewCell: UITableViewCell {
         // format date string to use "Today" or the actual date for other days
         var dateString = ""
         if entry.date.dateOnly() == Date().dateOnly() {
-            dateString += "Today"
+            dateString = "Today"
         } else {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "MM/dd/yyyy"
