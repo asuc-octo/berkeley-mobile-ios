@@ -16,9 +16,11 @@ class ResourceDetailViewController: SearchDrawerViewController {
 
     var overviewCard: OverviewCardView!
     var openTimesCard: OpenTimesCardView?
+    var descriptionCard: DescriptionCardView?
 
     override var upperLimitState: DrawerState? {
-        return openTimesCard == nil ? .middle : nil
+        return openTimesCard == nil &&
+               descriptionCard == nil ? .middle : nil
     }
 
     /// Boolean indicating whether this view is presented modally or through a drawer.
@@ -39,6 +41,7 @@ class ResourceDetailViewController: SearchDrawerViewController {
         setUpScrollView()
         setUpOverviewCard()
         setUpOpenTimesCard()
+        setupDescriptionCard()
     }
 
     override func setupGestures() {
@@ -81,6 +84,12 @@ extension ResourceDetailViewController {
         })
         guard let openTimesCard = self.openTimesCard else { return }
         scrollingStackView.stackView.addArrangedSubview(openTimesCard)
+    }
+
+    func setupDescriptionCard() {
+        descriptionCard = DescriptionCardView(description: resource.description)
+        guard let descriptionCard = descriptionCard else { return }
+        scrollingStackView.stackView.addArrangedSubview(descriptionCard)
     }
 
     func setUpScrollView() {

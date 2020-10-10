@@ -17,9 +17,12 @@ class GymDetailViewController: SearchDrawerViewController {
     var overviewCard: OverviewCardView!
     var openTimesCard: OpenTimesCardView?
     var occupancyCard: OccupancyGraphCardView?
+    var descriptionCard: DescriptionCardView?
 
     override var upperLimitState: DrawerState? {
-        return openTimesCard == nil && occupancyCard == nil ? .middle : nil
+        return openTimesCard == nil &&
+               occupancyCard == nil &&
+               descriptionCard == nil ? .middle : nil
     }
 
     override func viewDidLoad() {
@@ -29,6 +32,7 @@ class GymDetailViewController: SearchDrawerViewController {
         setUpOverviewCard()
         setUpOpenTimesCard()
         setUpOccupancyCard()
+        setupDescriptionCard()
     }
 
     override func viewDidLayoutSubviews() {
@@ -72,6 +76,12 @@ extension GymDetailViewController {
         occupancyCard = OccupancyGraphCardView(occupancy: occupancy, isOpen: gym.isOpen)
         guard let occupancyCard = self.occupancyCard else { return }
         scrollingStackView.stackView.addArrangedSubview(occupancyCard)
+    }
+
+    func setupDescriptionCard() {
+        descriptionCard = DescriptionCardView(description: gym.description)
+        guard let descriptionCard = descriptionCard else { return }
+        scrollingStackView.stackView.addArrangedSubview(descriptionCard)
     }
 
     func setUpScrollView() {

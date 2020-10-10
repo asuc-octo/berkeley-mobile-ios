@@ -16,6 +16,7 @@
 		01B2502D2516C42E00CBA459 /* AcademicEventsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B2502C2516C42E00CBA459 /* AcademicEventsDataSource.swift */; };
 		01B2502F2516C45800CBA459 /* AcademicCalendarEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B2502E2516C45800CBA459 /* AcademicCalendarEntry.swift */; };
 		01BC8EB024E8C3E3005B4969 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BC8EAF24E8C3E3005B4969 /* DetailView.swift */; };
+		01C75E2E25292E5B00C25A32 /* DescriptionCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C75E2D25292E5B00C25A32 /* DescriptionCardView.swift */; };
 		01D11B8E2504453B00BDF660 /* ScrollingStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D11B8D2504453B00BDF660 /* ScrollingStackView.swift */; };
 		01D11B902504560700BDF660 /* GymDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D11B8F2504560700BDF660 /* GymDetailViewController.swift */; };
 		01D11B9225045FC900BDF660 /* ResourceDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D11B9125045FC900BDF660 /* ResourceDetailViewController.swift */; };
@@ -149,6 +150,7 @@
 		01B2502C2516C42E00CBA459 /* AcademicEventsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcademicEventsDataSource.swift; sourceTree = "<group>"; };
 		01B2502E2516C45800CBA459 /* AcademicCalendarEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcademicCalendarEntry.swift; sourceTree = "<group>"; };
 		01BC8EAF24E8C3E3005B4969 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		01C75E2D25292E5B00C25A32 /* DescriptionCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionCardView.swift; sourceTree = "<group>"; };
 		01D11B8D2504453B00BDF660 /* ScrollingStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollingStackView.swift; sourceTree = "<group>"; };
 		01D11B8F2504560700BDF660 /* GymDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailViewController.swift; sourceTree = "<group>"; };
 		01D11B9125045FC900BDF660 /* ResourceDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceDetailViewController.swift; sourceTree = "<group>"; };
@@ -544,6 +546,7 @@
 				29345E2624A7E76300859A88 /* OverviewCardView.swift */,
 				2913595824B13DF200DE9AD6 /* OpenTimesCardView.swift */,
 				29387E9C24BBBE8E00070BCE /* OccupancyGraphCardView.swift */,
+				01C75E2D25292E5B00C25A32 /* DescriptionCardView.swift */,
 			);
 			path = DetailView;
 			sourceTree = "<group>";
@@ -902,6 +905,7 @@
 				29345E2924A7E7AC00859A88 /* HasPhoneNumber.swift in Sources */,
 				130FA59E243B1243005DC752 /* DiningRestriction.swift in Sources */,
 				556CCD2D23E79EC100F41BF9 /* TabBarController.swift in Sources */,
+				01C75E2E25292E5B00C25A32 /* DescriptionCardView.swift in Sources */,
 				13B39A8D23E689BC0039FBA2 /* DataSource.swift in Sources */,
 				299ACFB2244A5A15000F3E86 /* Occupancy.swift in Sources */,
 				133864AD2404E858001F9048 /* CampusCalendarDataSource.swift in Sources */,

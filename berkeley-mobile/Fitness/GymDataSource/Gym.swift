@@ -24,10 +24,6 @@ class Gym: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasImage, HasOp
         return "Berkeley, CA"
     }
     
-    var description: String {
-        return ""
-    }
-    
     var image: UIImage?
     
     static func displayName(pluralized: Bool) -> String {
@@ -36,6 +32,7 @@ class Gym: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasImage, HasOp
     
     let name: String
     let imageURL: URL?
+    let description: String?
     
     var isFavorited: Bool = false
     
@@ -48,8 +45,9 @@ class Gym: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasImage, HasOp
     var latitude: Double?
     var longitude: Double?
     
-    init(name: String, address: String?, phoneNumber: String?, imageLink: String?, weeklyHours: WeeklyHours?) {
+    init(name: String, description: String?, address: String?, phoneNumber: String?, imageLink: String?, weeklyHours: WeeklyHours?) {
         self.address = address
+        self.description = description
         self.phoneNumber = phoneNumber
         self.weeklyHours = weeklyHours
         
