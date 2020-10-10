@@ -8,7 +8,8 @@
 
 import UIKit
 
-fileprivate let kViewMargin: CGFloat = 21
+fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+fileprivate let kViewMargin: CGFloat = 16
 
 /// A card with a label displaying the description for some resource.
 class DescriptionCardView: CardView {
@@ -24,10 +25,10 @@ class DescriptionCardView: CardView {
         super.init(frame: .zero)
 
         // Default padding for the card
-        layoutMargins = UIEdgeInsets(top: 31, left: 31, bottom: 31, right: 31)
+        layoutMargins = kCardPadding
 
         cardTitle = UILabel()
-        cardTitle.font = Font.bold(24)
+        cardTitle.font = Font.bold(16)
         cardTitle.text = "Description"
         addSubview(cardTitle)
 
