@@ -177,11 +177,13 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
             self.maskView.isHidden = false
             self.searchResultsView.isHidden = false
             mainContainer?.hideTop()
+            self.userLocationButton.isHidden = true
         } else {
             self.maskView.isHidden = true
             self.searchResultsView.isHidden = true
             self.searchResultsView.isScrolling = false
             mainContainer?.showTop()
+            self.userLocationButton?.isHidden = false
         }
     }
     
