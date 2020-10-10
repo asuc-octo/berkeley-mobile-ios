@@ -77,7 +77,7 @@ class EventTableViewCell: UITableViewCell {
         eventTaggingColor.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
         eventTaggingColor.widthAnchor.constraint(equalToConstant: 10).isActive = true
         
-        eventName.font = Font.bold(18)
+        eventName.font = Font.bold(16)
         eventName.numberOfLines = 0
         eventName.adjustsFontSizeToFitWidth = true
         eventName.minimumScaleFactor = 0.8
