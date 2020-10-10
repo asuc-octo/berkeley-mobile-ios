@@ -13,8 +13,8 @@ class MainDrawerViewController: DrawerViewController {
     
     var bottomOffset: CGFloat? {
         didSet {
-            tabBarViewController.view.frame = self.view.bounds.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: bottomOffset! + 20, right: 0))
-            tabBarViewController.view.frame.origin.y = barView.frame.maxY + 16
+            tabBarViewController.view.frame = self.view.bounds.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: bottomOffset! + 36, right: 0))
+            tabBarViewController.view.frame.origin.y = barView.frame.maxY + 24
         }
     }
     // the view controller this is added onto

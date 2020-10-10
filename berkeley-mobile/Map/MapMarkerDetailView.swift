@@ -78,7 +78,7 @@ class MapMarkerDetailView: UIView {
         contentView.setConstraintsToView(top: containerView, bottom: containerView, right: containerView)
         contentView.leftAnchor.constraint(equalTo: typeColorView.rightAnchor).isActive = true
         
-        let iconSize: CGFloat = 12
+        let iconSize: CGFloat = 16
         let offset = (kButtonSize - iconSize) / 2
         let closeImage = UIImage(named: "Clear")?.resized(size: CGSize(width: iconSize, height: iconSize))
         closeButton = UIButton(type: .system)
@@ -94,18 +94,23 @@ class MapMarkerDetailView: UIView {
         closeButton.widthAnchor.constraint(equalToConstant: kButtonSize).isActive = true
         closeButton.heightAnchor.constraint(equalToConstant: kButtonSize).isActive = true
         
-        verticalStack = UIStackView(axis: .vertical, distribution: .fill, spacing: kViewMargin)
-        contentView.addSubview(verticalStack)
-        verticalStack.translatesAutoresizingMaskIntoConstraints = false
-        verticalStack.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
-        verticalStack.leftAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
-        verticalStack.rightAnchor.constraint(equalTo: contentView.layoutMarginsGuide.rightAnchor).isActive = true
-        
         nameLabel = UILabel()
+        contentView.addSubview(nameLabel)
         nameLabel.numberOfLines = 0
         nameLabel.font = Font.bold(20)
         nameLabel.textColor = Color.primaryText
+        nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        nameLabel.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor, constant: -offset).isActive = true
+        nameLabel.leftAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
+        nameLabel.rightAnchor.constraint(equalTo: closeButton.leftAnchor).isActive = true
         
+        verticalStack = UIStackView(axis: .vertical, distribution: .fill, spacing: kViewMargin)
+        contentView.addSubview(verticalStack)
+        verticalStack.translatesAutoresizingMaskIntoConstraints = false
+        verticalStack.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: kViewMargin).isActive = true
+        verticalStack.leftAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
+        verticalStack.rightAnchor.constraint(equalTo: contentView.layoutMarginsGuide.rightAnchor).isActive = true
+
         notesLabel = UILabel()
         notesLabel.numberOfLines = 0
         notesLabel.font = Font.light(10)
@@ -113,7 +118,7 @@ class MapMarkerDetailView: UIView {
         
         detailStack = UIStackView(axis: .horizontal, distribution: .fill, spacing: kViewMargin)
         detailStack.alignment = .center
-        
+    
         verticalStack.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor).isActive = true
     }
     
@@ -153,8 +158,7 @@ class MapMarkerDetailView: UIView {
         if !containsFlexibleView {
             detailStack.addArrangedSubview(UIView())
         }
-        
-        verticalStack.addArrangedSubview(nameLabel)
+                
         if (notesLabel.text?.count ?? 0) > 0 {
             verticalStack.addArrangedSubview(notesLabel)
         }

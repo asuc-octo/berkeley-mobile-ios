@@ -8,9 +8,11 @@
 
 import UIKit
 import MapKit
+import CoreLocation
 
 fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
 fileprivate let kViewMargin: CGFloat = 10
+
 
 // all the possible elements on the card, used to exclude certain elements even if they are available
 enum OverviewElements {
@@ -25,8 +27,7 @@ enum OverviewElements {
 class OverviewCardView: CardView {
     var item: SearchItem!
     var addressView: UIView?
-    // elements to exclude from the card even if they are available
-    var excludedElements: [OverviewElements] = []
+    var excludedElements: [OverviewElements] = []  // elements to exclude from the card even if they are available
     
     public init(item: SearchItem, excludedElements: [OverviewElements] = []) {
         super.init(frame: CGRect.zero)
@@ -35,6 +36,7 @@ class OverviewCardView: CardView {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.item = item
         self.excludedElements = excludedElements
+        
         
         setUpStaticElements()
         setUpOptionalElements()
@@ -288,6 +290,7 @@ class OverviewCardView: CardView {
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.75
         label.numberOfLines = 0
+        
         return label
     }()
     
