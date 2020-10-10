@@ -80,6 +80,12 @@ extension AcademicCalendarViewController: UITableViewDelegate, UITableViewDataSo
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let entry = calendarEntries[indexPath.row]
+        let charCount = entry.name.count
+        return max(50.0 * (CGFloat(charCount) / 30.0), 100)
+    }
 }
 
 // MARK: - Upcoming Card Delegates
