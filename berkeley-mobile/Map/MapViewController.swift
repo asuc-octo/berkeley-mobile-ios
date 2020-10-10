@@ -84,6 +84,9 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         
         self.view.addSubViews([mapView, filterView, markerDetail, maskView, searchResultsView, searchBar])
         setupSubviews()
+        userLocationButton = UIButton(type: .custom)
+        view.addSubview(userLocationButton)
+       
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -91,7 +94,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         mapView.isZoomEnabled = true
         centerMapOnLocation(CLLocation(latitude: CLLocationDegrees(exactly: 37.871684)!, longitude: CLLocationDegrees(-122.259934)), mapView: mapView, animated: false)
         updateCompassPosition()
-        setUpUserLocationButton()
+        updateUserLocationButton()
     }
     
     private func centerMapOnLocation(_ location: CLLocation, mapView: MKMapView, animated: Bool) {
@@ -112,19 +115,11 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         compass.topAnchor.constraint(equalTo: filterView.bottomAnchor, constant: kViewMargin).isActive = true
     }
     
-    /// Sets up the button that jumps to user location
-    private func setUpUserLocationButton() {
-        let _buttonWidth = mapView.frame.width * 0.12
-        userLocationButton = UIButton(type: .custom)
-        view.addSubview(userLocationButton)
-        userLocationButton.translatesAutoresizingMaskIntoConstraints = false
-        userLocationButton.backgroundColor = UIColor.white
-        userLocationButton.widthAnchor.constraint(equalToConstant: _buttonWidth).isActive = true
-        userLocationButton.heightAnchor.constraint(equalToConstant: _buttonWidth).isActive = true
-        userLocationButton.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
-        userLocationButton.topAnchor.constraint(equalTo: filterView.bottomAnchor, constant: kViewMargin).isActive = true
+    //sets up user location button properties
+    private func updateUserLocationButton() {
         userLocationButton.clipsToBounds = true
         userLocationButton.layer.masksToBounds = false
+        userLocationButton.backgroundColor = UIColor.white
         userLocationButton.layer.cornerRadius = mapView.frame.width * 0.12 * 0.5
         userLocationButton.layer.shadowRadius = 5
         userLocationButton.layer.shadowOpacity = 0.2
@@ -132,6 +127,12 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         userLocationButton.layer.shadowOffset = CGSize(width: 0, height: 5)
         userLocationButton.setImage(UIImage(named: "navigation-outline")!, for: .normal)
         userLocationButton.addTarget(self, action: #selector(jumpToUserLocation), for: .touchUpInside)
+        let _buttonWidth = mapView.frame.width * 0.12
+        userLocationButton.translatesAutoresizingMaskIntoConstraints = false
+        userLocationButton.widthAnchor.constraint(equalToConstant: _buttonWidth).isActive = true
+        userLocationButton.heightAnchor.constraint(equalToConstant: _buttonWidth).isActive = true
+        userLocationButton.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
+        userLocationButton.topAnchor.constraint(equalTo: filterView.bottomAnchor, constant: kViewMargin).isActive = true
     }
     
     @objc func jumpToUserLocation() {
