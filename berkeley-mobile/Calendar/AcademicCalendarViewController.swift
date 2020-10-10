@@ -85,7 +85,7 @@ extension AcademicCalendarViewController: UITableViewDelegate, UITableViewDataSo
 //        return UITableView.automaticDimension
         let entry = calendarEntries[indexPath.row]
         let charCount = entry.name.count
-        return min(max(50.0 * (CGFloat(charCount) / 30.0), 100), 150)
+        return min(max(50.0 * (CGFloat(charCount) / 30.0), 86), 150)
     }
 }
 
