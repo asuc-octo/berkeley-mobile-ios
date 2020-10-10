@@ -80,7 +80,7 @@ class EventTableViewCell: UITableViewCell {
         eventName.font = Font.bold(16)
         eventName.numberOfLines = 0
         eventName.adjustsFontSizeToFitWidth = true
-        eventName.minimumScaleFactor = 0.8
+        eventName.minimumScaleFactor = 0.6
         eventName.setContentHuggingPriority(.required, for: .vertical)
         eventName.leftAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
         eventName.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
