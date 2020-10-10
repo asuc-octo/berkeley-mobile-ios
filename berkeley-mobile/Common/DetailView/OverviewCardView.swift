@@ -191,8 +191,11 @@ class OverviewCardView: CardView {
         if (gesture.view as? UILabel) != nil {
             // Kinda hacky - necessary since cannot present alert when Popover is visible (ex. on Resources page)
             self.window!.rootViewController?.dismiss(animated: true, completion: nil)
-            
-            UIApplication.shared.windows.first!.rootViewController!.presentAlertLinkTelephone(title: "Are you sure you want to open Phone?", message: "Berkeley Mobile wants to call \(gesture.phoneNumber)", options: "Cancel", "Yes", phoneNumber: gesture.phoneNumber.trimmingCharacters(in: .whitespacesAndNewlines).replacingOccurrences(of: "-", with: ""))
+
+            guard let number = URL(string: "tel://\(gesture.phoneNumber.trimmingCharacters(in: .whitespacesAndNewlines).replacingOccurrences(of: "-", with: ""))") else { return }
+            if UIApplication.shared.canOpenURL(number) {  // Don't do anything if user device doesn't support calling
+                UIApplication.shared.open(number, options: [:])
+            }
         }
     }
     
