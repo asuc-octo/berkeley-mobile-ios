@@ -86,6 +86,14 @@ class OverviewCardView: CardView {
             } else {
                 addressLabel.text = longAddress
             }
+            let tapGesture = DetailTapGestureRecognizer(target: self, action:
+                                                        #selector(OverviewCardView.addressTapped(gesture:)))
+            tapGesture.latitude = itemWithLocation.latitude ?? 0
+            tapGesture.longitude = itemWithLocation.longitude ?? 0
+            
+            addressLabel.isUserInteractionEnabled = true
+            addressLabel.addGestureRecognizer(tapGesture)
+            
             addressView = IconPairView(icon: addressIcon, iconHeight: 16, attachedView: addressLabel)
             leftVerticalStack.addArrangedSubview(addressView!)
             addressView!.leftAnchor.constraint(equalTo: leftVerticalStack.leftAnchor).isActive = true
@@ -95,6 +103,12 @@ class OverviewCardView: CardView {
         if !excludedElements.contains(.phone), let itemWithPhone = item as? HasPhoneNumber, let phoneNumber = itemWithPhone.phoneNumber {
             phoneLabel.text = phoneNumber
             secondRowHorizontalStack.addArrangedSubview(IconPairView(icon: phoneIcon, iconHeight: 16, attachedView: phoneLabel))
+            
+            let tapGesture = DetailTapGestureRecognizer(target: self, action:
+                                                        #selector(OverviewCardView.phoneNumberTapped(gesture:)))
+            tapGesture.phoneNumber = phoneNumber
+            phoneLabel.isUserInteractionEnabled = true
+            phoneLabel.addGestureRecognizer(tapGesture)
         }
 
         if !excludedElements.contains(.distance), let itemWithLocation = item as? HasLocation {
@@ -171,6 +185,29 @@ class OverviewCardView: CardView {
             belowImageHorizontalStack.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -1 * kViewMargin).isActive = true
         }
     }
+    
+    //MARK: - Label Selectors
+    @objc func phoneNumberTapped(gesture: DetailTapGestureRecognizer) {
+        if (gesture.view as? UILabel) != nil {
+            // Kinda hacky - necessary since cannot present alert when Popover is visible (ex. on Resources page)
+            self.window!.rootViewController?.dismiss(animated: true, completion: nil)
+
+            guard let number = URL(string: "tel://\(gesture.phoneNumber.trimmingCharacters(in: .whitespacesAndNewlines).replacingOccurrences(of: "-", with: ""))") else { return }
+            if UIApplication.shared.canOpenURL(number) {  // Don't do anything if user device doesn't support calling
+                UIApplication.shared.open(number, options: [:])
+            }
+        }
+    }
+    
+    @objc func addressTapped(gesture: DetailTapGestureRecognizer) {
+        if (gesture.view as? UILabel) != nil {
+            // Kinda hacky - necessary since cannot present alert when Popover is visible (ex. on Resources page)
+            self.window!.rootViewController?.dismiss(animated: true, completion: nil)
+            
+            UIApplication.shared.windows.first!.rootViewController!.presentAlertLinkMaps(title: "Are you sure you want to open Maps?", message: "Berkeley Mobile wants to navigate to \(self.addressLabel.text!)", options: "Cancel", "Yes", lat: gesture.latitude, lon: gesture.longitude, name: self.addressLabel.text!)
+        }
+    }
+    
     
     // MARK: - StackViews
     let leftVerticalStack: UIStackView = {
