@@ -78,7 +78,7 @@ class MapMarkerDetailView: UIView {
         contentView.setConstraintsToView(top: containerView, bottom: containerView, right: containerView)
         contentView.leftAnchor.constraint(equalTo: typeColorView.rightAnchor).isActive = true
         
-        let iconSize: CGFloat = 12
+        let iconSize: CGFloat = 16
         let offset = (kButtonSize - iconSize) / 2
         let closeImage = UIImage(named: "Clear")?.resized(size: CGSize(width: iconSize, height: iconSize))
         closeButton = UIButton(type: .system)
@@ -158,9 +158,7 @@ class MapMarkerDetailView: UIView {
         if !containsFlexibleView {
             detailStack.addArrangedSubview(UIView())
         }
-        
-//        verticalStack.addArrangedSubview(nameLabel)
-        
+                
         if (notesLabel.text?.count ?? 0) > 0 {
             verticalStack.addArrangedSubview(notesLabel)
         }

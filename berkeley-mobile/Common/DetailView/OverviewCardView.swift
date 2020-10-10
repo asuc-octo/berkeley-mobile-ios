@@ -27,9 +27,7 @@ enum OverviewElements {
 class OverviewCardView: CardView {
     var item: SearchItem!
     var addressView: UIView?
-//    let tap = UITapGestureRecognizer(target: self, action: #selector(self.openAddressInMap(_:)))
-    // elements to exclude from the card even if they are available
-    var excludedElements: [OverviewElements] = []
+    var excludedElements: [OverviewElements] = []  // elements to exclude from the card even if they are available
     
     public init(item: SearchItem, excludedElements: [OverviewElements] = []) {
         super.init(frame: CGRect.zero)
