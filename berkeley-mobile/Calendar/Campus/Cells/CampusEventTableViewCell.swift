@@ -8,16 +8,25 @@
 
 import UIKit
 
-class CampusEventTableViewCell: UITableViewCell {
+class CampusEventTableViewCell: UITableViewCell, ImageViewCell {
     
     static let kCellHeight: CGFloat = 160
     static let kCellIdentifier = "campusEventCell"
     var containedView: CampusEventCellView = CampusEventCellView()
-    
-    var cellImage: UIImageView {
+    public var currentLoadUUID: UUID?
+    var cellImageView: UIImageView {
         get {
             return containedView.cellImage
         }
+    }
+    
+    func updateContents(event: EventCalendarEntry) {
+        containedView.updateContents(event: event, cell: self)
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.cancelImageOnReuse()
     }
     
     override func layoutSubviews() {
@@ -60,11 +69,4 @@ class CampusEventTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    func updateContents(event: EventCalendarEntry, imageUpdate: () -> Void) {
-        containedView.updateContents(event: event) {
-            imageUpdate()
-        }
-    }
-
 }

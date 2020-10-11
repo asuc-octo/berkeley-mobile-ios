@@ -28,8 +28,6 @@ class Gym: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasImage, HasOp
         return ""
     }
     
-    var image: UIImage?
-    
     static func displayName(pluralized: Bool) -> String {
         return "Gym" + (pluralized ? "s" : "")
     }

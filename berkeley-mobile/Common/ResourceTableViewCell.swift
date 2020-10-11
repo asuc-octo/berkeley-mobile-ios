@@ -8,6 +8,7 @@
 
 import UIKit
 
+// TODO: when backend gets images for resources, update this to conform to ImageViewCell
 class ResourceTableViewCell: UITableViewCell {
 
     static let kCellIdentifier = "resourceCell"

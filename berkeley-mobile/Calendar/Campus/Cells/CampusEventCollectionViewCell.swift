@@ -8,16 +8,21 @@
 
 import UIKit
 
-class CampusEventCollectionViewCell: UICollectionViewCell {
-    
+class CampusEventCollectionViewCell: UICollectionViewCell, ImageViewCell {
     static let kCardSize: CGSize = CGSize(width: 223, height: 100)
     
     var containedView: CampusEventCellView = CampusEventCellView(upcoming: true)
     
-    var cellImage: UIImageView {
+    var cellImageView: UIImageView {
         get {
             return containedView.cellImage
         }
+    }
+    
+    var currentLoadUUID: UUID?
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.cancelImageOnReuse()
     }
     
     override init(frame: CGRect) {
@@ -43,9 +48,7 @@ class CampusEventCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func updateContents(event: EventCalendarEntry, imageUpdate: () -> Void) {
-        containedView.updateContents(event: event) {
-            imageUpdate()
-        }
+    func updateContents(event: EventCalendarEntry) {
+        containedView.updateContents(event: event, cell: self)
     }
 }

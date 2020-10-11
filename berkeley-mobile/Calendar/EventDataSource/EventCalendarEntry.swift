@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class EventCalendarEntry: CalendarEvent {
+class EventCalendarEntry: CalendarEvent, HasImage {
 
     // MARK: CalendarEvent Fields
 
@@ -21,7 +21,6 @@ class EventCalendarEntry: CalendarEvent {
     var location: String?
     var link: URL?
     var imageURL: URL?
-    var image: UIImage?
     var sourceLink: URL?
 
     // MARK: Additional Fields

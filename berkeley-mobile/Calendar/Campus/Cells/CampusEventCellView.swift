@@ -49,7 +49,7 @@ class CampusEventCellView: UIView {
      Update the values in the cell based on a new event (when collection/table is scrolled)
      imageUpdate called to update cell image if cell is still visible
      */
-    public func updateContents(event: EventCalendarEntry, imageUpdate: () -> Void) {
+    public func updateContents(event: EventCalendarEntry, cell: ImageViewCell) {
         nameLabel.text = event.name
         
         // format date string to use "Today" or the actual date for other days
@@ -77,12 +77,7 @@ class CampusEventCellView: UIView {
             locationLabel.text = location
         }
         
-        cellImage.image = UIImage(named: "DoeGlade")
-        if let image = event.image {
-            cellImage.image = image
-        } else {
-            imageUpdate()
-        }
+        cell.updateImage(item: event)
     }
     
     required init?(coder: NSCoder) {

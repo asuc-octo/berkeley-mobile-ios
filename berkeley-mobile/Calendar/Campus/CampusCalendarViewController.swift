@@ -79,18 +79,7 @@ extension CampusCalendarViewController: UITableViewDelegate, UITableViewDataSour
         if let cell = tableView.dequeueReusableCell(withIdentifier: CampusEventTableViewCell.kCellIdentifier, for: indexPath)
             as? CampusEventTableViewCell {
             let entry = calendarEntries[indexPath.row]
-            cell.updateContents(event: entry) {
-                DispatchQueue.global().async {
-                    guard let imageURL = entry.imageURL, let imageData = try? Data(contentsOf: imageURL) else { return }
-                    let image = UIImage(data: imageData)
-                    entry.image = image
-                    DispatchQueue.main.async {
-                        if tableView.visibleCells.contains(cell) {
-                            cell.cellImage.image = image
-                        }
-                    }
-                }
-            }
+            cell.updateContents(event: entry)
             return cell
         }
         return UITableViewCell()
@@ -99,6 +88,12 @@ extension CampusCalendarViewController: UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
+//
+//    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        if let campusCell = cell as? CampusEventTableViewCell {
+//            print(campusCell.nonce)
+//        }
+//    }
 }
 
 // MARK: - Upcoming Card Delegates
@@ -113,16 +108,7 @@ extension CampusCalendarViewController: UICollectionViewDelegate, UICollectionVi
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CampusEventCollectionView.kCellIdentifier, for: indexPath)
         if let card = cell as? CampusEventCollectionViewCell {
             let entry = calendarEntries[indexPath.row]
-            card.updateContents(event: entry) {
-                DispatchQueue.global().async {
-                    guard let imageURL = entry.imageURL, let imageData = try? Data(contentsOf: imageURL) else { return }
-                    let image = UIImage(data: imageData)
-                    entry.image = image
-                    DispatchQueue.main.async {
-                        card.cellImage.image = image
-                    }
-                }
-            }
+            card.updateContents(event: entry)
         }
         return cell
     }

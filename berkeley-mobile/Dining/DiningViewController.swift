@@ -67,18 +67,7 @@ extension DiningViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: FilterTableViewCell.kCellIdentifier, for: indexPath) as? FilterTableViewCell {
             let diningHall: DiningLocation = self.filterTableView.filteredData[indexPath.row]
-            cell.updateContents(item: diningHall, imageUpdate: {
-                DispatchQueue.global().async {
-                    guard let imageURL = diningHall.imageURL, let imageData = try? Data(contentsOf: imageURL) else { return }
-                    let image = UIImage(data: imageData)
-                    DispatchQueue.main.async {
-                        diningHall.image = image
-                        if tableView.visibleCells.contains(cell) {
-                            cell.cellImage.image = image
-                        }
-                    }
-                }
-            })
+            cell.updateContents(item: diningHall)
             return cell
         }
         return UITableViewCell()

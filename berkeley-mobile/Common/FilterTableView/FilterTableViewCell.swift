@@ -9,9 +9,15 @@
 import UIKit
 import MapKit
 
-class FilterTableViewCell: UITableViewCell {
+class FilterTableViewCell: UITableViewCell, ImageViewCell {
     
     static let kCellIdentifier = "filterCell"
+    var currentLoadUUID: UUID?
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.cancelImageOnReuse()
+    }
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -45,7 +51,7 @@ class FilterTableViewCell: UITableViewCell {
         backgroundView = UIView()
         
         contentView.addSubview(nameLabel)
-        contentView.addSubview(cellImage)
+        contentView.addSubview(cellImageView)
         contentView.addSubview(recLabel)
         contentView.addSubview(locationOccupancyView)
         
@@ -54,21 +60,21 @@ class FilterTableViewCell: UITableViewCell {
 
         nameLabel.leftAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
         nameLabel.topAnchor.constraint(equalTo: recLabel.layoutMarginsGuide.bottomAnchor, constant: 5).isActive = true
-        nameLabel.rightAnchor.constraint(equalTo: cellImage.leftAnchor, constant: -10).isActive = true
+        nameLabel.rightAnchor.constraint(equalTo: cellImageView.leftAnchor, constant: -10).isActive = true
         
-        cellImage.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -5).isActive = true
-        cellImage.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
-        cellImage.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor).isActive = true
-        cellImage.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.35).isActive = true
+        cellImageView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -5).isActive = true
+        cellImageView.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
+        cellImageView.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor).isActive = true
+        cellImageView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.35).isActive = true
         
-        locationOccupancyView.rightAnchor.constraint(equalTo: cellImage.leftAnchor, constant: -10).isActive = true
+        locationOccupancyView.rightAnchor.constraint(equalTo: cellImageView.leftAnchor, constant: -10).isActive = true
         locationOccupancyView.topAnchor.constraint(greaterThanOrEqualTo: nameLabel.bottomAnchor, constant: 5).isActive = true
         locationOccupancyView.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor, constant: -5).isActive = true
         locationOccupancyView.leftAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
     }
     
-    // Sets the contents of the cell based on an item passed in and a closure to call if there is no image available
-    func updateContents(item: SearchItem, imageUpdate: () -> Void) {
+    // Sets the contents of the cell based on an item passed in
+    func updateContents(item: SearchItem) {
         locationOccupancyView.subviews.forEach({ $0.removeFromSuperview() })
         
         nameLabel.text = item.searchName
@@ -100,13 +106,8 @@ class FilterTableViewCell: UITableViewCell {
             }
         }
         
-        cellImage.image = UIImage(named: "DoeGlade")
         if let itemWithImage = item as? HasImage {
-            if let itemImage = itemWithImage.image {
-                cellImage.image = itemImage
-            } else {
-                imageUpdate()
-            }
+            updateImage(item: itemWithImage)
         }
     }
     
@@ -114,7 +115,7 @@ class FilterTableViewCell: UITableViewCell {
         super.init(coder: aDecoder)
     }
     
-    let nameLabel:UILabel = {
+    let nameLabel: UILabel = {
         let label = UILabel()
         label.font = Font.bold(20)
         label.textColor = Color.blackText
@@ -125,7 +126,7 @@ class FilterTableViewCell: UITableViewCell {
         return label
     }()
     
-    let cellImage:UIImageView = {
+    let cellImageView: UIImageView = {
         let img = UIImageView()
         img.image = UIImage()
         img.contentMode = .scaleAspectFill
@@ -134,7 +135,7 @@ class FilterTableViewCell: UITableViewCell {
         return img
     }()
     
-    let recLabel:UILabel = {
+    let recLabel: UILabel = {
         let label = UILabel()
         label.font = Font.mediumItalic(10)
         label.textColor = Color.darkGrayText
