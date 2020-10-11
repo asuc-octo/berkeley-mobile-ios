@@ -26,8 +26,8 @@ class LibraryDetailViewController: SearchDrawerViewController {
         setUpOverviewCard()
         setUpOpenTimesCard()
         setUpOccupancyCard()
-        setupDescriptionCard()
         setUpBookButton()
+        setupDescriptionCard()
     }
     
     override func viewDidLayoutSubviews() {
