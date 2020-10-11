@@ -50,20 +50,8 @@ class LibraryDetailViewController: SearchDrawerViewController {
         return scrollingStackView
     }()
 
-    var bookButton: UIButton = {
-        let button = UIButton()
-        button.layoutMargins = kCardPadding
-        button.backgroundColor =  Color.eventAcademic
-        button.layer.cornerRadius = 10
-        button.layer.shadowRadius = 5
-        button.layer.shadowOpacity = 0.25
-        button.layer.shadowOffset = .zero
-        button.layer.shadowColor = UIColor.black.cgColor
-        button.layer.shadowPath = UIBezierPath(rect: button.layer.bounds.insetBy(dx: 4, dy: 4)).cgPath
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Book a Study Room >", for: .normal)
-        button.titleLabel!.font = Font.semibold(14)
-        button.titleLabel!.textColor = .white
+    var bookButton: ActionButton = {
+        let button = ActionButton(title: "Book a Study Room >")
         button.addTarget(self, action: #selector(bookButtonClicked), for: .touchUpInside)
         return button
     }()
@@ -95,7 +83,6 @@ extension LibraryDetailViewController {
     }
     
     func setUpBookButton() {
-        bookButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         scrollingStackView.stackView.addArrangedSubview(bookButton)
     }
     

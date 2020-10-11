@@ -40,7 +40,8 @@ class GymDataSource: DataSource
                       address: dict["address"] as? String,
                       phoneNumber: dict["phone"] as? String,
                       imageLink: dict["picture"] as? String,
-                      weeklyHours: weeklyHours)
+                      weeklyHours: weeklyHours,
+                      link: dict["link"] as? String)
         
         gym.latitude = dict["latitude"] as? Double
         gym.longitude = dict["longitude"] as? Double
