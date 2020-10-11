@@ -12,6 +12,7 @@ import MapKit
 class FilterTableViewCell: UITableViewCell, ImageViewCell {
     
     static let kCellIdentifier = "filterCell"
+    static let defaultImage = UIImage(named: "DoeGlade")
     var currentLoadUUID: UUID?
     
     override func prepareForReuse() {

@@ -15,6 +15,7 @@ protocol HasImage {
 }
 
 extension HasImage {
+    /// Getter for image is to return the image if already cached
     var image: UIImage? {
         get {
             guard let url = imageURL else { return nil }

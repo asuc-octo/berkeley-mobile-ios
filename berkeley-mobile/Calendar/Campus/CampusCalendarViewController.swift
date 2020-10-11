@@ -88,12 +88,6 @@ extension CampusCalendarViewController: UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
-//
-//    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        if let campusCell = cell as? CampusEventTableViewCell {
-//            print(campusCell.nonce)
-//        }
-//    }
 }
 
 // MARK: - Upcoming Card Delegates

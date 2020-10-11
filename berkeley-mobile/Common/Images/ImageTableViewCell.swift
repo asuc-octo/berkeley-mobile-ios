@@ -8,13 +8,19 @@
 
 import UIKit
 
+/// Functionality for TableViewCells and CollectionViewCells to easily load images using ImageLoader
 protocol ImageViewCell: class {
-    
+    /// The ImageView used to display the image
     var cellImageView: UIImageView { get }
+    /// The currently loading task, if any
     var currentLoadUUID: UUID? { get set }
+    /// Cancel the current load, if any, when the cell is reused. Prevents images replacing each other with fast scrolling, long loads when scrolling through many cells.
     func cancelImageOnReuse()
+    /// Update the ImageView by loading the image if necessary, or set to default image
     func updateImage(item: HasImage)
     
+    /// The default image to use for before images load or if an image never loads
+    static var defaultImage: UIImage? { get }
 }
 
 extension ImageViewCell {
@@ -23,11 +29,11 @@ extension ImageViewCell {
         if let currentLoadUUID = self.currentLoadUUID {
             ImageLoader.shared.cancelLoad(currentLoadUUID)
         }
-        cellImageView.image = nil
+        cellImageView.image = type(of: self).defaultImage
     }
     
     func updateImage(item: HasImage) {
-        cellImageView.image = UIImage(named: "DoeGlade")
+        cellImageView.image = type(of: self).defaultImage
         if let itemImage = item.image {
             cellImageView.image = itemImage
         } else if let url = item.imageURL {

@@ -8,13 +8,15 @@
 
 import UIKit
 
+/// Loads images and keeps tracks of all previously loaded images by url, all current tasks by uuid
 class ImageLoader {
-    
+    /// Shared ImageLoader instance to be used across the app
     public static var shared = ImageLoader()
-    
+    /// All images are cached here, all objects fetch cached images from here by url
     private var loadedImages = [URL: UIImage]()
     private var runningRequests = [UUID: URLSessionDataTask]()
     
+    /// Load the image with specified url, run the completion once loaded, return the uuid for the task to load the image
     @discardableResult
     func getImage(url: URL, completion: @escaping (Result<UIImage, Error>) -> Void) -> UUID? {
         if let image = loadedImages[url] {
@@ -30,6 +32,7 @@ class ImageLoader {
                 return
             }
             guard let error = error else { return }
+            // If task wasn't cancelled and we got another error, report that the load failed
             guard (error as NSError).code == NSURLErrorCancelled else {
                 completion(.failure(error))
                 return
@@ -40,6 +43,7 @@ class ImageLoader {
         return uuid
     }
     
+    /// Return the image for a url if it has already been loaded, don't load the image otherwise. This makes it so image loads must be specifically called using ImageLoader.getImage
     func getImageIfLoaded(url: URL) -> UIImage? {
         if let image = loadedImages[url] {
             return image
@@ -47,6 +51,7 @@ class ImageLoader {
         return nil
     }
     
+    /// Cancel a running load by uuid
     func cancelLoad(_ uuid: UUID) {
         runningRequests[uuid]?.cancel()
         runningRequests.removeValue(forKey: uuid)

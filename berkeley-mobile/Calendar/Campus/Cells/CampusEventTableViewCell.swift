@@ -12,8 +12,10 @@ class CampusEventTableViewCell: UITableViewCell, ImageViewCell {
     
     static let kCellHeight: CGFloat = 160
     static let kCellIdentifier = "campusEventCell"
+    static let defaultImage = UIImage(named: "DoeGlade")
+    
     var containedView: CampusEventCellView = CampusEventCellView()
-    public var currentLoadUUID: UUID?
+    var currentLoadUUID: UUID?
     var cellImageView: UIImageView {
         get {
             return containedView.cellImage
