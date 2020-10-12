@@ -17,11 +17,13 @@ class GymDetailViewController: SearchDrawerViewController {
     var overviewCard: OverviewCardView!
     var openTimesCard: OpenTimesCardView?
     var occupancyCard: OccupancyGraphCardView?
+    var moreButton: ActionButton?
     var descriptionCard: DescriptionCardView?
 
     override var upperLimitState: DrawerState? {
         return openTimesCard == nil &&
                occupancyCard == nil &&
+               moreButton == nil &&
                descriptionCard == nil ? .middle : nil
     }
 
@@ -32,6 +34,7 @@ class GymDetailViewController: SearchDrawerViewController {
         setUpOverviewCard()
         setUpOpenTimesCard()
         setUpOccupancyCard()
+        setupMoreButton()
         setupDescriptionCard()
     }
 
@@ -40,6 +43,15 @@ class GymDetailViewController: SearchDrawerViewController {
         The "middle" position for the view will show everything in the overview card
         When collapsible open time card is added, change this to show that card as well. */
         middleCutoffPosition = (openTimesCard?.frame.maxY ?? overviewCard.frame.maxY) + scrollingStackView.yOffset + 8
+    }
+
+    /// Opens `gym.website` in Safari. Called as a result of tapping on `moreButton`.
+    @objc private func moreButtonClicked(sender: UIButton) {
+        guard let url = gym.website else { return }
+        presentAlertLinkUrl(title: "Are you sure you want to open Safari?",
+                            message: "Berkeley Mobile wants to open this fitness location's website",
+                            options: "Cancel", "Yes",
+                            website_url: url)
     }
 
     var scrollingStackView: ScrollingStackView = {
@@ -76,6 +88,14 @@ extension GymDetailViewController {
         occupancyCard = OccupancyGraphCardView(occupancy: occupancy, isOpen: gym.isOpen)
         guard let occupancyCard = self.occupancyCard else { return }
         scrollingStackView.stackView.addArrangedSubview(occupancyCard)
+    }
+
+    func setupMoreButton() {
+        guard gym.website != nil else { return }
+        let button = ActionButton(title: "Learn More")
+        button.addTarget(self, action: #selector(moreButtonClicked), for: .touchUpInside)
+        scrollingStackView.stackView.addArrangedSubview(button)
+        moreButton = button
     }
 
     func setupDescriptionCard() {

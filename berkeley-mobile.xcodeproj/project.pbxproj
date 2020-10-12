@@ -12,6 +12,8 @@
 		016A56D6251AD38F00531A12 /* CalendarEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016A56D5251AD38F00531A12 /* CalendarEvent.swift */; };
 		016A56D8251C930D00531A12 /* AppDelegate+Migration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016A56D7251C930D00531A12 /* AppDelegate+Migration.swift */; };
 		017C0B26251018BA00BFA80A /* Colors+MapMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017C0B25251018BA00BFA80A /* Colors+MapMarker.swift */; };
+		018B982625327358004C3B26 /* ActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018B982525327358004C3B26 /* ActionButton.swift */; };
+		018B982825328200004C3B26 /* Colors+ActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018B982725328200004C3B26 /* Colors+ActionButton.swift */; };
 		01B250282516AD4F00CBA459 /* IconPairView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B250272516AD4F00CBA459 /* IconPairView.swift */; };
 		01B2502D2516C42E00CBA459 /* AcademicEventsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B2502C2516C42E00CBA459 /* AcademicEventsDataSource.swift */; };
 		01B2502F2516C45800CBA459 /* AcademicCalendarEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B2502E2516C45800CBA459 /* AcademicCalendarEntry.swift */; };
@@ -146,6 +148,8 @@
 		016A56D5251AD38F00531A12 /* CalendarEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEvent.swift; sourceTree = "<group>"; };
 		016A56D7251C930D00531A12 /* AppDelegate+Migration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Migration.swift"; sourceTree = "<group>"; };
 		017C0B25251018BA00BFA80A /* Colors+MapMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+MapMarker.swift"; sourceTree = "<group>"; };
+		018B982525327358004C3B26 /* ActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButton.swift; sourceTree = "<group>"; };
+		018B982725328200004C3B26 /* Colors+ActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+ActionButton.swift"; sourceTree = "<group>"; };
 		01B250272516AD4F00CBA459 /* IconPairView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconPairView.swift; sourceTree = "<group>"; };
 		01B2502C2516C42E00CBA459 /* AcademicEventsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcademicEventsDataSource.swift; sourceTree = "<group>"; };
 		01B2502E2516C45800CBA459 /* AcademicCalendarEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcademicCalendarEntry.swift; sourceTree = "<group>"; };
@@ -386,6 +390,7 @@
 				55DCF78623722CBD001B01B8 /* Colors.swift */,
 				13491DB9241E23630033F9AB /* Colors+Text.swift */,
 				13491DB5241E21740033F9AB /* Colors+TagView.swift */,
+				018B982725328200004C3B26 /* Colors+ActionButton.swift */,
 				13491DB7241E22130033F9AB /* Colors+Event.swift */,
 				135D7F76243A9BD1003F8BD1 /* Colors+GymClass.swift */,
 				017C0B25251018BA00BFA80A /* Colors+MapMarker.swift */,
@@ -434,6 +439,7 @@
 				1396012E23865E2E005E4788 /* CollectionView */,
 				1396013123865E2E005E4788 /* CardView.swift */,
 				1396013223865E2E005E4788 /* TagView.swift */,
+				018B982525327358004C3B26 /* ActionButton.swift */,
 				01B250272516AD4F00CBA459 /* IconPairView.swift */,
 				554CB99F23F3A83F00BB1715 /* EventTableViewCell.swift */,
 				559AF6DF251EAA2800463E2A /* DetailTapGestureRecognizer.swift */,
@@ -970,6 +976,7 @@
 				29387E9524BBBC1000070BCE /* BarGraph.swift in Sources */,
 				01B2502F2516C45800CBA459 /* AcademicCalendarEntry.swift in Sources */,
 				5516088624392E5100B1E55B /* DiningViewController.swift in Sources */,
+				018B982825328200004C3B26 /* Colors+ActionButton.swift in Sources */,
 				29387E9B24BBBD9D00070BCE /* CALayerExtension.swift in Sources */,
 				1396013323865E2E005E4788 /* CardCollectionView.swift in Sources */,
 				13B39A9A23E6A33C0039FBA2 /* LibraryDataSource.swift in Sources */,
@@ -996,6 +1003,7 @@
 				1336A322241D92F700949F32 /* MealType.swift in Sources */,
 				303F6AE1236A931D007E37DD /* SegmentedControl.swift in Sources */,
 				5516088824393F3F00B1E55B /* MissingDataView.swift in Sources */,
+				018B982625327358004C3B26 /* ActionButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
