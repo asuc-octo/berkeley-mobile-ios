@@ -27,6 +27,7 @@ class LibraryDetailViewController: SearchDrawerViewController {
         setUpOpenTimesCard()
         setUpOccupancyCard()
         setUpBookButton()
+        setupDescriptionCard()
     }
     
     override func viewDidLayoutSubviews() {
@@ -80,6 +81,11 @@ extension LibraryDetailViewController {
         occupancyCard = OccupancyGraphCardView(occupancy: occupancy, isOpen: library.isOpen)
         guard let occupancyCard = self.occupancyCard else { return }
         scrollingStackView.stackView.addArrangedSubview(occupancyCard)
+    }
+
+    func setupDescriptionCard() {
+        guard let descriptionCard = DescriptionCardView(description: library.description) else { return }
+        scrollingStackView.stackView.addArrangedSubview(descriptionCard)
     }
     
     func setUpBookButton() {

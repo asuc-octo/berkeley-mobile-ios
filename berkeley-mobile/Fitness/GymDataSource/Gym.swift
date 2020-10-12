@@ -26,10 +26,6 @@ class Gym: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasImage, HasOp
     var locationName: String {
         return "Berkeley, CA"
     }
-    
-    var description: String {
-        return ""
-    }
 
     // MARK: HasLocation
 
@@ -65,9 +61,13 @@ class Gym: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasImage, HasOp
 
     /// An optional URL linking to a website for this Fitness location.
     var website: URL?
-    
-    init(name: String, address: String?, phoneNumber: String?, imageLink: String?, weeklyHours: WeeklyHours?, link: String?) {
+
+    /// A display-friendly string description of this Fitness location.
+    let description: String?
+
+    init(name: String, description: String?, address: String?, phoneNumber: String?, imageLink: String?, weeklyHours: WeeklyHours?, link: String?) {
         self.address = address
+        self.description = description
         self.phoneNumber = phoneNumber
         self.weeklyHours = weeklyHours
         self.name = name

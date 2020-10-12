@@ -18,9 +18,13 @@ class GymDetailViewController: SearchDrawerViewController {
     var openTimesCard: OpenTimesCardView?
     var occupancyCard: OccupancyGraphCardView?
     var moreButton: ActionButton?
+    var descriptionCard: DescriptionCardView?
 
     override var upperLimitState: DrawerState? {
-        return openTimesCard == nil && occupancyCard == nil && moreButton == nil ? .middle : nil
+        return openTimesCard == nil &&
+               occupancyCard == nil &&
+               moreButton == nil &&
+               descriptionCard == nil ? .middle : nil
     }
 
     override func viewDidLoad() {
@@ -31,6 +35,7 @@ class GymDetailViewController: SearchDrawerViewController {
         setUpOpenTimesCard()
         setUpOccupancyCard()
         setupMoreButton()
+        setupDescriptionCard()
     }
 
     override func viewDidLayoutSubviews() {
@@ -91,6 +96,12 @@ extension GymDetailViewController {
         button.addTarget(self, action: #selector(moreButtonClicked), for: .touchUpInside)
         scrollingStackView.stackView.addArrangedSubview(button)
         moreButton = button
+    }
+
+    func setupDescriptionCard() {
+        descriptionCard = DescriptionCardView(description: gym.description)
+        guard let descriptionCard = descriptionCard else { return }
+        scrollingStackView.stackView.addArrangedSubview(descriptionCard)
     }
 
     func setUpScrollView() {
