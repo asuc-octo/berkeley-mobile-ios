@@ -52,7 +52,7 @@ class LibraryDetailViewController: SearchDrawerViewController {
     }()
 
     var bookButton: ActionButton = {
-        let button = ActionButton(title: "Book a Study Room >")
+        let button = ActionButton(title: "Book a Study Room")
         button.addTarget(self, action: #selector(bookButtonClicked), for: .touchUpInside)
         return button
     }()
