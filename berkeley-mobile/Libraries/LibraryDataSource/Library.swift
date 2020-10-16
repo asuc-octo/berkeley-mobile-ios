@@ -28,15 +28,12 @@ class Library: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasImage, H
         return "Librar" + (pluralized ? "ies" : "y")
     }
     
-    var description: String {
-        return ""
-    }
-    
     let name: String
     let imageURL: URL?
     
     var isFavorited: Bool = false
-    
+
+    var description: String?
     let address: String?
     let phoneNumber: String?
     let weeklyHours: WeeklyHours?
@@ -45,7 +42,8 @@ class Library: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasImage, H
     var latitude: Double?
     var longitude: Double?
     
-    init(name: String, address: String?, phoneNumber: String?, weeklyHours: WeeklyHours?, weeklyByAppointment:[Bool], imageLink: String?, latitude: Double?, longitude: Double?) {
+    init(name: String, description: String?, address: String?, phoneNumber: String?, weeklyHours: WeeklyHours?, weeklyByAppointment:[Bool], imageLink: String?, latitude: Double?, longitude: Double?) {
+        self.description = description
         self.address = address
         self.phoneNumber = phoneNumber
         self.weeklyHours = weeklyHours

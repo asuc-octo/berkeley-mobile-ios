@@ -266,7 +266,7 @@ extension FitnessViewController {
         gymCard = card
         
         let fitnessLabel = UILabel()
-        fitnessLabel.text = "Fitness Centers"
+        fitnessLabel.text = "Fitness Locations"
         fitnessLabel.font = kHeaderFont
         fitnessLabel.adjustsFontSizeToFitWidth = true
         card.addSubview(fitnessLabel)

@@ -37,10 +37,12 @@ class GymDataSource: DataSource
         let weeklyHours = Gym.parseWeeklyHours(dict: dict["open_close_array"] as? [[String: Any]])
         
         let gym = Gym(name: dict["name"] as? String ?? "Unnamed",
+                      description: dict["description"] as? String,
                       address: dict["address"] as? String,
                       phoneNumber: dict["phone"] as? String,
                       imageLink: dict["picture"] as? String,
-                      weeklyHours: weeklyHours)
+                      weeklyHours: weeklyHours,
+                      link: dict["link"] as? String)
         
         gym.latitude = dict["latitude"] as? Double
         gym.longitude = dict["longitude"] as? Double

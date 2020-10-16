@@ -25,10 +25,6 @@ class DiningLocation: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasI
         return address ?? "Berkeley, CA"
     }
     
-    var description: String {
-        return ""
-    }
-    
     let name: String
     let imageURL: URL?
     let address: String?
