@@ -19,7 +19,7 @@ class CampusCalendarViewController: UIViewController {
     private var scrollingStackView: ScrollingStackView!
 
     private var upcomingMissingView: MissingDataView!
-    private var eventsCollection: CampusEventCollectionView!
+    private var eventsCollection: CardCollectionView!
 
     private var calendarMissingView: MissingDataView!
     private var calendarTable: UITableView!
@@ -99,7 +99,7 @@ extension CampusCalendarViewController: UICollectionViewDelegate, UICollectionVi
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CampusEventCollectionView.kCellIdentifier, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CampusEventCollectionViewCell.kCellIdentifier, for: indexPath)
         if let card = cell as? CampusEventCollectionViewCell {
             let entry = calendarEntries[indexPath.row]
             card.updateContents(event: entry)
@@ -146,7 +146,8 @@ extension CampusCalendarViewController {
         headerLabel.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
         headerLabel.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
 
-        let collectionView = CampusEventCollectionView(frame: .zero)
+        let collectionView = CardCollectionView(frame: .zero)
+        collectionView.register(CampusEventCollectionViewCell.self, forCellWithReuseIdentifier: CampusEventCollectionViewCell.kCellIdentifier)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.contentInset = UIEdgeInsets(top: 0, left: card.layoutMargins.left, bottom: 0, right: card.layoutMargins.right)

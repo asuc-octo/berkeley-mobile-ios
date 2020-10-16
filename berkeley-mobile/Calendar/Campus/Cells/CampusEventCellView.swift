@@ -25,24 +25,28 @@ class CampusEventCellView: UIView {
             timeLabel.textColor = Color.blackText
         }
         
-        self.addSubview(leftVerticalStack)
+        self.addSubview(nameLabel)
+        self.addSubview(infoLabelsStack)
         self.addSubview(cellImage)
         
-        leftVerticalStack.leftAnchor.constraint(equalTo: self.layoutMarginsGuide.leftAnchor).isActive = true
-        leftVerticalStack.topAnchor.constraint(equalTo: self.layoutMarginsGuide.topAnchor).isActive = true
-        leftVerticalStack.rightAnchor.constraint(equalTo: cellImage.leftAnchor, constant: -10).isActive = true
-        leftVerticalStack.bottomAnchor.constraint(equalTo: self.layoutMarginsGuide.bottomAnchor).isActive = true
+        nameLabel.leftAnchor.constraint(equalTo: self.layoutMarginsGuide.leftAnchor).isActive = true
+        nameLabel.topAnchor.constraint(equalTo: self.layoutMarginsGuide.topAnchor).isActive = true
+        nameLabel.rightAnchor.constraint(equalTo: cellImage.leftAnchor, constant: -10).isActive = true
+        
+        infoLabelsStack.leftAnchor.constraint(equalTo: self.layoutMarginsGuide.leftAnchor).isActive = true
+        infoLabelsStack.topAnchor.constraint(greaterThanOrEqualTo: nameLabel.bottomAnchor, constant: 10).isActive = true
+        infoLabelsStack.rightAnchor.constraint(equalTo: cellImage.leftAnchor, constant: -10).isActive = true
+        infoLabelsStack.bottomAnchor.constraint(equalTo: self.layoutMarginsGuide.bottomAnchor).isActive = true
         
         cellImage.rightAnchor.constraint(equalTo: self.layoutMarginsGuide.rightAnchor).isActive = true
         cellImage.topAnchor.constraint(equalTo: self.layoutMarginsGuide.topAnchor).isActive = true
         cellImage.bottomAnchor.constraint(equalTo: self.layoutMarginsGuide.bottomAnchor).isActive = true
         cellImage.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.35).isActive = true
         
-        leftVerticalStack.addArrangedSubview(nameLabel)
-        leftVerticalStack.addArrangedSubview(timeLabel)
-        // must constrain heights to prevent name label from taking up all the space
-        timeLabel.heightAnchor.constraint(equalToConstant: 14).isActive = true
-        locationLabel.heightAnchor.constraint(equalToConstant: 14).isActive = true
+        
+        infoLabelsStack.addArrangedSubview(timeLabel)
+        timeLabel.setContentCompressionResistancePriority(.required, for: .vertical)
+        locationLabel.setContentCompressionResistancePriority(.required, for: .vertical)
     }
     
     /**
@@ -66,14 +70,14 @@ class CampusEventCellView: UIView {
         dateString += timeFormatter.string(from: event.date)
         timeLabel.text = dateString
         
-        if leftVerticalStack.arrangedSubviews.contains(locationLabel) {
+        if infoLabelsStack.arrangedSubviews.contains(locationLabel) {
             if let location = event.location {
                 locationLabel.text = location
             } else {
-                leftVerticalStack.removeArrangedSubview(locationLabel)
+                infoLabelsStack.removeArrangedSubview(locationLabel)
             }
         } else if let location = event.location {
-            leftVerticalStack.addArrangedSubview(locationLabel)
+            infoLabelsStack.addArrangedSubview(locationLabel)
             locationLabel.text = location
         }
         
@@ -95,7 +99,7 @@ class CampusEventCellView: UIView {
         return label
     }()
     
-    let leftVerticalStack: UIStackView = {
+    let infoLabelsStack: UIStackView = {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical

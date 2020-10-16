@@ -15,7 +15,7 @@ class EventDataSource: DataSource {
 
     static var fetchDispatch: DispatchGroup = DispatchGroup()
 
-    // Fetch the list of Academic Calendar Events and report back to the completionHandler.
+    /// Fetch the list of all Calendar Events and report back to the completionHandler.
     static func fetchItems(_ completion: @escaping DataSource.completionHandler) {
         let db = Firestore.firestore()
         db.collection(kEventsEndpoint).getDocuments() { (querySnapshot, err) in
@@ -33,7 +33,7 @@ class EventDataSource: DataSource {
         }
     }
 
-    /// Return an `AcademicCalendaryEntry` object parsed from a dictionary. Returns `nil` if the required fields cannot be properly parsed.
+    /// Return an `EventCalendarEntry` object parsed from a dictionary. Returns `nil` if the required fields cannot be properly parsed.
     private static func parseCalendarEntry(_ dict: [String: Any]) -> EventCalendarEntry? {
         guard let dateValue = dict["date"] as? Double else { return nil }
         return EventCalendarEntry(

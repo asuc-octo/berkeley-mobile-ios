@@ -12,20 +12,22 @@ import UIKit
 class EventCalendarEntry: CalendarEvent, HasImage {
 
     // MARK: CalendarEvent Fields
-
-    var category: String
     var name: String
     var date: Date
     var end: Date?
     var description: String?
     var location: String?
-    var link: URL?
-    var imageURL: URL?
-    var sourceLink: URL?
 
     // MARK: Additional Fields
-
-    /// The category this event belongs to, if any.
+    
+    /// The main category this event belongs to (e.g. Academic, Career) used to determine where it is displayed
+    var category: String
+    /// Link to the event
+    var link: URL?
+    var imageURL: URL?
+    /// Link to where the event was found
+    var sourceLink: URL?
+    /// The subcategory for the event within the main category
     let type: String?
 
     /// The color associated with this event's `type`.

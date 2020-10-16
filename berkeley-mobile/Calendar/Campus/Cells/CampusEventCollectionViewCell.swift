@@ -11,6 +11,7 @@ import UIKit
 class CampusEventCollectionViewCell: UICollectionViewCell, ImageViewCell {
     static let kCardSize: CGSize = CGSize(width: 223, height: 100)
     static let defaultImage = UIImage(named: "DoeGlade")
+    static let kCellIdentifier = "campusEventCollection"
     
     var containedView: CampusEventCellView = CampusEventCellView(upcoming: true)
     
