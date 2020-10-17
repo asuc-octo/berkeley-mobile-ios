@@ -76,7 +76,6 @@
 		2925D5F825293F2A00BBA266 /* CampusEventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2925D5F725293F2A00BBA266 /* CampusEventTableViewCell.swift */; };
 		2925D5FA2529405500BBA266 /* CampusEventCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2925D5F92529405500BBA266 /* CampusEventCellView.swift */; };
 		2925D5FC2529546A00BBA266 /* CampusEventCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2925D5FB2529546A00BBA266 /* CampusEventCollectionViewCell.swift */; };
-		2925D5FF2529577E00BBA266 /* CampusEventCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2925D5FE2529577E00BBA266 /* CampusEventCollectionView.swift */; };
 		29345E2724A7E76300859A88 /* OverviewCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29345E2624A7E76300859A88 /* OverviewCardView.swift */; };
 		29345E2924A7E7AC00859A88 /* HasPhoneNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29345E2824A7E7AC00859A88 /* HasPhoneNumber.swift */; };
 		29345E2B24A7EC2B00859A88 /* HasImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29345E2A24A7EC2B00859A88 /* HasImage.swift */; };
@@ -219,7 +218,6 @@
 		2925D5F725293F2A00BBA266 /* CampusEventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusEventTableViewCell.swift; sourceTree = "<group>"; };
 		2925D5F92529405500BBA266 /* CampusEventCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusEventCellView.swift; sourceTree = "<group>"; };
 		2925D5FB2529546A00BBA266 /* CampusEventCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusEventCollectionViewCell.swift; sourceTree = "<group>"; };
-		2925D5FE2529577E00BBA266 /* CampusEventCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusEventCollectionView.swift; sourceTree = "<group>"; };
 		29345E2624A7E76300859A88 /* OverviewCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewCardView.swift; sourceTree = "<group>"; };
 		29345E2824A7E7AC00859A88 /* HasPhoneNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasPhoneNumber.swift; sourceTree = "<group>"; };
 		29345E2A24A7EC2B00859A88 /* HasImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasImage.swift; sourceTree = "<group>"; };
@@ -580,7 +578,6 @@
 			isa = PBXGroup;
 			children = (
 				2925D5FB2529546A00BBA266 /* CampusEventCollectionViewCell.swift */,
-				2925D5FE2529577E00BBA266 /* CampusEventCollectionView.swift */,
 				2925D5F725293F2A00BBA266 /* CampusEventTableViewCell.swift */,
 				2925D5F92529405500BBA266 /* CampusEventCellView.swift */,
 			);
@@ -978,7 +975,6 @@
 				13E25DFD238C949E00B670B5 /* FitnessViewController.swift in Sources */,
 				55DCF79B237243D4001B01B8 /* MaterialTextField.swift in Sources */,
 				554CB9A023F3A83F00BB1715 /* EventTableViewCell.swift in Sources */,
-				2925D5FF2529577E00BBA266 /* CampusEventCollectionView.swift in Sources */,
 				01B250282516AD4F00CBA459 /* IconPairView.swift in Sources */,
 				55AF442B2453A80B00F13232 /* CafeItem.swift in Sources */,
 				2925D5F825293F2A00BBA266 /* CampusEventTableViewCell.swift in Sources */,
