@@ -15,24 +15,23 @@ enum DrawerState {
     case full
 }
 
-// Handles all moving of drawers and user gestures related to drawers
+/// Handles all moving of drawers and user gestures related to drawers
 protocol DrawerViewDelegate: class {
     func handlePanGesture(gesture: UIPanGestureRecognizer)
     func moveDrawer(to state: DrawerState, duration: Double?)
-    // set the drawer to a preset position based on user's panning gesture
+    /// set the drawer to a preset position based on user's panning gesture
     func computeDrawerPosition(from yPosition: CGFloat, with yVelocity: CGFloat) -> DrawerState
     
-    // center of detail view before position changes
+    /// center of detail view before position changes
     var initialDrawerCenter: CGPoint { get set }
-    // dictionary of all positions to corresponding center-y values
+    /// dictionary of all positions to corresponding center-y values
     var drawerStatePositions: [DrawerState: CGFloat] { get set }
-    // the drawer being controlled by this delegate
+    /// the drawer being controlled by this delegate
     var drawerViewController: DrawerViewController? { get set }
 }
 
-extension DrawerViewDelegate where Self: UIViewController {
-    
-    // moves this delegate's drawer to a position
+extension DrawerViewDelegate {
+    /// moves this delegate's drawer to a position
     func moveDrawer(to state: DrawerState, duration: Double? = nil) {
         guard let drawerViewController = self.drawerViewController, var position = drawerStatePositions[state] else { return }
         var moveState = state
@@ -53,7 +52,7 @@ extension DrawerViewDelegate where Self: UIViewController {
         })
     }
     
-    // choose between three set positions (bottom, middle, top) based on pan gesture
+    /// choose between three set positions (bottom, middle, top) based on pan gesture
     func computePosition(from yPosition: CGFloat, with yVelocity: CGFloat, bottom: DrawerState, middle: DrawerState, top: DrawerState) -> DrawerState {
         guard let hiddenPos = drawerStatePositions[bottom], let middlePos = drawerStatePositions[middle], let fullPos = drawerStatePositions[top] else { return .middle }
         
@@ -80,8 +79,10 @@ extension DrawerViewDelegate where Self: UIViewController {
             return top
         }
     }
-    
-    // default version of handling pan that returns the new state of the drawer
+}
+
+extension DrawerViewDelegate where Self: UIViewController {
+    /// default version of handling pan that returns the new state of the drawer
     @discardableResult func handlePan(gesture: UIPanGestureRecognizer) -> DrawerState {
         guard let drawerViewController = self.drawerViewController else { return .middle }
         if gesture.state == .began {
