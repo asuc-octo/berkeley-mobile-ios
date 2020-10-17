@@ -25,7 +25,6 @@ class DiningLocation: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasI
     var meals: MealMap
     var weeklyHours: WeeklyHours?
     var occupancy: Occupancy?
-    var image: UIImage?
     
     var latitude: Double?
     var longitude: Double?

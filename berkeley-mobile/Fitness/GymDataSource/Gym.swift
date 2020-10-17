@@ -26,8 +26,7 @@ class Gym: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasImage, HasOp
     let address: String?
 
     // MARK: HasImage
-
-    var image: UIImage?
+    
     let imageURL: URL?
 
     // MARK: HasPhoneNumber
@@ -58,11 +57,11 @@ class Gym: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasImage, HasOp
     let description: String?
 
     init(name: String, description: String?, address: String?, phoneNumber: String?, imageLink: String?, weeklyHours: WeeklyHours?, link: String?) {
-        self.address = address
-        self.description = description
+        self.address = address?.trimmingCharacters(in: .whitespacesAndNewlines)
+        self.description = description?.trimmingCharacters(in: .whitespacesAndNewlines).replacingOccurrences(of: "�", with: "")
         self.phoneNumber = phoneNumber
         self.weeklyHours = weeklyHours
-        self.name = name
+        self.name = name.trimmingCharacters(in: .whitespacesAndNewlines)
         self.imageURL = URL(string: imageLink ?? "")
         self.icon = UIImage(named: "Walk")
         self.website = URL(string: link ?? "")

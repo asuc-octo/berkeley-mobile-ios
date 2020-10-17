@@ -14,7 +14,14 @@ class Library: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasImage, H
         return name
     }
     
-    var image: UIImage?
+    var location: (Double, Double) {
+        return (latitude ?? 0, longitude ?? 0)
+    }
+    
+    var locationName: String {
+        return address ?? "Berkeley, CA"
+    }
+    
     var icon: UIImage?
     
     static func displayName(pluralized: Bool) -> String {

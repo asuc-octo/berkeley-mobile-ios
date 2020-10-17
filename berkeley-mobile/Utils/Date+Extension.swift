@@ -40,6 +40,12 @@ extension Date {
         return calendar.date(from: calendar.dateComponents([.hour, .minute], from: self))
     }
     
+    // Returns a date with this date's year, month, and day component only.
+    func dateOnly() -> Date? {
+        let calendar = Calendar.current
+        return calendar.date(from: calendar.dateComponents([.year, .month, .day], from: self))
+    }
+    
     // Returns the weekday as an integer (0 -> Sunday, 6 -> Saturday)
     func weekday() -> Int {
         return Calendar.current.component(.weekday, from: self) - 1

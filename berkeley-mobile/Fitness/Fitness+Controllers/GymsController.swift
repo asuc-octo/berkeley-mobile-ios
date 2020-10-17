@@ -34,18 +34,7 @@ extension GymsController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: FilterTableViewCell.kCellIdentifier, for: indexPath) as? FilterTableViewCell {
             let gym: Gym = vc.filterTableView.filteredData[indexPath.row]
-            cell.updateContents(item: gym, imageUpdate: {
-                DispatchQueue.global().async {
-                    guard let imageURL = gym.imageURL, let imageData = try? Data(contentsOf: imageURL) else { return }
-                    let image = UIImage(data: imageData)
-                    DispatchQueue.main.async {
-                        gym.image = image
-                        if tableView.visibleCells.contains(cell) {
-                            cell.cellImage.image = image
-                        }
-                    }
-                }
-            })
+            cell.updateContents(item: gym)
             return cell
         }
         return UITableViewCell()
