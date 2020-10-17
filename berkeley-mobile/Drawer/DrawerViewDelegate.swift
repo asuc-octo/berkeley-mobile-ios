@@ -42,8 +42,8 @@ extension DrawerViewDelegate where Self: UIViewController {
             position = upperLimitPosition
             moveState = upperLimitState
         }
-        let moveDuration = duration ?? (moveState == .full ? 0.6 : 0.2)
-        UIView.animate(withDuration: moveDuration, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
+        let moveDuration = duration ?? (moveState == .full ? 0.6 : 0.5)
+        UIView.animate(withDuration: moveDuration, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 2.5, options: .curveEaseOut, animations: {
             // save last non-hidden position in prevState
             if drawerViewController.currState != .hidden {
                 drawerViewController.prevState = drawerViewController.currState
