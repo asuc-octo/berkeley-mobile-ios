@@ -13,6 +13,8 @@ fileprivate let kViewMargin: CGFloat = 16
 
 /// Displays the 'Academic' events in the Calendar tab.
 class AcademicCalendarViewController: UIViewController {
+    /// Categories to include from all events
+    private static let categories = ["Academic Calendar"]
 
     private var scrollingStackView: ScrollingStackView!
 
@@ -22,7 +24,7 @@ class AcademicCalendarViewController: UIViewController {
     private var calendarMissingView: MissingDataView!
     private var calendarTable: UITableView!
 
-    private var calendarEntries: [AcademicCalendarEntry] = []
+    private var calendarEntries: [EventCalendarEntry] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,8 +36,10 @@ class AcademicCalendarViewController: UIViewController {
         setupUpcoming()
         setupCalendarList()
 
-        DataManager.shared.fetch(source: AcademicCalendarDataSource.self) { calendarEntries in
-            self.calendarEntries = calendarEntries as? [AcademicCalendarEntry] ?? []
+        DataManager.shared.fetch(source: EventDataSource.self) { calendarEntries in
+            self.calendarEntries = (calendarEntries as? [EventCalendarEntry])?.filter({ entry -> Bool in
+                return AcademicCalendarViewController.categories.contains(entry.category)
+            }) ?? []
 
             self.calendarEntries = self.calendarEntries.filter({
                 $0.date > Date()
@@ -94,12 +98,17 @@ extension AcademicCalendarViewController: UICollectionViewDelegate, UICollection
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CardCollectionView.kCellIdentifier, for: indexPath)
         if let card = cell as? CardCollectionViewCell {
             let entry = calendarEntries[indexPath.row]
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MM/dd/yyyy"
-            var dateString = dateFormatter.string(from: entry.date)
-            if entry.date == Date() {
-                dateString = "Today / " + dateString
+            
+            // format date string to use "Today" or the actual date for other days
+            var dateString = ""
+            if entry.date.dateOnly() == Date().dateOnly() {
+                dateString += "Today"
+            } else {
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "MM/dd/yyyy"
+                dateString = dateFormatter.string(from: entry.date)
             }
+            
             card.title.text = entry.name
             card.subtitle.text = dateString
             if let type = entry.type {

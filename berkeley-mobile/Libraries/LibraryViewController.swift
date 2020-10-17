@@ -134,18 +134,7 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: FilterTableViewCell.kCellIdentifier, for: indexPath) as? FilterTableViewCell {
             let lib: Library = self.filterTableView.filteredData[indexPath.row]
-            cell.updateContents(item: lib, imageUpdate: {
-                DispatchQueue.global().async {
-                    guard let imageURL = lib.imageURL, let imageData = try? Data(contentsOf: imageURL) else { return }
-                    let image = UIImage(data: imageData)
-                    DispatchQueue.main.async {
-                        lib.image = image
-                        if tableView.visibleCells.contains(cell) {
-                            cell.cellImage.image = image
-                        }
-                    }
-                }
-            })
+            cell.updateContents(item: lib)
             return cell
         }
         return UITableViewCell()

@@ -34,8 +34,7 @@ class Gym: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasImage, HasOp
     let address: String?
 
     // MARK: HasImage
-
-    var image: UIImage?
+    
     let imageURL: URL?
 
     // MARK: HasPhoneNumber
