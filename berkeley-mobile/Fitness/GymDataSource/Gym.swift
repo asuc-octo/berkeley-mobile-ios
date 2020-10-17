@@ -18,14 +18,6 @@ class Gym: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasImage, HasOp
     var searchName: String {
         return name
     }
-    
-    var location: (Double, Double) {
-        return (latitude ?? 0, longitude ?? 0)
-    }
-    
-    var locationName: String {
-        return "Berkeley, CA"
-    }
 
     // MARK: HasLocation
 
