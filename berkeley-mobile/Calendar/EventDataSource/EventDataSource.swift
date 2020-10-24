@@ -42,7 +42,7 @@ class EventDataSource: DataSource {
             date: Date(timeIntervalSince1970: dateValue),
             description: dict["description"] as? String,
             location: dict["location"] as? String,
-            link: dict["event_link"] as? String,
+            registerLink: dict["event_link"] as? String,
             imageURL: dict["picture"] as? String,
             sourceLink: dict["source_link"] as? String,
             type: dict["type"] as? String

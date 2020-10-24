@@ -7,12 +7,9 @@
 //
 
 import UIKit
-import MapKit
-import CoreLocation
 
 fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
 fileprivate let kViewMargin: CGFloat = 10
-
 
 // all the possible elements on the card, used to exclude certain elements even if they are available
 enum OverviewElements {
