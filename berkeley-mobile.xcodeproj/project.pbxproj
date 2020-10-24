@@ -21,6 +21,7 @@
 		01D11B8E2504453B00BDF660 /* ScrollingStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D11B8D2504453B00BDF660 /* ScrollingStackView.swift */; };
 		01D11B902504560700BDF660 /* GymDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D11B8F2504560700BDF660 /* GymDetailViewController.swift */; };
 		01D11B9225045FC900BDF660 /* ResourceDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D11B9125045FC900BDF660 /* ResourceDetailViewController.swift */; };
+		01D2699D2544E005000377B4 /* AcademicCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D2699C2544E005000377B4 /* AcademicCalendarViewController.swift */; };
 		01FA50F124E8B33100DCC490 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FA50F024E8B33100DCC490 /* LocationManager.swift */; };
 		01FA50F324E8BA5400DCC490 /* LocationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FA50F224E8BA5400DCC490 /* LocationDetailView.swift */; };
 		130FA59E243B1243005DC752 /* DiningRestriction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130FA59D243B1243005DC752 /* DiningRestriction.swift */; };
@@ -122,7 +123,6 @@
 		556CCD2D23E79EC100F41BF9 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556CCD2C23E79EC100F41BF9 /* TabBarController.swift */; };
 		556DB0DF23E7F60900F12721 /* ResourcesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DB0DE23E7F60900F12721 /* ResourcesViewController.swift */; };
 		557756692544D822009C03BD /* Collection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557756682544D822009C03BD /* Collection+Extension.swift */; };
-		5577566C2544DEE2009C03BD /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5577566B2544DEE2009C03BD /* CalendarViewController.swift */; };
 		559A7B6B2373DCBA004EA501 /* SearchResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559A7B6A2373DCBA004EA501 /* SearchResultsView.swift */; };
 		559A7B6D2373DEFA004EA501 /* MaterialTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559A7B6C2373DEFA004EA501 /* MaterialTableViewCell.swift */; };
 		559A7B6F2373DF39004EA501 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559A7B6E2373DF39004EA501 /* SearchResultCell.swift */; };
@@ -162,6 +162,7 @@
 		01D11B8D2504453B00BDF660 /* ScrollingStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollingStackView.swift; sourceTree = "<group>"; };
 		01D11B8F2504560700BDF660 /* GymDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailViewController.swift; sourceTree = "<group>"; };
 		01D11B9125045FC900BDF660 /* ResourceDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceDetailViewController.swift; sourceTree = "<group>"; };
+		01D2699C2544E005000377B4 /* AcademicCalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcademicCalendarViewController.swift; sourceTree = "<group>"; };
 		01FA50F024E8B33100DCC490 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		01FA50F224E8BA5400DCC490 /* LocationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailView.swift; sourceTree = "<group>"; };
 		081BAB7CA4F458D5676821B0 /* Pods-berkeley-mobile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeley-mobile.debug.xcconfig"; path = "Target Support Files/Pods-berkeley-mobile/Pods-berkeley-mobile.debug.xcconfig"; sourceTree = "<group>"; };
@@ -270,7 +271,6 @@
 		556CCD2C23E79EC100F41BF9 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		556DB0DE23E7F60900F12721 /* ResourcesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcesViewController.swift; sourceTree = "<group>"; };
 		557756682544D822009C03BD /* Collection+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Extension.swift"; sourceTree = "<group>"; };
-		5577566B2544DEE2009C03BD /* CalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CalendarViewController.swift; path = "berkeley-mobile/Calendar/CalendarViewController.swift"; sourceTree = "<group>"; };
 		559A7B6A2373DCBA004EA501 /* SearchResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsView.swift; sourceTree = "<group>"; };
 		559A7B6C2373DEFA004EA501 /* MaterialTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialTableViewCell.swift; sourceTree = "<group>"; };
 		559A7B6E2373DF39004EA501 /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
@@ -366,10 +366,10 @@
 		133864A72404E857001F9048 /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
-				2925D5F525293E7B00BBA266 /* Academic */,
-				2925D5F425293E5A00BBA266 /* Campus */,
 				2925D5F625293E9D00BBA266 /* EventDataSource */,
+				2925D5F425293E5A00BBA266 /* Campus */,
 				133864A82404E857001F9048 /* CalendarViewController.swift */,
+				01D2699C2544E005000377B4 /* AcademicCalendarViewController.swift */,
 			);
 			name = Calendar;
 			path = "berkeley-mobile/Calendar";
@@ -557,15 +557,6 @@
 				2925D5FD2529547300BBA266 /* Cells */,
 			);
 			path = Campus;
-			sourceTree = "<group>";
-		};
-		2925D5F525293E7B00BBA266 /* Academic */ = {
-			isa = PBXGroup;
-			children = (
-				5577566B2544DEE2009C03BD /* CalendarViewController.swift */,
-			);
-			name = Academic;
-			path = ../..;
 			sourceTree = "<group>";
 		};
 		2925D5F625293E9D00BBA266 /* EventDataSource */ = {
@@ -1002,6 +993,7 @@
 				55DCF79623723CF2001B01B8 /* UIView+Extensions.swift in Sources */,
 				291B11E225044BDB00F737A8 /* HasName.swift in Sources */,
 				306A54EA23613E3A00D59A7F /* AppDelegate.swift in Sources */,
+				01D2699D2544E005000377B4 /* AcademicCalendarViewController.swift in Sources */,
 				1336A31C241C400800949F32 /* GymClass.swift in Sources */,
 				559A7B6B2373DCBA004EA501 /* SearchResultsView.swift in Sources */,
 				13EA64C82399CE0800FD8E13 /* GymDataSource.swift in Sources */,
@@ -1027,7 +1019,6 @@
 				01D11B8E2504453B00BDF660 /* ScrollingStackView.swift in Sources */,
 				29387E9924BBBC9300070BCE /* BarEntry+DataEntry.swift in Sources */,
 				306A54EC23613E3A00D59A7F /* SceneDelegate.swift in Sources */,
-				5577566C2544DEE2009C03BD /* CalendarViewController.swift in Sources */,
 				01FA50F124E8B33100DCC490 /* LocationManager.swift in Sources */,
 				017C0B26251018BA00BFA80A /* Colors+MapMarker.swift in Sources */,
 				29345E2724A7E76300859A88 /* OverviewCardView.swift in Sources */,
