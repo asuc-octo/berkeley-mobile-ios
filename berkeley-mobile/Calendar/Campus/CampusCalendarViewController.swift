@@ -78,9 +78,10 @@ extension CampusCalendarViewController: UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: CampusEventTableViewCell.kCellIdentifier, for: indexPath)
             as? CampusEventTableViewCell {
-            let entry = calendarEntries[indexPath.row]
-            cell.updateContents(event: entry)
-            return cell
+            if let entry = calendarEntries[safe: indexPath.row] {
+                cell.updateContents(event: entry)
+                return cell
+            }
         }
         return UITableViewCell()
     }
@@ -101,8 +102,9 @@ extension CampusCalendarViewController: UICollectionViewDelegate, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CampusEventCollectionViewCell.kCellIdentifier, for: indexPath)
         if let card = cell as? CampusEventCollectionViewCell {
-            let entry = calendarEntries[indexPath.row]
-            card.updateContents(event: entry)
+            if let entry = calendarEntries[safe: indexPath.row] {
+                card.updateContents(event: entry)
+            }
         }
         return cell
     }
