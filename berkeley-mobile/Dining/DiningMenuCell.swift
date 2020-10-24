@@ -95,7 +95,7 @@ class DiningMenuCell: UITableViewCell {
     
     let nameLabel:UILabel = {
         let label = UILabel()
-        label.font = Font.semibold(16)
+        label.font = Font.medium(16)
         label.textColor = Color.blackText
 
         label.translatesAutoresizingMaskIntoConstraints = false

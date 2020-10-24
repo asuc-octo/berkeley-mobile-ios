@@ -21,6 +21,15 @@
 		01D11B8E2504453B00BDF660 /* ScrollingStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D11B8D2504453B00BDF660 /* ScrollingStackView.swift */; };
 		01D11B902504560700BDF660 /* GymDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D11B8F2504560700BDF660 /* GymDetailViewController.swift */; };
 		01D11B9225045FC900BDF660 /* ResourceDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D11B9125045FC900BDF660 /* ResourceDetailViewController.swift */; };
+		01D269932544D86C000377B4 /* Apercu Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 01D2698A2544D86B000377B4 /* Apercu Light.otf */; };
+		01D269942544D86C000377B4 /* Apercu Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 01D2698B2544D86B000377B4 /* Apercu Italic.otf */; };
+		01D269952544D86C000377B4 /* Apercu Light Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 01D2698C2544D86B000377B4 /* Apercu Light Italic.otf */; };
+		01D269962544D86C000377B4 /* Apercu Bold Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 01D2698D2544D86B000377B4 /* Apercu Bold Italic.otf */; };
+		01D269972544D86C000377B4 /* Apercu Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 01D2698E2544D86C000377B4 /* Apercu Bold.otf */; };
+		01D269982544D86C000377B4 /* Apercu Mono.otf in Resources */ = {isa = PBXBuildFile; fileRef = 01D2698F2544D86C000377B4 /* Apercu Mono.otf */; };
+		01D269992544D86C000377B4 /* Apercu Medium Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 01D269902544D86C000377B4 /* Apercu Medium Italic.otf */; };
+		01D2699A2544D86C000377B4 /* Apercu Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 01D269912544D86C000377B4 /* Apercu Medium.otf */; };
+		01D2699B2544D86C000377B4 /* Apercu Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 01D269922544D86C000377B4 /* Apercu Regular.otf */; };
 		01D2699D2544E005000377B4 /* AcademicCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D2699C2544E005000377B4 /* AcademicCalendarViewController.swift */; };
 		01FA50F124E8B33100DCC490 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FA50F024E8B33100DCC490 /* LocationManager.swift */; };
 		01FA50F324E8BA5400DCC490 /* LocationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FA50F224E8BA5400DCC490 /* LocationDetailView.swift */; };
@@ -101,8 +110,6 @@
 		29B3D78824539FF3006762E5 /* MainDrawerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B3D78724539FF3006762E5 /* MainDrawerViewController.swift */; };
 		29CB28092404DD53009A2CFB /* LibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39AA623E7746C0039FBA2 /* LibraryViewController.swift */; };
 		29CB280A2404DD71009A2CFB /* FilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39AA423E774600039FBA2 /* FilterTableViewCell.swift */; };
-		29D8A2AB241ED13F00251FBE /* Raleway-Medium-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 29D8A2AA241ED13F00251FBE /* Raleway-Medium-Italic.ttf */; };
-		29D8A2AD241ED14900251FBE /* Raleway-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 29D8A2AC241ED14900251FBE /* Raleway-Light.ttf */; };
 		29EE163F241C4E310041482E /* SortingFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EE163E241C4E310041482E /* SortingFunctions.swift */; };
 		29F11EC72516C150007DCFD7 /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F11EC62516C150007DCFD7 /* BarView.swift */; };
 		303F6AE1236A931D007E37DD /* SegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303F6ADD236A931D007E37DD /* SegmentedControl.swift */; };
@@ -134,15 +141,10 @@
 		55C6936B240E143500400B60 /* ResourceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C6936A240E143500400B60 /* ResourceTableViewCell.swift */; };
 		55DCF78723722CBD001B01B8 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF78623722CBD001B01B8 /* Colors.swift */; };
 		55DCF78923722CF1001B01B8 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF78823722CF1001B01B8 /* Fonts.swift */; };
-		55DCF78C2372324E001B01B8 /* Raleway-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 55DCF78B2372324E001B01B8 /* Raleway-Medium.ttf */; };
-		55DCF78E23723258001B01B8 /* Raleway-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 55DCF78D23723258001B01B8 /* Raleway-Regular.ttf */; };
-		55DCF79023723260001B01B8 /* Raleway-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 55DCF78F23723260001B01B8 /* Raleway-Thin.ttf */; };
-		55DCF7922372326A001B01B8 /* Raleway-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 55DCF7912372326A001B01B8 /* Raleway-Bold.ttf */; };
 		55DCF79423723452001B01B8 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF79323723452001B01B8 /* SearchBarView.swift */; };
 		55DCF79623723CF2001B01B8 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF79523723CF2001B01B8 /* UIView+Extensions.swift */; };
 		55DCF79B237243D4001B01B8 /* MaterialTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF79A237243D4001B01B8 /* MaterialTextField.swift */; };
 		55DCF79D237243F5001B01B8 /* RippleLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF79C237243F5001B01B8 /* RippleLayer.swift */; };
-		55DCF79F237245BA001B01B8 /* Raleway-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 55DCF79E237245B9001B01B8 /* Raleway-SemiBold.ttf */; };
 		55DCF7A123724835001B01B8 /* MaterialButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF7A023724835001B01B8 /* MaterialButton.swift */; };
 		9620FEE3341D5D1FBAB6302B /* Pods_berkeley_mobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A826C1BD0A2BCA2F083C6EE /* Pods_berkeley_mobile.framework */; };
 /* End PBXBuildFile section */
@@ -162,6 +164,15 @@
 		01D11B8D2504453B00BDF660 /* ScrollingStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollingStackView.swift; sourceTree = "<group>"; };
 		01D11B8F2504560700BDF660 /* GymDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailViewController.swift; sourceTree = "<group>"; };
 		01D11B9125045FC900BDF660 /* ResourceDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceDetailViewController.swift; sourceTree = "<group>"; };
+		01D2698A2544D86B000377B4 /* Apercu Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Apercu Light.otf"; sourceTree = "<group>"; };
+		01D2698B2544D86B000377B4 /* Apercu Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Apercu Italic.otf"; sourceTree = "<group>"; };
+		01D2698C2544D86B000377B4 /* Apercu Light Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Apercu Light Italic.otf"; sourceTree = "<group>"; };
+		01D2698D2544D86B000377B4 /* Apercu Bold Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Apercu Bold Italic.otf"; sourceTree = "<group>"; };
+		01D2698E2544D86C000377B4 /* Apercu Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Apercu Bold.otf"; sourceTree = "<group>"; };
+		01D2698F2544D86C000377B4 /* Apercu Mono.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Apercu Mono.otf"; sourceTree = "<group>"; };
+		01D269902544D86C000377B4 /* Apercu Medium Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Apercu Medium Italic.otf"; sourceTree = "<group>"; };
+		01D269912544D86C000377B4 /* Apercu Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Apercu Medium.otf"; sourceTree = "<group>"; };
+		01D269922544D86C000377B4 /* Apercu Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Apercu Regular.otf"; sourceTree = "<group>"; };
 		01D2699C2544E005000377B4 /* AcademicCalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcademicCalendarViewController.swift; sourceTree = "<group>"; };
 		01FA50F024E8B33100DCC490 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		01FA50F224E8BA5400DCC490 /* LocationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailView.swift; sourceTree = "<group>"; };
@@ -242,8 +253,6 @@
 		29B3A1732439A60A00093750 /* DiningMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiningMenuCell.swift; sourceTree = "<group>"; };
 		29B3D7852453984A006762E5 /* DrawerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerViewDelegate.swift; sourceTree = "<group>"; };
 		29B3D78724539FF3006762E5 /* MainDrawerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainDrawerViewController.swift; sourceTree = "<group>"; };
-		29D8A2AA241ED13F00251FBE /* Raleway-Medium-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Medium-Italic.ttf"; sourceTree = "<group>"; };
-		29D8A2AC241ED14900251FBE /* Raleway-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Light.ttf"; sourceTree = "<group>"; };
 		29EE163E241C4E310041482E /* SortingFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingFunctions.swift; sourceTree = "<group>"; };
 		29F11EC62516C150007DCFD7 /* BarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarView.swift; sourceTree = "<group>"; };
 		303F6ADD236A931D007E37DD /* SegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedControl.swift; sourceTree = "<group>"; };
@@ -282,15 +291,10 @@
 		55C6936A240E143500400B60 /* ResourceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceTableViewCell.swift; sourceTree = "<group>"; };
 		55DCF78623722CBD001B01B8 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		55DCF78823722CF1001B01B8 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
-		55DCF78B2372324E001B01B8 /* Raleway-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Medium.ttf"; sourceTree = "<group>"; };
-		55DCF78D23723258001B01B8 /* Raleway-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Regular.ttf"; sourceTree = "<group>"; };
-		55DCF78F23723260001B01B8 /* Raleway-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Thin.ttf"; sourceTree = "<group>"; };
-		55DCF7912372326A001B01B8 /* Raleway-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Bold.ttf"; sourceTree = "<group>"; };
 		55DCF79323723452001B01B8 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		55DCF79523723CF2001B01B8 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		55DCF79A237243D4001B01B8 /* MaterialTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialTextField.swift; sourceTree = "<group>"; };
 		55DCF79C237243F5001B01B8 /* RippleLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RippleLayer.swift; sourceTree = "<group>"; };
-		55DCF79E237245B9001B01B8 /* Raleway-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-SemiBold.ttf"; sourceTree = "<group>"; };
 		55DCF7A023724835001B01B8 /* MaterialButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialButton.swift; sourceTree = "<group>"; };
 		B5DD1FA9F5CF4BCFD4A64306 /* Pods-bm-persona.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bm-persona.debug.xcconfig"; path = "Target Support Files/Pods-bm-persona/Pods-bm-persona.debug.xcconfig"; sourceTree = "<group>"; };
 		CB9A33BEF33ABF885BD30304 /* Pods-berkeley-mobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeley-mobile.release.xcconfig"; path = "Target Support Files/Pods-berkeley-mobile/Pods-berkeley-mobile.release.xcconfig"; sourceTree = "<group>"; };
@@ -749,13 +753,15 @@
 		55DCF78A23723238001B01B8 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				29D8A2AC241ED14900251FBE /* Raleway-Light.ttf */,
-				29D8A2AA241ED13F00251FBE /* Raleway-Medium-Italic.ttf */,
-				55DCF79E237245B9001B01B8 /* Raleway-SemiBold.ttf */,
-				55DCF7912372326A001B01B8 /* Raleway-Bold.ttf */,
-				55DCF78F23723260001B01B8 /* Raleway-Thin.ttf */,
-				55DCF78D23723258001B01B8 /* Raleway-Regular.ttf */,
-				55DCF78B2372324E001B01B8 /* Raleway-Medium.ttf */,
+				01D2698D2544D86B000377B4 /* Apercu Bold Italic.otf */,
+				01D2698E2544D86C000377B4 /* Apercu Bold.otf */,
+				01D2698B2544D86B000377B4 /* Apercu Italic.otf */,
+				01D2698C2544D86B000377B4 /* Apercu Light Italic.otf */,
+				01D2698A2544D86B000377B4 /* Apercu Light.otf */,
+				01D269902544D86C000377B4 /* Apercu Medium Italic.otf */,
+				01D269912544D86C000377B4 /* Apercu Medium.otf */,
+				01D2698F2544D86C000377B4 /* Apercu Mono.otf */,
+				01D269922544D86C000377B4 /* Apercu Regular.otf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -851,16 +857,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				55DCF79023723260001B01B8 /* Raleway-Thin.ttf in Resources */,
-				29D8A2AD241ED14900251FBE /* Raleway-Light.ttf in Resources */,
-				29D8A2AB241ED13F00251FBE /* Raleway-Medium-Italic.ttf in Resources */,
-				55DCF7922372326A001B01B8 /* Raleway-Bold.ttf in Resources */,
+				01D269952544D86C000377B4 /* Apercu Light Italic.otf in Resources */,
 				306A54F623613E3D00D59A7F /* LaunchScreen.storyboard in Resources */,
-				55DCF78C2372324E001B01B8 /* Raleway-Medium.ttf in Resources */,
 				306A54F323613E3D00D59A7F /* Assets.xcassets in Resources */,
 				29010C7A2539648B00CDA48A /* GoogleService-Info.plist in Resources */,
-				55DCF78E23723258001B01B8 /* Raleway-Regular.ttf in Resources */,
-				55DCF79F237245BA001B01B8 /* Raleway-SemiBold.ttf in Resources */,
+				01D269962544D86C000377B4 /* Apercu Bold Italic.otf in Resources */,
+				01D269942544D86C000377B4 /* Apercu Italic.otf in Resources */,
+				01D269992544D86C000377B4 /* Apercu Medium Italic.otf in Resources */,
+				01D269932544D86C000377B4 /* Apercu Light.otf in Resources */,
+				01D2699A2544D86C000377B4 /* Apercu Medium.otf in Resources */,
+				01D269972544D86C000377B4 /* Apercu Bold.otf in Resources */,
+				01D269982544D86C000377B4 /* Apercu Mono.otf in Resources */,
+				01D2699B2544D86C000377B4 /* Apercu Regular.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

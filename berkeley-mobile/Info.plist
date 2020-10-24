@@ -29,13 +29,15 @@
 	<string>We need your location to provide location based points of interest and transit directions.</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Raleway-Light.ttf</string>
-		<string>Raleway-Medium-Italic.ttf</string>
-		<string>Raleway-Medium.ttf</string>
-		<string>Raleway-Bold.ttf</string>
-		<string>Raleway-Thin.ttf</string>
-		<string>Raleway-Regular.ttf</string>
-		<string>Raleway-SemiBold.ttf</string>
+		<string>Apercu Regular.otf</string>
+		<string>Apercu Mono.otf</string>
+		<string>Apercu Bold Italic.otf</string>
+		<string>Apercu Bold.otf</string>
+		<string>Apercu Italic.otf</string>
+		<string>Apercu Light Italic.otf</string>
+		<string>Apercu Light.otf</string>
+		<string>Apercu Medium Italic.otf</string>
+		<string>Apercu Medium.otf</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>

@@ -20,7 +20,7 @@ class ActionButton: UIButton {
         }
     }
 
-    init(title: String, font: UIFont = Font.semibold(12)) {
+    init(title: String, font: UIFont = Font.medium(12)) {
         super.init(frame: .zero)
         contentEdgeInsets = kButtonPadding
         isHighlighted = false
