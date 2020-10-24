@@ -74,9 +74,10 @@ extension AcademicCalendarViewController: UITableViewDelegate, UITableViewDataSo
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: EventTableViewCell.kCellIdentifier, for: indexPath)
             as? EventTableViewCell {
-            let entry = calendarEntries[indexPath.row]
-            cell.cellConfigure(entry: entry, type: entry.type, color: entry.color)
-            return cell
+            if let entry = calendarEntries[safe: indexPath.row] {
+                cell.cellConfigure(entry: entry, type: entry.type, color: entry.color)
+                return cell
+            }
         }
         return UITableViewCell()
     }
@@ -97,26 +98,26 @@ extension AcademicCalendarViewController: UICollectionViewDelegate, UICollection
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CardCollectionView.kCellIdentifier, for: indexPath)
         if let card = cell as? CardCollectionViewCell {
-            let entry = calendarEntries[indexPath.row]
-            
-            // format date string to use "Today" or the actual date for other days
-            var dateString = ""
-            if entry.date.dateOnly() == Date().dateOnly() {
-                dateString += "Today"
-            } else {
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "MM/dd/yyyy"
-                dateString = dateFormatter.string(from: entry.date)
-            }
-            
-            card.title.text = entry.name
-            card.subtitle.text = dateString
-            if let type = entry.type {
-                card.badge.isHidden = false
-                card.badge.text = type
-                card.badge.backgroundColor = entry.color
-            } else {
-                card.badge.isHidden = true
+            if let entry = calendarEntries[safe: indexPath.row] {
+                // format date string to use "Today" or the actual date for other days
+                var dateString = ""
+                if entry.date.dateOnly() == Date().dateOnly() {
+                    dateString += "Today"
+                } else {
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "MM/dd/yyyy"
+                    dateString = dateFormatter.string(from: entry.date)
+                }
+                
+                card.title.text = entry.name
+                card.subtitle.text = dateString
+                if let type = entry.type {
+                    card.badge.isHidden = false
+                    card.badge.text = type
+                    card.badge.backgroundColor = entry.color
+                } else {
+                    card.badge.isHidden = true
+                }
             }
         }
         return cell

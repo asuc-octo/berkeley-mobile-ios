@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		016A56D22519E90300531A12 /* AcademicCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016A56D12519E90300531A12 /* AcademicCalendarViewController.swift */; };
 		016A56D42519E96800531A12 /* CampusCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016A56D32519E96800531A12 /* CampusCalendarViewController.swift */; };
 		016A56D6251AD38F00531A12 /* CalendarEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016A56D5251AD38F00531A12 /* CalendarEvent.swift */; };
 		016A56D8251C930D00531A12 /* AppDelegate+Migration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016A56D7251C930D00531A12 /* AppDelegate+Migration.swift */; };
@@ -22,6 +21,7 @@
 		01D11B8E2504453B00BDF660 /* ScrollingStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D11B8D2504453B00BDF660 /* ScrollingStackView.swift */; };
 		01D11B902504560700BDF660 /* GymDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D11B8F2504560700BDF660 /* GymDetailViewController.swift */; };
 		01D11B9225045FC900BDF660 /* ResourceDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D11B9125045FC900BDF660 /* ResourceDetailViewController.swift */; };
+		01D2699D2544E005000377B4 /* AcademicCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D2699C2544E005000377B4 /* AcademicCalendarViewController.swift */; };
 		01FA50F124E8B33100DCC490 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FA50F024E8B33100DCC490 /* LocationManager.swift */; };
 		01FA50F324E8BA5400DCC490 /* LocationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FA50F224E8BA5400DCC490 /* LocationDetailView.swift */; };
 		130FA59E243B1243005DC752 /* DiningRestriction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130FA59D243B1243005DC752 /* DiningRestriction.swift */; };
@@ -122,6 +122,7 @@
 		556CCD2223E7771800F41BF9 /* MapPlacemark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556CCD2123E7771800F41BF9 /* MapPlacemark.swift */; };
 		556CCD2D23E79EC100F41BF9 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556CCD2C23E79EC100F41BF9 /* TabBarController.swift */; };
 		556DB0DF23E7F60900F12721 /* ResourcesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DB0DE23E7F60900F12721 /* ResourcesViewController.swift */; };
+		557756692544D822009C03BD /* Collection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557756682544D822009C03BD /* Collection+Extension.swift */; };
 		559A7B6B2373DCBA004EA501 /* SearchResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559A7B6A2373DCBA004EA501 /* SearchResultsView.swift */; };
 		559A7B6D2373DEFA004EA501 /* MaterialTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559A7B6C2373DEFA004EA501 /* MaterialTableViewCell.swift */; };
 		559A7B6F2373DF39004EA501 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559A7B6E2373DF39004EA501 /* SearchResultCell.swift */; };
@@ -147,7 +148,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		016A56D12519E90300531A12 /* AcademicCalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcademicCalendarViewController.swift; sourceTree = "<group>"; };
 		016A56D32519E96800531A12 /* CampusCalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusCalendarViewController.swift; sourceTree = "<group>"; };
 		016A56D5251AD38F00531A12 /* CalendarEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEvent.swift; sourceTree = "<group>"; };
 		016A56D7251C930D00531A12 /* AppDelegate+Migration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Migration.swift"; sourceTree = "<group>"; };
@@ -162,6 +162,7 @@
 		01D11B8D2504453B00BDF660 /* ScrollingStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollingStackView.swift; sourceTree = "<group>"; };
 		01D11B8F2504560700BDF660 /* GymDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailViewController.swift; sourceTree = "<group>"; };
 		01D11B9125045FC900BDF660 /* ResourceDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceDetailViewController.swift; sourceTree = "<group>"; };
+		01D2699C2544E005000377B4 /* AcademicCalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcademicCalendarViewController.swift; sourceTree = "<group>"; };
 		01FA50F024E8B33100DCC490 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		01FA50F224E8BA5400DCC490 /* LocationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailView.swift; sourceTree = "<group>"; };
 		081BAB7CA4F458D5676821B0 /* Pods-berkeley-mobile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeley-mobile.debug.xcconfig"; path = "Target Support Files/Pods-berkeley-mobile/Pods-berkeley-mobile.debug.xcconfig"; sourceTree = "<group>"; };
@@ -269,6 +270,7 @@
 		556CCD2923E77C8400F41BF9 /* CalendarDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDataSource.swift; sourceTree = "<group>"; };
 		556CCD2C23E79EC100F41BF9 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		556DB0DE23E7F60900F12721 /* ResourcesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcesViewController.swift; sourceTree = "<group>"; };
+		557756682544D822009C03BD /* Collection+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Extension.swift"; sourceTree = "<group>"; };
 		559A7B6A2373DCBA004EA501 /* SearchResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsView.swift; sourceTree = "<group>"; };
 		559A7B6C2373DEFA004EA501 /* MaterialTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialTableViewCell.swift; sourceTree = "<group>"; };
 		559A7B6E2373DF39004EA501 /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
@@ -364,10 +366,10 @@
 		133864A72404E857001F9048 /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
-				2925D5F525293E7B00BBA266 /* Academic */,
-				2925D5F425293E5A00BBA266 /* Campus */,
 				2925D5F625293E9D00BBA266 /* EventDataSource */,
+				2925D5F425293E5A00BBA266 /* Campus */,
 				133864A82404E857001F9048 /* CalendarViewController.swift */,
+				01D2699C2544E005000377B4 /* AcademicCalendarViewController.swift */,
 			);
 			name = Calendar;
 			path = "berkeley-mobile/Calendar";
@@ -502,6 +504,7 @@
 				13491DBB242098B30033F9AB /* AtomicDictionary.swift */,
 				1346B9182420AD4800383399 /* WeeklyHours.swift */,
 				1346B9162420AA4500383399 /* DayOfWeek.swift */,
+				557756682544D822009C03BD /* Collection+Extension.swift */,
 				13B39A8A23E682840039FBA2 /* Date+Extension.swift */,
 				55DCF79523723CF2001B01B8 /* UIView+Extensions.swift */,
 				136DC97A2398B4D1009B1810 /* UIViewController+Extensions.swift */,
@@ -554,15 +557,6 @@
 				2925D5FD2529547300BBA266 /* Cells */,
 			);
 			path = Campus;
-			sourceTree = "<group>";
-		};
-		2925D5F525293E7B00BBA266 /* Academic */ = {
-			isa = PBXGroup;
-			children = (
-				016A56D12519E90300531A12 /* AcademicCalendarViewController.swift */,
-			);
-			name = Academic;
-			path = ../..;
 			sourceTree = "<group>";
 		};
 		2925D5F625293E9D00BBA266 /* EventDataSource */ = {
@@ -934,6 +928,7 @@
 				306A54EE23613E3A00D59A7F /* MapViewController.swift in Sources */,
 				13DACD222411DF7200A09982 /* UIStackView+Extensions.swift in Sources */,
 				2954F592245CD4B600DA66DA /* MainDrawerViewDelegate.swift in Sources */,
+				557756692544D822009C03BD /* Collection+Extension.swift in Sources */,
 				5546CB91251B0A4500BE1876 /* UIDevice+Extensions.swift in Sources */,
 				2975D5402459301B00514B43 /* SearchDrawerViewDelegate.swift in Sources */,
 				133864A42404DCCA001F9048 /* MapMarker.swift in Sources */,
@@ -967,7 +962,6 @@
 				556DB0DF23E7F60900F12721 /* ResourcesViewController.swift in Sources */,
 				55DCF79423723452001B01B8 /* SearchBarView.swift in Sources */,
 				133864AC2404E858001F9048 /* CalendarViewController.swift in Sources */,
-				016A56D22519E90300531A12 /* AcademicCalendarViewController.swift in Sources */,
 				1346B9172420AA4500383399 /* DayOfWeek.swift in Sources */,
 				29345E2D24A7FFB600859A88 /* CanFavorite.swift in Sources */,
 				1396013623865E2E005E4788 /* TagView.swift in Sources */,
@@ -999,6 +993,7 @@
 				55DCF79623723CF2001B01B8 /* UIView+Extensions.swift in Sources */,
 				291B11E225044BDB00F737A8 /* HasName.swift in Sources */,
 				306A54EA23613E3A00D59A7F /* AppDelegate.swift in Sources */,
+				01D2699D2544E005000377B4 /* AcademicCalendarViewController.swift in Sources */,
 				1336A31C241C400800949F32 /* GymClass.swift in Sources */,
 				559A7B6B2373DCBA004EA501 /* SearchResultsView.swift in Sources */,
 				13EA64C82399CE0800FD8E13 /* GymDataSource.swift in Sources */,
