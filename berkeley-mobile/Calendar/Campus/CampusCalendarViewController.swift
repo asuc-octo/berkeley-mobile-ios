@@ -102,8 +102,9 @@ extension CampusCalendarViewController: UICollectionViewDelegate, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CampusEventCollectionViewCell.kCellIdentifier, for: indexPath)
         if let card = cell as? CampusEventCollectionViewCell {
-            let entry = calendarEntries[indexPath.row]
-            card.updateContents(event: entry)
+            if let entry = calendarEntries[safe: indexPath.row] {
+                card.updateContents(event: entry)
+            }
         }
         return cell
     }

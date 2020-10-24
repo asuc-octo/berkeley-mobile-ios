@@ -30,12 +30,13 @@ extension GymClassesController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CardCollectionView.kCellIdentifier, for: indexPath)
         if let card = cell as? CardCollectionViewCell {
-            let gymClass = vc.upcomingClasses[indexPath.row]
-            card.title.text = gymClass.name
-            card.subtitle.text = gymClass.description(components: [.date, .startTime])
-            card.badge.text = gymClass.type
-            card.badge.backgroundColor = gymClass.color
-            card.badge.isHidden = gymClass.type == nil
+            if let gymClass = vc.upcomingClasses[safe: indexPath.row] {
+                card.title.text = gymClass.name
+                card.subtitle.text = gymClass.description(components: [.date, .startTime])
+                card.badge.text = gymClass.type
+                card.badge.backgroundColor = gymClass.color
+                card.badge.isHidden = gymClass.type == nil
+            }
         }
         return cell
     }
