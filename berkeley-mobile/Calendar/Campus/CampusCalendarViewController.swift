@@ -78,9 +78,10 @@ extension CampusCalendarViewController: UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: CampusEventTableViewCell.kCellIdentifier, for: indexPath)
             as? CampusEventTableViewCell {
-            let entry = calendarEntries[indexPath.row]
-            cell.updateContents(event: entry)
-            return cell
+            if let entry = calendarEntries[safe: indexPath.row] {
+                cell.updateContents(event: entry)
+                return cell
+            }
         }
         return UITableViewCell()
     }

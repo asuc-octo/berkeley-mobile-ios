@@ -55,17 +55,18 @@ extension GymClassesController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: GymClassesController.kCellIdentifier, for: indexPath)
         if let cell = cell as? EventTableViewCell {
-            let gymClass = vc.todayClasses[indexPath.row]
-            cell.cellConfigure(entry: gymClass, type: gymClass.type, color: gymClass.color)
-            cell.eventTime.text = gymClass.description(components: [.startTime, .duration, .location])
-            
-            if let url = gymClass.website_link, gymClass.location == "Zoom" {
-                let tapGesture = DetailTapGestureRecognizer(target: self, action:
-                                                            #selector(GymClassesController.zoomTapped(gesture:)))
-                tapGesture.eventUrl = URL(string: url)
+            if let gymClass = vc.todayClasses[safe: indexPath.row] {
+                cell.cellConfigure(entry: gymClass, type: gymClass.type, color: gymClass.color)
+                cell.eventTime.text = gymClass.description(components: [.startTime, .duration, .location])
                 
-                cell.cellSetImage(image: UIImage(named: "Zoom Logo")!,
-                                  tapGesture: tapGesture)
+                if let url = gymClass.website_link, gymClass.location == "Zoom" {
+                    let tapGesture = DetailTapGestureRecognizer(target: self, action:
+                                                                #selector(GymClassesController.zoomTapped(gesture:)))
+                    tapGesture.eventUrl = URL(string: url)
+                    
+                    cell.cellSetImage(image: UIImage(named: "Zoom Logo")!,
+                                      tapGesture: tapGesture)
+                }
             }
         }
         return cell

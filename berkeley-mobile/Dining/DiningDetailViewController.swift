@@ -155,12 +155,13 @@ extension DiningDetailViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: DiningMenuCell.kCellIdentifier, for: indexPath) as? DiningMenuCell,
             indexPath.row < self.menuView.filteredData.count {
-            let item: DiningItem = self.menuView.filteredData[indexPath.row]
-            cell.nameLabel.text = item.name
-            cell.item = item
-            cell.setRestrictionIcons()
-            cell.updateFaveButton()
-            return cell
+            if let item: DiningItem = self.menuView.filteredData[safe: indexPath.row] {
+                cell.nameLabel.text = item.name
+                cell.item = item
+                cell.setRestrictionIcons()
+                cell.updateFaveButton()
+                return cell
+            }
         }
         return UITableViewCell()
     }
