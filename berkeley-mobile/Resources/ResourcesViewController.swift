@@ -44,8 +44,10 @@ extension ResourcesViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: ResourceTableViewCell.kCellIdentifier, for: indexPath) as? ResourceTableViewCell {
-            cell.cellConfigure(entry: resourcesTable.filteredData[indexPath.row])
-            return cell
+            if let entry = resourcesTable.filteredData[safe: indexPath.row] {
+                cell.cellConfigure(entry: entry)
+                return cell
+            }
         }
         return UITableViewCell()
     }

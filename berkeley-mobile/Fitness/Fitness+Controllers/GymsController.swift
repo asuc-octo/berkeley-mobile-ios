@@ -33,9 +33,10 @@ extension GymsController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: FilterTableViewCell.kCellIdentifier, for: indexPath) as? FilterTableViewCell {
-            let gym: Gym = vc.filterTableView.filteredData[indexPath.row]
-            cell.updateContents(item: gym)
-            return cell
+            if let gym: Gym = vc.filterTableView.filteredData[safe: indexPath.row] {
+                cell.updateContents(item: gym)
+                return cell
+            }
         }
         return UITableViewCell()
     }
