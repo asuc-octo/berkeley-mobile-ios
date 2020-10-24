@@ -169,8 +169,11 @@ extension SearchResultsView: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as? SearchResultCell else {
             return UITableViewCell()
         }
-        cell.cellConfigure(state.placemarks[indexPath.row])
-        return cell
+        if let placemark = state.placemarks[safe: indexPath.row] {
+            cell.cellConfigure(placemark)
+            return cell
+        }
+        return UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

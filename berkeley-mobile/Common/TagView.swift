@@ -11,7 +11,7 @@ import UIKit
 class TagView: UILabel {
 
     static let kPadding: CGSize = CGSize(width: 20, height: 5)
-    static let kFont: UIFont = Font.semibold(10)
+    static let kFont: UIFont = Font.medium(10)
     static let kTextColor: UIColor = .white
     
     override var text: String? {

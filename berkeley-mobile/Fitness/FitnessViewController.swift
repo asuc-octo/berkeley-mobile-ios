@@ -103,6 +103,8 @@ class FitnessViewController: UIViewController, SearchDrawerViewDelegate {
                 self.todayCard.setHeightConstraint(kTodayClassesCollapsedHeight)
             }
             
+            self.scrollView.layoutSubviews()
+            
             self.classesTable.reloadData()
             self.classesCollection.reloadData()
         }

@@ -76,7 +76,7 @@ extension GymDetailViewController {
         guard gym.weeklyHours != nil else { return }
         openTimesCard = OpenTimesCardView(item: gym, animationView: scrollingStackView, toggleAction: { open in
             if open, self.currState != .full {
-                self.delegate.moveDrawer(to: .full, duration: 0.6)
+                self.delegate.moveDrawer(to: .full)
             }
         })
         guard let openTimesCard = self.openTimesCard else { return }

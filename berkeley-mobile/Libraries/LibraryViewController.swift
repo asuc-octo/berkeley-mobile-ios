@@ -133,9 +133,10 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: FilterTableViewCell.kCellIdentifier, for: indexPath) as? FilterTableViewCell {
-            let lib: Library = self.filterTableView.filteredData[indexPath.row]
-            cell.updateContents(item: lib)
-            return cell
+            if let lib: Library = self.filterTableView.filteredData[safe: indexPath.row] {
+                cell.updateContents(item: lib)
+                return cell
+            }
         }
         return UITableViewCell()
     }

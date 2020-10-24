@@ -64,7 +64,9 @@ extension FilterView: UICollectionViewDataSource, UICollectionViewDelegate, UICo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FilterView.kCellIdentifier, for: indexPath)
         if let card = cell as? FilterViewCell {
-            card.label.text = labels[indexPath.row]
+            if let label = labels[safe: indexPath.row] {
+                card.label.text = label
+            }
         }
         return cell
     }
