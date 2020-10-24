@@ -38,7 +38,7 @@ class DescriptionCardView: CardView {
         cardTitle.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor).isActive = true
 
         descriptionLabel = UILabel()
-        descriptionLabel.font = Font.regular(12)
+        descriptionLabel.font = Font.light(12)
         descriptionLabel.numberOfLines = 0
         descriptionLabel.text = description
         addSubview(descriptionLabel)

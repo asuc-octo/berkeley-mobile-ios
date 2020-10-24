@@ -11,37 +11,27 @@ import UIKit
 
 struct Font {
     static let regular = {
-        (size: CGFloat) in
-        UIFont(name: "Raleway-Regular", size: size) ?? UIFont.systemFont(ofSize: size)
+        (size: CGFloat) -> UIFont in
+        return UIFont(name: "Apercu-Regular", size: size) ?? UIFont.systemFont(ofSize: size)
     }
     
     static let bold = {
         (size: CGFloat) in
-        UIFont(name: "Raleway-Bold", size: size) ?? UIFont.systemFont(ofSize: size)
-    }
-    
-    static let semibold = {
-        (size: CGFloat) in
-        UIFont(name: "Raleway-SemiBold", size: size) ?? UIFont.systemFont(ofSize: size)
-    }
-    
-    static let thin = {
-        (size: CGFloat) in
-        UIFont(name: "Raleway-Thin", size: size) ?? UIFont.systemFont(ofSize: size)
+        UIFont(name: "Apercu-Bold", size: size) ?? UIFont.systemFont(ofSize: size)
     }
     
     static let medium = {
         (size: CGFloat) in
-        UIFont(name: "Raleway-Medium", size: size) ?? UIFont.systemFont(ofSize: size)
+        UIFont(name: "Apercu-Medium", size: size) ?? UIFont.systemFont(ofSize: size)
     }
     
     static let mediumItalic = {
         (size: CGFloat) in
-        return UIFont(name: "Raleway-MediumItalic", size: size) ?? UIFont.systemFont(ofSize: size)
+        return UIFont(name: "Apercu-MediumItalic", size: size) ?? UIFont.systemFont(ofSize: size)
     }
     
     static let light = {
         (size: CGFloat) in
-        UIFont(name: "Raleway-Light", size: size) ?? UIFont.systemFont(ofSize: size)
+        UIFont(name: "Apercu-Light", size: size) ?? UIFont.systemFont(ofSize: size)
     }
 }
