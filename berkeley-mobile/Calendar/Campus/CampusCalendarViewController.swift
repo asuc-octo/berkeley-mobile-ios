@@ -33,7 +33,8 @@ class CampusCalendarViewController: UIViewController {
         self.view.layoutMargins = UIEdgeInsets(top: 8, left: 16, bottom: 16, right: 16)
 
         setupScrollView()
-        setupUpcoming()
+        // remove upcoming card for now because it doesn't add any new information/value
+        // setupUpcoming()
         setupCalendarList()
 
         DataManager.shared.fetch(source: EventDataSource.self) { calendarEntries in
@@ -45,24 +46,21 @@ class CampusCalendarViewController: UIViewController {
                 $0.date.compare($1.date) == .orderedAscending
             })
             
-            // no current data, use old data for testing
-            #if !DEBUG
             self.calendarEntries = self.calendarEntries.filter({
                 $0.date > Date()
             })
-            #endif
             if (self.calendarEntries.count == 0) {
-                self.upcomingMissingView.isHidden = false
+                // self.upcomingMissingView.isHidden = false
                 self.calendarMissingView.isHidden = false
                 self.calendarTable.isHidden = true
             } else {
-                self.upcomingMissingView.isHidden = true
+                // self.upcomingMissingView.isHidden = true
                 self.calendarMissingView.isHidden = true
                 self.calendarTable.isHidden = false
             }
 
             self.calendarTable.reloadData()
-            self.eventsCollection.reloadData()
+            // self.eventsCollection.reloadData()
         }
     }
 }
@@ -87,7 +85,12 @@ extension CampusCalendarViewController: UITableViewDelegate, UITableViewDataSour
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
+        let vc = CampusEventDetailViewController()
+        if let entry = calendarEntries[safe: indexPath.row] {
+            vc.event = entry
+            present(vc, animated: true)
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
     }
 }
 
@@ -107,6 +110,14 @@ extension CampusCalendarViewController: UICollectionViewDelegate, UICollectionVi
             }
         }
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let vc = CampusEventDetailViewController()
+        if let entry = calendarEntries[safe: indexPath.row] {
+            vc.event = entry
+            present(vc, animated: true)
+        }
     }
 }
 
@@ -177,7 +188,6 @@ extension CampusCalendarViewController {
         let table = UITableView()
         table.register(CampusEventTableViewCell.self, forCellReuseIdentifier: CampusEventTableViewCell.kCellIdentifier)
         table.rowHeight = CampusEventTableViewCell.kCellHeight
-        table.allowsSelection = false
         table.delegate = self
         table.dataSource = self
         table.showsVerticalScrollIndicator = false

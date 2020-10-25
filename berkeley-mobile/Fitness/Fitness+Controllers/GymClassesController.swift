@@ -57,7 +57,7 @@ extension GymClassesController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: GymClassesController.kCellIdentifier, for: indexPath)
         if let cell = cell as? EventTableViewCell {
             if let gymClass = vc.todayClasses[safe: indexPath.row] {
-                cell.cellConfigure(entry: gymClass, type: gymClass.type, color: gymClass.color)
+                cell.cellConfigure(event: gymClass, type: gymClass.type, color: gymClass.color)
                 cell.eventTime.text = gymClass.description(components: [.startTime, .duration, .location])
                 
                 if let url = gymClass.website_link, gymClass.location == "Zoom" {

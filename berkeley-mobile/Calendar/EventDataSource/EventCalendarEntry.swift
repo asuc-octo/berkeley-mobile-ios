@@ -9,22 +9,25 @@
 import Foundation
 import UIKit
 
-class EventCalendarEntry: CalendarEvent, HasImage {
-
+class EventCalendarEntry: CalendarEvent, HasImage, CanFavorite {
     // MARK: CalendarEvent Fields
     var name: String
     var date: Date
     var end: Date?
     var description: String?
     var location: String?
+    
+    // MARK: CanFavorite
+    var isFavorited: Bool = false
+    
+    // MARK: HasImage
+    var imageURL: URL?
 
     // MARK: Additional Fields
-    
     /// The main category this event belongs to (e.g. Academic, Career) used to determine where it is displayed
     var category: String
-    /// Link to the event
-    var link: URL?
-    var imageURL: URL?
+    /// Link to register for the event
+    var registerLink: URL?
     /// Link to where the event was found
     var sourceLink: URL?
     /// The subcategory for the event within the main category
@@ -43,13 +46,13 @@ class EventCalendarEntry: CalendarEvent, HasImage {
         }
     }
 
-    init(category: String, name: String, date: Date, description: String? = nil, location: String? = nil, link: String? = nil, imageURL: String? = nil, sourceLink: String? = nil, type: String? = nil) {
+    init(category: String, name: String, date: Date, description: String? = nil, location: String? = nil, registerLink: String? = nil, imageURL: String? = nil, sourceLink: String? = nil, type: String? = nil) {
         self.category = category
         self.name = name
         self.date = date
         self.description = description
         self.location = location
-        self.link = URL(string: link ?? "")
+        self.registerLink = URL(string: registerLink ?? "")
         self.imageURL = URL(string: imageURL ?? "")
         self.sourceLink = URL(string: sourceLink ?? "")
         self.type = type

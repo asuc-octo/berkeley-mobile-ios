@@ -96,6 +96,8 @@
 		2948155D25326D1400D113B6 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2948155C25326D1400D113B6 /* ImageLoader.swift */; };
 		2948155F253274C500D113B6 /* ImageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2948155E253274C500D113B6 /* ImageViewCell.swift */; };
 		2954F592245CD4B600DA66DA /* MainDrawerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2954F591245CD4B600DA66DA /* MainDrawerViewDelegate.swift */; };
+		296B8AA72544D97F00C3A219 /* EventOverviewCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296B8AA62544D97F00C3A219 /* EventOverviewCardView.swift */; };
+		296DDEC1253BB117008E8940 /* CampusEventDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296DDEC0253BB117008E8940 /* CampusEventDetailViewController.swift */; };
 		296F1B272439341300924C8D /* DiningDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296F1B262439341300924C8D /* DiningDetailViewController.swift */; };
 		2975D5402459301B00514B43 /* SearchDrawerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2975D53F2459301B00514B43 /* SearchDrawerViewDelegate.swift */; };
 		297678872426B7BA00FDD1EB /* SearchAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297678862426B7BA00FDD1EB /* SearchAnnotation.swift */; };
@@ -241,6 +243,8 @@
 		2948155C25326D1400D113B6 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		2948155E253274C500D113B6 /* ImageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewCell.swift; sourceTree = "<group>"; };
 		2954F591245CD4B600DA66DA /* MainDrawerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainDrawerViewDelegate.swift; sourceTree = "<group>"; };
+		296B8AA62544D97F00C3A219 /* EventOverviewCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventOverviewCardView.swift; sourceTree = "<group>"; };
+		296DDEC0253BB117008E8940 /* CampusEventDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusEventDetailViewController.swift; sourceTree = "<group>"; };
 		296F1B262439341300924C8D /* DiningDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiningDetailViewController.swift; sourceTree = "<group>"; };
 		2975D53F2459301B00514B43 /* SearchDrawerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDrawerViewDelegate.swift; sourceTree = "<group>"; };
 		297678862426B7BA00FDD1EB /* SearchAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAnnotation.swift; sourceTree = "<group>"; };
@@ -371,9 +375,9 @@
 			isa = PBXGroup;
 			children = (
 				2925D5F625293E9D00BBA266 /* EventDataSource */,
+				294FF42C2544F71200346E91 /* Academic */,
 				2925D5F425293E5A00BBA266 /* Campus */,
 				133864A82404E857001F9048 /* CalendarViewController.swift */,
-				01D2699C2544E005000377B4 /* AcademicCalendarViewController.swift */,
 			);
 			name = Calendar;
 			path = "berkeley-mobile/Calendar";
@@ -547,6 +551,7 @@
 				01BC8EAF24E8C3E3005B4969 /* DetailView.swift */,
 				01FA50F224E8BA5400DCC490 /* LocationDetailView.swift */,
 				29345E2624A7E76300859A88 /* OverviewCardView.swift */,
+				296B8AA62544D97F00C3A219 /* EventOverviewCardView.swift */,
 				2913595824B13DF200DE9AD6 /* OpenTimesCardView.swift */,
 				29387E9C24BBBE8E00070BCE /* OccupancyGraphCardView.swift */,
 				01C75E2D25292E5B00C25A32 /* DescriptionCardView.swift */,
@@ -558,6 +563,7 @@
 			isa = PBXGroup;
 			children = (
 				016A56D32519E96800531A12 /* CampusCalendarViewController.swift */,
+				296DDEC0253BB117008E8940 /* CampusEventDetailViewController.swift */,
 				2925D5FD2529547300BBA266 /* Cells */,
 			);
 			path = Campus;
@@ -599,6 +605,14 @@
 				2948155E253274C500D113B6 /* ImageViewCell.swift */,
 			);
 			path = Images;
+			sourceTree = "<group>";
+		};
+		294FF42C2544F71200346E91 /* Academic */ = {
+			isa = PBXGroup;
+			children = (
+				01D2699C2544E005000377B4 /* AcademicCalendarViewController.swift */,
+			);
+			path = Academic;
 			sourceTree = "<group>";
 		};
 		299ACFAE244A58A8000F3E86 /* Occupancy */ = {
@@ -968,6 +982,7 @@
 				132087AF23F3B05D00AE273C /* Filter.swift in Sources */,
 				2925D5FC2529546A00BBA266 /* CampusEventCollectionViewCell.swift in Sources */,
 				556DB0DF23E7F60900F12721 /* ResourcesViewController.swift in Sources */,
+				296DDEC1253BB117008E8940 /* CampusEventDetailViewController.swift in Sources */,
 				55DCF79423723452001B01B8 /* SearchBarView.swift in Sources */,
 				133864AC2404E858001F9048 /* CalendarViewController.swift in Sources */,
 				1346B9172420AA4500383399 /* DayOfWeek.swift in Sources */,
@@ -1021,6 +1036,7 @@
 				2925D5FA2529405500BBA266 /* CampusEventCellView.swift in Sources */,
 				5516088624392E5100B1E55B /* DiningViewController.swift in Sources */,
 				018B982825328200004C3B26 /* Colors+ActionButton.swift in Sources */,
+				296B8AA72544D97F00C3A219 /* EventOverviewCardView.swift in Sources */,
 				29387E9B24BBBD9D00070BCE /* CALayerExtension.swift in Sources */,
 				1396013323865E2E005E4788 /* CardCollectionView.swift in Sources */,
 				13B39A9A23E6A33C0039FBA2 /* LibraryDataSource.swift in Sources */,

@@ -55,20 +55,7 @@ class CampusEventCellView: UIView {
      */
     public func updateContents(event: EventCalendarEntry, cell: ImageViewCell) {
         nameLabel.text = event.name
-        
-        // format date string to use "Today" or the actual date for other days
-        var dateString = ""
-        if event.date.dateOnly() == Date().dateOnly() {
-            dateString += "Today / "
-        } else {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MM/dd/yyyy"
-            dateString += dateFormatter.string(from: event.date) + " / "
-        }
-        let timeFormatter = DateFormatter()
-        timeFormatter.dateFormat = "h:mm a"
-        dateString += timeFormatter.string(from: event.date)
-        timeLabel.text = dateString
+        timeLabel.text = event.dateString
         
         if infoLabelsStack.arrangedSubviews.contains(locationLabel) {
             if let location = event.location {
