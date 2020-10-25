@@ -21,7 +21,8 @@ class DescriptionCardView: CardView {
     private var descriptionLabel: UILabel!
 
     public init?(description: String?) {
-        guard let description = description else { return nil }
+        guard let description = description?.trimmingCharacters(in: .whitespacesAndNewlines),
+            !description.isEmpty else { return nil }
         super.init(frame: .zero)
 
         // Default padding for the card
