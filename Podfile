@@ -6,6 +6,6 @@ target 'berkeley-mobile' do
   use_frameworks!
 
   # Pods for berkeley-mobile
-  pod 'Firebase/Core'
+  pod 'Firebase/Analytics'
   pod 'Firebase/Firestore'
 end

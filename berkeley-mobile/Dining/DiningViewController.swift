@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import MapKit
+import Firebase
 
 class DiningViewController: UIViewController, SearchDrawerViewDelegate {
     
@@ -63,6 +63,8 @@ class DiningViewController: UIViewController, SearchDrawerViewDelegate {
     }
 }
 
+// MARK: TableView Delegate and Data Source
+
 extension DiningViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: FilterTableViewCell.kCellIdentifier, for: indexPath) as? FilterTableViewCell {
@@ -83,6 +85,8 @@ extension DiningViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
+
+// MARK: View
 
 extension DiningViewController {
     // General card page
@@ -138,5 +142,13 @@ extension DiningViewController {
         self.filterTableView.tableView.dataSource = self
         self.filterTableView.tableView.delegate = self
     }
-    
+}
+
+// MARK: - Analytics
+
+extension DiningViewController {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        Analytics.logEvent("opened_food_screen", parameters: nil)
+    }
 }

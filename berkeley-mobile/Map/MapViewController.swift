@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import Firebase
 
 fileprivate let kViewMargin: CGFloat = 16
 
@@ -217,21 +218,24 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
 
 }
 
-// MARK: FilterViewDelegate
+// MARK: FilterViewDelegate, Analytics
 
 extension MapViewController: FilterViewDelegate {
 
     func filterView(_ filterView: FilterView, didSelect index: Int) {
+        if let category = filters[safe: index]?.label {
+            // Log the display name of the marker category that is selected.
+            Analytics.logEvent("map_icon_clicked", parameters: ["Category": category])
+        }
         updateMapMarkers()
     }
     
     func filterView(_ filterView: FilterView, didDeselect index: Int) {
         updateMapMarkers()
     }
-    
 }
 
-// MARK: MKMapViewDelegate {
+// MARK: MKMapViewDelegate, Analytics {
 
 extension MapViewController: MKMapViewDelegate {
     
@@ -262,6 +266,8 @@ extension MapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         // if map marker is selected, hide the top drawer to show the marker detail
         if let annotation = view.annotation as? MapMarker {
+            // Log the display name of the marker that is selected.
+            Analytics.logEvent("point_of_interest_clicked", parameters: ["Place": annotation.title])
             markerDetail.marker = annotation
             mainContainer?.hideTop()
         }
@@ -282,7 +288,6 @@ extension MapViewController: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
-        
         guard userLocationButton != nil else {return}
         guard locationButtonTapped != nil else {return}
         if !locationButtonTapped {
