@@ -12,15 +12,16 @@ import Foundation
 fileprivate let kDataSources: [DataSource.Type] = [
     MapDataSource.self,
     ResourceDataSource.self,
-    CafeDataSource.self,
-    EventDataSource.self
-]
-
-/// The data sources that must be fetched before occupancy data can be fetched. Should be updated whenever new types of occupancy data are added.
-fileprivate let kOccupancyDataSources: [DataSource.Type] = [
     LibraryDataSource.self,
     DiningHallDataSource.self,
-    GymDataSource.self
+    GymDataSource.self,
+    CafeDataSource.self
+]
+
+/// Data sources that should be loaded after the first group. Either lower priority/takes too long, or depends on previous sources being loaded.
+fileprivate let kDataSourcesSecond: [DataSource.Type] = [
+    OccupancyDataSource.self,
+    EventDataSource.self
 ]
 
 class DataManager {
@@ -56,18 +57,17 @@ class DataManager {
     }
     
     func fetchAll() {
-        // make sure to fetch occupancy data after fetching kOccupancyDataSources
         lastFetched = Date()
         let requests = DispatchGroup()
-        for source in kOccupancyDataSources {
+        for source in kDataSources {
             requests.enter()
             fetch(source: source) { _ in requests.leave() }
         }
-        for source in kDataSources {
-            fetch(source: source) { _ in }
-        }
+        // fetch second group only after all sources from the first group finish
         requests.notify(queue: .global(qos: .utility)) {
-            self.fetch(source: OccupancyDataSource.self) { _ in }
+            for source in kDataSourcesSecond {
+                self.fetch(source: source) { _ in }
+            }
         }
     }
 
