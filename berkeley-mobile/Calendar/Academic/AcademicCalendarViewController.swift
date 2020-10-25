@@ -1,5 +1,5 @@
 //
-//  CampusCalendarViewController.swift
+//  AcademicCalendarViewController.swift
 //  berkeley-mobile
 //
 //  Created by Kevin Hu on 9/22/20.
@@ -11,10 +11,10 @@ import UIKit
 fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
 fileprivate let kViewMargin: CGFloat = 16
 
-/// Displays the campus-wide and org. events in the Calendar tab.
-class CampusCalendarViewController: UIViewController {
+/// Displays the 'Academic' events in the Calendar tab.
+class AcademicCalendarViewController: UIViewController {
     /// Categories to include from all events
-    private static let categories = ["Career"]
+    private static let categories = ["Academic Calendar"]
 
     private var scrollingStackView: ScrollingStackView!
 
@@ -39,16 +39,15 @@ class CampusCalendarViewController: UIViewController {
 
         DataManager.shared.fetch(source: EventDataSource.self) { calendarEntries in
             self.calendarEntries = (calendarEntries as? [EventCalendarEntry])?.filter({ entry -> Bool in
-                return CampusCalendarViewController.categories.contains(entry.category)
+                return AcademicCalendarViewController.categories.contains(entry.category)
             }) ?? []
 
-            self.calendarEntries = self.calendarEntries.sorted(by: {
-                $0.date.compare($1.date) == .orderedAscending
-            })
-            
             self.calendarEntries = self.calendarEntries.filter({
                 $0.date > Date()
+            }).sorted(by: {
+                $0.date.compare($1.date) == .orderedAscending
             })
+
             if (self.calendarEntries.count == 0) {
                 // self.upcomingMissingView.isHidden = false
                 self.calendarMissingView.isHidden = false
@@ -67,17 +66,17 @@ class CampusCalendarViewController: UIViewController {
 
 // MARK: - Calendar Table Delegates
 
-extension CampusCalendarViewController: UITableViewDelegate, UITableViewDataSource {
+extension AcademicCalendarViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return calendarEntries.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: CampusEventTableViewCell.kCellIdentifier, for: indexPath)
-            as? CampusEventTableViewCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: EventTableViewCell.kCellIdentifier, for: indexPath)
+            as? EventTableViewCell {
             if let entry = calendarEntries[safe: indexPath.row] {
-                cell.updateContents(event: entry)
+                cell.cellConfigure(event: entry, type: entry.type, color: entry.color)
                 return cell
             }
         }
@@ -85,45 +84,40 @@ extension CampusCalendarViewController: UITableViewDelegate, UITableViewDataSour
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = CampusEventDetailViewController()
-        if let entry = calendarEntries[safe: indexPath.row] {
-            vc.event = entry
-            present(vc, animated: true)
-            tableView.deselectRow(at: indexPath, animated: true)
-        }
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
 // MARK: - Upcoming Card Delegates
 
-extension CampusCalendarViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension AcademicCalendarViewController: UICollectionViewDelegate, UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return min(calendarEntries.count, 4)
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CampusEventCollectionViewCell.kCellIdentifier, for: indexPath)
-        if let card = cell as? CampusEventCollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CardCollectionView.kCellIdentifier, for: indexPath)
+        if let card = cell as? CardCollectionViewCell {
             if let entry = calendarEntries[safe: indexPath.row] {
-                card.updateContents(event: entry)
+                card.title.text = entry.name
+                card.subtitle.text = entry.dateString
+                if let type = entry.type {
+                    card.badge.isHidden = false
+                    card.badge.text = type
+                    card.badge.backgroundColor = entry.color
+                } else {
+                    card.badge.isHidden = true
+                }
             }
         }
         return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let vc = CampusEventDetailViewController()
-        if let entry = calendarEntries[safe: indexPath.row] {
-            vc.event = entry
-            present(vc, animated: true)
-        }
     }
 }
 
 // MARK: - View
 
-extension CampusCalendarViewController {
+extension AcademicCalendarViewController {
 
     private func setupScrollView() {
         scrollingStackView = ScrollingStackView()
@@ -160,14 +154,13 @@ extension CampusCalendarViewController {
         headerLabel.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
 
         let collectionView = CardCollectionView(frame: .zero)
-        collectionView.register(CampusEventCollectionViewCell.self, forCellWithReuseIdentifier: CampusEventCollectionViewCell.kCellIdentifier)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.contentInset = UIEdgeInsets(top: 0, left: card.layoutMargins.left, bottom: 0, right: card.layoutMargins.right)
         contentView.addSubview(collectionView)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 16).isActive = true
-        collectionView.heightAnchor.constraint(equalToConstant: CampusEventCollectionViewCell.kCardSize.height).isActive = true
+        collectionView.heightAnchor.constraint(equalToConstant: CardCollectionViewCell.kCardSize.height).isActive = true
         collectionView.leftAnchor.constraint(equalTo: card.leftAnchor).isActive = true
         collectionView.rightAnchor.constraint(equalTo: card.rightAnchor).isActive = true
         collectionView.bottomAnchor.constraint(equalTo: card.layoutMarginsGuide.bottomAnchor).isActive = true
@@ -185,21 +178,22 @@ extension CampusCalendarViewController {
         card.translatesAutoresizingMaskIntoConstraints = false
         card.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
 
-        let table = UITableView()
-        table.register(CampusEventTableViewCell.self, forCellReuseIdentifier: CampusEventTableViewCell.kCellIdentifier)
-        table.rowHeight = CampusEventTableViewCell.kCellHeight
-        table.delegate = self
-        table.dataSource = self
-        table.showsVerticalScrollIndicator = false
-        table.separatorStyle = .none
-        card.addSubview(table)
-        table.translatesAutoresizingMaskIntoConstraints = false
-        table.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true
-        table.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
-        table.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
-        table.bottomAnchor.constraint(equalTo: card.layoutMarginsGuide.bottomAnchor).isActive = true
+        let tableView = UITableView()
+        tableView.register(EventTableViewCell.self, forCellReuseIdentifier: EventTableViewCell.kCellIdentifier)
+        tableView.rowHeight = EventTableViewCell.kCellHeight
+        tableView.allowsSelection = false
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.showsVerticalScrollIndicator = false
+        tableView.separatorStyle = .none
+        card.addSubview(tableView)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true
+        tableView.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
+        tableView.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: card.layoutMarginsGuide.bottomAnchor).isActive = true
 
-        calendarTable = table
+        calendarTable = tableView
         calendarMissingView = MissingDataView(parentView: card, text: "No events found")
     }
 }

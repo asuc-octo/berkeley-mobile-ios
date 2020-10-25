@@ -47,7 +47,7 @@ class CampusEventDetailViewController: UIViewController {
     
     func setUpOverviewCard() {
         overviewCard = EventOverviewCardView(event: event)
-        overviewCard.heightAnchor.constraint(equalToConstant: 174).isActive = true
+        overviewCard.heightAnchor.constraint(lessThanOrEqualToConstant: 200).isActive = true
         scrollingStackView.stackView.addArrangedSubview(overviewCard)
     }
     
