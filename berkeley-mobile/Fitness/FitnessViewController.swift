@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import MapKit
+import Firebase
 
 fileprivate let kHeaderFont: UIFont = Font.bold(24)
 fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
@@ -299,4 +299,13 @@ extension FitnessViewController {
         self.filterTableView.tableView.delegate = gymsController
     }
     
+}
+
+// MARK: - Analytics
+
+extension FitnessViewController {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        Analytics.logEvent("opened_gym_screen", parameters: nil)
+    }
 }

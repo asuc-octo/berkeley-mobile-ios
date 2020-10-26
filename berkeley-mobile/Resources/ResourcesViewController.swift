@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
 fileprivate let kViewMargin: CGFloat = 16
@@ -120,5 +121,13 @@ extension ResourcesViewController {
 
         resourcesCard = card
     }
-    
+}
+
+// MARK: - Analytics
+
+extension ResourcesViewController {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        Analytics.logEvent("opened_resource_screen", parameters: nil)
+    }
 }

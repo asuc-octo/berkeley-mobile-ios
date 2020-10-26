@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import MapKit
+import Firebase
 
 fileprivate let kViewMargin: CGFloat = 16
 
@@ -140,5 +140,13 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
         }
         return UITableViewCell()
     }
-    
+}
+
+// MARK: - Analytics
+
+extension LibraryViewController {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        Analytics.logEvent("opened_library_screen", parameters: nil)
+    }
 }
