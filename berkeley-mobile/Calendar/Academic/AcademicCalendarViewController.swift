@@ -13,6 +13,8 @@ fileprivate let kViewMargin: CGFloat = 16
 
 /// Displays the 'Academic' events in the Calendar tab.
 class AcademicCalendarViewController: UIViewController {
+    /// Categories to include from all events
+    private static let categories = ["Academic Calendar"]
 
     private var scrollingStackView: ScrollingStackView!
 
@@ -22,7 +24,7 @@ class AcademicCalendarViewController: UIViewController {
     private var calendarMissingView: MissingDataView!
     private var calendarTable: UITableView!
 
-    private var calendarEntries: [AcademicCalendarEntry] = []
+    private var calendarEntries: [EventCalendarEntry] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,11 +33,14 @@ class AcademicCalendarViewController: UIViewController {
         self.view.layoutMargins = UIEdgeInsets(top: 8, left: 16, bottom: 16, right: 16)
 
         setupScrollView()
-        setupUpcoming()
+        // remove upcoming card for now because it doesn't add any new information/value
+        // setupUpcoming()
         setupCalendarList()
 
-        DataManager.shared.fetch(source: AcademicCalendarDataSource.self) { calendarEntries in
-            self.calendarEntries = calendarEntries as? [AcademicCalendarEntry] ?? []
+        DataManager.shared.fetch(source: EventDataSource.self) { calendarEntries in
+            self.calendarEntries = (calendarEntries as? [EventCalendarEntry])?.filter({ entry -> Bool in
+                return AcademicCalendarViewController.categories.contains(entry.category)
+            }) ?? []
 
             self.calendarEntries = self.calendarEntries.filter({
                 $0.date > Date()
@@ -44,17 +49,17 @@ class AcademicCalendarViewController: UIViewController {
             })
 
             if (self.calendarEntries.count == 0) {
-                self.upcomingMissingView.isHidden = false
+                // self.upcomingMissingView.isHidden = false
                 self.calendarMissingView.isHidden = false
                 self.calendarTable.isHidden = true
             } else {
-                self.upcomingMissingView.isHidden = true
+                // self.upcomingMissingView.isHidden = true
                 self.calendarMissingView.isHidden = true
                 self.calendarTable.isHidden = false
             }
 
             self.calendarTable.reloadData()
-            self.eventsCollection.reloadData()
+            // self.eventsCollection.reloadData()
         }
     }
 }
@@ -70,9 +75,10 @@ extension AcademicCalendarViewController: UITableViewDelegate, UITableViewDataSo
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: EventTableViewCell.kCellIdentifier, for: indexPath)
             as? EventTableViewCell {
-            let entry = calendarEntries[indexPath.row]
-            cell.cellConfigure(entry: entry, type: entry.type, color: entry.color)
-            return cell
+            if let entry = calendarEntries[safe: indexPath.row] {
+                cell.cellConfigure(event: entry, type: entry.type, color: entry.color)
+                return cell
+            }
         }
         return UITableViewCell()
     }
@@ -93,21 +99,16 @@ extension AcademicCalendarViewController: UICollectionViewDelegate, UICollection
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CardCollectionView.kCellIdentifier, for: indexPath)
         if let card = cell as? CardCollectionViewCell {
-            let entry = calendarEntries[indexPath.row]
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MM/dd/yyyy"
-            var dateString = dateFormatter.string(from: entry.date)
-            if entry.date == Date() {
-                dateString = "Today / " + dateString
-            }
-            card.title.text = entry.name
-            card.subtitle.text = dateString
-            if let type = entry.type {
-                card.badge.isHidden = false
-                card.badge.text = type
-                card.badge.backgroundColor = entry.color
-            } else {
-                card.badge.isHidden = true
+            if let entry = calendarEntries[safe: indexPath.row] {
+                card.title.text = entry.name
+                card.subtitle.text = entry.dateString
+                if let type = entry.type {
+                    card.badge.isHidden = false
+                    card.badge.text = type
+                    card.badge.backgroundColor = entry.color
+                } else {
+                    card.badge.isHidden = true
+                }
             }
         }
         return cell

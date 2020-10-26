@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import MapKit
 
 fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
 fileprivate let kViewMargin: CGFloat = 10
@@ -25,8 +24,7 @@ enum OverviewElements {
 class OverviewCardView: CardView {
     var item: SearchItem!
     var addressView: UIView?
-    // elements to exclude from the card even if they are available
-    var excludedElements: [OverviewElements] = []
+    var excludedElements: [OverviewElements] = []  // elements to exclude from the card even if they are available
     
     public init(item: SearchItem, excludedElements: [OverviewElements] = []) {
         super.init(frame: CGRect.zero)
@@ -35,6 +33,7 @@ class OverviewCardView: CardView {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.item = item
         self.excludedElements = excludedElements
+        
         
         setUpStaticElements()
         setUpOptionalElements()
@@ -60,16 +59,16 @@ class OverviewCardView: CardView {
         // constrain width of the image to be 40% of card width, to prevent image from taking up too much space on the card
         imageView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.4).isActive = true
         imageView.image = UIImage(named: "DoeGlade")
-        if var itemWithImage = item as? HasImage {
+        if let itemWithImage = item as? HasImage {
             if let itemImage = itemWithImage.image {
                 imageView.image = itemImage
-            } else {
-                DispatchQueue.global().async {
-                    guard let imageURL = itemWithImage.imageURL, let imageData = try? Data(contentsOf: imageURL) else { return }
-                    let image = UIImage(data: imageData)
-                    DispatchQueue.main.async {
-                        itemWithImage.image = image
+            } else if let url = itemWithImage.imageURL {
+                ImageLoader.shared.getImage(url: url) { result in
+                    switch result {
+                    case .success(let image):
                         self.imageView.image = image
+                    case .failure(let error):
+                        print(error)
                     }
                 }
             }
@@ -86,6 +85,14 @@ class OverviewCardView: CardView {
             } else {
                 addressLabel.text = longAddress
             }
+            let tapGesture = DetailTapGestureRecognizer(target: self, action:
+                                                        #selector(OverviewCardView.addressTapped(gesture:)))
+            tapGesture.latitude = itemWithLocation.latitude ?? 0
+            tapGesture.longitude = itemWithLocation.longitude ?? 0
+            
+            addressLabel.isUserInteractionEnabled = true
+            addressLabel.addGestureRecognizer(tapGesture)
+            
             addressView = IconPairView(icon: addressIcon, iconHeight: 16, attachedView: addressLabel)
             leftVerticalStack.addArrangedSubview(addressView!)
             addressView!.leftAnchor.constraint(equalTo: leftVerticalStack.leftAnchor).isActive = true
@@ -95,6 +102,12 @@ class OverviewCardView: CardView {
         if !excludedElements.contains(.phone), let itemWithPhone = item as? HasPhoneNumber, let phoneNumber = itemWithPhone.phoneNumber {
             phoneLabel.text = phoneNumber
             secondRowHorizontalStack.addArrangedSubview(IconPairView(icon: phoneIcon, iconHeight: 16, attachedView: phoneLabel))
+            
+            let tapGesture = DetailTapGestureRecognizer(target: self, action:
+                                                        #selector(OverviewCardView.phoneNumberTapped(gesture:)))
+            tapGesture.phoneNumber = phoneNumber
+            phoneLabel.isUserInteractionEnabled = true
+            phoneLabel.addGestureRecognizer(tapGesture)
         }
 
         if !excludedElements.contains(.distance), let itemWithLocation = item as? HasLocation {
@@ -171,6 +184,29 @@ class OverviewCardView: CardView {
             belowImageHorizontalStack.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -1 * kViewMargin).isActive = true
         }
     }
+    
+    //MARK: - Label Selectors
+    @objc func phoneNumberTapped(gesture: DetailTapGestureRecognizer) {
+        if (gesture.view as? UILabel) != nil {
+            // Kinda hacky - necessary since cannot present alert when Popover is visible (ex. on Resources page)
+            self.window!.rootViewController?.dismiss(animated: true, completion: nil)
+
+            guard let number = URL(string: "tel://\(gesture.phoneNumber.trimmingCharacters(in: .whitespacesAndNewlines).replacingOccurrences(of: "-", with: ""))") else { return }
+            if UIApplication.shared.canOpenURL(number) {  // Don't do anything if user device doesn't support calling
+                UIApplication.shared.open(number, options: [:])
+            }
+        }
+    }
+    
+    @objc func addressTapped(gesture: DetailTapGestureRecognizer) {
+        if (gesture.view as? UILabel) != nil {
+            // Kinda hacky - necessary since cannot present alert when Popover is visible (ex. on Resources page)
+            self.window!.rootViewController?.dismiss(animated: true, completion: nil)
+            
+            UIApplication.shared.windows.first!.rootViewController!.presentAlertLinkMaps(title: "Are you sure you want to open Maps?", message: "Berkeley Mobile wants to navigate to \(self.addressLabel.text!)", options: "Cancel", "Yes", lat: gesture.latitude, lon: gesture.longitude, name: self.addressLabel.text!)
+        }
+    }
+    
     
     // MARK: - StackViews
     let leftVerticalStack: UIStackView = {
@@ -251,6 +287,7 @@ class OverviewCardView: CardView {
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.75
         label.numberOfLines = 0
+        
         return label
     }()
     

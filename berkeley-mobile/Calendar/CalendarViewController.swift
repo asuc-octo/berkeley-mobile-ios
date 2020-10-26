@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 fileprivate let kViewMargin: CGFloat = 16
 
@@ -63,6 +64,15 @@ class CalendarViewController: UIViewController {
         segmentedControl.view.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         segmentedControl.view.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         segmentedControl.view.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+    }
+}
+
+// MARK: - Analytics
+
+extension CalendarViewController {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        Analytics.logEvent("opened_events_screen", parameters: nil)
     }
 }
 

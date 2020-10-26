@@ -34,13 +34,13 @@ class GymClass: CalendarEvent {
     }
 
     init(name: String, start_time: Date, end_time: Date, class_type: String?, location: String?, website_link: String?, trainer: String?) {
-        self.name = name
+        self.name = name.trimmingCharacters(in: .whitespacesAndNewlines)
         self.date = start_time
         self.end = end_time
         self.type = class_type
         self.location = location
-        self.website_link = website_link
-        self.trainer = trainer
+        self.website_link = website_link?.trimmingCharacters(in: .whitespacesAndNewlines)
+        self.trainer = trainer?.trimmingCharacters(in: .whitespacesAndNewlines)
     }
     
     /** Returns a string describing a given list of components of a `GymClass`, separated by ` / `. */

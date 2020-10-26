@@ -50,6 +50,7 @@ class CardCollectionViewCell: UICollectionViewCell {
         subtitle.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor).isActive = true
         subtitle.leftAnchor.constraint(equalTo: layoutMarginsGuide.leftAnchor).isActive = true
         subtitle.rightAnchor.constraint(equalTo: badge.leftAnchor, constant: -5).isActive = true
+        subtitle.topAnchor.constraint(greaterThanOrEqualTo: title.bottomAnchor).isActive = true
         let spacingConstraint = subtitle.topAnchor.constraint(greaterThanOrEqualTo: title.bottomAnchor, constant: 5)
         spacingConstraint.priority = .defaultHigh
         spacingConstraint.isActive = true

@@ -8,13 +8,21 @@
 
 import UIKit
 
-class ResourceTableViewCell: UITableViewCell {
-
+class ResourceTableViewCell: UITableViewCell, ImageViewCell {
+    
     static let kCellIdentifier = "resourceCell"
 
-    private var resourceName: UILabel!
-    private var resourceCategory: TagView!
-    private var resourceImage: UIImageView!
+    private var resourceName: UILabel = UILabel()
+    private var resourceCategory: TagView = TagView()
+    var cellImageView: UIImageView = UIImageView()
+    
+    static let defaultImage = UIImage(named: "DoeGlade")
+    var currentLoadUUID: UUID?
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.cancelImageOnReuse()
+    }
    
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -48,17 +56,14 @@ class ResourceTableViewCell: UITableViewCell {
         contentView.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
         
         backgroundView = UIView()
-        resourceName = UILabel()
-        resourceCategory = TagView()
-        resourceImage = UIImageView()
         
         contentView.addSubview(resourceName)
         contentView.addSubview(resourceCategory)
-        contentView.addSubview(resourceImage)
+        contentView.addSubview(cellImageView)
         
         resourceName.translatesAutoresizingMaskIntoConstraints = false
         resourceCategory.translatesAutoresizingMaskIntoConstraints = false
-        resourceImage.translatesAutoresizingMaskIntoConstraints = false
+        cellImageView.translatesAutoresizingMaskIntoConstraints = false
         
         resourceName.font = Font.bold(18)
         resourceName.numberOfLines = 2
@@ -67,16 +72,16 @@ class ResourceTableViewCell: UITableViewCell {
         resourceName.setContentHuggingPriority(.required, for: .vertical)
         resourceName.leftAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
         resourceName.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
-        resourceName.rightAnchor.constraint(equalTo: resourceImage.leftAnchor, constant: -10).isActive = true
+        resourceName.rightAnchor.constraint(equalTo: cellImageView.leftAnchor, constant: -10).isActive = true
         resourceName.bottomAnchor.constraint(lessThanOrEqualTo: resourceCategory.topAnchor, constant: -5).isActive = true
         
-        resourceImage.image = UIImage(named: "DoeGlade")  // TODO: - Dynamically load once backend updated
-        resourceImage.layer.masksToBounds = true
-        resourceImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5).isActive = true
-        resourceImage.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -5).isActive = true
-        resourceImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5).isActive = true
-        resourceImage.widthAnchor.constraint(equalToConstant: contentView.frame.height * 2.33).isActive = true
-        resourceImage.contentMode = .scaleAspectFill
+        cellImageView.image = UIImage(named: "DoeGlade")  // TODO: - Dynamically load once backend updated
+        cellImageView.layer.masksToBounds = true
+        cellImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5).isActive = true
+        cellImageView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -5).isActive = true
+        cellImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5).isActive = true
+        cellImageView.widthAnchor.constraint(equalToConstant: contentView.frame.height * 2.33).isActive = true
+        cellImageView.contentMode = .scaleAspectFill
 
         resourceCategory.backgroundColor = Color.eventDefault
         resourceCategory.setContentCompressionResistancePriority(.required, for: .vertical)
@@ -89,7 +94,7 @@ class ResourceTableViewCell: UITableViewCell {
         
         resourceCategory.text = "Resource"
         
-        resourceImage.image = UIImage(named: "DoeGlade")
+        cellImageView.image = UIImage(named: "DoeGlade")
     }
     
     required init?(coder: NSCoder) {

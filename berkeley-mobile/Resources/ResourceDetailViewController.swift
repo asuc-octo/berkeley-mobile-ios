@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 fileprivate let kViewMargin: CGFloat = 16
 
@@ -16,9 +17,11 @@ class ResourceDetailViewController: SearchDrawerViewController {
 
     var overviewCard: OverviewCardView!
     var openTimesCard: OpenTimesCardView?
+    var descriptionCard: DescriptionCardView?
 
     override var upperLimitState: DrawerState? {
-        return openTimesCard == nil ? .middle : nil
+        return openTimesCard == nil &&
+               descriptionCard == nil ? .middle : nil
     }
 
     /// Boolean indicating whether this view is presented modally or through a drawer.
@@ -39,6 +42,7 @@ class ResourceDetailViewController: SearchDrawerViewController {
         setUpScrollView()
         setUpOverviewCard()
         setUpOpenTimesCard()
+        setupDescriptionCard()
     }
 
     override func setupGestures() {
@@ -76,11 +80,17 @@ extension ResourceDetailViewController {
         guard resource.weeklyHours != nil else { return }
         openTimesCard = OpenTimesCardView(item: resource, animationView: scrollingStackView, toggleAction: { open in
             if open, self.currState != .full {
-                self.delegate?.moveDrawer(to: .full, duration: 0.6)
+                self.delegate?.moveDrawer(to: .full)
             }
         })
         guard let openTimesCard = self.openTimesCard else { return }
         scrollingStackView.stackView.addArrangedSubview(openTimesCard)
+    }
+
+    func setupDescriptionCard() {
+        descriptionCard = DescriptionCardView(description: resource.description)
+        guard let descriptionCard = descriptionCard else { return }
+        scrollingStackView.stackView.addArrangedSubview(descriptionCard)
     }
 
     func setUpScrollView() {
@@ -89,5 +99,14 @@ extension ResourceDetailViewController {
         scrollingStackView.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
         scrollingStackView.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
         scrollingStackView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
+    }
+}
+
+// MARK: - Analytics
+
+extension ResourceDetailViewController {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        Analytics.logEvent("opened_resource", parameters: ["resource" : resource.name])
     }
 }

@@ -17,18 +17,6 @@ class DiningLocation: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasI
         return name
     }
     
-    var location: (Double, Double) {
-        return (latitude ?? 0, longitude ?? 0)
-    }
-    
-    var locationName: String {
-        return address ?? "Berkeley, CA"
-    }
-    
-    var description: String {
-        return ""
-    }
-    
     let name: String
     let imageURL: URL?
     let address: String?
@@ -37,7 +25,6 @@ class DiningLocation: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasI
     var meals: MealMap
     var weeklyHours: WeeklyHours?
     var occupancy: Occupancy?
-    var image: UIImage?
     
     var latitude: Double?
     var longitude: Double?

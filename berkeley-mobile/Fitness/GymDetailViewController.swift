@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 fileprivate let kViewMargin: CGFloat = 16
 
@@ -17,9 +18,14 @@ class GymDetailViewController: SearchDrawerViewController {
     var overviewCard: OverviewCardView!
     var openTimesCard: OpenTimesCardView?
     var occupancyCard: OccupancyGraphCardView?
+    var moreButton: ActionButton?
+    var descriptionCard: DescriptionCardView?
 
     override var upperLimitState: DrawerState? {
-        return openTimesCard == nil && occupancyCard == nil ? .middle : nil
+        return openTimesCard == nil &&
+               occupancyCard == nil &&
+               moreButton == nil &&
+               descriptionCard == nil ? .middle : nil
     }
 
     override func viewDidLoad() {
@@ -29,6 +35,8 @@ class GymDetailViewController: SearchDrawerViewController {
         setUpOverviewCard()
         setUpOpenTimesCard()
         setUpOccupancyCard()
+        setupMoreButton()
+        setupDescriptionCard()
     }
 
     override func viewDidLayoutSubviews() {
@@ -36,6 +44,15 @@ class GymDetailViewController: SearchDrawerViewController {
         The "middle" position for the view will show everything in the overview card
         When collapsible open time card is added, change this to show that card as well. */
         middleCutoffPosition = (openTimesCard?.frame.maxY ?? overviewCard.frame.maxY) + scrollingStackView.yOffset + 8
+    }
+
+    /// Opens `gym.website` in Safari. Called as a result of tapping on `moreButton`.
+    @objc private func moreButtonClicked(sender: UIButton) {
+        guard let url = gym.website else { return }
+        presentAlertLinkUrl(title: "Are you sure you want to open Safari?",
+                            message: "Berkeley Mobile wants to open this fitness location's website",
+                            options: "Cancel", "Yes",
+                            website_url: url)
     }
 
     var scrollingStackView: ScrollingStackView = {
@@ -60,7 +77,7 @@ extension GymDetailViewController {
         guard gym.weeklyHours != nil else { return }
         openTimesCard = OpenTimesCardView(item: gym, animationView: scrollingStackView, toggleAction: { open in
             if open, self.currState != .full {
-                self.delegate.moveDrawer(to: .full, duration: 0.6)
+                self.delegate.moveDrawer(to: .full)
             }
         })
         guard let openTimesCard = self.openTimesCard else { return }
@@ -74,11 +91,34 @@ extension GymDetailViewController {
         scrollingStackView.stackView.addArrangedSubview(occupancyCard)
     }
 
+    func setupMoreButton() {
+        guard gym.website != nil else { return }
+        let button = ActionButton(title: "Learn More")
+        button.addTarget(self, action: #selector(moreButtonClicked), for: .touchUpInside)
+        scrollingStackView.stackView.addArrangedSubview(button)
+        moreButton = button
+    }
+
+    func setupDescriptionCard() {
+        descriptionCard = DescriptionCardView(description: gym.description)
+        guard let descriptionCard = descriptionCard else { return }
+        scrollingStackView.stackView.addArrangedSubview(descriptionCard)
+    }
+
     func setUpScrollView() {
         view.addSubview(scrollingStackView)
         scrollingStackView.topAnchor.constraint(equalTo: barView.bottomAnchor, constant: kViewMargin).isActive = true
         scrollingStackView.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
         scrollingStackView.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
         scrollingStackView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
+    }
+}
+
+// MARK: - Analytics
+
+extension GymDetailViewController {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        Analytics.logEvent("opened_gym", parameters: ["gym" : gym.name])
     }
 }

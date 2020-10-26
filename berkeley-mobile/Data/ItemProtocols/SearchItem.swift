@@ -12,8 +12,19 @@ protocol SearchItem: HasName {
 
     var searchName: String { get }
     var location: (Double, Double) { get }
+    /// The display-friendly address to display for search results.
     var locationName: String { get }
-    var description: String { get }
-    // icon to display on when pin is dropped on map search
+    /// Icon to display when pin is dropped on map search.
     var icon: UIImage? { get }
+}
+
+// Default values for `location` and `locationName`, can be overridden.
+extension SearchItem where Self: HasLocation {
+    var location: (Double, Double) {
+        return (latitude ?? 0, longitude ?? 0)
+    }
+
+    var locationName: String {
+        return address ?? "Berkeley, CA"
+    }
 }

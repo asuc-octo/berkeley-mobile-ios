@@ -24,16 +24,12 @@ class Resource: SearchItem, HasLocation, HasOpenTimes {
         return self.address ?? "Berkeley, CA"
     }
     
-    var description: String {
-        return self.desc
-    }
-    
     var latitude: Double?
     var longitude: Double?
     
     let name: String
     let address: String?
-    let desc: String
+    let description: String?
     var weeklyHours: WeeklyHours?
     
     init(name: String, address: String?, latitude: Double?, longitude: Double?, description: String?, hours: WeeklyHours?) {
@@ -41,7 +37,7 @@ class Resource: SearchItem, HasLocation, HasOpenTimes {
         self.address = address
         self.latitude = latitude
         self.longitude = longitude
-        self.desc = description ?? ""
+        self.description = description
         self.weeklyHours = hours
     }
 }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
 fileprivate let kViewMargin: CGFloat = 16
@@ -27,6 +28,7 @@ class LibraryDetailViewController: SearchDrawerViewController {
         setUpOpenTimesCard()
         setUpOccupancyCard()
         setUpBookButton()
+        setupDescriptionCard()
     }
     
     override func viewDidLayoutSubviews() {
@@ -50,20 +52,8 @@ class LibraryDetailViewController: SearchDrawerViewController {
         return scrollingStackView
     }()
 
-    var bookButton: UIButton = {
-        let button = UIButton()
-        button.layoutMargins = kCardPadding
-        button.backgroundColor =  Color.eventAcademic
-        button.layer.cornerRadius = 10
-        button.layer.shadowRadius = 5
-        button.layer.shadowOpacity = 0.25
-        button.layer.shadowOffset = .zero
-        button.layer.shadowColor = UIColor.black.cgColor
-        button.layer.shadowPath = UIBezierPath(rect: button.layer.bounds.insetBy(dx: 4, dy: 4)).cgPath
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Book a Study Room >", for: .normal)
-        button.titleLabel!.font = Font.semibold(14)
-        button.titleLabel!.textColor = .white
+    var bookButton: ActionButton = {
+        let button = ActionButton(title: "Book a Study Room")
         button.addTarget(self, action: #selector(bookButtonClicked), for: .touchUpInside)
         return button
     }()
@@ -80,7 +70,7 @@ extension LibraryDetailViewController {
         guard library.weeklyHours != nil else { return }
         openTimesCard = OpenTimesCardView(item: library, animationView: scrollingStackView, toggleAction: { open in
             if open, self.currState != .full {
-                self.delegate.moveDrawer(to: .full, duration: 0.6)
+                self.delegate.moveDrawer(to: .full)
             }
         }, toggleCompletionAction: nil)
         guard let openTimesCard = self.openTimesCard else { return }
@@ -93,9 +83,13 @@ extension LibraryDetailViewController {
         guard let occupancyCard = self.occupancyCard else { return }
         scrollingStackView.stackView.addArrangedSubview(occupancyCard)
     }
+
+    func setupDescriptionCard() {
+        guard let descriptionCard = DescriptionCardView(description: library.description) else { return }
+        scrollingStackView.stackView.addArrangedSubview(descriptionCard)
+    }
     
     func setUpBookButton() {
-        bookButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         scrollingStackView.stackView.addArrangedSubview(bookButton)
     }
     
@@ -105,5 +99,14 @@ extension LibraryDetailViewController {
         scrollingStackView.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
         scrollingStackView.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
         scrollingStackView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
+    }
+}
+
+// MARK: - Analytics
+
+extension LibraryDetailViewController {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        Analytics.logEvent("opened_library", parameters: ["library" : library.name])
     }
 }
