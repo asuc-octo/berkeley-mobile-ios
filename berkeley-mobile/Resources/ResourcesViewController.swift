@@ -13,6 +13,7 @@ fileprivate let kViewMargin: CGFloat = 16
 
 class ResourcesViewController: UIViewController {
     private var resourcesLabel: UILabel!
+    private var blobImageView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,6 +53,8 @@ extension ResourcesViewController {
         blobView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         // Hacky workaround. Assumes that it is safe to overlap the text with half (and some) of the blob.
         blobView.centerXAnchor.constraint(equalTo: resourcesLabel.rightAnchor, constant: -20).isActive = true
+        
+        blobImageView = blobView
     }
     
     // SegmentedControl and Page views
@@ -61,7 +64,7 @@ extension ResourcesViewController {
         let segmentedControl = SegmentedControlViewController(pages: [
             Page(viewController: CampusResourceViewController(), label: "Campus-Wide"),
             Page(viewController: CovidResourceViewController(), label: "COVID-19")
-        ], controlInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0), centerControl: false)
+        ], controlInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: blobImageView.frame.width / 2), centerControl: false)
         self.add(child: segmentedControl)
         segmentedControl.view.translatesAutoresizingMaskIntoConstraints = false
         segmentedControl.view.topAnchor.constraint(equalTo: resourcesLabel.bottomAnchor, constant: kViewMargin).isActive = true
