@@ -37,6 +37,16 @@ class DrawerViewController: UIViewController {
         
         setupBackgroundView()
         setupGestures()
+        
+        //handle home tab press in order to collapse drawer
+        let nc = NotificationCenter.default
+        nc.addObserver(self, selector: #selector(collapseDrawer), name: Notification.Name("homePressed"), object: nil)
+    }
+    
+    @objc func collapseDrawer() {
+        if currState != DrawerState.collapsed {
+            delegate.moveDrawer(to: .collapsed, duration: 0.5)
+        }
     }
     
     func setupBackgroundView() {

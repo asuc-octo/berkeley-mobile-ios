@@ -30,6 +30,13 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         self.viewControllers = [mapView, resourcesView, calendarView]
     }
     
+    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        if item.tag == 0 {
+            let nc = NotificationCenter.default
+            nc.post(name: Notification.Name("homePressed"), object: nil)
+            
+        }
+    }
 
     /*
     // MARK: - Navigation
