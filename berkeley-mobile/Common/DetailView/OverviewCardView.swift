@@ -7,12 +7,9 @@
 //
 
 import UIKit
-import MapKit
-import CoreLocation
 
 fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
 fileprivate let kViewMargin: CGFloat = 10
-
 
 // all the possible elements on the card, used to exclude certain elements even if they are available
 enum OverviewElements {
@@ -62,16 +59,16 @@ class OverviewCardView: CardView {
         // constrain width of the image to be 40% of card width, to prevent image from taking up too much space on the card
         imageView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.4).isActive = true
         imageView.image = UIImage(named: "DoeGlade")
-        if var itemWithImage = item as? HasImage {
+        if let itemWithImage = item as? HasImage {
             if let itemImage = itemWithImage.image {
                 imageView.image = itemImage
-            } else {
-                DispatchQueue.global().async {
-                    guard let imageURL = itemWithImage.imageURL, let imageData = try? Data(contentsOf: imageURL) else { return }
-                    let image = UIImage(data: imageData)
-                    DispatchQueue.main.async {
-                        itemWithImage.image = image
+            } else if let url = itemWithImage.imageURL {
+                ImageLoader.shared.getImage(url: url) { result in
+                    switch result {
+                    case .success(let image):
                         self.imageView.image = image
+                    case .failure(let error):
+                        print(error)
                     }
                 }
             }

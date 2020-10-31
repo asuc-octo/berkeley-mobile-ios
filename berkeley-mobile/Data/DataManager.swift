@@ -18,6 +18,12 @@ fileprivate let kDataSources: [DataSource.Type] = [
     CafeDataSource.self
 ]
 
+/// Data sources that should be loaded after the first group. Either lower priority/takes too long, or depends on previous sources being loaded.
+fileprivate let kDataSourcesSecond: [DataSource.Type] = [
+    OccupancyDataSource.self,
+    EventDataSource.self
+]
+
 class DataManager {
     
     /** Singleton instance */
@@ -51,16 +57,17 @@ class DataManager {
     }
     
     func fetchAll() {
-        // make sure to fetch occupancy data last after fetching all other data sources
-        // this is to ensure library, gym, dining hall objects have already been created
         lastFetched = Date()
         let requests = DispatchGroup()
         for source in kDataSources {
             requests.enter()
             fetch(source: source) { _ in requests.leave() }
         }
+        // fetch second group only after all sources from the first group finish
         requests.notify(queue: .global(qos: .utility)) {
-            self.fetch(source: OccupancyDataSource.self) { _ in }
+            for source in kDataSourcesSecond {
+                self.fetch(source: source) { _ in }
+            }
         }
     }
 

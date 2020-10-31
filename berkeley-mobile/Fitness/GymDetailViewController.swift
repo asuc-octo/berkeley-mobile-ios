@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 fileprivate let kViewMargin: CGFloat = 16
 
@@ -76,7 +77,7 @@ extension GymDetailViewController {
         guard gym.weeklyHours != nil else { return }
         openTimesCard = OpenTimesCardView(item: gym, animationView: scrollingStackView, toggleAction: { open in
             if open, self.currState != .full {
-                self.delegate.moveDrawer(to: .full, duration: 0.6)
+                self.delegate.moveDrawer(to: .full)
             }
         })
         guard let openTimesCard = self.openTimesCard else { return }
@@ -110,5 +111,14 @@ extension GymDetailViewController {
         scrollingStackView.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
         scrollingStackView.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
         scrollingStackView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
+    }
+}
+
+// MARK: - Analytics
+
+extension GymDetailViewController {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        Analytics.logEvent("opened_gym", parameters: ["gym" : gym.name])
     }
 }

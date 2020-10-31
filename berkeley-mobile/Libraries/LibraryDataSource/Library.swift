@@ -22,7 +22,6 @@ class Library: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasImage, H
         return address ?? "Berkeley, CA"
     }
     
-    var image: UIImage?
     var icon: UIImage?
     
     static func displayName(pluralized: Bool) -> String {

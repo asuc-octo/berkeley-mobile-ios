@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
 fileprivate let kViewMargin: CGFloat = 16
@@ -46,8 +47,10 @@ extension ResourcesViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: ResourceTableViewCell.kCellIdentifier, for: indexPath) as? ResourceTableViewCell {
-            cell.cellConfigure(entry: resourcesTable.filteredData[indexPath.row])
-            return cell
+            if let entry = resourcesTable.filteredData[safe: indexPath.row] {
+                cell.cellConfigure(entry: entry)
+                return cell
+            }
         }
         return UITableViewCell()
     }
@@ -140,5 +143,13 @@ extension ResourcesViewController {
 
         resourcesCard = card
     }
-    
+}
+
+// MARK: - Analytics
+
+extension ResourcesViewController {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        Analytics.logEvent("opened_resource_screen", parameters: nil)
+    }
 }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
 fileprivate let kViewMargin: CGFloat = 16
@@ -69,7 +70,7 @@ extension LibraryDetailViewController {
         guard library.weeklyHours != nil else { return }
         openTimesCard = OpenTimesCardView(item: library, animationView: scrollingStackView, toggleAction: { open in
             if open, self.currState != .full {
-                self.delegate.moveDrawer(to: .full, duration: 0.6)
+                self.delegate.moveDrawer(to: .full)
             }
         }, toggleCompletionAction: nil)
         guard let openTimesCard = self.openTimesCard else { return }
@@ -98,5 +99,14 @@ extension LibraryDetailViewController {
         scrollingStackView.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
         scrollingStackView.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
         scrollingStackView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
+    }
+}
+
+// MARK: - Analytics
+
+extension LibraryDetailViewController {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        Analytics.logEvent("opened_library", parameters: ["library" : library.name])
     }
 }

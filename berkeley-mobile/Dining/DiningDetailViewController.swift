@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreLocation
+import Firebase
 
 fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
 fileprivate let kViewMargin: CGFloat = 16
@@ -155,17 +156,27 @@ extension DiningDetailViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: DiningMenuCell.kCellIdentifier, for: indexPath) as? DiningMenuCell,
             indexPath.row < self.menuView.filteredData.count {
-            let item: DiningItem = self.menuView.filteredData[indexPath.row]
-            cell.nameLabel.text = item.name
-            cell.item = item
-            cell.setRestrictionIcons()
-            cell.updateFaveButton()
-            return cell
+            if let item: DiningItem = self.menuView.filteredData[safe: indexPath.row] {
+                cell.nameLabel.text = item.name
+                cell.item = item
+                cell.setRestrictionIcons()
+                cell.updateFaveButton()
+                return cell
+            }
         }
         return UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return DiningDetailViewController.cellHeight + DiningDetailViewController.cellSpacingHeight
+    }
+}
+
+// MARK: - Analytics
+
+extension DiningDetailViewController {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        Analytics.logEvent("opened_food", parameters: ["dining_location" : diningHall.name])
     }
 }

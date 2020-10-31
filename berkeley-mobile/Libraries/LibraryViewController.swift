@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import MapKit
+import Firebase
 
 fileprivate let kViewMargin: CGFloat = 16
 
@@ -133,22 +133,20 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: FilterTableViewCell.kCellIdentifier, for: indexPath) as? FilterTableViewCell {
-            let lib: Library = self.filterTableView.filteredData[indexPath.row]
-            cell.updateContents(item: lib, imageUpdate: {
-                DispatchQueue.global().async {
-                    guard let imageURL = lib.imageURL, let imageData = try? Data(contentsOf: imageURL) else { return }
-                    let image = UIImage(data: imageData)
-                    DispatchQueue.main.async {
-                        lib.image = image
-                        if tableView.visibleCells.contains(cell) {
-                            cell.cellImage.image = image
-                        }
-                    }
-                }
-            })
-            return cell
+            if let lib: Library = self.filterTableView.filteredData[safe: indexPath.row] {
+                cell.updateContents(item: lib)
+                return cell
+            }
         }
         return UITableViewCell()
     }
-    
+}
+
+// MARK: - Analytics
+
+extension LibraryViewController {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        Analytics.logEvent("opened_library_screen", parameters: nil)
+    }
 }

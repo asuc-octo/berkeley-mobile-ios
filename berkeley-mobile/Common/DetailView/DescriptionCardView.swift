@@ -21,7 +21,8 @@ class DescriptionCardView: CardView {
     private var descriptionLabel: UILabel!
 
     public init?(description: String?) {
-        guard let description = description else { return nil }
+        guard let description = description?.trimmingCharacters(in: .whitespacesAndNewlines),
+            !description.isEmpty else { return nil }
         super.init(frame: .zero)
 
         // Default padding for the card
@@ -38,7 +39,7 @@ class DescriptionCardView: CardView {
         cardTitle.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor).isActive = true
 
         descriptionLabel = UILabel()
-        descriptionLabel.font = Font.regular(12)
+        descriptionLabel.font = Font.light(12)
         descriptionLabel.numberOfLines = 0
         descriptionLabel.text = description
         addSubview(descriptionLabel)
