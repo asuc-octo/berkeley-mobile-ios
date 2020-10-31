@@ -14,6 +14,8 @@ fileprivate let kViewMargin: CGFloat = 16
 class ResourcesViewController: UIViewController {
     private var resourcesLabel: UILabel!
 
+    private var bearPactAccessButton: UIButton!
+    
     private var resourcesCard: CardView!
     private var resourcesTable: FilterTableView = FilterTableView<Resource>(frame: .zero, tableFunctions: [], defaultSort: SortingFunctions.sortAlph(item1:item2:))
     
@@ -70,6 +72,8 @@ extension ResourcesViewController {
         resourcesLabel.translatesAutoresizingMaskIntoConstraints = false
         resourcesLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 15).isActive = true
         resourcesLabel.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
+        
+        
 
         // Blob
         guard let blob = UIImage(named: UIDevice.current.hasNotch ? "BlobRight2" : "BlobRight1") else { return }
@@ -84,6 +88,24 @@ extension ResourcesViewController {
         blobView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         // Hacky workaround. Assumes that it is safe to overlap the text with half (and some) of the blob.
         blobView.centerXAnchor.constraint(equalTo: resourcesLabel.rightAnchor, constant: -20).isActive = true
+        
+        //BearPact - Uncomment when finish implementing
+//
+//        bearPactAccessButton = UIButton()
+//        bearPactAccessButton.setTitle("🐻", for: .normal)
+//        bearPactAccessButton.frame = CGRect(x: 0, y: 0, width: 50, height: 30)
+//        view.addSubview(bearPactAccessButton)
+//        bearPactAccessButton.translatesAutoresizingMaskIntoConstraints = false
+//        bearPactAccessButton.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
+//        bearPactAccessButton.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: -5).isActive = true
+//        bearPactAccessButton.addTarget(self, action: #selector(self.pressedBear(_:)), for: .touchUpInside)
+//
+    }
+    
+    @objc func pressedBear(_ sender: UIButton) {
+        let vc = PageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true, completion: nil)
     }
     
     func setupResourcesList() {
