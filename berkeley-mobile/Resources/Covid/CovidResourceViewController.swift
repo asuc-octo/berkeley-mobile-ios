@@ -41,7 +41,7 @@ extension CovidResourceViewController {
         
         view.addSubview(stack)
         
-        stack.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: kViewMargin * 3).isActive = true
+        stack.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
         stack.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
         stack.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
         
@@ -60,7 +60,7 @@ extension CovidResourceViewController {
         cardStack.axis = .vertical
         cardStack.alignment = .center
         cardStack.distribution = .fill
-        cardStack.spacing = 24
+        cardStack.spacing = 15
         cardStack.layoutMargins = UIEdgeInsets(top: 19, left: 0, bottom: 19, right: 0)
         cardStack.isLayoutMarginsRelativeArrangement = true
         
@@ -99,7 +99,7 @@ extension CovidResourceViewController {
         card.topAnchor.constraint(equalTo: overviewStack.bottomAnchor, constant: kViewMargin).isActive = true
         card.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
         card.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
-//        card.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -kViewMargin).isActive = true
+        card.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -kViewMargin).isActive = true
         
         let stack = UIStackView()
         stack.axis = .vertical
@@ -150,6 +150,11 @@ extension CovidResourceViewController {
         stack.addArrangedSubview(subtitleLabel)
         stack.addArrangedSubview(screenButton)
         
+        // Resolve smaller screens
+        stack.bringSubviewToFront(onCampusLabel)
+        stack.bringSubviewToFront(subtitleLabel)
+        stack.bringSubviewToFront(screenButton)
+        
         stack.topAnchor.constraint(equalTo: card.topAnchor).isActive = true
         stack.leftAnchor.constraint(equalTo: card.leftAnchor).isActive = true
         stack.rightAnchor.constraint(equalTo: card.rightAnchor).isActive = true
@@ -168,6 +173,7 @@ extension CovidResourceViewController {
         
         screenButton.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
         screenButton.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
+        screenButton.setHeightConstraint(26)
     }
     
     @objc private func screeningButtonPressed(sender: UIButton) {
