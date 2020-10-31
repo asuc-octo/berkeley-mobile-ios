@@ -11,7 +11,7 @@ import Firebase
 
 fileprivate let kViewMargin: CGFloat = 16
 
-class ResourceDetailViewController: SearchDrawerViewController {
+class CampusResourceDetailViewController: SearchDrawerViewController {
 
     var resource: Resource!
 
@@ -68,7 +68,7 @@ class ResourceDetailViewController: SearchDrawerViewController {
 
 // MARK: - View
 
-extension ResourceDetailViewController {
+extension CampusResourceDetailViewController {
 
     func setUpOverviewCard() {
         overviewCard = OverviewCardView(item: resource, excludedElements: [.openTimes])
@@ -104,9 +104,9 @@ extension ResourceDetailViewController {
 
 // MARK: - Analytics
 
-extension ResourceDetailViewController {
+extension CampusResourceDetailViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        Analytics.logEvent("opened_resource", parameters: ["resource" : resource.name])
+        Analytics.logEvent("opened_campus_resource", parameters: ["resource" : resource.name])
     }
 }

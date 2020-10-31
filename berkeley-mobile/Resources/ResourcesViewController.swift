@@ -9,56 +9,21 @@
 import UIKit
 import Firebase
 
-fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
 fileprivate let kViewMargin: CGFloat = 16
 
 class ResourcesViewController: UIViewController {
     private var resourcesLabel: UILabel!
-
-    private var resourcesCard: CardView!
-    private var resourcesTable: FilterTableView = FilterTableView<Resource>(frame: .zero, tableFunctions: [], defaultSort: SortingFunctions.sortAlph(item1:item2:))
     
-    private var resourceEntries: [Resource] = []
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.view.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
         self.view.backgroundColor = Color.modalBackground
-
+            
         setupHeader()
-        setupResourcesList()
-                
-        DataManager.shared.fetch(source: ResourceDataSource.self) { resourceEntries in
-            self.resourceEntries = resourceEntries as? [Resource] ?? []
-            self.resourcesTable.setData(data: resourceEntries as! [Resource])
-            self.resourcesTable.update()
-        }
+        setupSegmentedControls()
     }
 
-}
-
-extension ResourcesViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return resourcesTable.filteredData.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: ResourceTableViewCell.kCellIdentifier, for: indexPath) as? ResourceTableViewCell {
-            if let entry = resourcesTable.filteredData[safe: indexPath.row] {
-                cell.cellConfigure(entry: entry)
-                return cell
-            }
-        }
-        return UITableViewCell()
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = ResourceDetailViewController(presentedModally: true)
-        vc.resource = resourcesTable.filteredData[indexPath.row]
-        present(vc, animated: true)
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
 }
 
 extension ResourcesViewController {
@@ -89,42 +54,24 @@ extension ResourcesViewController {
         blobView.centerXAnchor.constraint(equalTo: resourcesLabel.rightAnchor, constant: -20).isActive = true
     }
     
-    func setupResourcesList() {
-        let card = CardView()
-        card.layoutMargins = kCardPadding
-        view.addSubview(card)
-        card.translatesAutoresizingMaskIntoConstraints = false
-        card.topAnchor.constraint(equalTo: resourcesLabel.bottomAnchor, constant: kViewMargin).isActive = true
-        card.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
-        card.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
-        card.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
-
-        let functions: [TableFunction] = [
-            Sort<Resource>(label: "Nearby", sort: Resource.locationComparator()),
-            Filter<Resource>(label: "Open", filter: {resource in resource.isOpen ?? false})
-        ]
-        resourcesTable = FilterTableView(frame: .zero, tableFunctions: functions, defaultSort: SortingFunctions.sortAlph(item1:item2:), initialSelectedIndices: [0])
-        resourcesTable.tableView.register(ResourceTableViewCell.self, forCellReuseIdentifier: ResourceTableViewCell.kCellIdentifier)
-        resourcesTable.tableView.rowHeight = 103
-        
-        resourcesTable.tableView.delegate = self
-        resourcesTable.tableView.dataSource = self
-        
-        resourcesTable.translatesAutoresizingMaskIntoConstraints = false
-        card.addSubview(resourcesTable)
-        
-        resourcesTable.tableView.separatorStyle = .none
-        resourcesTable.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true
-        resourcesTable.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
-        resourcesTable.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
-        resourcesTable.bottomAnchor.constraint(equalTo: card.layoutMarginsGuide.bottomAnchor).isActive = true
-
-        resourcesCard = card
+    // SegmentedControl and Page views
+    private func setupSegmentedControls() {
+        // Add some right-padding to the segmented control so it doesn't overlap with the blob.
+        // Don't add this padding for now.
+        let segmentedControl = SegmentedControlViewController(pages: [
+            Page(viewController: CampusResourceViewController(), label: "Campus-Wide"),
+            Page(viewController: CovidResourceViewController(), label: "COVID-19")
+        ], controlInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0), centerControl: false)
+        self.add(child: segmentedControl)
+        segmentedControl.view.translatesAutoresizingMaskIntoConstraints = false
+        segmentedControl.view.topAnchor.constraint(equalTo: resourcesLabel.bottomAnchor, constant: kViewMargin).isActive = true
+        segmentedControl.view.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        segmentedControl.view.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        segmentedControl.view.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
 }
 
 // MARK: - Analytics
-
 extension ResourcesViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

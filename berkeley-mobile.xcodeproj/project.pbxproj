@@ -125,6 +125,8 @@
 		306A550023614C0000D59A7F /* MainContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306A54FF23614C0000D59A7F /* MainContainerViewController.swift */; };
 		5516088624392E5100B1E55B /* DiningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5516088524392E5100B1E55B /* DiningViewController.swift */; };
 		5516088824393F3F00B1E55B /* MissingDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5516088724393F3F00B1E55B /* MissingDataView.swift */; };
+		552F4A4C254E13BF0061D0F2 /* CampusResourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552F4A4B254E13BF0061D0F2 /* CampusResourceViewController.swift */; };
+		552F4A51254E16350061D0F2 /* CovidResourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552F4A50254E16350061D0F2 /* CovidResourceViewController.swift */; };
 		5532B67B2390CBF600293BE0 /* MaterialLoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532B67A2390CBF600293BE0 /* MaterialLoadingIndicator.swift */; };
 		5546CB91251B0A4500BE1876 /* UIDevice+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5546CB90251B0A4500BE1876 /* UIDevice+Extensions.swift */; };
 		554CB9A023F3A83F00BB1715 /* EventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554CB99F23F3A83F00BB1715 /* EventTableViewCell.swift */; };
@@ -273,6 +275,8 @@
 		3A826C1BD0A2BCA2F083C6EE /* Pods_berkeley_mobile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_berkeley_mobile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5516088524392E5100B1E55B /* DiningViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiningViewController.swift; sourceTree = "<group>"; };
 		5516088724393F3F00B1E55B /* MissingDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissingDataView.swift; sourceTree = "<group>"; };
+		552F4A4B254E13BF0061D0F2 /* CampusResourceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusResourceViewController.swift; sourceTree = "<group>"; };
+		552F4A50254E16350061D0F2 /* CovidResourceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CovidResourceViewController.swift; sourceTree = "<group>"; };
 		5532B67A2390CBF600293BE0 /* MaterialLoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialLoadingIndicator.swift; sourceTree = "<group>"; };
 		553EF6AB2404E2C600D2955E /* Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
 		5546CB90251B0A4500BE1876 /* UIDevice+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extensions.swift"; sourceTree = "<group>"; };
@@ -718,6 +722,23 @@
 			path = "berkeley-mobile";
 			sourceTree = "<group>";
 		};
+		552F4A4A254E13960061D0F2 /* Campus */ = {
+			isa = PBXGroup;
+			children = (
+				552F4A4B254E13BF0061D0F2 /* CampusResourceViewController.swift */,
+				01D11B9125045FC900BDF660 /* ResourceDetailViewController.swift */,
+			);
+			path = Campus;
+			sourceTree = "<group>";
+		};
+		552F4A4F254E16230061D0F2 /* Covid */ = {
+			isa = PBXGroup;
+			children = (
+				552F4A50254E16350061D0F2 /* CovidResourceViewController.swift */,
+			);
+			path = Covid;
+			sourceTree = "<group>";
+		};
 		553EF6AA2404E29800D2955E /* ResourcesDataSource */ = {
 			isa = PBXGroup;
 			children = (
@@ -738,8 +759,9 @@
 		556DB0DD23E7F5ED00F12721 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				552F4A4F254E16230061D0F2 /* Covid */,
 				553EF6AA2404E29800D2955E /* ResourcesDataSource */,
-				01D11B9125045FC900BDF660 /* ResourceDetailViewController.swift */,
+				552F4A4A254E13960061D0F2 /* Campus */,
 				556DB0DE23E7F60900F12721 /* ResourcesViewController.swift */,
 			);
 			path = Resources;
@@ -939,6 +961,7 @@
 				13B8E9592425819D00E7FCBF /* ResourceDataSource.swift in Sources */,
 				01FA50F324E8BA5400DCC490 /* LocationDetailView.swift in Sources */,
 				29CB28092404DD53009A2CFB /* LibraryViewController.swift in Sources */,
+				552F4A51254E16350061D0F2 /* CovidResourceViewController.swift in Sources */,
 				55AF44292453A4EC00F13232 /* CafeDataSource.swift in Sources */,
 				306A550023614C0000D59A7F /* MainContainerViewController.swift in Sources */,
 				29F11EC72516C150007DCFD7 /* BarView.swift in Sources */,
@@ -1006,6 +1029,7 @@
 				29345E2B24A7EC2B00859A88 /* HasImage.swift in Sources */,
 				2913595924B13DF200DE9AD6 /* OpenTimesCardView.swift in Sources */,
 				13135BB3241244370056B169 /* FilterViewCell.swift in Sources */,
+				552F4A4C254E13BF0061D0F2 /* CampusResourceViewController.swift in Sources */,
 				016A56D42519E96800531A12 /* CampusCalendarViewController.swift in Sources */,
 				01D11B9225045FC900BDF660 /* ResourceDetailViewController.swift in Sources */,
 				13580AF62437D7E700D309AA /* LibraryDetailViewController.swift in Sources */,
