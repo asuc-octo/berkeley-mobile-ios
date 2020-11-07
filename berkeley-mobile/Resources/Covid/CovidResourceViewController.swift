@@ -10,7 +10,7 @@ import UIKit
 
 fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
 fileprivate let kViewMargin: CGFloat = 16
-fileprivate let kScreeningUrl = "https://www.berkeley.edu"  // TODO: Change this!
+fileprivate let kScreeningUrl = "https://calberkeley.ca1.qualtrics.com/jfe/form/SV_3xTgcs162K19qRv"
 
 class CovidResourceViewController: UIViewController {
     private var overviewStack: UIStackView!
@@ -31,7 +31,7 @@ extension CovidResourceViewController {
         stack.alignment = .center
         stack.spacing = 9
         
-        let uhsTests = createOverviewCard(cardHeader: "UHS Tests", cardValue: 4235)
+        let uhsTests = createOverviewCard(cardHeader: "UHS Tests", cardValue: 132797)
         let positiveTests = createOverviewCard(cardHeader: "Positive Tests", cardValue: 6)
         
         stack.addArrangedSubview(uhsTests)
@@ -61,20 +61,31 @@ extension CovidResourceViewController {
         cardStack.alignment = .center
         cardStack.distribution = .fill
         cardStack.spacing = 15
-        cardStack.layoutMargins = UIEdgeInsets(top: 19, left: 0, bottom: 19, right: 0)
+        cardStack.layoutMargins = UIEdgeInsets(top: 19, left: 19, bottom: 19, right: 19)
         cardStack.isLayoutMarginsRelativeArrangement = true
         
         let headerLabel = UILabel()
         headerLabel.text = cardHeader
-        headerLabel.font = Font.medium(24)
+        headerLabel.font = Font.medium(20)
         headerLabel.textAlignment = .center
         headerLabel.textColor = Color.selectedButtonBackground
-                
+        headerLabel.textAlignment = .center
+        headerLabel.textColor = Color.selectedButtonBackground
+        headerLabel.numberOfLines = 1
+        headerLabel.adjustsFontSizeToFitWidth = true
+        headerLabel.minimumScaleFactor = 0.7
+
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        
         let valueLabel = UILabel()
-        valueLabel.text = String(cardValue)
-        valueLabel.font = Font.bold(45)
+        valueLabel.text = String(numberFormatter.string(from: NSNumber(value:cardValue)) ?? "N/A")
+        valueLabel.font = Font.bold(40)
         valueLabel.textAlignment = .center
         valueLabel.textColor = Color.selectedButtonBackground
+        valueLabel.numberOfLines = 1
+        valueLabel.adjustsFontSizeToFitWidth = true
+        valueLabel.minimumScaleFactor = 0.5
         
         view.addSubview(cardStack)
         cardStack.addArrangedSubview(headerLabel)
@@ -100,7 +111,6 @@ extension CovidResourceViewController {
         card.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
         card.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
         card.bottomAnchor.constraint(lessThanOrEqualTo: view.layoutMarginsGuide.bottomAnchor, constant: -kViewMargin).isActive = true
-        
         
         let stack = UIStackView()
         stack.axis = .vertical
@@ -174,7 +184,6 @@ extension CovidResourceViewController {
         
         screenButton.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
         screenButton.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
-//        screenButton.setHeightConstraint(26)
     }
     
     @objc private func screeningButtonPressed(sender: UIButton) {
