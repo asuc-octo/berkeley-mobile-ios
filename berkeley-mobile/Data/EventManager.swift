@@ -15,7 +15,7 @@ class EventManager: NSObject {
     
     public func addEventToCalendar(calendarEvent: CalendarEvent) {
         eventStore.requestAccess(to: .event) { (granted, error) in
-            if (granted) && (error == nil) {
+            if granted && error == nil {
                 let event: EKEvent = EKEvent(eventStore: self.eventStore)
                 event.title = calendarEvent.name
                 event.startDate = calendarEvent.date
