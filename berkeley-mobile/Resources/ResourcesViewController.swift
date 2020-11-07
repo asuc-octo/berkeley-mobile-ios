@@ -75,7 +75,7 @@ extension ResourcesViewController {
         resourcesLabel.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
 
         // Blob
-        guard let blob = UIImage(named: UIDevice.current.hasNotch ? "BlobRight2" : "BlobRight1") else { return }
+        let blob = UIImage(named: "BlobRight")!
         let blobView = UIImageView(image: blob)
         blobView.contentMode = .scaleAspectFit
         blobView.setContentCompressionResistancePriority(.required, for: .horizontal)
@@ -83,8 +83,8 @@ extension ResourcesViewController {
 
         view.addSubview(blobView)
         blobView.translatesAutoresizingMaskIntoConstraints = false
-        blobView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        blobView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        blobView.topAnchor.constraint(equalTo: view.topAnchor, constant: -blobView.frame.height / 3).isActive = true
+        blobView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: blobView.frame.width / 2).isActive = true
         // Hacky workaround. Assumes that it is safe to overlap the text with half (and some) of the blob.
         blobView.centerXAnchor.constraint(equalTo: resourcesLabel.rightAnchor, constant: -20).isActive = true
     }
