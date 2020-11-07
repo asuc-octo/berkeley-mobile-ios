@@ -41,7 +41,7 @@ extension CovidResourceViewController {
         
         view.addSubview(stack)
         
-        stack.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
+        stack.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: kViewMargin).isActive = true
         stack.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
         stack.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
         
@@ -99,7 +99,8 @@ extension CovidResourceViewController {
         card.topAnchor.constraint(equalTo: overviewStack.bottomAnchor, constant: kViewMargin).isActive = true
         card.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
         card.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
-        card.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -kViewMargin).isActive = true
+        card.bottomAnchor.constraint(lessThanOrEqualTo: view.layoutMarginsGuide.bottomAnchor, constant: -kViewMargin).isActive = true
+        
         
         let stack = UIStackView()
         stack.axis = .vertical
@@ -173,7 +174,7 @@ extension CovidResourceViewController {
         
         screenButton.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
         screenButton.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
-        screenButton.setHeightConstraint(26)
+//        screenButton.setHeightConstraint(26)
     }
     
     @objc private func screeningButtonPressed(sender: UIButton) {
