@@ -47,9 +47,9 @@ extension CalendarEvent {
             EventManager.shared.addEventToCalendar(calendarEvent: self) { success in
                 DispatchQueue.main.async {
                     if success {
-                        vc.presentSuccessAlert(title: "Successfully added to Calendar")
+                        vc.presentSuccessAlert(title: "Successfully added to calendar")
                     } else {
-                        vc.presentFailureAlert(title: "Failed to Add to Calendar", message: "Make sure Berkeley Mobile has access to your Calendar and try again.")
+                        vc.presentFailureAlert(title: "Failed to add to calendar", message: "Make sure Berkeley Mobile has access to your calendar and try again.")
                     }
                 }
             }
