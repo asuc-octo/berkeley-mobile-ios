@@ -73,4 +73,18 @@ extension UIViewController {
         }
         self.present(alertController, animated: true, completion: nil)
     }
+    
+    public func presentSuccessAlert(title: String) {
+        let alert = UIAlertController(title: title, message: "", preferredStyle: .alert)
+        self.present(alert, animated: true, completion: nil)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            alert.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    public func presentFailureAlert(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction.init(title: "Ok", style: .cancel))
+        self.present(alertController, animated: true, completion: nil)
+    }
 }

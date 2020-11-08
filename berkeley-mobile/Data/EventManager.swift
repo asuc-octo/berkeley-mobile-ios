@@ -13,7 +13,7 @@ class EventManager: NSObject {
     static let shared = EventManager()
     private let eventStore = EKEventStore()
     
-    public func addEventToCalendar(calendarEvent: CalendarEvent) {
+    public func addEventToCalendar(calendarEvent: CalendarEvent, completion: @escaping (Bool) -> Void) {
         eventStore.requestAccess(to: .event) { (granted, error) in
             if granted && error == nil {
                 let event: EKEvent = EKEvent(eventStore: self.eventStore)
@@ -25,11 +25,14 @@ class EventManager: NSObject {
                 event.calendar = self.eventStore.defaultCalendarForNewEvents
                 do {
                     try self.eventStore.save(event, span: .thisEvent)
+                    completion(true)
                 } catch let error as NSError {
                     print("failed to save event with error : \(error)")
+                    completion(false)
                 }
             } else {
                 print("failed to save event with error : \(String(describing: error)) or access not granted")
+                completion(false)
             }
         }
     }
