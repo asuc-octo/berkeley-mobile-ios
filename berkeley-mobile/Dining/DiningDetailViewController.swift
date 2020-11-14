@@ -79,7 +79,17 @@ extension DiningDetailViewController {
                 DiningDetailViewController.mealTimesChronological["other"]!
             return m1Priority < m2Priority
         })
+        
         control.setItems(mealNames)
+        
+        let today = Date()
+        guard let hours = diningHall.weeklyHours?.hoursForWeekday(.weekday(today)) else { return }
+        for (i, h) in hours.enumerated() {
+            if h.start.weekday() == today.weekday() {
+                if h.contains(today) && i < control.numberOfSegments {control.index = i; return}
+            }
+        }
+        
         control.index = 0
     }
     
