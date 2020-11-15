@@ -11,6 +11,7 @@ import UIKit
 // General drawer with a gray bar at the top, can handle pan gesture to change position
 class DrawerViewController: UIViewController {
     var delegate: DrawerViewDelegate!
+    var mainDelegate: MainDrawerViewDelegate!
     
     // the current position of the drawer
     var currState: DrawerState!
@@ -25,6 +26,7 @@ class DrawerViewController: UIViewController {
     }
     
     static var bottomOffsetY: CGFloat = 0
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,16 +40,14 @@ class DrawerViewController: UIViewController {
         setupBackgroundView()
         setupGestures()
         
-        //handle home tab press in order to collapse drawer
         let nc = NotificationCenter.default
-        nc.addObserver(self, selector: #selector(collapseDrawer), name: Notification.Name("homePressed"), object: nil)
+        nc.addObserver(self, selector: #selector(collapseTopDrawer), name: Notification.Name(TabBarController.homePressedCollapseMessage), object: nil)
     }
     
-    @objc func collapseDrawer() {
-        if currState != DrawerState.collapsed {
-            delegate.moveDrawer(to: .collapsed, duration: 0.5)
-        }
+    @objc func collapseTopDrawer() {
+        delegate.moveDrawer(to: .collapsed, duration: 0.5)
     }
+
     
     func setupBackgroundView() {
         view.backgroundColor = Color.modalBackground
