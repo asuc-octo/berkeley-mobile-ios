@@ -31,8 +31,6 @@ protocol CalendarEvent {
     var additionalDescription: String { get }
     
     /// A string describing where the event will be held.
-    ///
-    /// When the value of this variable is a URL, this is an online event.
     var location: String? { get set }
 }
 

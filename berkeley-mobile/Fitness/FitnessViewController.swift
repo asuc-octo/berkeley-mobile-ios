@@ -182,7 +182,7 @@ extension FitnessViewController {
         classesTable.showsVerticalScrollIndicator = false
         classesTable.rowHeight = EventTableViewCell.kCellHeight
         classesTable.dataSource = classesController
-        classesTable.delegate = self
+        classesTable.delegate = classesController
         classesTable.register(EventTableViewCell.self, forCellReuseIdentifier: GymClassesController.kCellIdentifier)
         card.addSubview(classesTable)
         classesTable.translatesAutoresizingMaskIntoConstraints = false
@@ -240,13 +240,6 @@ extension FitnessViewController {
         self.filterTableView.tableView.delegate = gymsController
     }
     
-}
-
-extension FitnessViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        futureClasses[indexPath.row].addToDeviceCalendar(vc: self)
-        tableView.deselectRow(at: indexPath, animated: false)
-    }
 }
 
 // MARK: - Analytics

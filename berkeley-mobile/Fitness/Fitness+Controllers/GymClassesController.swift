@@ -55,3 +55,10 @@ extension GymClassesController: UITableViewDataSource {
     }
     
 }
+
+extension GymClassesController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        vc.futureClasses[indexPath.row].addToDeviceCalendar(vc: vc)
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+}

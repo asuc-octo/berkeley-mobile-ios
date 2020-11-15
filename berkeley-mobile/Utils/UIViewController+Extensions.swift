@@ -77,7 +77,7 @@ extension UIViewController {
     public func presentSuccessAlert(title: String) {
         let alert = UIAlertController(title: title, message: "", preferredStyle: .alert)
         self.present(alert, animated: true, completion: nil)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
             alert.dismiss(animated: true, completion: nil)
         }
     }
