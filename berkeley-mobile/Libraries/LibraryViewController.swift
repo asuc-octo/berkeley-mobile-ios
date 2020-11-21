@@ -16,6 +16,7 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
     // DrawerViewDelegate properties
     var drawerViewController: DrawerViewController?
     var initialDrawerCenter = CGPoint()
+    var initialGestureTranslation: CGPoint = CGPoint()
     var drawerStatePositions: [DrawerState : CGFloat] = [:]
     // SearchDrawerViewDelegate property
     var mainContainer: MainContainerViewController?

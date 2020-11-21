@@ -25,7 +25,16 @@ class DrawerViewController: UIViewController {
     }
 
     // The gesture recognizer that handles movement of this drawer
-    var panGestureRecognizer: UIGestureRecognizer!
+    var panGestureRecognizer: UIPanGestureRecognizer!
+    // Indicates whether or not the drawer should respond to the recognized gesture.
+    var shouldHandlePan: Bool! = true {
+        didSet {
+            if let delegate = delegate as? UIViewController & DrawerViewDelegate {
+                delegate.initialGestureTranslation = panGestureRecognizer.translation(in: delegate.view)
+                delegate.initialDrawerCenter = view.center
+            }
+        }
+    }
     
     static var bottomOffsetY: CGFloat = 0
     
@@ -58,6 +67,7 @@ class DrawerViewController: UIViewController {
     }
     
     @objc func handlePan(gesture: UIPanGestureRecognizer) {
+        guard shouldHandlePan else { return }
         delegate.handlePanGesture(gesture: gesture)
     }
 

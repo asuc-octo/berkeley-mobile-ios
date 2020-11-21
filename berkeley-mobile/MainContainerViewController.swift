@@ -20,6 +20,7 @@ class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
     // DrawerViewDelegate properties
     var drawerViewController: DrawerViewController?
     var initialDrawerCenter = CGPoint()
+    var initialGestureTranslation: CGPoint = CGPoint()
     var drawerStatePositions: [DrawerState: CGFloat] = [:]
     
     override func viewDidLoad() {
