@@ -10,45 +10,101 @@ import UIKit
 
 fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
 fileprivate let kViewMargin: CGFloat = 16
-fileprivate let kScreeningUrl = "https://calberkeley.ca1.qualtrics.com/jfe/form/SV_3xTgcs162K19qRv"
 
 class CovidResourceViewController: UIViewController {
     private var overviewStack: UIStackView!
+    private var overviewCard: CardView!
+    
+    private var valueOne: UILabel!
+    private var valueTwo: UILabel!
+    private var lastUpdated: UILabel!
+    
+    private var screeningUrl = "https://calcentral.berkeley.edu/"   // fallback url
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         covidOverview()
         screeningCard()
+        
+        DataManager.shared.fetch(source: CovidResourceDataSource.self) { resourceEntries in
+            guard let covidData = resourceEntries[0] as? CovidResource else { return }
+                        
+            self.screeningUrl = covidData.dailyScreeningLink
+            self.valueOne.text = covidData.positivityRate
+            self.valueTwo.text = covidData.totalCases
+            self.lastUpdated.text = "Last Updated: \(covidData.lastUpdated)"
+        }
     }
 }
 
 extension CovidResourceViewController {
     func covidOverview() {
+        let card = CardView()
+        card.layoutMargins = kCardPadding
+        
+        view.addSubview(card)
+        
+        card.translatesAutoresizingMaskIntoConstraints = false
+        card.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: kViewMargin).isActive = true
+        card.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
+        card.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
+        
+        let headerLabel = UILabel()
+        headerLabel.font = Font.bold(24)
+        headerLabel.text = "Testing Dashboard"
+        
+        card.addSubview(headerLabel)
+                
+        headerLabel.translatesAutoresizingMaskIntoConstraints = false
+        headerLabel.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true
+        headerLabel.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
+        headerLabel.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
+        
         let stack = UIStackView()
         stack.axis = .horizontal
         stack.distribution = .fillEqually
         stack.alignment = .center
         stack.spacing = 9
         
-        let uhsTests = createOverviewCard(cardHeader: "UHS Tests", cardValue: 132797)
-        let positiveTests = createOverviewCard(cardHeader: "Positive Tests", cardValue: 6)
+        let (uhsTests, uhsLabel) = createOverviewCard(cardHeader: "Positivity Rate", cardValue: 0)
+        let (positiveTests, positiveLabel) = createOverviewCard(cardHeader: "Positive Tests", cardValue: 0)
         
         stack.addArrangedSubview(uhsTests)
         stack.addArrangedSubview(positiveTests)
         
         stack.translatesAutoresizingMaskIntoConstraints = false
         
-        view.addSubview(stack)
+        card.addSubview(stack)
         
-        stack.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: kViewMargin).isActive = true
-        stack.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
-        stack.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
+        stack.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: kViewMargin).isActive = true
+        stack.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
+        stack.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
+        
+        let updatedLabel = UILabel()
+        updatedLabel.font = Font.light(14)
+        updatedLabel.textColor = Color.lightGrayText
+        updatedLabel.textAlignment = .left
+        updatedLabel.text = "Last Updated: "
+        
+        card.addSubview(updatedLabel)
+        
+        updatedLabel.translatesAutoresizingMaskIntoConstraints = false
+        updatedLabel.topAnchor.constraint(equalTo: stack.bottomAnchor, constant: kViewMargin).isActive = true
+        updatedLabel.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
+        updatedLabel.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
+        
+        card.bottomAnchor.constraint(equalTo: updatedLabel.bottomAnchor, constant: kViewMargin).isActive = true
         
         overviewStack = stack
+        overviewCard = card
+        
+        valueOne = uhsLabel
+        valueTwo = positiveLabel
+        lastUpdated = updatedLabel
     }
     
-    func createOverviewCard(cardHeader: String, cardValue: Int) -> UIView {
+    func createOverviewCard(cardHeader: String, cardValue: Int) -> (UIView, UILabel) {
         let view = UIView()
         view.backgroundColor = UIColor.white.withAlphaComponent(0.0)
         view.layer.cornerRadius = 12
@@ -99,7 +155,7 @@ extension CovidResourceViewController {
         cardStack.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         cardStack.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         
-        return view
+        return (view, valueLabel)
     }
     
     func screeningCard() {
@@ -107,7 +163,7 @@ extension CovidResourceViewController {
         card.layoutMargins = kCardPadding
         view.addSubview(card)
         card.translatesAutoresizingMaskIntoConstraints = false
-        card.topAnchor.constraint(equalTo: overviewStack.bottomAnchor, constant: kViewMargin).isActive = true
+        card.topAnchor.constraint(equalTo: overviewCard.bottomAnchor, constant: kViewMargin).isActive = true
         card.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
         card.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
         card.bottomAnchor.constraint(lessThanOrEqualTo: view.layoutMarginsGuide.bottomAnchor, constant: -kViewMargin).isActive = true
@@ -187,7 +243,7 @@ extension CovidResourceViewController {
     }
     
     @objc private func screeningButtonPressed(sender: UIButton) {
-        guard let url = URL(string: kScreeningUrl) else { return }
+        guard let url = URL(string: screeningUrl) else { return }
         
         presentAlertLinkUrl(title: "Are you sure you want to open Safari?", message: "Berkeley Mobile wants to navigate to the Daily Symptom Screener", options: "Cancel", "Yes", website_url: url)
     }
