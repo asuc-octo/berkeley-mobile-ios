@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Calendar access will be used to allow you to add events you select to your calendar.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -26,7 +28,7 @@
 		<true/>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>We need your location to provide location based points of interest and transit directions.</string>
+	<string>Your location will be used to calculate distance to points of interest, display your location on the map, and for other location-based features.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Apercu Regular.otf</string>
