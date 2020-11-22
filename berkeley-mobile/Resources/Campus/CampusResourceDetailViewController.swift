@@ -107,6 +107,6 @@ extension CampusResourceDetailViewController {
 extension CampusResourceDetailViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        Analytics.logEvent("opened_campus_resource", parameters: ["resource" : resource.name])
+        Analytics.logEvent("opened_resource", parameters: ["resource" : resource.name])
     }
 }

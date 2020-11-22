@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
 fileprivate let kViewMargin: CGFloat = 16
@@ -88,8 +89,8 @@ extension CovidResourceViewController {
         stack.alignment = .center
         stack.spacing = 9
         
-        let (uhsTests, uhsLabel) = createOverviewCard(cardHeader: "Positivity Rate", cardValue: 0)
-        let (positiveTests, positiveLabel) = createOverviewCard(cardHeader: "Positive Tests", cardValue: 0)
+        let (uhsTests, uhsLabel) = createOverviewCard(cardHeader: "Positivity Rate")
+        let (positiveTests, positiveLabel) = createOverviewCard(cardHeader: "Positive Tests")
         
         stack.addArrangedSubview(uhsTests)
         stack.addArrangedSubview(positiveTests)
@@ -125,7 +126,7 @@ extension CovidResourceViewController {
         lastUpdated = updatedLabel
     }
     
-    func createOverviewCard(cardHeader: String, cardValue: Int) -> (UIView, UILabel) {
+    func createOverviewCard(cardHeader: String, cardValue: Int? = nil) -> (UIView, UILabel) {
         let subView = UIView()
         subView.backgroundColor = UIColor.white.withAlphaComponent(0.0)
         subView.layer.cornerRadius = 12
@@ -156,7 +157,11 @@ extension CovidResourceViewController {
         numberFormatter.numberStyle = .decimal
         
         let valueLabel = UILabel()
-        valueLabel.text = String(numberFormatter.string(from: NSNumber(value:cardValue)) ?? "N/A")
+        if let value = cardValue {
+            valueLabel.text = String(numberFormatter.string(from: NSNumber(value: value)) ?? "N/A")
+        } else {
+            valueLabel.text = "N/A"
+        }
         valueLabel.font = Font.bold(40)
         valueLabel.textAlignment = .center
         valueLabel.textColor = Color.selectedButtonBackground
@@ -269,5 +274,14 @@ extension CovidResourceViewController {
         guard let url = URL(string: screeningUrl) else { return }
         
         presentAlertLinkUrl(title: "Are you sure you want to open Safari?", message: "Berkeley Mobile wants to navigate to the Daily Symptom Screener", options: "Cancel", "Yes", website_url: url)
+    }
+}
+
+// MARK: - Analytics
+
+extension CovidResourceViewController {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        Analytics.logEvent("opened_covid_resource", parameters: [:])
     }
 }

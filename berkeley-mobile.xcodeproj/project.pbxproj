@@ -20,7 +20,7 @@
 		01C75E2E25292E5B00C25A32 /* DescriptionCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C75E2D25292E5B00C25A32 /* DescriptionCardView.swift */; };
 		01D11B8E2504453B00BDF660 /* ScrollingStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D11B8D2504453B00BDF660 /* ScrollingStackView.swift */; };
 		01D11B902504560700BDF660 /* GymDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D11B8F2504560700BDF660 /* GymDetailViewController.swift */; };
-		01D11B9225045FC900BDF660 /* ResourceDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D11B9125045FC900BDF660 /* ResourceDetailViewController.swift */; };
+		01D11B9225045FC900BDF660 /* CampusResourceDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D11B9125045FC900BDF660 /* CampusResourceDetailViewController.swift */; };
 		01D269932544D86C000377B4 /* Apercu Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 01D2698A2544D86B000377B4 /* Apercu Light.otf */; };
 		01D269942544D86C000377B4 /* Apercu Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 01D2698B2544D86B000377B4 /* Apercu Italic.otf */; };
 		01D269952544D86C000377B4 /* Apercu Light Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 01D2698C2544D86B000377B4 /* Apercu Light Italic.otf */; };
@@ -169,7 +169,7 @@
 		01C75E2D25292E5B00C25A32 /* DescriptionCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionCardView.swift; sourceTree = "<group>"; };
 		01D11B8D2504453B00BDF660 /* ScrollingStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollingStackView.swift; sourceTree = "<group>"; };
 		01D11B8F2504560700BDF660 /* GymDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailViewController.swift; sourceTree = "<group>"; };
-		01D11B9125045FC900BDF660 /* ResourceDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceDetailViewController.swift; sourceTree = "<group>"; };
+		01D11B9125045FC900BDF660 /* CampusResourceDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusResourceDetailViewController.swift; sourceTree = "<group>"; };
 		01D2698A2544D86B000377B4 /* Apercu Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Apercu Light.otf"; sourceTree = "<group>"; };
 		01D2698B2544D86B000377B4 /* Apercu Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Apercu Italic.otf"; sourceTree = "<group>"; };
 		01D2698C2544D86B000377B4 /* Apercu Light Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Apercu Light Italic.otf"; sourceTree = "<group>"; };
@@ -730,7 +730,7 @@
 			isa = PBXGroup;
 			children = (
 				552F4A4B254E13BF0061D0F2 /* CampusResourceViewController.swift */,
-				01D11B9125045FC900BDF660 /* ResourceDetailViewController.swift */,
+				01D11B9125045FC900BDF660 /* CampusResourceDetailViewController.swift */,
 			);
 			path = Campus;
 			sourceTree = "<group>";
@@ -1037,7 +1037,7 @@
 				13135BB3241244370056B169 /* FilterViewCell.swift in Sources */,
 				552F4A4C254E13BF0061D0F2 /* CampusResourceViewController.swift in Sources */,
 				016A56D42519E96800531A12 /* CampusCalendarViewController.swift in Sources */,
-				01D11B9225045FC900BDF660 /* ResourceDetailViewController.swift in Sources */,
+				01D11B9225045FC900BDF660 /* CampusResourceDetailViewController.swift in Sources */,
 				13580AF62437D7E700D309AA /* LibraryDetailViewController.swift in Sources */,
 				135D7F77243A9BD1003F8BD1 /* Colors+GymClass.swift in Sources */,
 				55DCF7A123724835001B01B8 /* MaterialButton.swift in Sources */,
