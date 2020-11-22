@@ -94,15 +94,15 @@ extension ResourcesViewController {
         
         //BearPact - Uncomment when finish implementing
 //
-//        bearPactAccessButton = UIButton()
-//        bearPactAccessButton.setTitle("🐻", for: .normal)
-//        bearPactAccessButton.frame = CGRect(x: 0, y: 0, width: 50, height: 30)
-//        view.addSubview(bearPactAccessButton)
-//        bearPactAccessButton.translatesAutoresizingMaskIntoConstraints = false
-//        bearPactAccessButton.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
-//        bearPactAccessButton.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: -5).isActive = true
-//        bearPactAccessButton.addTarget(self, action: #selector(self.pressedBear(_:)), for: .touchUpInside)
-//
+        bearPactAccessButton = UIButton()
+        bearPactAccessButton.setTitle("🐻", for: .normal)
+        bearPactAccessButton.frame = CGRect(x: 0, y: 0, width: 50, height: 30)
+        view.addSubview(bearPactAccessButton)
+        bearPactAccessButton.translatesAutoresizingMaskIntoConstraints = false
+        bearPactAccessButton.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
+        bearPactAccessButton.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: -5).isActive = true
+        bearPactAccessButton.addTarget(self, action: #selector(self.pressedBear(_:)), for: .touchUpInside)
+
     }
     
     @objc func pressedBear(_ sender: UIButton) {

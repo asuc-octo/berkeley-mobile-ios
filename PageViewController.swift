@@ -43,7 +43,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
     }
     
     func configureButtons() {
-        print("Button should show")
+        
         let nextButton = UIButton()
         nextButton.setTitle("Next", for: .normal)
         nextButton.setTitleColor(.gray, for: .normal)
@@ -77,15 +77,20 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         closeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         
         
-        getStarted.setImage(UIImage(named: "getStarted"), for: .normal)
-        getStarted.frame = CGRect(x: 30, y: 100, width: 186, height: 43)
+        getStarted.frame = CGRect(x: 30, y: 100, width: 220, height: 43)
+        getStarted.layer.cornerRadius = getStarted.frame.height/2
         view.addSubview(getStarted)
+        getStarted.setTitle("Let's get started!", for: .normal)
+        getStarted.titleLabel?.font = Font.bold(15)
+        getStarted.backgroundColor = Color.getStartedButton
+        getStarted.setTitleColor(.white, for: .normal)
         getStarted.addTarget(self, action: #selector(self.close(_:)), for: .touchUpInside)
         getStarted.translatesAutoresizingMaskIntoConstraints = false
+        getStarted.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        getStarted.heightAnchor.constraint(equalToConstant: 43).isActive = true
         getStarted.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
-        getStarted.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -130).isActive = true
+        getStarted.bottomAnchor.constraint(equalTo: pageControl.topAnchor, constant: -30).isActive = true
         getStarted.isHidden = true
-        getStarted.layer.opacity = 0
         
     }
     
@@ -100,11 +105,11 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
             setViewControllers([pages[i]], direction: .forward, animated: true, completion: nil)
         }
         pageControl.currentPage = pages.count - 1
+        buttonOpacityControl()
         
     }
     
     @objc func nextClicked(_: UIButton){
-        print("Nexting now")
         moveToNextPage()
     }
     
@@ -114,14 +119,36 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
             setViewControllers([pages[currentIndex + 1]], direction: .forward, animated: true, completion: nil)
         }
         pageControl.currentPage += 1
+
+        buttonOpacityControl()
         
+    }
+    
+    func buttonOpacityControl() {
+        if pageControl.currentPage == self.pages.count - 1 {
+            getStarted.isHidden = false
+            UIView.animate(withDuration: 0.5) {
+                self.getStarted.layer.opacity = 1
+                self.skipButton.layer.opacity = 0
+            }
+            
+        }
+        
+        else if pageControl.currentPage != self.pages.count - 1 {
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.3) {
+                    self.getStarted.layer.opacity = 0
+                    self.skipButton.layer.opacity = 1
+                }
+            }
+        }
     }
     
     func configurePageControl() {
         let initialPage = 0
-        let page1 = StudyPactOnboardingViewController()
-        let page2 = StudyPactOnboarding2ViewController()
-        let page3 = StudyPactOnboarding3ViewController()
+        let page1 = StudyPactOnboardingViewController(_signUpLabelText: "Sign Up", _bearImage: UIImage(named: "Onboarding1")!, _numberImage: UIImage(named: "Onboarding1Num")!, _descriptionText: "Complete your profile in less than 5 minutes to get the best pairing")
+        let page2 = StudyPactOnboardingViewController(_signUpLabelText: "Get Matched", _bearImage: UIImage(named: "Onboarding2")!, _numberImage: UIImage(named: "Onboarding2Num")!, _descriptionText: "Upon profile completion, we will find you a list of matches")
+        let page3 = StudyPactOnboardingViewController(_signUpLabelText: "Connect", _bearImage: UIImage(named: "Onboarding3")!, _numberImage: UIImage(named: "Onboarding3Num")!, _descriptionText: "Get connected through your choice of contact and start studying!")
         
         // add the individual viewControllers to the pageViewController
         self.pages.append(page1)
@@ -135,45 +162,34 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         self.pageControl.pageIndicatorTintColor = UIColor.lightGray
         self.pageControl.numberOfPages = self.pages.count
         self.pageControl.currentPage = initialPage
-        self.pageControl.pageIndicatorTintColor = #colorLiteral(red: 0.337254902, green: 0.4352941176, blue: 0.7254901961, alpha: 1)
+        self.pageControl.pageIndicatorTintColor = Color.onboardingTint
         self.view.addSubview(self.pageControl)
         
         self.pageControl.translatesAutoresizingMaskIntoConstraints = false
-        self.pageControl.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -65).isActive = true
+        self.pageControl.bottomAnchor.constraint(equalTo: self.view.layoutMarginsGuide.bottomAnchor, constant: -10).isActive = true
         self.pageControl.widthAnchor.constraint(equalToConstant: 140).isActive = true
         self.pageControl.heightAnchor.constraint(equalToConstant: 20).isActive = true
         self.pageControl.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        self.pageControl.tintColor = UIColor(displayP3Red: 86/255, green: 111/255, blue: 185/255, alpha: 1)
+        self.pageControl.tintColor = Color.pageViewBackgroundTint
         self.pageControl.isUserInteractionEnabled = false
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        if let viewControllerIndex = self.pages.firstIndex(of: viewController) {
+        
+        guard let viewControllerIndex = self.pages.firstIndex(of: viewController), viewControllerIndex != 0 else { return nil }
+        
+        return self.pages[viewControllerIndex - 1]
             
-            if viewControllerIndex == 0 {
-                // wrap to last page in array
-                return nil
-            } else {
-                // go to previous page in array
-                return self.pages[viewControllerIndex - 1]
-            }
-            
-        }
-        return nil
     }
     
 
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        if let viewControllerIndex = self.pages.firstIndex(of: viewController) {
-            
-            if viewControllerIndex < self.pages.count - 1 {
+        
+        guard let viewControllerIndex = self.pages.firstIndex(of: viewController), viewControllerIndex < self.pages.count - 1 else { return nil }
                 // go to next page in array
-                return self.pages[viewControllerIndex + 1]
-            }
-            
-        }
-            return nil
+        return self.pages[viewControllerIndex + 1]
+    
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
@@ -182,26 +198,8 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         if let viewControllers = pageViewController.viewControllers {
             if let viewControllerIndex = self.pages.firstIndex(of: viewControllers[0]) {
                 self.pageControl.currentPage = viewControllerIndex
-                print(viewControllerIndex)
                 
-                if viewControllerIndex == self.pages.count - 1 {
-                    getStarted.isHidden = false
-                    UIView.animate(withDuration: 0.5) {
-                        self.getStarted.layer.opacity = 1
-                        self.skipButton.layer.opacity = 0
-                    }
-                    
-                }
-                
-                else if viewControllerIndex != self.pages.count - 1 {
-                    
-                    DispatchQueue.main.async {
-                        UIView.animate(withDuration: 0.3) {
-                            self.getStarted.layer.opacity = 0
-                            self.skipButton.layer.opacity = 1
-                        }
-                    }
-                }
+                buttonOpacityControl()
                 
             }
         }
