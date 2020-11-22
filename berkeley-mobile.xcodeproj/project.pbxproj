@@ -96,6 +96,8 @@
 		2948155D25326D1400D113B6 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2948155C25326D1400D113B6 /* ImageLoader.swift */; };
 		2948155F253274C500D113B6 /* ImageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2948155E253274C500D113B6 /* ImageViewCell.swift */; };
 		2954F592245CD4B600DA66DA /* MainDrawerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2954F591245CD4B600DA66DA /* MainDrawerViewDelegate.swift */; };
+		29570D4C2569D8F20086741B /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29570D4B2569D8F20086741B /* CalendarView.swift */; };
+		29570D4E2569DE990086741B /* Colors+Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29570D4D2569DE990086741B /* Colors+Calendar.swift */; };
 		296B8AA72544D97F00C3A219 /* EventOverviewCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296B8AA62544D97F00C3A219 /* EventOverviewCardView.swift */; };
 		296DDEC1253BB117008E8940 /* CampusEventDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296DDEC0253BB117008E8940 /* CampusEventDetailViewController.swift */; };
 		296F1B272439341300924C8D /* DiningDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296F1B262439341300924C8D /* DiningDetailViewController.swift */; };
@@ -243,6 +245,8 @@
 		2948155C25326D1400D113B6 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		2948155E253274C500D113B6 /* ImageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewCell.swift; sourceTree = "<group>"; };
 		2954F591245CD4B600DA66DA /* MainDrawerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainDrawerViewDelegate.swift; sourceTree = "<group>"; };
+		29570D4B2569D8F20086741B /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		29570D4D2569DE990086741B /* Colors+Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+Calendar.swift"; sourceTree = "<group>"; };
 		296B8AA62544D97F00C3A219 /* EventOverviewCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventOverviewCardView.swift; sourceTree = "<group>"; };
 		296DDEC0253BB117008E8940 /* CampusEventDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusEventDetailViewController.swift; sourceTree = "<group>"; };
 		296F1B262439341300924C8D /* DiningDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiningDetailViewController.swift; sourceTree = "<group>"; };
@@ -393,6 +397,7 @@
 				13491DB7241E22130033F9AB /* Colors+Event.swift */,
 				135D7F76243A9BD1003F8BD1 /* Colors+GymClass.swift */,
 				017C0B25251018BA00BFA80A /* Colors+MapMarker.swift */,
+				29570D4D2569DE990086741B /* Colors+Calendar.swift */,
 			);
 			path = Colors;
 			sourceTree = "<group>";
@@ -611,6 +616,7 @@
 			isa = PBXGroup;
 			children = (
 				01D2699C2544E005000377B4 /* AcademicCalendarViewController.swift */,
+				29570D4B2569D8F20086741B /* CalendarView.swift */,
 			);
 			path = Academic;
 			sourceTree = "<group>";
@@ -1039,12 +1045,14 @@
 				296B8AA72544D97F00C3A219 /* EventOverviewCardView.swift in Sources */,
 				29387E9B24BBBD9D00070BCE /* CALayerExtension.swift in Sources */,
 				1396013323865E2E005E4788 /* CardCollectionView.swift in Sources */,
+				29570D4E2569DE990086741B /* Colors+Calendar.swift in Sources */,
 				13B39A9A23E6A33C0039FBA2 /* LibraryDataSource.swift in Sources */,
 				01D11B8E2504453B00BDF660 /* ScrollingStackView.swift in Sources */,
 				29387E9924BBBC9300070BCE /* BarEntry+DataEntry.swift in Sources */,
 				306A54EC23613E3A00D59A7F /* SceneDelegate.swift in Sources */,
 				01FA50F124E8B33100DCC490 /* LocationManager.swift in Sources */,
 				017C0B26251018BA00BFA80A /* Colors+MapMarker.swift in Sources */,
+				29570D4C2569D8F20086741B /* CalendarView.swift in Sources */,
 				29345E2724A7E76300859A88 /* OverviewCardView.swift in Sources */,
 				01D11B902504560700BDF660 /* GymDetailViewController.swift in Sources */,
 				55AF442D2453ACE600F13232 /* DiningLocation.swift in Sources */,

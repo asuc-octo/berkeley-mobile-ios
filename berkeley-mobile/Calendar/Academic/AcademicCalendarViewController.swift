@@ -35,7 +35,7 @@ class AcademicCalendarViewController: UIViewController {
         setupScrollView()
         // remove upcoming card for now because it doesn't add any new information/value
         // setupUpcoming()
-        setupCalendarList()
+        setUpCalendar()
 
         DataManager.shared.fetch(source: EventDataSource.self) { calendarEntries in
             self.calendarEntries = (calendarEntries as? [EventCalendarEntry])?.filter({ entry -> Bool in
@@ -170,13 +170,20 @@ extension AcademicCalendarViewController {
     }
 
     // MARK: Calendar Table
-
-    private func setupCalendarList() {
+    
+    private func setUpCalendar() {
         let card = CardView()
         card.layoutMargins = kCardPadding
         scrollingStackView.stackView.addArrangedSubview(card)
         card.translatesAutoresizingMaskIntoConstraints = false
         card.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
+        
+        let calendar = CalendarView()
+        card.addSubview(calendar)
+        calendar.translatesAutoresizingMaskIntoConstraints = false
+        calendar.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true
+        calendar.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
+        calendar.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
 
         let tableView = UITableView()
         tableView.register(EventTableViewCell.self, forCellReuseIdentifier: EventTableViewCell.kCellIdentifier)
@@ -188,7 +195,7 @@ extension AcademicCalendarViewController {
         tableView.separatorStyle = .none
         card.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true
+        tableView.topAnchor.constraint(equalTo: calendar.bottomAnchor, constant: kViewMargin).isActive = true
         tableView.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
         tableView.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: card.layoutMarginsGuide.bottomAnchor).isActive = true
