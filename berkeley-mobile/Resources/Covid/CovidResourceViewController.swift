@@ -12,6 +12,7 @@ fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 16, left: 16, bot
 fileprivate let kViewMargin: CGFloat = 16
 
 class CovidResourceViewController: UIViewController {
+    private var scrollingStack: ScrollingStackView!
     private var overviewStack: UIStackView!
     private var overviewCard: CardView!
     
@@ -24,6 +25,9 @@ class CovidResourceViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 0, right: 16)
+        
+        scrollingView()
         covidOverview()
         screeningCard()
         
@@ -39,16 +43,33 @@ class CovidResourceViewController: UIViewController {
 }
 
 extension CovidResourceViewController {
+    func scrollingView() {
+        let scrollingStackView = ScrollingStackView()
+        
+        scrollingStackView.layoutMargins = kCardPadding
+        scrollingStackView.scrollView.showsVerticalScrollIndicator = false
+        scrollingStackView.stackView.spacing = kViewMargin
+        
+        view.addSubview(scrollingStackView)
+        
+        scrollingStackView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: -8).isActive = true
+        scrollingStackView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        scrollingStackView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        scrollingStackView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -8).isActive = true
+        
+        scrollingStack = scrollingStackView
+    }
+    
     func covidOverview() {
         let card = CardView()
         card.layoutMargins = kCardPadding
         
-        view.addSubview(card)
+        scrollingStack.stackView.addArrangedSubview(card)
         
         card.translatesAutoresizingMaskIntoConstraints = false
-        card.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: kViewMargin).isActive = true
-        card.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
-        card.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
+//        card.topAnchor.constraint(equalTo: scrollingStack.layoutMarginsGuide.topAnchor).isActive = true
+        card.leftAnchor.constraint(equalTo: scrollingStack.layoutMarginsGuide.leftAnchor).isActive = true
+        card.rightAnchor.constraint(equalTo: scrollingStack.layoutMarginsGuide.rightAnchor).isActive = true
         
         let headerLabel = UILabel()
         headerLabel.font = Font.bold(24)
@@ -105,12 +126,12 @@ extension CovidResourceViewController {
     }
     
     func createOverviewCard(cardHeader: String, cardValue: Int) -> (UIView, UILabel) {
-        let view = UIView()
-        view.backgroundColor = UIColor.white.withAlphaComponent(0.0)
-        view.layer.cornerRadius = 12
-        view.layer.masksToBounds = true
-        view.layer.borderWidth = 3
-        view.layer.borderColor = Color.selectedButtonBackground.cgColor
+        let subView = UIView()
+        subView.backgroundColor = UIColor.white.withAlphaComponent(0.0)
+        subView.layer.cornerRadius = 12
+        subView.layer.masksToBounds = true
+        subView.layer.borderWidth = 3
+        subView.layer.borderColor = Color.selectedButtonBackground.cgColor
                 
         let cardStack = UIStackView()
         cardStack.axis = .vertical
@@ -143,30 +164,32 @@ extension CovidResourceViewController {
         valueLabel.adjustsFontSizeToFitWidth = true
         valueLabel.minimumScaleFactor = 0.5
         
-        view.addSubview(cardStack)
+        subView.addSubview(cardStack)
         cardStack.addArrangedSubview(headerLabel)
         cardStack.addArrangedSubview(valueLabel)
         
-        view.translatesAutoresizingMaskIntoConstraints = false
+        subView.translatesAutoresizingMaskIntoConstraints = false
         cardStack.translatesAutoresizingMaskIntoConstraints = false
         
-        cardStack.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        cardStack.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        cardStack.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        cardStack.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        cardStack.topAnchor.constraint(equalTo: subView.topAnchor).isActive = true
+        cardStack.leftAnchor.constraint(equalTo: subView.leftAnchor).isActive = true
+        cardStack.rightAnchor.constraint(equalTo: subView.rightAnchor).isActive = true
+        cardStack.bottomAnchor.constraint(equalTo: subView.bottomAnchor).isActive = true
         
-        return (view, valueLabel)
+        return (subView, valueLabel)
     }
     
     func screeningCard() {
         let card = CardView()
         card.layoutMargins = kCardPadding
-        view.addSubview(card)
+        
+        scrollingStack.stackView.addArrangedSubview(card)
+        
         card.translatesAutoresizingMaskIntoConstraints = false
-        card.topAnchor.constraint(equalTo: overviewCard.bottomAnchor, constant: kViewMargin).isActive = true
-        card.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
-        card.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
-        card.bottomAnchor.constraint(lessThanOrEqualTo: view.layoutMarginsGuide.bottomAnchor, constant: -kViewMargin).isActive = true
+//        card.topAnchor.constraint(equalTo: overviewCard.bottomAnchor, constant: kViewMargin).isActive = true
+        card.leftAnchor.constraint(equalTo: scrollingStack.layoutMarginsGuide.leftAnchor).isActive = true
+        card.rightAnchor.constraint(equalTo: scrollingStack.layoutMarginsGuide.rightAnchor).isActive = true
+//        card.bottomAnchor.constraint(lessThanOrEqualTo: view.layoutMarginsGuide.bottomAnchor, constant: -kViewMargin).isActive = true
         
         let stack = UIStackView()
         stack.axis = .vertical
