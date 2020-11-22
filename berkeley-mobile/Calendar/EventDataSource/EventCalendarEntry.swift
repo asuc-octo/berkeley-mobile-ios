@@ -17,6 +17,19 @@ class EventCalendarEntry: CalendarEvent, HasImage, CanFavorite {
     var description: String?
     var location: String?
     
+    var additionalDescription: String {
+        get {
+            var desc = ""
+            if let registerLink = self.registerLink {
+                desc += "Register: " + registerLink.absoluteString + "\n"
+            }
+            if let sourceLink = self.sourceLink {
+                desc += "Additional Info: " + sourceLink.absoluteString + "\n"
+            }
+            return desc
+        }
+    }
+    
     // MARK: CanFavorite
     var isFavorited: Bool = false
     

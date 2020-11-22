@@ -88,6 +88,10 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         setupSubviews()
         userLocationButton = UIButton(type: .custom)
         view.addSubview(userLocationButton)
+        
+        //handle home tab press in order to collapse drawer
+        let nc = NotificationCenter.default
+        nc.addObserver(self, selector: #selector(collapseDrawer), name: Notification.Name(TabBarController.homePressedMessage), object: nil)
        
     }
     
@@ -416,4 +420,17 @@ extension MapViewController {
             mainContainer?.dismissTop()
         }
     }
+}
+
+extension MapViewController  {
+    @objc func collapseDrawer() {
+        if mainContainer?.drawerStack.count == 0 {
+            let nc = NotificationCenter.default
+            nc.post(name: Notification.Name(TabBarController.homePressedCollapseMessage), object: nil)
+        } else {
+            mainContainer?.dismissTop()
+        }
+        
+    }
+    
 }

@@ -23,8 +23,7 @@ class CampusEventDetailViewController: UIViewController {
         setUpScrollView()
         setUpOverviewCard()
         setupDescriptionCard()
-        setUpLearnMoreButton()
-        setUpRegisterButton()
+        setUpButtons()
     }
     
     func setUpBackgroundView() {
@@ -56,27 +55,29 @@ class CampusEventDetailViewController: UIViewController {
         
         scrollingStackView.stackView.addArrangedSubview(descriptionCard)
     }
-
-    func setUpLearnMoreButton() {
-        guard event.sourceLink != nil else { return }
-        
-        scrollingStackView.stackView.addArrangedSubview(learnMoreButton)
+    
+    func setUpButtons() {
+        if event.sourceLink != nil {
+            scrollingStackView.stackView.addArrangedSubview(learnMoreButton)
+        }
+        if event.registerLink != nil {
+            scrollingStackView.stackView.addArrangedSubview(registerButton)
+        }
+        scrollingStackView.stackView.addArrangedSubview(addToCalendarButton)
     }
+    
     @objc private func learnMoreTapped(sender: UIButton) {
         guard let url = event.sourceLink else { return }
         
         presentAlertLinkUrl(title: "Are you sure you want to open Safari?", message: "Berkeley Mobile wants to open a web page with more info for this event.", options: "Cancel", "Yes", website_url: url)
     }
-    
-    func setUpRegisterButton() {
-        guard event.registerLink != nil else { return }
-        
-        scrollingStackView.stackView.addArrangedSubview(registerButton)
-    }
     @objc private func registerTapped(sender: UIButton) {
         guard let url = event.registerLink else { return }
         
         presentAlertLinkUrl(title: "Are you sure you want to open Safari?", message: "Berkeley Mobile wants to open the web page to register for this event.", options: "Cancel", "Yes", website_url: url)
+    }
+    @objc private func addToCalendar(sender: UIButton) {
+        event.addToDeviceCalendar(vc: self)
     }
     
     var learnMoreButton: ActionButton = {
@@ -88,6 +89,12 @@ class CampusEventDetailViewController: UIViewController {
     var registerButton: ActionButton = {
         let button = ActionButton(title: "Register")
         button.addTarget(self, action: #selector(registerTapped), for: .touchUpInside)
+        return button
+    }()
+    
+    var addToCalendarButton: ActionButton = {
+        let button = ActionButton(title: "Add To Calendar")
+        button.addTarget(self, action: #selector(addToCalendar), for: .touchUpInside)
         return button
     }()
     
