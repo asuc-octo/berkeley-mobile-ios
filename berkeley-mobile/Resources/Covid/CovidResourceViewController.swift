@@ -68,7 +68,6 @@ extension CovidResourceViewController {
         scrollingStack.stackView.addArrangedSubview(card)
         
         card.translatesAutoresizingMaskIntoConstraints = false
-//        card.topAnchor.constraint(equalTo: scrollingStack.layoutMarginsGuide.topAnchor).isActive = true
         card.leftAnchor.constraint(equalTo: scrollingStack.layoutMarginsGuide.leftAnchor).isActive = true
         card.rightAnchor.constraint(equalTo: scrollingStack.layoutMarginsGuide.rightAnchor).isActive = true
         
@@ -191,10 +190,8 @@ extension CovidResourceViewController {
         scrollingStack.stackView.addArrangedSubview(card)
         
         card.translatesAutoresizingMaskIntoConstraints = false
-//        card.topAnchor.constraint(equalTo: overviewCard.bottomAnchor, constant: kViewMargin).isActive = true
         card.leftAnchor.constraint(equalTo: scrollingStack.layoutMarginsGuide.leftAnchor).isActive = true
         card.rightAnchor.constraint(equalTo: scrollingStack.layoutMarginsGuide.rightAnchor).isActive = true
-//        card.bottomAnchor.constraint(lessThanOrEqualTo: view.layoutMarginsGuide.bottomAnchor, constant: -kViewMargin).isActive = true
         
         let stack = UIStackView()
         stack.axis = .vertical
