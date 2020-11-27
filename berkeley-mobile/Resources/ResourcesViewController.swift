@@ -62,9 +62,9 @@ extension ResourcesViewController {
         // Add some right-padding to the segmented control so it doesn't overlap with the blob.
         // Don't add this padding for now.
         let segmentedControl = SegmentedControlViewController(pages: [
-            Page(viewController: CampusResourceViewController(), label: "Campus-Wide"),
-            Page(viewController: CovidResourceViewController(), label: "COVID-19")
-        ], controlInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: blobImageView.frame.width / 2), centerControl: false)
+            Page(viewController: CovidResourceViewController(), label: "COVID-19"),
+            Page(viewController: CampusResourceViewController(), label: "Campus-Wide")
+        ], controlInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: blobImageView.frame.width / 4), centerControl: false)
         self.add(child: segmentedControl)
         segmentedControl.view.translatesAutoresizingMaskIntoConstraints = false
         segmentedControl.view.topAnchor.constraint(equalTo: resourcesLabel.bottomAnchor, constant: kViewMargin).isActive = true
