@@ -102,6 +102,8 @@
 		2975D5402459301B00514B43 /* SearchDrawerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2975D53F2459301B00514B43 /* SearchDrawerViewDelegate.swift */; };
 		297678872426B7BA00FDD1EB /* SearchAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297678862426B7BA00FDD1EB /* SearchAnnotation.swift */; };
 		297678892426D2C500FDD1EB /* SearchDrawerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297678882426D2C500FDD1EB /* SearchDrawerViewController.swift */; };
+		29891B23257C521E0094891D /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29891B21257C521E0094891D /* PageViewController.swift */; };
+		29891B24257C521E0094891D /* StudyPactOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29891B22257C521E0094891D /* StudyPactOnboardingViewController.swift */; };
 		299ACFB0244A58CD000F3E86 /* OccupancyDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299ACFAF244A58CD000F3E86 /* OccupancyDataSource.swift */; };
 		299ACFB2244A5A15000F3E86 /* Occupancy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299ACFB1244A5A15000F3E86 /* Occupancy.swift */; };
 		299ACFB4244A5F90000F3E86 /* HasOccupancy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299ACFB3244A5F90000F3E86 /* HasOccupancy.swift */; };
@@ -148,10 +150,8 @@
 		55DCF79B237243D4001B01B8 /* MaterialTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF79A237243D4001B01B8 /* MaterialTextField.swift */; };
 		55DCF79D237243F5001B01B8 /* RippleLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF79C237243F5001B01B8 /* RippleLayer.swift */; };
 		55DCF7A123724835001B01B8 /* MaterialButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF7A023724835001B01B8 /* MaterialButton.swift */; };
-		9620FEE3341D5D1FBAB6302B /* Pods_berkeley_mobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A826C1BD0A2BCA2F083C6EE /* Pods_berkeley_mobile.framework */; };
+		600CB18DB1A293062CAC7914 /* Pods_berkeley_mobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A826C1BD0A2BCA2F083C6EE /* Pods_berkeley_mobile.framework */; };
 		FD6A88432560A8B80046FF10 /* Colors+StudyPact.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6A88422560A8B80046FF10 /* Colors+StudyPact.swift */; };
-		FDCBF250253BA9C300DB1E8A /* StudyPactOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCBF24F253BA9C300DB1E8A /* StudyPactOnboardingViewController.swift */; };
-		FDCBF257253BAB6D00DB1E8A /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCBF256253BAB6D00DB1E8A /* PageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -252,6 +252,8 @@
 		2975D53F2459301B00514B43 /* SearchDrawerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDrawerViewDelegate.swift; sourceTree = "<group>"; };
 		297678862426B7BA00FDD1EB /* SearchAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAnnotation.swift; sourceTree = "<group>"; };
 		297678882426D2C500FDD1EB /* SearchDrawerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDrawerViewController.swift; sourceTree = "<group>"; };
+		29891B21257C521E0094891D /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageViewController.swift; path = "berkeley-mobile/StudyPact/PageViewController.swift"; sourceTree = "<group>"; };
+		29891B22257C521E0094891D /* StudyPactOnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StudyPactOnboardingViewController.swift; path = "berkeley-mobile/StudyPact/StudyPactOnboardingViewController.swift"; sourceTree = "<group>"; };
 		299ACFAF244A58CD000F3E86 /* OccupancyDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OccupancyDataSource.swift; sourceTree = "<group>"; };
 		299ACFB1244A5A15000F3E86 /* Occupancy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Occupancy.swift; sourceTree = "<group>"; };
 		299ACFB3244A5F90000F3E86 /* HasOccupancy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasOccupancy.swift; sourceTree = "<group>"; };
@@ -307,8 +309,6 @@
 		CB9A33BEF33ABF885BD30304 /* Pods-berkeley-mobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeley-mobile.release.xcconfig"; path = "Target Support Files/Pods-berkeley-mobile/Pods-berkeley-mobile.release.xcconfig"; sourceTree = "<group>"; };
 		EC01CCF388C7E41052CEB683 /* Pods-bm-persona.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bm-persona.release.xcconfig"; path = "Target Support Files/Pods-bm-persona/Pods-bm-persona.release.xcconfig"; sourceTree = "<group>"; };
 		FD6A88422560A8B80046FF10 /* Colors+StudyPact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+StudyPact.swift"; sourceTree = "<group>"; };
-		FDCBF24F253BA9C300DB1E8A /* StudyPactOnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyPactOnboardingViewController.swift; sourceTree = "<group>"; };
-		FDCBF256253BAB6D00DB1E8A /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -316,7 +316,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9620FEE3341D5D1FBAB6302B /* Pods_berkeley_mobile.framework in Frameworks */,
+				600CB18DB1A293062CAC7914 /* Pods_berkeley_mobile.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -470,7 +470,6 @@
 		13B39A8E23E6A1ED0039FBA2 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				FDCBF248253BA8EF00DB1E8A /* StudyPact */,
 				13B39A9123E6A2C20039FBA2 /* LibraryDataSource */,
 				13580AF52437D7E700D309AA /* LibraryDetailViewController.swift */,
 				13B39AA623E7746C0039FBA2 /* LibraryViewController.swift */,
@@ -820,19 +819,11 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		FDCBF248253BA8EF00DB1E8A /* StudyPact */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = StudyPact;
-			path = ../..;
-			sourceTree = "<group>";
-		};
 		FDCBF24A253BA90100DB1E8A /* StudyPact */ = {
 			isa = PBXGroup;
 			children = (
-				FDCBF24F253BA9C300DB1E8A /* StudyPactOnboardingViewController.swift */,
-				FDCBF256253BAB6D00DB1E8A /* PageViewController.swift */,
+				29891B21257C521E0094891D /* PageViewController.swift */,
+				29891B22257C521E0094891D /* StudyPactOnboardingViewController.swift */,
 			);
 			name = StudyPact;
 			path = ..;
@@ -1003,6 +994,7 @@
 				29B3D78824539FF3006762E5 /* MainDrawerViewController.swift in Sources */,
 				13491DBC242098B30033F9AB /* AtomicDictionary.swift in Sources */,
 				01BC8EB024E8C3E3005B4969 /* DetailView.swift in Sources */,
+				29891B24257C521E0094891D /* StudyPactOnboardingViewController.swift in Sources */,
 				13580AFA243934BF00D309AA /* GymClassesController.swift in Sources */,
 				1396013423865E2E005E4788 /* CardCollectionViewCell.swift in Sources */,
 				55DCF79D237243F5001B01B8 /* RippleLayer.swift in Sources */,
@@ -1020,7 +1012,6 @@
 				55DCF79B237243D4001B01B8 /* MaterialTextField.swift in Sources */,
 				554CB9A023F3A83F00BB1715 /* EventTableViewCell.swift in Sources */,
 				01B250282516AD4F00CBA459 /* IconPairView.swift in Sources */,
-				FDCBF250253BA9C300DB1E8A /* StudyPactOnboardingViewController.swift in Sources */,
 				55AF442B2453A80B00F13232 /* CafeItem.swift in Sources */,
 				2925D5F825293F2A00BBA266 /* CampusEventTableViewCell.swift in Sources */,
 				2948155D25326D1400D113B6 /* ImageLoader.swift in Sources */,
@@ -1076,7 +1067,6 @@
 				29345E2724A7E76300859A88 /* OverviewCardView.swift in Sources */,
 				01D11B902504560700BDF660 /* GymDetailViewController.swift in Sources */,
 				55AF442D2453ACE600F13232 /* DiningLocation.swift in Sources */,
-				FDCBF257253BAB6D00DB1E8A /* PageViewController.swift in Sources */,
 				1336A329241DA56100949F32 /* DiningHallDataSource.swift in Sources */,
 				136DC97B2398B4D1009B1810 /* UIViewController+Extensions.swift in Sources */,
 				2913595724B136BE00DE9AD6 /* CollapsibleCardView.swift in Sources */,
@@ -1088,6 +1078,7 @@
 				FD6A88432560A8B80046FF10 /* Colors+StudyPact.swift in Sources */,
 				299ACFB4244A5F90000F3E86 /* HasOccupancy.swift in Sources */,
 				559A7B6D2373DEFA004EA501 /* MaterialTableViewCell.swift in Sources */,
+				29891B23257C521E0094891D /* PageViewController.swift in Sources */,
 				13EA64CD2399CEDA00FD8E13 /* Gym.swift in Sources */,
 				1396013523865E2E005E4788 /* CardView.swift in Sources */,
 				1336A322241D92F700949F32 /* MealType.swift in Sources */,
@@ -1233,6 +1224,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 4HBETBULVA;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				INFOPLIST_FILE = "berkeley-mobile/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

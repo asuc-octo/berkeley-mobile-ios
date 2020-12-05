@@ -92,8 +92,7 @@ extension ResourcesViewController {
         // Hacky workaround. Assumes that it is safe to overlap the text with half (and some) of the blob.
         blobView.centerXAnchor.constraint(equalTo: resourcesLabel.rightAnchor, constant: -20).isActive = true
         
-        //BearPact - Uncomment when finish implementing
-//
+        #if DEBUG
         bearPactAccessButton = UIButton()
         bearPactAccessButton.setTitle("🐻", for: .normal)
         bearPactAccessButton.frame = CGRect(x: 0, y: 0, width: 50, height: 30)
@@ -102,6 +101,7 @@ extension ResourcesViewController {
         bearPactAccessButton.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
         bearPactAccessButton.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: -5).isActive = true
         bearPactAccessButton.addTarget(self, action: #selector(self.pressedBear(_:)), for: .touchUpInside)
+        #endif
 
     }
     
