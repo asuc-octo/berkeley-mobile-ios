@@ -239,7 +239,7 @@ extension CovidResourceViewController {
         bookButton.setHeightConstraint(33)
         bookButton.setWidthConstraint(110)
         
-        card.bottomAnchor.constraint(equalTo: bookButton.bottomAnchor, constant: kViewMargin).isActive = true
+        bookButton.bottomAnchor.constraint(equalTo: card.layoutMarginsGuide.bottomAnchor).isActive = true
     }
     
     func screeningCard() {
