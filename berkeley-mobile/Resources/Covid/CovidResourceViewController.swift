@@ -273,7 +273,7 @@ extension CovidResourceViewController {
         let onCampusLabel = UILabel()
         onCampusLabel.text = "Will you be on campus today?"
         onCampusLabel.font = Font.bold(22)
-        onCampusLabel.numberOfLines = 1
+        onCampusLabel.numberOfLines = 2
         onCampusLabel.adjustsFontSizeToFitWidth = true
         onCampusLabel.minimumScaleFactor = 0.7
         onCampusLabel.textAlignment = .center
@@ -282,7 +282,7 @@ extension CovidResourceViewController {
         let subtitleLabel = UILabel()
         subtitleLabel.text = "Complete the symptom screener before entering campus."
         subtitleLabel.font = Font.regular(12)
-        subtitleLabel.numberOfLines = 1
+        subtitleLabel.numberOfLines = 2
         subtitleLabel.adjustsFontSizeToFitWidth = true
         subtitleLabel.minimumScaleFactor = 0.7
         subtitleLabel.textAlignment = .center
@@ -314,6 +314,14 @@ extension CovidResourceViewController {
         imageView.setHeightConstraint(101)
         imageView.leftAnchor.constraint(equalTo: card.leftAnchor).isActive = true
         imageView.rightAnchor.constraint(equalTo: card.rightAnchor).isActive = true
+        
+        onCampusLabel.translatesAutoresizingMaskIntoConstraints = false
+        onCampusLabel.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
+        onCampusLabel.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
+        
+        subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        subtitleLabel.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
+        subtitleLabel.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
         
         stack.setCustomSpacing(-65, after: imageView)  // Bless whoever created this
         
