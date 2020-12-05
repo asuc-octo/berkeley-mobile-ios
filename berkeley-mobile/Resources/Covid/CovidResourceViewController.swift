@@ -22,6 +22,7 @@ class CovidResourceViewController: UIViewController {
     private var lastUpdated: UILabel!
     
     private var screeningUrl = "https://calcentral.berkeley.edu/"   // fallback url
+    private var bookingUrl = "https://etang.berkeley.edu/appointments_home.aspx"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,14 +31,15 @@ class CovidResourceViewController: UIViewController {
         
         scrollingView()
         covidOverview()
+        getTestedCard()
         screeningCard()
         
         DataManager.shared.fetch(source: CovidResourceDataSource.self) { resourceEntries in
             guard let covidData = resourceEntries[0] as? CovidResource else { return }
                         
             self.screeningUrl = covidData.dailyScreeningLink
-            self.valueOne.text = covidData.positivityRate
-            self.valueTwo.text = covidData.totalCases
+            self.valueOne.text = covidData.totalCases
+            self.valueTwo.text = covidData.dailyIncrease
             self.lastUpdated.text = "Last Updated: \(covidData.lastUpdated)"
         }
     }
@@ -88,8 +90,8 @@ extension CovidResourceViewController {
         stack.alignment = .center
         stack.spacing = 9
         
-        let (uhsTests, uhsLabel) = createOverviewCard(cardHeader: "Positivity Rate")
-        let (positiveTests, positiveLabel) = createOverviewCard(cardHeader: "Positive Tests")
+        let (uhsTests, uhsLabel) = createOverviewCard(cardHeader: "Total Cases")
+        let (positiveTests, positiveLabel) = createOverviewCard(cardHeader: "New Cases")
         
         stack.addArrangedSubview(uhsTests)
         stack.addArrangedSubview(positiveTests)
@@ -137,15 +139,13 @@ extension CovidResourceViewController {
         cardStack.axis = .vertical
         cardStack.alignment = .center
         cardStack.distribution = .fill
-        cardStack.spacing = 15
+        cardStack.spacing = 10
         cardStack.layoutMargins = UIEdgeInsets(top: 19, left: 19, bottom: 19, right: 19)
         cardStack.isLayoutMarginsRelativeArrangement = true
         
         let headerLabel = UILabel()
         headerLabel.text = cardHeader
         headerLabel.font = Font.medium(20)
-        headerLabel.textAlignment = .center
-        headerLabel.textColor = Color.selectedButtonBackground
         headerLabel.textAlignment = .center
         headerLabel.textColor = Color.selectedButtonBackground
         headerLabel.numberOfLines = 1
@@ -183,6 +183,65 @@ extension CovidResourceViewController {
         return (subView, valueLabel)
     }
     
+    func getTestedCard() {
+        let card = CardView()
+        card.layoutMargins = kCardPadding
+        
+        scrollingStack.stackView.addArrangedSubview(card)
+        
+        card.translatesAutoresizingMaskIntoConstraints = false
+        card.leftAnchor.constraint(equalTo: scrollingStack.layoutMarginsGuide.leftAnchor).isActive = true
+        card.rightAnchor.constraint(equalTo: scrollingStack.layoutMarginsGuide.rightAnchor).isActive = true
+        
+        let headerLabel = UILabel()
+        headerLabel.text = "Need to get tested?"
+        headerLabel.font = Font.medium(20)
+        headerLabel.textAlignment = .left
+        headerLabel.textColor = Color.blackText
+        headerLabel.numberOfLines = 1
+        headerLabel.adjustsFontSizeToFitWidth = true
+        headerLabel.minimumScaleFactor = 0.7
+        
+        let subtitleLabel = UILabel()
+        subtitleLabel.text = "Book an appointment directly through University Health Services:"
+        subtitleLabel.font = Font.medium(12)
+        subtitleLabel.numberOfLines = 2
+        subtitleLabel.textAlignment = .left
+        subtitleLabel.textColor = Color.blackText
+        
+        card.addSubview(headerLabel)
+        card.addSubview(subtitleLabel)
+        
+        headerLabel.translatesAutoresizingMaskIntoConstraints = false
+        headerLabel.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true
+        headerLabel.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
+        headerLabel.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
+
+        subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        subtitleLabel.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 8).isActive = true
+        subtitleLabel.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
+        subtitleLabel.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
+        
+        let bookButton = UIButton()
+        bookButton.titleLabel?.font = Font.medium(16)
+        bookButton.setTitle("Book Now", for: .normal)
+        bookButton.setTitleColor(.white, for: .normal)
+        bookButton.backgroundColor = Color.lowOccupancyTag
+        bookButton.layer.cornerRadius = 16.5
+        bookButton.addTarget(self, action: #selector(bookButtonPressed), for: .touchUpInside)
+        
+        card.addSubview(bookButton)
+        
+        bookButton.translatesAutoresizingMaskIntoConstraints = false
+        bookButton.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: kViewMargin).isActive = true
+        bookButton.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
+        
+        bookButton.setHeightConstraint(33)
+        bookButton.setWidthConstraint(110)
+        
+        bookButton.bottomAnchor.constraint(equalTo: card.layoutMarginsGuide.bottomAnchor).isActive = true
+    }
+    
     func screeningCard() {
         let card = CardView()
         card.layoutMargins = kCardPadding
@@ -214,7 +273,7 @@ extension CovidResourceViewController {
         let onCampusLabel = UILabel()
         onCampusLabel.text = "Will you be on campus today?"
         onCampusLabel.font = Font.bold(22)
-        onCampusLabel.numberOfLines = 1
+        onCampusLabel.numberOfLines = 2
         onCampusLabel.adjustsFontSizeToFitWidth = true
         onCampusLabel.minimumScaleFactor = 0.7
         onCampusLabel.textAlignment = .center
@@ -223,7 +282,7 @@ extension CovidResourceViewController {
         let subtitleLabel = UILabel()
         subtitleLabel.text = "Complete the symptom screener before entering campus."
         subtitleLabel.font = Font.regular(12)
-        subtitleLabel.numberOfLines = 1
+        subtitleLabel.numberOfLines = 2
         subtitleLabel.adjustsFontSizeToFitWidth = true
         subtitleLabel.minimumScaleFactor = 0.7
         subtitleLabel.textAlignment = .center
@@ -256,6 +315,14 @@ extension CovidResourceViewController {
         imageView.leftAnchor.constraint(equalTo: card.leftAnchor).isActive = true
         imageView.rightAnchor.constraint(equalTo: card.rightAnchor).isActive = true
         
+        onCampusLabel.translatesAutoresizingMaskIntoConstraints = false
+        onCampusLabel.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
+        onCampusLabel.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
+        
+        subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        subtitleLabel.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
+        subtitleLabel.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
+        
         stack.setCustomSpacing(-65, after: imageView)  // Bless whoever created this
         
         bearView.setHeightConstraint(130)
@@ -272,6 +339,13 @@ extension CovidResourceViewController {
         
         presentAlertLinkUrl(title: "Are you sure you want to open Safari?", message: "Berkeley Mobile wants to navigate to the Daily Symptom Screener", options: "Cancel", "Yes", website_url: url)
     }
+    
+    @objc private func bookButtonPressed(sender: UIButton) {
+        guard let url = URL(string: bookingUrl) else { return }
+        
+        presentAlertLinkUrl(title: "Are you sure you want to open Safari?", message: "Berkeley Mobile wants to navigate to the UHS Appointments Booking Page", options: "Cancel", "Yes", website_url: url)
+    }
+    
 }
 
 // MARK: - Analytics
