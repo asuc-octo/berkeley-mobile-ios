@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -23,18 +24,19 @@
                                 </constraints>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Blob2" translatesAutoresizingMaskIntoConstraints="NO" id="yc4-CI-cRC">
-                                <rect key="frame" x="-79.5" y="0.0" width="493.5" height="322"/>
+                                <rect key="frame" x="167.5" y="0.0" width="246.5" height="161"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Blob1" translatesAutoresizingMaskIntoConstraints="NO" id="zEp-EB-fPm">
-                                <rect key="frame" x="0.0" y="0.0" width="592" height="424"/>
+                                <rect key="frame" x="0.0" y="0.0" width="296" height="212"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Blob4" translatesAutoresizingMaskIntoConstraints="NO" id="aGC-E0-GC8">
-                                <rect key="frame" x="-382" y="670" width="796" height="226"/>
+                                <rect key="frame" x="16" y="783" width="398" height="113"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Blob3" translatesAutoresizingMaskIntoConstraints="NO" id="B7R-Ub-nnR">
-                                <rect key="frame" x="0.0" y="504" width="398" height="392"/>
+                                <rect key="frame" x="0.0" y="700" width="199" height="196"/>
                             </imageView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="M8W-Hc-K4I" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="0qw-jI-x2J"/>
@@ -50,7 +52,6 @@
                             <constraint firstItem="yc4-CI-cRC" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="hXd-MW-5Bc"/>
                             <constraint firstItem="zEp-EB-fPm" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="tMA-To-CJd"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
