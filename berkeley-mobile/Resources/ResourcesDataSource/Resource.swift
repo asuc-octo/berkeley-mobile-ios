@@ -31,13 +31,22 @@ class Resource: SearchItem, HasLocation, HasOpenTimes {
     let address: String?
     let description: String?
     var weeklyHours: WeeklyHours?
+
+    /// The category for this resource. See `ResourceType` for expected values.
+    var type: String?
+
+    /// The color associated with`type`. See `ResourceType` for provided colors.
+    var color: UIColor {
+        return ResourceType(rawValue: type ?? "")?.color ?? Color.eventDefault
+    }
     
-    init(name: String, address: String?, latitude: Double?, longitude: Double?, description: String?, hours: WeeklyHours?) {
+    init(name: String, address: String?, latitude: Double?, longitude: Double?, description: String?, hours: WeeklyHours?, type: String?) {
         self.name = name
         self.address = address
         self.latitude = latitude
         self.longitude = longitude
         self.description = description
         self.weeklyHours = hours
+        self.type = type
     }
 }
