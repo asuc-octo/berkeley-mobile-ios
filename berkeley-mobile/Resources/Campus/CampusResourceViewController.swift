@@ -72,7 +72,6 @@ extension CampusResourceViewController {
         ]
         resourcesTable = FilterTableView(frame: .zero, tableFunctions: functions, defaultSort: SortingFunctions.sortAlph(item1:item2:), initialSelectedIndices: [0])
         resourcesTable.tableView.register(ResourceTableViewCell.self, forCellReuseIdentifier: ResourceTableViewCell.kCellIdentifier)
-        resourcesTable.tableView.rowHeight = 103
 
         resourcesTable.tableView.delegate = self
         resourcesTable.tableView.dataSource = self
