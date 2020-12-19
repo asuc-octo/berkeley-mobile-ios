@@ -12,9 +12,8 @@ import Firebase
 fileprivate let kHeaderFont: UIFont = Font.bold(24)
 fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
 fileprivate let kViewMargin: CGFloat = 16
-fileprivate let kTodayClassesHeight: CGFloat = 300
-fileprivate let kTodayClassesCollapsedHeight: CGFloat = 92
-fileprivate let kUpcomingCollapsedHeight: CGFloat = 16  // Same as TableView 0 elements
+fileprivate let kClassesHeight: CGFloat = 300
+fileprivate let kClassesCollapsedHeight: CGFloat = 92
 
 class FitnessViewController: UIViewController, SearchDrawerViewDelegate {
 
@@ -32,26 +31,21 @@ class FitnessViewController: UIViewController, SearchDrawerViewDelegate {
     private var scrollView: UIScrollView!
     private var content: UIView!
     
-    private var upcomingCard: CardView!
-    private var todayCard: CardView!
+    private var classesCard: CardView!
     private var gymCard: CardView!
     
     private var showButton: UIButton!
     private var missingClassesView: MissingDataView!
-    private var missingUpcomingView: MissingDataView!
     
     private var bClassesExpanded = false
     
-    // For use in the "Today" card
+    // For use in the "Classes" card
     private var classesTable: UITableView!
-    // For use in the "Upcoming" card
-    private var classesCollection: CardCollectionView!
     // To display a list of gyms in the "Fitness Centers" card
     var filterTableView = FilterTableView<Gym>(frame: .zero, tableFunctions: [], defaultSort: SortingFunctions.sortAlph(item1:item2:))
     
     var gyms: [Gym] = []
-    var upcomingClasses: [GymClass] = []
-    var todayClasses: [GymClass] = []
+    var futureClasses: [GymClass] = []
     
     private var classesController = GymClassesController()
     private var gymsController = GymsController()
@@ -63,8 +57,7 @@ class FitnessViewController: UIViewController, SearchDrawerViewDelegate {
         view.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
         
         setupScrollView()
-        setupUpcomingClasses()
-        setupTodayClasses()
+        setupClasses()
         setupGyms()
         
         // Update `filterTableView` when user location is updated.
@@ -86,27 +79,17 @@ class FitnessViewController: UIViewController, SearchDrawerViewDelegate {
                 lhs.date == rhs.date ? lhs.name < rhs.name :  lhs.date < rhs.date
             }
             
-            self.todayClasses = classes.filter { (classes) -> Bool in
-                guard let start = classes.first?.date else { return false }
-                return Calendar.current.isDateInToday(start)
-            }.first?.sorted(by: sortFn) ?? []
-            self.upcomingClasses = classes.reduce([], +).sorted(by: sortFn)
+            self.futureClasses = classes.reduce([], +).sorted(by: sortFn)
             
-            if (self.upcomingClasses.count == 0) {
-                self.missingUpcomingView.isHidden = false
-                self.classesCollection.setHeightConstraint(kUpcomingCollapsedHeight)
-            }
-            
-            if (self.todayClasses.count == 0) {
+            if (self.futureClasses.count == 0) {
                 self.showButton.isHidden = true
                 self.missingClassesView.isHidden = false
-                self.todayCard.setHeightConstraint(kTodayClassesCollapsedHeight)
+                self.classesCard.setHeightConstraint(kClassesCollapsedHeight)
             }
             
             self.scrollView.layoutSubviews()
             
             self.classesTable.reloadData()
-            self.classesCollection.reloadData()
         }
         
         // fetch gyms and fetch occupancy data afterwards
@@ -125,13 +108,13 @@ class FitnessViewController: UIViewController, SearchDrawerViewDelegate {
     @objc func willExpandClasses() {
         UIView.animate(withDuration: 0.2) {
             if !self.bClassesExpanded {
-                self.todayCard.heightConstraint?.constant = self.view.frame.height
-                self.todayCard.heightConstraint?.constant -=  self.view.layoutMargins.top + self.view.layoutMargins.bottom
+                self.classesCard.heightConstraint?.constant = self.view.frame.height
+                self.classesCard.heightConstraint?.constant -=  self.view.layoutMargins.top + self.view.layoutMargins.bottom
             } else {
-                self.todayCard.heightConstraint?.constant = kTodayClassesHeight
+                self.classesCard.heightConstraint?.constant = kClassesHeight
             }
             self.bClassesExpanded = !self.bClassesExpanded
-            self.scrollView.contentOffset = CGPoint(x: 0, y: self.todayCard.frame.minY)
+            self.scrollView.contentOffset = CGPoint(x: 0, y: self.classesCard.frame.minY)
             self.scrollView.contentOffset.y -= self.view.layoutMargins.top
             self.view.layoutIfNeeded()
             self.viewDidLayoutSubviews()
@@ -163,7 +146,7 @@ extension FitnessViewController {
     }
     
     // Upcoming Classes
-    func setupUpcomingClasses() {
+    func setupClasses() {
         let card = CardView()
         card.layoutMargins = kCardPadding
         scrollView.addSubview(card)
@@ -171,53 +154,11 @@ extension FitnessViewController {
         card.topAnchor.constraint(equalTo: content.layoutMarginsGuide.topAnchor).isActive = true
         card.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
         card.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
-        
-        let contentView = UIView()
-        contentView.layer.masksToBounds = true
-        card.addSubview(contentView)
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.setConstraintsToView(top: card, bottom: card, left: card, right: card)
+        card.heightAnchor.constraint(equalToConstant: kClassesHeight).isActive = true
         
         let headerLabel = UILabel()
         headerLabel.font = kHeaderFont
-        headerLabel.text = "Upcoming"
-        contentView.addSubview(headerLabel)
-        headerLabel.translatesAutoresizingMaskIntoConstraints = false
-        headerLabel.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true
-        headerLabel.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
-        headerLabel.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
-        
-        let collectionView = CardCollectionView(frame: .zero)
-        collectionView.dataSource = classesController
-        collectionView.contentInset = UIEdgeInsets(top: 0, left: card.layoutMargins.left, bottom: 0, right: card.layoutMargins.right)
-        contentView.addSubview(collectionView)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: kViewMargin).isActive = true
-        collectionView.heightAnchor.constraint(equalToConstant: CardCollectionViewCell.kCardSize.height).isActive = true
-        collectionView.leftAnchor.constraint(equalTo: card.leftAnchor).isActive = true
-        collectionView.rightAnchor.constraint(equalTo: card.rightAnchor).isActive = true
-        
-        collectionView.bottomAnchor.constraint(equalTo: card.layoutMarginsGuide.bottomAnchor).isActive = true
-        upcomingCard = card
-        classesCollection = collectionView
-        
-        missingUpcomingView = MissingDataView(parentView: collectionView, text: "No upcoming classes")
-    }
-    
-    // Upcoming Classes
-    func setupTodayClasses() {
-        let card = CardView()
-        card.layoutMargins = kCardPadding
-        scrollView.addSubview(card)
-        card.translatesAutoresizingMaskIntoConstraints = false
-        card.topAnchor.constraint(equalTo: upcomingCard.bottomAnchor, constant: kViewMargin).isActive = true
-        card.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
-        card.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
-        card.heightAnchor.constraint(equalToConstant: kTodayClassesHeight).isActive = true
-        
-        let headerLabel = UILabel()
-        headerLabel.font = kHeaderFont
-        headerLabel.text = "Today"
+        headerLabel.text = "Classes"
         card.addSubview(headerLabel)
         headerLabel.translatesAutoresizingMaskIntoConstraints = false
         headerLabel.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true
@@ -237,11 +178,11 @@ extension FitnessViewController {
         scheduleButton.leftAnchor.constraint(greaterThanOrEqualTo: headerLabel.rightAnchor, constant: 5).isActive = true
         
         classesTable = UITableView()
-        classesTable.allowsSelection = false
         classesTable.separatorStyle = .none
         classesTable.showsVerticalScrollIndicator = false
         classesTable.rowHeight = EventTableViewCell.kCellHeight
         classesTable.dataSource = classesController
+        classesTable.delegate = classesController
         classesTable.register(EventTableViewCell.self, forCellReuseIdentifier: GymClassesController.kCellIdentifier)
         card.addSubview(classesTable)
         classesTable.translatesAutoresizingMaskIntoConstraints = false
@@ -250,7 +191,7 @@ extension FitnessViewController {
         classesTable.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
         classesTable.bottomAnchor.constraint(equalTo: card.layoutMarginsGuide.bottomAnchor).isActive = true
                 
-        todayCard = card
+        classesCard = card
         showButton = scheduleButton
         missingClassesView = MissingDataView(parentView: classesTable, text: "No classes found")
     }
@@ -261,7 +202,7 @@ extension FitnessViewController {
         card.layoutMargins = kCardPadding
         scrollView.addSubview(card)
         card.translatesAutoresizingMaskIntoConstraints = false
-        card.topAnchor.constraint(equalTo: todayCard.bottomAnchor, constant: kViewMargin).isActive = true
+        card.topAnchor.constraint(equalTo: classesCard.bottomAnchor, constant: kViewMargin).isActive = true
         card.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
         card.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
         card.heightAnchor.constraint(equalTo: view.layoutMarginsGuide.heightAnchor).isActive = true

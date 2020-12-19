@@ -41,7 +41,8 @@ class ResourceDataSource: DataSource {
                                             latitude: dict["latitude"] as? Double,
                                             longitude: dict["longitude"] as? Double,
                                             description: dict["description"] as? String,
-                                            hours: weeklyHours)
+                                            hours: weeklyHours,
+                                            type: dict["tag"] as? String)
         return campusResource
     }
 }

@@ -66,7 +66,7 @@ class FilterTableViewCell: UITableViewCell, ImageViewCell {
         cellImageView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -5).isActive = true
         cellImageView.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
         cellImageView.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor).isActive = true
-        cellImageView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.35).isActive = true
+        cellImageView.widthAnchor.constraint(equalTo: cellImageView.heightAnchor, multiplier: 1.0).isActive = true
         
         locationOccupancyView.rightAnchor.constraint(equalTo: cellImageView.leftAnchor, constant: -10).isActive = true
         locationOccupancyView.topAnchor.constraint(greaterThanOrEqualTo: nameLabel.bottomAnchor, constant: 5).isActive = true
@@ -118,7 +118,7 @@ class FilterTableViewCell: UITableViewCell, ImageViewCell {
     
     let nameLabel: UILabel = {
         let label = UILabel()
-        label.font = Font.bold(20)
+        label.font = Font.bold(18)
         label.textColor = Color.blackText
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontSizeToFitWidth = true

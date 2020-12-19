@@ -25,6 +25,7 @@ class DrawerViewController: UIViewController {
     }
     
     static var bottomOffsetY: CGFloat = 0
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +38,15 @@ class DrawerViewController: UIViewController {
         
         setupBackgroundView()
         setupGestures()
+        
+        let nc = NotificationCenter.default
+        nc.addObserver(self, selector: #selector(collapseTopDrawer), name: Notification.Name(TabBarController.homePressedCollapseMessage), object: nil)
     }
+    
+    @objc func collapseTopDrawer() {
+        delegate.moveDrawer(to: .collapsed)
+    }
+
     
     func setupBackgroundView() {
         view.backgroundColor = Color.modalBackground

@@ -92,7 +92,8 @@ class ResourceTableViewCell: UITableViewCell, ImageViewCell {
     func cellConfigure(entry: Resource) {
         resourceName.text = entry.name
         
-        resourceCategory.text = "Resource"
+        resourceCategory.text = entry.type ?? "Resource"
+        resourceCategory.backgroundColor = entry.color
         
         cellImageView.image = UIImage(named: "DoeGlade")
     }

@@ -18,49 +18,24 @@ class GymClassesController: NSObject {
     weak var vc: FitnessViewController!
 }
 
-// MARK: - "Upcoming" UICollectionView
-
-// Dummy Data
-extension GymClassesController: UICollectionViewDataSource {
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return vc.upcomingClasses.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CardCollectionView.kCellIdentifier, for: indexPath)
-        if let card = cell as? CardCollectionViewCell {
-            if let gymClass = vc.upcomingClasses[safe: indexPath.row] {
-                card.title.text = gymClass.name
-                card.subtitle.text = gymClass.description(components: [.date, .startTime])
-                card.badge.text = gymClass.type
-                card.badge.backgroundColor = gymClass.color
-                card.badge.isHidden = gymClass.type == nil
-            }
-        }
-        return cell
-    }
-    
-}
-
-// MARK: - "Today" UITableView
+// MARK: - "Classes" UITableView
 
 extension GymClassesController: UITableViewDataSource {
     
     static let kCellIdentifier = "GymClassTableCell"
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return vc.todayClasses.count
+        return vc.futureClasses.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: GymClassesController.kCellIdentifier, for: indexPath)
         if let cell = cell as? EventTableViewCell {
-            if let gymClass = vc.todayClasses[safe: indexPath.row] {
+            if let gymClass = vc.futureClasses[safe: indexPath.row] {
                 cell.cellConfigure(event: gymClass, type: gymClass.type, color: gymClass.color)
-                cell.eventTime.text = gymClass.description(components: [.startTime, .duration, .location])
+                cell.eventTime.text = gymClass.description(components: [.date, .startTime, .duration, .location])
                 
-                if let url = gymClass.website_link, gymClass.location == "Zoom" {
+                if let url = gymClass.link, gymClass.location == "Zoom" {
                     let tapGesture = DetailTapGestureRecognizer(target: self, action:
                                                                 #selector(GymClassesController.zoomTapped(gesture:)))
                     tapGesture.eventUrl = URL(string: url)
@@ -79,4 +54,11 @@ extension GymClassesController: UITableViewDataSource {
         }
     }
     
+}
+
+extension GymClassesController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        vc.futureClasses[indexPath.row].addToDeviceCalendar(vc: vc)
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
 }
