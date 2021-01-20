@@ -128,6 +128,7 @@
 		306A550023614C0000D59A7F /* MainContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306A54FF23614C0000D59A7F /* MainContainerViewController.swift */; };
 		5516088624392E5100B1E55B /* DiningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5516088524392E5100B1E55B /* DiningViewController.swift */; };
 		5516088824393F3F00B1E55B /* MissingDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5516088724393F3F00B1E55B /* MissingDataView.swift */; };
+		55208DF225B7D95E00A75983 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55208DF125B7D95E00A75983 /* ProfileViewController.swift */; };
 		552F4A4C254E13BF0061D0F2 /* CampusResourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552F4A4B254E13BF0061D0F2 /* CampusResourceViewController.swift */; };
 		552F4A51254E16350061D0F2 /* CovidResourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552F4A50254E16350061D0F2 /* CovidResourceViewController.swift */; };
 		5532B67B2390CBF600293BE0 /* MaterialLoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532B67A2390CBF600293BE0 /* MaterialLoadingIndicator.swift */; };
@@ -282,6 +283,7 @@
 		3A826C1BD0A2BCA2F083C6EE /* Pods_berkeley_mobile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_berkeley_mobile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5516088524392E5100B1E55B /* DiningViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiningViewController.swift; sourceTree = "<group>"; };
 		5516088724393F3F00B1E55B /* MissingDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissingDataView.swift; sourceTree = "<group>"; };
+		55208DF125B7D95E00A75983 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		552F4A4B254E13BF0061D0F2 /* CampusResourceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusResourceViewController.swift; sourceTree = "<group>"; };
 		552F4A50254E16350061D0F2 /* CovidResourceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CovidResourceViewController.swift; sourceTree = "<group>"; };
 		5532B67A2390CBF600293BE0 /* MaterialLoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialLoadingIndicator.swift; sourceTree = "<group>"; };
@@ -717,6 +719,7 @@
 				13B39A8E23E6A1ED0039FBA2 /* Libraries */,
 				556DB0DD23E7F5ED00F12721 /* Resources */,
 				136DC9792398B43F009B1810 /* Fitness */,
+				55208DF025B7D93E00A75983 /* StudyPact */,
 				1336A31E241D90B800949F32 /* Dining */,
 				303F6AE6236A9C3D007E37DD /* Map */,
 				133864A72404E857001F9048 /* Calendar */,
@@ -730,6 +733,14 @@
 				29010C792539648B00CDA48A /* GoogleService-Info.plist */,
 			);
 			path = "berkeley-mobile";
+			sourceTree = "<group>";
+		};
+		55208DF025B7D93E00A75983 /* StudyPact */ = {
+			isa = PBXGroup;
+			children = (
+				55208DF125B7D95E00A75983 /* ProfileViewController.swift */,
+			);
+			path = StudyPact;
 			sourceTree = "<group>";
 		};
 		552F4A4A254E13960061D0F2 /* Campus */ = {
@@ -1088,6 +1099,7 @@
 				01D11B902504560700BDF660 /* GymDetailViewController.swift in Sources */,
 				55AF442D2453ACE600F13232 /* DiningLocation.swift in Sources */,
 				1336A329241DA56100949F32 /* DiningHallDataSource.swift in Sources */,
+				55208DF225B7D95E00A75983 /* ProfileViewController.swift in Sources */,
 				55EDAA742569D730006BAFAC /* CovidResource.swift in Sources */,
 				55EDAA702569D622006BAFAC /* CovidResourceDataSource.swift in Sources */,
 				136DC97B2398B4D1009B1810 /* UIViewController+Extensions.swift in Sources */,
