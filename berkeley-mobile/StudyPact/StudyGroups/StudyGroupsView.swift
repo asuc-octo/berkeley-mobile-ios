@@ -14,25 +14,29 @@ class StudyGroupsView: UIView {
     static let cellsPerRow = 2
     
     var studyGroups: [StudyGroup] = []
-    var collectionHeightConstraint: NSLayoutConstraint!
+    var includeCreateGroup: Bool = false
+    private var collectionHeightConstraint: NSLayoutConstraint!
     
     private let collection: UICollectionView = {
         let collection = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout.init())
         collection.translatesAutoresizingMaskIntoConstraints = false
         collection.register(StudyGroupCell.self, forCellWithReuseIdentifier: StudyGroupCell.kCellIdentifier)
+        collection.register(CreateGroupCell.self, forCellWithReuseIdentifier: CreateGroupCell.kCellIdentifier)
         collection.backgroundColor = .clear
+        collection.showsVerticalScrollIndicator = false
         
         collection.layer.masksToBounds = true
-        collection.contentInset = UIEdgeInsets(top: 5, left: 5, bottom: 0, right: 5)
+        collection.contentInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         collection.contentInsetAdjustmentBehavior = .never
         
         return collection
     }()
-
-    public init(studyGroups: [StudyGroup]) {
+    
+    public init(studyGroups: [StudyGroup], includeCreateGroup: Bool = false) {
         super.init(frame: .zero)
         
         self.studyGroups = studyGroups
+        self.includeCreateGroup = includeCreateGroup
         
         collection.delegate = self
         collection.dataSource = self
@@ -76,18 +80,24 @@ extension StudyGroupsView: UICollectionViewDelegate, UICollectionViewDataSource,
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.studyGroups.count
+        return self.studyGroups.count + (includeCreateGroup ? 1 : 0)
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: StudyGroupCell.kCellIdentifier, for: indexPath)
-        if let studyGroupCell = cell as? StudyGroupCell,
-           let group = studyGroups[safe: indexPath.section * StudyGroupsView.cellsPerRow + indexPath.row] {
-            studyGroupCell.configure(studyGroup: group)
+        if indexPath.row == 0 && includeCreateGroup {
+            return collectionView.dequeueReusableCell(withReuseIdentifier: CreateGroupCell.kCellIdentifier, for: indexPath)
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: StudyGroupCell.kCellIdentifier, for: indexPath)
+            let index = indexPath.row - (includeCreateGroup ? 1 : 0)
+            if let studyGroupCell = cell as? StudyGroupCell {
+                if let group = studyGroups[safe: index] {
+                    studyGroupCell.configure(studyGroup: group)
+                }
+            }
+            return cell
         }
-        return cell
     }
 }
 
@@ -138,11 +148,11 @@ class StudyGroupCell: UICollectionViewCell {
         
         let card = CardView()
         card.translatesAutoresizingMaskIntoConstraints = false
-        self.contentView.addSubview(card)
-        card.topAnchor.constraint(equalTo: self.contentView.topAnchor).isActive = true
-        card.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor).isActive = true
-        card.leftAnchor.constraint(equalTo: self.contentView.leftAnchor).isActive = true
-        card.rightAnchor.constraint(equalTo: self.contentView.rightAnchor).isActive = true
+        contentView.addSubview(card)
+        card.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+        card.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        card.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
+        card.rightAnchor.constraint(equalTo: contentView.rightAnchor).isActive = true
         
         card.addSubview(classLabel)
         classLabel.leftAnchor.constraint(equalTo: card.leftAnchor, constant: kViewMargin).isActive = true
@@ -154,18 +164,18 @@ class StudyGroupCell: UICollectionViewCell {
         profilePictureStack.rightAnchor.constraint(equalTo: card.rightAnchor, constant: -1 * kViewMargin).isActive = true
         profilePictureStack.topAnchor.constraint(equalTo: classLabel.bottomAnchor, constant: 6).isActive = true
         
-        self.contentView.addSubview(environmentTag)
+        contentView.addSubview(environmentTag)
         environmentTag.leftAnchor.constraint(equalTo: card.leftAnchor, constant: kViewMargin).isActive = true
         environmentTag.topAnchor.constraint(greaterThanOrEqualTo: profilePictureStack.bottomAnchor, constant: 10).isActive = true
         environmentTag.bottomAnchor.constraint(equalTo: card.bottomAnchor, constant: -1 * kViewMargin).isActive = true
         
-        self.contentView.addSubview(meetingTag)
+        contentView.addSubview(meetingTag)
         meetingTag.leftAnchor.constraint(greaterThanOrEqualTo: environmentTag.rightAnchor, constant: 6).isActive = true
         meetingTag.rightAnchor.constraint(equalTo: card.rightAnchor, constant: -1 * kViewMargin).isActive = true
         meetingTag.topAnchor.constraint(equalTo: environmentTag.topAnchor).isActive = true
         meetingTag.bottomAnchor.constraint(equalTo: environmentTag.bottomAnchor).isActive = true
         
-        self.contentView.addSubview(pendingTag)
+        contentView.addSubview(pendingTag)
         pendingTag.leftAnchor.constraint(equalTo: card.leftAnchor, constant: kViewMargin).isActive = true
         pendingTag.rightAnchor.constraint(lessThanOrEqualTo: card.rightAnchor, constant: -1 * kViewMargin).isActive = true
         pendingTag.topAnchor.constraint(greaterThanOrEqualTo: classLabel.bottomAnchor, constant: 10).isActive = true
@@ -202,12 +212,13 @@ class StudyGroupCell: UICollectionViewCell {
         for var member in studyGroup.groupMembers {
             let profileImageView = UIImageView()
             profileImageView.image = UIImage(named: "Profile")
-            profileImageView.layer.cornerRadius = 13
             profileImageView.contentMode = .scaleAspectFill
             profileImageView.clipsToBounds = true
+            let profileRadius: CGFloat = 13
+            profileImageView.layer.cornerRadius = profileRadius
             profileImageView.translatesAutoresizingMaskIntoConstraints = false
-            profileImageView.widthAnchor.constraint(equalToConstant: 26).isActive = true
-            profileImageView.heightAnchor.constraint(equalToConstant: 26).isActive = true
+            profileImageView.widthAnchor.constraint(equalToConstant: 2 * profileRadius).isActive = true
+            profileImageView.heightAnchor.constraint(equalToConstant: 2 * profileRadius).isActive = true
             
             profilePictureStack.addArrangedSubview(profileImageView)
             if let url = member.profilePictureURL {
@@ -231,12 +242,96 @@ class StudyGroupCell: UICollectionViewCell {
             profilePictureStack.addArrangedSubview(filler)
             profilePictureStack.distribution = .fill
             profilePictureStack.spacing = 5
+        } else {
+            profilePictureStack.distribution = .equalCentering
+            profilePictureStack.spacing = -10
         }
         if studyGroup.virtual {
             meetingTag.text = "Virtual"
         } else {
             meetingTag.text = "In Person"
         }
+    }
+}
+
+class CreateGroupCell: UICollectionViewCell {
+    static let kCellIdentifier = "createGroupCell"
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        backgroundColor = Color.cardBackground
+        layer.cornerRadius = 12
+        
+        let bounds = contentView.bounds
+        let layer = CAShapeLayer.init()
+        let path = UIBezierPath(roundedRect: bounds, cornerRadius: 12)
+        layer.path = path.cgPath
+        layer.strokeColor = Color.StudyGroups.createGroupDottedBorder.cgColor
+        layer.lineDashPattern = [2, 2]
+        layer.fillColor = nil
+        contentView.layer.addSublayer(layer)
+        
+        let joinedView = UIView()
+        joinedView.translatesAutoresizingMaskIntoConstraints = false
+        joinedView.addSubview(createGroupPlus)
+        createGroupPlus.centerYAnchor.constraint(equalTo: joinedView.centerYAnchor).isActive = true
+        createGroupPlus.leftAnchor.constraint(equalTo: joinedView.leftAnchor).isActive = true
+        joinedView.addSubview(createGroupLabel)
+        createGroupLabel.centerYAnchor.constraint(equalTo: joinedView.centerYAnchor).isActive = true
+        createGroupLabel.leftAnchor.constraint(equalTo: createGroupPlus.rightAnchor, constant: kViewMargin).isActive = true
+        createGroupLabel.rightAnchor.constraint(equalTo: joinedView.rightAnchor).isActive = true
+        
+        contentView.addSubview(joinedView)
+        joinedView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        joinedView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+        
+        setUpGestureRecognizer()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    let createGroupPlus: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        let circleRadius: CGFloat = 9.5
+        view.layer.cornerRadius = circleRadius
+        view.backgroundColor = Color.StudyGroups.createGroupGreenPlus
+        view.widthAnchor.constraint(equalToConstant: 2 * circleRadius).isActive = true
+        view.heightAnchor.constraint(equalToConstant: 2 * circleRadius).isActive = true
+        
+        let plus = UILabel()
+        plus.translatesAutoresizingMaskIntoConstraints = false
+        plus.text = "+"
+        plus.textColor = UIColor.white
+        plus.font = Font.medium(16)
+        view.addSubview(plus)
+        plus.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        plus.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        
+        return view
+    }()
+    
+    let createGroupLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 2
+        label.font = Font.medium(16)
+        label.alpha = 0.51
+        label.text = "Create\nGroup"
+        return label
+    }()
+    
+    private func setUpGestureRecognizer() {
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(self.goToCreateGroup(_:)))
+        self.addGestureRecognizer(gesture)
+    }
+    
+    @objc func goToCreateGroup(_ sender: UITapGestureRecognizer) {
+        print("Create Group tapped")
+        // TODO: go to create group flow
     }
 }
 

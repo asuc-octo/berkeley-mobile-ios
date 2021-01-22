@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ResourceTableViewCell: UITableViewCell, ImageViewCell {
+class ResourceTableViewCell: CardTableViewCell, ImageViewCell {
     
     static let kCellIdentifier = "resourceCell"
 
@@ -23,39 +23,11 @@ class ResourceTableViewCell: UITableViewCell, ImageViewCell {
         super.prepareForReuse()
         self.cancelImageOnReuse()
     }
-   
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        // Setup spacing between cells
-        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top:7.5, left:5, bottom:7.5, right:5))
-        backgroundView?.frame = contentView.frame
-        selectedBackgroundView?.frame = contentView.frame
-        
-        // Setup corner radius and drop shadow
-        backgroundColor = .clear
-        backgroundView?.backgroundColor = Color.modalBackground
-        
-        backgroundView?.layer.masksToBounds = false
-        backgroundView?.layer.cornerRadius = 6
-        selectedBackgroundView?.layer.masksToBounds = true
-        selectedBackgroundView?.layer.cornerRadius = 6
-        contentView.layer.masksToBounds = true
-        contentView.layer.cornerRadius = 6
-        
-        backgroundView?.layer.shadowOpacity = 0.25
-        backgroundView?.layer.shadowRadius = 5
-        backgroundView?.layer.shadowOffset = .zero
-        backgroundView?.layer.shadowColor = UIColor.black.cgColor
-        backgroundView?.layer.shadowPath = UIBezierPath(rect: contentView.bounds.insetBy(dx: 4, dy: 4)).cgPath
-    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         contentView.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
-        
-        backgroundView = UIView()
         
         contentView.addSubview(resourceName)
         contentView.addSubview(resourceCategory)

@@ -14,4 +14,5 @@ struct StudyGroup {
     let collaborative: Bool
     let virtual: Bool
     let pending: Bool
+    let preferredNumberMembers: Int
 }

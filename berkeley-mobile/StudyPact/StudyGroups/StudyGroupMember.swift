@@ -13,5 +13,5 @@ struct StudyGroupMember {
     var profilePicture: UIImage?
     let name: String
     let email: String
-    let phoneNumber: String
+    let phoneNumber: String?
 }

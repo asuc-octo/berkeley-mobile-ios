@@ -35,7 +35,9 @@ class AllStudyGroupsViewController: UIViewController {
     }()
     
     @objc func goToPreferences() {
-        
+        let vc = StudyPreferencesViewController()
+        vc.studyGroups = studyGroups
+        self.present(vc, animated: true, completion: nil)
     }
     
     override func viewDidLoad() {
@@ -64,7 +66,7 @@ class AllStudyGroupsViewController: UIViewController {
         titleLabel.leftAnchor.constraint(equalTo: card.leftAnchor, constant: kViewMargin).isActive = true
         titleLabel.rightAnchor.constraint(lessThanOrEqualTo: self.view.rightAnchor, constant: -1 * kViewMargin).isActive = true
         
-        let groupGrid = StudyGroupsView(studyGroups: studyGroups)
+        let groupGrid = StudyGroupsView(studyGroups: studyGroups, includeCreateGroup: true)
         groupGrid.translatesAutoresizingMaskIntoConstraints = false
         card.addSubview(groupGrid)
         groupGrid.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: kViewMargin).isActive = true
@@ -76,18 +78,6 @@ class AllStudyGroupsViewController: UIViewController {
         preferencesButton.topAnchor.constraint(equalTo: card.bottomAnchor, constant: kViewMargin).isActive = true
         preferencesButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -1 * kViewMargin).isActive = true
         preferencesButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: kViewMargin).isActive = true
-        preferencesButton.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -1 * kViewMargin).isActive = true
+        preferencesButton.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -2 * kViewMargin).isActive = true
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
