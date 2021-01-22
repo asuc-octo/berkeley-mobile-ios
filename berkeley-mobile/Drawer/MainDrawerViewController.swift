@@ -41,7 +41,7 @@ class MainDrawerViewController: DrawerViewController {
     // set up the libraries, dining, and fitness tabs
     func setupTabBar() {
         tabBarViewController.pages = [
-            Page(viewController: LibraryViewController(), label: "Libraries"),
+            Page(viewController: LibraryViewController(), label: "Study"),
             Page(viewController: DiningViewController(), label: "Dining"),
             Page(viewController: FitnessViewController(), label: "Fitness")
         ]

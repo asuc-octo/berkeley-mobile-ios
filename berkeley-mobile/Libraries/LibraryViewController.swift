@@ -24,6 +24,14 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
     var safeArea: UILayoutGuide!
     var libraries: [Library] = []
     
+    var studyPactCard: CardView = CardView()
+    let studyPactContent: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    var showingStudyGroups: Bool?
+    
     let bookImage:UIImageView = {
         let img = UIImageView()
         img.contentMode = .scaleAspectFit
@@ -66,18 +74,110 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
         super.loadView()
         //removes separator lines
         safeArea = view.layoutMarginsGuide
-        setupTableView()
+        view.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+        setUpStudyPactCard()
+        setUpTableView()
     }
     
-    func setupTableView() {
-        //general setup and constraints
-        view.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+    func setUpStudyPactCard() {
+        studyPactCard = CardView()
+        studyPactCard.layoutMargins = UIEdgeInsets(top: 12, left: 16, bottom: 16, right: 16)
+        view.addSubview(studyPactCard)
+        studyPactCard.translatesAutoresizingMaskIntoConstraints = false
+        studyPactCard.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
+        studyPactCard.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
+        studyPactCard.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
+        studyPactCard.heightAnchor.constraint(equalToConstant: 140).isActive = true
         
+        let studyGroupsLabel = UILabel()
+        studyGroupsLabel.text = "Your Study Groups"
+        studyGroupsLabel.font = Font.bold(24)
+        studyGroupsLabel.adjustsFontSizeToFitWidth = true
+        studyGroupsLabel.textColor = Color.blackText
+        studyPactCard.addSubview(studyGroupsLabel)
+        studyGroupsLabel.translatesAutoresizingMaskIntoConstraints = false
+        studyGroupsLabel.leftAnchor.constraint(equalTo: studyPactCard.layoutMarginsGuide.leftAnchor).isActive = true
+        studyGroupsLabel.topAnchor.constraint(equalTo: studyPactCard.layoutMarginsGuide.topAnchor).isActive = true
+        
+        let allButton = UIButton()
+        allButton.setTitle("See All >", for: .normal)
+        allButton.titleLabel?.font = Font.light(12)
+        allButton.setTitleColor(Color.primaryText, for: .normal)
+        allButton.setTitleColor(.black, for: .highlighted)
+        allButton.addTarget(self, action: #selector(goToAllStudyGroups), for: .touchUpInside)
+        studyPactCard.addSubview(allButton)
+        allButton.translatesAutoresizingMaskIntoConstraints = false
+        allButton.centerYAnchor.constraint(equalTo: studyGroupsLabel.centerYAnchor).isActive = true
+        allButton.rightAnchor.constraint(equalTo: studyPactCard.layoutMarginsGuide.rightAnchor).isActive = true
+        allButton.leftAnchor.constraint(greaterThanOrEqualTo: studyGroupsLabel.rightAnchor, constant: 5).isActive = true
+        
+        studyPactCard.addSubview(studyPactContent)
+        studyPactContent.topAnchor.constraint(equalTo: studyGroupsLabel.bottomAnchor, constant: 12).isActive = true
+        studyPactContent.rightAnchor.constraint(equalTo: studyPactCard.layoutMarginsGuide.rightAnchor).isActive = true
+        studyPactContent.leftAnchor.constraint(equalTo: studyPactCard.layoutMarginsGuide.leftAnchor).isActive = true
+        studyPactContent.bottomAnchor.constraint(equalTo: studyPactCard.layoutMarginsGuide.bottomAnchor).isActive = true
+        refreshStudyGroupContents()
+    }
+    
+    func refreshStudyGroupContents() {
+        // TODO: once auth/profile is done set to use actual value
+        let date = Date()
+        let calendar = Calendar.current
+        let seconds = calendar.component(.second, from: date)
+        let profileComplete = seconds % 2 == 1
+        
+        if profileComplete {
+            if let showing = showingStudyGroups, showing {
+                // refresh gridview
+            } else {
+                for view in studyPactContent.subviews {
+                    view.removeFromSuperview()
+                }
+                
+            }
+            showingStudyGroups = true
+        } else {
+            let addButton = !(showingStudyGroups ?? true)
+            if addButton {
+                for view in studyPactContent.subviews {
+                    view.removeFromSuperview()
+                }
+                let profileButton = UIButton()
+                profileButton.setTitle("Set up your profile to join a study group >", for: .normal)
+                profileButton.titleLabel?.lineBreakMode = .byWordWrapping
+                profileButton.titleLabel?.font = Font.regular(16)
+                profileButton.titleLabel?.textAlignment = .left
+                profileButton.setTitleColor(Color.primaryText, for: .normal)
+                profileButton.setTitleColor(.black, for: .highlighted)
+                
+                profileButton.addTarget(self, action: #selector(goToProfile), for: .touchUpInside)
+                studyPactContent.addSubview(profileButton)
+                profileButton.translatesAutoresizingMaskIntoConstraints = false
+                profileButton.centerYAnchor.constraint(equalTo: studyPactContent.centerYAnchor).isActive = true
+                profileButton.rightAnchor.constraint(equalTo: studyPactContent.rightAnchor).isActive = true
+                profileButton.leftAnchor.constraint(equalTo: studyPactContent.leftAnchor).isActive = true
+            }
+            showingStudyGroups = false
+        }
+    }
+    
+    @objc func goToAllStudyGroups() {
+        
+    }
+    
+    @objc func goToProfile() {
+        if let tabBarController = UIApplication.shared.windows.first!.rootViewController as? TabBarController {
+            tabBarController.selectProfileTab()
+        }
+    }
+    
+    func setUpTableView() {
+        //general setup and constraints
         let card = CardView()
-        card.layoutMargins = UIEdgeInsets(top: 20, left: 16, bottom: 16, right: 16)
+        card.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
         view.addSubview(card)
         card.translatesAutoresizingMaskIntoConstraints = false
-        card.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
+        card.topAnchor.constraint(equalTo: studyPactCard.bottomAnchor, constant: kViewMargin).isActive = true
         card.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
         card.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
         card.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
@@ -148,5 +248,7 @@ extension LibraryViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         Analytics.logEvent("opened_library_screen", parameters: nil)
+        
+        refreshStudyGroupContents()
     }
 }
