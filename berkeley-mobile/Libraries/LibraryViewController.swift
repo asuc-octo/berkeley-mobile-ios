@@ -30,7 +30,7 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    var showingStudyGroups: Bool?
+    var studyGroupsGrid: StudyGroupsView?
     
     let bookImage:UIImageView = {
         let img = UIImageView()
@@ -87,7 +87,7 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
         studyPactCard.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
         studyPactCard.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
         studyPactCard.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
-        studyPactCard.heightAnchor.constraint(equalToConstant: 140).isActive = true
+        studyPactCard.heightAnchor.constraint(equalToConstant: 180).isActive = true
         
         let studyGroupsLabel = UILabel()
         studyGroupsLabel.text = "Your Study Groups"
@@ -119,29 +119,53 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
         refreshStudyGroupContents()
     }
     
+    // TODO: remove
+    func getDummyGroups() -> [StudyGroup] {
+        let person0 = StudyGroupMember(profilePictureURL: URL(string: "https://images.generated.photos/hApOLywddgHrBNt5NWqIFViI1dJNQ7oev8TKAfmsuGE/rs:fit:256:256/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA0NzY1MjkuanBn.jpg"), name: "Jack Doe", email: "jack.doe@berkeley.edu", phoneNumber: "0000000000")
+        let person1 = StudyGroupMember(profilePictureURL: URL(string: "https://images.generated.photos/t6rnO4g54jflMAk-nLFAulAayL4MkTkajbuHAOJEs9w/rs:fit:256:256/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yy/XzA0NTkxODQuanBn.jpg"), name: "Jill Doe", email: "jill.doe@berkeley.edu", phoneNumber: "1111111111")
+        let person2 = StudyGroupMember(profilePictureURL: URL(string:  "https://images.generated.photos/UnBJAeCfIR180b3sQ1G9opucAnwafc8DErx5YXRjT6I/rs:fit:256:256/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yy/XzA0NDU1NjMuanBn.jpg"), name: "Jane Doe", email: "jane.doe@berkeley.edu", phoneNumber: "2222222222")
+        let person3 = StudyGroupMember(profilePictureURL: URL(string: "https://images.generated.photos/f1utkmrXZQ_CU7ixY-qNL2Creb0MnE9Np4FpuXq_yoQ/rs:fit:256:256/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA4OTc1NTguanBn.jpg"), name: "Bob Jones", email: "bob.jones@berkeley.edu", phoneNumber: "3333333333")
+        let group0 = StudyGroup(className: "CS 170", groupMembers: [person0, person1, person2, person3], collaborative: true, virtual: true, pending: false)
+        let group1 = StudyGroup(className: "ECON 100A", groupMembers: [person0, person1, person2, person3, person0, person3], collaborative: false, virtual: true, pending: false)
+        let group2 = StudyGroup(className: "STAT 140", groupMembers: [person0], collaborative: true, virtual: false, pending: false)
+        let group3 = StudyGroup(className: "CS 188", groupMembers: [person2, person3], collaborative: false, virtual: false, pending: false)
+        let group4 = StudyGroup(className: "IEOR 142", groupMembers: [], collaborative: false, virtual: false, pending: true)
+        return [group0, group1, group2, group3, group4]
+    }
+    
     func refreshStudyGroupContents() {
         // TODO: once auth/profile is done set to use actual value
-        let date = Date()
-        let calendar = Calendar.current
-        let seconds = calendar.component(.second, from: date)
-        let profileComplete = seconds % 2 == 1
+//        let date = Date()
+//        let calendar = Calendar.current
+//        let seconds = calendar.component(.second, from: date)
+        let loggedIn = true// seconds % 2 == 1
         
-        if profileComplete {
-            if let showing = showingStudyGroups, showing {
-                // refresh gridview
+        if loggedIn {
+            // TODO: get actual study groups
+            let groups = Array(getDummyGroups().prefix(2))
+            if let grid = studyGroupsGrid {
+                grid.updateGroups(studyGroups: groups)
             } else {
                 for view in studyPactContent.subviews {
                     view.removeFromSuperview()
                 }
-                
+                let groupGrid = StudyGroupsView(studyGroups: groups)
+                studyPactContent.addSubview(groupGrid)
+                groupGrid.translatesAutoresizingMaskIntoConstraints = false
+                groupGrid.topAnchor.constraint(equalTo: studyPactContent.topAnchor).isActive = true
+                groupGrid.bottomAnchor.constraint(equalTo: studyPactContent.bottomAnchor).isActive = true
+                groupGrid.rightAnchor.constraint(equalTo: studyPactContent.rightAnchor).isActive = true
+                groupGrid.leftAnchor.constraint(equalTo: studyPactContent.leftAnchor).isActive = true
+                studyGroupsGrid = groupGrid
             }
-            showingStudyGroups = true
         } else {
-            let addButton = !(showingStudyGroups ?? true)
-            if addButton {
+            if studyGroupsGrid != nil {
                 for view in studyPactContent.subviews {
                     view.removeFromSuperview()
                 }
+                studyGroupsGrid = nil
+            }
+            if studyPactContent.subviews.count == 0 {
                 let profileButton = UIButton()
                 profileButton.setTitle("Set up your profile to join a study group >", for: .normal)
                 profileButton.titleLabel?.lineBreakMode = .byWordWrapping
@@ -157,7 +181,6 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
                 profileButton.rightAnchor.constraint(equalTo: studyPactContent.rightAnchor).isActive = true
                 profileButton.leftAnchor.constraint(equalTo: studyPactContent.leftAnchor).isActive = true
             }
-            showingStudyGroups = false
         }
     }
     
