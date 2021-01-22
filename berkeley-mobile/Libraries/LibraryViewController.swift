@@ -185,7 +185,9 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     @objc func goToAllStudyGroups() {
-        
+        let vc = AllStudyGroupsViewController()
+        vc.studyGroups = getDummyGroups()
+        self.present(vc, animated: true, completion: nil)
     }
     
     @objc func goToProfile() {
