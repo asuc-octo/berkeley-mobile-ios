@@ -8,7 +8,7 @@
 
 import UIKit
 
-fileprivate let kViewMargin: CGFloat = 20
+fileprivate let kViewMargin: CGFloat = 16
 
 class AllStudyGroupsViewController: UIViewController {
     var studyGroups: [StudyGroup] = []
@@ -26,6 +26,17 @@ class AllStudyGroupsViewController: UIViewController {
         label.font = Font.bold(24)
         return label
     }()
+    
+    var preferencesButton: ActionButton = {
+        let button = ActionButton(title: "Update Preferences")
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(goToPreferences), for: .touchUpInside)
+        return button
+    }()
+    
+    @objc func goToPreferences() {
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,7 +58,6 @@ class AllStudyGroupsViewController: UIViewController {
         card.topAnchor.constraint(equalTo: self.view.topAnchor, constant: kViewMargin).isActive = true
         card.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: kViewMargin).isActive = true
         card.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -1 * kViewMargin).isActive = true
-        card.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -1 * kViewMargin).isActive = true
         
         card.addSubview(titleLabel)
         titleLabel.topAnchor.constraint(equalTo: card.topAnchor, constant: kViewMargin).isActive = true
@@ -58,9 +68,15 @@ class AllStudyGroupsViewController: UIViewController {
         groupGrid.translatesAutoresizingMaskIntoConstraints = false
         card.addSubview(groupGrid)
         groupGrid.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: kViewMargin).isActive = true
-        groupGrid.bottomAnchor.constraint(equalTo: card.bottomAnchor, constant: -1 * kViewMargin).isActive = true
         groupGrid.rightAnchor.constraint(equalTo: card.rightAnchor, constant: -1 * kViewMargin).isActive = true
         groupGrid.leftAnchor.constraint(equalTo: card.leftAnchor, constant: kViewMargin).isActive = true
+        groupGrid.bottomAnchor.constraint(equalTo: card.bottomAnchor, constant: -1 * kViewMargin).isActive = true
+        
+        view.addSubview(preferencesButton)
+        preferencesButton.topAnchor.constraint(equalTo: card.bottomAnchor, constant: kViewMargin).isActive = true
+        preferencesButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -1 * kViewMargin).isActive = true
+        preferencesButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: kViewMargin).isActive = true
+        preferencesButton.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -1 * kViewMargin).isActive = true
     }
     
 

@@ -8,12 +8,13 @@
 
 import UIKit
 
-fileprivate let kViewMargin: CGFloat = 16
+fileprivate let kViewMargin: CGFloat = 10
 
 class StudyGroupsView: UIView {
     static let cellsPerRow = 2
     
     var studyGroups: [StudyGroup] = []
+    var collectionHeightConstraint: NSLayoutConstraint!
     
     private let collection: UICollectionView = {
         let collection = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout.init())
@@ -22,10 +23,8 @@ class StudyGroupsView: UIView {
         collection.backgroundColor = .clear
         
         collection.layer.masksToBounds = true
-        collection.contentInset = UIEdgeInsets(top: 5, left: 0, bottom: 2, right: 0)
-        collection.setContentOffset(CGPoint(x: 0, y: -5), animated: false)
+        collection.contentInset = UIEdgeInsets(top: 5, left: 5, bottom: 0, right: 5)
         collection.contentInsetAdjustmentBehavior = .never
-        
         
         return collection
     }()
@@ -42,19 +41,25 @@ class StudyGroupsView: UIView {
         collection.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         collection.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         collection.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        collectionHeightConstraint = collection.heightAnchor.constraint(equalToConstant: 120)
+        collectionHeightConstraint.priority = .defaultLow
+        collectionHeightConstraint.isActive = true
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         
         let layout = UICollectionViewFlowLayout()
-        let width = Int(collection.frame.width - kViewMargin) / StudyGroupsView.cellsPerRow
+        let width = Int(collection.frame.width - 20) / StudyGroupsView.cellsPerRow
         layout.itemSize = CGSize(width: width, height: StudyGroupCell.cellHeight)
-//        layout.spac
-//        layout.minimumLineSpacing = 100
+        layout.minimumLineSpacing = 10
         collection.collectionViewLayout = layout
         
         collection.reloadData()
+        
+        let height = collection.collectionViewLayout.collectionViewContentSize.height + 16
+        collectionHeightConstraint.constant = height
+        self.layoutIfNeeded()
     }
     
     public func updateGroups(studyGroups: [StudyGroup]) {
@@ -69,25 +74,12 @@ class StudyGroupsView: UIView {
 
 extension StudyGroupsView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return Int(ceil(CGFloat(self.studyGroups.count) / CGFloat(StudyGroupsView.cellsPerRow)))
+        return 1
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let lastRowIndex = Int(ceil(CGFloat(self.studyGroups.count) / CGFloat(StudyGroupsView.cellsPerRow))) - 1
-        let remainder = self.studyGroups.count % StudyGroupsView.cellsPerRow
-        if section == lastRowIndex && remainder > 0 {
-            return remainder
-        }
-        return StudyGroupsView.cellsPerRow
+        return self.studyGroups.count
     }
-    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-//        return kViewMargin
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-//        return kViewMargin
-//    }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: StudyGroupCell.kCellIdentifier, for: indexPath)
@@ -151,7 +143,7 @@ class StudyGroupCell: UICollectionViewCell {
         card.addSubview(profilePictureStack)
         profilePictureStack.heightAnchor.constraint(equalToConstant: 26).isActive = true
         profilePictureStack.leftAnchor.constraint(equalTo: card.leftAnchor, constant: kViewMargin).isActive = true
-        profilePictureStack.rightAnchor.constraint(lessThanOrEqualTo: card.rightAnchor, constant: -1 * kViewMargin).isActive = true
+        profilePictureStack.rightAnchor.constraint(equalTo: card.rightAnchor, constant: -1 * kViewMargin).isActive = true
         profilePictureStack.topAnchor.constraint(equalTo: classLabel.bottomAnchor, constant: 6).isActive = true
         
         self.contentView.addSubview(environmentTag)
@@ -204,6 +196,14 @@ class StudyGroupCell: UICollectionViewCell {
                     }
                 }
             }
+        }
+        if studyGroup.groupMembers.count < 4 {
+            let filler = UIView()
+            filler.setContentHuggingPriority(UILayoutPriority.fittingSizeLevel, for: .horizontal)
+            filler.setContentCompressionResistancePriority(UILayoutPriority.fittingSizeLevel, for: .horizontal)
+            profilePictureStack.addArrangedSubview(filler)
+            profilePictureStack.distribution = .fill
+            profilePictureStack.spacing = 5
         }
         if studyGroup.virtual {
             meetingTag.text = "Virtual"

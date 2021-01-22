@@ -87,7 +87,7 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
         studyPactCard.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
         studyPactCard.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
         studyPactCard.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
-        studyPactCard.heightAnchor.constraint(equalToConstant: 180).isActive = true
+        studyPactCard.heightAnchor.constraint(equalToConstant: 185).isActive = true
         
         let studyGroupsLabel = UILabel()
         studyGroupsLabel.text = "Your Study Groups"
