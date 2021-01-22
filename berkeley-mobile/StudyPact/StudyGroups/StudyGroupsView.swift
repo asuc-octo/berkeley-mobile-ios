@@ -125,6 +125,14 @@ class StudyGroupCell: UICollectionViewCell {
         return tag
     }()
     
+    let pendingTag: TagView = {
+        let tag = TagView()
+        tag.text = "Pending"
+        tag.backgroundColor = Color.pendingTag
+        tag.translatesAutoresizingMaskIntoConstraints = false
+        return tag
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -156,6 +164,12 @@ class StudyGroupCell: UICollectionViewCell {
         meetingTag.rightAnchor.constraint(equalTo: card.rightAnchor, constant: -1 * kViewMargin).isActive = true
         meetingTag.topAnchor.constraint(equalTo: environmentTag.topAnchor).isActive = true
         meetingTag.bottomAnchor.constraint(equalTo: environmentTag.bottomAnchor).isActive = true
+        
+        self.contentView.addSubview(pendingTag)
+        pendingTag.leftAnchor.constraint(equalTo: card.leftAnchor, constant: kViewMargin).isActive = true
+        pendingTag.rightAnchor.constraint(lessThanOrEqualTo: card.rightAnchor, constant: -1 * kViewMargin).isActive = true
+        pendingTag.topAnchor.constraint(greaterThanOrEqualTo: classLabel.bottomAnchor, constant: 10).isActive = true
+        pendingTag.bottomAnchor.constraint(equalTo: card.bottomAnchor, constant: -1 * kViewMargin).isActive = true
     }
     
     required init?(coder: NSCoder) {
@@ -164,6 +178,19 @@ class StudyGroupCell: UICollectionViewCell {
     
     public func configure(studyGroup: StudyGroup) {
         classLabel.text = studyGroup.className
+        if studyGroup.pending {
+            classLabel.alpha = 0.55
+            pendingTag.isHidden = false
+            profilePictureStack.isHidden = true
+            meetingTag.isHidden = true
+            environmentTag.isHidden = true
+            return
+        }
+        pendingTag.isHidden = true
+        profilePictureStack.isHidden = false
+        meetingTag.isHidden = false
+        environmentTag.isHidden = false
+        
         if studyGroup.collaborative {
             environmentTag.text = "Collab"
             environmentTag.backgroundColor = Color.collabEnvironmentTag

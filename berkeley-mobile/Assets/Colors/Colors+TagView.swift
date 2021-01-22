@@ -43,4 +43,8 @@ extension Color {
     static var meetingFormatTag: UIColor {
         return UIColor(red: 102/255, green: 188/255, blue: 236/255, alpha: 1)
     }
+    
+    static var pendingTag: UIColor {
+        return UIColor(red: 174/255, green: 174/255, blue: 174/255, alpha: 1)
+    }
 }
