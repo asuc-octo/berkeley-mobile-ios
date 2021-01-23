@@ -97,6 +97,8 @@ extension ProfileViewController {
         hstack.addArrangedSubview(lvstack)
         hstack.addArrangedSubview(rvstack)
         
+        lvstack.setWidthConstraint(100)
+        
         // TODO: - Dynamic field data
         let firstnameLabel = UILabel()
         firstnameLabel.text = "First Name"
@@ -154,23 +156,23 @@ extension ProfileViewController {
         emailField.leftAnchor.constraint(equalTo: emailLabel.rightAnchor, constant: 8).isActive = true
         phoneField.leftAnchor.constraint(equalTo: phoneLabel.rightAnchor, constant: 8).isActive = true
         
+        firstnameField.rightAnchor.constraint(equalTo: rvstack.rightAnchor).isActive = true
+        
         firstnameLabel.translatesAutoresizingMaskIntoConstraints = false
         firstnameLabel.setHeightConstraint(36)
-        firstnameLabel.setWidthConstraint(100)
+        firstnameLabel.leftAnchor.constraint(equalTo: lvstack.leftAnchor).isActive = true
         
         firstnameField.translatesAutoresizingMaskIntoConstraints = false
         firstnameField.setHeightConstraint(36)
         
         lastnameLabel.translatesAutoresizingMaskIntoConstraints = false
         lastnameLabel.setHeightConstraint(36)
-        lastnameLabel.setWidthConstraint(100)
         
         lastnameField.translatesAutoresizingMaskIntoConstraints = false
         lastnameField.setHeightConstraint(36)
         
         emailLabel.translatesAutoresizingMaskIntoConstraints = false
         emailLabel.setHeightConstraint(36)
-        emailLabel.setWidthConstraint(100)
         
         emailField.translatesAutoresizingMaskIntoConstraints = false
         emailField.setHeightConstraint(36)
@@ -179,7 +181,6 @@ extension ProfileViewController {
         
         phoneLabel.translatesAutoresizingMaskIntoConstraints = false
         phoneLabel.setHeightConstraint(36)
-        phoneLabel.setWidthConstraint(100)
         
         phoneField.translatesAutoresizingMaskIntoConstraints = false
         phoneField.setHeightConstraint(36)
