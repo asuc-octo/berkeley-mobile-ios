@@ -88,8 +88,6 @@ class StudyPactOnboardingViewController: UIViewController {
         stack.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
         stack.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
         stack.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 450/896).isActive = true
-//        numberTitleStack.topAnchor.constraint(equalTo: bearImage.bottomAnchor, constant: <#T##CGFloat#>)
-//        descriptionLabel.topAnchor.constraint(equalTo: numberTitleStack.bottomAnchor, constant: 30).isActive = true
     }
 
 }
