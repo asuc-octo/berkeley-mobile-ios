@@ -13,16 +13,19 @@ fileprivate let kViewMargin: CGFloat = 16
 
 class LibraryViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, SearchDrawerViewDelegate {
     
-    // DrawerViewDelegate properties
+    // MARK: DrawerViewDelegate
     var drawerViewController: DrawerViewController?
     var initialDrawerCenter = CGPoint()
     var drawerStatePositions: [DrawerState : CGFloat] = [:]
-    // SearchDrawerViewDelegate property
+    // MARK: SearchDrawerViewDelegate
     var mainContainer: MainContainerViewController?
     
     var filterTableView: FilterTableView = FilterTableView<Library>(frame: .zero, tableFunctions: [], defaultSort: SortingFunctions.sortAlph(item1:item2:))
     var safeArea: UILayoutGuide!
     var libraries: [Library] = []
+    
+    private var scrollView: UIScrollView!
+    private var content: UIView!
     
     var studyPactCard: CardView = CardView()
     let studyPactContent: UIView = {
@@ -31,6 +34,9 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
         return view
     }()
     var studyGroupsGrid: StudyGroupsView?
+    let allButton: UIButton = UIButton()
+    
+    private var libraryCard: CardView!
     
     let bookImage:UIImageView = {
         let img = UIImageView()
@@ -75,16 +81,37 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
         //removes separator lines
         safeArea = view.layoutMarginsGuide
         view.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+        setUpScrollView()
         setUpStudyPactCard()
         setUpTableView()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        print("awoenfioawnef")
+        print(scrollView.frame)
+        print(libraryCard.frame.maxY + view.layoutMargins.bottom)
+        scrollView.contentSize.height = libraryCard.frame.maxY + view.layoutMargins.bottom
+    }
+    
+    func setUpScrollView() {
+        scrollView = UIScrollView()
+        view.addSubview(scrollView)
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.setConstraintsToView(top: view, bottom: view, left: view, right: view)
+        scrollView.showsVerticalScrollIndicator = false
+        
+        content = UIView()
+        scrollView.addSubview(content)
+        content.layoutMargins = view.layoutMargins
     }
     
     func setUpStudyPactCard() {
         studyPactCard = CardView()
         studyPactCard.layoutMargins = UIEdgeInsets(top: 12, left: 16, bottom: 16, right: 16)
-        view.addSubview(studyPactCard)
+        scrollView.addSubview(studyPactCard)
         studyPactCard.translatesAutoresizingMaskIntoConstraints = false
-        studyPactCard.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
+        studyPactCard.topAnchor.constraint(equalTo: content.layoutMarginsGuide.topAnchor).isActive = true
         studyPactCard.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
         studyPactCard.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
         studyPactCard.heightAnchor.constraint(equalToConstant: 185).isActive = true
@@ -99,7 +126,6 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
         studyGroupsLabel.leftAnchor.constraint(equalTo: studyPactCard.layoutMarginsGuide.leftAnchor).isActive = true
         studyGroupsLabel.topAnchor.constraint(equalTo: studyPactCard.layoutMarginsGuide.topAnchor).isActive = true
         
-        let allButton = UIButton()
         allButton.setTitle("See All >", for: .normal)
         allButton.titleLabel?.font = Font.light(12)
         allButton.setTitleColor(Color.primaryText, for: .normal)
@@ -136,22 +162,25 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func refreshStudyGroupContents() {
-        // TODO: once auth/profile is done set to use actual value
-//        let date = Date()
-//        let calendar = Calendar.current
-//        let seconds = calendar.component(.second, from: date)
-        let loggedIn = true// seconds % 2 == 1
+        // TODO: once auth/profile is done set to use actual value. using time to test both forms
+        let date = Date()
+        let calendar = Calendar.current
+        let seconds = calendar.component(.second, from: date)
+        let loggedIn = seconds % 2 == 1
         
         if loggedIn {
             // TODO: get actual study groups
-            let groups = Array(getDummyGroups().prefix(2))
+            allButton.isHidden = false
+            
+            let groups = getDummyGroups()
+            let usedGroups = Array(groups.prefix(2))
             if let grid = studyGroupsGrid {
-                grid.updateGroups(studyGroups: groups)
+                grid.refreshGroups()
             } else {
                 for view in studyPactContent.subviews {
                     view.removeFromSuperview()
                 }
-                let groupGrid = StudyGroupsView(studyGroups: groups)
+                let groupGrid = StudyGroupsView(studyGroups: usedGroups, includeCreateGroup: groups.count < 2)
                 studyPactContent.addSubview(groupGrid)
                 groupGrid.translatesAutoresizingMaskIntoConstraints = false
                 groupGrid.topAnchor.constraint(equalTo: studyPactContent.topAnchor).isActive = true
@@ -161,6 +190,8 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
                 studyGroupsGrid = groupGrid
             }
         } else {
+            allButton.isHidden = true
+            
             if studyGroupsGrid != nil {
                 for view in studyPactContent.subviews {
                     view.removeFromSuperview()
@@ -168,14 +199,7 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
                 studyGroupsGrid = nil
             }
             if studyPactContent.subviews.count == 0 {
-                let profileButton = UIButton()
-                profileButton.setTitle("Set up your profile to join a study group >", for: .normal)
-                profileButton.titleLabel?.lineBreakMode = .byWordWrapping
-                profileButton.titleLabel?.font = Font.regular(16)
-                profileButton.titleLabel?.textAlignment = .left
-                profileButton.setTitleColor(Color.primaryText, for: .normal)
-                profileButton.setTitleColor(.black, for: .highlighted)
-                
+                let profileButton = ActionButton(title: "Sign In to Get Started")
                 profileButton.addTarget(self, action: #selector(goToProfile), for: .touchUpInside)
                 studyPactContent.addSubview(profileButton)
                 profileButton.translatesAutoresizingMaskIntoConstraints = false
@@ -201,11 +225,12 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
     func setUpTableView() {
         //general setup and constraints
         let card = CardView()
+        libraryCard = card
         card.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
-        view.addSubview(card)
+        scrollView.addSubview(card)
         card.translatesAutoresizingMaskIntoConstraints = false
         card.topAnchor.constraint(equalTo: studyPactCard.bottomAnchor, constant: kViewMargin).isActive = true
-        card.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
+        card.heightAnchor.constraint(equalTo: view.layoutMarginsGuide.heightAnchor).isActive = true
         card.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
         card.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
         

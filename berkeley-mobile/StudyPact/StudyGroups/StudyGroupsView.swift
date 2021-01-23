@@ -66,8 +66,8 @@ class StudyGroupsView: UIView {
         self.layoutIfNeeded()
     }
     
-    public func updateGroups(studyGroups: [StudyGroup]) {
-        self.studyGroups = studyGroups
+    public func refreshGroups() {
+        // TODO: get groups again from backend
         collection.reloadData()
     }
     
