@@ -10,6 +10,7 @@ import UIKit
 
 fileprivate let kViewMargin: CGFloat = 16
 
+/// Expanded page showing all study groups in a larger CollectionView
 class AllStudyGroupsViewController: UIViewController {
     var studyGroups: [StudyGroup] = []
     var studyGroupsGrid: StudyGroupsView!

@@ -120,7 +120,6 @@
 		29CB280A2404DD71009A2CFB /* FilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39AA423E774600039FBA2 /* FilterTableViewCell.swift */; };
 		29DB64CF25BA61BD001C4275 /* StudyGroupsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DB64CE25BA61BD001C4275 /* StudyGroupsView.swift */; };
 		29DB64D225BA6269001C4275 /* StudyGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DB64D125BA6269001C4275 /* StudyGroup.swift */; };
-		29DB64D525BA62B2001C4275 /* StudyGroupMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DB64D425BA62B2001C4275 /* StudyGroupMember.swift */; };
 		29DB64D925BA8242001C4275 /* AllStudyGroupsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DB64D825BA8242001C4275 /* AllStudyGroupsViewController.swift */; };
 		29EE163F241C4E310041482E /* SortingFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EE163E241C4E310041482E /* SortingFunctions.swift */; };
 		29F11EC72516C150007DCFD7 /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F11EC62516C150007DCFD7 /* BarView.swift */; };
@@ -279,7 +278,6 @@
 		29B3D78724539FF3006762E5 /* MainDrawerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainDrawerViewController.swift; sourceTree = "<group>"; };
 		29DB64CE25BA61BD001C4275 /* StudyGroupsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyGroupsView.swift; sourceTree = "<group>"; };
 		29DB64D125BA6269001C4275 /* StudyGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyGroup.swift; sourceTree = "<group>"; };
-		29DB64D425BA62B2001C4275 /* StudyGroupMember.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyGroupMember.swift; sourceTree = "<group>"; };
 		29DB64D825BA8242001C4275 /* AllStudyGroupsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllStudyGroupsViewController.swift; sourceTree = "<group>"; };
 		29EE163E241C4E310041482E /* SortingFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingFunctions.swift; sourceTree = "<group>"; };
 		29F11EC62516C150007DCFD7 /* BarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarView.swift; sourceTree = "<group>"; };
@@ -672,7 +670,6 @@
 				29DB64D825BA8242001C4275 /* AllStudyGroupsViewController.swift */,
 				298EE26C25BB7CD4002BAF0F /* StudyPreferencesViewController.swift */,
 				29DB64D125BA6269001C4275 /* StudyGroup.swift */,
-				29DB64D425BA62B2001C4275 /* StudyGroupMember.swift */,
 			);
 			path = StudyGroups;
 			sourceTree = "<group>";
@@ -1029,7 +1026,6 @@
 				2954F592245CD4B600DA66DA /* MainDrawerViewDelegate.swift in Sources */,
 				557756692544D822009C03BD /* Collection+Extension.swift in Sources */,
 				5546CB91251B0A4500BE1876 /* UIDevice+Extensions.swift in Sources */,
-				29DB64D525BA62B2001C4275 /* StudyGroupMember.swift in Sources */,
 				2975D5402459301B00514B43 /* SearchDrawerViewDelegate.swift in Sources */,
 				133864A42404DCCA001F9048 /* MapMarker.swift in Sources */,
 				01CDFF67257C5F2300D9FBD6 /* ResourceType.swift in Sources */,

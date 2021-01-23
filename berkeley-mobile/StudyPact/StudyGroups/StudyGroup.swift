@@ -16,3 +16,11 @@ struct StudyGroup {
     let pending: Bool
     let preferredNumberMembers: Int
 }
+
+struct StudyGroupMember {
+    let profilePictureURL: URL?
+    var profilePicture: UIImage?
+    let name: String
+    let email: String
+    let phoneNumber: String?
+}

@@ -20,7 +20,7 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
     // MARK: SearchDrawerViewDelegate
     var mainContainer: MainContainerViewController?
     
-    // MARK: Scrolling, General Setup
+    // MARK: Setup
     private var scrollView: UIScrollView!
     private var content: UIView!
     
@@ -80,7 +80,6 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     // MARK: StudyPact
-    
     var studyPactCard: CardView = CardView()
     let studyPactContent: UIView = {
         let view = UIView()
@@ -145,6 +144,7 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
         return [group0, group1, group2, group3, group4, group5, group0, group1, group2, group3, group4, group5]
     }
     
+    /// modify the contents of the card based on if the user is signed in, what groups the user is in
     func refreshStudyGroupContents() {
         // TODO: once auth/profile is done set to use actual value. using time to test both forms
         let date = Date()

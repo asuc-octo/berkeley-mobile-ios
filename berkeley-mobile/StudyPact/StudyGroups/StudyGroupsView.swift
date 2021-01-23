@@ -123,7 +123,7 @@ class StudyGroupCell: UICollectionViewCell {
         stack.axis = .horizontal
         stack.alignment = .center
         stack.distribution = .equalCentering
-        stack.spacing = -10
+        stack.spacing = -20
         return stack
     }()
     
@@ -254,7 +254,7 @@ class StudyGroupCell: UICollectionViewCell {
             profilePictureStack.spacing = 5
         } else {
             profilePictureStack.distribution = .equalCentering
-            profilePictureStack.spacing = -10
+            profilePictureStack.spacing = -20
         }
         if studyGroup.virtual {
             meetingTag.text = "Virtual"
