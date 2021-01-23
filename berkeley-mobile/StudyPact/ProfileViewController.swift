@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: UIViewController, UITextFieldDelegate {
     
     private var loggedIn = false
     
@@ -22,8 +22,23 @@ class ProfileViewController: UIViewController {
         
         setupHeader()
         setupProfile()
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        // TODO: - Update profile info here
+        view.endEditing(true)
+        return false
+    }
 }
 
 extension ProfileViewController {
@@ -140,6 +155,11 @@ extension ProfileViewController {
         let lastnameField = BorderedTextField(text: "Bear")
         let emailField = BorderedTextField(text: "oskibear@berkeley.edu")
         let phoneField = BorderedTextField()
+        
+        firstnameField.delegate = self
+        lastnameField.delegate = self
+        emailField.delegate = self
+        phoneField.delegate = self
         
         lvstack.addArrangedSubview(firstnameLabel)
         lvstack.addArrangedSubview(lastnameLabel)

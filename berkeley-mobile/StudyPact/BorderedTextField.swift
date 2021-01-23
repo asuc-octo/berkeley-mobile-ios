@@ -27,6 +27,7 @@ class BorderedTextField: UITextField {
         self.textColor = Color.blackText
         self.adjustsFontSizeToFitWidth = false
         self.textAlignment = .left
+        self.returnKeyType = .done
     }
     
     convenience init(text: String) {
