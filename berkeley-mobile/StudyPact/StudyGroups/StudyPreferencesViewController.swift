@@ -14,6 +14,8 @@ fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 16, left: 16, bot
 class StudyPreferencesViewController: UIViewController {
     var studyGroups: [StudyGroup] = []
     private var tableHeightConstraint: NSLayoutConstraint!
+    private var currentlyEditing: Bool = false
+    private var toDeleteIndex: IndexPath?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,17 +58,10 @@ class StudyPreferencesViewController: UIViewController {
         preferencesLabel.leftAnchor.constraint(equalTo: card.leftAnchor, constant: kViewMargin).isActive = true
         preferencesLabel.rightAnchor.constraint(lessThanOrEqualTo: card.layoutMarginsGuide.rightAnchor).isActive = true
         
-//        let scheduleButton = UIButton()
-//        scheduleButton.setTitle("See Full Schedule >", for: .normal)
-//        scheduleButton.titleLabel?.font = Font.light(12)
-//        scheduleButton.setTitleColor(Color.primaryText, for: .normal)
-//        scheduleButton.setTitleColor(.black, for: .highlighted)
-//        scheduleButton.addTarget(self, action: #selector(willExpandClasses), for: .touchUpInside)
-//        card.addSubview(scheduleButton)
-//        scheduleButton.translatesAutoresizingMaskIntoConstraints = false
-//        scheduleButton.centerYAnchor.constraint(equalTo: headerLabel.centerYAnchor).isActive = true
-//        scheduleButton.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
-//        scheduleButton.leftAnchor.constraint(greaterThanOrEqualTo: headerLabel.rightAnchor, constant: 5).isActive = true
+        card.addSubview(editButton)
+        editButton.centerYAnchor.constraint(equalTo: preferencesLabel.centerYAnchor).isActive = true
+        editButton.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
+        editButton.leftAnchor.constraint(greaterThanOrEqualTo: preferencesLabel.rightAnchor, constant: 5).isActive = true
         
         card.addSubview(classesTable)
         classesTable.translatesAutoresizingMaskIntoConstraints = false
@@ -110,6 +105,17 @@ class StudyPreferencesViewController: UIViewController {
         table.register(EventTableViewCell.self, forCellReuseIdentifier: GymClassesController.kCellIdentifier)
         return table
     }()
+    
+    let editButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Edit", for: .normal)
+        button.titleLabel?.font = Font.light(12)
+        button.setTitleColor(Color.primaryText, for: .normal)
+        button.setTitleColor(.black, for: .highlighted)
+        button.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
+        return button
+    }()
 }
 
 extension StudyPreferencesViewController: UITableViewDelegate, UITableViewDataSource {
@@ -127,6 +133,48 @@ extension StudyPreferencesViewController: UITableViewDelegate, UITableViewDataSo
             cell.configure(group: studyGroups[indexPath.row])
         }
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        // TODO: open create group flow
+        print("Go to create group flow")
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            toDeleteIndex = indexPath
+            showDeleteNotification(title: "Delete Study Group", message: "Would you like to delete this study group?")
+        }
+    }
+    
+    func showDeleteNotification(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction.init(title: "Cancel", style: .cancel))
+        alertController.addAction(UIAlertAction.init(title: "Yes", style: .default, handler: { _ in
+            guard let indexPath = self.toDeleteIndex else { return }
+            // TODO: notify backend delete class
+            print("Delete class")
+            self.studyGroups.remove(at: indexPath.row)
+            self.classesTable.deleteRows(at: [indexPath], with: .fade)
+            self.viewDidLayoutSubviews()
+        }))
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
+    }
+    
+    @objc func editButtonTapped() {
+        if currentlyEditing {
+            classesTable.setEditing(false, animated: true)
+            editButton.setTitle("Edit", for: .normal)
+        } else {
+            classesTable.setEditing(true, animated: true)
+            editButton.setTitle("Done", for: .normal)
+        }
+        currentlyEditing = !currentlyEditing
     }
 }
 
