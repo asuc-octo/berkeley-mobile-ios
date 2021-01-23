@@ -1,5 +1,5 @@
 //
-//  LibraryViewController.swift
+//  StudyViewController.swift
 //  bm-persona
 //
 //  Created by Anna Gao on 11/6/19.
@@ -11,7 +11,7 @@ import Firebase
 
 fileprivate let kViewMargin: CGFloat = 16
 
-class LibraryViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, SearchDrawerViewDelegate {
+class StudyViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, SearchDrawerViewDelegate {
     
     // MARK: DrawerViewDelegate
     var drawerViewController: DrawerViewController?
@@ -20,32 +20,9 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
     // MARK: SearchDrawerViewDelegate
     var mainContainer: MainContainerViewController?
     
-    var filterTableView: FilterTableView = FilterTableView<Library>(frame: .zero, tableFunctions: [], defaultSort: SortingFunctions.sortAlph(item1:item2:))
-    var safeArea: UILayoutGuide!
-    var libraries: [Library] = []
-    
+    // MARK: Scrolling, General Setup
     private var scrollView: UIScrollView!
     private var content: UIView!
-    
-    var studyPactCard: CardView = CardView()
-    let studyPactContent: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    var studyGroupsGrid: StudyGroupsView?
-    let allButton: UIButton = UIButton()
-    
-    private var libraryCard: CardView!
-    
-    let bookImage:UIImageView = {
-        let img = UIImageView()
-        img.contentMode = .scaleAspectFit
-        img.image = UIImage(named: "Book")
-        img.translatesAutoresizingMaskIntoConstraints = false
-        img.clipsToBounds = true
-        return img
-    }()
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -55,7 +32,7 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Update `filterTableView` when user location is updated.
+        // update `filterTableView` when user location is updated.
         LocationManager.notificationCenter.addObserver(
             filterTableView,
             selector: #selector(filterTableView.update),
@@ -78,7 +55,6 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
     
     override func loadView() {
         super.loadView()
-        //removes separator lines
         safeArea = view.layoutMarginsGuide
         view.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
         setUpScrollView()
@@ -88,9 +64,6 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        print("awoenfioawnef")
-        print(scrollView.frame)
-        print(libraryCard.frame.maxY + view.layoutMargins.bottom)
         scrollView.contentSize.height = libraryCard.frame.maxY + view.layoutMargins.bottom
     }
     
@@ -105,6 +78,17 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
         scrollView.addSubview(content)
         content.layoutMargins = view.layoutMargins
     }
+    
+    // MARK: StudyPact
+    
+    var studyPactCard: CardView = CardView()
+    let studyPactContent: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    var studyGroupsGrid: StudyGroupsView?
+    let allButton: UIButton = UIButton()
     
     func setUpStudyPactCard() {
         studyPactCard = CardView()
@@ -145,7 +129,7 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
         refreshStudyGroupContents()
     }
     
-    // TODO: remove
+    // TODO: remove when we get real group data from backend
     func getDummyGroups() -> [StudyGroup] {
         let person0 = StudyGroupMember(profilePictureURL: URL(string: "https://images.generated.photos/hApOLywddgHrBNt5NWqIFViI1dJNQ7oev8TKAfmsuGE/rs:fit:256:256/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA0NzY1MjkuanBn.jpg"), name: "Jack Doe", email: "jack.doe@berkeley.edu", phoneNumber: "0000000000")
         let person1 = StudyGroupMember(profilePictureURL: URL(string: "https://images.generated.photos/t6rnO4g54jflMAk-nLFAulAayL4MkTkajbuHAOJEs9w/rs:fit:256:256/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yy/XzA0NTkxODQuanBn.jpg"), name: "Jill Doe", email: "jill.doe@berkeley.edu", phoneNumber: "1111111111")
@@ -169,10 +153,10 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
         let loggedIn = seconds % 2 == 1
         
         if loggedIn {
-            // TODO: get actual study groups
             allButton.isHidden = false
-            
+            // TODO: get actual study groups
             let groups = getDummyGroups()
+            // get the first 2 groups to show a preview
             let usedGroups = Array(groups.prefix(2))
             if let grid = studyGroupsGrid {
                 grid.refreshGroups()
@@ -191,7 +175,6 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
             }
         } else {
             allButton.isHidden = true
-            
             if studyGroupsGrid != nil {
                 for view in studyPactContent.subviews {
                     view.removeFromSuperview()
@@ -199,7 +182,7 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
                 studyGroupsGrid = nil
             }
             if studyPactContent.subviews.count == 0 {
-                let profileButton = ActionButton(title: "Sign In to Get Started")
+                let profileButton = ActionButton(title: "Sign In to Get Started!")
                 profileButton.addTarget(self, action: #selector(goToProfile), for: .touchUpInside)
                 studyPactContent.addSubview(profileButton)
                 profileButton.translatesAutoresizingMaskIntoConstraints = false
@@ -222,8 +205,23 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
         }
     }
     
+    // MARK: Libraries
+    var filterTableView: FilterTableView = FilterTableView<Library>(frame: .zero, tableFunctions: [], defaultSort: SortingFunctions.sortAlph(item1:item2:))
+    var safeArea: UILayoutGuide!
+    var libraries: [Library] = []
+    
+    private var libraryCard: CardView!
+    
+    let bookImage:UIImageView = {
+        let img = UIImageView()
+        img.contentMode = .scaleAspectFit
+        img.image = UIImage(named: "Book")
+        img.translatesAutoresizingMaskIntoConstraints = false
+        img.clipsToBounds = true
+        return img
+    }()
+    
     func setUpTableView() {
-        //general setup and constraints
         let card = CardView()
         libraryCard = card
         card.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
@@ -278,7 +276,6 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    //number of rows to be shown in tableview
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.filterTableView.filteredData.count
     }
@@ -296,7 +293,7 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
 
 // MARK: - Analytics
 
-extension LibraryViewController {
+extension StudyViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         Analytics.logEvent("opened_library_screen", parameters: nil)

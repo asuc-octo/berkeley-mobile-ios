@@ -13,10 +13,12 @@ fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 16, left: 16, bot
 
 class StudyPreferencesViewController: UIViewController {
     var studyGroups: [StudyGroup] = []
+    /// allows for dynamically resizing the collection view height to match the number of elements
     private var tableHeightConstraint: NSLayoutConstraint!
+    /// whether the table is in "editing" mode, displaying red circles on the left allowing users to delete rows
     private var currentlyEditing: Bool = false
-    private var toDeleteIndex: IndexPath?
     
+    // MARK: Setup
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -74,7 +76,8 @@ class StudyPreferencesViewController: UIViewController {
         tableHeightConstraint.priority = .defaultLow
         tableHeightConstraint.isActive = true
     }
-
+    
+    // MARK: UI Elements
     let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Study Groups"
@@ -137,27 +140,30 @@ extension StudyPreferencesViewController: UITableViewDelegate, UITableViewDataSo
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        // TODO: open create group flow
-        print("Go to create group flow")
+        showAlert(title: "Edit Study Group", message: "Would you like to modify this study group's settings?") {
+            // TODO: open create group flow
+            print("Go to create group flow")
+        }
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            toDeleteIndex = indexPath
-            showDeleteNotification(title: "Delete Study Group", message: "Would you like to delete this study group?")
+            showAlert(title: "Delete Study Group", message: "Would you like to delete this study group?") {
+                // TODO: notify backend delete class
+                print("Delete class")
+                self.studyGroups.remove(at: indexPath.row)
+                self.classesTable.deleteRows(at: [indexPath], with: .fade)
+                self.viewDidLayoutSubviews()
+            }
         }
     }
     
-    func showDeleteNotification(title: String, message: String) {
+    /// show an alert with given title and message, execute completion if user responds "Yes"
+    func showAlert(title: String, message: String, completion: @escaping () -> Void) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alertController.addAction(UIAlertAction.init(title: "Cancel", style: .cancel))
         alertController.addAction(UIAlertAction.init(title: "Yes", style: .default, handler: { _ in
-            guard let indexPath = self.toDeleteIndex else { return }
-            // TODO: notify backend delete class
-            print("Delete class")
-            self.studyGroups.remove(at: indexPath.row)
-            self.classesTable.deleteRows(at: [indexPath], with: .fade)
-            self.viewDidLayoutSubviews()
+            completion()
         }))
         self.present(alertController, animated: true, completion: nil)
     }
@@ -166,6 +172,7 @@ extension StudyPreferencesViewController: UITableViewDelegate, UITableViewDataSo
         return .delete
     }
     
+    /// switch table between editing mode and regular mode
     @objc func editButtonTapped() {
         if currentlyEditing {
             classesTable.setEditing(false, animated: true)

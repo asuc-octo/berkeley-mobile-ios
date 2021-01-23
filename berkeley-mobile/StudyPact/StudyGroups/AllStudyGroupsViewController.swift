@@ -14,6 +14,7 @@ class AllStudyGroupsViewController: UIViewController {
     var studyGroups: [StudyGroup] = []
     var studyGroupsGrid: StudyGroupsView!
     
+    // MARK: UI Elements
     let card: CardView = {
         let cardView = CardView()
         cardView.translatesAutoresizingMaskIntoConstraints = false
@@ -41,6 +42,7 @@ class AllStudyGroupsViewController: UIViewController {
         self.present(vc, animated: true, completion: nil)
     }
     
+    // MARK: Setup
     override func viewDidLoad() {
         super.viewDidLoad()
 

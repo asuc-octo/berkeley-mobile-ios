@@ -10,11 +10,14 @@ import UIKit
 
 fileprivate let kViewMargin: CGFloat = 10
 
+/// View holding a CollectionView to display all the user's study groups
 class StudyGroupsView: UIView {
     static let cellsPerRow = 2
     
     var studyGroups: [StudyGroup] = []
+    /// whether to add a "Create Group" cell as the first cell
     var includeCreateGroup: Bool = false
+    /// allows for dynamically resizing the collection view height to match the number of elements
     private var collectionHeightConstraint: NSLayoutConstraint!
     
     private let collection: UICollectionView = {
@@ -101,10 +104,12 @@ extension StudyGroupsView: UICollectionViewDelegate, UICollectionViewDataSource,
     }
 }
 
+/// Cell displaying information for a single study group
 class StudyGroupCell: UICollectionViewCell {
     static let kCellIdentifier = "studyGroupCell"
     static let cellHeight = 106
     
+    // MARK: UI Elements
     let classLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -143,6 +148,7 @@ class StudyGroupCell: UICollectionViewCell {
         return tag
     }()
     
+    // MARK: Setup
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -235,6 +241,10 @@ class StudyGroupCell: UICollectionViewCell {
                 }
             }
         }
+        /* Allows for two types of profile picture stacking.
+         If less than 4 elements: left align and 5 spacing between pictures.
+         If 4 or more: equal spacing and allow for overlapping pictures.
+         */
         if studyGroup.groupMembers.count < 4 {
             let filler = UIView()
             filler.setContentHuggingPriority(UILayoutPriority.fittingSizeLevel, for: .horizontal)
@@ -254,45 +264,10 @@ class StudyGroupCell: UICollectionViewCell {
     }
 }
 
+/// Cell allowing user to create a new group
 class CreateGroupCell: UICollectionViewCell {
     static let kCellIdentifier = "createGroupCell"
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        backgroundColor = Color.cardBackground
-        layer.cornerRadius = 12
-        
-        let bounds = contentView.bounds
-        let layer = CAShapeLayer.init()
-        let path = UIBezierPath(roundedRect: bounds, cornerRadius: 12)
-        layer.path = path.cgPath
-        layer.strokeColor = Color.StudyGroups.createGroupDottedBorder.cgColor
-        layer.lineDashPattern = [2, 2]
-        layer.fillColor = nil
-        contentView.layer.addSublayer(layer)
-        
-        let joinedView = UIView()
-        joinedView.translatesAutoresizingMaskIntoConstraints = false
-        joinedView.addSubview(createGroupPlus)
-        createGroupPlus.centerYAnchor.constraint(equalTo: joinedView.centerYAnchor).isActive = true
-        createGroupPlus.leftAnchor.constraint(equalTo: joinedView.leftAnchor).isActive = true
-        joinedView.addSubview(createGroupLabel)
-        createGroupLabel.centerYAnchor.constraint(equalTo: joinedView.centerYAnchor).isActive = true
-        createGroupLabel.leftAnchor.constraint(equalTo: createGroupPlus.rightAnchor, constant: kViewMargin).isActive = true
-        createGroupLabel.rightAnchor.constraint(equalTo: joinedView.rightAnchor).isActive = true
-        
-        contentView.addSubview(joinedView)
-        joinedView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        joinedView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
-        
-        setUpGestureRecognizer()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+    // MARK: UI Elements
     let createGroupPlus: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -323,6 +298,44 @@ class CreateGroupCell: UICollectionViewCell {
         label.text = "Create\nGroup"
         return label
     }()
+    
+    // MARK: Setup
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        backgroundColor = Color.cardBackground
+        layer.cornerRadius = 12
+        
+        // dotted line border
+        let bounds = contentView.bounds
+        let layer = CAShapeLayer.init()
+        let path = UIBezierPath(roundedRect: bounds, cornerRadius: 12)
+        layer.path = path.cgPath
+        layer.strokeColor = Color.StudyGroups.createGroupDottedBorder.cgColor
+        layer.lineDashPattern = [2, 2]
+        layer.fillColor = nil
+        contentView.layer.addSublayer(layer)
+        
+        let joinedView = UIView()
+        joinedView.translatesAutoresizingMaskIntoConstraints = false
+        joinedView.addSubview(createGroupPlus)
+        createGroupPlus.centerYAnchor.constraint(equalTo: joinedView.centerYAnchor).isActive = true
+        createGroupPlus.leftAnchor.constraint(equalTo: joinedView.leftAnchor).isActive = true
+        joinedView.addSubview(createGroupLabel)
+        createGroupLabel.centerYAnchor.constraint(equalTo: joinedView.centerYAnchor).isActive = true
+        createGroupLabel.leftAnchor.constraint(equalTo: createGroupPlus.rightAnchor, constant: kViewMargin).isActive = true
+        createGroupLabel.rightAnchor.constraint(equalTo: joinedView.rightAnchor).isActive = true
+        
+        contentView.addSubview(joinedView)
+        joinedView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        joinedView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+        
+        setUpGestureRecognizer()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     private func setUpGestureRecognizer() {
         let gesture = UITapGestureRecognizer(target: self, action: #selector(self.goToCreateGroup(_:)))
