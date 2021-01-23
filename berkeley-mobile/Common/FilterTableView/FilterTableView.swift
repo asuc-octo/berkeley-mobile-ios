@@ -11,7 +11,6 @@ import UIKit
 fileprivate let kViewMargin: CGFloat = 16
 
 class FilterTableView<T>: UIView {
-    
     let tableView = UITableView(frame: .zero, style: .plain)
     var missingView: MissingDataView!
 
@@ -127,12 +126,10 @@ class FilterTableView<T>: UIView {
             }
         })
     }
-    
 }
 
 
 extension FilterTableView: FilterViewDelegate {
-    
     func filterView(_ filterView: FilterView, didSelect index: Int) {
         update()
     }
@@ -140,5 +137,4 @@ extension FilterTableView: FilterViewDelegate {
     func filterView(_ filterView: FilterView, didDeselect index: Int) {
         update()
     }
-
 }

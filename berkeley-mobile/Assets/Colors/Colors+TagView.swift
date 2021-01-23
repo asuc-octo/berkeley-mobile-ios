@@ -32,4 +32,19 @@ extension Color {
         return UIColor(red: 162/255, green: 183/255, blue: 14/255, alpha: 1)
     }
     
+    static var soloEnvironmentTag: UIColor {
+        return UIColor(red: 50/255, green: 137/255, blue: 132/255, alpha: 1)
+    }
+    
+    static var collabEnvironmentTag: UIColor {
+        return UIColor(red: 109/255, green: 176/255, blue: 172/255, alpha: 1)
+    }
+    
+    static var meetingFormatTag: UIColor {
+        return UIColor(red: 102/255, green: 188/255, blue: 236/255, alpha: 1)
+    }
+    
+    static var pendingTag: UIColor {
+        return UIColor(red: 174/255, green: 174/255, blue: 174/255, alpha: 1)
+    }
 }

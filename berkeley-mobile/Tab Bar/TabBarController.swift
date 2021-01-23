@@ -41,5 +41,10 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
             }
         }
     }
-
+    
+    public func selectProfileTab() {
+        if let profileIndex = self.viewControllers?.firstIndex(of: profileView) {
+            self.selectedIndex = profileIndex
+        }
+    }
 }
