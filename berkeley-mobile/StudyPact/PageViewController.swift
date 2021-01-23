@@ -140,6 +140,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
             UIView.animate(withDuration: 0.5) {
                 self.getStarted.layer.opacity = 1
                 self.skipButton.layer.opacity = 0
+                self.nextButton.layer.opacity = 0
             }
             
         }
@@ -149,6 +150,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
                 UIView.animate(withDuration: 0.3) {
                     self.getStarted.layer.opacity = 0
                     self.skipButton.layer.opacity = 1
+                    self.nextButton.layer.opacity = 1
                 }
             }
         }
