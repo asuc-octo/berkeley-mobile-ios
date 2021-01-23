@@ -11,7 +11,7 @@ import UIKit
 class BorderedTextField: UITextField {
     var textPadding = UIEdgeInsets(
         top: 0,
-        left: 20,
+        left: 10,
         bottom: 0,
         right: 0
     )
@@ -23,7 +23,7 @@ class BorderedTextField: UITextField {
         self.layer.masksToBounds = true
         self.layer.borderColor = Color.lightLightGrayText.cgColor
         self.layer.borderWidth = 2
-        self.font = Font.medium(12)
+        self.font = Font.medium(14)
         self.textColor = Color.blackText
         self.adjustsFontSizeToFitWidth = false
         self.textAlignment = .left

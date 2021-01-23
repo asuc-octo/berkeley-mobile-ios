@@ -37,6 +37,19 @@ extension ProfileViewController {
         profileLabel.translatesAutoresizingMaskIntoConstraints = false
         profileLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 15).isActive = true
         profileLabel.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
+        
+        // Blob
+        let blob = UIImage(named: "BlobTopRight")!
+        let aspectRatio = blob.size.width / blob.size.height
+        let blobView = UIImageView(image: blob)
+        blobView.contentMode = .scaleAspectFit
+
+        view.addSubview(blobView)
+        blobView.translatesAutoresizingMaskIntoConstraints = false
+        blobView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1 / 1.3).isActive = true
+        blobView.heightAnchor.constraint(equalTo: blobView.widthAnchor, multiplier: 1 / aspectRatio).isActive = true
+        blobView.topAnchor.constraint(equalTo: view.topAnchor, constant: -blobView.frame.height / 3.5).isActive = true
+        blobView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 40).isActive = true
     }
     
     func setupProfile() {
@@ -71,13 +84,15 @@ extension ProfileViewController {
         
         let lvstack = UIStackView()
         lvstack.axis = .vertical
-        lvstack.distribution = .fillEqually
+        lvstack.distribution = .equalSpacing
         lvstack.alignment = .center
+        lvstack.spacing = 19
         
         let rvstack = UIStackView()
-        lvstack.axis = .vertical
-        rvstack.distribution = .fillEqually
+        rvstack.axis = .vertical
+        rvstack.distribution = .equalSpacing
         rvstack.alignment = .center
+        rvstack.spacing = 19
         
         hstack.addArrangedSubview(lvstack)
         hstack.addArrangedSubview(rvstack)
@@ -85,20 +100,59 @@ extension ProfileViewController {
         // TODO: - Dynamic field data
         let firstnameLabel = UILabel()
         firstnameLabel.text = "First Name"
-        firstnameLabel.font = Font.medium(12)
+        firstnameLabel.font = Font.medium(14)
         firstnameLabel.textAlignment = .left
         firstnameLabel.textColor = Color.blackText
         firstnameLabel.numberOfLines = 1
         firstnameLabel.adjustsFontSizeToFitWidth = true
         firstnameLabel.minimumScaleFactor = 0.7
         
-        let firstnameField = BorderedTextField(text: "OB")
+        let lastnameLabel = UILabel()
+        lastnameLabel.text = "Last Name"
+        lastnameLabel.font = Font.medium(14)
+        lastnameLabel.textAlignment = .left
+        lastnameLabel.textColor = Color.blackText
+        lastnameLabel.numberOfLines = 1
+        lastnameLabel.adjustsFontSizeToFitWidth = true
+        lastnameLabel.minimumScaleFactor = 0.7
         
+        let emailLabel = UILabel()
+        emailLabel.text = "Email"
+        emailLabel.font = Font.medium(14)
+        emailLabel.textAlignment = .left
+        emailLabel.textColor = Color.blackText
+        emailLabel.numberOfLines = 1
+        emailLabel.adjustsFontSizeToFitWidth = true
+        emailLabel.minimumScaleFactor = 0.7
+        
+        let phoneLabel = UILabel()
+        phoneLabel.text = "Phone Number"
+        phoneLabel.font = Font.medium(14)
+        phoneLabel.textAlignment = .left
+        phoneLabel.textColor = Color.blackText
+        phoneLabel.numberOfLines = 1
+        phoneLabel.adjustsFontSizeToFitWidth = true
+        phoneLabel.minimumScaleFactor = 0.7
+        
+        let firstnameField = BorderedTextField(text: "Oski")
+        let lastnameField = BorderedTextField(text: "Bear")
+        let emailField = BorderedTextField(text: "oskibear@berkeley.edu")
+        let phoneField = BorderedTextField()
         
         lvstack.addArrangedSubview(firstnameLabel)
+        lvstack.addArrangedSubview(lastnameLabel)
+        lvstack.addArrangedSubview(emailLabel)
+        lvstack.addArrangedSubview(phoneLabel)
+
         rvstack.addArrangedSubview(firstnameField)
+        rvstack.addArrangedSubview(lastnameField)
+        rvstack.addArrangedSubview(emailField)
+        rvstack.addArrangedSubview(phoneField)
         
-        firstnameField.leftAnchor.constraint(equalTo: firstnameLabel.rightAnchor).isActive = true
+        firstnameField.leftAnchor.constraint(equalTo: firstnameLabel.rightAnchor, constant: 8).isActive = true
+        lastnameField.leftAnchor.constraint(equalTo: lastnameLabel.rightAnchor, constant: 8).isActive = true
+        emailField.leftAnchor.constraint(equalTo: emailLabel.rightAnchor, constant: 8).isActive = true
+        phoneField.leftAnchor.constraint(equalTo: phoneLabel.rightAnchor, constant: 8).isActive = true
         
         firstnameLabel.translatesAutoresizingMaskIntoConstraints = false
         firstnameLabel.setHeightConstraint(36)
@@ -106,5 +160,45 @@ extension ProfileViewController {
         
         firstnameField.translatesAutoresizingMaskIntoConstraints = false
         firstnameField.setHeightConstraint(36)
+        
+        lastnameLabel.translatesAutoresizingMaskIntoConstraints = false
+        lastnameLabel.setHeightConstraint(36)
+        lastnameLabel.setWidthConstraint(100)
+        
+        lastnameField.translatesAutoresizingMaskIntoConstraints = false
+        lastnameField.setHeightConstraint(36)
+        
+        emailLabel.translatesAutoresizingMaskIntoConstraints = false
+        emailLabel.setHeightConstraint(36)
+        emailLabel.setWidthConstraint(100)
+        
+        emailField.translatesAutoresizingMaskIntoConstraints = false
+        emailField.setHeightConstraint(36)
+        emailField.isUserInteractionEnabled = false
+        emailField.textColor = Color.lightLightGrayText
+        
+        phoneLabel.translatesAutoresizingMaskIntoConstraints = false
+        phoneLabel.setHeightConstraint(36)
+        phoneLabel.setWidthConstraint(100)
+        
+        phoneField.translatesAutoresizingMaskIntoConstraints = false
+        phoneField.setHeightConstraint(36)
+        
+        let facebookButton = ActionButton(title: "Link Facebook Profile", font: Font.bold(14))
+        facebookButton.addTarget(self, action: #selector(facebookButtonPressed), for: .touchUpInside)
+        facebookButton.setHeightConstraint(40)
+        
+        view.addSubview(facebookButton)
+        
+        facebookButton.translatesAutoresizingMaskIntoConstraints = false
+        facebookButton.topAnchor.constraint(equalTo: hstack.bottomAnchor, constant: 30).isActive = true
+        facebookButton.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor, constant: 18).isActive = true
+        facebookButton.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor, constant: -18).isActive = true
+        
+    }
+    
+    @objc private func facebookButtonPressed(sender: UIButton) {
+        // TODO: - Implement this feature
+        print("Link facebook pressed")
     }
 }

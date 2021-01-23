@@ -35,7 +35,7 @@ extension Color {
     }
     
     static var lightLightGrayText: UIColor {
-        return UIColor(red: 232.0 / 255.0, green: 232.0 / 255.0, blue: 232.0 / 255.0, alpha: 1.0)
+        return UIColor(red: 210.0 / 255.0, green: 210.0 / 255.0, blue: 210.0 / 255.0, alpha: 1.0)
     }
     
     static var darkGrayText: UIColor {
