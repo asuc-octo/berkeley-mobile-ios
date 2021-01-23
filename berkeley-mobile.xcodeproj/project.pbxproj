@@ -157,6 +157,7 @@
 		55DCF7A123724835001B01B8 /* MaterialButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF7A023724835001B01B8 /* MaterialButton.swift */; };
 		55EDAA702569D622006BAFAC /* CovidResourceDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EDAA6F2569D622006BAFAC /* CovidResourceDataSource.swift */; };
 		55EDAA742569D730006BAFAC /* CovidResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EDAA732569D730006BAFAC /* CovidResource.swift */; };
+		D99314A32B5752F2EB9C03E4 /* Pods_berkeley_mobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A826C1BD0A2BCA2F083C6EE /* Pods_berkeley_mobile.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -327,6 +328,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D99314A32B5752F2EB9C03E4 /* Pods_berkeley_mobile.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
