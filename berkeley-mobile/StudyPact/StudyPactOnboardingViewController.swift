@@ -13,7 +13,8 @@ class StudyPactOnboardingViewController: UIViewController {
     
     let signUpLabel: UILabel = {
         let label = UILabel()
-        label.font = Font.bold(40)
+        label.font = Font.bold(36)
+        label.adjustsFontSizeToFitWidth = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -31,7 +32,6 @@ class StudyPactOnboardingViewController: UIViewController {
         let descriptionLabel = UILabel()
         descriptionLabel.font = Font.regular(18)
         descriptionLabel.numberOfLines = 0
-        descriptionLabel.heightAnchor.constraint(equalToConstant: 45).isActive = true
         descriptionLabel.textColor = .gray
         descriptionLabel.textAlignment = .center
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -80,12 +80,12 @@ class StudyPactOnboardingViewController: UIViewController {
         stack.addArrangedSubview(descriptionLabel)
         
         bearImage.contentMode = .scaleAspectFit
+        signUpLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: view.frame.height * 0.05).isActive = true
         
         stack.translatesAutoresizingMaskIntoConstraints = false
         bearImage.translatesAutoresizingMaskIntoConstraints = false
-        stack.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        stack.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
-        stack.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
+        stack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 40).isActive = true
+        stack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -40).isActive = true
     }
 
 }

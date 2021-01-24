@@ -162,9 +162,9 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
     
     func configurePageControl() {
         let initialPage = 0
-        let page1 = StudyPactOnboardingViewController(_signUpLabelText: "Sign Up", _bearImage: UIImage(named: "Onboarding1")!, _numberImage: UIImage(named: "Onboarding1Num")!, _descriptionText: "Complete your profile in less than 5 minutes to get the best pairing")
-        let page2 = StudyPactOnboardingViewController(_signUpLabelText: "Get Matched", _bearImage: UIImage(named: "Onboarding2")!, _numberImage: UIImage(named: "Onboarding2Num")!, _descriptionText: "Upon profile completion, we will find you a list of matches")
-        let page3 = StudyPactOnboardingViewController(_signUpLabelText: "Connect", _bearImage: UIImage(named: "Onboarding3")!, _numberImage: UIImage(named: "Onboarding3Num")!, _descriptionText: "Get connected through your choice of contact and start studying!")
+        let page1 = StudyPactOnboardingViewController(_signUpLabelText: "Sign Up", _bearImage: UIImage(named: "Onboarding1")!, _numberImage: UIImage(named: "Onboarding1Num")!, _descriptionText: "Add your classes and study preferences to your profile to get started with pairing")
+        let page2 = StudyPactOnboardingViewController(_signUpLabelText: "Get Matched", _bearImage: UIImage(named: "Onboarding2")!, _numberImage: UIImage(named: "Onboarding2Num")!, _descriptionText: "Based on your preferences, we will match you with existing groups or prompt you to create your own")
+        let page3 = StudyPactOnboardingViewController(_signUpLabelText: "Connect", _bearImage: UIImage(named: "Onboarding3")!, _numberImage: UIImage(named: "Onboarding3Num")!, _descriptionText: "Get connected through your preferred choice of contact and send in-app study notifications!")
         
         // add the individual viewControllers to the pageViewController
         self.pages.append(page1)
