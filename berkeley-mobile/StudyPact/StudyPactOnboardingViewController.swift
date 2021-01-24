@@ -63,7 +63,7 @@ class StudyPactOnboardingViewController: UIViewController {
         stack.axis = .vertical
         stack.distribution = .equalSpacing
         stack.alignment = .center
-        stack.spacing = 0
+        stack.spacing = 30
         view.addSubview(stack)
         
         let numberTitleStack = UIStackView()
