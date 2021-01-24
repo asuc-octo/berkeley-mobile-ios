@@ -77,7 +77,7 @@ class CampusEventCellView: UIView {
     
     let nameLabel: UILabel = {
         let label = UILabel()
-        label.font = Font.bold(20)
+        label.font = Font.bold(18)
         label.textColor = Color.blackText
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontSizeToFitWidth = true

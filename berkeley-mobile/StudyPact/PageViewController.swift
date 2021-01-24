@@ -48,7 +48,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         button.titleLabel?.font = Font.bold(15)
         button.backgroundColor = Color.getStartedButton
         button.setTitleColor(.white, for: .normal)
-        button.addTarget(self, action: #selector(close(_:)), for: .touchUpInside)
+        button.addTarget(self, action: #selector(getStarted(_:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -82,14 +82,12 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         nextButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
         nextButton.centerYAnchor.constraint(equalTo: pageControl.centerYAnchor).isActive = true
         nextButton.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -24).isActive = true
-        nextButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         
         view.addSubview(skipButton)
         skipButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
         skipButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
         skipButton.centerYAnchor.constraint(equalTo: pageControl.centerYAnchor).isActive = true
         skipButton.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 24).isActive = true
-        skipButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         
         view.addSubview(closeButton)
         closeButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
@@ -110,6 +108,12 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         self.dismiss(animated: true, completion: nil)
     }
     
+    @objc func getStarted(_: UIButton) {
+        if let tabBarController = UIApplication.shared.windows.first!.rootViewController as? TabBarController {
+            tabBarController.selectProfileTab()
+        }
+        self.dismiss(animated: true, completion: nil)
+    }
 
     @objc func skipClicked(_: UIButton) {
         

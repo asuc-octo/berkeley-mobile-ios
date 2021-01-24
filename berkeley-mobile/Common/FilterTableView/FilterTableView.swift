@@ -11,7 +11,6 @@ import UIKit
 fileprivate let kViewMargin: CGFloat = 16
 
 class FilterTableView<T>: UIView {
-    
     let tableView = UITableView(frame: .zero, style: .plain)
     var missingView: MissingDataView!
 
@@ -41,7 +40,7 @@ class FilterTableView<T>: UIView {
         tableView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         tableView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
-        tableView.rowHeight = 131
+        tableView.rowHeight = 103
         tableView.layer.masksToBounds = true
         tableView.contentInset = UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0)
         tableView.setContentOffset(CGPoint(x: 0, y: -5), animated: false)
@@ -127,12 +126,10 @@ class FilterTableView<T>: UIView {
             }
         })
     }
-    
 }
 
 
 extension FilterTableView: FilterViewDelegate {
-    
     func filterView(_ filterView: FilterView, didSelect index: Int) {
         update()
     }
@@ -140,5 +137,4 @@ extension FilterTableView: FilterViewDelegate {
     func filterView(_ filterView: FilterView, didDeselect index: Int) {
         update()
     }
-
 }
