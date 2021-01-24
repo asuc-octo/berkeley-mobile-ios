@@ -120,7 +120,7 @@ class StudyPactOnboardingViewController: UIViewController {
             view.addSubview(getStarted)
             view.addSubview(centeringView)
             centeringView.topAnchor.constraint(equalTo: stack.bottomAnchor).isActive = true
-            centeringView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+            centeringView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50).isActive = true
             getStarted.widthAnchor.constraint(equalToConstant: 200).isActive = true
             getStarted.heightAnchor.constraint(equalToConstant: 43).isActive = true
             getStarted.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
