@@ -42,16 +42,6 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         button.addTarget(self, action: #selector(close(_:)), for: .touchUpInside)
         return button
     }()
-    let getStarted: UIButton = {
-        let button = UIButton()
-        button.setTitle("Let's get started!", for: .normal)
-        button.titleLabel?.font = Font.bold(15)
-        button.backgroundColor = Color.getStartedButton
-        button.setTitleColor(.white, for: .normal)
-        button.addTarget(self, action: #selector(getStarted(_:)), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,10 +54,6 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         configurePageControl()
 
         configureButtons()
-    }
-    
-    override func viewWillLayoutSubviews() {
-        getStarted.layer.cornerRadius = getStarted.frame.height / 2
     }
     
     override func viewDidLayoutSubviews() {
@@ -95,23 +81,9 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         closeButton.translatesAutoresizingMaskIntoConstraints = false
         closeButton.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 24).isActive = true
         closeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        
-        view.addSubview(getStarted)
-        getStarted.widthAnchor.constraint(equalToConstant: 200).isActive = true
-        getStarted.heightAnchor.constraint(equalToConstant: 43).isActive = true
-        getStarted.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
-        getStarted.bottomAnchor.constraint(equalTo: pageControl.topAnchor, constant: -30).isActive = true
-        getStarted.isHidden = true
     }
     
     @objc func close(_: UIButton) {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    @objc func getStarted(_: UIButton) {
-        if let tabBarController = UIApplication.shared.windows.first!.rootViewController as? TabBarController {
-            tabBarController.selectProfileTab()
-        }
         self.dismiss(animated: true, completion: nil)
     }
 
@@ -140,9 +112,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
     
     func buttonOpacityControl() {
         if pageControl.currentPage == self.pages.count - 1 {
-            getStarted.isHidden = false
             UIView.animate(withDuration: 0.5) {
-                self.getStarted.layer.opacity = 1
                 self.skipButton.layer.opacity = 0
                 self.nextButton.layer.opacity = 0
             }
@@ -152,7 +122,6 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         else if pageControl.currentPage != self.pages.count - 1 {
             DispatchQueue.main.async {
                 UIView.animate(withDuration: 0.3) {
-                    self.getStarted.layer.opacity = 0
                     self.skipButton.layer.opacity = 1
                     self.nextButton.layer.opacity = 1
                 }
@@ -164,7 +133,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         let initialPage = 0
         let page1 = StudyPactOnboardingViewController(_signUpLabelText: "Sign Up", _bearImage: UIImage(named: "Onboarding1")!, _numberImage: UIImage(named: "Onboarding1Num")!, _descriptionText: "Add your classes and study preferences to your profile to get started with pairing")
         let page2 = StudyPactOnboardingViewController(_signUpLabelText: "Get Matched", _bearImage: UIImage(named: "Onboarding2")!, _numberImage: UIImage(named: "Onboarding2Num")!, _descriptionText: "Based on your preferences, we will match you with existing groups or prompt you to create your own")
-        let page3 = StudyPactOnboardingViewController(_signUpLabelText: "Connect", _bearImage: UIImage(named: "Onboarding3")!, _numberImage: UIImage(named: "Onboarding3Num")!, _descriptionText: "Get connected through your preferred choice of contact and send in-app study notifications!")
+        let page3 = StudyPactOnboardingViewController(_signUpLabelText: "Connect", _bearImage: UIImage(named: "Onboarding3")!, _numberImage: UIImage(named: "Onboarding3Num")!, _descriptionText: "Get connected through your preferred choice of contact and send in-app study notifications!", _hasGetStarted: true)
         
         // add the individual viewControllers to the pageViewController
         self.pages.append(page1)
@@ -181,7 +150,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         self.view.addSubview(self.pageControl)
         
         self.pageControl.translatesAutoresizingMaskIntoConstraints = false
-        self.pageControl.bottomAnchor.constraint(equalTo: self.view.layoutMarginsGuide.bottomAnchor, constant: -10).isActive = true
+        self.pageControl.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -30).isActive = true
         self.pageControl.widthAnchor.constraint(equalToConstant: 140).isActive = true
         self.pageControl.heightAnchor.constraint(equalToConstant: 20).isActive = true
         self.pageControl.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
