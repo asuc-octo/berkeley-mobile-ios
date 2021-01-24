@@ -66,9 +66,6 @@ extension AppDelegate {
                 group.leave()
             }
         }
-        if last < Version(version: "10.0.4") {
-            
-        }
 
         // Only update the last seen version if all migrations are successful
         group.notify(queue: .main) {
