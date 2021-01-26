@@ -98,7 +98,7 @@ class SegmentedControlViewController: UIViewController {
         let nonzeroSize = CGSize(width: 1, height: kControlHeight)
         control = SegmentedControl(frame: CGRect(origin: .zero, size: scrollable ? nonzeroSize : size),
                                 barHeight: kBarHeight,
-                                barColor: Color.segemntedControlHighlight)
+                                barColor: Color.segmentedControlHighlight)
         control.delegate = self
         scrollView.addSubview(control)
         control.translatesAutoresizingMaskIntoConstraints = false
