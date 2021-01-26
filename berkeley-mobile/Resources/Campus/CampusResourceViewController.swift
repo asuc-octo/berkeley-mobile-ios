@@ -17,15 +17,36 @@ class CampusResourceViewController: UIViewController {
     private var resourcesTable: FilterTableView = FilterTableView<Resource>(frame: .zero, tableFunctions: [], defaultSort: SortingFunctions.sortAlph(item1:item2:))
     
     private var resourceEntries: [Resource] = []
-    
+
+    /// If non-nil, this view will present the filtered set of campus resources.
+    private var resourceFilter: ((Resource) -> Bool)?
+
+    convenience init() {
+        self.init(type: nil)
+    }
+
+    init(type: ResourceType?) {
+        super.init(nibName: nil, bundle: nil)
+        guard let type = type else { return }
+        resourceFilter = { resource in
+            return resource.type == type.rawValue
+        }
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupResourcesList()
 
         DataManager.shared.fetch(source: ResourceDataSource.self) { resourceEntries in
-            self.resourceEntries = resourceEntries as? [Resource] ?? []
-            self.resourcesTable.setData(data: resourceEntries as! [Resource])
+            var entries = resourceEntries as? [Resource] ?? []
+            if let filter = self.resourceFilter { entries = entries.filter(filter) }
+            self.resourceEntries = entries
+            self.resourcesTable.setData(data: self.resourceEntries)
             self.resourcesTable.update()
         }
     }

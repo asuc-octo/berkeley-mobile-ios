@@ -22,11 +22,17 @@ struct Page {
 
 // MARK: - SegmentedControlViewController
 
+fileprivate let kControlHeight: CGFloat = 35
+fileprivate let kBarHeight: CGFloat = 13
+
 /// A view controller containing a `UIPageViewController` synced-up with a `SegmentedControl`.
 class SegmentedControlViewController: UIViewController {
 
     /// The `SegmentedControl` displayed at the top of this view controller.
     var control: SegmentedControl!
+
+    /// The `UIScrollView` containing `control` that allows it to scroll horizontally if there are many options.
+    private var scrollView: UIScrollView!
 
     /// The `UIPageViewController` controlled by `control`.
     private var pageViewController: UIPageViewController!
@@ -65,26 +71,38 @@ class SegmentedControlViewController: UIViewController {
             the `SegmentedControl`. If this value is `nil`, the control will extend to the edges of the view controller.
       - Parameter centerControl: Horizontally centers `control` if this value is `true`, otherwise left-align `control`
             with the left inset provided by `controlInsets`.
+      - Parameter scrollable: If there are many pages, allows the control to scroll horizontally instead of
+            shrinking or truncating the control labels.
     */
-    init(pages: [Page], controlInsets: UIEdgeInsets? = nil, centerControl: Bool = true) {
+    init(pages: [Page], controlInsets: UIEdgeInsets? = nil, centerControl: Bool = true, scrollable: Bool = false) {
         super.init(nibName: nil, bundle: nil)
 
-        // Setup controls
+        // Setup UIScrollView
         let insets = controlInsets ?? view.layoutMargins
-        let size = CGSize(width: view.frame.width - insets.left - insets.right, height: 35)
-        control = SegmentedControl(frame: CGRect(origin: .zero, size: size),
-                                barHeight: CGFloat(13),
-                                barColor: UIColor(displayP3Red: 250/255.0, green: 212/255.0, blue: 126/255.0, alpha: 1.0))
-        control.delegate = self
+        let size = CGSize(width: view.frame.width - insets.left - insets.right, height: kControlHeight)
+        scrollView = UIScrollView()
+        scrollView.showsHorizontalScrollIndicator = false
 
-        view.addSubview(control)
-        control.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(scrollView)
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        scrollView.heightAnchor.constraint(equalToConstant: size.height).isActive = true
+        scrollView.widthAnchor.constraint(equalToConstant: size.width).isActive = true
         if centerControl {
-            control.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+            scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         } else {
-            control.leftAnchor.constraint(equalTo: view.leftAnchor, constant: insets.left).isActive = true
+            scrollView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: insets.left).isActive = true
         }
-        control.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+
+        // Setup controls
+        let nonzeroSize = CGSize(width: 1, height: kControlHeight)
+        control = SegmentedControl(frame: CGRect(origin: .zero, size: scrollable ? nonzeroSize : size),
+                                barHeight: kBarHeight,
+                                barColor: Color.segemntedControlHighlight)
+        control.delegate = self
+        scrollView.addSubview(control)
+        control.translatesAutoresizingMaskIntoConstraints = false
+        control.setConstraintsToView(top: scrollView, bottom: scrollView, left: scrollView, right: scrollView)
 
         // Setup UIPageViewController
         pageViewController = UIPageViewController(transitionStyle: .scroll,
@@ -97,7 +115,7 @@ class SegmentedControlViewController: UIViewController {
         pageViewController.view.translatesAutoresizingMaskIntoConstraints = false
         pageViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         pageViewController.view.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        pageViewController.view.topAnchor.constraint(equalTo: control.bottomAnchor).isActive = true
+        pageViewController.view.topAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
         pageViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
 
         let scrollViews = pageViewController.view.subviews.filter { $0 is UIScrollView }
@@ -146,6 +164,7 @@ extension SegmentedControlViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         control.progress = Double((scrollView.contentOffset.x - scrollView.frame.size.width) / scrollView.frame.size.width)
         animating = control.progress != 0
+        self.scrollView.scrollRectToVisible(control.indicatorFrame, animated: true)
     }
     
 }
