@@ -79,8 +79,8 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         closeButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
         closeButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
         closeButton.translatesAutoresizingMaskIntoConstraints = false
-        closeButton.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 24).isActive = true
-        closeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        closeButton.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 8).isActive = true
+        closeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16).isActive = true
     }
     
     @objc func close(_: UIButton) {
