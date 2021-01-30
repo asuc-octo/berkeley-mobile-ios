@@ -104,6 +104,11 @@
 		2975D5402459301B00514B43 /* SearchDrawerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2975D53F2459301B00514B43 /* SearchDrawerViewDelegate.swift */; };
 		297678872426B7BA00FDD1EB /* SearchAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297678862426B7BA00FDD1EB /* SearchAnnotation.swift */; };
 		297678892426D2C500FDD1EB /* SearchDrawerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297678882426D2C500FDD1EB /* SearchDrawerViewController.swift */; };
+		29891B23257C521E0094891D /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29891B21257C521E0094891D /* PageViewController.swift */; };
+		29891B24257C521E0094891D /* StudyPactOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29891B22257C521E0094891D /* StudyPactOnboardingViewController.swift */; };
+		298EE26A25BB6C33002BAF0F /* Colors+StudyPact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298EE26925BB6C33002BAF0F /* Colors+StudyPact.swift */; };
+		298EE26D25BB7CD4002BAF0F /* StudyPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298EE26C25BB7CD4002BAF0F /* StudyPreferencesViewController.swift */; };
+		298EE27025BB82A2002BAF0F /* CardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298EE26F25BB82A2002BAF0F /* CardTableViewCell.swift */; };
 		299ACFB0244A58CD000F3E86 /* OccupancyDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299ACFAF244A58CD000F3E86 /* OccupancyDataSource.swift */; };
 		299ACFB2244A5A15000F3E86 /* Occupancy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299ACFB1244A5A15000F3E86 /* Occupancy.swift */; };
 		299ACFB4244A5F90000F3E86 /* HasOccupancy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299ACFB3244A5F90000F3E86 /* HasOccupancy.swift */; };
@@ -113,8 +118,11 @@
 		29B3A1742439A60A00093750 /* DiningMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B3A1732439A60A00093750 /* DiningMenuCell.swift */; };
 		29B3D7862453984A006762E5 /* DrawerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B3D7852453984A006762E5 /* DrawerViewDelegate.swift */; };
 		29B3D78824539FF3006762E5 /* MainDrawerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B3D78724539FF3006762E5 /* MainDrawerViewController.swift */; };
-		29CB28092404DD53009A2CFB /* LibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39AA623E7746C0039FBA2 /* LibraryViewController.swift */; };
+		29CB28092404DD53009A2CFB /* StudyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39AA623E7746C0039FBA2 /* StudyViewController.swift */; };
 		29CB280A2404DD71009A2CFB /* FilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39AA423E774600039FBA2 /* FilterTableViewCell.swift */; };
+		29DB64CF25BA61BD001C4275 /* StudyGroupsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DB64CE25BA61BD001C4275 /* StudyGroupsView.swift */; };
+		29DB64D225BA6269001C4275 /* StudyGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DB64D125BA6269001C4275 /* StudyGroup.swift */; };
+		29DB64D925BA8242001C4275 /* AllStudyGroupsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DB64D825BA8242001C4275 /* AllStudyGroupsViewController.swift */; };
 		29EE163F241C4E310041482E /* SortingFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EE163E241C4E310041482E /* SortingFunctions.swift */; };
 		29F11EC72516C150007DCFD7 /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F11EC62516C150007DCFD7 /* BarView.swift */; };
 		303F6AE1236A931D007E37DD /* SegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303F6ADD236A931D007E37DD /* SegmentedControl.swift */; };
@@ -157,6 +165,7 @@
 		55DCF7A123724835001B01B8 /* MaterialButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF7A023724835001B01B8 /* MaterialButton.swift */; };
 		55EDAA702569D622006BAFAC /* CovidResourceDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EDAA6F2569D622006BAFAC /* CovidResourceDataSource.swift */; };
 		55EDAA742569D730006BAFAC /* CovidResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EDAA732569D730006BAFAC /* CovidResource.swift */; };
+		600CB18DB1A293062CAC7914 /* Pods_berkeley_mobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A826C1BD0A2BCA2F083C6EE /* Pods_berkeley_mobile.framework */; };
 		D99314A32B5752F2EB9C03E4 /* Pods_berkeley_mobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A826C1BD0A2BCA2F083C6EE /* Pods_berkeley_mobile.framework */; };
 /* End PBXBuildFile section */
 
@@ -225,7 +234,7 @@
 		13B39A9723E6A33B0039FBA2 /* Library.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Library.swift; sourceTree = "<group>"; };
 		13B39A9823E6A33B0039FBA2 /* LibraryDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryDataSource.swift; sourceTree = "<group>"; };
 		13B39AA423E774600039FBA2 /* FilterTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterTableViewCell.swift; sourceTree = "<group>"; };
-		13B39AA623E7746C0039FBA2 /* LibraryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryViewController.swift; sourceTree = "<group>"; };
+		13B39AA623E7746C0039FBA2 /* StudyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudyViewController.swift; sourceTree = "<group>"; };
 		13B39AB223E777AC0039FBA2 /* FilterViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterViewCell.swift; sourceTree = "<group>"; };
 		13B39AB323E777AC0039FBA2 /* FilterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 		13DACD212411DF7200A09982 /* UIStackView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Extensions.swift"; sourceTree = "<group>"; };
@@ -260,6 +269,11 @@
 		2975D53F2459301B00514B43 /* SearchDrawerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDrawerViewDelegate.swift; sourceTree = "<group>"; };
 		297678862426B7BA00FDD1EB /* SearchAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAnnotation.swift; sourceTree = "<group>"; };
 		297678882426D2C500FDD1EB /* SearchDrawerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDrawerViewController.swift; sourceTree = "<group>"; };
+		29891B21257C521E0094891D /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
+		29891B22257C521E0094891D /* StudyPactOnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudyPactOnboardingViewController.swift; sourceTree = "<group>"; };
+		298EE26925BB6C33002BAF0F /* Colors+StudyPact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+StudyPact.swift"; sourceTree = "<group>"; };
+		298EE26C25BB7CD4002BAF0F /* StudyPreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyPreferencesViewController.swift; sourceTree = "<group>"; };
+		298EE26F25BB82A2002BAF0F /* CardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTableViewCell.swift; sourceTree = "<group>"; };
 		299ACFAF244A58CD000F3E86 /* OccupancyDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OccupancyDataSource.swift; sourceTree = "<group>"; };
 		299ACFB1244A5A15000F3E86 /* Occupancy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Occupancy.swift; sourceTree = "<group>"; };
 		299ACFB3244A5F90000F3E86 /* HasOccupancy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasOccupancy.swift; sourceTree = "<group>"; };
@@ -269,6 +283,9 @@
 		29B3A1732439A60A00093750 /* DiningMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiningMenuCell.swift; sourceTree = "<group>"; };
 		29B3D7852453984A006762E5 /* DrawerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerViewDelegate.swift; sourceTree = "<group>"; };
 		29B3D78724539FF3006762E5 /* MainDrawerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainDrawerViewController.swift; sourceTree = "<group>"; };
+		29DB64CE25BA61BD001C4275 /* StudyGroupsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyGroupsView.swift; sourceTree = "<group>"; };
+		29DB64D125BA6269001C4275 /* StudyGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyGroup.swift; sourceTree = "<group>"; };
+		29DB64D825BA8242001C4275 /* AllStudyGroupsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllStudyGroupsViewController.swift; sourceTree = "<group>"; };
 		29EE163E241C4E310041482E /* SortingFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingFunctions.swift; sourceTree = "<group>"; };
 		29F11EC62516C150007DCFD7 /* BarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarView.swift; sourceTree = "<group>"; };
 		303F6ADD236A931D007E37DD /* SegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedControl.swift; sourceTree = "<group>"; };
@@ -321,6 +338,7 @@
 		B5DD1FA9F5CF4BCFD4A64306 /* Pods-bm-persona.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bm-persona.debug.xcconfig"; path = "Target Support Files/Pods-bm-persona/Pods-bm-persona.debug.xcconfig"; sourceTree = "<group>"; };
 		CB9A33BEF33ABF885BD30304 /* Pods-berkeley-mobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeley-mobile.release.xcconfig"; path = "Target Support Files/Pods-berkeley-mobile/Pods-berkeley-mobile.release.xcconfig"; sourceTree = "<group>"; };
 		EC01CCF388C7E41052CEB683 /* Pods-bm-persona.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bm-persona.release.xcconfig"; path = "Target Support Files/Pods-bm-persona/Pods-bm-persona.release.xcconfig"; sourceTree = "<group>"; };
+		FD6A88422560A8B80046FF10 /* Colors+StudyPact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+StudyPact.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -329,6 +347,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D99314A32B5752F2EB9C03E4 /* Pods_berkeley_mobile.framework in Frameworks */,
+				600CB18DB1A293062CAC7914 /* Pods_berkeley_mobile.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -406,11 +425,13 @@
 			children = (
 				55DCF78623722CBD001B01B8 /* Colors.swift */,
 				13491DB9241E23630033F9AB /* Colors+Text.swift */,
+				298EE26925BB6C33002BAF0F /* Colors+StudyPact.swift */,
 				13491DB5241E21740033F9AB /* Colors+TagView.swift */,
 				018B982725328200004C3B26 /* Colors+ActionButton.swift */,
 				13491DB7241E22130033F9AB /* Colors+Event.swift */,
 				135D7F76243A9BD1003F8BD1 /* Colors+GymClass.swift */,
 				017C0B25251018BA00BFA80A /* Colors+MapMarker.swift */,
+				FD6A88422560A8B80046FF10 /* Colors+StudyPact.swift */,
 				01CDFF69257C614900D9FBD6 /* Colors+Resource.swift */,
 			);
 			path = Colors;
@@ -457,6 +478,7 @@
 				1396012E23865E2E005E4788 /* CollectionView */,
 				29481560253274CA00D113B6 /* Images */,
 				1396013123865E2E005E4788 /* CardView.swift */,
+				298EE26F25BB82A2002BAF0F /* CardTableViewCell.swift */,
 				1396013223865E2E005E4788 /* TagView.swift */,
 				018B982525327358004C3B26 /* ActionButton.swift */,
 				01B250272516AD4F00CBA459 /* IconPairView.swift */,
@@ -484,7 +506,7 @@
 			children = (
 				13B39A9123E6A2C20039FBA2 /* LibraryDataSource */,
 				13580AF52437D7E700D309AA /* LibraryDetailViewController.swift */,
-				13B39AA623E7746C0039FBA2 /* LibraryViewController.swift */,
+				13B39AA623E7746C0039FBA2 /* StudyViewController.swift */,
 			);
 			path = Libraries;
 			sourceTree = "<group>";
@@ -644,6 +666,15 @@
 			path = Occupancy;
 			sourceTree = "<group>";
 		};
+		29BB9E5925BFEC3300FC5EC8 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				29891B21257C521E0094891D /* PageViewController.swift */,
+				29891B22257C521E0094891D /* StudyPactOnboardingViewController.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
 		29BED7BF241DF43B0049C022 /* FilterTableView */ = {
 			isa = PBXGroup;
 			children = (
@@ -651,6 +682,17 @@
 				13B39AA423E774600039FBA2 /* FilterTableViewCell.swift */,
 			);
 			path = FilterTableView;
+			sourceTree = "<group>";
+		};
+		29DB64D725BA8213001C4275 /* StudyGroups */ = {
+			isa = PBXGroup;
+			children = (
+				29DB64CE25BA61BD001C4275 /* StudyGroupsView.swift */,
+				29DB64D825BA8242001C4275 /* AllStudyGroupsViewController.swift */,
+				298EE26C25BB7CD4002BAF0F /* StudyPreferencesViewController.swift */,
+				29DB64D125BA6269001C4275 /* StudyGroup.swift */,
+			);
+			path = StudyGroups;
 			sourceTree = "<group>";
 		};
 		303F6ADC236A9274007E37DD /* Drawer */ = {
@@ -742,8 +784,10 @@
 		55208DF025B7D93E00A75983 /* StudyPact */ = {
 			isa = PBXGroup;
 			children = (
-				55208DF125B7D95E00A75983 /* ProfileViewController.swift */,
 				553B3B4525BCC2A300212AF6 /* BorderedTextField.swift */,
+				29BB9E5925BFEC3300FC5EC8 /* Onboarding */,
+				29DB64D725BA8213001C4275 /* StudyGroups */,
+				55208DF125B7D95E00A75983 /* ProfileViewController.swift */,
 			);
 			path = StudyPact;
 			sourceTree = "<group>";
@@ -989,9 +1033,10 @@
 				130FA59F243B12B3005DC752 /* Resource.swift in Sources */,
 				13B8E9592425819D00E7FCBF /* ResourceDataSource.swift in Sources */,
 				01FA50F324E8BA5400DCC490 /* LocationDetailView.swift in Sources */,
-				29CB28092404DD53009A2CFB /* LibraryViewController.swift in Sources */,
+				29CB28092404DD53009A2CFB /* StudyViewController.swift in Sources */,
 				552F4A51254E16350061D0F2 /* CovidResourceViewController.swift in Sources */,
 				55AF44292453A4EC00F13232 /* CafeDataSource.swift in Sources */,
+				29DB64CF25BA61BD001C4275 /* StudyGroupsView.swift in Sources */,
 				306A550023614C0000D59A7F /* MainContainerViewController.swift in Sources */,
 				29F11EC72516C150007DCFD7 /* BarView.swift in Sources */,
 				55DCF78723722CBD001B01B8 /* Colors.swift in Sources */,
@@ -1030,6 +1075,7 @@
 				29B3D78824539FF3006762E5 /* MainDrawerViewController.swift in Sources */,
 				13491DBC242098B30033F9AB /* AtomicDictionary.swift in Sources */,
 				01BC8EB024E8C3E3005B4969 /* DetailView.swift in Sources */,
+				29891B24257C521E0094891D /* StudyPactOnboardingViewController.swift in Sources */,
 				13580AFA243934BF00D309AA /* GymClassesController.swift in Sources */,
 				1396013423865E2E005E4788 /* CardCollectionViewCell.swift in Sources */,
 				55DCF79D237243F5001B01B8 /* RippleLayer.swift in Sources */,
@@ -1057,12 +1103,14 @@
 				303F6AE4236A931D007E37DD /* SegmentedControlViewController.swift in Sources */,
 				559A7B6F2373DF39004EA501 /* SearchResultCell.swift in Sources */,
 				299ACFB0244A58CD000F3E86 /* OccupancyDataSource.swift in Sources */,
+				29DB64D225BA6269001C4275 /* StudyGroup.swift in Sources */,
 				29345E2B24A7EC2B00859A88 /* HasImage.swift in Sources */,
 				2913595924B13DF200DE9AD6 /* OpenTimesCardView.swift in Sources */,
 				13135BB3241244370056B169 /* FilterViewCell.swift in Sources */,
 				552F4A4C254E13BF0061D0F2 /* CampusResourceViewController.swift in Sources */,
 				016A56D42519E96800531A12 /* CampusCalendarViewController.swift in Sources */,
 				01D11B9225045FC900BDF660 /* CampusResourceDetailViewController.swift in Sources */,
+				298EE27025BB82A2002BAF0F /* CardTableViewCell.swift in Sources */,
 				13580AF62437D7E700D309AA /* LibraryDetailViewController.swift in Sources */,
 				135D7F77243A9BD1003F8BD1 /* Colors+GymClass.swift in Sources */,
 				55DCF7A123724835001B01B8 /* MaterialButton.swift in Sources */,
@@ -1075,6 +1123,7 @@
 				1336A31C241C400800949F32 /* GymClass.swift in Sources */,
 				559A7B6B2373DCBA004EA501 /* SearchResultsView.swift in Sources */,
 				13EA64C82399CE0800FD8E13 /* GymDataSource.swift in Sources */,
+				298EE26A25BB6C33002BAF0F /* Colors+StudyPact.swift in Sources */,
 				016A56D8251C930D00531A12 /* AppDelegate+Migration.swift in Sources */,
 				55DCF78923722CF1001B01B8 /* Fonts.swift in Sources */,
 				296F1B272439341300924C8D /* DiningDetailViewController.swift in Sources */,
@@ -1114,16 +1163,20 @@
 				556CCD2223E7771800F41BF9 /* MapPlacemark.swift in Sources */,
 				297678872426B7BA00FDD1EB /* SearchAnnotation.swift in Sources */,
 				01CDFF6A257C614900D9FBD6 /* Colors+Resource.swift in Sources */,
+				298EE26D25BB7CD4002BAF0F /* StudyPreferencesViewController.swift in Sources */,
 				13741B6C2400D866003D1EEB /* MapDataSource.swift in Sources */,
 				1336A320241D924300949F32 /* DiningItem.swift in Sources */,
+				FD6A88432560A8B80046FF10 /* Colors+StudyPact.swift in Sources */,
 				299ACFB4244A5F90000F3E86 /* HasOccupancy.swift in Sources */,
 				559A7B6D2373DEFA004EA501 /* MaterialTableViewCell.swift in Sources */,
+				29891B23257C521E0094891D /* PageViewController.swift in Sources */,
 				13EA64CD2399CEDA00FD8E13 /* Gym.swift in Sources */,
 				1396013523865E2E005E4788 /* CardView.swift in Sources */,
 				1336A322241D92F700949F32 /* MealType.swift in Sources */,
 				303F6AE1236A931D007E37DD /* SegmentedControl.swift in Sources */,
 				5516088824393F3F00B1E55B /* MissingDataView.swift in Sources */,
 				018B982625327358004C3B26 /* ActionButton.swift in Sources */,
+				29DB64D925BA8242001C4275 /* AllStudyGroupsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
