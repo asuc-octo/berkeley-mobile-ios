@@ -108,10 +108,6 @@ class SegmentedControlViewController: UIViewController {
         indicator.transform = CGAffineTransform(scaleX: -1, y: 1)
         indicator.backgroundColor = UIColor.white
         indicator.layer.cornerRadius = size.height / 2
-        indicator.layer.shadowRadius = 5
-        indicator.layer.shadowOpacity = 0.2
-        indicator.layer.shadowColor = UIColor.black.cgColor
-        indicator.layer.shadowOffset = CGSize(width: 0, height: 5)
 
         view.addSubview(indicator)
         indicator.translatesAutoresizingMaskIntoConstraints = false
