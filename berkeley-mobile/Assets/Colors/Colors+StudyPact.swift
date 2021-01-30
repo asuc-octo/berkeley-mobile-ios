@@ -24,11 +24,11 @@ extension Color {
     }
     
     struct StudyGroups {
-        static var createGroupDottedBorder: UIColor {
+        static var createPreferenceDottedBorder: UIColor {
             return UIColor(red: 158.0 / 255.0, green: 158.0 / 255.0, blue: 158.0 / 255.0, alpha: 1.0)
         }
         
-        static var createGroupGreenPlus: UIColor {
+        static var createPreferenceGreenPlus: UIColor {
             return UIColor(red: 163.0 / 255.0, green: 206.0 / 255.0, blue: 107.0 / 255.0, alpha: 1.0)
         }
     }

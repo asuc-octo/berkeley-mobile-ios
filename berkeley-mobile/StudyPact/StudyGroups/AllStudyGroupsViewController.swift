@@ -30,19 +30,6 @@ class AllStudyGroupsViewController: UIViewController {
         return label
     }()
     
-    var preferencesButton: ActionButton = {
-        let button = ActionButton(title: "Update Preferences")
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(goToPreferences), for: .touchUpInside)
-        return button
-    }()
-    
-    @objc func goToPreferences() {
-        let vc = StudyPreferencesViewController()
-        vc.studyGroups = studyGroups
-        self.present(vc, animated: true, completion: nil)
-    }
-    
     // MARK: Setup
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,18 +61,12 @@ class AllStudyGroupsViewController: UIViewController {
         titleLabel.leftAnchor.constraint(equalTo: card.leftAnchor, constant: kViewMargin).isActive = true
         titleLabel.rightAnchor.constraint(lessThanOrEqualTo: self.view.rightAnchor, constant: -1 * kViewMargin).isActive = true
         
-        studyGroupsGrid = StudyGroupsView(studyGroups: studyGroups, includeCreateGroup: true)
+        studyGroupsGrid = StudyGroupsView(studyGroups: studyGroups, includeCreatePreference: true)
         studyGroupsGrid.translatesAutoresizingMaskIntoConstraints = false
         card.addSubview(studyGroupsGrid)
         studyGroupsGrid.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: kViewMargin).isActive = true
         studyGroupsGrid.rightAnchor.constraint(equalTo: card.rightAnchor, constant: -1 * kViewMargin).isActive = true
         studyGroupsGrid.leftAnchor.constraint(equalTo: card.leftAnchor, constant: kViewMargin).isActive = true
         studyGroupsGrid.bottomAnchor.constraint(equalTo: card.bottomAnchor, constant: -1 * kViewMargin).isActive = true
-        
-        view.addSubview(preferencesButton)
-        preferencesButton.topAnchor.constraint(equalTo: card.bottomAnchor, constant: kViewMargin).isActive = true
-        preferencesButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -1 * kViewMargin).isActive = true
-        preferencesButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: kViewMargin).isActive = true
-        preferencesButton.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -2 * kViewMargin).isActive = true
     }
 }

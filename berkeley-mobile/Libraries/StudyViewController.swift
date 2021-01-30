@@ -164,7 +164,7 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
                 for view in studyPactContent.subviews {
                     view.removeFromSuperview()
                 }
-                let groupGrid = StudyGroupsView(studyGroups: usedGroups, includeCreateGroup: groups.count < 2)
+                let groupGrid = StudyGroupsView(studyGroups: usedGroups, includeCreatePreference: groups.count < 2)
                 studyPactContent.addSubview(groupGrid)
                 groupGrid.translatesAutoresizingMaskIntoConstraints = false
                 groupGrid.topAnchor.constraint(equalTo: studyPactContent.topAnchor).isActive = true
@@ -182,7 +182,7 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
                 studyGroupsGrid = nil
             }
             if studyPactContent.subviews.count == 0 {
-                let profileButton = ActionButton(title: "Sign In to Get Started!")
+                let profileButton = ActionButton(title: "Sign In to Get Started With Study Pact!")
                 profileButton.addTarget(self, action: #selector(goToProfile), for: .touchUpInside)
                 studyPactContent.addSubview(profileButton)
                 profileButton.translatesAutoresizingMaskIntoConstraints = false

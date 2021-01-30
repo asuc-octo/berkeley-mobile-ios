@@ -15,8 +15,8 @@ class StudyGroupsView: UIView {
     static let cellsPerRow = 2
     
     var studyGroups: [StudyGroup] = []
-    /// whether to add a "Create Group" cell as the first cell
-    var includeCreateGroup: Bool = false
+    /// whether to add a "Create Preference" cell as the first cell
+    var includeCreatePreference: Bool = false
     /// allows for dynamically resizing the collection view height to match the number of elements
     private var collectionHeightConstraint: NSLayoutConstraint!
     
@@ -24,7 +24,7 @@ class StudyGroupsView: UIView {
         let collection = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout.init())
         collection.translatesAutoresizingMaskIntoConstraints = false
         collection.register(StudyGroupCell.self, forCellWithReuseIdentifier: StudyGroupCell.kCellIdentifier)
-        collection.register(CreateGroupCell.self, forCellWithReuseIdentifier: CreateGroupCell.kCellIdentifier)
+        collection.register(CreatePreferenceCell.self, forCellWithReuseIdentifier: CreatePreferenceCell.kCellIdentifier)
         collection.backgroundColor = .clear
         collection.showsVerticalScrollIndicator = false
         
@@ -35,11 +35,11 @@ class StudyGroupsView: UIView {
         return collection
     }()
     
-    public init(studyGroups: [StudyGroup], includeCreateGroup: Bool = false) {
+    public init(studyGroups: [StudyGroup], includeCreatePreference: Bool = false) {
         super.init(frame: .zero)
         
         self.studyGroups = studyGroups
-        self.includeCreateGroup = includeCreateGroup
+        self.includeCreatePreference = includeCreatePreference
         
         collection.delegate = self
         collection.dataSource = self
@@ -85,15 +85,15 @@ extension StudyGroupsView: UICollectionViewDelegate, UICollectionViewDataSource,
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.studyGroups.count + (includeCreateGroup ? 1 : 0)
+        return self.studyGroups.count + (includeCreatePreference ? 1 : 0)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if indexPath.row == 0 && includeCreateGroup {
-            return collectionView.dequeueReusableCell(withReuseIdentifier: CreateGroupCell.kCellIdentifier, for: indexPath)
+        if indexPath.row == 0 && includeCreatePreference {
+            return collectionView.dequeueReusableCell(withReuseIdentifier: CreatePreferenceCell.kCellIdentifier, for: indexPath)
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: StudyGroupCell.kCellIdentifier, for: indexPath)
-            let index = indexPath.row - (includeCreateGroup ? 1 : 0)
+            let index = indexPath.row - (includeCreatePreference ? 1 : 0)
             if let studyGroupCell = cell as? StudyGroupCell {
                 if let group = studyGroups[safe: index] {
                     studyGroupCell.configure(studyGroup: group)
@@ -265,15 +265,15 @@ class StudyGroupCell: UICollectionViewCell {
 }
 
 /// Cell allowing user to create a new group
-class CreateGroupCell: UICollectionViewCell {
-    static let kCellIdentifier = "createGroupCell"
+class CreatePreferenceCell: UICollectionViewCell {
+    static let kCellIdentifier = "createPreferenceCell"
     // MARK: UI Elements
-    let createGroupPlus: UIView = {
+    let createPreferencePlus: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         let circleRadius: CGFloat = 9.5
         view.layer.cornerRadius = circleRadius
-        view.backgroundColor = Color.StudyGroups.createGroupGreenPlus
+        view.backgroundColor = Color.StudyGroups.createPreferenceGreenPlus
         view.widthAnchor.constraint(equalToConstant: 2 * circleRadius).isActive = true
         view.heightAnchor.constraint(equalToConstant: 2 * circleRadius).isActive = true
         
@@ -289,13 +289,13 @@ class CreateGroupCell: UICollectionViewCell {
         return view
     }()
     
-    let createGroupLabel: UILabel = {
+    let createPreferenceLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 2
         label.font = Font.medium(16)
         label.alpha = 0.51
-        label.text = "Create\nGroup"
+        label.text = "Create\nPreference"
         return label
     }()
     
@@ -311,20 +311,20 @@ class CreateGroupCell: UICollectionViewCell {
         let layer = CAShapeLayer.init()
         let path = UIBezierPath(roundedRect: bounds, cornerRadius: 12)
         layer.path = path.cgPath
-        layer.strokeColor = Color.StudyGroups.createGroupDottedBorder.cgColor
+        layer.strokeColor = Color.StudyGroups.createPreferenceDottedBorder.cgColor
         layer.lineDashPattern = [2, 2]
         layer.fillColor = nil
         contentView.layer.addSublayer(layer)
         
         let joinedView = UIView()
         joinedView.translatesAutoresizingMaskIntoConstraints = false
-        joinedView.addSubview(createGroupPlus)
-        createGroupPlus.centerYAnchor.constraint(equalTo: joinedView.centerYAnchor).isActive = true
-        createGroupPlus.leftAnchor.constraint(equalTo: joinedView.leftAnchor).isActive = true
-        joinedView.addSubview(createGroupLabel)
-        createGroupLabel.centerYAnchor.constraint(equalTo: joinedView.centerYAnchor).isActive = true
-        createGroupLabel.leftAnchor.constraint(equalTo: createGroupPlus.rightAnchor, constant: kViewMargin).isActive = true
-        createGroupLabel.rightAnchor.constraint(equalTo: joinedView.rightAnchor).isActive = true
+        joinedView.addSubview(createPreferencePlus)
+        createPreferencePlus.centerYAnchor.constraint(equalTo: joinedView.centerYAnchor).isActive = true
+        createPreferencePlus.leftAnchor.constraint(equalTo: joinedView.leftAnchor).isActive = true
+        joinedView.addSubview(createPreferenceLabel)
+        createPreferenceLabel.centerYAnchor.constraint(equalTo: joinedView.centerYAnchor).isActive = true
+        createPreferenceLabel.leftAnchor.constraint(equalTo: createPreferencePlus.rightAnchor, constant: kViewMargin).isActive = true
+        createPreferenceLabel.rightAnchor.constraint(equalTo: joinedView.rightAnchor).isActive = true
         
         contentView.addSubview(joinedView)
         joinedView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
@@ -338,13 +338,13 @@ class CreateGroupCell: UICollectionViewCell {
     }
     
     private func setUpGestureRecognizer() {
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(self.goToCreateGroup(_:)))
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(self.goToCreatePreference(_:)))
         self.addGestureRecognizer(gesture)
     }
     
-    @objc func goToCreateGroup(_ sender: UITapGestureRecognizer) {
-        print("Create Group tapped")
-        // TODO: go to create group flow
+    @objc func goToCreatePreference(_ sender: UITapGestureRecognizer) {
+        print("Create Preference tapped")
+        // TODO: go to create preference flow
     }
 }
 
