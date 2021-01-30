@@ -42,8 +42,10 @@ class PendingGroupViewController: UIViewController {
         button.backgroundColor = Color.StudyPact.StudyGroups.leaveGroupButton
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = Font.medium(12)
-        button.layer.cornerRadius = 20
+        let radius: CGFloat = 20
+        button.layer.cornerRadius = radius
         button.addTarget(self, action: #selector(removeRequest), for: .touchUpInside)
+        button.heightAnchor.constraint(equalToConstant: 2 * radius).isActive = true
         return button
     }()
 
@@ -83,15 +85,20 @@ class PendingGroupViewController: UIViewController {
         
         card.addSubview(removeButton)
         removeButton.topAnchor.constraint(equalTo: pendingLabel.bottomAnchor, constant: kViewMargin).isActive = true
-        removeButton.rightAnchor.constraint(equalTo: card.rightAnchor, constant: -1 * kViewMargin).isActive = true
         removeButton.leftAnchor.constraint(equalTo: card.leftAnchor, constant: kViewMargin).isActive = true
+        removeButton.rightAnchor.constraint(equalTo: card.rightAnchor, constant: -1 * kViewMargin).isActive = true
         removeButton.bottomAnchor.constraint(equalTo: card.bottomAnchor, constant: -1 * kViewMargin).isActive = true
     }
     
     @objc func removeRequest() {
-        print("remove request")
-        self.dismiss(animated: true, completion: nil)
-        // TODO: remove pending request from backend
+        let alertController = UIAlertController(title: "Remove Pending Request", message: "Would you like to remove your pending request to join a study group for \(studyGroup.className)?", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction.init(title: "Cancel", style: .cancel))
+        alertController.addAction(UIAlertAction.init(title: "Yes", style: .default, handler: { _ in
+            print("remove request")
+            // TODO: remove pending request from backend
+            self.dismiss(animated: true, completion: nil)
+        }))
+        self.present(alertController, animated: true, completion: nil)
     }
     
     public func presentSelf(presentingVC: UIViewController, studyGroup: StudyGroup) {

@@ -187,10 +187,11 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
                 profileButton.titleLabel?.font = Font.medium(13)
                 profileButton.backgroundColor = Color.StudyPact.StudyGroups.getStartedButton
                 profileButton.addTarget(self, action: #selector(goToProfile), for: .touchUpInside)
-                profileButton.layer.cornerRadius = 20
+                let radius: CGFloat = 20
+                profileButton.layer.cornerRadius = radius
                 studyPactContent.addSubview(profileButton)
                 profileButton.translatesAutoresizingMaskIntoConstraints = false
-                profileButton.heightAnchor.constraint(equalToConstant: 41).isActive = true
+                profileButton.heightAnchor.constraint(equalToConstant: 2 * radius).isActive = true
                 profileButton.widthAnchor.constraint(equalToConstant: 270).isActive = true
                 profileButton.centerYAnchor.constraint(equalTo: studyPactContent.centerYAnchor).isActive = true
                 profileButton.centerXAnchor.constraint(equalTo: studyPactContent.centerXAnchor).isActive = true
