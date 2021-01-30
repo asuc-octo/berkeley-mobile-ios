@@ -164,7 +164,7 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
                 for view in studyPactContent.subviews {
                     view.removeFromSuperview()
                 }
-                let groupGrid = StudyGroupsView(studyGroups: usedGroups, includeCreatePreference: groups.count < 2)
+                let groupGrid = StudyGroupsView(studyGroups: usedGroups, enclosingVC: self, includeCreatePreference: groups.count < 2)
                 studyPactContent.addSubview(groupGrid)
                 groupGrid.translatesAutoresizingMaskIntoConstraints = false
                 groupGrid.topAnchor.constraint(equalTo: studyPactContent.topAnchor).isActive = true
@@ -200,8 +200,7 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     @objc func goToAllStudyGroups() {
         let vc = AllStudyGroupsViewController()
-        vc.studyGroups = getDummyGroups()
-        self.present(vc, animated: true, completion: nil)
+        vc.presentSelf(presentingVC: self, studyGroups: getDummyGroups())
     }
     
     @objc func goToProfile() {

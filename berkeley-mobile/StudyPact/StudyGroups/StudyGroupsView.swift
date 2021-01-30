@@ -15,6 +15,8 @@ class StudyGroupsView: UIView {
     static let cellsPerRow = 2
     
     var studyGroups: [StudyGroup] = []
+    /// viewcontroller that this view is in. used to present new view controllers
+    var enclosingVC: UIViewController
     /// whether to add a "Create Preference" cell as the first cell
     var includeCreatePreference: Bool = false
     /// allows for dynamically resizing the collection view height to match the number of elements
@@ -27,6 +29,7 @@ class StudyGroupsView: UIView {
         collection.register(CreatePreferenceCell.self, forCellWithReuseIdentifier: CreatePreferenceCell.kCellIdentifier)
         collection.backgroundColor = .clear
         collection.showsVerticalScrollIndicator = false
+        collection.allowsSelection = true
         
         collection.layer.masksToBounds = true
         collection.contentInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
@@ -35,7 +38,8 @@ class StudyGroupsView: UIView {
         return collection
     }()
     
-    public init(studyGroups: [StudyGroup], includeCreatePreference: Bool = false) {
+    public init(studyGroups: [StudyGroup], enclosingVC: UIViewController, includeCreatePreference: Bool = false) {
+        self.enclosingVC = enclosingVC
         super.init(frame: .zero)
         
         self.studyGroups = studyGroups
@@ -101,6 +105,18 @@ extension StudyGroupsView: UICollectionViewDelegate, UICollectionViewDataSource,
                 }
             }
             return cell
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let index = indexPath.row - (includeCreatePreference ? 1 : 0)
+        guard let group = studyGroups[safe: index] else { return }
+        if group.pending {
+            let vc = PendingGroupViewController()
+            vc.presentSelf(presentingVC: enclosingVC, studyGroup: group)
+        } else {
+            // bring up group view
+            print("group view")
         }
     }
 }

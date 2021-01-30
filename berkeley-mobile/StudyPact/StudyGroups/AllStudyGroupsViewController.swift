@@ -51,16 +51,16 @@ class AllStudyGroupsViewController: UIViewController {
         studyGroupsGrid.refreshGroups()
     }
     
-    func setUpBackgroundView() {
+    private func setUpBackgroundView() {
         view.backgroundColor = Color.modalBackground
         view.layer.cornerRadius = 15
         view.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         view.clipsToBounds = true
     }
     
-    func setUpElements() {
+    private func setUpElements() {
         view.addSubview(studyPactLabel)
-        studyPactLabel.topAnchor.constraint(equalTo: self.view.topAnchor, constant: kViewMargin).isActive = true
+        studyPactLabel.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 2 * kViewMargin).isActive = true
         studyPactLabel.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: kViewMargin).isActive = true
         studyPactLabel.rightAnchor.constraint(lessThanOrEqualTo: self.view.rightAnchor, constant: -1 * kViewMargin).isActive = true
         
@@ -75,12 +75,17 @@ class AllStudyGroupsViewController: UIViewController {
         titleLabel.leftAnchor.constraint(equalTo: card.leftAnchor, constant: kViewMargin).isActive = true
         titleLabel.rightAnchor.constraint(lessThanOrEqualTo: self.view.rightAnchor, constant: -1 * kViewMargin).isActive = true
         
-        studyGroupsGrid = StudyGroupsView(studyGroups: studyGroups, includeCreatePreference: true)
+        studyGroupsGrid = StudyGroupsView(studyGroups: studyGroups, enclosingVC: self, includeCreatePreference: true)
         studyGroupsGrid.translatesAutoresizingMaskIntoConstraints = false
         card.addSubview(studyGroupsGrid)
         studyGroupsGrid.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: kViewMargin).isActive = true
         studyGroupsGrid.rightAnchor.constraint(equalTo: card.rightAnchor, constant: -1 * kViewMargin).isActive = true
         studyGroupsGrid.leftAnchor.constraint(equalTo: card.leftAnchor, constant: kViewMargin).isActive = true
         studyGroupsGrid.bottomAnchor.constraint(equalTo: card.bottomAnchor, constant: -1 * kViewMargin).isActive = true
+    }
+    
+    public func presentSelf(presentingVC: UIViewController, studyGroups: [StudyGroup]) {
+        self.studyGroups = studyGroups
+        presentingVC.present(self, animated: true, completion: nil)
     }
 }

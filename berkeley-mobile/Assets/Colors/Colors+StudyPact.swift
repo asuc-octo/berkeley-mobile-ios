@@ -37,6 +37,14 @@ extension Color {
             static var getStartedButton: UIColor {
                 return UIColor(displayP3Red: 251/255, green: 155/255, blue: 142/255, alpha: 1.0)
             }
+            
+            static var pendingLabel: UIColor {
+                return UIColor(displayP3Red: 151/255, green: 151/255, blue: 151/255, alpha: 1.0)
+            }
+            
+            static var leaveGroupButton: UIColor {
+                return UIColor(displayP3Red: 199/255, green: 199/255, blue: 199/255, alpha: 1.0)
+            }
         }
     }
 }
