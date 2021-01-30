@@ -21,6 +21,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
     }
     let nextButton: UIButton = {
         let button = UIButton()
+        button.titleLabel?.font = Font.medium(18)
         button.setTitle("Next", for: .normal)
         button.setTitleColor(.gray, for: .normal)
         button.addTarget(self, action: #selector(nextClicked(_:)), for: .touchUpInside)
@@ -29,6 +30,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
     }()
     let skipButton: UIButton = {
         let button = UIButton()
+        button.titleLabel?.font = Font.medium(18)
         button.setTitle("Skip", for: .normal)
         button.setTitleColor(.gray, for: .normal)
         button.addTarget(self, action: #selector(skipClicked(_:)), for: .touchUpInside)
@@ -37,6 +39,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
     }()
     let closeButton: UIButton = {
         let button = UIButton()
+        button.titleLabel?.font = Font.medium(18)
         button.setTitle("X", for: .normal)
         button.setTitleColor(.gray, for: .normal)
         button.addTarget(self, action: #selector(close(_:)), for: .touchUpInside)

@@ -13,7 +13,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigation
     private var loggedIn = false
     
     private var profileLabel: UILabel!
-    private var initialsLabel: UILabel!
+    private var initialsLabel: ProfileLabel!
     private var profileImageView: UIImageView!
     private var profileImage: UIImage! {
         didSet {
@@ -82,14 +82,7 @@ extension ProfileViewController {
     }
     
     func setupProfile() {
-        let initials = UILabel()
-        initials.text = "OB"
-        initials.textAlignment = .center
-        initials.font = Font.bold(40)
-        initials.layer.cornerRadius = 50
-        initials.layer.masksToBounds = true
-        initials.backgroundColor = Color.lightGrayText
-        initials.textColor = UIColor.white
+        let initials = ProfileLabel(text: "O")
         
         view.addSubview(initials)
         
@@ -143,6 +136,7 @@ extension ProfileViewController {
         button.setHeightConstraint(18)
         button.addTarget(self, action: #selector(changeImageButtonPressed), for: .touchUpInside)
         
+        button.isHidden = true  // remove in future
         changeImageButton = button
         
         let hstack = UIStackView()
@@ -153,7 +147,7 @@ extension ProfileViewController {
         view.addSubview(hstack)
         
         hstack.translatesAutoresizingMaskIntoConstraints = false
-        hstack.topAnchor.constraint(equalTo: changeImageButton.bottomAnchor, constant: 30).isActive = true
+        hstack.topAnchor.constraint(equalTo: initialsLabel.bottomAnchor, constant: 30).isActive = true
         hstack.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor, constant: 15).isActive = true
         hstack.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor, constant: -15).isActive = true
         
@@ -175,23 +169,14 @@ extension ProfileViewController {
         lvstack.setWidthConstraint(100)
         
         // TODO: - Dynamic field data
-        let firstnameLabel = UILabel()
-        firstnameLabel.text = "First Name"
-        firstnameLabel.font = Font.medium(14)
-        firstnameLabel.textAlignment = .left
-        firstnameLabel.textColor = Color.blackText
-        firstnameLabel.numberOfLines = 1
-        firstnameLabel.adjustsFontSizeToFitWidth = true
-        firstnameLabel.minimumScaleFactor = 0.7
-        
-        let lastnameLabel = UILabel()
-        lastnameLabel.text = "Last Name"
-        lastnameLabel.font = Font.medium(14)
-        lastnameLabel.textAlignment = .left
-        lastnameLabel.textColor = Color.blackText
-        lastnameLabel.numberOfLines = 1
-        lastnameLabel.adjustsFontSizeToFitWidth = true
-        lastnameLabel.minimumScaleFactor = 0.7
+        let nameLabel = UILabel()
+        nameLabel.text = "Name"
+        nameLabel.font = Font.medium(14)
+        nameLabel.textAlignment = .left
+        nameLabel.textColor = Color.blackText
+        nameLabel.numberOfLines = 1
+        nameLabel.adjustsFontSizeToFitWidth = true
+        nameLabel.minimumScaleFactor = 0.7
         
         let emailLabel = UILabel()
         emailLabel.text = "Email"
@@ -212,7 +197,7 @@ extension ProfileViewController {
         phoneLabel.minimumScaleFactor = 0.7
         
         let facebookLabel = UILabel()
-        facebookLabel.text = "Facebook URL"
+        facebookLabel.text = "Facebook ID"
         facebookLabel.font = Font.medium(14)
         facebookLabel.textAlignment = .left
         facebookLabel.textColor = Color.blackText
@@ -220,56 +205,44 @@ extension ProfileViewController {
         facebookLabel.adjustsFontSizeToFitWidth = true
         facebookLabel.minimumScaleFactor = 0.7
         
-        let firstnameField = BorderedTextField(text: "Oski")
-        let lastnameField = BorderedTextField(text: "Bear")
+        let firstnameField = BorderedTextField(text: "Oski Bear")
         let emailField = BorderedTextField(text: "oskibear@berkeley.edu")
         let phoneField = BorderedTextField()
-        let facebookField = BorderedTextField(text: "www.facebook.com/123456789")
+        let facebookField = BorderedTextField(text: "123456789")
         
         firstnameField.delegate = self
-        lastnameField.delegate = self
         emailField.delegate = self
         phoneField.delegate = self
         facebookField.delegate = self
         
         firstnameField.autocorrectionType = .no
-        lastnameField.autocorrectionType = .no
         phoneField.keyboardType = .phonePad
         facebookField.autocorrectionType = .no
         facebookField.keyboardType = .URL
         
-        lvstack.addArrangedSubview(firstnameLabel)
-        lvstack.addArrangedSubview(lastnameLabel)
+        lvstack.addArrangedSubview(nameLabel)
         lvstack.addArrangedSubview(emailLabel)
         lvstack.addArrangedSubview(phoneLabel)
         lvstack.addArrangedSubview(facebookLabel)
 
         rvstack.addArrangedSubview(firstnameField)
-        rvstack.addArrangedSubview(lastnameField)
         rvstack.addArrangedSubview(emailField)
         rvstack.addArrangedSubview(phoneField)
         rvstack.addArrangedSubview(facebookField)
         
-        firstnameField.leftAnchor.constraint(equalTo: firstnameLabel.rightAnchor, constant: 8).isActive = true
-        lastnameField.leftAnchor.constraint(equalTo: lastnameLabel.rightAnchor, constant: 8).isActive = true
+        firstnameField.leftAnchor.constraint(equalTo: nameLabel.rightAnchor, constant: 8).isActive = true
         emailField.leftAnchor.constraint(equalTo: emailLabel.rightAnchor, constant: 8).isActive = true
         phoneField.leftAnchor.constraint(equalTo: phoneLabel.rightAnchor, constant: 8).isActive = true
         facebookField.leftAnchor.constraint(equalTo: facebookLabel.rightAnchor, constant: 8).isActive = true
         
         firstnameField.rightAnchor.constraint(equalTo: rvstack.rightAnchor).isActive = true
         
-        firstnameLabel.translatesAutoresizingMaskIntoConstraints = false
-        firstnameLabel.setHeightConstraint(36)
-        firstnameLabel.leftAnchor.constraint(equalTo: lvstack.leftAnchor).isActive = true
+        nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        nameLabel.setHeightConstraint(36)
+        nameLabel.leftAnchor.constraint(equalTo: lvstack.leftAnchor).isActive = true
         
         firstnameField.translatesAutoresizingMaskIntoConstraints = false
         firstnameField.setHeightConstraint(36)
-        
-        lastnameLabel.translatesAutoresizingMaskIntoConstraints = false
-        lastnameLabel.setHeightConstraint(36)
-        
-        lastnameField.translatesAutoresizingMaskIntoConstraints = false
-        lastnameField.setHeightConstraint(36)
         
         emailLabel.translatesAutoresizingMaskIntoConstraints = false
         emailLabel.setHeightConstraint(36)
