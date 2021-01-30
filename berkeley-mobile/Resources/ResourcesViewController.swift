@@ -65,8 +65,10 @@ extension ResourcesViewController {
             Page(viewController: CovidResourceViewController(), label: "COVID-19"),
             Page(viewController: CampusResourceViewController(type: .basicNeeds), label: "Basic Needs"),
             Page(viewController: CampusResourceViewController(type: .health), label: "Health"),
-            Page(viewController: CampusResourceViewController(type: .admin), label: "Admin")
-        ], controlInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: blobImageView.frame.width / 4),
+            Page(viewController: CampusResourceViewController(type: .admin), label: "Admin"),
+            Page(viewController: CampusResourceViewController(type: .admin), label: "Other")
+        ], controlInsets: UIEdgeInsets(top: 0, left: view.layoutMargins.left,
+                                       bottom: 0, right: blobImageView.frame.width / 4),
            centerControl: false, scrollable: true)
         segmentedControl.control.sizeEqually = false
         self.add(child: segmentedControl)
