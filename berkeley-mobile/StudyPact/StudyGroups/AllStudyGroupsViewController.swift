@@ -68,7 +68,7 @@ class AllStudyGroupsViewController: UIViewController {
         card.topAnchor.constraint(equalTo: studyPactLabel.bottomAnchor, constant: kViewMargin).isActive = true
         card.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: kViewMargin).isActive = true
         card.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -1 * kViewMargin).isActive = true
-        card.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -2 * kViewMargin).isActive = true
+        card.bottomAnchor.constraint(lessThanOrEqualTo: self.view.bottomAnchor, constant: -2 * kViewMargin).isActive = true
         
         card.addSubview(titleLabel)
         titleLabel.topAnchor.constraint(equalTo: card.topAnchor, constant: kViewMargin).isActive = true

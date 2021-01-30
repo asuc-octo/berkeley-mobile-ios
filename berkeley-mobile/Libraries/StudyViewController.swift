@@ -136,11 +136,11 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
         let person3 = StudyGroupMember(profilePictureURL: URL(string: "https://images.generated.photos/f1utkmrXZQ_CU7ixY-qNL2Creb0MnE9Np4FpuXq_yoQ/rs:fit:256:256/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA4OTc1NTguanBn.jpg"), name: "Bob Jones", email: "bob.jones@berkeley.edu", phoneNumber: "3333333333")
         let person4 = StudyGroupMember(profilePictureURL: nil, name: "A B", email: "a.b@berkeley.edu", phoneNumber: "4444444444")
         let group0 = StudyGroup(className: "CS 170", groupMembers: [person0, person1, person2, person3], pending: false)
-        let group1 = StudyGroup(className: "ECON 100A", groupMembers: [person0, person1, person2, person3, person4, person3],  pending: false)
+        let group1 = StudyGroup(className: "ECON 100A", groupMembers: [person0, person1, person2, person3, person4, person3], pending: false)
         let group2 = StudyGroup(className: "STAT 140", groupMembers: [person0], pending: false)
         let group3 = StudyGroup(className: "CS 188", groupMembers: [person2, person3], pending: false)
         let group4 = StudyGroup(className: "IEOR 142", groupMembers: [], pending: true)
-        let group5 = StudyGroup(className: "ECON 100A", groupMembers: [person0, person4, person2, person0, person4],  pending: false)
+        let group5 = StudyGroup(className: "ECON 100A", groupMembers: [person0, person4, person2, person0, person4], pending: false)
         return [group0, group1, group2, group3, group4, group5, group0, group1, group2, group3, group4, group5]
     }
     
