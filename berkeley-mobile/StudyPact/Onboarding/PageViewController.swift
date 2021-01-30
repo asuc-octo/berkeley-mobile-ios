@@ -146,7 +146,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         self.pageControl.pageIndicatorTintColor = UIColor.lightGray
         self.pageControl.numberOfPages = self.pages.count
         self.pageControl.currentPage = initialPage
-        self.pageControl.pageIndicatorTintColor = Color.onboardingTint
+        self.pageControl.pageIndicatorTintColor = Color.StudyPact.Onboarding.onboardingTint
         self.view.addSubview(self.pageControl)
         
         self.pageControl.translatesAutoresizingMaskIntoConstraints = false
@@ -154,7 +154,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         self.pageControl.widthAnchor.constraint(equalToConstant: 140).isActive = true
         self.pageControl.heightAnchor.constraint(equalToConstant: 20).isActive = true
         self.pageControl.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        self.pageControl.tintColor = Color.pageViewBackgroundTint
+        self.pageControl.tintColor = Color.StudyPact.Onboarding.pageViewBackgroundTint
         self.pageControl.isUserInteractionEnabled = false
     }
     

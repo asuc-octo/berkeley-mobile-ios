@@ -164,7 +164,6 @@
 		55EDAA702569D622006BAFAC /* CovidResourceDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EDAA6F2569D622006BAFAC /* CovidResourceDataSource.swift */; };
 		55EDAA742569D730006BAFAC /* CovidResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EDAA732569D730006BAFAC /* CovidResource.swift */; };
 		600CB18DB1A293062CAC7914 /* Pods_berkeley_mobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A826C1BD0A2BCA2F083C6EE /* Pods_berkeley_mobile.framework */; };
-		FD6A88432560A8B80046FF10 /* Colors+StudyPact.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6A88422560A8B80046FF10 /* Colors+StudyPact.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -334,7 +333,6 @@
 		B5DD1FA9F5CF4BCFD4A64306 /* Pods-bm-persona.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bm-persona.debug.xcconfig"; path = "Target Support Files/Pods-bm-persona/Pods-bm-persona.debug.xcconfig"; sourceTree = "<group>"; };
 		CB9A33BEF33ABF885BD30304 /* Pods-berkeley-mobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeley-mobile.release.xcconfig"; path = "Target Support Files/Pods-berkeley-mobile/Pods-berkeley-mobile.release.xcconfig"; sourceTree = "<group>"; };
 		EC01CCF388C7E41052CEB683 /* Pods-bm-persona.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bm-persona.release.xcconfig"; path = "Target Support Files/Pods-bm-persona/Pods-bm-persona.release.xcconfig"; sourceTree = "<group>"; };
-		FD6A88422560A8B80046FF10 /* Colors+StudyPact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+StudyPact.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -426,7 +424,6 @@
 				13491DB7241E22130033F9AB /* Colors+Event.swift */,
 				135D7F76243A9BD1003F8BD1 /* Colors+GymClass.swift */,
 				017C0B25251018BA00BFA80A /* Colors+MapMarker.swift */,
-				FD6A88422560A8B80046FF10 /* Colors+StudyPact.swift */,
 				01CDFF69257C614900D9FBD6 /* Colors+Resource.swift */,
 			);
 			path = Colors;
@@ -1157,7 +1154,6 @@
 				01CDFF6A257C614900D9FBD6 /* Colors+Resource.swift in Sources */,
 				13741B6C2400D866003D1EEB /* MapDataSource.swift in Sources */,
 				1336A320241D924300949F32 /* DiningItem.swift in Sources */,
-				FD6A88432560A8B80046FF10 /* Colors+StudyPact.swift in Sources */,
 				299ACFB4244A5F90000F3E86 /* HasOccupancy.swift in Sources */,
 				559A7B6D2373DEFA004EA501 /* MaterialTableViewCell.swift in Sources */,
 				29891B23257C521E0094891D /* PageViewController.swift in Sources */,

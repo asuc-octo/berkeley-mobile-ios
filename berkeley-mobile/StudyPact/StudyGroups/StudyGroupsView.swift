@@ -66,6 +66,7 @@ class StudyGroupsView: UIView {
         
         let height = collection.collectionViewLayout.collectionViewContentSize.height + 16
         collectionHeightConstraint.constant = height
+        collection.setContentOffset(CGPoint(x: -5, y: -5), animated: false)
         self.layoutIfNeeded()
     }
     
@@ -107,7 +108,7 @@ extension StudyGroupsView: UICollectionViewDelegate, UICollectionViewDataSource,
 /// Cell displaying information for a single study group
 class StudyGroupCell: UICollectionViewCell {
     static let kCellIdentifier = "studyGroupCell"
-    static let cellHeight = 106
+    static let cellHeight = 81
     
     // MARK: UI Elements
     let classLabel: UILabel = {
@@ -125,19 +126,6 @@ class StudyGroupCell: UICollectionViewCell {
         stack.distribution = .equalCentering
         stack.spacing = -20
         return stack
-    }()
-    
-    let environmentTag: TagView = {
-        let tag = TagView()
-        tag.translatesAutoresizingMaskIntoConstraints = false
-        return tag
-    }()
-    
-    let meetingTag: TagView = {
-        let tag = TagView()
-        tag.backgroundColor = Color.meetingFormatTag
-        tag.translatesAutoresizingMaskIntoConstraints = false
-        return tag
     }()
     
     let pendingTag: TagView = {
@@ -169,17 +157,7 @@ class StudyGroupCell: UICollectionViewCell {
         profilePictureStack.leftAnchor.constraint(equalTo: card.leftAnchor, constant: kViewMargin).isActive = true
         profilePictureStack.rightAnchor.constraint(equalTo: card.rightAnchor, constant: -1 * kViewMargin).isActive = true
         profilePictureStack.topAnchor.constraint(equalTo: classLabel.bottomAnchor, constant: 6).isActive = true
-        
-        contentView.addSubview(environmentTag)
-        environmentTag.leftAnchor.constraint(equalTo: card.leftAnchor, constant: kViewMargin).isActive = true
-        environmentTag.topAnchor.constraint(greaterThanOrEqualTo: profilePictureStack.bottomAnchor, constant: 10).isActive = true
-        environmentTag.bottomAnchor.constraint(equalTo: card.bottomAnchor, constant: -1 * kViewMargin).isActive = true
-        
-        contentView.addSubview(meetingTag)
-        meetingTag.leftAnchor.constraint(greaterThanOrEqualTo: environmentTag.rightAnchor, constant: 6).isActive = true
-        meetingTag.rightAnchor.constraint(equalTo: card.rightAnchor, constant: -1 * kViewMargin).isActive = true
-        meetingTag.topAnchor.constraint(equalTo: environmentTag.topAnchor).isActive = true
-        meetingTag.bottomAnchor.constraint(equalTo: environmentTag.bottomAnchor).isActive = true
+        profilePictureStack.bottomAnchor.constraint(lessThanOrEqualTo: card.bottomAnchor, constant: -1 * kViewMargin).isActive = true
         
         contentView.addSubview(pendingTag)
         pendingTag.leftAnchor.constraint(equalTo: card.leftAnchor, constant: kViewMargin).isActive = true
@@ -198,22 +176,11 @@ class StudyGroupCell: UICollectionViewCell {
             classLabel.alpha = 0.55
             pendingTag.isHidden = false
             profilePictureStack.isHidden = true
-            meetingTag.isHidden = true
-            environmentTag.isHidden = true
             return
         }
+        classLabel.alpha = 1
         pendingTag.isHidden = true
         profilePictureStack.isHidden = false
-        meetingTag.isHidden = false
-        environmentTag.isHidden = false
-        
-        if studyGroup.collaborative {
-            environmentTag.text = "Collab"
-            environmentTag.backgroundColor = Color.collabEnvironmentTag
-        } else {
-            environmentTag.text = "Solo"
-            environmentTag.backgroundColor = Color.soloEnvironmentTag
-        }
         profilePictureStack.removeAllArrangedSubviews()
         for var member in studyGroup.groupMembers {
             let profileImageView = UIImageView()
@@ -256,11 +223,6 @@ class StudyGroupCell: UICollectionViewCell {
             profilePictureStack.distribution = .equalCentering
             profilePictureStack.spacing = -20
         }
-        if studyGroup.virtual {
-            meetingTag.text = "Virtual"
-        } else {
-            meetingTag.text = "In Person"
-        }
     }
 }
 
@@ -273,7 +235,7 @@ class CreatePreferenceCell: UICollectionViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         let circleRadius: CGFloat = 9.5
         view.layer.cornerRadius = circleRadius
-        view.backgroundColor = Color.StudyGroups.createPreferenceGreenPlus
+        view.backgroundColor = Color.StudyPact.StudyGroups.createPreferenceGreenPlus
         view.widthAnchor.constraint(equalToConstant: 2 * circleRadius).isActive = true
         view.heightAnchor.constraint(equalToConstant: 2 * circleRadius).isActive = true
         
@@ -311,7 +273,7 @@ class CreatePreferenceCell: UICollectionViewCell {
         let layer = CAShapeLayer.init()
         let path = UIBezierPath(roundedRect: bounds, cornerRadius: 12)
         layer.path = path.cgPath
-        layer.strokeColor = Color.StudyGroups.createPreferenceDottedBorder.cgColor
+        layer.strokeColor = Color.StudyPact.StudyGroups.createPreferenceDottedBorder.cgColor
         layer.lineDashPattern = [2, 2]
         layer.fillColor = nil
         contentView.layer.addSublayer(layer)

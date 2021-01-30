@@ -97,7 +97,7 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
         studyPactCard.topAnchor.constraint(equalTo: content.layoutMarginsGuide.topAnchor).isActive = true
         studyPactCard.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
         studyPactCard.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
-        studyPactCard.heightAnchor.constraint(equalToConstant: 185).isActive = true
+        studyPactCard.heightAnchor.constraint(equalToConstant: 166).isActive = true
         
         let studyGroupsLabel = UILabel()
         studyGroupsLabel.text = "Your Study Groups"
@@ -135,12 +135,12 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
         let person2 = StudyGroupMember(profilePictureURL: URL(string:  "https://images.generated.photos/UnBJAeCfIR180b3sQ1G9opucAnwafc8DErx5YXRjT6I/rs:fit:256:256/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yy/XzA0NDU1NjMuanBn.jpg"), name: "Jane Doe", email: "jane.doe@berkeley.edu", phoneNumber: "2222222222")
         let person3 = StudyGroupMember(profilePictureURL: URL(string: "https://images.generated.photos/f1utkmrXZQ_CU7ixY-qNL2Creb0MnE9Np4FpuXq_yoQ/rs:fit:256:256/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA4OTc1NTguanBn.jpg"), name: "Bob Jones", email: "bob.jones@berkeley.edu", phoneNumber: "3333333333")
         let person4 = StudyGroupMember(profilePictureURL: nil, name: "A B", email: "a.b@berkeley.edu", phoneNumber: "4444444444")
-        let group0 = StudyGroup(className: "CS 170", groupMembers: [person0, person1, person2, person3], collaborative: true, virtual: true, pending: false, preferredNumberMembers: 4)
-        let group1 = StudyGroup(className: "ECON 100A", groupMembers: [person0, person1, person2, person3, person4, person3], collaborative: false, virtual: true, pending: false, preferredNumberMembers: 6)
-        let group2 = StudyGroup(className: "STAT 140", groupMembers: [person0], collaborative: true, virtual: false, pending: false, preferredNumberMembers: 1)
-        let group3 = StudyGroup(className: "CS 188", groupMembers: [person2, person3], collaborative: false, virtual: false, pending: false, preferredNumberMembers: 2)
-        let group4 = StudyGroup(className: "IEOR 142", groupMembers: [], collaborative: false, virtual: false, pending: true, preferredNumberMembers: 3)
-        let group5 = StudyGroup(className: "ECON 100A", groupMembers: [person0, person4, person2, person0, person4], collaborative: false, virtual: true, pending: false, preferredNumberMembers: 5)
+        let group0 = StudyGroup(className: "CS 170", groupMembers: [person0, person1, person2, person3], pending: false)
+        let group1 = StudyGroup(className: "ECON 100A", groupMembers: [person0, person1, person2, person3, person4, person3],  pending: false)
+        let group2 = StudyGroup(className: "STAT 140", groupMembers: [person0], pending: false)
+        let group3 = StudyGroup(className: "CS 188", groupMembers: [person2, person3], pending: false)
+        let group4 = StudyGroup(className: "IEOR 142", groupMembers: [], pending: true)
+        let group5 = StudyGroup(className: "ECON 100A", groupMembers: [person0, person4, person2, person0, person4],  pending: false)
         return [group0, group1, group2, group3, group4, group5, group0, group1, group2, group3, group4, group5]
     }
     
@@ -182,13 +182,18 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
                 studyGroupsGrid = nil
             }
             if studyPactContent.subviews.count == 0 {
-                let profileButton = ActionButton(title: "Sign In to Get Started With Study Pact!")
+                let profileButton = UIButton()
+                profileButton.setTitle("Sign In to Get Started With Study Pact!", for: .normal)
+                profileButton.titleLabel?.font = Font.medium(13)
+                profileButton.backgroundColor = Color.StudyPact.StudyGroups.getStartedButton
                 profileButton.addTarget(self, action: #selector(goToProfile), for: .touchUpInside)
+                profileButton.layer.cornerRadius = 20
                 studyPactContent.addSubview(profileButton)
                 profileButton.translatesAutoresizingMaskIntoConstraints = false
+                profileButton.heightAnchor.constraint(equalToConstant: 41).isActive = true
+                profileButton.widthAnchor.constraint(equalToConstant: 270).isActive = true
                 profileButton.centerYAnchor.constraint(equalTo: studyPactContent.centerYAnchor).isActive = true
-                profileButton.rightAnchor.constraint(equalTo: studyPactContent.rightAnchor).isActive = true
-                profileButton.leftAnchor.constraint(equalTo: studyPactContent.leftAnchor).isActive = true
+                profileButton.centerXAnchor.constraint(equalTo: studyPactContent.centerXAnchor).isActive = true
             }
         }
     }

@@ -16,6 +16,14 @@ class AllStudyGroupsViewController: UIViewController {
     var studyGroupsGrid: StudyGroupsView!
     
     // MARK: UI Elements
+    let studyPactLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Study Pact"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = Font.bold(30)
+        return label
+    }()
+    
     let card: CardView = {
         let cardView = CardView()
         cardView.translatesAutoresizingMaskIntoConstraints = false
@@ -51,10 +59,16 @@ class AllStudyGroupsViewController: UIViewController {
     }
     
     func setUpElements() {
+        view.addSubview(studyPactLabel)
+        studyPactLabel.topAnchor.constraint(equalTo: self.view.topAnchor, constant: kViewMargin).isActive = true
+        studyPactLabel.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: kViewMargin).isActive = true
+        studyPactLabel.rightAnchor.constraint(lessThanOrEqualTo: self.view.rightAnchor, constant: -1 * kViewMargin).isActive = true
+        
         view.addSubview(card)
-        card.topAnchor.constraint(equalTo: self.view.topAnchor, constant: kViewMargin).isActive = true
+        card.topAnchor.constraint(equalTo: studyPactLabel.bottomAnchor, constant: kViewMargin).isActive = true
         card.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: kViewMargin).isActive = true
         card.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -1 * kViewMargin).isActive = true
+        card.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -2 * kViewMargin).isActive = true
         
         card.addSubview(titleLabel)
         titleLabel.topAnchor.constraint(equalTo: card.topAnchor, constant: kViewMargin).isActive = true
