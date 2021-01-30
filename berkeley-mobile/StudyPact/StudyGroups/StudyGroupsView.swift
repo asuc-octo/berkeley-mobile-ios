@@ -209,6 +209,16 @@ class StudyGroupCell: UICollectionViewCell {
             profileImageView.widthAnchor.constraint(equalToConstant: 2 * profileRadius).isActive = true
             profileImageView.heightAnchor.constraint(equalToConstant: 2 * profileRadius).isActive = true
             
+            // TODO: replace with single letter placeholder
+            let placeholderView = UIView()
+            placeholderView.backgroundColor = .red
+            placeholderView.translatesAutoresizingMaskIntoConstraints = false
+            profileImageView.addSubview(placeholderView)
+            placeholderView.leftAnchor.constraint(equalTo: profileImageView.leftAnchor).isActive = true
+            placeholderView.rightAnchor.constraint(equalTo: profileImageView.rightAnchor).isActive = true
+            placeholderView.topAnchor.constraint(equalTo: profileImageView.topAnchor).isActive = true
+            placeholderView.bottomAnchor.constraint(equalTo: profileImageView.bottomAnchor).isActive = true
+            
             profilePictureStack.addArrangedSubview(profileImageView)
             if let url = member.profilePictureURL {
                 ImageLoader.shared.getImage(url: url) { result in
@@ -217,6 +227,7 @@ class StudyGroupCell: UICollectionViewCell {
                         DispatchQueue.main.async {
                             profileImageView.image = image
                             member.profilePicture = image
+                            placeholderView.isHidden = true
                         }
                     case .failure(let error):
                         print(error)
