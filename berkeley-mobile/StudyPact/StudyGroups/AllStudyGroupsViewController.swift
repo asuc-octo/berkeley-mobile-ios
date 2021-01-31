@@ -16,6 +16,14 @@ class AllStudyGroupsViewController: UIViewController {
     var studyGroupsGrid: StudyGroupsView!
     
     // MARK: UI Elements
+    let studyPactLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Study Pact"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = Font.bold(30)
+        return label
+    }()
+    
     let card: CardView = {
         let cardView = CardView()
         cardView.translatesAutoresizingMaskIntoConstraints = false
@@ -30,19 +38,6 @@ class AllStudyGroupsViewController: UIViewController {
         return label
     }()
     
-    var preferencesButton: ActionButton = {
-        let button = ActionButton(title: "Update Preferences")
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(goToPreferences), for: .touchUpInside)
-        return button
-    }()
-    
-    @objc func goToPreferences() {
-        let vc = StudyPreferencesViewController()
-        vc.studyGroups = studyGroups
-        self.present(vc, animated: true, completion: nil)
-    }
-    
     // MARK: Setup
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,36 +51,41 @@ class AllStudyGroupsViewController: UIViewController {
         studyGroupsGrid.refreshGroups()
     }
     
-    func setUpBackgroundView() {
+    private func setUpBackgroundView() {
         view.backgroundColor = Color.modalBackground
         view.layer.cornerRadius = 15
         view.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         view.clipsToBounds = true
     }
     
-    func setUpElements() {
+    private func setUpElements() {
+        view.addSubview(studyPactLabel)
+        studyPactLabel.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 2 * kViewMargin).isActive = true
+        studyPactLabel.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: kViewMargin).isActive = true
+        studyPactLabel.rightAnchor.constraint(lessThanOrEqualTo: self.view.rightAnchor, constant: -1 * kViewMargin).isActive = true
+        
         view.addSubview(card)
-        card.topAnchor.constraint(equalTo: self.view.topAnchor, constant: kViewMargin).isActive = true
+        card.topAnchor.constraint(equalTo: studyPactLabel.bottomAnchor, constant: kViewMargin).isActive = true
         card.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: kViewMargin).isActive = true
         card.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -1 * kViewMargin).isActive = true
+        card.bottomAnchor.constraint(lessThanOrEqualTo: self.view.bottomAnchor, constant: -2 * kViewMargin).isActive = true
         
         card.addSubview(titleLabel)
         titleLabel.topAnchor.constraint(equalTo: card.topAnchor, constant: kViewMargin).isActive = true
         titleLabel.leftAnchor.constraint(equalTo: card.leftAnchor, constant: kViewMargin).isActive = true
         titleLabel.rightAnchor.constraint(lessThanOrEqualTo: self.view.rightAnchor, constant: -1 * kViewMargin).isActive = true
         
-        studyGroupsGrid = StudyGroupsView(studyGroups: studyGroups, includeCreateGroup: true)
+        studyGroupsGrid = StudyGroupsView(studyGroups: studyGroups, enclosingVC: self, includeCreatePreference: true)
         studyGroupsGrid.translatesAutoresizingMaskIntoConstraints = false
         card.addSubview(studyGroupsGrid)
         studyGroupsGrid.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: kViewMargin).isActive = true
         studyGroupsGrid.rightAnchor.constraint(equalTo: card.rightAnchor, constant: -1 * kViewMargin).isActive = true
         studyGroupsGrid.leftAnchor.constraint(equalTo: card.leftAnchor, constant: kViewMargin).isActive = true
         studyGroupsGrid.bottomAnchor.constraint(equalTo: card.bottomAnchor, constant: -1 * kViewMargin).isActive = true
-        
-        view.addSubview(preferencesButton)
-        preferencesButton.topAnchor.constraint(equalTo: card.bottomAnchor, constant: kViewMargin).isActive = true
-        preferencesButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -1 * kViewMargin).isActive = true
-        preferencesButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: kViewMargin).isActive = true
-        preferencesButton.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -2 * kViewMargin).isActive = true
+    }
+    
+    public func presentSelf(presentingVC: UIViewController, studyGroups: [StudyGroup]) {
+        self.studyGroups = studyGroups
+        presentingVC.present(self, animated: true, completion: nil)
     }
 }

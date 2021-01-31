@@ -11,10 +11,7 @@ import UIKit
 struct StudyGroup {
     let className: String
     let groupMembers: [StudyGroupMember]
-    let collaborative: Bool
-    let virtual: Bool
     let pending: Bool
-    let preferredNumberMembers: Int
 }
 
 struct StudyGroupMember {

@@ -9,26 +9,19 @@
 import UIKit
 
 class ProfileLabel: UILabel {
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(text: String, radius: CGFloat, fontSize: CGFloat) {
+        super.init(frame: .zero)
         
-        self.text = "OB"
+        self.text = text
         self.textAlignment = .center
-        self.font = Font.bold(40)
-        self.layer.cornerRadius = 50
+        self.font = Font.bold(fontSize)
+        self.layer.cornerRadius = radius
         self.layer.masksToBounds = true
         self.backgroundColor = Color.lightGrayText
         self.textColor = UIColor.white
     }
     
-    convenience init(text: String) {
-        self.init()
-        self.text = text
-    }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }

@@ -107,11 +107,11 @@
 		29891B23257C521E0094891D /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29891B21257C521E0094891D /* PageViewController.swift */; };
 		29891B24257C521E0094891D /* StudyPactOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29891B22257C521E0094891D /* StudyPactOnboardingViewController.swift */; };
 		298EE26A25BB6C33002BAF0F /* Colors+StudyPact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298EE26925BB6C33002BAF0F /* Colors+StudyPact.swift */; };
-		298EE26D25BB7CD4002BAF0F /* StudyPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298EE26C25BB7CD4002BAF0F /* StudyPreferencesViewController.swift */; };
 		298EE27025BB82A2002BAF0F /* CardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298EE26F25BB82A2002BAF0F /* CardTableViewCell.swift */; };
 		299ACFB0244A58CD000F3E86 /* OccupancyDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299ACFAF244A58CD000F3E86 /* OccupancyDataSource.swift */; };
 		299ACFB2244A5A15000F3E86 /* Occupancy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299ACFB1244A5A15000F3E86 /* Occupancy.swift */; };
 		299ACFB4244A5F90000F3E86 /* HasOccupancy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299ACFB3244A5F90000F3E86 /* HasOccupancy.swift */; };
+		29A6610125C4EA6A004D2FC2 /* PendingGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A6610025C4EA6A004D2FC2 /* PendingGroupViewController.swift */; };
 		29AB5BBF241D8766007C3ECA /* HasOpenTimes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AB5BBE241D8766007C3ECA /* HasOpenTimes.swift */; };
 		29AB5BC5241D8CB4007C3ECA /* FilterTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AB5BC4241D8CB4007C3ECA /* FilterTableView.swift */; };
 		29B1D307254E1C8700BAD88F /* EventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B1D306254E1C8700BAD88F /* EventManager.swift */; };
@@ -273,11 +273,11 @@
 		29891B21257C521E0094891D /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		29891B22257C521E0094891D /* StudyPactOnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudyPactOnboardingViewController.swift; sourceTree = "<group>"; };
 		298EE26925BB6C33002BAF0F /* Colors+StudyPact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+StudyPact.swift"; sourceTree = "<group>"; };
-		298EE26C25BB7CD4002BAF0F /* StudyPreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyPreferencesViewController.swift; sourceTree = "<group>"; };
 		298EE26F25BB82A2002BAF0F /* CardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTableViewCell.swift; sourceTree = "<group>"; };
 		299ACFAF244A58CD000F3E86 /* OccupancyDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OccupancyDataSource.swift; sourceTree = "<group>"; };
 		299ACFB1244A5A15000F3E86 /* Occupancy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Occupancy.swift; sourceTree = "<group>"; };
 		299ACFB3244A5F90000F3E86 /* HasOccupancy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasOccupancy.swift; sourceTree = "<group>"; };
+		29A6610025C4EA6A004D2FC2 /* PendingGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingGroupViewController.swift; sourceTree = "<group>"; };
 		29AB5BBE241D8766007C3ECA /* HasOpenTimes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasOpenTimes.swift; sourceTree = "<group>"; };
 		29AB5BC4241D8CB4007C3ECA /* FilterTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTableView.swift; sourceTree = "<group>"; };
 		29B1D306254E1C8700BAD88F /* EventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventManager.swift; sourceTree = "<group>"; };
@@ -340,7 +340,6 @@
 		B5DD1FA9F5CF4BCFD4A64306 /* Pods-bm-persona.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bm-persona.debug.xcconfig"; path = "Target Support Files/Pods-bm-persona/Pods-bm-persona.debug.xcconfig"; sourceTree = "<group>"; };
 		CB9A33BEF33ABF885BD30304 /* Pods-berkeley-mobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeley-mobile.release.xcconfig"; path = "Target Support Files/Pods-berkeley-mobile/Pods-berkeley-mobile.release.xcconfig"; sourceTree = "<group>"; };
 		EC01CCF388C7E41052CEB683 /* Pods-bm-persona.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bm-persona.release.xcconfig"; path = "Target Support Files/Pods-bm-persona/Pods-bm-persona.release.xcconfig"; sourceTree = "<group>"; };
-		FD6A88422560A8B80046FF10 /* Colors+StudyPact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+StudyPact.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -433,7 +432,6 @@
 				13491DB7241E22130033F9AB /* Colors+Event.swift */,
 				135D7F76243A9BD1003F8BD1 /* Colors+GymClass.swift */,
 				017C0B25251018BA00BFA80A /* Colors+MapMarker.swift */,
-				FD6A88422560A8B80046FF10 /* Colors+StudyPact.swift */,
 				01CDFF69257C614900D9FBD6 /* Colors+Resource.swift */,
 			);
 			path = Colors;
@@ -691,7 +689,7 @@
 			children = (
 				29DB64CE25BA61BD001C4275 /* StudyGroupsView.swift */,
 				29DB64D825BA8242001C4275 /* AllStudyGroupsViewController.swift */,
-				298EE26C25BB7CD4002BAF0F /* StudyPreferencesViewController.swift */,
+				29A6610025C4EA6A004D2FC2 /* PendingGroupViewController.swift */,
 				29DB64D125BA6269001C4275 /* StudyGroup.swift */,
 			);
 			path = StudyGroups;
@@ -1087,6 +1085,7 @@
 				556DB0DF23E7F60900F12721 /* ResourcesViewController.swift in Sources */,
 				296DDEC1253BB117008E8940 /* CampusEventDetailViewController.swift in Sources */,
 				55DCF79423723452001B01B8 /* SearchBarView.swift in Sources */,
+				29A6610125C4EA6A004D2FC2 /* PendingGroupViewController.swift in Sources */,
 				133864AC2404E858001F9048 /* CalendarViewController.swift in Sources */,
 				1346B9172420AA4500383399 /* DayOfWeek.swift in Sources */,
 				29345E2D24A7FFB600859A88 /* CanFavorite.swift in Sources */,
@@ -1167,7 +1166,6 @@
 				556CCD2223E7771800F41BF9 /* MapPlacemark.swift in Sources */,
 				297678872426B7BA00FDD1EB /* SearchAnnotation.swift in Sources */,
 				01CDFF6A257C614900D9FBD6 /* Colors+Resource.swift in Sources */,
-				298EE26D25BB7CD4002BAF0F /* StudyPreferencesViewController.swift in Sources */,
 				13741B6C2400D866003D1EEB /* MapDataSource.swift in Sources */,
 				1336A320241D924300949F32 /* DiningItem.swift in Sources */,
 				299ACFB4244A5F90000F3E86 /* HasOccupancy.swift in Sources */,

@@ -15,8 +15,10 @@ class StudyGroupsView: UIView {
     static let cellsPerRow = 2
     
     var studyGroups: [StudyGroup] = []
-    /// whether to add a "Create Group" cell as the first cell
-    var includeCreateGroup: Bool = false
+    /// viewcontroller that this view is in. used to present new view controllers
+    var enclosingVC: UIViewController
+    /// whether to add a "Create Preference" cell as the first cell
+    var includeCreatePreference: Bool = false
     /// allows for dynamically resizing the collection view height to match the number of elements
     private var collectionHeightConstraint: NSLayoutConstraint!
     
@@ -24,9 +26,10 @@ class StudyGroupsView: UIView {
         let collection = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout.init())
         collection.translatesAutoresizingMaskIntoConstraints = false
         collection.register(StudyGroupCell.self, forCellWithReuseIdentifier: StudyGroupCell.kCellIdentifier)
-        collection.register(CreateGroupCell.self, forCellWithReuseIdentifier: CreateGroupCell.kCellIdentifier)
+        collection.register(CreatePreferenceCell.self, forCellWithReuseIdentifier: CreatePreferenceCell.kCellIdentifier)
         collection.backgroundColor = .clear
         collection.showsVerticalScrollIndicator = false
+        collection.allowsSelection = true
         
         collection.layer.masksToBounds = true
         collection.contentInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
@@ -35,11 +38,12 @@ class StudyGroupsView: UIView {
         return collection
     }()
     
-    public init(studyGroups: [StudyGroup], includeCreateGroup: Bool = false) {
+    public init(studyGroups: [StudyGroup], enclosingVC: UIViewController, includeCreatePreference: Bool = false) {
+        self.enclosingVC = enclosingVC
         super.init(frame: .zero)
         
         self.studyGroups = studyGroups
-        self.includeCreateGroup = includeCreateGroup
+        self.includeCreatePreference = includeCreatePreference
         
         collection.delegate = self
         collection.dataSource = self
@@ -66,6 +70,7 @@ class StudyGroupsView: UIView {
         
         let height = collection.collectionViewLayout.collectionViewContentSize.height + 16
         collectionHeightConstraint.constant = height
+        collection.setContentOffset(CGPoint(x: -5, y: -5), animated: false)
         self.layoutIfNeeded()
     }
     
@@ -85,15 +90,15 @@ extension StudyGroupsView: UICollectionViewDelegate, UICollectionViewDataSource,
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.studyGroups.count + (includeCreateGroup ? 1 : 0)
+        return self.studyGroups.count + (includeCreatePreference ? 1 : 0)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if indexPath.row == 0 && includeCreateGroup {
-            return collectionView.dequeueReusableCell(withReuseIdentifier: CreateGroupCell.kCellIdentifier, for: indexPath)
+        if indexPath.row == 0 && includeCreatePreference {
+            return collectionView.dequeueReusableCell(withReuseIdentifier: CreatePreferenceCell.kCellIdentifier, for: indexPath)
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: StudyGroupCell.kCellIdentifier, for: indexPath)
-            let index = indexPath.row - (includeCreateGroup ? 1 : 0)
+            let index = indexPath.row - (includeCreatePreference ? 1 : 0)
             if let studyGroupCell = cell as? StudyGroupCell {
                 if let group = studyGroups[safe: index] {
                     studyGroupCell.configure(studyGroup: group)
@@ -102,12 +107,24 @@ extension StudyGroupsView: UICollectionViewDelegate, UICollectionViewDataSource,
             return cell
         }
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let index = indexPath.row - (includeCreatePreference ? 1 : 0)
+        guard let group = studyGroups[safe: index] else { return }
+        if group.pending {
+            let vc = PendingGroupViewController()
+            vc.presentSelf(presentingVC: enclosingVC, studyGroup: group)
+        } else {
+            // bring up group view
+            print("group view")
+        }
+    }
 }
 
 /// Cell displaying information for a single study group
 class StudyGroupCell: UICollectionViewCell {
     static let kCellIdentifier = "studyGroupCell"
-    static let cellHeight = 106
+    static let cellHeight = 81
     
     // MARK: UI Elements
     let classLabel: UILabel = {
@@ -125,19 +142,6 @@ class StudyGroupCell: UICollectionViewCell {
         stack.distribution = .equalCentering
         stack.spacing = -20
         return stack
-    }()
-    
-    let environmentTag: TagView = {
-        let tag = TagView()
-        tag.translatesAutoresizingMaskIntoConstraints = false
-        return tag
-    }()
-    
-    let meetingTag: TagView = {
-        let tag = TagView()
-        tag.backgroundColor = Color.meetingFormatTag
-        tag.translatesAutoresizingMaskIntoConstraints = false
-        return tag
     }()
     
     let pendingTag: TagView = {
@@ -169,17 +173,7 @@ class StudyGroupCell: UICollectionViewCell {
         profilePictureStack.leftAnchor.constraint(equalTo: card.leftAnchor, constant: kViewMargin).isActive = true
         profilePictureStack.rightAnchor.constraint(equalTo: card.rightAnchor, constant: -1 * kViewMargin).isActive = true
         profilePictureStack.topAnchor.constraint(equalTo: classLabel.bottomAnchor, constant: 6).isActive = true
-        
-        contentView.addSubview(environmentTag)
-        environmentTag.leftAnchor.constraint(equalTo: card.leftAnchor, constant: kViewMargin).isActive = true
-        environmentTag.topAnchor.constraint(greaterThanOrEqualTo: profilePictureStack.bottomAnchor, constant: 10).isActive = true
-        environmentTag.bottomAnchor.constraint(equalTo: card.bottomAnchor, constant: -1 * kViewMargin).isActive = true
-        
-        contentView.addSubview(meetingTag)
-        meetingTag.leftAnchor.constraint(greaterThanOrEqualTo: environmentTag.rightAnchor, constant: 6).isActive = true
-        meetingTag.rightAnchor.constraint(equalTo: card.rightAnchor, constant: -1 * kViewMargin).isActive = true
-        meetingTag.topAnchor.constraint(equalTo: environmentTag.topAnchor).isActive = true
-        meetingTag.bottomAnchor.constraint(equalTo: environmentTag.bottomAnchor).isActive = true
+        profilePictureStack.bottomAnchor.constraint(lessThanOrEqualTo: card.bottomAnchor, constant: -1 * kViewMargin).isActive = true
         
         contentView.addSubview(pendingTag)
         pendingTag.leftAnchor.constraint(equalTo: card.leftAnchor, constant: kViewMargin).isActive = true
@@ -198,26 +192,14 @@ class StudyGroupCell: UICollectionViewCell {
             classLabel.alpha = 0.55
             pendingTag.isHidden = false
             profilePictureStack.isHidden = true
-            meetingTag.isHidden = true
-            environmentTag.isHidden = true
             return
         }
+        classLabel.alpha = 1
         pendingTag.isHidden = true
         profilePictureStack.isHidden = false
-        meetingTag.isHidden = false
-        environmentTag.isHidden = false
-        
-        if studyGroup.collaborative {
-            environmentTag.text = "Collab"
-            environmentTag.backgroundColor = Color.collabEnvironmentTag
-        } else {
-            environmentTag.text = "Solo"
-            environmentTag.backgroundColor = Color.soloEnvironmentTag
-        }
         profilePictureStack.removeAllArrangedSubviews()
         for var member in studyGroup.groupMembers {
             let profileImageView = UIImageView()
-            profileImageView.image = UIImage(named: "Profile")
             profileImageView.contentMode = .scaleAspectFill
             profileImageView.clipsToBounds = true
             let profileRadius: CGFloat = 13
@@ -225,6 +207,15 @@ class StudyGroupCell: UICollectionViewCell {
             profileImageView.translatesAutoresizingMaskIntoConstraints = false
             profileImageView.widthAnchor.constraint(equalToConstant: 2 * profileRadius).isActive = true
             profileImageView.heightAnchor.constraint(equalToConstant: 2 * profileRadius).isActive = true
+            
+            let placeholderLetter = String(member.name.first ?? "O").uppercased()
+            let placeholderView = ProfileLabel(text: placeholderLetter, radius: profileRadius, fontSize: 15)
+            placeholderView.translatesAutoresizingMaskIntoConstraints = false
+            profileImageView.addSubview(placeholderView)
+            placeholderView.leftAnchor.constraint(equalTo: profileImageView.leftAnchor).isActive = true
+            placeholderView.rightAnchor.constraint(equalTo: profileImageView.rightAnchor).isActive = true
+            placeholderView.topAnchor.constraint(equalTo: profileImageView.topAnchor).isActive = true
+            placeholderView.bottomAnchor.constraint(equalTo: profileImageView.bottomAnchor).isActive = true
             
             profilePictureStack.addArrangedSubview(profileImageView)
             if let url = member.profilePictureURL {
@@ -234,6 +225,7 @@ class StudyGroupCell: UICollectionViewCell {
                         DispatchQueue.main.async {
                             profileImageView.image = image
                             member.profilePicture = image
+                            placeholderView.isHidden = true
                         }
                     case .failure(let error):
                         print(error)
@@ -256,24 +248,19 @@ class StudyGroupCell: UICollectionViewCell {
             profilePictureStack.distribution = .equalCentering
             profilePictureStack.spacing = -20
         }
-        if studyGroup.virtual {
-            meetingTag.text = "Virtual"
-        } else {
-            meetingTag.text = "In Person"
-        }
     }
 }
 
 /// Cell allowing user to create a new group
-class CreateGroupCell: UICollectionViewCell {
-    static let kCellIdentifier = "createGroupCell"
+class CreatePreferenceCell: UICollectionViewCell {
+    static let kCellIdentifier = "createPreferenceCell"
     // MARK: UI Elements
-    let createGroupPlus: UIView = {
+    let createPreferencePlus: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         let circleRadius: CGFloat = 9.5
         view.layer.cornerRadius = circleRadius
-        view.backgroundColor = Color.StudyGroups.createGroupGreenPlus
+        view.backgroundColor = Color.StudyPact.StudyGroups.createPreferenceGreenPlus
         view.widthAnchor.constraint(equalToConstant: 2 * circleRadius).isActive = true
         view.heightAnchor.constraint(equalToConstant: 2 * circleRadius).isActive = true
         
@@ -289,13 +276,13 @@ class CreateGroupCell: UICollectionViewCell {
         return view
     }()
     
-    let createGroupLabel: UILabel = {
+    let createPreferenceLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 2
         label.font = Font.medium(16)
         label.alpha = 0.51
-        label.text = "Create\nGroup"
+        label.text = "Create\nPreference"
         return label
     }()
     
@@ -311,20 +298,20 @@ class CreateGroupCell: UICollectionViewCell {
         let layer = CAShapeLayer.init()
         let path = UIBezierPath(roundedRect: bounds, cornerRadius: 12)
         layer.path = path.cgPath
-        layer.strokeColor = Color.StudyGroups.createGroupDottedBorder.cgColor
+        layer.strokeColor = Color.StudyPact.StudyGroups.createPreferenceDottedBorder.cgColor
         layer.lineDashPattern = [2, 2]
         layer.fillColor = nil
         contentView.layer.addSublayer(layer)
         
         let joinedView = UIView()
         joinedView.translatesAutoresizingMaskIntoConstraints = false
-        joinedView.addSubview(createGroupPlus)
-        createGroupPlus.centerYAnchor.constraint(equalTo: joinedView.centerYAnchor).isActive = true
-        createGroupPlus.leftAnchor.constraint(equalTo: joinedView.leftAnchor).isActive = true
-        joinedView.addSubview(createGroupLabel)
-        createGroupLabel.centerYAnchor.constraint(equalTo: joinedView.centerYAnchor).isActive = true
-        createGroupLabel.leftAnchor.constraint(equalTo: createGroupPlus.rightAnchor, constant: kViewMargin).isActive = true
-        createGroupLabel.rightAnchor.constraint(equalTo: joinedView.rightAnchor).isActive = true
+        joinedView.addSubview(createPreferencePlus)
+        createPreferencePlus.centerYAnchor.constraint(equalTo: joinedView.centerYAnchor).isActive = true
+        createPreferencePlus.leftAnchor.constraint(equalTo: joinedView.leftAnchor).isActive = true
+        joinedView.addSubview(createPreferenceLabel)
+        createPreferenceLabel.centerYAnchor.constraint(equalTo: joinedView.centerYAnchor).isActive = true
+        createPreferenceLabel.leftAnchor.constraint(equalTo: createPreferencePlus.rightAnchor, constant: kViewMargin).isActive = true
+        createPreferenceLabel.rightAnchor.constraint(equalTo: joinedView.rightAnchor).isActive = true
         
         contentView.addSubview(joinedView)
         joinedView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
@@ -338,13 +325,13 @@ class CreateGroupCell: UICollectionViewCell {
     }
     
     private func setUpGestureRecognizer() {
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(self.goToCreateGroup(_:)))
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(self.goToCreatePreference(_:)))
         self.addGestureRecognizer(gesture)
     }
     
-    @objc func goToCreateGroup(_ sender: UITapGestureRecognizer) {
-        print("Create Group tapped")
-        // TODO: go to create group flow
+    @objc func goToCreatePreference(_ sender: UITapGestureRecognizer) {
+        print("Create Preference tapped")
+        // TODO: go to create preference flow
     }
 }
 
