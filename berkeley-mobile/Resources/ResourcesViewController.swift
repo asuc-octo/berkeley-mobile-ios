@@ -22,7 +22,13 @@ class ResourcesViewController: UIViewController {
         self.view.backgroundColor = Color.modalBackground
             
         setupHeader()
-        setupSegmentedControls()
+        let vc = CampusResourceViewController()
+        self.add(child: vc)
+        vc.view.translatesAutoresizingMaskIntoConstraints = false
+        vc.view.topAnchor.constraint(equalTo: resourcesLabel.bottomAnchor, constant: kViewMargin).isActive = true
+        vc.view.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        vc.view.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        vc.view.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
 
 }
@@ -55,22 +61,6 @@ extension ResourcesViewController {
         blobView.centerXAnchor.constraint(equalTo: resourcesLabel.rightAnchor, constant: -20).isActive = true
         
         blobImageView = blobView
-    }
-    
-    // SegmentedControl and Page views
-    private func setupSegmentedControls() {
-        // Add some right-padding to the segmented control so it doesn't overlap with the blob.
-        // Don't add this padding for now.
-        let segmentedControl = SegmentedControlViewController(pages: [
-            Page(viewController: CovidResourceViewController(), label: "COVID-19"),
-            Page(viewController: CampusResourceViewController(), label: "Campus-Wide")
-        ], controlInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: blobImageView.frame.width / 4), centerControl: false)
-        self.add(child: segmentedControl)
-        segmentedControl.view.translatesAutoresizingMaskIntoConstraints = false
-        segmentedControl.view.topAnchor.constraint(equalTo: resourcesLabel.bottomAnchor, constant: kViewMargin).isActive = true
-        segmentedControl.view.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        segmentedControl.view.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        segmentedControl.view.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
 }
 
