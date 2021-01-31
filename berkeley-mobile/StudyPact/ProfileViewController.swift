@@ -82,15 +82,16 @@ extension ProfileViewController {
     }
     
     func setupProfile() {
-        let initials = ProfileLabel(text: "O")
+        let radius: CGFloat = 50
+        let initials = ProfileLabel(text: "O", radius: radius, fontSize: 40)
         
         view.addSubview(initials)
         
         initials.translatesAutoresizingMaskIntoConstraints = false
         initials.topAnchor.constraint(equalTo: profileLabel.bottomAnchor, constant: 15).isActive = true
         initials.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        initials.setHeightConstraint(100)
-        initials.setWidthConstraint(100)
+        initials.setHeightConstraint(2 * radius)
+        initials.setWidthConstraint(2 * radius)
         
         initialsLabel = initials
         

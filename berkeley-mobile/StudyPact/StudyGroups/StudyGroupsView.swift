@@ -200,7 +200,6 @@ class StudyGroupCell: UICollectionViewCell {
         profilePictureStack.removeAllArrangedSubviews()
         for var member in studyGroup.groupMembers {
             let profileImageView = UIImageView()
-            profileImageView.image = UIImage(named: "Profile")
             profileImageView.contentMode = .scaleAspectFill
             profileImageView.clipsToBounds = true
             let profileRadius: CGFloat = 13
@@ -209,9 +208,8 @@ class StudyGroupCell: UICollectionViewCell {
             profileImageView.widthAnchor.constraint(equalToConstant: 2 * profileRadius).isActive = true
             profileImageView.heightAnchor.constraint(equalToConstant: 2 * profileRadius).isActive = true
             
-            // TODO: replace with single letter placeholder
-            let placeholderView = UIView()
-            placeholderView.backgroundColor = .red
+            let placeholderLetter = String(member.name.first ?? "O").uppercased()
+            let placeholderView = ProfileLabel(text: placeholderLetter, radius: profileRadius, fontSize: 15)
             placeholderView.translatesAutoresizingMaskIntoConstraints = false
             profileImageView.addSubview(placeholderView)
             placeholderView.leftAnchor.constraint(equalTo: profileImageView.leftAnchor).isActive = true
