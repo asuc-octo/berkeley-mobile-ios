@@ -22,11 +22,21 @@ struct Page {
 
 // MARK: - SegmentedControlViewController
 
+fileprivate let kControlHeight: CGFloat = 35
+fileprivate let kBarHeight: CGFloat = 13
+fileprivate let kViewMargin: CGFloat = 15
+
 /// A view controller containing a `UIPageViewController` synced-up with a `SegmentedControl`.
 class SegmentedControlViewController: UIViewController {
 
     /// The `SegmentedControl` displayed at the top of this view controller.
     var control: SegmentedControl!
+
+    /// The `UIScrollView` containing `control` that allows it to scroll horizontally if there are many options.
+    private var scrollView: UIScrollView!
+
+    /// An arrow that displays to the right of `control` when the rightmost edge of `scrollView` is not visible.
+    private var indicator: UIButton!
 
     /// The `UIPageViewController` controlled by `control`.
     private var pageViewController: UIPageViewController!
@@ -65,26 +75,61 @@ class SegmentedControlViewController: UIViewController {
             the `SegmentedControl`. If this value is `nil`, the control will extend to the edges of the view controller.
       - Parameter centerControl: Horizontally centers `control` if this value is `true`, otherwise left-align `control`
             with the left inset provided by `controlInsets`.
+      - Parameter scrollable: If there are many pages, allows the control to scroll horizontally instead of
+            shrinking or truncating the control labels.
     */
-    init(pages: [Page], controlInsets: UIEdgeInsets? = nil, centerControl: Bool = true) {
+    init(pages: [Page], controlInsets: UIEdgeInsets? = nil, centerControl: Bool = true, scrollable: Bool = false) {
         super.init(nibName: nil, bundle: nil)
 
-        // Setup controls
+        // Setup UIScrollView
         let insets = controlInsets ?? view.layoutMargins
-        let size = CGSize(width: view.frame.width - insets.left - insets.right, height: 35)
-        control = SegmentedControl(frame: CGRect(origin: .zero, size: size),
-                                barHeight: CGFloat(13),
-                                barColor: UIColor(displayP3Red: 250/255.0, green: 212/255.0, blue: 126/255.0, alpha: 1.0))
-        control.delegate = self
+        let size = CGSize(width: view.frame.width - insets.left - insets.right, height: kControlHeight)
+        scrollView = UIScrollView()
+        scrollView.delegate = self
+        scrollView.showsHorizontalScrollIndicator = false
 
-        view.addSubview(control)
-        control.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(scrollView)
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        scrollView.heightAnchor.constraint(equalToConstant: size.height).isActive = true
+        scrollView.widthAnchor.constraint(equalToConstant: size.width).isActive = true
         if centerControl {
-            control.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+            scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         } else {
-            control.leftAnchor.constraint(equalTo: view.leftAnchor, constant: insets.left).isActive = true
+            scrollView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: insets.left).isActive = true
         }
-        control.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+
+        // Setup Indicator
+        indicator = UIButton()
+        let image = UIImage(named: "Back")?.withRenderingMode(.alwaysTemplate)
+        indicator.addTarget(self, action: #selector(didTapIndicator), for: .touchUpInside)
+        indicator.setImage(image, for: .normal)
+        indicator.tintColor = Color.secondaryText
+        indicator.transform = CGAffineTransform(scaleX: -1, y: 1)
+        indicator.backgroundColor = UIColor.white
+        indicator.layer.cornerRadius = size.height / 2
+        indicator.layer.shadowRadius = 5
+        indicator.layer.shadowOpacity = 0.25
+        indicator.layer.shadowOffset = .zero
+        indicator.layer.shadowColor = UIColor.black.cgColor
+        indicator.layer.shadowPath = UIBezierPath(rect: indicator.layer.bounds.insetBy(dx: 4, dy: 4)).cgPath
+
+        view.addSubview(indicator)
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        indicator.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        indicator.leftAnchor.constraint(equalTo: scrollView.rightAnchor, constant: kViewMargin).isActive = true
+        indicator.heightAnchor.constraint(equalTo: scrollView.heightAnchor).isActive = true
+        indicator.widthAnchor.constraint(equalTo: indicator.heightAnchor).isActive = true
+
+        // Setup controls
+        let nonzeroSize = CGSize(width: 1, height: kControlHeight)
+        control = SegmentedControl(frame: CGRect(origin: .zero, size: scrollable ? nonzeroSize : size),
+                                barHeight: kBarHeight,
+                                barColor: Color.segmentedControlHighlight)
+        control.delegate = self
+        scrollView.addSubview(control)
+        control.translatesAutoresizingMaskIntoConstraints = false
+        control.setConstraintsToView(top: scrollView, bottom: scrollView, left: scrollView, right: scrollView)
 
         // Setup UIPageViewController
         pageViewController = UIPageViewController(transitionStyle: .scroll,
@@ -97,7 +142,7 @@ class SegmentedControlViewController: UIViewController {
         pageViewController.view.translatesAutoresizingMaskIntoConstraints = false
         pageViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         pageViewController.view.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        pageViewController.view.topAnchor.constraint(equalTo: control.bottomAnchor).isActive = true
+        pageViewController.view.topAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
         pageViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
 
         let scrollViews = pageViewController.view.subviews.filter { $0 is UIScrollView }
@@ -115,6 +160,29 @@ class SegmentedControlViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
+
+// MARK: - Indicator
+
+extension SegmentedControlViewController {
+
+    @objc func didTapIndicator() {
+        if index < 0 { return }
+        let nextIndex = min(pages.count - 1, index + 1)
+        guard nextIndex != index, !animating else { return }
+        pageViewController.setViewControllers([pages[nextIndex].viewController],
+                                              direction: .forward,
+                                              animated: true) { success in self.control.index = nextIndex }
+    }
+
+    func updateIndicator() {
+        let atEnd = (scrollView.contentOffset.x + scrollView.frame.size.width) / scrollView.contentSize.width >= 1.0
+        let onLastPage = index == pages.count - 1
+        UIView.animate(withDuration: 0.2) {
+            self.indicator.alpha = atEnd || onLastPage ? 0.0 : 1.0
+        }
+    }
+
 }
 
 // MARK: - UIPageViewControllerDelegate
@@ -144,8 +212,12 @@ extension SegmentedControlViewController: UIPageViewControllerDelegate, UIPageVi
 extension SegmentedControlViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        control.progress = Double((scrollView.contentOffset.x - scrollView.frame.size.width) / scrollView.frame.size.width)
-        animating = control.progress != 0
+        if scrollView != self.scrollView {
+            control.progress = Double((scrollView.contentOffset.x - scrollView.frame.size.width) / scrollView.frame.size.width)
+            animating = control.progress != 0
+            self.scrollView.scrollRectToVisible(control.indicatorFrame, animated: true)
+        }
+        updateIndicator()
     }
     
 }
