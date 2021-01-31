@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import IQKeyboardManagerSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.checkForUpdate()
         DataManager.shared.fetchAll()
         LocationManager.shared.requestLocation()
+        IQKeyboardManager.shared.enable = true
         return true
     }
 
