@@ -22,4 +22,7 @@ extension Color {
     static var getStartedButton: UIColor {
         return #colorLiteral(red: 0.3191883862, green: 0.4302733541, blue: 0.7476411462, alpha: 1)
     }
+    static var selectedPink: UIColor {
+        return UIColor(displayP3Red: 238/255, green: 145/255, blue: 145/255, alpha: 1.0)
+    }
 }

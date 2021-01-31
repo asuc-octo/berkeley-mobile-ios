@@ -27,10 +27,10 @@ class StudyPactOnboardingViewController: UIViewController {
     
     let descriptionLabel: UILabel = {
         let descriptionLabel = UILabel()
-        descriptionLabel.font = Font.regular(18)
+        descriptionLabel.font = Font.regular(24)
         descriptionLabel.numberOfLines = 0
-        descriptionLabel.heightAnchor.constraint(equalToConstant: 45).isActive = true
         descriptionLabel.textColor = .gray
+        descriptionLabel.adjustsFontSizeToFitWidth = true
         descriptionLabel.textAlignment = .center
         return descriptionLabel
     }()
@@ -58,9 +58,9 @@ class StudyPactOnboardingViewController: UIViewController {
     func setupCard(){
         let stack = UIStackView()
         stack.axis = .vertical
-        stack.distribution = .fill
+        stack.distribution = .fillProportionally
         stack.alignment = .center
-        stack.spacing = 5
+//        stack.spacing = 5
         view.addSubview(stack)
         
         let numberTitleStack = UIStackView()
@@ -68,7 +68,6 @@ class StudyPactOnboardingViewController: UIViewController {
         numberTitleStack.distribution = .equalCentering
         numberTitleStack.alignment = .center
         numberTitleStack.spacing = 14
-        
         numberTitleStack.addArrangedSubview(numberImage)
         numberTitleStack.addArrangedSubview(signUpLabel)
         
@@ -78,16 +77,20 @@ class StudyPactOnboardingViewController: UIViewController {
         
         bearImage.contentMode = .scaleAspectFit
         bearImage.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -100).isActive = true
-        bearImage.heightAnchor.constraint(equalToConstant: 310).isActive = true
         
         stack.translatesAutoresizingMaskIntoConstraints = false
         bearImage.translatesAutoresizingMaskIntoConstraints = false
+        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        numberTitleStack.translatesAutoresizingMaskIntoConstraints = false
+        
         bearImage.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 320/896).isActive = true
         bearImage.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 310/414).isActive = true
         stack.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         stack.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
         stack.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
+        stack.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -40).isActive = true
         stack.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 450/896).isActive = true
+        descriptionLabel.heightAnchor.constraint(equalToConstant: 88).isActive = true
     }
 
 }
