@@ -69,7 +69,7 @@ class PeopleCountPicker_SPOnboarding: UIView {
                 buttonSelected.setTitleColor(Color.blackText, for: .normal)
                 
                 if buttonSelected != sender {
-                    sender.backgroundColor = Color.selectedPink
+                    sender.backgroundColor = Color.StudyPact.CreatePreference.selectedPink
                     sender.setTitleColor(.white, for: .normal)
                 }
                 buttonSelected = sender
@@ -78,7 +78,7 @@ class PeopleCountPicker_SPOnboarding: UIView {
             }
             
         } else {
-            sender.backgroundColor = Color.selectedPink
+            sender.backgroundColor = Color.StudyPact.CreatePreference.selectedPink
             sender.setTitleColor(.white, for: .normal)
             sender.isSelected.toggle()
             
@@ -86,7 +86,7 @@ class PeopleCountPicker_SPOnboarding: UIView {
                 buttonSelected.backgroundColor = .white
                 buttonSelected.setTitleColor(Color.blackText, for: .normal)
                 
-                sender.backgroundColor = Color.selectedPink
+                sender.backgroundColor = Color.StudyPact.CreatePreference.selectedPink
                 sender.setTitleColor(.white, for: .normal)
             }
             buttonSelected = sender

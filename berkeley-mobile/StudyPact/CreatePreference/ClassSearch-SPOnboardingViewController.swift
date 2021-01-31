@@ -55,20 +55,19 @@ class ClassSearch_SPOnboardingViewController: UIView, UITextFieldDelegate {
     
 }
 
-extension UIViewController
-{
+extension StudyPactSetupViewController {
     func setupToHideKeyboardOnTapOnView()
     {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(
             target: self,
-            action: #selector(UIViewController.dismissKeyboard))
+            action: #selector(dismissKeyboard))
 
         tap.cancelsTouchesInView = false
-        view.addGestureRecognizer(tap)
+        self.view.addGestureRecognizer(tap)
     }
 
     @objc func dismissKeyboard()
     {
-        view.endEditing(true)
+        self.view.endEditing(true)
     }
 }

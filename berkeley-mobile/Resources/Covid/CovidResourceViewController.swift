@@ -27,7 +27,7 @@ class CovidResourceViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 0, right: 16)
+        view.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
         
         scrollingView()
         covidOverview()
@@ -48,17 +48,17 @@ class CovidResourceViewController: UIViewController {
 extension CovidResourceViewController {
     func scrollingView() {
         let scrollingStackView = ScrollingStackView()
-        
-        scrollingStackView.layoutMargins = kCardPadding
+
+        scrollingStackView.setLayoutMargins(view.layoutMargins)
         scrollingStackView.scrollView.showsVerticalScrollIndicator = false
         scrollingStackView.stackView.spacing = kViewMargin
         
         view.addSubview(scrollingStackView)
         
-        scrollingStackView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: -8).isActive = true
+        scrollingStackView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         scrollingStackView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         scrollingStackView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        scrollingStackView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -8).isActive = true
+        scrollingStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         
         scrollingStack = scrollingStackView
     }
@@ -68,10 +68,6 @@ extension CovidResourceViewController {
         card.layoutMargins = kCardPadding
         
         scrollingStack.stackView.addArrangedSubview(card)
-        
-        card.translatesAutoresizingMaskIntoConstraints = false
-        card.leftAnchor.constraint(equalTo: scrollingStack.layoutMarginsGuide.leftAnchor).isActive = true
-        card.rightAnchor.constraint(equalTo: scrollingStack.layoutMarginsGuide.rightAnchor).isActive = true
         
         let headerLabel = UILabel()
         headerLabel.font = Font.bold(24)
@@ -189,10 +185,6 @@ extension CovidResourceViewController {
         
         scrollingStack.stackView.addArrangedSubview(card)
         
-        card.translatesAutoresizingMaskIntoConstraints = false
-        card.leftAnchor.constraint(equalTo: scrollingStack.layoutMarginsGuide.leftAnchor).isActive = true
-        card.rightAnchor.constraint(equalTo: scrollingStack.layoutMarginsGuide.rightAnchor).isActive = true
-        
         let headerLabel = UILabel()
         headerLabel.text = "Need to get tested?"
         headerLabel.font = Font.medium(20)
@@ -247,10 +239,6 @@ extension CovidResourceViewController {
         card.layoutMargins = kCardPadding
         
         scrollingStack.stackView.addArrangedSubview(card)
-        
-        card.translatesAutoresizingMaskIntoConstraints = false
-        card.leftAnchor.constraint(equalTo: scrollingStack.layoutMarginsGuide.leftAnchor).isActive = true
-        card.rightAnchor.constraint(equalTo: scrollingStack.layoutMarginsGuide.rightAnchor).isActive = true
         
         let stack = UIStackView()
         stack.axis = .vertical
