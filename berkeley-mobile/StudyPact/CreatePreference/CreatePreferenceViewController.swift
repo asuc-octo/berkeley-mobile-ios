@@ -95,7 +95,7 @@ class CreatePreferenceViewController: UIPageViewController, UIPageViewController
         nextButton.widthAnchor.constraint(equalToConstant: 143).isActive = true
         nextButton.heightAnchor.constraint(equalToConstant: 41).isActive = true
         nextButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        nextButton.bottomAnchor.constraint(equalTo: pageControl.topAnchor, constant: -100).isActive = true
+        nextButton.bottomAnchor.constraint(equalTo: pageControl.topAnchor, constant: view.frame.height * -0.1).isActive = true
         
         view.addSubview(saveButton)
         saveButton.widthAnchor.constraint(equalToConstant: 195).isActive = true
@@ -107,8 +107,8 @@ class CreatePreferenceViewController: UIPageViewController, UIPageViewController
         closeButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
         closeButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
         closeButton.translatesAutoresizingMaskIntoConstraints = false
-        closeButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15).isActive = true
-        closeButton.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 15).isActive = true
+        closeButton.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 8).isActive = true
+        closeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16).isActive = true
     }
     
     @objc func closeButton(_: UIButton) {

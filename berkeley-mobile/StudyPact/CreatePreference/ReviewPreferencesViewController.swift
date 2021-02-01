@@ -64,7 +64,7 @@ class ReviewPreferencesViewController: UIViewController {
     private func setUpLabels() {
         self.view.addSubview(reviewLabel)
         reviewLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        reviewLabel.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 175).isActive = true
+        reviewLabel.topAnchor.constraint(equalTo: self.view.topAnchor, constant: view.frame.height * 0.2).isActive = true
         
         self.view.addSubview(lookingLabel)
         lookingLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
