@@ -1,5 +1,5 @@
 //
-//  StudyPactSetupViewController.swift
+//  CreatePreferenceFrameViewController.swift
 //  berkeley-mobile
 //
 //  Created by Eashan Mathur on 1/28/21.
@@ -8,9 +8,8 @@
 
 import UIKit
 
-class StudyPactSetupViewController: UIViewController {
-
-    var onboardingLabel: UILabel = {
+class CreatePreferenceFrameViewController: UIViewController {
+    var questionLabel: UILabel = {
         let label = UILabel()
         label.font = Font.bold(24)
         label.textAlignment = .center
@@ -21,15 +20,15 @@ class StudyPactSetupViewController: UIViewController {
         return label
     }()
     
-    var onboardingView: UIView = {
+    var containedView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    init(_onboardingLabelText: String, _view: UIView) {
-        onboardingLabel.text = _onboardingLabelText
-        onboardingView = _view
+    init(labelText: String, containedView: UIView) {
+        self.questionLabel.text = labelText
+        self.containedView = containedView
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -41,7 +40,6 @@ class StudyPactSetupViewController: UIViewController {
         super.viewDidLoad()
         setupView()
         setupToHideKeyboardOnTapOnView()
-        
     }
     
     func setupView() {
@@ -52,22 +50,27 @@ class StudyPactSetupViewController: UIViewController {
         stack.spacing = 35
         view.addSubview(stack)
         
-        stack.addArrangedSubview(onboardingLabel)
-        stack.addArrangedSubview(onboardingView)
+        stack.addArrangedSubview(questionLabel)
+        stack.addArrangedSubview(containedView)
         stack.translatesAutoresizingMaskIntoConstraints = false
         
-
         stack.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -70).isActive = true
         stack.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         stack.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 300/414).isActive = true
-        onboardingView.topAnchor.constraint(equalTo: onboardingLabel.bottomAnchor, constant: 35).isActive = true
-        onboardingView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 180/896).isActive = true
-        onboardingView.widthAnchor.constraint(equalTo: stack.widthAnchor).isActive = true
-        
+        containedView.topAnchor.constraint(equalTo: questionLabel.bottomAnchor, constant: 35).isActive = true
+        containedView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 180/896).isActive = true
+        containedView.widthAnchor.constraint(equalTo: stack.widthAnchor).isActive = true
     }
-    
-    
+}
 
-    
+extension CreatePreferenceFrameViewController {
+    func setupToHideKeyboardOnTapOnView() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tap)
+    }
 
+    @objc func dismissKeyboard() {
+        self.view.endEditing(true)
+    }
 }

@@ -1,5 +1,5 @@
 //
-//  WhereToStudy-SPOnboarding.swift
+//  SelectLocationView.swift
 //  berkeley-mobile
 //
 //  Created by Eashan Mathur on 1/30/21.
@@ -8,12 +8,27 @@
 
 import UIKit
 
-class WhereToStudy_SPOnboarding: UIView {
-
-    var buttonSelected: UIButton!
-    var model: SPData!
+class SelectLocationView: UIView, EnableNextDelegate {
+    let preferenceVC: CreatePreferenceViewController
+    private var buttonSelected: UIButton? {
+        didSet {
+            if let button = buttonSelected {
+                isNextEnabled = true
+                preferenceVC.preference.isVirtual = button == virtualButton
+            } else {
+                isNextEnabled = false
+            }
+        }
+    }
+    var isNextEnabled: Bool = false {
+        didSet {
+            preferenceVC.setNextEnabled()
+        }
+    }
     
-    let virtualButton: UIButton = {
+    var virtualButton: UIButton!
+    var inPersonButton: UIButton!
+    private func createButton(title: String) -> UIButton {
         let button = UIButton()
         button.layer.cornerRadius = 12
         button.layer.shadowRadius = 5
@@ -22,7 +37,7 @@ class WhereToStudy_SPOnboarding: UIView {
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowPath = UIBezierPath(rect: button.layer.bounds.insetBy(dx: 4, dy: 4)).cgPath
         
-        button.setTitle("Virtual", for: .normal)
+        button.setTitle(title, for: .normal)
         button.titleLabel?.font = Font.regular(16)
         button.titleLabel?.textColor = Color.ActionButton.color
         button.backgroundColor = .white
@@ -31,64 +46,20 @@ class WhereToStudy_SPOnboarding: UIView {
         button.addTarget(self, action: #selector(toggleButton(sender:)), for: .touchUpInside)
         
         return button
-    }()
-    
-    let inPersonButton: UIButton = {
-        let button = UIButton()
-        button.layer.cornerRadius = 12
-        button.layer.shadowRadius = 5
-        button.layer.shadowOpacity = 0.25
-        button.layer.shadowOffset = .zero
-        button.layer.shadowColor = UIColor.black.cgColor
-        button.layer.shadowPath = UIBezierPath(rect: button.layer.bounds.insetBy(dx: 4, dy: 4)).cgPath
-        
-        button.setTitle("In Person", for: .normal)
-        button.titleLabel?.font = Font.regular(16)
-        button.titleLabel?.textColor = Color.ActionButton.color
-        button.backgroundColor = .white
-        
-        button.setTitleColor(Color.blackText, for: .normal)
-        button.addTarget(self, action: #selector(toggleButton(sender:)), for: .touchUpInside)
-        
-        return button
-    }()
-    
+    }
     
     @objc func toggleButton(sender: ActionButton) {
-        //When the button has already been selected
-        if sender.isSelected {
-            sender.backgroundColor = .white
-            sender.setTitleColor(Color.blackText, for: .normal)
-            sender.isSelected.toggle()
-            
-            if buttonSelected != nil {
-                buttonSelected.backgroundColor = .white
-                buttonSelected.setTitleColor(Color.blackText, for: .normal)
-                
-                if buttonSelected != sender {
-                    sender.backgroundColor = Color.ActionButton.background
-                    sender.setTitleColor(.white, for: .normal)
-                }
-                buttonSelected = sender
-            } else {
-                buttonSelected = nil
-            }
-            print("Going from blue to white", "buttonSelected is now:", buttonSelected?.titleLabel?.text ?? "nil")
-            
-        } else {
+        if !sender.isSelected {
             sender.backgroundColor = Color.ActionButton.background
             sender.setTitleColor(.white, for: .normal)
             sender.isSelected.toggle()
-            
-            if buttonSelected != nil {
+            if let buttonSelected = self.buttonSelected {
                 buttonSelected.backgroundColor = .white
                 buttonSelected.setTitleColor(Color.blackText, for: .normal)
-                
                 sender.backgroundColor = Color.ActionButton.background
                 sender.setTitleColor(.white, for: .normal)
             }
-            buttonSelected = sender
-            print("Going from white to blue", "buttonSelected is now:", buttonSelected?.titleLabel?.text ?? "nil")
+            self.buttonSelected = sender
         }
     }
     
@@ -97,8 +68,11 @@ class WhereToStudy_SPOnboarding: UIView {
     }
     
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(preferenceVC: CreatePreferenceViewController) {
+        self.preferenceVC = preferenceVC
+        super.init(frame: .zero)
+        self.virtualButton = createButton(title: "Virtual")
+        self.inPersonButton = createButton(title: "In Person")
         setUpView()
     }
     
@@ -106,9 +80,7 @@ class WhereToStudy_SPOnboarding: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-
     func setUpView() {
-        
         let stack = UIStackView()
         stack.axis = .vertical
         stack.spacing = 25
@@ -127,5 +99,4 @@ class WhereToStudy_SPOnboarding: UIView {
         virtualButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
         inPersonButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
     }
-
 }

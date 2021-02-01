@@ -1,5 +1,5 @@
 //
-//  NewStudyPactClassOnboardingViewController.swift
+//  CreatePreferenceViewController.swift
 //  berkeley-mobile
 //
 //  Created by Eashan Mathur on 1/23/21.
@@ -8,10 +8,15 @@
 
 import UIKit
 
-class NewStudyPactClassOnboardingViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
+class CreatePreferenceViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     
     var pages = [UIViewController]()
-    var model: SPData!
+    var preference: StudyPactPreference = StudyPactPreference()
+    var currentDelegate: EnableNextDelegate? {
+        didSet {
+            setNextEnabled()
+        }
+    }
     
     private let pageControl : UIPageControl = {
         let pageControl = UIPageControl()
@@ -26,9 +31,20 @@ class NewStudyPactClassOnboardingViewController: UIPageViewController, UIPageVie
         button.setTitle("Next", for: .normal)
         button.titleLabel?.font = Font.regular(18)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = Color.StudyPact.Onboarding.getStartedButton
+        button.backgroundColor = Color.StudyPact.CreatePreference.enabledNextButton
         button.addTarget(self, action: #selector(nextClicked(_:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    let saveButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Save Preference", for: .normal)
+        button.titleLabel?.font = Font.regular(18)
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = Color.StudyPact.CreatePreference.selectedPink
+        button.addTarget(self, action: #selector(savePreference(_:)), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.isHidden = true
         return button
     }()
     let closeButton: UIButton = {
@@ -46,7 +62,6 @@ class NewStudyPactClassOnboardingViewController: UIPageViewController, UIPageVie
         
         self.dataSource = self
         self.delegate = self
-        self.model = SPData()
 
         configurePageControl()
         configureButtons()
@@ -62,11 +77,11 @@ class NewStudyPactClassOnboardingViewController: UIPageViewController, UIPageVie
         blobView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: blobView.frame.width / 2).isActive = true
         blobView.centerXAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
         view.sendSubviewToBack(blobView)
-        
     }
     
     override func viewWillLayoutSubviews() {
         nextButton.layer.cornerRadius = nextButton.frame.height / 2
+        saveButton.layer.cornerRadius = saveButton.frame.height / 2
     }
     
     override func viewDidLayoutSubviews() {
@@ -77,10 +92,16 @@ class NewStudyPactClassOnboardingViewController: UIPageViewController, UIPageVie
     
     func configureButtons() {
         view.addSubview(nextButton)
-        nextButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 125/414).isActive = true
-        nextButton.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 45/896).isActive = true
+        nextButton.widthAnchor.constraint(equalToConstant: 143).isActive = true
+        nextButton.heightAnchor.constraint(equalToConstant: 41).isActive = true
         nextButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         nextButton.bottomAnchor.constraint(equalTo: pageControl.topAnchor, constant: -100).isActive = true
+        
+        view.addSubview(saveButton)
+        saveButton.widthAnchor.constraint(equalToConstant: 195).isActive = true
+        saveButton.heightAnchor.constraint(equalToConstant: 41).isActive = true
+        saveButton.centerXAnchor.constraint(equalTo: nextButton.centerXAnchor).isActive = true
+        saveButton.centerYAnchor.constraint(equalTo: nextButton.centerYAnchor).isActive = true
         
         view.addSubview(closeButton)
         closeButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
@@ -88,8 +109,6 @@ class NewStudyPactClassOnboardingViewController: UIPageViewController, UIPageVie
         closeButton.translatesAutoresizingMaskIntoConstraints = false
         closeButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15).isActive = true
         closeButton.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 15).isActive = true
-        
-        
     }
     
     @objc func closeButton(_: UIButton) {
@@ -100,25 +119,56 @@ class NewStudyPactClassOnboardingViewController: UIPageViewController, UIPageVie
         moveToNextPage()
     }
     
+    @objc func savePreference(_: UIButton) {
+        // TODO: send to backend
+        print("send preference to backend")
+        print(preference)
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    public func setNextEnabled() {
+        guard let currentDelegate = self.currentDelegate else { return }
+        if currentDelegate.isNextEnabled {
+            self.dataSource = self
+            nextButton.isEnabled = true
+            nextButton.backgroundColor = Color.StudyPact.CreatePreference.enabledNextButton
+        } else {
+            self.dataSource = nil
+            nextButton.isEnabled = false
+            nextButton.backgroundColor = Color.StudyPact.CreatePreference.disabledNextbutton
+        }
+    }
+    
     func moveToNextPage() {
         if currentIndex != pages.count - 1 {
             setViewControllers([pages[currentIndex + 1]], direction: .forward, animated: true, completion: nil)
         }
         pageControl.currentPage += 1
+        if pages[pageControl.currentPage] as? ReviewPreferencesViewController != nil {
+            nextButton.isHidden = true
+            saveButton.isHidden = false
+        } else {
+            nextButton.isHidden = false
+            saveButton.isHidden = true
+        }
+        guard let frame = pages[pageControl.currentPage] as? CreatePreferenceFrameViewController,
+              let vc = frame.containedView as? EnableNextDelegate else { return }
+        currentDelegate = vc
     }
     
     func configurePageControl() {
         let initialPage = 0
-        let page1 = StudyPactSetupViewController(_onboardingLabelText: "How many people do you want to study with?", _view: PeopleCountPicker_SPOnboarding())
-        let page2 = StudyPactSetupViewController(_onboardingLabelText: "What class do you want to study for?", _view: ClassSearch_SPOnboardingViewController())
-        let page3 = StudyPactSetupViewController(_onboardingLabelText: "Where do you want to study?", _view: WhereToStudy_SPOnboarding())
-        
-        
+        let page1 = CreatePreferenceFrameViewController(labelText: "How many people do you want to study with?", containedView: SelectPeopleView(preferenceVC: self))
+        let page2 = CreatePreferenceFrameViewController(labelText: "What class do you want to study for?", containedView: SelectClassView(preferenceVC: self))
+        let page3 = CreatePreferenceFrameViewController(labelText: "Where do you want to study?", containedView: SelectLocationView(preferenceVC: self))
+        let page4 = ReviewPreferencesViewController(preferenceVC: self)
+        currentDelegate = page1.containedView as? EnableNextDelegate
         
         // add the individual viewControllers to the pageViewController
         self.pages.append(page1)
         self.pages.append(page2)
         self.pages.append(page3)
+        self.pages.append(page4)
         
         setViewControllers([pages[initialPage]], direction: .forward, animated: true, completion: nil)
         
@@ -146,22 +196,33 @@ class NewStudyPactClassOnboardingViewController: UIPageViewController, UIPageVie
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        
         guard let viewControllerIndex = self.pages.firstIndex(of: viewController), viewControllerIndex < self.pages.count - 1 else { return nil }
-                // go to next page in array
         return self.pages[viewControllerIndex + 1]
-    
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-            
-    // set the pageControl.currentPage to the index of the current viewController in pages
+        // set the pageControl.currentPage to the index of the current viewController in pages
         if let viewControllers = pageViewController.viewControllers {
             if let viewControllerIndex = self.pages.firstIndex(of: viewControllers[0]) {
                 self.pageControl.currentPage = viewControllerIndex
-                
             }
         }
     }
+    
+    func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
+        if pendingViewControllers[0] as? ReviewPreferencesViewController != nil {
+            nextButton.isHidden = true
+            saveButton.isHidden = false
+        } else {
+            nextButton.isHidden = false
+            saveButton.isHidden = true
+        }
+        guard let frame = pendingViewControllers[0] as? CreatePreferenceFrameViewController,
+              let vc = frame.containedView as? EnableNextDelegate else { return }
+        currentDelegate = vc
+    }
 }
 
+protocol EnableNextDelegate {
+    var isNextEnabled: Bool { get set }
+}
