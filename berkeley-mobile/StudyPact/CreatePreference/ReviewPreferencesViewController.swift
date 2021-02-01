@@ -73,6 +73,8 @@ class ReviewPreferencesViewController: UIViewController {
         self.view.addSubview(preferenceLabel)
         preferenceLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
         preferenceLabel.topAnchor.constraint(equalTo: lookingLabel.bottomAnchor, constant: 20).isActive = true
+        preferenceLabel.leftAnchor.constraint(greaterThanOrEqualTo: self.view.leftAnchor, constant: 16).isActive = true
+        preferenceLabel.rightAnchor.constraint(lessThanOrEqualTo: self.view.rightAnchor, constant: 16).isActive = true
     }
     
     private func updateLabels() {
@@ -80,8 +82,12 @@ class ReviewPreferencesViewController: UIViewController {
               let preferenceNumber = preferenceVC.preference.numberOfPeople,
               let preferenceVirtual = preferenceVC.preference.isVirtual else {
             preferenceLabel.text = "There was an error with your selection."
+            lookingLabel.isHidden = true
+            reviewLabel.isHidden = true
             return
         }
+        lookingLabel.isHidden = false
+        reviewLabel.isHidden = false
         preferenceLabel.text = "\(preferenceClass) study group\nwith \(preferenceNumber) people\nmeeting \(preferenceVirtual ? "virtually" : "in person")"
     }
 }

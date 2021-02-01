@@ -110,7 +110,7 @@ extension StudyGroupsView: UICollectionViewDelegate, UICollectionViewDataSource,
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if includeCreatePreference && indexPath.row == 0 {
-            let vc = CreatePreferenceViewController()
+            let vc = CreatePreferenceViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
             vc.modalPresentationStyle = .fullScreen
             enclosingVC.present(vc, animated: true, completion: nil)
             return

@@ -141,19 +141,11 @@ class CreatePreferenceViewController: UIPageViewController, UIPageViewController
     
     func moveToNextPage() {
         if currentIndex != pages.count - 1 {
-            setViewControllers([pages[currentIndex + 1]], direction: .forward, animated: true, completion: nil)
+            setViewControllers([pages[currentIndex + 1]], direction: .forward, animated: true, completion: { _ in
+                self.updateButtons(vc: self.pages[self.pageControl.currentPage])
+            })
         }
         pageControl.currentPage += 1
-        if pages[pageControl.currentPage] as? ReviewPreferencesViewController != nil {
-            nextButton.isHidden = true
-            saveButton.isHidden = false
-        } else {
-            nextButton.isHidden = false
-            saveButton.isHidden = true
-        }
-        guard let frame = pages[pageControl.currentPage] as? CreatePreferenceFrameViewController,
-              let vc = frame.containedView as? EnableNextDelegate else { return }
-        currentDelegate = vc
     }
     
     func configurePageControl() {
@@ -207,19 +199,23 @@ class CreatePreferenceViewController: UIPageViewController, UIPageViewController
                 self.pageControl.currentPage = viewControllerIndex
             }
         }
+        self.updateButtons(vc: pageViewController.viewControllers?[0])
     }
     
-    func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
-        if pendingViewControllers[0] as? ReviewPreferencesViewController != nil {
-            nextButton.isHidden = true
-            saveButton.isHidden = false
-        } else {
-            nextButton.isHidden = false
-            saveButton.isHidden = true
+    private func updateButtons(vc: UIViewController?) {
+        DispatchQueue.main.async {
+            if vc as? ReviewPreferencesViewController != nil {
+                self.nextButton.isHidden = true
+                self.saveButton.isHidden = false
+            } else {
+                self.nextButton.isHidden = false
+                self.saveButton.isHidden = true
+            }
+            if let frame = vc as? CreatePreferenceFrameViewController,
+               let vc = frame.containedView as? EnableNextDelegate {
+                self.currentDelegate = vc
+            }
         }
-        guard let frame = pendingViewControllers[0] as? CreatePreferenceFrameViewController,
-              let vc = frame.containedView as? EnableNextDelegate else { return }
-        currentDelegate = vc
     }
 }
 
