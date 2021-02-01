@@ -7,10 +7,11 @@
 //
 
 import UIKit
+import SearchTextField
 
 class SelectClassView: UIView, UITextFieldDelegate, EnableNextDelegate {
     let preferenceVC: CreatePreferenceViewController
-    var textField: MaterialTextField!
+    var textField: SearchTextField!
     var classNames: [String] = []
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -26,19 +27,18 @@ class SelectClassView: UIView, UITextFieldDelegate, EnableNextDelegate {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     func setUpView() {
-        self.textField = MaterialTextField(hint: "Search for a class", textColor: Color.darkGrayText, font: Font.regular(15), bgColor: Color.searchBarBackground, delegate: self)
-        textField.cornerRadius = 15.0
-        textField.setCornerBorder(color: Color.searchBarBackground, cornerRadius: 15.0, borderWidth: 0.0)
+        self.textField = SearchTextField()
+        textField.placeholder = "Search for a class"
         textField.autocorrectionType = .no
-        textField.returnKeyType = .search
-        textField.enablesReturnKeyAutomatically = true
-        textField.layer.masksToBounds = false
-        textField.padding = CGSize(width: 10, height: 0)
+        textField.autocapitalizationType = .none
+        textField.borderStyle = .roundedRect
+        textField.layer.cornerRadius = 10
+        textField.theme.font = Font.light(12)
         textField.addTarget(self, action: #selector(setNextEnabled), for: .editingDidEnd)
         
-        textField.layer.shadowRadius = 5
+        textField.layer.shadowRadius = 3
         textField.layer.shadowOpacity = 0.25
         textField.layer.shadowOffset = .zero
         textField.layer.shadowColor = UIColor.black.cgColor
@@ -61,16 +61,19 @@ class SelectClassView: UIView, UITextFieldDelegate, EnableNextDelegate {
                   let httpResponse = response as? HTTPURLResponse,
                   httpResponse.statusCode == 200,
                   error == nil else { return }
-            do {
-                let json = try JSONSerialization.jsonObject(with: data) as! Dictionary<String, AnyObject>
-                let courses = json["courses"] as! Array<Dictionary<String, AnyObject>>
-                for course in courses {
-                    guard let courseNumber = course["course_number"] as? String,
-                          let abbreviation = course["abbreviation"] as? String else { continue }
-                    self.classNames.append(abbreviation + " " + courseNumber)
+            DispatchQueue.main.async {
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data) as! Dictionary<String, AnyObject>
+                    let courses = json["courses"] as! Array<Dictionary<String, AnyObject>>
+                    for course in courses {
+                        guard let courseNumber = course["course_number"] as? String,
+                              let abbreviation = course["abbreviation"] as? String else { continue }
+                        self.classNames.append(abbreviation + " " + courseNumber)
+                    }
+                    self.textField.filterStrings(self.classNames)
+                } catch {
+                    print("error fetching courses")
                 }
-            } catch {
-                print("error fetching courses")
             }
         })
         task.resume()
