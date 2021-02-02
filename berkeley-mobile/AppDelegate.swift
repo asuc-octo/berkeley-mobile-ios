@@ -22,7 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         LocationManager.shared.requestLocation()
         IQKeyboardManager.shared.enable = true
         GIDSignIn.sharedInstance()?.clientID = FirebaseApp.app()?.options.clientID
-        print(FirebaseApp.app()?.options.clientID)
         return true
     }
 

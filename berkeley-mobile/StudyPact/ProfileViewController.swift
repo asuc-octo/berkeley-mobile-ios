@@ -73,13 +73,22 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigation
         let fullName = user.profile.name
         let email = user.profile.email
         
-        initialsLabel.text = Array(arrayLiteral: fullName)[0]
+        initialsLabel.text = String(fullName?.prefix(1) ?? "")
         fullNameField.text = fullName
         emailTextField.textField.text = email
         
         if user.profile.hasImage {
-            guard let imageUrl = user.profile.imageURL(withDimension: 100) else { return }
-            downloadImage(from: imageUrl)
+            guard let imageUrl = user.profile.imageURL(withDimension: 250) else { return }
+            ImageLoader.shared.getImage(url: imageUrl) { result in
+                switch result {
+                case .success(let image):
+                    DispatchQueue.main.async() { [weak self] in
+                        self!.profileImage = image
+                    }
+                case .failure(let error):
+                    print(error)
+                }
+            }
         }
     }
     
@@ -360,18 +369,5 @@ extension ProfileViewController {
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
-    }
-    
-    func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
-        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
-    }
-    
-    func downloadImage(from url: URL) {
-        getData(from: url) { data, response, error in
-            guard let data = data, error == nil else { return }
-            DispatchQueue.main.async() { [weak self] in
-                self!.profileImage = UIImage(data: data)
-            }
-        }
     }
 }
