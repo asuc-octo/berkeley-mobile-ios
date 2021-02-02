@@ -7,10 +7,13 @@
 //
 
 import UIKit
+import Firebase
+import GoogleSignIn
 
-class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, GIDSignInDelegate {
     
     private var loggedIn = false
+    private var loginButton: GIDSignInButton!
     
     private var profileLabel: UILabel!
     private var initialsLabel: ProfileLabel!
@@ -22,6 +25,9 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigation
             profileImageView.isHidden = false
         }
     }
+    private var fullNameField: BorderedTextField!
+    private var emailTextField: TaggedTextField!
+    
     private var changeImageButton: UIButton!
     private var imagePicker: UIImagePickerController!
 
@@ -32,16 +38,53 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigation
         self.view.backgroundColor = Color.modalBackground
         
         setupHeader()
-        setupProfile()
         
-        let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
-        view.addGestureRecognizer(tap)
+        GIDSignIn.sharedInstance()?.delegate = self
         
-        imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = .photoLibrary
+        if GIDSignIn.sharedInstance().hasPreviousSignIn() {
+            // Signed in
+
+            GIDSignIn.sharedInstance()?.restorePreviousSignIn()
+            loggedInView()
+        } else {
+            GIDSignIn.sharedInstance()?.presentingViewController = self
+            
+            loggedOutView()
+        }
+    }
+    
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        if let error = error {
+            print(error)
+            return
+        }
+        guard let authentication = user.authentication else {
+            loggedOutView()
+            return
+        }
+        // TODO: - Store the useful hash?
+        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
+                                                       accessToken: authentication.accessToken)
         
-        setupProfileImage()
+        loggedInView()
+        
+        let userId = user.userID  // Client side only
+        let idToken = user.authentication.idToken // Safe to send to the server
+        let fullName = user.profile.name
+        let email = user.profile.email
+        
+        initialsLabel.text = Array(arrayLiteral: fullName)[0]
+        fullNameField.text = fullName
+        emailTextField.textField.text = email
+        
+        if user.profile.hasImage {
+            guard let imageUrl = user.profile.imageURL(withDimension: 100) else { return }
+            downloadImage(from: imageUrl)
+        }
+    }
+    
+    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
+        loggedOutView()
     }
     
     @objc func dismissKeyboard() {
@@ -56,6 +99,30 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigation
 }
 
 extension ProfileViewController {
+    func loggedInView() {
+        if let _ = loginButton {
+            loginButton.isHidden = true
+        }
+        
+        setupProfile()
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
+        
+//        imagePicker = UIImagePickerController()
+//        imagePicker.delegate = self
+//        imagePicker.sourceType = .photoLibrary
+    }
+    
+    func loggedOutView() {
+        loginButton = GIDSignInButton()
+        
+        view.addSubview(loginButton)
+        loginButton.translatesAutoresizingMaskIntoConstraints = false
+        loginButton.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+    }
+    
     func setupHeader() {
         profileLabel = UILabel()
         profileLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
@@ -155,7 +222,7 @@ extension ProfileViewController {
         lvstack.axis = .vertical
         lvstack.distribution = .equalSpacing
         lvstack.alignment = .center
-        lvstack.spacing = 19
+        lvstack.spacing = 17
         
         let rvstack = UIStackView()
         rvstack.axis = .vertical
@@ -205,13 +272,15 @@ extension ProfileViewController {
         facebookLabel.adjustsFontSizeToFitWidth = true
         facebookLabel.minimumScaleFactor = 0.7
         
-        let firstnameField = BorderedTextField(text: "Oski Bear")
-        let emailField = BorderedTextField(text: "oskibear@berkeley.edu")
+        let emailPaddingLabel = UILabel()
+        
+        let firstnameField = BorderedTextField()
+        let emailField = TaggedTextField(text: "* set by CalNet and cannot be changed")
         let phoneField = BorderedTextField()
-        let facebookField = BorderedTextField(text: "123456789")
+        let facebookField = BorderedTextField()
         
         firstnameField.delegate = self
-        emailField.delegate = self
+        emailField.textField.delegate = self
         phoneField.delegate = self
         facebookField.delegate = self
         
@@ -222,6 +291,7 @@ extension ProfileViewController {
         
         lvstack.addArrangedSubview(nameLabel)
         lvstack.addArrangedSubview(emailLabel)
+        lvstack.addArrangedSubview(emailPaddingLabel)
         lvstack.addArrangedSubview(phoneLabel)
         lvstack.addArrangedSubview(facebookLabel)
 
@@ -247,10 +317,14 @@ extension ProfileViewController {
         emailLabel.translatesAutoresizingMaskIntoConstraints = false
         emailLabel.setHeightConstraint(36)
         
+        emailPaddingLabel.translatesAutoresizingMaskIntoConstraints = false
+        emailPaddingLabel.setHeightConstraint(2)
+        
         emailField.translatesAutoresizingMaskIntoConstraints = false
-        emailField.setHeightConstraint(36)
-        emailField.isUserInteractionEnabled = false
-        emailField.textColor = Color.lightLightGrayText
+        emailField.textField.isUserInteractionEnabled = false
+        emailField.setHeightConstraint(50)
+        emailField.textField.leftAnchor.constraint(equalTo: rvstack.leftAnchor).isActive = true
+        emailField.textField.rightAnchor.constraint(equalTo: rvstack.rightAnchor).isActive = true
         
         phoneLabel.translatesAutoresizingMaskIntoConstraints = false
         phoneLabel.setHeightConstraint(36)
@@ -263,16 +337,15 @@ extension ProfileViewController {
         
         facebookField.translatesAutoresizingMaskIntoConstraints = false
         facebookField.setHeightConstraint(36)
+        
+        fullNameField = firstnameField
+        emailTextField = emailField
     }
     
     @objc private func changeImageButtonPressed(sender: UIButton) {
         present(imagePicker, animated: true, completion: nil)
     }
     
-    func setupProfileImage() {
-        // TODO: - Check backend for image
-        
-    }
 }
 
 extension ProfileViewController {
@@ -287,5 +360,18 @@ extension ProfileViewController {
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
+    }
+    
+    func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
+    }
+    
+    func downloadImage(from url: URL) {
+        getData(from: url) { data, response, error in
+            guard let data = data, error == nil else { return }
+            DispatchQueue.main.async() { [weak self] in
+                self!.profileImage = UIImage(data: data)
+            }
+        }
     }
 }

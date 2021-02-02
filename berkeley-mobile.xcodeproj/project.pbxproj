@@ -144,6 +144,7 @@
 		553B3B4625BCC2A300212AF6 /* BorderedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553B3B4525BCC2A300212AF6 /* BorderedTextField.swift */; };
 		5546CB91251B0A4500BE1876 /* UIDevice+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5546CB90251B0A4500BE1876 /* UIDevice+Extensions.swift */; };
 		554CB9A023F3A83F00BB1715 /* EventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554CB99F23F3A83F00BB1715 /* EventTableViewCell.swift */; };
+		554DF8E425C8E0E3007CA6B7 /* TaggedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554DF8E325C8E0E3007CA6B7 /* TaggedTextField.swift */; };
 		556CCD2223E7771800F41BF9 /* MapPlacemark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556CCD2123E7771800F41BF9 /* MapPlacemark.swift */; };
 		556CCD2D23E79EC100F41BF9 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556CCD2C23E79EC100F41BF9 /* TabBarController.swift */; };
 		556DB0DF23E7F60900F12721 /* ResourcesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556DB0DE23E7F60900F12721 /* ResourcesViewController.swift */; };
@@ -312,6 +313,7 @@
 		553EF6AB2404E2C600D2955E /* Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
 		5546CB90251B0A4500BE1876 /* UIDevice+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extensions.swift"; sourceTree = "<group>"; };
 		554CB99F23F3A83F00BB1715 /* EventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTableViewCell.swift; sourceTree = "<group>"; };
+		554DF8E325C8E0E3007CA6B7 /* TaggedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaggedTextField.swift; sourceTree = "<group>"; };
 		556CCD2123E7771800F41BF9 /* MapPlacemark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPlacemark.swift; sourceTree = "<group>"; };
 		556CCD2423E77C4F00F41BF9 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		556CCD2723E77C7300F41BF9 /* CalendarEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEntry.swift; sourceTree = "<group>"; };
@@ -787,6 +789,7 @@
 			isa = PBXGroup;
 			children = (
 				553B3B4525BCC2A300212AF6 /* BorderedTextField.swift */,
+				554DF8E325C8E0E3007CA6B7 /* TaggedTextField.swift */,
 				553B105825C61A550078A5B3 /* ProfileLabel.swift */,
 				29BB9E5925BFEC3300FC5EC8 /* Onboarding */,
 				29DB64D725BA8213001C4275 /* StudyGroups */,
@@ -921,6 +924,7 @@
 				306A54E323613E3A00D59A7F /* Frameworks */,
 				306A54E423613E3A00D59A7F /* Resources */,
 				11E090B68958DBF231F174FD /* [CP] Embed Pods Frameworks */,
+				DC2DBABF131160D858A80B94 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1026,6 +1030,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		DC2DBABF131160D858A80B94 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-berkeley-mobile/Pods-berkeley-mobile-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-berkeley-mobile/Pods-berkeley-mobile-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-berkeley-mobile/Pods-berkeley-mobile-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1038,6 +1059,7 @@
 				01FA50F324E8BA5400DCC490 /* LocationDetailView.swift in Sources */,
 				29CB28092404DD53009A2CFB /* StudyViewController.swift in Sources */,
 				552F4A51254E16350061D0F2 /* CovidResourceViewController.swift in Sources */,
+				554DF8E425C8E0E3007CA6B7 /* TaggedTextField.swift in Sources */,
 				55AF44292453A4EC00F13232 /* CafeDataSource.swift in Sources */,
 				29DB64CF25BA61BD001C4275 /* StudyGroupsView.swift in Sources */,
 				306A550023614C0000D59A7F /* MainContainerViewController.swift in Sources */,
