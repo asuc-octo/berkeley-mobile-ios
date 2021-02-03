@@ -7,10 +7,13 @@
 //
 
 import UIKit
+import Firebase
+import GoogleSignIn
 
-class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, GIDSignInDelegate {
     
     private var loggedIn = false
+    private var loginButton: GIDSignInButton!
     
     private var profileLabel: UILabel!
     private var initialsLabel: ProfileLabel!
@@ -22,6 +25,9 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigation
             profileImageView.isHidden = false
         }
     }
+    private var fullNameField: BorderedTextField!
+    private var emailTextField: TaggedTextField!
+    
     private var changeImageButton: UIButton!
     private var imagePicker: UIImagePickerController!
 
@@ -32,16 +38,62 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigation
         self.view.backgroundColor = Color.modalBackground
         
         setupHeader()
-        setupProfile()
         
-        let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
-        view.addGestureRecognizer(tap)
+        GIDSignIn.sharedInstance()?.delegate = self
         
-        imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = .photoLibrary
+        if GIDSignIn.sharedInstance().hasPreviousSignIn() {
+            // Signed in
+
+            GIDSignIn.sharedInstance()?.restorePreviousSignIn()
+            loggedInView()
+        } else {
+            GIDSignIn.sharedInstance()?.presentingViewController = self
+            
+            loggedOutView()
+        }
+    }
+    
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        if let error = error {
+            print(error)
+            return
+        }
+        guard let authentication = user.authentication else {
+            loggedOutView()
+            return
+        }
+        // TODO: - Store the useful hash?
+        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
+                                                       accessToken: authentication.accessToken)
         
-        setupProfileImage()
+        loggedInView()
+        
+        let userId = user.userID  // Client side only
+        let idToken = user.authentication.idToken // Safe to send to the server
+        let fullName = user.profile.name
+        let email = user.profile.email
+        
+        initialsLabel.text = String(fullName?.prefix(1) ?? "")
+        fullNameField.text = fullName
+        emailTextField.textField.text = email
+        
+        if user.profile.hasImage {
+            guard let imageUrl = user.profile.imageURL(withDimension: 250) else { return }
+            ImageLoader.shared.getImage(url: imageUrl) { result in
+                switch result {
+                case .success(let image):
+                    DispatchQueue.main.async() { [weak self] in
+                        self!.profileImage = image
+                    }
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
+    }
+    
+    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
+        loggedOutView()
     }
     
     @objc func dismissKeyboard() {
@@ -56,6 +108,30 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigation
 }
 
 extension ProfileViewController {
+    func loggedInView() {
+        if let _ = loginButton {
+            loginButton.isHidden = true
+        }
+        
+        setupProfile()
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
+        
+//        imagePicker = UIImagePickerController()
+//        imagePicker.delegate = self
+//        imagePicker.sourceType = .photoLibrary
+    }
+    
+    func loggedOutView() {
+        loginButton = GIDSignInButton()
+        
+        view.addSubview(loginButton)
+        loginButton.translatesAutoresizingMaskIntoConstraints = false
+        loginButton.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+    }
+    
     func setupHeader() {
         profileLabel = UILabel()
         profileLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
@@ -152,24 +228,27 @@ extension ProfileViewController {
         hstack.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor, constant: 15).isActive = true
         hstack.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor, constant: -15).isActive = true
         
-        let lvstack = UIStackView()
-        lvstack.axis = .vertical
-        lvstack.distribution = .equalSpacing
-        lvstack.alignment = .center
-        lvstack.spacing = 19
+        let rows = UIStackView()
+        rows.axis = .vertical
+        rows.distribution = .fill
+        rows.alignment = .top
+        rows.spacing = 16
         
-        let rvstack = UIStackView()
-        rvstack.axis = .vertical
-        rvstack.distribution = .equalSpacing
-        rvstack.alignment = .center
-        rvstack.spacing = 19
+        hstack.addArrangedSubview(rows)
         
-        hstack.addArrangedSubview(lvstack)
-        hstack.addArrangedSubview(rvstack)
+        rows.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor, constant: 15).isActive = true
+        rows.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor, constant: -15).isActive = true
         
-        lvstack.setWidthConstraint(100)
         
-        // TODO: - Dynamic field data
+        // ** NAME SECTION ** //
+        let nameRow = UIStackView()
+        nameRow.axis = .horizontal
+        nameRow.distribution = .fill
+        nameRow.alignment = .center
+        nameRow.spacing = 8
+        
+        rows.addArrangedSubview(nameRow)
+        
         let nameLabel = UILabel()
         nameLabel.text = "Name"
         nameLabel.font = Font.medium(14)
@@ -178,6 +257,32 @@ extension ProfileViewController {
         nameLabel.numberOfLines = 1
         nameLabel.adjustsFontSizeToFitWidth = true
         nameLabel.minimumScaleFactor = 0.7
+        
+        let firstnameField = BorderedTextField()
+        firstnameField.delegate = self
+        firstnameField.autocorrectionType = .no
+        
+        nameRow.addArrangedSubview(nameLabel)
+        nameRow.addArrangedSubview(firstnameField)
+        
+        nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        nameLabel.setHeightConstraint(36)
+        nameLabel.setWidthConstraint(100)
+        nameLabel.leftAnchor.constraint(equalTo: rows.leftAnchor).isActive = true
+        
+        firstnameField.translatesAutoresizingMaskIntoConstraints = false
+        firstnameField.rightAnchor.constraint(equalTo: rows.rightAnchor).isActive = true
+        firstnameField.setHeightConstraint(36)
+        
+        
+        // ** EMAIL SECTION ** //
+        let emailRow = UIStackView()
+        emailRow.axis = .horizontal
+        emailRow.distribution = .fill
+        emailRow.alignment = .center
+        emailRow.spacing = 8
+        
+        rows.addArrangedSubview(emailRow)
         
         let emailLabel = UILabel()
         emailLabel.text = "Email"
@@ -188,6 +293,33 @@ extension ProfileViewController {
         emailLabel.adjustsFontSizeToFitWidth = true
         emailLabel.minimumScaleFactor = 0.7
         
+        emailRow.addArrangedSubview(emailLabel)
+
+        emailLabel.translatesAutoresizingMaskIntoConstraints = false
+        emailLabel.setWidthConstraint(100)
+        emailLabel.setHeightConstraint(36)
+        emailLabel.leftAnchor.constraint(equalTo: rows.leftAnchor).isActive = true
+
+        let emailField = TaggedTextField(text: "* set by CalNet and cannot be changed")
+        emailField.textField.delegate = self
+        
+        emailRow.addArrangedSubview(emailField)
+
+        emailField.translatesAutoresizingMaskIntoConstraints = false
+        emailField.textField.isUserInteractionEnabled = false
+        emailField.setHeightConstraint(50)
+        emailField.rightAnchor.constraint(equalTo: rows.rightAnchor).isActive = true
+
+        
+        // ** PHONE SECTION ** //
+        let phoneRow = UIStackView()
+        phoneRow.axis = .horizontal
+        phoneRow.distribution = .fill
+        phoneRow.alignment = .center
+        phoneRow.spacing = 8
+        
+        rows.addArrangedSubview(phoneRow)
+        
         let phoneLabel = UILabel()
         phoneLabel.text = "Phone Number"
         phoneLabel.font = Font.medium(14)
@@ -197,83 +329,100 @@ extension ProfileViewController {
         phoneLabel.adjustsFontSizeToFitWidth = true
         phoneLabel.minimumScaleFactor = 0.7
         
+        phoneRow.addArrangedSubview(phoneLabel)
+        
+        phoneLabel.translatesAutoresizingMaskIntoConstraints = false
+        phoneLabel.setWidthConstraint(100)
+        phoneLabel.setHeightConstraint(36)
+        phoneLabel.leftAnchor.constraint(equalTo: rows.leftAnchor).isActive = true
+        
+        let phoneField = BorderedTextField()
+        phoneField.delegate = self
+        phoneField.keyboardType = .phonePad
+        
+        phoneRow.addArrangedSubview(phoneField)
+
+        phoneField.translatesAutoresizingMaskIntoConstraints = false
+        phoneField.setHeightConstraint(36)
+        phoneField.rightAnchor.constraint(equalTo: rows.rightAnchor).isActive = true
+
+
+        // ** FACEBOOK SECTION ** //
+        let fbRow = UIStackView()
+        fbRow.axis = .horizontal
+        fbRow.distribution = .fill
+        fbRow.alignment = .center
+        fbRow.spacing = 8
+        
+        rows.addArrangedSubview(fbRow)
+        
         let facebookLabel = UILabel()
-        facebookLabel.text = "Facebook ID"
+        facebookLabel.text = "Facebook Username"
+        facebookLabel.numberOfLines = 2
         facebookLabel.font = Font.medium(14)
         facebookLabel.textAlignment = .left
         facebookLabel.textColor = Color.blackText
-        facebookLabel.numberOfLines = 1
         facebookLabel.adjustsFontSizeToFitWidth = true
         facebookLabel.minimumScaleFactor = 0.7
-        
-        let firstnameField = BorderedTextField(text: "Oski Bear")
-        let emailField = BorderedTextField(text: "oskibear@berkeley.edu")
-        let phoneField = BorderedTextField()
-        let facebookField = BorderedTextField(text: "123456789")
-        
-        firstnameField.delegate = self
-        emailField.delegate = self
-        phoneField.delegate = self
-        facebookField.delegate = self
-        
-        firstnameField.autocorrectionType = .no
-        phoneField.keyboardType = .phonePad
-        facebookField.autocorrectionType = .no
-        facebookField.keyboardType = .URL
-        
-        lvstack.addArrangedSubview(nameLabel)
-        lvstack.addArrangedSubview(emailLabel)
-        lvstack.addArrangedSubview(phoneLabel)
-        lvstack.addArrangedSubview(facebookLabel)
 
-        rvstack.addArrangedSubview(firstnameField)
-        rvstack.addArrangedSubview(emailField)
-        rvstack.addArrangedSubview(phoneField)
-        rvstack.addArrangedSubview(facebookField)
-        
-        firstnameField.leftAnchor.constraint(equalTo: nameLabel.rightAnchor, constant: 8).isActive = true
-        emailField.leftAnchor.constraint(equalTo: emailLabel.rightAnchor, constant: 8).isActive = true
-        phoneField.leftAnchor.constraint(equalTo: phoneLabel.rightAnchor, constant: 8).isActive = true
-        facebookField.leftAnchor.constraint(equalTo: facebookLabel.rightAnchor, constant: 8).isActive = true
-        
-        firstnameField.rightAnchor.constraint(equalTo: rvstack.rightAnchor).isActive = true
-        
-        nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        nameLabel.setHeightConstraint(36)
-        nameLabel.leftAnchor.constraint(equalTo: lvstack.leftAnchor).isActive = true
-        
-        firstnameField.translatesAutoresizingMaskIntoConstraints = false
-        firstnameField.setHeightConstraint(36)
-        
-        emailLabel.translatesAutoresizingMaskIntoConstraints = false
-        emailLabel.setHeightConstraint(36)
-        
-        emailField.translatesAutoresizingMaskIntoConstraints = false
-        emailField.setHeightConstraint(36)
-        emailField.isUserInteractionEnabled = false
-        emailField.textColor = Color.lightLightGrayText
-        
-        phoneLabel.translatesAutoresizingMaskIntoConstraints = false
-        phoneLabel.setHeightConstraint(36)
-        
-        phoneField.translatesAutoresizingMaskIntoConstraints = false
-        phoneField.setHeightConstraint(36)
+        fbRow.addArrangedSubview(facebookLabel)
         
         facebookLabel.translatesAutoresizingMaskIntoConstraints = false
+        facebookLabel.setWidthConstraint(100)
         facebookLabel.setHeightConstraint(36)
+        facebookLabel.leftAnchor.constraint(equalTo: rows.leftAnchor).isActive = true
         
+        let facebookField = TaggedTextField(text: "www.facebook.com/your-username")
+        facebookField.textField.delegate = self
+        facebookField.textField.autocorrectionType = .no
+        facebookField.textField.keyboardType = .URL
+        
+        fbRow.addArrangedSubview(facebookField)
+
         facebookField.translatesAutoresizingMaskIntoConstraints = false
-        facebookField.setHeightConstraint(36)
+        facebookField.setHeightConstraint(50)
+        facebookField.rightAnchor.constraint(equalTo: rows.rightAnchor).isActive = true
+        
+        fullNameField = firstnameField
+        emailTextField = emailField
+        
+        // ** BUTTONS ** //
+        let cancelButton = ActionButton(title: "Cancel", font: Font.bold(14))
+        cancelButton.layer.shadowRadius = 2.5
+        cancelButton.addTarget(self, action: #selector(cancelButtonPressed), for: .touchUpInside)
+        
+        view.addSubview(cancelButton)
+        cancelButton.translatesAutoresizingMaskIntoConstraints = false
+        cancelButton.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
+        cancelButton.setHeightConstraint(40)
+        cancelButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -20).isActive = true
+        
+        let saveButton = ActionButton(title: "Save", font: Font.bold(14))
+        saveButton.layer.shadowRadius = 2.5
+        saveButton.addTarget(self, action: #selector(saveButtonPressed), for: .touchUpInside)
+        
+        view.addSubview(saveButton)
+        saveButton.translatesAutoresizingMaskIntoConstraints = false
+        saveButton.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
+        saveButton.setHeightConstraint(40)
+        saveButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -20).isActive = true
+        
+        cancelButton.rightAnchor.constraint(equalTo: saveButton.leftAnchor, constant: -23).isActive = true
+        cancelButton.widthAnchor.constraint(equalTo: saveButton.widthAnchor).isActive = true
+    }
+    
+    @objc private func cancelButtonPressed(sender: UIButton) {
+        // TODO: - Implement
+    }
+    
+    @objc private func saveButtonPressed(sender: UIButton) {
+        // TODO: - Implement
     }
     
     @objc private func changeImageButtonPressed(sender: UIButton) {
         present(imagePicker, animated: true, completion: nil)
     }
     
-    func setupProfileImage() {
-        // TODO: - Check backend for image
-        
-    }
 }
 
 extension ProfileViewController {
