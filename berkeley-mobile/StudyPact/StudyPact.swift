@@ -15,35 +15,37 @@ class StudyPact {
     
     private var cryptoHash: String?
     private var email: String?
-    
+
     init() {
         guard let cryptoHash = UserDefaults.standard.string(forKey: "userCryptoHash") else { return }
         // TODO: call AuthenticateUser. if authenticate fails but signed into google, call RegisterUser
     }
+
+    // MARK: GetBerkeleyCourses
 
     public func getBerkeleyCourses(completion: @escaping ([String]) -> Void) {
         guard let url = URL(string: "https://berkeleytime.com/api/catalog/catalog_json/") else {
             completion([])
             return
         }
-        NetworkManager.shared.get(url: url, params: [:], asType: CoursesDocument.self) { response in
+        NetworkManager.shared.get(url: url, params: [String: String](), asType: CoursesDocument.self) { response in
             switch response {
             case .success(let document):
                 guard let document = document else { break }
                 completion(document.courses.map { $0.abbreviation + " " + $0.number })
             default:
-                break
+                completion([])
             }
-            completion([])
         }
     }
+
+    // MARK: RegisterUser
     
     public func registerUser(user: GIDGoogleUser?, completion: @escaping (Bool) -> Void) {
         guard let user = user,
               user.profile.email.hasSuffix("@berkeley.edu"),
               let params = ["Email": user.profile.email, "FirstName": user.profile.givenName, "LastName": user.profile.familyName] as? [String: String],
-              let urlString = API_URLS[EndpointKey.registerUser.rawValue],
-              let url = URL(string: urlString) else {
+              let url = EndpointKey.registerUser.url else {
             completion(false)
             return
         }
@@ -56,17 +58,57 @@ class StudyPact {
                 self.saveCryptoHash(cryptoHash: cryptohash)
                 completion(true)
             default:
-                break
+                completion(false)
             }
-            completion(false)
         }
     }
+
+    // MARK: AuthenticateUser
+
+    public func authenticateUser(completion: @escaping (Bool) -> Void) {
+        guard let cryptohash = self.cryptoHash,
+              let email = self.email,
+              let url = EndpointKey.authenticateUser.url else {
+            completion(false)
+            return
+        }
+        let params = AuthenticateUserParams(email: email, cryptohash: cryptohash)
+        NetworkManager.shared.get(url: url, params: params, asType: AuthenticateUserDocument.self) { response in
+            switch response {
+            case .success(let data):
+                completion(data?.valid ?? false)
+            default:
+                completion(false)
+            }
+        }
+    }
+
+    // MARK: AddClass
+
+    public func addClass(preferences: StudyPactPreference, completion: @escaping(Bool) -> Void) {
+        guard let cryptohash = self.cryptoHash,
+              let email = self.email,
+              let url = EndpointKey.addClass.url,
+              let params = AddClassParams(email: email, cryptohash: cryptohash, prefs: preferences) else {
+            completion(false)
+            return
+        }
+        NetworkManager.shared.get(url: url, params: params, asType: AnyJSON.self) { response in
+            switch response {
+            case .success(_):
+                completion(true)
+            default:
+                completion(false)
+            }
+        }
+    }
+
+    // MARK: GetGroups
     
     public func getGroups(completion: @escaping ([StudyGroup]) -> Void) {
         guard let cryptoHash = self.cryptoHash,
               let email = self.email,
-              let urlString = API_URLS[EndpointKey.getGroups.rawValue],
-              let url = URL(string: urlString) else {
+              let url = EndpointKey.getGroups.url else {
             completion([])
             return
         }

@@ -1,5 +1,5 @@
 //
-//  Course.swift
+//  BTCourse.swift
 //  berkeley-mobile
 //
 //  Created by Kevin Hu on 2/2/21.

@@ -18,5 +18,9 @@ extension StudyPact {
         case cancelPending = "CANCEL_PENDING"
         case leaveGroup = "LEAVE_GROUP"
         case getGroups = "GET_GROUPS"
+
+        public var url: URL? {
+            return URL(string: API_URLS[rawValue] ?? "")
+        }
     }
 }

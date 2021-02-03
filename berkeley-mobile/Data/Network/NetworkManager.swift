@@ -8,6 +8,8 @@
 
 import Foundation
 
+typealias JSONObject = [String: Any]
+typealias Params<T: Encodable> = T
 typealias Nonce = URLSessionDataTask
 
 // MARK: - NetworkManager
@@ -17,15 +19,18 @@ class NetworkManager {
     /// Singleton instance.
     static let shared = NetworkManager()
 
-    /// The `URLSession` used by this class to executre requests.
+    /// The `URLSession` used by this class to execute requests.
     private var session: URLSession = URLSession.shared
+
+    /// The `JSONEncoder` used to encode `Encodable` parameters.
+    private var jsonEncoder: JSONEncoder = JSONEncoder()
 
     // MARK: - GET Requests
 
     @discardableResult
-    private func _get<T>(url: URL, params: [String: String],
-                         decode: @escaping (Data) throws -> T,
-                         completion: @escaping (Response<T>) -> Void) -> Nonce? {
+    private func _get<D: Encodable, T>(url: URL, params: Params<D>,
+                                       decode: @escaping (Data) throws -> T,
+                                       completion: @escaping (Response<T>) -> Void) -> Nonce? {
         guard let url = parameterize(url, with: params) else {
             completion(.failure(error: RequestError.badURL))
             return nil
@@ -33,26 +38,28 @@ class NetworkManager {
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         let task = session.dataTask(with: request) { data, response, error in
-            self.responseHandler(data: data, response: response, error: error,
-                                 decode: decode, completion: completion)
+            DispatchQueue.main.async {
+                self.responseHandler(data: data, response: response, error: error,
+                                     decode: decode, completion: completion)
+            }
         }
         task.resume()
         return task
     }
 
     @discardableResult
-    open func get<T: Decodable>(url: URL, params: [String: String], asType: T.Type,
-                                completion: @escaping (Response<T>) -> Void) -> Nonce? {
+    open func get<D: Encodable, T: Decodable>(url: URL, params: Params<D>, asType: T.Type,
+                                              completion: @escaping (Response<T>) -> Void) -> Nonce? {
         return _get(url: url, params: params, decode: { data in
             return try JSONDecoder().decode(T.self, from: data)
         }, completion: completion)
     }
 
     @discardableResult
-    open func get(url: URL, params: [String: String],
-                  completion: @escaping (Response<[String: Any]>) -> Void) -> Nonce? {
+    open func get<D: Encodable>(url: URL, params: Params<D>,
+                                completion: @escaping (Response<JSONObject>) -> Void) -> Nonce? {
         return _get(url: url, params: params, decode: { data in
-            guard let dict = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
+            guard let dict = try JSONSerialization.jsonObject(with: data) as? JSONObject else {
                 throw RequestError.decodeFailure(data: data)
             }
             return dict
@@ -61,22 +68,24 @@ class NetworkManager {
 
     // MARK: - POST Requests
 
-    private func _post<T>(url: URL, body: [String: String],
+    private func _post<T>(url: URL, body: JSONObject,
                           decode: @escaping (Data) throws -> T,
                           completion: @escaping (Response<T>) -> Void) -> Nonce? {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: [])
         let task = session.dataTask(with: request) { data, response, error in
-            self.responseHandler(data: data, response: response, error: error,
-                                 decode: decode, completion: completion)
+            DispatchQueue.main.async {
+                self.responseHandler(data: data, response: response, error: error,
+                                     decode: decode, completion: completion)
+            }
         }
         task.resume()
         return task
     }
 
     @discardableResult
-    open func post<T: Decodable>(url: URL, body: [String: String], asType: T.Type,
+    open func post<T: Decodable>(url: URL, body: JSONObject, asType: T.Type,
                                  completion: @escaping (Response<T>) -> Void) -> Nonce? {
         return _post(url: url, body: body, decode: { data in
             return try JSONDecoder().decode(T.self, from: data)
@@ -84,10 +93,10 @@ class NetworkManager {
     }
 
     @discardableResult
-    open func post(url: URL, body: [String: String],
-                   completion: @escaping (Response<[String: Any]>) -> Void) -> Nonce? {
+    open func post(url: URL, body: JSONObject,
+                   completion: @escaping (Response<JSONObject>) -> Void) -> Nonce? {
         return _post(url: url, body: body, decode: { data in
-            guard let dict = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
+            guard let dict = try JSONSerialization.jsonObject(with: data) as? JSONObject else {
                 throw RequestError.decodeFailure(data: data)
             }
             return dict
@@ -120,9 +129,18 @@ class NetworkManager {
 
     // MARK: - Helpers
 
-    private func parameterize(_ url: URL, with params: [String: String]) -> URL? {
-        guard var components = URLComponents(url: url, resolvingAgainstBaseURL: true) else { return nil }
-        components.queryItems = params.map { k, v in URLQueryItem(name: k, value: v) }
+    open func parameterize<T: Encodable>(_ url: URL, with params: Params<T>) -> URL? {
+        guard var components = URLComponents(url: url, resolvingAgainstBaseURL: true),
+              let json = try? JSONSerialization.jsonObject(with: jsonEncoder.encode(params))
+                as? JSONObject else { return nil }
+        components.queryItems = json.compactMap { k, v in
+            if JSONSerialization.isValidJSONObject(v) {
+                guard let data = try? JSONSerialization.data(withJSONObject: v, options: []),
+                      let str = String(data: data, encoding: .ascii) else { return nil }
+                return URLQueryItem(name: k, value: str)
+            }
+            return URLQueryItem(name: k, value: "\(v)")
+        }
         return components.url
     }
 }
