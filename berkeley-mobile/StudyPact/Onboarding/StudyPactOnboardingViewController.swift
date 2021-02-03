@@ -47,7 +47,7 @@ class StudyPactOnboardingViewController: UIViewController {
         let button = UIButton()
         button.setTitle("Let's get started!", for: .normal)
         button.titleLabel?.font = Font.bold(15)
-        button.backgroundColor = Color.getStartedButton
+        button.backgroundColor = Color.StudyPact.Onboarding.getStartedButton
         button.setTitleColor(.white, for: .normal)
         button.addTarget(self, action: #selector(getStarted(_:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false

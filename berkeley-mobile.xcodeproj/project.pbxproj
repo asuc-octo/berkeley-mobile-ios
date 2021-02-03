@@ -18,6 +18,7 @@
 		01B2502F2516C45800CBA459 /* EventCalendarEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B2502E2516C45800CBA459 /* EventCalendarEntry.swift */; };
 		01BC8EB024E8C3E3005B4969 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BC8EAF24E8C3E3005B4969 /* DetailView.swift */; };
 		01C75E2E25292E5B00C25A32 /* DescriptionCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C75E2D25292E5B00C25A32 /* DescriptionCardView.swift */; };
+		01CDBB9925CA32AF006B93BD /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CDBB9825CA32AF006B93BD /* Secrets.swift */; };
 		01CDFF67257C5F2300D9FBD6 /* ResourceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CDFF66257C5F2300D9FBD6 /* ResourceType.swift */; };
 		01CDFF6A257C614900D9FBD6 /* Colors+Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CDFF69257C614900D9FBD6 /* Colors+Resource.swift */; };
 		01D11B8E2504453B00BDF660 /* ScrollingStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D11B8D2504453B00BDF660 /* ScrollingStackView.swift */; };
@@ -104,14 +105,16 @@
 		2975D5402459301B00514B43 /* SearchDrawerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2975D53F2459301B00514B43 /* SearchDrawerViewDelegate.swift */; };
 		297678872426B7BA00FDD1EB /* SearchAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297678862426B7BA00FDD1EB /* SearchAnnotation.swift */; };
 		297678892426D2C500FDD1EB /* SearchDrawerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297678882426D2C500FDD1EB /* SearchDrawerViewController.swift */; };
+		2978F20625CA4C680010E3BA /* BorderedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2978F20525CA4C680010E3BA /* BorderedTextField.swift */; };
+		2978F20925CA4C6E0010E3BA /* ProfileLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2978F20825CA4C6E0010E3BA /* ProfileLabel.swift */; };
 		29891B23257C521E0094891D /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29891B21257C521E0094891D /* PageViewController.swift */; };
 		29891B24257C521E0094891D /* StudyPactOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29891B22257C521E0094891D /* StudyPactOnboardingViewController.swift */; };
 		298EE26A25BB6C33002BAF0F /* Colors+StudyPact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298EE26925BB6C33002BAF0F /* Colors+StudyPact.swift */; };
-		298EE26D25BB7CD4002BAF0F /* StudyPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298EE26C25BB7CD4002BAF0F /* StudyPreferencesViewController.swift */; };
 		298EE27025BB82A2002BAF0F /* CardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298EE26F25BB82A2002BAF0F /* CardTableViewCell.swift */; };
 		299ACFB0244A58CD000F3E86 /* OccupancyDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299ACFAF244A58CD000F3E86 /* OccupancyDataSource.swift */; };
 		299ACFB2244A5A15000F3E86 /* Occupancy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299ACFB1244A5A15000F3E86 /* Occupancy.swift */; };
 		299ACFB4244A5F90000F3E86 /* HasOccupancy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299ACFB3244A5F90000F3E86 /* HasOccupancy.swift */; };
+		29A6610125C4EA6A004D2FC2 /* PendingGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A6610025C4EA6A004D2FC2 /* PendingGroupViewController.swift */; };
 		29AB5BBF241D8766007C3ECA /* HasOpenTimes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AB5BBE241D8766007C3ECA /* HasOpenTimes.swift */; };
 		29AB5BC5241D8CB4007C3ECA /* FilterTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AB5BC4241D8CB4007C3ECA /* FilterTableView.swift */; };
 		29B1D307254E1C8700BAD88F /* EventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B1D306254E1C8700BAD88F /* EventManager.swift */; };
@@ -124,6 +127,7 @@
 		29DB64D225BA6269001C4275 /* StudyGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DB64D125BA6269001C4275 /* StudyGroup.swift */; };
 		29DB64D925BA8242001C4275 /* AllStudyGroupsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DB64D825BA8242001C4275 /* AllStudyGroupsViewController.swift */; };
 		29EE163F241C4E310041482E /* SortingFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EE163E241C4E310041482E /* SortingFunctions.swift */; };
+		29EF1F0325C79111000C0F97 /* ReviewPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EF1F0225C79111000C0F97 /* ReviewPreferencesViewController.swift */; };
 		29F11EC72516C150007DCFD7 /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F11EC62516C150007DCFD7 /* BarView.swift */; };
 		303F6AE1236A931D007E37DD /* SegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303F6ADD236A931D007E37DD /* SegmentedControl.swift */; };
 		303F6AE4236A931D007E37DD /* SegmentedControlViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303F6AE0236A931D007E37DD /* SegmentedControlViewController.swift */; };
@@ -140,8 +144,6 @@
 		552F4A4C254E13BF0061D0F2 /* CampusResourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552F4A4B254E13BF0061D0F2 /* CampusResourceViewController.swift */; };
 		552F4A51254E16350061D0F2 /* CovidResourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552F4A50254E16350061D0F2 /* CovidResourceViewController.swift */; };
 		5532B67B2390CBF600293BE0 /* MaterialLoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532B67A2390CBF600293BE0 /* MaterialLoadingIndicator.swift */; };
-		553B105925C61A550078A5B3 /* ProfileLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553B105825C61A550078A5B3 /* ProfileLabel.swift */; };
-		553B3B4625BCC2A300212AF6 /* BorderedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553B3B4525BCC2A300212AF6 /* BorderedTextField.swift */; };
 		5546CB91251B0A4500BE1876 /* UIDevice+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5546CB90251B0A4500BE1876 /* UIDevice+Extensions.swift */; };
 		554CB9A023F3A83F00BB1715 /* EventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554CB99F23F3A83F00BB1715 /* EventTableViewCell.swift */; };
 		554DF8E425C8E0E3007CA6B7 /* TaggedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554DF8E325C8E0E3007CA6B7 /* TaggedTextField.swift */; };
@@ -169,6 +171,12 @@
 		55EDAA742569D730006BAFAC /* CovidResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EDAA732569D730006BAFAC /* CovidResource.swift */; };
 		600CB18DB1A293062CAC7914 /* Pods_berkeley_mobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A826C1BD0A2BCA2F083C6EE /* Pods_berkeley_mobile.framework */; };
 		D99314A32B5752F2EB9C03E4 /* Pods_berkeley_mobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A826C1BD0A2BCA2F083C6EE /* Pods_berkeley_mobile.framework */; };
+		FD3D6FFF25C2BB7D00579EF5 /* SelectPeopleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3D6FFE25C2BB7D00579EF5 /* SelectPeopleView.swift */; };
+		FD3D700225C2BC7D00579EF5 /* CreatePreferenceFrameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3D700125C2BC7D00579EF5 /* CreatePreferenceFrameViewController.swift */; };
+		FD6FB45925C616370045A03A /* SelectClassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6FB45825C616370045A03A /* SelectClassView.swift */; };
+		FD6FB45C25C62EB90045A03A /* SelectLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6FB45B25C62EB90045A03A /* SelectLocationView.swift */; };
+		FD6FB45F25C6A4B90045A03A /* StudyPactPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6FB45E25C6A4B80045A03A /* StudyPactPreference.swift */; };
+		FDE7CD9925BCE6DB00F65A13 /* CreatePreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDE7CD9825BCE6DB00F65A13 /* CreatePreferenceViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -183,6 +191,7 @@
 		01B2502E2516C45800CBA459 /* EventCalendarEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCalendarEntry.swift; sourceTree = "<group>"; };
 		01BC8EAF24E8C3E3005B4969 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		01C75E2D25292E5B00C25A32 /* DescriptionCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionCardView.swift; sourceTree = "<group>"; };
+		01CDBB9825CA32AF006B93BD /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		01CDFF66257C5F2300D9FBD6 /* ResourceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceType.swift; sourceTree = "<group>"; };
 		01CDFF69257C614900D9FBD6 /* Colors+Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+Resource.swift"; sourceTree = "<group>"; };
 		01D11B8D2504453B00BDF660 /* ScrollingStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollingStackView.swift; sourceTree = "<group>"; };
@@ -271,14 +280,16 @@
 		2975D53F2459301B00514B43 /* SearchDrawerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDrawerViewDelegate.swift; sourceTree = "<group>"; };
 		297678862426B7BA00FDD1EB /* SearchAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAnnotation.swift; sourceTree = "<group>"; };
 		297678882426D2C500FDD1EB /* SearchDrawerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDrawerViewController.swift; sourceTree = "<group>"; };
+		2978F20525CA4C680010E3BA /* BorderedTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderedTextField.swift; sourceTree = "<group>"; };
+		2978F20825CA4C6E0010E3BA /* ProfileLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileLabel.swift; sourceTree = "<group>"; };
 		29891B21257C521E0094891D /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		29891B22257C521E0094891D /* StudyPactOnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudyPactOnboardingViewController.swift; sourceTree = "<group>"; };
 		298EE26925BB6C33002BAF0F /* Colors+StudyPact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+StudyPact.swift"; sourceTree = "<group>"; };
-		298EE26C25BB7CD4002BAF0F /* StudyPreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyPreferencesViewController.swift; sourceTree = "<group>"; };
 		298EE26F25BB82A2002BAF0F /* CardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTableViewCell.swift; sourceTree = "<group>"; };
 		299ACFAF244A58CD000F3E86 /* OccupancyDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OccupancyDataSource.swift; sourceTree = "<group>"; };
 		299ACFB1244A5A15000F3E86 /* Occupancy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Occupancy.swift; sourceTree = "<group>"; };
 		299ACFB3244A5F90000F3E86 /* HasOccupancy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasOccupancy.swift; sourceTree = "<group>"; };
+		29A6610025C4EA6A004D2FC2 /* PendingGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingGroupViewController.swift; sourceTree = "<group>"; };
 		29AB5BBE241D8766007C3ECA /* HasOpenTimes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasOpenTimes.swift; sourceTree = "<group>"; };
 		29AB5BC4241D8CB4007C3ECA /* FilterTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTableView.swift; sourceTree = "<group>"; };
 		29B1D306254E1C8700BAD88F /* EventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventManager.swift; sourceTree = "<group>"; };
@@ -289,6 +300,7 @@
 		29DB64D125BA6269001C4275 /* StudyGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyGroup.swift; sourceTree = "<group>"; };
 		29DB64D825BA8242001C4275 /* AllStudyGroupsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllStudyGroupsViewController.swift; sourceTree = "<group>"; };
 		29EE163E241C4E310041482E /* SortingFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingFunctions.swift; sourceTree = "<group>"; };
+		29EF1F0225C79111000C0F97 /* ReviewPreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPreferencesViewController.swift; sourceTree = "<group>"; };
 		29F11EC62516C150007DCFD7 /* BarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarView.swift; sourceTree = "<group>"; };
 		303F6ADD236A931D007E37DD /* SegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedControl.swift; sourceTree = "<group>"; };
 		303F6AE0236A931D007E37DD /* SegmentedControlViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedControlViewController.swift; sourceTree = "<group>"; };
@@ -308,8 +320,6 @@
 		552F4A4B254E13BF0061D0F2 /* CampusResourceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusResourceViewController.swift; sourceTree = "<group>"; };
 		552F4A50254E16350061D0F2 /* CovidResourceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CovidResourceViewController.swift; sourceTree = "<group>"; };
 		5532B67A2390CBF600293BE0 /* MaterialLoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialLoadingIndicator.swift; sourceTree = "<group>"; };
-		553B105825C61A550078A5B3 /* ProfileLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileLabel.swift; sourceTree = "<group>"; };
-		553B3B4525BCC2A300212AF6 /* BorderedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderedTextField.swift; sourceTree = "<group>"; };
 		553EF6AB2404E2C600D2955E /* Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
 		5546CB90251B0A4500BE1876 /* UIDevice+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extensions.swift"; sourceTree = "<group>"; };
 		554CB99F23F3A83F00BB1715 /* EventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTableViewCell.swift; sourceTree = "<group>"; };
@@ -342,7 +352,12 @@
 		B5DD1FA9F5CF4BCFD4A64306 /* Pods-bm-persona.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bm-persona.debug.xcconfig"; path = "Target Support Files/Pods-bm-persona/Pods-bm-persona.debug.xcconfig"; sourceTree = "<group>"; };
 		CB9A33BEF33ABF885BD30304 /* Pods-berkeley-mobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeley-mobile.release.xcconfig"; path = "Target Support Files/Pods-berkeley-mobile/Pods-berkeley-mobile.release.xcconfig"; sourceTree = "<group>"; };
 		EC01CCF388C7E41052CEB683 /* Pods-bm-persona.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bm-persona.release.xcconfig"; path = "Target Support Files/Pods-bm-persona/Pods-bm-persona.release.xcconfig"; sourceTree = "<group>"; };
-		FD6A88422560A8B80046FF10 /* Colors+StudyPact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+StudyPact.swift"; sourceTree = "<group>"; };
+		FD3D6FFE25C2BB7D00579EF5 /* SelectPeopleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPeopleView.swift; sourceTree = "<group>"; };
+		FD3D700125C2BC7D00579EF5 /* CreatePreferenceFrameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePreferenceFrameViewController.swift; sourceTree = "<group>"; };
+		FD6FB45825C616370045A03A /* SelectClassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectClassView.swift; sourceTree = "<group>"; };
+		FD6FB45B25C62EB90045A03A /* SelectLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectLocationView.swift; sourceTree = "<group>"; };
+		FD6FB45E25C6A4B80045A03A /* StudyPactPreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyPactPreference.swift; sourceTree = "<group>"; };
+		FDE7CD9825BCE6DB00F65A13 /* CreatePreferenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePreferenceViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -435,7 +450,6 @@
 				13491DB7241E22130033F9AB /* Colors+Event.swift */,
 				135D7F76243A9BD1003F8BD1 /* Colors+GymClass.swift */,
 				017C0B25251018BA00BFA80A /* Colors+MapMarker.swift */,
-				FD6A88422560A8B80046FF10 /* Colors+StudyPact.swift */,
 				01CDFF69257C614900D9FBD6 /* Colors+Resource.swift */,
 			);
 			path = Colors;
@@ -693,10 +707,34 @@
 			children = (
 				29DB64CE25BA61BD001C4275 /* StudyGroupsView.swift */,
 				29DB64D825BA8242001C4275 /* AllStudyGroupsViewController.swift */,
-				298EE26C25BB7CD4002BAF0F /* StudyPreferencesViewController.swift */,
+				29A6610025C4EA6A004D2FC2 /* PendingGroupViewController.swift */,
 				29DB64D125BA6269001C4275 /* StudyGroup.swift */,
 			);
 			path = StudyGroups;
+			sourceTree = "<group>";
+		};
+		29EF1EF525C76BAB000C0F97 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				2978F20525CA4C680010E3BA /* BorderedTextField.swift */,
+				2978F20825CA4C6E0010E3BA /* ProfileLabel.swift */,
+				55208DF125B7D95E00A75983 /* ProfileViewController.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		29EF1EF625C76BB8000C0F97 /* CreatePreference */ = {
+			isa = PBXGroup;
+			children = (
+				FDE7CD9825BCE6DB00F65A13 /* CreatePreferenceViewController.swift */,
+				FD3D6FFE25C2BB7D00579EF5 /* SelectPeopleView.swift */,
+				FD6FB45825C616370045A03A /* SelectClassView.swift */,
+				FD6FB45B25C62EB90045A03A /* SelectLocationView.swift */,
+				29EF1F0225C79111000C0F97 /* ReviewPreferencesViewController.swift */,
+				FD3D700125C2BC7D00579EF5 /* CreatePreferenceFrameViewController.swift */,
+				FD6FB45E25C6A4B80045A03A /* StudyPactPreference.swift */,
+			);
+			path = CreatePreference;
 			sourceTree = "<group>";
 		};
 		303F6ADC236A9274007E37DD /* Drawer */ = {
@@ -781,6 +819,7 @@
 				306A54F423613E3D00D59A7F /* LaunchScreen.storyboard */,
 				306A54F723613E3D00D59A7F /* Info.plist */,
 				29010C792539648B00CDA48A /* GoogleService-Info.plist */,
+				01CDBB9825CA32AF006B93BD /* Secrets.swift */,
 			);
 			path = "berkeley-mobile";
 			sourceTree = "<group>";
@@ -788,12 +827,11 @@
 		55208DF025B7D93E00A75983 /* StudyPact */ = {
 			isa = PBXGroup;
 			children = (
-				553B3B4525BCC2A300212AF6 /* BorderedTextField.swift */,
 				554DF8E325C8E0E3007CA6B7 /* TaggedTextField.swift */,
-				553B105825C61A550078A5B3 /* ProfileLabel.swift */,
+				29EF1EF625C76BB8000C0F97 /* CreatePreference */,
+				29EF1EF525C76BAB000C0F97 /* Profile */,
 				29BB9E5925BFEC3300FC5EC8 /* Onboarding */,
 				29DB64D725BA8213001C4275 /* StudyGroups */,
-				55208DF125B7D95E00A75983 /* ProfileViewController.swift */,
 			);
 			path = StudyPact;
 			sourceTree = "<group>";
@@ -1063,6 +1101,7 @@
 				55AF44292453A4EC00F13232 /* CafeDataSource.swift in Sources */,
 				29DB64CF25BA61BD001C4275 /* StudyGroupsView.swift in Sources */,
 				306A550023614C0000D59A7F /* MainContainerViewController.swift in Sources */,
+				2978F20625CA4C680010E3BA /* BorderedTextField.swift in Sources */,
 				29F11EC72516C150007DCFD7 /* BarView.swift in Sources */,
 				55DCF78723722CBD001B01B8 /* Colors.swift in Sources */,
 				29B3D7862453984A006762E5 /* DrawerViewDelegate.swift in Sources */,
@@ -1072,6 +1111,7 @@
 				306A54EE23613E3A00D59A7F /* MapViewController.swift in Sources */,
 				13DACD222411DF7200A09982 /* UIStackView+Extensions.swift in Sources */,
 				2954F592245CD4B600DA66DA /* MainDrawerViewDelegate.swift in Sources */,
+				FD6FB45F25C6A4B90045A03A /* StudyPactPreference.swift in Sources */,
 				557756692544D822009C03BD /* Collection+Extension.swift in Sources */,
 				5546CB91251B0A4500BE1876 /* UIDevice+Extensions.swift in Sources */,
 				2975D5402459301B00514B43 /* SearchDrawerViewDelegate.swift in Sources */,
@@ -1080,9 +1120,9 @@
 				13491DBA241E23630033F9AB /* Colors+Text.swift in Sources */,
 				136DC97D2398B4F3009B1810 /* UIImage+Extensions.swift in Sources */,
 				55C6936B240E143500400B60 /* ResourceTableViewCell.swift in Sources */,
+				2978F20925CA4C6E0010E3BA /* ProfileLabel.swift in Sources */,
 				13135BB22412442C0056B169 /* FilterView.swift in Sources */,
 				29AB5BC5241D8CB4007C3ECA /* FilterTableView.swift in Sources */,
-				553B3B4625BCC2A300212AF6 /* BorderedTextField.swift in Sources */,
 				306A54FE236142B800D59A7F /* DrawerViewController.swift in Sources */,
 				13B39A8B23E682850039FBA2 /* Date+Extension.swift in Sources */,
 				135D7F75243A9AB3003F8BD1 /* GymClassType.swift in Sources */,
@@ -1093,6 +1133,7 @@
 				01C75E2E25292E5B00C25A32 /* DescriptionCardView.swift in Sources */,
 				13B39A8D23E689BC0039FBA2 /* DataSource.swift in Sources */,
 				299ACFB2244A5A15000F3E86 /* Occupancy.swift in Sources */,
+				FD3D6FFF25C2BB7D00579EF5 /* SelectPeopleView.swift in Sources */,
 				2948155F253274C500D113B6 /* ImageViewCell.swift in Sources */,
 				016A56D6251AD38F00531A12 /* CalendarEvent.swift in Sources */,
 				13580AFC243934C800D309AA /* GymsController.swift in Sources */,
@@ -1101,20 +1142,24 @@
 				13491DBC242098B30033F9AB /* AtomicDictionary.swift in Sources */,
 				01BC8EB024E8C3E3005B4969 /* DetailView.swift in Sources */,
 				29891B24257C521E0094891D /* StudyPactOnboardingViewController.swift in Sources */,
+				FD6FB45925C616370045A03A /* SelectClassView.swift in Sources */,
 				13580AFA243934BF00D309AA /* GymClassesController.swift in Sources */,
 				1396013423865E2E005E4788 /* CardCollectionViewCell.swift in Sources */,
+				29EF1F0325C79111000C0F97 /* ReviewPreferencesViewController.swift in Sources */,
 				55DCF79D237243F5001B01B8 /* RippleLayer.swift in Sources */,
 				132087AF23F3B05D00AE273C /* Filter.swift in Sources */,
 				2925D5FC2529546A00BBA266 /* CampusEventCollectionViewCell.swift in Sources */,
 				556DB0DF23E7F60900F12721 /* ResourcesViewController.swift in Sources */,
 				296DDEC1253BB117008E8940 /* CampusEventDetailViewController.swift in Sources */,
 				55DCF79423723452001B01B8 /* SearchBarView.swift in Sources */,
+				29A6610125C4EA6A004D2FC2 /* PendingGroupViewController.swift in Sources */,
 				133864AC2404E858001F9048 /* CalendarViewController.swift in Sources */,
 				1346B9172420AA4500383399 /* DayOfWeek.swift in Sources */,
 				29345E2D24A7FFB600859A88 /* CanFavorite.swift in Sources */,
 				1396013623865E2E005E4788 /* TagView.swift in Sources */,
 				5532B67B2390CBF600293BE0 /* MaterialLoadingIndicator.swift in Sources */,
 				13E25DFD238C949E00B670B5 /* FitnessViewController.swift in Sources */,
+				FD3D700225C2BC7D00579EF5 /* CreatePreferenceFrameViewController.swift in Sources */,
 				55DCF79B237243D4001B01B8 /* MaterialTextField.swift in Sources */,
 				554CB9A023F3A83F00BB1715 /* EventTableViewCell.swift in Sources */,
 				01B250282516AD4F00CBA459 /* IconPairView.swift in Sources */,
@@ -1125,8 +1170,10 @@
 				13EA64CA2399CE5B00FD8E13 /* SearchItem.swift in Sources */,
 				13491DB8241E22130033F9AB /* Colors+Event.swift in Sources */,
 				13B39A9923E6A33C0039FBA2 /* Library.swift in Sources */,
+				01CDBB9925CA32AF006B93BD /* Secrets.swift in Sources */,
 				303F6AE4236A931D007E37DD /* SegmentedControlViewController.swift in Sources */,
 				559A7B6F2373DF39004EA501 /* SearchResultCell.swift in Sources */,
+				FDE7CD9925BCE6DB00F65A13 /* CreatePreferenceViewController.swift in Sources */,
 				299ACFB0244A58CD000F3E86 /* OccupancyDataSource.swift in Sources */,
 				29DB64D225BA6269001C4275 /* StudyGroup.swift in Sources */,
 				29345E2B24A7EC2B00859A88 /* HasImage.swift in Sources */,
@@ -1139,7 +1186,6 @@
 				13580AF62437D7E700D309AA /* LibraryDetailViewController.swift in Sources */,
 				135D7F77243A9BD1003F8BD1 /* Colors+GymClass.swift in Sources */,
 				55DCF7A123724835001B01B8 /* MaterialButton.swift in Sources */,
-				553B105925C61A550078A5B3 /* ProfileLabel.swift in Sources */,
 				297678892426D2C500FDD1EB /* SearchDrawerViewController.swift in Sources */,
 				29CB280A2404DD71009A2CFB /* FilterTableViewCell.swift in Sources */,
 				55DCF79623723CF2001B01B8 /* UIView+Extensions.swift in Sources */,
@@ -1166,6 +1212,7 @@
 				01B2502F2516C45800CBA459 /* EventCalendarEntry.swift in Sources */,
 				2925D5FA2529405500BBA266 /* CampusEventCellView.swift in Sources */,
 				5516088624392E5100B1E55B /* DiningViewController.swift in Sources */,
+				FD6FB45C25C62EB90045A03A /* SelectLocationView.swift in Sources */,
 				018B982825328200004C3B26 /* Colors+ActionButton.swift in Sources */,
 				296B8AA72544D97F00C3A219 /* EventOverviewCardView.swift in Sources */,
 				29387E9B24BBBD9D00070BCE /* CALayerExtension.swift in Sources */,
@@ -1189,7 +1236,6 @@
 				556CCD2223E7771800F41BF9 /* MapPlacemark.swift in Sources */,
 				297678872426B7BA00FDD1EB /* SearchAnnotation.swift in Sources */,
 				01CDFF6A257C614900D9FBD6 /* Colors+Resource.swift in Sources */,
-				298EE26D25BB7CD4002BAF0F /* StudyPreferencesViewController.swift in Sources */,
 				13741B6C2400D866003D1EEB /* MapDataSource.swift in Sources */,
 				1336A320241D924300949F32 /* DiningItem.swift in Sources */,
 				299ACFB4244A5F90000F3E86 /* HasOccupancy.swift in Sources */,

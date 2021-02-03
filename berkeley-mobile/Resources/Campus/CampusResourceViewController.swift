@@ -16,17 +16,51 @@ class CampusResourceViewController: UIViewController {
     private var resourcesCard: CardView!
     private var resourcesTable: FilterTableView = FilterTableView<Resource>(frame: .zero, tableFunctions: [], defaultSort: SortingFunctions.sortAlph(item1:item2:))
     
-    private var resourceEntries: [Resource] = []
-    
+    private var resourceEntries: [Resource] = [] {
+        didSet {
+            resourcesTable.setData(data: self.resourceEntries)
+            resourcesTable.update()
+        }
+    }
+
+    /// If not empty, this view will present the filtered set of campus resources.
+    private var resourceFilters: [Filter<Resource>] = []
+
+    convenience init() {
+        self.init(type: nil, notIn: nil)
+    }
+
+    /// If `type` is non-nil, will filter resources for those matching that `ResourceType`.
+    /// If `types` is non-nil, will filter resources for those not in the given set of types.
+    init(type: ResourceType?, notIn types: Set<ResourceType>? = nil) {
+        super.init(nibName: nil, bundle: nil)
+        if let type = type {
+            resourceFilters.append(Filter(label: "Type Filter: \(type)", filter: { resource in
+                return resource.type == type.rawValue
+            }))
+        }
+        if let types = types {
+            resourceFilters.append(Filter(label: "Set Exclusion: \(types)", filter: { resource in
+                guard let resourceType = ResourceType(rawValue: resource.type ?? "") else { return true }
+                return !types.contains(resourceType)
+            }))
+        }
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupResourcesList()
 
         DataManager.shared.fetch(source: ResourceDataSource.self) { resourceEntries in
-            self.resourceEntries = resourceEntries as? [Resource] ?? []
-            self.resourcesTable.setData(data: resourceEntries as! [Resource])
-            self.resourcesTable.update()
+            let entries = resourceEntries as? [Resource] ?? []
+            _ = Filter.apply(filters: self.resourceFilters, on: entries) { entries in
+                DispatchQueue.main.async { self.resourceEntries = entries }
+            }
         }
     }
 
