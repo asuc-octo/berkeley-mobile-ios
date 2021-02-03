@@ -75,7 +75,7 @@ class StudyGroupsView: UIView {
     }
     
     public func refreshGroups() {
-        // TODO: get groups again from backend
+        // TODO: call GetGroups
         collection.reloadData()
     }
     
@@ -230,7 +230,6 @@ class StudyGroupCell: UICollectionViewCell {
                     case .success(let image):
                         DispatchQueue.main.async {
                             profileImageView.image = image
-                            member.profilePicture = image
                             placeholderView.isHidden = true
                         }
                     case .failure(let error):

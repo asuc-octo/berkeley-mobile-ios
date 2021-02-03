@@ -11,7 +11,6 @@ import Firebase
 import GoogleSignIn
 
 class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, GIDSignInDelegate {
-    
     private var loggedIn = false
     private var loginButton: GIDSignInButton!
     
@@ -41,14 +40,14 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigation
         
         GIDSignIn.sharedInstance()?.delegate = self
         
+        if let cryptoHash = StudyPact.shared.getCryptoHash() {
+            // TODO: call GetUser and fill in profile
+        }
         if GIDSignIn.sharedInstance().hasPreviousSignIn() {
-            // Signed in
-
             GIDSignIn.sharedInstance()?.restorePreviousSignIn()
             loggedInView()
         } else {
             GIDSignIn.sharedInstance()?.presentingViewController = self
-            
             loggedOutView()
         }
     }
@@ -58,35 +57,39 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigation
             print(error)
             return
         }
-        guard let authentication = user.authentication else {
+        guard user.authentication != nil else {
             loggedOutView()
             return
         }
-        // TODO: - Store the useful hash?
-        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
-                                                       accessToken: authentication.accessToken)
-        
-        loggedInView()
-        
-        let userId = user.userID  // Client side only
-        let idToken = user.authentication.idToken // Safe to send to the server
-        let fullName = user.profile.name
-        let email = user.profile.email
-        
-        initialsLabel.text = String(fullName?.prefix(1) ?? "")
-        fullNameField.text = fullName
-        emailTextField.textField.text = email
-        
-        if user.profile.hasImage {
-            guard let imageUrl = user.profile.imageURL(withDimension: 250) else { return }
-            ImageLoader.shared.getImage(url: imageUrl) { result in
-                switch result {
-                case .success(let image):
-                    DispatchQueue.main.async() { [weak self] in
-                        self!.profileImage = image
+        StudyPact.shared.registerUser(user: user) { success in
+            if !success {
+                GIDSignIn.sharedInstance().signOut()
+                DispatchQueue.main.async {
+                    self.loggedOutView()
+                }
+                return
+            }
+            DispatchQueue.main.async {
+                self.loggedInView()
+            }
+            let fullName = user.profile.name
+            let email = user.profile.email
+            
+            self.initialsLabel.text = String(fullName?.prefix(1) ?? "")
+            self.fullNameField.text = fullName
+            self.emailTextField.textField.text = email
+            
+            if user.profile.hasImage {
+                guard let imageUrl = user.profile.imageURL(withDimension: 250) else { return }
+                ImageLoader.shared.getImage(url: imageUrl) { result in
+                    switch result {
+                    case .success(let image):
+                        DispatchQueue.main.async() { [weak self] in
+                            self!.profileImage = image
+                        }
+                    case .failure(let error):
+                        print(error)
                     }
-                case .failure(let error):
-                    print(error)
                 }
             }
         }
@@ -101,7 +104,6 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigation
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        // TODO: - Update profile info here
         view.endEditing(true)
         return false
     }
@@ -117,10 +119,6 @@ extension ProfileViewController {
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
-        
-//        imagePicker = UIImagePickerController()
-//        imagePicker.delegate = self
-//        imagePicker.sourceType = .photoLibrary
     }
     
     func loggedOutView() {
@@ -412,11 +410,11 @@ extension ProfileViewController {
     }
     
     @objc private func cancelButtonPressed(sender: UIButton) {
-        // TODO: - Implement
+        // TODO: call GetUser again and fill in fields
     }
     
     @objc private func saveButtonPressed(sender: UIButton) {
-        // TODO: - Implement
+        // TODO: validate fields then call AddUser
     }
     
     @objc private func changeImageButtonPressed(sender: UIButton) {

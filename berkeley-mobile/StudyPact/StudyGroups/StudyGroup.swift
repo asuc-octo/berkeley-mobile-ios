@@ -16,8 +16,8 @@ struct StudyGroup {
 
 struct StudyGroupMember {
     let profilePictureURL: URL?
-    var profilePicture: UIImage?
     let name: String
     let email: String
     let phoneNumber: String?
+    let facebookUsername: String?
 }

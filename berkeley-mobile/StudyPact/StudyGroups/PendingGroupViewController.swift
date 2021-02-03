@@ -95,7 +95,7 @@ class PendingGroupViewController: UIViewController {
         alertController.addAction(UIAlertAction.init(title: "Cancel", style: .cancel))
         alertController.addAction(UIAlertAction.init(title: "Yes", style: .default, handler: { _ in
             print("remove request")
-            // TODO: remove pending request from backend
+            // TODO: call CancelPending
             self.dismiss(animated: true, completion: nil)
         }))
         self.present(alertController, animated: true, completion: nil)

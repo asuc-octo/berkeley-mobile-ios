@@ -107,6 +107,7 @@
 		297678892426D2C500FDD1EB /* SearchDrawerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297678882426D2C500FDD1EB /* SearchDrawerViewController.swift */; };
 		2978F20625CA4C680010E3BA /* BorderedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2978F20525CA4C680010E3BA /* BorderedTextField.swift */; };
 		2978F20925CA4C6E0010E3BA /* ProfileLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2978F20825CA4C6E0010E3BA /* ProfileLabel.swift */; };
+		2978F25925CA50670010E3BA /* StudyPact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2978F25825CA50670010E3BA /* StudyPact.swift */; };
 		29891B23257C521E0094891D /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29891B21257C521E0094891D /* PageViewController.swift */; };
 		29891B24257C521E0094891D /* StudyPactOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29891B22257C521E0094891D /* StudyPactOnboardingViewController.swift */; };
 		298EE26A25BB6C33002BAF0F /* Colors+StudyPact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298EE26925BB6C33002BAF0F /* Colors+StudyPact.swift */; };
@@ -282,6 +283,7 @@
 		297678882426D2C500FDD1EB /* SearchDrawerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDrawerViewController.swift; sourceTree = "<group>"; };
 		2978F20525CA4C680010E3BA /* BorderedTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderedTextField.swift; sourceTree = "<group>"; };
 		2978F20825CA4C6E0010E3BA /* ProfileLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileLabel.swift; sourceTree = "<group>"; };
+		2978F25825CA50670010E3BA /* StudyPact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyPact.swift; sourceTree = "<group>"; };
 		29891B21257C521E0094891D /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		29891B22257C521E0094891D /* StudyPactOnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudyPactOnboardingViewController.swift; sourceTree = "<group>"; };
 		298EE26925BB6C33002BAF0F /* Colors+StudyPact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+StudyPact.swift"; sourceTree = "<group>"; };
@@ -716,6 +718,7 @@
 		29EF1EF525C76BAB000C0F97 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				554DF8E325C8E0E3007CA6B7 /* TaggedTextField.swift */,
 				2978F20525CA4C680010E3BA /* BorderedTextField.swift */,
 				2978F20825CA4C6E0010E3BA /* ProfileLabel.swift */,
 				55208DF125B7D95E00A75983 /* ProfileViewController.swift */,
@@ -827,7 +830,7 @@
 		55208DF025B7D93E00A75983 /* StudyPact */ = {
 			isa = PBXGroup;
 			children = (
-				554DF8E325C8E0E3007CA6B7 /* TaggedTextField.swift */,
+				2978F25825CA50670010E3BA /* StudyPact.swift */,
 				29EF1EF625C76BB8000C0F97 /* CreatePreference */,
 				29EF1EF525C76BAB000C0F97 /* Profile */,
 				29BB9E5925BFEC3300FC5EC8 /* Onboarding */,
@@ -1216,6 +1219,7 @@
 				018B982825328200004C3B26 /* Colors+ActionButton.swift in Sources */,
 				296B8AA72544D97F00C3A219 /* EventOverviewCardView.swift in Sources */,
 				29387E9B24BBBD9D00070BCE /* CALayerExtension.swift in Sources */,
+				2978F25925CA50670010E3BA /* StudyPact.swift in Sources */,
 				1396013323865E2E005E4788 /* CardCollectionView.swift in Sources */,
 				13B39A9A23E6A33C0039FBA2 /* LibraryDataSource.swift in Sources */,
 				01D11B8E2504453B00BDF660 /* ScrollingStackView.swift in Sources */,
