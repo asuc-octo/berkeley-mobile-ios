@@ -384,6 +384,38 @@ extension ProfileViewController {
         
         fullNameField = firstnameField
         emailTextField = emailField
+        
+        // ** BUTTONS ** //
+        let cancelButton = ActionButton(title: "Cancel", font: Font.bold(14))
+        cancelButton.layer.shadowRadius = 2.5
+        cancelButton.addTarget(self, action: #selector(cancelButtonPressed), for: .touchUpInside)
+        
+        view.addSubview(cancelButton)
+        cancelButton.translatesAutoresizingMaskIntoConstraints = false
+        cancelButton.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
+        cancelButton.setHeightConstraint(40)
+        cancelButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -20).isActive = true
+        
+        let saveButton = ActionButton(title: "Save", font: Font.bold(14))
+        saveButton.layer.shadowRadius = 2.5
+        saveButton.addTarget(self, action: #selector(saveButtonPressed), for: .touchUpInside)
+        
+        view.addSubview(saveButton)
+        saveButton.translatesAutoresizingMaskIntoConstraints = false
+        saveButton.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
+        saveButton.setHeightConstraint(40)
+        saveButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -20).isActive = true
+        
+        cancelButton.rightAnchor.constraint(equalTo: saveButton.leftAnchor, constant: -23).isActive = true
+        cancelButton.widthAnchor.constraint(equalTo: saveButton.widthAnchor).isActive = true
+    }
+    
+    @objc private func cancelButtonPressed(sender: UIButton) {
+        // TODO: - Implement
+    }
+    
+    @objc private func saveButtonPressed(sender: UIButton) {
+        // TODO: - Implement
     }
     
     @objc private func changeImageButtonPressed(sender: UIButton) {
