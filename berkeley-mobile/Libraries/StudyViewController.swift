@@ -133,24 +133,20 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
         let loggedIn = true//StudyPact.shared.getCryptoHash() != nil
         if loggedIn {
             allButton.isHidden = false
-            StudyPact.shared.getGroups() { groups in
-                // get the first 2 groups to show a preview
-                let usedGroups = Array(groups.prefix(2))
-                if let grid = self.studyGroupsGrid {
-                    grid.refreshGroups()
-                } else {
-                    for view in self.studyPactContent.subviews {
-                        view.removeFromSuperview()
-                    }
-                    let groupGrid = StudyGroupsView(studyGroups: usedGroups, enclosingVC: self, includeCreatePreference: groups.count < 2)
-                    self.studyPactContent.addSubview(groupGrid)
-                    groupGrid.translatesAutoresizingMaskIntoConstraints = false
-                    groupGrid.topAnchor.constraint(equalTo: self.studyPactContent.topAnchor).isActive = true
-                    groupGrid.bottomAnchor.constraint(equalTo: self.studyPactContent.bottomAnchor).isActive = true
-                    groupGrid.rightAnchor.constraint(equalTo: self.studyPactContent.rightAnchor).isActive = true
-                    groupGrid.leftAnchor.constraint(equalTo: self.studyPactContent.leftAnchor).isActive = true
-                    self.studyGroupsGrid = groupGrid
+            if let grid = self.studyGroupsGrid {
+                grid.refreshGroups()
+            } else {
+                for view in self.studyPactContent.subviews {
+                    view.removeFromSuperview()
                 }
+                let groupGrid = StudyGroupsView(enclosingVC: self, limit: 2)
+                self.studyPactContent.addSubview(groupGrid)
+                groupGrid.translatesAutoresizingMaskIntoConstraints = false
+                groupGrid.topAnchor.constraint(equalTo: self.studyPactContent.topAnchor).isActive = true
+                groupGrid.bottomAnchor.constraint(equalTo: self.studyPactContent.bottomAnchor).isActive = true
+                groupGrid.rightAnchor.constraint(equalTo: self.studyPactContent.rightAnchor).isActive = true
+                groupGrid.leftAnchor.constraint(equalTo: self.studyPactContent.leftAnchor).isActive = true
+                self.studyGroupsGrid = groupGrid
             }
         } else {
             allButton.isHidden = true
@@ -180,9 +176,7 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     @objc func goToAllStudyGroups() {
         let vc = AllStudyGroupsViewController()
-        StudyPact.shared.getGroups() { groups in
-            vc.presentSelf(presentingVC: self, studyGroups: groups)
-        }
+        self.present(vc, animated: true, completion: nil)
     }
     
     @objc func goToProfile() {

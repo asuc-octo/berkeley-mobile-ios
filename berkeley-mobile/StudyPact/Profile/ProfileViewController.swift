@@ -32,7 +32,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigation
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.view.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
         self.view.backgroundColor = Color.modalBackground
         
@@ -40,29 +40,15 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigation
         
         GIDSignIn.sharedInstance()?.delegate = self
         let previousSignIn = GIDSignIn.sharedInstance().hasPreviousSignIn()
-        if previousSignIn {
-            GIDSignIn.sharedInstance()?.restorePreviousSignIn()
-        }
         
-        if let cryptoHash = StudyPact.shared.getCryptoHash() {
+        if let cryptoHash = StudyPact.shared.getCryptoHash(), previousSignIn {
             // TODO: call GetUser and fill in profile
+            GIDSignIn.sharedInstance()?.restorePreviousSignIn()
+            loggedInView()
         } else {
-            if previousSignIn {
-                StudyPact.shared.registerUser(user: GIDSignIn.sharedInstance()?.currentUser) { success in
-                    if success {
-                        DispatchQueue.main.async {
-                            self.loggedInView()
-                        }
-                    } else {
-                        GIDSignIn.sharedInstance()?.signOut()
-                        self.loggedOutView()
-                    }
-                }
-            } else {
-                loggedOutView()
-            }
+            GIDSignIn.sharedInstance()?.signOut()
+            loggedOutView()
         }
-        
     }
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
@@ -84,24 +70,24 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigation
             }
             DispatchQueue.main.async {
                 self.loggedInView()
-            }
-            let fullName = user.profile.name
-            let email = user.profile.email
-            
-            self.initialsLabel.text = String(fullName?.prefix(1) ?? "")
-            self.fullNameField.text = fullName
-            self.emailTextField.textField.text = email
-            
-            if user.profile.hasImage {
-                guard let imageUrl = user.profile.imageURL(withDimension: 250) else { return }
-                ImageLoader.shared.getImage(url: imageUrl) { result in
-                    switch result {
-                    case .success(let image):
-                        DispatchQueue.main.async() { [weak self] in
-                            self!.profileImage = image
+                let fullName = user.profile.name
+                let email = user.profile.email
+                
+                self.initialsLabel.text = String(fullName?.prefix(1) ?? "")
+                self.fullNameField.text = fullName
+                self.emailTextField.textField.text = email
+                
+                if user.profile.hasImage {
+                    guard let imageUrl = user.profile.imageURL(withDimension: 250) else { return }
+                    ImageLoader.shared.getImage(url: imageUrl) { result in
+                        switch result {
+                        case .success(let image):
+                            DispatchQueue.main.async() { [weak self] in
+                                self!.profileImage = image
+                            }
+                        case .failure(let error):
+                            print(error)
                         }
-                    case .failure(let error):
-                        print(error)
                     }
                 }
             }

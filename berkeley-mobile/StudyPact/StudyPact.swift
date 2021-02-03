@@ -15,10 +15,23 @@ class StudyPact {
     
     private var cryptoHash: String?
     private var email: String?
-
+    var studyGroups: [StudyGroup] = []
+    
     init() {
-        guard let cryptoHash = UserDefaults.standard.string(forKey: "userCryptoHash") else { return }
-        // TODO: call AuthenticateUser. if authenticate fails but signed into google, call RegisterUser
+        if let cryptoHash = UserDefaults.standard.string(forKey: "userCryptoHash") {
+            // TODO: authenticate user first. if authenticate fails sign out of google and reset stored cryptohash and relevant variables
+            if let previous = GIDSignIn.sharedInstance()?.hasPreviousSignIn(), previous {
+                GIDSignIn.sharedInstance()?.restorePreviousSignIn()
+                self.cryptoHash = cryptoHash
+                self.email = GIDSignIn.sharedInstance()?.currentUser.profile.email
+            } else {
+                self.deleteCryptoHash()
+                self.cryptoHash = nil
+                self.email = nil
+                self.studyGroups = []
+            }
+        }
+        
     }
 
     // MARK: GetBerkeleyCourses
@@ -116,6 +129,7 @@ class StudyPact {
         NetworkManager.shared.post(url: url, body: params, asType: [StudyGroup].self) { response in
             switch response {
             case .success(let data):
+                self.studyGroups = data ?? []
                 completion(data ?? [])
             default:
                 completion([])
@@ -129,5 +143,9 @@ class StudyPact {
     
     private func saveCryptoHash(cryptoHash: String) {
         UserDefaults.standard.set(cryptoHash, forKey: "userCryptoHash")
+    }
+    
+    private func deleteCryptoHash() {
+        UserDefaults.standard.removeObject(forKey: "userCryptoHash")
     }
 }
