@@ -9,11 +9,12 @@
 import UIKit
 
 class SelectLocationView: UIView, EnableNextDelegate {
-    let preferenceVC: CreatePreferenceViewController
+    weak var preferenceVC: CreatePreferenceViewController?
     private var buttonSelected: UIButton? {
         didSet {
             if let button = buttonSelected {
                 isNextEnabled = true
+                guard let preferenceVC = self.preferenceVC else { return }
                 preferenceVC.preference.isVirtual = button == virtualButton
             } else {
                 isNextEnabled = false
@@ -22,6 +23,7 @@ class SelectLocationView: UIView, EnableNextDelegate {
     }
     var isNextEnabled: Bool = false {
         didSet {
+            guard let preferenceVC = self.preferenceVC else { return }
             preferenceVC.setNextEnabled()
         }
     }
@@ -61,11 +63,6 @@ class SelectLocationView: UIView, EnableNextDelegate {
             self.buttonSelected = sender
         }
     }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-    }
-    
     
     init(preferenceVC: CreatePreferenceViewController) {
         self.preferenceVC = preferenceVC

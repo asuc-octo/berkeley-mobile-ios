@@ -9,7 +9,7 @@
 import UIKit
 
 class ReviewPreferencesViewController: UIViewController {
-    let preferenceVC: CreatePreferenceViewController
+    weak var preferenceVC: CreatePreferenceViewController?
     
     let reviewLabel: UILabel = {
         let label = UILabel()
@@ -78,7 +78,8 @@ class ReviewPreferencesViewController: UIViewController {
     }
     
     private func updateLabels() {
-        guard let preferenceClass = preferenceVC.preference.className,
+        guard let preferenceVC = self.preferenceVC,
+              let preferenceClass = preferenceVC.preference.className,
               let preferenceNumber = preferenceVC.preference.numberOfPeople,
               let preferenceVirtual = preferenceVC.preference.isVirtual else {
             preferenceLabel.text = "There was an error with your selection."

@@ -10,12 +10,9 @@ import UIKit
 import SearchTextField
 
 class SelectClassView: UIView, UITextFieldDelegate, EnableNextDelegate {
-    let preferenceVC: CreatePreferenceViewController
+    weak var preferenceVC: CreatePreferenceViewController?
     var textField: SearchTextField!
     var classNames: [String] = []
-    override func layoutSubviews() {
-        super.layoutSubviews()
-    }
     
     public init(preferenceVC: CreatePreferenceViewController) {
         self.preferenceVC = preferenceVC
@@ -84,11 +81,13 @@ class SelectClassView: UIView, UITextFieldDelegate, EnableNextDelegate {
             isNextEnabled = false
         } else {
             isNextEnabled = true
+            guard let preferenceVC = self.preferenceVC else { return }
             preferenceVC.preference.className = textField.text
         }
     }
     var isNextEnabled: Bool = false {
         didSet {
+            guard let preferenceVC = self.preferenceVC else { return }
             preferenceVC.setNextEnabled()
         }
     }

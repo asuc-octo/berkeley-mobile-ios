@@ -9,12 +9,7 @@
 import UIKit
 
 class SelectPeopleView: UIView, EnableNextDelegate {
-    let preferenceVC: CreatePreferenceViewController
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-    }
-    
+    weak var preferenceVC: CreatePreferenceViewController?
     public init(preferenceVC: CreatePreferenceViewController) {
         self.preferenceVC = preferenceVC
         super.init(frame: .zero)
@@ -45,6 +40,7 @@ class SelectPeopleView: UIView, EnableNextDelegate {
         didSet {
             if let button = buttonSelected {
                 isNextEnabled = true
+                guard let preferenceVC = self.preferenceVC else { return }
                 preferenceVC.preference.numberOfPeople = button.number
             } else {
                 isNextEnabled = false
@@ -53,6 +49,7 @@ class SelectPeopleView: UIView, EnableNextDelegate {
     }
     var isNextEnabled: Bool = false {
         didSet {
+            guard let preferenceVC = self.preferenceVC else { return }
             preferenceVC.setNextEnabled()
         }
     }
