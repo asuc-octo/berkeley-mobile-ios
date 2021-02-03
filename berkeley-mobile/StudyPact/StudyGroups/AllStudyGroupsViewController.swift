@@ -12,7 +12,6 @@ fileprivate let kViewMargin: CGFloat = 16
 
 /// Expanded page showing all study groups in a larger CollectionView
 class AllStudyGroupsViewController: UIViewController {
-    var studyGroups: [StudyGroup] = []
     var studyGroupsGrid: StudyGroupsView!
     
     // MARK: UI Elements
@@ -75,17 +74,12 @@ class AllStudyGroupsViewController: UIViewController {
         titleLabel.leftAnchor.constraint(equalTo: card.leftAnchor, constant: kViewMargin).isActive = true
         titleLabel.rightAnchor.constraint(lessThanOrEqualTo: self.view.rightAnchor, constant: -1 * kViewMargin).isActive = true
         
-        studyGroupsGrid = StudyGroupsView(studyGroups: studyGroups, enclosingVC: self, includeCreatePreference: true)
+        studyGroupsGrid = StudyGroupsView(enclosingVC: self, limit: nil)
         studyGroupsGrid.translatesAutoresizingMaskIntoConstraints = false
         card.addSubview(studyGroupsGrid)
         studyGroupsGrid.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: kViewMargin).isActive = true
         studyGroupsGrid.rightAnchor.constraint(equalTo: card.rightAnchor, constant: -1 * kViewMargin).isActive = true
         studyGroupsGrid.leftAnchor.constraint(equalTo: card.leftAnchor, constant: kViewMargin).isActive = true
         studyGroupsGrid.bottomAnchor.constraint(equalTo: card.bottomAnchor, constant: -1 * kViewMargin).isActive = true
-    }
-    
-    public func presentSelf(presentingVC: UIViewController, studyGroups: [StudyGroup]) {
-        self.studyGroups = studyGroups
-        presentingVC.present(self, animated: true, completion: nil)
     }
 }
