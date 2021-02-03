@@ -227,24 +227,27 @@ extension ProfileViewController {
         hstack.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor, constant: 15).isActive = true
         hstack.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor, constant: -15).isActive = true
         
-        let lvstack = UIStackView()
-        lvstack.axis = .vertical
-        lvstack.distribution = .equalSpacing
-        lvstack.alignment = .center
-        lvstack.spacing = 17
+        let rows = UIStackView()
+        rows.axis = .vertical
+        rows.distribution = .fill
+        rows.alignment = .top
+        rows.spacing = 16
         
-        let rvstack = UIStackView()
-        rvstack.axis = .vertical
-        rvstack.distribution = .equalSpacing
-        rvstack.alignment = .center
-        rvstack.spacing = 19
+        hstack.addArrangedSubview(rows)
         
-        hstack.addArrangedSubview(lvstack)
-        hstack.addArrangedSubview(rvstack)
+        rows.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor, constant: 15).isActive = true
+        rows.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor, constant: -15).isActive = true
         
-        lvstack.setWidthConstraint(100)
         
-        // TODO: - Dynamic field data
+        // ** NAME SECTION ** //
+        let nameRow = UIStackView()
+        nameRow.axis = .horizontal
+        nameRow.distribution = .fill
+        nameRow.alignment = .center
+        nameRow.spacing = 8
+        
+        rows.addArrangedSubview(nameRow)
+        
         let nameLabel = UILabel()
         nameLabel.text = "Name"
         nameLabel.font = Font.medium(14)
@@ -253,6 +256,32 @@ extension ProfileViewController {
         nameLabel.numberOfLines = 1
         nameLabel.adjustsFontSizeToFitWidth = true
         nameLabel.minimumScaleFactor = 0.7
+        
+        let firstnameField = BorderedTextField()
+        firstnameField.delegate = self
+        firstnameField.autocorrectionType = .no
+        
+        nameRow.addArrangedSubview(nameLabel)
+        nameRow.addArrangedSubview(firstnameField)
+        
+        nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        nameLabel.setHeightConstraint(36)
+        nameLabel.setWidthConstraint(100)
+        nameLabel.leftAnchor.constraint(equalTo: rows.leftAnchor).isActive = true
+        
+        firstnameField.translatesAutoresizingMaskIntoConstraints = false
+        firstnameField.rightAnchor.constraint(equalTo: rows.rightAnchor).isActive = true
+        firstnameField.setHeightConstraint(36)
+        
+        
+        // ** EMAIL SECTION ** //
+        let emailRow = UIStackView()
+        emailRow.axis = .horizontal
+        emailRow.distribution = .fill
+        emailRow.alignment = .center
+        emailRow.spacing = 8
+        
+        rows.addArrangedSubview(emailRow)
         
         let emailLabel = UILabel()
         emailLabel.text = "Email"
@@ -263,6 +292,33 @@ extension ProfileViewController {
         emailLabel.adjustsFontSizeToFitWidth = true
         emailLabel.minimumScaleFactor = 0.7
         
+        emailRow.addArrangedSubview(emailLabel)
+
+        emailLabel.translatesAutoresizingMaskIntoConstraints = false
+        emailLabel.setWidthConstraint(100)
+        emailLabel.setHeightConstraint(36)
+        emailLabel.leftAnchor.constraint(equalTo: rows.leftAnchor).isActive = true
+
+        let emailField = TaggedTextField(text: "* set by CalNet and cannot be changed")
+        emailField.textField.delegate = self
+        
+        emailRow.addArrangedSubview(emailField)
+
+        emailField.translatesAutoresizingMaskIntoConstraints = false
+        emailField.textField.isUserInteractionEnabled = false
+        emailField.setHeightConstraint(50)
+        emailField.rightAnchor.constraint(equalTo: rows.rightAnchor).isActive = true
+
+        
+        // ** PHONE SECTION ** //
+        let phoneRow = UIStackView()
+        phoneRow.axis = .horizontal
+        phoneRow.distribution = .fill
+        phoneRow.alignment = .center
+        phoneRow.spacing = 8
+        
+        rows.addArrangedSubview(phoneRow)
+        
         let phoneLabel = UILabel()
         phoneLabel.text = "Phone Number"
         phoneLabel.font = Font.medium(14)
@@ -272,80 +328,59 @@ extension ProfileViewController {
         phoneLabel.adjustsFontSizeToFitWidth = true
         phoneLabel.minimumScaleFactor = 0.7
         
+        phoneRow.addArrangedSubview(phoneLabel)
+        
+        phoneLabel.translatesAutoresizingMaskIntoConstraints = false
+        phoneLabel.setWidthConstraint(100)
+        phoneLabel.setHeightConstraint(36)
+        phoneLabel.leftAnchor.constraint(equalTo: rows.leftAnchor).isActive = true
+        
+        let phoneField = BorderedTextField()
+        phoneField.delegate = self
+        phoneField.keyboardType = .phonePad
+        
+        phoneRow.addArrangedSubview(phoneField)
+
+        phoneField.translatesAutoresizingMaskIntoConstraints = false
+        phoneField.setHeightConstraint(36)
+        phoneField.rightAnchor.constraint(equalTo: rows.rightAnchor).isActive = true
+
+
+        // ** FACEBOOK SECTION ** //
+        let fbRow = UIStackView()
+        fbRow.axis = .horizontal
+        fbRow.distribution = .fill
+        fbRow.alignment = .center
+        fbRow.spacing = 8
+        
+        rows.addArrangedSubview(fbRow)
+        
         let facebookLabel = UILabel()
-        facebookLabel.text = "Facebook ID"
+        facebookLabel.text = "Facebook Username"
+        facebookLabel.numberOfLines = 2
         facebookLabel.font = Font.medium(14)
         facebookLabel.textAlignment = .left
         facebookLabel.textColor = Color.blackText
-        facebookLabel.numberOfLines = 1
         facebookLabel.adjustsFontSizeToFitWidth = true
         facebookLabel.minimumScaleFactor = 0.7
-        
-        let emailPaddingLabel = UILabel()
-        
-        let firstnameField = BorderedTextField()
-        let emailField = TaggedTextField(text: "* set by CalNet and cannot be changed")
-        let phoneField = BorderedTextField()
-        let facebookField = BorderedTextField()
-        
-        firstnameField.delegate = self
-        emailField.textField.delegate = self
-        phoneField.delegate = self
-        facebookField.delegate = self
-        
-        firstnameField.autocorrectionType = .no
-        phoneField.keyboardType = .phonePad
-        facebookField.autocorrectionType = .no
-        facebookField.keyboardType = .URL
-        
-        lvstack.addArrangedSubview(nameLabel)
-        lvstack.addArrangedSubview(emailLabel)
-        lvstack.addArrangedSubview(emailPaddingLabel)
-        lvstack.addArrangedSubview(phoneLabel)
-        lvstack.addArrangedSubview(facebookLabel)
 
-        rvstack.addArrangedSubview(firstnameField)
-        rvstack.addArrangedSubview(emailField)
-        rvstack.addArrangedSubview(phoneField)
-        rvstack.addArrangedSubview(facebookField)
-        
-        firstnameField.leftAnchor.constraint(equalTo: nameLabel.rightAnchor, constant: 8).isActive = true
-        emailField.leftAnchor.constraint(equalTo: emailLabel.rightAnchor, constant: 8).isActive = true
-        phoneField.leftAnchor.constraint(equalTo: phoneLabel.rightAnchor, constant: 8).isActive = true
-        facebookField.leftAnchor.constraint(equalTo: facebookLabel.rightAnchor, constant: 8).isActive = true
-        
-        firstnameField.rightAnchor.constraint(equalTo: rvstack.rightAnchor).isActive = true
-        
-        nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        nameLabel.setHeightConstraint(36)
-        nameLabel.leftAnchor.constraint(equalTo: lvstack.leftAnchor).isActive = true
-        
-        firstnameField.translatesAutoresizingMaskIntoConstraints = false
-        firstnameField.setHeightConstraint(36)
-        
-        emailLabel.translatesAutoresizingMaskIntoConstraints = false
-        emailLabel.setHeightConstraint(36)
-        
-        emailPaddingLabel.translatesAutoresizingMaskIntoConstraints = false
-        emailPaddingLabel.setHeightConstraint(2)
-        
-        emailField.translatesAutoresizingMaskIntoConstraints = false
-        emailField.textField.isUserInteractionEnabled = false
-        emailField.setHeightConstraint(50)
-        emailField.textField.leftAnchor.constraint(equalTo: rvstack.leftAnchor).isActive = true
-        emailField.textField.rightAnchor.constraint(equalTo: rvstack.rightAnchor).isActive = true
-        
-        phoneLabel.translatesAutoresizingMaskIntoConstraints = false
-        phoneLabel.setHeightConstraint(36)
-        
-        phoneField.translatesAutoresizingMaskIntoConstraints = false
-        phoneField.setHeightConstraint(36)
+        fbRow.addArrangedSubview(facebookLabel)
         
         facebookLabel.translatesAutoresizingMaskIntoConstraints = false
+        facebookLabel.setWidthConstraint(100)
         facebookLabel.setHeightConstraint(36)
+        facebookLabel.leftAnchor.constraint(equalTo: rows.leftAnchor).isActive = true
         
+        let facebookField = TaggedTextField(text: "www.facebook.com/your-username")
+        facebookField.textField.delegate = self
+        facebookField.textField.autocorrectionType = .no
+        facebookField.textField.keyboardType = .URL
+        
+        fbRow.addArrangedSubview(facebookField)
+
         facebookField.translatesAutoresizingMaskIntoConstraints = false
-        facebookField.setHeightConstraint(36)
+        facebookField.setHeightConstraint(50)
+        facebookField.rightAnchor.constraint(equalTo: rows.rightAnchor).isActive = true
         
         fullNameField = firstnameField
         emailTextField = emailField

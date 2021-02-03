@@ -35,6 +35,8 @@ class TaggedTextField: UIView {
         
         field.translatesAutoresizingMaskIntoConstraints = false
         field.setHeightConstraint(36)
+        field.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+        field.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         
         let label = UILabel()
         label.text = ""
