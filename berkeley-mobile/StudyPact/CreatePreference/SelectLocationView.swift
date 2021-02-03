@@ -55,9 +55,8 @@ class SelectLocationView: UIView, EnableNextDelegate {
             sender.isSelected.toggle()
             if let buttonSelected = self.buttonSelected {
                 buttonSelected.backgroundColor = .white
+                buttonSelected.isSelected.toggle()
                 buttonSelected.setTitleColor(Color.blackText, for: .normal)
-                sender.backgroundColor = Color.ActionButton.background
-                sender.setTitleColor(.white, for: .normal)
             }
             self.buttonSelected = sender
         }
