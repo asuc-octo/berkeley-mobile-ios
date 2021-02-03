@@ -32,4 +32,7 @@ extension Color {
         return UIColor(red: 162/255, green: 183/255, blue: 14/255, alpha: 1)
     }
     
+    static var pendingTag: UIColor {
+        return UIColor(red: 174/255, green: 174/255, blue: 174/255, alpha: 1)
+    }
 }
