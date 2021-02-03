@@ -11,6 +11,11 @@
 		016A56D6251AD38F00531A12 /* CalendarEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016A56D5251AD38F00531A12 /* CalendarEvent.swift */; };
 		016A56D8251C930D00531A12 /* AppDelegate+Migration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016A56D7251C930D00531A12 /* AppDelegate+Migration.swift */; };
 		017C0B26251018BA00BFA80A /* Colors+MapMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017C0B25251018BA00BFA80A /* Colors+MapMarker.swift */; };
+		0181710525CA770A00BA6317 /* BTCourse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0181710425CA770A00BA6317 /* BTCourse.swift */; };
+		0181710A25CA90D300BA6317 /* AuthenticateUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0181710925CA90D300BA6317 /* AuthenticateUser.swift */; };
+		0181711125CAA3B300BA6317 /* AnyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0181711025CAA3B300BA6317 /* AnyJSON.swift */; };
+		0181711725CAABB000BA6317 /* AddClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0181711625CAABB000BA6317 /* AddClass.swift */; };
+		0181711C25CB506A00BA6317 /* Encodable+JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0181711B25CB506A00BA6317 /* Encodable+JSON.swift */; };
 		018B982625327358004C3B26 /* ActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018B982525327358004C3B26 /* ActionButton.swift */; };
 		018B982825328200004C3B26 /* Colors+ActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018B982725328200004C3B26 /* Colors+ActionButton.swift */; };
 		01B250282516AD4F00CBA459 /* IconPairView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B250272516AD4F00CBA459 /* IconPairView.swift */; };
@@ -19,6 +24,10 @@
 		01BC8EB024E8C3E3005B4969 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BC8EAF24E8C3E3005B4969 /* DetailView.swift */; };
 		01C75E2E25292E5B00C25A32 /* DescriptionCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C75E2D25292E5B00C25A32 /* DescriptionCardView.swift */; };
 		01CDBB9925CA32AF006B93BD /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CDBB9825CA32AF006B93BD /* Secrets.swift */; };
+		01CDBBC725CA3B13006B93BD /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CDBBC625CA3B13006B93BD /* NetworkManager.swift */; };
+		01CDBBE925CA6AF9006B93BD /* StudyPact+Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CDBBE825CA6AF9006B93BD /* StudyPact+Endpoints.swift */; };
+		01CDBBED25CA6F4D006B93BD /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CDBBEC25CA6F4D006B93BD /* Response.swift */; };
+		01CDBBF125CA6F58006B93BD /* RequestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CDBBF025CA6F58006B93BD /* RequestError.swift */; };
 		01CDFF67257C5F2300D9FBD6 /* ResourceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CDFF66257C5F2300D9FBD6 /* ResourceType.swift */; };
 		01CDFF6A257C614900D9FBD6 /* Colors+Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CDFF69257C614900D9FBD6 /* Colors+Resource.swift */; };
 		01D11B8E2504453B00BDF660 /* ScrollingStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D11B8D2504453B00BDF660 /* ScrollingStackView.swift */; };
@@ -185,6 +194,11 @@
 		016A56D5251AD38F00531A12 /* CalendarEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEvent.swift; sourceTree = "<group>"; };
 		016A56D7251C930D00531A12 /* AppDelegate+Migration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Migration.swift"; sourceTree = "<group>"; };
 		017C0B25251018BA00BFA80A /* Colors+MapMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+MapMarker.swift"; sourceTree = "<group>"; };
+		0181710425CA770A00BA6317 /* BTCourse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTCourse.swift; sourceTree = "<group>"; };
+		0181710925CA90D300BA6317 /* AuthenticateUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticateUser.swift; sourceTree = "<group>"; };
+		0181711025CAA3B300BA6317 /* AnyJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyJSON.swift; sourceTree = "<group>"; };
+		0181711625CAABB000BA6317 /* AddClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddClass.swift; sourceTree = "<group>"; };
+		0181711B25CB506A00BA6317 /* Encodable+JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+JSON.swift"; sourceTree = "<group>"; };
 		018B982525327358004C3B26 /* ActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButton.swift; sourceTree = "<group>"; };
 		018B982725328200004C3B26 /* Colors+ActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+ActionButton.swift"; sourceTree = "<group>"; };
 		01B250272516AD4F00CBA459 /* IconPairView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconPairView.swift; sourceTree = "<group>"; };
@@ -193,6 +207,10 @@
 		01BC8EAF24E8C3E3005B4969 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		01C75E2D25292E5B00C25A32 /* DescriptionCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionCardView.swift; sourceTree = "<group>"; };
 		01CDBB9825CA32AF006B93BD /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
+		01CDBBC625CA3B13006B93BD /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		01CDBBE825CA6AF9006B93BD /* StudyPact+Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StudyPact+Endpoints.swift"; sourceTree = "<group>"; };
+		01CDBBEC25CA6F4D006B93BD /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
+		01CDBBF025CA6F58006B93BD /* RequestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestError.swift; sourceTree = "<group>"; };
 		01CDFF66257C5F2300D9FBD6 /* ResourceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceType.swift; sourceTree = "<group>"; };
 		01CDFF69257C614900D9FBD6 /* Colors+Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+Resource.swift"; sourceTree = "<group>"; };
 		01D11B8D2504453B00BDF660 /* ScrollingStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollingStackView.swift; sourceTree = "<group>"; };
@@ -375,6 +393,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		01CDBBE625CA6ADD006B93BD /* API */ = {
+			isa = PBXGroup;
+			children = (
+				01CDBBE725CA6AEA006B93BD /* Schema */,
+				01CDBBE825CA6AF9006B93BD /* StudyPact+Endpoints.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		01CDBBE725CA6AEA006B93BD /* Schema */ = {
+			isa = PBXGroup;
+			children = (
+				0181710425CA770A00BA6317 /* BTCourse.swift */,
+				29DB64D125BA6269001C4275 /* StudyGroup.swift */,
+				0181711625CAABB000BA6317 /* AddClass.swift */,
+				0181710925CA90D300BA6317 /* AuthenticateUser.swift */,
+			);
+			path = Schema;
+			sourceTree = "<group>";
+		};
+		01CDBBEB25CA6F3D006B93BD /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				01CDBBC625CA3B13006B93BD /* NetworkManager.swift */,
+				01CDBBEC25CA6F4D006B93BD /* Response.swift */,
+				01CDBBF025CA6F58006B93BD /* RequestError.swift */,
+				0181711B25CB506A00BA6317 /* Encodable+JSON.swift */,
+				0181711025CAA3B300BA6317 /* AnyJSON.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		1336A31D241C400F00949F32 /* GymClassDataSource */ = {
 			isa = PBXGroup;
 			children = (
@@ -596,6 +646,7 @@
 		13EA64CE2399D4A100FD8E13 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				01CDBBEB25CA6F3D006B93BD /* Network */,
 				299ACFAE244A58A8000F3E86 /* Occupancy */,
 				13B8E95724256E4F00E7FCBF /* ItemProtocols */,
 				13EA64CF2399D50C00FD8E13 /* DataManager.swift */,
@@ -710,7 +761,6 @@
 				29DB64CE25BA61BD001C4275 /* StudyGroupsView.swift */,
 				29DB64D825BA8242001C4275 /* AllStudyGroupsViewController.swift */,
 				29A6610025C4EA6A004D2FC2 /* PendingGroupViewController.swift */,
-				29DB64D125BA6269001C4275 /* StudyGroup.swift */,
 			);
 			path = StudyGroups;
 			sourceTree = "<group>";
@@ -830,6 +880,7 @@
 		55208DF025B7D93E00A75983 /* StudyPact */ = {
 			isa = PBXGroup;
 			children = (
+				01CDBBE625CA6ADD006B93BD /* API */,
 				2978F25825CA50670010E3BA /* StudyPact.swift */,
 				29EF1EF625C76BB8000C0F97 /* CreatePreference */,
 				29EF1EF525C76BAB000C0F97 /* Profile */,
@@ -1104,6 +1155,7 @@
 				55AF44292453A4EC00F13232 /* CafeDataSource.swift in Sources */,
 				29DB64CF25BA61BD001C4275 /* StudyGroupsView.swift in Sources */,
 				306A550023614C0000D59A7F /* MainContainerViewController.swift in Sources */,
+				01CDBBE925CA6AF9006B93BD /* StudyPact+Endpoints.swift in Sources */,
 				2978F20625CA4C680010E3BA /* BorderedTextField.swift in Sources */,
 				29F11EC72516C150007DCFD7 /* BarView.swift in Sources */,
 				55DCF78723722CBD001B01B8 /* Colors.swift in Sources */,
@@ -1118,6 +1170,7 @@
 				557756692544D822009C03BD /* Collection+Extension.swift in Sources */,
 				5546CB91251B0A4500BE1876 /* UIDevice+Extensions.swift in Sources */,
 				2975D5402459301B00514B43 /* SearchDrawerViewDelegate.swift in Sources */,
+				01CDBBED25CA6F4D006B93BD /* Response.swift in Sources */,
 				133864A42404DCCA001F9048 /* MapMarker.swift in Sources */,
 				01CDFF67257C5F2300D9FBD6 /* ResourceType.swift in Sources */,
 				13491DBA241E23630033F9AB /* Colors+Text.swift in Sources */,
@@ -1151,6 +1204,7 @@
 				29EF1F0325C79111000C0F97 /* ReviewPreferencesViewController.swift in Sources */,
 				55DCF79D237243F5001B01B8 /* RippleLayer.swift in Sources */,
 				132087AF23F3B05D00AE273C /* Filter.swift in Sources */,
+				0181711125CAA3B300BA6317 /* AnyJSON.swift in Sources */,
 				2925D5FC2529546A00BBA266 /* CampusEventCollectionViewCell.swift in Sources */,
 				556DB0DF23E7F60900F12721 /* ResourcesViewController.swift in Sources */,
 				296DDEC1253BB117008E8940 /* CampusEventDetailViewController.swift in Sources */,
@@ -1181,6 +1235,7 @@
 				29DB64D225BA6269001C4275 /* StudyGroup.swift in Sources */,
 				29345E2B24A7EC2B00859A88 /* HasImage.swift in Sources */,
 				2913595924B13DF200DE9AD6 /* OpenTimesCardView.swift in Sources */,
+				0181711C25CB506A00BA6317 /* Encodable+JSON.swift in Sources */,
 				13135BB3241244370056B169 /* FilterViewCell.swift in Sources */,
 				552F4A4C254E13BF0061D0F2 /* CampusResourceViewController.swift in Sources */,
 				016A56D42519E96800531A12 /* CampusCalendarViewController.swift in Sources */,
@@ -1209,6 +1264,7 @@
 				13EA64D02399D50C00FD8E13 /* DataManager.swift in Sources */,
 				29B3A1742439A60A00093750 /* DiningMenuCell.swift in Sources */,
 				1336A326241D9B9900949F32 /* DiningHall.swift in Sources */,
+				0181710525CA770A00BA6317 /* BTCourse.swift in Sources */,
 				29061D41241C450E002BC9D9 /* HasLocation.swift in Sources */,
 				1336A31A241C3FD300949F32 /* GymClassDataSource.swift in Sources */,
 				29387E9524BBBC1000070BCE /* BarGraph.swift in Sources */,
@@ -1216,6 +1272,7 @@
 				2925D5FA2529405500BBA266 /* CampusEventCellView.swift in Sources */,
 				5516088624392E5100B1E55B /* DiningViewController.swift in Sources */,
 				FD6FB45C25C62EB90045A03A /* SelectLocationView.swift in Sources */,
+				01CDBBC725CA3B13006B93BD /* NetworkManager.swift in Sources */,
 				018B982825328200004C3B26 /* Colors+ActionButton.swift in Sources */,
 				296B8AA72544D97F00C3A219 /* EventOverviewCardView.swift in Sources */,
 				29387E9B24BBBD9D00070BCE /* CALayerExtension.swift in Sources */,
@@ -1225,6 +1282,7 @@
 				01D11B8E2504453B00BDF660 /* ScrollingStackView.swift in Sources */,
 				29387E9924BBBC9300070BCE /* BarEntry+DataEntry.swift in Sources */,
 				306A54EC23613E3A00D59A7F /* SceneDelegate.swift in Sources */,
+				01CDBBF125CA6F58006B93BD /* RequestError.swift in Sources */,
 				01FA50F124E8B33100DCC490 /* LocationManager.swift in Sources */,
 				017C0B26251018BA00BFA80A /* Colors+MapMarker.swift in Sources */,
 				29345E2724A7E76300859A88 /* OverviewCardView.swift in Sources */,
@@ -1243,6 +1301,8 @@
 				13741B6C2400D866003D1EEB /* MapDataSource.swift in Sources */,
 				1336A320241D924300949F32 /* DiningItem.swift in Sources */,
 				299ACFB4244A5F90000F3E86 /* HasOccupancy.swift in Sources */,
+				0181710A25CA90D300BA6317 /* AuthenticateUser.swift in Sources */,
+				0181711725CAABB000BA6317 /* AddClass.swift in Sources */,
 				559A7B6D2373DEFA004EA501 /* MaterialTableViewCell.swift in Sources */,
 				29891B23257C521E0094891D /* PageViewController.swift in Sources */,
 				13EA64CD2399CEDA00FD8E13 /* Gym.swift in Sources */,
