@@ -38,12 +38,26 @@ extension Color {
                 return UIColor(displayP3Red: 251/255, green: 155/255, blue: 142/255, alpha: 1.0)
             }
             
+            static var getStartedPressed: UIColor {
+                return UIColor(red: 225/255, green: 124/255, blue: 110/255, alpha: 1)
+            }
+            
             static var pendingLabel: UIColor {
                 return UIColor(displayP3Red: 151/255, green: 151/255, blue: 151/255, alpha: 1.0)
             }
             
             static var leaveGroupButton: UIColor {
                 return UIColor(displayP3Red: 199/255, green: 199/255, blue: 199/255, alpha: 1.0)
+            }
+        }
+        
+        struct Profile {
+            static var defaultProfileLetter: UIColor {
+                return UIColor(displayP3Red: 255/255, green: 192/255, blue: 183/255, alpha: 1.0)
+            }
+            
+            static var defaultProfileBackground: UIColor {
+                return UIColor(displayP3Red: 235/255, green: 154/255, blue: 154/255, alpha: 1.0)
             }
         }
     }

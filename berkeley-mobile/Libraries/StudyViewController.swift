@@ -130,10 +130,10 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     // TODO: remove when we get real group data from backend
     func getDummyGroups() -> [StudyGroup] {
-        let person0 = StudyGroupMember(profilePictureURL: URL(string: "https://images.generated.photos/hApOLywddgHrBNt5NWqIFViI1dJNQ7oev8TKAfmsuGE/rs:fit:256:256/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA0NzY1MjkuanBn.jpg"), name: "Jack Doe", email: "jack.doe@berkeley.edu", phoneNumber: "0000000000")
-        let person1 = StudyGroupMember(profilePictureURL: URL(string: "https://images.generated.photos/t6rnO4g54jflMAk-nLFAulAayL4MkTkajbuHAOJEs9w/rs:fit:256:256/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yy/XzA0NTkxODQuanBn.jpg"), name: "Jill Doe", email: "jill.doe@berkeley.edu", phoneNumber: "1111111111")
-        let person2 = StudyGroupMember(profilePictureURL: URL(string:  "https://images.generated.photos/UnBJAeCfIR180b3sQ1G9opucAnwafc8DErx5YXRjT6I/rs:fit:256:256/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yy/XzA0NDU1NjMuanBn.jpg"), name: "Jane Doe", email: "jane.doe@berkeley.edu", phoneNumber: "2222222222")
-        let person3 = StudyGroupMember(profilePictureURL: URL(string: "https://images.generated.photos/f1utkmrXZQ_CU7ixY-qNL2Creb0MnE9Np4FpuXq_yoQ/rs:fit:256:256/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA4OTc1NTguanBn.jpg"), name: "Bob Jones", email: "bob.jones@berkeley.edu", phoneNumber: "3333333333")
+        let person0 = StudyGroupMember(profilePictureURL: nil, name: "Jack Doe", email: "jack.doe@berkeley.edu", phoneNumber: "0000000000")
+        let person1 = StudyGroupMember(profilePictureURL: nil, name: "Jill Doe", email: "jill.doe@berkeley.edu", phoneNumber: "1111111111")
+        let person2 = StudyGroupMember(profilePictureURL: nil, name: "Jane Doe", email: "jane.doe@berkeley.edu", phoneNumber: "2222222222")
+        let person3 = StudyGroupMember(profilePictureURL: nil, name: "Bob Jones", email: "bob.jones@berkeley.edu", phoneNumber: "3333333333")
         let person4 = StudyGroupMember(profilePictureURL: nil, name: "A B", email: "a.b@berkeley.edu", phoneNumber: "4444444444")
         let group0 = StudyGroup(className: "CS 170", groupMembers: [person0, person1, person2, person3], pending: false)
         let group1 = StudyGroup(className: "ECON 100A", groupMembers: [person0, person1, person2, person3, person4, person3], pending: false)
@@ -182,16 +182,10 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
                 studyGroupsGrid = nil
             }
             if studyPactContent.subviews.count == 0 {
-                let profileButton = UIButton()
-                profileButton.setTitle("Sign In to Get Started With Study Pact!", for: .normal)
-                profileButton.titleLabel?.font = Font.medium(13)
-                profileButton.backgroundColor = Color.StudyPact.StudyGroups.getStartedButton
+                let profileButton = ActionButton(title: "Sign In to Get Started With Study Pact!", defaultColor: Color.StudyPact.StudyGroups.getStartedButton, pressedColor: Color.StudyPact.StudyGroups.getStartedPressed)
                 profileButton.addTarget(self, action: #selector(goToProfile), for: .touchUpInside)
-                let radius: CGFloat = 20
-                profileButton.layer.cornerRadius = radius
                 studyPactContent.addSubview(profileButton)
                 profileButton.translatesAutoresizingMaskIntoConstraints = false
-                profileButton.heightAnchor.constraint(equalToConstant: 2 * radius).isActive = true
                 profileButton.widthAnchor.constraint(equalToConstant: 270).isActive = true
                 profileButton.centerYAnchor.constraint(equalTo: studyPactContent.centerYAnchor).isActive = true
                 profileButton.centerXAnchor.constraint(equalTo: studyPactContent.centerXAnchor).isActive = true
