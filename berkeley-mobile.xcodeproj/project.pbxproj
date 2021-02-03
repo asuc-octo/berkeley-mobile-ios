@@ -124,6 +124,7 @@
 		29DB64D225BA6269001C4275 /* StudyGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DB64D125BA6269001C4275 /* StudyGroup.swift */; };
 		29DB64D925BA8242001C4275 /* AllStudyGroupsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DB64D825BA8242001C4275 /* AllStudyGroupsViewController.swift */; };
 		29EE163F241C4E310041482E /* SortingFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EE163E241C4E310041482E /* SortingFunctions.swift */; };
+		29EF1F0325C79111000C0F97 /* ReviewPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EF1F0225C79111000C0F97 /* ReviewPreferencesViewController.swift */; };
 		29F11EC72516C150007DCFD7 /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F11EC62516C150007DCFD7 /* BarView.swift */; };
 		303F6AE1236A931D007E37DD /* SegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303F6ADD236A931D007E37DD /* SegmentedControl.swift */; };
 		303F6AE4236A931D007E37DD /* SegmentedControlViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303F6AE0236A931D007E37DD /* SegmentedControlViewController.swift */; };
@@ -168,6 +169,12 @@
 		55EDAA742569D730006BAFAC /* CovidResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EDAA732569D730006BAFAC /* CovidResource.swift */; };
 		600CB18DB1A293062CAC7914 /* Pods_berkeley_mobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A826C1BD0A2BCA2F083C6EE /* Pods_berkeley_mobile.framework */; };
 		D99314A32B5752F2EB9C03E4 /* Pods_berkeley_mobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A826C1BD0A2BCA2F083C6EE /* Pods_berkeley_mobile.framework */; };
+		FD3D6FFF25C2BB7D00579EF5 /* SelectPeopleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3D6FFE25C2BB7D00579EF5 /* SelectPeopleView.swift */; };
+		FD3D700225C2BC7D00579EF5 /* CreatePreferenceFrameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3D700125C2BC7D00579EF5 /* CreatePreferenceFrameViewController.swift */; };
+		FD6FB45925C616370045A03A /* SelectClassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6FB45825C616370045A03A /* SelectClassView.swift */; };
+		FD6FB45C25C62EB90045A03A /* SelectLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6FB45B25C62EB90045A03A /* SelectLocationView.swift */; };
+		FD6FB45F25C6A4B90045A03A /* StudyPactPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6FB45E25C6A4B80045A03A /* StudyPactPreference.swift */; };
+		FDE7CD9925BCE6DB00F65A13 /* CreatePreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDE7CD9825BCE6DB00F65A13 /* CreatePreferenceViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -289,6 +296,7 @@
 		29DB64D125BA6269001C4275 /* StudyGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyGroup.swift; sourceTree = "<group>"; };
 		29DB64D825BA8242001C4275 /* AllStudyGroupsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllStudyGroupsViewController.swift; sourceTree = "<group>"; };
 		29EE163E241C4E310041482E /* SortingFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingFunctions.swift; sourceTree = "<group>"; };
+		29EF1F0225C79111000C0F97 /* ReviewPreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPreferencesViewController.swift; sourceTree = "<group>"; };
 		29F11EC62516C150007DCFD7 /* BarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarView.swift; sourceTree = "<group>"; };
 		303F6ADD236A931D007E37DD /* SegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedControl.swift; sourceTree = "<group>"; };
 		303F6AE0236A931D007E37DD /* SegmentedControlViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedControlViewController.swift; sourceTree = "<group>"; };
@@ -341,6 +349,12 @@
 		B5DD1FA9F5CF4BCFD4A64306 /* Pods-bm-persona.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bm-persona.debug.xcconfig"; path = "Target Support Files/Pods-bm-persona/Pods-bm-persona.debug.xcconfig"; sourceTree = "<group>"; };
 		CB9A33BEF33ABF885BD30304 /* Pods-berkeley-mobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeley-mobile.release.xcconfig"; path = "Target Support Files/Pods-berkeley-mobile/Pods-berkeley-mobile.release.xcconfig"; sourceTree = "<group>"; };
 		EC01CCF388C7E41052CEB683 /* Pods-bm-persona.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bm-persona.release.xcconfig"; path = "Target Support Files/Pods-bm-persona/Pods-bm-persona.release.xcconfig"; sourceTree = "<group>"; };
+		FD3D6FFE25C2BB7D00579EF5 /* SelectPeopleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPeopleView.swift; sourceTree = "<group>"; };
+		FD3D700125C2BC7D00579EF5 /* CreatePreferenceFrameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePreferenceFrameViewController.swift; sourceTree = "<group>"; };
+		FD6FB45825C616370045A03A /* SelectClassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectClassView.swift; sourceTree = "<group>"; };
+		FD6FB45B25C62EB90045A03A /* SelectLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectLocationView.swift; sourceTree = "<group>"; };
+		FD6FB45E25C6A4B80045A03A /* StudyPactPreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyPactPreference.swift; sourceTree = "<group>"; };
+		FDE7CD9825BCE6DB00F65A13 /* CreatePreferenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePreferenceViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -696,6 +710,30 @@
 			path = StudyGroups;
 			sourceTree = "<group>";
 		};
+		29EF1EF525C76BAB000C0F97 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				553B3B4525BCC2A300212AF6 /* BorderedTextField.swift */,
+				553B105825C61A550078A5B3 /* ProfileLabel.swift */,
+				55208DF125B7D95E00A75983 /* ProfileViewController.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		29EF1EF625C76BB8000C0F97 /* CreatePreference */ = {
+			isa = PBXGroup;
+			children = (
+				FDE7CD9825BCE6DB00F65A13 /* CreatePreferenceViewController.swift */,
+				FD3D6FFE25C2BB7D00579EF5 /* SelectPeopleView.swift */,
+				FD6FB45825C616370045A03A /* SelectClassView.swift */,
+				FD6FB45B25C62EB90045A03A /* SelectLocationView.swift */,
+				29EF1F0225C79111000C0F97 /* ReviewPreferencesViewController.swift */,
+				FD3D700125C2BC7D00579EF5 /* CreatePreferenceFrameViewController.swift */,
+				FD6FB45E25C6A4B80045A03A /* StudyPactPreference.swift */,
+			);
+			path = CreatePreference;
+			sourceTree = "<group>";
+		};
 		303F6ADC236A9274007E37DD /* Drawer */ = {
 			isa = PBXGroup;
 			children = (
@@ -786,11 +824,10 @@
 		55208DF025B7D93E00A75983 /* StudyPact */ = {
 			isa = PBXGroup;
 			children = (
-				553B3B4525BCC2A300212AF6 /* BorderedTextField.swift */,
-				553B105825C61A550078A5B3 /* ProfileLabel.swift */,
+				29EF1EF625C76BB8000C0F97 /* CreatePreference */,
+				29EF1EF525C76BAB000C0F97 /* Profile */,
 				29BB9E5925BFEC3300FC5EC8 /* Onboarding */,
 				29DB64D725BA8213001C4275 /* StudyGroups */,
-				55208DF125B7D95E00A75983 /* ProfileViewController.swift */,
 			);
 			path = StudyPact;
 			sourceTree = "<group>";
@@ -1050,6 +1087,7 @@
 				306A54EE23613E3A00D59A7F /* MapViewController.swift in Sources */,
 				13DACD222411DF7200A09982 /* UIStackView+Extensions.swift in Sources */,
 				2954F592245CD4B600DA66DA /* MainDrawerViewDelegate.swift in Sources */,
+				FD6FB45F25C6A4B90045A03A /* StudyPactPreference.swift in Sources */,
 				557756692544D822009C03BD /* Collection+Extension.swift in Sources */,
 				5546CB91251B0A4500BE1876 /* UIDevice+Extensions.swift in Sources */,
 				2975D5402459301B00514B43 /* SearchDrawerViewDelegate.swift in Sources */,
@@ -1071,6 +1109,7 @@
 				01C75E2E25292E5B00C25A32 /* DescriptionCardView.swift in Sources */,
 				13B39A8D23E689BC0039FBA2 /* DataSource.swift in Sources */,
 				299ACFB2244A5A15000F3E86 /* Occupancy.swift in Sources */,
+				FD3D6FFF25C2BB7D00579EF5 /* SelectPeopleView.swift in Sources */,
 				2948155F253274C500D113B6 /* ImageViewCell.swift in Sources */,
 				016A56D6251AD38F00531A12 /* CalendarEvent.swift in Sources */,
 				13580AFC243934C800D309AA /* GymsController.swift in Sources */,
@@ -1079,8 +1118,10 @@
 				13491DBC242098B30033F9AB /* AtomicDictionary.swift in Sources */,
 				01BC8EB024E8C3E3005B4969 /* DetailView.swift in Sources */,
 				29891B24257C521E0094891D /* StudyPactOnboardingViewController.swift in Sources */,
+				FD6FB45925C616370045A03A /* SelectClassView.swift in Sources */,
 				13580AFA243934BF00D309AA /* GymClassesController.swift in Sources */,
 				1396013423865E2E005E4788 /* CardCollectionViewCell.swift in Sources */,
+				29EF1F0325C79111000C0F97 /* ReviewPreferencesViewController.swift in Sources */,
 				55DCF79D237243F5001B01B8 /* RippleLayer.swift in Sources */,
 				132087AF23F3B05D00AE273C /* Filter.swift in Sources */,
 				2925D5FC2529546A00BBA266 /* CampusEventCollectionViewCell.swift in Sources */,
@@ -1094,6 +1135,7 @@
 				1396013623865E2E005E4788 /* TagView.swift in Sources */,
 				5532B67B2390CBF600293BE0 /* MaterialLoadingIndicator.swift in Sources */,
 				13E25DFD238C949E00B670B5 /* FitnessViewController.swift in Sources */,
+				FD3D700225C2BC7D00579EF5 /* CreatePreferenceFrameViewController.swift in Sources */,
 				55DCF79B237243D4001B01B8 /* MaterialTextField.swift in Sources */,
 				554CB9A023F3A83F00BB1715 /* EventTableViewCell.swift in Sources */,
 				01B250282516AD4F00CBA459 /* IconPairView.swift in Sources */,
@@ -1106,6 +1148,7 @@
 				13B39A9923E6A33C0039FBA2 /* Library.swift in Sources */,
 				303F6AE4236A931D007E37DD /* SegmentedControlViewController.swift in Sources */,
 				559A7B6F2373DF39004EA501 /* SearchResultCell.swift in Sources */,
+				FDE7CD9925BCE6DB00F65A13 /* CreatePreferenceViewController.swift in Sources */,
 				299ACFB0244A58CD000F3E86 /* OccupancyDataSource.swift in Sources */,
 				29DB64D225BA6269001C4275 /* StudyGroup.swift in Sources */,
 				29345E2B24A7EC2B00859A88 /* HasImage.swift in Sources */,
@@ -1145,6 +1188,7 @@
 				01B2502F2516C45800CBA459 /* EventCalendarEntry.swift in Sources */,
 				2925D5FA2529405500BBA266 /* CampusEventCellView.swift in Sources */,
 				5516088624392E5100B1E55B /* DiningViewController.swift in Sources */,
+				FD6FB45C25C62EB90045A03A /* SelectLocationView.swift in Sources */,
 				018B982825328200004C3B26 /* Colors+ActionButton.swift in Sources */,
 				296B8AA72544D97F00C3A219 /* EventOverviewCardView.swift in Sources */,
 				29387E9B24BBBD9D00070BCE /* CALayerExtension.swift in Sources */,
