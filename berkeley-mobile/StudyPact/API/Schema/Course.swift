@@ -8,17 +8,15 @@
 
 import Foundation
 
-extension StudyPact {
-    struct CoursesDocument: Decodable {
-        let courses: [Course]
-    }
+struct CoursesDocument: Decodable {
+    let courses: [Course]
+}
 
-    struct Course: Decodable {
-        let number: String
-        let abbreviation: String
+struct Course: Decodable {
+    let number: String
+    let abbreviation: String
 
-        enum CodingKeys: String, CodingKey {
-            case number = "course_number", abbreviation
-        }
+    enum CodingKeys: String, CodingKey {
+        case number = "course_number", abbreviation
     }
 }
