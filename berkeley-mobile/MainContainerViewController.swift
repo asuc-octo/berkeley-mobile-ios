@@ -36,8 +36,7 @@ class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
         // necessary to move the center of the drawer later on
         drawerVC.view.translatesAutoresizingMaskIntoConstraints = true
     }
-    
-    
+
     override func viewDidAppear(_ animated: Bool) {
         drawerStatePositions[.hidden] = self.view.frame.maxY + (self.view.frame.maxY / 2)
         // set the collapsed position to show the tab bar control at the top
@@ -51,17 +50,6 @@ class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
         
         checkOnboarding()
     }
-    
-    //MARK: Check app first launch
-    func checkOnboarding() {
-        let launchedBefore = UserDefaults.standard.bool(forKey: "hasShownStudyPact")
-        if !launchedBefore {
-            let vc = PageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
-            vc.modalPresentationStyle = .fullScreen
-            self.present(vc, animated: true, completion: nil)
-            UserDefaults.standard.set(true, forKey: "hasShownStudyPact")
-        }
-    }
         
     override func viewSafeAreaInsetsDidChange() {
         (drawerViewController as! MainDrawerViewController).bottomOffset = self.view.safeAreaInsets.top
@@ -73,5 +61,19 @@ class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
 extension MainContainerViewController {
     func handlePanGesture(gesture: UIPanGestureRecognizer) {
         handlePan(gesture: gesture)
+    }
+}
+
+// MARK: - Onboarding
+
+extension MainContainerViewController {
+    func checkOnboarding() {
+        let launchedBefore = UserDefaults.standard.bool(forKey: "hasShownStudyPact")
+        if !launchedBefore {
+            let vc = PageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
+            vc.modalPresentationStyle = .fullScreen
+            self.present(vc, animated: true, completion: nil)
+            UserDefaults.standard.set(true, forKey: "hasShownStudyPact")
+        }
     }
 }
