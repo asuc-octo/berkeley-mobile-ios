@@ -109,6 +109,12 @@ extension StudyGroupsView: UICollectionViewDelegate, UICollectionViewDataSource,
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if includeCreatePreference && indexPath.row == 0 {
+            let vc = CreatePreferenceViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
+            vc.modalPresentationStyle = .fullScreen
+            enclosingVC.present(vc, animated: true, completion: nil)
+            return
+        }
         let index = indexPath.row - (includeCreatePreference ? 1 : 0)
         guard let group = studyGroups[safe: index] else { return }
         if group.pending {
@@ -316,22 +322,10 @@ class CreatePreferenceCell: UICollectionViewCell {
         contentView.addSubview(joinedView)
         joinedView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         joinedView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
-        
-        setUpGestureRecognizer()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func setUpGestureRecognizer() {
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(self.goToCreatePreference(_:)))
-        self.addGestureRecognizer(gesture)
-    }
-    
-    @objc func goToCreatePreference(_ sender: UITapGestureRecognizer) {
-        print("Create Preference tapped")
-        // TODO: go to create preference flow
     }
 }
 

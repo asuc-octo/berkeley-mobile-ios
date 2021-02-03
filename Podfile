@@ -9,6 +9,9 @@ target 'berkeley-mobile' do
   pod 'Firebase/Analytics'
   pod 'Firebase/Firestore'
   pod 'IQKeyboardManagerSwift'
+  pod 'Firebase/Auth'
+  pod 'GoogleSignIn'
+  pod "SearchTextField"
 end
 
 post_install do |installer|

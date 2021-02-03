@@ -25,6 +25,20 @@ extension Color {
             }
         }
         
+        struct CreatePreference {
+            static var selectedPink: UIColor {
+                return UIColor(displayP3Red: 238/255, green: 145/255, blue: 145/255, alpha: 1.0)
+            }
+            
+            static var disabledNextbutton: UIColor {
+                return UIColor(displayP3Red: 199/255, green: 199/255, blue: 199/255, alpha: 1.0)
+            }
+            
+            static var enabledNextButton: UIColor {
+                return UIColor(red: 0.3191883862, green: 0.4302733541, blue: 0.7476411462, alpha: 1)
+            }
+        }
+        
         struct StudyGroups {
             static var createPreferenceDottedBorder: UIColor {
                 return UIColor(red: 158.0 / 255.0, green: 158.0 / 255.0, blue: 158.0 / 255.0, alpha: 1.0)
