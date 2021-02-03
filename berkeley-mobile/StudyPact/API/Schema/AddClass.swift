@@ -30,6 +30,6 @@ struct AddClassParams: Encodable {
         self.cryptohash = cryptohash
         self.className = className
         self.size = size
-        self.env = isVirtual ? "Virtual" : "In Person"
+        self.env = isVirtual ? "virtual" : "in-person"
     }
 }
