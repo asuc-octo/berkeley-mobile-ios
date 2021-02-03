@@ -39,17 +39,30 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigation
         setupHeader()
         
         GIDSignIn.sharedInstance()?.delegate = self
+        let previousSignIn = GIDSignIn.sharedInstance().hasPreviousSignIn()
+        if previousSignIn {
+            GIDSignIn.sharedInstance()?.restorePreviousSignIn()
+        }
         
         if let cryptoHash = StudyPact.shared.getCryptoHash() {
             // TODO: call GetUser and fill in profile
-        }
-        if GIDSignIn.sharedInstance().hasPreviousSignIn() {
-            GIDSignIn.sharedInstance()?.restorePreviousSignIn()
-            loggedInView()
         } else {
-            GIDSignIn.sharedInstance()?.presentingViewController = self
-            loggedOutView()
+            if previousSignIn {
+                StudyPact.shared.registerUser(user: GIDSignIn.sharedInstance()?.currentUser) { success in
+                    if success {
+                        DispatchQueue.main.async {
+                            self.loggedInView()
+                        }
+                    } else {
+                        GIDSignIn.sharedInstance()?.signOut()
+                        self.loggedOutView()
+                    }
+                }
+            } else {
+                loggedOutView()
+            }
         }
+        
     }
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
@@ -119,9 +132,14 @@ extension ProfileViewController {
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
+        
+//        imagePicker = UIImagePickerController()
+//        imagePicker.delegate = self
+//        imagePicker.sourceType = .photoLibrary
     }
     
     func loggedOutView() {
+        GIDSignIn.sharedInstance()?.presentingViewController = self
         loginButton = GIDSignInButton()
         
         view.addSubview(loginButton)
