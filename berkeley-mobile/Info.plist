@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>API_GET_USER_URL_DEBUG</key>
-	<string>$(API_GET_USER_URL_DEBUG)</string>
 	<key>NSCalendarsUsageDescription</key>
 	<string>Calendar access will be used to allow you to add events you select to your calendar.</string>
 	<key>CFBundleDevelopmentRegion</key>
