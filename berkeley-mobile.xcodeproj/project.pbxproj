@@ -182,6 +182,7 @@
 		01B2502E2516C45800CBA459 /* EventCalendarEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCalendarEntry.swift; sourceTree = "<group>"; };
 		01BC8EAF24E8C3E3005B4969 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		01C75E2D25292E5B00C25A32 /* DescriptionCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionCardView.swift; sourceTree = "<group>"; };
+		01CDBAD925CA1D87006B93BD /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		01CDFF66257C5F2300D9FBD6 /* ResourceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceType.swift; sourceTree = "<group>"; };
 		01CDFF69257C614900D9FBD6 /* Colors+Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+Resource.swift"; sourceTree = "<group>"; };
 		01D11B8D2504453B00BDF660 /* ScrollingStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollingStackView.swift; sourceTree = "<group>"; };
@@ -777,6 +778,7 @@
 				306A54F423613E3D00D59A7F /* LaunchScreen.storyboard */,
 				306A54F723613E3D00D59A7F /* Info.plist */,
 				29010C792539648B00CDA48A /* GoogleService-Info.plist */,
+				01CDBAD925CA1D87006B93BD /* Secrets.xcconfig */,
 			);
 			path = "berkeley-mobile";
 			sourceTree = "<group>";
@@ -1197,6 +1199,7 @@
 /* Begin XCBuildConfiguration section */
 		306A54F823613E3D00D59A7F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 01CDBAD925CA1D87006B93BD /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1257,6 +1260,7 @@
 		};
 		306A54F923613E3D00D59A7F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 01CDBAD925CA1D87006B93BD /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
