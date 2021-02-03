@@ -35,7 +35,6 @@ class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
         drawerVC.view.frame = self.view.frame
         // necessary to move the center of the drawer later on
         drawerVC.view.translatesAutoresizingMaskIntoConstraints = true
-        
     }
     
     
@@ -50,18 +49,20 @@ class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
         self.initialDrawerCenter = drawerViewController!.view.center
         moveDrawer(to: drawerViewController!.currState, duration: 0)
         
-        let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
-        if launchedBefore  {
-           print("Not first launch")
-        } else {
+        checkOnboarding()
+    }
+    
+    //MARK: Check app first launch
+    func checkOnboarding() {
+        let launchedBefore = UserDefaults.standard.bool(forKey: "hasShownStudyPact")
+        if !launchedBefore {
             let vc = PageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
             vc.modalPresentationStyle = .fullScreen
             self.present(vc, animated: true, completion: nil)
-            print("First launch")
-            UserDefaults.standard.set(true, forKey: "launchedBefore")
+            UserDefaults.standard.set(true, forKey: "hasShownStudyPact")
         }
     }
-    
+        
     override func viewSafeAreaInsetsDidChange() {
         (drawerViewController as! MainDrawerViewController).bottomOffset = self.view.safeAreaInsets.top
         DrawerViewController.bottomOffsetY = self.view.safeAreaInsets.top
