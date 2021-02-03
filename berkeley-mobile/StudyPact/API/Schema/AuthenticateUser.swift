@@ -8,15 +8,6 @@
 
 import Foundation
 
-struct AuthenticateUserParams: Encodable {
-    let email: String
-    let cryptohash: String
-
-    enum CodingKeys: String, CodingKey {
-        case email = "Email", cryptohash = "CryptoHash"
-    }
-}
-
 struct AuthenticateUserDocument: Decodable {
     let valid: Bool
     let _info: AnyJSON

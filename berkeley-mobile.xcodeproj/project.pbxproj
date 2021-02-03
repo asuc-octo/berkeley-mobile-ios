@@ -15,6 +15,7 @@
 		0181710A25CA90D300BA6317 /* AuthenticateUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0181710925CA90D300BA6317 /* AuthenticateUser.swift */; };
 		0181711125CAA3B300BA6317 /* AnyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0181711025CAA3B300BA6317 /* AnyJSON.swift */; };
 		0181711725CAABB000BA6317 /* AddClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0181711625CAABB000BA6317 /* AddClass.swift */; };
+		0181711C25CB506A00BA6317 /* Encodable+JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0181711B25CB506A00BA6317 /* Encodable+JSON.swift */; };
 		018B982625327358004C3B26 /* ActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018B982525327358004C3B26 /* ActionButton.swift */; };
 		018B982825328200004C3B26 /* Colors+ActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018B982725328200004C3B26 /* Colors+ActionButton.swift */; };
 		01B250282516AD4F00CBA459 /* IconPairView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B250272516AD4F00CBA459 /* IconPairView.swift */; };
@@ -197,6 +198,7 @@
 		0181710925CA90D300BA6317 /* AuthenticateUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticateUser.swift; sourceTree = "<group>"; };
 		0181711025CAA3B300BA6317 /* AnyJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyJSON.swift; sourceTree = "<group>"; };
 		0181711625CAABB000BA6317 /* AddClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddClass.swift; sourceTree = "<group>"; };
+		0181711B25CB506A00BA6317 /* Encodable+JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+JSON.swift"; sourceTree = "<group>"; };
 		018B982525327358004C3B26 /* ActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButton.swift; sourceTree = "<group>"; };
 		018B982725328200004C3B26 /* Colors+ActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+ActionButton.swift"; sourceTree = "<group>"; };
 		01B250272516AD4F00CBA459 /* IconPairView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconPairView.swift; sourceTree = "<group>"; };
@@ -417,6 +419,7 @@
 				01CDBBC625CA3B13006B93BD /* NetworkManager.swift */,
 				01CDBBEC25CA6F4D006B93BD /* Response.swift */,
 				01CDBBF025CA6F58006B93BD /* RequestError.swift */,
+				0181711B25CB506A00BA6317 /* Encodable+JSON.swift */,
 				0181711025CAA3B300BA6317 /* AnyJSON.swift */,
 			);
 			path = Network;
@@ -1232,6 +1235,7 @@
 				29DB64D225BA6269001C4275 /* StudyGroup.swift in Sources */,
 				29345E2B24A7EC2B00859A88 /* HasImage.swift in Sources */,
 				2913595924B13DF200DE9AD6 /* OpenTimesCardView.swift in Sources */,
+				0181711C25CB506A00BA6317 /* Encodable+JSON.swift in Sources */,
 				13135BB3241244370056B169 /* FilterViewCell.swift in Sources */,
 				552F4A4C254E13BF0061D0F2 /* CampusResourceViewController.swift in Sources */,
 				016A56D42519E96800531A12 /* CampusCalendarViewController.swift in Sources */,

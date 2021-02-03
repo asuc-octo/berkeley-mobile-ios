@@ -85,8 +85,8 @@ class StudyPact {
             completion(false)
             return
         }
-        let params = AuthenticateUserParams(email: email, cryptohash: cryptohash)
-        NetworkManager.shared.get(url: url, params: params, asType: AuthenticateUserDocument.self) { response in
+        let params = ["Email": email, "CryptoHash": cryptohash]
+        NetworkManager.shared.post(url: url, body: params, asType: AuthenticateUserDocument.self) { response in
             switch response {
             case .success(let data):
                 completion(data?.valid ?? false)
@@ -102,11 +102,11 @@ class StudyPact {
         guard let cryptohash = self.cryptoHash,
               let email = self.email,
               let url = EndpointKey.addClass.url,
-              let params = AddClassParams(email: email, cryptohash: cryptohash, prefs: preferences) else {
+              let params = AddClassParams(email: email, cryptohash: cryptohash, prefs: preferences)?.asJSON else {
             completion(false)
             return
         }
-        NetworkManager.shared.get(url: url, params: params, asType: AnyJSON.self) { response in
+        NetworkManager.shared.post(url: url, body: params, asType: AnyJSON.self) { response in
             switch response {
             case .success(_):
                 completion(true)
