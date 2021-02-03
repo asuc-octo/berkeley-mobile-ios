@@ -21,6 +21,28 @@ class StudyPact {
         // TODO: call AuthenticateUser. if authenticate fails but signed into google, call RegisterUser
     }
     
+    public func getBerkeleyCourses(completion: @escaping ([String]) -> Void) {
+        guard let url = URL(string: "https://berkeleytime.com/api/catalog/catalog_json/") else {
+            completion([])
+            return
+        }
+        getRequest(url: url) { data in
+            guard let data = data,
+                  let json = try JSONSerialization.jsonObject(with: data) as? Dictionary<String, AnyObject>,
+                  let courses = json["courses"] as? Array<Dictionary<String, AnyObject>> else {
+                completion([])
+                return
+            }
+            var classNames: [String] = []
+            for course in courses {
+                guard let courseNumber = course["course_number"] as? String,
+                      let abbreviation = course["abbreviation"] as? String else { continue }
+                classNames.append(abbreviation + " " + courseNumber)
+            }
+            completion(classNames)
+        }
+    }
+    
     public func registerUser(user: GIDGoogleUser?, completion: @escaping (Bool) -> Void) {
         guard let user = user,
               user.profile.email.hasSuffix("@berkeley.edu"),
@@ -91,6 +113,28 @@ class StudyPact {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.httpBody = try? JSONSerialization.data(withJSONObject: params, options: [])
+        let session = URLSession.shared
+        let task = session.dataTask(with: request, completionHandler: { data, response, error -> Void in
+            guard let data = data, let response = response,
+                  let httpResponse = response as? HTTPURLResponse,
+                  httpResponse.statusCode == 200,
+                  error == nil else {
+                do {
+                    try completion(nil)
+                } catch {}
+                return
+            }
+            do {
+                try completion(data)
+            } catch {}
+            return
+        })
+        task.resume()
+    }
+    
+    private func getRequest(url: URL, completion: @escaping (Data?) throws -> Void) {
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
         let session = URLSession.shared
         let task = session.dataTask(with: request, completionHandler: { data, response, error -> Void in
             guard let data = data, let response = response,
