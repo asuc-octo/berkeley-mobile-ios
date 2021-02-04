@@ -130,8 +130,8 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     /// modify the contents of the card based on if the user is signed in, what groups the user is in
     func refreshStudyGroupContents() {
-        let loggedIn = true//StudyPact.shared.getCryptoHash() != nil
-        if loggedIn {
+        let signedin = SignInManager.shared.isSignedIn
+        if signedin {
             allButton.isHidden = false
             if let grid = self.studyGroupsGrid {
                 grid.refreshGroups()
