@@ -51,9 +51,7 @@ class SelectClassView: UIView, UITextFieldDelegate, EnableNextDelegate {
         guard self.classNames.count == 0 else { return }
         StudyPact.shared.getBerkeleyCourses() { classNames in
             self.classNames = classNames
-            DispatchQueue.main.async {
-                self.textField.filterStrings(self.classNames)
-            }
+            self.textField.filterStrings(self.classNames)
         }
     }
     

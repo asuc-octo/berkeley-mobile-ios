@@ -68,26 +68,25 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigation
                 }
                 return
             }
-            DispatchQueue.main.async {
-                self.loggedInView()
-                let fullName = user.profile.name
-                let email = user.profile.email
-                
-                self.initialsLabel.text = String(fullName?.prefix(1) ?? "")
-                self.fullNameField.text = fullName
-                self.emailTextField.textField.text = email
-                
-                if user.profile.hasImage {
-                    guard let imageUrl = user.profile.imageURL(withDimension: 250) else { return }
-                    ImageLoader.shared.getImage(url: imageUrl) { result in
-                        switch result {
-                        case .success(let image):
-                            DispatchQueue.main.async() { [weak self] in
-                                self!.profileImage = image
-                            }
-                        case .failure(let error):
-                            print(error)
+            self.loggedInView()
+            let fullName = user.profile.name
+            let email = user.profile.email
+            StudyPact.shared.email = email
+            
+            self.initialsLabel.text = String(fullName?.prefix(1) ?? "")
+            self.fullNameField.text = fullName
+            self.emailTextField.textField.text = email
+            
+            if user.profile.hasImage {
+                guard let imageUrl = user.profile.imageURL(withDimension: 250) else { return }
+                ImageLoader.shared.getImage(url: imageUrl) { result in
+                    switch result {
+                    case .success(let image):
+                        DispatchQueue.main.async() { [weak self] in
+                            self!.profileImage = image
                         }
+                    case .failure(let error):
+                        print(error)
                     }
                 }
             }

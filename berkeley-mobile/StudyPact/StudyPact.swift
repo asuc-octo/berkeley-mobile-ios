@@ -14,8 +14,7 @@ class StudyPact {
     static let shared = StudyPact()
     
     private var cryptoHash: String?
-    private var email: String?
-    var studyGroups: [StudyGroup] = []
+    var email: String?
     
     init() {
         if let cryptoHash = UserDefaults.standard.string(forKey: "userCryptoHash") {
@@ -23,12 +22,10 @@ class StudyPact {
             if let previous = GIDSignIn.sharedInstance()?.hasPreviousSignIn(), previous {
                 GIDSignIn.sharedInstance()?.restorePreviousSignIn()
                 self.cryptoHash = cryptoHash
-                self.email = GIDSignIn.sharedInstance()?.currentUser.profile.email
             } else {
                 self.deleteCryptoHash()
                 self.cryptoHash = nil
                 self.email = nil
-                self.studyGroups = []
             }
         }
         
@@ -129,7 +126,6 @@ class StudyPact {
         NetworkManager.shared.post(url: url, body: params, asType: [StudyGroup].self) { response in
             switch response {
             case .success(let data):
-                self.studyGroups = data ?? []
                 completion(data ?? [])
             default:
                 completion([])
