@@ -48,32 +48,11 @@ class SelectClassView: UIView, UITextFieldDelegate, EnableNextDelegate {
     }
     
     func loadClasses() {
-        guard self.classNames.count == 0,
-              let url = URL(string: "https://berkeleytime.com/api/catalog/catalog_json/") else { return }
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        let session = URLSession.shared
-        let task = session.dataTask(with: request, completionHandler: { data, response, error -> Void in
-            guard let data = data, let response = response,
-                  let httpResponse = response as? HTTPURLResponse,
-                  httpResponse.statusCode == 200,
-                  error == nil else { return }
-            DispatchQueue.main.async {
-                do {
-                    let json = try JSONSerialization.jsonObject(with: data) as! Dictionary<String, AnyObject>
-                    let courses = json["courses"] as! Array<Dictionary<String, AnyObject>>
-                    for course in courses {
-                        guard let courseNumber = course["course_number"] as? String,
-                              let abbreviation = course["abbreviation"] as? String else { continue }
-                        self.classNames.append(abbreviation + " " + courseNumber)
-                    }
-                    self.textField.filterStrings(self.classNames)
-                } catch {
-                    print("error fetching courses")
-                }
-            }
-        })
-        task.resume()
+        guard self.classNames.count == 0 else { return }
+        StudyPact.shared.getBerkeleyCourses() { classNames in
+            self.classNames = classNames
+            self.textField.filterStrings(self.classNames)
+        }
     }
     
     @objc func setNextEnabled() {

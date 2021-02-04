@@ -11,7 +11,6 @@ import Firebase
 import GoogleSignIn
 
 class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, GIDSignInDelegate {
-    
     private var loggedIn = false
     private var loginButton: GIDSignInButton!
     
@@ -33,22 +32,18 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigation
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.view.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
         self.view.backgroundColor = Color.modalBackground
         
         setupHeader()
         
-        GIDSignIn.sharedInstance()?.delegate = self
+        SignInManager.shared.addDelegate(delegate: self)
         
-        if GIDSignIn.sharedInstance().hasPreviousSignIn() {
-            // Signed in
-
-            GIDSignIn.sharedInstance()?.restorePreviousSignIn()
+        if SignInManager.shared.isSignedIn {
             loggedInView()
+            fillProfile()
         } else {
-            GIDSignIn.sharedInstance()?.presentingViewController = self
-            
             loggedOutView()
         }
     }
@@ -58,24 +53,39 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigation
             print(error)
             return
         }
-        guard let authentication = user.authentication else {
+        guard user.authentication != nil else {
             loggedOutView()
             return
         }
-        // TODO: - Store the useful hash?
-        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
-                                                       accessToken: authentication.accessToken)
-        
-        loggedInView()
-        
-        let userId = user.userID  // Client side only
-        let idToken = user.authentication.idToken // Safe to send to the server
+        // if new sign in to google rather than previous sign in
+        if StudyPact.shared.getCryptoHash() == nil {
+            StudyPact.shared.registerUser(user: user) { success in
+                if !success {
+                    SignInManager.shared.signOut()
+                    DispatchQueue.main.async {
+                        self.loggedOutView()
+                    }
+                    return
+                }
+                self.loggedInView()
+                self.fillProfile()
+            }
+        }
+    }
+    
+    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
+        loggedOutView()
+    }
+    
+    func fillProfile() {
+        // TODO: call GetUser to fill in profile with backend data if user exists already
+        guard let user = SignInManager.shared.user else { return }
         let fullName = user.profile.name
         let email = user.profile.email
         
-        initialsLabel.text = String(fullName?.prefix(1) ?? "")
-        fullNameField.text = fullName
-        emailTextField.textField.text = email
+        self.initialsLabel.text = String(fullName?.prefix(1) ?? "")
+        self.fullNameField.text = fullName
+        self.emailTextField.textField.text = email
         
         if user.profile.hasImage {
             guard let imageUrl = user.profile.imageURL(withDimension: 250) else { return }
@@ -92,16 +102,11 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigation
         }
     }
     
-    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
-        loggedOutView()
-    }
-    
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        // TODO: - Update profile info here
         view.endEditing(true)
         return false
     }
@@ -124,6 +129,7 @@ extension ProfileViewController {
     }
     
     func loggedOutView() {
+        GIDSignIn.sharedInstance()?.presentingViewController = self
         loginButton = GIDSignInButton()
         
         view.addSubview(loginButton)
@@ -412,11 +418,11 @@ extension ProfileViewController {
     }
     
     @objc private func cancelButtonPressed(sender: UIButton) {
-        // TODO: - Implement
+        // TODO: call GetUser again and fill in fields
     }
     
     @objc private func saveButtonPressed(sender: UIButton) {
-        // TODO: - Implement
+        // TODO: validate fields then call AddUser
     }
     
     @objc private func changeImageButtonPressed(sender: UIButton) {
