@@ -16,19 +16,21 @@ class StudyPact {
     private var cryptoHash: String?
     var email: String?
     
-    init() {
+    /// Load cryptohash from user defaults. If it doesnt exist or authenticate fails, return false.
+    public func loadCryptoHash() -> Bool {
         if let cryptoHash = UserDefaults.standard.string(forKey: "userCryptoHash") {
-            // TODO: authenticate user first. if authenticate fails sign out of google and reset stored cryptohash and relevant variables
-            if let previous = GIDSignIn.sharedInstance()?.hasPreviousSignIn(), previous {
-                GIDSignIn.sharedInstance()?.restorePreviousSignIn()
-                self.cryptoHash = cryptoHash
-            } else {
-                self.deleteCryptoHash()
-                self.cryptoHash = nil
-                self.email = nil
-            }
+            self.cryptoHash = cryptoHash
+            // TODO: authenticate user first. if authenticate fails return false
+            return true
         }
-        
+        return false
+    }
+    
+    /// Reset all properties. Should be called if user is signed out of google
+    public func reset() {
+        self.deleteCryptoHash()
+        self.cryptoHash = nil
+        self.email = nil
     }
 
     // MARK: GetBerkeleyCourses

@@ -22,6 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         LocationManager.shared.requestLocation()
         IQKeyboardManager.shared.enable = true
         GIDSignIn.sharedInstance()?.clientID = FirebaseApp.app()?.options.clientID
+        // Force initialize so we can load the previous sign in on launch
+        SignInManager.shared
         return true
     }
 

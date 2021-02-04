@@ -38,15 +38,13 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigation
         
         setupHeader()
         
-        GIDSignIn.sharedInstance()?.delegate = self
-        let previousSignIn = GIDSignIn.sharedInstance().hasPreviousSignIn()
+        SignInManager.shared.addDelegate(delegate: self)
         
-        if let cryptoHash = StudyPact.shared.getCryptoHash(), previousSignIn {
-            // TODO: call GetUser and fill in profile
-            GIDSignIn.sharedInstance()?.restorePreviousSignIn()
+        if SignInManager.shared.isSignedIn,
+           let cryptohash = StudyPact.shared.getCryptoHash() {
             loggedInView()
+            fillProfile()
         } else {
-            GIDSignIn.sharedInstance()?.signOut()
             loggedOutView()
         }
     }
@@ -60,41 +58,49 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigation
             loggedOutView()
             return
         }
-        StudyPact.shared.registerUser(user: user) { success in
-            if !success {
-                GIDSignIn.sharedInstance().signOut()
-                DispatchQueue.main.async {
-                    self.loggedOutView()
-                }
-                return
-            }
-            self.loggedInView()
-            let fullName = user.profile.name
-            let email = user.profile.email
-            StudyPact.shared.email = email
-            
-            self.initialsLabel.text = String(fullName?.prefix(1) ?? "")
-            self.fullNameField.text = fullName
-            self.emailTextField.textField.text = email
-            
-            if user.profile.hasImage {
-                guard let imageUrl = user.profile.imageURL(withDimension: 250) else { return }
-                ImageLoader.shared.getImage(url: imageUrl) { result in
-                    switch result {
-                    case .success(let image):
-                        DispatchQueue.main.async() { [weak self] in
-                            self!.profileImage = image
-                        }
-                    case .failure(let error):
-                        print(error)
+        // if new sign in to google rather than previous sign in
+        if StudyPact.shared.getCryptoHash() == nil {
+            StudyPact.shared.registerUser(user: user) { success in
+                if !success {
+                    SignInManager.shared.signOut()
+                    DispatchQueue.main.async {
+                        self.loggedOutView()
                     }
+                    return
                 }
+                self.loggedInView()
+                self.fillProfile()
             }
         }
     }
     
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
         loggedOutView()
+    }
+    
+    func fillProfile() {
+        // TODO: call GetUser to fill in profile with backend data if user exists already
+        guard let user = SignInManager.shared.user else { return }
+        let fullName = user.profile.name
+        let email = user.profile.email
+        
+        self.initialsLabel.text = String(fullName?.prefix(1) ?? "")
+        self.fullNameField.text = fullName
+        self.emailTextField.textField.text = email
+        
+        if user.profile.hasImage {
+            guard let imageUrl = user.profile.imageURL(withDimension: 250) else { return }
+            ImageLoader.shared.getImage(url: imageUrl) { result in
+                switch result {
+                case .success(let image):
+                    DispatchQueue.main.async() { [weak self] in
+                        self!.profileImage = image
+                    }
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
     }
     
     @objc func dismissKeyboard() {
