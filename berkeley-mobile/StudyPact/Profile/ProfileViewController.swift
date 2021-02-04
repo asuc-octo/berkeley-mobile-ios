@@ -40,8 +40,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigation
         
         SignInManager.shared.addDelegate(delegate: self)
         
-        if SignInManager.shared.isSignedIn,
-           let cryptohash = StudyPact.shared.getCryptoHash() {
+        if SignInManager.shared.isSignedIn {
             loggedInView()
             fillProfile()
         } else {

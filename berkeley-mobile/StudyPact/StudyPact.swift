@@ -18,7 +18,6 @@ class StudyPact {
     
     /// Load cryptohash from user defaults. If it doesnt exist or authenticate fails, return false.
     public func loadCryptoHash() -> Bool {
-        reset()
         if let cryptoHash = UserDefaults.standard.string(forKey: "userCryptoHash") {
             self.cryptoHash = cryptoHash
             // TODO: authenticate user first. if authenticate fails return false
