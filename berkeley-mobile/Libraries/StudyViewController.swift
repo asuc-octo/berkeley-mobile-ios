@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import GoogleSignIn
 
 fileprivate let kViewMargin: CGFloat = 16
 
@@ -31,6 +32,8 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        SignInManager.shared.addDelegate(delegate: self)
         
         // update `filterTableView` when user location is updated.
         LocationManager.notificationCenter.addObserver(
@@ -279,5 +282,11 @@ extension StudyViewController {
         Analytics.logEvent("opened_library_screen", parameters: nil)
         
         refreshStudyGroupContents()
+    }
+}
+
+extension StudyViewController: GIDSignInDelegate {
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        self.refreshStudyGroupContents()
     }
 }
