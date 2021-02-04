@@ -120,7 +120,7 @@ class CreatePreferenceViewController: UIPageViewController, UIPageViewController
     }
     
     @objc func savePreference(_: UIButton) {
-        // TODO: send to backend
+        // TODO: AddClass api call
         print("send preference to backend")
         print(preference)
         self.dismiss(animated: true, completion: nil)

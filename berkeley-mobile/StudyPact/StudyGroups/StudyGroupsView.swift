@@ -19,6 +19,9 @@ class StudyGroupsView: UIView {
     var enclosingVC: UIViewController
     /// whether to add a "Create Preference" cell as the first cell
     var includeCreatePreference: Bool = false
+    /// the maximum number of groups to show, or show all groups if limit=nil
+    /// if the number of groups is below the limit, the include preference cell is included
+    var groupLimit: Int?
     /// allows for dynamically resizing the collection view height to match the number of elements
     private var collectionHeightConstraint: NSLayoutConstraint!
     
@@ -38,12 +41,11 @@ class StudyGroupsView: UIView {
         return collection
     }()
     
-    public init(studyGroups: [StudyGroup], enclosingVC: UIViewController, includeCreatePreference: Bool = false) {
+    public init(enclosingVC: UIViewController, limit: Int?) {
         self.enclosingVC = enclosingVC
+        self.groupLimit = limit
         super.init(frame: .zero)
-        
-        self.studyGroups = studyGroups
-        self.includeCreatePreference = includeCreatePreference
+        refreshGroups()
         
         collection.delegate = self
         collection.dataSource = self
@@ -67,16 +69,25 @@ class StudyGroupsView: UIView {
         collection.collectionViewLayout = layout
         
         collection.reloadData()
-        
-        let height = collection.collectionViewLayout.collectionViewContentSize.height + 16
-        collectionHeightConstraint.constant = height
         collection.setContentOffset(CGPoint(x: -5, y: -5), animated: false)
         self.layoutIfNeeded()
     }
     
     public func refreshGroups() {
-        // TODO: get groups again from backend
-        collection.reloadData()
+        StudyPact.shared.getGroups() { groups in
+            if let limit = self.groupLimit {
+                self.studyGroups = Array(groups.prefix(limit))
+                self.includeCreatePreference = groups.count < limit
+            } else {
+                self.studyGroups = groups
+                self.includeCreatePreference = true
+            }
+            DispatchQueue.main.async {
+                self.collection.reloadData()
+                let height = self.collection.collectionViewLayout.collectionViewContentSize.height + 16
+                self.collectionHeightConstraint.constant = height
+            }
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -230,7 +241,6 @@ class StudyGroupCell: UICollectionViewCell {
                     case .success(let image):
                         DispatchQueue.main.async {
                             profileImageView.image = image
-                            member.profilePicture = image
                             placeholderView.isHidden = true
                         }
                     case .failure(let error):
