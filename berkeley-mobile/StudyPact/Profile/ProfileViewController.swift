@@ -393,7 +393,7 @@ extension ProfileViewController {
         emailTextField = emailField
         
         // ** BUTTONS ** //
-        let cancelButton = ActionButton(title: "Cancel", font: Font.bold(14))
+        let cancelButton = ActionButton(title: "Cancel", font: Font.bold(14), defaultColor: Color.StudyPact.StudyGroups.leaveGroupButton, pressedColor: Color.StudyPact.StudyGroups.leaveGroupButton)
         cancelButton.layer.shadowRadius = 2.5
         cancelButton.addTarget(self, action: #selector(cancelButtonPressed), for: .touchUpInside)
         

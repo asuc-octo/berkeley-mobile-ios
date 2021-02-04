@@ -160,16 +160,10 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
                 studyGroupsGrid = nil
             }
             if studyPactContent.subviews.count == 0 {
-                let profileButton = UIButton()
-                profileButton.setTitle("Sign In to Get Started With Study Pact!", for: .normal)
-                profileButton.titleLabel?.font = Font.medium(13)
-                profileButton.backgroundColor = Color.StudyPact.StudyGroups.getStartedButton
+                let profileButton = ActionButton(title: "Sign In to Get Started With Study Pact!", defaultColor: Color.StudyPact.StudyGroups.getStartedButton, pressedColor: Color.StudyPact.StudyGroups.getStartedPressed)
                 profileButton.addTarget(self, action: #selector(goToProfile), for: .touchUpInside)
-                let radius: CGFloat = 20
-                profileButton.layer.cornerRadius = radius
                 studyPactContent.addSubview(profileButton)
                 profileButton.translatesAutoresizingMaskIntoConstraints = false
-                profileButton.heightAnchor.constraint(equalToConstant: 2 * radius).isActive = true
                 profileButton.widthAnchor.constraint(equalToConstant: 270).isActive = true
                 profileButton.centerYAnchor.constraint(equalTo: studyPactContent.centerYAnchor).isActive = true
                 profileButton.centerXAnchor.constraint(equalTo: studyPactContent.centerXAnchor).isActive = true
