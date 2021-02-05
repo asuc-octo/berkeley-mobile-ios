@@ -20,7 +20,9 @@ class StudyPact {
     public func loadCryptoHash() -> Bool {
         if let cryptoHash = UserDefaults.standard.string(forKey: "userCryptoHash") {
             self.cryptoHash = cryptoHash
-            // TODO: authenticate user first. if authenticate fails return false
+            authenticateUser { (success) in
+                // TODO: Block thread? until done
+            }
             return true
         }
         return false
@@ -89,6 +91,46 @@ class StudyPact {
             switch response {
             case .success(let data):
                 completion(data?.valid ?? false)
+            default:
+                completion(false)
+            }
+        }
+    }
+    
+    // MARK: GetUser
+    
+    public func getUser(completion: @escaping (Bool) -> Void) {
+        guard let cryptohash = self.cryptoHash,
+              let email = self.email,
+              let url = EndpointKey.getUser.url else {
+            completion(false)
+            return
+        }
+        let params = ["user_email": email, "secret_token": cryptohash]
+        NetworkManager.shared.post(url: url, body: params, asType: AnyJSON.self) { response in
+            switch response {
+            case .success(_):
+                completion(true)
+            default:
+                completion(false)
+            }
+        }
+    }
+    
+    // MARK: AddUser
+    
+    public func addUser(user: StudyGroupMember, completion: @escaping (Bool) -> Void) {
+        guard let cryptohash = self.cryptoHash,
+              let info = ["name": user.name, "phone": user.phoneNumber ?? "", "profile_picture": user.profilePictureURL ?? "", "facebook": user.facebookUsername ?? ""] as? [String: String],
+              let url = EndpointKey.addUser.url else {
+            completion(false)
+            return
+        }
+        let params = ["user_email": user.email, "secret_token": cryptohash, "timezone": TimeZone.current.identifier, "info": info] as [String : Any]
+        NetworkManager.shared.post(url: url, body: params, asType: AnyJSON.self) { response in
+            switch response {
+            case .success(_):
+                completion(true)
             default:
                 completion(false)
             }

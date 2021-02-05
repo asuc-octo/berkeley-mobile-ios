@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import GoogleSignIn
+import Foundation
 
 class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, GIDSignInDelegate {
     private var loggedIn = false
@@ -26,6 +27,8 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigation
     }
     private var fullNameField: BorderedTextField!
     private var emailTextField: TaggedTextField!
+    private var facebookTextField: TaggedTextField!
+    private var phoneTextField: BorderedTextField!
     
     private var changeImageButton: UIButton!
     private var imagePicker: UIImagePickerController!
@@ -79,6 +82,12 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigation
     
     func fillProfile() {
         // TODO: call GetUser to fill in profile with backend data if user exists already
+        StudyPact.shared.getUser { (success) in
+            if success {
+                
+            }
+        }
+        
         guard let user = SignInManager.shared.user else { return }
         let fullName = user.profile.name
         let email = user.profile.email
@@ -352,6 +361,7 @@ extension ProfileViewController {
         phoneField.setHeightConstraint(36)
         phoneField.rightAnchor.constraint(equalTo: rows.rightAnchor).isActive = true
 
+        phoneTextField = phoneField
 
         // ** FACEBOOK SECTION ** //
         let fbRow = UIStackView()
@@ -378,10 +388,11 @@ extension ProfileViewController {
         facebookLabel.setHeightConstraint(36)
         facebookLabel.leftAnchor.constraint(equalTo: rows.leftAnchor).isActive = true
         
-        let facebookField = TaggedTextField(text: "www.facebook.com/your-username")
+        let facebookField = TaggedTextField(text: "facebook.com/your-username")
         facebookField.textField.delegate = self
         facebookField.textField.autocorrectionType = .no
         facebookField.textField.keyboardType = .URL
+        facebookField.textField.textColor = Color.blackText
         
         fbRow.addArrangedSubview(facebookField)
 
@@ -391,6 +402,7 @@ extension ProfileViewController {
         
         fullNameField = firstnameField
         emailTextField = emailField
+        facebookTextField = facebookField
         
         // ** BUTTONS ** //
         let cancelButton = ActionButton(title: "Cancel", font: Font.bold(14), defaultColor: Color.StudyPact.StudyGroups.leaveGroupButton, pressedColor: Color.StudyPact.StudyGroups.leaveGroupButton)
@@ -422,7 +434,10 @@ extension ProfileViewController {
     }
     
     @objc private func saveButtonPressed(sender: UIButton) {
-        // TODO: validate fields then call AddUser
+        let facebook = validateFacebook(text: facebookTextField.textField.text ?? "")
+        let phoneNumber = validatePhoneNumber(text: phoneTextField.text ?? "")
+                
+        // TODO: AddUser
     }
     
     @objc private func changeImageButtonPressed(sender: UIButton) {
@@ -443,5 +458,42 @@ extension ProfileViewController {
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
+    }
+}
+
+extension ProfileViewController {
+    func validateFacebook(text: String) -> String {
+        if CharacterSet.decimalDigits.isSuperset(of: CharacterSet(charactersIn: text)) {
+            return text
+        }
+        
+        let fbPattern = ##"(?:(?:http|https):\/\/)?(?:www.)?facebook.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[?\w\-]*\/)?(?:profile.php\?id=(?=\d.*))?([\w\-]*)?"##
+        let fbRegex = try! NSRegularExpression(pattern: fbPattern, options: [.caseInsensitive])
+                
+        let stringRange = NSRange(location: 0, length: text.utf16.count)
+        let matches = fbRegex.matches(in: text, range: stringRange)
+        var result: [[String]] = []
+        for match in matches {
+            var groups: [String] = []
+            for rangeIndex in 1 ..< match.numberOfRanges {
+                groups.append((text as NSString).substring(with: match.range(at: rangeIndex)))
+            }
+            if !groups.isEmpty {
+                result.append(groups)
+            }
+        }
+        if result.count > 0 {
+            return result[0][0]
+        } else {
+            return ""
+        }
+    }
+    
+    func validatePhoneNumber(text: String) -> String {
+        if CharacterSet.decimalDigits.isSuperset(of: CharacterSet(charactersIn: text)) {
+            return text
+        } else {
+            return ""
+        }
     }
 }
