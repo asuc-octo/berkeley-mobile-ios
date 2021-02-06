@@ -98,16 +98,11 @@ class PendingGroupViewController: UIViewController {
                 if success {
                     self.dismiss(animated: true, completion: nil)
                 } else {
-                    self.alertError()
+                    self.presentFailureAlert(title: "Unable to Remove", message: "An issue occurred when attempting to remove your pending request. Please try again later.")
                 }
             }
         }))
         self.present(alertController, animated: true, completion: nil)
-    }
-
-    private func alertError() {
-        let alertController = UIAlertController(title: "Unable to Remove", message: "An issue occurred when attempting to remove your pending request. Please try again later.", preferredStyle: .alert)
-        alertController.addAction(UIAlertAction.init(title: "Cancel", style: .cancel))
     }
     
     public func presentSelf(presentingVC: UIViewController, studyGroup: StudyGroup) {

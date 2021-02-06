@@ -127,6 +127,8 @@ class CreatePreferenceViewController: UIPageViewController, UIPageViewController
             sender.alpha = 1.0
             if success {
                 self.dismiss(animated: true, completion: nil)
+            } else {
+                self.presentFailureAlert(title: "Unable to Save", message: "An issue occurred when attempting to save your group preference. Please try again later.")
             }
         }
     }
