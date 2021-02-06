@@ -14,6 +14,7 @@ import Foundation
 class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, GIDSignInDelegate {
     private var loggedIn = false
     private var loginButton: GIDSignInButton!
+    private var berkeleyWarningLabel: UILabel!
     
     private var profileLabel: UILabel!
     private var initialsLabel: ProfileLabel!
@@ -139,6 +140,7 @@ extension ProfileViewController {
     func loggedInView() {
         if let _ = loginButton {
             loginButton.isHidden = true
+            berkeleyWarningLabel.isHidden = true
         }
         
         setupProfile()
@@ -174,6 +176,8 @@ extension ProfileViewController {
         warningLabel.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 25).isActive = true
         warningLabel.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
         warningLabel.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
+        
+        berkeleyWarningLabel = warningLabel
     }
     
     func setupHeader() {
