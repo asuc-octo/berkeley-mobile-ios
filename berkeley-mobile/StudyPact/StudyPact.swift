@@ -130,7 +130,7 @@ class StudyPact {
         }
         let params: [String : Any] = ["user_email": email, "secret_token": cryptohash, "timezone": TimeZone.current.identifier, "info": infoStr]
         print(params)
-        NetworkManager.shared.post(url: url, body: params) { response in
+        NetworkManager.shared.post(url: url, body: params, asType: AnyJSON.self) { response in
             print(response)
             switch response {
             case .success(_):
