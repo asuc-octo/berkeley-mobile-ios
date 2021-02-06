@@ -119,11 +119,15 @@ class CreatePreferenceViewController: UIPageViewController, UIPageViewController
         moveToNextPage()
     }
     
-    @objc func savePreference(_: UIButton) {
+    @objc func savePreference(_ sender: UIButton) {
         // TODO: AddClass api call
-        print("send preference to backend")
-        print(preference)
-        self.dismiss(animated: true, completion: nil)
+        sender.isEnabled = false
+        StudyPact.shared.addClass(preferences: preference) { success in
+            sender.isEnabled = true
+            if success {
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
     }
     
     public func setNextEnabled() {
