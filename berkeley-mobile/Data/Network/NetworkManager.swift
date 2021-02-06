@@ -112,6 +112,14 @@ class NetworkManager {
             completion(.failure(error: error))
         } else if let response = response as? HTTPURLResponse,
                   response.statusCode != 200 {
+            if let data = data {
+                do {
+                    let decoded = try decode(data)
+                    print("Recieved: \(response) with data: \(decoded)")
+                } catch {
+                    print("Recieved: \(response) with data: \(data)")
+                }
+            }
             completion(.failure(error: RequestError.badResponse(code: response.statusCode)))
         } else {
             guard let data = data else {

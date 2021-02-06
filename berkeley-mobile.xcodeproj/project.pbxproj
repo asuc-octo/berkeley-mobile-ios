@@ -14,7 +14,7 @@
 		0181710525CA770A00BA6317 /* BTCourse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0181710425CA770A00BA6317 /* BTCourse.swift */; };
 		0181710A25CA90D300BA6317 /* AuthenticateUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0181710925CA90D300BA6317 /* AuthenticateUser.swift */; };
 		0181711125CAA3B300BA6317 /* AnyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0181711025CAA3B300BA6317 /* AnyJSON.swift */; };
-		0181711725CAABB000BA6317 /* AddClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0181711625CAABB000BA6317 /* AddClass.swift */; };
+		0181711725CAABB000BA6317 /* ClassPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0181711625CAABB000BA6317 /* ClassPreference.swift */; };
 		0181711C25CB506A00BA6317 /* Encodable+JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0181711B25CB506A00BA6317 /* Encodable+JSON.swift */; };
 		018B982625327358004C3B26 /* ActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018B982525327358004C3B26 /* ActionButton.swift */; };
 		018B982825328200004C3B26 /* Colors+ActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018B982725328200004C3B26 /* Colors+ActionButton.swift */; };
@@ -195,7 +195,7 @@
 		0181710425CA770A00BA6317 /* BTCourse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTCourse.swift; sourceTree = "<group>"; };
 		0181710925CA90D300BA6317 /* AuthenticateUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticateUser.swift; sourceTree = "<group>"; };
 		0181711025CAA3B300BA6317 /* AnyJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyJSON.swift; sourceTree = "<group>"; };
-		0181711625CAABB000BA6317 /* AddClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddClass.swift; sourceTree = "<group>"; };
+		0181711625CAABB000BA6317 /* ClassPreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassPreference.swift; sourceTree = "<group>"; };
 		0181711B25CB506A00BA6317 /* Encodable+JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+JSON.swift"; sourceTree = "<group>"; };
 		018B982525327358004C3B26 /* ActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButton.swift; sourceTree = "<group>"; };
 		018B982725328200004C3B26 /* Colors+ActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+ActionButton.swift"; sourceTree = "<group>"; };
@@ -403,7 +403,7 @@
 			children = (
 				0181710425CA770A00BA6317 /* BTCourse.swift */,
 				29DB64D125BA6269001C4275 /* StudyGroup.swift */,
-				0181711625CAABB000BA6317 /* AddClass.swift */,
+				0181711625CAABB000BA6317 /* ClassPreference.swift */,
 				0181710925CA90D300BA6317 /* AuthenticateUser.swift */,
 			);
 			path = Schema;
@@ -1286,7 +1286,7 @@
 				1336A320241D924300949F32 /* DiningItem.swift in Sources */,
 				299ACFB4244A5F90000F3E86 /* HasOccupancy.swift in Sources */,
 				0181710A25CA90D300BA6317 /* AuthenticateUser.swift in Sources */,
-				0181711725CAABB000BA6317 /* AddClass.swift in Sources */,
+				0181711725CAABB000BA6317 /* ClassPreference.swift in Sources */,
 				559A7B6D2373DEFA004EA501 /* MaterialTableViewCell.swift in Sources */,
 				29891B23257C521E0094891D /* PageViewController.swift in Sources */,
 				13EA64CD2399CEDA00FD8E13 /* Gym.swift in Sources */,

@@ -1,5 +1,5 @@
 //
-//  AddClass.swift
+//  ClassPreference.swift
 //  berkeley-mobile
 //
 //  Created by Kevin Hu on 2/3/21.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct AddClassParams: Encodable {
+struct AddPreferenceParams: Encodable {
     let email: String
     let cryptohash: String
     let className: String
@@ -31,5 +31,15 @@ struct AddClassParams: Encodable {
         self.className = className
         self.size = size
         self.env = isVirtual ? "virtual" : "in-person"
+    }
+}
+
+struct RemovePreferenceParams: Encodable {
+    let email: String
+    let cryptohash: String
+    let id: String
+
+    enum CodingKeys: String, CodingKey {
+        case email = "user_email", cryptohash = "secret_token", id = "class_id"
     }
 }

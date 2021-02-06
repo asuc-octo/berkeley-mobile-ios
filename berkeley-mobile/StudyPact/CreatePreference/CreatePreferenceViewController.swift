@@ -119,11 +119,18 @@ class CreatePreferenceViewController: UIPageViewController, UIPageViewController
         moveToNextPage()
     }
     
-    @objc func savePreference(_: UIButton) {
-        // TODO: AddClass api call
-        print("send preference to backend")
-        print(preference)
-        self.dismiss(animated: true, completion: nil)
+    @objc func savePreference(_ sender: UIButton) {
+        sender.isEnabled = false
+        sender.alpha = 0.5
+        StudyPact.shared.addClass(preferences: preference) { success in
+            sender.isEnabled = true
+            sender.alpha = 1.0
+            if success {
+                self.dismiss(animated: true, completion: nil)
+            } else {
+                self.presentFailureAlert(title: "Unable to Save", message: "An issue occurred when attempting to save your group preference. Please try again later.")
+            }
+        }
     }
     
     public func setNextEnabled() {
