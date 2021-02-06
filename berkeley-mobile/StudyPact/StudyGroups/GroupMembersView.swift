@@ -122,11 +122,14 @@ class GroupMemberCell: UICollectionViewCell {
     }
     
     @objc func msgTapped() {
-        if let url = URL(string: "https://m.me/bestjanelee") {
-            UIApplication.shared.open(url)
+        if _member.facebookUsername != nil {
+            if let url = URL(string: "https://m.me/" + _member.facebookUsername!) {
+                UIApplication.shared.open(url)
+            }
         } else {
-            
+            _parentView.presentFailureAlert(title: "Failed to launch messenger", message: "This user did not input their facebook user name.")
         }
+        
     }
     
     @objc func callTapped() {
@@ -134,7 +137,7 @@ class GroupMemberCell: UICollectionViewCell {
             UIPasteboard.general.string = _member.phoneNumber
             _parentView.presentSuccessAlert(title: "Phone number copied to clipboard.")
         } else {
-            vc.presentFailureAlert(title: "Failed to copy phone number", message: "This user did not input their phone number.")
+            _parentView.presentFailureAlert(title: "Failed to copy phone number", message: "This user did not input their phone number.")
         }
        
     }
