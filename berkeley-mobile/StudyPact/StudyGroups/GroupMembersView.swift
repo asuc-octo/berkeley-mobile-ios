@@ -54,7 +54,8 @@ class GroupMembersView: UIView {
         
         let layout = UICollectionViewFlowLayout()
         let width = Int(collection.frame.width - 20) / GroupMembersView.cellsPerRow
-        layout.itemSize = CGSize(width: width, height: GroupMemberCell.cellHeight)
+        let heightOfCellRatio = UIScreen.main.bounds.width / 375
+        layout.itemSize = CGSize(width: width, height: Int(160 * heightOfCellRatio))
         layout.minimumLineSpacing = 10
         collection.collectionViewLayout = layout
         
@@ -83,7 +84,7 @@ extension GroupMembersView: UICollectionViewDelegate, UICollectionViewDataSource
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GroupMemberCell.kCellIdentifier, for: indexPath)
         let index = indexPath.row
         if let groupMemberCell = cell as? GroupMemberCell {
-            groupMemberCell.configure(groupMember: studyGroupMembers[index])
+            groupMemberCell.configure(groupMember: studyGroupMembers[index], parentView: parentView)
             
         }
         return cell
@@ -96,9 +97,9 @@ extension GroupMembersView: UICollectionViewDelegate, UICollectionViewDataSource
 /// Cell displaying information for a single study group
 class GroupMemberCell: UICollectionViewCell {
     static let kCellIdentifier = "groupMemberCell"
-    static let cellHeight = 180
     
     private var _member: StudyGroupMember!
+    private var _parentView: UIViewController!
     
     // MARK: UI Elements
     let nameLabel: UILabel = {
@@ -116,15 +117,19 @@ class GroupMemberCell: UICollectionViewCell {
     }()
     
     @objc func emailTapped() {
-        //TODO: access the email address by calling _member.email
+        UIPasteboard.general.string = _member.email
+        _parentView.presentSuccessAlert(title: "Email copied to clipboard.")
     }
     
     @objc func msgTapped() {
-        //TODO: access group member info from _member
+        if let url = URL(string: "https://m.me/bestjanelee") {
+            UIApplication.shared.open(url)
+        }
     }
     
     @objc func callTapped() {
-        
+        UIPasteboard.general.string = _member.phoneNumber
+        _parentView.presentSuccessAlert(title: "Phone number copied to clipboard.")
     }
     
     // MARK: Setup
@@ -158,36 +163,38 @@ class GroupMemberCell: UICollectionViewCell {
         emailButton.translatesAutoresizingMaskIntoConstraints = false
         card.addSubview(emailButton)
         emailButton.centerXAnchor.constraint(equalTo: card.centerXAnchor).isActive = true
-        emailButton.widthAnchor.constraint(equalToConstant: frame.width * 0.2).isActive = true
-        emailButton.heightAnchor.constraint(equalToConstant: frame.width * 0.2).isActive = true
-        emailButton.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: kViewMargin / 2).isActive = true
+        emailButton.widthAnchor.constraint(equalToConstant: frame.width * 0.25).isActive = true
+        emailButton.heightAnchor.constraint(equalToConstant: frame.width * 0.25).isActive = true
+        emailButton.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: kViewMargin).isActive = true
         emailButton.addTarget(self, action: #selector(emailTapped), for: .touchUpInside)
         
         let msgButton = QuickActionButton(iconImage: UIImage(named:"messenger"))
         msgButton.translatesAutoresizingMaskIntoConstraints = false
         card.addSubview(msgButton)
         msgButton.rightAnchor.constraint(equalTo: emailButton.leftAnchor, constant: -kViewMargin / 2).isActive = true
-        msgButton.widthAnchor.constraint(equalToConstant: frame.width * 0.2).isActive = true
-        msgButton.heightAnchor.constraint(equalToConstant: frame.width * 0.2).isActive = true
-        msgButton.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: kViewMargin / 2).isActive = true
+        msgButton.widthAnchor.constraint(equalToConstant: frame.width * 0.25).isActive = true
+        msgButton.heightAnchor.constraint(equalToConstant: frame.width * 0.25).isActive = true
+        msgButton.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: kViewMargin).isActive = true
         msgButton.addTarget(self, action: #selector(msgTapped), for: .touchUpInside)
         
         let callButton = QuickActionButton(iconImage: UIImage(named:"phone-studyPact"))
         callButton.translatesAutoresizingMaskIntoConstraints = false
         card.addSubview(callButton)
         callButton.leftAnchor.constraint(equalTo: emailButton.rightAnchor, constant: kViewMargin / 2).isActive = true
-        callButton.widthAnchor.constraint(equalToConstant: frame.width * 0.2).isActive = true
-        callButton.heightAnchor.constraint(equalToConstant: frame.width * 0.2).isActive = true
-        callButton.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: kViewMargin / 2).isActive = true
+        callButton.widthAnchor.constraint(equalToConstant: frame.width * 0.25).isActive = true
+        callButton.heightAnchor.constraint(equalToConstant: frame.width * 0.25).isActive = true
+        callButton.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: kViewMargin).isActive = true
         callButton.addTarget(self, action: #selector(callTapped), for: .touchUpInside)
         
-        let memberPingButton = RoundedActionButton(title: "Ping to Study", font: Font.regular(8), color: UIColor(red: 0.984, green: 0.608, blue: 0.557, alpha: 1), iconImage: UIImage(named: "studyGroupBell"), iconSize: 14, cornerRadius: 12, iconOffset: -30)
-        memberPingButton.translatesAutoresizingMaskIntoConstraints = false
-        card.addSubview(memberPingButton)
-        memberPingButton.leftAnchor.constraint(equalTo: card.leftAnchor, constant: 20).isActive = true
-        memberPingButton.rightAnchor.constraint(equalTo: card.rightAnchor, constant: -20).isActive = true
-        memberPingButton.topAnchor.constraint(equalTo: emailButton.bottomAnchor, constant: kViewMargin).isActive = true
-        memberPingButton.bottomAnchor.constraint(equalTo: card.bottomAnchor, constant: -kViewMargin).isActive = true
+        //PLACEHOLDER CODE FOR PING BUTTON
+        
+//        let memberPingButton = RoundedActionButton(title: "Ping to Study", font: Font.regular(8), color: UIColor(red: 0.984, green: 0.608, blue: 0.557, alpha: 1), iconImage: UIImage(named: "studyGroupBell"), iconSize: 14, cornerRadius: 12, iconOffset: -30)
+//        memberPingButton.translatesAutoresizingMaskIntoConstraints = false
+//        card.addSubview(memberPingButton)
+//        memberPingButton.leftAnchor.constraint(equalTo: card.leftAnchor, constant: 20).isActive = true
+//        memberPingButton.rightAnchor.constraint(equalTo: card.rightAnchor, constant: -20).isActive = true
+//        memberPingButton.topAnchor.constraint(equalTo: emailButton.bottomAnchor, constant: kViewMargin).isActive = true
+//        memberPingButton.bottomAnchor.constraint(equalTo: card.bottomAnchor, constant: -kViewMargin).isActive = true
         
         
     }
@@ -196,8 +203,9 @@ class GroupMemberCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func configure(groupMember: StudyGroupMember) {
+    public func configure(groupMember: StudyGroupMember, parentView: UIViewController) {
         _member = groupMember
+        _parentView = parentView
         nameLabel.text = groupMember.name
         if let url = groupMember.profilePictureURL {
             ImageLoader.shared.getImage(url: url) { result in
