@@ -21,7 +21,13 @@ class StudyGroupDetailsViewController: UIViewController {
     }
     
     @objc func leaveGroup() {
-        //TODO: leave study group
+        StudyPact.shared.leaveGroup(groupId: _studyGroup.id) { success in
+            if success {
+                self.presentSuccessAlert(title: "Successfully left group")
+            } else {
+                self.presentFailureAlert(title: "Failed to leave group", message: "There was an error. Please try again later.")
+            }
+        }
     }
     
     let card: CardView = {
