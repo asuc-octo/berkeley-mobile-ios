@@ -13,6 +13,9 @@ fileprivate let kViewMargin: CGFloat = 16
 
 class ResourcesViewController: UIViewController {
     private var resourcesLabel: UILabel!
+    
+    private var resourcesCard: CardView!
+    private var resourcesTable: FilterTableView = FilterTableView<Resource>(frame: .zero, tableFunctions: [], defaultSort: SortingFunctions.sortAlph(item1:item2:))
     private var blobImageView: UIImageView!
     
     override func viewDidLoad() {
@@ -39,6 +42,8 @@ extension ResourcesViewController {
         resourcesLabel.translatesAutoresizingMaskIntoConstraints = false
         resourcesLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 15).isActive = true
         resourcesLabel.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
+        
+        
 
         // Blob
         let blob = UIImage(named: "BlobRight")!
@@ -53,7 +58,6 @@ extension ResourcesViewController {
         blobView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: blobView.frame.width / 2).isActive = true
         // Hacky workaround. Assumes that it is safe to overlap the text with half (and some) of the blob.
         blobView.centerXAnchor.constraint(equalTo: resourcesLabel.rightAnchor, constant: -20).isActive = true
-        
         blobImageView = blobView
     }
     
@@ -62,9 +66,17 @@ extension ResourcesViewController {
         // Add some right-padding to the segmented control so it doesn't overlap with the blob.
         // Don't add this padding for now.
         let segmentedControl = SegmentedControlViewController(pages: [
-            Page(viewController: CovidResourceViewController(), label: "COVID-19"),
-            Page(viewController: CampusResourceViewController(), label: "Campus-Wide")
-        ], controlInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: blobImageView.frame.width / 4), centerControl: false)
+            Page(viewController: CampusResourceViewController(type: .health), label: "Health"),
+            Page(viewController: CampusResourceViewController(type: .admin), label: "Admin"),
+            Page(viewController: CampusResourceViewController(type: .basicNeeds), label: "Basic Needs"),
+            Page(viewController: CampusResourceViewController(
+                type: nil,
+                notIn: Set<ResourceType>([.health, .admin, .basicNeeds])
+            ), label: "Other")
+        ], controlInsets: UIEdgeInsets(top: 0, left: view.layoutMargins.left,
+                                       bottom: 0, right: blobImageView.frame.width / 4),
+           centerControl: false, scrollable: true)
+        segmentedControl.control.sizeEqually = false
         self.add(child: segmentedControl)
         segmentedControl.view.translatesAutoresizingMaskIntoConstraints = false
         segmentedControl.view.topAnchor.constraint(equalTo: resourcesLabel.bottomAnchor, constant: kViewMargin).isActive = true
