@@ -146,14 +146,14 @@ class GroupMemberCell: UICollectionViewCell {
         
         card.addSubview(nameLabel)
         nameLabel.centerXAnchor.constraint(equalTo: card.centerXAnchor).isActive = true
-        nameLabel.centerYAnchor.constraint(equalTo: card.centerYAnchor).isActive = true
+        nameLabel.centerYAnchor.constraint(equalTo: card.centerYAnchor, constant: kViewMargin / 2).isActive = true
         
         card.addSubview(avatar)
         avatar.centerXAnchor.constraint(equalTo: card.centerXAnchor).isActive = true
         avatar.bottomAnchor.constraint(equalTo: nameLabel.topAnchor, constant: -kViewMargin / 2).isActive = true
-        avatar.widthAnchor.constraint(equalTo: card.widthAnchor, multiplier: 0.36).isActive = true
-        avatar.heightAnchor.constraint(equalTo: card.widthAnchor, multiplier: 0.36).isActive = true
-        avatar.layer.cornerRadius = (frame.width * 0.36) / 2
+        avatar.widthAnchor.constraint(equalTo: card.widthAnchor, multiplier: 0.4).isActive = true
+        avatar.heightAnchor.constraint(equalTo: card.widthAnchor, multiplier: 0.4).isActive = true
+        avatar.layer.cornerRadius = (frame.width * 0.4) / 2
         avatar.backgroundColor = UIColor.lightGray
         avatar.clipsToBounds = true
         avatar.layer.masksToBounds = true
