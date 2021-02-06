@@ -459,13 +459,31 @@ extension ProfileViewController {
     }
     
     @objc private func cancelButtonPressed(sender: UIButton) {
+        phoneTextField.setDefault()
+        facebookTextField.textField.setDefault()
+        
         // TODO: call GetUser again and fill in fields
     }
     
     @objc private func saveButtonPressed(sender: UIButton) {
         let facebook = validateFacebook(text: facebookTextField.textField.text ?? "")
         let phoneNumber = validatePhoneNumber(text: phoneTextField.text ?? "")
-                
+        
+        var hasInvalid = false
+        if facebookTextField.textField.text != "" && facebook == nil {
+            hasInvalid = true
+            facebookTextField.textField.setInvalid()
+        }
+        if phoneTextField.text != "" && phoneNumber == nil {
+            hasInvalid = true
+            phoneTextField.setInvalid()
+        }
+        if hasInvalid {
+            return
+        }
+        phoneTextField.setDefault()
+        facebookTextField.textField.setDefault()
+        
         // TODO: AddUser
     }
     
@@ -510,7 +528,10 @@ extension ProfileViewController {
         if result.count > 0 {
             return result[0][0]
         } else {
-            return text
+            if text.isAlphanumeric {
+                return text
+            }
+            return nil
         }
     }
     
@@ -520,5 +541,11 @@ extension ProfileViewController {
         } else {
             return nil
         }
+    }
+}
+
+extension String {
+    var isAlphanumeric: Bool {
+        return !isEmpty && range(of: "[^a-zA-Z0-9]", options: .regularExpression) == nil
     }
 }

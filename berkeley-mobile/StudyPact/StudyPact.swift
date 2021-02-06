@@ -121,14 +121,14 @@ class StudyPact {
     
     public func addUser(name: String, email: String, phone: String?, profile: String?, facebook: String?, completion: @escaping (Bool) -> Void) {
         guard let cryptohash = self.cryptoHash,
-              let info = ["name": name, "phone": phone ?? "", "profile_picture": profile ?? "", "facebook": facebook ?? ""] as? [String: String],
               let url = EndpointKey.addUser.url else {
             completion(false)
             return
         }
-        let params = ["user_email": email, "secret_token": cryptohash, "timezone": TimeZone.current.identifier, "info": info] as [String : Any]
+        let info: [String : String] = ["name": name, "phone": phone ?? "", "profile_picture": profile ?? "", "facebook": facebook ?? ""]
+        let params: [String : Any] = ["user_email": email, "secret_token": cryptohash, "timezone": TimeZone.current.identifier, "info": info]
         print(params)
-        NetworkManager.shared.post(url: url, body: params, asType: AnyJSON.self) { response in
+        NetworkManager.shared.post(url: url, body: params) { response in
             print(response)
             switch response {
             case .success(_):
