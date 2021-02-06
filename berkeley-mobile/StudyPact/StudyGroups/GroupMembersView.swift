@@ -94,7 +94,7 @@ extension GroupMembersView: UICollectionViewDelegate, UICollectionViewDataSource
     }
 }
 
-/// Cell displaying information for a single study group
+/// Cell displaying information for members of a single study view
 class GroupMemberCell: UICollectionViewCell {
     static let kCellIdentifier = "groupMemberCell"
     
