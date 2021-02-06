@@ -120,13 +120,15 @@ class StudyPact {
     // MARK: AddUser
     
     public func addUser(name: String, email: String, phone: String?, profile: String?, facebook: String?, completion: @escaping (Bool) -> Void) {
+        let info = ["name": name, "phone": phone ?? "", "profile_picture": profile ?? "", "facebook": facebook ?? ""]
         guard let cryptohash = self.cryptoHash,
-              let url = EndpointKey.addUser.url else {
+              let url = EndpointKey.addUser.url,
+              let data = try? JSONSerialization.data(withJSONObject: info, options: []),
+              let infoStr = String(data: data, encoding: .ascii) else {
             completion(false)
             return
         }
-        let info: [String : String] = ["name": name, "phone": phone ?? "", "profile_picture": profile ?? "", "facebook": facebook ?? ""]
-        let params: [String : Any] = ["user_email": email, "secret_token": cryptohash, "timezone": TimeZone.current.identifier, "info": info]
+        let params: [String : Any] = ["user_email": email, "secret_token": cryptohash, "timezone": TimeZone.current.identifier, "info": infoStr]
         print(params)
         NetworkManager.shared.post(url: url, body: params) { response in
             print(response)
