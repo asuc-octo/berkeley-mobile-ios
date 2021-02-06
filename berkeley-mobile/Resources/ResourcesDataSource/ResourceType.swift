@@ -12,8 +12,6 @@ import UIKit
 enum ResourceType: String {
 
     case health = "Health"
-    case finances = "Finances"
-    case legal = "Legal"
     case basicNeeds = "Basic Needs"
     case admin = "Admin"
 
@@ -21,10 +19,6 @@ enum ResourceType: String {
         switch self {
         case .health:
             return Color.Resource.health
-        case .finances:
-            return Color.Resource.finances
-        case .legal:
-            return Color.Resource.legal
         case .basicNeeds:
             return Color.Resource.basicNeeds
         case .admin:

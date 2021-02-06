@@ -79,5 +79,9 @@ struct Color {
     static var barGraphEntryCurrent: UIColor {
         return UIColor(displayP3Red: 119/255, green: 154/255, blue: 252/255, alpha: 1.0)
     }
+
+    static var segmentedControlHighlight: UIColor {
+        return UIColor(displayP3Red: 250/255, green: 212/255, blue: 126/255, alpha: 1.0)
+    }
 }
 

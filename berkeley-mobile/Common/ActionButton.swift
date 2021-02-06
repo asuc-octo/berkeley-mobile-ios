@@ -12,14 +12,18 @@ import UIKit
 fileprivate let kButtonPadding: UIEdgeInsets = UIEdgeInsets(top: 13, left: 16, bottom: 13, right: 16)
 /// A stylized button with a background color, rounded corners, and a drop shadow.
 class ActionButton: UIButton {
+    var defaultColor: UIColor
+    var pressedColor: UIColor
 
     override open var isHighlighted: Bool {
         didSet {
-            backgroundColor = isHighlighted ? Color.ActionButton.highlighted : Color.ActionButton.background
+            backgroundColor = isHighlighted ? pressedColor : defaultColor
         }
     }
 
-    init(title: String, font: UIFont = Font.medium(12)) {
+    init(title: String, font: UIFont = Font.medium(12), defaultColor: UIColor = Color.ActionButton.background, pressedColor: UIColor = Color.ActionButton.highlighted) {
+        self.defaultColor = defaultColor
+        self.pressedColor = pressedColor
         super.init(frame: .zero)
         contentEdgeInsets = kButtonPadding
         isHighlighted = false

@@ -28,10 +28,24 @@ class SegmentedControl: UISegmentedControl {
     // Selection Indicator
     private var indicator: UIView!
     private var indicatorHeight: CGFloat!
+    open var indicatorFrame: CGRect { indicator.frame }
 
     // Selection Label Widths
     private var maxWidth: CGFloat!
     private var widths: [CGFloat]!
+
+    private var items: [String] = []
+
+    /// This value is `true` if the control should be split into equal segments,
+    /// otherwise the segment widths depend on the length of the label.
+    open var sizeEqually: Bool = true {
+        didSet { setItems(items) }
+    }
+
+    /// The additional spacing between items when `sizeEqually` is `true`.
+    open var spacing: CGFloat = 10 {
+        didSet { setItems(items) }
+    }
     
     // Updates after animation completes
     open var index: Int! = 0 {
@@ -49,6 +63,11 @@ class SegmentedControl: UISegmentedControl {
     override var alpha: CGFloat {
         get { return 1.0 }
         set { }
+    }
+
+    override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        // This allows the control to be used smoothly within a scroll view
+        return true
     }
     
     override func layoutSubviews() {
@@ -85,6 +104,8 @@ class SegmentedControl: UISegmentedControl {
     }
     
     func setItems(_ items: [String]) {
+        self.items = items
+        removeAllSegments()
         for item in items {
             let index = numberOfSegments
             insertSegment(withTitle: item, at: index, animated: false)
@@ -96,9 +117,11 @@ class SegmentedControl: UISegmentedControl {
         widths = []
         setLabelsAdjustFont(view: self)
         for i in 0..<min(segments.count, numberOfSegments) {
-            widths.append(min(segments[i].frame.size.width, maxWidth / CGFloat(segments.count)))
-            setWidth(maxWidth / CGFloat(segments.count), forSegmentAt: i)
+            let intrinsicWidth = segments[i].frame.size.width
+            widths.append(sizeEqually ? min(intrinsicWidth, maxWidth / CGFloat(segments.count)) : intrinsicWidth)
+            setWidth(sizeEqually ? maxWidth / CGFloat(segments.count) : intrinsicWidth + spacing, forSegmentAt: i)
         }
+        selectedSegmentIndex = numberOfSegments > 0 ? 0 : -1
         layoutIfNeeded()
         updateIndicator()
     }
@@ -124,6 +147,7 @@ class SegmentedControl: UISegmentedControl {
     }
     
     open func updateIndicator() {
+        sendSubviewToBack(indicator)
         // TODO: Don't hardcode
         self.indicator.frame.origin.y = 1/2 * frame.height + 3
         if !(0..<widths.count ~= index) { return }
@@ -134,8 +158,13 @@ class SegmentedControl: UISegmentedControl {
         let delta = max(abs(selectedSegmentIndex - index), 1)
         let step = self.frame.width / CGFloat(self.numberOfSegments)
         UIView.animate(withDuration: 0.1) {
+            let deltaProgress = CGFloat(Double(delta) * self.progress)
+            let indexFloat = CGFloat(self.index)
             self.indicator.frame.size.width = width
-            self.indicator.frame.origin.x = step * CGFloat(Double(self.index) + 0.5 + Double(delta) * self.progress) - width / 2
+            self.indicator.frame.origin.x = self.sizeEqually ?
+                step * (indexFloat + 0.5 + deltaProgress) - width / 2 :
+                self.widths[0..<self.index].reduce(0.0, +) + self.spacing * (indexFloat + 0.5) +
+                    deltaProgress * (self.spacing + (self.progress > 0 ? curWidth : newWidth))
         }
     }
     

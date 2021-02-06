@@ -31,6 +31,8 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         profileView.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "Profile"), tag: 3)
         
         self.viewControllers = [mapView, resourcesView, calendarView, profileView]
+        
+        
     }
     
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
