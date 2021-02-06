@@ -15,6 +15,7 @@ class AllStudyGroupsViewController: UIViewController {
     var studyGroups: [StudyGroup] = []
     var studyGroupsGrid: StudyGroupsView!
     
+    
     // MARK: UI Elements
     let card: CardView = {
         let cardView = CardView()
@@ -74,7 +75,7 @@ class AllStudyGroupsViewController: UIViewController {
         titleLabel.leftAnchor.constraint(equalTo: card.leftAnchor, constant: kViewMargin).isActive = true
         titleLabel.rightAnchor.constraint(lessThanOrEqualTo: self.view.rightAnchor, constant: -1 * kViewMargin).isActive = true
         
-        studyGroupsGrid = StudyGroupsView(studyGroups: studyGroups, includeCreateGroup: true)
+        studyGroupsGrid = StudyGroupsView(studyGroups: studyGroups, includeCreateGroup: true, parentView: self)
         studyGroupsGrid.translatesAutoresizingMaskIntoConstraints = false
         card.addSubview(studyGroupsGrid)
         studyGroupsGrid.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: kViewMargin).isActive = true

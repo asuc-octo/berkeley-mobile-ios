@@ -164,7 +164,7 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
                 for view in studyPactContent.subviews {
                     view.removeFromSuperview()
                 }
-                let groupGrid = StudyGroupsView(studyGroups: usedGroups, includeCreateGroup: groups.count < 2)
+                let groupGrid = StudyGroupsView(studyGroups: usedGroups, includeCreateGroup: groups.count < 2, parentView: self)
                 studyPactContent.addSubview(groupGrid)
                 groupGrid.translatesAutoresizingMaskIntoConstraints = false
                 groupGrid.topAnchor.constraint(equalTo: studyPactContent.topAnchor).isActive = true

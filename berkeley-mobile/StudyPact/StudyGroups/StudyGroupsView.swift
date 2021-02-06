@@ -18,6 +18,7 @@ class StudyGroupsView: UIView {
     /// whether to add a "Create Group" cell as the first cell
     var includeCreateGroup: Bool = false
     /// allows for dynamically resizing the collection view height to match the number of elements
+    var parentView: UIViewController = UIViewController()
     private var collectionHeightConstraint: NSLayoutConstraint!
     
     private let collection: UICollectionView = {
@@ -35,11 +36,12 @@ class StudyGroupsView: UIView {
         return collection
     }()
     
-    public init(studyGroups: [StudyGroup], includeCreateGroup: Bool = false) {
+    public init(studyGroups: [StudyGroup], includeCreateGroup: Bool = false, parentView: UIViewController) {
         super.init(frame: .zero)
         
         self.studyGroups = studyGroups
         self.includeCreateGroup = includeCreateGroup
+        self.parentView = parentView
         
         collection.delegate = self
         collection.dataSource = self
@@ -101,6 +103,12 @@ extension StudyGroupsView: UICollectionViewDelegate, UICollectionViewDataSource,
             }
             return cell
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let vc = StudyGroupDetailsViewController()
+        vc._studyGroup = studyGroups[indexPath.item - (includeCreateGroup ? 1 : 0)]
+        parentView.present(vc, animated: true)
     }
 }
 

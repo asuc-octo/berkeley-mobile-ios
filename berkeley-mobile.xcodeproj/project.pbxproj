@@ -162,6 +162,8 @@
 		55DCF7A123724835001B01B8 /* MaterialButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF7A023724835001B01B8 /* MaterialButton.swift */; };
 		55EDAA702569D622006BAFAC /* CovidResourceDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EDAA6F2569D622006BAFAC /* CovidResourceDataSource.swift */; };
 		55EDAA742569D730006BAFAC /* CovidResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EDAA732569D730006BAFAC /* CovidResource.swift */; };
+		F07EDD8C25C626FE0097C813 /* GroupMembersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07EDD8B25C626FE0097C813 /* GroupMembersView.swift */; };
+		F0E4A47C25BCEC3000FF2256 /* StudyGroupDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E4A47B25BCEC3000FF2256 /* StudyGroupDetailsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -330,6 +332,8 @@
 		B5DD1FA9F5CF4BCFD4A64306 /* Pods-bm-persona.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bm-persona.debug.xcconfig"; path = "Target Support Files/Pods-bm-persona/Pods-bm-persona.debug.xcconfig"; sourceTree = "<group>"; };
 		CB9A33BEF33ABF885BD30304 /* Pods-berkeley-mobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeley-mobile.release.xcconfig"; path = "Target Support Files/Pods-berkeley-mobile/Pods-berkeley-mobile.release.xcconfig"; sourceTree = "<group>"; };
 		EC01CCF388C7E41052CEB683 /* Pods-bm-persona.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bm-persona.release.xcconfig"; path = "Target Support Files/Pods-bm-persona/Pods-bm-persona.release.xcconfig"; sourceTree = "<group>"; };
+		F07EDD8B25C626FE0097C813 /* GroupMembersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupMembersView.swift; sourceTree = "<group>"; };
+		F0E4A47B25BCEC3000FF2256 /* StudyGroupDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyGroupDetailsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -670,6 +674,8 @@
 				29DB64D825BA8242001C4275 /* AllStudyGroupsViewController.swift */,
 				298EE26C25BB7CD4002BAF0F /* StudyPreferencesViewController.swift */,
 				29DB64D125BA6269001C4275 /* StudyGroup.swift */,
+				F0E4A47B25BCEC3000FF2256 /* StudyGroupDetailsViewController.swift */,
+				F07EDD8B25C626FE0097C813 /* GroupMembersView.swift */,
 			);
 			path = StudyGroups;
 			sourceTree = "<group>";
@@ -1018,6 +1024,7 @@
 				29F11EC72516C150007DCFD7 /* BarView.swift in Sources */,
 				55DCF78723722CBD001B01B8 /* Colors.swift in Sources */,
 				29B3D7862453984A006762E5 /* DrawerViewDelegate.swift in Sources */,
+				F0E4A47C25BCEC3000FF2256 /* StudyGroupDetailsViewController.swift in Sources */,
 				559AF6E0251EAA2800463E2A /* DetailTapGestureRecognizer.swift in Sources */,
 				29EE163F241C4E310041482E /* SortingFunctions.swift in Sources */,
 				29AB5BBF241D8766007C3ECA /* HasOpenTimes.swift in Sources */,
@@ -1078,6 +1085,7 @@
 				303F6AE4236A931D007E37DD /* SegmentedControlViewController.swift in Sources */,
 				559A7B6F2373DF39004EA501 /* SearchResultCell.swift in Sources */,
 				299ACFB0244A58CD000F3E86 /* OccupancyDataSource.swift in Sources */,
+				F07EDD8C25C626FE0097C813 /* GroupMembersView.swift in Sources */,
 				29DB64D225BA6269001C4275 /* StudyGroup.swift in Sources */,
 				29345E2B24A7EC2B00859A88 /* HasImage.swift in Sources */,
 				2913595924B13DF200DE9AD6 /* OpenTimesCardView.swift in Sources */,
