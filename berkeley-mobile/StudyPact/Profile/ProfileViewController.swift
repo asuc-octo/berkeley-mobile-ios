@@ -84,7 +84,21 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigation
         // TODO: call GetUser to fill in profile with backend data if user exists already
         StudyPact.shared.getUser { (success) in
             if success {
+                print("user exists")
                 
+            } else {
+                guard let user = SignInManager.shared.user else { return }
+                var imageUrl = ""
+                if user.profile.hasImage {
+                    imageUrl = user.profile.imageURL(withDimension: 250)!.absoluteString
+                }
+                StudyPact.shared.addUser(name: user.profile.name, email: user.profile.email, phone: nil, profile: imageUrl, facebook: nil) { (success) in
+                    if success {
+                        print("user added")
+                    } else {
+                        print("error")
+                    }
+                }
             }
         }
         
@@ -145,6 +159,21 @@ extension ProfileViewController {
         loginButton.translatesAutoresizingMaskIntoConstraints = false
         loginButton.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        let warningLabel = UILabel()
+        warningLabel.text = "You must use a valid Berkeley.edu email"
+        warningLabel.font = Font.medium(14)
+        warningLabel.numberOfLines = 1
+        warningLabel.adjustsFontSizeToFitWidth = true
+        warningLabel.minimumScaleFactor = 0.7
+        warningLabel.textColor = Color.lightGrayText
+        warningLabel.textAlignment = .center
+        
+        view.addSubview(warningLabel)
+        warningLabel.translatesAutoresizingMaskIntoConstraints = false
+        warningLabel.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 25).isActive = true
+        warningLabel.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
+        warningLabel.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
     }
     
     func setupHeader() {
@@ -462,11 +491,7 @@ extension ProfileViewController {
 }
 
 extension ProfileViewController {
-    func validateFacebook(text: String) -> String {
-        if CharacterSet.decimalDigits.isSuperset(of: CharacterSet(charactersIn: text)) {
-            return text
-        }
-        
+    func validateFacebook(text: String) -> String? {
         let fbPattern = ##"(?:(?:http|https):\/\/)?(?:www.)?facebook.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[?\w\-]*\/)?(?:profile.php\?id=(?=\d.*))?([\w\-]*)?"##
         let fbRegex = try! NSRegularExpression(pattern: fbPattern, options: [.caseInsensitive])
                 
@@ -485,15 +510,15 @@ extension ProfileViewController {
         if result.count > 0 {
             return result[0][0]
         } else {
-            return ""
+            return text
         }
     }
     
-    func validatePhoneNumber(text: String) -> String {
+    func validatePhoneNumber(text: String) -> String? {
         if CharacterSet.decimalDigits.isSuperset(of: CharacterSet(charactersIn: text)) {
             return text
         } else {
-            return ""
+            return nil
         }
     }
 }

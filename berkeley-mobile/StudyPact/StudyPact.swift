@@ -107,9 +107,9 @@ class StudyPact {
             return
         }
         let params = ["user_email": email, "secret_token": cryptohash]
-        NetworkManager.shared.post(url: url, body: params, asType: AnyJSON.self) { response in
+        NetworkManager.shared.post(url: url, body: params) { response in
             switch response {
-            case .success(_):
+            case .success(let data):
                 completion(true)
             default:
                 completion(false)
@@ -119,15 +119,17 @@ class StudyPact {
     
     // MARK: AddUser
     
-    public func addUser(user: StudyGroupMember, completion: @escaping (Bool) -> Void) {
+    public func addUser(name: String, email: String, phone: String?, profile: String?, facebook: String?, completion: @escaping (Bool) -> Void) {
         guard let cryptohash = self.cryptoHash,
-              let info = ["name": user.name, "phone": user.phoneNumber ?? "", "profile_picture": user.profilePictureURL ?? "", "facebook": user.facebookUsername ?? ""] as? [String: String],
+              let info = ["name": name, "phone": phone ?? "", "profile_picture": profile ?? "", "facebook": facebook ?? ""] as? [String: String],
               let url = EndpointKey.addUser.url else {
             completion(false)
             return
         }
-        let params = ["user_email": user.email, "secret_token": cryptohash, "timezone": TimeZone.current.identifier, "info": info] as [String : Any]
+        let params = ["user_email": email, "secret_token": cryptohash, "timezone": TimeZone.current.identifier, "info": info] as [String : Any]
+        print(params)
         NetworkManager.shared.post(url: url, body: params, asType: AnyJSON.self) { response in
+            print(response)
             switch response {
             case .success(_):
                 completion(true)
