@@ -31,9 +31,11 @@ class SignInManager: NSObject, GIDSignInDelegate {
         GIDSignIn.sharedInstance()?.delegate = self
         if let previous = GIDSignIn.sharedInstance()?.hasPreviousSignIn(), previous {
             GIDSignIn.sharedInstance()?.restorePreviousSignIn()
-            if !StudyPact.shared.loadCryptoHash() {
-                GIDSignIn.sharedInstance()?.signOut()
-                StudyPact.shared.reset()
+            StudyPact.shared.loadCryptoHash { success in
+                if !success {
+                    GIDSignIn.sharedInstance()?.signOut()
+                    StudyPact.shared.reset()
+                }
             }
         } else {
             StudyPact.shared.reset()

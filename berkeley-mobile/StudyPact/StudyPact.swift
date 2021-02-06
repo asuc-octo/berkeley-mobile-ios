@@ -20,13 +20,14 @@ class StudyPact {
     var email: String?
 
     /// Load cryptohash from user defaults. If it doesnt exist or authenticate fails, return false.
-    public func loadCryptoHash() -> Bool {
-        if let cryptoHash = UserDefaults.standard.string(forKey: "userCryptoHash") {
+    public func loadCryptoHash(completion: @escaping (Bool) -> Void) {
+        print(UserDefaults.standard.string(forKey: kCryptoHashKey))
+        if let cryptoHash = UserDefaults.standard.string(forKey: kCryptoHashKey) {
             self.cryptoHash = cryptoHash
-            // TODO: authenticate user first. if authenticate fails return false
-            return true
+            authenticateUser(completion: completion)
+        } else {
+            completion(false)
         }
-        return false
     }
     
     /// Reset all properties. Should be called if user is signed out of google

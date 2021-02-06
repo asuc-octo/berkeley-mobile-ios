@@ -120,10 +120,11 @@ class CreatePreferenceViewController: UIPageViewController, UIPageViewController
     }
     
     @objc func savePreference(_ sender: UIButton) {
-        // TODO: AddClass api call
         sender.isEnabled = false
+        sender.alpha = 0.5
         StudyPact.shared.addClass(preferences: preference) { success in
             sender.isEnabled = true
+            sender.alpha = 1.0
             if success {
                 self.dismiss(animated: true, completion: nil)
             }
