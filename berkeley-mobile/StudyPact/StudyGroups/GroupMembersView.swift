@@ -124,12 +124,19 @@ class GroupMemberCell: UICollectionViewCell {
     @objc func msgTapped() {
         if let url = URL(string: "https://m.me/bestjanelee") {
             UIApplication.shared.open(url)
+        } else {
+            
         }
     }
     
     @objc func callTapped() {
-        UIPasteboard.general.string = _member.phoneNumber
-        _parentView.presentSuccessAlert(title: "Phone number copied to clipboard.")
+        if _member.phoneNumber != nil {
+            UIPasteboard.general.string = _member.phoneNumber
+            _parentView.presentSuccessAlert(title: "Phone number copied to clipboard.")
+        } else {
+            vc.presentFailureAlert(title: "Failed to copy phone number", message: "This user did not input their phone number.")
+        }
+       
     }
     
     // MARK: Setup
@@ -146,7 +153,7 @@ class GroupMemberCell: UICollectionViewCell {
         
         card.addSubview(nameLabel)
         nameLabel.centerXAnchor.constraint(equalTo: card.centerXAnchor).isActive = true
-        nameLabel.centerYAnchor.constraint(equalTo: card.centerYAnchor, constant: kViewMargin / 2).isActive = true
+        nameLabel.centerYAnchor.constraint(equalTo: card.centerYAnchor, constant: kViewMargin).isActive = true
         
         card.addSubview(avatar)
         avatar.centerXAnchor.constraint(equalTo: card.centerXAnchor).isActive = true
