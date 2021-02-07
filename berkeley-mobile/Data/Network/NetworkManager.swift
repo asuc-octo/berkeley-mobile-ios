@@ -14,6 +14,7 @@ typealias Nonce = URLSessionDataTask
 
 // MARK: - NetworkManager
 
+/// Class for managing HTTP POST and GET requests and decoding JSON responses.
 class NetworkManager {
 
     /// Singleton instance.
@@ -47,6 +48,17 @@ class NetworkManager {
         return task
     }
 
+    /**
+     Performs an HTTP GET request and interprets the result as the given type.
+
+     - Parameter url: The URL of the request.
+     - Parameter params: The parameters to send in the request. These must be encodable into (key, value) string pairs.
+     - Parameter asType: The decodable type with which to interpret the response as.
+     - Parameter completion: A completion block that is called with a `Response` enum containing either
+        the decoded response data or an error.
+
+     - Returns: A reference to the `URLSessionDataTask` for this request, or `nil` if no request was made.
+     */
     @discardableResult
     open func get<D: Encodable, T: Decodable>(url: URL, params: Params<D>, asType: T.Type,
                                               completion: @escaping (Response<T>) -> Void) -> Nonce? {
@@ -55,6 +67,16 @@ class NetworkManager {
         }, completion: completion)
     }
 
+    /**
+     Performs an HTTP GET request and interprets the result as a JSON object, returned as `[String: Any]`.
+
+     - Parameter url: The URL of the request.
+     - Parameter params: The parameters to send in the request. These must be encodable into (key, value) string pairs.
+     - Parameter completion: A completion block that is called with a `Response` enum containing either
+        the decoded response data or an error.
+
+     - Returns: A reference to the `URLSessionDataTask` for this request, or `nil` if no request was made.
+     */
     @discardableResult
     open func get<D: Encodable>(url: URL, params: Params<D>,
                                 completion: @escaping (Response<JSONObject>) -> Void) -> Nonce? {
@@ -84,6 +106,17 @@ class NetworkManager {
         return task
     }
 
+    /**
+     Performs an HTTP POST request and interprets the result as the given type.
+
+     - Parameter url: The URL of the request.
+     - Parameter body: The JSON object to send in the request body.
+     - Parameter asType: The decodable type with which to interpret the response as.
+     - Parameter completion: A completion block that is called with a `Response` enum containing either
+        the decoded response data or an error.
+
+     - Returns: A reference to the `URLSessionDataTask` for this request, or `nil` if no request was made.
+     */
     @discardableResult
     open func post<T: Decodable>(url: URL, body: JSONObject, asType: T.Type,
                                  completion: @escaping (Response<T>) -> Void) -> Nonce? {
@@ -92,6 +125,16 @@ class NetworkManager {
         }, completion: completion)
     }
 
+    /**
+     Performs an HTTP POST request and interprets the result as a JSON object, returned as `[String: Any]`.
+
+     - Parameter url: The URL of the request.
+     - Parameter body: The JSON object to send in the request body.
+     - Parameter completion: A completion block that is called with a `Response` enum containing either
+        the decoded response data or an error.
+
+     - Returns: A reference to the `URLSessionDataTask` for this request, or `nil` if no request was made.
+     */
     @discardableResult
     open func post(url: URL, body: JSONObject,
                    completion: @escaping (Response<JSONObject>) -> Void) -> Nonce? {
@@ -137,7 +180,7 @@ class NetworkManager {
 
     // MARK: - Helpers
 
-    open func parameterize<T: Encodable>(_ url: URL, with params: Params<T>) -> URL? {
+    private func parameterize<T: Encodable>(_ url: URL, with params: Params<T>) -> URL? {
         guard var components = URLComponents(url: url, resolvingAgainstBaseURL: true),
               let json = try? JSONSerialization.jsonObject(with: jsonEncoder.encode(params))
                 as? JSONObject else { return nil }
