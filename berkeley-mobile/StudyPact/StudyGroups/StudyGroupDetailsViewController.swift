@@ -51,7 +51,7 @@ class StudyGroupDetailsViewController: UIViewController {
     }()
     
     var leaveGroupButton: RoundedActionButton = {
-        let button = RoundedActionButton(title: "Leave Study Group", color: UIColor(red: 0.847, green: 0.847, blue: 0.847, alpha: 1), iconImage: nil)
+        let button = RoundedActionButton(title: "Leave Study Group", color: UIColor.lightGray, iconImage: nil)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(leaveGroup), for: .touchUpInside)
         return button
@@ -84,14 +84,16 @@ class StudyGroupDetailsViewController: UIViewController {
         groupMembersGrid.leftAnchor.constraint(equalTo: card.leftAnchor, constant: kViewMargin).isActive = true
         groupMembersGrid.bottomAnchor.constraint(equalTo: card.bottomAnchor, constant: -1 * kViewMargin).isActive = true
         
-        view.addSubview(pingAllButton)
-        pingAllButton.topAnchor.constraint(equalTo: card.bottomAnchor, constant: kViewMargin).isActive = true
-        pingAllButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -1 * kViewMargin).isActive = true
-        pingAllButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: kViewMargin).isActive = true
-        pingAllButton.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -2 * kViewMargin).isActive = true
+        //PLACEHOLDER CODE FOR PING BUTTON
+        
+//        //view.addSubview(pingAllButton)
+//        pingAllButton.topAnchor.constraint(equalTo: card.bottomAnchor, constant: kViewMargin).isActive = true
+//        pingAllButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -1 * kViewMargin).isActive = true
+//        pingAllButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: kViewMargin).isActive = true
+//        pingAllButton.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -2 * kViewMargin).isActive = true
         
         view.addSubview(leaveGroupButton)
-        leaveGroupButton.topAnchor.constraint(equalTo: pingAllButton.bottomAnchor, constant: kViewMargin / 2).isActive = true
+        leaveGroupButton.topAnchor.constraint(equalTo: card.bottomAnchor, constant: kViewMargin).isActive = true
         leaveGroupButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -1 * kViewMargin).isActive = true
         leaveGroupButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: kViewMargin).isActive = true
         leaveGroupButton.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -2 * kViewMargin).isActive = true
