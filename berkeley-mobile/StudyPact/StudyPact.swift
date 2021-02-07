@@ -180,4 +180,24 @@ extension StudyPact {
             }
         }
     }
+    
+    /// MARK: LeaveGroup
+    // backend hasn't implemented this yet, may need to modify
+    public func leaveGroup(groupId: String, completion: @escaping (Bool) -> Void) {
+        guard let cryptoHash = self.cryptoHash,
+              let email = self.email,
+              let url = EndpointKey.leaveGroup.url else {
+            completion(false)
+            return
+        }
+        let params = ["secret_token": cryptoHash, "user_email": email, "group_id": groupId]
+        NetworkManager.shared.post(url: url, body: params, asType: AnyJSON.self) { response in
+            switch response {
+            case .success(_):
+                completion(true)
+            default:
+                completion(false)
+            }
+        }
+    }
 }

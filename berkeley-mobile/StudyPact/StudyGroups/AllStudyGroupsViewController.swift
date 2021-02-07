@@ -14,6 +14,7 @@ fileprivate let kViewMargin: CGFloat = 16
 class AllStudyGroupsViewController: UIViewController {
     var studyGroupsGrid: StudyGroupsView!
     
+    
     // MARK: UI Elements
     let studyPactLabel: UILabel = {
         let label = UILabel()
