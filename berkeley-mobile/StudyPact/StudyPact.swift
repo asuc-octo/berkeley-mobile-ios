@@ -99,20 +99,20 @@ class StudyPact {
     
     // MARK: GetUser
     
-    public func getUser(completion: @escaping (Bool) -> Void) {
+    public func getUser(completion: @escaping ([String : Any]?) -> Void) {
         guard let cryptohash = self.cryptoHash,
               let email = self.email,
               let url = EndpointKey.getUser.url else {
-            completion(false)
+            completion(nil)
             return
         }
         let params = ["user_email": email, "secret_token": cryptohash]
-        NetworkManager.shared.post(url: url, body: params) { response in
+        NetworkManager.shared.get(url: url, params: params) { response in
             switch response {
             case .success(let data):
-                completion(true)
+                completion(data)
             default:
-                completion(false)
+                completion(nil)
             }
         }
     }
@@ -129,9 +129,7 @@ class StudyPact {
             return
         }
         let params: [String : Any] = ["user_email": email, "secret_token": cryptohash, "timezone": TimeZone.current.identifier, "info": infoStr]
-        print(params)
         NetworkManager.shared.post(url: url, body: params, asType: AnyJSON.self) { response in
-            print(response)
             switch response {
             case .success(_):
                 completion(true)

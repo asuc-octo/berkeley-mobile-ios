@@ -82,11 +82,12 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigation
     }
     
     func fillProfile() {
-        // TODO: call GetUser to fill in profile with backend data if user exists already
-        StudyPact.shared.getUser { (success) in
-            if success {
-                print("user exists")
+        StudyPact.shared.getUser { (data) in
+            if data != nil {
+                let info = data!["info"] as! [String : String]
                 
+                self.phoneTextField.text = info["phone"]
+                self.facebookTextField.textField.text = info["facebook"]
             } else {
                 guard let user = SignInManager.shared.user else { return }
                 var imageUrl = ""
@@ -94,9 +95,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigation
                     imageUrl = user.profile.imageURL(withDimension: 250)!.absoluteString
                 }
                 StudyPact.shared.addUser(name: user.profile.name, email: user.profile.email, phone: nil, profile: imageUrl, facebook: nil) { (success) in
-                    if success {
-                        print("user added")
-                    } else {
+                    if !success {
                         print("error")
                     }
                 }
@@ -463,17 +462,48 @@ extension ProfileViewController {
     }
     
     @objc private func cancelButtonPressed(sender: UIButton) {
+        fullNameField.setDefault()
         phoneTextField.setDefault()
         facebookTextField.textField.setDefault()
         
-        // TODO: call GetUser again and fill in fields
+        // Get user info from backend
+        StudyPact.shared.getUser { (data) in
+            if data != nil {
+                self.emailTextField.textField.text = data!["user_email"] as? String
+                
+                let info = data!["info"] as! [String : String]
+                
+                self.fullNameField.text = info["name"]
+                self.phoneTextField.text = info["phone"]
+                self.facebookTextField.textField.text = info["facebook"]
+                
+                if let url = info["profile_picture"] {
+                    guard let imageUrl = URL(string: url) else { return }
+                    ImageLoader.shared.getImage(url: imageUrl) { result in
+                        switch result {
+                        case .success(let image):
+                            DispatchQueue.main.async() { [weak self] in
+                                self!.profileImage = image
+                            }
+                        case .failure(let error):
+                            print(error)
+                        }
+                    }
+                }
+            }
+        }
     }
     
     @objc private func saveButtonPressed(sender: UIButton) {
+        let name = fullNameField.text
         let facebook = validateFacebook(text: facebookTextField.textField.text ?? "")
         let phoneNumber = validatePhoneNumber(text: phoneTextField.text ?? "")
         
         var hasInvalid = false
+        if name == "" {
+            hasInvalid = true
+            fullNameField.setInvalid()
+        }
         if facebookTextField.textField.text != "" && facebook == nil {
             hasInvalid = true
             facebookTextField.textField.setInvalid()
@@ -485,10 +515,18 @@ extension ProfileViewController {
         if hasInvalid {
             return
         }
+        fullNameField.setDefault()
         phoneTextField.setDefault()
         facebookTextField.textField.setDefault()
         
-        // TODO: AddUser
+        // Adds updated user
+        let imageUrl = SignInManager.shared.user?.profile.imageURL(withDimension: 250)?.absoluteString
+        StudyPact.shared.addUser(name: fullNameField.text!, email: StudyPact.shared.email!, phone: phoneNumber, profile:
+                                 imageUrl, facebook: facebook) { (success) in
+            if !success {
+                print("error")
+            }
+        }
     }
     
     @objc private func changeImageButtonPressed(sender: UIButton) {
