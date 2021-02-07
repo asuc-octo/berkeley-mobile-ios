@@ -86,8 +86,12 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigation
             if data != nil {
                 let info = data!["info"] as! [String : String]
                 
-                self.phoneTextField.text = info["phone"]
-                self.facebookTextField.textField.text = info["facebook"]
+                if let phone = info["phone"] {
+                    self.phoneTextField.text = phone
+                }
+                if let fb = info["facebook"] {
+                    self.facebookTextField.textField.text = fb
+                }
             } else {
                 guard let user = SignInManager.shared.user else { return }
                 var imageUrl = ""
@@ -474,9 +478,12 @@ extension ProfileViewController {
                 let info = data!["info"] as! [String : String]
                 
                 self.fullNameField.text = info["name"]
-                self.phoneTextField.text = info["phone"]
-                self.facebookTextField.textField.text = info["facebook"]
-                
+                if let phone = info["phone"] {
+                    self.phoneTextField.text = phone
+                }
+                if let fb = info["facebook"] {
+                    self.facebookTextField.textField.text = fb
+                }
                 if let url = info["profile_picture"] {
                     guard let imageUrl = URL(string: url) else { return }
                     ImageLoader.shared.getImage(url: imageUrl) { result in

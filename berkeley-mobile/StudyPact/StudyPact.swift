@@ -120,7 +120,16 @@ class StudyPact {
     // MARK: AddUser
     
     public func addUser(name: String, email: String, phone: String?, profile: String?, facebook: String?, completion: @escaping (Bool) -> Void) {
-        let info = ["name": name, "phone": phone ?? "", "profile_picture": profile ?? "", "facebook": facebook ?? ""]
+        var info = ["name": name]
+        if phone != "" {
+            info["phone"] = phone
+        }
+        if profile != "" {
+            info["profile_photo"] = profile
+        }
+        if facebook != "" {
+            info["facebook"] = facebook
+        }
         guard let cryptohash = self.cryptoHash,
               let url = EndpointKey.addUser.url,
               let data = try? JSONSerialization.data(withJSONObject: info, options: []),
