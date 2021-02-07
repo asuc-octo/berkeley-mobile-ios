@@ -23,6 +23,7 @@ class StudyGroupsView: UIView {
     /// if the number of groups is below the limit, the include preference cell is included
     var groupLimit: Int?
     /// allows for dynamically resizing the collection view height to match the number of elements
+    var parentView: UIViewController = UIViewController()
     private var collectionHeightConstraint: NSLayoutConstraint!
     
     private let collection: UICollectionView = {
@@ -132,8 +133,9 @@ extension StudyGroupsView: UICollectionViewDelegate, UICollectionViewDataSource,
             let vc = PendingGroupViewController()
             vc.presentSelf(presentingVC: enclosingVC, studyGroup: group)
         } else {
-            // bring up group view
-            print("group view")
+            let vc = StudyGroupDetailsViewController()
+            vc._studyGroup = studyGroups[indexPath.item - (includeCreatePreference ? 1 : 0)]
+            parentView.present(vc, animated: true)
         }
     }
 }
@@ -215,7 +217,7 @@ class StudyGroupCell: UICollectionViewCell {
         pendingTag.isHidden = true
         profilePictureStack.isHidden = false
         profilePictureStack.removeAllArrangedSubviews()
-        for var member in studyGroup.groupMembers {
+        for member in studyGroup.groupMembers {
             let profileImageView = UIImageView()
             profileImageView.contentMode = .scaleAspectFill
             profileImageView.clipsToBounds = true

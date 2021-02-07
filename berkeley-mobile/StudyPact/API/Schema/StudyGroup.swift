@@ -9,12 +9,14 @@
 import UIKit
 
 struct StudyGroup: Decodable {
+    let id: String
     let className: String
     let groupMembers: [StudyGroupMember]
+    let size: Int
     let pending: Bool
 
     enum CodingKeys: String, CodingKey {
-        case className = "class_name", groupMembers = "users", pending
+        case className = "class_name", groupMembers = "users", pending, id, size
     }
 }
 

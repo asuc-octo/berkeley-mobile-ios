@@ -9,23 +9,24 @@
 import Foundation
 import GoogleSignIn
 
-/// All StudyPact api call functions go in here. Relevant user info also goes here.
+fileprivate let kCryptoHashKey = "userCryptoHash"
+
+/// All StudyPact API call functions go in here. Relevant user info also goes here.
 class StudyPact {
+
     static let shared = StudyPact()
     
     private var cryptoHash: String?
     var email: String?
-    
+
     /// Load cryptohash from user defaults. If it doesnt exist or authenticate fails, return false.
-    public func loadCryptoHash() -> Bool {
-        if let cryptoHash = UserDefaults.standard.string(forKey: "userCryptoHash") {
+    public func loadCryptoHash(completion: @escaping (Bool) -> Void) {
+        if let cryptoHash = UserDefaults.standard.string(forKey: kCryptoHashKey) {
             self.cryptoHash = cryptoHash
-            authenticateUser { (success) in
-                // TODO: Block thread? until done
-            }
-            return true
+            authenticateUser(completion: completion)
+        } else {
+            completion(false)
         }
-        return false
     }
     
     /// Reset all properties. Should be called if user is signed out of google
@@ -34,6 +35,23 @@ class StudyPact {
         self.cryptoHash = nil
         self.email = nil
     }
+
+    func getCryptoHash() -> String? {
+        return cryptoHash
+    }
+
+    private func saveCryptoHash(cryptoHash: String) {
+        UserDefaults.standard.set(cryptoHash, forKey: kCryptoHashKey)
+    }
+
+    private func deleteCryptoHash() {
+        UserDefaults.standard.removeObject(forKey: kCryptoHashKey)
+    }
+}
+
+// MARK: - API
+
+extension StudyPact {
 
     // MARK: GetBerkeleyCourses
 
@@ -154,7 +172,7 @@ class StudyPact {
         guard let cryptohash = self.cryptoHash,
               let email = self.email,
               let url = EndpointKey.addClass.url,
-              let params = AddClassParams(email: email, cryptohash: cryptohash, prefs: preferences)?.asJSON else {
+              let params = AddPreferenceParams(email: email, cryptohash: cryptohash, prefs: preferences)?.asJSON else {
             completion(false)
             return
         }
@@ -167,6 +185,28 @@ class StudyPact {
             }
         }
     }
+
+    // MARK: CancelPending
+
+    public func cancelPending(group: StudyGroup, completion: @escaping(Bool) -> Void) {
+        guard let cryptohash = self.cryptoHash,
+              let email = self.email,
+              let url = EndpointKey.cancelPending.url,
+              let params = RemovePreferenceParams(email: email, cryptohash: cryptohash, id: group.id).asJSON else {
+            completion(false)
+            return
+        }
+        NetworkManager.shared.post(url: url, body: params, asType: AnyJSON.self) { response in
+            switch response {
+            case .success(_):
+                completion(true)
+            default:
+                completion(false)
+            }
+        }
+    }
+
+    // MARK: LeaveGroup
 
     // MARK: GetGroups
     
@@ -188,15 +228,23 @@ class StudyPact {
         }
     }
     
-    func getCryptoHash() -> String? {
-        return cryptoHash
-    }
-    
-    private func saveCryptoHash(cryptoHash: String) {
-        UserDefaults.standard.set(cryptoHash, forKey: "userCryptoHash")
-    }
-    
-    private func deleteCryptoHash() {
-        UserDefaults.standard.removeObject(forKey: "userCryptoHash")
+    /// MARK: LeaveGroup
+    // backend hasn't implemented this yet, may need to modify
+    public func leaveGroup(groupId: String, completion: @escaping (Bool) -> Void) {
+        guard let cryptoHash = self.cryptoHash,
+              let email = self.email,
+              let url = EndpointKey.leaveGroup.url else {
+            completion(false)
+            return
+        }
+        let params = ["secret_token": cryptoHash, "user_email": email, "group_id": groupId]
+        NetworkManager.shared.post(url: url, body: params, asType: AnyJSON.self) { response in
+            switch response {
+            case .success(_):
+                completion(true)
+            default:
+                completion(false)
+            }
+        }
     }
 }
