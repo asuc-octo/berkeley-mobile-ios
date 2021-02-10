@@ -35,6 +35,16 @@ class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
         drawerVC.view.frame = self.view.frame
         // necessary to move the center of the drawer later on
         drawerVC.view.translatesAutoresizingMaskIntoConstraints = true
+        let nc = NotificationCenter.default
+        nc.addObserver(self, selector: #selector(homePressed), name: Notification.Name(TabBarController.homePressedMessage), object: nil)
+    }
+    
+    @objc func homePressed() {
+        if self.drawerStack.count > 0 {
+            self.dismissTop()
+        } else {
+            self.moveCurrentDrawer(to: .collapsed)
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
