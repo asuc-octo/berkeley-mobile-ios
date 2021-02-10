@@ -68,6 +68,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigation
                     SignInManager.shared.signOut()
                     DispatchQueue.main.async {
                         self.loggedOutView()
+                        self.presentFailureAlert(title: "Failed to Sign In", message: "Please try again later.")
                     }
                     return
                 }
