@@ -105,6 +105,7 @@ extension StudyPact {
             return
         }
         let params = ["Email": email, "CryptoHash": cryptohash]
+        print(cryptohash)
         NetworkManager.shared.post(url: url, body: params, asType: AuthenticateUserDocument.self) { response in
             switch response {
             case .success(let data):
@@ -145,7 +146,8 @@ extension StudyPact {
         guard let cryptohash = self.cryptoHash,
               let email = self.email,
               let url = EndpointKey.cancelPending.url,
-              let params = RemovePreferenceParams(email: email, cryptohash: cryptohash, id: group.id).asJSON else {
+              let id = group.id,
+              let params = RemovePreferenceParams(email: email, cryptohash: cryptohash, id: id).asJSON else {
             completion(false)
             return
         }
@@ -171,7 +173,7 @@ extension StudyPact {
             return
         }
         let params = ["secret_token": cryptoHash, "user_email": email]
-        NetworkManager.shared.post(url: url, body: params, asType: [StudyGroup].self) { response in
+        NetworkManager.shared.get(url: url, params: params, asType: [StudyGroup].self) { response in
             switch response {
             case .success(let data):
                 completion(data ?? [])
@@ -183,14 +185,15 @@ extension StudyPact {
     
     /// MARK: LeaveGroup
     // backend hasn't implemented this yet, may need to modify
-    public func leaveGroup(groupId: String, completion: @escaping (Bool) -> Void) {
+    public func leaveGroup(group: StudyGroup, completion: @escaping (Bool) -> Void) {
         guard let cryptoHash = self.cryptoHash,
               let email = self.email,
+              let id = group.id,
               let url = EndpointKey.leaveGroup.url else {
             completion(false)
             return
         }
-        let params = ["secret_token": cryptoHash, "user_email": email, "group_id": groupId]
+        let params = ["secret_token": cryptoHash, "user_email": email, "group_id": id]
         NetworkManager.shared.post(url: url, body: params, asType: AnyJSON.self) { response in
             switch response {
             case .success(_):

@@ -21,7 +21,7 @@ class StudyGroupDetailsViewController: UIViewController {
     }
     
     @objc func leaveGroup() {
-        StudyPact.shared.leaveGroup(groupId: _studyGroup.id) { success in
+        StudyPact.shared.leaveGroup(group: _studyGroup) { success in
             if success {
                 self.presentSuccessAlert(title: "Successfully left group")
             } else {
