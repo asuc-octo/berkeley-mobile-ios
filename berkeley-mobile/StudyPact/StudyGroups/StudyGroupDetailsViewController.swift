@@ -14,7 +14,6 @@ class StudyGroupDetailsViewController: UIViewController {
     
     var _studyGroup: StudyGroup!
     var groupMembersGrid: GroupMembersView!
-
     
     @objc func pingAll() {
         //TODO: ping all members of the study group
@@ -106,5 +105,8 @@ class StudyGroupDetailsViewController: UIViewController {
         setUpElements()
     }
     
-
+    public func presentSelf(presentingVC: UIViewController, studyGroup: StudyGroup) {
+        self._studyGroup = studyGroup
+        presentingVC.present(self, animated: true, completion: nil)
+    }
 }

@@ -23,7 +23,6 @@ class StudyGroupsView: UIView, GroupUpdateDelegate {
     /// if the number of groups is below the limit, the include preference cell is included
     var groupLimit: Int?
     /// allows for dynamically resizing the collection view height to match the number of elements
-    var parentView: UIViewController = UIViewController()
     private var collectionHeightConstraint: NSLayoutConstraint!
     
     private let collection: UICollectionView = {
@@ -136,8 +135,7 @@ extension StudyGroupsView: UICollectionViewDelegate, UICollectionViewDataSource,
             vc.presentSelf(presentingVC: enclosingVC, studyGroup: group)
         } else {
             let vc = StudyGroupDetailsViewController()
-            vc._studyGroup = studyGroups[indexPath.item - (includeCreatePreference ? 1 : 0)]
-            parentView.present(vc, animated: true)
+            vc.presentSelf(presentingVC: enclosingVC, studyGroup: group)
         }
     }
 }
