@@ -144,7 +144,7 @@ extension StudyPact {
             info["phone"] = phone
         }
         if profile != "" {
-            info["profile_photo"] = profile
+            info["profile_picture"] = profile
         }
         if facebook != "" {
             info["facebook"] = facebook

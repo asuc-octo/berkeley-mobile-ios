@@ -491,7 +491,7 @@ extension ProfileViewController {
         if let fb = info["facebook"] {
             self.facebookTextField.textField.text = fb
         }
-        if let url = info["profile_photo"] {
+        if let url = info["profile_picture"] {
             guard let imageUrl = URL(string: url) else { return }
             ImageLoader.shared.getImage(url: imageUrl) { result in
                 switch result {

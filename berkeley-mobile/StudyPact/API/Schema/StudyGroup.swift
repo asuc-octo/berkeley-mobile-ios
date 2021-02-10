@@ -28,7 +28,7 @@ struct StudyGroupMember: Decodable {
     let facebookUsername: String?
 
     enum CodingKeys: String, CodingKey {
-        case profilePictureURL = "profile_photo", name, email,
+        case profilePictureURL = "profile_picture", name, email,
              phoneNumber = "phone", facebookUsername = "facebook"
     }
 }
