@@ -76,7 +76,7 @@ extension StudyPact {
     
     public func registerUser(user: GIDGoogleUser?, completion: @escaping (Bool) -> Void) {
         guard let user = user,
-              user.profile.email.hasSuffix("@berkeley.edu"),
+              (user.profile.email.hasSuffix("@berkeley.edu") || user.profile.email == DEMO_EMAIL),
               let params = ["Email": user.profile.email, "FirstName": user.profile.givenName, "LastName": user.profile.familyName] as? [String: String],
               let url = EndpointKey.registerUser.url else {
             completion(false)
@@ -149,8 +149,7 @@ extension StudyPact {
         guard let cryptohash = self.cryptoHash,
               let email = self.email,
               let url = EndpointKey.cancelPending.url,
-              let id = group.id,
-              let params = RemovePreferenceParams(email: email, cryptohash: cryptohash, id: id).asJSON else {
+              let params = RemovePreferenceParams(email: email, cryptohash: cryptohash, id: group.id).asJSON else {
             completion(false)
             return
         }
@@ -194,12 +193,11 @@ extension StudyPact {
     public func leaveGroup(group: StudyGroup, completion: @escaping (Bool) -> Void) {
         guard let cryptoHash = self.cryptoHash,
               let email = self.email,
-              let id = group.id,
               let url = EndpointKey.leaveGroup.url else {
             completion(false)
             return
         }
-        let params = ["secret_token": cryptoHash, "user_email": email, "group_id": id]
+        let params = ["secret_token": cryptoHash, "user_email": email, "group_id": group.id]
         NetworkManager.shared.post(url: url, body: params, asType: AnyJSON.self) { response in
             switch response {
             case .success(_):

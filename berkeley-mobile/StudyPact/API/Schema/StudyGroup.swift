@@ -9,7 +9,7 @@
 import UIKit
 
 struct StudyGroup: Decodable {
-    let id: String?
+    let id: String
     let className: String
     let allGroupMembers: [StudyGroupMember]
     let size: Int
