@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// The types supported in JSON.
 enum JSONType: CaseIterable {
     case null
     case int
@@ -18,6 +19,7 @@ enum JSONType: CaseIterable {
     case dictionary
 }
 
+/// A decodable struct that can be used to decode JSON data if the structure of the object is unknown.
 struct AnyJSON: Decodable {
 
     private let value: Any?
@@ -54,6 +56,7 @@ struct AnyJSON: Decodable {
         self.type = object == nil ? .null : type
     }
 
+    /// The unwrapped value of the decoded object.
     public var unwrapped: Any? {
         guard let value = value else { return nil }
         switch type {
