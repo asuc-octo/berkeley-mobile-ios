@@ -82,32 +82,30 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigation
     }
     
     func fillProfile() {
-        StudyPact.shared.getUser { (data) in
-            if let data = data {
-                guard let info = data["info"] as? [String : String] else { return }
-                
-                if let phone = info["phone"] {
-                    self.phoneTextField.text = phone
-                }
-                if let fb = info["facebook"] {
-                    self.facebookTextField.textField.text = fb
-                }
-            } else {
-                guard let user = SignInManager.shared.user else { return }
-                var imageUrl: String?
-                if user.profile.hasImage {
-                    imageUrl = user.profile.imageURL(withDimension: 250)?.absoluteString
-                }
-                StudyPact.shared.addUser(name: user.profile.name, email: user.profile.email, phone: nil, profile: imageUrl, facebook: nil) { (success) in
-                    if !success {
-                        GIDSignIn.sharedInstance()?.signOut()
-                        StudyPact.shared.reset()
-                        self.presentFailureAlert(title: "Failed to Register", message: "Please try again later.")
-                        DispatchQueue.main.async {
-                            self.loggedOutView()
+        StudyPact.shared.getUser { data in
+            self.fillProfile(data: data)
+        } errorCompletion: { error in
+            switch error {
+            case RequestError.badResponse(let code):
+                if code == 400 {
+                    guard let user = SignInManager.shared.user else { return }
+                    var imageUrl: String?
+                    if user.profile.hasImage {
+                        imageUrl = user.profile.imageURL(withDimension: 250)?.absoluteString
+                    }
+                    StudyPact.shared.addUser(name: user.profile.name, email: user.profile.email, phone: nil, profile: imageUrl, facebook: nil) { success in
+                        if !success {
+                            GIDSignIn.sharedInstance()?.signOut()
+                            StudyPact.shared.reset()
+                            self.presentFailureAlert(title: "Failed to Register", message: "Please try again later.")
+                            DispatchQueue.main.async {
+                                self.loggedOutView()
+                            }
                         }
                     }
                 }
+            default:
+                return
             }
         }
         
@@ -476,31 +474,33 @@ extension ProfileViewController {
         facebookTextField.textField.setDefault()
         
         // Get user info from backend
-        StudyPact.shared.getUser { (data) in
-            if data != nil {
-                self.emailTextField.textField.text = data!["user_email"] as? String
-                
-                let info = data!["info"] as! [String : String]
-                
-                self.fullNameField.text = info["name"]
-                if let phone = info["phone"] {
-                    self.phoneTextField.text = phone
-                }
-                if let fb = info["facebook"] {
-                    self.facebookTextField.textField.text = fb
-                }
-                if let url = info["profile_picture"] {
-                    guard let imageUrl = URL(string: url) else { return }
-                    ImageLoader.shared.getImage(url: imageUrl) { result in
-                        switch result {
-                        case .success(let image):
-                            DispatchQueue.main.async() { [weak self] in
-                                self!.profileImage = image
-                            }
-                        case .failure(let error):
-                            print(error)
-                        }
+        StudyPact.shared.getUser { data in
+            self.fillProfile(data: data)
+        }
+    }
+    
+    private func fillProfile(data: [String: Any]?) {
+        guard let data = data,
+              let info = data["info"] as? [String : String] else { return }
+        self.emailTextField.textField.text = data["user_email"] as? String
+        
+        self.fullNameField.text = info["name"]
+        if let phone = info["phone"] {
+            self.phoneTextField.text = phone
+        }
+        if let fb = info["facebook"] {
+            self.facebookTextField.textField.text = fb
+        }
+        if let url = info["profile_photo"] {
+            guard let imageUrl = URL(string: url) else { return }
+            ImageLoader.shared.getImage(url: imageUrl) { result in
+                switch result {
+                case .success(let image):
+                    DispatchQueue.main.async() { [weak self] in
+                        self!.profileImage = image
                     }
+                case .failure(let error):
+                    print(error)
                 }
             }
         }

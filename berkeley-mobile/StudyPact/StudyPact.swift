@@ -117,7 +117,8 @@ extension StudyPact {
     
     // MARK: GetUser
     
-    public func getUser(completion: @escaping ([String : Any]?) -> Void) {
+    public func getUser(completion: @escaping ([String : Any]?) -> Void,
+                        errorCompletion: ((Error) -> Void)? = nil) {
         guard let cryptohash = self.cryptoHash,
               let email = self.email,
               let url = EndpointKey.getUser.url else {
@@ -129,8 +130,8 @@ extension StudyPact {
             switch response {
             case .success(let data):
                 completion(data)
-            default:
-                completion(nil)
+            case .failure(let error):
+                errorCompletion?(error)
             }
         }
     }
