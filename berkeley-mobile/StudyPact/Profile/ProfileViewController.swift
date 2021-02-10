@@ -83,8 +83,8 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigation
     
     func fillProfile() {
         StudyPact.shared.getUser { (data) in
-            if data != nil {
-                let info = data!["info"] as! [String : String]
+            if let data = data {
+                guard let info = data["info"] as? [String : String] else { return }
                 
                 if let phone = info["phone"] {
                     self.phoneTextField.text = phone
@@ -94,13 +94,18 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigation
                 }
             } else {
                 guard let user = SignInManager.shared.user else { return }
-                var imageUrl = ""
+                var imageUrl: String?
                 if user.profile.hasImage {
-                    imageUrl = user.profile.imageURL(withDimension: 250)!.absoluteString
+                    imageUrl = user.profile.imageURL(withDimension: 250)?.absoluteString
                 }
                 StudyPact.shared.addUser(name: user.profile.name, email: user.profile.email, phone: nil, profile: imageUrl, facebook: nil) { (success) in
                     if !success {
-                        print("error")
+                        GIDSignIn.sharedInstance()?.signOut()
+                        StudyPact.shared.reset()
+                        self.presentFailureAlert(title: "Failed to Register", message: "Please try again later.")
+                        DispatchQueue.main.async {
+                            self.loggedOutView()
+                        }
                     }
                 }
             }
@@ -166,7 +171,7 @@ extension ProfileViewController {
         loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         let warningLabel = UILabel()
-        warningLabel.text = "You must use a valid Berkeley.edu email"
+        warningLabel.text = "You must use a valid berkeley.edu email"
         warningLabel.font = Font.medium(14)
         warningLabel.numberOfLines = 1
         warningLabel.adjustsFontSizeToFitWidth = true
@@ -530,8 +535,10 @@ extension ProfileViewController {
         let imageUrl = SignInManager.shared.user?.profile.imageURL(withDimension: 250)?.absoluteString
         StudyPact.shared.addUser(name: fullNameField.text!, email: StudyPact.shared.email!, phone: phoneNumber, profile:
                                  imageUrl, facebook: facebook) { (success) in
-            if !success {
-                print("error")
+            if success {
+                self.presentSuccessAlert(title: "Successfully saved profile")
+            } else {
+                self.presentFailureAlert(title: "Failed to Save Profile", message: "Please try again later.")
             }
         }
     }
