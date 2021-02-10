@@ -18,6 +18,7 @@ class StudyPact {
     
     private var cryptoHash: String?
     var email: String?
+    var groupUpdateDelegates: [GroupUpdateDelegate] = []
 
     /// Load cryptohash from user defaults. If it doesnt exist or authenticate fails, return false.
     public func loadCryptoHash(completion: @escaping (Bool) -> Void) {
@@ -132,6 +133,9 @@ extension StudyPact {
         NetworkManager.shared.post(url: url, body: params, asType: AnyJSON.self) { response in
             switch response {
             case .success(_):
+                for delegate in self.groupUpdateDelegates {
+                    delegate.refreshGroups()
+                }
                 completion(true)
             default:
                 completion(false)
@@ -153,6 +157,9 @@ extension StudyPact {
         NetworkManager.shared.post(url: url, body: params, asType: AnyJSON.self) { response in
             switch response {
             case .success(_):
+                for delegate in self.groupUpdateDelegates {
+                    delegate.refreshGroups()
+                }
                 completion(true)
             default:
                 completion(false)
@@ -196,10 +203,17 @@ extension StudyPact {
         NetworkManager.shared.post(url: url, body: params, asType: AnyJSON.self) { response in
             switch response {
             case .success(_):
+                for delegate in self.groupUpdateDelegates {
+                    delegate.refreshGroups()
+                }
                 completion(true)
             default:
                 completion(false)
             }
         }
     }
+}
+
+protocol GroupUpdateDelegate {
+    func refreshGroups() -> Void
 }

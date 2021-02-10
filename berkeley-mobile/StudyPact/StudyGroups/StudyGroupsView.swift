@@ -11,7 +11,7 @@ import UIKit
 fileprivate let kViewMargin: CGFloat = 10
 
 /// View holding a CollectionView to display all the user's study groups
-class StudyGroupsView: UIView {
+class StudyGroupsView: UIView, GroupUpdateDelegate {
     static let cellsPerRow = 2
     
     var studyGroups: [StudyGroup] = []
@@ -58,6 +58,8 @@ class StudyGroupsView: UIView {
         collectionHeightConstraint = collection.heightAnchor.constraint(equalToConstant: 120)
         collectionHeightConstraint.priority = .defaultLow
         collectionHeightConstraint.isActive = true
+        
+        StudyPact.shared.groupUpdateDelegates.append(self)
     }
     
     override func layoutSubviews() {
