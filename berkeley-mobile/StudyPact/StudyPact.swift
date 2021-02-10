@@ -105,7 +105,6 @@ extension StudyPact {
             return
         }
         let params = ["Email": email, "CryptoHash": cryptohash]
-        print(cryptohash)
         NetworkManager.shared.post(url: url, body: params, asType: AuthenticateUserDocument.self) { response in
             switch response {
             case .success(let data):
