@@ -17,6 +17,11 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigation
     private var berkeleyWarningLabel: UILabel!
     private var logoutButton: UIButton!
     
+    private let profileView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     private var profileLabel: UILabel!
     private var initialsLabel: ProfileLabel!
     private var profileImageView: UIImageView!
@@ -42,7 +47,9 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigation
         self.view.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
         self.view.backgroundColor = Color.modalBackground
         
-        setupHeader()
+        setUpHeader()
+        setUpProfile()
+        setUpSignIn()
         
         SignInManager.shared.addDelegate(delegate: self)
         
@@ -147,15 +154,9 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigation
 
 extension ProfileViewController {
     func loggedInView() {
-        if let _ = loginButton {
-            loginButton.isHidden = true
-            berkeleyWarningLabel.isHidden = true
-        }
-        
-        setupProfile()
-        
-        let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
-        view.addGestureRecognizer(tap)
+        loginButton.isHidden = true
+        berkeleyWarningLabel.isHidden = true
+        profileView.isHidden = false
         
 //        imagePicker = UIImagePickerController()
 //        imagePicker.delegate = self
@@ -163,48 +164,12 @@ extension ProfileViewController {
     }
     
     func loggedOutView() {
-        if let _ = logoutButton {
-            view.subviews.forEach({ $0.removeFromSuperview() })
-            setupHeader()
-        }
-        
-        GIDSignIn.sharedInstance()?.presentingViewController = self
-        loginButton = GIDSignInButton()
-        
-        view.addSubview(loginButton)
-        loginButton.translatesAutoresizingMaskIntoConstraints = false
-        loginButton.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        
-        let warningLabel = UILabel()
-        warningLabel.text = "You must use a valid berkeley.edu email"
-        warningLabel.font = Font.medium(14)
-        warningLabel.numberOfLines = 1
-        warningLabel.adjustsFontSizeToFitWidth = true
-        warningLabel.minimumScaleFactor = 0.7
-        warningLabel.textColor = Color.lightGrayText
-        warningLabel.textAlignment = .center
-        
-        view.addSubview(warningLabel)
-        warningLabel.translatesAutoresizingMaskIntoConstraints = false
-        warningLabel.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 25).isActive = true
-        warningLabel.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
-        warningLabel.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
-        
-        berkeleyWarningLabel = warningLabel
+        loginButton.isHidden = false
+        berkeleyWarningLabel.isHidden = false
+        profileView.isHidden = true
     }
     
-    func setupHeader() {
-        profileLabel = UILabel()
-        profileLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-        profileLabel.numberOfLines = 0
-        profileLabel.font = Font.bold(30)
-        profileLabel.text = "Profile"
-        view.addSubview(profileLabel)
-        profileLabel.translatesAutoresizingMaskIntoConstraints = false
-        profileLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 15).isActive = true
-        profileLabel.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
-        
+    func setUpHeader() {
         // Blob
         let blob = UIImage(named: "BlobTopRight")!
         let aspectRatio = blob.size.width / blob.size.height
@@ -238,17 +203,36 @@ extension ProfileViewController {
         self.present(alertController, animated: true, completion: nil)
     }
     
-    func setupProfile() {
+    func setUpProfile() {
+        view.addSubview(profileView)
+        profileView.leftAnchor.constraint(equalTo: self.view.layoutMarginsGuide.leftAnchor).isActive = true
+        profileView.rightAnchor.constraint(equalTo: self.view.layoutMarginsGuide.rightAnchor).isActive = true
+        profileView.topAnchor.constraint(equalTo: self.view.layoutMarginsGuide.topAnchor).isActive = true
+        profileView.bottomAnchor.constraint(equalTo: self.view.layoutMarginsGuide.bottomAnchor).isActive = true
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
+        profileView.addGestureRecognizer(tap)
+        
+        profileLabel = UILabel()
+        profileLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        profileLabel.numberOfLines = 0
+        profileLabel.font = Font.bold(30)
+        profileLabel.text = "Profile"
+        profileView.addSubview(profileLabel)
+        profileLabel.translatesAutoresizingMaskIntoConstraints = false
+        profileLabel.topAnchor.constraint(equalTo: profileView.topAnchor, constant: 15).isActive = true
+        profileLabel.leftAnchor.constraint(equalTo: profileView.leftAnchor).isActive = true
+        
         let button = UIButton()
         button.setTitle("Logout", for: .normal)
         button.titleLabel?.font = Font.medium(18)
         button.setTitleColor(Color.blackText, for: .normal)
         button.setTitleColor(Color.lightGrayText, for: .selected)
         
-        view.addSubview(button)
+        profileView.addSubview(button)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.centerYAnchor.constraint(equalTo: profileLabel.centerYAnchor).isActive = true
-        button.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
+        button.rightAnchor.constraint(equalTo: profileView.rightAnchor).isActive = true
         button.addTarget(self, action: #selector(logoutButtonPressed), for: .touchUpInside)
         
         button.setHeightConstraint(15)
@@ -258,11 +242,11 @@ extension ProfileViewController {
         let radius: CGFloat = 40
         let initials = ProfileLabel(text: "O", radius: radius, fontSize: 40)
         
-        view.addSubview(initials)
+        profileView.addSubview(initials)
         
         initials.translatesAutoresizingMaskIntoConstraints = false
         initials.topAnchor.constraint(equalTo: profileLabel.bottomAnchor, constant: 15).isActive = true
-        initials.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        initials.centerXAnchor.constraint(equalTo: profileView.centerXAnchor).isActive = true
         initials.setHeightConstraint(2 * radius)
         initials.setWidthConstraint(2 * radius)
         
@@ -274,11 +258,11 @@ extension ProfileViewController {
         imageView.clipsToBounds = true
         imageView.isHidden = true
         
-        view.addSubview(imageView)
+        profileView.addSubview(imageView)
 
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.topAnchor.constraint(equalTo: profileLabel.bottomAnchor, constant: 15).isActive = true
-        imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        imageView.centerXAnchor.constraint(equalTo: profileView.centerXAnchor).isActive = true
         imageView.setHeightConstraint(80)
         imageView.setWidthConstraint(80)
         
@@ -303,10 +287,10 @@ extension ProfileViewController {
         let pressedAttributedString = NSMutableAttributedString(string: "Edit Profile Picture", attributes: pressedAttributes)
         pictureButton.setAttributedTitle(pressedAttributedString, for: .selected)
         
-        view.addSubview(pictureButton)
+        profileView.addSubview(pictureButton)
         pictureButton.translatesAutoresizingMaskIntoConstraints = false
         pictureButton.topAnchor.constraint(equalTo: initials.bottomAnchor, constant: 15).isActive = true
-        pictureButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        pictureButton.centerXAnchor.constraint(equalTo: profileView.centerXAnchor).isActive = true
         pictureButton.setHeightConstraint(18)
         pictureButton.addTarget(self, action: #selector(changeImageButtonPressed), for: .touchUpInside)
         
@@ -318,12 +302,12 @@ extension ProfileViewController {
         hstack.distribution = .equalCentering
         hstack.alignment = .center
         
-        view.addSubview(hstack)
+        profileView.addSubview(hstack)
         
         hstack.translatesAutoresizingMaskIntoConstraints = false
         hstack.topAnchor.constraint(equalTo: initialsLabel.bottomAnchor, constant: 20).isActive = true
-        hstack.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor, constant: 15).isActive = true
-        hstack.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor, constant: -15).isActive = true
+        hstack.leftAnchor.constraint(equalTo: profileView.leftAnchor, constant: 15).isActive = true
+        hstack.rightAnchor.constraint(equalTo: profileView.rightAnchor, constant: -15).isActive = true
         
         let rows = UIStackView()
         rows.axis = .vertical
@@ -333,8 +317,8 @@ extension ProfileViewController {
         
         hstack.addArrangedSubview(rows)
         
-        rows.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor, constant: 15).isActive = true
-        rows.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor, constant: -15).isActive = true
+        rows.leftAnchor.constraint(equalTo: profileView.leftAnchor, constant: 15).isActive = true
+        rows.rightAnchor.constraint(equalTo: profileView.rightAnchor, constant: -15).isActive = true
         
         
         // ** NAME SECTION ** //
@@ -491,24 +475,51 @@ extension ProfileViewController {
         cancelButton.layer.shadowRadius = 2.5
         cancelButton.addTarget(self, action: #selector(cancelButtonPressed), for: .touchUpInside)
         
-        view.addSubview(cancelButton)
+        profileView.addSubview(cancelButton)
         cancelButton.translatesAutoresizingMaskIntoConstraints = false
-        cancelButton.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
+        cancelButton.leftAnchor.constraint(equalTo: profileView.leftAnchor).isActive = true
         cancelButton.setHeightConstraint(40)
-        cancelButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -10).isActive = true
+        cancelButton.bottomAnchor.constraint(equalTo: profileView.bottomAnchor, constant: -10).isActive = true
         
         let saveButton = ActionButton(title: "Save", font: Font.bold(14))
         saveButton.layer.shadowRadius = 2.5
         saveButton.addTarget(self, action: #selector(saveButtonPressed), for: .touchUpInside)
         
-        view.addSubview(saveButton)
+        profileView.addSubview(saveButton)
         saveButton.translatesAutoresizingMaskIntoConstraints = false
-        saveButton.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
+        saveButton.rightAnchor.constraint(equalTo: profileView.rightAnchor).isActive = true
         saveButton.setHeightConstraint(40)
-        saveButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -10).isActive = true
+        saveButton.bottomAnchor.constraint(equalTo: profileView.bottomAnchor, constant: -10).isActive = true
         
         cancelButton.rightAnchor.constraint(equalTo: saveButton.leftAnchor, constant: -23).isActive = true
         cancelButton.widthAnchor.constraint(equalTo: saveButton.widthAnchor).isActive = true
+    }
+    
+    func setUpSignIn() {
+        GIDSignIn.sharedInstance()?.presentingViewController = self
+        loginButton = GIDSignInButton()
+        
+        view.addSubview(loginButton)
+        loginButton.translatesAutoresizingMaskIntoConstraints = false
+        loginButton.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        let warningLabel = UILabel()
+        warningLabel.text = "You must use a valid berkeley.edu email"
+        warningLabel.font = Font.medium(14)
+        warningLabel.numberOfLines = 1
+        warningLabel.adjustsFontSizeToFitWidth = true
+        warningLabel.minimumScaleFactor = 0.7
+        warningLabel.textColor = Color.lightGrayText
+        warningLabel.textAlignment = .center
+        
+        view.addSubview(warningLabel)
+        warningLabel.translatesAutoresizingMaskIntoConstraints = false
+        warningLabel.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 25).isActive = true
+        warningLabel.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
+        warningLabel.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
+        
+        berkeleyWarningLabel = warningLabel
     }
     
     @objc private func cancelButtonPressed(sender: UIButton) {
@@ -530,9 +541,13 @@ extension ProfileViewController {
         self.fullNameField.text = info["name"]
         if let phone = info["phone"] {
             self.phoneTextField.text = phone
+        } else {
+            self.phoneTextField.text = ""
         }
         if let fb = info["facebook"] {
             self.facebookTextField.textField.text = fb
+        } else {
+            self.phoneTextField.text = ""
         }
         if let url = info["profile_picture"] {
             guard let imageUrl = URL(string: url) else { return }
