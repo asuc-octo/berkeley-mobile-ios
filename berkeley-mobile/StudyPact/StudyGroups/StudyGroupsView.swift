@@ -11,7 +11,7 @@ import UIKit
 fileprivate let kViewMargin: CGFloat = 10
 
 /// View holding a CollectionView to display all the user's study groups
-class StudyGroupsView: UIView {
+class StudyGroupsView: UIView, GroupUpdateDelegate {
     static let cellsPerRow = 2
     
     var studyGroups: [StudyGroup] = []
@@ -23,7 +23,6 @@ class StudyGroupsView: UIView {
     /// if the number of groups is below the limit, the include preference cell is included
     var groupLimit: Int?
     /// allows for dynamically resizing the collection view height to match the number of elements
-    var parentView: UIViewController = UIViewController()
     private var collectionHeightConstraint: NSLayoutConstraint!
     
     private let collection: UICollectionView = {
@@ -58,6 +57,8 @@ class StudyGroupsView: UIView {
         collectionHeightConstraint = collection.heightAnchor.constraint(equalToConstant: 120)
         collectionHeightConstraint.priority = .defaultLow
         collectionHeightConstraint.isActive = true
+        
+        StudyPact.shared.groupUpdateDelegates.append(self)
     }
     
     override func layoutSubviews() {
@@ -134,8 +135,7 @@ extension StudyGroupsView: UICollectionViewDelegate, UICollectionViewDataSource,
             vc.presentSelf(presentingVC: enclosingVC, studyGroup: group)
         } else {
             let vc = StudyGroupDetailsViewController()
-            vc._studyGroup = studyGroups[indexPath.item - (includeCreatePreference ? 1 : 0)]
-            parentView.present(vc, animated: true)
+            vc.presentSelf(presentingVC: enclosingVC, studyGroup: group)
         }
     }
 }

@@ -11,12 +11,23 @@ import UIKit
 struct StudyGroup: Decodable {
     let id: String
     let className: String
-    let groupMembers: [StudyGroupMember]
+    let allGroupMembers: [StudyGroupMember]
     let size: Int
     let pending: Bool
 
     enum CodingKeys: String, CodingKey {
-        case className = "class_name", groupMembers = "users", pending, id, size
+        case className = "class_name", allGroupMembers = "users", pending, id, size
+    }
+}
+extension StudyGroup {
+    var groupMembers: [StudyGroupMember] {
+        get {
+            var members = allGroupMembers
+            members.removeAll { member in
+                member.email == StudyPact.shared.email
+            }
+            return members
+        }
     }
 }
 

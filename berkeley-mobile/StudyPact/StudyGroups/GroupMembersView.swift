@@ -100,6 +100,11 @@ class GroupMemberCell: UICollectionViewCell {
     
     private var _member: StudyGroupMember!
     private var _parentView: UIViewController!
+    private var profileRadius: CGFloat {
+        get {
+            return frame.width * 0.2
+        }
+    }
     
     // MARK: UI Elements
     let nameLabel: UILabel = {
@@ -163,11 +168,10 @@ class GroupMemberCell: UICollectionViewCell {
         avatar.bottomAnchor.constraint(equalTo: nameLabel.topAnchor, constant: -kViewMargin / 2).isActive = true
         avatar.widthAnchor.constraint(equalTo: card.widthAnchor, multiplier: 0.4).isActive = true
         avatar.heightAnchor.constraint(equalTo: card.widthAnchor, multiplier: 0.4).isActive = true
-        avatar.layer.cornerRadius = (frame.width * 0.4) / 2
+        avatar.layer.cornerRadius = profileRadius
         avatar.backgroundColor = UIColor.lightGray
         avatar.clipsToBounds = true
         avatar.layer.masksToBounds = true
-        
         
         let emailButton = QuickActionButton(iconImage: UIImage(named:"email"))
         emailButton.translatesAutoresizingMaskIntoConstraints = false
@@ -217,12 +221,22 @@ class GroupMemberCell: UICollectionViewCell {
         _member = groupMember
         _parentView = parentView
         nameLabel.text = groupMember.name
+        
+        let placeholderLetter = String(_member.name.first ?? "O").uppercased()
+        let placeholderView = ProfileLabel(text: placeholderLetter, radius: profileRadius, fontSize: 25)
+        avatar.addSubview(placeholderView)
+        placeholderView.translatesAutoresizingMaskIntoConstraints = false
+        placeholderView.leftAnchor.constraint(equalTo: avatar.leftAnchor).isActive = true
+        placeholderView.rightAnchor.constraint(equalTo: avatar.rightAnchor).isActive = true
+        placeholderView.topAnchor.constraint(equalTo: avatar.topAnchor).isActive = true
+        placeholderView.bottomAnchor.constraint(equalTo: avatar.bottomAnchor).isActive = true
         if let url = groupMember.profilePictureURL {
             ImageLoader.shared.getImage(url: url) { result in
                 switch result {
                 case .success(let image):
                     DispatchQueue.main.async {
                         self.avatar.image = image
+                        placeholderView.isHidden = true
                     }
                 case .failure(let error):
                     print(error)
@@ -232,10 +246,7 @@ class GroupMemberCell: UICollectionViewCell {
     }
 }
 
-
-
 class QuickActionButton: UIButton {
-
     init(iconImage: UIImage?) {
         super.init(frame: .zero)
         contentEdgeInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
@@ -260,15 +271,11 @@ class QuickActionButton: UIButton {
             iconView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.6).isActive = true
             iconView.heightAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.6).isActive = true
         }
-
-        
-        
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
 }
 
 

@@ -74,6 +74,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigation
         if StudyPact.shared.getCryptoHash() == nil {
             StudyPact.shared.registerUser(user: user) { success in
                 if !success {
+                    self.presentFailureAlert(title: "Failed to Register", message: "Please try again later.")
                     SignInManager.shared.signOut()
                     DispatchQueue.main.async {
                         self.loggedOutView()

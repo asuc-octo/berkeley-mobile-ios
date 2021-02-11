@@ -16,7 +16,6 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
     let profileView = ProfileViewController()
     
     static var homePressedMessage = "dismissDrawerWithHomePress"
-    static var homePressedCollapseMessage = "collapseTopDrawer"
 
     override func viewDidLoad() {
         super.viewDidLoad()

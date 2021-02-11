@@ -18,6 +18,7 @@ class StudyPact {
     
     private var cryptoHash: String?
     var email: String?
+    var groupUpdateDelegates: [GroupUpdateDelegate] = []
 
     /// Load cryptohash from user defaults. If it doesnt exist or authenticate fails, return false.
     public func loadCryptoHash(completion: @escaping (Bool) -> Void) {
@@ -75,7 +76,7 @@ extension StudyPact {
     
     public func registerUser(user: GIDGoogleUser?, completion: @escaping (Bool) -> Void) {
         guard let user = user,
-              user.profile.email.hasSuffix("@berkeley.edu"),
+              (user.profile.email.hasSuffix("@berkeley.edu") || user.profile.email == DEMO_EMAIL),
               let params = ["Email": user.profile.email, "FirstName": user.profile.givenName, "LastName": user.profile.familyName] as? [String: String],
               let url = EndpointKey.registerUser.url else {
             completion(false)
@@ -180,6 +181,9 @@ extension StudyPact {
         NetworkManager.shared.post(url: url, body: params, asType: AnyJSON.self) { response in
             switch response {
             case .success(_):
+                for delegate in self.groupUpdateDelegates {
+                    delegate.refreshGroups()
+                }
                 completion(true)
             default:
                 completion(false)
@@ -200,6 +204,9 @@ extension StudyPact {
         NetworkManager.shared.post(url: url, body: params, asType: AnyJSON.self) { response in
             switch response {
             case .success(_):
+                for delegate in self.groupUpdateDelegates {
+                    delegate.refreshGroups()
+                }
                 completion(true)
             default:
                 completion(false)
@@ -219,7 +226,7 @@ extension StudyPact {
             return
         }
         let params = ["secret_token": cryptoHash, "user_email": email]
-        NetworkManager.shared.post(url: url, body: params, asType: [StudyGroup].self) { response in
+        NetworkManager.shared.get(url: url, params: params, asType: [StudyGroup].self) { response in
             switch response {
             case .success(let data):
                 completion(data ?? [])
@@ -231,21 +238,28 @@ extension StudyPact {
     
     /// MARK: LeaveGroup
     // backend hasn't implemented this yet, may need to modify
-    public func leaveGroup(groupId: String, completion: @escaping (Bool) -> Void) {
+    public func leaveGroup(group: StudyGroup, completion: @escaping (Bool) -> Void) {
         guard let cryptoHash = self.cryptoHash,
               let email = self.email,
               let url = EndpointKey.leaveGroup.url else {
             completion(false)
             return
         }
-        let params = ["secret_token": cryptoHash, "user_email": email, "group_id": groupId]
+        let params = ["secret_token": cryptoHash, "user_email": email, "group_id": group.id]
         NetworkManager.shared.post(url: url, body: params, asType: AnyJSON.self) { response in
             switch response {
             case .success(_):
+                for delegate in self.groupUpdateDelegates {
+                    delegate.refreshGroups()
+                }
                 completion(true)
             default:
                 completion(false)
             }
         }
     }
+}
+
+protocol GroupUpdateDelegate {
+    func refreshGroups() -> Void
 }
