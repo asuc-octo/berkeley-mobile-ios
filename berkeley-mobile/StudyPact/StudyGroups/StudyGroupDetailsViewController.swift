@@ -39,6 +39,8 @@ class StudyGroupDetailsViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Font.bold(24)
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.6
         return label
     }()
     
@@ -73,7 +75,7 @@ class StudyGroupDetailsViewController: UIViewController {
         titleLabel.text = _studyGroup.className
         titleLabel.topAnchor.constraint(equalTo: card.topAnchor, constant: kViewMargin).isActive = true
         titleLabel.leftAnchor.constraint(equalTo: card.leftAnchor, constant: kViewMargin).isActive = true
-        titleLabel.rightAnchor.constraint(lessThanOrEqualTo: self.view.rightAnchor, constant: -1 * kViewMargin).isActive = true
+        titleLabel.rightAnchor.constraint(lessThanOrEqualTo: card.rightAnchor, constant: -1 * kViewMargin).isActive = true
         
         groupMembersGrid = GroupMembersView(studyGroupMembers: _studyGroup.groupMembers, parentView: self)
         groupMembersGrid.translatesAutoresizingMaskIntoConstraints = false

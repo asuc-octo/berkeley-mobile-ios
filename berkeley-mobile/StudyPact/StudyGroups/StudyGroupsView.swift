@@ -150,6 +150,8 @@ class StudyGroupCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Font.bold(18)
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.6
         return label
     }()
     
@@ -185,6 +187,7 @@ class StudyGroupCell: UICollectionViewCell {
         
         card.addSubview(classLabel)
         classLabel.leftAnchor.constraint(equalTo: card.leftAnchor, constant: kViewMargin).isActive = true
+        classLabel.rightAnchor.constraint(lessThanOrEqualTo: card.rightAnchor, constant: -1 * kViewMargin).isActive = true
         classLabel.topAnchor.constraint(equalTo: card.topAnchor, constant: 12).isActive = true
         
         card.addSubview(profilePictureStack)

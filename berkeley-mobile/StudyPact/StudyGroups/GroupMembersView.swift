@@ -111,6 +111,8 @@ class GroupMemberCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Font.regular(12)
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.6
         return label
     }()
     
@@ -162,6 +164,8 @@ class GroupMemberCell: UICollectionViewCell {
         card.addSubview(nameLabel)
         nameLabel.centerXAnchor.constraint(equalTo: card.centerXAnchor).isActive = true
         nameLabel.centerYAnchor.constraint(equalTo: card.centerYAnchor, constant: kViewMargin).isActive = true
+        nameLabel.leftAnchor.constraint(greaterThanOrEqualTo: card.leftAnchor, constant: 5).isActive = true
+        nameLabel.rightAnchor.constraint(lessThanOrEqualTo: card.rightAnchor, constant: 5).isActive = true
         
         card.addSubview(avatar)
         avatar.centerXAnchor.constraint(equalTo: card.centerXAnchor).isActive = true
