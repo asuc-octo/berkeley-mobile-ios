@@ -38,16 +38,8 @@ class DrawerViewController: UIViewController {
         
         setupBackgroundView()
         setupGestures()
-        
-        let nc = NotificationCenter.default
-        nc.addObserver(self, selector: #selector(collapseTopDrawer), name: Notification.Name(TabBarController.homePressedCollapseMessage), object: nil)
-    }
-    
-    @objc func collapseTopDrawer() {
-        delegate.moveDrawer(to: .collapsed)
     }
 
-    
     func setupBackgroundView() {
         view.backgroundColor = Color.modalBackground
         view.layer.cornerRadius = 15

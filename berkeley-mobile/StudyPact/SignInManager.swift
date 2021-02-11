@@ -47,6 +47,7 @@ class SignInManager: NSObject, GIDSignInDelegate {
     }
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        guard let user = user else { return }
         StudyPact.shared.email = user.profile.email
         for delegate in allDelegates {
             delegate.sign(signIn, didSignInFor: user, withError: error)

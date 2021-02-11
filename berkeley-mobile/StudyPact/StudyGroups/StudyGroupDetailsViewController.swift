@@ -14,14 +14,13 @@ class StudyGroupDetailsViewController: UIViewController {
     
     var _studyGroup: StudyGroup!
     var groupMembersGrid: GroupMembersView!
-
     
     @objc func pingAll() {
         //TODO: ping all members of the study group
     }
     
     @objc func leaveGroup() {
-        StudyPact.shared.leaveGroup(groupId: _studyGroup.id) { success in
+        StudyPact.shared.leaveGroup(group: _studyGroup) { success in
             if success {
                 self.presentSuccessAlert(title: "Successfully left group")
             } else {
@@ -106,5 +105,8 @@ class StudyGroupDetailsViewController: UIViewController {
         setUpElements()
     }
     
-
+    public func presentSelf(presentingVC: UIViewController, studyGroup: StudyGroup) {
+        self._studyGroup = studyGroup
+        presentingVC.present(self, animated: true, completion: nil)
+    }
 }
