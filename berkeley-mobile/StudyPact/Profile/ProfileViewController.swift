@@ -15,6 +15,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigation
     private var loggedIn = false
     private var loginButton: GIDSignInButton!
     private var berkeleyWarningLabel: UILabel!
+    private var logoutButton: UIButton!
     
     private var profileLabel: UILabel!
     private var initialsLabel: ProfileLabel!
@@ -33,6 +34,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigation
     
     private var changeImageButton: UIButton!
     private var imagePicker: UIImagePickerController!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -161,6 +163,11 @@ extension ProfileViewController {
     }
     
     func loggedOutView() {
+        if let _ = logoutButton {
+            view.subviews.forEach({ $0.removeFromSuperview() })
+            setupHeader()
+        }
+        
         GIDSignIn.sharedInstance()?.presentingViewController = self
         loginButton = GIDSignInButton()
         
@@ -212,8 +219,43 @@ extension ProfileViewController {
         blobView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 40).isActive = true
     }
     
+    @objc private func logoutButtonPressed(sender: UIButton) {
+        let alertController = UIAlertController(title: "Logout?", message: "You will be returned to the login screen.", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
+        alertController.addAction(UIAlertAction(title: "Logout", style: UIAlertAction.Style.destructive, handler: {_ in
+            let auth = Auth.auth()
+            do {
+                try auth.signOut()
+            } catch let error as NSError {
+                // let's hope this never happens and pretend nothing happened
+                print("Error signing out: %@", error)
+            }
+            StudyPact.shared.reset()
+            
+            self.loggedOutView()
+        }))
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
     func setupProfile() {
-        let radius: CGFloat = 50
+        let button = UIButton()
+        button.setTitle("Logout", for: .normal)
+        button.titleLabel?.font = Font.medium(18)
+        button.setTitleColor(Color.blackText, for: .normal)
+        button.setTitleColor(Color.lightGrayText, for: .selected)
+        
+        view.addSubview(button)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.centerYAnchor.constraint(equalTo: profileLabel.centerYAnchor).isActive = true
+        button.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
+        button.addTarget(self, action: #selector(logoutButtonPressed), for: .touchUpInside)
+        
+        button.setHeightConstraint(15)
+        
+        logoutButton = button
+        
+        let radius: CGFloat = 40
         let initials = ProfileLabel(text: "O", radius: radius, fontSize: 40)
         
         view.addSubview(initials)
@@ -227,7 +269,7 @@ extension ProfileViewController {
         initialsLabel = initials
         
         let imageView = UIImageView()
-        imageView.layer.cornerRadius = 50
+        imageView.layer.cornerRadius = 40
         imageView.layer.masksToBounds = true
         imageView.clipsToBounds = true
         imageView.isHidden = true
@@ -237,8 +279,8 @@ extension ProfileViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.topAnchor.constraint(equalTo: profileLabel.bottomAnchor, constant: 15).isActive = true
         imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        imageView.setHeightConstraint(100)
-        imageView.setWidthConstraint(100)
+        imageView.setHeightConstraint(80)
+        imageView.setWidthConstraint(80)
         
         profileImageView = imageView
         
@@ -254,22 +296,22 @@ extension ProfileViewController {
             NSAttributedString.Key.foregroundColor: Color.lightLightGrayText
         ]
         
-        let button = UIButton()
+        let pictureButton = UIButton()
         let attributedString = NSMutableAttributedString(string: "Edit Profile Picture", attributes: regularAttributes)
-        button.setAttributedTitle(attributedString, for: .normal)
+        pictureButton.setAttributedTitle(attributedString, for: .normal)
         
         let pressedAttributedString = NSMutableAttributedString(string: "Edit Profile Picture", attributes: pressedAttributes)
-        button.setAttributedTitle(pressedAttributedString, for: .selected)
+        pictureButton.setAttributedTitle(pressedAttributedString, for: .selected)
         
-        view.addSubview(button)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.topAnchor.constraint(equalTo: initials.bottomAnchor, constant: 15).isActive = true
-        button.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        button.setHeightConstraint(18)
-        button.addTarget(self, action: #selector(changeImageButtonPressed), for: .touchUpInside)
+        view.addSubview(pictureButton)
+        pictureButton.translatesAutoresizingMaskIntoConstraints = false
+        pictureButton.topAnchor.constraint(equalTo: initials.bottomAnchor, constant: 15).isActive = true
+        pictureButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        pictureButton.setHeightConstraint(18)
+        pictureButton.addTarget(self, action: #selector(changeImageButtonPressed), for: .touchUpInside)
         
-        button.isHidden = true  // remove in future
-        changeImageButton = button
+        pictureButton.isHidden = true  // TODO: remove in future
+        changeImageButton = pictureButton
         
         let hstack = UIStackView()
         hstack.axis = .horizontal
@@ -279,7 +321,7 @@ extension ProfileViewController {
         view.addSubview(hstack)
         
         hstack.translatesAutoresizingMaskIntoConstraints = false
-        hstack.topAnchor.constraint(equalTo: initialsLabel.bottomAnchor, constant: 30).isActive = true
+        hstack.topAnchor.constraint(equalTo: initialsLabel.bottomAnchor, constant: 20).isActive = true
         hstack.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor, constant: 15).isActive = true
         hstack.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor, constant: -15).isActive = true
         
@@ -453,7 +495,7 @@ extension ProfileViewController {
         cancelButton.translatesAutoresizingMaskIntoConstraints = false
         cancelButton.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
         cancelButton.setHeightConstraint(40)
-        cancelButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -20).isActive = true
+        cancelButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -10).isActive = true
         
         let saveButton = ActionButton(title: "Save", font: Font.bold(14))
         saveButton.layer.shadowRadius = 2.5
@@ -463,7 +505,7 @@ extension ProfileViewController {
         saveButton.translatesAutoresizingMaskIntoConstraints = false
         saveButton.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
         saveButton.setHeightConstraint(40)
-        saveButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -20).isActive = true
+        saveButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -10).isActive = true
         
         cancelButton.rightAnchor.constraint(equalTo: saveButton.leftAnchor, constant: -23).isActive = true
         cancelButton.widthAnchor.constraint(equalTo: saveButton.widthAnchor).isActive = true
@@ -567,29 +609,10 @@ extension ProfileViewController {
 
 extension ProfileViewController {
     func validateFacebook(text: String) -> String? {
-        let fbPattern = ##"(?:(?:http|https):\/\/)?(?:www.)?facebook.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[?\w\-]*\/)?(?:profile.php\?id=(?=\d.*))?([\w\-]*)?"##
-        let fbRegex = try! NSRegularExpression(pattern: fbPattern, options: [.caseInsensitive])
-                
-        let stringRange = NSRange(location: 0, length: text.utf16.count)
-        let matches = fbRegex.matches(in: text, range: stringRange)
-        var result: [[String]] = []
-        for match in matches {
-            var groups: [String] = []
-            for rangeIndex in 1 ..< match.numberOfRanges {
-                groups.append((text as NSString).substring(with: match.range(at: rangeIndex)))
-            }
-            if !groups.isEmpty {
-                result.append(groups)
-            }
+        if text.isAlphanumeric && text.count >= 5 {
+            return text
         }
-        if result.count > 0 {
-            return result[0][0]
-        } else {
-            if text.isAlphanumeric {
-                return text
-            }
-            return nil
-        }
+        return nil
     }
     
     func validatePhoneNumber(text: String) -> String? {
@@ -603,6 +626,6 @@ extension ProfileViewController {
 
 extension String {
     var isAlphanumeric: Bool {
-        return !isEmpty && range(of: "[^a-zA-Z0-9]", options: .regularExpression) == nil
+        return !isEmpty && range(of: "[^a-zA-Z0-9.]", options: .regularExpression) == nil
     }
 }

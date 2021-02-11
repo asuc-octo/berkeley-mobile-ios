@@ -52,6 +52,8 @@ class TaggedTextField: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.setHeightConstraint(14)
         label.topAnchor.constraint(equalTo: field.bottomAnchor, constant: 4).isActive = true
+        label.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+        label.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         
         textField = field
         tagLabel = label
