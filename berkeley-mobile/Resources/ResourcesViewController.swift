@@ -25,15 +25,8 @@ class ResourcesViewController: UIViewController {
         self.view.backgroundColor = Color.modalBackground
             
         setupHeader()
-        let vc = CampusResourceViewController()
-        self.add(child: vc)
-        vc.view.translatesAutoresizingMaskIntoConstraints = false
-        vc.view.topAnchor.constraint(equalTo: resourcesLabel.bottomAnchor, constant: kViewMargin).isActive = true
-        vc.view.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        vc.view.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        vc.view.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        setupSegmentedControls()
     }
-
 }
 
 extension ResourcesViewController {
