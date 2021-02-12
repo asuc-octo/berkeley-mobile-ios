@@ -254,7 +254,7 @@ extension ProfileViewController {
         initialsLabel = initials
         
         let imageView = UIImageView()
-        imageView.layer.cornerRadius = 40
+        imageView.layer.cornerRadius = radius
         imageView.layer.masksToBounds = true
         imageView.clipsToBounds = true
         imageView.isHidden = true
@@ -264,8 +264,8 @@ extension ProfileViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.topAnchor.constraint(equalTo: profileLabel.bottomAnchor, constant: 15).isActive = true
         imageView.centerXAnchor.constraint(equalTo: profileView.centerXAnchor).isActive = true
-        imageView.setHeightConstraint(80)
-        imageView.setWidthConstraint(80)
+        imageView.setHeightConstraint(2 * radius)
+        imageView.setWidthConstraint(2 * radius)
         
         profileImageView = imageView
         
@@ -625,7 +625,7 @@ extension ProfileViewController {
 
 extension ProfileViewController {
     func validateFacebook(text: String) -> String? {
-        if text.isAlphanumeric && text.count >= 5 {
+        if text.isValidFacebook && text.count >= 5 {
             return text
         }
         return nil
@@ -641,7 +641,7 @@ extension ProfileViewController {
 }
 
 extension String {
-    var isAlphanumeric: Bool {
+    var isValidFacebook: Bool {
         return !isEmpty && range(of: "[^a-zA-Z0-9.]", options: .regularExpression) == nil
     }
 }

@@ -166,7 +166,6 @@
 		559A7B6D2373DEFA004EA501 /* MaterialTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559A7B6C2373DEFA004EA501 /* MaterialTableViewCell.swift */; };
 		559A7B6F2373DF39004EA501 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559A7B6E2373DF39004EA501 /* SearchResultCell.swift */; };
 		559AF6E0251EAA2800463E2A /* DetailTapGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559AF6DF251EAA2800463E2A /* DetailTapGestureRecognizer.swift */; };
-		55A89C8C25CF543500C907C3 /* StudyPactUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A89C8B25CF543500C907C3 /* StudyPactUser.swift */; };
 		55AF44272453A49D00F13232 /* Cafe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AF44262453A49D00F13232 /* Cafe.swift */; };
 		55AF44292453A4EC00F13232 /* CafeDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AF44282453A4EC00F13232 /* CafeDataSource.swift */; };
 		55AF442B2453A80B00F13232 /* CafeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AF442A2453A80B00F13232 /* CafeItem.swift */; };
@@ -353,7 +352,6 @@
 		559A7B6C2373DEFA004EA501 /* MaterialTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialTableViewCell.swift; sourceTree = "<group>"; };
 		559A7B6E2373DF39004EA501 /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
 		559AF6DF251EAA2800463E2A /* DetailTapGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTapGestureRecognizer.swift; sourceTree = "<group>"; };
-		55A89C8B25CF543500C907C3 /* StudyPactUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyPactUser.swift; sourceTree = "<group>"; };
 		55AF44262453A49D00F13232 /* Cafe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cafe.swift; sourceTree = "<group>"; };
 		55AF44282453A4EC00F13232 /* CafeDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeDataSource.swift; sourceTree = "<group>"; };
 		55AF442A2453A80B00F13232 /* CafeItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeItem.swift; sourceTree = "<group>"; };
@@ -405,9 +403,7 @@
 			children = (
 				0181710425CA770A00BA6317 /* BTCourse.swift */,
 				0181711625CAABB000BA6317 /* ClassPreference.swift */,
-				0181711625CAABB000BA6317 /* ClassPreference.swift */,
 				0181710925CA90D300BA6317 /* AuthenticateUser.swift */,
-				55A89C8B25CF543500C907C3 /* StudyPactUser.swift */,
 				29413B9B25CF4FCF00C0B9C7 /* StudyGroup.swift */,
 			);
 			path = Schema;
@@ -1195,7 +1191,6 @@
 				29EF1F0325C79111000C0F97 /* ReviewPreferencesViewController.swift in Sources */,
 				55DCF79D237243F5001B01B8 /* RippleLayer.swift in Sources */,
 				132087AF23F3B05D00AE273C /* Filter.swift in Sources */,
-				55A89C8C25CF543500C907C3 /* StudyPactUser.swift in Sources */,
 				0181711125CAA3B300BA6317 /* AnyJSON.swift in Sources */,
 				2925D5FC2529546A00BBA266 /* CampusEventCollectionViewCell.swift in Sources */,
 				556DB0DF23E7F60900F12721 /* ResourcesViewController.swift in Sources */,
