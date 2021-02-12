@@ -403,7 +403,6 @@
 			children = (
 				0181710425CA770A00BA6317 /* BTCourse.swift */,
 				0181711625CAABB000BA6317 /* ClassPreference.swift */,
-				0181711625CAABB000BA6317 /* ClassPreference.swift */,
 				0181710925CA90D300BA6317 /* AuthenticateUser.swift */,
 				29413B9B25CF4FCF00C0B9C7 /* StudyGroup.swift */,
 			);

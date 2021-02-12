@@ -18,6 +18,8 @@ class PendingGroupViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Font.bold(30)
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.6
         return label
     }()
     

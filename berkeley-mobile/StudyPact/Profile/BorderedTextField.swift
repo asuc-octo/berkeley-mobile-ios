@@ -34,6 +34,14 @@ class BorderedTextField: UITextField {
         self.init()
         self.text = text
     }
+    
+    func setInvalid() {
+        self.layer.borderColor = Color.highOccupancyTag.cgColor
+    }
+    
+    func setDefault() {
+        self.layer.borderColor = Color.lightLightGrayText.cgColor
+    }
         
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

@@ -58,7 +58,7 @@ class CreatePreferenceFrameViewController: UIViewController {
         stack.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         stack.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 300/414).isActive = true
         containedView.topAnchor.constraint(equalTo: questionLabel.bottomAnchor, constant: 35).isActive = true
-        containedView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 180/896).isActive = true
+        containedView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 260/896).isActive = true
         containedView.widthAnchor.constraint(equalTo: stack.widthAnchor).isActive = true
     }
 }

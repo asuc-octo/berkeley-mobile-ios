@@ -115,10 +115,58 @@ extension StudyPact {
             }
         }
     }
-
+    
     // MARK: GetUser
-
+    
+    public func getUser(completion: @escaping ([String : Any]?) -> Void,
+                        errorCompletion: ((Error) -> Void)? = nil) {
+        guard let cryptohash = self.cryptoHash,
+              let email = self.email,
+              let url = EndpointKey.getUser.url else {
+            completion(nil)
+            return
+        }
+        let params = ["user_email": email, "secret_token": cryptohash]
+        NetworkManager.shared.get(url: url, params: params) { response in
+            switch response {
+            case .success(let data):
+                completion(data)
+            case .failure(let error):
+                errorCompletion?(error)
+            }
+        }
+    }
+    
     // MARK: AddUser
+    
+    public func addUser(name: String, email: String, phone: String?, profile: String?, facebook: String?, completion: @escaping (Bool) -> Void) {
+        var info = ["name": name]
+        if phone != "" {
+            info["phone"] = phone
+        }
+        if profile != "" {
+            info["profile_picture"] = profile
+        }
+        if facebook != "" {
+            info["facebook"] = facebook
+        }
+        guard let cryptohash = self.cryptoHash,
+              let url = EndpointKey.addUser.url,
+              let data = try? JSONSerialization.data(withJSONObject: info, options: []),
+              let infoStr = String(data: data, encoding: .ascii) else {
+            completion(false)
+            return
+        }
+        let params: [String : Any] = ["user_email": email, "secret_token": cryptohash, "timezone": TimeZone.current.identifier, "info": infoStr]
+        NetworkManager.shared.post(url: url, body: params, asType: AnyJSON.self) { response in
+            switch response {
+            case .success(_):
+                completion(true)
+            default:
+                completion(false)
+            }
+        }
+    }
 
     // MARK: AddClass
 
