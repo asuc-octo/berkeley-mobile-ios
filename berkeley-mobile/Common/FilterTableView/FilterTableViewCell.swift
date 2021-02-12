@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class FilterTableViewCell: UITableViewCell, ImageViewCell {
+class FilterTableViewCell: CardTableViewCell, ImageViewCell {
     
     static let kCellIdentifier = "filterCell"
     static let defaultImage = UIImage(named: "DoeGlade")
@@ -20,37 +20,8 @@ class FilterTableViewCell: UITableViewCell, ImageViewCell {
         self.cancelImageOnReuse()
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        // Setup spacing between cells
-        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top:5, left:5, bottom:5, right:5))
-        backgroundView?.frame = contentView.frame
-        selectedBackgroundView?.frame = contentView.frame
-        
-        // Setup corner radius and drop shadow
-        backgroundColor = .clear
-        backgroundView?.backgroundColor = Color.modalBackground
-        
-        backgroundView?.layer.masksToBounds = false
-        backgroundView?.layer.cornerRadius = 7
-        selectedBackgroundView?.layer.masksToBounds = true
-        selectedBackgroundView?.layer.cornerRadius = 7
-        contentView.layer.masksToBounds = true
-        contentView.layer.cornerRadius = 7
-        
-        backgroundView?.layer.shadowOpacity = 0.25
-        backgroundView?.layer.shadowRadius = 5
-        backgroundView?.layer.shadowOffset = .zero
-        backgroundView?.layer.shadowColor = UIColor.black.cgColor
-        backgroundView?.layer.shadowPath = UIBezierPath(rect: contentView.bounds.insetBy(dx: 4, dy: 4)).cgPath
-    }
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        backgroundView = UIView()
-        
         contentView.addSubview(nameLabel)
         contentView.addSubview(cellImageView)
         contentView.addSubview(recLabel)
@@ -72,6 +43,10 @@ class FilterTableViewCell: UITableViewCell, ImageViewCell {
         locationOccupancyView.topAnchor.constraint(greaterThanOrEqualTo: nameLabel.bottomAnchor, constant: 5).isActive = true
         locationOccupancyView.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor, constant: -5).isActive = true
         locationOccupancyView.leftAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     // Sets the contents of the cell based on an item passed in
@@ -110,10 +85,6 @@ class FilterTableViewCell: UITableViewCell, ImageViewCell {
         if let itemWithImage = item as? HasImage {
             updateImage(item: itemWithImage)
         }
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
     }
     
     let nameLabel: UILabel = {
