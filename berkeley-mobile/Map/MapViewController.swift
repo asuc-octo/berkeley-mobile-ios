@@ -409,9 +409,13 @@ extension MapViewController {
         let state = handlePan(gesture: gesture)
         // get rid of the top detail drawer and remove associated annotation if user sends the drawer to the bottom of the screen
         if state == .hidden {
-            removeAnnotations(type: SearchAnnotation.self)
-            searchAnnotation = nil
+            handleDrawerDismissal()
             mainContainer?.dismissTop()
         }
+    }
+    
+    func handleDrawerDismissal() {
+        removeAnnotations(type: SearchAnnotation.self)
+        searchAnnotation = nil
     }
 }

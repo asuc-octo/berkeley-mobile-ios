@@ -105,7 +105,12 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigation
                         imageUrl = user.profile.imageURL(withDimension: 250)?.absoluteString
                     }
                     StudyPact.shared.addUser(name: user.profile.name, email: user.profile.email, phone: nil, profile: imageUrl, facebook: nil) { success in
-                        if !success {
+                        if success {
+                            if let tabBarController = UIApplication.shared.windows.first!.rootViewController as? TabBarController {
+                                tabBarController.selectMainTab()
+                                tabBarController.mapView.showMainDrawer(state: .full)
+                            }
+                        } else {
                             GIDSignIn.sharedInstance()?.signOut()
                             StudyPact.shared.reset()
                             self.presentFailureAlert(title: "Failed to Register", message: "Please try again later.")

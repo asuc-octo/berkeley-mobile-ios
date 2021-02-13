@@ -30,6 +30,8 @@ extension MainDrawerViewDelegate where Self: UIViewController {
                 topVC.view.removeFromSuperview()
             }
             drawerStack.last!.drawerViewController = nil
+            let lastDrawer = drawerStack.last
+            lastDrawer?.handleDrawerDismissal()
             drawerStack.removeLast()
             positions.removeLast()
             // depending on whether the top drawer is being replaced, show the drawer below
@@ -87,6 +89,14 @@ extension MainDrawerViewDelegate where Self: UIViewController {
         } else {
             self.moveDrawer(to: state, duration: duration)
         }
+    }
+    
+    // dismiss all current drawers and show the main drawer
+    func showMainDrawer(state: DrawerState, duration: Double? = nil) {
+        while drawerStack.count > 0 {
+            self.dismissTop(showNext: false)
+        }
+        moveCurrentDrawer(to: state, duration: duration)
     }
     
     // depending on a pan gesture, return which position to go to
