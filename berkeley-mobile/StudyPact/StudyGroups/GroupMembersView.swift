@@ -122,6 +122,10 @@ class GroupMemberCell: UICollectionViewCell {
         imgView.contentMode = .scaleAspectFill
         return imgView
     }()
+
+    var emailButton: QuickActionButton!
+    var msgButton: QuickActionButton!
+    var callButton: QuickActionButton!
     
     @objc func emailTapped() {
         UIPasteboard.general.string = _member.email
@@ -177,7 +181,7 @@ class GroupMemberCell: UICollectionViewCell {
         avatar.clipsToBounds = true
         avatar.layer.masksToBounds = true
         
-        let emailButton = QuickActionButton(iconImage: UIImage(named:"email"))
+        emailButton = QuickActionButton(iconImage: UIImage(named:"email"))
         emailButton.translatesAutoresizingMaskIntoConstraints = false
         card.addSubview(emailButton)
         emailButton.centerXAnchor.constraint(equalTo: card.centerXAnchor).isActive = true
@@ -186,7 +190,7 @@ class GroupMemberCell: UICollectionViewCell {
         emailButton.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: kViewMargin).isActive = true
         emailButton.addTarget(self, action: #selector(emailTapped), for: .touchUpInside)
         
-        let msgButton = QuickActionButton(iconImage: UIImage(named:"messenger"))
+        msgButton = QuickActionButton(iconImage: UIImage(named:"messenger"))
         msgButton.translatesAutoresizingMaskIntoConstraints = false
         card.addSubview(msgButton)
         msgButton.rightAnchor.constraint(equalTo: emailButton.leftAnchor, constant: -kViewMargin / 2).isActive = true
@@ -195,7 +199,7 @@ class GroupMemberCell: UICollectionViewCell {
         msgButton.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: kViewMargin).isActive = true
         msgButton.addTarget(self, action: #selector(msgTapped), for: .touchUpInside)
         
-        let callButton = QuickActionButton(iconImage: UIImage(named:"phone-studyPact"))
+        callButton = QuickActionButton(iconImage: UIImage(named:"phone-studyPact"))
         callButton.translatesAutoresizingMaskIntoConstraints = false
         card.addSubview(callButton)
         callButton.leftAnchor.constraint(equalTo: emailButton.rightAnchor, constant: kViewMargin / 2).isActive = true
@@ -225,6 +229,8 @@ class GroupMemberCell: UICollectionViewCell {
         _member = groupMember
         _parentView = parentView
         nameLabel.text = groupMember.name
+        msgButton.isEnabled = _member.facebookUsername != nil
+        callButton.isEnabled = _member.phoneNumber != nil
         
         let placeholderLetter = String(_member.name.first ?? "O").uppercased()
         let placeholderView = ProfileLabel(text: placeholderLetter, radius: profileRadius, fontSize: 25)
@@ -251,6 +257,16 @@ class GroupMemberCell: UICollectionViewCell {
 }
 
 class QuickActionButton: UIButton {
+
+    override var isEnabled: Bool {
+        didSet {
+            iconView.tintColor = isEnabled ? Color.StudyPact.StudyGroups.enabledButton :
+                Color.StudyPact.StudyGroups.disabledButton
+        }
+    }
+
+    private var iconView: UIImageView!
+
     init(iconImage: UIImage?) {
         super.init(frame: .zero)
         contentEdgeInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
@@ -263,10 +279,11 @@ class QuickActionButton: UIButton {
         layer.shadowOffset = .zero
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowPath = UIBezierPath(rect: layer.bounds.insetBy(dx: 4, dy: 4)).cgPath
-        
+
+        iconView = UIImageView()
         if iconImage != nil {
-            let iconView = UIImageView()
-            iconView.image = iconImage
+            iconView.image = iconImage?.withRenderingMode(.alwaysTemplate)
+            iconView.tintColor = Color.StudyPact.StudyGroups.enabledButton
             iconView.contentMode = .scaleAspectFit
             addSubview(iconView)
             iconView.translatesAutoresizingMaskIntoConstraints = false
