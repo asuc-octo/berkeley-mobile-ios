@@ -19,6 +19,7 @@ class StudyPact {
     private var cryptoHash: String?
     var email: String?
     var groupUpdateDelegates: [GroupUpdateDelegate] = []
+    var studyGroups: [StudyGroup] = []
 
     /// Load cryptohash from user defaults. If it doesnt exist or authenticate fails, return false.
     public func loadCryptoHash(completion: @escaping (Bool) -> Void) {
@@ -229,6 +230,7 @@ extension StudyPact {
         NetworkManager.shared.get(url: url, params: params, asType: [StudyGroup].self) { response in
             switch response {
             case .success(let data):
+                self.studyGroups = data ?? []
                 completion(data ?? [])
             default:
                 completion([])

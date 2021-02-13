@@ -46,10 +46,6 @@ class AllStudyGroupsViewController: UIViewController {
         setUpElements()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        studyGroupsGrid.refreshGroups()
-    }
-    
     private func setUpBackgroundView() {
         view.backgroundColor = Color.modalBackground
         view.layer.cornerRadius = 15
@@ -74,7 +70,7 @@ class AllStudyGroupsViewController: UIViewController {
         titleLabel.leftAnchor.constraint(equalTo: card.leftAnchor, constant: kViewMargin).isActive = true
         titleLabel.rightAnchor.constraint(lessThanOrEqualTo: self.view.rightAnchor, constant: -1 * kViewMargin).isActive = true
         
-        studyGroupsGrid = StudyGroupsView(enclosingVC: self, limit: nil)
+        studyGroupsGrid = StudyGroupsView(enclosingVC: self, limit: nil, refreshGroups: false)
         studyGroupsGrid.translatesAutoresizingMaskIntoConstraints = false
         card.addSubview(studyGroupsGrid)
         studyGroupsGrid.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: kViewMargin).isActive = true
