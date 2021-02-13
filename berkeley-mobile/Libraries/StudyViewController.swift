@@ -108,6 +108,7 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
         studyGroupsLabel.adjustsFontSizeToFitWidth = true
         studyGroupsLabel.textColor = Color.blackText
         studyPactCard.addSubview(studyGroupsLabel)
+        studyGroupsLabel.setContentHuggingPriority(.required, for: .vertical)
         studyGroupsLabel.translatesAutoresizingMaskIntoConstraints = false
         studyGroupsLabel.leftAnchor.constraint(equalTo: studyPactCard.layoutMarginsGuide.leftAnchor).isActive = true
         studyGroupsLabel.topAnchor.constraint(equalTo: studyPactCard.layoutMarginsGuide.topAnchor).isActive = true
@@ -124,7 +125,7 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
         allButton.leftAnchor.constraint(greaterThanOrEqualTo: studyGroupsLabel.rightAnchor, constant: 5).isActive = true
         
         studyPactCard.addSubview(studyPactContent)
-        studyPactContent.topAnchor.constraint(greaterThanOrEqualTo: studyGroupsLabel.bottomAnchor, constant: 12).isActive = true
+        studyPactContent.topAnchor.constraint(equalTo: studyGroupsLabel.bottomAnchor, constant: 12).isActive = true
         studyPactContent.rightAnchor.constraint(equalTo: studyPactCard.layoutMarginsGuide.rightAnchor).isActive = true
         studyPactContent.leftAnchor.constraint(equalTo: studyPactCard.layoutMarginsGuide.leftAnchor).isActive = true
         studyPactContent.bottomAnchor.constraint(equalTo: studyPactCard.layoutMarginsGuide.bottomAnchor).isActive = true
