@@ -75,12 +75,15 @@ extension StudyPact {
 
     // MARK: RegisterUser
     
-    public func registerUser(user: GIDGoogleUser?, completion: @escaping (Bool) -> Void) {
+    public func registerUser(user: GIDGoogleUser?, completion: @escaping (Result<Void, RegisterUserError>) -> Void) {
         guard let user = user,
-              (user.profile.email.hasSuffix("@berkeley.edu") || user.profile.email == DEMO_EMAIL),
               let params = ["Email": user.profile.email, "FirstName": user.profile.givenName, "LastName": user.profile.familyName] as? [String: String],
               let url = EndpointKey.registerUser.url else {
-            completion(false)
+            completion(.failure(.UserInfoError))
+            return
+        }
+        guard user.profile.email.hasSuffix("@berkeley.edu") || user.profile.email == DEMO_EMAIL else {
+            completion(.failure(.InvalidEmail))
             return
         }
         NetworkManager.shared.post(url: url, body: params) { response in
@@ -90,9 +93,9 @@ extension StudyPact {
                 self.cryptoHash = cryptohash
                 self.email = user.profile.email
                 self.saveCryptoHash(cryptoHash: cryptohash)
-                completion(true)
+                completion(.success(()))
             default:
-                completion(false)
+                completion(.failure(.RequestError))
             }
         }
     }
@@ -264,4 +267,10 @@ extension StudyPact {
 
 protocol GroupUpdateDelegate {
     func refreshGroups() -> Void
+}
+
+enum RegisterUserError: Error {
+    case InvalidEmail
+    case UserInfoError
+    case RequestError
 }

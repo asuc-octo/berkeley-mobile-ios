@@ -72,18 +72,23 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigation
         }
         // if new sign in to google rather than previous sign in
         if StudyPact.shared.getCryptoHash() == nil {
-            StudyPact.shared.registerUser(user: user) { success in
-                if !success {
-                    self.presentFailureAlert(title: "Failed to Register", message: "Please try again later.")
+            StudyPact.shared.registerUser(user: user) { response in
+                switch response {
+                case .success:
+                    self.loggedInView()
+                    self.fillProfile()
+                case .failure(let error):
+                    switch error {
+                    case .InvalidEmail:
+                        self.presentFailureAlert(title: "Invalid Email", message: "Please use a valid @berkeley.edu email.")
+                    default:
+                        self.presentFailureAlert(title: "Failed to Sign In", message: "Please try again later.")
+                    }
                     SignInManager.shared.signOut()
                     DispatchQueue.main.async {
                         self.loggedOutView()
-                        self.presentFailureAlert(title: "Failed to Sign In", message: "Please try again later.")
                     }
-                    return
                 }
-                self.loggedInView()
-                self.fillProfile()
             }
         }
     }
