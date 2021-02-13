@@ -122,5 +122,6 @@ class StudyPactNewFeatureViewController: UIViewController {
         laterButton.rightAnchor.constraint(equalTo: buttonsView.rightAnchor).isActive = true
         laterButton.topAnchor.constraint(equalTo: buttonsView.topAnchor).isActive = true
         laterButton.bottomAnchor.constraint(equalTo: buttonsView.bottomAnchor).isActive = true
+        getStartedButton.widthAnchor.constraint(equalTo: laterButton.widthAnchor).isActive = true
     }
 }
