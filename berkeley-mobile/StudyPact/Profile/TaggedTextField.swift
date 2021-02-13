@@ -13,14 +13,13 @@ class TaggedTextField: UIView {
     var textField: BorderedTextField!
     var tagLabel: UILabel!
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    var tagBoldStrings: [String] = []
+    var tagText: String = ""
+    public init(tagText: String, boldStrings: [String] = []) {
+        super.init(frame: .zero)
+        self.tagText = tagText
+        self.tagBoldStrings = boldStrings
         setupView()
-    }
-    
-    convenience init(text: String) {
-        self.init()
-        tagLabel.text = text
     }
     
     required init?(coder: NSCoder) {
@@ -39,8 +38,7 @@ class TaggedTextField: UIView {
         field.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         
         let label = UILabel()
-        label.text = ""
-        label.font = Font.regular(10)
+        label.attributedText = NSAttributedString.boldedText(withString: self.tagText, boldStrings: self.tagBoldStrings, font: Font.regular(10), boldFont: Font.bold(10))
         label.textColor = Color.lightGrayText
         label.textAlignment = .left
         label.numberOfLines = 1
@@ -58,5 +56,4 @@ class TaggedTextField: UIView {
         textField = field
         tagLabel = label
     }
-
 }

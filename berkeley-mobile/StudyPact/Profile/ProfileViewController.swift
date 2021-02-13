@@ -382,7 +382,7 @@ extension ProfileViewController {
         emailLabel.setHeightConstraint(36)
         emailLabel.leftAnchor.constraint(equalTo: rows.leftAnchor).isActive = true
 
-        let emailField = TaggedTextField(text: "* set by CalNet and cannot be changed")
+        let emailField = TaggedTextField(tagText: "* set by CalNet and cannot be changed")
         emailField.textField.delegate = self
         
         emailRow.addArrangedSubview(emailField)
@@ -455,7 +455,7 @@ extension ProfileViewController {
         facebookLabel.setHeightConstraint(36)
         facebookLabel.leftAnchor.constraint(equalTo: rows.leftAnchor).isActive = true
         
-        let facebookField = TaggedTextField(text: "facebook.com/your-username")
+        let facebookField = TaggedTextField(tagText: "facebook.com/your-username", boldStrings: ["your-username"])
         facebookField.textField.delegate = self
         facebookField.textField.autocorrectionType = .no
         facebookField.textField.keyboardType = .URL
