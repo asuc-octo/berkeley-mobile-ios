@@ -124,7 +124,7 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
         allButton.leftAnchor.constraint(greaterThanOrEqualTo: studyGroupsLabel.rightAnchor, constant: 5).isActive = true
         
         studyPactCard.addSubview(studyPactContent)
-        studyPactContent.topAnchor.constraint(equalTo: studyGroupsLabel.bottomAnchor, constant: 12).isActive = true
+        studyPactContent.topAnchor.constraint(greaterThanOrEqualTo: studyGroupsLabel.bottomAnchor, constant: 12).isActive = true
         studyPactContent.rightAnchor.constraint(equalTo: studyPactCard.layoutMarginsGuide.rightAnchor).isActive = true
         studyPactContent.leftAnchor.constraint(equalTo: studyPactCard.layoutMarginsGuide.leftAnchor).isActive = true
         studyPactContent.bottomAnchor.constraint(equalTo: studyPactCard.layoutMarginsGuide.bottomAnchor).isActive = true
