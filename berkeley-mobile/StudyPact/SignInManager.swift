@@ -31,12 +31,7 @@ class SignInManager: NSObject, GIDSignInDelegate {
         GIDSignIn.sharedInstance()?.delegate = self
         if let previous = GIDSignIn.sharedInstance()?.hasPreviousSignIn(), previous {
             GIDSignIn.sharedInstance()?.restorePreviousSignIn()
-            StudyPact.shared.loadCryptoHash { success in
-                if !success {
-                    GIDSignIn.sharedInstance()?.signOut()
-                    StudyPact.shared.reset()
-                }
-            }
+            print(StudyPact.shared.email)
         } else {
             StudyPact.shared.reset()
         }
@@ -49,6 +44,12 @@ class SignInManager: NSObject, GIDSignInDelegate {
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         guard let user = user else { return }
         StudyPact.shared.email = user.profile.email
+        StudyPact.shared.loadCryptoHash { success in
+            if !success {
+                GIDSignIn.sharedInstance()?.signOut()
+                StudyPact.shared.reset()
+            }
+        }
         for delegate in allDelegates {
             delegate.sign(signIn, didSignInFor: user, withError: error)
         }

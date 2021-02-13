@@ -548,7 +548,7 @@ extension ProfileViewController {
         if let fb = info["facebook"] {
             self.facebookTextField.textField.text = fb
         } else {
-            self.phoneTextField.text = ""
+            self.facebookTextField.textField.text = ""
         }
         if let url = info["profile_picture"] {
             guard let imageUrl = URL(string: url) else { return }
