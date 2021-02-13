@@ -82,6 +82,10 @@ extension AcademicCalendarViewController: UITableViewDelegate, UITableViewDataSo
         }
         return UITableViewCell()
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let event = calendarEntries[safe: indexPath.row] {

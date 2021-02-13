@@ -51,7 +51,7 @@ class EventTableViewCell: CardTableViewCell {
         eventTaggingColor.widthAnchor.constraint(equalToConstant: 10).isActive = true
         
         eventName.font = Font.bold(18)
-        eventName.numberOfLines = 2
+        eventName.numberOfLines = 0
         eventName.adjustsFontSizeToFitWidth = true
         eventName.minimumScaleFactor = 0.7
         eventName.setContentHuggingPriority(.required, for: .vertical)
