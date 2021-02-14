@@ -22,14 +22,15 @@ struct AddPreferenceParams: Encodable {
 
     init?(email: String, cryptohash: String, prefs: StudyPactPreference) {
         guard let className = prefs.className,
-              let size = prefs.numberOfPeople,
+              let numberOfPeople = prefs.numberOfPeople,
               let isVirtual = prefs.isVirtual else {
             return nil
         }
         self.email = email
         self.cryptohash = cryptohash
         self.className = className
-        self.size = size
+        // backend wants us to send the preferred total people (including self)
+        self.size = numberOfPeople + 1
         self.env = isVirtual ? "virtual" : "in-person"
     }
 }
