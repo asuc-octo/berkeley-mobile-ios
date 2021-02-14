@@ -78,12 +78,12 @@ extension MainContainerViewController {
 
 extension MainContainerViewController {
     func checkOnboarding() {
-        let launchedBefore = UserDefaults.standard.bool(forKey: "hasShownStudyPact")
+        let launchedBefore = UserDefaults.standard.bool(forKey: "hasShownNewFeatureStudyPact")
         if !launchedBefore {
             let vc = StudyPactNewFeatureViewController()
             vc.modalPresentationStyle = .fullScreen
             self.present(vc, animated: true, completion: nil)
-            UserDefaults.standard.set(true, forKey: "hasShownStudyPact")
+            UserDefaults.standard.set(true, forKey: "hasShownNewFeatureStudyPact")
         }
     }
 }

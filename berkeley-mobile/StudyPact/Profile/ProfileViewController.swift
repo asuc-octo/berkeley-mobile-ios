@@ -61,6 +61,16 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigation
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        let shownOnboarding = UserDefaults.standard.bool(forKey: "hasShownStudyPactOnboarding")
+        if !shownOnboarding {
+            let vc = PageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
+            vc.modalPresentationStyle = .fullScreen
+            self.present(vc, animated: true, completion: nil)
+            UserDefaults.standard.set(true, forKey: "hasShownStudyPactOnboarding")
+        }
+    }
+    
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         if let error = error {
             print(error)
