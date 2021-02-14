@@ -176,7 +176,7 @@ class CreatePreferenceViewController: UIPageViewController, UIPageViewController
         self.pageControl.pageIndicatorTintColor = UIColor.lightGray
         self.pageControl.numberOfPages = self.pages.count
         self.pageControl.currentPage = initialPage
-        self.pageControl.pageIndicatorTintColor = Color.StudyPact.Onboarding.onboardingTint
+        self.pageControl.pageIndicatorTintColor = Color.StudyPact.Onboarding.blue
         self.view.addSubview(self.pageControl)
         
         self.pageControl.translatesAutoresizingMaskIntoConstraints = false

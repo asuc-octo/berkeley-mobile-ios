@@ -108,6 +108,7 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
         studyGroupsLabel.adjustsFontSizeToFitWidth = true
         studyGroupsLabel.textColor = Color.blackText
         studyPactCard.addSubview(studyGroupsLabel)
+        studyGroupsLabel.setContentHuggingPriority(.required, for: .vertical)
         studyGroupsLabel.translatesAutoresizingMaskIntoConstraints = false
         studyGroupsLabel.leftAnchor.constraint(equalTo: studyPactCard.layoutMarginsGuide.leftAnchor).isActive = true
         studyGroupsLabel.topAnchor.constraint(equalTo: studyPactCard.layoutMarginsGuide.topAnchor).isActive = true

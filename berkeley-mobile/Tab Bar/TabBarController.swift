@@ -48,4 +48,10 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
             self.selectedIndex = profileIndex
         }
     }
+    
+    public func selectMainTab() {
+        if let mainIndex = self.viewControllers?.firstIndex(of: mapView) {
+            self.selectedIndex = mainIndex
+        }
+    }
 }

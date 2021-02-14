@@ -61,6 +61,16 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigation
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        let shownOnboarding = UserDefaults.standard.bool(forKey: UserDefaultKeys.StudyPact.hasShownOnboarding)
+        if !shownOnboarding {
+            let vc = PageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
+            vc.modalPresentationStyle = .fullScreen
+            self.present(vc, animated: true, completion: nil)
+            UserDefaults.standard.set(true, forKey: UserDefaultKeys.StudyPact.hasShownOnboarding)
+        }
+    }
+    
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         if let error = error {
             print(error)
@@ -72,18 +82,23 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigation
         }
         // if new sign in to google rather than previous sign in
         if StudyPact.shared.getCryptoHash() == nil {
-            StudyPact.shared.registerUser(user: user) { success in
-                if !success {
-                    self.presentFailureAlert(title: "Failed to Register", message: "Please try again later.")
+            StudyPact.shared.registerUser(user: user) { response in
+                switch response {
+                case .success:
+                    self.loggedInView()
+                    self.fillProfile()
+                case .failure(let error):
+                    switch error {
+                    case .InvalidEmail:
+                        self.presentFailureAlert(title: "Invalid Email", message: "Please use a valid @berkeley.edu email.")
+                    default:
+                        self.presentFailureAlert(title: "Failed to Sign In", message: "Please try again later.")
+                    }
                     SignInManager.shared.signOut()
                     DispatchQueue.main.async {
                         self.loggedOutView()
-                        self.presentFailureAlert(title: "Failed to Sign In", message: "Please try again later.")
                     }
-                    return
                 }
-                self.loggedInView()
-                self.fillProfile()
             }
         }
     }
@@ -105,7 +120,12 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigation
                         imageUrl = user.profile.imageURL(withDimension: 250)?.absoluteString
                     }
                     StudyPact.shared.addUser(name: user.profile.name, email: user.profile.email, phone: nil, profile: imageUrl, facebook: nil) { success in
-                        if !success {
+                        if success {
+                            if let tabBarController = UIApplication.shared.windows.first!.rootViewController as? TabBarController {
+                                tabBarController.selectMainTab()
+                                tabBarController.mapView.showMainDrawer(state: .full)
+                            }
+                        } else {
                             GIDSignIn.sharedInstance()?.signOut()
                             StudyPact.shared.reset()
                             self.presentFailureAlert(title: "Failed to Register", message: "Please try again later.")
@@ -382,7 +402,7 @@ extension ProfileViewController {
         emailLabel.setHeightConstraint(36)
         emailLabel.leftAnchor.constraint(equalTo: rows.leftAnchor).isActive = true
 
-        let emailField = TaggedTextField(text: "* set by CalNet and cannot be changed")
+        let emailField = TaggedTextField(tagText: "* set by CalNet and cannot be changed")
         emailField.textField.delegate = self
         
         emailRow.addArrangedSubview(emailField)
@@ -455,7 +475,7 @@ extension ProfileViewController {
         facebookLabel.setHeightConstraint(36)
         facebookLabel.leftAnchor.constraint(equalTo: rows.leftAnchor).isActive = true
         
-        let facebookField = TaggedTextField(text: "facebook.com/your-username")
+        let facebookField = TaggedTextField(tagText: "facebook.com/your-username", boldStrings: ["your-username"])
         facebookField.textField.delegate = self
         facebookField.textField.autocorrectionType = .no
         facebookField.textField.keyboardType = .URL
@@ -548,7 +568,7 @@ extension ProfileViewController {
         if let fb = info["facebook"] {
             self.facebookTextField.textField.text = fb
         } else {
-            self.phoneTextField.text = ""
+            self.facebookTextField.textField.text = ""
         }
         if let url = info["profile_picture"] {
             guard let imageUrl = URL(string: url) else { return }

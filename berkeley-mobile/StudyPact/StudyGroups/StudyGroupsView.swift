@@ -41,11 +41,10 @@ class StudyGroupsView: UIView, GroupUpdateDelegate {
         return collection
     }()
     
-    public init(enclosingVC: UIViewController, limit: Int?) {
+    public init(enclosingVC: UIViewController, limit: Int?, refreshGroups: Bool = true) {
         self.enclosingVC = enclosingVC
         self.groupLimit = limit
         super.init(frame: .zero)
-        refreshGroups()
         
         collection.delegate = self
         collection.dataSource = self
@@ -58,6 +57,11 @@ class StudyGroupsView: UIView, GroupUpdateDelegate {
         collectionHeightConstraint.priority = .defaultLow
         collectionHeightConstraint.isActive = true
         
+        if refreshGroups {
+            self.refreshGroups()
+        } else {
+            self.setGroups(groups: StudyPact.shared.studyGroups)
+        }
         StudyPact.shared.groupUpdateDelegates.append(self)
     }
     
@@ -73,23 +77,29 @@ class StudyGroupsView: UIView, GroupUpdateDelegate {
         collection.reloadData()
         collection.setContentOffset(CGPoint(x: -5, y: -5), animated: false)
         self.layoutIfNeeded()
+        let height = self.collection.collectionViewLayout.collectionViewContentSize.height + 16
+        self.collectionHeightConstraint.constant = height
     }
     
     public func refreshGroups() {
         StudyPact.shared.getGroups() { groups in
-            if let limit = self.groupLimit {
-                self.studyGroups = Array(groups.prefix(limit))
-                self.includeCreatePreference = groups.count < limit
-            } else {
-                self.studyGroups = groups
-                self.includeCreatePreference = true
-            }
             DispatchQueue.main.async {
-                self.collection.reloadData()
-                let height = self.collection.collectionViewLayout.collectionViewContentSize.height + 16
-                self.collectionHeightConstraint.constant = height
+                self.setGroups(groups: groups)
             }
         }
+    }
+    
+    private func setGroups(groups: [StudyGroup]) {
+        if let limit = self.groupLimit {
+            self.studyGroups = Array(groups.prefix(limit))
+            self.includeCreatePreference = groups.count < limit
+        } else {
+            self.studyGroups = groups
+            self.includeCreatePreference = true
+        }
+        self.collection.reloadData()
+        let height = self.collection.collectionViewLayout.collectionViewContentSize.height + 16
+        self.collectionHeightConstraint.constant = height
     }
     
     required init?(coder: NSCoder) {
