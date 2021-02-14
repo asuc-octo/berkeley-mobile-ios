@@ -78,7 +78,7 @@ class StudyPactNewFeatureViewController: UIViewController {
         weak var pvc = self.presentingViewController
 
         self.dismiss(animated: false, completion: {
-            UserDefaults.standard.set(true, forKey: "hasShownStudyPactOnboarding")
+            UserDefaults.standard.set(true, forKey: UserDefaultKeys.StudyPact.hasShownOnboarding)
             let vc = PageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
             vc.modalPresentationStyle = .fullScreen
             pvc?.present(vc, animated: true, completion: nil)

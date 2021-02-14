@@ -111,6 +111,7 @@
 		2948155F253274C500D113B6 /* ImageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2948155E253274C500D113B6 /* ImageViewCell.swift */; };
 		2954F592245CD4B600DA66DA /* MainDrawerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2954F591245CD4B600DA66DA /* MainDrawerViewDelegate.swift */; };
 		2968BF0125CB7798008B7078 /* SignInManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2968BF0025CB7798008B7078 /* SignInManager.swift */; };
+		2969747625D8A77C005ED231 /* UserDefaultKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2969747525D8A77C005ED231 /* UserDefaultKeys.swift */; };
 		296B8AA72544D97F00C3A219 /* EventOverviewCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296B8AA62544D97F00C3A219 /* EventOverviewCardView.swift */; };
 		296DDEC1253BB117008E8940 /* CampusEventDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296DDEC0253BB117008E8940 /* CampusEventDetailViewController.swift */; };
 		296F1B272439341300924C8D /* DiningDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296F1B262439341300924C8D /* DiningDetailViewController.swift */; };
@@ -294,6 +295,7 @@
 		2948155E253274C500D113B6 /* ImageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewCell.swift; sourceTree = "<group>"; };
 		2954F591245CD4B600DA66DA /* MainDrawerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainDrawerViewDelegate.swift; sourceTree = "<group>"; };
 		2968BF0025CB7798008B7078 /* SignInManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInManager.swift; sourceTree = "<group>"; };
+		2969747525D8A77C005ED231 /* UserDefaultKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultKeys.swift; sourceTree = "<group>"; };
 		296B8AA62544D97F00C3A219 /* EventOverviewCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventOverviewCardView.swift; sourceTree = "<group>"; };
 		296DDEC0253BB117008E8940 /* CampusEventDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusEventDetailViewController.swift; sourceTree = "<group>"; };
 		296F1B262439341300924C8D /* DiningDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiningDetailViewController.swift; sourceTree = "<group>"; };
@@ -952,6 +954,7 @@
 				13491DB4241E215E0033F9AB /* Colors */,
 				55DCF78A23723238001B01B8 /* Fonts */,
 				55DCF78823722CF1001B01B8 /* Fonts.swift */,
+				2969747525D8A77C005ED231 /* UserDefaultKeys.swift */,
 			);
 			path = Assets;
 			sourceTree = "<group>";
@@ -1294,6 +1297,7 @@
 				299ACFB4244A5F90000F3E86 /* HasOccupancy.swift in Sources */,
 				0181710A25CA90D300BA6317 /* AuthenticateUser.swift in Sources */,
 				0181711725CAABB000BA6317 /* ClassPreference.swift in Sources */,
+				2969747625D8A77C005ED231 /* UserDefaultKeys.swift in Sources */,
 				559A7B6D2373DEFA004EA501 /* MaterialTableViewCell.swift in Sources */,
 				29891B23257C521E0094891D /* PageViewController.swift in Sources */,
 				13EA64CD2399CEDA00FD8E13 /* Gym.swift in Sources */,

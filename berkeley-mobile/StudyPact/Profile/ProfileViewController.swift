@@ -62,12 +62,12 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigation
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        let shownOnboarding = UserDefaults.standard.bool(forKey: "hasShownStudyPactOnboarding")
+        let shownOnboarding = UserDefaults.standard.bool(forKey: UserDefaultKeys.StudyPact.hasShownOnboarding)
         if !shownOnboarding {
             let vc = PageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
             vc.modalPresentationStyle = .fullScreen
             self.present(vc, animated: true, completion: nil)
-            UserDefaults.standard.set(true, forKey: "hasShownStudyPactOnboarding")
+            UserDefaults.standard.set(true, forKey: UserDefaultKeys.StudyPact.hasShownOnboarding)
         }
     }
     
