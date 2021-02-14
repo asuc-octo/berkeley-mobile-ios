@@ -94,6 +94,11 @@ class MapMarkerDetailView: UIView {
         closeButton.widthAnchor.constraint(equalToConstant: kButtonSize).isActive = true
         closeButton.heightAnchor.constraint(equalToConstant: kButtonSize).isActive = true
         
+        //gesture dissapear
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(closeView))
+        swipeDown.direction = .down
+        self.addGestureRecognizer(swipeDown)
+        
         nameLabel = UILabel()
         contentView.addSubview(nameLabel)
         nameLabel.numberOfLines = 0
@@ -120,6 +125,7 @@ class MapMarkerDetailView: UIView {
         detailStack.alignment = .center
     
         verticalStack.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor).isActive = true
+        
     }
     
     convenience init() {
