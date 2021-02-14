@@ -68,6 +68,14 @@ extension Color {
             static var leaveGroupButton: UIColor {
                 return UIColor(displayP3Red: 199/255, green: 199/255, blue: 199/255, alpha: 1.0)
             }
+
+            static var enabledButton: UIColor {
+                return UIColor(displayP3Red: 127/255, green: 153/255, blue: 245/255, alpha: 1.0)
+            }
+
+            static var disabledButton: UIColor {
+                return UIColor(displayP3Red: 145/255, green: 145/255, blue: 145/255, alpha: 1.0)
+            }
         }
         
         struct Profile {
