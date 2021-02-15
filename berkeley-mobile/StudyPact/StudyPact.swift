@@ -218,8 +218,6 @@ extension StudyPact {
         }
     }
 
-    // MARK: LeaveGroup
-
     // MARK: GetGroups
     
     public func getGroups(completion: @escaping ([StudyGroup]) -> Void) {
@@ -241,8 +239,7 @@ extension StudyPact {
         }
     }
     
-    /// MARK: LeaveGroup
-    // backend hasn't implemented this yet, may need to modify
+    // MARK: LeaveGroup
     public func leaveGroup(group: StudyGroup, completion: @escaping (Bool) -> Void) {
         guard let cryptoHash = self.cryptoHash,
               let email = self.email,
