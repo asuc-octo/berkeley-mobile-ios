@@ -1,5 +1,5 @@
 //
-//  SelectLocationView.swift
+//  SelectEnvironmentView.swift
 //  berkeley-mobile
 //
 //  Created by Eashan Mathur on 1/30/21.
@@ -8,14 +8,14 @@
 
 import UIKit
 
-class SelectLocationView: UIView, EnableNextDelegate {
+class SelectEnvironmentView: UIView, EnableNextDelegate {
     weak var preferenceVC: CreatePreferenceViewController?
     private var buttonSelected: UIButton? {
         didSet {
             if let button = buttonSelected {
                 isNextEnabled = true
                 guard let preferenceVC = self.preferenceVC else { return }
-                preferenceVC.preference.isVirtual = button == virtualButton
+                preferenceVC.preference.isQuiet = button == quietButton
             } else {
                 isNextEnabled = false
             }
@@ -28,8 +28,8 @@ class SelectLocationView: UIView, EnableNextDelegate {
         }
     }
     
-    var virtualButton: UIButton!
-    var inPersonButton: UIButton!
+    var quietButton: UIButton!
+    var collaborativeButton: UIButton!
     private func createButton(title: String) -> UIButton {
         let button = UIButton()
         button.layer.cornerRadius = 12
@@ -67,8 +67,8 @@ class SelectLocationView: UIView, EnableNextDelegate {
     init(preferenceVC: CreatePreferenceViewController) {
         self.preferenceVC = preferenceVC
         super.init(frame: .zero)
-        self.virtualButton = createButton(title: "Virtual")
-        self.inPersonButton = createButton(title: "In Person")
+        self.quietButton = createButton(title: "Quiet")
+        self.collaborativeButton = createButton(title: "Collaborative")
         setUpView()
     }
     
@@ -82,17 +82,17 @@ class SelectLocationView: UIView, EnableNextDelegate {
         stack.spacing = 25
         stack.distribution = .equalSpacing
         addSubview(stack)
-        stack.addArrangedSubview(virtualButton)
-        stack.addArrangedSubview(inPersonButton)
+        stack.addArrangedSubview(quietButton)
+        stack.addArrangedSubview(collaborativeButton)
         
         stack.translatesAutoresizingMaskIntoConstraints = false
-        virtualButton.translatesAutoresizingMaskIntoConstraints = false
-        inPersonButton.translatesAutoresizingMaskIntoConstraints = false
+        quietButton.translatesAutoresizingMaskIntoConstraints = false
+        collaborativeButton.translatesAutoresizingMaskIntoConstraints = false
         
         stack.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         stack.widthAnchor.constraint(equalToConstant: 155).isActive = true
         stack.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        virtualButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        inPersonButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        quietButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        collaborativeButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
     }
 }

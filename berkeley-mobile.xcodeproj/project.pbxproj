@@ -185,7 +185,7 @@
 		FD3D6FFF25C2BB7D00579EF5 /* SelectPeopleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3D6FFE25C2BB7D00579EF5 /* SelectPeopleView.swift */; };
 		FD3D700225C2BC7D00579EF5 /* CreatePreferenceFrameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3D700125C2BC7D00579EF5 /* CreatePreferenceFrameViewController.swift */; };
 		FD6FB45925C616370045A03A /* SelectClassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6FB45825C616370045A03A /* SelectClassView.swift */; };
-		FD6FB45C25C62EB90045A03A /* SelectLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6FB45B25C62EB90045A03A /* SelectLocationView.swift */; };
+		FD6FB45C25C62EB90045A03A /* SelectEnvironmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6FB45B25C62EB90045A03A /* SelectEnvironmentView.swift */; };
 		FD6FB45F25C6A4B90045A03A /* StudyPactPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6FB45E25C6A4B80045A03A /* StudyPactPreference.swift */; };
 		FDE7CD9925BCE6DB00F65A13 /* CreatePreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDE7CD9825BCE6DB00F65A13 /* CreatePreferenceViewController.swift */; };
 /* End PBXBuildFile section */
@@ -376,7 +376,7 @@
 		FD3D6FFE25C2BB7D00579EF5 /* SelectPeopleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPeopleView.swift; sourceTree = "<group>"; };
 		FD3D700125C2BC7D00579EF5 /* CreatePreferenceFrameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePreferenceFrameViewController.swift; sourceTree = "<group>"; };
 		FD6FB45825C616370045A03A /* SelectClassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectClassView.swift; sourceTree = "<group>"; };
-		FD6FB45B25C62EB90045A03A /* SelectLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectLocationView.swift; sourceTree = "<group>"; };
+		FD6FB45B25C62EB90045A03A /* SelectEnvironmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectEnvironmentView.swift; sourceTree = "<group>"; };
 		FD6FB45E25C6A4B80045A03A /* StudyPactPreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyPactPreference.swift; sourceTree = "<group>"; };
 		FDE7CD9825BCE6DB00F65A13 /* CreatePreferenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePreferenceViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -793,7 +793,7 @@
 				FDE7CD9825BCE6DB00F65A13 /* CreatePreferenceViewController.swift */,
 				FD3D6FFE25C2BB7D00579EF5 /* SelectPeopleView.swift */,
 				FD6FB45825C616370045A03A /* SelectClassView.swift */,
-				FD6FB45B25C62EB90045A03A /* SelectLocationView.swift */,
+				FD6FB45B25C62EB90045A03A /* SelectEnvironmentView.swift */,
 				29EF1F0225C79111000C0F97 /* ReviewPreferencesViewController.swift */,
 				FD3D700125C2BC7D00579EF5 /* CreatePreferenceFrameViewController.swift */,
 				FD6FB45E25C6A4B80045A03A /* StudyPactPreference.swift */,
@@ -1265,7 +1265,7 @@
 				01B2502F2516C45800CBA459 /* EventCalendarEntry.swift in Sources */,
 				2925D5FA2529405500BBA266 /* CampusEventCellView.swift in Sources */,
 				5516088624392E5100B1E55B /* DiningViewController.swift in Sources */,
-				FD6FB45C25C62EB90045A03A /* SelectLocationView.swift in Sources */,
+				FD6FB45C25C62EB90045A03A /* SelectEnvironmentView.swift in Sources */,
 				29F09C3525D76EDF003FB69F /* StudyPactNewFeatureViewController.swift in Sources */,
 				01CDBBC725CA3B13006B93BD /* NetworkManager.swift in Sources */,
 				018B982825328200004C3B26 /* Colors+ActionButton.swift in Sources */,
