@@ -11,5 +11,5 @@ import Foundation
 struct StudyPactPreference {
     var className: String?
     var numberOfPeople: Int?
-    var isVirtual: Bool?
+    var isQuiet: Bool?
 }

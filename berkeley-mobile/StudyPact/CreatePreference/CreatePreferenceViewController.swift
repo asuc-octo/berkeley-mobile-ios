@@ -159,7 +159,7 @@ class CreatePreferenceViewController: UIPageViewController, UIPageViewController
         let initialPage = 0
         let page1 = CreatePreferenceFrameViewController(labelText: "How many people do you want to study with?", containedView: SelectPeopleView(preferenceVC: self))
         let page2 = CreatePreferenceFrameViewController(labelText: "What class do you want to study for?", containedView: SelectClassView(preferenceVC: self))
-        let page3 = CreatePreferenceFrameViewController(labelText: "Where do you want to study?", containedView: SelectLocationView(preferenceVC: self))
+        let page3 = CreatePreferenceFrameViewController(labelText: "What kind of study environment are you looking for?", containedView: SelectEnvironmentView(preferenceVC: self))
         let page4 = ReviewPreferencesViewController(preferenceVC: self)
         currentDelegate = page1.containedView as? EnableNextDelegate
         
