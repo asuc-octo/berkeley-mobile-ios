@@ -89,6 +89,7 @@ class ReviewPreferencesViewController: UIViewController {
         }
         lookingLabel.isHidden = false
         reviewLabel.isHidden = false
-        preferenceLabel.text = "\(preferenceClass) study group\nwith \(preferenceNumber) people\nin a \(preferenceQuiet ? "quiet" : "collaborative") environment"
+        let peopleOrPerson = preferenceNumber == 1 ? "person" : "people"
+        preferenceLabel.text = "\(preferenceClass) study group\nwith \(preferenceNumber) other \(peopleOrPerson)\nin a \(preferenceQuiet ? "quiet" : "collaborative") setting"
     }
 }

@@ -42,6 +42,14 @@ extension Color {
             static var enabledNextButton: UIColor {
                 return UIColor(red: 0.3191883862, green: 0.4302733541, blue: 0.7476411462, alpha: 1)
             }
+            
+            static var grayText: UIColor {
+                return UIColor(displayP3Red: 103/255, green: 103/255, blue: 103/255, alpha: 1.0)
+            }
+            
+            static var selectedBlue: UIColor {
+                return UIColor(displayP3Red: 119/255, green: 154/255, blue: 252/255, alpha: 1.0)
+            }
         }
         
         struct StudyGroups {

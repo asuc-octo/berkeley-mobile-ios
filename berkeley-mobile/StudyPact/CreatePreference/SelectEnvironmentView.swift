@@ -29,7 +29,29 @@ class SelectEnvironmentView: UIView, EnableNextDelegate {
     }
     
     var quietButton: UIButton!
+    let quietLabel: UILabel = {
+        let label = UILabel()
+        label.font = Font.medium(13)
+        label.text = "study alone, but keep each other accountable"
+        label.textAlignment = .center
+        label.textColor = Color.StudyPact.CreatePreference.grayText
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 0
+        label.adjustsFontSizeToFitWidth = true
+        return label
+    }()
     var collaborativeButton: UIButton!
+    let collaborativeLabel: UILabel = {
+        let label = UILabel()
+        label.font = Font.medium(13)
+        label.text = "work together to finish tasks"
+        label.textAlignment = .center
+        label.textColor = Color.StudyPact.CreatePreference.grayText
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 0
+        label.adjustsFontSizeToFitWidth = true
+        return label
+    }()
     private func createButton(title: String) -> UIButton {
         let button = UIButton()
         button.layer.cornerRadius = 12
@@ -40,27 +62,45 @@ class SelectEnvironmentView: UIView, EnableNextDelegate {
         button.layer.shadowPath = UIBezierPath(rect: button.layer.bounds.insetBy(dx: 4, dy: 4)).cgPath
         
         button.setTitle(title, for: .normal)
-        button.titleLabel?.font = Font.regular(16)
-        button.titleLabel?.textColor = Color.ActionButton.color
+        button.titleLabel?.font = Font.medium(16)
         button.backgroundColor = .white
         
-        button.setTitleColor(Color.blackText, for: .normal)
+        button.setTitleColor(Color.StudyPact.CreatePreference.grayText, for: .normal)
         button.addTarget(self, action: #selector(toggleButton(sender:)), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        button.widthAnchor.constraint(equalToConstant: 125).isActive = true
         
         return button
     }
     
     @objc func toggleButton(sender: ActionButton) {
         if !sender.isSelected {
-            sender.backgroundColor = Color.ActionButton.background
+            sender.backgroundColor = Color.StudyPact.CreatePreference.selectedBlue
             sender.setTitleColor(.white, for: .normal)
             sender.isSelected.toggle()
             if let buttonSelected = self.buttonSelected {
                 buttonSelected.backgroundColor = .white
                 buttonSelected.isSelected.toggle()
-                buttonSelected.setTitleColor(Color.blackText, for: .normal)
+                buttonSelected.setTitleColor(Color.StudyPact.CreatePreference.grayText, for: .normal)
+                switch buttonSelected {
+                case quietButton:
+                    quietLabel.textColor = Color.StudyPact.CreatePreference.grayText
+                case collaborativeButton:
+                    collaborativeLabel.textColor = Color.StudyPact.CreatePreference.grayText
+                default:
+                    break
+                }
             }
             self.buttonSelected = sender
+            switch sender {
+            case quietButton:
+                quietLabel.textColor = Color.StudyPact.CreatePreference.selectedBlue
+            case collaborativeButton:
+                collaborativeLabel.textColor = Color.StudyPact.CreatePreference.selectedBlue
+            default:
+                break
+            }
         }
     }
     
@@ -78,21 +118,30 @@ class SelectEnvironmentView: UIView, EnableNextDelegate {
     
     func setUpView() {
         let stack = UIStackView()
-        stack.axis = .vertical
-        stack.spacing = 25
+        stack.axis = .horizontal
+        stack.spacing = 15
         stack.distribution = .equalSpacing
         addSubview(stack)
-        stack.addArrangedSubview(quietButton)
-        stack.addArrangedSubview(collaborativeButton)
         
+        stack.addArrangedSubview(buttonLabelVerticalPair(button: quietButton, label: quietLabel))
+        stack.addArrangedSubview(buttonLabelVerticalPair(button: collaborativeButton, label: collaborativeLabel))
         stack.translatesAutoresizingMaskIntoConstraints = false
-        quietButton.translatesAutoresizingMaskIntoConstraints = false
-        collaborativeButton.translatesAutoresizingMaskIntoConstraints = false
-        
         stack.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        stack.widthAnchor.constraint(equalToConstant: 155).isActive = true
         stack.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        quietButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        collaborativeButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
+    }
+    
+    private func buttonLabelVerticalPair(button: UIButton, label: UILabel) -> UIView {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(button)
+        view.addSubview(label)
+        button.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        button.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        button.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        label.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
+        label.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10).isActive = true
+        label.topAnchor.constraint(equalTo: button.bottomAnchor, constant: 15).isActive = true
+        label.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor).isActive = true
+        return view
     }
 }
