@@ -18,7 +18,7 @@ extension Color {
         }
         
         static var grayedText: UIColor {
-            return UIColor(displayP3Red: 52/255, green: 52/255, blue: 52/255, alpha: 1.0)
+            return UIColor(displayP3Red: 133/255, green: 132/255, blue: 133/255, alpha: 1.0)
         }
         
         static var blackText: UIColor {
