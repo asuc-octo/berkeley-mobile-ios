@@ -18,9 +18,23 @@ class GymClass: CalendarEvent {
     var end: Date?
     var description: String?
     var location: String?
-    var website_link: String?
+    
+    var additionalDescription: String {
+        get {
+            var desc = ""
+            if let link = self.link {
+                desc += "Link: " + link + "\n"
+            }
+            if let trainer = self.trainer {
+                desc += "Trainer: " + trainer + "\n"
+            }
+            return desc
+        }
+    }
 
     // MARK: Additional Fields
+    /// Link to zoom or website.
+    var link: String?
 
     /// The trainer leading this gym class.
     var trainer: String?
@@ -33,13 +47,13 @@ class GymClass: CalendarEvent {
         return GymClassType(rawValue: type ?? "")?.color ?? Color.eventDefault
     }
 
-    init(name: String, start_time: Date, end_time: Date, class_type: String?, location: String?, website_link: String?, trainer: String?) {
+    init(name: String, start_time: Date, end_time: Date, class_type: String?, location: String?, link: String?, trainer: String?) {
         self.name = name.trimmingCharacters(in: .whitespacesAndNewlines)
         self.date = start_time
         self.end = end_time
         self.type = class_type
         self.location = location
-        self.website_link = website_link?.trimmingCharacters(in: .whitespacesAndNewlines)
+        self.link = link?.trimmingCharacters(in: .whitespacesAndNewlines)
         self.trainer = trainer?.trimmingCharacters(in: .whitespacesAndNewlines)
     }
     

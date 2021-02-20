@@ -18,6 +18,7 @@ enum DrawerState {
 /// Handles all moving of drawers and user gestures related to drawers
 protocol DrawerViewDelegate: class {
     func handlePanGesture(gesture: UIPanGestureRecognizer)
+    func handleDrawerDismissal()
     func moveDrawer(to state: DrawerState, duration: Double?)
     /// set the drawer to a preset position based on user's panning gesture
     func computeDrawerPosition(from yPosition: CGFloat, with yVelocity: CGFloat) -> DrawerState
@@ -79,6 +80,8 @@ extension DrawerViewDelegate {
             return top
         }
     }
+    
+    func handleDrawerDismissal() {}
 }
 
 extension DrawerViewDelegate where Self: UIViewController {

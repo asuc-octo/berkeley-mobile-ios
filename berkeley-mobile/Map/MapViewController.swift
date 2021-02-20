@@ -87,11 +87,6 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         setupSubviews()
         userLocationButton = UIButton(type: .custom)
         view.addSubview(userLocationButton)
-        
-        //handle home tab press in order to collapse drawer
-        let nc = NotificationCenter.default
-        nc.addObserver(self, selector: #selector(collapseDrawer), name: Notification.Name(TabBarController.homePressedMessage), object: nil)
-       
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -414,22 +409,13 @@ extension MapViewController {
         let state = handlePan(gesture: gesture)
         // get rid of the top detail drawer and remove associated annotation if user sends the drawer to the bottom of the screen
         if state == .hidden {
-            removeAnnotations(type: SearchAnnotation.self)
-            searchAnnotation = nil
+            handleDrawerDismissal()
             mainContainer?.dismissTop()
         }
-    }
-}
-
-extension MapViewController  {
-    @objc func collapseDrawer() {
-        if mainContainer?.drawerStack.count == 0 {
-            let nc = NotificationCenter.default
-            nc.post(name: Notification.Name(TabBarController.homePressedCollapseMessage), object: nil)
-        } else {
-            mainContainer?.dismissTop()
-        }
-        
     }
     
+    func handleDrawerDismissal() {
+        removeAnnotations(type: SearchAnnotation.self)
+        searchAnnotation = nil
+    }
 }

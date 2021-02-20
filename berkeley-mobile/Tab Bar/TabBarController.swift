@@ -13,9 +13,9 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
     let mapView = MainContainerViewController()
     let resourcesView = ResourcesViewController()
     let calendarView = CalendarViewController()
+    let profileView = ProfileViewController()
     
     static var homePressedMessage = "dismissDrawerWithHomePress"
-    static var homePressedCollapseMessage = "collapseTopDrawer"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,35 +24,38 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         tabBar.isTranslucent = false
         tabBar.tintColor = UIColor.black
         
-        mapView.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "Home"), tag: 0)
-        resourcesView.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "Resources"), tag: 1)
-        calendarView.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "Calendar"), tag: 2)
+        let appearance = UITabBarItem.appearance()
+        let attributes = [NSAttributedString.Key.font: Font.regular(11)]
+        appearance.setTitleTextAttributes(attributes, for: .normal)
         
-        self.viewControllers = [mapView, resourcesView, calendarView]
+        mapView.tabBarItem = UITabBarItem(title: "Home", image: UIImage(named: "Home"), tag: 0)
+        resourcesView.tabBarItem = UITabBarItem(title: "Resources", image: UIImage(named: "Resources"), tag: 1)
+        calendarView.tabBarItem = UITabBarItem(title: "Events", image: UIImage(named: "Calendar"), tag: 2)
+        profileView.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(named: "Profile"), tag: 3)
+        
+        self.viewControllers = [mapView, resourcesView, calendarView, profileView]
+        
+        
     }
     
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        
         if self.selectedViewController == mapView {
             if item.tag == 0 {
-                
                 let nc = NotificationCenter.default
                 nc.post(name: Notification.Name(TabBarController.homePressedMessage), object: nil)
             }
-
         }
-        
-        
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    public func selectProfileTab() {
+        if let profileIndex = self.viewControllers?.firstIndex(of: profileView) {
+            self.selectedIndex = profileIndex
+        }
     }
-    */
-
+    
+    public func selectMainTab() {
+        if let mainIndex = self.viewControllers?.firstIndex(of: mapView) {
+            self.selectedIndex = mainIndex
+        }
+    }
 }

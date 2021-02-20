@@ -84,6 +84,9 @@ extension AcademicCalendarViewController: UITableViewDelegate, UITableViewDataSo
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let event = calendarEntries[safe: indexPath.row] {
+            event.addToDeviceCalendar(vc: self)
+        }
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
@@ -188,7 +191,6 @@ extension AcademicCalendarViewController {
         let tableView = UITableView()
         tableView.register(EventTableViewCell.self, forCellReuseIdentifier: EventTableViewCell.kCellIdentifier)
         tableView.rowHeight = EventTableViewCell.kCellHeight
-        tableView.allowsSelection = false
         tableView.delegate = self
         tableView.dataSource = self
         tableView.showsVerticalScrollIndicator = false

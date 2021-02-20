@@ -81,10 +81,6 @@ class SearchBarView: UIView, UITextFieldDelegate {
         
         let radius = self.frame.height / 2.5
         self.layer.cornerRadius = radius
-//        leftButton.cornerRadius = radius
-//        rightButton.cornerRadius = radius
-//        textField.cornerRadius = radius
-    
     }
     
     // Back or Search button

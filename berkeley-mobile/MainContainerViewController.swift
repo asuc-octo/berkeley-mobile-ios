@@ -35,8 +35,18 @@ class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
         drawerVC.view.frame = self.view.frame
         // necessary to move the center of the drawer later on
         drawerVC.view.translatesAutoresizingMaskIntoConstraints = true
+        let nc = NotificationCenter.default
+        nc.addObserver(self, selector: #selector(homePressed), name: Notification.Name(TabBarController.homePressedMessage), object: nil)
     }
     
+    @objc func homePressed() {
+        if self.drawerStack.count > 0 {
+            self.dismissTop()
+        } else {
+            self.moveCurrentDrawer(to: .collapsed)
+        }
+    }
+
     override func viewDidAppear(_ animated: Bool) {
         drawerStatePositions[.hidden] = self.view.frame.maxY + (self.view.frame.maxY / 2)
         // set the collapsed position to show the tab bar control at the top
@@ -47,8 +57,10 @@ class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
         drawerStatePositions[.full] = self.view.safeAreaInsets.top + (self.view.frame.maxY / 2)
         self.initialDrawerCenter = drawerViewController!.view.center
         moveDrawer(to: drawerViewController!.currState, duration: 0)
+        
+        checkOnboarding()
     }
-    
+        
     override func viewSafeAreaInsetsDidChange() {
         (drawerViewController as! MainDrawerViewController).bottomOffset = self.view.safeAreaInsets.top
         DrawerViewController.bottomOffsetY = self.view.safeAreaInsets.top
@@ -59,5 +71,19 @@ class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
 extension MainContainerViewController {
     func handlePanGesture(gesture: UIPanGestureRecognizer) {
         handlePan(gesture: gesture)
+    }
+}
+
+// MARK: - Onboarding
+
+extension MainContainerViewController {
+    func checkOnboarding() {
+        let launchedBefore = UserDefaults.standard.bool(forKey: UserDefaultKeys.StudyPact.hasShownNewFeature)
+        if !launchedBefore {
+            let vc = StudyPactNewFeatureViewController()
+            vc.modalPresentationStyle = .fullScreen
+            self.present(vc, animated: true, completion: nil)
+            UserDefaults.standard.set(true, forKey: UserDefaultKeys.StudyPact.hasShownNewFeature)
+        }
     }
 }

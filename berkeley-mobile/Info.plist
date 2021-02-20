@@ -16,6 +16,17 @@
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
 	<string>$(MARKETING_VERSION)</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.592064103331-73lugm9urcosj9uetcsk0bsno0lf5ek2</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
@@ -25,8 +36,10 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Calendar access will be used to allow you to add events you select to your calendar.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>We need your location to provide location based points of interest and transit directions.</string>
+	<string>Your location will be used to calculate distance to points of interest, display your location on the map, and for other location-based features.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Apercu Regular.otf</string>
