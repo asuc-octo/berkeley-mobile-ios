@@ -50,7 +50,6 @@ class MapMarkerDetailView: UIView {
     private var nameLabel: UILabel!
     private var notesLabel: UILabel!
     private var detailStack: UIStackView!
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -98,7 +97,7 @@ class MapMarkerDetailView: UIView {
         let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(closeView))
         swipeDown.direction = .down
         self.addGestureRecognizer(swipeDown)
-        
+    
         nameLabel = UILabel()
         contentView.addSubview(nameLabel)
         nameLabel.numberOfLines = 0
@@ -174,10 +173,16 @@ class MapMarkerDetailView: UIView {
     }
     
     @objc func closeView() {
+        
         marker = nil
-        delegate?.didCloseMarkerDetailView(self)
+        UIView.transition(with: self,
+                          duration: 1.0,
+                                 options: [.transitionFlipFromBottom],
+                                 animations: {
+               },
+                                 completion: nil)
     }
-
+    //self.delegate?.didCloseMarkerDetailView(self)
 }
 
 // MARK: - MapMarkerDetail
