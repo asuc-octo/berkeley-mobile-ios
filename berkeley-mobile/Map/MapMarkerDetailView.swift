@@ -92,11 +92,6 @@ class MapMarkerDetailView: UIView {
         closeButton.rightAnchor.constraint(equalTo: contentView.layoutMarginsGuide.rightAnchor, constant: offset).isActive = true
         closeButton.widthAnchor.constraint(equalToConstant: kButtonSize).isActive = true
         closeButton.heightAnchor.constraint(equalToConstant: kButtonSize).isActive = true
-        
-        //gesture dissapear
-        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(closeView))
-        swipeDown.direction = .down
-        self.addGestureRecognizer(swipeDown)
     
         nameLabel = UILabel()
         contentView.addSubview(nameLabel)
@@ -124,6 +119,11 @@ class MapMarkerDetailView: UIView {
         detailStack.alignment = .center
     
         verticalStack.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor).isActive = true
+        
+        //swipe down gesutre
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(closeView))
+        swipeDown.direction = .down
+        self.addGestureRecognizer(swipeDown)
         
     }
     
@@ -179,7 +179,7 @@ class MapMarkerDetailView: UIView {
                           duration: 1.0,
                                  options: [.transitionFlipFromBottom],
                                  animations: {
-               },
+                                 },
                                  completion: nil)
     }
     //self.delegate?.didCloseMarkerDetailView(self)
