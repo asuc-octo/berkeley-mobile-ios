@@ -13,6 +13,11 @@ class CalendarView: UIView {
     private var month: Int!
     private var calendar = Calendar.current
     private var calendarDays: [CalendarDay] = []
+    var delegate: CalendarViewDelegate? {
+        didSet {
+            delegate?.didChangeMonth()
+        }
+    }
     
     private let collection: UICollectionView = {
         let collection = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout.init())
@@ -27,11 +32,13 @@ class CalendarView: UIView {
         self.goTo(month: calendar.component(.month, from: Date()), year: calendar.component(.year, from: Date()))
         collection.delegate = self
         collection.dataSource = self
+        collection.showsVerticalScrollIndicator = false
         self.addSubview(collection)
-        collection.topAnchor.constraint(equalTo: self.layoutMarginsGuide.topAnchor).isActive = true
-        collection.leftAnchor.constraint(equalTo: self.layoutMarginsGuide.leftAnchor).isActive = true
-        collection.rightAnchor.constraint(equalTo: self.layoutMarginsGuide.rightAnchor).isActive = true
-        collection.bottomAnchor.constraint(equalTo: self.layoutMarginsGuide.bottomAnchor).isActive = true
+        collection.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        collection.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+        collection.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+        collection.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        self.setHeightConstraint(300)
     }
     
     override func layoutSubviews() {
@@ -45,6 +52,7 @@ class CalendarView: UIView {
         collection.collectionViewLayout = layout
         
         collection.reloadData()
+        self.setHeightConstraint(collection.contentSize.height)
     }
     
     public func goTo(month: Int, year: Int) {
@@ -54,6 +62,7 @@ class CalendarView: UIView {
         self.year = year
         self.month = month
         setCalendarCells()
+        delegate?.didChangeMonth()
     }
     
     private func setCalendarCells() {
@@ -64,20 +73,23 @@ class CalendarView: UIView {
         let numberPreviousDays = firstDay.weekday()
         var day = Date.daysInMonth(date: calendar.date(byAdding: .month, value: -1, to: firstDay)!)
         for _ in 0..<numberPreviousDays {
-            calendarDays.append(CalendarDay(year: year, month: month, day: day, isCurrentMonth: false))
+            let date = calendar.date(from: DateComponents(year: year, month: month, day: day))!
+            calendarDays.append(CalendarDay(date: date, isCurrentMonth: false))
             day -= 1
         }
         
         // add current month days
         let daysThisMonth = Date.daysInMonth(date: firstDay)
         for day in 1...daysThisMonth {
-            calendarDays.append(CalendarDay(year: year, month: month, day: day, isCurrentMonth: true))
+            let date = calendar.date(from: DateComponents(year: year, month: month, day: day))!
+            calendarDays.append(CalendarDay(date: date, isCurrentMonth: true))
         }
         
         // add gray next month days to the end
         day = 1
         while calendarDays.count % 7 != 0 {
-            calendarDays.append(CalendarDay(year: year, month: month, day: day, isCurrentMonth: false))
+            let date = calendar.date(from: DateComponents(year: year, month: month, day: day))!
+            calendarDays.append(CalendarDay(date: date, isCurrentMonth: false))
             day += 1
         }
         
@@ -87,6 +99,13 @@ class CalendarView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    public func getMonth() -> Int {
+        return month
+    }
+    public func getYear() -> Int {
+        return year
     }
 }
 
@@ -142,7 +161,8 @@ extension CalendarView: UICollectionViewDelegate, UICollectionViewDataSource {
             } else {
                 let cellIndex = (indexPath.section - 1) * collectionView.numberOfItems(inSection: indexPath.section) + indexPath.row
                 let calendarDay = calendarDays[cellIndex]
-                calendarCell.configure(text: String(calendarDay.day), isHeader: false, isGrayed: !calendarDay.isCurrentMonth)
+                let day = calendar.dateComponents([.day], from: calendarDay.date).day!
+                calendarCell.configure(text: String(day), isHeader: false, isGrayed: !calendarDay.isCurrentMonth)
             }
         }
         return cell
@@ -150,9 +170,7 @@ extension CalendarView: UICollectionViewDelegate, UICollectionViewDataSource {
 }
 
 struct CalendarDay {
-    var year: Int
-    var month: Int
-    var day: Int
+    var date: Date
     var isCurrentMonth: Bool
 }
 
@@ -161,4 +179,8 @@ extension Date {
         let range = Calendar.current.range(of: .day, in: .month, for: date)!
         return range.count
     }
+}
+
+protocol CalendarViewDelegate {
+    func didChangeMonth() -> Void
 }
