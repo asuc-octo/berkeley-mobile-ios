@@ -31,9 +31,9 @@ class MapMarkerDetailView: UIView {
                     self.alpha = 1.0
                 }) { completed in self.isHidden = !completed }
             } else {
-                UIView.animate(withDuration: 0.2, animations: {
-                    self.alpha = 0.0
-                }) { completed in  self.isHidden = completed }
+                UIView.transition(with: self, duration: 0.5, options: [.transitionFlipFromBottom], animations: {
+                    self.alpha = 0
+                }, completion: nil)
             }
         }
     }
@@ -120,7 +120,6 @@ class MapMarkerDetailView: UIView {
     
         verticalStack.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor).isActive = true
         
-        //swipe down gesutre
         let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(closeView))
         swipeDown.direction = .down
         self.addGestureRecognizer(swipeDown)
@@ -175,14 +174,8 @@ class MapMarkerDetailView: UIView {
     @objc func closeView() {
         
         marker = nil
-        UIView.transition(with: self,
-                          duration: 1.0,
-                                 options: [.transitionFlipFromBottom],
-                                 animations: {
-                                 },
-                                 completion: nil)
+        self.delegate?.didCloseMarkerDetailView(self)
     }
-    //self.delegate?.didCloseMarkerDetailView(self)
 }
 
 // MARK: - MapMarkerDetail
