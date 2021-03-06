@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 fileprivate let kViewMargin: CGFloat = 16
 
@@ -115,5 +116,11 @@ class StudyGroupDetailsViewController: UIViewController {
     public func presentSelf(presentingVC: UIViewController, studyGroup: StudyGroup) {
         self._studyGroup = studyGroup
         presentingVC.present(self, animated: true, completion: nil)
+    }
+}
+extension StudyGroupDetailsViewController {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        Analytics.logEvent("opened_oneStudyGroup", parameters: nil)
     }
 }

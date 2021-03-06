@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class CreatePreferenceViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     
@@ -228,4 +229,11 @@ class CreatePreferenceViewController: UIPageViewController, UIPageViewController
 
 protocol EnableNextDelegate {
     var isNextEnabled: Bool { get set }
+}
+
+extension CreatePreferenceViewController {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        Analytics.logEvent("opened_studypact_createPreference", parameters: nil)
+    }
 }

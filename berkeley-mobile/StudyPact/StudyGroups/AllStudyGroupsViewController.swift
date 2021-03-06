@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import Firebase
 fileprivate let kViewMargin: CGFloat = 16
 
 /// Expanded page showing all study groups in a larger CollectionView
@@ -77,5 +77,11 @@ class AllStudyGroupsViewController: UIViewController {
         studyGroupsGrid.rightAnchor.constraint(equalTo: card.rightAnchor, constant: -1 * kViewMargin).isActive = true
         studyGroupsGrid.leftAnchor.constraint(equalTo: card.leftAnchor, constant: kViewMargin).isActive = true
         studyGroupsGrid.bottomAnchor.constraint(equalTo: card.bottomAnchor, constant: -1 * kViewMargin).isActive = true
+    }
+}
+extension AllStudyGroupsViewController {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        Analytics.logEvent("opened_allStudyGroups", parameters: nil)
     }
 }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class ReviewPreferencesViewController: UIViewController {
     weak var preferenceVC: CreatePreferenceViewController?
@@ -50,6 +51,7 @@ class ReviewPreferencesViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         updateLabels()
+        Analytics.logEvent("opened_studypact_reviewPreferences", parameters: nil)
     }
     
     init(preferenceVC: CreatePreferenceViewController) {
