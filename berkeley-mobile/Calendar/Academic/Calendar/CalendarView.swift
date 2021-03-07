@@ -18,6 +18,16 @@ class CalendarView: UIView {
             delegate?.didChangeMonth()
         }
     }
+    var currentCalendarEntries: [EventCalendarEntry] = [] {
+        didSet {
+            print(currentCalendarEntries)
+        }
+    }
+    var calendarEntries: [EventCalendarEntry] = [] {
+        didSet {
+            monthSelector.calendarEntries = calendarEntries
+        }
+    }
     
     private let collection: UICollectionView = {
         let collection = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout.init())
@@ -26,15 +36,26 @@ class CalendarView: UIView {
         collection.backgroundColor = .clear
         return collection
     }()
+    
+    private var monthSelector: MonthSelectorView!
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.goTo(month: calendar.component(.month, from: Date()), year: calendar.component(.year, from: Date()))
+    public init() {
+        super.init(frame: .zero)
+        let initialMonth = calendar.component(.month, from: Date())
+        let initialYear = calendar.component(.year, from: Date())
+        monthSelector = MonthSelectorView(initialMonth: initialMonth, initialYear: initialYear)
+        self.goTo(month: initialMonth, year: initialYear)
+        
+        self.addSubview(monthSelector)
+        monthSelector.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        monthSelector.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+        monthSelector.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+        
         collection.delegate = self
         collection.dataSource = self
         collection.showsVerticalScrollIndicator = false
         self.addSubview(collection)
-        collection.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        collection.topAnchor.constraint(equalTo: self.monthSelector.bottomAnchor, constant: 6).isActive = true
         collection.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         collection.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         collection.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
@@ -52,7 +73,8 @@ class CalendarView: UIView {
         collection.collectionViewLayout = layout
         
         collection.reloadData()
-        self.setHeightConstraint(collection.contentSize.height)
+        guard collection.contentSize.height > 0 && monthSelector.frame.height > 0 else { return }
+        self.setHeightConstraint(collection.contentSize.height + monthSelector.frame.height)
     }
     
     public func goTo(month: Int, year: Int) {

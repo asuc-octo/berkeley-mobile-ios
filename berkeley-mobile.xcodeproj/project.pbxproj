@@ -107,6 +107,8 @@
 		29387E9B24BBBD9D00070BCE /* CALayerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29387E9A24BBBD9D00070BCE /* CALayerExtension.swift */; };
 		29387E9D24BBBE8E00070BCE /* OccupancyGraphCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29387E9C24BBBE8E00070BCE /* OccupancyGraphCardView.swift */; };
 		29413B9C25CF4FCF00C0B9C7 /* StudyGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29413B9B25CF4FCF00C0B9C7 /* StudyGroup.swift */; };
+		2946939F25F4421700619481 /* CalendarTablePairView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2946939E25F4421700619481 /* CalendarTablePairView.swift */; };
+		294693A425F44AA900619481 /* MonthSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294693A325F44AA900619481 /* MonthSelectorView.swift */; };
 		2948155D25326D1400D113B6 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2948155C25326D1400D113B6 /* ImageLoader.swift */; };
 		2948155F253274C500D113B6 /* ImageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2948155E253274C500D113B6 /* ImageViewCell.swift */; };
 		2954F592245CD4B600DA66DA /* MainDrawerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2954F591245CD4B600DA66DA /* MainDrawerViewDelegate.swift */; };
@@ -293,6 +295,8 @@
 		29387E9A24BBBD9D00070BCE /* CALayerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayerExtension.swift; sourceTree = "<group>"; };
 		29387E9C24BBBE8E00070BCE /* OccupancyGraphCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OccupancyGraphCardView.swift; sourceTree = "<group>"; };
 		29413B9B25CF4FCF00C0B9C7 /* StudyGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudyGroup.swift; sourceTree = "<group>"; };
+		2946939E25F4421700619481 /* CalendarTablePairView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTablePairView.swift; sourceTree = "<group>"; };
+		294693A325F44AA900619481 /* MonthSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthSelectorView.swift; sourceTree = "<group>"; };
 		2948155C25326D1400D113B6 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		2948155E253274C500D113B6 /* ImageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewCell.swift; sourceTree = "<group>"; };
 		2954F591245CD4B600DA66DA /* MainDrawerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainDrawerViewDelegate.swift; sourceTree = "<group>"; };
@@ -716,6 +720,16 @@
 			path = "Bar Graph";
 			sourceTree = "<group>";
 		};
+		294693A225F44A7E00619481 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				29570D4B2569D8F20086741B /* CalendarView.swift */,
+				294693A325F44AA900619481 /* MonthSelectorView.swift */,
+				2946939E25F4421700619481 /* CalendarTablePairView.swift */,
+			);
+			path = Calendar;
+			sourceTree = "<group>";
+		};
 		29481560253274CA00D113B6 /* Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -729,7 +743,7 @@
 			isa = PBXGroup;
 			children = (
 				01D2699C2544E005000377B4 /* AcademicCalendarViewController.swift */,
-				29570D4B2569D8F20086741B /* CalendarView.swift */,
+				294693A225F44A7E00619481 /* Calendar */,
 			);
 			path = Academic;
 			sourceTree = "<group>";
@@ -1269,6 +1283,7 @@
 				1336A31A241C3FD300949F32 /* GymClassDataSource.swift in Sources */,
 				29387E9524BBBC1000070BCE /* BarGraph.swift in Sources */,
 				01B2502F2516C45800CBA459 /* EventCalendarEntry.swift in Sources */,
+				2946939F25F4421700619481 /* CalendarTablePairView.swift in Sources */,
 				2925D5FA2529405500BBA266 /* CampusEventCellView.swift in Sources */,
 				5516088624392E5100B1E55B /* DiningViewController.swift in Sources */,
 				FD6FB45C25C62EB90045A03A /* SelectEnvironmentView.swift in Sources */,
@@ -1304,6 +1319,7 @@
 				1336A320241D924300949F32 /* DiningItem.swift in Sources */,
 				299ACFB4244A5F90000F3E86 /* HasOccupancy.swift in Sources */,
 				0181710A25CA90D300BA6317 /* AuthenticateUser.swift in Sources */,
+				294693A425F44AA900619481 /* MonthSelectorView.swift in Sources */,
 				0181711725CAABB000BA6317 /* ClassPreference.swift in Sources */,
 				2969747625D8A77C005ED231 /* UserDefaultKeys.swift in Sources */,
 				559A7B6D2373DEFA004EA501 /* MaterialTableViewCell.swift in Sources */,
