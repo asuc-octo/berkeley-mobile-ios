@@ -18,6 +18,8 @@ class PendingGroupViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Font.bold(30)
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.6
         return label
     }()
     
@@ -94,9 +96,13 @@ class PendingGroupViewController: UIViewController {
         let alertController = UIAlertController(title: "Remove Pending Request", message: "Would you like to remove your pending request to join a study group for \(studyGroup.className)?", preferredStyle: .alert)
         alertController.addAction(UIAlertAction.init(title: "Cancel", style: .cancel))
         alertController.addAction(UIAlertAction.init(title: "Yes", style: .default, handler: { _ in
-            print("remove request")
-            // TODO: remove pending request from backend
-            self.dismiss(animated: true, completion: nil)
+            StudyPact.shared.cancelPending(group: self.studyGroup) { success in
+                if success {
+                    self.dismiss(animated: true, completion: nil)
+                } else {
+                    self.presentFailureAlert(title: "Unable to Remove", message: "An issue occurred when attempting to remove your pending request. Please try again later.")
+                }
+            }
         }))
         self.present(alertController, animated: true, completion: nil)
     }

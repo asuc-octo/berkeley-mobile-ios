@@ -13,8 +13,6 @@ fileprivate let kViewMargin: CGFloat = 16
 
 class ResourcesViewController: UIViewController {
     private var resourcesLabel: UILabel!
-
-    private var bearPactAccessButton: UIButton!
     
     private var resourcesCard: CardView!
     private var resourcesTable: FilterTableView = FilterTableView<Resource>(frame: .zero, tableFunctions: [], defaultSort: SortingFunctions.sortAlph(item1:item2:))
@@ -29,7 +27,6 @@ class ResourcesViewController: UIViewController {
         setupHeader()
         setupSegmentedControls()
     }
-
 }
 
 extension ResourcesViewController {
@@ -44,8 +41,6 @@ extension ResourcesViewController {
         resourcesLabel.translatesAutoresizingMaskIntoConstraints = false
         resourcesLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 15).isActive = true
         resourcesLabel.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
-        
-        
 
         // Blob
         let blob = UIImage(named: "BlobRight")!
@@ -61,24 +56,6 @@ extension ResourcesViewController {
         // Hacky workaround. Assumes that it is safe to overlap the text with half (and some) of the blob.
         blobView.centerXAnchor.constraint(equalTo: resourcesLabel.rightAnchor, constant: -20).isActive = true
         blobImageView = blobView
-        
-        #if DEBUG
-        bearPactAccessButton = UIButton()
-        bearPactAccessButton.setTitle("🐻", for: .normal)
-        bearPactAccessButton.frame = CGRect(x: 0, y: 0, width: 50, height: 30)
-        view.addSubview(bearPactAccessButton)
-        bearPactAccessButton.translatesAutoresizingMaskIntoConstraints = false
-        bearPactAccessButton.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
-        bearPactAccessButton.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: -5).isActive = true
-        bearPactAccessButton.addTarget(self, action: #selector(self.pressedBear(_:)), for: .touchUpInside)
-        #endif
-
-    }
-    
-    @objc func pressedBear(_ sender: UIButton) {
-        let vc = PageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
-        vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: true, completion: nil)
     }
     
     // SegmentedControl and Page views
@@ -86,7 +63,6 @@ extension ResourcesViewController {
         // Add some right-padding to the segmented control so it doesn't overlap with the blob.
         // Don't add this padding for now.
         let segmentedControl = SegmentedControlViewController(pages: [
-            Page(viewController: CovidResourceViewController(), label: "COVID-19"),
             Page(viewController: CampusResourceViewController(type: .health), label: "Health"),
             Page(viewController: CampusResourceViewController(type: .admin), label: "Admin"),
             Page(viewController: CampusResourceViewController(type: .basicNeeds), label: "Basic Needs"),

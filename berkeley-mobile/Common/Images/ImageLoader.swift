@@ -33,14 +33,16 @@ class ImageLoader {
             if let data = data, let image = UIImage(data: data) {
                 DispatchQueue.main.async {
                     self.loadedImages[url] = image
+                    completion(.success(image))
                 }
-                completion(.success(image))
                 return
             }
             guard let error = error else { return }
             // If task wasn't cancelled and we got another error, report that the load failed
             guard (error as NSError).code == NSURLErrorCancelled else {
-                completion(.failure(error))
+                DispatchQueue.main.async {
+                    completion(.failure(error))
+                }
                 return
             }
         }

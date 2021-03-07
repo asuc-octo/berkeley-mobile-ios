@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import GoogleSignIn
 
 fileprivate let kViewMargin: CGFloat = 16
 
@@ -32,6 +33,8 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        SignInManager.shared.addDelegate(delegate: self)
         
         // update `filterTableView` when user location is updated.
         LocationManager.notificationCenter.addObserver(
@@ -106,6 +109,7 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
         studyGroupsLabel.adjustsFontSizeToFitWidth = true
         studyGroupsLabel.textColor = Color.blackText
         studyPactCard.addSubview(studyGroupsLabel)
+        studyGroupsLabel.setContentHuggingPriority(.required, for: .vertical)
         studyGroupsLabel.translatesAutoresizingMaskIntoConstraints = false
         studyGroupsLabel.leftAnchor.constraint(equalTo: studyPactCard.layoutMarginsGuide.leftAnchor).isActive = true
         studyGroupsLabel.topAnchor.constraint(equalTo: studyPactCard.layoutMarginsGuide.topAnchor).isActive = true
@@ -129,50 +133,25 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
         refreshStudyGroupContents()
     }
     
-    // TODO: remove when we get real group data from backend
-    func getDummyGroups() -> [StudyGroup] {
-        let person0 = StudyGroupMember(profilePictureURL: URL(string: "https://images.generated.photos/hApOLywddgHrBNt5NWqIFViI1dJNQ7oev8TKAfmsuGE/rs:fit:256:256/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA0NzY1MjkuanBn.jpg"), name: "Jack Doe", email: "jack.doe@berkeley.edu", phoneNumber: "0000000000")
-        let person1 = StudyGroupMember(profilePictureURL: URL(string: "https://images.generated.photos/t6rnO4g54jflMAk-nLFAulAayL4MkTkajbuHAOJEs9w/rs:fit:256:256/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yy/XzA0NTkxODQuanBn.jpg"), name: "Jill Doe", email: "jill.doe@berkeley.edu", phoneNumber: "1111111111")
-        let person2 = StudyGroupMember(profilePictureURL: URL(string:  "https://images.generated.photos/UnBJAeCfIR180b3sQ1G9opucAnwafc8DErx5YXRjT6I/rs:fit:256:256/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yy/XzA0NDU1NjMuanBn.jpg"), name: "Jane Doe", email: "jane.doe@berkeley.edu", phoneNumber: "2222222222")
-        let person3 = StudyGroupMember(profilePictureURL: URL(string: "https://images.generated.photos/f1utkmrXZQ_CU7ixY-qNL2Creb0MnE9Np4FpuXq_yoQ/rs:fit:256:256/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA4OTc1NTguanBn.jpg"), name: "Bob Jones", email: "bob.jones@berkeley.edu", phoneNumber: "3333333333")
-        let person4 = StudyGroupMember(profilePictureURL: nil, name: "A B", email: "a.b@berkeley.edu", phoneNumber: "4444444444")
-        let group0 = StudyGroup(className: "CS 170", groupMembers: [person0, person1, person2, person3], pending: false)
-        let group1 = StudyGroup(className: "ECON 100A", groupMembers: [person0, person1, person2, person3, person4, person3], pending: false)
-        let group2 = StudyGroup(className: "STAT 140", groupMembers: [person0], pending: false)
-        let group3 = StudyGroup(className: "CS 188", groupMembers: [person2, person3], pending: false)
-        let group4 = StudyGroup(className: "IEOR 142", groupMembers: [], pending: true)
-        let group5 = StudyGroup(className: "ECON 100A", groupMembers: [person0, person4, person2, person0, person4], pending: false)
-        return [group0, group1, group2, group3, group4, group5, group0, group1, group2, group3, group4, group5]
-    }
-    
     /// modify the contents of the card based on if the user is signed in, what groups the user is in
     func refreshStudyGroupContents() {
-        // TODO: once auth/profile is done set to use actual value. using time to test both forms
-        let date = Date()
-        let calendar = Calendar.current
-        let seconds = calendar.component(.second, from: date)
-        let loggedIn = seconds % 2 == 1
-        
-        if loggedIn {
+        let signedin = SignInManager.shared.isSignedIn
+        if signedin {
             allButton.isHidden = false
-            // TODO: get actual study groups
-            let groups = getDummyGroups()
-            // get the first 2 groups to show a preview
-            let usedGroups = Array(groups.prefix(2))
-            if let grid = studyGroupsGrid {
+            if let grid = self.studyGroupsGrid {
                 grid.refreshGroups()
             } else {
-                for view in studyPactContent.subviews {
+                for view in self.studyPactContent.subviews {
                     view.removeFromSuperview()
                 }
-                let groupGrid = StudyGroupsView(studyGroups: usedGroups, enclosingVC: self, includeCreatePreference: groups.count < 2)
-                studyPactContent.addSubview(groupGrid)
+                let groupGrid = StudyGroupsView(enclosingVC: self, limit: 2)
+                self.studyPactContent.addSubview(groupGrid)
                 groupGrid.translatesAutoresizingMaskIntoConstraints = false
-                groupGrid.topAnchor.constraint(equalTo: studyPactContent.topAnchor).isActive = true
-                groupGrid.bottomAnchor.constraint(equalTo: studyPactContent.bottomAnchor).isActive = true
-                groupGrid.rightAnchor.constraint(equalTo: studyPactContent.rightAnchor).isActive = true
-                groupGrid.leftAnchor.constraint(equalTo: studyPactContent.leftAnchor).isActive = true
-                studyGroupsGrid = groupGrid
+                groupGrid.topAnchor.constraint(equalTo: self.studyPactContent.topAnchor).isActive = true
+                groupGrid.bottomAnchor.constraint(equalTo: self.studyPactContent.bottomAnchor).isActive = true
+                groupGrid.rightAnchor.constraint(equalTo: self.studyPactContent.rightAnchor).isActive = true
+                groupGrid.leftAnchor.constraint(equalTo: self.studyPactContent.leftAnchor).isActive = true
+                self.studyGroupsGrid = groupGrid
             }
         } else {
             allButton.isHidden = true
@@ -183,16 +162,10 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
                 studyGroupsGrid = nil
             }
             if studyPactContent.subviews.count == 0 {
-                let profileButton = UIButton()
-                profileButton.setTitle("Sign In to Get Started With Study Pact!", for: .normal)
-                profileButton.titleLabel?.font = Font.medium(13)
-                profileButton.backgroundColor = Color.StudyPact.StudyGroups.getStartedButton
+                let profileButton = ActionButton(title: "Sign In to Get Started With Study Pact!", defaultColor: Color.StudyPact.StudyGroups.getStartedButton, pressedColor: Color.StudyPact.StudyGroups.getStartedPressed)
                 profileButton.addTarget(self, action: #selector(goToProfile), for: .touchUpInside)
-                let radius: CGFloat = 20
-                profileButton.layer.cornerRadius = radius
                 studyPactContent.addSubview(profileButton)
                 profileButton.translatesAutoresizingMaskIntoConstraints = false
-                profileButton.heightAnchor.constraint(equalToConstant: 2 * radius).isActive = true
                 profileButton.widthAnchor.constraint(equalToConstant: 270).isActive = true
                 profileButton.centerYAnchor.constraint(equalTo: studyPactContent.centerYAnchor).isActive = true
                 profileButton.centerXAnchor.constraint(equalTo: studyPactContent.centerXAnchor).isActive = true
@@ -202,7 +175,7 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     @objc func goToAllStudyGroups() {
         let vc = AllStudyGroupsViewController()
-        vc.presentSelf(presentingVC: self, studyGroups: getDummyGroups())
+        self.present(vc, animated: true, completion: nil)
     }
     
     @objc func goToProfile() {
@@ -305,5 +278,11 @@ extension StudyViewController {
         Analytics.logEvent("opened_library_screen", parameters: nil)
         
         refreshStudyGroupContents()
+    }
+}
+
+extension StudyViewController: GIDSignInDelegate {
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        self.refreshStudyGroupContents()
     }
 }

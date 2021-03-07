@@ -11,7 +11,7 @@ import UIKit
 fileprivate let kViewMargin: CGFloat = 10
 
 /// View holding a CollectionView to display all the user's study groups
-class StudyGroupsView: UIView {
+class StudyGroupsView: UIView, GroupUpdateDelegate {
     static let cellsPerRow = 2
     
     var studyGroups: [StudyGroup] = []
@@ -19,6 +19,9 @@ class StudyGroupsView: UIView {
     var enclosingVC: UIViewController
     /// whether to add a "Create Preference" cell as the first cell
     var includeCreatePreference: Bool = false
+    /// the maximum number of groups to show, or show all groups if limit=nil
+    /// if the number of groups is below the limit, the include preference cell is included
+    var groupLimit: Int?
     /// allows for dynamically resizing the collection view height to match the number of elements
     private var collectionHeightConstraint: NSLayoutConstraint!
     
@@ -38,12 +41,10 @@ class StudyGroupsView: UIView {
         return collection
     }()
     
-    public init(studyGroups: [StudyGroup], enclosingVC: UIViewController, includeCreatePreference: Bool = false) {
+    public init(enclosingVC: UIViewController, limit: Int?, refreshGroups: Bool = true) {
         self.enclosingVC = enclosingVC
+        self.groupLimit = limit
         super.init(frame: .zero)
-        
-        self.studyGroups = studyGroups
-        self.includeCreatePreference = includeCreatePreference
         
         collection.delegate = self
         collection.dataSource = self
@@ -55,6 +56,13 @@ class StudyGroupsView: UIView {
         collectionHeightConstraint = collection.heightAnchor.constraint(equalToConstant: 120)
         collectionHeightConstraint.priority = .defaultLow
         collectionHeightConstraint.isActive = true
+        
+        if refreshGroups {
+            self.refreshGroups()
+        } else {
+            self.setGroups(groups: StudyPact.shared.studyGroups)
+        }
+        StudyPact.shared.groupUpdateDelegates.append(self)
     }
     
     override func layoutSubviews() {
@@ -67,16 +75,31 @@ class StudyGroupsView: UIView {
         collection.collectionViewLayout = layout
         
         collection.reloadData()
-        
-        let height = collection.collectionViewLayout.collectionViewContentSize.height + 16
-        collectionHeightConstraint.constant = height
         collection.setContentOffset(CGPoint(x: -5, y: -5), animated: false)
         self.layoutIfNeeded()
+        let height = self.collection.collectionViewLayout.collectionViewContentSize.height + 16
+        self.collectionHeightConstraint.constant = height
     }
     
     public func refreshGroups() {
-        // TODO: get groups again from backend
-        collection.reloadData()
+        StudyPact.shared.getGroups() { groups in
+            DispatchQueue.main.async {
+                self.setGroups(groups: groups)
+            }
+        }
+    }
+    
+    private func setGroups(groups: [StudyGroup]) {
+        if let limit = self.groupLimit {
+            self.studyGroups = Array(groups.prefix(limit))
+            self.includeCreatePreference = groups.count < limit
+        } else {
+            self.studyGroups = groups
+            self.includeCreatePreference = true
+        }
+        self.collection.reloadData()
+        let height = self.collection.collectionViewLayout.collectionViewContentSize.height + 16
+        self.collectionHeightConstraint.constant = height
     }
     
     required init?(coder: NSCoder) {
@@ -109,14 +132,20 @@ extension StudyGroupsView: UICollectionViewDelegate, UICollectionViewDataSource,
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if includeCreatePreference && indexPath.row == 0 {
+            let vc = CreatePreferenceViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
+            vc.modalPresentationStyle = .fullScreen
+            enclosingVC.present(vc, animated: true, completion: nil)
+            return
+        }
         let index = indexPath.row - (includeCreatePreference ? 1 : 0)
         guard let group = studyGroups[safe: index] else { return }
         if group.pending {
             let vc = PendingGroupViewController()
             vc.presentSelf(presentingVC: enclosingVC, studyGroup: group)
         } else {
-            // bring up group view
-            print("group view")
+            let vc = StudyGroupDetailsViewController()
+            vc.presentSelf(presentingVC: enclosingVC, studyGroup: group)
         }
     }
 }
@@ -131,6 +160,8 @@ class StudyGroupCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Font.bold(18)
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.6
         return label
     }()
     
@@ -166,6 +197,7 @@ class StudyGroupCell: UICollectionViewCell {
         
         card.addSubview(classLabel)
         classLabel.leftAnchor.constraint(equalTo: card.leftAnchor, constant: kViewMargin).isActive = true
+        classLabel.rightAnchor.constraint(lessThanOrEqualTo: card.rightAnchor, constant: -1 * kViewMargin).isActive = true
         classLabel.topAnchor.constraint(equalTo: card.topAnchor, constant: 12).isActive = true
         
         card.addSubview(profilePictureStack)
@@ -198,7 +230,7 @@ class StudyGroupCell: UICollectionViewCell {
         pendingTag.isHidden = true
         profilePictureStack.isHidden = false
         profilePictureStack.removeAllArrangedSubviews()
-        for var member in studyGroup.groupMembers {
+        for member in studyGroup.groupMembers {
             let profileImageView = UIImageView()
             profileImageView.contentMode = .scaleAspectFill
             profileImageView.clipsToBounds = true
@@ -224,7 +256,6 @@ class StudyGroupCell: UICollectionViewCell {
                     case .success(let image):
                         DispatchQueue.main.async {
                             profileImageView.image = image
-                            member.profilePicture = image
                             placeholderView.isHidden = true
                         }
                     case .failure(let error):
@@ -316,22 +347,10 @@ class CreatePreferenceCell: UICollectionViewCell {
         contentView.addSubview(joinedView)
         joinedView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         joinedView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
-        
-        setUpGestureRecognizer()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func setUpGestureRecognizer() {
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(self.goToCreatePreference(_:)))
-        self.addGestureRecognizer(gesture)
-    }
-    
-    @objc func goToCreatePreference(_ sender: UITapGestureRecognizer) {
-        print("Create Preference tapped")
-        // TODO: go to create preference flow
     }
 }
 
