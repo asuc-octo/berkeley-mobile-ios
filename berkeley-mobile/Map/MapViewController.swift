@@ -77,6 +77,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         markerDetail.marker = nil
         
         filterView = FilterView(frame: .zero)
+        filterView.animating = true
         filterView.allowsMultipleSelection = false
         filterView.filterDelegate = self
         
