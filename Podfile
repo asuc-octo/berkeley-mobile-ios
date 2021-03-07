@@ -12,6 +12,7 @@ target 'berkeley-mobile' do
   pod 'Firebase/Auth'
   pod 'GoogleSignIn'
   pod "SearchTextField"
+  pod 'SwiftMessages'
 end
 
 post_install do |installer|

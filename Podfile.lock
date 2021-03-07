@@ -348,6 +348,9 @@ PODS:
   - nanopb/encode (2.30907.0)
   - PromisesObjC (1.2.12)
   - SearchTextField (1.2.4)
+  - SwiftMessages (9.0.0):
+    - SwiftMessages/App (= 9.0.0)
+  - SwiftMessages/App (9.0.0)
 
 DEPENDENCIES:
   - Firebase/Analytics
@@ -356,6 +359,7 @@ DEPENDENCIES:
   - GoogleSignIn
   - IQKeyboardManagerSwift
   - SearchTextField
+  - SwiftMessages
 
 SPEC REPOS:
   trunk:
@@ -382,6 +386,7 @@ SPEC REPOS:
     - nanopb
     - PromisesObjC
     - SearchTextField
+    - SwiftMessages
 
 SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
@@ -407,7 +412,8 @@ SPEC CHECKSUMS:
   nanopb: 59221d7f958fb711001e6a449489542d92ae113e
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   SearchTextField: 40dc3cc57def5a211f263cac263622c163bbc25a
+  SwiftMessages: 55274ca3a239062398603008ed81924cfd1fe798
 
-PODFILE CHECKSUM: b28b31417983b15014336494e20ce31ea90d637b
+PODFILE CHECKSUM: 4b2e4a5e22b66f31cee7394d67a25f3f1596ccc2
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.10.0
