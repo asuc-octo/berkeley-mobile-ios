@@ -23,6 +23,7 @@ class SimultaneousGestureScrollView: UIScrollView, UIGestureRecognizerDelegate {
     /// Adds a gesture recognizer that determines if a pan should be handled by the drawer or by the scrollview.
     func setupDummyGesture() {
         guard let drawerViewController = drawerViewController else { return }
+        drawerViewController.shouldHandlePan = false
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action:
             #selector(determineActiveGestureRecognizer(gesture:)))
         panGestureRecognizer.delegate = self
@@ -42,10 +43,6 @@ class SimultaneousGestureScrollView: UIScrollView, UIGestureRecognizerDelegate {
                 drawerViewController.currState != .full
             isScrollEnabled = !shouldPanDrawer
             drawerViewController.shouldHandlePan = shouldPanDrawer
-            // Reset the drawer position, since it may have moved before the gesture state became .began
-            if !shouldPanDrawer {
-                drawerViewController.delegate.moveDrawer(to: drawerViewController.currState, duration: 0)
-            }
         } else if gesture.state == .ended {
             isScrollEnabled = true
             drawerViewController.shouldHandlePan = false
@@ -66,7 +63,7 @@ extension UIScrollView {
 
     var isAtTop: Bool {
         let topInset = contentInset.top
-        return contentOffset.y <= -topInset
+        return contentOffset.y == -topInset
     }
 
     var isAtBottom: Bool {
@@ -74,6 +71,6 @@ extension UIScrollView {
         let scrollContentSizeHeight = contentSize.height
         let bottomInset = contentInset.bottom
         let scrollViewBottomOffset = scrollContentSizeHeight + bottomInset - scrollViewHeight
-        return contentOffset.y >= scrollViewBottomOffset
+        return contentOffset.y == scrollViewBottomOffset
     }
 }

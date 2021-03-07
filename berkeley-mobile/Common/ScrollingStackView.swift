@@ -50,7 +50,6 @@ class ScrollingStackView: UIView {
 
     func setupScrollView() {
         scrollView = SimultaneousGestureScrollView()
-        scrollView.bounces = false
         scrollView.contentInsetAdjustmentBehavior = .never
         scrollView.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
         scrollView.layoutMargins = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
