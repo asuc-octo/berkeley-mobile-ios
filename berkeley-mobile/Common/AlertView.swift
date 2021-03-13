@@ -127,7 +127,7 @@ class AlertView: UIViewController {
         let Hstack = UIStackView()
         Hstack.axis = .horizontal
         Hstack.distribution = .fillEqually
-        Hstack.spacing = 50
+        Hstack.spacing = 35
         
         Hstack.addArrangedSubview(btn1)
         Hstack.addArrangedSubview(btn2)
@@ -149,7 +149,7 @@ class AlertView: UIViewController {
         
         Hstack.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor).isActive = true
         Hstack.topAnchor.constraint(equalTo: Vstack.bottomAnchor, constant: 20).isActive = true
-        Hstack.widthAnchor.constraint(equalToConstant: 220).isActive = true
+        Hstack.widthAnchor.constraint(equalToConstant: 200).isActive = true
         Hstack.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -14).isActive = true
         
         btn1.heightAnchor.constraint(equalToConstant: 30).isActive = true
