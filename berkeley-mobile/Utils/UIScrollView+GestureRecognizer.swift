@@ -30,6 +30,9 @@ class SimultaneousGestureScrollView: UIScrollView, UIGestureRecognizerDelegate {
         drawerViewController.view.addGestureRecognizer(panGestureRecognizer)
     }
 
+    /// The content offset at the start of the gesture, if any.
+    var initialOffset: CGPoint?
+
     /// Activates or deactivates the drawer's gesture recognizer and the scrollview's gesture
     /// recognizer, depending on which one should be used for the given gesture.
     @objc func determineActiveGestureRecognizer(gesture: UIPanGestureRecognizer) {
@@ -43,9 +46,15 @@ class SimultaneousGestureScrollView: UIScrollView, UIGestureRecognizerDelegate {
                 drawerViewController.currState != .full
             isScrollEnabled = !shouldPanDrawer
             drawerViewController.shouldHandlePan = shouldPanDrawer
+            initialOffset = gesture.state == .began ? contentOffset : initialOffset
         } else if gesture.state == .ended {
             isScrollEnabled = true
             drawerViewController.shouldHandlePan = false
+            // If only the drawer has been moved, don't block the drawer gesture handler.
+            if initialOffset == nil || initialOffset == contentOffset {
+                drawerViewController.delegate?.handlePanGesture(gesture: gesture)
+            }
+            initialOffset = nil
         }
     }
 
