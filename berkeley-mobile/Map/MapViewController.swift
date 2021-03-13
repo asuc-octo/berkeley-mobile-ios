@@ -281,6 +281,9 @@ extension MapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         // if map marker is selected, hide the top drawer to show the marker detail
         if let annotation = view.annotation as? MapMarker {
+            UIView.animate(withDuration: 0.1, animations: {
+                view.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+            })
             // Log the display name of the marker that is selected, `Unknown` if no title exists.
             Analytics.logEvent("point_of_interest_clicked", parameters: ["Place": annotation.title ?? "Unknown"])
             markerDetail.marker = annotation
@@ -291,6 +294,9 @@ extension MapViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
         if (view.annotation as? MapMarker) != nil {
+            UIView.animate(withDuration: 0.1, animations: {
+                view.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+            })
             markerDetail.marker = nil
             // if a marker is deselected wait to see if another marker was selected
             DispatchQueue.main.async {
