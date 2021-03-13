@@ -50,6 +50,7 @@ enum MapMarkerType: String, CaseIterable, Comparable {
     case restaurant = "Restaurant"
     case cafe = "Cafe"
     case store = "Store"
+    case mentalHealth = "Mental Health"
     case garden = "Campus Garden"
     case bikes = "Lyft Bike"
     case lactation = "Lactation"
@@ -111,6 +112,9 @@ enum MapMarkerType: String, CaseIterable, Comparable {
                 .withRoundedBorder(width: 3, color: .white)?
                 .withShadow()
             break
+        case .mentalHealth:
+            icon = UIImage(named: "mental-health-icon")
+            break
         default:
             icon = UIImage(named: "Placemark")?
                 .colored(Color.MapMarker.other)
@@ -142,6 +146,8 @@ enum MapMarkerType: String, CaseIterable, Comparable {
             return Color.MapMarker.cafe
         case .store:
             return Color.MapMarker.store
+        case .mentalHealth:
+            return Color.MapMarker.mentalHealth
         default:
             return Color.MapMarker.other
         }
