@@ -90,8 +90,8 @@ extension CovidResourceViewController {
         stack.alignment = .center
         stack.spacing = 9
         
-        let (uhsTests, uhsLabel) = createOverviewCard(cardHeader: "Positivity Rate")
-        let (positiveTests, positiveLabel) = createOverviewCard(cardHeader: "Positive Results")
+        let (uhsTests, uhsLabel) = createOverviewCard(cardHeader: "Rate")
+        let (positiveTests, positiveLabel) = createOverviewCard(cardHeader: "Total")
         
         stack.addArrangedSubview(positiveTests)
         stack.addArrangedSubview(uhsTests)
