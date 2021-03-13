@@ -194,7 +194,7 @@ extension CovidResourceViewController {
         card.rightAnchor.constraint(equalTo: scrollingStack.layoutMarginsGuide.rightAnchor).isActive = true
         
         let headerLabel = UILabel()
-        headerLabel.text = "Need to get tested?"
+        headerLabel.text = "Need an appointment?"
         headerLabel.font = Font.bold(24)
         headerLabel.textAlignment = .left
         headerLabel.textColor = Color.blackText
