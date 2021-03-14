@@ -48,8 +48,8 @@ class CovidResourceViewController: UIViewController {
 extension CovidResourceViewController {
     func scrollingView() {
         let scrollingStackView = ScrollingStackView()
-        
-        scrollingStackView.layoutMargins = kCardPadding
+
+        scrollingStackView.setLayoutMargins(kCardPadding)
         scrollingStackView.scrollView.showsVerticalScrollIndicator = false
         scrollingStackView.stackView.spacing = kViewMargin
         
@@ -70,8 +70,6 @@ extension CovidResourceViewController {
         scrollingStack.stackView.addArrangedSubview(card)
         
         card.translatesAutoresizingMaskIntoConstraints = false
-        card.leftAnchor.constraint(equalTo: scrollingStack.layoutMarginsGuide.leftAnchor).isActive = true
-        card.rightAnchor.constraint(equalTo: scrollingStack.layoutMarginsGuide.rightAnchor).isActive = true
         
         let headerLabel = UILabel()
         headerLabel.font = Font.bold(24)
@@ -190,8 +188,6 @@ extension CovidResourceViewController {
         scrollingStack.stackView.addArrangedSubview(card)
         
         card.translatesAutoresizingMaskIntoConstraints = false
-        card.leftAnchor.constraint(equalTo: scrollingStack.layoutMarginsGuide.leftAnchor).isActive = true
-        card.rightAnchor.constraint(equalTo: scrollingStack.layoutMarginsGuide.rightAnchor).isActive = true
         
         let headerLabel = UILabel()
         headerLabel.text = "Need an appointment?"
@@ -251,8 +247,6 @@ extension CovidResourceViewController {
         scrollingStack.stackView.addArrangedSubview(card)
         
         card.translatesAutoresizingMaskIntoConstraints = false
-        card.leftAnchor.constraint(equalTo: scrollingStack.layoutMarginsGuide.leftAnchor).isActive = true
-        card.rightAnchor.constraint(equalTo: scrollingStack.layoutMarginsGuide.rightAnchor).isActive = true
         
         let stack = UIStackView()
         stack.axis = .vertical
