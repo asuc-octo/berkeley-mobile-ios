@@ -87,6 +87,13 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         setupSubviews()
         userLocationButton = UIButton(type: .custom)
         view.addSubview(userLocationButton)
+
+        // Listen for home button press
+        NotificationCenter.default.addObserver(self,
+            selector: #selector(homePressed),
+            name: Notification.Name(TabBarController.homePressedMessage),
+            object: nil
+        )
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -133,6 +140,13 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         userLocationButton.heightAnchor.constraint(equalToConstant: _buttonWidth).isActive = true
         userLocationButton.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
         userLocationButton.topAnchor.constraint(equalTo: filterView.bottomAnchor, constant: kViewMargin).isActive = true
+    }
+
+    @objc func homePressed() {
+        // Dismiss any map markers if opened
+        if markerDetail.marker != nil {
+            mapView.deselectAnnotation(markerDetail.marker, animated: true)
+        }
     }
     
     @objc func jumpToUserLocation() {
