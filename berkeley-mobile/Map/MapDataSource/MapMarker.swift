@@ -41,8 +41,8 @@ enum MapMarkerType: String, CaseIterable {
             break
         case .rest:
             icon = UIImage(named: "nap-pods-icon")?
-                .withRoundedBorder(width: 30, color: .white)?
-                .withShadow(blur: 10, offset: CGSize(width: 0, height: 10))
+                .withRoundedBorder(width: 3, color: .white)?
+                .withShadow()
             break
         case .printer:
             icon = UIImage(named: "printer-icon")?
