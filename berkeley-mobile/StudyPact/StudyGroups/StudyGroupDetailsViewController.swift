@@ -121,6 +121,6 @@ class StudyGroupDetailsViewController: UIViewController {
 extension StudyGroupDetailsViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        Analytics.logEvent("opened_oneStudyGroup", parameters: nil)
+        Analytics.logEvent("opened_one_study_group", parameters: nil)
     }
 }

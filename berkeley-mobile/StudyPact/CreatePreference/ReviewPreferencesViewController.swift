@@ -51,7 +51,7 @@ class ReviewPreferencesViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         updateLabels()
-        Analytics.logEvent("opened_studypact_reviewPreferences", parameters: nil)
+        Analytics.logEvent("opened_studypact_review_preferences", parameters: nil)
     }
     
     init(preferenceVC: CreatePreferenceViewController) {

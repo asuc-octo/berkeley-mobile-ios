@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
 fileprivate let kViewMargin: CGFloat = 16
@@ -199,3 +200,12 @@ extension AcademicCalendarViewController {
         calendarMissingView = MissingDataView(parentView: card, text: "No events found")
     }
 }
+
+extension AcademicCalendarViewController {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("hi")
+        Analytics.logEvent("opened_academic_calendar", parameters: nil)
+    }
+}
+

@@ -116,6 +116,6 @@ class PendingGroupViewController: UIViewController {
 extension PendingGroupViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        Analytics.logEvent("opened_pendingGroupInvite", parameters: nil)
+        Analytics.logEvent("opened_pending_group_invite", parameters: nil)
     }
 }
