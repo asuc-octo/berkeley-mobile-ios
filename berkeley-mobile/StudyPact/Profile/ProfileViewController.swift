@@ -658,6 +658,10 @@ extension ProfileViewController {
             return nil
         }
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        Analytics.logEvent("opened_profile", parameters: nil)
+    }
 }
 
 extension String {
@@ -665,3 +669,4 @@ extension String {
         return !isEmpty && range(of: "[^a-zA-Z0-9.]", options: .regularExpression) == nil
     }
 }
+
