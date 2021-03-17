@@ -208,7 +208,6 @@ extension CampusCalendarViewController {
 extension CampusCalendarViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("hi")
         Analytics.logEvent("opened_campus_wide_events", parameters: nil)
     }
 }

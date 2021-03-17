@@ -204,7 +204,6 @@ extension AcademicCalendarViewController {
 extension AcademicCalendarViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("hi")
         Analytics.logEvent("opened_academic_calendar", parameters: nil)
     }
 }
