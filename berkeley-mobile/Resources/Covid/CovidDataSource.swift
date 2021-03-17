@@ -38,6 +38,7 @@ private static func parseCovidResource(_ dict: [String: Any]) -> CovidResource {
         dailyScreeningLink: dict["daily_screen_link"] as? String ?? "",
         lastUpdated: dict["last_updated"] as? Double ?? 0.0,
         positivityRate: dict["positivity_rate"] as? String ?? "",
-        totalCases: dict["total_cases"] as? String ?? "")
+        totalCases: dict["total_cases"] as? String ?? "",
+        dailyIncrease: dict["daily_increase"] as? String ?? "")
     }
 }

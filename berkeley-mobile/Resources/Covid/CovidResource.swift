@@ -15,8 +15,9 @@ class CovidResource {
     let lastUpdated: String
     let positivityRate: String
     let totalCases: String
+    let dailyIncrease: String
 
-    init(dailyScreeningLink: String, lastUpdated: Double, positivityRate: String, totalCases: String) {
+    init(dailyScreeningLink: String, lastUpdated: Double, positivityRate: String, totalCases: String, dailyIncrease: String) {
         self.dailyScreeningLink = dailyScreeningLink
 
         if lastUpdated != 0.0 {
@@ -29,5 +30,6 @@ class CovidResource {
 
         self.positivityRate = positivityRate
         self.totalCases = totalCases
+        self.dailyIncrease = dailyIncrease
     }
 }

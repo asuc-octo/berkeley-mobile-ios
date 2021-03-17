@@ -38,7 +38,7 @@ class CovidResourceViewController: UIViewController {
             guard let covidData = resourceEntries[0] as? CovidResource else { return }
                         
             self.screeningUrl = covidData.dailyScreeningLink
-            self.valueOne.text = covidData.positivityRate
+            self.valueOne.text = covidData.dailyIncrease
             self.valueTwo.text = covidData.totalCases
             self.lastUpdated.text = "Last Updated: \(covidData.lastUpdated)"
         }
@@ -88,8 +88,8 @@ extension CovidResourceViewController {
         stack.alignment = .center
         stack.spacing = 9
         
-        let (uhsTests, uhsLabel) = createOverviewCard(cardHeader: "Rate")
         let (positiveTests, positiveLabel) = createOverviewCard(cardHeader: "Total")
+        let (uhsTests, uhsLabel) = createOverviewCard(cardHeader: "New")
         
         stack.addArrangedSubview(positiveTests)
         stack.addArrangedSubview(uhsTests)
