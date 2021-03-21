@@ -75,7 +75,8 @@ enum MapMarkerType: String, CaseIterable, Comparable {
         let icon: UIImage?
         switch self {
         case .microwave:
-            icon = UIImage(named: "microwave-icon")
+            icon = UIImage(named: "microwave-icon")?
+                .withShadow()
             break
         case .rest:
             icon = UIImage(named: "nap-pods-icon")?
@@ -88,7 +89,8 @@ enum MapMarkerType: String, CaseIterable, Comparable {
                 .withShadow()
             break
         case .water:
-            icon = UIImage(named: "water-bottle-icon")
+            icon = UIImage(named: "water-bottle-icon")?
+                .withShadow()
             break
         case .bikes:
             icon = UIImage(named: "bike-icon")?
@@ -96,16 +98,19 @@ enum MapMarkerType: String, CaseIterable, Comparable {
                 .withShadow()
             break
         case .lactation:
-            icon = UIImage(named: "lactation-icon")
+            icon = UIImage(named: "lactation-icon")?
+                .withShadow()
             break
         case .waste:
             icon = UIImage(named: "waste-icon")
             break
         case .garden:
-            icon = UIImage(named: "garden-icon")
+            icon = UIImage(named: "garden-icon")?
+                .withShadow()
             break
         case .cafe:
-            icon = UIImage(named: "cafe-icon")
+            icon = UIImage(named: "cafe-icon")?
+                .withShadow()
             break
         case .store:
             icon = UIImage(named: "store-icon")?
@@ -113,7 +118,8 @@ enum MapMarkerType: String, CaseIterable, Comparable {
                 .withShadow()
             break
         case .mentalHealth:
-            icon = UIImage(named: "mental-health-icon")
+            icon = UIImage(named: "mental-health-icon")?
+                .withShadow()
             break
         default:
             icon = UIImage(named: "Placemark")?
