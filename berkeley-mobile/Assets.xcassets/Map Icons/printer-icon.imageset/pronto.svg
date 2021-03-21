@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="59px" height="59px" viewBox="0 0 59 59" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Artboard</title>
+    <defs>
+        <polygon id="path-1" points="0 59 59 59 59 0 0 0"></polygon>
+    </defs>
+    <g id="Artboard" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="printer-icon">
+            <path d="M29.5,0 C45.79226,0 59,13.20774 59,29.5 C59,45.79226 45.79226,59 29.5,59 C13.20774,59 0,45.79226 0,29.5 C0,13.20774 13.20774,0 29.5,0" id="Fill-1" fill="#5CBB44"></path>
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <g id="Clip-4"></g>
+            <polygon id="Stroke-3" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" mask="url(#mask-2)" points="19 22 41 22 41 14 19 14"></polygon>
+            <path d="M44.7224985,19 L16.2775015,19 C14.4676433,19 13,20.4700012 13,22.2829247 L13,34.7159049 C13,36.5299988 14.4676433,38 16.2775015,38 L44.7224985,38 C46.5323567,38 48,36.5299988 48,34.7159049 L48,22.2829247 C48,20.4700012 46.5323567,19 44.7224985,19" id="Fill-5" fill="#FFFFFF" mask="url(#mask-2)"></path>
+            <polygon id="Fill-6" fill="#FFFFFF" mask="url(#mask-2)" points="19 44 41 44 41 31 19 31"></polygon>
+            <polygon id="Stroke-7" stroke="#5CBB44" stroke-linecap="round" stroke-linejoin="round" mask="url(#mask-2)" points="19 44 41 44 41 31 19 31"></polygon>
+            <line x1="22" y1="41.5" x2="38" y2="41.5" id="Stroke-8" stroke="#5CBB44" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" mask="url(#mask-2)"></line>
+            <line x1="22" y1="36.5" x2="38" y2="36.5" id="Stroke-9" stroke="#5CBB44" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" mask="url(#mask-2)"></line>
+            <path d="M41.5,24 C42.3281596,24 43,23.3281596 43,22.5 C43,21.6718404 42.3281596,21 41.5,21 C40.6718404,21 40,21.6718404 40,22.5 C40,23.3281596 40.6718404,24 41.5,24" id="Fill-10" fill="#5CBB44" mask="url(#mask-2)"></path>
+            <path d="M36.5,24 C37.3281596,24 38,23.3281596 38,22.5 C38,21.6718404 37.3281596,21 36.5,21 C35.6718404,21 35,21.6718404 35,22.5 C35,23.3281596 35.6718404,24 36.5,24" id="Fill-11" fill="#5CBB44" mask="url(#mask-2)"></path>
+        </g>
+    </g>
+</svg>
