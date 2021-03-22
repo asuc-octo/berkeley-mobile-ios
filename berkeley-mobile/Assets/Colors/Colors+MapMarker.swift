@@ -13,10 +13,6 @@ extension Color {
     // Colors for Map Marker Categories
     struct MapMarker {
 
-        static var mentalHealth: UIColor {
-            return UIColor(displayP3Red: 249/255, green: 180/255, blue: 35/255, alpha: 1.0)
-        }
-
         static var microwave: UIColor {
             return UIColor(displayP3Red: 248/255, green: 95/255, blue: 73/255, alpha: 1.0)
         }
@@ -51,6 +47,18 @@ extension Color {
 
         static var cafe: UIColor {
             return UIColor(displayP3Red: 146/255, green: 83/255, blue: 163/255, alpha: 1.0)
+        }
+
+        static var store: UIColor {
+            return UIColor(displayP3Red: 217/255, green: 125/255, blue: 228/255, alpha: 1.0)
+        }
+
+        static var mentalHealth: UIColor {
+            return UIColor(displayP3Red: 249/255, green: 180/255, blue: 35/255, alpha: 1.0)
+        }
+
+        static var other: UIColor {
+            return UIColor(displayP3Red: 140/255, green: 140/255, blue: 140/255, alpha: 1.0)
         }
     }
 }
