@@ -143,14 +143,19 @@ class MapMarkerDetailView: UIView {
     private func setupView(_ marker: MapMarker) {
         verticalStack.removeAllArrangedSubviews()
         nameLabel.text = marker.title
-        typeColorView.backgroundColor = marker.type.color()
+        if case .known(let type) = marker.type {
+            typeColorView.backgroundColor = type.color()
+        } else {
+            typeColorView.backgroundColor = MapMarkerType.none.color()
+        }
         notesLabel.text = marker.subtitle
         
         detailStack.removeAllArrangedSubviews()
         // Show average meal price only for cafe markers
-        let details: [MapMarkerDetail] = marker.type == .cafe ?
-            [.distance, .openNow, .location, .price] :
-            [.distance, .openNow, .location]
+        var details: [MapMarkerDetail] = [.distance, .openNow, .location]
+        if case .known(let type) = marker.type, type == .cafe {
+            details = [.distance, .openNow, .location, .price]
+        }
         var containsFlexibleView = false
         for property: MapMarkerDetail in details {
             if let view = property.view(marker) {

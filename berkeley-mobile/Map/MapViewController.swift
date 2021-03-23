@@ -37,8 +37,10 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
     private var searchAnnotation: SearchAnnotation?
     
     private var filterView: FilterView!
-    private var filters: [Filter<[MapMarker]>] = MapMarkerType.allCases.map { type in
-        Filter(label: type.rawValue) { $0.first?.type == type }
+    private var filters: [Filter<[MapMarker]>] = [] {
+        didSet {
+            filterView.labels = filters.map { $0.label }
+        }
     }
     private var mapMarkers: [[MapMarker]] = []
     private var markerDetail: MapMarkerDetailView!
@@ -75,12 +77,22 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         markerDetail.marker = nil
         
         filterView = FilterView(frame: .zero)
+        filterView.animating = true
         filterView.allowsMultipleSelection = false
         filterView.filterDelegate = self
-        filterView.labels = filters.map { $0.label }
         
         DataManager.shared.fetch(source: MapDataSource.self) { markers in
-            self.mapMarkers = markers as? [[MapMarker]] ?? []
+            guard let markers = markers.first as? [String: [MapMarker]] else { return }
+            self.mapMarkers = Array(markers.values)
+            var types = Array(markers.keys)
+            types.sort {
+                guard let rhs = MapMarkerType(rawValue: $1) else { return true }
+                guard let lhs = MapMarkerType(rawValue: $0) else { return false }
+                return lhs < rhs
+            }
+            self.filters = types.map { type in
+                Filter(label: type) { $0.first?.type.rawValue == type }
+            }
         }
         
         self.view.addSubViews([mapView, filterView, markerDetail, maskView, searchResultsView, searchBar])
@@ -258,7 +270,11 @@ extension MapViewController: MKMapViewDelegate {
         } else if let marker = annotation as? MapMarker,
             let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: MapViewController.kAnnotationIdentifier) {
             annotationView.annotation = marker
-            annotationView.image = marker.type.icon()
+            if case .known(let type) = marker.type {
+                annotationView.image = type.icon()
+            } else {
+                annotationView.image = MapMarkerType.none.icon()
+            }
             return annotationView
         } else if let searchAnnotation = annotation as? SearchAnnotation,
             // create new pin on map for searched item

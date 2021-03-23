@@ -22,6 +22,10 @@ class ScrollingStackView: UIView {
         return frame.minY + scrollView.contentInset.top
     }
 
+    override var layoutMargins: UIEdgeInsets {
+        didSet { setLayoutMargins(layoutMargins) }
+    }
+
     // MARK: Initializers
 
     override init(frame: CGRect) {

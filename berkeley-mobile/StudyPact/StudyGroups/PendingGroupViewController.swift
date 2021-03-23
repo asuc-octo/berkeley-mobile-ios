@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 fileprivate let kViewMargin: CGFloat = 16
 
@@ -110,5 +111,11 @@ class PendingGroupViewController: UIViewController {
     public func presentSelf(presentingVC: UIViewController, studyGroup: StudyGroup) {
         self.studyGroup = studyGroup
         presentingVC.present(self, animated: true, completion: nil)
+    }
+}
+extension PendingGroupViewController {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        Analytics.logEvent("opened_pending_group_invite", parameters: nil)
     }
 }
