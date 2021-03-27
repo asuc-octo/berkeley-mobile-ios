@@ -35,7 +35,6 @@ class MonthSelectorView: UIView {
     private let monthSelector: UICollectionView = {
         let flow = UICollectionViewFlowLayout.init()
         flow.scrollDirection = .horizontal
-        flow.itemSize = CGSize(width: 100, height: 30)
         let collection = UICollectionView(frame: .zero, collectionViewLayout: flow)
         collection.showsVerticalScrollIndicator = false
         collection.showsHorizontalScrollIndicator = false
@@ -72,22 +71,34 @@ class MonthSelectorView: UIView {
 
 class MonthSelectCell: UICollectionViewCell {
     static let kCellIdentifier = "monthSelectCell"
+    static let kCellSize: CGSize = CGSize(width: 32, height: 35)
     
-    let label: UILabel = {
+    open var label: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Font.light(16)
+        label.textAlignment = .center
         return label
     }()
+    
+    override var intrinsicContentSize: CGSize {
+        let size = label.intrinsicContentSize
+        return CGSize(
+            width: size.width + layoutMargins.left + layoutMargins.right,
+            height: MonthSelectCell.kCellSize.height
+        )
+    }
+    
     private var month: Int!
     private var year: Int!
     
     override init(frame: CGRect) {
-        super.init(frame: .zero)
+        super.init(frame: frame)
         self.contentView.addSubview(label)
-        label.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        label.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-        self.widthAnchor.constraint(equalTo: label.widthAnchor, constant: 15).isActive = true
+        label.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor).isActive = true
+        label.leftAnchor.constraint(equalTo: layoutMarginsGuide.leftAnchor).isActive = true
+        label.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor).isActive = true
+        label.rightAnchor.constraint(equalTo: layoutMarginsGuide.rightAnchor).isActive = true
     }
     
     public func configure(month: Int, year: Int) {
@@ -101,7 +112,7 @@ class MonthSelectCell: UICollectionViewCell {
     }
 }
 
-extension MonthSelectorView: UICollectionViewDelegate, UICollectionViewDataSource {
+extension MonthSelectorView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -120,5 +131,16 @@ extension MonthSelectorView: UICollectionViewDelegate, UICollectionViewDataSourc
             }
         }
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let cell = MonthSelectCell()
+        if calendarEntries.count == 0 {
+            cell.configure(month: initialMonth, year: initialYear)
+        } else {
+            cell.configure(month: months[indexPath.row].month, year: months[indexPath.row].year)
+        }
+        print(cell.intrinsicContentSize)
+        return cell.intrinsicContentSize
     }
 }
