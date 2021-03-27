@@ -58,6 +58,17 @@ class SimultaneousGestureScrollView: UIScrollView, UIGestureRecognizerDelegate {
         }
     }
 
+    override func touchesShouldCancel(in view: UIView) -> Bool {
+        // Drags that start from a button hold (or other similar controls) should still scroll the view.
+        if view is UIControl &&
+            !(view is UITextInput) &&
+            !(view is UISlider) &&
+            !(view is UISwitch) {
+            return true
+        }
+        return super.touchesShouldCancel(in: view)
+    }
+
     // MARK: UIScrollViewDelegate
 
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
