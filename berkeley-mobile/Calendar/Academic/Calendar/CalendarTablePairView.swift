@@ -52,6 +52,7 @@ class CalendarTablePairView: UIView {
         calendarView.leftAnchor.constraint(equalTo: self.layoutMarginsGuide.leftAnchor).isActive = true
         calendarView.rightAnchor.constraint(equalTo: self.layoutMarginsGuide.rightAnchor).isActive = true
         calendarView.bottomAnchor.constraint(equalTo: tableView.topAnchor, constant: -kViewMargin).isActive = true
+        calendarView.heightAnchor.constraint(equalTo: tableView.heightAnchor).isActive = true
         calendarView.delegate = self
     }
     

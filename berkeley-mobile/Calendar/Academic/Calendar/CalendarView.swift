@@ -20,7 +20,7 @@ class CalendarView: UIView {
     }
     var currentCalendarEntries: [EventCalendarEntry] = [] {
         didSet {
-            //TODO: highlight
+            collection.reloadData()
         }
     }
     var calendarEntries: [EventCalendarEntry] = [] {
@@ -59,7 +59,6 @@ class CalendarView: UIView {
         collection.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         collection.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         collection.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        self.setHeightConstraint(300)
     }
     
     override func layoutSubviews() {
@@ -144,6 +143,7 @@ class CalendarCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        contentView.layer.cornerRadius = 15
         self.contentView.addSubview(label)
         label.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         label.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
@@ -153,15 +153,33 @@ class CalendarCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func configure(text: String, isHeader: Bool, isGrayed: Bool) {
+    public func configure(text: String, isHeader: Bool, isGrayed: Bool, entries: [EventCalendarEntry] = [], day: Int? = nil) {
         label.text = text
         
+        var colors: Set<UIColor> = []
+        for entry in entries {
+            let entryDay = Calendar.current.component(.day, from: entry.date)
+            if entryDay == day {
+                colors.insert(entry.color)
+            }
+        }
+        if colors.count > 1 {
+            contentView.backgroundColor = Color.Calendar.blackText
+        } else if colors.count == 1 {
+            contentView.backgroundColor = colors.first!
+        } else {
+            contentView.backgroundColor = .clear
+        }
         if isHeader {
             label.textColor = Color.Calendar.dayOfWeekHeader
         } else if isGrayed {
             label.textColor = Color.Calendar.grayedText
         } else {
-            label.textColor = Color.Calendar.blackText
+            if colors.isEmpty {
+                label.textColor = Color.Calendar.blackText
+            } else {
+                label.textColor = .white
+            }
         }
     }
 }
@@ -184,7 +202,11 @@ extension CalendarView: UICollectionViewDelegate, UICollectionViewDataSource {
                 let cellIndex = (indexPath.section - 1) * collectionView.numberOfItems(inSection: indexPath.section) + indexPath.row
                 let calendarDay = calendarDays[cellIndex]
                 let day = calendar.dateComponents([.day], from: calendarDay.date).day!
-                calendarCell.configure(text: String(day), isHeader: false, isGrayed: !calendarDay.isCurrentMonth)
+                if calendarDay.isCurrentMonth {
+                    calendarCell.configure(text: String(day), isHeader: false, isGrayed: !calendarDay.isCurrentMonth, entries: currentCalendarEntries, day: day)
+                } else {
+                    calendarCell.configure(text: String(day), isHeader: false, isGrayed: !calendarDay.isCurrentMonth)
+                }
             }
         }
         return cell

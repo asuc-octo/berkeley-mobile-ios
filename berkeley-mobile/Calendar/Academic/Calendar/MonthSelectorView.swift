@@ -28,7 +28,12 @@ class MonthSelectorView: UIView {
                     months.append((month: month, year: year))
                 }
             }
+            let row = months.firstIndex(where: { (month, year) in
+                return month == initialMonth && year == initialYear
+            }) ?? 0
+            let indexPath = IndexPath(row: row, section: 0)
             monthSelector.reloadData()
+            monthSelector.selectItem(at: indexPath, animated: false, scrollPosition: .left)
         }
     }
     var months: [(month: Int, year: Int)] = []
