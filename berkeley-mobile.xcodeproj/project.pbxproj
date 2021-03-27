@@ -186,6 +186,7 @@
 		FD6FB45925C616370045A03A /* SelectClassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6FB45825C616370045A03A /* SelectClassView.swift */; };
 		FD6FB45C25C62EB90045A03A /* SelectLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6FB45B25C62EB90045A03A /* SelectLocationView.swift */; };
 		FD6FB45F25C6A4B90045A03A /* StudyPactPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6FB45E25C6A4B80045A03A /* StudyPactPreference.swift */; };
+		FDD7946C260FE09D00ABE60E /* Colors+AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD7946B260FE09D00ABE60E /* Colors+AlertView.swift */; };
 		FDE7CD9925BCE6DB00F65A13 /* CreatePreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDE7CD9825BCE6DB00F65A13 /* CreatePreferenceViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -376,6 +377,7 @@
 		FD6FB45825C616370045A03A /* SelectClassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectClassView.swift; sourceTree = "<group>"; };
 		FD6FB45B25C62EB90045A03A /* SelectLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectLocationView.swift; sourceTree = "<group>"; };
 		FD6FB45E25C6A4B80045A03A /* StudyPactPreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyPactPreference.swift; sourceTree = "<group>"; };
+		FDD7946B260FE09D00ABE60E /* Colors+AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+AlertView.swift"; sourceTree = "<group>"; };
 		FDE7CD9825BCE6DB00F65A13 /* CreatePreferenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePreferenceViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -505,6 +507,7 @@
 				298EE26925BB6C33002BAF0F /* Colors+StudyPact.swift */,
 				13491DB5241E21740033F9AB /* Colors+TagView.swift */,
 				018B982725328200004C3B26 /* Colors+ActionButton.swift */,
+				FDD7946B260FE09D00ABE60E /* Colors+AlertView.swift */,
 				13491DB7241E22130033F9AB /* Colors+Event.swift */,
 				135D7F76243A9BD1003F8BD1 /* Colors+GymClass.swift */,
 				017C0B25251018BA00BFA80A /* Colors+MapMarker.swift */,
@@ -1212,6 +1215,7 @@
 				554CB9A023F3A83F00BB1715 /* EventTableViewCell.swift in Sources */,
 				01B250282516AD4F00CBA459 /* IconPairView.swift in Sources */,
 				55AF442B2453A80B00F13232 /* CafeItem.swift in Sources */,
+				FDD7946C260FE09D00ABE60E /* Colors+AlertView.swift in Sources */,
 				2925D5F825293F2A00BBA266 /* CampusEventTableViewCell.swift in Sources */,
 				2948155D25326D1400D113B6 /* ImageLoader.swift in Sources */,
 				55AF44272453A49D00F13232 /* Cafe.swift in Sources */,

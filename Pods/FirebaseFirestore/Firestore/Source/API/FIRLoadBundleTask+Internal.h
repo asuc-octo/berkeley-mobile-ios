@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Google
+ * Copyright 2021 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,18 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+#include <memory>
 
-#import <Foundation/Foundation.h>
+#import "FIRLoadBundleTask.h"
 
-#import "GoogleDataTransport/GDTCORLibrary/Internal/GDTCORPlatform.h"
+#include "Firestore/core/src/api/load_bundle_task.h"
+
+namespace api = firebase::firestore::api;
 
 NS_ASSUME_NONNULL_BEGIN
 
-/** This class helps determine upload conditions by determining connectivity. */
-@interface GDTCORReachability : NSObject
+@interface FIRLoadBundleTaskProgress (Internal)
 
-/** The current set flags indicating network conditions */
-+ (GDTCORNetworkReachabilityFlags)currentFlags;
+- (instancetype)initWithInternal:(api::LoadBundleTaskProgress)progress;
+
+@end
+
+/** Private implementation of the FIRListenerRegistration protocol. */
+@interface FIRLoadBundleTask (Internal)
+
+- (instancetype)initWithTask:(std::shared_ptr<api::LoadBundleTask>)task;
 
 @end
 

@@ -10,7 +10,6 @@ import UIKit
 import Firebase
 import GoogleSignIn
 import Foundation
-import SwiftMessages
 
 class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, GIDSignInDelegate {
     private var loggedIn = false
@@ -187,22 +186,6 @@ extension ProfileViewController {
     }
     
     @objc private func logoutButtonPressed(sender: UIButton) {
-//        let alertController = UIAlertController(title: "Logout?", message: "You will be returned to the login screen.", preferredStyle: .alert)
-//        alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
-//        alertController.addAction(UIAlertAction(title: "Logout", style: UIAlertAction.Style.destructive, handler: {_ in
-//            let auth = Auth.auth()
-//            do {
-//                try auth.signOut()
-//            } catch let error as NSError {
-//                // let's hope this never happens and pretend nothing happened
-//                print("Error signing out: %@", error)
-//            }
-//            StudyPact.shared.reset()
-//
-//            self.loggedOutView()
-//        }))
-//
-//        self.present(alertController, animated: true, completion: nil)
         
         let alertView = AlertView(headingText: "Logout?", messageText: "You will be returned to the login screen.", action1Label: "Cancel", action1Color: Color.ActionButton.background, action1Completion: {
             self.dismiss(animated: true, completion: nil)
