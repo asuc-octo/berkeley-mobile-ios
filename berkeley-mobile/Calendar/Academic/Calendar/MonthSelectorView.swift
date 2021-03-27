@@ -106,9 +106,6 @@ class MonthSelectCell: UICollectionViewCell {
         }
     }
     
-    private var month: Int!
-    private var year: Int!
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.contentView.addSubview(label)
@@ -119,9 +116,7 @@ class MonthSelectCell: UICollectionViewCell {
         contentView.layer.cornerRadius = bounds.height / 2
     }
     
-    public func configure(month: Int, year: Int) {
-        self.month = month
-        self.year = year
+    public func configure(month: Int) {
         label.text = DateFormatter().monthSymbols[month - 1]
     }
     
@@ -143,9 +138,9 @@ extension MonthSelectorView: UICollectionViewDelegate, UICollectionViewDataSourc
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MonthSelectCell.kCellIdentifier, for: indexPath)
         if let monthCell = cell as? MonthSelectCell {
             if calendarEntries.count == 0 {
-                monthCell.configure(month: initialMonth, year: initialYear)
+                monthCell.configure(month: initialMonth)
             } else {
-                monthCell.configure(month: months[indexPath.row].month, year: months[indexPath.row].year)
+                monthCell.configure(month: months[indexPath.row].month)
             }
         }
         return cell
@@ -154,9 +149,9 @@ extension MonthSelectorView: UICollectionViewDelegate, UICollectionViewDataSourc
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cell = MonthSelectCell()
         if calendarEntries.count == 0 {
-            cell.configure(month: initialMonth, year: initialYear)
+            cell.configure(month: initialMonth)
         } else {
-            cell.configure(month: months[indexPath.row].month, year: months[indexPath.row].year)
+            cell.configure(month: months[indexPath.row].month)
         }
         return cell.intrinsicContentSize
     }
