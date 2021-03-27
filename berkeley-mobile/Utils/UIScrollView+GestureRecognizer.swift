@@ -39,11 +39,15 @@ class SimultaneousGestureScrollView: UIScrollView, UIGestureRecognizerDelegate {
         guard let drawerViewController = drawerViewController else { return }
         if gesture.state == .began || gesture.state == .changed {
             // Boolean indicating if the user is swiping upwards
-            let panUp = gesture.translation(in: drawerViewController.view).y < 0
+            let offset = gesture.translation(in: drawerViewController.view).y
+            // Hardcoded threshold for ambiguity
+            let ambiguousPan = abs(offset) < 1
+            let panUp = offset < 0
             // Pan the drawer when the scrollview reaches the top or bottom, or if the drawer is not expanded
-            let shouldPanDrawer = !panUp && isAtTop ||
+            let shouldPanDrawer = !ambiguousPan &&
+                (!panUp && isAtTop ||
                 panUp && isAtBottom ||
-                drawerViewController.currState != .full
+                drawerViewController.currState != .full)
             isScrollEnabled = !shouldPanDrawer
             drawerViewController.shouldHandlePan = shouldPanDrawer
             initialOffset = gesture.state == .began ? contentOffset : initialOffset
