@@ -20,7 +20,7 @@ class CalendarView: UIView {
     }
     var currentCalendarEntries: [EventCalendarEntry] = [] {
         didSet {
-            print(currentCalendarEntries)
+            //TODO: highlight
         }
     }
     var calendarEntries: [EventCalendarEntry] = [] {
@@ -43,7 +43,7 @@ class CalendarView: UIView {
         super.init(frame: .zero)
         let initialMonth = calendar.component(.month, from: Date())
         let initialYear = calendar.component(.year, from: Date())
-        monthSelector = MonthSelectorView(initialMonth: initialMonth, initialYear: initialYear)
+        monthSelector = MonthSelectorView(initialMonth: initialMonth, initialYear: initialYear, calendarView: self)
         self.goTo(month: initialMonth, year: initialYear)
         
         self.addSubview(monthSelector)

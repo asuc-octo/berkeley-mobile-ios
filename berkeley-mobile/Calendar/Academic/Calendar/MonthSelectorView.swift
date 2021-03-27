@@ -47,12 +47,14 @@ class MonthSelectorView: UIView {
     
     private var initialMonth: Int!
     private var initialYear: Int!
+    private var calendarView: CalendarView!
     
-    public init(initialMonth: Int, initialYear: Int) {
+    public init(initialMonth: Int, initialYear: Int, calendarView: CalendarView) {
         super.init(frame: .zero)
         self.translatesAutoresizingMaskIntoConstraints = false
         self.initialMonth = initialMonth
         self.initialYear = initialYear
+        self.calendarView = calendarView
         monthSelector.delegate = self
         monthSelector.dataSource = self
         monthSelector.showsHorizontalScrollIndicator = false
@@ -80,13 +82,23 @@ class MonthSelectCell: UICollectionViewCell {
         label.textAlignment = .center
         return label
     }()
-    
     override var intrinsicContentSize: CGSize {
         let size = label.intrinsicContentSize
         return CGSize(
             width: size.width + layoutMargins.left + layoutMargins.right,
             height: MonthSelectCell.kCellSize.height
         )
+    }
+    override var isSelected: Bool {
+        didSet {
+            if self.isSelected {
+                contentView.backgroundColor = Color.selectedButtonBackground
+                label.textColor = .white
+            } else {
+                contentView.backgroundColor = Color.cardBackground
+                label.textColor = Color.blackText
+            }
+        }
     }
     
     private var month: Int!
@@ -99,6 +111,7 @@ class MonthSelectCell: UICollectionViewCell {
         label.leftAnchor.constraint(equalTo: layoutMarginsGuide.leftAnchor).isActive = true
         label.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor).isActive = true
         label.rightAnchor.constraint(equalTo: layoutMarginsGuide.rightAnchor).isActive = true
+        contentView.layer.cornerRadius = bounds.height / 2
     }
     
     public func configure(month: Int, year: Int) {
@@ -140,7 +153,10 @@ extension MonthSelectorView: UICollectionViewDelegate, UICollectionViewDataSourc
         } else {
             cell.configure(month: months[indexPath.row].month, year: months[indexPath.row].year)
         }
-        print(cell.intrinsicContentSize)
         return cell.intrinsicContentSize
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        calendarView.goTo(month: months[indexPath.row].month, year: months[indexPath.row].year)
     }
 }
