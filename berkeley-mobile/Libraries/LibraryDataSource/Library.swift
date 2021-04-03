@@ -28,14 +28,14 @@ class Library: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasImage, H
         return "Librar" + (pluralized ? "ies" : "y")
     }
     
-    let name: String
+    @Display var name: String
     let imageURL: URL?
     
     var isFavorited: Bool = false
 
-    var description: String?
-    let address: String?
-    let phoneNumber: String?
+    @Display var description: String?
+    @Display var address: String?
+    @Display var phoneNumber: String?
     let weeklyHours: WeeklyHours?
     var occupancy: Occupancy?
     var weeklyByAppointment:[Bool]

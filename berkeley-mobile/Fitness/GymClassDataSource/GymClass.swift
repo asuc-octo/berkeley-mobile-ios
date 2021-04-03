@@ -13,11 +13,11 @@ class GymClass: CalendarEvent {
 
     // MARK: CalendarEvent Fields
 
-    var name: String
+    @Display var name: String
     var date: Date
     var end: Date?
-    var description: String?
-    var location: String?
+    @Display var description: String?
+    @Display var location: String?
     
     var additionalDescription: String {
         get {

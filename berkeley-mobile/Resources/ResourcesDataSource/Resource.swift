@@ -27,9 +27,9 @@ class Resource: SearchItem, HasLocation, HasOpenTimes {
     var latitude: Double?
     var longitude: Double?
     
-    let name: String
-    let address: String?
-    let description: String?
+    @Display var name: String
+    @Display<String?> var address: String?
+    @Display<String?> var description: String?
     var weeklyHours: WeeklyHours?
 
     /// The category for this resource. See `ResourceType` for expected values.
@@ -43,6 +43,7 @@ class Resource: SearchItem, HasLocation, HasOpenTimes {
     init(name: String, address: String?, latitude: Double?, longitude: Double?, description: String?, hours: WeeklyHours?, type: String?) {
         self.name = name
         self.address = address
+        self.address = "test"
         self.latitude = latitude
         self.longitude = longitude
         self.description = description
