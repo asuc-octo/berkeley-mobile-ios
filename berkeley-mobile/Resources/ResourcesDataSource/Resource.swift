@@ -43,7 +43,6 @@ class Resource: SearchItem, HasLocation, HasOpenTimes {
     init(name: String, address: String?, latitude: Double?, longitude: Double?, description: String?, hours: WeeklyHours?, type: String?) {
         self.name = name
         self.address = address
-        self.address = "test"
         self.latitude = latitude
         self.longitude = longitude
         self.description = description
