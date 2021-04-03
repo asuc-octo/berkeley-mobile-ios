@@ -11,20 +11,13 @@ import UIKit
 fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 6, left: 6, bottom: 6, right: 6)
 fileprivate let kViewMargin: CGFloat = 6
 
+/// Pairs a CalendarView with a UITableView that shows matching events
 class CalendarTablePairView: UIView {
     private var parentVC: UIViewController
-
     private var calendarTable: UITableView!
     private var calendarView: CalendarView = CalendarView()
     private var missingDataView: MissingDataView!
-    
-    var calendarEntries: [EventCalendarEntry] = [] {
-        didSet {
-            calendarView.calendarEntries = calendarEntries
-            setCurrentMonthEntries()
-        }
-    }
-    private var currentMonthCalendarEntries: [EventCalendarEntry] = []
+    private var tableEntries: [EventCalendarEntry] = []
     
     public init(parentVC: UIViewController) {
         self.parentVC = parentVC
@@ -44,7 +37,7 @@ class CalendarTablePairView: UIView {
         tableView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         calendarTable = tableView
-        missingDataView = MissingDataView(parentView: self, text: "No events found")
+        missingDataView = MissingDataView(parentView: calendarTable, text: "No events found")
         
         self.addSubview(calendarView)
         calendarView.translatesAutoresizingMaskIntoConstraints = false
@@ -56,6 +49,10 @@ class CalendarTablePairView: UIView {
         calendarView.delegate = self
     }
     
+    public func setCalendarEntries(entries: [EventCalendarEntry]) {
+        calendarView.calendarEntries = entries
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -65,13 +62,13 @@ class CalendarTablePairView: UIView {
 
 extension CalendarTablePairView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return currentMonthCalendarEntries.count
+        return tableEntries.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: EventTableViewCell.kCellIdentifier, for: indexPath)
             as? EventTableViewCell {
-            if let entry = currentMonthCalendarEntries[safe: indexPath.row] {
+            if let entry = tableEntries[safe: indexPath.row] {
                 cell.cellConfigure(event: entry, type: entry.type, color: entry.color)
                 return cell
             }
@@ -80,7 +77,7 @@ extension CalendarTablePairView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let event = currentMonthCalendarEntries[safe: indexPath.row] {
+        if let event = tableEntries[safe: indexPath.row] {
             event.addToDeviceCalendar(vc: parentVC)
         }
         tableView.deselectRow(at: indexPath, animated: true)
@@ -88,20 +85,14 @@ extension CalendarTablePairView: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension CalendarTablePairView: CalendarViewDelegate {
-    func didChangeMonth() {
-        setCurrentMonthEntries()
-    }
-    
-    private func setCurrentMonthEntries() {
-        currentMonthCalendarEntries = []
-        for entry in calendarEntries {
-            let components = Calendar.current.dateComponents([.month, .year], from: entry.date)
-            if let entryMonth = components.month, let entryYear = components.year,
-               calendarView.getMonth() == entryMonth, calendarView.getYear() == entryYear {
-                currentMonthCalendarEntries.append(entry)
-            }
+    // when the calendar changes month, update the table
+    func didChangeMonth(selectedEntries: [EventCalendarEntry]) {
+        if selectedEntries.isEmpty {
+            missingDataView.isHidden = false
+        } else {
+            missingDataView.isHidden = true
         }
+        tableEntries = selectedEntries
         calendarTable.reloadData()
-        calendarView.currentCalendarEntries = currentMonthCalendarEntries
     }
 }

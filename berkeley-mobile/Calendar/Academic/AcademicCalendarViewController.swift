@@ -33,9 +33,9 @@ class AcademicCalendarViewController: UIViewController {
             let entries = (calendarEntries as? [EventCalendarEntry])?.filter({ entry -> Bool in
                 return AcademicCalendarViewController.categories.contains(entry.category)
             }) ?? []
-            self.calendarTablePair.calendarEntries = entries.sorted(by: {
+            self.calendarTablePair.setCalendarEntries(entries: entries.sorted(by: {
                 $0.date.compare($1.date) == .orderedAscending
-            })
+            }))
         }
     }
 }
@@ -43,7 +43,6 @@ class AcademicCalendarViewController: UIViewController {
 // MARK: - View
 
 extension AcademicCalendarViewController {
-    
     private func setupScrollView() {
         scrollingStackView = ScrollingStackView()
         scrollingStackView.setLayoutMargins(view.layoutMargins)
@@ -56,8 +55,7 @@ extension AcademicCalendarViewController {
         scrollingStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
     
-    // MARK: Calendar Table
-    
+    // MARK: Calendar
     private func setUpCalendar() {
         let card = CardView()
         card.layoutMargins = kCardPadding

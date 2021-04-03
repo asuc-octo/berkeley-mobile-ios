@@ -10,17 +10,20 @@ import UIKit
 
 class MonthSelectorView: UIView {
     var calendarEntries: [EventCalendarEntry] = [] {
+        // set all months that can be selected
         didSet {
             let sortedCalendarEntries = calendarEntries.sorted(by: { entry1, entry2 in
                 return entry1.date < entry2.date
             })
             guard let firstDate = sortedCalendarEntries.first?.date,
                   let lastDate = sortedCalendarEntries.last?.date else {
+                months = [(initialMonth, initialYear)]
                 return
             }
             let firstComponents = Calendar.current.dateComponents([.month, .year], from: firstDate)
             let lastComponents = Calendar.current.dateComponents([.month, .year], from: lastDate)
             months = []
+            // add every month from the earliest entry to the latest entry
             for year in firstComponents.year!...lastComponents.year! {
                 let start = year == firstComponents.year ? firstComponents.month : 1
                 let end = year == lastComponents.year ? lastComponents.month : 12
@@ -28,6 +31,7 @@ class MonthSelectorView: UIView {
                     months.append((month: month, year: year))
                 }
             }
+            // scroll to the initial month
             let row = months.firstIndex(where: { (month, year) in
                 return month == initialMonth && year == initialYear
             }) ?? 0
@@ -36,6 +40,7 @@ class MonthSelectorView: UIView {
             monthSelector.selectItem(at: indexPath, animated: false, scrollPosition: .left)
         }
     }
+    /// all months included in the selector
     var months: [(month: Int, year: Int)] = []
     private let monthSelector: UICollectionView = {
         let flow = UICollectionViewFlowLayout.init()
@@ -49,17 +54,15 @@ class MonthSelectorView: UIView {
         collection.backgroundColor = .clear
         return collection
     }()
-    
     private var initialMonth: Int!
     private var initialYear: Int!
-    private var calendarView: CalendarView!
+    open var delegate: MonthSelectorDelegate?
     
-    public init(initialMonth: Int, initialYear: Int, calendarView: CalendarView) {
+    public init(initialMonth: Int, initialYear: Int) {
         super.init(frame: .zero)
         self.translatesAutoresizingMaskIntoConstraints = false
         self.initialMonth = initialMonth
         self.initialYear = initialYear
-        self.calendarView = calendarView
         monthSelector.delegate = self
         monthSelector.dataSource = self
         monthSelector.showsHorizontalScrollIndicator = false
@@ -131,32 +134,28 @@ extension MonthSelectorView: UICollectionViewDelegate, UICollectionViewDataSourc
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return months.count > 0 ? months.count : 1
+        return months.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MonthSelectCell.kCellIdentifier, for: indexPath)
         if let monthCell = cell as? MonthSelectCell {
-            if calendarEntries.count == 0 {
-                monthCell.configure(month: initialMonth)
-            } else {
-                monthCell.configure(month: months[indexPath.row].month)
-            }
+            monthCell.configure(month: months[indexPath.row].month)
         }
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cell = MonthSelectCell()
-        if calendarEntries.count == 0 {
-            cell.configure(month: initialMonth)
-        } else {
-            cell.configure(month: months[indexPath.row].month)
-        }
+        cell.configure(month: months[indexPath.row].month)
         return cell.intrinsicContentSize
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        calendarView.goTo(month: months[indexPath.row].month, year: months[indexPath.row].year)
+        delegate?.monthSelected(month: months[indexPath.row].month, year: months[indexPath.row].year)
     }
+}
+
+protocol MonthSelectorDelegate {
+    func monthSelected(month: Int, year: Int)
 }

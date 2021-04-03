@@ -8,24 +8,32 @@
 
 import UIKit
 
+/// A Custom calendar that can highlight cells based on a list of EventCalendarEntries
 class CalendarView: UIView {
+    /// currently selected month and year
     private var year: Int!
     private var month: Int!
     private var calendar = Calendar.current
+    /// days currently displayed on the calendar
     private var calendarDays: [CalendarDay] = []
-    var delegate: CalendarViewDelegate? {
+    /// delegate for when the month changes
+    open var delegate: CalendarViewDelegate? {
         didSet {
-            delegate?.didChangeMonth()
+            delegate?.didChangeMonth(selectedEntries: currentMonthCalendarEntries)
         }
     }
-    var currentCalendarEntries: [EventCalendarEntry] = [] {
-        didSet {
-            collection.reloadData()
-        }
-    }
+    /// all calendar entries relevant to this calendar
     var calendarEntries: [EventCalendarEntry] = [] {
         didSet {
             monthSelector.calendarEntries = calendarEntries
+            setCurrentMonthEntries()
+        }
+    }
+    /// the calendar entries for the currently selected month
+    var currentMonthCalendarEntries: [EventCalendarEntry] = [] {
+        didSet {
+            collection.reloadData()
+            delegate?.didChangeMonth(selectedEntries: currentMonthCalendarEntries)
         }
     }
     
@@ -43,8 +51,9 @@ class CalendarView: UIView {
         super.init(frame: .zero)
         let initialMonth = calendar.component(.month, from: Date())
         let initialYear = calendar.component(.year, from: Date())
-        monthSelector = MonthSelectorView(initialMonth: initialMonth, initialYear: initialYear, calendarView: self)
-        self.goTo(month: initialMonth, year: initialYear)
+        monthSelector = MonthSelectorView(initialMonth: initialMonth, initialYear: initialYear)
+        monthSelector.delegate = self
+        self.setMonth(month: initialMonth, year: initialYear)
         
         self.addSubview(monthSelector)
         monthSelector.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
@@ -76,16 +85,31 @@ class CalendarView: UIView {
         self.setHeightConstraint(collection.contentSize.height + monthSelector.frame.height)
     }
     
-    public func goTo(month: Int, year: Int) {
+    /// set the calendar's month
+    private func setMonth(month: Int, year: Int) {
         if year == self.year && month == self.month {
             return
         }
         self.year = year
         self.month = month
         setCalendarCells()
-        delegate?.didChangeMonth()
+        setCurrentMonthEntries()
     }
     
+    /// update the calendar entries for the current month
+    private func setCurrentMonthEntries() {
+        var entries: [EventCalendarEntry] = []
+        for entry in calendarEntries {
+            let components = Calendar.current.dateComponents([.month, .year], from: entry.date)
+            if let entryMonth = components.month, let entryYear = components.year,
+               month == entryMonth, year == entryYear {
+                entries.append(entry)
+            }
+        }
+        currentMonthCalendarEntries = entries
+    }
+    
+    /// update the cells displaying days in the current month
     private func setCalendarCells() {
         var calendarDays: [CalendarDay] = []
         let firstDay = calendar.date(from: DateComponents(year: self.year, month: self.month, day: 1))!
@@ -121,15 +145,9 @@ class CalendarView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    public func getMonth() -> Int {
-        return month
-    }
-    public func getYear() -> Int {
-        return year
-    }
 }
 
+/// cells for days in a calendar
 class CalendarCell: UICollectionViewCell {
     static let kCellIdentifier = "calendarCell"
     
@@ -155,7 +173,7 @@ class CalendarCell: UICollectionViewCell {
     
     public func configure(text: String, isHeader: Bool, isGrayed: Bool, entries: [EventCalendarEntry] = [], day: Int? = nil) {
         label.text = text
-        
+        // get the set of all colors this day should be highlighted in based on the calendar events taking place
         var colors: Set<UIColor> = []
         for entry in entries {
             let entryDay = Calendar.current.component(.day, from: entry.date)
@@ -163,6 +181,7 @@ class CalendarCell: UICollectionViewCell {
                 colors.insert(entry.color)
             }
         }
+        // if more than one color highlight, highlight in black
         if colors.count > 1 {
             contentView.backgroundColor = Color.Calendar.blackText
         } else if colors.count == 1 {
@@ -196,14 +215,16 @@ extension CalendarView: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CalendarCell.kCellIdentifier, for: indexPath)
         if let calendarCell = cell as? CalendarCell {
+            // if in the first row, this is a day of week header
             if indexPath.section == 0, let text = DayOfWeek(rawValue: indexPath.row)?.charRepresentation() {
                 calendarCell.configure(text: text, isHeader: true, isGrayed: false)
             } else {
                 let cellIndex = (indexPath.section - 1) * collectionView.numberOfItems(inSection: indexPath.section) + indexPath.row
                 let calendarDay = calendarDays[cellIndex]
                 let day = calendar.dateComponents([.day], from: calendarDay.date).day!
+                // only highlight cells for days in the current month
                 if calendarDay.isCurrentMonth {
-                    calendarCell.configure(text: String(day), isHeader: false, isGrayed: !calendarDay.isCurrentMonth, entries: currentCalendarEntries, day: day)
+                    calendarCell.configure(text: String(day), isHeader: false, isGrayed: !calendarDay.isCurrentMonth, entries: currentMonthCalendarEntries, day: day)
                 } else {
                     calendarCell.configure(text: String(day), isHeader: false, isGrayed: !calendarDay.isCurrentMonth)
                 }
@@ -213,12 +234,21 @@ extension CalendarView: UICollectionViewDelegate, UICollectionViewDataSource {
     }
 }
 
+extension CalendarView: MonthSelectorDelegate {
+    func monthSelected(month: Int, year: Int) {
+        self.setMonth(month: month, year: year)
+    }
+}
+
+/// represents a day in a calendar
 struct CalendarDay {
     var date: Date
+    /// whether this day is a part of the current month
     var isCurrentMonth: Bool
 }
 
 extension Date {
+    /// number of days in the month for a specific date
     static func daysInMonth(date: Date) -> Int {
         let range = Calendar.current.range(of: .day, in: .month, for: date)!
         return range.count
@@ -226,5 +256,5 @@ extension Date {
 }
 
 protocol CalendarViewDelegate {
-    func didChangeMonth() -> Void
+    func didChangeMonth(selectedEntries: [EventCalendarEntry]) -> Void
 }
