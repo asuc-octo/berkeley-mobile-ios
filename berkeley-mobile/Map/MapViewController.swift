@@ -32,6 +32,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
     // DrawerViewDelegate properties
     var drawerViewController: DrawerViewController?
     var initialDrawerCenter = CGPoint()
+    var initialGestureTranslation: CGPoint = CGPoint()
     var drawerStatePositions: [DrawerState : CGFloat] = [:]
     
     private var searchAnnotation: SearchAnnotation?

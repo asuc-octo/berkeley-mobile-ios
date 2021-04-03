@@ -99,6 +99,9 @@ extension CampusResourceDetailViewController {
         scrollingStackView.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
         scrollingStackView.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
         scrollingStackView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
+        if presentedModally { return }
+        scrollingStackView.scrollView.drawerViewController = self
+        scrollingStackView.scrollView.setupDummyGesture()
     }
 }
 

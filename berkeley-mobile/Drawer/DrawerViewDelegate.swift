@@ -25,6 +25,8 @@ protocol DrawerViewDelegate: class {
     
     /// center of detail view before position changes
     var initialDrawerCenter: CGPoint { get set }
+    /// The translation so far when `drawerViewController.shouldHandlePan` is enabled
+    var initialGestureTranslation: CGPoint { get set }
     /// dictionary of all positions to corresponding center-y values
     var drawerStatePositions: [DrawerState: CGFloat] { get set }
     /// the drawer being controlled by this delegate
@@ -91,10 +93,10 @@ extension DrawerViewDelegate where Self: UIViewController {
         if gesture.state == .began {
             initialDrawerCenter = drawerViewController.view.center
         }
-        
-        let translation = gesture.translation(in: self.view)
+
+        let translation = gesture.translation(in: self.view).y - initialGestureTranslation.y
         let velocity = gesture.velocity(in: self.view).y
-        var newCenter = CGPoint(x: self.initialDrawerCenter.x, y: self.initialDrawerCenter.y + translation.y)
+        var newCenter = CGPoint(x: self.initialDrawerCenter.x, y: self.initialDrawerCenter.y + translation)
         
         // prevent the view from going off the top of the screen
         if let upperLimitState = drawerViewController.upperLimitState, let centerLimit = drawerStatePositions[upperLimitState] {
