@@ -112,32 +112,20 @@ class CalendarView: UIView {
     /// update the cells displaying days in the current month
     private func setCalendarCells() {
         var calendarDays: [CalendarDay] = []
-        let firstDay = calendar.date(from: DateComponents(year: self.year, month: self.month, day: 1))!
-        
-        // add gray last month days to the calendar
-        let numberPreviousDays = firstDay.weekday()
-        var day = Date.daysInMonth(date: calendar.date(byAdding: .month, value: -1, to: firstDay)!)
-        for _ in 0..<numberPreviousDays {
-            let date = calendar.date(from: DateComponents(year: year, month: month, day: day))!
-            calendarDays.append(CalendarDay(date: date, isCurrentMonth: false))
-            day -= 1
+        guard let firstDay = calendar.date(from: DateComponents(year: self.year, month: self.month, day: 1)),
+              let lastDay = calendar.date(byAdding: DateComponents(month: 1, day: -1), to: firstDay) else {
+            return
         }
-        
-        // add current month days
-        let daysThisMonth = Date.daysInMonth(date: firstDay)
-        for day in 1...daysThisMonth {
-            let date = calendar.date(from: DateComponents(year: year, month: month, day: day))!
-            calendarDays.append(CalendarDay(date: date, isCurrentMonth: true))
+        var currDay = firstDay
+        // go backwards from the first day of the month to the closest Sunday
+        while currDay.weekday() != 0 {
+            currDay = calendar.date(byAdding: .day, value: -1, to: currDay)!
         }
-        
-        // add gray next month days to the end
-        day = 1
-        while calendarDays.count % 7 != 0 {
-            let date = calendar.date(from: DateComponents(year: year, month: month, day: day))!
-            calendarDays.append(CalendarDay(date: date, isCurrentMonth: false))
-            day += 1
+        // add all calendar days from the first Sunday before the month to the last Sunday after the month
+        while currDay <= lastDay || currDay.weekday() != 0 {
+            calendarDays.append(CalendarDay(date: currDay, isCurrentMonth: currDay >= firstDay && currDay <= lastDay))
+            currDay = calendar.date(byAdding: .day, value: 1, to: currDay)!
         }
-        
         self.calendarDays = calendarDays
         self.collection.reloadData()
     }
@@ -245,14 +233,6 @@ struct CalendarDay {
     var date: Date
     /// whether this day is a part of the current month
     var isCurrentMonth: Bool
-}
-
-extension Date {
-    /// number of days in the month for a specific date
-    static func daysInMonth(date: Date) -> Int {
-        let range = Calendar.current.range(of: .day, in: .month, for: date)!
-        return range.count
-    }
 }
 
 protocol CalendarViewDelegate {
