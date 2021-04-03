@@ -17,6 +17,10 @@ extension Color {
             UIColor(displayP3Red: 225/255, green: 77/255, blue: 77/255, alpha: 0.89)
         }
 
+        static var mentalHealth: UIColor {
+            return UIColor(displayP3Red: 249/255, green: 180/255, blue: 35/255, alpha: 1.0)
+        }
+
         static var finances: UIColor {
             UIColor(displayP3Red: 92/255, green: 198/255, blue: 175/255, alpha: 0.89)
         }

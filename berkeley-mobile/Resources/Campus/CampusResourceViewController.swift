@@ -26,20 +26,21 @@ class CampusResourceViewController: UIViewController {
     /// If not empty, this view will present the filtered set of campus resources.
     private var resourceFilters: [Filter<Resource>] = []
 
-    convenience init() {
-        self.init(type: nil, notIn: nil)
+    convenience init(type: ResourceType, notIn: Set<ResourceType>? = nil) {
+        self.init(inSet: Set<ResourceType>([type]), notIn: notIn)
     }
 
-    /// If `type` is non-nil, will filter resources for those matching that `ResourceType`.
-    /// If `types` is non-nil, will filter resources for those not in the given set of types.
-    init(type: ResourceType?, notIn types: Set<ResourceType>? = nil) {
+    /// If `inSet` is non-nil, will filter resources for those matching those `ResourceType`s.
+    /// If `notIn` is non-nil, will filter resources for those not in the given set of types.
+    init(inSet: Set<ResourceType>? = nil, notIn: Set<ResourceType>? = nil) {
         super.init(nibName: nil, bundle: nil)
-        if let type = type {
-            resourceFilters.append(Filter(label: "Type Filter: \(type)", filter: { resource in
-                return resource.type == type.rawValue
+        if let types = inSet {
+            resourceFilters.append(Filter(label: "Type Filter: \(types)", filter: { resource in
+                guard let resourceType = ResourceType(rawValue: resource.type ?? "") else { return false }
+                return types.contains(resourceType)
             }))
         }
-        if let types = types {
+        if let types = notIn {
             resourceFilters.append(Filter(label: "Set Exclusion: \(types)", filter: { resource in
                 guard let resourceType = ResourceType(rawValue: resource.type ?? "") else { return true }
                 return !types.contains(resourceType)

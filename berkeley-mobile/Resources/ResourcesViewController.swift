@@ -64,12 +64,13 @@ extension ResourcesViewController {
         // Don't add this padding for now.
         let segmentedControl = SegmentedControlViewController(pages: [
             Page(viewController: CovidResourceViewController(), label: "Dashboard"),
-            Page(viewController: CampusResourceViewController(type: .health), label: "Health"),
+            Page(viewController: CampusResourceViewController(
+                inSet: Set<ResourceType>([.health, .mentalHealth])
+            ), label: "Health"),
             Page(viewController: CampusResourceViewController(type: .admin), label: "Admin"),
             Page(viewController: CampusResourceViewController(type: .basicNeeds), label: "Basic Needs"),
             Page(viewController: CampusResourceViewController(
-                type: nil,
-                notIn: Set<ResourceType>([.health, .admin, .basicNeeds])
+                notIn: Set<ResourceType>([.health, .mentalHealth, .admin, .basicNeeds])
             ), label: "Other")
         ], controlInsets: UIEdgeInsets(top: 0, left: view.layoutMargins.left,
                                        bottom: 0, right: blobImageView.frame.width / 4),
