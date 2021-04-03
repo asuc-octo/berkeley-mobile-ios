@@ -14,38 +14,36 @@ fileprivate let kViewMargin: CGFloat = 6
 /// Pairs a CalendarView with a UITableView that shows matching events
 class CalendarTablePairView: UIView {
     private var parentVC: UIViewController
-    private var calendarTable: UITableView!
+    private var calendarTable: UITableView = UITableView()
     private var calendarView: CalendarView = CalendarView()
-    private var missingDataView: MissingDataView!
+    private var missingDataView: MissingDataView
     private var tableEntries: [EventCalendarEntry] = []
     
     public init(parentVC: UIViewController) {
         self.parentVC = parentVC
+        missingDataView = MissingDataView(parentView: calendarTable, text: "No events found")
         super.init(frame: .zero)
         self.translatesAutoresizingMaskIntoConstraints = false
         
-        let tableView = UITableView()
-        tableView.register(EventTableViewCell.self, forCellReuseIdentifier: EventTableViewCell.kCellIdentifier)
-        tableView.rowHeight = EventTableViewCell.kCellHeight
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.showsVerticalScrollIndicator = false
-        tableView.separatorStyle = .none
-        self.addSubview(tableView)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
-        tableView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        calendarTable = tableView
-        missingDataView = MissingDataView(parentView: calendarTable, text: "No events found")
+        calendarTable.register(EventTableViewCell.self, forCellReuseIdentifier: EventTableViewCell.kCellIdentifier)
+        calendarTable.rowHeight = EventTableViewCell.kCellHeight
+        calendarTable.delegate = self
+        calendarTable.dataSource = self
+        calendarTable.showsVerticalScrollIndicator = false
+        calendarTable.separatorStyle = .none
+        self.addSubview(calendarTable)
+        calendarTable.translatesAutoresizingMaskIntoConstraints = false
+        calendarTable.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+        calendarTable.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+        calendarTable.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         
         self.addSubview(calendarView)
         calendarView.translatesAutoresizingMaskIntoConstraints = false
         calendarView.topAnchor.constraint(equalTo: self.layoutMarginsGuide.topAnchor).isActive = true
         calendarView.leftAnchor.constraint(equalTo: self.layoutMarginsGuide.leftAnchor).isActive = true
         calendarView.rightAnchor.constraint(equalTo: self.layoutMarginsGuide.rightAnchor).isActive = true
-        calendarView.bottomAnchor.constraint(equalTo: tableView.topAnchor, constant: -kViewMargin).isActive = true
-        calendarView.heightAnchor.constraint(equalTo: tableView.heightAnchor).isActive = true
+        calendarView.bottomAnchor.constraint(equalTo: calendarTable.topAnchor, constant: -kViewMargin).isActive = true
+        calendarView.heightAnchor.constraint(equalTo: calendarTable.heightAnchor).isActive = true
         calendarView.delegate = self
     }
     
