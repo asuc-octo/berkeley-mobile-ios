@@ -33,6 +33,17 @@ class FilterViewCell: UICollectionViewCell {
             }
         }
     }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        contentView.layer.cornerRadius = bounds.height / 2
+        contentView.layer.shadowRadius = 5
+        contentView.layer.shadowOpacity = 0.25
+        contentView.layer.shadowOffset = .zero
+        contentView.layer.shadowColor = UIColor.black.cgColor
+        contentView.layer.shadowPath = UIBezierPath(rect: layer.bounds.insetBy(dx: 4, dy: 4)).cgPath
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -48,14 +59,7 @@ class FilterViewCell: UICollectionViewCell {
         label.leftAnchor.constraint(equalTo: layoutMarginsGuide.leftAnchor).isActive = true
         label.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor).isActive = true
         label.rightAnchor.constraint(equalTo: layoutMarginsGuide.rightAnchor).isActive = true
-        
-        contentView.layer.cornerRadius = bounds.height / 2
-        contentView.layer.shadowRadius = 5
-        contentView.layer.shadowOpacity = 0.25
-        contentView.layer.shadowOffset = .zero
-        contentView.layer.shadowColor = UIColor.black.cgColor
-        contentView.layer.shadowPath = UIBezierPath(rect: layer.bounds.insetBy(dx: 4, dy: 4)).cgPath
-        
+
         isSelected = false
     }
     

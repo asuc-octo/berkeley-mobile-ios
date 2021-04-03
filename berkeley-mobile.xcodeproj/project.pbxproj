@@ -18,6 +18,7 @@
 		0181711C25CB506A00BA6317 /* Encodable+JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0181711B25CB506A00BA6317 /* Encodable+JSON.swift */; };
 		018B982625327358004C3B26 /* ActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018B982525327358004C3B26 /* ActionButton.swift */; };
 		018B982825328200004C3B26 /* Colors+ActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018B982725328200004C3B26 /* Colors+ActionButton.swift */; };
+		01AA1B88253BB4AC003AB75A /* UIScrollView+GestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AA1B87253BB4AC003AB75A /* UIScrollView+GestureRecognizer.swift */; };
 		01B250282516AD4F00CBA459 /* IconPairView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B250272516AD4F00CBA459 /* IconPairView.swift */; };
 		01B2502D2516C42E00CBA459 /* EventDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B2502C2516C42E00CBA459 /* EventDataSource.swift */; };
 		01B2502F2516C45800CBA459 /* EventCalendarEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B2502E2516C45800CBA459 /* EventCalendarEntry.swift */; };
@@ -172,6 +173,9 @@
 		559A7B6D2373DEFA004EA501 /* MaterialTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559A7B6C2373DEFA004EA501 /* MaterialTableViewCell.swift */; };
 		559A7B6F2373DF39004EA501 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559A7B6E2373DF39004EA501 /* SearchResultCell.swift */; };
 		559AF6E0251EAA2800463E2A /* DetailTapGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559AF6DF251EAA2800463E2A /* DetailTapGestureRecognizer.swift */; };
+		55AA7B2F25FD4F29002B4A4B /* CovidResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AA7B2E25FD4F29002B4A4B /* CovidResource.swift */; };
+		55AA7B3325FD4F68002B4A4B /* CovidDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AA7B3225FD4F68002B4A4B /* CovidDataSource.swift */; };
+		55AA7B3625FD4FF2002B4A4B /* CovidResourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AA7B3525FD4FF2002B4A4B /* CovidResourceViewController.swift */; };
 		55AF44272453A49D00F13232 /* Cafe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AF44262453A49D00F13232 /* Cafe.swift */; };
 		55AF44292453A4EC00F13232 /* CafeDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AF44282453A4EC00F13232 /* CafeDataSource.swift */; };
 		55AF442B2453A80B00F13232 /* CafeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AF442A2453A80B00F13232 /* CafeItem.swift */; };
@@ -206,6 +210,7 @@
 		0181711B25CB506A00BA6317 /* Encodable+JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+JSON.swift"; sourceTree = "<group>"; };
 		018B982525327358004C3B26 /* ActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButton.swift; sourceTree = "<group>"; };
 		018B982725328200004C3B26 /* Colors+ActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+ActionButton.swift"; sourceTree = "<group>"; };
+		01AA1B87253BB4AC003AB75A /* UIScrollView+GestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+GestureRecognizer.swift"; sourceTree = "<group>"; };
 		01B250272516AD4F00CBA459 /* IconPairView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconPairView.swift; sourceTree = "<group>"; };
 		01B2502C2516C42E00CBA459 /* EventDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDataSource.swift; sourceTree = "<group>"; };
 		01B2502E2516C45800CBA459 /* EventCalendarEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCalendarEntry.swift; sourceTree = "<group>"; };
@@ -365,6 +370,9 @@
 		559A7B6C2373DEFA004EA501 /* MaterialTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialTableViewCell.swift; sourceTree = "<group>"; };
 		559A7B6E2373DF39004EA501 /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
 		559AF6DF251EAA2800463E2A /* DetailTapGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTapGestureRecognizer.swift; sourceTree = "<group>"; };
+		55AA7B2E25FD4F29002B4A4B /* CovidResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CovidResource.swift; sourceTree = "<group>"; };
+		55AA7B3225FD4F68002B4A4B /* CovidDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CovidDataSource.swift; sourceTree = "<group>"; };
+		55AA7B3525FD4FF2002B4A4B /* CovidResourceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CovidResourceViewController.swift; sourceTree = "<group>"; };
 		55AF44262453A49D00F13232 /* Cafe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cafe.swift; sourceTree = "<group>"; };
 		55AF44282453A4EC00F13232 /* CafeDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeDataSource.swift; sourceTree = "<group>"; };
 		55AF442A2453A80B00F13232 /* CafeItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeItem.swift; sourceTree = "<group>"; };
@@ -639,6 +647,7 @@
 				5546CB90251B0A4500BE1876 /* UIDevice+Extensions.swift */,
 				136DC97C2398B4F3009B1810 /* UIImage+Extensions.swift */,
 				13DACD212411DF7200A09982 /* UIStackView+Extensions.swift */,
+				01AA1B87253BB4AC003AB75A /* UIScrollView+GestureRecognizer.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -954,9 +963,20 @@
 			children = (
 				553EF6AA2404E29800D2955E /* ResourcesDataSource */,
 				552F4A4A254E13960061D0F2 /* Campus */,
+				55AA7B2D25FD4F06002B4A4B /* Covid */,
 				556DB0DE23E7F60900F12721 /* ResourcesViewController.swift */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		55AA7B2D25FD4F06002B4A4B /* Covid */ = {
+			isa = PBXGroup;
+			children = (
+				55AA7B2E25FD4F29002B4A4B /* CovidResource.swift */,
+				55AA7B3225FD4F68002B4A4B /* CovidDataSource.swift */,
+				55AA7B3525FD4FF2002B4A4B /* CovidResourceViewController.swift */,
+			);
+			path = Covid;
 			sourceTree = "<group>";
 		};
 		55AF44252453A49000F13232 /* Cafes */ = {
@@ -1195,6 +1215,7 @@
 				306A54FE236142B800D59A7F /* DrawerViewController.swift in Sources */,
 				13B39A8B23E682850039FBA2 /* Date+Extension.swift in Sources */,
 				135D7F75243A9AB3003F8BD1 /* GymClassType.swift in Sources */,
+				55AA7B3625FD4FF2002B4A4B /* CovidResourceViewController.swift in Sources */,
 				291B11E025043FF100F737A8 /* Sort.swift in Sources */,
 				29413B9C25CF4FCF00C0B9C7 /* StudyGroup.swift in Sources */,
 				29345E2924A7E7AC00859A88 /* HasPhoneNumber.swift in Sources */,
@@ -1273,6 +1294,7 @@
 				296F1B272439341300924C8D /* DiningDetailViewController.swift in Sources */,
 				13492D2D240E179F00AD3D1F /* MapMarkerDetailView.swift in Sources */,
 				1346B9192420AD4800383399 /* WeeklyHours.swift in Sources */,
+				55AA7B2F25FD4F29002B4A4B /* CovidResource.swift in Sources */,
 				29B1D307254E1C8700BAD88F /* EventManager.swift in Sources */,
 				29387E9D24BBBE8E00070BCE /* OccupancyGraphCardView.swift in Sources */,
 				13EA64D02399D50C00FD8E13 /* DataManager.swift in Sources */,
@@ -1311,6 +1333,7 @@
 				55208DF225B7D95E00A75983 /* ProfileViewController.swift in Sources */,
 				136DC97B2398B4D1009B1810 /* UIViewController+Extensions.swift in Sources */,
 				2913595724B136BE00DE9AD6 /* CollapsibleCardView.swift in Sources */,
+				01AA1B88253BB4AC003AB75A /* UIScrollView+GestureRecognizer.swift in Sources */,
 				13491DB6241E21740033F9AB /* Colors+TagView.swift in Sources */,
 				556CCD2223E7771800F41BF9 /* MapPlacemark.swift in Sources */,
 				297678872426B7BA00FDD1EB /* SearchAnnotation.swift in Sources */,
@@ -1318,6 +1341,7 @@
 				13741B6C2400D866003D1EEB /* MapDataSource.swift in Sources */,
 				1336A320241D924300949F32 /* DiningItem.swift in Sources */,
 				299ACFB4244A5F90000F3E86 /* HasOccupancy.swift in Sources */,
+				55AA7B3325FD4F68002B4A4B /* CovidDataSource.swift in Sources */,
 				0181710A25CA90D300BA6317 /* AuthenticateUser.swift in Sources */,
 				294693A425F44AA900619481 /* MonthSelectorView.swift in Sources */,
 				0181711725CAABB000BA6317 /* ClassPreference.swift in Sources */,
@@ -1468,7 +1492,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4HBETBULVA;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				INFOPLIST_FILE = "berkeley-mobile/Info.plist";
@@ -1476,7 +1500,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 10.1.0;
+				MARKETING_VERSION = 10.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = org.asuc.ASUC;
 				PRODUCT_NAME = Berkeley;
 				SWIFT_VERSION = 5.0;
@@ -1490,14 +1514,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4HBETBULVA;
 				INFOPLIST_FILE = "berkeley-mobile/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 10.1.0;
+				MARKETING_VERSION = 10.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = org.asuc.ASUC;
 				PRODUCT_NAME = Berkeley;
 				SWIFT_VERSION = 5.0;

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 6, left: 6, bottom: 6, right: 6)
 fileprivate let kViewMargin: CGFloat = 6
@@ -75,3 +76,11 @@ extension AcademicCalendarViewController {
         calendarTablePair.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
     }
 }
+
+extension AcademicCalendarViewController {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        Analytics.logEvent("opened_academic_calendar", parameters: nil)
+    }
+}
+

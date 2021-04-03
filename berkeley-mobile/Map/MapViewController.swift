@@ -32,13 +32,16 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
     // DrawerViewDelegate properties
     var drawerViewController: DrawerViewController?
     var initialDrawerCenter = CGPoint()
+    var initialGestureTranslation: CGPoint = CGPoint()
     var drawerStatePositions: [DrawerState : CGFloat] = [:]
     
     private var searchAnnotation: SearchAnnotation?
     
     private var filterView: FilterView!
-    private var filters: [Filter<[MapMarker]>] = MapMarkerType.allCases.map { type in
-        Filter(label: type.rawValue) { $0.first?.type == type }
+    private var filters: [Filter<[MapMarker]>] = [] {
+        didSet {
+            filterView.labels = filters.map { $0.label }
+        }
     }
     private var mapMarkers: [[MapMarker]] = []
     private var markerDetail: MapMarkerDetailView!
@@ -75,18 +78,35 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         markerDetail.marker = nil
         
         filterView = FilterView(frame: .zero)
+        filterView.animating = true
         filterView.allowsMultipleSelection = false
         filterView.filterDelegate = self
-        filterView.labels = filters.map { $0.label }
         
         DataManager.shared.fetch(source: MapDataSource.self) { markers in
-            self.mapMarkers = markers as? [[MapMarker]] ?? []
+            guard let markers = markers.first as? [String: [MapMarker]] else { return }
+            self.mapMarkers = Array(markers.values)
+            var types = Array(markers.keys)
+            types.sort {
+                guard let rhs = MapMarkerType(rawValue: $1) else { return true }
+                guard let lhs = MapMarkerType(rawValue: $0) else { return false }
+                return lhs < rhs
+            }
+            self.filters = types.map { type in
+                Filter(label: type) { $0.first?.type.rawValue == type }
+            }
         }
         
         self.view.addSubViews([mapView, filterView, markerDetail, maskView, searchResultsView, searchBar])
         setupSubviews()
         userLocationButton = UIButton(type: .custom)
         view.addSubview(userLocationButton)
+
+        // Listen for home button press
+        NotificationCenter.default.addObserver(self,
+            selector: #selector(homePressed),
+            name: Notification.Name(TabBarController.homePressedMessage),
+            object: nil
+        )
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -133,6 +153,13 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         userLocationButton.heightAnchor.constraint(equalToConstant: _buttonWidth).isActive = true
         userLocationButton.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
         userLocationButton.topAnchor.constraint(equalTo: filterView.bottomAnchor, constant: kViewMargin).isActive = true
+    }
+
+    @objc func homePressed() {
+        // Dismiss any map markers if opened
+        if markerDetail.marker != nil {
+            mapView.deselectAnnotation(markerDetail.marker, animated: true)
+        }
     }
     
     @objc func jumpToUserLocation() {
@@ -244,7 +271,11 @@ extension MapViewController: MKMapViewDelegate {
         } else if let marker = annotation as? MapMarker,
             let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: MapViewController.kAnnotationIdentifier) {
             annotationView.annotation = marker
-            annotationView.image = marker.type.icon()
+            if case .known(let type) = marker.type {
+                annotationView.image = type.icon()
+            } else {
+                annotationView.image = MapMarkerType.none.icon()
+            }
             return annotationView
         } else if let searchAnnotation = annotation as? SearchAnnotation,
             // create new pin on map for searched item
@@ -265,6 +296,9 @@ extension MapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         // if map marker is selected, hide the top drawer to show the marker detail
         if let annotation = view.annotation as? MapMarker {
+            UIView.animate(withDuration: 0.1, animations: {
+                view.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+            })
             // Log the display name of the marker that is selected, `Unknown` if no title exists.
             Analytics.logEvent("point_of_interest_clicked", parameters: ["Place": annotation.title ?? "Unknown"])
             markerDetail.marker = annotation
@@ -275,6 +309,9 @@ extension MapViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
         if (view.annotation as? MapMarker) != nil {
+            UIView.animate(withDuration: 0.1, animations: {
+                view.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+            })
             markerDetail.marker = nil
             // if a marker is deselected wait to see if another marker was selected
             DispatchQueue.main.async {

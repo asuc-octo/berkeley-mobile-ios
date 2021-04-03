@@ -31,9 +31,9 @@ class MapMarkerDetailView: UIView {
                     self.alpha = 1.0
                 }) { completed in self.isHidden = !completed }
             } else {
-                UIView.animate(withDuration: 0.2, animations: {
-                    self.alpha = 0.0
-                }) { completed in  self.isHidden = completed }
+                UIView.transition(with: self, duration: 0.5, options: [.transitionFlipFromBottom], animations: {
+                    self.alpha = 0
+                }, completion: nil)
             }
         }
     }
@@ -50,7 +50,6 @@ class MapMarkerDetailView: UIView {
     private var nameLabel: UILabel!
     private var notesLabel: UILabel!
     private var detailStack: UIStackView!
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -93,7 +92,7 @@ class MapMarkerDetailView: UIView {
         closeButton.rightAnchor.constraint(equalTo: contentView.layoutMarginsGuide.rightAnchor, constant: offset).isActive = true
         closeButton.widthAnchor.constraint(equalToConstant: kButtonSize).isActive = true
         closeButton.heightAnchor.constraint(equalToConstant: kButtonSize).isActive = true
-        
+    
         nameLabel = UILabel()
         contentView.addSubview(nameLabel)
         nameLabel.numberOfLines = 0
@@ -120,6 +119,11 @@ class MapMarkerDetailView: UIView {
         detailStack.alignment = .center
     
         verticalStack.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor).isActive = true
+        
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(closeView))
+        swipeDown.direction = .down
+        self.addGestureRecognizer(swipeDown)
+        
     }
     
     convenience init() {
@@ -139,14 +143,19 @@ class MapMarkerDetailView: UIView {
     private func setupView(_ marker: MapMarker) {
         verticalStack.removeAllArrangedSubviews()
         nameLabel.text = marker.title
-        typeColorView.backgroundColor = marker.type.color()
+        if case .known(let type) = marker.type {
+            typeColorView.backgroundColor = type.color()
+        } else {
+            typeColorView.backgroundColor = MapMarkerType.none.color()
+        }
         notesLabel.text = marker.subtitle
         
         detailStack.removeAllArrangedSubviews()
         // Show average meal price only for cafe markers
-        let details: [MapMarkerDetail] = marker.type == .cafe ?
-            [.distance, .openNow, .location, .price] :
-            [.distance, .openNow, .location]
+        var details: [MapMarkerDetail] = [.distance, .openNow, .location]
+        if case .known(let type) = marker.type, type == .cafe {
+            details = [.distance, .openNow, .location, .price]
+        }
         var containsFlexibleView = false
         for property: MapMarkerDetail in details {
             if let view = property.view(marker) {
@@ -168,10 +177,10 @@ class MapMarkerDetailView: UIView {
     }
     
     @objc func closeView() {
+        
         marker = nil
-        delegate?.didCloseMarkerDetailView(self)
+        self.delegate?.didCloseMarkerDetailView(self)
     }
-
 }
 
 // MARK: - MapMarkerDetail

@@ -20,11 +20,20 @@ protocol FilterViewDelegate {
 class FilterView: UICollectionView {
 
     static let kCellIdentifier: String = "filterCell"
-    
+
     open var filterDelegate: FilterViewDelegate?
+    open var animating: Bool = false
     open var labels: [String]! {
         didSet {
-            reloadData()
+            if animating {
+                self.performBatchUpdates({
+                    let indexSet = IndexSet(integer: 0)
+                    self.reloadSections(indexSet)
+                }, completion: nil)
+            } else {
+                self.reloadData()
+            }
+
         }
     }
     
