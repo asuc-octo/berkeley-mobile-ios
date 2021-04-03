@@ -28,8 +28,8 @@ class Resource: SearchItem, HasLocation, HasOpenTimes {
     var longitude: Double?
     
     @Display var name: String
-    @Display<String?> var address: String?
-    @Display<String?> var description: String?
+    @Display var address: String?
+    @Display var description: String?
     var weeklyHours: WeeklyHours?
 
     /// The category for this resource. See `ResourceType` for expected values.
