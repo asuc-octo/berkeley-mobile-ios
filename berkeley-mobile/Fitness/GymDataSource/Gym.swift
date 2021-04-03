@@ -58,7 +58,7 @@ class Gym: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasImage, HasOp
 
     init(name: String, description: String?, address: String?, phoneNumber: String?, imageLink: String?, weeklyHours: WeeklyHours?, link: String?) {
         self.address = address?.trimmingCharacters(in: .whitespacesAndNewlines)
-        self.description = description?.trimmingCharacters(in: .whitespacesAndNewlines).replacingOccurrences(of: "�", with: "")
+        self.description = description
         self.phoneNumber = phoneNumber
         self.weeklyHours = weeklyHours
         self.name = name.trimmingCharacters(in: .whitespacesAndNewlines)
