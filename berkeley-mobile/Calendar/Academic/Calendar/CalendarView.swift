@@ -159,12 +159,14 @@ class CalendarCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // configure this cell to show a day of the week as part of the calendar header
     public func configureHeader(text: String) {
         label.text = text
         label.textColor = Color.Calendar.dayOfWeekHeader
         contentView.backgroundColor = .clear
     }
     
+    // configure this cell to show a day of the month and highlight it appropriately
     public func configureDay(entries: [EventCalendarEntry] = [], calendarDay: (day: Int, isCurrentMonth: Bool)) {
         label.text = String(calendarDay.day)
         // only highlight days from the current month
@@ -215,7 +217,6 @@ extension CalendarView: UICollectionViewDelegate, UICollectionViewDataSource {
             } else {
                 let cellIndex = (indexPath.section - 1) * collectionView.numberOfItems(inSection: indexPath.section) + indexPath.row
                 let calendarDay = calendarDays[cellIndex]
-                // only highlight cells for days in the current month
                 calendarCell.configureDay(entries: currentMonthCalendarEntries, calendarDay: calendarDay)
             }
         }
@@ -224,11 +225,13 @@ extension CalendarView: UICollectionViewDelegate, UICollectionViewDataSource {
 }
 
 extension CalendarView: MonthSelectorDelegate {
+    /// if a month is selected using the MonthSelector, change this calendar's month
     func monthSelected(month: Int, year: Int) {
         self.setMonth(month: month, year: year)
     }
 }
 
 protocol CalendarViewDelegate {
+    /// delegate is alerted when the month changes and is given the EventCalendarEntries shown for the current month
     func didChangeMonth(selectedEntries: [EventCalendarEntry]) -> Void
 }

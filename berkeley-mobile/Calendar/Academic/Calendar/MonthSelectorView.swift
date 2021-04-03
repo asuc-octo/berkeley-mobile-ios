@@ -157,5 +157,6 @@ extension MonthSelectorView: UICollectionViewDelegate, UICollectionViewDataSourc
 }
 
 protocol MonthSelectorDelegate {
+    /// delegate is alerted when a new month is selected
     func monthSelected(month: Int, year: Int)
 }
