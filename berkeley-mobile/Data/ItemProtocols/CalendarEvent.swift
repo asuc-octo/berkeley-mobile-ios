@@ -43,7 +43,7 @@ extension CalendarEvent {
         
         let alertController = AlertView(headingText: "Add to Calendar", messageText: "Would you like to add this event to your calendar?", action1Label: "Cancel", action1Color: Color.AlertView.secondaryButton, action1Completion: {
             vc.dismiss(animated: true, completion: nil)
-        }, action2Label: "Yes", action2Color: Color.ActionButton.background) {
+        }, action2Label: "Yes", action2Color: Color.ActionButton.background, action2Completion: {
             EventManager.shared.addEventToCalendar(calendarEvent: self) { success in
                 DispatchQueue.main.async {
                     if success {
@@ -55,7 +55,7 @@ extension CalendarEvent {
                     }
                 }
             }
-        }
+        }, withOnlyOneAction: false)
         alertController.modalPresentationStyle = .overCurrentContext
         alertController.modalTransitionStyle = .crossDissolve
         vc.present(alertController, animated: true, completion: nil)

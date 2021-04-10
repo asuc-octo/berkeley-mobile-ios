@@ -96,7 +96,7 @@ class PendingGroupViewController: UIViewController {
         
         let alertController = AlertView(headingText: "Remove Pending Request", messageText: "Would you like to remove your pending request to join a study group for \(studyGroup.className)?", action1Label: "Cancel", action1Color: Color.AlertView.secondaryButton, action1Completion: {
             self.dismiss(animated: true, completion: nil)
-        }, action2Label: "Yes", action2Color: Color.ActionButton.background) {
+        }, action2Label: "Yes", action2Color: Color.ActionButton.background, action2Completion: {
             StudyPact.shared.cancelPending(group: self.studyGroup) { success in
                 if success {
                     self.dismiss(animated: true, completion: nil)
@@ -106,7 +106,7 @@ class PendingGroupViewController: UIViewController {
                     self.presentFailureAlert(title: "Unable to Remove", message: "An issue occurred when attempting to remove your pending request. Please try again later.")
                 }
             }
-        }
+        }, withOnlyOneAction: false)
         alertController.modalPresentationStyle = .overCurrentContext
         alertController.modalTransitionStyle = .crossDissolve
         self.present(alertController, animated: true, completion: nil)

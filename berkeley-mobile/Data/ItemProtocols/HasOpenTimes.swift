@@ -20,20 +20,20 @@ extension HasOpenTimes {
     static func parseWeeklyHours(dict: [[String: Any]]?, openKey: String = "open_time", closeKey: String = "close_time") -> WeeklyHours? {
         guard let times = dict else { return nil }
         let weeklyHours = WeeklyHours()
-        for open_close in times {
-            if let open = open_close[openKey] as? Double,
-                let close = open_close[closeKey] as? Double,
-               let openDate = Date(timeIntervalSince1970: open).sameDayThisWeek(),
-               var closeDate = Date(timeIntervalSince1970: close).sameDayThisWeek() {
-                if openDate > closeDate {
-                    let components = Calendar.current.dateComponents([.hour, .minute, .weekday], from: closeDate)
-                    closeDate = Calendar.current.nextDate(after: openDate, matching: components, matchingPolicy: .nextTime, repeatedTimePolicy: .first, direction: .forward) ?? Date.distantPast
+            for open_close in times {
+                if let open = open_close[openKey] as? Double,
+                    let close = open_close[closeKey] as? Double,
+                   let openDate = Date(timeIntervalSince1970: open).sameDayThisWeek(),
+                   var closeDate = Date(timeIntervalSince1970: close).sameDayThisWeek() {
+                    if openDate > closeDate {
+                        let components = Calendar.current.dateComponents([.hour, .minute, .weekday], from: closeDate)
+                        closeDate = Calendar.current.nextDate(after: openDate, matching: components, matchingPolicy: .nextTime, repeatedTimePolicy: .first, direction: .forward) ?? Date.distantPast
+                    }
+                    if openDate <= closeDate {
+                        let interval = DateInterval(start: openDate, end: closeDate)
+                        weeklyHours.addInterval(interval, to: DayOfWeek.weekday(openDate))
+                    }
                 }
-                if openDate <= closeDate {
-                    let interval = DateInterval(start: openDate, end: closeDate)
-                    weeklyHours.addInterval(interval, to: DayOfWeek.weekday(openDate))
-                }
-            }
         }
         return weeklyHours.isEmpty ? nil : weeklyHours
     }

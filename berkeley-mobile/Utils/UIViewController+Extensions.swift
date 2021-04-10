@@ -83,8 +83,13 @@ extension UIViewController {
     }
     
     public func presentFailureAlert(title: String, message: String) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alertController.addAction(UIAlertAction.init(title: "Ok", style: .cancel))
-        self.present(alertController, animated: true, completion: nil)
+        let alertVC = AlertView(headingText: title, messageText: message, action1Label: "OK", action1Color: Color.ActionButton.background, action1Completion: {
+            self.dismiss(animated: true, completion: nil)
+        }, action2Label: "", action2Color: UIColor.clear, action2Completion: { return }, withOnlyOneAction: true)
+        
+        alertVC.modalTransitionStyle = .crossDissolve
+        alertVC.modalPresentationStyle = .overCurrentContext
+        
+        self.present(alertVC, animated: true, completion: nil)
     }
 }
