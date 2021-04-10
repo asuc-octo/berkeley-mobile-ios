@@ -13,7 +13,7 @@ fileprivate let kViewMargin: CGFloat = 6
 
 /// Pairs a CalendarView with a UITableView that shows matching events
 class CalendarTablePairView: UIView {
-    private var parentVC: UIViewController
+    private weak var parentVC: UIViewController?
     private var calendarTable: UITableView = UITableView()
     private var calendarView: CalendarView = CalendarView()
     private var missingDataView: MissingDataView
@@ -74,7 +74,8 @@ extension CalendarTablePairView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let event = tableEntries[safe: indexPath.row] {
+        if let event = tableEntries[safe: indexPath.row],
+           let parentVC = parentVC {
             event.addToDeviceCalendar(vc: parentVC)
         }
         tableView.deselectRow(at: indexPath, animated: true)

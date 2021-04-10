@@ -71,7 +71,7 @@ class MonthSelectorView: UIView {
         monthSelector.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         monthSelector.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         monthSelector.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        self.setHeightConstraint(35)
+        self.setHeightConstraint(MonthSelectCell.kCellSize.height)
     }
     
     required init?(coder: NSCoder) {
@@ -120,7 +120,8 @@ class MonthSelectCell: UICollectionViewCell {
     }
     
     public func configure(month: Int) {
-        label.text = DateFormatter().monthSymbols[month - 1]
+        guard let text = DateFormatter().monthSymbols[safe: month - 1] else { return }
+        label.text = text
     }
     
     required init?(coder: NSCoder) {
