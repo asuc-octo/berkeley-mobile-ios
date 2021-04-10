@@ -59,12 +59,9 @@ extension AcademicCalendarViewController {
     private func setUpCalendar() {
         let card = CardView()
         card.layoutMargins = kCardPadding
-        scrollingStackView.addSubview(card)
+        scrollingStackView.stackView.addArrangedSubview(card)
         card.translatesAutoresizingMaskIntoConstraints = false
-        card.topAnchor.constraint(equalTo: self.view.layoutMarginsGuide.topAnchor).isActive = true
         card.bottomAnchor.constraint(equalTo: self.view.layoutMarginsGuide.bottomAnchor).isActive = true
-        card.leftAnchor.constraint(equalTo: self.view.layoutMarginsGuide.leftAnchor).isActive = true
-        card.rightAnchor.constraint(equalTo: self.view.layoutMarginsGuide.rightAnchor).isActive = true
         
         calendarTablePair = CalendarTablePairView(parentVC: self)
         card.addSubview(calendarTablePair)

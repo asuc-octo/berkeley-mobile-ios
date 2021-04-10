@@ -18,11 +18,15 @@ extension Color {
         }
         
         static var grayedText: UIColor {
-            return UIColor(displayP3Red: 133/255, green: 132/255, blue: 133/255, alpha: 1.0)
+            return UIColor(displayP3Red: 193/255, green: 192/255, blue: 193/255, alpha: 1.0)
         }
         
         static var blackText: UIColor {
             return UIColor(displayP3Red: 17/255, green: 17/255, blue: 18/255, alpha: 1.0)
+        }
+        
+        static var yellowText: UIColor {
+            return UIColor(displayP3Red: 253/255, green: 189/255, blue: 34/255, alpha: 1.0)
         }
         
     }

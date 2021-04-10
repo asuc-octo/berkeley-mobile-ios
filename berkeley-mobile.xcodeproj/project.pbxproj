@@ -564,6 +564,7 @@
 				13B39AB123E777AC0039FBA2 /* FilterView */,
 				1396012E23865E2E005E4788 /* CollectionView */,
 				29481560253274CA00D113B6 /* Images */,
+				294693A225F44A7E00619481 /* Calendar */,
 				1396013123865E2E005E4788 /* CardView.swift */,
 				298EE26F25BB82A2002BAF0F /* CardTableViewCell.swift */,
 				1396013223865E2E005E4788 /* TagView.swift */,
@@ -752,7 +753,6 @@
 			isa = PBXGroup;
 			children = (
 				01D2699C2544E005000377B4 /* AcademicCalendarViewController.swift */,
-				294693A225F44A7E00619481 /* Calendar */,
 			);
 			path = Academic;
 			sourceTree = "<group>";

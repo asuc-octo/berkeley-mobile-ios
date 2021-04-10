@@ -32,7 +32,7 @@ class CalendarView: UIView {
     /// the calendar entries for the currently selected month
     var currentMonthCalendarEntries: [EventCalendarEntry] = [] {
         didSet {
-            collection.reloadData()
+            reloadCells()
             delegate?.didChangeMonth(selectedEntries: currentMonthCalendarEntries)
         }
     }
@@ -46,6 +46,8 @@ class CalendarView: UIView {
     }()
     
     private var monthSelector: MonthSelectorView!
+    /// the height constraint to resize the collection view based on the height of the contents
+    private var collectionHeightConstraint: NSLayoutConstraint?
 
     public init() {
         super.init(frame: .zero)
@@ -68,6 +70,9 @@ class CalendarView: UIView {
         collection.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         collection.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         collection.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        // set temporary value for height constraint, will be adjusted whenever collection reloads
+        collectionHeightConstraint = collection.heightAnchor.constraint(equalToConstant: 300)
+        collectionHeightConstraint?.isActive = true
     }
     
     override func layoutSubviews() {
@@ -80,9 +85,7 @@ class CalendarView: UIView {
         layout.minimumLineSpacing = 0
         collection.collectionViewLayout = layout
         
-        collection.reloadData()
-        guard collection.contentSize.height > 0 && monthSelector.frame.height > 0 else { return }
-        self.setHeightConstraint(collection.contentSize.height + monthSelector.frame.height)
+        reloadCells()
     }
     
     /// set the calendar's month
@@ -127,7 +130,14 @@ class CalendarView: UIView {
             calendarDays.append((day: dayComponent, isCurrentMonth: currDay >= firstDay && currDay <= lastDay))
             currDay = calendar.date(byAdding: .day, value: 1, to: currDay)!
         }
-        self.collection.reloadData()
+        reloadCells()
+    }
+    
+    private func reloadCells() {
+        collection.reloadData()
+        // resize the collection view whenever the cells are reloaded
+        collectionHeightConstraint?.constant = collection.collectionViewLayout.collectionViewContentSize.height
+        self.layoutIfNeeded()
     }
     
     required init?(coder: NSCoder) {
@@ -145,14 +155,25 @@ class CalendarCell: UICollectionViewCell {
         label.font = Font.light(18)
         return label
     }()
+    let highlightView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        contentView.layer.cornerRadius = 15
-        self.contentView.addSubview(label)
-        label.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        label.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        self.contentView.addSubview(highlightView)
+        highlightView.centerXAnchor.constraint(equalTo: self.contentView.centerXAnchor).isActive = true
+        highlightView.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor).isActive = true
+        highlightView.widthAnchor.constraint(equalTo: self.contentView.widthAnchor, multiplier: 0.8).isActive = true
+        highlightView.heightAnchor.constraint(equalTo: self.contentView.heightAnchor, multiplier: 0.8).isActive = true
+        highlightView.layer.cornerRadius = 10
+        
+        highlightView.addSubview(label)
+        label.centerXAnchor.constraint(equalTo: highlightView.centerXAnchor).isActive = true
+        label.centerYAnchor.constraint(equalTo: highlightView.centerYAnchor).isActive = true
     }
     
     required init?(coder: NSCoder) {
@@ -163,16 +184,18 @@ class CalendarCell: UICollectionViewCell {
     public func configureHeader(text: String) {
         label.text = text
         label.textColor = Color.Calendar.dayOfWeekHeader
-        contentView.backgroundColor = .clear
+        highlightView.backgroundColor = .clear
     }
     
     // configure this cell to show a day of the month and highlight it appropriately
-    public func configureDay(entries: [EventCalendarEntry] = [], calendarDay: (day: Int, isCurrentMonth: Bool)) {
+    public func configureDay(entries: [EventCalendarEntry] = [],
+                             calendarDay: (day: Int, isCurrentMonth: Bool),
+                             highlightText: Bool = false) {
         label.text = String(calendarDay.day)
         // only highlight days from the current month
         if !calendarDay.isCurrentMonth {
             label.textColor = Color.Calendar.grayedText
-            contentView.backgroundColor = .clear
+            highlightView.backgroundColor = .clear
         } else {
             // get all colors this day should be highlighted in based on the calendar events taking place
             var colors: Set<UIColor> = []
@@ -184,17 +207,23 @@ class CalendarCell: UICollectionViewCell {
             }
             // if more than one color highlight, highlight in black
             if colors.count > 1 {
-                contentView.backgroundColor = Color.Calendar.blackText
+                highlightView.backgroundColor = Color.Calendar.blackText
             } else if colors.count == 1 {
-                contentView.backgroundColor = colors.first!
+                highlightView.backgroundColor = colors.first!
             } else {
-                contentView.backgroundColor = .clear
+                highlightView.backgroundColor = .clear
             }
             if colors.isEmpty {
                 label.textColor = Color.Calendar.blackText
             } else {
                 label.textColor = .white
             }
+        }
+        if highlightText {
+            label.textColor = Color.Calendar.yellowText
+            label.font = Font.bold(18)
+        } else {
+            label.font = Font.light(18)
         }
     }
 }
@@ -217,7 +246,10 @@ extension CalendarView: UICollectionViewDelegate, UICollectionViewDataSource {
             } else {
                 let cellIndex = (indexPath.section - 1) * collectionView.numberOfItems(inSection: indexPath.section) + indexPath.row
                 let calendarDay = calendarDays[cellIndex]
-                calendarCell.configureDay(entries: currentMonthCalendarEntries, calendarDay: calendarDay)
+                // highlight and bold the text if the cell is for today
+                let todayComponents = calendar.dateComponents([.year, .month, .day], from: Date())
+                let highlightText = year == todayComponents.year && month == todayComponents.month && calendarDay.day == todayComponents.day
+                calendarCell.configureDay(entries: currentMonthCalendarEntries, calendarDay: calendarDay, highlightText: highlightText)
             }
         }
         return cell
