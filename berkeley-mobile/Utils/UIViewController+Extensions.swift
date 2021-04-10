@@ -28,22 +28,34 @@ extension UIViewController {
     
     // Presents an alert with multiple options and completion handler
     public func presentAlertLinkUrl(title: String, message: String, options: String..., website_url: URL) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        var alertVC: AlertView!
+        
         for (index, option) in options.enumerated() {
             if (index == 0) {
-                alertController.addAction(UIAlertAction.init(title: option, style: .cancel))
+                alertVC = AlertView(headingText: title, messageText: message, action1Label: option, action1Color: Color.AlertView.secondaryButton, action1Completion: {
+                    self.dismiss(animated: true, completion: nil)
+                }, action2Label: "", action2Color: UIColor.clear, action2Completion: {return}, withOnlyOneAction: true)
             } else {
-                alertController.addAction(UIAlertAction.init(title: option, style: .default, handler: { _ in
+                
+                alertVC = AlertView(headingText: title, messageText: message, action1Label: "Cancel", action1Color: Color.AlertView.secondaryButton, action1Completion: {
+                    self.dismiss(animated: true, completion: nil)
+                }, action2Label: "Yes", action2Color: Color.ActionButton.background, action2Completion: {
                     UIApplication.shared.open(website_url, options: [:])
-                }))
+                }, withOnlyOneAction: false)
+                
             }
         }
-        self.present(alertController, animated: true, completion: nil)
+        alertVC.modalTransitionStyle = .crossDissolve
+        alertVC.modalPresentationStyle = .overCurrentContext
+        
+        self.present(alertVC, animated: true, completion: nil)
     }
     
     // Presents an alert to open coordinates
     public func presentAlertLinkMaps(title: String, message: String, options: String..., lat: CLLocationDegrees, lon: CLLocationDegrees, name: String) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        var alertVC: AlertView!
         
         var query = false
         if lat.isEqual(to: 0.0) || lon.isEqual(to: 0.0) {
@@ -57,9 +69,14 @@ extension UIViewController {
         
         for (index, option) in options.enumerated() {
             if (index == 0) {
-                alertController.addAction(UIAlertAction.init(title: option, style: .cancel))
+                alertVC = AlertView(headingText: title, messageText: message, action1Label: option, action1Color: Color.AlertView.secondaryButton, action1Completion: {
+                    self.dismiss(animated: true, completion: nil)
+                }, action2Label: "", action2Color: UIColor.clear, action2Completion: {return}, withOnlyOneAction: true)
             } else {
-                alertController.addAction(UIAlertAction.init(title: option, style: .default, handler: { _ in
+                
+                alertVC = AlertView(headingText: title, messageText: message, action1Label: "Cancel", action1Color: Color.AlertView.secondaryButton, action1Completion: {
+                    self.dismiss(animated: true, completion: nil)
+                }, action2Label: "Yes", action2Color: Color.ActionButton.background, action2Completion: {
                     if query {
                         let mapUrl = URL(string: "http://maps.apple.com/?q=\(name.replacingOccurrences(of: " ", with: "+"))")!
                         if UIApplication.shared.canOpenURL(mapUrl) {  // People can uninstall the maps app, maybe handle this better in the future
@@ -68,10 +85,14 @@ extension UIViewController {
                     } else {
                         mapItem.openInMaps(launchOptions: [:])
                     }
-                }))
+                }, withOnlyOneAction: false)
+                
             }
         }
-        self.present(alertController, animated: true, completion: nil)
+        alertVC.modalTransitionStyle = .crossDissolve
+        alertVC.modalPresentationStyle = .overCurrentContext
+        
+        self.present(alertVC, animated: true, completion: nil)
     }
     
     public func presentSuccessAlert(title: String) {
