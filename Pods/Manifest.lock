@@ -236,6 +236,9 @@ PODS:
   - Firebase/Firestore (7.6.0):
     - Firebase/CoreOnly
     - FirebaseFirestore (~> 7.6.0)
+  - Firebase/Messaging (7.6.0):
+    - Firebase/CoreOnly
+    - FirebaseMessaging (~> 7.6.0)
   - FirebaseAnalytics (7.6.0):
     - FirebaseCore (~> 7.0)
     - FirebaseInstallations (~> 7.0)
@@ -276,6 +279,18 @@ PODS:
     - GoogleUtilities/Environment (~> 7.0)
     - GoogleUtilities/UserDefaults (~> 7.0)
     - PromisesObjC (~> 1.2)
+  - FirebaseInstanceID (7.9.0):
+    - FirebaseCore (~> 7.0)
+    - FirebaseInstallations (~> 7.0)
+    - GoogleUtilities/Environment (~> 7.0)
+    - GoogleUtilities/UserDefaults (~> 7.0)
+  - FirebaseMessaging (7.6.0):
+    - FirebaseCore (~> 7.0)
+    - FirebaseInstanceID (~> 7.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.0)
+    - GoogleUtilities/Environment (~> 7.0)
+    - GoogleUtilities/Reachability (~> 7.0)
+    - GoogleUtilities/UserDefaults (~> 7.0)
   - GoogleAppMeasurement (7.6.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 7.0)
     - GoogleUtilities/MethodSwizzler (~> 7.0)
@@ -353,6 +368,7 @@ DEPENDENCIES:
   - Firebase/Analytics
   - Firebase/Auth
   - Firebase/Firestore
+  - Firebase/Messaging
   - GoogleSignIn
   - IQKeyboardManagerSwift
   - SearchTextField
@@ -369,6 +385,8 @@ SPEC REPOS:
     - FirebaseCoreDiagnostics
     - FirebaseFirestore
     - FirebaseInstallations
+    - FirebaseInstanceID
+    - FirebaseMessaging
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleSignIn
@@ -394,6 +412,8 @@ SPEC CHECKSUMS:
   FirebaseCoreDiagnostics: ee1184d51da3293335b83355aad20f537acc24cf
   FirebaseFirestore: b860346d5095c741528efac94995bab39275d0bf
   FirebaseInstallations: 6e4e77396559bc2ae0504823837ed737b1c7e47f
+  FirebaseInstanceID: 53140c03b9f6136f890d7901399f85a4c90ab2d0
+  FirebaseMessaging: 4b9b2850fcfcaac2820097ee3703ba6cfff3df84
   GoogleAppMeasurement: c542a2feaac9ab98fd074e8f1a02c3585bbfbd47
   GoogleDataTransport: 1024b1a4dfbd7a0e92cb20d7e0a6f1fb66b449a4
   GoogleSignIn: 7137d297ddc022a7e0aa4619c86d72c909fa7213
@@ -408,6 +428,6 @@ SPEC CHECKSUMS:
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   SearchTextField: 40dc3cc57def5a211f263cac263622c163bbc25a
 
-PODFILE CHECKSUM: b28b31417983b15014336494e20ce31ea90d637b
+PODFILE CHECKSUM: c57ba7d751f5908bab4042f9a7e0b94318f20665
 
 COCOAPODS: 1.10.1
