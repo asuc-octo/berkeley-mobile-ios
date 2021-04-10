@@ -67,6 +67,7 @@ extension ResourcesViewController {
             Page(viewController: CampusResourceViewController(type: .health), label: "Health"),
             Page(viewController: CampusResourceViewController(type: .admin), label: "Admin"),
             Page(viewController: CampusResourceViewController(type: .basicNeeds), label: "Basic Needs"),
+            Page(viewController: SproulClubViewController(), label: "Clubs"),
             Page(viewController: CampusResourceViewController(
                 type: nil,
                 notIn: Set<ResourceType>([.health, .admin, .basicNeeds])
