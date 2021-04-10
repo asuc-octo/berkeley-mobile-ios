@@ -161,9 +161,10 @@ class AlertView: UIViewController {
         backgroundView.addSubview(Vstack)
         backgroundView.addSubview(Hstack)
         
+        
         backgroundView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         backgroundView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        backgroundView.widthAnchor.constraint(greaterThanOrEqualTo: Hstack.widthAnchor, multiplier: 1.3).isActive = true
+        backgroundView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 304/375).isActive = true
         backgroundView.layer.cornerRadius = 12
         
         Vstack.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor).isActive = true
