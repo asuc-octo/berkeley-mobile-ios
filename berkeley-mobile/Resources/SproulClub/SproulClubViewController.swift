@@ -17,7 +17,6 @@ class SproulClubViewController: UIViewController, WKUIDelegate {
             let webConfiguration = WKWebViewConfiguration()
             webView = WKWebView(frame: .zero, configuration: webConfiguration)
             webView.uiDelegate = self
-            
             view = webView
         }
     
