@@ -37,7 +37,7 @@ class GymClass: CalendarEvent {
     var link: String?
 
     /// The trainer leading this gym class.
-    var trainer: String?
+    @Display var trainer: String?
 
     /// The category for this class. See `GymClassType` for expected values.
     var type: String?
