@@ -190,7 +190,7 @@ class CalendarCell: UICollectionViewCell {
     // configure this cell to show a day of the month and highlight it appropriately
     public func configureDay(entries: [EventCalendarEntry] = [],
                              calendarDay: (day: Int, isCurrentMonth: Bool),
-                             highlightText: Bool = false) {
+                             boldText: Bool = false) {
         label.text = String(calendarDay.day)
         // only highlight days from the current month
         if !calendarDay.isCurrentMonth {
@@ -219,9 +219,8 @@ class CalendarCell: UICollectionViewCell {
                 label.textColor = .white
             }
         }
-        if highlightText {
-            label.textColor = Color.Calendar.yellowText
-            label.font = Font.bold(18)
+        if boldText {
+            label.font = Font.bold(20)
         } else {
             label.font = Font.light(18)
         }
@@ -248,8 +247,8 @@ extension CalendarView: UICollectionViewDelegate, UICollectionViewDataSource {
                 let calendarDay = calendarDays[cellIndex]
                 // highlight and bold the text if the cell is for today
                 let todayComponents = calendar.dateComponents([.year, .month, .day], from: Date())
-                let highlightText = year == todayComponents.year && month == todayComponents.month && calendarDay.day == todayComponents.day
-                calendarCell.configureDay(entries: currentMonthCalendarEntries, calendarDay: calendarDay, highlightText: highlightText)
+                let boldText = year == todayComponents.year && month == todayComponents.month && calendarDay.day == todayComponents.day
+                calendarCell.configureDay(entries: currentMonthCalendarEntries, calendarDay: calendarDay, boldText: boldText)
             }
         }
         return cell

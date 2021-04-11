@@ -18,12 +18,18 @@ class CalendarTablePairView: UIView {
     private var calendarView: CalendarView = CalendarView()
     private var missingDataView: MissingDataView
     private var tableEntries: [EventCalendarEntry] = []
+    private var calendarTableHeightConstraint: NSLayoutConstraint?
     
     public init(parentVC: UIViewController) {
         self.parentVC = parentVC
         missingDataView = MissingDataView(parentView: calendarTable, text: "No events found")
         super.init(frame: .zero)
         self.translatesAutoresizingMaskIntoConstraints = false
+        setUpScrollView()
+        
+        calendarView.translatesAutoresizingMaskIntoConstraints = false
+        calendarView.delegate = self
+        scrollingStackView.stackView.addArrangedSubview(calendarView)
         
         calendarTable.register(EventTableViewCell.self, forCellReuseIdentifier: EventTableViewCell.kCellIdentifier)
         calendarTable.rowHeight = EventTableViewCell.kCellHeight
@@ -31,24 +37,34 @@ class CalendarTablePairView: UIView {
         calendarTable.dataSource = self
         calendarTable.showsVerticalScrollIndicator = false
         calendarTable.separatorStyle = .none
-        self.addSubview(calendarTable)
         calendarTable.translatesAutoresizingMaskIntoConstraints = false
-        calendarTable.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
-        calendarTable.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
-        calendarTable.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        
-        self.addSubview(calendarView)
-        calendarView.translatesAutoresizingMaskIntoConstraints = false
-        calendarView.topAnchor.constraint(equalTo: self.layoutMarginsGuide.topAnchor).isActive = true
-        calendarView.leftAnchor.constraint(equalTo: self.layoutMarginsGuide.leftAnchor).isActive = true
-        calendarView.rightAnchor.constraint(equalTo: self.layoutMarginsGuide.rightAnchor).isActive = true
-        calendarView.bottomAnchor.constraint(equalTo: calendarTable.topAnchor, constant: -kViewMargin).isActive = true
-        calendarView.delegate = self
+        // prevent estimated heights so content size works
+        calendarTable.estimatedRowHeight = 0
+        calendarTable.estimatedSectionHeaderHeight = 0
+        calendarTable.estimatedSectionFooterHeight = 0
+        scrollingStackView.stackView.addArrangedSubview(calendarTable)
+        calendarTableHeightConstraint = calendarTable.heightAnchor.constraint(equalToConstant: 300)
+        calendarTableHeightConstraint?.isActive = true
     }
     
     public func setCalendarEntries(entries: [EventCalendarEntry]) {
         calendarView.calendarEntries = entries
     }
+    
+    func setUpScrollView() {
+        self.addSubview(scrollingStackView)
+        scrollingStackView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        scrollingStackView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+        scrollingStackView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+        scrollingStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+    }
+    
+    var scrollingStackView: ScrollingStackView = {
+        let scrollingStackView = ScrollingStackView()
+        scrollingStackView.scrollView.showsVerticalScrollIndicator = false
+        scrollingStackView.stackView.spacing = kViewMargin
+        return scrollingStackView
+    }()
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -92,5 +108,7 @@ extension CalendarTablePairView: CalendarViewDelegate {
         }
         tableEntries = selectedEntries
         calendarTable.reloadData()
+        calendarTableHeightConstraint?.constant = min(calendarTable.contentSize.height, self.frame.height)
+        self.layoutIfNeeded()
     }
 }

@@ -25,9 +25,5 @@ extension Color {
             return UIColor(displayP3Red: 17/255, green: 17/255, blue: 18/255, alpha: 1.0)
         }
         
-        static var yellowText: UIColor {
-            return UIColor(displayP3Red: 253/255, green: 189/255, blue: 34/255, alpha: 1.0)
-        }
-        
     }
 }
