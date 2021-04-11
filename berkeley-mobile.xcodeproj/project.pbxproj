@@ -135,6 +135,7 @@
 		29B3A1742439A60A00093750 /* DiningMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B3A1732439A60A00093750 /* DiningMenuCell.swift */; };
 		29B3D7862453984A006762E5 /* DrawerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B3D7852453984A006762E5 /* DrawerViewDelegate.swift */; };
 		29B3D78824539FF3006762E5 /* MainDrawerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B3D78724539FF3006762E5 /* MainDrawerViewController.swift */; };
+		29B542CE2622777300ACDF31 /* SproulClubViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B542CD2622777300ACDF31 /* SproulClubViewController.swift */; };
 		29CB28092404DD53009A2CFB /* StudyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39AA623E7746C0039FBA2 /* StudyViewController.swift */; };
 		29CB280A2404DD71009A2CFB /* FilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39AA423E774600039FBA2 /* FilterTableViewCell.swift */; };
 		29DB64CF25BA61BD001C4275 /* StudyGroupsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DB64CE25BA61BD001C4275 /* StudyGroupsView.swift */; };
@@ -322,6 +323,7 @@
 		29B3A1732439A60A00093750 /* DiningMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiningMenuCell.swift; sourceTree = "<group>"; };
 		29B3D7852453984A006762E5 /* DrawerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerViewDelegate.swift; sourceTree = "<group>"; };
 		29B3D78724539FF3006762E5 /* MainDrawerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainDrawerViewController.swift; sourceTree = "<group>"; };
+		29B542CD2622777300ACDF31 /* SproulClubViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SproulClubViewController.swift; sourceTree = "<group>"; };
 		29DB64CE25BA61BD001C4275 /* StudyGroupsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyGroupsView.swift; sourceTree = "<group>"; };
 		29DB64D825BA8242001C4275 /* AllStudyGroupsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllStudyGroupsViewController.swift; sourceTree = "<group>"; };
 		29EE163E241C4E310041482E /* SortingFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingFunctions.swift; sourceTree = "<group>"; };
@@ -751,6 +753,14 @@
 			path = Occupancy;
 			sourceTree = "<group>";
 		};
+		29B542CC2622777300ACDF31 /* SproulClub */ = {
+			isa = PBXGroup;
+			children = (
+				29B542CD2622777300ACDF31 /* SproulClubViewController.swift */,
+			);
+			path = SproulClub;
+			sourceTree = "<group>";
+		};
 		29BB9E5925BFEC3300FC5EC8 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
@@ -938,6 +948,7 @@
 		556DB0DD23E7F5ED00F12721 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				29B542CC2622777300ACDF31 /* SproulClub */,
 				553EF6AA2404E29800D2955E /* ResourcesDataSource */,
 				552F4A4A254E13960061D0F2 /* Campus */,
 				55AA7B2D25FD4F06002B4A4B /* Covid */,
@@ -1257,6 +1268,7 @@
 				135D7F77243A9BD1003F8BD1 /* Colors+GymClass.swift in Sources */,
 				55DCF7A123724835001B01B8 /* MaterialButton.swift in Sources */,
 				297678892426D2C500FDD1EB /* SearchDrawerViewController.swift in Sources */,
+				29B542CE2622777300ACDF31 /* SproulClubViewController.swift in Sources */,
 				29CB280A2404DD71009A2CFB /* FilterTableViewCell.swift in Sources */,
 				55DCF79623723CF2001B01B8 /* UIView+Extensions.swift in Sources */,
 				291B11E225044BDB00F737A8 /* HasName.swift in Sources */,
