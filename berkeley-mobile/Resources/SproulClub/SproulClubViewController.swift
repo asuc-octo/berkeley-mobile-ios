@@ -10,26 +10,33 @@ import Foundation
 import UIKit
 import WebKit
 
-class SproulClubViewController: UIViewController, WKUIDelegate {
+class SproulClubViewController: UIViewController, WKUIDelegate, UIScrollViewDelegate {
     var webView: WKWebView!
         
-        override func loadView() {
+        override func viewDidLoad() {
+            super.viewDidLoad()
             let webConfiguration = WKWebViewConfiguration()
             webView = WKWebView(frame: .zero, configuration: webConfiguration)
             webView.uiDelegate = self
+            webView.scrollView.delegate = self
             
-            view = webView
-        }
-    
-        override func viewDidLoad() {
-            super.viewDidLoad()
+            webView.translatesAutoresizingMaskIntoConstraints = false
+            self.view.addSubview(webView)
+            webView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 6).isActive = true
+            webView.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor, constant: 6).isActive = true
+            webView.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor, constant: -6).isActive = true
+            webView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -20).isActive = true
+            
             let myURL = URL(string:"https://www.sproul.club/")
             let myRequest = URLRequest(url: myURL!)
             webView.load(myRequest)
             
-            //disable zooming in
+            //disabling zooming and vertical scroll indicator
             webView.scrollView.minimumZoomScale = 1.0
             webView.scrollView.maximumZoomScale = 1.0
+            webView.scrollView.showsVerticalScrollIndicator = false
+            webView.scrollView.pinchGestureRecognizer?.isEnabled = false
+            
         }
     
 }
