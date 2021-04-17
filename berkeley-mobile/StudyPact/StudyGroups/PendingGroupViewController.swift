@@ -107,8 +107,6 @@ class PendingGroupViewController: UIViewController {
                 }
             }
         }, withOnlyOneAction: false)
-        alertController.modalPresentationStyle = .overCurrentContext
-        alertController.modalTransitionStyle = .crossDissolve
         self.present(alertController, animated: true, completion: nil)
 
     }

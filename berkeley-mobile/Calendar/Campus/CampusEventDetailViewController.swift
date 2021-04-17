@@ -69,12 +69,12 @@ class CampusEventDetailViewController: UIViewController {
     @objc private func learnMoreTapped(sender: UIButton) {
         guard let url = event.sourceLink else { return }
         
-        presentAlertLinkUrl(title: "Are you sure you want to open Safari?", message: "Berkeley Mobile wants to open a web page with more info for this event.", options: "Cancel", "Yes", website_url: url)
+        presentAlertLinkUrl(title: "Are you sure you want to open Safari?", message: "Berkeley Mobile wants to open a web page with more info for this event.", website_url: url)
     }
     @objc private func registerTapped(sender: UIButton) {
         guard let url = event.registerLink else { return }
         
-        presentAlertLinkUrl(title: "Are you sure you want to open Safari?", message: "Berkeley Mobile wants to open the web page to register for this event.", options: "Cancel", "Yes", website_url: url)
+        presentAlertLinkUrl(title: "Are you sure you want to open Safari?", message: "Berkeley Mobile wants to open the web page to register for this event.", website_url: url)
     }
     @objc private func addToCalendar(sender: UIButton) {
         event.addToDeviceCalendar(vc: self)

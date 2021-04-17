@@ -56,8 +56,6 @@ extension CalendarEvent {
                 }
             }
         }, withOnlyOneAction: false)
-        alertController.modalPresentationStyle = .overCurrentContext
-        alertController.modalTransitionStyle = .crossDissolve
         vc.present(alertController, animated: true, completion: nil)
     }
     

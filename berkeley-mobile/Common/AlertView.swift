@@ -100,6 +100,9 @@ class AlertView: UIViewController {
             view.backgroundColor = .black
         }
         
+        self.modalTransitionStyle = .crossDissolve
+        self.modalPresentationStyle = .overCurrentContext
+        
     }
     
     
@@ -139,13 +142,9 @@ class AlertView: UIViewController {
         Vstack.axis = .vertical
         Vstack.spacing = 10
         Vstack.distribution = .fillProportionally
-        
-        
         Vstack.addArrangedSubview(heading)
         Vstack.addArrangedSubview(message)
         Vstack.translatesAutoresizingMaskIntoConstraints = false
-        
-
         
         let Hstack = UIStackView()
         Hstack.axis = .horizontal
@@ -160,7 +159,6 @@ class AlertView: UIViewController {
         
         backgroundView.addSubview(Vstack)
         backgroundView.addSubview(Hstack)
-        
         
         backgroundView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         backgroundView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true

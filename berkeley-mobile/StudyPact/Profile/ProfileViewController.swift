@@ -188,9 +188,9 @@ extension ProfileViewController {
     @objc private func logoutButtonPressed(sender: UIButton) {
         
         
-        let alertView = AlertView(headingText: "Logout?", messageText: "You will be returned to the login screen.", action1Label: "Cancel", action1Color: Color.ActionButton.background, action1Completion: {
+        let alertView = AlertView(headingText: "Logout?", messageText: "You will be returned to the login screen.", action1Label: "Cancel", action1Color: Color.AlertView.secondaryButton, action1Completion: {
             self.dismiss(animated: true, completion: nil)
-        }, action2Label: "Logout", action2Color: Color.AlertView.secondaryButton, action2Completion: {
+        }, action2Label: "Logout", action2Color: Color.ActionButton.background, action2Completion: {
             let auth = Auth.auth()
             do {
                 try auth.signOut()
@@ -202,8 +202,6 @@ extension ProfileViewController {
             self.loggedOutView()
             self.dismiss(animated: true, completion: nil)
         }, withOnlyOneAction: false)
-        alertView.modalPresentationStyle = .overCurrentContext
-        alertView.modalTransitionStyle = .crossDissolve
         self.present(alertView, animated: true, completion: nil)
         
     }

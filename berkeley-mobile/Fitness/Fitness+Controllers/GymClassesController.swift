@@ -50,7 +50,7 @@ extension GymClassesController: UITableViewDataSource {
     
     @objc func zoomTapped(gesture: DetailTapGestureRecognizer) {
         if (gesture.view as? UIImageView) != nil, let url = gesture.eventUrl {
-            vc.presentAlertLinkUrl(title: "Are you sure you want to open Zoom?", message: "Berkeley Mobile wants to open an online fitness class in Zoom", options: "Cancel", "Yes", website_url: url)
+            vc.presentAlertLinkUrl(title: "Are you sure you want to open Zoom?", message: "Berkeley Mobile wants to open an online fitness class in Zoom", website_url: url)
         }
     }
     

@@ -27,33 +27,24 @@ extension UIViewController {
     }
     
     // Presents an alert with multiple options and completion handler
-    public func presentAlertLinkUrl(title: String, message: String, options: String..., website_url: URL) {
+    public func presentAlertLinkUrl(title: String, message: String, website_url: URL) {
         
         var alertVC: AlertView!
         
-        for (index, option) in options.enumerated() {
-            if (index == 0) {
-                alertVC = AlertView(headingText: title, messageText: message, action1Label: option, action1Color: Color.AlertView.secondaryButton, action1Completion: {
-                    self.dismiss(animated: true, completion: nil)
-                }, action2Label: "", action2Color: UIColor.clear, action2Completion: {return}, withOnlyOneAction: true)
-            } else {
-                
-                alertVC = AlertView(headingText: title, messageText: message, action1Label: "Cancel", action1Color: Color.AlertView.secondaryButton, action1Completion: {
-                    self.dismiss(animated: true, completion: nil)
-                }, action2Label: "Yes", action2Color: Color.ActionButton.background, action2Completion: {
-                    UIApplication.shared.open(website_url, options: [:])
-                }, withOnlyOneAction: false)
-                
+        alertVC = AlertView(headingText: title, messageText: message, action1Label: "Cancel", action1Color: Color.AlertView.secondaryButton, action1Completion: {
+            self.dismiss(animated: true, completion: nil)
+        }, action2Label: "Yes", action2Color: Color.ActionButton.background, action2Completion: {
+            self.dismiss(animated: true, completion: nil)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                UIApplication.shared.open(website_url, options: [:])
             }
-        }
-        alertVC.modalTransitionStyle = .crossDissolve
-        alertVC.modalPresentationStyle = .overCurrentContext
-        
+        }, withOnlyOneAction: false)
+
         self.present(alertVC, animated: true, completion: nil)
     }
     
     // Presents an alert to open coordinates
-    public func presentAlertLinkMaps(title: String, message: String, options: String..., lat: CLLocationDegrees, lon: CLLocationDegrees, name: String) {
+    public func presentAlertLinkMaps(title: String, message: String, lat: CLLocationDegrees, lon: CLLocationDegrees, name: String) {
         
         var alertVC: AlertView!
         
@@ -67,31 +58,26 @@ extension UIViewController {
         let mapItem = MKMapItem(placemark: placemark)
         mapItem.name = name
         
-        for (index, option) in options.enumerated() {
-            if (index == 0) {
-                alertVC = AlertView(headingText: title, messageText: message, action1Label: option, action1Color: Color.AlertView.secondaryButton, action1Completion: {
-                    self.dismiss(animated: true, completion: nil)
-                }, action2Label: "", action2Color: UIColor.clear, action2Completion: {return}, withOnlyOneAction: true)
-            } else {
-                
-                alertVC = AlertView(headingText: title, messageText: message, action1Label: "Cancel", action1Color: Color.AlertView.secondaryButton, action1Completion: {
-                    self.dismiss(animated: true, completion: nil)
-                }, action2Label: "Yes", action2Color: Color.ActionButton.background, action2Completion: {
-                    if query {
-                        let mapUrl = URL(string: "http://maps.apple.com/?q=\(name.replacingOccurrences(of: " ", with: "+"))")!
-                        if UIApplication.shared.canOpenURL(mapUrl) {  // People can uninstall the maps app, maybe handle this better in the future
-                            UIApplication.shared.open(mapUrl, options: [:])
-                        }
-                    } else {
-                        mapItem.openInMaps(launchOptions: [:])
-                    }
-                }, withOnlyOneAction: false)
-                
-            }
-        }
-        alertVC.modalTransitionStyle = .crossDissolve
-        alertVC.modalPresentationStyle = .overCurrentContext
         
+        alertVC = AlertView(headingText: title, messageText: message, action1Label: "Cancel", action1Color: Color.AlertView.secondaryButton, action1Completion: {
+            self.dismiss(animated: true, completion: nil)
+        }, action2Label: "Yes", action2Color: Color.ActionButton.background, action2Completion: {
+            if query {
+                let mapUrl = URL(string: "http://maps.apple.com/?q=\(name.replacingOccurrences(of: " ", with: "+"))")!
+                if UIApplication.shared.canOpenURL(mapUrl) {  // People can uninstall the maps app, maybe handle this better in the future
+                    self.dismiss(animated: true, completion: nil)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                        UIApplication.shared.open(mapUrl, options: [:])
+                    }
+                }
+            } else {
+                self.dismiss(animated: true, completion: nil)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    mapItem.openInMaps(launchOptions: [:])
+                }
+            }
+        }, withOnlyOneAction: false)
+
         self.present(alertVC, animated: true, completion: nil)
     }
     
@@ -107,10 +93,7 @@ extension UIViewController {
         let alertVC = AlertView(headingText: title, messageText: message, action1Label: "OK", action1Color: Color.ActionButton.background, action1Completion: {
             self.dismiss(animated: true, completion: nil)
         }, action2Label: "", action2Color: UIColor.clear, action2Completion: { return }, withOnlyOneAction: true)
-        
-        alertVC.modalTransitionStyle = .crossDissolve
-        alertVC.modalPresentationStyle = .overCurrentContext
-        
+
         self.present(alertVC, animated: true, completion: nil)
     }
 }
