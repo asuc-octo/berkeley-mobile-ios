@@ -86,7 +86,6 @@ class MonthSelectCell: UICollectionViewCell {
     open var label: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = Font.light(16)
         label.textAlignment = .center
         return label
     }()
@@ -119,9 +118,10 @@ class MonthSelectCell: UICollectionViewCell {
         contentView.layer.cornerRadius = bounds.height / 2
     }
     
-    public func configure(month: Int) {
+    public func configure(month: Int, boldText: Bool) {
         guard let text = DateFormatter().monthSymbols[safe: month - 1] else { return }
         label.text = text
+        label.font = boldText ? Font.bold(16) : Font.light(16)
     }
     
     required init?(coder: NSCoder) {
@@ -141,14 +141,16 @@ extension MonthSelectorView: UICollectionViewDelegate, UICollectionViewDataSourc
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MonthSelectCell.kCellIdentifier, for: indexPath)
         if let monthCell = cell as? MonthSelectCell {
-            monthCell.configure(month: months[indexPath.row].month)
+            let todayComponents = Calendar.current.dateComponents([.year, .month], from: Date())
+            let boldText = months[indexPath.row].year == todayComponents.year && months[indexPath.row].month == todayComponents.month
+            monthCell.configure(month: months[indexPath.row].month, boldText: boldText)
         }
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cell = MonthSelectCell()
-        cell.configure(month: months[indexPath.row].month)
+        cell.configure(month: months[indexPath.row].month, boldText: true)
         return cell.intrinsicContentSize
     }
     
