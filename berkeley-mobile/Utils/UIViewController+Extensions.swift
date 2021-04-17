@@ -28,10 +28,7 @@ extension UIViewController {
     
     // Presents an alert with multiple options and completion handler
     public func presentAlertLinkUrl(title: String, message: String, website_url: URL) {
-        
-        var alertVC: AlertView!
-        
-        alertVC = AlertView(headingText: title, messageText: message, action1Label: "Cancel", action1Color: Color.AlertView.secondaryButton, action1Completion: {
+        let alertVC = AlertView(headingText: title, messageText: message, action1Label: "Cancel", action1Color: Color.AlertView.secondaryButton, action1Completion: {
             self.dismiss(animated: true, completion: nil)
         }, action2Label: "Yes", action2Color: Color.ActionButton.background, action2Completion: {
             self.dismiss(animated: true, completion: nil)
@@ -45,9 +42,6 @@ extension UIViewController {
     
     // Presents an alert to open coordinates
     public func presentAlertLinkMaps(title: String, message: String, lat: CLLocationDegrees, lon: CLLocationDegrees, name: String) {
-        
-        var alertVC: AlertView!
-        
         var query = false
         if lat.isEqual(to: 0.0) || lon.isEqual(to: 0.0) {
             query = true
@@ -58,8 +52,7 @@ extension UIViewController {
         let mapItem = MKMapItem(placemark: placemark)
         mapItem.name = name
         
-        
-        alertVC = AlertView(headingText: title, messageText: message, action1Label: "Cancel", action1Color: Color.AlertView.secondaryButton, action1Completion: {
+        let alertVC = AlertView(headingText: title, messageText: message, action1Label: "Cancel", action1Color: Color.AlertView.secondaryButton, action1Completion: {
             self.dismiss(animated: true, completion: nil)
         }, action2Label: "Yes", action2Color: Color.ActionButton.background, action2Completion: {
             if query {
