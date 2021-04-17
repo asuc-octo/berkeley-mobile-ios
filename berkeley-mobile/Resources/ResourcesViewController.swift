@@ -64,6 +64,7 @@ extension ResourcesViewController {
         // Don't add this padding for now.
         let segmentedControl = SegmentedControlViewController(pages: [
             Page(viewController: CovidResourceViewController(), label: "Dashboard"),
+            Page(viewController: SproulClubViewController(), label: "Clubs"),
             Page(viewController: CampusResourceViewController(
                 inSet: Set<ResourceType>([.health, .mentalHealth])
             ), label: "Health"),
