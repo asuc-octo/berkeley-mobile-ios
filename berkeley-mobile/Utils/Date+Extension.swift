@@ -67,6 +67,6 @@ extension Date {
     
     // Returns true if this Date is later or equal to given other.
     static func >= (_ this: inout Date, _ other: Date) -> Bool {
-        return (this < other) || (this == other)
+        return (this > other) || (this == other)
     }
 }

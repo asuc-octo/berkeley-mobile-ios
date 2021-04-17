@@ -17,10 +17,10 @@ class DiningLocation: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasI
         return name
     }
     
-    let name: String
+    @Display var name: String
     let imageURL: URL?
-    let address: String?
-    let phoneNumber: String?
+    @Display var address: String?
+    @Display var phoneNumber: String?
     
     var meals: MealMap
     var weeklyHours: WeeklyHours?

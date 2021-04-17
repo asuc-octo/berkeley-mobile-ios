@@ -12,10 +12,10 @@ import Foundation
 class CovidResource {
 
     let dailyScreeningLink: String
-    let lastUpdated: String
-    let positivityRate: String
-    let totalCases: String
-    let dailyIncrease: String
+    @Display var lastUpdated: String
+    @Display var positivityRate: String
+    @Display var totalCases: String
+    @Display var dailyIncrease: String
 
     init(dailyScreeningLink: String, lastUpdated: Double, positivityRate: String, totalCases: String, dailyIncrease: String) {
         self.dailyScreeningLink = dailyScreeningLink
