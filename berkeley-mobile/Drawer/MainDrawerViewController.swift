@@ -20,7 +20,7 @@ class MainDrawerViewController: DrawerViewController {
     // the view controller this is added onto
     var container: MainContainerViewController
     
-    var tabBarViewController = SegmentedControlViewController()
+    var tabBarViewController = SegmentedControlViewController(pages: [], controlInsets: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16), scrollable: true)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,12 +43,17 @@ class MainDrawerViewController: DrawerViewController {
         tabBarViewController.pages = [
             Page(viewController: StudyViewController(), label: "Study"),
             Page(viewController: DiningViewController(), label: "Dining"),
-            Page(viewController: FitnessViewController(), label: "Fitness")
+            Page(viewController: RoommateViewController(), label: "Roommates"),
+            Page(viewController: FitnessViewController(), label: "Fitness"),
         ]
+        tabBarViewController.control.sizeEqually = false
+        
         self.add(child: tabBarViewController)
-        tabBarViewController.view.frame = self.view.bounds.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: (bottomOffset ?? 0) + 20, right: 0))
-        tabBarViewController.view.frame.origin.y = barView.frame.maxY + 16
-        tabBarViewController.view.layoutMargins = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        tabBarViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        tabBarViewController.view.topAnchor.constraint(equalTo: barView.bottomAnchor, constant: 16).isActive = true
+        tabBarViewController.view.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16).isActive = true
+        tabBarViewController.view.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16).isActive = true
+        tabBarViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: (bottomOffset ?? 0) + 20).isActive = true
         // set the containers for other views that can present drawers
         // currently, only dining and library views have detail views; add fitness view later
         for page in tabBarViewController.pages {
