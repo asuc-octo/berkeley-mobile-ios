@@ -169,12 +169,12 @@ class MapMarker: NSObject, MKAnnotation, HasOpenTimes {
     var type: KnownType<MapMarkerType>
     
     var coordinate: CLLocationCoordinate2D
-    var title: String?
-    var subtitle: String?
+    @Display var title: String?
+    @Display var subtitle: String?
     
-    var phone: String?
-    var email: String?
-    var address: String?
+    @Display var phone: String?
+    @Display var email: String?
+    @Display var address: String?
     var onCampus: Bool?
 
     var weeklyHours: WeeklyHours?

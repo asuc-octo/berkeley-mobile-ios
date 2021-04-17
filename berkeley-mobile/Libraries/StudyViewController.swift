@@ -17,6 +17,7 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
     // MARK: DrawerViewDelegate
     var drawerViewController: DrawerViewController?
     var initialDrawerCenter = CGPoint()
+    var initialGestureTranslation: CGPoint = CGPoint()
     var drawerStatePositions: [DrawerState : CGFloat] = [:]
     // MARK: SearchDrawerViewDelegate
     var mainContainer: MainContainerViewController?
