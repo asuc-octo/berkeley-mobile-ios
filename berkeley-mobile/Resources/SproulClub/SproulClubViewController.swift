@@ -31,12 +31,12 @@ class SproulClubViewController: UIViewController, WKUIDelegate, UIScrollViewDele
         let request = URLRequest(url: url!)
         webView.load(request)
         
-        //disabling zooming and vertical scroll indicator
+        // disabling zooming and vertical scroll indicator
         webView.scrollView.minimumZoomScale = 1.0
         webView.scrollView.maximumZoomScale = 1.0
         webView.scrollView.showsVerticalScrollIndicator = false
     }
-    func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {        webView.scrollView.pinchGestureRecognizer?.isEnabled = false
+    func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
+        webView.scrollView.pinchGestureRecognizer?.isEnabled = false
     }
-    
 }
