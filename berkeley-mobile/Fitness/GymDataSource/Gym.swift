@@ -23,7 +23,7 @@ class Gym: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasImage, HasOp
 
     var latitude: Double?
     var longitude: Double?
-    let address: String?
+    @Display var address: String?
 
     // MARK: HasImage
     
@@ -31,7 +31,7 @@ class Gym: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasImage, HasOp
 
     // MARK: HasPhoneNumber
 
-    let phoneNumber: String?
+    @Display var phoneNumber: String?
 
     // MARK: HasOpenTimes
 
@@ -48,17 +48,17 @@ class Gym: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasImage, HasOp
     // MARK: Additional Properties
 
     /// The display-friendly name of this Gym.
-    let name: String
+    @Display var name: String
 
     /// An optional URL linking to a website for this Fitness location.
     var website: URL?
 
     /// A display-friendly string description of this Fitness location.
-    let description: String?
+    @Display var description: String?
 
     init(name: String, description: String?, address: String?, phoneNumber: String?, imageLink: String?, weeklyHours: WeeklyHours?, link: String?) {
         self.address = address?.trimmingCharacters(in: .whitespacesAndNewlines)
-        self.description = description?.trimmingCharacters(in: .whitespacesAndNewlines).replacingOccurrences(of: "�", with: "")
+        self.description = description
         self.phoneNumber = phoneNumber
         self.weeklyHours = weeklyHours
         self.name = name.trimmingCharacters(in: .whitespacesAndNewlines)

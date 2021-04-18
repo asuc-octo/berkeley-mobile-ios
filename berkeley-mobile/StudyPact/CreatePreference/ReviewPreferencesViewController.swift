@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class ReviewPreferencesViewController: UIViewController {
     weak var preferenceVC: CreatePreferenceViewController?
@@ -50,6 +51,7 @@ class ReviewPreferencesViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         updateLabels()
+        Analytics.logEvent("opened_studypact_review_preferences", parameters: nil)
     }
     
     init(preferenceVC: CreatePreferenceViewController) {
@@ -81,7 +83,7 @@ class ReviewPreferencesViewController: UIViewController {
         guard let preferenceVC = self.preferenceVC,
               let preferenceClass = preferenceVC.preference.className,
               let preferenceNumber = preferenceVC.preference.numberOfPeople,
-              let preferenceVirtual = preferenceVC.preference.isVirtual else {
+              let preferenceQuiet = preferenceVC.preference.isQuiet else {
             preferenceLabel.text = "There was an error with your selection."
             lookingLabel.isHidden = true
             reviewLabel.isHidden = true
@@ -89,6 +91,7 @@ class ReviewPreferencesViewController: UIViewController {
         }
         lookingLabel.isHidden = false
         reviewLabel.isHidden = false
-        preferenceLabel.text = "\(preferenceClass) study group\nwith \(preferenceNumber) people\nmeeting \(preferenceVirtual ? "virtually" : "in person")"
+        let peopleOrPerson = preferenceNumber == 1 ? "person" : "people"
+        preferenceLabel.text = "\(preferenceClass) study group\nwith \(preferenceNumber) other \(peopleOrPerson)\nin a \(preferenceQuiet ? "quiet" : "collaborative") setting"
     }
 }

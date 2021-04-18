@@ -105,6 +105,8 @@ extension GymDetailViewController {
     }
 
     func setUpScrollView() {
+        scrollingStackView.scrollView.drawerViewController = self
+        scrollingStackView.scrollView.setupDummyGesture()
         view.addSubview(scrollingStackView)
         scrollingStackView.topAnchor.constraint(equalTo: barView.bottomAnchor, constant: kViewMargin).isActive = true
         scrollingStackView.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true

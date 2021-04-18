@@ -14,7 +14,7 @@ typealias DiningMenu = Array<DiningItem>
 /** Object representing a single dish/item. */
 class DiningItem: HasName {
     
-    let name: String
+    @Display var name: String
     var isFavorited: Bool = false
     
     // Additional information regarding food such as allergens or alternative options

@@ -18,12 +18,15 @@ enum DrawerState {
 /// Handles all moving of drawers and user gestures related to drawers
 protocol DrawerViewDelegate: class {
     func handlePanGesture(gesture: UIPanGestureRecognizer)
+    func handleDrawerDismissal()
     func moveDrawer(to state: DrawerState, duration: Double?)
     /// set the drawer to a preset position based on user's panning gesture
     func computeDrawerPosition(from yPosition: CGFloat, with yVelocity: CGFloat) -> DrawerState
     
     /// center of detail view before position changes
     var initialDrawerCenter: CGPoint { get set }
+    /// The translation so far when `drawerViewController.shouldHandlePan` is enabled
+    var initialGestureTranslation: CGPoint { get set }
     /// dictionary of all positions to corresponding center-y values
     var drawerStatePositions: [DrawerState: CGFloat] { get set }
     /// the drawer being controlled by this delegate
@@ -79,6 +82,8 @@ extension DrawerViewDelegate {
             return top
         }
     }
+    
+    func handleDrawerDismissal() {}
 }
 
 extension DrawerViewDelegate where Self: UIViewController {
@@ -88,10 +93,10 @@ extension DrawerViewDelegate where Self: UIViewController {
         if gesture.state == .began {
             initialDrawerCenter = drawerViewController.view.center
         }
-        
-        let translation = gesture.translation(in: self.view)
+
+        let translation = gesture.translation(in: self.view).y - initialGestureTranslation.y
         let velocity = gesture.velocity(in: self.view).y
-        var newCenter = CGPoint(x: self.initialDrawerCenter.x, y: self.initialDrawerCenter.y + translation.y)
+        var newCenter = CGPoint(x: self.initialDrawerCenter.x, y: self.initialDrawerCenter.y + translation)
         
         // prevent the view from going off the top of the screen
         if let upperLimitState = drawerViewController.upperLimitState, let centerLimit = drawerStatePositions[upperLimitState] {

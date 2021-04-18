@@ -19,6 +19,7 @@ class StudyPact {
     private var cryptoHash: String?
     var email: String?
     var groupUpdateDelegates: [GroupUpdateDelegate] = []
+    var studyGroups: [StudyGroup] = []
 
     /// Load cryptohash from user defaults. If it doesnt exist or authenticate fails, return false.
     public func loadCryptoHash(completion: @escaping (Bool) -> Void) {
@@ -74,12 +75,15 @@ extension StudyPact {
 
     // MARK: RegisterUser
     
-    public func registerUser(user: GIDGoogleUser?, completion: @escaping (Bool) -> Void) {
+    public func registerUser(user: GIDGoogleUser?, completion: @escaping (Result<Void, RegisterUserError>) -> Void) {
         guard let user = user,
-              (user.profile.email.hasSuffix("@berkeley.edu") || user.profile.email == DEMO_EMAIL),
               let params = ["Email": user.profile.email, "FirstName": user.profile.givenName, "LastName": user.profile.familyName] as? [String: String],
               let url = EndpointKey.registerUser.url else {
-            completion(false)
+            completion(.failure(.UserInfoError))
+            return
+        }
+        guard user.profile.email.hasSuffix("@berkeley.edu") || user.profile.email == DEMO_EMAIL else {
+            completion(.failure(.InvalidEmail))
             return
         }
         NetworkManager.shared.post(url: url, body: params) { response in
@@ -89,9 +93,9 @@ extension StudyPact {
                 self.cryptoHash = cryptohash
                 self.email = user.profile.email
                 self.saveCryptoHash(cryptoHash: cryptohash)
-                completion(true)
+                completion(.success(()))
             default:
-                completion(false)
+                completion(.failure(.RequestError))
             }
         }
     }
@@ -214,8 +218,6 @@ extension StudyPact {
         }
     }
 
-    // MARK: LeaveGroup
-
     // MARK: GetGroups
     
     public func getGroups(completion: @escaping ([StudyGroup]) -> Void) {
@@ -229,6 +231,7 @@ extension StudyPact {
         NetworkManager.shared.get(url: url, params: params, asType: [StudyGroup].self) { response in
             switch response {
             case .success(let data):
+                self.studyGroups = data ?? []
                 completion(data ?? [])
             default:
                 completion([])
@@ -236,8 +239,7 @@ extension StudyPact {
         }
     }
     
-    /// MARK: LeaveGroup
-    // backend hasn't implemented this yet, may need to modify
+    // MARK: LeaveGroup
     public func leaveGroup(group: StudyGroup, completion: @escaping (Bool) -> Void) {
         guard let cryptoHash = self.cryptoHash,
               let email = self.email,
@@ -262,4 +264,10 @@ extension StudyPact {
 
 protocol GroupUpdateDelegate {
     func refreshGroups() -> Void
+}
+
+enum RegisterUserError: Error {
+    case InvalidEmail
+    case UserInfoError
+    case RequestError
 }
