@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 fileprivate let kViewMargin: CGFloat = 16
 
@@ -20,13 +21,18 @@ class StudyGroupDetailsViewController: UIViewController {
     }
     
     @objc func leaveGroup() {
-        StudyPact.shared.leaveGroup(group: _studyGroup) { success in
-            if success {
-                self.presentSuccessAlert(title: "Successfully left group")
-            } else {
-                self.presentFailureAlert(title: "Failed to leave group", message: "There was an error. Please try again later.")
+        let alertController = UIAlertController(title: "Leave Study Group", message: "Would you like to leave your study group for \(_studyGroup.className)?", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction.init(title: "Cancel", style: .cancel))
+        alertController.addAction(UIAlertAction.init(title: "Yes", style: .default, handler: { _ in
+            StudyPact.shared.leaveGroup(group: self._studyGroup) { success in
+                if success {
+                    self.dismiss(animated: true, completion: nil)
+                } else {
+                    self.presentFailureAlert(title: "Failed to Leave Group", message: "There was an error. Please try again later.")
+                }
             }
-        }
+        }))
+        self.present(alertController, animated: true, completion: nil)
     }
     
     let card: CardView = {
@@ -110,5 +116,11 @@ class StudyGroupDetailsViewController: UIViewController {
     public func presentSelf(presentingVC: UIViewController, studyGroup: StudyGroup) {
         self._studyGroup = studyGroup
         presentingVC.present(self, animated: true, completion: nil)
+    }
+}
+extension StudyGroupDetailsViewController {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        Analytics.logEvent("opened_one_study_group", parameters: nil)
     }
 }

@@ -160,7 +160,13 @@ class NetworkManager {
                     let decoded = try decode(data)
                     print("Recieved: \(response) with data: \(decoded)")
                 } catch {
-                    print("Recieved: \(response) with data: \(data)")
+                    do {
+                        // Try to decode as `AnyJSON`
+                        let decoded = try JSONDecoder().decode(AnyJSON.self, from: data)
+                        print("Recieved: \(response) with data: \(decoded)")
+                    } catch {
+                        print("Recieved: \(response) with data: \(data)")
+                    }
                 }
             }
             completion(.failure(error: RequestError.badResponse(code: response.statusCode)))

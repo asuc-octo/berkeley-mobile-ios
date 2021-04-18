@@ -23,6 +23,18 @@ class DrawerViewController: UIViewController {
     var upperLimitState: DrawerState? {
         get { return nil }
     }
+
+    // The gesture recognizer that handles movement of this drawer
+    var panGestureRecognizer: UIPanGestureRecognizer!
+    // Indicates whether or not the drawer should respond to the recognized gesture.
+    var shouldHandlePan: Bool! = true {
+        didSet {
+            if let delegate = delegate as? UIViewController & DrawerViewDelegate {
+                delegate.initialGestureTranslation = panGestureRecognizer.translation(in: delegate.view)
+                delegate.initialDrawerCenter = view.center
+            }
+        }
+    }
     
     static var bottomOffsetY: CGFloat = 0
 
@@ -51,22 +63,13 @@ class DrawerViewController: UIViewController {
     }
     
     func setupGestures() {
-        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan(gesture:)))
+        panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan(gesture:)))
         self.view.addGestureRecognizer(panGestureRecognizer)
     }
     
     @objc func handlePan(gesture: UIPanGestureRecognizer) {
+        guard shouldHandlePan else { return }
         delegate.handlePanGesture(gesture: gesture)
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

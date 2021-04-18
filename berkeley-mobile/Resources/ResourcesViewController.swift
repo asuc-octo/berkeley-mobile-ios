@@ -25,15 +25,8 @@ class ResourcesViewController: UIViewController {
         self.view.backgroundColor = Color.modalBackground
             
         setupHeader()
-        let vc = CampusResourceViewController()
-        self.add(child: vc)
-        vc.view.translatesAutoresizingMaskIntoConstraints = false
-        vc.view.topAnchor.constraint(equalTo: resourcesLabel.bottomAnchor, constant: kViewMargin).isActive = true
-        vc.view.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        vc.view.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        vc.view.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        setupSegmentedControls()
     }
-
 }
 
 extension ResourcesViewController {
@@ -70,12 +63,15 @@ extension ResourcesViewController {
         // Add some right-padding to the segmented control so it doesn't overlap with the blob.
         // Don't add this padding for now.
         let segmentedControl = SegmentedControlViewController(pages: [
-            Page(viewController: CampusResourceViewController(type: .health), label: "Health"),
+            Page(viewController: CovidResourceViewController(), label: "Dashboard"),
+            Page(viewController: SproulClubViewController(), label: "Clubs"),
+            Page(viewController: CampusResourceViewController(
+                inSet: Set<ResourceType>([.health, .mentalHealth])
+            ), label: "Health"),
             Page(viewController: CampusResourceViewController(type: .admin), label: "Admin"),
             Page(viewController: CampusResourceViewController(type: .basicNeeds), label: "Basic Needs"),
             Page(viewController: CampusResourceViewController(
-                type: nil,
-                notIn: Set<ResourceType>([.health, .admin, .basicNeeds])
+                notIn: Set<ResourceType>([.health, .mentalHealth, .admin, .basicNeeds])
             ), label: "Other")
         ], controlInsets: UIEdgeInsets(top: 0, left: view.layoutMargins.left,
                                        bottom: 0, right: blobImageView.frame.width / 4),

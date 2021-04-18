@@ -27,9 +27,9 @@ class Resource: SearchItem, HasLocation, HasOpenTimes {
     var latitude: Double?
     var longitude: Double?
     
-    let name: String
-    let address: String?
-    let description: String?
+    @Display var name: String
+    @Display var address: String?
+    @Display var description: String?
     var weeklyHours: WeeklyHours?
 
     /// The category for this resource. See `ResourceType` for expected values.

@@ -11,6 +11,7 @@ import UIKit
 class PageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     
     var pages = [UIViewController]()
+    var pageColors = [UIColor]()
     private let pageControl : UIPageControl = {
         let pageControl = UIPageControl()
         return pageControl
@@ -19,24 +20,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         guard let vc = viewControllers?.first else { return 0 }
         return pages.firstIndex(of: vc) ?? 0
     }
-    let nextButton: UIButton = {
-        let button = UIButton()
-        button.titleLabel?.font = Font.medium(18)
-        button.setTitle("Next", for: .normal)
-        button.setTitleColor(.gray, for: .normal)
-        button.addTarget(self, action: #selector(nextClicked(_:)), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    let skipButton: UIButton = {
-        let button = UIButton()
-        button.titleLabel?.font = Font.medium(18)
-        button.setTitle("Skip", for: .normal)
-        button.setTitleColor(.gray, for: .normal)
-        button.addTarget(self, action: #selector(skipClicked(_:)), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
+    
     let closeButton: UIButton = {
         let button = UIButton()
         button.titleLabel?.font = Font.medium(18)
@@ -53,9 +37,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         
         self.dataSource = self
         self.delegate = self
-
         configurePageControl()
-
         configureButtons()
     }
     
@@ -66,18 +48,6 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
     }
     
     func configureButtons() {
-        view.addSubview(nextButton)
-        nextButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        nextButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        nextButton.centerYAnchor.constraint(equalTo: pageControl.centerYAnchor).isActive = true
-        nextButton.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -24).isActive = true
-        
-        view.addSubview(skipButton)
-        skipButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        skipButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        skipButton.centerYAnchor.constraint(equalTo: pageControl.centerYAnchor).isActive = true
-        skipButton.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 24).isActive = true
-        
         view.addSubview(closeButton)
         closeButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
         closeButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
@@ -89,54 +59,21 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
     @objc func close(_: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }
-
-    @objc func skipClicked(_: UIButton) {
-        
-        for i in currentIndex...pages.count-1 {
-            setViewControllers([pages[i]], direction: .forward, animated: true, completion: nil)
-        }
-        pageControl.currentPage = pages.count - 1
-        buttonOpacityControl()
-        
-    }
-    
-    @objc func nextClicked(_: UIButton){
-        moveToNextPage()
-    }
     
     func moveToNextPage() {
         if currentIndex != pages.count - 1 {
             setViewControllers([pages[currentIndex + 1]], direction: .forward, animated: true, completion: nil)
         }
         pageControl.currentPage += 1
-
-        buttonOpacityControl()
-    }
-    
-    func buttonOpacityControl() {
-        if pageControl.currentPage == self.pages.count - 1 {
-            UIView.animate(withDuration: 0.5) {
-                self.skipButton.layer.opacity = 0
-                self.nextButton.layer.opacity = 0
-            }
-            
-        }
-        
-        else if pageControl.currentPage != self.pages.count - 1 {
-            DispatchQueue.main.async {
-                UIView.animate(withDuration: 0.3) {
-                    self.skipButton.layer.opacity = 1
-                    self.nextButton.layer.opacity = 1
-                }
-            }
-        }
+        pageControl.pageIndicatorTintColor = pageColors[pageControl.currentPage]
     }
     
     func configurePageControl() {
         let initialPage = 0
-        let page1 = StudyPactOnboardingViewController(_signUpLabelText: "Sign Up", _bearImage: UIImage(named: "Onboarding1")!, _numberImage: UIImage(named: "Onboarding1Num")!, _descriptionText: "Add your classes and study preferences to your profile to get started with pairing")
-        let page2 = StudyPactOnboardingViewController(_signUpLabelText: "Get Matched", _bearImage: UIImage(named: "Onboarding2")!, _numberImage: UIImage(named: "Onboarding2Num")!, _descriptionText: "Based on your preferences, we will match you with existing groups or prompt you to create your own")
-        let page3 = StudyPactOnboardingViewController(_signUpLabelText: "Connect", _bearImage: UIImage(named: "Onboarding3")!, _numberImage: UIImage(named: "Onboarding3Num")!, _descriptionText: "Get connected through your preferred choice of contact and send in-app study notifications!", _hasGetStarted: true)
+        pageColors = [Color.StudyPact.Onboarding.pink, Color.StudyPact.Onboarding.yellow, Color.StudyPact.Onboarding.blue]
+        let page1 = StudyPactOnboardingViewController(stepText: "Sign Up", themeColor: pageColors[0], stepNumber: 1, screenshotImage: UIImage(named: "OnboardingScreenshot1")!, blobImage: UIImage(named: "OnboardingBlob1")!, descriptionText: "Sign up by tapping the Sign In button on the new study tab of the Berkeley Mobile home screen to authenticate your berkeley.edu Gmail account.", pageViewController: self, boldedStrings: ["Sign In", "study tab"])
+        let page2 = StudyPactOnboardingViewController(stepText: "Create a Preference", themeColor: pageColors[1], stepNumber: 2, screenshotImage: UIImage(named: "OnboardingScreenshot2")!, blobImage: UIImage(named: "OnboardingBlob2")!, descriptionText: "Create a study preference by filling out your class details, preferred method of study, and number of members.", pageViewController: self)
+        let page3 = StudyPactOnboardingViewController(stepText: "Get Matched!", themeColor: pageColors[2], stepNumber: 3, screenshotImage: UIImage(named: "OnboardingScreenshot3")!, blobImage: UIImage(named: "OnboardingBlob3")!, descriptionText: "Once you create a preference, your group will be marked as pending. Check back frequently to see if you’ve been matched with a group!", pageViewController: self, boldedStrings: ["pending"], getStarted: true)
         
         // add the individual viewControllers to the pageViewController
         self.pages.append(page1)
@@ -149,7 +86,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         self.pageControl.pageIndicatorTintColor = UIColor.lightGray
         self.pageControl.numberOfPages = self.pages.count
         self.pageControl.currentPage = initialPage
-        self.pageControl.pageIndicatorTintColor = Color.StudyPact.Onboarding.onboardingTint
+        self.pageControl.pageIndicatorTintColor = pageColors[pageControl.currentPage]
         self.view.addSubview(self.pageControl)
         
         self.pageControl.translatesAutoresizingMaskIntoConstraints = false
@@ -157,7 +94,6 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         self.pageControl.widthAnchor.constraint(equalToConstant: 140).isActive = true
         self.pageControl.heightAnchor.constraint(equalToConstant: 20).isActive = true
         self.pageControl.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        self.pageControl.tintColor = Color.StudyPact.Onboarding.pageViewBackgroundTint
         self.pageControl.isUserInteractionEnabled = false
     }
     
@@ -176,14 +112,10 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-            
-    // set the pageControl.currentPage to the index of the current viewController in pages
         if let viewControllers = pageViewController.viewControllers {
             if let viewControllerIndex = self.pages.firstIndex(of: viewControllers[0]) {
-                self.pageControl.currentPage = viewControllerIndex
-                
-                buttonOpacityControl()
-                
+                pageControl.currentPage = viewControllerIndex
+                pageControl.pageIndicatorTintColor = pageColors[pageControl.currentPage]
             }
         }
     }

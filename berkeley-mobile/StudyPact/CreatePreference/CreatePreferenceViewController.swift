@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class CreatePreferenceViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     
@@ -159,7 +160,7 @@ class CreatePreferenceViewController: UIPageViewController, UIPageViewController
         let initialPage = 0
         let page1 = CreatePreferenceFrameViewController(labelText: "How many people do you want to study with?", containedView: SelectPeopleView(preferenceVC: self))
         let page2 = CreatePreferenceFrameViewController(labelText: "What class do you want to study for?", containedView: SelectClassView(preferenceVC: self))
-        let page3 = CreatePreferenceFrameViewController(labelText: "Where do you want to study?", containedView: SelectLocationView(preferenceVC: self))
+        let page3 = CreatePreferenceFrameViewController(labelText: "What kind of study environment are you looking for?", containedView: SelectEnvironmentView(preferenceVC: self))
         let page4 = ReviewPreferencesViewController(preferenceVC: self)
         currentDelegate = page1.containedView as? EnableNextDelegate
         
@@ -176,7 +177,7 @@ class CreatePreferenceViewController: UIPageViewController, UIPageViewController
         self.pageControl.pageIndicatorTintColor = UIColor.lightGray
         self.pageControl.numberOfPages = self.pages.count
         self.pageControl.currentPage = initialPage
-        self.pageControl.pageIndicatorTintColor = Color.StudyPact.Onboarding.onboardingTint
+        self.pageControl.pageIndicatorTintColor = Color.StudyPact.Onboarding.blue
         self.view.addSubview(self.pageControl)
         
         self.pageControl.translatesAutoresizingMaskIntoConstraints = false
@@ -228,4 +229,11 @@ class CreatePreferenceViewController: UIPageViewController, UIPageViewController
 
 protocol EnableNextDelegate {
     var isNextEnabled: Bool { get set }
+}
+
+extension CreatePreferenceViewController {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        Analytics.logEvent("opened_studypact_create_preference", parameters: nil)
+    }
 }

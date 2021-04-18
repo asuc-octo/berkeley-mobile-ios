@@ -12,7 +12,7 @@ import UIKit
 class ScrollingStackView: UIView {
 
     /// The `UIScrollView` containing `stackView.
-    open var scrollView: UIScrollView!
+    open var scrollView: SimultaneousGestureScrollView!
 
     /// The `UIStackView` containing the contents of this view.
     open var stackView: UIStackView!
@@ -20,6 +20,10 @@ class ScrollingStackView: UIView {
     /// The vertical offset applied to the contents of `scrollView` relative to this view's parent.
     open var yOffset: CGFloat {
         return frame.minY + scrollView.contentInset.top
+    }
+
+    override var layoutMargins: UIEdgeInsets {
+        didSet { setLayoutMargins(layoutMargins) }
     }
 
     // MARK: Initializers
@@ -49,7 +53,7 @@ class ScrollingStackView: UIView {
     // MARK: Views
 
     func setupScrollView() {
-        scrollView = UIScrollView()
+        scrollView = SimultaneousGestureScrollView()
         scrollView.contentInsetAdjustmentBehavior = .never
         scrollView.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
         scrollView.layoutMargins = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
