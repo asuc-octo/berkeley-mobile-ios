@@ -63,8 +63,6 @@ class MemoryTargetCache : public TargetCache {
   void RemoveMatchingKeys(const model::DocumentKeySet& keys,
                           model::TargetId target_id) override;
 
-  void RemoveMatchingKeysForTarget(model::TargetId target_id) override;
-
   model::DocumentKeySet GetMatchingKeys(model::TargetId target_id) override;
 
   bool Contains(const model::DocumentKey& key) override;

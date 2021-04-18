@@ -20,7 +20,6 @@
 [![Actions Status][gh-inappmessaging-badge]][gh-actions]
 [![Actions Status][gh-interop-badge]][gh-actions]
 [![Actions Status][gh-messaging-badge]][gh-actions]
-[![Actions Status][gh-mlmodeldownloader-badge]][gh-actions]
 [![Actions Status][gh-performance-badge]][gh-actions]
 [![Actions Status][gh-remoteconfig-badge]][gh-actions]
 [![Actions Status][gh-storage-badge]][gh-actions]
@@ -104,13 +103,6 @@ To develop Firebase software in this repository, ensure that you have at least
 the following software:
 
   * Xcode 12.0 (or later)
-
-CocoaPods is still the canonical way to develop, but much of the repo now supports
-development with Swift Package Manager.
-
-### CocoaPods
-
-Install
   * CocoaPods 1.10.0 (or later)
   * [CocoaPods generate](https://github.com/square/cocoapods-generate)
 
@@ -128,7 +120,7 @@ CocoaPods workspaces.
 Firestore has a self contained Xcode project. See
 [Firestore/README.md](Firestore/README.md).
 
-#### Development for Catalyst
+### Development for Catalyst
 * `pod gen {name here}.podspec --local-sources=./ --auto-open --platforms=ios`
 * Check the Mac box in the App-iOS Build Settings
 * Sign the App in the Settings Signing & Capabilities tab
@@ -142,12 +134,6 @@ Alternatively disable signing in each target:
 * Click `+`
 * Select `Add User-Defined Setting`
 * Add `CODE_SIGNING_REQUIRED` setting with a value of `NO`
-
-### Swift Package Manager
-* `open Package.swift` or double click `Package.swift` in Finder.
-* Xcode will open the project
-  * Choose a scheme for a library to build or test suite to run
-  * Choose a target platform by selecting the run destination along with the scheme
 
 ### Adding a New Firebase Pod
 
@@ -186,10 +172,6 @@ files without real values, but can be replaced with real plist files. To get you
 3. For each sample app you want to test, create a new Firebase app with the sample app's bundle
 identifier (e.g. `com.google.Database-Example`)
 4. Download the resulting `GoogleService-Info.plist` and add it to the Xcode project.
-
-### Coverage Report Generation
-
-See [scripts/code_coverage_report/README.md](scripts/code_coverage_report/README.md).
 
 ## Specific Component Instructions
 See the sections below for any special instructions for those components.
@@ -271,7 +253,7 @@ macOS/tvOS/watchOS/Catalyst.
 To install, add a subset of the following to the Podfile:
 
 ```
-pod 'Firebase/ABTesting'
+pod 'Firebase/ABTesting'     # No watchOS support yet
 pod 'Firebase/Auth'          # Limited watchOS support
 pod 'Firebase/Crashlytics'
 pod 'Firebase/Database'      # No watchOS support yet
@@ -279,7 +261,7 @@ pod 'Firebase/Firestore'     # No watchOS support yet
 pod 'Firebase/Functions'     # No watchOS support yet
 pod 'Firebase/Messaging'
 pod 'Firebase/Performance'   # No macOS, tvOS, watchOS, and Catalyst support yet
-pod 'Firebase/RemoteConfig'
+pod 'Firebase/RemoteConfig'  # No watchOS support yet
 pod 'Firebase/Storage'
 ```
 
@@ -331,7 +313,6 @@ Your use of Firebase is governed by the
 [gh-inappmessaging-badge]: https://github.com/firebase/firebase-ios-sdk/workflows/inappmessaging/badge.svg
 [gh-interop-badge]: https://github.com/firebase/firebase-ios-sdk/workflows/interop/badge.svg
 [gh-messaging-badge]: https://github.com/firebase/firebase-ios-sdk/workflows/messaging/badge.svg
-[gh-mlmodeldownloader-badge]: https://github.com/firebase/firebase-ios-sdk/workflows/mlmodeldownloader/badge.svg
 [gh-performance-badge]: https://github.com/firebase/firebase-ios-sdk/workflows/performance/badge.svg
 [gh-remoteconfig-badge]: https://github.com/firebase/firebase-ios-sdk/workflows/remoteconfig/badge.svg
 [gh-storage-badge]: https://github.com/firebase/firebase-ios-sdk/workflows/storage/badge.svg

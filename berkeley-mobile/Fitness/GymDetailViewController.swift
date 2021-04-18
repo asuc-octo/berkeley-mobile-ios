@@ -51,6 +51,7 @@ class GymDetailViewController: SearchDrawerViewController {
         guard let url = gym.website else { return }
         presentAlertLinkUrl(title: "Are you sure you want to open Safari?",
                             message: "Berkeley Mobile wants to open this fitness location's website",
+                            options: "Cancel", "Yes",
                             website_url: url)
     }
 

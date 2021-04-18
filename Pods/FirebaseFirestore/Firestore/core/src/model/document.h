@@ -31,10 +31,6 @@ namespace firestore {
 typedef struct _google_firestore_v1_Document google_firestore_v1_Document;
 typedef struct _google_firestore_v1_Value google_firestore_v1_Value;
 
-namespace bundle {
-class BundleSerializer;
-}  // namespace bundle
-
 namespace local {
 class LocalSerializer;
 }  // namespace local
@@ -91,7 +87,6 @@ class Document : public MaybeDocument {
   // TODO(b/146372592): Make this public once we can use Abseil across
   // iOS/public C++ library boundaries.
   friend class remote::Serializer;
-  friend class bundle::BundleSerializer;
 
   Document(ObjectValue data,
            DocumentKey key,

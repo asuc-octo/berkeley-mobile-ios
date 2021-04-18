@@ -22,7 +22,6 @@
 #include <string>
 
 #include "Firestore/core/src/auth/user.h"
-#include "Firestore/core/src/local/leveldb_bundle_cache.h"
 #include "Firestore/core/src/local/leveldb_index_manager.h"
 #include "Firestore/core/src/local/leveldb_lru_reference_delegate.h"
 #include "Firestore/core/src/local/leveldb_mutation_queue.h"
@@ -78,8 +77,6 @@ class LevelDbPersistence : public Persistence {
 
   void Shutdown() override;
 
-  LevelDbBundleCache* bundle_cache() override;
-
   LevelDbMutationQueue* GetMutationQueueForUser(
       const auth::User& user) override;
 
@@ -118,7 +115,6 @@ class LevelDbPersistence : public Persistence {
   LocalSerializer serializer_;
   bool started_ = false;
 
-  std::unique_ptr<LevelDbBundleCache> bundle_cache_;
   std::unique_ptr<LevelDbMutationQueue> current_mutation_queue_;
   std::unique_ptr<LevelDbTargetCache> target_cache_;
   std::unique_ptr<LevelDbRemoteDocumentCache> document_cache_;

@@ -117,7 +117,6 @@ LevelDbPersistence::LevelDbPersistence(std::unique_ptr<leveldb::DB> db,
   index_manager_ = absl::make_unique<LevelDbIndexManager>(this);
   reference_delegate_ =
       absl::make_unique<LevelDbLruReferenceDelegate>(this, lru_params);
-  bundle_cache_ = absl::make_unique<LevelDbBundleCache>(this, &serializer_);
 
   // TODO(gsoltis): set up a leveldb transaction for these operations.
   target_cache_->Start();
@@ -197,9 +196,7 @@ StatusOr<int64_t> LevelDbPersistence::CalculateByteSize() {
     int64_t file_size = maybe_size.ValueOrDie();
     count += file_size;
 
-    auto max_signed_value =
-        static_cast<uint64_t>(std::numeric_limits<int64_t>::max());
-    if (count < old_count || count > max_signed_value) {
+    if (count < old_count || count > std::numeric_limits<int64_t>::max()) {
       return Status(Error::kErrorOutOfRange,
                     "Failed to size LevelDB: count overflowed");
     }
@@ -247,10 +244,6 @@ LevelDbIndexManager* LevelDbPersistence::index_manager() {
 
 LevelDbLruReferenceDelegate* LevelDbPersistence::reference_delegate() {
   return reference_delegate_.get();
-}
-
-LevelDbBundleCache* LevelDbPersistence::bundle_cache() {
-  return bundle_cache_.get();
 }
 
 void LevelDbPersistence::RunInternal(absl::string_view label,

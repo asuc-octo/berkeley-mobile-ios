@@ -206,11 +206,9 @@ extension ProfileViewController {
     }
     
     @objc private func logoutButtonPressed(sender: UIButton) {
-        
-        
-        let alertView = AlertView(headingText: "Logout?", messageText: "You will be returned to the login screen.", action1Label: "Cancel", action1Color: Color.AlertView.secondaryButton, action1Completion: {
-            self.dismiss(animated: true, completion: nil)
-        }, action2Label: "Logout", action2Color: Color.ActionButton.background, action2Completion: {
+        let alertController = UIAlertController(title: "Logout?", message: "You will be returned to the login screen.", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
+        alertController.addAction(UIAlertAction(title: "Logout", style: UIAlertAction.Style.destructive, handler: {_ in
             let auth = Auth.auth()
             do {
                 try auth.signOut()
@@ -219,13 +217,12 @@ extension ProfileViewController {
                 print("Error signing out: %@", error)
             }
             StudyPact.shared.reset()
+            
             self.loggedOutView()
-            self.dismiss(animated: true, completion: nil)
-        }, withOnlyOneAction: false)
-        self.present(alertView, animated: true, completion: nil)
+        }))
         
+        self.present(alertController, animated: true, completion: nil)
     }
-    
     
     func setUpProfile() {
         view.addSubview(profileView)

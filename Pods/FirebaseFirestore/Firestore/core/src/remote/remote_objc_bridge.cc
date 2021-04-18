@@ -109,14 +109,13 @@ WatchStreamSerializer::ParseResponse(Reader* reader) const {
 std::unique_ptr<WatchChange> WatchStreamSerializer::DecodeWatchChange(
     nanopb::Reader* reader,
     const google_firestore_v1_ListenResponse& response) const {
-  return serializer_.DecodeWatchChange(reader->context(), response);
+  return serializer_.DecodeWatchChange(reader, response);
 }
 
 SnapshotVersion WatchStreamSerializer::DecodeSnapshotVersion(
     nanopb::Reader* reader,
     const google_firestore_v1_ListenResponse& response) const {
-  return serializer_.DecodeVersionFromListenResponse(reader->context(),
-                                                     response);
+  return serializer_.DecodeVersionFromListenResponse(reader, response);
 }
 
 // WriteStreamSerializer
@@ -170,7 +169,7 @@ Message<google_firestore_v1_WriteResponse> WriteStreamSerializer::ParseResponse(
 SnapshotVersion WriteStreamSerializer::DecodeCommitVersion(
     nanopb::Reader* reader,
     const google_firestore_v1_WriteResponse& proto) const {
-  return serializer_.DecodeVersion(reader->context(), proto.commit_time);
+  return serializer_.DecodeVersion(reader, proto.commit_time);
 }
 
 std::vector<MutationResult> WriteStreamSerializer::DecodeMutationResults(
@@ -187,8 +186,8 @@ std::vector<MutationResult> WriteStreamSerializer::DecodeMutationResults(
   results.reserve(count);
 
   for (pb_size_t i = 0; i != count; ++i) {
-    results.push_back(serializer_.DecodeMutationResult(
-        reader->context(), writes[i], commit_version));
+    results.push_back(
+        serializer_.DecodeMutationResult(reader, writes[i], commit_version));
   }
 
   return results;
@@ -251,8 +250,7 @@ DatastoreSerializer::MergeLookupResponses(
         Message<google_firestore_v1_BatchGetDocumentsResponse>::TryParse(
             &reader);
 
-    MaybeDocument doc =
-        serializer_.DecodeMaybeDocument(reader.context(), *message);
+    MaybeDocument doc = serializer_.DecodeMaybeDocument(&reader, *message);
     if (!reader.ok()) {
       return reader.status();
     }

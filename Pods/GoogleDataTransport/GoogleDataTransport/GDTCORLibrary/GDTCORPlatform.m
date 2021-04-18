@@ -149,7 +149,7 @@ GDTCORNetworkMobileSubtype GDTCORNetworkMobileSubTypeMessage() {
   } else {
     return GDTCORNetworkMobileSubtypeUNKNOWN;
   }
-#else   // TARGET_OS_IOS
+#else  // TARGET_OS_IOS
   return GDTCORNetworkMobileSubtypeUNKNOWN;
 #endif  // TARGET_OS_IOS
 }
@@ -230,10 +230,8 @@ NSData *_Nullable GDTCOREncodeArchive(id<NSSecureCoding> obj,
                                    code:-1
                                userInfo:@{NSLocalizedFailureReasonErrorKey : errorString}];
     }
-    if (filePath.length > 0) {
-      GDTCORLogDebug(@"Attempt to write archive. successful:%@ URL:%@ error:%@",
-                     result ? @"YES" : @"NO", filePath, *error);
-    }
+    GDTCORLogDebug(@"Attempt to write archive. successful:%@ URL:%@ error:%@",
+                   result ? @"YES" : @"NO", filePath, *error);
   }
   return resultData;
 }

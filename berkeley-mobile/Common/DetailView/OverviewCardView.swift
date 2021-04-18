@@ -203,7 +203,7 @@ class OverviewCardView: CardView {
             // Kinda hacky - necessary since cannot present alert when Popover is visible (ex. on Resources page)
             self.window!.rootViewController?.dismiss(animated: true, completion: nil)
             
-            UIApplication.shared.windows.first!.rootViewController!.presentAlertLinkMaps(title: "Are you sure you want to open Maps?", message: "Berkeley Mobile wants to navigate to \(self.addressLabel.text!)", lat: gesture.latitude, lon: gesture.longitude, name: self.addressLabel.text!)
+            UIApplication.shared.windows.first!.rootViewController!.presentAlertLinkMaps(title: "Are you sure you want to open Maps?", message: "Berkeley Mobile wants to navigate to \(self.addressLabel.text!)", options: "Cancel", "Yes", lat: gesture.latitude, lon: gesture.longitude, name: self.addressLabel.text!)
         }
     }
     

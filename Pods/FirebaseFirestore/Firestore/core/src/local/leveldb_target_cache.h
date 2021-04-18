@@ -94,7 +94,7 @@ class LevelDbTargetCache : public TargetCache {
                           model::TargetId target_id) override;
 
   /** Removes all document keys in the query results of the given target ID. */
-  void RemoveMatchingKeysForTarget(model::TargetId target_id) override;
+  void RemoveAllDocumentKeysForTarget(model::TargetId target_id);
 
   model::DocumentKeySet GetMatchingKeys(model::TargetId target_id) override;
 

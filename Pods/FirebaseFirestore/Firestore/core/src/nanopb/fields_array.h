@@ -17,7 +17,6 @@
 #ifndef FIRESTORE_CORE_SRC_NANOPB_FIELDS_ARRAY_H_
 #define FIRESTORE_CORE_SRC_NANOPB_FIELDS_ARRAY_H_
 
-#include "Firestore/Protos/nanopb/firestore/bundle.nanopb.h"
 #include "Firestore/Protos/nanopb/firestore/local/maybe_document.nanopb.h"
 #include "Firestore/Protos/nanopb/firestore/local/mutation.nanopb.h"
 #include "Firestore/Protos/nanopb/firestore/local/target.nanopb.h"
@@ -151,16 +150,6 @@ inline const pb_field_t* FieldsArray<google_firestore_v1_WriteResponse>() {
 template <>
 inline const pb_field_t* FieldsArray<google_firestore_v1_WriteResult>() {
   return google_firestore_v1_WriteResult_fields;
-}
-
-template <>
-inline const pb_field_t* FieldsArray<firestore_BundleMetadata>() {
-  return firestore_BundleMetadata_fields;
-}
-
-template <>
-inline const pb_field_t* FieldsArray<firestore_NamedQuery>() {
-  return firestore_NamedQuery_fields;
 }
 
 template <>

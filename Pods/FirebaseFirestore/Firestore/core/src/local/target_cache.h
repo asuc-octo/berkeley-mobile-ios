@@ -113,9 +113,6 @@ class TargetCache {
   virtual void RemoveMatchingKeys(const model::DocumentKeySet& keys,
                                   model::TargetId target_id) = 0;
 
-  /** Removes all document keys in the query results of the given target ID. */
-  virtual void RemoveMatchingKeysForTarget(model::TargetId target_id) = 0;
-
   virtual model::DocumentKeySet GetMatchingKeys(model::TargetId target_id) = 0;
 
   virtual bool Contains(const model::DocumentKey& key) = 0;
