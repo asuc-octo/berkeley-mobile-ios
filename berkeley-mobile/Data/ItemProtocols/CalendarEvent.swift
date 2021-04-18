@@ -39,19 +39,23 @@ extension CalendarEvent {
     ///
     /// Override this function if additional fields need to be included in the exported event.
     public func addToDeviceCalendar(vc: UIViewController) {
-        let alertController = UIAlertController(title: "Add to Calendar", message: "Would you like to add this event to your calendar?", preferredStyle: .alert)
-        alertController.addAction(UIAlertAction.init(title: "Cancel", style: .cancel))
-        alertController.addAction(UIAlertAction.init(title: "Yes", style: .default, handler: { _ in
+        
+        
+        let alertController = AlertView(headingText: "Add to Calendar", messageText: "Would you like to add this event to your calendar?", action1Label: "Cancel", action1Color: Color.AlertView.secondaryButton, action1Completion: {
+            vc.dismiss(animated: true, completion: nil)
+        }, action2Label: "Yes", action2Color: Color.ActionButton.background, action2Completion: {
             EventManager.shared.addEventToCalendar(calendarEvent: self) { success in
                 DispatchQueue.main.async {
                     if success {
+                        vc.dismiss(animated: true, completion: nil)
                         vc.presentSuccessAlert(title: "Successfully added to calendar")
                     } else {
+                        vc.dismiss(animated: true, completion: nil)
                         vc.presentFailureAlert(title: "Failed to add to calendar", message: "Make sure Berkeley Mobile has access to your calendar and try again.")
                     }
                 }
             }
-        }))
+        }, withOnlyOneAction: false)
         vc.present(alertController, animated: true, completion: nil)
     }
     
