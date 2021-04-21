@@ -324,14 +324,13 @@ extension CovidResourceViewController {
     
     @objc private func screeningButtonPressed(sender: UIButton) {
         guard let url = URL(string: screeningUrl) else { return }
-        
-        presentAlertLinkUrl(title: "Are you sure you want to open Safari?", message: "Berkeley Mobile wants to navigate to the Health Survey", options: "Cancel", "Yes", website_url: url)
+        presentAlertLinkUrl(title: "Are you sure you want to open Safari?", message: "Berkeley Mobile wants to navigate to the Health Survey", website_url: url)
     }
     
     @objc private func appointmentButtonPressed(sender: UIButton) {
         guard let url = URL(string: appointmentUrl) else { return }
         
-        presentAlertLinkUrl(title: "Are you sure you want to open Safari?", message: "Berkeley Mobile wants to navigate to the UHS Booking Website", options: "Cancel", "Yes", website_url: url)
+        presentAlertLinkUrl(title: "Are you sure you want to open Safari?", message: "Berkeley Mobile wants to navigate to the UHS Booking Website", website_url: url)
     }
 }
 
