@@ -82,7 +82,7 @@ extension StudyPact {
             completion(.failure(.UserInfoError))
             return
         }
-        guard user.profile.email.hasSuffix("@berkeley.edu") || user.profile.email == DEMO_EMAIL else {
+        guard user.profile.email.hasSuffix("@berkeley.edu") else {
             completion(.failure(.InvalidEmail))
             return
         }

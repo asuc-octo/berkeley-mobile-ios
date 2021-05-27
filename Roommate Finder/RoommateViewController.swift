@@ -58,6 +58,19 @@ class RoommateViewController: UIViewController {
         matchesLabel.leftAnchor.constraint(equalTo: roommateCard.layoutMarginsGuide.leftAnchor).isActive = true
         matchesLabel.topAnchor.constraint(equalTo: roommateCard.layoutMarginsGuide.topAnchor).isActive = true
         
+        if (SignInManager.shared.isSignedIn) {
+            print("signed in")
+        } else {
+            let signInButton = ActionButton(title: "Sign In to Find a Roommate", defaultColor: Color.RoommateFinder.ActionButtons.destructive, pressedColor: Color.RoommateFinder.ActionButtons.destructivePressed)
+            signInButton.addTarget(self, action: #selector(goToProfile), for: .touchUpInside)
+            roommateCard.addSubview(signInButton)
+            signInButton.translatesAutoresizingMaskIntoConstraints = false
+            signInButton.widthAnchor.constraint(equalToConstant: 270).isActive = true
+            signInButton.centerYAnchor.constraint(equalTo: roommateCard.centerYAnchor, constant: 12).isActive = true
+            signInButton.centerXAnchor.constraint(equalTo: roommateCard.centerXAnchor).isActive = true
+            
+        }
+        
         // TODO: add table of matches
     }
     

@@ -191,6 +191,7 @@
 		55DCF79B237243D4001B01B8 /* MaterialTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF79A237243D4001B01B8 /* MaterialTextField.swift */; };
 		55DCF79D237243F5001B01B8 /* RippleLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF79C237243F5001B01B8 /* RippleLayer.swift */; };
 		55DCF7A123724835001B01B8 /* MaterialButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF7A023724835001B01B8 /* MaterialButton.swift */; };
+		F076B0E426605C4F006B6922 /* Colors+RoommateFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F076B0E326605C4F006B6922 /* Colors+RoommateFinder.swift */; };
 		F07EDD8C25C626FE0097C813 /* GroupMembersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07EDD8B25C626FE0097C813 /* GroupMembersView.swift */; };
 		F0E4A47C25BCEC3000FF2256 /* StudyGroupDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E4A47B25BCEC3000FF2256 /* StudyGroupDetailsViewController.swift */; };
 		FD3D6FFF25C2BB7D00579EF5 /* SelectPeopleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3D6FFE25C2BB7D00579EF5 /* SelectPeopleView.swift */; };
@@ -392,6 +393,7 @@
 		55DCF79C237243F5001B01B8 /* RippleLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RippleLayer.swift; sourceTree = "<group>"; };
 		55DCF7A023724835001B01B8 /* MaterialButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialButton.swift; sourceTree = "<group>"; };
 		61110ED9482F3D5A5CFFE6B9 /* Pods-berkeley-mobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeley-mobile.release.xcconfig"; path = "Target Support Files/Pods-berkeley-mobile/Pods-berkeley-mobile.release.xcconfig"; sourceTree = "<group>"; };
+		F076B0E326605C4F006B6922 /* Colors+RoommateFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+RoommateFinder.swift"; sourceTree = "<group>"; };
 		F07EDD8B25C626FE0097C813 /* GroupMembersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupMembersView.swift; sourceTree = "<group>"; };
 		F0E4A47B25BCEC3000FF2256 /* StudyGroupDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyGroupDetailsViewController.swift; sourceTree = "<group>"; };
 		F9CAC9CEE1078D95B189B835 /* Pods_berkeley_mobile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_berkeley_mobile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -534,6 +536,7 @@
 				017C0B25251018BA00BFA80A /* Colors+MapMarker.swift */,
 				29570D4D2569DE990086741B /* Colors+Calendar.swift */,
 				01CDFF69257C614900D9FBD6 /* Colors+Resource.swift */,
+				F076B0E326605C4F006B6922 /* Colors+RoommateFinder.swift */,
 			);
 			path = Colors;
 			sourceTree = "<group>";
@@ -1294,6 +1297,7 @@
 				1396013623865E2E005E4788 /* TagView.swift in Sources */,
 				5532B67B2390CBF600293BE0 /* MaterialLoadingIndicator.swift in Sources */,
 				13E25DFD238C949E00B670B5 /* FitnessViewController.swift in Sources */,
+				F076B0E426605C4F006B6922 /* Colors+RoommateFinder.swift in Sources */,
 				FD3D700225C2BC7D00579EF5 /* CreatePreferenceFrameViewController.swift in Sources */,
 				55DCF79B237243D4001B01B8 /* MaterialTextField.swift in Sources */,
 				554CB9A023F3A83F00BB1715 /* EventTableViewCell.swift in Sources */,
