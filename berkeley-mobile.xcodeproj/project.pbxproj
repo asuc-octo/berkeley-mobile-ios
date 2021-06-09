@@ -191,6 +191,8 @@
 		55DCF79B237243D4001B01B8 /* MaterialTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF79A237243D4001B01B8 /* MaterialTextField.swift */; };
 		55DCF79D237243F5001B01B8 /* RippleLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF79C237243F5001B01B8 /* RippleLayer.swift */; };
 		55DCF7A123724835001B01B8 /* MaterialButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF7A023724835001B01B8 /* MaterialButton.swift */; };
+		F00860E526707E4B00DE30F4 /* RoommateFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00860E426707E4B00DE30F4 /* RoommateFinder.swift */; };
+		F00860E726707EE900DE30F4 /* RoommateProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00860E626707EE900DE30F4 /* RoommateProfile.swift */; };
 		F076B0E426605C4F006B6922 /* Colors+RoommateFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F076B0E326605C4F006B6922 /* Colors+RoommateFinder.swift */; };
 		F07EDD8C25C626FE0097C813 /* GroupMembersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07EDD8B25C626FE0097C813 /* GroupMembersView.swift */; };
 		F0E4A47C25BCEC3000FF2256 /* StudyGroupDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E4A47B25BCEC3000FF2256 /* StudyGroupDetailsViewController.swift */; };
@@ -393,6 +395,8 @@
 		55DCF79C237243F5001B01B8 /* RippleLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RippleLayer.swift; sourceTree = "<group>"; };
 		55DCF7A023724835001B01B8 /* MaterialButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialButton.swift; sourceTree = "<group>"; };
 		61110ED9482F3D5A5CFFE6B9 /* Pods-berkeley-mobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeley-mobile.release.xcconfig"; path = "Target Support Files/Pods-berkeley-mobile/Pods-berkeley-mobile.release.xcconfig"; sourceTree = "<group>"; };
+		F00860E426707E4B00DE30F4 /* RoommateFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoommateFinder.swift; sourceTree = "<group>"; };
+		F00860E626707EE900DE30F4 /* RoommateProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoommateProfile.swift; sourceTree = "<group>"; };
 		F076B0E326605C4F006B6922 /* Colors+RoommateFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+RoommateFinder.swift"; sourceTree = "<group>"; };
 		F07EDD8B25C626FE0097C813 /* GroupMembersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupMembersView.swift; sourceTree = "<group>"; };
 		F0E4A47B25BCEC3000FF2256 /* StudyGroupDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyGroupDetailsViewController.swift; sourceTree = "<group>"; };
@@ -828,6 +832,8 @@
 			isa = PBXGroup;
 			children = (
 				29C277F0262B9EA4007A1C07 /* RoommateViewController.swift */,
+				F00860E426707E4B00DE30F4 /* RoommateFinder.swift */,
+				F00860E626707EE900DE30F4 /* RoommateProfile.swift */,
 			);
 			path = "Roommate Finder";
 			sourceTree = "<group>";
@@ -1230,6 +1236,7 @@
 				29CB28092404DD53009A2CFB /* StudyViewController.swift in Sources */,
 				554DF8E425C8E0E3007CA6B7 /* TaggedTextField.swift in Sources */,
 				29C277F1262B9EA4007A1C07 /* RoommateViewController.swift in Sources */,
+				F00860E526707E4B00DE30F4 /* RoommateFinder.swift in Sources */,
 				55AF44292453A4EC00F13232 /* CafeDataSource.swift in Sources */,
 				29DB64CF25BA61BD001C4275 /* StudyGroupsView.swift in Sources */,
 				306A550023614C0000D59A7F /* MainContainerViewController.swift in Sources */,
@@ -1254,6 +1261,7 @@
 				01CDFF67257C5F2300D9FBD6 /* ResourceType.swift in Sources */,
 				13491DBA241E23630033F9AB /* Colors+Text.swift in Sources */,
 				136DC97D2398B4F3009B1810 /* UIImage+Extensions.swift in Sources */,
+				F00860E726707EE900DE30F4 /* RoommateProfile.swift in Sources */,
 				55C6936B240E143500400B60 /* ResourceTableViewCell.swift in Sources */,
 				2978F20925CA4C6E0010E3BA /* ProfileLabel.swift in Sources */,
 				13135BB22412442C0056B169 /* FilterView.swift in Sources */,
