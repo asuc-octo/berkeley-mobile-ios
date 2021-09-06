@@ -27,24 +27,21 @@ extension UIViewController {
     }
     
     // Presents an alert with multiple options and completion handler
-    public func presentAlertLinkUrl(title: String, message: String, options: String..., website_url: URL) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        for (index, option) in options.enumerated() {
-            if (index == 0) {
-                alertController.addAction(UIAlertAction.init(title: option, style: .cancel))
-            } else {
-                alertController.addAction(UIAlertAction.init(title: option, style: .default, handler: { _ in
-                    UIApplication.shared.open(website_url, options: [:])
-                }))
+    public func presentAlertLinkUrl(title: String, message: String, website_url: URL) {
+        let alertVC = AlertView(headingText: title, messageText: message, action1Label: "Cancel", action1Color: Color.AlertView.secondaryButton, action1Completion: {
+            self.dismiss(animated: true, completion: nil)
+        }, action2Label: "Yes", action2Color: Color.ActionButton.background, action2Completion: {
+            self.dismiss(animated: true, completion: nil)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                UIApplication.shared.open(website_url, options: [:])
             }
-        }
-        self.present(alertController, animated: true, completion: nil)
+        }, withOnlyOneAction: false)
+
+        self.present(alertVC, animated: true, completion: nil)
     }
     
     // Presents an alert to open coordinates
-    public func presentAlertLinkMaps(title: String, message: String, options: String..., lat: CLLocationDegrees, lon: CLLocationDegrees, name: String) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        
+    public func presentAlertLinkMaps(title: String, message: String, lat: CLLocationDegrees, lon: CLLocationDegrees, name: String) {
         var query = false
         if lat.isEqual(to: 0.0) || lon.isEqual(to: 0.0) {
             query = true
@@ -55,23 +52,26 @@ extension UIViewController {
         let mapItem = MKMapItem(placemark: placemark)
         mapItem.name = name
         
-        for (index, option) in options.enumerated() {
-            if (index == 0) {
-                alertController.addAction(UIAlertAction.init(title: option, style: .cancel))
-            } else {
-                alertController.addAction(UIAlertAction.init(title: option, style: .default, handler: { _ in
-                    if query {
-                        let mapUrl = URL(string: "http://maps.apple.com/?q=\(name.replacingOccurrences(of: " ", with: "+"))")!
-                        if UIApplication.shared.canOpenURL(mapUrl) {  // People can uninstall the maps app, maybe handle this better in the future
-                            UIApplication.shared.open(mapUrl, options: [:])
-                        }
-                    } else {
-                        mapItem.openInMaps(launchOptions: [:])
+        let alertVC = AlertView(headingText: title, messageText: message, action1Label: "Cancel", action1Color: Color.AlertView.secondaryButton, action1Completion: {
+            self.dismiss(animated: true, completion: nil)
+        }, action2Label: "Yes", action2Color: Color.ActionButton.background, action2Completion: {
+            if query {
+                let mapUrl = URL(string: "http://maps.apple.com/?q=\(name.replacingOccurrences(of: " ", with: "+"))")!
+                if UIApplication.shared.canOpenURL(mapUrl) {  // People can uninstall the maps app, maybe handle this better in the future
+                    self.dismiss(animated: true, completion: nil)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                        UIApplication.shared.open(mapUrl, options: [:])
                     }
-                }))
+                }
+            } else {
+                self.dismiss(animated: true, completion: nil)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    mapItem.openInMaps(launchOptions: [:])
+                }
             }
-        }
-        self.present(alertController, animated: true, completion: nil)
+        }, withOnlyOneAction: false)
+
+        self.present(alertVC, animated: true, completion: nil)
     }
     
     public func presentSuccessAlert(title: String) {
@@ -83,8 +83,10 @@ extension UIViewController {
     }
     
     public func presentFailureAlert(title: String, message: String) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alertController.addAction(UIAlertAction.init(title: "Ok", style: .cancel))
-        self.present(alertController, animated: true, completion: nil)
+        let alertVC = AlertView(headingText: title, messageText: message, action1Label: "OK", action1Color: Color.ActionButton.background, action1Completion: {
+            self.dismiss(animated: true, completion: nil)
+        }, action2Label: "", action2Color: UIColor.clear, action2Completion: { return }, withOnlyOneAction: true)
+
+        self.present(alertVC, animated: true, completion: nil)
     }
 }

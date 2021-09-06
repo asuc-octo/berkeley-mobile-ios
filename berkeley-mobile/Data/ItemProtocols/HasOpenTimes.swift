@@ -22,7 +22,7 @@ extension HasOpenTimes {
         let weeklyHours = WeeklyHours()
         for open_close in times {
             if let open = open_close[openKey] as? Double,
-                let close = open_close[closeKey] as? Double,
+               let close = open_close[closeKey] as? Double,
                let openDate = Date(timeIntervalSince1970: open).sameDayThisWeek(),
                var closeDate = Date(timeIntervalSince1970: close).sameDayThisWeek() {
                 if openDate > closeDate {
