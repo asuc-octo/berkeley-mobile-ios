@@ -35,8 +35,14 @@ class DataManager {
     private var data: AtomicDictionary<String, [Any]>
     // TODO: Make this O(1).
     var searchable: [SearchItem] {
-        data.values.compactMap { items in
-            items as? [SearchItem]
+        data.values.compactMap { (items) -> [SearchItem]? in
+            // Handle special case of map markers, which has markers stored in a dictionary
+            if let dictItems = items as? [[String: [SearchItem]]] {
+                return dictItems.map { dict in
+                    dict.values.flatMap { $0 }
+                }.flatMap { $0 }
+            }
+            return items as? [SearchItem]
         }.flatMap { $0 }
     }
     
