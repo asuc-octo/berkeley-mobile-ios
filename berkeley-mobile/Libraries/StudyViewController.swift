@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 import Firebase
 import GoogleSignIn
 
@@ -253,7 +254,7 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        pinDelegate?.choosePlacemark(MapPlacemark(loc: CLLocation(), name: "tmp", locName: "tmp")
+        pinDelegate?.choosePlacemark(MapPlacemark(loc: CLLocation(), name: "tmp", locName: "tmp"))
 //        presentDetail(type: Library.self, item: self.filterTableView.filteredData[indexPath.row], containingVC: mainContainer!, position: .full)
         tableView.deselectRow(at: indexPath, animated: true)
     }
