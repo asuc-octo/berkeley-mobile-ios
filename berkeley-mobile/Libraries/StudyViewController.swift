@@ -22,6 +22,8 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
     // MARK: SearchDrawerViewDelegate
     var mainContainer: MainContainerViewController?
     
+    var pinDelegate: SearchResultsViewDelegate?
+    
     // MARK: Setup
     private var scrollView: UIScrollView!
     private var content: UIView!
@@ -251,7 +253,8 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presentDetail(type: Library.self, item: self.filterTableView.filteredData[indexPath.row], containingVC: mainContainer!, position: .full)
+        pinDelegate?.choosePlacemark(MapPlacemark(loc: CLLocation(), name: "tmp", locName: "tmp")
+//        presentDetail(type: Library.self, item: self.filterTableView.filteredData[indexPath.row], containingVC: mainContainer!, position: .full)
         tableView.deselectRow(at: indexPath, animated: true)
     }
     

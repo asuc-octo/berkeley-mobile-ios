@@ -40,11 +40,14 @@ class MainDrawerViewController: DrawerViewController {
     
     // set up the libraries, dining, and fitness tabs
     func setupTabBar() {
+        let tmp = StudyViewController()
         tabBarViewController.pages = [
-            Page(viewController: StudyViewController(), label: "Study"),
+            Page(viewController: tmp, label: "Study"),
             Page(viewController: DiningViewController(), label: "Dining"),
             Page(viewController: FitnessViewController(), label: "Fitness")
         ]
+        tmp.pinDelegate = container.mapViewController
+        // container.mapViewController
         self.add(child: tabBarViewController)
         tabBarViewController.view.frame = self.view.bounds.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: (bottomOffset ?? 0) + 20, right: 0))
         tabBarViewController.view.frame.origin.y = barView.frame.maxY + 16
