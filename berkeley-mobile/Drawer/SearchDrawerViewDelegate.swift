@@ -52,7 +52,9 @@ extension SearchDrawerViewDelegate where Self: UIViewController {
         drawerViewController!.viewDidLayoutSubviews()
         
         if let cutoff = (drawerViewController as! SearchDrawerViewController).middleCutoffPosition {
-            drawerStatePositions[.middle] = containingView.frame.maxY + containingView.frame.maxY / 2 - cutoff
+            // offset to indicate drawers are draggable
+            let dragOffset: CGFloat = 30
+            drawerStatePositions[.middle] = containingView.frame.maxY + containingView.frame.maxY / 2 - cutoff - dragOffset
         } else {
             // default to showing 30% of the view if no cutoff set
             drawerStatePositions[.middle] = containingView.frame.midY + containingView.frame.maxY * 0.7

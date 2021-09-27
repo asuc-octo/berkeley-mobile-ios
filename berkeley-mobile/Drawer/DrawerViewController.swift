@@ -42,9 +42,9 @@ class DrawerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        // default to collapsed initial position
-        currState = .collapsed
-        prevState = .collapsed
+        // default to middle initial position
+        currState = .middle
+        prevState = .middle
         
         view.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: DrawerViewController.bottomOffsetY + 20, right: 16)
         
