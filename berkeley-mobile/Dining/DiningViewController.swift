@@ -83,7 +83,7 @@ extension DiningViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        dropPin(item: diningLocations[indexPath.row])
+        dropPin(item: self.filterTableView.filteredData[indexPath.row])
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }

@@ -253,7 +253,7 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.dropPin(item: libraries[indexPath.row])
+        self.dropPin(item: self.filterTableView.filteredData[indexPath.row])
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
