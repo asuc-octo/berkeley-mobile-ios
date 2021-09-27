@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import MapKit
 import Firebase
 import GoogleSignIn
 
@@ -20,9 +19,9 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
     var initialDrawerCenter = CGPoint()
     var initialGestureTranslation: CGPoint = CGPoint()
     var drawerStatePositions: [DrawerState : CGFloat] = [:]
+    
     // MARK: SearchDrawerViewDelegate
     var mainContainer: MainContainerViewController?
-    
     var pinDelegate: SearchResultsViewDelegate?
     
     // MARK: Setup
@@ -254,8 +253,7 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let library = libraries[indexPath.row]
-        pinDelegate?.choosePlacemark(MapPlacemark(loc: CLLocation(latitude: library.latitude ?? Double.nan, longitude: library.longitude ?? Double.nan), name: library.name, locName: library.locationName, item: library))
+        self.dropPin(item: libraries[indexPath.row])
         tableView.deselectRow(at: indexPath, animated: true)
     }
     

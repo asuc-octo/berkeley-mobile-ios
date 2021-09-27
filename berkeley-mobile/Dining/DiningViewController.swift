@@ -24,6 +24,7 @@ class DiningViewController: UIViewController, SearchDrawerViewDelegate {
     var drawerStatePositions: [DrawerState : CGFloat] = [:]
     // SearchDrawerViewDelegate property
     var mainContainer: MainContainerViewController?
+    var pinDelegate: SearchResultsViewDelegate?
     
     let diningImage:UIImageView = {
         let img = UIImageView()
@@ -82,7 +83,7 @@ extension DiningViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presentDetail(type: DiningHall.self, item: self.filterTableView.filteredData[indexPath.row], containingVC: mainContainer!, position: .full)
+        dropPin(item: diningLocations[indexPath.row])
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }

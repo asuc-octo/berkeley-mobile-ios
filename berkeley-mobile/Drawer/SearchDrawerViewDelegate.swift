@@ -7,11 +7,15 @@
 //
 
 import UIKit
+import MapKit
 
 // Drawer delegate that can present a detail view drawer onto the main container
 protocol SearchDrawerViewDelegate: DrawerViewDelegate {
     // the outermost, containing view controller (to present the drawer onto)
     var mainContainer: MainContainerViewController? { get set }
+    
+    // the delegate for dropping a pin on the map
+    var pinDelegate: SearchResultsViewDelegate? { get set }
 }
 
 extension SearchDrawerViewDelegate where Self: UIViewController {
@@ -59,6 +63,11 @@ extension SearchDrawerViewDelegate where Self: UIViewController {
         self.initialDrawerCenter = self.drawerViewController!.view.center
         // add the new drawer on top of all existing ones
         self.mainContainer?.coverTop(newTop: self, newState: position)
+    }
+    
+    func dropPin(item: SearchItem?) {
+        guard let item = item else { return }
+        pinDelegate?.choosePlacemark(MapPlacemark(loc: CLLocation(latitude: item.location.0, longitude: item.location.1), name: item.name, locName: item.locationName, item: item))
     }
     
     // depending on a pan gesture, return which position to go to

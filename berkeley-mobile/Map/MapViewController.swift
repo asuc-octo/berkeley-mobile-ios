@@ -20,6 +20,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
 
     // this allows the map to move the main drawer
     open var mainContainer: MainContainerViewController?
+    var pinDelegate: SearchResultsViewDelegate?
     
     private var mapView: MKMapView!
     private var maskView: UIView!
