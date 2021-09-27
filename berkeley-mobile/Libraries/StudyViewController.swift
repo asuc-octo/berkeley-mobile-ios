@@ -254,8 +254,8 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        pinDelegate?.choosePlacemark(MapPlacemark(loc: CLLocation(), name: "tmp", locName: "tmp"))
-//        presentDetail(type: Library.self, item: self.filterTableView.filteredData[indexPath.row], containingVC: mainContainer!, position: .full)
+        let library = libraries[indexPath.row]
+        pinDelegate?.choosePlacemark(MapPlacemark(loc: CLLocation(latitude: library.latitude ?? Double.nan, longitude: library.longitude ?? Double.nan), name: library.name, locName: library.locationName, item: library))
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
