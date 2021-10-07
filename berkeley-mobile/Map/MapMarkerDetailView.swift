@@ -153,7 +153,7 @@ class MapMarkerDetailView: UIView {
         detailStack.removeAllArrangedSubviews()
         // Show average meal price only for cafe markers
         var details: [MapMarkerDetail] = [.distance, .openNow, .location]
-        if case .known(let type) = marker.type, type == .cafe {
+        if case .known(let type) = marker.type,  type == .cafe{
             details = [.distance, .openNow, .location, .price]
         }
         var containsFlexibleView = false

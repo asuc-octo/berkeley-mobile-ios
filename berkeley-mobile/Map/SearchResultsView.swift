@@ -28,6 +28,7 @@ enum TableState {
 
 protocol SearchResultsViewDelegate {
     func choosePlacemark(_ placemark: MapPlacemark)
+    func chooseMapMarker(_ placemark: MapMarker)
 }
 
 // MARK: - SearchResultsView
@@ -179,7 +180,12 @@ extension SearchResultsView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if (delegate != nil) {
-            delegate!.choosePlacemark(state.placemarks[indexPath.row])
+            if let new_marker = state.placemarks[indexPath.row].item as? MapMarker {
+                self.delegate!.chooseMapMarker(new_marker)
+            }
+            else{
+                self.delegate!.choosePlacemark(state.placemarks[indexPath.row])
+            }
         }
     }
     

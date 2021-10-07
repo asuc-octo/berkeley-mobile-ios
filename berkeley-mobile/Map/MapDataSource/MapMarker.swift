@@ -148,10 +148,10 @@ enum MapMarkerType: String, CaseIterable, Comparable {
             return Color.MapMarker.waste
         case .garden:
             return Color.MapMarker.garden
-        case .cafe:
-            return Color.MapMarker.cafe
         case .store:
             return Color.MapMarker.store
+        case .cafe:
+            return Color.MapMarker.cafe
         case .mentalHealth:
             return Color.MapMarker.mentalHealth
         default:

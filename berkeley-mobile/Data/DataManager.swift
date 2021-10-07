@@ -14,8 +14,7 @@ fileprivate let kDataSources: [DataSource.Type] = [
     ResourceDataSource.self,
     LibraryDataSource.self,
     DiningHallDataSource.self,
-    GymDataSource.self,
-    CafeDataSource.self
+    GymDataSource.self
 ]
 
 /// Data sources that should be loaded after the first group. Either lower priority/takes too long, or depends on previous sources being loaded.

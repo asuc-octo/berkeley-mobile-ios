@@ -402,6 +402,7 @@ extension MapViewController: SearchResultsViewDelegate {
     // drop new pin and show detail view on search
     func choosePlacemark(_ placemark: MapPlacemark) {
         // remove last search pin
+        removeAnnotations(type: MapMarker.self)
         removeAnnotations(type: SearchAnnotation.self)
         if let location = placemark.location, location.coordinate.latitude != Double.nan && location.coordinate.longitude != Double.nan {
             let regionRadius: CLLocationDistance = 250
@@ -435,6 +436,30 @@ extension MapViewController: SearchResultsViewDelegate {
             self.showSearchResultsView(false)
             self.searchBar.textField.text = ""
             self.searchBar.textFieldDidEndEditing(self.searchBar.textField)
+        }
+    }
+    
+    // drop new pin and show detail view on search
+    func chooseMapMarker(_ mapMarker: MapMarker) {
+        // remove last search pin
+        removeAnnotations(type: SearchAnnotation.self)
+        removeAnnotations(type: MapMarker.self)
+        let location = mapMarker.location
+        if location.0 != Double.nan && location.1 != Double.nan {
+            let regionRadius: CLLocationDistance = 250
+            // center map on searched location
+            let coordinateLocation:CLLocationCoordinate2D = CLLocationCoordinate2DMake(location.0, location.1)
+            let coordinateRegion = MKCoordinateRegion(center: coordinateLocation,
+                                                      latitudinalMeters: regionRadius * 2.0, longitudinalMeters: regionRadius * 2.0)
+            mapView.setRegion(coordinateRegion, animated: true)
+            mapView.addAnnotation(mapMarker)
+            mapView.selectAnnotation(mapMarker, animated: true)
+        }
+        DispatchQueue.main.async {
+            // clear text field
+            self.searchBar.textField.text = ""
+            self.searchBar.textFieldDidEndEditing(self.searchBar.textField)
+            self.mainContainer?.hideTop()
         }
     }
 
