@@ -88,9 +88,9 @@ class FitnessViewController: UIViewController, SearchDrawerViewDelegate {
                 self.classesCard.setHeightConstraint(kClassesCollapsedHeight)
             }
             
-            self.scrollView.layoutSubviews()
-            
             self.classesTable.reloadData()
+            self.scrollView.layoutSubviews()
+            self.viewDidLayoutSubviews()
         }
         
         // fetch gyms and fetch occupancy data afterwards
