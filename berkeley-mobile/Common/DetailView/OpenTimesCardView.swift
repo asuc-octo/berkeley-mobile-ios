@@ -90,8 +90,8 @@ class OpenTimesCardView: CollapsibleCardView {
         
         for interval in intervals {
             // prevents adding 0 second intervals (that mean closed all day)
-            if interval.duration > 0 {
-                view.addArrangedSubview(timeSpanLabel(interval: interval))
+            if interval.dateInterval.duration > 0 {
+                view.addArrangedSubview(timeSpanLabel(interval: interval.dateInterval))
             }
         }
         // if there are intervals, but none of them are > 0 seconds, closed all day

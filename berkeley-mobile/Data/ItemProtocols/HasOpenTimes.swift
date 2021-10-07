@@ -31,7 +31,8 @@ extension HasOpenTimes {
                 }
                 if openDate <= closeDate {
                     let interval = DateInterval(start: openDate, end: closeDate)
-                    weeklyHours.addInterval(interval, to: DayOfWeek.weekday(openDate))
+                    weeklyHours.addInterval(interval, noteInterval: NoteInterval(interval: interval, note: open_close["notes"] as? String), to: DayOfWeek.weekday(openDate))
+                    
                 }
             }
         }
@@ -45,7 +46,7 @@ extension HasOpenTimes {
         let today = DayOfWeek.weekday(now)
         let intervals = weeklyHours.hoursForWeekday(today)
         return intervals.contains { interval in
-            interval.contains(now)
+            interval.contains(date: now)
         }
     }
     
@@ -56,14 +57,14 @@ extension HasOpenTimes {
         let intervals = weeklyHours.hoursForWeekday(DayOfWeek.weekday(date))
         var nextOpenInterval: DateInterval?
         for interval in intervals {
-            if interval.contains(date) {
-                nextOpenInterval = interval
+            if interval.contains(date: date) {
+                nextOpenInterval = interval.dateInterval
                 break
-            } else if date.compare(interval.start) == .orderedAscending && interval.duration > 0 {
+            } else if date.compare(interval.dateInterval.start) == .orderedAscending && interval.dateInterval.duration > 0 {
                 if nextOpenInterval == nil {
-                    nextOpenInterval = interval
-                } else if interval.compare(nextOpenInterval!) == .orderedAscending {
-                    nextOpenInterval = interval
+                    nextOpenInterval = interval.dateInterval
+                } else if interval.dateInterval.compare(nextOpenInterval!) == .orderedAscending {
+                    nextOpenInterval = interval.dateInterval
                 }
             }
         }
