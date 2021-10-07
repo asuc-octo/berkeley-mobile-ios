@@ -79,6 +79,13 @@ extension MainContainerViewController {
 
 extension MainContainerViewController {
     func checkOnboarding() {
+        let currentVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.0.0"
+        let current = Version(version: currentVersion)
+        // only show new feature popup for versions 10.1.2 and before
+        if current > Version(version: "10.1.2") {
+            return
+        }
+        
         let launchedBefore = UserDefaults.standard.bool(forKey: UserDefaultKeys.StudyPact.hasShownNewFeature)
         if !launchedBefore {
             let vc = StudyPactNewFeatureViewController()
