@@ -45,6 +45,11 @@ class MainDrawerViewController: DrawerViewController {
             Page(viewController: DiningViewController(), label: "Dining"),
             Page(viewController: FitnessViewController(), label: "Fitness")
         ]
+        for page in tabBarViewController.pages {
+            guard let vc = page.viewController as? SearchDrawerViewDelegate else { continue }
+            vc.pinDelegate = container.mapViewController
+        }
+        // container.mapViewController
         self.add(child: tabBarViewController)
         tabBarViewController.view.frame = self.view.bounds.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: (bottomOffset ?? 0) + 20, right: 0))
         tabBarViewController.view.frame.origin.y = barView.frame.maxY + 16

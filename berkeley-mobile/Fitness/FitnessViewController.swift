@@ -26,6 +26,7 @@ class FitnessViewController: UIViewController, SearchDrawerViewDelegate {
     var drawerStatePositions: [DrawerState : CGFloat] = [:]
     // SearchDrawerViewDelegate property
     var mainContainer: MainContainerViewController?
+    var pinDelegate: SearchResultsViewDelegate?
 
     // MARK: FitnessViewController
 

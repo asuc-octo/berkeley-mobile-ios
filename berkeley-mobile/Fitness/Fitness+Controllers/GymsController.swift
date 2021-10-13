@@ -23,7 +23,7 @@ class GymsController: NSObject {
 extension GymsController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        vc.presentDetail(type: Gym.self, item: vc.filterTableView.filteredData[indexPath.row], containingVC: vc.mainContainer!, position: .full)
+        vc.dropPin(item: vc.filterTableView.filteredData[indexPath.row])
         tableView.deselectRow(at: indexPath, animated: true)
     }
 
