@@ -16,7 +16,7 @@ class DiningMenuCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top:0, left:5, bottom:DiningDetailViewController.cellSpacingHeight, right:5))
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top:0, left:5, bottom:DiningMenuViewController.cellSpacingHeight, right:5))
         self.selectionStyle = .none
         
         backgroundColor = .clear
