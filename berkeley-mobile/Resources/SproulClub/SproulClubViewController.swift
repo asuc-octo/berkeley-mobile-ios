@@ -12,20 +12,32 @@ import WebKit
 
 class SproulClubViewController: UIViewController, WKUIDelegate, UIScrollViewDelegate {
     var webView: WKWebView!
-        
+    var cardView: CardView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        self.view.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+
+        cardView = CardView()
+        view.addSubview(cardView)
+        cardView.translatesAutoresizingMaskIntoConstraints = false
+        cardView.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
+        cardView.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
+        cardView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
+        cardView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
+
         let webConfiguration = WKWebViewConfiguration()
         webView = WKWebView(frame: .zero, configuration: webConfiguration)
         webView.uiDelegate = self
         webView.scrollView.delegate = self
         
         webView.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(webView)
-        webView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 6).isActive = true
-        webView.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor, constant: 6).isActive = true
-        webView.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor, constant: -6).isActive = true
-        webView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -20).isActive = true
+        cardView.addSubview(webView)
+        webView.topAnchor.constraint(equalTo: cardView.layoutMarginsGuide.topAnchor).isActive = true
+        webView.leftAnchor.constraint(equalTo: cardView.layoutMarginsGuide.leftAnchor).isActive = true
+        webView.rightAnchor.constraint(equalTo: cardView.layoutMarginsGuide.rightAnchor).isActive = true
+        webView.bottomAnchor.constraint(equalTo: cardView.layoutMarginsGuide.bottomAnchor).isActive = true
         
         let url = URL(string:"https://www.sproul.club/")
         let request = URLRequest(url: url!)
