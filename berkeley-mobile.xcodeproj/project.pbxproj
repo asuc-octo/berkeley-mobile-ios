@@ -45,6 +45,15 @@
 		01D2699A2544D86C000377B4 /* Apercu Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 01D269912544D86C000377B4 /* Apercu Medium.otf */; };
 		01D2699B2544D86C000377B4 /* Apercu Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 01D269922544D86C000377B4 /* Apercu Regular.otf */; };
 		01D2699D2544E005000377B4 /* AcademicCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D2699C2544E005000377B4 /* AcademicCalendarViewController.swift */; };
+		01E86277270E777A0085209A /* TagInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E86270270E777A0085209A /* TagInputView.swift */; };
+		01E86278270E777A0085209A /* NumberInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E86271270E777A0085209A /* NumberInputView.swift */; };
+		01E86279270E777A0085209A /* LabeledInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E86272270E777A0085209A /* LabeledInputView.swift */; };
+		01E8627A270E777A0085209A /* SliderInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E86273270E777A0085209A /* SliderInputView.swift */; };
+		01E8627B270E777A0085209A /* TextBoxInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E86274270E777A0085209A /* TextBoxInputView.swift */; };
+		01E8627C270E777A0085209A /* TextFieldInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E86275270E777A0085209A /* TextFieldInputView.swift */; };
+		01E8627D270E777A0085209A /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E86276270E777A0085209A /* InputView.swift */; };
+		01E86280270E77970085209A /* SampleFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E8627F270E77970085209A /* SampleFormViewController.swift */; };
+		01E86286270E78920085209A /* Colors+InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E86285270E78920085209A /* Colors+InputView.swift */; };
 		01FA50F124E8B33100DCC490 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FA50F024E8B33100DCC490 /* LocationManager.swift */; };
 		01FA50F324E8BA5400DCC490 /* LocationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FA50F224E8BA5400DCC490 /* LocationDetailView.swift */; };
 		0B07A47A14FC87CF20DD4870 /* Pods_berkeley_mobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CAC9CEE1078D95B189B835 /* Pods_berkeley_mobile.framework */; };
@@ -241,6 +250,15 @@
 		01D269912544D86C000377B4 /* Apercu Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Apercu Medium.otf"; sourceTree = "<group>"; };
 		01D269922544D86C000377B4 /* Apercu Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Apercu Regular.otf"; sourceTree = "<group>"; };
 		01D2699C2544E005000377B4 /* AcademicCalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcademicCalendarViewController.swift; sourceTree = "<group>"; };
+		01E86270270E777A0085209A /* TagInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagInputView.swift; sourceTree = "<group>"; };
+		01E86271270E777A0085209A /* NumberInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberInputView.swift; sourceTree = "<group>"; };
+		01E86272270E777A0085209A /* LabeledInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabeledInputView.swift; sourceTree = "<group>"; };
+		01E86273270E777A0085209A /* SliderInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SliderInputView.swift; sourceTree = "<group>"; };
+		01E86274270E777A0085209A /* TextBoxInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextBoxInputView.swift; sourceTree = "<group>"; };
+		01E86275270E777A0085209A /* TextFieldInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldInputView.swift; sourceTree = "<group>"; };
+		01E86276270E777A0085209A /* InputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
+		01E8627F270E77970085209A /* SampleFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleFormViewController.swift; sourceTree = "<group>"; };
+		01E86285270E78920085209A /* Colors+InputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+InputView.swift"; sourceTree = "<group>"; };
 		01FA50F024E8B33100DCC490 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		01FA50F224E8BA5400DCC490 /* LocationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailView.swift; sourceTree = "<group>"; };
 		130FA59D243B1243005DC752 /* DiningRestriction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningRestriction.swift; sourceTree = "<group>"; };
@@ -457,6 +475,29 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
+		01E8626E270E777A0085209A /* InputView */ = {
+			isa = PBXGroup;
+			children = (
+				01E8627F270E77970085209A /* SampleFormViewController.swift */,
+				01E86276270E777A0085209A /* InputView.swift */,
+				01E8626F270E777A0085209A /* InputViews */,
+			);
+			path = InputView;
+			sourceTree = "<group>";
+		};
+		01E8626F270E777A0085209A /* InputViews */ = {
+			isa = PBXGroup;
+			children = (
+				01E86272270E777A0085209A /* LabeledInputView.swift */,
+				01E86275270E777A0085209A /* TextFieldInputView.swift */,
+				01E86274270E777A0085209A /* TextBoxInputView.swift */,
+				01E86271270E777A0085209A /* NumberInputView.swift */,
+				01E86273270E777A0085209A /* SliderInputView.swift */,
+				01E86270270E777A0085209A /* TagInputView.swift */,
+			);
+			path = InputViews;
+			sourceTree = "<group>";
+		};
 		1336A31D241C400F00949F32 /* GymClassDataSource */ = {
 			isa = PBXGroup;
 			children = (
@@ -537,6 +578,7 @@
 				017C0B25251018BA00BFA80A /* Colors+MapMarker.swift */,
 				29570D4D2569DE990086741B /* Colors+Calendar.swift */,
 				01CDFF69257C614900D9FBD6 /* Colors+Resource.swift */,
+				01E86285270E78920085209A /* Colors+InputView.swift */,
 			);
 			path = Colors;
 			sourceTree = "<group>";
@@ -574,6 +616,7 @@
 		1396012D23865E2E005E4788 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				01E8626E270E777A0085209A /* InputView */,
 				303F6AE5236A9C0D007E37DD /* SegmentedControl */,
 				29387E9324BBBBDF00070BCE /* Bar Graph */,
 				2913595524B135B600DE9AD6 /* DetailView */,
@@ -1215,10 +1258,12 @@
 				55AF44292453A4EC00F13232 /* CafeDataSource.swift in Sources */,
 				29DB64CF25BA61BD001C4275 /* StudyGroupsView.swift in Sources */,
 				306A550023614C0000D59A7F /* MainContainerViewController.swift in Sources */,
+				01E86280270E77970085209A /* SampleFormViewController.swift in Sources */,
 				01CDBBE925CA6AF9006B93BD /* StudyPact+Endpoints.swift in Sources */,
 				2978F20625CA4C680010E3BA /* BorderedTextField.swift in Sources */,
 				29F11EC72516C150007DCFD7 /* BarView.swift in Sources */,
 				55DCF78723722CBD001B01B8 /* Colors.swift in Sources */,
+				01E86279270E777A0085209A /* LabeledInputView.swift in Sources */,
 				29B3D7862453984A006762E5 /* DrawerViewDelegate.swift in Sources */,
 				F0E4A47C25BCEC3000FF2256 /* StudyGroupDetailsViewController.swift in Sources */,
 				559AF6E0251EAA2800463E2A /* DetailTapGestureRecognizer.swift in Sources */,
@@ -1230,6 +1275,7 @@
 				FD6FB45F25C6A4B90045A03A /* StudyPactPreference.swift in Sources */,
 				557756692544D822009C03BD /* Collection+Extension.swift in Sources */,
 				5546CB91251B0A4500BE1876 /* UIDevice+Extensions.swift in Sources */,
+				01E8627D270E777A0085209A /* InputView.swift in Sources */,
 				2975D5402459301B00514B43 /* SearchDrawerViewDelegate.swift in Sources */,
 				01CDBBED25CA6F4D006B93BD /* Response.swift in Sources */,
 				133864A42404DCCA001F9048 /* MapMarker.swift in Sources */,
@@ -1237,6 +1283,7 @@
 				13491DBA241E23630033F9AB /* Colors+Text.swift in Sources */,
 				136DC97D2398B4F3009B1810 /* UIImage+Extensions.swift in Sources */,
 				55C6936B240E143500400B60 /* ResourceTableViewCell.swift in Sources */,
+				01E86278270E777A0085209A /* NumberInputView.swift in Sources */,
 				2978F20925CA4C6E0010E3BA /* ProfileLabel.swift in Sources */,
 				13135BB22412442C0056B169 /* FilterView.swift in Sources */,
 				29AB5BC5241D8CB4007C3ECA /* FilterTableView.swift in Sources */,
@@ -1282,6 +1329,7 @@
 				FD3D700225C2BC7D00579EF5 /* CreatePreferenceFrameViewController.swift in Sources */,
 				55DCF79B237243D4001B01B8 /* MaterialTextField.swift in Sources */,
 				554CB9A023F3A83F00BB1715 /* EventTableViewCell.swift in Sources */,
+				01E8627B270E777A0085209A /* TextBoxInputView.swift in Sources */,
 				01B250282516AD4F00CBA459 /* IconPairView.swift in Sources */,
 				55AF442B2453A80B00F13232 /* CafeItem.swift in Sources */,
 				FDD7946C260FE09D00ABE60E /* Colors+AlertView.swift in Sources */,
@@ -1338,6 +1386,7 @@
 				2946939F25F4421700619481 /* CalendarTablePairView.swift in Sources */,
 				2925D5FA2529405500BBA266 /* CampusEventCellView.swift in Sources */,
 				5516088624392E5100B1E55B /* DiningViewController.swift in Sources */,
+				01E8627C270E777A0085209A /* TextFieldInputView.swift in Sources */,
 				FD6FB45C25C62EB90045A03A /* SelectEnvironmentView.swift in Sources */,
 				29F09C3525D76EDF003FB69F /* StudyPactNewFeatureViewController.swift in Sources */,
 				01CDBBC725CA3B13006B93BD /* NetworkManager.swift in Sources */,
@@ -1356,6 +1405,7 @@
 				01CDBBF125CA6F58006B93BD /* RequestError.swift in Sources */,
 				01FA50F124E8B33100DCC490 /* LocationManager.swift in Sources */,
 				017C0B26251018BA00BFA80A /* Colors+MapMarker.swift in Sources */,
+				01E86277270E777A0085209A /* TagInputView.swift in Sources */,
 				29570D4C2569D8F20086741B /* CalendarView.swift in Sources */,
 				29345E2724A7E76300859A88 /* OverviewCardView.swift in Sources */,
 				01D11B902504560700BDF660 /* GymDetailViewController.swift in Sources */,
@@ -1372,6 +1422,7 @@
 				01CDFF6A257C614900D9FBD6 /* Colors+Resource.swift in Sources */,
 				13741B6C2400D866003D1EEB /* MapDataSource.swift in Sources */,
 				1336A320241D924300949F32 /* DiningItem.swift in Sources */,
+				01E86286270E78920085209A /* Colors+InputView.swift in Sources */,
 				299ACFB4244A5F90000F3E86 /* HasOccupancy.swift in Sources */,
 				55AA7B3325FD4F68002B4A4B /* CovidDataSource.swift in Sources */,
 				0181710A25CA90D300BA6317 /* AuthenticateUser.swift in Sources */,
@@ -1382,6 +1433,7 @@
 				29891B23257C521E0094891D /* PageViewController.swift in Sources */,
 				13EA64CD2399CEDA00FD8E13 /* Gym.swift in Sources */,
 				1396013523865E2E005E4788 /* CardView.swift in Sources */,
+				01E8627A270E777A0085209A /* SliderInputView.swift in Sources */,
 				1336A322241D92F700949F32 /* MealType.swift in Sources */,
 				303F6AE1236A931D007E37DD /* SegmentedControl.swift in Sources */,
 				5516088824393F3F00B1E55B /* MissingDataView.swift in Sources */,

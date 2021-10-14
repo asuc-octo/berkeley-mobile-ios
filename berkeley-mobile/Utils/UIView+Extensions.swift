@@ -97,3 +97,16 @@ extension UIView {
         NSLayoutConstraint(item: self, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: width).isActive = true
     }
 }
+
+extension UIView {
+
+    // Shamelessly stolen from: https://stackoverflow.com/questions/28934948/how-to-animate-bordercolor-change-in-swift
+    func animateBorderColor(toColor: UIColor, duration: Double) {
+        let animation = CABasicAnimation(keyPath: "borderColor")
+        animation.fromValue = layer.borderColor
+        animation.toValue = toColor.cgColor
+        animation.duration = duration
+        layer.add(animation, forKey: "borderColor")
+        layer.borderColor = toColor.cgColor
+    }
+}
