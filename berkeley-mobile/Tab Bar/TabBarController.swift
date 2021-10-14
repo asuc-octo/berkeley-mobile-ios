@@ -37,6 +37,10 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
             tabBar.scrollEdgeAppearance = tabBar.standardAppearance
         }
         
+        if #available(iOS 15.0, *) {
+            tabBar.scrollEdgeAppearance = tabBar.standardAppearance
+        }
+        
         mapView.tabBarItem = UITabBarItem(title: "Home", image: UIImage(named: "Home"), tag: 0)
         resourcesView.tabBarItem = UITabBarItem(title: "Resources", image: UIImage(named: "Resources"), tag: 1)
         calendarView.tabBarItem = UITabBarItem(title: "Events", image: UIImage(named: "Calendar"), tag: 2)
