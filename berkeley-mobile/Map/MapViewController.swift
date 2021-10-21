@@ -130,6 +130,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
 
     /// Repoisitions the map's compass so that it is not obscured by the search bar.
     private func updateCompassPosition() {
+        if compass != nil { return }
         mapView.showsCompass = false
         compass = MKCompassButton(mapView: mapView)
         view.addSubview(compass)
