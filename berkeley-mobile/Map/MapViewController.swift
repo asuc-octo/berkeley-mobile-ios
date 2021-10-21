@@ -222,7 +222,6 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
     var workItem: DispatchWorkItem?
     private func updateMapMarkers() {
         self.previousMapMarker = nil
-        self.previousPlaceMark = nil
         workItem?.cancel()
         let selectedIndices = filterView.indexPathsForSelectedItems?.map { $0.row }
         workItem = Filter.satisfiesAny(filters: filters, on: mapMarkers, indices: selectedIndices, completion: {
