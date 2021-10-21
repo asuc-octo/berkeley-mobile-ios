@@ -133,7 +133,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         if compass != nil { return }
         mapView.showsCompass = false
         compass = MKCompassButton(mapView: mapView)
-        view.addSubview(compass)
+        view.insertSubview(compass, belowSubview: maskView)
         // Position the compass to bottom-right of `FilterView`
         compass.translatesAutoresizingMaskIntoConstraints = false
         compass.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
@@ -210,14 +210,12 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
             self.searchResultsView.isHidden = false
             mainContainer?.hideTop()
             self.userLocationButton.isHidden = true
-            self.compass?.isHidden = true
         } else {
             self.maskView.isHidden = true
             self.searchResultsView.isHidden = true
             self.searchResultsView.isScrolling = false
             mainContainer?.showTop()
             self.userLocationButton?.isHidden = false
-            self.compass?.isHidden = false
         }
     }
     
