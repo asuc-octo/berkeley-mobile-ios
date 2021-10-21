@@ -401,19 +401,16 @@ extension MapViewController: SearchBarDelegate {
 }
 
 extension MapViewController: SearchResultsViewDelegate {
-    
-    // drop new pin and show detail view on search
-    //var previousMapMarker: MapMarker?
-    //var previousPlaceMark: MapPlacemark?
+
     func choosePlacemark(_ placemark: MapPlacemark) {
         // remove last search pin
         
-        if((self.previousPlaceMark) != nil) {
-            self.mapView.removeAnnotation(self.previousPlaceMark!)
+        if let previousPlaceMark = self.previousPlaceMark {
+            self.mapView.removeAnnotation(previousPlaceMark)
             self.previousPlaceMark = nil
         }
-        if((self.previousMapMarker) != nil) {
-            self.mapView.removeAnnotation(self.previousMapMarker!)
+        if let previousMapMarker = self.previousMapMarker {
+            self.mapView.removeAnnotation(previousMapMarker)
             self.previousMapMarker = nil
         }
         
@@ -425,12 +422,16 @@ extension MapViewController: SearchResultsViewDelegate {
             mapView.setRegion(coordinateRegion, animated: true)
             let item = placemark.item
             if let item = item {
-                let annotation = SearchAnnotation(item: item, location: location.coordinate)
+                let annotation:SearchAnnotation = SearchAnnotation(item: item, location: location.coordinate)
                 annotation.title = item.searchName
                 searchAnnotation = annotation
                 // add and select marker for search item, remove resource view if any
-                mapView.addAnnotation(annotation)
-                self.previousPlaceMark = annotation
+                if !mapView.annotations.contains(where: { annot in
+                    return annot.isEqual(annotation)
+                }) {
+                    mapView.addAnnotation(annotation)
+                    self.previousPlaceMark = annotation
+                }
                 mapView.selectAnnotation(annotation, animated: true)
                 if markerDetail.marker != nil {
                     mapView.deselectAnnotation(markerDetail.marker, animated: true)
@@ -456,12 +457,12 @@ extension MapViewController: SearchResultsViewDelegate {
     // drop new pin and show detail view on search
     func chooseMapMarker(_ mapMarker: MapMarker) {
         // remove last search pin
-        if((self.previousPlaceMark) != nil) {
-            self.mapView.removeAnnotation(self.previousPlaceMark!)
+        if let previousPlaceMark = self.previousPlaceMark {
+            self.mapView.removeAnnotation(previousPlaceMark)
             self.previousPlaceMark = nil
         }
-        if((self.previousMapMarker) != nil) {
-            self.mapView.removeAnnotation(self.previousMapMarker!)
+        if let previousMapMarker = self.previousMapMarker {
+            self.mapView.removeAnnotation(previousMapMarker)
             self.previousMapMarker = nil
         }
         
@@ -473,8 +474,12 @@ extension MapViewController: SearchResultsViewDelegate {
             let coordinateRegion = MKCoordinateRegion(center: coordinateLocation,
                                                       latitudinalMeters: regionRadius * 2.0, longitudinalMeters: regionRadius * 2.0)
             mapView.setRegion(coordinateRegion, animated: true)
-            mapView.addAnnotation(mapMarker)
-            self.previousMapMarker = mapMarker
+            if !mapView.annotations.contains(where: { annotation in
+                return annotation as? MapMarker == mapMarker
+            }) {
+                mapView.addAnnotation(mapMarker)
+                self.previousMapMarker = mapMarker
+            }
             mapView.selectAnnotation(mapMarker, animated: true)
         }
         DispatchQueue.main.async {
