@@ -29,7 +29,6 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
     private var userLocationButton: UIButton!
     private var compass: MKCompassButton!
     private var locationButtonTapped: Bool!
-    
     // DrawerViewDelegate properties
     var drawerViewController: DrawerViewController?
     var initialDrawerCenter = CGPoint()
@@ -37,6 +36,10 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
     var drawerStatePositions: [DrawerState : CGFloat] = [:]
     
     private var searchAnnotation: SearchAnnotation?
+    
+    //variables for search markers
+    private var previousMapMarker:MapMarker?
+    private var previousPlaceMark: MKAnnotation?
     
     private var filterView: FilterView!
     private var filters: [Filter<[MapMarker]>] = [] {
@@ -221,6 +224,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
     
     var workItem: DispatchWorkItem?
     private func updateMapMarkers() {
+        self.previousMapMarker = nil
         workItem?.cancel()
         let selectedIndices = filterView.indexPathsForSelectedItems?.map { $0.row }
         workItem = Filter.satisfiesAny(filters: filters, on: mapMarkers, indices: selectedIndices, completion: {
@@ -401,11 +405,19 @@ extension MapViewController: SearchBarDelegate {
 }
 
 extension MapViewController: SearchResultsViewDelegate {
-    
-    // drop new pin and show detail view on search
+
     func choosePlacemark(_ placemark: MapPlacemark) {
         // remove last search pin
-        removeAnnotations(type: SearchAnnotation.self)
+        
+        if let previousPlaceMark = self.previousPlaceMark {
+            self.mapView.removeAnnotation(previousPlaceMark)
+            self.previousPlaceMark = nil
+        }
+        if let previousMapMarker = self.previousMapMarker {
+            self.mapView.removeAnnotation(previousMapMarker)
+            self.previousMapMarker = nil
+        }
+        
         if let location = placemark.location, location.coordinate.latitude != Double.nan && location.coordinate.longitude != Double.nan {
             let regionRadius: CLLocationDistance = 250
             // center map on searched location
@@ -414,11 +426,16 @@ extension MapViewController: SearchResultsViewDelegate {
             mapView.setRegion(coordinateRegion, animated: true)
             let item = placemark.item
             if let item = item {
-                let annotation = SearchAnnotation(item: item, location: location.coordinate)
+                let annotation:SearchAnnotation = SearchAnnotation(item: item, location: location.coordinate)
                 annotation.title = item.searchName
                 searchAnnotation = annotation
                 // add and select marker for search item, remove resource view if any
-                mapView.addAnnotation(annotation)
+                if !mapView.annotations.contains(where: { annot in
+                    return annot.isEqual(annotation)
+                }) {
+                    mapView.addAnnotation(annotation)
+                    self.previousPlaceMark = annotation
+                }
                 mapView.selectAnnotation(annotation, animated: true)
                 if markerDetail.marker != nil {
                     mapView.deselectAnnotation(markerDetail.marker, animated: true)
@@ -438,6 +455,42 @@ extension MapViewController: SearchResultsViewDelegate {
             self.showSearchResultsView(false)
             self.searchBar.textField.text = ""
             self.searchBar.textFieldDidEndEditing(self.searchBar.textField)
+        }
+    }
+    
+    // drop new pin and show detail view on search
+    func chooseMapMarker(_ mapMarker: MapMarker) {
+        // remove last search pin
+        if let previousPlaceMark = self.previousPlaceMark {
+            self.mapView.removeAnnotation(previousPlaceMark)
+            self.previousPlaceMark = nil
+        }
+        if let previousMapMarker = self.previousMapMarker {
+            self.mapView.removeAnnotation(previousMapMarker)
+            self.previousMapMarker = nil
+        }
+        
+        let location = mapMarker.location
+        if location.0 != Double.nan && location.1 != Double.nan {
+            let regionRadius: CLLocationDistance = 250
+            // center map on searched location
+            let coordinateLocation:CLLocationCoordinate2D = CLLocationCoordinate2DMake(location.0, location.1)
+            let coordinateRegion = MKCoordinateRegion(center: coordinateLocation,
+                                                      latitudinalMeters: regionRadius * 2.0, longitudinalMeters: regionRadius * 2.0)
+            mapView.setRegion(coordinateRegion, animated: true)
+            if !mapView.annotations.contains(where: { annotation in
+                return annotation as? MapMarker == mapMarker
+            }) {
+                mapView.addAnnotation(mapMarker)
+                self.previousMapMarker = mapMarker
+            }
+            mapView.selectAnnotation(mapMarker, animated: true)
+        }
+        DispatchQueue.main.async {
+            // clear text field
+            self.searchBar.textField.text = ""
+            self.searchBar.textFieldDidEndEditing(self.searchBar.textField)
+            self.mainContainer?.hideTop()
         }
     }
 
