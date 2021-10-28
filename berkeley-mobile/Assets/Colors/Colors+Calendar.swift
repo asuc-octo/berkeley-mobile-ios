@@ -18,11 +18,19 @@ extension Color {
         }
         
         static var grayedText: UIColor {
-            return UIColor(displayP3Red: 193/255, green: 192/255, blue: 193/255, alpha: 1.0)
+            return UIColor.init { (trait) -> UIColor in
+                return trait.userInterfaceStyle == .dark ?
+                    UIColor(displayP3Red: 170/255, green: 170/255, blue: 170/255, alpha: 1.0) :
+                    UIColor(red: 98.0 / 255.0, green: 97.0 / 255.0, blue: 98.0 / 255.0, alpha: 1.0)
+            }
         }
         
         static var blackText: UIColor {
-            return UIColor(displayP3Red: 17/255, green: 17/255, blue: 18/255, alpha: 1.0)
+            return UIColor.init { (trait) -> UIColor in
+                return trait.userInterfaceStyle == .dark ?
+                    UIColor(red: 250/255, green: 250/255, blue: 250/255, alpha: 1.0) :
+                    UIColor(red: 44/255, green: 44/255, blue: 45/255, alpha: 1.0)
+            }
         }
         
     }
