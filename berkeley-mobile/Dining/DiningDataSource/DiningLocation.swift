@@ -38,6 +38,6 @@ class DiningLocation: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasI
         self.weeklyHours = hours
         self.latitude = latitude
         self.longitude = longitude
-        self.icon = UIImage(named: "Dining")
+        self.icon = UIImage(named: "Dining")?.colored(Color.blackText)
     }
 }

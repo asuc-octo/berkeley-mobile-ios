@@ -15,12 +15,13 @@ class MissingDataView: UIView {
     init(text: String) {
         super.init(frame: CGRect.zero)
         
+        backgroundColor = Color.cardBackground
+        
         let label = UILabel()
         label.textColor = Color.darkGrayText
         label.textAlignment = .center
         label.font = Font.medium(18)
         label.text = text
-        label.backgroundColor = UIColor.white.withAlphaComponent(0.0)
         
         label.translatesAutoresizingMaskIntoConstraints = false
         

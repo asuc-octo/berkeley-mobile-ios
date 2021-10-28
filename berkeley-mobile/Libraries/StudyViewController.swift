@@ -196,7 +196,7 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
     let bookImage:UIImageView = {
         let img = UIImageView()
         img.contentMode = .scaleAspectFit
-        img.image = UIImage(named: "Book")
+        img.image = UIImage(named: "Book")?.colored(Color.blackText)
         img.translatesAutoresizingMaskIntoConstraints = false
         img.clipsToBounds = true
         return img

@@ -144,7 +144,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
     private func updateUserLocationButton() {
         userLocationButton.clipsToBounds = true
         userLocationButton.layer.masksToBounds = false
-        userLocationButton.backgroundColor = UIColor.white
+        userLocationButton.backgroundColor = Color.modalBackground
         userLocationButton.layer.cornerRadius = mapView.frame.width * 0.12 * 0.5
         userLocationButton.layer.shadowRadius = 5
         userLocationButton.layer.shadowOpacity = 0.2

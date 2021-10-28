@@ -22,7 +22,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
                 
         delegate = self
         tabBar.isTranslucent = false
-        tabBar.tintColor = UIColor.black
+        tabBar.tintColor = Color.blackText
         
         if #available(iOS 15.0, *) {
             let appearance = UITabBarAppearance()

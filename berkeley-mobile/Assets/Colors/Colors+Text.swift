@@ -14,13 +14,17 @@ extension Color {
     static var primaryText: UIColor {
         return UIColor.init { (trait) -> UIColor in
             return trait.userInterfaceStyle == .dark ?
-                UIColor(displayP3Red: 250/255, green: 250/255, blue: 250/255, alpha: 1.0) :
-                UIColor(displayP3Red: 35/255, green: 35/255, blue: 35/255, alpha: 1.0)
+                UIColor(red: 250/255, green: 250/255, blue: 250/255, alpha: 1.0) :
+                UIColor(red: 35/255, green: 35/255, blue: 35/255, alpha: 1.0)
         }
     }
     
     static var blackText: UIColor {
-        return UIColor(red: 44.0 / 255.0, green: 44.0 / 255.0, blue: 45.0 / 255.0, alpha: 1.0)
+        return UIColor.init { (trait) -> UIColor in
+            return trait.userInterfaceStyle == .dark ?
+                UIColor(red: 250/255, green: 250/255, blue: 250/255, alpha: 1.0) :
+                UIColor(red: 44/255, green: 44/255, blue: 45/255, alpha: 1.0)
+        }
     }
     
     static var blueText: UIColor {
@@ -28,7 +32,11 @@ extension Color {
     }
     
     static var lightGrayText: UIColor {
-        return UIColor(red: 98.0 / 255.0, green: 97.0 / 255.0, blue: 98.0 / 255.0, alpha: 1.0)
+        return UIColor.init { (trait) -> UIColor in
+            return trait.userInterfaceStyle == .dark ?
+                UIColor(displayP3Red: 170/255, green: 170/255, blue: 170/255, alpha: 1.0) :
+                UIColor(red: 98.0 / 255.0, green: 97.0 / 255.0, blue: 98.0 / 255.0, alpha: 1.0)
+        }
     }
     
     static var lightLightGrayText: UIColor {
@@ -40,7 +48,11 @@ extension Color {
     }
     
     static var secondaryText: UIColor {
-        return UIColor(displayP3Red: 105/255, green: 105/255, blue: 105/255, alpha: 1.0)
+        return UIColor.init { (trait) -> UIColor in
+            return trait.userInterfaceStyle == .dark ?
+                UIColor(displayP3Red: 170/255, green: 170/255, blue: 170/255, alpha: 1.0) :
+                UIColor(displayP3Red: 105/255, green: 105/255, blue: 105/255, alpha: 1.0)
+        }
     }
     
 }

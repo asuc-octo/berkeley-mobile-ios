@@ -13,6 +13,7 @@ class AlertView: UIViewController {
     let heading: UILabel = {
         var txt = UILabel()
         txt.font = Font.bold(18)
+        txt.textColor = Color.blackText
         txt.numberOfLines = 0
         txt.textAlignment = .center
         txt.translatesAutoresizingMaskIntoConstraints = false
@@ -22,6 +23,7 @@ class AlertView: UIViewController {
     let message: UILabel = {
         var txt = UILabel()
         txt.font = Font.regular(15)
+        txt.textColor = Color.blackText
         txt.numberOfLines = 0
         txt.textAlignment = .center
         txt.translatesAutoresizingMaskIntoConstraints = false
@@ -74,31 +76,26 @@ class AlertView: UIViewController {
         btn1.addTarget(self, action: #selector(btn1Function), for: .touchUpInside)
         btn2.addTarget(self, action: #selector(btn2Function), for: .touchUpInside)
         
-        if !UIAccessibility.isReduceTransparencyEnabled {
-            view.backgroundColor = .clear
+        view.backgroundColor = .clear
 
-            let blurEffect = UIBlurEffect(style: .systemMaterialDark)
-            let blurEffectView = UIVisualEffectView(effect: blurEffect)
-            //always fill the view
-            blurEffectView.frame = self.view.bounds
-            
-            blurEffectView.alpha = 0.75
-            blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        let blurEffect = UIBlurEffect(style: .systemMaterialDark)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        //always fill the view
+        blurEffectView.frame = self.view.bounds
+        
+        blurEffectView.alpha = 0.75
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
-            view.addSubview(blurEffectView)
-            blurEffectView.translatesAutoresizingMaskIntoConstraints = false
-            
-            blurEffectView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-            blurEffectView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-            blurEffectView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-            blurEffectView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-            
-            view.sendSubviewToBack(blurEffectView)
-            self.tabBarController?.tabBar.addSubview(blurEffectView)
-
-        } else {
-            view.backgroundColor = .black
-        }
+        view.addSubview(blurEffectView)
+        blurEffectView.translatesAutoresizingMaskIntoConstraints = false
+        
+        blurEffectView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        blurEffectView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        blurEffectView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        blurEffectView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        
+        view.sendSubviewToBack(blurEffectView)
+        self.tabBarController?.tabBar.addSubview(blurEffectView)
         
         self.modalTransitionStyle = .crossDissolve
         self.modalPresentationStyle = .overCurrentContext
@@ -126,7 +123,7 @@ class AlertView: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = Color.modalBackground
         setupView()
     }
     
@@ -134,7 +131,7 @@ class AlertView: UIViewController {
     func setupView(){
         
         let backgroundView = UIView()
-        backgroundView.backgroundColor = .white
+        backgroundView.backgroundColor = Color.modalBackground
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(backgroundView)
         

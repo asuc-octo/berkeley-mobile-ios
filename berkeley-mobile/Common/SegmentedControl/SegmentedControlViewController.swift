@@ -104,12 +104,12 @@ class SegmentedControlViewController: UIViewController {
 
         // Setup Indicator
         indicator = UIButton()
-        let image = UIImage(named: "Back")?.withRenderingMode(.alwaysTemplate)
+        let image = UIImage(named: "Back")?.colored(Color.blackText)!.withRenderingMode(.alwaysTemplate)
         indicator.addTarget(self, action: #selector(didTapIndicator), for: .touchUpInside)
         indicator.setImage(image, for: .normal)
         indicator.tintColor = Color.secondaryText
         indicator.transform = CGAffineTransform(scaleX: -1, y: 1)
-        indicator.backgroundColor = UIColor.white
+        indicator.backgroundColor = Color.modalBackground
         indicator.layer.cornerRadius = size.height / 2
         indicator.layer.shadowRadius = 5
         indicator.layer.shadowOpacity = 0.25

@@ -96,7 +96,7 @@ class EventOverviewCardView: CardView {
     
     let clockIcon: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "Clock")
+        image.image = UIImage(named: "Clock")?.colored(Color.blackText)
         image.translatesAutoresizingMaskIntoConstraints = false
         image.contentMode = .scaleAspectFit
         image.clipsToBounds = true

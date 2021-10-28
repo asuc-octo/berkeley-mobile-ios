@@ -229,12 +229,12 @@ enum MapMarkerDetail {
         switch self {
         case .openNow:
             guard let isOpen = marker.isOpen else { return nil }
-            let icon = UIImage(named: "Clock")
+            let icon = UIImage(named: "Clock")?.colored(Color.blackText)
             let tag = isOpen ? TagView.open : TagView.closed
             return viewWithIcon(icon, view: tag)
         case .location:
             guard let description = marker.address else { return nil }
-            let icon = UIImage(named: "Placemark")
+            let icon = UIImage(named: "Placemark")?.colored(Color.blackText)
             let label = UILabel()
             label.numberOfLines = 0
             label.font = Font.light(12)
@@ -243,7 +243,7 @@ enum MapMarkerDetail {
             return viewWithIcon(icon, view: label)
         case .price:
             guard let price = marker.mealPrice else { return nil }
-            let icon = UIImage(named: "Dining")
+            let icon = UIImage(named: "Dining")?.colored(Color.blackText)
             let label = UILabel()
             label.numberOfLines = 1
             label.setContentCompressionResistancePriority(.required, for: .horizontal)
