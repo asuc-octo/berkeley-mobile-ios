@@ -81,7 +81,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         filterView = FilterView(frame: .zero)
         filterView.animating = true
         filterView.allowsMultipleSelection = false
-        filterView.filterDelegate = self
+        filterView.filterDelegates.append(self)
         
         DataManager.shared.fetch(source: MapDataSource.self) { markers in
             guard let markers = markers.first as? [String: [MapMarker]] else { return }

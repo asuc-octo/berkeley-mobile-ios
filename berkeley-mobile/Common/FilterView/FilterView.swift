@@ -21,7 +21,7 @@ class FilterView: UICollectionView {
 
     static let kCellIdentifier: String = "filterCell"
 
-    open var filterDelegate: FilterViewDelegate?
+    open var filterDelegates: [FilterViewDelegate] = []
     open var animating: Bool = false
     open var labels: [String]! {
         didSet {
@@ -98,11 +98,15 @@ extension FilterView: UICollectionViewDataSource, UICollectionViewDelegate, UICo
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        filterDelegate?.filterView(self, didSelect: indexPath.row)
+        filterDelegates.forEach { delegate in
+            delegate.filterView(self, didSelect: indexPath.row)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        filterDelegate?.filterView(self, didDeselect: indexPath.row)
+        filterDelegates.forEach { delegate in
+            delegate.filterView(self, didDeselect: indexPath.row)
+        }
     }
     
     func deselectAllItems() {

@@ -67,10 +67,18 @@ extension DiningDetailViewController {
             return m1Priority < m2Priority
         })
 
+        let filter = FilterView(frame: .zero)
+        filter.contentInset = UIEdgeInsets(top: 0, left: kViewMargin, bottom: 0, right: kViewMargin)
+        filter.heightAnchor.constraint(equalToConstant: FilterViewCell.kCellSize.height).isActive = true
+        let padding = UIView()
+        padding.heightAnchor.constraint(equalToConstant: kViewMargin).isActive = true
+
         segmentedControl = SegmentedControlViewController(pages: mealNames.compactMap {
             guard let menu = meals[$0] else { return nil }
-            return Page(viewController: DiningMenuViewController(menu: menu, layoutMargins: view.layoutMargins), label: $0)
+            return Page(viewController: DiningMenuViewController(menu: menu, filter: filter, layoutMargins: view.layoutMargins), label: $0)
         })
+        segmentedControl.header.addArrangedSubview(padding)
+        segmentedControl.header.addArrangedSubview(filter)
         self.add(child: segmentedControl)
         segmentedControl.view.translatesAutoresizingMaskIntoConstraints = false
         segmentedControl.view.topAnchor.constraint(equalTo: overviewCard.bottomAnchor, constant: kViewMargin).isActive = true

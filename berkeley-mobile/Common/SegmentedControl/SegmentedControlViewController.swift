@@ -32,6 +32,9 @@ class SegmentedControlViewController: UIViewController {
     /// The `SegmentedControl` displayed at the top of this view controller.
     var control: SegmentedControl!
 
+    /// Container for additional views displayed between `control` and `pageViewController`.
+    var header: UIStackView!
+
     /// The `UIScrollView` containing `control` that allows it to scroll horizontally if there are many options.
     private var scrollView: UIScrollView!
 
@@ -131,6 +134,18 @@ class SegmentedControlViewController: UIViewController {
         control.translatesAutoresizingMaskIntoConstraints = false
         control.setConstraintsToView(top: scrollView, bottom: scrollView, left: scrollView, right: scrollView)
 
+        // Setup header
+        header = UIStackView()
+        header.axis = .vertical
+        /* Add a dummy view with intrinsic height to
+           give the stackview an intrinsic height. */
+        header.addArrangedSubview(UILabel())
+        view.addSubview(header)
+        header.translatesAutoresizingMaskIntoConstraints = false
+        header.topAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
+        header.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        header.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+
         // Setup UIPageViewController
         pageViewController = UIPageViewController(transitionStyle: .scroll,
                                                   navigationOrientation: .horizontal,
@@ -142,7 +157,7 @@ class SegmentedControlViewController: UIViewController {
         pageViewController.view.translatesAutoresizingMaskIntoConstraints = false
         pageViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         pageViewController.view.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        pageViewController.view.topAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
+        pageViewController.view.topAnchor.constraint(equalTo: header.bottomAnchor).isActive = true
         pageViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
 
         let scrollViews = pageViewController.view.subviews.filter { $0 is UIScrollView }

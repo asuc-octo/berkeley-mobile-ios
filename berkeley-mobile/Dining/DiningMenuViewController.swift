@@ -19,7 +19,7 @@ class DiningMenuViewController: UIViewController {
     static let cellHeight: CGFloat = 45
     static let cellSpacingHeight: CGFloat = 5
 
-    init(menu: DiningMenu, layoutMargins: UIEdgeInsets? = nil) {
+    init(menu: DiningMenu, filter: FilterView? = nil, layoutMargins: UIEdgeInsets? = nil) {
         self.menu = menu
         super.init(nibName: nil, bundle: nil)
 
@@ -28,14 +28,14 @@ class DiningMenuViewController: UIViewController {
             view.layoutMargins = layoutMargins
         }
 
-        setUpMenu()
+        setUpMenu(filter: filter)
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setUpMenu() {
+    func setUpMenu(filter: FilterView? = nil) {
         var filters: [Filter<DiningItem>] = [Filter<DiningItem>]()
         // Add filters for some common restrictions
         filters.append(filterForRestriction(name: "Vegetarian", restriction: KnownRestriction.vegetarian, matches: true))
@@ -54,7 +54,7 @@ class DiningMenuViewController: UIViewController {
         //        filters.append(filterForRestriction(name: "Soybeans", restriction: KnownRestriction.soybean, matches: true))
         //        filters.append(filterForRestriction(name: "Wheat", restriction: KnownRestriction.wheat, matches: true))
         //        filters.append(filterForRestriction(name: "No Sesame", restriction: KnownRestriction.sesame, matches: false))
-        menuView = FilterTableView(frame: .zero, tableFunctions: filters, defaultSort: SortingFunctions.sortAlph(item1:item2:))
+        menuView = FilterTableView(frame: .zero, tableFunctions: filters, defaultSort: SortingFunctions.sortAlph(item1:item2:), filterView: filter)
         self.menuView.tableView.register(DiningMenuCell.self, forCellReuseIdentifier: DiningMenuCell.kCellIdentifier)
         self.menuView.tableView.dataSource = self
         self.menuView.tableView.delegate = self
