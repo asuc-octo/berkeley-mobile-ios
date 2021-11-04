@@ -15,12 +15,21 @@ class MonthSelectorView: UIView {
             let sortedCalendarEntries = calendarEntries.sorted(by: { entry1, entry2 in
                 return entry1.date < entry2.date
             })
-            guard let firstDate = sortedCalendarEntries.first?.date,
-                  let lastDate = sortedCalendarEntries.last?.date else {
+            guard var firstDate = sortedCalendarEntries.first?.date,
+                  var lastDate = sortedCalendarEntries.last?.date else {
                 months = [(initialMonth, initialYear)]
                 return
             }
+            // calendar should only go back at most 1 year
+            if let oneYearAgo = Calendar.current.date(byAdding: .year, value: -1, to: Date()),
+               oneYearAgo > firstDate {
+                firstDate = oneYearAgo
+            }
             let firstComponents = Calendar.current.dateComponents([.month, .year], from: firstDate)
+            // calendar should always go up until the current day at least
+            if Date() > lastDate {
+                lastDate = Date()
+            }
             let lastComponents = Calendar.current.dateComponents([.month, .year], from: lastDate)
             months = []
             // add every month from the earliest entry to the latest entry
