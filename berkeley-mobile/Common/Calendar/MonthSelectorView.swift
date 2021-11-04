@@ -30,7 +30,7 @@ class MonthSelectorView: UIView {
             if Date() > lastDate {
                 lastDate = Date()
             }
-            let lastComponents = Calendar.current.dateComponents([.month, .year], from: lastDate > Date() ? lastDate : Date())
+            let lastComponents = Calendar.current.dateComponents([.month, .year], from: lastDate)
             months = []
             // add every month from the earliest entry to the latest entry
             for year in firstComponents.year!...lastComponents.year! {
