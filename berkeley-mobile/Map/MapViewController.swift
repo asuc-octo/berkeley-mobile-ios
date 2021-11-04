@@ -429,6 +429,11 @@ extension MapViewController: SearchResultsViewDelegate {
                 annotation.title = item.searchName
                 searchAnnotation = annotation
                 // add and select marker for search item, remove resource view if any
+                
+                if self.drawerViewController != nil {
+                    self.mainContainer?.dismissTop()
+                }
+                
                 if !mapView.annotations.contains(where: { annot in
                     return annot.isEqual(annotation)
                 }) {
@@ -441,9 +446,7 @@ extension MapViewController: SearchResultsViewDelegate {
                 }
                 // if the new search item has a detail view: remove the old detail view, show the new one
                 // otherwise: still dismiss any past detail views and show the drawer underneath
-                if drawerViewController != nil {
-                    mainContainer?.dismissTop()
-                }
+                
                 if let type = type(of: item) as? AnyClass {
                     presentDetail(type: type, item: item, containingVC: mainContainer!, position: .middle)
                 }
