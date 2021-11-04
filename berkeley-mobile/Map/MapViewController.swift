@@ -150,7 +150,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         userLocationButton.layer.shadowOpacity = 0.2
         userLocationButton.layer.shadowColor = UIColor.black.cgColor
         userLocationButton.layer.shadowOffset = CGSize(width: 0, height: 5)
-        userLocationButton.setImage(UIImage(named: "navigation-outline")!, for: .normal)
+        userLocationButton.setImage(UIImage(named: "navigation-outline")!.colored(Color.blackText), for: .normal)
         userLocationButton.addTarget(self, action: #selector(jumpToUserLocation), for: .touchUpInside)
         let _buttonWidth = mapView.frame.width * 0.12
         userLocationButton.translatesAutoresizingMaskIntoConstraints = false
@@ -170,7 +170,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
     @objc func jumpToUserLocation() {
         if LocationManager.shared.userLocation != nil {
             centerMapOnLocation(LocationManager.shared.userLocation!, mapView: mapView, animated: true)
-            userLocationButton.setImage(UIImage(named: "navigation-filled")!, for: .normal)
+            userLocationButton.setImage(UIImage(named: "navigation-filled")!.colored(Color.blackText), for: .normal)
             locationButtonTapped = true
         }
     }
@@ -333,9 +333,9 @@ extension MapViewController: MKMapViewDelegate {
         guard userLocationButton != nil else {return}
         guard locationButtonTapped != nil else {return}
         if !locationButtonTapped {
-            userLocationButton.setImage(UIImage(named: "navigation-filled")!, for: .normal)
+            userLocationButton.setImage(UIImage(named: "navigation-filled")!.colored(Color.blackText), for: .normal)
         } else {
-            userLocationButton.setImage(UIImage(named: "navigation-outline")!, for: .normal)
+            userLocationButton.setImage(UIImage(named: "navigation-outline")!.colored(Color.blackText), for: .normal)
         }
     }
     
