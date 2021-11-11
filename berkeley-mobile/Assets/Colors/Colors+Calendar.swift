@@ -20,8 +20,8 @@ extension Color {
         static var grayedText: UIColor {
             return UIColor.init { (trait) -> UIColor in
                 return trait.userInterfaceStyle == .dark ?
-                    UIColor(displayP3Red: 170/255, green: 170/255, blue: 170/255, alpha: 1.0) :
-                    UIColor(red: 98.0 / 255.0, green: 97.0 / 255.0, blue: 98.0 / 255.0, alpha: 1.0)
+                    UIColor(red: 170/255, green: 170/255, blue: 170/255, alpha: 1.0) :
+                    UIColor(red: 98/255, green: 97/255, blue: 98/255, alpha: 1.0)
             }
         }
         

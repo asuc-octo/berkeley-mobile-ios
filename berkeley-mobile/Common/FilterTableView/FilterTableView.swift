@@ -53,7 +53,7 @@ class FilterTableView<T>: UIView {
         tableView.setContentOffset(CGPoint(x: 0, y: -5), animated: false)
         tableView.contentInsetAdjustmentBehavior = .never
         tableView.showsVerticalScrollIndicator = false
-        tableView.backgroundColor = Color.cardBackground
+        tableView.backgroundColor = UIColor.clear
     }
     
     init(frame: CGRect, tableFunctions: [TableFunction], defaultSort: @escaping ((T, T) -> Bool), initialSelectedIndices: [Int] = [], filterView: FilterView? = nil) {

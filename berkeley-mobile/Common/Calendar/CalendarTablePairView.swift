@@ -31,6 +31,7 @@ class CalendarTablePairView: UIView {
         calendarView.delegate = self
         scrollingStackView.stackView.addArrangedSubview(calendarView)
         
+        calendarTable.backgroundColor = UIColor.clear
         calendarTable.register(EventTableViewCell.self, forCellReuseIdentifier: EventTableViewCell.kCellIdentifier)
         calendarTable.rowHeight = EventTableViewCell.kCellHeight
         calendarTable.delegate = self

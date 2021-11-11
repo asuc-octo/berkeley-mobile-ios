@@ -183,7 +183,7 @@ extension FitnessViewController {
         classesTable.separatorStyle = .none
         classesTable.showsVerticalScrollIndicator = false
         classesTable.rowHeight = EventTableViewCell.kCellHeight
-        classesTable.backgroundColor = Color.cardBackground
+        classesTable.backgroundColor = UIColor.clear
         classesTable.dataSource = classesController
         classesTable.delegate = classesController
         classesTable.register(EventTableViewCell.self, forCellReuseIdentifier: GymClassesController.kCellIdentifier)
