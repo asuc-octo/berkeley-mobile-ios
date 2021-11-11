@@ -41,7 +41,7 @@ class LibraryDetailViewController: SearchDrawerViewController {
     @objc private func bookButtonClicked(sender: UIButton) {
         guard let url = URL(string: kBookingURL) else { return }
         
-        presentAlertLinkUrl(title: "Are you sure you want to open Safari?", message: "Berkeley Mobile wants to open Libcal to book a study room", website_url: url)
+        presentAlertLinkUrl(title: Strings.openSafariTitle, message: Strings.Library.openBookingMessage, website_url: url)
     }
 
     var scrollingStackView: ScrollingStackView = {
@@ -52,7 +52,7 @@ class LibraryDetailViewController: SearchDrawerViewController {
     }()
 
     var bookButton: ActionButton = {
-        let button = ActionButton(title: "Book a Study Room")
+        let button = ActionButton(title: Strings.Library.bookButtonTitle)
         button.addTarget(self, action: #selector(bookButtonClicked), for: .touchUpInside)
         return button
     }()

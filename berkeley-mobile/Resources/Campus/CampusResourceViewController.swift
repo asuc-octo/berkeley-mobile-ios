@@ -102,8 +102,8 @@ extension CampusResourceViewController {
         card.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -kViewMargin).isActive = true
 
         let functions: [TableFunction] = [
-            Sort<Resource>(label: "Nearby", sort: Resource.locationComparator()),
-            Filter<Resource>(label: "Open", filter: {resource in resource.isOpen ?? false})
+            Sort<Resource>(label: Strings.Filter.nearby, sort: Resource.locationComparator()),
+            Filter<Resource>(label: Strings.Filter.open, filter: {resource in resource.isOpen ?? false})
         ]
         resourcesTable = FilterTableView(frame: .zero, tableFunctions: functions, defaultSort: SortingFunctions.sortAlph(item1:item2:), initialSelectedIndices: [0])
         resourcesTable.tableView.register(ResourceTableViewCell.self, forCellReuseIdentifier: ResourceTableViewCell.kCellIdentifier)

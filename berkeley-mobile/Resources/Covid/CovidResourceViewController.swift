@@ -40,7 +40,7 @@ class CovidResourceViewController: UIViewController {
             self.screeningUrl = covidData.dailyScreeningLink
             self.valueOne.text = covidData.dailyIncrease
             self.valueTwo.text = covidData.totalCases
-            self.lastUpdated.text = "Last Updated: \(covidData.lastUpdated)"
+            self.lastUpdated.text = Strings.Resources.covidLastUpdated(covidData.lastUpdated)
         }
     }
 }
@@ -73,7 +73,7 @@ extension CovidResourceViewController {
         
         let headerLabel = UILabel()
         headerLabel.font = Font.bold(24)
-        headerLabel.text = "Statistics"
+        headerLabel.text = Strings.Resources.covidStatsHeader
         
         card.addSubview(headerLabel)
                 
@@ -88,8 +88,8 @@ extension CovidResourceViewController {
         stack.alignment = .center
         stack.spacing = 9
         
-        let (positiveTests, positiveLabel) = createOverviewCard(cardHeader: "Total")
-        let (uhsTests, uhsLabel) = createOverviewCard(cardHeader: "New")
+        let (positiveTests, positiveLabel) = createOverviewCard(cardHeader: Strings.Resources.covidStatsTotalCasesLabel)
+        let (uhsTests, uhsLabel) = createOverviewCard(cardHeader: Strings.Resources.covidStatsNewCasesLabel)
         
         stack.addArrangedSubview(positiveTests)
         stack.addArrangedSubview(uhsTests)
@@ -106,7 +106,7 @@ extension CovidResourceViewController {
         updatedLabel.font = Font.light(14)
         updatedLabel.textColor = Color.lightGrayText
         updatedLabel.textAlignment = .left
-        updatedLabel.text = "Last Updated: "
+        updatedLabel.text = Strings.Resources.covidLastUpdated("")
         
         card.addSubview(updatedLabel)
         
@@ -155,9 +155,9 @@ extension CovidResourceViewController {
         
         let valueLabel = UILabel()
         if let value = cardValue {
-            valueLabel.text = String(numberFormatter.string(from: NSNumber(value: value)) ?? "N/A")
+            valueLabel.text = String(numberFormatter.string(from: NSNumber(value: value)) ?? Strings.notAvailable)
         } else {
-            valueLabel.text = "N/A"
+            valueLabel.text = Strings.notAvailable
         }
         valueLabel.font = Font.bold(40)
         valueLabel.textAlignment = .center
@@ -190,7 +190,7 @@ extension CovidResourceViewController {
         card.translatesAutoresizingMaskIntoConstraints = false
         
         let headerLabel = UILabel()
-        headerLabel.text = "Need an appointment?"
+        headerLabel.text = Strings.Resources.bookAppointmentHeader
         headerLabel.font = Font.bold(24)
         headerLabel.textAlignment = .left
         headerLabel.textColor = Color.blackText
@@ -199,7 +199,7 @@ extension CovidResourceViewController {
         headerLabel.minimumScaleFactor = 0.7
         
         let subtitleLabel = UILabel()
-        subtitleLabel.text = "Book an appointment through University Health Services:"
+        subtitleLabel.text = Strings.Resources.bookAppointmentSubheader
         subtitleLabel.font = Font.regular(12)
         subtitleLabel.numberOfLines = 1
         subtitleLabel.adjustsFontSizeToFitWidth = true
@@ -221,7 +221,7 @@ extension CovidResourceViewController {
         subtitleLabel.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
         
         let appointmentButton = UIButton()
-        appointmentButton.setTitle("Book Now", for: .normal)
+        appointmentButton.setTitle(Strings.Resources.bookAppointmentButtonTitle, for: .normal)
         appointmentButton.backgroundColor = Color.lowOccupancyTag
         appointmentButton.layer.cornerRadius = 15
         appointmentButton.layer.masksToBounds = true
@@ -267,7 +267,7 @@ extension CovidResourceViewController {
         bearView.contentMode = .scaleAspectFill
         
         let onCampusLabel = UILabel()
-        onCampusLabel.text = "Will you be on campus today?"
+        onCampusLabel.text = Strings.Resources.healthSurveyHeader
         onCampusLabel.font = Font.bold(22)
         onCampusLabel.numberOfLines = 1
         onCampusLabel.adjustsFontSizeToFitWidth = true
@@ -276,7 +276,7 @@ extension CovidResourceViewController {
         onCampusLabel.textColor = Color.blackText
         
         let subtitleLabel = UILabel()
-        subtitleLabel.text = "Complete the health survey before entering campus."
+        subtitleLabel.text = Strings.Resources.healthSurveySubheader
         subtitleLabel.font = Font.regular(12)
         subtitleLabel.numberOfLines = 1
         subtitleLabel.adjustsFontSizeToFitWidth = true
@@ -284,7 +284,7 @@ extension CovidResourceViewController {
         subtitleLabel.textAlignment = .center
         subtitleLabel.textColor = Color.blackText
         
-        let screenButton = ActionButton(title: "Start Health Survey", font: Font.regular(12))
+        let screenButton = ActionButton(title: Strings.Resources.healthSurveyButtonTitle, font: Font.regular(12))
         screenButton.addTarget(self, action: #selector(screeningButtonPressed), for: .touchUpInside)
         
         card.addSubview(stack)
@@ -324,13 +324,12 @@ extension CovidResourceViewController {
     
     @objc private func screeningButtonPressed(sender: UIButton) {
         guard let url = URL(string: screeningUrl) else { return }
-        presentAlertLinkUrl(title: "Are you sure you want to open Safari?", message: "Berkeley Mobile wants to navigate to the Health Survey", website_url: url)
+        presentAlertLinkUrl(title: Strings.openSafariTitle, message: Strings.Resources.openHealthSurveyMessage, website_url: url)
     }
     
     @objc private func appointmentButtonPressed(sender: UIButton) {
         guard let url = URL(string: appointmentUrl) else { return }
-        
-        presentAlertLinkUrl(title: "Are you sure you want to open Safari?", message: "Berkeley Mobile wants to navigate to the UHS Booking Website", website_url: url)
+        presentAlertLinkUrl(title: Strings.openSafariTitle, message: Strings.Resources.openBookAppointmentMessage, website_url: url)
     }
 }
 

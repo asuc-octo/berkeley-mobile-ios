@@ -25,6 +25,6 @@ extension SearchItem where Self: HasLocation {
     }
 
     var locationName: String {
-        return address ?? "Berkeley, CA"
+        return address ?? Strings.defaultLocationBerkeley
     }
 }

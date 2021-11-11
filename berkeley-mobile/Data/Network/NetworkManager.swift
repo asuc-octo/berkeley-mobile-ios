@@ -158,14 +158,14 @@ class NetworkManager {
             if let data = data {
                 do {
                     let decoded = try decode(data)
-                    print("Recieved: \(response) with data: \(decoded)")
+                    print("Received: \(response) with data: \(decoded)")
                 } catch {
                     do {
                         // Try to decode as `AnyJSON`
                         let decoded = try JSONDecoder().decode(AnyJSON.self, from: data)
-                        print("Recieved: \(response) with data: \(decoded)")
+                        print("Received: \(response) with data: \(decoded)")
                     } catch {
-                        print("Recieved: \(response) with data: \(data)")
+                        print("Received: \(response) with data: \(data)")
                     }
                 }
             }

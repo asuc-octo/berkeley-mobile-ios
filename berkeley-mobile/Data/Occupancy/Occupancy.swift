@@ -19,13 +19,13 @@ enum OccupancyStatus {
         badge.widthAnchor.constraint(equalToConstant: 50).isActive = true
         switch self {
         case OccupancyStatus.high:
-            badge.text = "High"
+            badge.text = Strings.Occupancy.high
             badge.backgroundColor = Color.highOccupancyTag
         case OccupancyStatus.medium:
-            badge.text = "Medium"
+            badge.text = Strings.Occupancy.medium
             badge.backgroundColor = Color.medOccupancyTag
         case OccupancyStatus.low:
-            badge.text = "Low"
+            badge.text = Strings.Occupancy.low
             badge.backgroundColor = Color.lowOccupancyTag
         }
         return badge

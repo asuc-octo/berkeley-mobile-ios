@@ -39,17 +39,17 @@ extension CalendarEvent {
     ///
     /// Override this function if additional fields need to be included in the exported event.
     public func addToDeviceCalendar(vc: UIViewController) {
-        let alertController = AlertView(headingText: "Add to Calendar", messageText: "Would you like to add this event to your calendar?", action1Label: "Cancel", action1Color: Color.AlertView.secondaryButton, action1Completion: {
+        let alertController = AlertView(headingText: Strings.Calendar.addTitle, messageText: Strings.Calendar.addMessage, action1Label: Strings.cancel, action1Color: Color.AlertView.secondaryButton, action1Completion: {
             vc.dismiss(animated: true, completion: nil)
-        }, action2Label: "Yes", action2Color: Color.ActionButton.background, action2Completion: {
+        }, action2Label: Strings.agree, action2Color: Color.ActionButton.background, action2Completion: {
             EventManager.shared.addEventToCalendar(calendarEvent: self) { success in
                 DispatchQueue.main.async {
                     if success {
                         vc.dismiss(animated: true, completion: nil)
-                        vc.presentSuccessAlert(title: "Successfully added to calendar")
+                        vc.presentSuccessAlert(title: Strings.Calendar.addSuccessTitle)
                     } else {
                         vc.dismiss(animated: true, completion: nil)
-                        vc.presentFailureAlert(title: "Failed to add to calendar", message: "Make sure Berkeley Mobile has access to your calendar and try again.")
+                        vc.presentFailureAlert(title: Strings.Calendar.addFailureTitle, message: Strings.Calendar.addFailureMessage)
                     }
                 }
             }
@@ -61,14 +61,14 @@ extension CalendarEvent {
         get {
             var dateString = ""
             if date.dateOnly() == Date().dateOnly() {
-                dateString += "Today / "
+                dateString += Strings.Calendar.todayPrefix
             } else {
                 let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "MM/dd/yyyy"
+                dateFormatter.dateFormat = Strings.Calendar.dateFormat
                 dateString += dateFormatter.string(from: date) + " / "
             }
             let timeFormatter = DateFormatter()
-            timeFormatter.dateFormat = "h:mm a"
+            timeFormatter.dateFormat = Strings.Calendar.timeFormat
             dateString += timeFormatter.string(from: date)
             return dateString
         }

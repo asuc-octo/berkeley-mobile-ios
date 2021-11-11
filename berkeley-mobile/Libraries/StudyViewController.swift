@@ -106,7 +106,7 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
         studyPactCard.heightAnchor.constraint(equalToConstant: 166).isActive = true
         
         let studyGroupsLabel = UILabel()
-        studyGroupsLabel.text = "Your Study Groups"
+        studyGroupsLabel.text = Strings.StudyPact.studyGroupsHeader
         studyGroupsLabel.font = Font.bold(24)
         studyGroupsLabel.adjustsFontSizeToFitWidth = true
         studyGroupsLabel.textColor = Color.blackText
@@ -116,7 +116,7 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
         studyGroupsLabel.leftAnchor.constraint(equalTo: studyPactCard.layoutMarginsGuide.leftAnchor).isActive = true
         studyGroupsLabel.topAnchor.constraint(equalTo: studyPactCard.layoutMarginsGuide.topAnchor).isActive = true
         
-        allButton.setTitle("See All >", for: .normal)
+        allButton.setTitle(Strings.StudyPact.seeAllExpand, for: .normal)
         allButton.titleLabel?.font = Font.light(12)
         allButton.setTitleColor(Color.primaryText, for: .normal)
         allButton.setTitleColor(.black, for: .highlighted)
@@ -164,7 +164,7 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
                 studyGroupsGrid = nil
             }
             if studyPactContent.subviews.count == 0 {
-                let profileButton = ActionButton(title: "Sign In to Get Started With Study Pact!", defaultColor: Color.StudyPact.StudyGroups.getStartedButton, pressedColor: Color.StudyPact.StudyGroups.getStartedPressed)
+                let profileButton = ActionButton(title: Strings.StudyPact.goToProfileButtonTitle, defaultColor: Color.StudyPact.StudyGroups.getStartedButton, pressedColor: Color.StudyPact.StudyGroups.getStartedPressed)
                 profileButton.addTarget(self, action: #selector(goToProfile), for: .touchUpInside)
                 studyPactContent.addSubview(profileButton)
                 profileButton.translatesAutoresizingMaskIntoConstraints = false
@@ -214,7 +214,7 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
         card.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
         
         let studyLabel = UILabel()
-        studyLabel.text = "Find your study spot"
+        studyLabel.text = Strings.Library.libraryTableHeader
         studyLabel.font = Font.bold(24)
         studyLabel.adjustsFontSizeToFitWidth = true
         studyLabel.textColor = Color.blackText
@@ -242,8 +242,8 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func setupFilterTableView() {
         let functions: [TableFunction] = [
-            Sort<Library>(label: "Nearby", sort: Library.locationComparator()),
-            Filter<Library>(label: "Open", filter: {lib in lib.isOpen ?? false}),
+            Sort<Library>(label: Strings.Filter.nearby, sort: Library.locationComparator()),
+            Filter<Library>(label: Strings.Filter.open, filter: {lib in lib.isOpen ?? false}),
         ]
         filterTableView = FilterTableView<Library>(frame: .zero, tableFunctions: functions, defaultSort: SortingFunctions.sortAlph(item1:item2:), initialSelectedIndices: [0])
         self.filterTableView.tableView.register(FilterTableViewCell.self, forCellReuseIdentifier: FilterTableViewCell.kCellIdentifier)

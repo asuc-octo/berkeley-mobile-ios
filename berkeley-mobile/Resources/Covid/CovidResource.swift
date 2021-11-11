@@ -22,10 +22,10 @@ class CovidResource {
 
         if lastUpdated != 0.0 {
             let formatter = DateFormatter()
-            formatter.dateFormat = "hh:mm a 'on' MM-dd-yyyy"
+            formatter.dateFormat = Strings.Resources.covidDateFormat
             self.lastUpdated = formatter.string(from: Date(timeIntervalSince1970: lastUpdated))
         } else {
-            self.lastUpdated = "Unknown"
+            self.lastUpdated = Strings.unknown
         }
 
         self.positivityRate = positivityRate

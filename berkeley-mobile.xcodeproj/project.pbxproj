@@ -98,6 +98,7 @@
 		2913595924B13DF200DE9AD6 /* OpenTimesCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2913595824B13DF200DE9AD6 /* OpenTimesCardView.swift */; };
 		291B11E025043FF100F737A8 /* Sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291B11DF25043FF100F737A8 /* Sort.swift */; };
 		291B11E225044BDB00F737A8 /* HasName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291B11E125044BDB00F737A8 /* HasName.swift */; };
+		291C4A64273CAFBE00C4D304 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291C4A63273CAFBE00C4D304 /* Strings.swift */; };
 		2925D5F825293F2A00BBA266 /* CampusEventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2925D5F725293F2A00BBA266 /* CampusEventTableViewCell.swift */; };
 		2925D5FA2529405500BBA266 /* CampusEventCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2925D5F92529405500BBA266 /* CampusEventCellView.swift */; };
 		2925D5FC2529546A00BBA266 /* CampusEventCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2925D5FB2529546A00BBA266 /* CampusEventCollectionViewCell.swift */; };
@@ -292,6 +293,7 @@
 		2913595824B13DF200DE9AD6 /* OpenTimesCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenTimesCardView.swift; sourceTree = "<group>"; };
 		291B11DF25043FF100F737A8 /* Sort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sort.swift; sourceTree = "<group>"; };
 		291B11E125044BDB00F737A8 /* HasName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasName.swift; sourceTree = "<group>"; };
+		291C4A63273CAFBE00C4D304 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		2925D5F725293F2A00BBA266 /* CampusEventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusEventTableViewCell.swift; sourceTree = "<group>"; };
 		2925D5F92529405500BBA266 /* CampusEventCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusEventCellView.swift; sourceTree = "<group>"; };
 		2925D5FB2529546A00BBA266 /* CampusEventCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusEventCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -1008,6 +1010,7 @@
 				13491DB4241E215E0033F9AB /* Colors */,
 				55DCF78A23723238001B01B8 /* Fonts */,
 				55DCF78823722CF1001B01B8 /* Fonts.swift */,
+				291C4A63273CAFBE00C4D304 /* Strings.swift */,
 				2969747525D8A77C005ED231 /* UserDefaultKeys.swift */,
 			);
 			path = Assets;
@@ -1274,6 +1277,7 @@
 				2948155D25326D1400D113B6 /* ImageLoader.swift in Sources */,
 				13EA64CA2399CE5B00FD8E13 /* SearchItem.swift in Sources */,
 				13491DB8241E22130033F9AB /* Colors+Event.swift in Sources */,
+				291C4A64273CAFBE00C4D304 /* Strings.swift in Sources */,
 				13B39A9923E6A33C0039FBA2 /* Library.swift in Sources */,
 				01CDBB9925CA32AF006B93BD /* Secrets.swift in Sources */,
 				303F6AE4236A931D007E37DD /* SegmentedControlViewController.swift in Sources */,

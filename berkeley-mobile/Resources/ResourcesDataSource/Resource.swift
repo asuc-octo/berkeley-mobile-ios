@@ -21,7 +21,7 @@ class Resource: SearchItem, HasLocation, HasOpenTimes {
     }
     
     var locationName: String {
-        return self.address ?? "Berkeley, CA"
+        return self.address ?? Strings.defaultLocationBerkeley
     }
     
     var latitude: Double?

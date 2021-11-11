@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 
 enum ResourceType: String {
-
     case health = "Health"
     case mentalHealth = "Mental Health"
     case basicNeeds = "Basic Needs"

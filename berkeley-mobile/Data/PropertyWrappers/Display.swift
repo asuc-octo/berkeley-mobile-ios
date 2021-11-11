@@ -25,7 +25,7 @@ import Foundation
     private static func wrap(_ rawString: String) -> String {
         return rawString
             .trimmingCharacters(in: .whitespacesAndNewlines)
-            .replacingOccurrences(of: "�", with: "")
+            .replacingOccurrences(of: Strings.invalidCharacter, with: "")
     }
 
     private static func wrap(_ rawValue: String?) -> String? {

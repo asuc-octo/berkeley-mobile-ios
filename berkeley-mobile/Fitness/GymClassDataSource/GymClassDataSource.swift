@@ -47,7 +47,7 @@ class GymClassDataSource: DataSource {
                 return nil
         }
         
-        let gymClass = GymClass(name: dict["class"] as? String ?? "Unnamed",
+        let gymClass = GymClass(name: dict["class"] as? String ?? Strings.defaultName,
                                 start_time: Date(timeIntervalSince1970: start_time),
                                 end_time: Date(timeIntervalSince1970: end_time),
                                 class_type: dict["class type"] as? String,

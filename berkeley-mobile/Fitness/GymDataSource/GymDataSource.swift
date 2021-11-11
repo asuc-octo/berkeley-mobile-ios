@@ -36,7 +36,7 @@ class GymDataSource: DataSource
     private static func parseGym(_ dict: [String: Any]) -> Gym {
         let weeklyHours = Gym.parseWeeklyHours(dict: dict["open_close_array"] as? [[String: Any]])
         
-        let gym = Gym(name: dict["name"] as? String ?? "Unnamed",
+        let gym = Gym(name: dict["name"] as? String ?? Strings.defaultName,
                       description: dict["description"] as? String,
                       address: dict["address"] as? String,
                       phoneNumber: dict["phone"] as? String,

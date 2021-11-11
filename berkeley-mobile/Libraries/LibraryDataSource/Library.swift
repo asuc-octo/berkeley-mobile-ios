@@ -19,14 +19,10 @@ class Library: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasImage, H
     }
     
     var locationName: String {
-        return address ?? "Berkeley, CA"
+        return address ?? Strings.defaultLocationBerkeley
     }
     
     var icon: UIImage?
-    
-    static func displayName(pluralized: Bool) -> String {
-        return "Librar" + (pluralized ? "ies" : "y")
-    }
     
     @Display var name: String
     let imageURL: URL?
