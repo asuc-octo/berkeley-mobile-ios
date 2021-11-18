@@ -39,7 +39,7 @@ class OpenTimesCardView: CollapsibleCardView {
         
         // collapsed view shows the next open interval for the current day or a "closed" label
         if let nextOpenInterval = item.nextOpenInterval() {
-            rightView = timeSpanLabel(interval: nextOpenInterval, shouldBoldIfCurrent: false)
+            rightView = timeSpanLabel(interval: nextOpenInterval.dateInterval, shouldBoldIfCurrent: false)
         } else {
             rightView = closedLabel()
         }

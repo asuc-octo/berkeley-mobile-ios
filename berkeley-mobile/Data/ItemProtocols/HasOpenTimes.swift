@@ -11,13 +11,13 @@ import Foundation
 protocol HasOpenTimes {
     
     var weeklyHours: WeeklyHours? { get }
-    func nextOpenInterval() -> DateInterval?
+    func nextOpenInterval() -> HoursInterval?
     
 }
 
 extension HasOpenTimes {
     
-    static func parseWeeklyHours(dict: [[String: Any]]?, openKey: String = "open_time", closeKey: String = "close_time") -> WeeklyHours? {
+    static func parseWeeklyHours(dict: [[String: Any]]?, openKey: String = "open_time", closeKey: String = "close_time", notesKey: String = "notes") -> WeeklyHours? {
         guard let times = dict else { return nil }
         let weeklyHours = WeeklyHours()
         for open_close in times {
@@ -30,8 +30,11 @@ extension HasOpenTimes {
                     closeDate = Calendar.current.nextDate(after: openDate, matching: components, matchingPolicy: .nextTime, repeatedTimePolicy: .first, direction: .forward) ?? Date.distantPast
                 }
                 if openDate <= closeDate {
-                    let interval = DateInterval(start: openDate, end: closeDate)
-                    weeklyHours.addInterval(interval, noteInterval: NoteInterval(interval: interval, note: open_close["notes"] as? String), to: DayOfWeek.weekday(openDate))
+                    let interval = HoursInterval(
+                        note: open_close[notesKey] as? String,
+                        dateInterval: DateInterval(start: openDate, end: closeDate)
+                    )
+                    weeklyHours.addInterval(interval, to: DayOfWeek.weekday(openDate))
                     
                 }
             }
@@ -46,25 +49,25 @@ extension HasOpenTimes {
         let today = DayOfWeek.weekday(now)
         let intervals = weeklyHours.hoursForWeekday(today)
         return intervals.contains { interval in
-            interval.contains(date: now)
+            interval.contains(now)
         }
     }
     
     // The current or next open interval for the day
-    func nextOpenInterval() -> DateInterval? {
+    func nextOpenInterval() -> HoursInterval? {
         guard let weeklyHours = self.weeklyHours else { return nil }
         let date = Date()
         let intervals = weeklyHours.hoursForWeekday(DayOfWeek.weekday(date))
-        var nextOpenInterval: DateInterval?
+        var nextOpenInterval: HoursInterval?
         for interval in intervals {
-            if interval.contains(date: date) {
-                nextOpenInterval = interval.dateInterval
+            if interval.contains(date) {
+                nextOpenInterval = interval
                 break
             } else if date.compare(interval.dateInterval.start) == .orderedAscending && interval.dateInterval.duration > 0 {
                 if nextOpenInterval == nil {
-                    nextOpenInterval = interval.dateInterval
-                } else if interval.dateInterval.compare(nextOpenInterval!) == .orderedAscending {
-                    nextOpenInterval = interval.dateInterval
+                    nextOpenInterval = interval
+                } else if interval < nextOpenInterval! {
+                    nextOpenInterval = interval
                 }
             }
         }
