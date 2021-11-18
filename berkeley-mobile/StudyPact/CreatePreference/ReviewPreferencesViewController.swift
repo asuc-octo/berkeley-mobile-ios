@@ -15,7 +15,7 @@ class ReviewPreferencesViewController: UIViewController {
     let reviewLabel: UILabel = {
         let label = UILabel()
         label.font = Font.bold(36)
-        label.text = "Let's Review!"
+        label.text = Strings.StudyPact.reviewHeader
         label.textAlignment = .center
         label.textColor = Color.blackText
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -26,7 +26,7 @@ class ReviewPreferencesViewController: UIViewController {
     let lookingLabel: UILabel = {
         let label = UILabel()
         label.font = Font.medium(18)
-        label.text = "You are looking for a:"
+        label.text = Strings.StudyPact.reviewInfoPrefix
         label.textAlignment = .center
         label.textColor = Color.blackText
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -84,14 +84,13 @@ class ReviewPreferencesViewController: UIViewController {
               let preferenceClass = preferenceVC.preference.className,
               let preferenceNumber = preferenceVC.preference.numberOfPeople,
               let preferenceQuiet = preferenceVC.preference.isQuiet else {
-            preferenceLabel.text = "There was an error with your selection."
-            lookingLabel.isHidden = true
-            reviewLabel.isHidden = true
-            return
-        }
+                  preferenceLabel.text = Strings.StudyPact.reviewInfoPrefix
+                  lookingLabel.isHidden = true
+                  reviewLabel.isHidden = true
+                  return
+              }
         lookingLabel.isHidden = false
         reviewLabel.isHidden = false
-        let peopleOrPerson = preferenceNumber == 1 ? "person" : "people"
-        preferenceLabel.text = "\(preferenceClass) study group\nwith \(preferenceNumber) other \(peopleOrPerson)\nin a \(preferenceQuiet ? "quiet" : "collaborative") setting"
+        preferenceLabel.text = Strings.StudyPact.reviewInfo(className: preferenceClass, size: preferenceNumber, isQuiet: preferenceQuiet)
     }
 }

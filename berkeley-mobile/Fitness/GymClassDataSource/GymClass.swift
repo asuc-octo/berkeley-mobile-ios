@@ -23,10 +23,10 @@ class GymClass: CalendarEvent {
         get {
             var desc = ""
             if let link = self.link {
-                desc += "Link: " + link + "\n"
+                desc += Strings.Fitness.gymClassDescriptionLink(link) + "\n"
             }
             if let trainer = self.trainer {
-                desc += "Trainer: " + trainer + "\n"
+                desc += Strings.Fitness.gymClassDescriptionTrainer(trainer) + "\n"
             }
             return desc
         }
@@ -79,10 +79,10 @@ enum GymClassDescriptor {
         
         switch self {
         case .date:
-            dateFormatter.dateFormat = "MMM d"
+            dateFormatter.dateFormat = Strings.Fitness.gymClassDescriptionDateFormat
             return dateFormatter.string(from: gymClass.date)
         case .startTime:
-            dateFormatter.dateFormat = "h:mm a"
+            dateFormatter.dateFormat = Strings.Fitness.gymClassDescriptionTimeFormat
             return dateFormatter.string(from: gymClass.date)
         case .duration:
             guard let end = gymClass.end else { return nil }

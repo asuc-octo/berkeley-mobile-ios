@@ -32,7 +32,7 @@ class SelectEnvironmentView: UIView, EnableNextDelegate {
     let quietLabel: UILabel = {
         let label = UILabel()
         label.font = Font.medium(13)
-        label.text = "study alone, but keep each other accountable"
+        label.text = Strings.StudyPact.environmentQuietDescription
         label.textAlignment = .center
         label.textColor = Color.StudyPact.CreatePreference.grayText
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -44,7 +44,7 @@ class SelectEnvironmentView: UIView, EnableNextDelegate {
     let collaborativeLabel: UILabel = {
         let label = UILabel()
         label.font = Font.medium(13)
-        label.text = "work together to finish tasks"
+        label.text = Strings.StudyPact.environmentCollaborativeDescription
         label.textAlignment = .center
         label.textColor = Color.StudyPact.CreatePreference.grayText
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -107,8 +107,8 @@ class SelectEnvironmentView: UIView, EnableNextDelegate {
     init(preferenceVC: CreatePreferenceViewController) {
         self.preferenceVC = preferenceVC
         super.init(frame: .zero)
-        self.quietButton = createButton(title: "Quiet")
-        self.collaborativeButton = createButton(title: "Collaborative")
+        self.quietButton = createButton(title: Strings.StudyPact.environmentQuietButtonTitle)
+        self.collaborativeButton = createButton(title: Strings.StudyPact.environmentCollaborativeButtonTitle)
         setUpView()
     }
     

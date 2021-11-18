@@ -27,7 +27,7 @@ class SelectClassView: UIView, UITextFieldDelegate, EnableNextDelegate {
     
     func setUpView() {
         self.textField = SearchTextField()
-        textField.placeholder = "Search for a class"
+        textField.placeholder = Strings.StudyPact.classSelectTextFieldPlaceholder
         textField.autocorrectionType = .no
         textField.autocapitalizationType = .none
         textField.borderStyle = .roundedRect

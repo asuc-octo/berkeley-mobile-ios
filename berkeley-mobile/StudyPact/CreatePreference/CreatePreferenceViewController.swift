@@ -29,7 +29,7 @@ class CreatePreferenceViewController: UIPageViewController, UIPageViewController
     }
     let nextButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Next", for: .normal)
+        button.setTitle(Strings.StudyPact.formNextPageButtonTitle, for: .normal)
         button.titleLabel?.font = Font.regular(18)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = Color.StudyPact.CreatePreference.enabledNextButton
@@ -39,7 +39,7 @@ class CreatePreferenceViewController: UIPageViewController, UIPageViewController
     }()
     let saveButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Save Preference", for: .normal)
+        button.setTitle(Strings.StudyPact.formSubmitButtonTitle, for: .normal)
         button.titleLabel?.font = Font.regular(18)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = Color.StudyPact.CreatePreference.selectedPink
@@ -50,7 +50,7 @@ class CreatePreferenceViewController: UIPageViewController, UIPageViewController
     }()
     let closeButton: UIButton = {
         let button = UIButton()
-        button.setTitle("X", for: .normal)
+        button.setTitle(Strings.Fitness.formCloseButtonTitle, for: .normal)
         button.setTitleColor(.gray, for: .normal)
         button.addTarget(self, action: #selector(closeButton(_:)), for: .touchUpInside)
         return button
@@ -129,7 +129,7 @@ class CreatePreferenceViewController: UIPageViewController, UIPageViewController
             if success {
                 self.dismiss(animated: true, completion: nil)
             } else {
-                self.presentFailureAlert(title: "Unable to Save", message: "An issue occurred when attempting to save your group preference. Please try again later.")
+                self.presentFailureAlert(title: Strings.StudyPact.failedToSubmitTitle, message: Strings.StudyPact.failedToSubmitMessage)
             }
         }
     }
@@ -158,9 +158,9 @@ class CreatePreferenceViewController: UIPageViewController, UIPageViewController
     
     func configurePageControl() {
         let initialPage = 0
-        let page1 = CreatePreferenceFrameViewController(labelText: "How many people do you want to study with?", containedView: SelectPeopleView(preferenceVC: self))
-        let page2 = CreatePreferenceFrameViewController(labelText: "What class do you want to study for?", containedView: SelectClassView(preferenceVC: self))
-        let page3 = CreatePreferenceFrameViewController(labelText: "What kind of study environment are you looking for?", containedView: SelectEnvironmentView(preferenceVC: self))
+        let page1 = CreatePreferenceFrameViewController(labelText: Strings.StudyPact.groupSizeSelectHeader, containedView: SelectPeopleView(preferenceVC: self))
+        let page2 = CreatePreferenceFrameViewController(labelText: Strings.StudyPact.classSelectHeader, containedView: SelectClassView(preferenceVC: self))
+        let page3 = CreatePreferenceFrameViewController(labelText: Strings.StudyPact.environmentSelectHeader, containedView: SelectEnvironmentView(preferenceVC: self))
         let page4 = ReviewPreferencesViewController(preferenceVC: self)
         currentDelegate = page1.containedView as? EnableNextDelegate
         

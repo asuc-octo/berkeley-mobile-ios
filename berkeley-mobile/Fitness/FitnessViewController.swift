@@ -160,14 +160,14 @@ extension FitnessViewController {
         
         let headerLabel = UILabel()
         headerLabel.font = kHeaderFont
-        headerLabel.text = "Classes"
+        headerLabel.text = Strings.Fitness.gymClassesHeader
         card.addSubview(headerLabel)
         headerLabel.translatesAutoresizingMaskIntoConstraints = false
         headerLabel.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true
         headerLabel.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
         
         let scheduleButton = UIButton()
-        scheduleButton.setTitle("See Full Schedule >", for: .normal)
+        scheduleButton.setTitle(Strings.Fitness.gymClassesExpand, for: .normal)
         scheduleButton.titleLabel?.font = Font.light(12)
         scheduleButton.setTitleColor(Color.primaryText, for: .normal)
         // TODO: Set color
@@ -195,7 +195,7 @@ extension FitnessViewController {
                 
         classesCard = card
         showButton = scheduleButton
-        missingClassesView = MissingDataView(parentView: classesTable, text: "No classes found")
+        missingClassesView = MissingDataView(parentView: classesTable, text: Strings.Fitness.gymClassesMissingData)
     }
     
     // Gyms
@@ -211,7 +211,7 @@ extension FitnessViewController {
         gymCard = card
         
         let fitnessLabel = UILabel()
-        fitnessLabel.text = "Fitness Locations"
+        fitnessLabel.text = Strings.Fitness.fitnessLocationsHeader
         fitnessLabel.font = kHeaderFont
         fitnessLabel.adjustsFontSizeToFitWidth = true
         card.addSubview(fitnessLabel)
@@ -233,8 +233,8 @@ extension FitnessViewController {
     
     func setupFilterTableView() {
         let functions: [TableFunction] = [
-            Sort<Gym>(label: "Nearby", sort: Gym.locationComparator()),
-            Filter<Gym>(label: "Open", filter: {gym in gym.isOpen ?? false}),
+            Sort<Gym>(label: Strings.Filter.nearby, sort: Gym.locationComparator()),
+            Filter<Gym>(label: Strings.Filter.open, filter: {gym in gym.isOpen ?? false}),
         ]
         filterTableView = FilterTableView<Gym>(frame: .zero, tableFunctions: functions, defaultSort: SortingFunctions.sortAlph(item1:item2:), initialSelectedIndices: [0])
         self.filterTableView.tableView.register(FilterTableViewCell.self, forCellReuseIdentifier: FilterTableViewCell.kCellIdentifier)
