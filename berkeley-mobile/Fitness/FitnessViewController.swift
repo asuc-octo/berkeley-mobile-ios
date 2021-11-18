@@ -26,6 +26,7 @@ class FitnessViewController: UIViewController, SearchDrawerViewDelegate {
     var drawerStatePositions: [DrawerState : CGFloat] = [:]
     // SearchDrawerViewDelegate property
     var mainContainer: MainContainerViewController?
+    var pinDelegate: SearchResultsViewDelegate?
 
     // MARK: FitnessViewController
 
@@ -88,9 +89,9 @@ class FitnessViewController: UIViewController, SearchDrawerViewDelegate {
                 self.classesCard.setHeightConstraint(kClassesCollapsedHeight)
             }
             
-            self.scrollView.layoutSubviews()
-            
             self.classesTable.reloadData()
+            self.scrollView.layoutSubviews()
+            self.viewDidLayoutSubviews()
         }
         
         // fetch gyms and fetch occupancy data afterwards

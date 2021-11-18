@@ -23,20 +23,27 @@ class FilterTableView<T>: UIView {
     
     var isInitialSetup = true
 
-    func setupSubviews() {
+    func setupSubviews(createFilter: Bool = true) {
         self.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        self.addSubview(filter)
 
-        filter.translatesAutoresizingMaskIntoConstraints = false
-        filter.leftAnchor.constraint(equalTo: self.layoutMarginsGuide.leftAnchor).isActive = true
-        filter.rightAnchor.constraint(equalTo: self.layoutMarginsGuide.rightAnchor).isActive = true
-        filter.topAnchor.constraint(equalTo: self.layoutMarginsGuide.topAnchor).isActive = true
-        filter.heightAnchor.constraint(equalToConstant: FilterViewCell.kCellSize.height).isActive = true
+        if createFilter {
+            self.addSubview(filter)
+
+            filter.translatesAutoresizingMaskIntoConstraints = false
+            filter.leftAnchor.constraint(equalTo: self.layoutMarginsGuide.leftAnchor).isActive = true
+            filter.rightAnchor.constraint(equalTo: self.layoutMarginsGuide.rightAnchor).isActive = true
+            filter.topAnchor.constraint(equalTo: self.layoutMarginsGuide.topAnchor).isActive = true
+            filter.heightAnchor.constraint(equalToConstant: FilterViewCell.kCellSize.height).isActive = true
+        }
 
         self.addSubview(tableView)
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.topAnchor.constraint(equalTo: filter.bottomAnchor, constant: kViewMargin).isActive = true
+        if createFilter {
+            tableView.topAnchor.constraint(equalTo: filter.bottomAnchor, constant: kViewMargin).isActive = true
+        } else {
+            tableView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        }
         tableView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         tableView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
@@ -48,15 +55,20 @@ class FilterTableView<T>: UIView {
         tableView.showsVerticalScrollIndicator = false
     }
     
-    init(frame: CGRect, tableFunctions: [TableFunction], defaultSort: @escaping ((T, T) -> Bool), initialSelectedIndices: [Int] = []) {
+    init(frame: CGRect, tableFunctions: [TableFunction], defaultSort: @escaping ((T, T) -> Bool), initialSelectedIndices: [Int] = [], filterView: FilterView? = nil) {
         self.defaultSort = defaultSort
         super.init(frame: frame)
-        self.setupSubviews()
+        if let filterView = filterView {
+            filter = filterView
+            self.setupSubviews(createFilter: false)
+        } else {
+            self.setupSubviews()
+        }
 
         missingView = MissingDataView(parentView: tableView, text: "No items found")
         self.tableFunctions = tableFunctions
         filter.labels = tableFunctions.map { $0.label }
-        filter.filterDelegate = self
+        filter.filterDelegates.append(self)
         for index in initialSelectedIndices {
             guard index < filter.labels.count else { continue }
             filter.selectItem(index: index)

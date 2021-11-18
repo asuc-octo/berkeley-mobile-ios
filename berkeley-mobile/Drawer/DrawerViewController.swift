@@ -10,7 +10,13 @@ import UIKit
 
 // General drawer with a gray bar at the top, can handle pan gesture to change position
 class DrawerViewController: UIViewController {
-    var delegate: DrawerViewDelegate!
+    var delegate: DrawerViewDelegate! {
+        didSet {
+            // Call the `didSet` method of `shouldHandlePan` to
+            // make sure delegate properties are set.
+            shouldHandlePan = shouldHandlePan ?? true
+        }
+    }
     
     // the current position of the drawer
     var currState: DrawerState!
@@ -42,9 +48,9 @@ class DrawerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        // default to collapsed initial position
-        currState = .collapsed
-        prevState = .collapsed
+        // default to middle initial position
+        currState = .middle
+        prevState = .middle
         
         view.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: DrawerViewController.bottomOffsetY + 20, right: 16)
         

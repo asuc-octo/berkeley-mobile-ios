@@ -19,8 +19,10 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
     var initialDrawerCenter = CGPoint()
     var initialGestureTranslation: CGPoint = CGPoint()
     var drawerStatePositions: [DrawerState : CGFloat] = [:]
+    
     // MARK: SearchDrawerViewDelegate
     var mainContainer: MainContainerViewController?
+    var pinDelegate: SearchResultsViewDelegate?
     
     // MARK: Setup
     private var scrollView: UIScrollView!
@@ -251,7 +253,7 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presentDetail(type: Library.self, item: self.filterTableView.filteredData[indexPath.row], containingVC: mainContainer!, position: .full)
+        self.dropPin(item: self.filterTableView.filteredData[indexPath.row])
         tableView.deselectRow(at: indexPath, animated: true)
     }
     

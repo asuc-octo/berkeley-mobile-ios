@@ -24,9 +24,18 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         tabBar.isTranslucent = false
         tabBar.tintColor = UIColor.black
         
-        let appearance = UITabBarItem.appearance()
+        if #available(iOS 15.0, *) {
+            let appearance = UITabBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.backgroundColor = Color.cardBackground
+            
+            tabBar.standardAppearance = appearance
+            tabBar.scrollEdgeAppearance = tabBar.standardAppearance
+        }
+        
+        let tabBarAppearance = UITabBarItem.appearance()
         let attributes = [NSAttributedString.Key.font: Font.regular(11)]
-        appearance.setTitleTextAttributes(attributes, for: .normal)
+        tabBarAppearance.setTitleTextAttributes(attributes, for: .normal)
         
         mapView.tabBarItem = UITabBarItem(title: "Home", image: UIImage(named: "Home"), tag: 0)
         resourcesView.tabBarItem = UITabBarItem(title: "Resources", image: UIImage(named: "Resources"), tag: 1)

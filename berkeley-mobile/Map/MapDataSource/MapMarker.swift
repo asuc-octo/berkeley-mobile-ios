@@ -13,12 +13,12 @@ import MapKit
 // MARK: - KnownType
 
 enum KnownType<T: RawRepresentable>: RawRepresentable {
-
+    
     typealias RawValue = T.RawValue
-
+    
     case known(type: T)
     case unknown(raw: RawValue)
-
+    
     var rawValue: RawValue {
         switch self {
         case .known(let type):
@@ -27,7 +27,7 @@ enum KnownType<T: RawRepresentable>: RawRepresentable {
             return raw
         }
     }
-
+    
     init?(rawValue: RawValue) {
         let type = T(rawValue: rawValue)
         if let type = type {
@@ -42,11 +42,11 @@ enum KnownType<T: RawRepresentable>: RawRepresentable {
 // MARK: - MapMarkerType
 
 /**
-    Lists all recognized Map Marker Types, where the  `rawValue` is the Collection
-    name on Firebase. Add to this enum to add another type of map resource.
+ Lists all recognized Map Marker Types, where the  `rawValue` is the Collection
+ name on Firebase. Add to this enum to add another type of map resource.
  */
 enum MapMarkerType: String, CaseIterable, Comparable {
-
+    
     case restaurant = "Restaurant"
     case cafe = "Cafe"
     case store = "Store"
@@ -59,9 +59,9 @@ enum MapMarkerType: String, CaseIterable, Comparable {
     case printer = "Printer"
     case water = "Water"
     case waste = "Waste"
-
+    
     case none = "_none"
-
+    
     static func < (lhs: MapMarkerType, rhs: MapMarkerType) -> Bool {
         // Compare marker types by their declaration order
         guard let lhsIdx = allCases.firstIndex(of: lhs), let rhsIdx = allCases.firstIndex(of: rhs) else {
@@ -148,10 +148,10 @@ enum MapMarkerType: String, CaseIterable, Comparable {
             return Color.MapMarker.waste
         case .garden:
             return Color.MapMarker.garden
-        case .cafe:
-            return Color.MapMarker.cafe
         case .store:
             return Color.MapMarker.store
+        case .cafe:
+            return Color.MapMarker.cafe
         case .mentalHealth:
             return Color.MapMarker.mentalHealth
         default:
@@ -164,7 +164,7 @@ enum MapMarkerType: String, CaseIterable, Comparable {
 // MARK: - MapMarker
 
 /** Object describing resource locations (Microwaves, Bikes, Nap Pods, etc.) */
-class MapMarker: NSObject, MKAnnotation, HasOpenTimes {
+class MapMarker: NSObject, MKAnnotation, HasOpenTimes, SearchItem {
     
     var type: KnownType<MapMarkerType>
     
@@ -184,19 +184,25 @@ class MapMarker: NSObject, MKAnnotation, HasOpenTimes {
     var cal1Card: Bool?
     var eatWell: Bool?
     
+    var searchName: String
+    var location: (Double, Double)
+    var locationName: String
+    var icon: UIImage?
+    var name: String
+
     init?(type: String,
-         location: CLLocationCoordinate2D,
-         name: String? = nil,
-         description: String? = nil,
-         address: String? = nil,
-         onCampus: Bool? = nil,
-         phone: String? = nil,
-         email: String? = nil,
-         weeklyHours: WeeklyHours? = nil,
-         appointment: Bool? = nil,
-         mealPrice: String? = nil,
-         cal1Card: Bool? = nil,
-         eatWell: Bool? = nil) {
+          location: CLLocationCoordinate2D,
+          name: String? = nil,
+          description: String? = nil,
+          address: String? = nil,
+          onCampus: Bool? = nil,
+          phone: String? = nil,
+          email: String? = nil,
+          weeklyHours: WeeklyHours? = nil,
+          appointment: Bool? = nil,
+          mealPrice: String? = nil,
+          cal1Card: Bool? = nil,
+          eatWell: Bool? = nil) {
         guard let type = KnownType<MapMarkerType>(rawValue: type) else { return nil }
         self.type = type
         self.coordinate = location
@@ -210,6 +216,12 @@ class MapMarker: NSObject, MKAnnotation, HasOpenTimes {
         self.mealPrice = mealPrice
         self.cal1Card = cal1Card
         self.eatWell = eatWell
+
+        self.searchName = name ?? ""
+        self.location = (location.latitude, location.longitude)
+        self.locationName = address ?? ""
+        self.icon = nil
+        self.name = name ?? ""
     }
     
 }

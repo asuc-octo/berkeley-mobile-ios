@@ -184,6 +184,7 @@ class CalendarCell: UICollectionViewCell {
     public func configureHeader(text: String) {
         label.text = text
         label.textColor = Color.Calendar.dayOfWeekHeader
+        label.font = Font.light(18)
         highlightView.backgroundColor = .clear
     }
     
@@ -247,7 +248,7 @@ extension CalendarView: UICollectionViewDelegate, UICollectionViewDataSource {
                 let calendarDay = calendarDays[cellIndex]
                 // highlight and bold the text if the cell is for today
                 let todayComponents = calendar.dateComponents([.year, .month, .day], from: Date())
-                let boldText = year == todayComponents.year && month == todayComponents.month && calendarDay.day == todayComponents.day
+                let boldText = year == todayComponents.year && month == todayComponents.month && calendarDay.day == todayComponents.day && calendarDay.isCurrentMonth
                 calendarCell.configureDay(entries: currentMonthCalendarEntries, calendarDay: calendarDay, boldText: boldText)
             }
         }

@@ -38,10 +38,11 @@ class CampusEventDetailViewController: UIViewController {
     
     func setUpScrollView() {
         view.addSubview(scrollingStackView)
+        scrollingStackView.setLayoutMargins(UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16))
         scrollingStackView.topAnchor.constraint(equalTo: barView.bottomAnchor, constant: kViewMargin).isActive = true
-        scrollingStackView.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
-        scrollingStackView.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
-        scrollingStackView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
+        scrollingStackView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        scrollingStackView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        scrollingStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
     
     func setUpOverviewCard() {

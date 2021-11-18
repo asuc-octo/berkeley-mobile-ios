@@ -108,7 +108,11 @@ extension CalendarTablePairView: CalendarViewDelegate {
         }
         tableEntries = selectedEntries
         calendarTable.reloadData()
-        calendarTableHeightConstraint?.constant = min(calendarTable.contentSize.height, self.frame.height * 0.7)
+        if selectedEntries.isEmpty {
+            calendarTableHeightConstraint?.constant = self.frame.height * 0.2
+        } else {
+            calendarTableHeightConstraint?.constant = min(calendarTable.contentSize.height, self.frame.height * 0.7)
+        }
         self.layoutIfNeeded()
     }
 }

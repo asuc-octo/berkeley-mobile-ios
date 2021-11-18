@@ -22,7 +22,6 @@ class LibraryDetailViewController: SearchDrawerViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setUpScrollView()
         setUpOverviewCard()
         setUpOpenTimesCard()
@@ -96,10 +95,11 @@ extension LibraryDetailViewController {
     func setUpScrollView() {
         scrollingStackView.scrollView.drawerViewController = self
         scrollingStackView.scrollView.setupDummyGesture()
+        scrollingStackView.setLayoutMargins(UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16))
         view.addSubview(scrollingStackView)
         scrollingStackView.topAnchor.constraint(equalTo: barView.bottomAnchor, constant: kViewMargin).isActive = true
-        scrollingStackView.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
-        scrollingStackView.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
+        scrollingStackView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        scrollingStackView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         scrollingStackView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
     }
 }

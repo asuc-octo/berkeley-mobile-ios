@@ -14,8 +14,7 @@ fileprivate let kDataSources: [DataSource.Type] = [
     ResourceDataSource.self,
     LibraryDataSource.self,
     DiningHallDataSource.self,
-    GymDataSource.self,
-    CafeDataSource.self
+    GymDataSource.self
 ]
 
 /// Data sources that should be loaded after the first group. Either lower priority/takes too long, or depends on previous sources being loaded.
@@ -35,8 +34,14 @@ class DataManager {
     private var data: AtomicDictionary<String, [Any]>
     // TODO: Make this O(1).
     var searchable: [SearchItem] {
-        data.values.compactMap { items in
-            items as? [SearchItem]
+        data.values.compactMap { (items) -> [SearchItem]? in
+            // Handle special case of map markers, which has markers stored in a dictionary
+            if let dictItems = items as? [[String: [SearchItem]]] {
+                return dictItems.map { dict in
+                    dict.values.flatMap { $0 }
+                }.flatMap { $0 }
+            }
+            return items as? [SearchItem]
         }.flatMap { $0 }
     }
     
