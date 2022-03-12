@@ -116,7 +116,7 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
         studyGroupsLabel.leftAnchor.constraint(equalTo: studyPactCard.layoutMarginsGuide.leftAnchor).isActive = true
         studyGroupsLabel.topAnchor.constraint(equalTo: studyPactCard.layoutMarginsGuide.topAnchor).isActive = true
         
-        allButton.setTitle(Strings.StudyPact.seeAllExpand, for: .normal)
+        allButton.setTitle(Strings.StudyPact.studyGroupsExpand, for: .normal)
         allButton.titleLabel?.font = Font.light(12)
         allButton.setTitleColor(Color.primaryText, for: .normal)
         allButton.setTitleColor(.black, for: .highlighted)

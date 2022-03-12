@@ -90,9 +90,9 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigation
                 case .failure(let error):
                     switch error {
                     case .InvalidEmail:
-                        self.presentFailureAlert(title: "Invalid Email", message: "Please use a valid @berkeley.edu email.")
+                        self.presentFailureAlert(title: Strings.Profile.invalidEmailTitle, message: Strings.Profile.invalidEmailMessage)
                     default:
-                        self.presentFailureAlert(title: "Failed to Sign In", message: "Please try again later.")
+                        self.presentFailureAlert(title: Strings.Profile.failedSignInTitle, message: Strings.Profile.failedSignInMessage)
                     }
                     SignInManager.shared.signOut()
                     DispatchQueue.main.async {
@@ -128,7 +128,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigation
                         } else {
                             GIDSignIn.sharedInstance()?.signOut()
                             StudyPact.shared.reset()
-                            self.presentFailureAlert(title: "Failed to Register", message: "Please try again later.")
+                            self.presentFailureAlert(title: Strings.Profile.failedRegisterTitle, message: Strings.Profile.failedRegisterMessage)
                             DispatchQueue.main.async {
                                 self.loggedOutView()
                             }
@@ -206,11 +206,9 @@ extension ProfileViewController {
     }
     
     @objc private func logoutButtonPressed(sender: UIButton) {
-        
-        
-        let alertView = AlertView(headingText: "Logout?", messageText: "You will be returned to the login screen.", action1Label: "Cancel", action1Color: Color.AlertView.secondaryButton, action1Completion: {
+        let alertView = AlertView(headingText: Strings.Profile.logoutTitle, messageText: Strings.Profile.logoutMessage, action1Label: Strings.cancel, action1Color: Color.AlertView.secondaryButton, action1Completion: {
             self.dismiss(animated: true, completion: nil)
-        }, action2Label: "Logout", action2Color: Color.ActionButton.background, action2Completion: {
+        }, action2Label: Strings.Profile.logoutButtonTitle, action2Color: Color.ActionButton.background, action2Completion: {
             let auth = Auth.auth()
             do {
                 try auth.signOut()
@@ -241,14 +239,14 @@ extension ProfileViewController {
         profileLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         profileLabel.numberOfLines = 0
         profileLabel.font = Font.bold(30)
-        profileLabel.text = "Profile"
+        profileLabel.text = Strings.Profile.profileHeader
         profileView.addSubview(profileLabel)
         profileLabel.translatesAutoresizingMaskIntoConstraints = false
         profileLabel.topAnchor.constraint(equalTo: profileView.topAnchor, constant: 15).isActive = true
         profileLabel.leftAnchor.constraint(equalTo: profileView.leftAnchor).isActive = true
         
         let button = UIButton()
-        button.setTitle("Logout", for: .normal)
+        button.setTitle(Strings.Profile.logoutButtonTitle, for: .normal)
         button.titleLabel?.font = Font.medium(18)
         button.setTitleColor(Color.blackText, for: .normal)
         button.setTitleColor(Color.lightGrayText, for: .selected)
@@ -264,7 +262,7 @@ extension ProfileViewController {
         logoutButton = button
         
         let radius: CGFloat = 40
-        let initials = ProfileLabel(text: "O", radius: radius, fontSize: 40)
+        let initials = ProfileLabel(text: Strings.Profile.defaultInitial, radius: radius, fontSize: 40)
         
         profileView.addSubview(initials)
         
@@ -305,10 +303,10 @@ extension ProfileViewController {
         ]
         
         let pictureButton = UIButton()
-        let attributedString = NSMutableAttributedString(string: "Edit Profile Picture", attributes: regularAttributes)
+        let attributedString = NSMutableAttributedString(string: Strings.Profile.editPictureButtonTitle, attributes: regularAttributes)
         pictureButton.setAttributedTitle(attributedString, for: .normal)
         
-        let pressedAttributedString = NSMutableAttributedString(string: "Edit Profile Picture", attributes: pressedAttributes)
+        let pressedAttributedString = NSMutableAttributedString(string: Strings.Profile.editPictureButtonTitle, attributes: pressedAttributes)
         pictureButton.setAttributedTitle(pressedAttributedString, for: .selected)
         
         profileView.addSubview(pictureButton)
@@ -355,7 +353,7 @@ extension ProfileViewController {
         rows.addArrangedSubview(nameRow)
         
         let nameLabel = UILabel()
-        nameLabel.text = "Name"
+        nameLabel.text = Strings.Profile.nameLabel
         nameLabel.font = Font.medium(14)
         nameLabel.textAlignment = .left
         nameLabel.textColor = Color.blackText
@@ -390,7 +388,7 @@ extension ProfileViewController {
         rows.addArrangedSubview(emailRow)
         
         let emailLabel = UILabel()
-        emailLabel.text = "Email"
+        emailLabel.text = Strings.Profile.emailLabel
         emailLabel.font = Font.medium(14)
         emailLabel.textAlignment = .left
         emailLabel.textColor = Color.blackText
@@ -405,7 +403,7 @@ extension ProfileViewController {
         emailLabel.setHeightConstraint(36)
         emailLabel.leftAnchor.constraint(equalTo: rows.leftAnchor).isActive = true
 
-        let emailField = TaggedTextField(tagText: "* set by CalNet and cannot be changed")
+        let emailField = TaggedTextField(tagText: Strings.Profile.emailNoChangeText)
         emailField.textField.delegate = self
         
         emailRow.addArrangedSubview(emailField)
@@ -426,7 +424,7 @@ extension ProfileViewController {
         rows.addArrangedSubview(phoneRow)
         
         let phoneLabel = UILabel()
-        phoneLabel.text = "Phone Number"
+        phoneLabel.text = Strings.Profile.phoneNumberLabel
         phoneLabel.font = Font.medium(14)
         phoneLabel.textAlignment = .left
         phoneLabel.textColor = Color.blackText
@@ -463,7 +461,7 @@ extension ProfileViewController {
         rows.addArrangedSubview(fbRow)
         
         let facebookLabel = UILabel()
-        facebookLabel.text = "Facebook Username"
+        facebookLabel.text = Strings.Profile.facebookUsernameLabel
         facebookLabel.numberOfLines = 2
         facebookLabel.font = Font.medium(14)
         facebookLabel.textAlignment = .left
@@ -478,7 +476,7 @@ extension ProfileViewController {
         facebookLabel.setHeightConstraint(36)
         facebookLabel.leftAnchor.constraint(equalTo: rows.leftAnchor).isActive = true
         
-        let facebookField = TaggedTextField(tagText: "facebook.com/your-username", boldStrings: ["your-username"])
+        let facebookField = TaggedTextField(tagText: Strings.Profile.facebookURLText, boldStrings: [Strings.Profile.facebookURLTextBolded])
         facebookField.textField.delegate = self
         facebookField.textField.autocorrectionType = .no
         facebookField.textField.keyboardType = .URL
@@ -495,7 +493,7 @@ extension ProfileViewController {
         facebookTextField = facebookField
         
         // ** BUTTONS ** //
-        let cancelButton = ActionButton(title: "Cancel", font: Font.bold(14), defaultColor: Color.StudyPact.StudyGroups.leaveGroupButton, pressedColor: Color.StudyPact.StudyGroups.leaveGroupButton)
+        let cancelButton = ActionButton(title: Strings.cancel, font: Font.bold(14), defaultColor: Color.StudyPact.StudyGroups.leaveGroupButton, pressedColor: Color.StudyPact.StudyGroups.leaveGroupButton)
         cancelButton.layer.shadowRadius = 2.5
         cancelButton.addTarget(self, action: #selector(cancelButtonPressed), for: .touchUpInside)
         
@@ -505,7 +503,7 @@ extension ProfileViewController {
         cancelButton.setHeightConstraint(40)
         cancelButton.bottomAnchor.constraint(equalTo: profileView.bottomAnchor, constant: -10).isActive = true
         
-        let saveButton = ActionButton(title: "Save", font: Font.bold(14))
+        let saveButton = ActionButton(title: Strings.Profile.saveButtonTitle, font: Font.bold(14))
         saveButton.layer.shadowRadius = 2.5
         saveButton.addTarget(self, action: #selector(saveButtonPressed), for: .touchUpInside)
         
@@ -529,7 +527,7 @@ extension ProfileViewController {
         loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         let warningLabel = UILabel()
-        warningLabel.text = "You must use a valid berkeley.edu email"
+        warningLabel.text = Strings.Profile.berkeleyWarningLabel
         warningLabel.font = Font.medium(14)
         warningLabel.numberOfLines = 1
         warningLabel.adjustsFontSizeToFitWidth = true
@@ -618,9 +616,9 @@ extension ProfileViewController {
         StudyPact.shared.addUser(name: fullNameField.text!, email: StudyPact.shared.email!, phone: phoneNumber, profile:
                                  imageUrl, facebook: facebook) { (success) in
             if success {
-                self.presentSuccessAlert(title: "Successfully saved profile")
+                self.presentSuccessAlert(title: Strings.Profile.savedProfileTitle)
             } else {
-                self.presentFailureAlert(title: "Failed to Save Profile", message: "Please try again later.")
+                self.presentFailureAlert(title: Strings.Profile.failedSaveProfileTitle, message: Strings.Profile.failedSaveProfileMessage)
             }
         }
     }

@@ -12,7 +12,7 @@ class StudyPactNewFeatureViewController: UIViewController {
     let featureLabel: UILabel = {
         let label = UILabel()
         label.font = Font.bold(40)
-        label.text = "New Feature!"
+        label.text = Strings.StudyPact.newFeatureLabel
         label.adjustsFontSizeToFitWidth = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -33,7 +33,7 @@ class StudyPactNewFeatureViewController: UIViewController {
         descriptionLabel.textColor = .gray
         descriptionLabel.textAlignment = .center
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        descriptionLabel.text = "StudyPact - finding students to study with has never been easier."
+        descriptionLabel.text = Strings.StudyPact.studyPactDescriptionLabel
         return descriptionLabel
     }()
     
@@ -45,7 +45,7 @@ class StudyPactNewFeatureViewController: UIViewController {
     let getStartedButton: UIButton = {
         let button = UIButton()
         button.titleLabel?.font = Font.medium(15)
-        button.setTitle("Get Started!", for: .normal)
+        button.setTitle(Strings.StudyPact.getStartedButtonTitle, for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = Color.StudyPact.Onboarding.getStartedBlue
         button.addTarget(self, action: #selector(getStarted(_:)), for: .touchUpInside)
@@ -57,7 +57,7 @@ class StudyPactNewFeatureViewController: UIViewController {
     let laterButton: UIButton = {
         let button = UIButton()
         button.titleLabel?.font = Font.medium(15)
-        button.setTitle("Sign Up Later.", for: .normal)
+        button.setTitle(Strings.StudyPact.notNowButtonTitle, for: .normal)
         button.setTitleColor(Color.StudyPact.Onboarding.getStartedBlue, for: .normal)
         button.backgroundColor = .white
         button.layer.borderWidth = 2

@@ -50,7 +50,7 @@ class CreatePreferenceViewController: UIPageViewController, UIPageViewController
     }()
     let closeButton: UIButton = {
         let button = UIButton()
-        button.setTitle(Strings.Fitness.formCloseButtonTitle, for: .normal)
+        button.setTitle(Strings.formCloseButtonTitle, for: .normal)
         button.setTitleColor(.gray, for: .normal)
         button.addTarget(self, action: #selector(closeButton(_:)), for: .touchUpInside)
         return button

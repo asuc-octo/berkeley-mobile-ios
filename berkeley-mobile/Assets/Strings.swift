@@ -11,6 +11,7 @@ import Foundation
 struct Strings {
     static let agree = "Yes"
     static let cancel = "Cancel"
+    static let formCloseButtonTitle = "X"
     
     static let defaultName = "Unnamed"
     static let unknown = "Unknown"
@@ -56,7 +57,6 @@ struct Strings {
         static let goToProfileButtonTitle = "Sign In to Get Started With Study Pact!"
         
         static let formNextPageButtonTitle = "Next"
-        static let formCloseButtonTitle = "X"
         static let groupSizeSelectHeader = "How many people do you want to study with?"
         static let classSelectHeader = "What class do you want to study for?"
         static let classSelectTextFieldPlaceholder = "Search for a class"
@@ -75,7 +75,10 @@ struct Strings {
         static let failedToSubmitTitle = "Unable to Save"
         static let failedToSubmitMessage = "An issue occurred when attempting to save your group preference. Please try again later."
         
-        static let 
+        static let newFeatureLabel = "New Feature!"
+        static let studyPactDescriptionLabel = "StudyPact - finding students to study with has never been easier."
+        static let getStartedButtonTitle = "Get Started!"
+        static let notNowButtonTitle = "Sign Up Later."
     }
     
     struct Resources {
@@ -124,5 +127,33 @@ struct Strings {
         static let openGymClassZoomMesssage = "Berkeley Mobile wants to open an online fitness class in Zoom"
         
         static let fitnessLocationsHeader = "Fitness Locations"
+    }
+    
+    struct Profile {
+        static let logoutButtonTitle = "Logout"
+        static let profileHeader = "Profile"
+        static let defaultInitial = "O"
+        static let editPictureButtonTitle = "Edit Profile Picture"
+        static let nameLabel = "Name"
+        static let emailLabel = "Email"
+        static let emailNoChangeText = "* set by CalNet and cannot be changed"
+        static let phoneNumberLabel = "Phone Number"
+        static let facebookUsernameLabel = "Facebook Username"
+        static let facebookURLText = "facebook.com/your-username"
+        static let facebookURLTextBolded = "your-username"
+        static let saveButtonTitle = "Save"
+        static let berkeleyWarningLabel = "You must use a valid berkeley.edu email"
+        
+        static let invalidEmailTitle = "Invalid Email"
+        static let invalidEmailMessage = "Please use a valid @berkeley.edu email."
+        static let failedSignInTitle = "Failed to Sign In"
+        static let failedSignInMessage = "Please try again later."
+        static let failedRegisterTitle = "Failed to Register"
+        static let failedRegisterMessage = "Please try again later."
+        static let logoutTitle = "Logout?"
+        static let logoutMessage = "You will be returned to the login screen."
+        static let savedProfileTitle = "Successfully saved profile"
+        static let failedSaveProfileTitle = "Failed to Save Profile"
+        static let failedSaveProfileMessage = "Please try again later."
     }
 }
