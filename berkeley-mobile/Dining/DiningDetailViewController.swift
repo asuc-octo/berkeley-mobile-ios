@@ -73,10 +73,10 @@ extension DiningDetailViewController {
                 }
                 return interval1 < interval2
             })
-            // Select the meal happening now, if any
+            // Select the meal happening now, or the next one
             currentMealIndex = mealNames.firstIndex(where: { meal in
                 guard let interval = mealHours[meal] else { return false }
-                return interval.contains(now)
+                return interval.contains(now) || interval.start > now
             }) ?? 0
         } else {
             mealNames = Array(meals.keys).sorted(by: { (meal1, meal2) -> Bool in
