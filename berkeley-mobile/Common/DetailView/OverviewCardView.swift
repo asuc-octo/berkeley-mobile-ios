@@ -137,8 +137,8 @@ class OverviewCardView: CardView {
             /* Remove the date, and only include hour and minute in string display.
              Otherwise, string is too long when interval spans two days (e.g. 9pm-12:30am) */
             if let interval = nextOpenInterval,
-                let start = interval.start.timeOnly(),
-                let end = interval.end.timeOnly() {
+               let start = interval.dateInterval.start.timeOnly(),
+               let end = interval.dateInterval.end.timeOnly() {
                 openTimeLabel.text = formatter.string(from: start, to: end)
             }
 

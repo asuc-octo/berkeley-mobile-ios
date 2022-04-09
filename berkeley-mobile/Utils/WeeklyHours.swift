@@ -12,7 +12,7 @@ import Foundation
     DateIntervals are adjusted to the current week, and may extend to the next day. Items are sorted.
     `DateInterval.duration = 0` for 24-hour services.
 */
-typealias DailyHoursType = [DateInterval]
+typealias DailyHoursType = [HoursInterval]
 
 /** Maps DayOfWeek to array of disjoint open hours. */
 typealias WeeklyHoursType = [DayOfWeek: DailyHoursType]
@@ -43,10 +43,33 @@ class WeeklyHours {
         weeklyHours[weekday] = hours.sorted()
     }
     
-    public func addInterval(_ interval: DateInterval, to weekday: DayOfWeek) {
+    public func addInterval(_ interval: HoursInterval, to weekday: DayOfWeek) {
         var hours = hoursForWeekday(weekday)
         hours.append(interval)
         setHoursForWeekday(weekday, hours: hours)
+    }
+    
+}
+
+struct HoursInterval: Comparable, Equatable {
+
+    var note: String?
+    var dateInterval: DateInterval
+    
+    static func < (lhs: HoursInterval, rhs: HoursInterval) -> Bool {
+        return lhs.dateInterval < rhs.dateInterval
+    }
+    
+    static func > (lhs: HoursInterval, rhs: HoursInterval) -> Bool {
+        return lhs.dateInterval > rhs.dateInterval
+    }
+    
+    static func == (lhs: HoursInterval, rhs: HoursInterval) -> Bool {
+        return lhs.dateInterval == rhs.dateInterval
+    }
+
+    func contains(_ date: Date) -> Bool {
+        return self.dateInterval.contains(date)
     }
     
 }
