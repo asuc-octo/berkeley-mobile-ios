@@ -186,7 +186,7 @@ class OpenTimesCardView: CollapsibleCardView {
     private let clockIcon: UIImageView = {
         let img = UIImageView()
         img.contentMode = .scaleAspectFit
-        img.image = UIImage(named: "Clock")
+        img.image = UIImage(named: "Clock")?.colored(Color.blackText)
         img.translatesAutoresizingMaskIntoConstraints = false
         img.clipsToBounds = true
         return img

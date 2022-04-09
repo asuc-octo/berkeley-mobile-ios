@@ -63,7 +63,7 @@ class SelectEnvironmentView: UIView, EnableNextDelegate {
         
         button.setTitle(title, for: .normal)
         button.titleLabel?.font = Font.medium(16)
-        button.backgroundColor = .white
+        button.backgroundColor = Color.modalBackground
         
         button.setTitleColor(Color.StudyPact.CreatePreference.grayText, for: .normal)
         button.addTarget(self, action: #selector(toggleButton(sender:)), for: .touchUpInside)
@@ -77,10 +77,10 @@ class SelectEnvironmentView: UIView, EnableNextDelegate {
     @objc func toggleButton(sender: ActionButton) {
         if !sender.isSelected {
             sender.backgroundColor = Color.StudyPact.CreatePreference.selectedBlue
-            sender.setTitleColor(.white, for: .normal)
+            sender.setTitleColor(Color.primaryText, for: .normal)
             sender.isSelected.toggle()
             if let buttonSelected = self.buttonSelected {
-                buttonSelected.backgroundColor = .white
+                buttonSelected.backgroundColor = Color.modalBackground
                 buttonSelected.isSelected.toggle()
                 buttonSelected.setTitleColor(Color.StudyPact.CreatePreference.grayText, for: .normal)
                 switch buttonSelected {

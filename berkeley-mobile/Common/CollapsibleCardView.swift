@@ -138,7 +138,7 @@ class CollapsibleCardView: CardView {
     private let chevronIcon: UIImageView = {
         let img = UIImageView()
         img.contentMode = .scaleAspectFit
-        img.image = UIImage(named: "Back")
+        img.image = UIImage(named: "Back")?.colored(Color.blackText)
         img.translatesAutoresizingMaskIntoConstraints = false
         img.clipsToBounds = true
         return img

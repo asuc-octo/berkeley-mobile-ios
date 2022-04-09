@@ -23,7 +23,7 @@ class SelectPeopleView: UIView, EnableNextDelegate {
     func buttonGenerator(num: Int) -> UIButton {
         let btn = GroupNumberButton(number: num)
         btn.titleLabel?.font = Font.medium(24)
-        btn.setTitleColor(.black, for: .normal)
+        btn.setTitleColor(Color.primaryText, for: .normal)
         btn.contentMode = .scaleAspectFit
         btn.translatesAutoresizingMaskIntoConstraints = false
         
@@ -57,12 +57,12 @@ class SelectPeopleView: UIView, EnableNextDelegate {
     @objc private func toggleButton(sender: GroupNumberButton) {
         if !sender.isSelected {
             sender.backgroundColor = Color.StudyPact.CreatePreference.selectedPink
-            sender.setTitleColor(.white, for: .normal)
+            sender.setTitleColor(Color.primaryText, for: .normal)
             sender.border?.isHidden = true
             sender.isSelected.toggle()
             
             if let buttonSelected = self.buttonSelected {
-                buttonSelected.backgroundColor = .white
+                buttonSelected.backgroundColor = Color.modalBackground
                 buttonSelected.setTitleColor(Color.blackText, for: .normal)
                 buttonSelected.border?.isHidden = false
                 buttonSelected.isSelected.toggle()

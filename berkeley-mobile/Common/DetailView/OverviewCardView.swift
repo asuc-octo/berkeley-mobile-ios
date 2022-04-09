@@ -272,7 +272,7 @@ class OverviewCardView: CardView {
     
     let addressIcon: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "Placemark")
+        image.image = UIImage(named: "Placemark")?.colored(Color.blackText)
         image.translatesAutoresizingMaskIntoConstraints = false
         image.contentMode = .scaleAspectFit
         image.clipsToBounds = true
@@ -293,7 +293,7 @@ class OverviewCardView: CardView {
     
     let clockIcon: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "Clock")
+        image.image = UIImage(named: "Clock")?.colored(Color.blackText)
         image.translatesAutoresizingMaskIntoConstraints = false
         image.contentMode = .scaleAspectFit
         image.clipsToBounds = true
@@ -314,7 +314,7 @@ class OverviewCardView: CardView {
     let chairImage:UIImageView = {
         let img = UIImageView()
         img.contentMode = .scaleAspectFit
-        img.image = UIImage(named: "Chair")
+        img.image = UIImage(named: "Chair")?.colored(Color.blackText)
         img.translatesAutoresizingMaskIntoConstraints = false
         img.clipsToBounds = true
         return img
@@ -343,7 +343,7 @@ class OverviewCardView: CardView {
     
     let phoneIcon: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "Phone")
+        image.image = UIImage(named: "Phone")?.colored(Color.blackText)
         image.translatesAutoresizingMaskIntoConstraints = false
         image.contentMode = .scaleAspectFit
         image.clipsToBounds = true

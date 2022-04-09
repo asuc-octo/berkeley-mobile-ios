@@ -26,7 +26,7 @@ class DiningMenuCell: UITableViewCell {
         contentView.layer.shadowOffset = .zero
         contentView.layer.shadowColor = UIColor.black.cgColor
         contentView.layer.shadowPath = UIBezierPath(rect: contentView.bounds.insetBy(dx: 4, dy: 4)).cgPath
-        contentView.backgroundColor = .white
+        contentView.backgroundColor = Color.cellBackground
         contentView.layer.cornerRadius = 12
     }
     

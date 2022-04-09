@@ -29,7 +29,7 @@ class DiningViewController: UIViewController, SearchDrawerViewDelegate {
     let diningImage:UIImageView = {
         let img = UIImageView()
         img.contentMode = .scaleAspectFit
-        img.image = UIImage(named: "Dining")
+        img.image = UIImage(named: "Dining")?.colored(Color.blackText)
         img.translatesAutoresizingMaskIntoConstraints = false
         img.clipsToBounds = true
         return img

@@ -31,7 +31,7 @@ class CreatePreferenceViewController: UIPageViewController, UIPageViewController
         let button = UIButton()
         button.setTitle("Next", for: .normal)
         button.titleLabel?.font = Font.regular(18)
-        button.setTitleColor(.white, for: .normal)
+        button.setTitleColor(Color.primaryText, for: .normal)
         button.backgroundColor = Color.StudyPact.CreatePreference.enabledNextButton
         button.addTarget(self, action: #selector(nextClicked(_:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -41,7 +41,7 @@ class CreatePreferenceViewController: UIPageViewController, UIPageViewController
         let button = UIButton()
         button.setTitle("Save Preference", for: .normal)
         button.titleLabel?.font = Font.regular(18)
-        button.setTitleColor(.white, for: .normal)
+        button.setTitleColor(Color.primaryText, for: .normal)
         button.backgroundColor = Color.StudyPact.CreatePreference.selectedPink
         button.addTarget(self, action: #selector(savePreference(_:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -51,7 +51,7 @@ class CreatePreferenceViewController: UIPageViewController, UIPageViewController
     let closeButton: UIButton = {
         let button = UIButton()
         button.setTitle("X", for: .normal)
-        button.setTitleColor(.gray, for: .normal)
+        button.setTitleColor(Color.secondaryText, for: .normal)
         button.addTarget(self, action: #selector(closeButton(_:)), for: .touchUpInside)
         return button
     }()
@@ -59,7 +59,7 @@ class CreatePreferenceViewController: UIPageViewController, UIPageViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = Color.modalBackground
         
         self.dataSource = self
         self.delegate = self
@@ -173,8 +173,8 @@ class CreatePreferenceViewController: UIPageViewController, UIPageViewController
         setViewControllers([pages[initialPage]], direction: .forward, animated: true, completion: nil)
         
         // pageControl
-        self.pageControl.currentPageIndicatorTintColor = UIColor.black
-        self.pageControl.pageIndicatorTintColor = UIColor.lightGray
+        self.pageControl.currentPageIndicatorTintColor = Color.primaryText
+        self.pageControl.pageIndicatorTintColor = Color.secondaryText
         self.pageControl.numberOfPages = self.pages.count
         self.pageControl.currentPage = initialPage
         self.pageControl.pageIndicatorTintColor = Color.StudyPact.Onboarding.blue

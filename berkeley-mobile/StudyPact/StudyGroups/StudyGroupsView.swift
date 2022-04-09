@@ -154,7 +154,7 @@ extension StudyGroupsView: UICollectionViewDelegate, UICollectionViewDataSource,
 class StudyGroupCell: UICollectionViewCell {
     static let kCellIdentifier = "studyGroupCell"
     static let cellHeight = 81
-    
+        
     // MARK: UI Elements
     let classLabel: UILabel = {
         let label = UILabel()
@@ -321,7 +321,7 @@ class CreatePreferenceCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = Color.cardBackground
+        backgroundColor = Color.modalBackground
         layer.cornerRadius = 12
         
         // dotted line border

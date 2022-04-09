@@ -22,7 +22,11 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
                 
         delegate = self
         tabBar.isTranslucent = false
-        tabBar.tintColor = UIColor.black
+        tabBar.tintColor = Color.blackText
+        
+        let tabBarAppearance = UITabBarItem.appearance()
+        let attributes = [NSAttributedString.Key.font: Font.regular(11)]
+        tabBarAppearance.setTitleTextAttributes(attributes, for: .normal)
         
         if #available(iOS 15.0, *) {
             let appearance = UITabBarAppearance()
@@ -33,9 +37,9 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
             tabBar.scrollEdgeAppearance = tabBar.standardAppearance
         }
         
-        let tabBarAppearance = UITabBarItem.appearance()
-        let attributes = [NSAttributedString.Key.font: Font.regular(11)]
-        tabBarAppearance.setTitleTextAttributes(attributes, for: .normal)
+        if #available(iOS 15.0, *) {
+            tabBar.scrollEdgeAppearance = tabBar.standardAppearance
+        }
         
         mapView.tabBarItem = UITabBarItem(title: "Home", image: UIImage(named: "Home"), tag: 0)
         resourcesView.tabBarItem = UITabBarItem(title: "Resources", image: UIImage(named: "Resources"), tag: 1)

@@ -128,7 +128,7 @@ class FilterTableViewCell: CardTableViewCell, ImageViewCell {
     let chairImage:UIImageView = {
         let img = UIImageView()
         img.contentMode = .scaleAspectFit
-        img.image = UIImage(named: "Chair")
+        img.image = UIImage(named: "Chair")?.colored(Color.blackText)
         img.translatesAutoresizingMaskIntoConstraints = false
         img.clipsToBounds = true
         return img
