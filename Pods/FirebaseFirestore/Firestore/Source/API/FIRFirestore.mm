@@ -31,16 +31,16 @@
 #import "Firestore/Source/API/FIRTransaction+Internal.h"
 #import "Firestore/Source/API/FIRWriteBatch+Internal.h"
 #import "Firestore/Source/API/FSTFirestoreComponent.h"
-#import "Firestore/Source/API/FSTUserDataConverter.h"
+#import "Firestore/Source/API/FSTUserDataReader.h"
 
 #include "Firestore/core/src/api/collection_reference.h"
 #include "Firestore/core/src/api/document_reference.h"
 #include "Firestore/core/src/api/firestore.h"
 #include "Firestore/core/src/api/write_batch.h"
-#include "Firestore/core/src/auth/credentials_provider.h"
 #include "Firestore/core/src/core/database_info.h"
 #include "Firestore/core/src/core/event_listener.h"
 #include "Firestore/core/src/core/transaction.h"
+#include "Firestore/core/src/credentials/credentials_provider.h"
 #include "Firestore/core/src/model/database_id.h"
 #include "Firestore/core/src/remote/firebase_metadata_provider.h"
 #include "Firestore/core/src/util/async_queue.h"
@@ -58,17 +58,19 @@
 #include "Firestore/core/src/util/string_apple.h"
 #include "absl/memory/memory.h"
 
-namespace util = firebase::firestore::util;
 using firebase::firestore::api::DocumentReference;
 using firebase::firestore::api::Firestore;
 using firebase::firestore::api::ListenerRegistration;
-using firebase::firestore::auth::CredentialsProvider;
 using firebase::firestore::core::EventListener;
+using firebase::firestore::credentials::AuthCredentialsProvider;
 using firebase::firestore::model::DatabaseId;
 using firebase::firestore::remote::FirebaseMetadataProvider;
 using firebase::firestore::util::AsyncQueue;
 using firebase::firestore::util::ByteStreamApple;
 using firebase::firestore::util::Empty;
+using firebase::firestore::util::Executor;
+using firebase::firestore::util::ExecutorLibdispatch;
+using firebase::firestore::util::LogSetLevel;
 using firebase::firestore::util::MakeCallback;
 using firebase::firestore::util::MakeNSError;
 using firebase::firestore::util::MakeNSString;
@@ -79,6 +81,8 @@ using firebase::firestore::util::Status;
 using firebase::firestore::util::StatusOr;
 using firebase::firestore::util::ThrowIllegalState;
 using firebase::firestore::util::ThrowInvalidArgument;
+using firebase::firestore::util::kLogLevelDebug;
+using firebase::firestore::util::kLogLevelNotice;
 
 using UserUpdateBlock = id _Nullable (^)(FIRTransaction *, NSError **);
 using UserTransactionCompletion = void (^)(id _Nullable, NSError *_Nullable);
@@ -89,7 +93,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface FIRFirestore ()
 
-@property(nonatomic, strong, readonly) FSTUserDataConverter *dataConverter;
+@property(nonatomic, strong, readonly) FSTUserDataReader *dataReader;
 
 @end
 
@@ -138,7 +142,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithDatabaseID:(model::DatabaseId)databaseID
                     persistenceKey:(std::string)persistenceKey
-               credentialsProvider:(std::shared_ptr<CredentialsProvider>)credentialsProvider
+           authCredentialsProvider:
+               (std::shared_ptr<credentials::AuthCredentialsProvider>)authCredentialsProvider
+       appCheckCredentialsProvider:
+           (std::shared_ptr<credentials::AppCheckCredentialsProvider>)appCheckCredentialsProvider
                        workerQueue:(std::shared_ptr<AsyncQueue>)workerQueue
           firebaseMetadataProvider:
               (std::unique_ptr<FirebaseMetadataProvider>)firebaseMetadataProvider
@@ -146,8 +153,9 @@ NS_ASSUME_NONNULL_BEGIN
                   instanceRegistry:(nullable id<FSTFirestoreInstanceRegistry>)registry {
   if (self = [super init]) {
     _firestore = std::make_shared<Firestore>(
-        std::move(databaseID), std::move(persistenceKey), std::move(credentialsProvider),
-        std::move(workerQueue), std::move(firebaseMetadataProvider), (__bridge void *)self);
+        std::move(databaseID), std::move(persistenceKey), std::move(authCredentialsProvider),
+        std::move(appCheckCredentialsProvider), std::move(workerQueue),
+        std::move(firebaseMetadataProvider), (__bridge void *)self);
 
     _app = app;
     _registry = registry;
@@ -162,8 +170,8 @@ NS_ASSUME_NONNULL_BEGIN
       }
     };
 
-    _dataConverter = [[FSTUserDataConverter alloc] initWithDatabaseID:_firestore->database_id()
-                                                         preConverter:block];
+    _dataReader = [[FSTUserDataReader alloc] initWithDatabaseID:_firestore->database_id()
+                                                   preConverter:block];
     // Use the property setter so the default settings get plumbed into _firestoreClient.
     self.settings = [[FIRFirestoreSettings alloc] init];
   }
@@ -181,13 +189,13 @@ NS_ASSUME_NONNULL_BEGIN
     _firestore->set_settings([settings internalSettings]);
 
 #if HAVE_LIBDISPATCH
-    std::unique_ptr<util::Executor> user_executor =
-        absl::make_unique<util::ExecutorLibdispatch>(settings.dispatchQueue);
+    std::unique_ptr<Executor> user_executor =
+        absl::make_unique<ExecutorLibdispatch>(settings.dispatchQueue);
 #else
     // It's possible to build without libdispatch on macOS for testing purposes.
     // In this case, avoid breaking the build.
-    std::unique_ptr<util::Executor> user_executor =
-        util::Executor::CreateSerial("com.google.firebase.firestore.user");
+    std::unique_ptr<Executor> user_executor =
+        Executor::CreateSerial("com.google.firebase.firestore.user");
 #endif  // HAVE_LIBDISPATCH
 
     _firestore->set_user_executor(std::move(user_executor));
@@ -197,6 +205,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (FIRCollectionReference *)collectionWithPath:(NSString *)collectionPath {
   if (!collectionPath) {
     ThrowInvalidArgument("Collection path cannot be nil.");
+  }
+  if (!collectionPath.length) {
+    ThrowInvalidArgument("Collection path cannot be empty.");
   }
   if ([collectionPath containsString:@"//"]) {
     ThrowInvalidArgument("Invalid path (%s). Paths must not contain // in them.", collectionPath);
@@ -210,6 +221,9 @@ NS_ASSUME_NONNULL_BEGIN
   if (!documentPath) {
     ThrowInvalidArgument("Document path cannot be nil.");
   }
+  if (!documentPath.length) {
+    ThrowInvalidArgument("Document path cannot be empty.");
+  }
   if ([documentPath containsString:@"//"]) {
     ThrowInvalidArgument("Invalid path (%s). Paths must not contain // in them.", documentPath);
   }
@@ -222,6 +236,9 @@ NS_ASSUME_NONNULL_BEGIN
   if (!collectionID) {
     ThrowInvalidArgument("Collection ID cannot be nil.");
   }
+  if (!collectionID.length) {
+    ThrowInvalidArgument("Collection ID cannot be empty.");
+  }
   if ([collectionID containsString:@"/"]) {
     ThrowInvalidArgument("Invalid collection ID (%s). Collection IDs must not contain / in them.",
                          collectionID);
@@ -232,8 +249,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (FIRWriteBatch *)batch {
-  return [FIRWriteBatch writeBatchWithDataConverter:self.dataConverter
-                                         writeBatch:_firestore->GetBatch()];
+  return [FIRWriteBatch writeBatchWithDataReader:self.dataReader writeBatch:_firestore->GetBatch()];
 }
 
 - (void)runTransactionWithBlock:(UserUpdateBlock)updateBlock
@@ -335,7 +351,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 + (void)enableLogging:(BOOL)logging {
-  util::LogSetLevel(logging ? util::kLogLevelDebug : util::kLogLevelNotice);
+  LogSetLevel(logging ? kLogLevelDebug : kLogLevelNotice);
 }
 
 - (void)useEmulatorWithHost:(NSString *)host port:(NSInteger)port {
@@ -420,10 +436,10 @@ NS_ASSUME_NONNULL_BEGIN
       NSError *error = nil;
       if (!progress.error_status().ok()) {
         LOG_WARN("Progress set to Error, but error_status() is ok()");
-        error = util::MakeNSError(firebase::firestore::Error::kErrorUnknown,
-                                  "Loading bundle failed with unknown error");
+        error = MakeNSError(firebase::firestore::Error::kErrorUnknown,
+                            "Loading bundle failed with unknown error");
       } else {
-        error = util::MakeNSError(progress.error_status());
+        error = MakeNSError(progress.error_status());
       }
       completion([[FIRLoadBundleTaskProgress alloc] initWithInternal:progress], error);
     }
@@ -435,14 +451,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)getQueryNamed:(NSString *)name completion:(void (^)(FIRQuery *_Nullable query))completion {
   auto firestore = _firestore;
-  auto callback = [completion, firestore](absl::optional<core::Query> query) {
+  auto callback = [completion, firestore](core::Query query, bool found) {
     if (!completion) {
       return;
     }
 
-    if (query.has_value()) {
-      FIRQuery *firQuery = [[FIRQuery alloc] initWithQuery:std::move(query.value())
-                                                 firestore:firestore];
+    if (found) {
+      FIRQuery *firQuery = [[FIRQuery alloc] initWithQuery:std::move(query) firestore:firestore];
       completion(firQuery);
     } else {
       completion(nil);
@@ -459,7 +474,7 @@ NS_ASSUME_NONNULL_BEGIN
   return _firestore;
 }
 
-- (const std::shared_ptr<util::AsyncQueue> &)workerQueue {
+- (const std::shared_ptr<AsyncQueue> &)workerQueue {
   return _firestore->worker_queue();
 }
 

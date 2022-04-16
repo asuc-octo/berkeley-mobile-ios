@@ -21,6 +21,7 @@
 #include <thread>  // NOLINT(build/c++11)
 #include <vector>
 
+#include "Firestore/core/src/local/leveldb_index_manager.h"
 #include "Firestore/core/src/local/remote_document_cache.h"
 #include "Firestore/core/src/model/model_fwd.h"
 #include "Firestore/core/src/model/types.h"
@@ -45,30 +46,32 @@ class LevelDbRemoteDocumentCache : public RemoteDocumentCache {
                              LocalSerializer* serializer);
   ~LevelDbRemoteDocumentCache();
 
-  void Add(const model::MaybeDocument& document,
+  void Add(const model::MutableDocument& document,
            const model::SnapshotVersion& read_time) override;
   void Remove(const model::DocumentKey& key) override;
 
-  absl::optional<model::MaybeDocument> Get(
-      const model::DocumentKey& key) override;
-  model::OptionalMaybeDocumentMap GetAll(
-      const model::DocumentKeySet& keys) override;
-  model::DocumentMap GetMatching(
+  model::MutableDocument Get(const model::DocumentKey& key) override;
+  model::MutableDocumentMap GetAll(const model::DocumentKeySet& keys) override;
+  model::MutableDocumentMap GetMatching(
       const core::Query& query,
       const model::SnapshotVersion& since_read_time) override;
+
+  void SetIndexManager(IndexManager* manager) override;
 
  private:
   /**
    * Looks up a set of entries in the cache, returning only existing entries of
    * Type::Document.
    */
-  model::DocumentMap GetAllExisting(const model::DocumentKeySet& keys);
+  model::MutableDocumentMap GetAllExisting(const model::DocumentKeySet& keys);
 
-  model::MaybeDocument DecodeMaybeDocument(absl::string_view encoded,
-                                           const model::DocumentKey& key);
+  model::MutableDocument DecodeMaybeDocument(absl::string_view encoded,
+                                             const model::DocumentKey& key);
 
   // The LevelDbRemoteDocumentCache instance is owned by LevelDbPersistence.
   LevelDbPersistence* db_;
+  // The LevelDbIndexManager instance is owned by LevelDbPersistence.
+  IndexManager* index_manager_ = nullptr;
   // Owned by LevelDbPersistence.
   LocalSerializer* serializer_ = nullptr;
 

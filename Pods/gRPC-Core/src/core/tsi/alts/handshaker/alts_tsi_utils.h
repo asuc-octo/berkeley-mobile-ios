@@ -25,11 +25,7 @@
 #include <grpc/grpc.h>
 
 #include "src/core/tsi/transport_security_interface.h"
-#if COCOAPODS==1
-  #include  "src/core/ext/upb-generated/src/proto/grpc/gcp/handshaker.upb.h"
-#else
-  #include  "src/proto/grpc/gcp/handshaker.upb.h"
-#endif
+#include "src/proto/grpc/gcp/handshaker.upb.h"
 
 /**
  * This method converts grpc_status_code code to the corresponding tsi_result

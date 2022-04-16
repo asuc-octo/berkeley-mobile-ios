@@ -34,7 +34,7 @@ namespace {
 
 json Parse(absl::string_view s) {
   return json::parse(s.begin(), s.end(), /*callback=*/nullptr,
-                     /*allow_exception=*/false);
+                     /*allow_exceptions=*/false);
 }
 
 }  // namespace
@@ -121,7 +121,7 @@ void BundleReader::ReadJsonToBuffer(size_t required_size) {
   while (buffer_.size() < required_size) {
     // Read at most 1024 bytes every time, to avoid allocating a huge buffer
     // when corruption leads to large `required_size`.
-    auto size = std::min(1024ul, required_size - buffer_.size());
+    auto size = std::min<size_t>(1024ul, required_size - buffer_.size());
     StreamReadResult result = input_->Read(size);
     if (!result.ok()) {
       reader_status_.Update(result.status());

@@ -151,20 +151,20 @@ void RemoteStore::Shutdown() {
 
 // Watch Stream
 
-void RemoteStore::Listen(const TargetData& target_data) {
+void RemoteStore::Listen(TargetData target_data) {
   TargetId target_key = target_data.target_id();
   if (listen_targets_.find(target_key) != listen_targets_.end()) {
     return;
   }
 
   // Mark this as something the client is currently listening for.
-  listen_targets_[target_key] = target_data;
+  listen_targets_[target_key] = std::move(target_data);
 
   if (ShouldStartWatchStream()) {
     // The listen will be sent in `OnWatchStreamOpen`
     StartWatchStream();
   } else if (watch_stream_->IsOpen()) {
-    SendWatchRequest(target_data);
+    SendWatchRequest(listen_targets_[target_key]);
   }
 }
 
@@ -442,7 +442,7 @@ void RemoteStore::OnWriteStreamMutationResult(
   MutationBatchResult batch_result(std::move(batch), commit_version,
                                    std::move(mutation_results),
                                    write_stream_->last_stream_token());
-  sync_engine_->HandleSuccessfulWrite(batch_result);
+  sync_engine_->HandleSuccessfulWrite(std::move(batch_result));
 
   // It's possible that with the completion of this mutation another slot has
   // freed up.
@@ -533,7 +533,7 @@ bool RemoteStore::CanUseNetwork() const {
 }
 
 std::shared_ptr<Transaction> RemoteStore::CreateTransaction() {
-  return std::make_shared<Transaction>(datastore_.get());
+  return std::make_shared<Transaction>(datastore_);
 }
 
 DocumentKeySet RemoteStore::GetRemoteKeysForTarget(TargetId target_id) const {

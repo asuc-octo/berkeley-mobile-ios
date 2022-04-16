@@ -7,47 +7,38 @@
  * regenerated. */
 
 #include <stddef.h>
-#if COCOAPODS==1
-  #include  "third_party/upb/upb/msg.h"
-#else
-  #include  "upb/msg.h"
-#endif
-#if COCOAPODS==1
-  #include  "src/core/ext/upb-generated/google/rpc/status.upb.h"
-#else
-  #include  "google/rpc/status.upb.h"
-#endif
-#if COCOAPODS==1
-  #include  "src/core/ext/upb-generated/google/protobuf/any.upb.h"
-#else
-  #include  "google/protobuf/any.upb.h"
-#endif
+#include "upb/msg_internal.h"
+#include "google/rpc/status.upb.h"
+#include "google/protobuf/any.upb.h"
 
-#if COCOAPODS==1
-  #include  "third_party/upb/upb/port_def.inc"
-#else
-  #include  "upb/port_def.inc"
-#endif
+#include "upb/port_def.inc"
 
-static const upb_msglayout *const google_rpc_Status_submsgs[1] = {
-  &google_protobuf_Any_msginit,
+static const upb_msglayout_sub google_rpc_Status_submsgs[1] = {
+  {.submsg = &google_protobuf_Any_msginit},
 };
 
 static const upb_msglayout_field google_rpc_Status__fields[3] = {
-  {1, UPB_SIZE(0, 0), 0, 0, 5, 1},
-  {2, UPB_SIZE(4, 8), 0, 0, 9, 1},
-  {3, UPB_SIZE(12, 24), 0, 0, 11, 3},
+  {1, UPB_SIZE(0, 0), 0, 0, 5, _UPB_MODE_SCALAR | (_UPB_REP_4BYTE << _UPB_REP_SHIFT)},
+  {2, UPB_SIZE(4, 8), 0, 0, 9, _UPB_MODE_SCALAR | (_UPB_REP_STRVIEW << _UPB_REP_SHIFT)},
+  {3, UPB_SIZE(12, 24), 0, 0, 11, _UPB_MODE_ARRAY | (_UPB_REP_PTR << _UPB_REP_SHIFT)},
 };
 
 const upb_msglayout google_rpc_Status_msginit = {
   &google_rpc_Status_submsgs[0],
   &google_rpc_Status__fields[0],
-  UPB_SIZE(16, 32), 3, false,
+  UPB_SIZE(16, 32), 3, _UPB_MSGEXT_NONE, 3, 255,
 };
 
-#if COCOAPODS==1
-  #include  "third_party/upb/upb/port_undef.inc"
-#else
-  #include  "upb/port_undef.inc"
-#endif
+static const upb_msglayout *messages_layout[1] = {
+  &google_rpc_Status_msginit,
+};
+
+const upb_msglayout_file google_rpc_status_proto_upb_file_layout = {
+  messages_layout,
+  NULL,
+  1,
+  0,
+};
+
+#include "upb/port_undef.inc"
 

@@ -7,32 +7,27 @@
  * regenerated. */
 
 #include <stddef.h>
-#if COCOAPODS==1
-  #include  "third_party/upb/upb/msg.h"
-#else
-  #include  "upb/msg.h"
-#endif
-#if COCOAPODS==1
-  #include  "src/core/ext/upb-generated/google/protobuf/empty.upb.h"
-#else
-  #include  "google/protobuf/empty.upb.h"
-#endif
+#include "upb/msg_internal.h"
+#include "google/protobuf/empty.upb.h"
 
-#if COCOAPODS==1
-  #include  "third_party/upb/upb/port_def.inc"
-#else
-  #include  "upb/port_def.inc"
-#endif
+#include "upb/port_def.inc"
 
 const upb_msglayout google_protobuf_Empty_msginit = {
   NULL,
   NULL,
-  UPB_SIZE(0, 0), 0, false,
+  UPB_SIZE(0, 0), 0, _UPB_MSGEXT_NONE, 0, 255,
 };
 
-#if COCOAPODS==1
-  #include  "third_party/upb/upb/port_undef.inc"
-#else
-  #include  "upb/port_undef.inc"
-#endif
+static const upb_msglayout *messages_layout[1] = {
+  &google_protobuf_Empty_msginit,
+};
+
+const upb_msglayout_file google_protobuf_empty_proto_upb_file_layout = {
+  messages_layout,
+  NULL,
+  1,
+  0,
+};
+
+#include "upb/port_undef.inc"
 

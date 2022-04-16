@@ -7,62 +7,102 @@
  * regenerated. */
 
 #include <stddef.h>
-#if COCOAPODS==1
-  #include  "third_party/upb/upb/msg.h"
-#else
-  #include  "upb/msg.h"
-#endif
-#if COCOAPODS==1
-  #include  "src/core/ext/upb-generated/udpa/annotations/migrate.upb.h"
-#else
-  #include  "udpa/annotations/migrate.upb.h"
-#endif
-#if COCOAPODS==1
-  #include  "src/core/ext/upb-generated/google/protobuf/descriptor.upb.h"
-#else
-  #include  "google/protobuf/descriptor.upb.h"
-#endif
+#include "upb/msg_internal.h"
+#include "udpa/annotations/migrate.upb.h"
+#include "google/protobuf/descriptor.upb.h"
 
-#if COCOAPODS==1
-  #include  "third_party/upb/upb/port_def.inc"
-#else
-  #include  "upb/port_def.inc"
-#endif
+#include "upb/port_def.inc"
 
 static const upb_msglayout_field udpa_annotations_MigrateAnnotation__fields[1] = {
-  {1, UPB_SIZE(0, 0), 0, 0, 9, 1},
+  {1, UPB_SIZE(0, 0), 0, 0, 9, _UPB_MODE_SCALAR | (_UPB_REP_STRVIEW << _UPB_REP_SHIFT)},
 };
 
 const upb_msglayout udpa_annotations_MigrateAnnotation_msginit = {
   NULL,
   &udpa_annotations_MigrateAnnotation__fields[0],
-  UPB_SIZE(8, 16), 1, false,
+  UPB_SIZE(8, 16), 1, _UPB_MSGEXT_NONE, 1, 255,
 };
 
 static const upb_msglayout_field udpa_annotations_FieldMigrateAnnotation__fields[2] = {
-  {1, UPB_SIZE(0, 0), 0, 0, 9, 1},
-  {2, UPB_SIZE(8, 16), 0, 0, 9, 1},
+  {1, UPB_SIZE(0, 0), 0, 0, 9, _UPB_MODE_SCALAR | (_UPB_REP_STRVIEW << _UPB_REP_SHIFT)},
+  {2, UPB_SIZE(8, 16), 0, 0, 9, _UPB_MODE_SCALAR | (_UPB_REP_STRVIEW << _UPB_REP_SHIFT)},
 };
 
 const upb_msglayout udpa_annotations_FieldMigrateAnnotation_msginit = {
   NULL,
   &udpa_annotations_FieldMigrateAnnotation__fields[0],
-  UPB_SIZE(16, 32), 2, false,
+  UPB_SIZE(16, 32), 2, _UPB_MSGEXT_NONE, 2, 255,
 };
 
 static const upb_msglayout_field udpa_annotations_FileMigrateAnnotation__fields[1] = {
-  {2, UPB_SIZE(0, 0), 0, 0, 9, 1},
+  {2, UPB_SIZE(0, 0), 0, 0, 9, _UPB_MODE_SCALAR | (_UPB_REP_STRVIEW << _UPB_REP_SHIFT)},
 };
 
 const upb_msglayout udpa_annotations_FileMigrateAnnotation_msginit = {
   NULL,
   &udpa_annotations_FileMigrateAnnotation__fields[0],
-  UPB_SIZE(8, 16), 1, false,
+  UPB_SIZE(8, 16), 1, _UPB_MSGEXT_NONE, 0, 255,
 };
 
-#if COCOAPODS==1
-  #include  "third_party/upb/upb/port_undef.inc"
-#else
-  #include  "upb/port_undef.inc"
-#endif
+static const upb_msglayout *messages_layout[3] = {
+  &udpa_annotations_MigrateAnnotation_msginit,
+  &udpa_annotations_FieldMigrateAnnotation_msginit,
+  &udpa_annotations_FileMigrateAnnotation_msginit,
+};
+
+extern const upb_msglayout google_protobuf_EnumOptions_msginit;
+extern const upb_msglayout google_protobuf_EnumValueOptions_msginit;
+extern const upb_msglayout google_protobuf_FieldOptions_msginit;
+extern const upb_msglayout google_protobuf_FileOptions_msginit;
+extern const upb_msglayout google_protobuf_MessageOptions_msginit;
+extern const upb_msglayout udpa_annotations_FieldMigrateAnnotation_msginit;
+extern const upb_msglayout udpa_annotations_FileMigrateAnnotation_msginit;
+extern const upb_msglayout udpa_annotations_MigrateAnnotation_msginit;
+const upb_msglayout_ext udpa_annotations_message_migrate_ext = {
+  {171962766, 0, 0, 0, 11, _UPB_MODE_SCALAR | _UPB_MODE_IS_EXTENSION | (_UPB_REP_PTR << _UPB_REP_SHIFT)},
+  &google_protobuf_MessageOptions_msginit,
+  {.submsg = &udpa_annotations_MigrateAnnotation_msginit},
+
+};
+const upb_msglayout_ext udpa_annotations_field_migrate_ext = {
+  {171962766, 0, 0, 0, 11, _UPB_MODE_SCALAR | _UPB_MODE_IS_EXTENSION | (_UPB_REP_PTR << _UPB_REP_SHIFT)},
+  &google_protobuf_FieldOptions_msginit,
+  {.submsg = &udpa_annotations_FieldMigrateAnnotation_msginit},
+
+};
+const upb_msglayout_ext udpa_annotations_enum_migrate_ext = {
+  {171962766, 0, 0, 0, 11, _UPB_MODE_SCALAR | _UPB_MODE_IS_EXTENSION | (_UPB_REP_PTR << _UPB_REP_SHIFT)},
+  &google_protobuf_EnumOptions_msginit,
+  {.submsg = &udpa_annotations_MigrateAnnotation_msginit},
+
+};
+const upb_msglayout_ext udpa_annotations_enum_value_migrate_ext = {
+  {171962766, 0, 0, 0, 11, _UPB_MODE_SCALAR | _UPB_MODE_IS_EXTENSION | (_UPB_REP_PTR << _UPB_REP_SHIFT)},
+  &google_protobuf_EnumValueOptions_msginit,
+  {.submsg = &udpa_annotations_MigrateAnnotation_msginit},
+
+};
+const upb_msglayout_ext udpa_annotations_file_migrate_ext = {
+  {171962766, 0, 0, 0, 11, _UPB_MODE_SCALAR | _UPB_MODE_IS_EXTENSION | (_UPB_REP_PTR << _UPB_REP_SHIFT)},
+  &google_protobuf_FileOptions_msginit,
+  {.submsg = &udpa_annotations_FileMigrateAnnotation_msginit},
+
+};
+
+static const upb_msglayout_ext *extensions_layout[5] = {
+  &udpa_annotations_message_migrate_ext,
+  &udpa_annotations_field_migrate_ext,
+  &udpa_annotations_enum_migrate_ext,
+  &udpa_annotations_enum_value_migrate_ext,
+  &udpa_annotations_file_migrate_ext,
+};
+
+const upb_msglayout_file udpa_annotations_migrate_proto_upb_file_layout = {
+  messages_layout,
+  extensions_layout,
+  3,
+  5,
+};
+
+#include "upb/port_undef.inc"
 

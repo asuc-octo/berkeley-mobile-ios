@@ -9,32 +9,12 @@
 #ifndef SRC_PROTO_GRPC_HEALTH_V1_HEALTH_PROTO_UPB_H_
 #define SRC_PROTO_GRPC_HEALTH_V1_HEALTH_PROTO_UPB_H_
 
-#if COCOAPODS==1
-  #include  "third_party/upb/upb/generated_util.h"
-#else
-  #include  "upb/generated_util.h"
-#endif
-#if COCOAPODS==1
-  #include  "third_party/upb/upb/msg.h"
-#else
-  #include  "upb/msg.h"
-#endif
-#if COCOAPODS==1
-  #include  "third_party/upb/upb/decode.h"
-#else
-  #include  "upb/decode.h"
-#endif
-#if COCOAPODS==1
-  #include  "third_party/upb/upb/encode.h"
-#else
-  #include  "upb/encode.h"
-#endif
+#include "upb/msg_internal.h"
+#include "upb/decode.h"
+#include "upb/decode_fast.h"
+#include "upb/encode.h"
 
-#if COCOAPODS==1
-  #include  "third_party/upb/upb/port_def.inc"
-#else
-  #include  "upb/port_def.inc"
-#endif
+#include "upb/port_def.inc"
 
 #ifdef __cplusplus
 extern "C" {
@@ -58,51 +38,73 @@ typedef enum {
 /* grpc.health.v1.HealthCheckRequest */
 
 UPB_INLINE grpc_health_v1_HealthCheckRequest *grpc_health_v1_HealthCheckRequest_new(upb_arena *arena) {
-  return (grpc_health_v1_HealthCheckRequest *)upb_msg_new(&grpc_health_v1_HealthCheckRequest_msginit, arena);
+  return (grpc_health_v1_HealthCheckRequest *)_upb_msg_new(&grpc_health_v1_HealthCheckRequest_msginit, arena);
 }
 UPB_INLINE grpc_health_v1_HealthCheckRequest *grpc_health_v1_HealthCheckRequest_parse(const char *buf, size_t size,
                         upb_arena *arena) {
   grpc_health_v1_HealthCheckRequest *ret = grpc_health_v1_HealthCheckRequest_new(arena);
-  return (ret && upb_decode(buf, size, ret, &grpc_health_v1_HealthCheckRequest_msginit, arena)) ? ret : NULL;
+  if (!ret) return NULL;
+  if (!upb_decode(buf, size, ret, &grpc_health_v1_HealthCheckRequest_msginit, arena)) return NULL;
+  return ret;
+}
+UPB_INLINE grpc_health_v1_HealthCheckRequest *grpc_health_v1_HealthCheckRequest_parse_ex(const char *buf, size_t size,
+                           const upb_extreg *extreg, int options,
+                           upb_arena *arena) {
+  grpc_health_v1_HealthCheckRequest *ret = grpc_health_v1_HealthCheckRequest_new(arena);
+  if (!ret) return NULL;
+  if (!_upb_decode(buf, size, ret, &grpc_health_v1_HealthCheckRequest_msginit, extreg, options, arena)) {
+    return NULL;
+  }
+  return ret;
 }
 UPB_INLINE char *grpc_health_v1_HealthCheckRequest_serialize(const grpc_health_v1_HealthCheckRequest *msg, upb_arena *arena, size_t *len) {
   return upb_encode(msg, &grpc_health_v1_HealthCheckRequest_msginit, arena, len);
 }
 
-UPB_INLINE upb_strview grpc_health_v1_HealthCheckRequest_service(const grpc_health_v1_HealthCheckRequest *msg) { return UPB_FIELD_AT(msg, upb_strview, UPB_SIZE(0, 0)); }
+UPB_INLINE upb_strview grpc_health_v1_HealthCheckRequest_service(const grpc_health_v1_HealthCheckRequest *msg) { return *UPB_PTR_AT(msg, UPB_SIZE(0, 0), upb_strview); }
 
 UPB_INLINE void grpc_health_v1_HealthCheckRequest_set_service(grpc_health_v1_HealthCheckRequest *msg, upb_strview value) {
-  UPB_FIELD_AT(msg, upb_strview, UPB_SIZE(0, 0)) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(0, 0), upb_strview) = value;
 }
 
 /* grpc.health.v1.HealthCheckResponse */
 
 UPB_INLINE grpc_health_v1_HealthCheckResponse *grpc_health_v1_HealthCheckResponse_new(upb_arena *arena) {
-  return (grpc_health_v1_HealthCheckResponse *)upb_msg_new(&grpc_health_v1_HealthCheckResponse_msginit, arena);
+  return (grpc_health_v1_HealthCheckResponse *)_upb_msg_new(&grpc_health_v1_HealthCheckResponse_msginit, arena);
 }
 UPB_INLINE grpc_health_v1_HealthCheckResponse *grpc_health_v1_HealthCheckResponse_parse(const char *buf, size_t size,
                         upb_arena *arena) {
   grpc_health_v1_HealthCheckResponse *ret = grpc_health_v1_HealthCheckResponse_new(arena);
-  return (ret && upb_decode(buf, size, ret, &grpc_health_v1_HealthCheckResponse_msginit, arena)) ? ret : NULL;
+  if (!ret) return NULL;
+  if (!upb_decode(buf, size, ret, &grpc_health_v1_HealthCheckResponse_msginit, arena)) return NULL;
+  return ret;
+}
+UPB_INLINE grpc_health_v1_HealthCheckResponse *grpc_health_v1_HealthCheckResponse_parse_ex(const char *buf, size_t size,
+                           const upb_extreg *extreg, int options,
+                           upb_arena *arena) {
+  grpc_health_v1_HealthCheckResponse *ret = grpc_health_v1_HealthCheckResponse_new(arena);
+  if (!ret) return NULL;
+  if (!_upb_decode(buf, size, ret, &grpc_health_v1_HealthCheckResponse_msginit, extreg, options, arena)) {
+    return NULL;
+  }
+  return ret;
 }
 UPB_INLINE char *grpc_health_v1_HealthCheckResponse_serialize(const grpc_health_v1_HealthCheckResponse *msg, upb_arena *arena, size_t *len) {
   return upb_encode(msg, &grpc_health_v1_HealthCheckResponse_msginit, arena, len);
 }
 
-UPB_INLINE int32_t grpc_health_v1_HealthCheckResponse_status(const grpc_health_v1_HealthCheckResponse *msg) { return UPB_FIELD_AT(msg, int32_t, UPB_SIZE(0, 0)); }
+UPB_INLINE int32_t grpc_health_v1_HealthCheckResponse_status(const grpc_health_v1_HealthCheckResponse *msg) { return *UPB_PTR_AT(msg, UPB_SIZE(0, 0), int32_t); }
 
 UPB_INLINE void grpc_health_v1_HealthCheckResponse_set_status(grpc_health_v1_HealthCheckResponse *msg, int32_t value) {
-  UPB_FIELD_AT(msg, int32_t, UPB_SIZE(0, 0)) = value;
+  *UPB_PTR_AT(msg, UPB_SIZE(0, 0), int32_t) = value;
 }
+
+extern const upb_msglayout_file src_proto_grpc_health_v1_health_proto_upb_file_layout;
 
 #ifdef __cplusplus
 }  /* extern "C" */
 #endif
 
-#if COCOAPODS==1
-  #include  "third_party/upb/upb/port_undef.inc"
-#else
-  #include  "upb/port_undef.inc"
-#endif
+#include "upb/port_undef.inc"
 
 #endif  /* SRC_PROTO_GRPC_HEALTH_V1_HEALTH_PROTO_UPB_H_ */

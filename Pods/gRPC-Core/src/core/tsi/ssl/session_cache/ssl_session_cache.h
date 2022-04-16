@@ -21,22 +21,20 @@
 
 #include <grpc/support/port_platform.h>
 
-#include "src/core/tsi/grpc_shadow_boringssl.h"
+#include <map>
 
-#include <grpc/slice.h>
-#include <grpc/support/sync.h>
-
-extern "C" {
 #if COCOAPODS==1
   #include <openssl_grpc/ssl.h>
 #else
   #include <openssl/ssl.h>
 #endif
-}
 
-#include "src/core/lib/avl/avl.h"
+#include <grpc/slice.h>
+#include <grpc/support/sync.h>
+
 #include "src/core/lib/gprpp/memory.h"
 #include "src/core/lib/gprpp/ref_counted.h"
+#include "src/core/lib/gprpp/sync.h"
 #include "src/core/tsi/ssl/session_cache/ssl_session.h"
 
 /// Cache for SSL sessions for sessions resumption.
@@ -59,7 +57,7 @@ class SslSessionLRUCache : public grpc_core::RefCounted<SslSessionLRUCache> {
 
   // Use Create function instead of using this directly.
   explicit SslSessionLRUCache(size_t capacity);
-  ~SslSessionLRUCache();
+  ~SslSessionLRUCache() override;
 
   // Not copyable nor movable.
   SslSessionLRUCache(const SslSessionLRUCache&) = delete;
@@ -77,18 +75,18 @@ class SslSessionLRUCache : public grpc_core::RefCounted<SslSessionLRUCache> {
  private:
   class Node;
 
-  Node* FindLocked(const grpc_slice& key);
+  Node* FindLocked(const std::string& key);
   void Remove(Node* node);
   void PushFront(Node* node);
   void AssertInvariants();
 
-  gpr_mu lock_;
+  grpc_core::Mutex lock_;
   size_t capacity_;
 
   Node* use_order_list_head_ = nullptr;
   Node* use_order_list_tail_ = nullptr;
   size_t use_order_list_size_ = 0;
-  grpc_avl entry_by_key_;
+  std::map<std::string, Node*> entry_by_key_;
 };
 
 }  // namespace tsi

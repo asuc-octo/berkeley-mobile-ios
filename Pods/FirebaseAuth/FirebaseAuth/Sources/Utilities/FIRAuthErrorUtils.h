@@ -90,6 +90,18 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (NSError *)unexpectedErrorResponseWithDeserializedResponse:(id)deserializedResponse;
 
+/** @fn unexpectedErrorResponseWithDeserializedResponse:underlyingError:
+    @brief Constructs an @c NSError with the @c FIRAuthInternalErrorCodeUnexpectedErrorResponse
+        code, and populated @c FIRAuthErrorUserInfoDeserializedResponseKey and
+        @c NSUnderlyingErrorKey keys in the @c NSError.userInfo dictionary.
+    @param deserializedResponse The value of the @c FIRAuthErrorUserInfoDeserializedResponseKey key.
+    @param underlyingError The value of the @c NSUnderlyingErrorKey key.
+    @remarks This error is used when a network request results in an error, and the body data was
+        deserializable as JSON, but couldn't be decoded as an error.
+ */
++ (NSError *)unexpectedErrorResponseWithDeserializedResponse:(id)deserializedResponse
+                                             underlyingError:(NSError *)underlyingError;
+
 /** @fn malformedJWTErrorWithToken:underlyingError:
     @brief Constructs an @c NSError with the code set to @c FIRAuthErrorCodeMalformedJWT and
         populates the userInfo dictionary with an error message, the bad token, and an underlying
@@ -98,7 +110,7 @@ NS_ASSUME_NONNULL_BEGIN
     @param underlyingError The error that caused this error. If this parameter is nil, the
         NSUnderlyingErrorKey value will not be set.
     @remarks This error is returned when JWT parsing fails.
-    @returns An @c FIRAuthErrorCodeMalformedJWT error wrapping an underlying error, if available.
+    @return An @c FIRAuthErrorCodeMalformedJWT error wrapping an underlying error, if available.
  */
 + (NSError *)malformedJWTErrorWithToken:(NSString *)token
                         underlyingError:(NSError *_Nullable)underlyingError;

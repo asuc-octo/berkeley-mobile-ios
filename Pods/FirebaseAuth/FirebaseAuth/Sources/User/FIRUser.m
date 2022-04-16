@@ -34,6 +34,7 @@
 #import "FirebaseAuth/Sources/Backend/RPC/FIRDeleteAccountRequest.h"
 #import "FirebaseAuth/Sources/Backend/RPC/FIRDeleteAccountResponse.h"
 #import "FirebaseAuth/Sources/Backend/RPC/FIREmailLinkSignInRequest.h"
+#import "FirebaseAuth/Sources/Backend/RPC/FIREmailLinkSignInResponse.h"
 #import "FirebaseAuth/Sources/Backend/RPC/FIRGetAccountInfoRequest.h"
 #import "FirebaseAuth/Sources/Backend/RPC/FIRGetAccountInfoResponse.h"
 #import "FirebaseAuth/Sources/Backend/RPC/FIRGetOOBConfirmationCodeRequest.h"
@@ -116,6 +117,11 @@ static NSString *const kProviderDataKey = @"providerData";
     @brief The key used to encode the APIKey instance variable for NSSecureCoding.
  */
 static NSString *const kAPIKeyCodingKey = @"APIKey";
+
+/** @var kFirebaseAppIDCodingKey
+    @brief The key used to encode the appID instance variable for NSSecureCoding.
+ */
+static NSString *const kFirebaseAppIDCodingKey = @"firebaseAppID";
 
 /** @var kTokenServiceCodingKey
     @brief The key used to encode the tokenService instance variable for NSSecureCoding.
@@ -344,6 +350,7 @@ static void callInMainThreadWithAuthDataResultAndError(
                                                      forKey:kMetadataCodingKey];
   NSString *tenantID = [aDecoder decodeObjectOfClass:[NSString class] forKey:kTenantIDCodingKey];
   NSString *APIKey = [aDecoder decodeObjectOfClass:[NSString class] forKey:kAPIKeyCodingKey];
+  NSString *appID = [aDecoder decodeObjectOfClass:[NSString class] forKey:kFirebaseAppIDCodingKey];
 #if TARGET_OS_IOS
   FIRMultiFactor *multiFactor = [aDecoder decodeObjectOfClass:[FIRMultiFactor class]
                                                        forKey:kMultiFactorCodingKey];
@@ -367,7 +374,7 @@ static void callInMainThreadWithAuthDataResultAndError(
     _phoneNumber = phoneNumber;
     _metadata = metadata ?: [[FIRUserMetadata alloc] initWithCreationDate:nil lastSignInDate:nil];
     _tenantID = tenantID;
-    _requestConfiguration = [[FIRAuthRequestConfiguration alloc] initWithAPIKey:APIKey];
+    _requestConfiguration = [[FIRAuthRequestConfiguration alloc] initWithAPIKey:APIKey appID:appID];
 #if TARGET_OS_IOS
     _multiFactor = multiFactor ?: [[FIRMultiFactor alloc] init];
 #endif
@@ -388,6 +395,7 @@ static void callInMainThreadWithAuthDataResultAndError(
   [aCoder encodeObject:_metadata forKey:kMetadataCodingKey];
   [aCoder encodeObject:_tenantID forKey:kTenantIDCodingKey];
   [aCoder encodeObject:_auth.requestConfiguration.APIKey forKey:kAPIKeyCodingKey];
+  [aCoder encodeObject:_auth.requestConfiguration.appID forKey:kFirebaseAppIDCodingKey];
   [aCoder encodeObject:_tokenService forKey:kTokenServiceCodingKey];
 #if TARGET_OS_IOS
   [aCoder encodeObject:_multiFactor forKey:kMultiFactorCodingKey];
@@ -718,6 +726,14 @@ static void callInMainThreadWithAuthDataResultAndError(
                                  completion(error);
                                  return;
                                }
+                               FIRAuthRequestConfiguration *requestConfiguration =
+                                   self.auth.requestConfiguration;
+                               // Update the new token and refresh user info again.
+                               self->_tokenService = [[FIRSecureTokenService alloc]
+                                   initWithRequestConfiguration:requestConfiguration
+                                                    accessToken:response.IDToken
+                                      accessTokenExpirationDate:response.approximateExpirationDate
+                                                   refreshToken:response.refreshToken];
                                // Get account info to update cached user info.
                                [self getAccountInfoRefreshingCache:^(
                                          FIRGetAccountInfoResponseUser *_Nullable user,
@@ -1104,6 +1120,12 @@ static void callInMainThreadWithAuthDataResultAndError(
                        if (error) {
                          callInMainThreadWithAuthDataResultAndError(completion, nil, error);
                        } else {
+                         // Update the new token and refresh user info again.
+                         self->_tokenService = [[FIRSecureTokenService alloc]
+                             initWithRequestConfiguration:requestConfiguration
+                                              accessToken:response.IDToken
+                                accessTokenExpirationDate:response.approximateExpirationDate
+                                             refreshToken:response.refreshToken];
                          [self internalGetTokenWithCallback:^(NSString *_Nullable accessToken,
                                                               NSError *_Nullable error) {
                            if (error) {
@@ -1165,6 +1187,12 @@ static void callInMainThreadWithAuthDataResultAndError(
                           if (error) {
                             callInMainThreadWithAuthDataResultAndError(completion, nil, error);
                           } else {
+                            // Update the new token and refresh user info again.
+                            self->_tokenService = [[FIRSecureTokenService alloc]
+                                initWithRequestConfiguration:requestConfiguration
+                                                 accessToken:response.IDToken
+                                   accessTokenExpirationDate:response.approximateExpirationDate
+                                                refreshToken:response.refreshToken];
                             [self internalGetTokenWithCallback:^(NSString *_Nullable accessToken,
                                                                  NSError *_Nullable error) {
                               if (error) {

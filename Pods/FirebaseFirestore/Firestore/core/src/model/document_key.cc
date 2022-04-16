@@ -50,11 +50,20 @@ DocumentKey::DocumentKey(ResourcePath&& path)
 }
 
 DocumentKey DocumentKey::FromPathString(const std::string& path) {
-  return DocumentKey{ResourcePath::FromStringView(path)};
+  return DocumentKey{ResourcePath::FromString(path)};
 }
 
 DocumentKey DocumentKey::FromSegments(std::initializer_list<std::string> list) {
   return DocumentKey{ResourcePath{list}};
+}
+
+DocumentKey DocumentKey::FromName(const std::string& name) {
+  auto resource_name = ResourcePath::FromString(name);
+  HARD_ASSERT(resource_name.size() > 4 && resource_name[0] == "projects" &&
+                  resource_name[2] == "databases" &&
+                  resource_name[4] == "documents",
+              "Tried to parse an invalid key: %s", name);
+  return DocumentKey{resource_name.PopFirst(5)};
 }
 
 const DocumentKey& DocumentKey::Empty() {
@@ -98,9 +107,18 @@ const ResourcePath& DocumentKey::path() const {
 }
 
 /** Returns true if the document is in the specified collection_id. */
-bool DocumentKey::HasCollectionId(const std::string& collection_id) const {
-  size_t size = path().size();
-  return size >= 2 && path()[size - 2] == collection_id;
+bool DocumentKey::HasCollectionId(absl::string_view collection_id) const {
+  const auto collection_id_opt = GetCollectionId();
+  return collection_id_opt.has_value() &&
+         collection_id_opt.value() == collection_id;
+}
+
+absl::optional<std::string> DocumentKey::GetCollectionId() const {
+  const size_t size = path().size();
+  if (size < 2) {
+    return absl::nullopt;
+  }
+  return path()[size - 2];
 }
 
 size_t DocumentKeyHash::operator()(const DocumentKey& key) const {

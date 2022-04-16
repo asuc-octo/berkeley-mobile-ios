@@ -28,6 +28,7 @@
 #include "Firestore/core/src/core/firestore_client.h"
 #include "Firestore/core/src/core/query.h"
 #include "Firestore/core/src/core/transaction.h"
+#include "Firestore/core/src/credentials/empty_credentials_provider.h"
 #include "Firestore/core/src/local/leveldb_persistence.h"
 #include "Firestore/core/src/model/document_key.h"
 #include "Firestore/core/src/model/resource_path.h"
@@ -43,13 +44,11 @@ namespace firebase {
 namespace firestore {
 namespace api {
 
-using auth::CredentialsProvider;
 using core::AsyncEventListener;
 using core::DatabaseInfo;
 using core::FirestoreClient;
-using core::Transaction;
+using credentials::AuthCredentialsProvider;
 using local::LevelDbPersistence;
-using model::DocumentKey;
 using model::ResourcePath;
 using remote::FirebaseMetadataProvider;
 using remote::GrpcConnection;
@@ -61,12 +60,17 @@ using util::Status;
 Firestore::Firestore(
     model::DatabaseId database_id,
     std::string persistence_key,
-    std::shared_ptr<CredentialsProvider> credentials_provider,
+    std::shared_ptr<credentials::AuthCredentialsProvider>
+        auth_credentials_provider,
+    std::shared_ptr<credentials::AppCheckCredentialsProvider>
+        app_check_credentials_provider,
     std::shared_ptr<AsyncQueue> worker_queue,
     std::unique_ptr<FirebaseMetadataProvider> firebase_metadata_provider,
     void* extension)
     : database_id_{std::move(database_id)},
-      credentials_provider_{std::move(credentials_provider)},
+      app_check_credentials_provider_{
+          std::move(app_check_credentials_provider)},
+      auth_credentials_provider_{std::move(auth_credentials_provider)},
       persistence_key_{std::move(persistence_key)},
       worker_queue_{std::move(worker_queue)},
       firebase_metadata_provider_{std::move(firebase_metadata_provider)},
@@ -104,11 +108,17 @@ const Settings& Firestore::settings() const {
 void Firestore::set_settings(const Settings& settings) {
   std::lock_guard<std::mutex> lock{mutex_};
   if (client_) {
-    HARD_FAIL(
+    util::ThrowIllegalState(
         "Firestore instance has already been started and its settings can "
         "no longer be changed. You can only set settings before calling any "
         "other methods on a Firestore instance.");
   }
+  if (!settings.ssl_enabled() && settings.host() == Settings::DefaultHost) {
+    util::ThrowIllegalState(
+        "You can't set the 'sslEnabled' setting to false unless you also set a "
+        "non-default 'host'.");
+  }
+
   settings_ = settings;
 }
 
@@ -218,8 +228,9 @@ void Firestore::EnsureClientConfigured() {
   if (!client_) {
     HARD_ASSERT(worker_queue_, "Expected non-null worker queue");
     client_ = FirestoreClient::Create(
-        MakeDatabaseInfo(), settings_, std::move(credentials_provider_),
-        user_executor_, worker_queue_, std::move(firebase_metadata_provider_));
+        MakeDatabaseInfo(), settings_, std::move(auth_credentials_provider_),
+        std::move(app_check_credentials_provider_), user_executor_,
+        worker_queue_, std::move(firebase_metadata_provider_));
   }
 }
 

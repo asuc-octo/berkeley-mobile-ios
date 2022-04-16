@@ -1,6 +1,11 @@
+[![Version](https://img.shields.io/cocoapods/v/GTMAppAuth.svg?style=flat)](https://cocoapods.org/pods/GTMAppAuth)
+[![Platform](https://img.shields.io/cocoapods/p/GTMAppAuth.svg?style=flat)](https://cocoapods.org/pods/GTMAppAuth)
+[![License](https://img.shields.io/cocoapods/l/GTMAppAuth.svg?style=flat)](https://cocoapods.org/pods/GTMAppAuth)
+[![tests](https://github.com/google/GTMAppAuth/actions/workflows/tests.yml/badge.svg?event=push)](https://github.com/google/GTMAppAuth/actions/workflows/tests.yml)
+
 # GTMAppAuth for Apple Platforms
 
-GTMAppAuth enables you to use [AppAuth](http://openid.github.io/AppAuth-iOS)
+GTMAppAuth enables you to use [AppAuth](https://github.com/openid/AppAuth-iOS)
 with the
 [Google Toolbox for Mac - Session Fetcher](https://github.com/google/gtm-session-fetcher)
 and
@@ -12,7 +17,7 @@ for authorizing requests with AppAuth.
 GTMAppAuth is an alternative authorizer to GTMOAuth2. The key differentiator is
 the use of the user's default browser for the authorization, which is more
 secure, more usable (the user's session can be reused) and follows modern OAuth
-[best practices for native apps](https://tools.ietf.org/html/draft-ietf-oauth-native-apps).
+[best practices for native apps](https://datatracker.ietf.org/doc/html/rfc8252).
 Compatibility methods for GTMOAuth2 are offered allowing you to migrate
 from GTMOAuth2 to GTMAppAuth preserving previously serialized authorizations
 (so users shouldn't need to re-authenticate).

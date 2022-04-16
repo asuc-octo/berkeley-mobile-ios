@@ -28,6 +28,8 @@ class Query;
 
 namespace local {
 
+class IndexManager;
+
 /**
  * Represents cached documents received from the remote backend.
  *
@@ -49,7 +51,7 @@ class RemoteDocumentCache {
    * @param document A Document or DeletedDocument to put in the cache.
    * @param read_time The time at which the document was read or committed.
    */
-  virtual void Add(const model::MaybeDocument& document,
+  virtual void Add(const model::MutableDocument& document,
                    const model::SnapshotVersion& read_time) = 0;
 
   /** Removes the cached entry for the given key (no-op if no entry exists). */
@@ -62,8 +64,7 @@ class RemoteDocumentCache {
    * @return The cached Document or DeletedDocument entry, or nullopt if we
    * have nothing cached.
    */
-  virtual absl::optional<model::MaybeDocument> Get(
-      const model::DocumentKey& key) = 0;
+  virtual model::MutableDocument Get(const model::DocumentKey& key) = 0;
 
   /**
    * Looks up a set of entries in the cache.
@@ -72,7 +73,7 @@ class RemoteDocumentCache {
    * @return The cached Document or NoDocument entries indexed by key. If an
    * entry is not cached, the corresponding key will be mapped to a null value.
    */
-  virtual model::OptionalMaybeDocumentMap GetAll(
+  virtual model::MutableDocumentMap GetAll(
       const model::DocumentKeySet& keys) = 0;
 
   /**
@@ -88,9 +89,16 @@ class RemoteDocumentCache {
    * documents that have been read since this snapshot version (exclusive).
    * @return The set of matching documents.
    */
-  virtual model::DocumentMap GetMatching(
+  virtual model::MutableDocumentMap GetMatching(
       const core::Query& query,
       const model::SnapshotVersion& since_read_time) = 0;
+
+  /**
+   * Sets the index manager used by remote document cache.
+   *
+   * @param manager A pointer to an `IndexManager` owned by `Persistence`.
+   */
+  virtual void SetIndexManager(IndexManager* manager) = 0;
 };
 
 }  // namespace local
