@@ -186,10 +186,10 @@
 		55DCF79B237243D4001B01B8 /* MaterialTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF79A237243D4001B01B8 /* MaterialTextField.swift */; };
 		55DCF79D237243F5001B01B8 /* RippleLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF79C237243F5001B01B8 /* RippleLayer.swift */; };
 		55DCF7A123724835001B01B8 /* MaterialButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF7A023724835001B01B8 /* MaterialButton.swift */; };
+		BE18B9A328F0FC2500FF72A9 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE18B9A228F0FC2500FF72A9 /* Secrets.swift */; };
+		BE18B9A528F0FC2D00FF72A9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BE18B9A428F0FC2D00FF72A9 /* GoogleService-Info.plist */; };
 		BEA2779728DE8D1100511D9E /* .. in Resources */ = {isa = PBXBuildFile; fileRef = BEA2779628DE8D1100511D9E /* .. */; };
 		BEA2779928DE8D1B00511D9E /* Downloads in Sources */ = {isa = PBXBuildFile; fileRef = BEA2779828DE8D1A00511D9E /* Downloads */; };
-		BEC2861128ECD0D1008DAE2A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BEC2861028ECD0D1008DAE2A /* GoogleService-Info.plist */; };
-		BEC2861328ECD0DA008DAE2A /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC2861228ECD0DA008DAE2A /* Secrets.swift */; };
 		F07EDD8C25C626FE0097C813 /* GroupMembersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07EDD8B25C626FE0097C813 /* GroupMembersView.swift */; };
 		F0E4A47C25BCEC3000FF2256 /* StudyGroupDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E4A47B25BCEC3000FF2256 /* StudyGroupDetailsViewController.swift */; };
 		FD3D6FFF25C2BB7D00579EF5 /* SelectPeopleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3D6FFE25C2BB7D00579EF5 /* SelectPeopleView.swift */; };
@@ -388,10 +388,10 @@
 		55DCF79C237243F5001B01B8 /* RippleLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RippleLayer.swift; sourceTree = "<group>"; };
 		55DCF7A023724835001B01B8 /* MaterialButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialButton.swift; sourceTree = "<group>"; };
 		61110ED9482F3D5A5CFFE6B9 /* Pods-berkeley-mobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeley-mobile.release.xcconfig"; path = "Target Support Files/Pods-berkeley-mobile/Pods-berkeley-mobile.release.xcconfig"; sourceTree = "<group>"; };
+		BE18B9A228F0FC2500FF72A9 /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
+		BE18B9A428F0FC2D00FF72A9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BEA2779628DE8D1100511D9E /* .. */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = folder; name = ..; path = ../..; sourceTree = "<group>"; };
 		BEA2779828DE8D1A00511D9E /* Downloads */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = folder; name = Downloads; path = ../../../Downloads; sourceTree = "<group>"; };
-		BEC2861028ECD0D1008DAE2A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
-		BEC2861228ECD0DA008DAE2A /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Secrets.swift; path = ../../../Downloads/Secrets.swift; sourceTree = "<group>"; };
 		F07EDD8B25C626FE0097C813 /* GroupMembersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupMembersView.swift; sourceTree = "<group>"; };
 		F0E4A47B25BCEC3000FF2256 /* StudyGroupDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyGroupDetailsViewController.swift; sourceTree = "<group>"; };
 		F9CAC9CEE1078D95B189B835 /* Pods_berkeley_mobile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_berkeley_mobile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -929,8 +929,8 @@
 				306A54F223613E3D00D59A7F /* Assets.xcassets */,
 				306A54F423613E3D00D59A7F /* LaunchScreen.storyboard */,
 				306A54F723613E3D00D59A7F /* Info.plist */,
-				BEC2861028ECD0D1008DAE2A /* GoogleService-Info.plist */,
-				BEC2861228ECD0DA008DAE2A /* Secrets.swift */,
+				BE18B9A228F0FC2500FF72A9 /* Secrets.swift */,
+				BE18B9A428F0FC2D00FF72A9 /* GoogleService-Info.plist */,
 				BEA2779828DE8D1A00511D9E /* Downloads */,
 				BEA2779628DE8D1100511D9E /* .. */,
 			);
@@ -1117,7 +1117,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BEC2861128ECD0D1008DAE2A /* GoogleService-Info.plist in Resources */,
+				BE18B9A528F0FC2D00FF72A9 /* GoogleService-Info.plist in Resources */,
 				BEA2779728DE8D1100511D9E /* .. in Resources */,
 				01D269952544D86C000377B4 /* Apercu Light Italic.otf in Resources */,
 				306A54F623613E3D00D59A7F /* LaunchScreen.storyboard in Resources */,
@@ -1200,7 +1200,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				130FA59F243B12B3005DC752 /* Resource.swift in Sources */,
-				BEC2861328ECD0DA008DAE2A /* Secrets.swift in Sources */,
+				BE18B9A328F0FC2500FF72A9 /* Secrets.swift in Sources */,
 				BEA2779928DE8D1B00511D9E /* Downloads in Sources */,
 				13B8E9592425819D00E7FCBF /* ResourceDataSource.swift in Sources */,
 				01FA50F324E8BA5400DCC490 /* LocationDetailView.swift in Sources */,
