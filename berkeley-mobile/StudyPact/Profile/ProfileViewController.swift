@@ -35,7 +35,6 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigation
     private var fullNameField: BorderedTextField!
     private var emailTextField: TaggedTextField!
     private var facebookTextField: TaggedTextField!
-    //chage private var phoneTextField: BorderedTextField!
     private var phoneTextField: TaggedTextField!
     
     
