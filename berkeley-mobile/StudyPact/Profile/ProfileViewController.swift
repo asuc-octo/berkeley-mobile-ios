@@ -37,7 +37,6 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigation
     private var facebookTextField: TaggedTextField!
     private var phoneTextField: TaggedTextField!
     
-    
     private var changeImageButton: UIButton!
     private var imagePicker: UIImagePickerController!
     
@@ -445,7 +444,7 @@ extension ProfileViewController {
         let phoneField = TaggedTextField(tagText: "ex. 1234567890")
         phoneField.textField.delegate = self
         phoneField.textField.autocorrectionType = .no
-        phoneField.textField.keyboardType = .URL
+        phoneField.textField.keyboardType = .phonePad
         phoneField.textField.textColor = Color.blackText
         
         phoneRow.addArrangedSubview(phoneField)
@@ -453,6 +452,8 @@ extension ProfileViewController {
         phoneField.translatesAutoresizingMaskIntoConstraints = false
         phoneField.setHeightConstraint(50)
         phoneField.rightAnchor.constraint(equalTo: rows.rightAnchor).isActive = true
+        
+        phoneTextField = phoneField
 
         
         // ** FACEBOOK SECTION ** //
@@ -495,7 +496,6 @@ extension ProfileViewController {
         fullNameField = firstnameField
         emailTextField = emailField
         facebookTextField = facebookField
-        phoneTextField = phoneField
         
         // ** BUTTONS ** //
         let cancelButton = ActionButton(title: "Cancel", font: Font.bold(14), defaultColor: Color.StudyPact.StudyGroups.leaveGroupButton, pressedColor: Color.StudyPact.StudyGroups.leaveGroupButton)
