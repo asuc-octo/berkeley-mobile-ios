@@ -35,7 +35,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigation
     private var fullNameField: BorderedTextField!
     private var emailTextField: TaggedTextField!
     private var facebookTextField: TaggedTextField!
-    private var phoneTextField: BorderedTextField!
+    private var phoneTextField: TaggedTextField!
     
     private var changeImageButton: UIButton!
     private var imagePicker: UIImagePickerController!
@@ -441,18 +441,21 @@ extension ProfileViewController {
         phoneLabel.setHeightConstraint(36)
         phoneLabel.leftAnchor.constraint(equalTo: rows.leftAnchor).isActive = true
         
-        let phoneField = BorderedTextField()
-        phoneField.delegate = self
-        phoneField.keyboardType = .phonePad
+        let phoneField = TaggedTextField(tagText: "ex. 1234567890")
+        phoneField.textField.delegate = self
+        phoneField.textField.autocorrectionType = .no
+        phoneField.textField.keyboardType = .phonePad
+        phoneField.textField.textColor = Color.blackText
         
         phoneRow.addArrangedSubview(phoneField)
 
         phoneField.translatesAutoresizingMaskIntoConstraints = false
-        phoneField.setHeightConstraint(36)
+        phoneField.setHeightConstraint(50)
         phoneField.rightAnchor.constraint(equalTo: rows.rightAnchor).isActive = true
-
+        
         phoneTextField = phoneField
 
+        
         // ** FACEBOOK SECTION ** //
         let fbRow = UIStackView()
         fbRow.axis = .horizontal
@@ -549,7 +552,7 @@ extension ProfileViewController {
     
     @objc private func cancelButtonPressed(sender: UIButton) {
         fullNameField.setDefault()
-        phoneTextField.setDefault()
+        phoneTextField.textField.setDefault()
         facebookTextField.textField.setDefault()
         
         // Get user info from backend
@@ -565,9 +568,9 @@ extension ProfileViewController {
         
         self.fullNameField.text = info["name"]
         if let phone = info["phone"] {
-            self.phoneTextField.text = phone
+            self.phoneTextField.textField.text = phone
         } else {
-            self.phoneTextField.text = ""
+            self.phoneTextField.textField.text = ""
         }
         if let fb = info["facebook"] {
             self.facebookTextField.textField.text = fb
@@ -592,7 +595,7 @@ extension ProfileViewController {
     @objc private func saveButtonPressed(sender: UIButton) {
         let name = fullNameField.text
         let facebook = validateFacebook(text: facebookTextField.textField.text ?? "")
-        let phoneNumber = validatePhoneNumber(text: phoneTextField.text ?? "")
+        let phoneNumber = validatePhoneNumber(text: phoneTextField.textField.text ?? "")
         
         var hasInvalid = false
         if name == "" {
@@ -603,15 +606,15 @@ extension ProfileViewController {
             hasInvalid = true
             facebookTextField.textField.setInvalid()
         }
-        if phoneTextField.text != "" && phoneNumber == nil {
+        if phoneTextField.textField.text != "" && phoneNumber == nil {
             hasInvalid = true
-            phoneTextField.setInvalid()
+            phoneTextField.textField.setInvalid()
         }
         if hasInvalid {
             return
         }
         fullNameField.setDefault()
-        phoneTextField.setDefault()
+        phoneTextField.textField.setDefault()
         facebookTextField.textField.setDefault()
         
         // Adds updated user
