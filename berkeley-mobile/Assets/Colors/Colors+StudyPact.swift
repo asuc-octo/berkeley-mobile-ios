@@ -76,6 +76,10 @@ extension Color {
             static var leaveGroupButton: UIColor {
                 return UIColor(displayP3Red: 199/255, green: 199/255, blue: 199/255, alpha: 1.0)
             }
+            
+            static var leaveStudyGroupButton: UIColor {
+                return UIColor(displayP3Red: 225/255, green: 77/255, blue: 77/255, alpha: 0.89)
+            }
 
             static var enabledButton: UIColor {
                 return UIColor(displayP3Red: 127/255, green: 153/255, blue: 245/255, alpha: 1.0)

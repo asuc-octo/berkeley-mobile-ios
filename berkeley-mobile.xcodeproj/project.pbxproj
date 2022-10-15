@@ -190,6 +190,7 @@
 		BE18B9A528F0FC2D00FF72A9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BE18B9A428F0FC2D00FF72A9 /* GoogleService-Info.plist */; };
 		BEA2779728DE8D1100511D9E /* .. in Resources */ = {isa = PBXBuildFile; fileRef = BEA2779628DE8D1100511D9E /* .. */; };
 		BEA2779928DE8D1B00511D9E /* Downloads in Sources */ = {isa = PBXBuildFile; fileRef = BEA2779828DE8D1A00511D9E /* Downloads */; };
+		C850568128F114AE00995721 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C850568028F114AE00995721 /* GoogleService-Info.plist */; };
 		F07EDD8C25C626FE0097C813 /* GroupMembersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07EDD8B25C626FE0097C813 /* GroupMembersView.swift */; };
 		F0E4A47C25BCEC3000FF2256 /* StudyGroupDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E4A47B25BCEC3000FF2256 /* StudyGroupDetailsViewController.swift */; };
 		FD3D6FFF25C2BB7D00579EF5 /* SelectPeopleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3D6FFE25C2BB7D00579EF5 /* SelectPeopleView.swift */; };
@@ -392,6 +393,7 @@
 		BE18B9A428F0FC2D00FF72A9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BEA2779628DE8D1100511D9E /* .. */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = folder; name = ..; path = ../..; sourceTree = "<group>"; };
 		BEA2779828DE8D1A00511D9E /* Downloads */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = folder; name = Downloads; path = ../../../Downloads; sourceTree = "<group>"; };
+		C850568028F114AE00995721 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F07EDD8B25C626FE0097C813 /* GroupMembersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupMembersView.swift; sourceTree = "<group>"; };
 		F0E4A47B25BCEC3000FF2256 /* StudyGroupDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyGroupDetailsViewController.swift; sourceTree = "<group>"; };
 		F9CAC9CEE1078D95B189B835 /* Pods_berkeley_mobile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_berkeley_mobile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -933,6 +935,8 @@
 				BE18B9A428F0FC2D00FF72A9 /* GoogleService-Info.plist */,
 				BEA2779828DE8D1A00511D9E /* Downloads */,
 				BEA2779628DE8D1100511D9E /* .. */,
+				C850568028F114AE00995721 /* GoogleService-Info.plist */,
+				01CDBB9825CA32AF006B93BD /* Secrets.swift */,
 			);
 			path = "berkeley-mobile";
 			sourceTree = "<group>";
@@ -1124,6 +1128,7 @@
 				306A54F323613E3D00D59A7F /* Assets.xcassets in Resources */,
 				01D269962544D86C000377B4 /* Apercu Bold Italic.otf in Resources */,
 				01D269942544D86C000377B4 /* Apercu Italic.otf in Resources */,
+				C850568128F114AE00995721 /* GoogleService-Info.plist in Resources */,
 				01D269992544D86C000377B4 /* Apercu Medium Italic.otf in Resources */,
 				01D269932544D86C000377B4 /* Apercu Light.otf in Resources */,
 				01D2699A2544D86C000377B4 /* Apercu Medium.otf in Resources */,

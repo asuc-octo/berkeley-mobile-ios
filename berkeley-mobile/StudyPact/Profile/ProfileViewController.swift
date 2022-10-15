@@ -481,11 +481,12 @@ extension ProfileViewController {
         facebookLabel.setHeightConstraint(36)
         facebookLabel.leftAnchor.constraint(equalTo: rows.leftAnchor).isActive = true
         
-        let facebookField = TaggedTextField(tagText: "facebook.com/your-username", boldStrings: ["your-username"])
+        let facebookField = TaggedTextField(tagText: "facebook.com/oski-bear", boldStrings: ["oski-bear"])
         facebookField.textField.delegate = self
         facebookField.textField.autocorrectionType = .no
         facebookField.textField.keyboardType = .URL
         facebookField.textField.textColor = Color.blackText
+        facebookField.textField.placeholder = "oski-bear"
         
         fbRow.addArrangedSubview(facebookField)
 

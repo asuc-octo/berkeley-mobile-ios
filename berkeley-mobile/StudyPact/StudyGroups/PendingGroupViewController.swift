@@ -42,7 +42,7 @@ class PendingGroupViewController: UIViewController {
     let removeButton: UIButton = {
         let button = UIButton()
         button.setTitle("Remove Pending Request", for: .normal)
-        button.backgroundColor = Color.StudyPact.StudyGroups.leaveGroupButton
+        button.backgroundColor = Color.StudyPact.StudyGroups.leaveStudyGroupButton
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = Font.medium(12)
         let radius: CGFloat = 20
