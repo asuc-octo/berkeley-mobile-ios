@@ -15,7 +15,6 @@ enum ResourceType: String {
     case mentalHealth = "Mental Health"
     case basicNeeds = "Basic Needs"
     case admin = "Admin"
-    case safety = "Safety"
 
     var color: UIColor {
         switch self {
@@ -27,8 +26,6 @@ enum ResourceType: String {
             return Color.Resource.basicNeeds
         case .admin:
             return Color.Resource.admin
-        case .safety:
-            return Color.Resource.safety
         }
     }
 
