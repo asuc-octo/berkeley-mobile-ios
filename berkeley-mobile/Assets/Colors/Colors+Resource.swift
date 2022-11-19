@@ -36,6 +36,9 @@ extension Color {
         static var legal: UIColor {
             UIColor(displayP3Red: 247/255, green: 148/255, blue: 106/255, alpha: 0.89)
         }
+        static var safety: UIColor {
+            UIColor(displayP3Red: 210/255, green: 95/255, blue: 223/255, alpha: 0.89)
+        }
     }
 
 }
