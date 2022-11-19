@@ -140,7 +140,6 @@
 		29B3A1742439A60A00093750 /* DiningMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B3A1732439A60A00093750 /* DiningMenuCell.swift */; };
 		29B3D7862453984A006762E5 /* DrawerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B3D7852453984A006762E5 /* DrawerViewDelegate.swift */; };
 		29B3D78824539FF3006762E5 /* MainDrawerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B3D78724539FF3006762E5 /* MainDrawerViewController.swift */; };
-		29B542CE2622777300ACDF31 /* SproulClubViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B542CD2622777300ACDF31 /* SproulClubViewController.swift */; };
 		29CB28092404DD53009A2CFB /* StudyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39AA623E7746C0039FBA2 /* StudyViewController.swift */; };
 		29CB280A2404DD71009A2CFB /* FilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39AA423E774600039FBA2 /* FilterTableViewCell.swift */; };
 		29DB64CF25BA61BD001C4275 /* StudyGroupsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DB64CE25BA61BD001C4275 /* StudyGroupsView.swift */; };
@@ -174,9 +173,6 @@
 		559A7B6D2373DEFA004EA501 /* MaterialTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559A7B6C2373DEFA004EA501 /* MaterialTableViewCell.swift */; };
 		559A7B6F2373DF39004EA501 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559A7B6E2373DF39004EA501 /* SearchResultCell.swift */; };
 		559AF6E0251EAA2800463E2A /* DetailTapGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559AF6DF251EAA2800463E2A /* DetailTapGestureRecognizer.swift */; };
-		55AA7B2F25FD4F29002B4A4B /* CovidResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AA7B2E25FD4F29002B4A4B /* CovidResource.swift */; };
-		55AA7B3325FD4F68002B4A4B /* CovidDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AA7B3225FD4F68002B4A4B /* CovidDataSource.swift */; };
-		55AA7B3625FD4FF2002B4A4B /* CovidResourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AA7B3525FD4FF2002B4A4B /* CovidResourceViewController.swift */; };
 		55AF442D2453ACE600F13232 /* DiningLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AF442C2453ACE600F13232 /* DiningLocation.swift */; };
 		55C6936B240E143500400B60 /* ResourceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C6936A240E143500400B60 /* ResourceTableViewCell.swift */; };
 		55DCF78723722CBD001B01B8 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF78623722CBD001B01B8 /* Colors.swift */; };
@@ -188,8 +184,7 @@
 		55DCF7A123724835001B01B8 /* MaterialButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF7A023724835001B01B8 /* MaterialButton.swift */; };
 		BE18B9A328F0FC2500FF72A9 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE18B9A228F0FC2500FF72A9 /* Secrets.swift */; };
 		BE18B9A528F0FC2D00FF72A9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BE18B9A428F0FC2D00FF72A9 /* GoogleService-Info.plist */; };
-		BEA2779728DE8D1100511D9E /* .. in Resources */ = {isa = PBXBuildFile; fileRef = BEA2779628DE8D1100511D9E /* .. */; };
-		BEA2779928DE8D1B00511D9E /* Downloads in Sources */ = {isa = PBXBuildFile; fileRef = BEA2779828DE8D1A00511D9E /* Downloads */; };
+		BE8180E32928663B00A069D2 /* SafetyResourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8180E22928663B00A069D2 /* SafetyResourceViewController.swift */; };
 		C850568128F114AE00995721 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C850568028F114AE00995721 /* GoogleService-Info.plist */; };
 		F07EDD8C25C626FE0097C813 /* GroupMembersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07EDD8B25C626FE0097C813 /* GroupMembersView.swift */; };
 		F0E4A47C25BCEC3000FF2256 /* StudyGroupDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E4A47B25BCEC3000FF2256 /* StudyGroupDetailsViewController.swift */; };
@@ -337,7 +332,6 @@
 		29B3A1732439A60A00093750 /* DiningMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiningMenuCell.swift; sourceTree = "<group>"; };
 		29B3D7852453984A006762E5 /* DrawerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerViewDelegate.swift; sourceTree = "<group>"; };
 		29B3D78724539FF3006762E5 /* MainDrawerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainDrawerViewController.swift; sourceTree = "<group>"; };
-		29B542CD2622777300ACDF31 /* SproulClubViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SproulClubViewController.swift; sourceTree = "<group>"; };
 		29DB64CE25BA61BD001C4275 /* StudyGroupsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyGroupsView.swift; sourceTree = "<group>"; };
 		29DB64D825BA8242001C4275 /* AllStudyGroupsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllStudyGroupsViewController.swift; sourceTree = "<group>"; };
 		29EE163E241C4E310041482E /* SortingFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingFunctions.swift; sourceTree = "<group>"; };
@@ -376,9 +370,6 @@
 		559A7B6C2373DEFA004EA501 /* MaterialTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialTableViewCell.swift; sourceTree = "<group>"; };
 		559A7B6E2373DF39004EA501 /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
 		559AF6DF251EAA2800463E2A /* DetailTapGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTapGestureRecognizer.swift; sourceTree = "<group>"; };
-		55AA7B2E25FD4F29002B4A4B /* CovidResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CovidResource.swift; sourceTree = "<group>"; };
-		55AA7B3225FD4F68002B4A4B /* CovidDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CovidDataSource.swift; sourceTree = "<group>"; };
-		55AA7B3525FD4FF2002B4A4B /* CovidResourceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CovidResourceViewController.swift; sourceTree = "<group>"; };
 		55AF442C2453ACE600F13232 /* DiningLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiningLocation.swift; sourceTree = "<group>"; };
 		55C6936A240E143500400B60 /* ResourceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceTableViewCell.swift; sourceTree = "<group>"; };
 		55DCF78623722CBD001B01B8 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
@@ -391,8 +382,7 @@
 		61110ED9482F3D5A5CFFE6B9 /* Pods-berkeley-mobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeley-mobile.release.xcconfig"; path = "Target Support Files/Pods-berkeley-mobile/Pods-berkeley-mobile.release.xcconfig"; sourceTree = "<group>"; };
 		BE18B9A228F0FC2500FF72A9 /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		BE18B9A428F0FC2D00FF72A9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		BEA2779628DE8D1100511D9E /* .. */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = folder; name = ..; path = ../..; sourceTree = "<group>"; };
-		BEA2779828DE8D1A00511D9E /* Downloads */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = folder; name = Downloads; path = ../../../Downloads; sourceTree = "<group>"; };
+		BE8180E22928663B00A069D2 /* SafetyResourceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyResourceViewController.swift; sourceTree = "<group>"; };
 		C850568028F114AE00995721 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F07EDD8B25C626FE0097C813 /* GroupMembersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupMembersView.swift; sourceTree = "<group>"; };
 		F0E4A47B25BCEC3000FF2256 /* StudyGroupDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyGroupDetailsViewController.swift; sourceTree = "<group>"; };
@@ -786,14 +776,6 @@
 			path = Occupancy;
 			sourceTree = "<group>";
 		};
-		29B542CC2622777300ACDF31 /* SproulClub */ = {
-			isa = PBXGroup;
-			children = (
-				29B542CD2622777300ACDF31 /* SproulClubViewController.swift */,
-			);
-			path = SproulClub;
-			sourceTree = "<group>";
-		};
 		29BB9E5925BFEC3300FC5EC8 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
@@ -933,10 +915,7 @@
 				306A54F723613E3D00D59A7F /* Info.plist */,
 				BE18B9A228F0FC2500FF72A9 /* Secrets.swift */,
 				BE18B9A428F0FC2D00FF72A9 /* GoogleService-Info.plist */,
-				BEA2779828DE8D1A00511D9E /* Downloads */,
-				BEA2779628DE8D1100511D9E /* .. */,
 				C850568028F114AE00995721 /* GoogleService-Info.plist */,
-				01CDBB9825CA32AF006B93BD /* Secrets.swift */,
 			);
 			path = "berkeley-mobile";
 			sourceTree = "<group>";
@@ -993,23 +972,12 @@
 		556DB0DD23E7F5ED00F12721 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				29B542CC2622777300ACDF31 /* SproulClub */,
+				BE8180E12928662100A069D2 /* Safety */,
 				553EF6AA2404E29800D2955E /* ResourcesDataSource */,
 				552F4A4A254E13960061D0F2 /* Campus */,
-				55AA7B2D25FD4F06002B4A4B /* Covid */,
 				556DB0DE23E7F60900F12721 /* ResourcesViewController.swift */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		55AA7B2D25FD4F06002B4A4B /* Covid */ = {
-			isa = PBXGroup;
-			children = (
-				55AA7B2E25FD4F29002B4A4B /* CovidResource.swift */,
-				55AA7B3225FD4F68002B4A4B /* CovidDataSource.swift */,
-				55AA7B3525FD4FF2002B4A4B /* CovidResourceViewController.swift */,
-			);
-			path = Covid;
 			sourceTree = "<group>";
 		};
 		55DCF78523722CAE001B01B8 /* Assets */ = {
@@ -1049,6 +1017,14 @@
 				5532B67A2390CBF600293BE0 /* MaterialLoadingIndicator.swift */,
 			);
 			path = External;
+			sourceTree = "<group>";
+		};
+		BE8180E12928662100A069D2 /* Safety */ = {
+			isa = PBXGroup;
+			children = (
+				BE8180E22928663B00A069D2 /* SafetyResourceViewController.swift */,
+			);
+			path = Safety;
 			sourceTree = "<group>";
 		};
 		D7D8E5ACD8A49B3560D555D9 /* Pods */ = {
@@ -1122,7 +1098,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE18B9A528F0FC2D00FF72A9 /* GoogleService-Info.plist in Resources */,
-				BEA2779728DE8D1100511D9E /* .. in Resources */,
 				01D269952544D86C000377B4 /* Apercu Light Italic.otf in Resources */,
 				306A54F623613E3D00D59A7F /* LaunchScreen.storyboard in Resources */,
 				306A54F323613E3D00D59A7F /* Assets.xcassets in Resources */,
@@ -1206,7 +1181,6 @@
 			files = (
 				130FA59F243B12B3005DC752 /* Resource.swift in Sources */,
 				BE18B9A328F0FC2500FF72A9 /* Secrets.swift in Sources */,
-				BEA2779928DE8D1B00511D9E /* Downloads in Sources */,
 				13B8E9592425819D00E7FCBF /* ResourceDataSource.swift in Sources */,
 				01FA50F324E8BA5400DCC490 /* LocationDetailView.swift in Sources */,
 				29CB28092404DD53009A2CFB /* StudyViewController.swift in Sources */,
@@ -1243,7 +1217,6 @@
 				306A54FE236142B800D59A7F /* DrawerViewController.swift in Sources */,
 				13B39A8B23E682850039FBA2 /* Date+Extension.swift in Sources */,
 				135D7F75243A9AB3003F8BD1 /* GymClassType.swift in Sources */,
-				55AA7B3625FD4FF2002B4A4B /* CovidResourceViewController.swift in Sources */,
 				291B11E025043FF100F737A8 /* Sort.swift in Sources */,
 				29413B9C25CF4FCF00C0B9C7 /* StudyGroup.swift in Sources */,
 				29345E2924A7E7AC00859A88 /* HasPhoneNumber.swift in Sources */,
@@ -1258,6 +1231,7 @@
 				13580AFC243934C800D309AA /* GymsController.swift in Sources */,
 				01B2502D2516C42E00CBA459 /* EventDataSource.swift in Sources */,
 				29B3D78824539FF3006762E5 /* MainDrawerViewController.swift in Sources */,
+				BE8180E32928663B00A069D2 /* SafetyResourceViewController.swift in Sources */,
 				13491DBC242098B30033F9AB /* AtomicDictionary.swift in Sources */,
 				01BC8EB024E8C3E3005B4969 /* DetailView.swift in Sources */,
 				29891B24257C521E0094891D /* StudyPactOnboardingViewController.swift in Sources */,
@@ -1306,7 +1280,6 @@
 				135D7F77243A9BD1003F8BD1 /* Colors+GymClass.swift in Sources */,
 				55DCF7A123724835001B01B8 /* MaterialButton.swift in Sources */,
 				297678892426D2C500FDD1EB /* SearchDrawerViewController.swift in Sources */,
-				29B542CE2622777300ACDF31 /* SproulClubViewController.swift in Sources */,
 				29CB280A2404DD71009A2CFB /* FilterTableViewCell.swift in Sources */,
 				55DCF79623723CF2001B01B8 /* UIView+Extensions.swift in Sources */,
 				291B11E225044BDB00F737A8 /* HasName.swift in Sources */,
@@ -1321,7 +1294,6 @@
 				296F1B272439341300924C8D /* DiningDetailViewController.swift in Sources */,
 				13492D2D240E179F00AD3D1F /* MapMarkerDetailView.swift in Sources */,
 				1346B9192420AD4800383399 /* WeeklyHours.swift in Sources */,
-				55AA7B2F25FD4F29002B4A4B /* CovidResource.swift in Sources */,
 				29B1D307254E1C8700BAD88F /* EventManager.swift in Sources */,
 				29387E9D24BBBE8E00070BCE /* OccupancyGraphCardView.swift in Sources */,
 				13EA64D02399D50C00FD8E13 /* DataManager.swift in Sources */,
@@ -1370,7 +1342,6 @@
 				13741B6C2400D866003D1EEB /* MapDataSource.swift in Sources */,
 				1336A320241D924300949F32 /* DiningItem.swift in Sources */,
 				299ACFB4244A5F90000F3E86 /* HasOccupancy.swift in Sources */,
-				55AA7B3325FD4F68002B4A4B /* CovidDataSource.swift in Sources */,
 				0181710A25CA90D300BA6317 /* AuthenticateUser.swift in Sources */,
 				294693A425F44AA900619481 /* MonthSelectorView.swift in Sources */,
 				0181711725CAABB000BA6317 /* ClassPreference.swift in Sources */,
