@@ -18,8 +18,7 @@ class SafetyResourceViewController: UIViewController {
     private var overviewStack: UIStackView!
     private var overviewCard: CardView!
     
-    private var screeningUrl = "https://calcentral.berkeley.edu/"   // fallback url
-    private var appointmentUrl = "https://uhs.berkeley.edu/medical/appointments"
+    private var bookUrl = "https://www.bearwalk.ridecell.com"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,8 +59,29 @@ class SafetyResourceViewController: UIViewController {
             headerLabel.font = Font.bold(24)
             headerLabel.text = "Bear Walk"
             
-            let subtitleLabel = UILabel()
-            subtitleLabel.text = "Visit website at: https://bearwalk.ridecell.com/request"
+            
+            let subtitleLabel = UITextView()
+            
+            let attributedString = NSMutableAttributedString(string: "Visit website at: ")
+            let url = URL(string: "http://www.bearwalk.ridecell.com/request")!
+            attributedString.setAttributes([.link: url], range: NSMakeRange(5, 10))
+            
+            subtitleLabel.text = Text(attributedString + url)
+
+            subtitleLabel.attributedText = attributedString
+            subtitleLabel.isUserInteractionEnabled = true
+            subtitleLabel.isEditable = false
+
+            subtitleLabel.linkTextAttributes = [
+                .foregroundColor: UIColor.blue,
+                .underlineStyle: NSUnderlineStyle.single.rawValue
+            ]
+
+            let string = "bearwalk.ridecell.com/request"
+            let attributedLinkString = NSMutableAttributedString(string: string, attributes:[NSAttributedString.Key.link: URL(string: "http://www.bearwalk.ridecell.com/request")!])
+            
+            
+            subtitleLabel.text = "Visit website at: " + string
             subtitleLabel.font = Font.regular(16)
             subtitleLabel.numberOfLines = 1
             subtitleLabel.adjustsFontSizeToFitWidth = true
@@ -69,8 +89,15 @@ class SafetyResourceViewController: UIViewController {
             subtitleLabel.textAlignment = .left
             subtitleLabel.textColor = Color.blackText
             
+            let headerEndLabel = UILabel()
+            headerEndLabel.text = "Download App >"
+            headerEndLabel.font = Font.regular(12)
+            headerEndLabel.textAlignment = .right
+            headerEndLabel.textColor = Color.lightLightGrayText
+            
             card.addSubview(headerLabel)
             card.addSubview(subtitleLabel)
+            card.addSubview(headerEndLabel)
                     
             headerLabel.translatesAutoresizingMaskIntoConstraints = false
             headerLabel.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true
@@ -82,19 +109,31 @@ class SafetyResourceViewController: UIViewController {
             subtitleLabel.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
             subtitleLabel.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
             
-            let callToBookButton = ActionButton(title: "Call To Book", font: Font.regular(12))
-//            callToBookButton.addTarget(self, action: #selector(appointmentButtonPressed), for: .touchUpInside)
+            headerEndLabel.translatesAutoresizingMaskIntoConstraints = false
+            headerEndLabel.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true
+            headerEndLabel.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
+            
+            
+            let callToBookButton = ActionButton(title: "Call To Book", font: Font.regular(12), defaultColor: UIColor(red: 0.887, green: 0.447, blue: 0.447, alpha: 1))
+            callToBookButton.addTarget(self, action: #selector(bookButtonPressed), for: .touchUpInside)
             
             card.addSubview(callToBookButton)
             
             callToBookButton.translatesAutoresizingMaskIntoConstraints = false
-            callToBookButton.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
+            callToBookButton.centerXAnchor.constraint(equalTo: card.layoutMarginsGuide.centerXAnchor).isActive = true
             callToBookButton.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: 12).isActive = true
+            callToBookButton.widthAnchor.constraint(equalToConstant: 180).isActive = true
+            callToBookButton.heightAnchor.constraint(equalToConstant: 32).isActive = true
             
             card.bottomAnchor.constraint(equalTo: callToBookButton.bottomAnchor, constant: kViewMargin).isActive = true
             
             overviewCard = card
+            
         }
-        
-        
+       
+        @objc private func bookButtonPressed(sender: UIButton) {
+            guard let url = URL(string: bookUrl) else { return }
+            
+            presentAlertLinkUrl(title: "Are you sure you want to open Safari?", message: "Berkeley Mobile wants to navigate to the Bearwalk Ridecell Website", website_url: url)
+        }
 }
