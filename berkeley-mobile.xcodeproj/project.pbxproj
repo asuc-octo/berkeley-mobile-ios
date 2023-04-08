@@ -182,10 +182,9 @@
 		55DCF79B237243D4001B01B8 /* MaterialTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF79A237243D4001B01B8 /* MaterialTextField.swift */; };
 		55DCF79D237243F5001B01B8 /* RippleLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF79C237243F5001B01B8 /* RippleLayer.swift */; };
 		55DCF7A123724835001B01B8 /* MaterialButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF7A023724835001B01B8 /* MaterialButton.swift */; };
-		BE18B9A328F0FC2500FF72A9 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE18B9A228F0FC2500FF72A9 /* Secrets.swift */; };
-		BE18B9A528F0FC2D00FF72A9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BE18B9A428F0FC2D00FF72A9 /* GoogleService-Info.plist */; };
 		BE8180E32928663B00A069D2 /* SafetyResourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8180E22928663B00A069D2 /* SafetyResourceViewController.swift */; };
-		C850568128F114AE00995721 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C850568028F114AE00995721 /* GoogleService-Info.plist */; };
+		C888212D29E0FD7B001A94CE /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = C888212B29E0FD7B001A94CE /* Secrets.swift */; };
+		C888212E29E0FD7B001A94CE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C888212C29E0FD7B001A94CE /* GoogleService-Info.plist */; };
 		F07EDD8C25C626FE0097C813 /* GroupMembersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07EDD8B25C626FE0097C813 /* GroupMembersView.swift */; };
 		F0E4A47C25BCEC3000FF2256 /* StudyGroupDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E4A47B25BCEC3000FF2256 /* StudyGroupDetailsViewController.swift */; };
 		FD3D6FFF25C2BB7D00579EF5 /* SelectPeopleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3D6FFE25C2BB7D00579EF5 /* SelectPeopleView.swift */; };
@@ -380,10 +379,9 @@
 		55DCF79C237243F5001B01B8 /* RippleLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RippleLayer.swift; sourceTree = "<group>"; };
 		55DCF7A023724835001B01B8 /* MaterialButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialButton.swift; sourceTree = "<group>"; };
 		61110ED9482F3D5A5CFFE6B9 /* Pods-berkeley-mobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeley-mobile.release.xcconfig"; path = "Target Support Files/Pods-berkeley-mobile/Pods-berkeley-mobile.release.xcconfig"; sourceTree = "<group>"; };
-		BE18B9A228F0FC2500FF72A9 /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
-		BE18B9A428F0FC2D00FF72A9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BE8180E22928663B00A069D2 /* SafetyResourceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyResourceViewController.swift; sourceTree = "<group>"; };
-		C850568028F114AE00995721 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C888212B29E0FD7B001A94CE /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
+		C888212C29E0FD7B001A94CE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F07EDD8B25C626FE0097C813 /* GroupMembersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupMembersView.swift; sourceTree = "<group>"; };
 		F0E4A47B25BCEC3000FF2256 /* StudyGroupDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyGroupDetailsViewController.swift; sourceTree = "<group>"; };
 		F9CAC9CEE1078D95B189B835 /* Pods_berkeley_mobile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_berkeley_mobile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -913,9 +911,8 @@
 				306A54F223613E3D00D59A7F /* Assets.xcassets */,
 				306A54F423613E3D00D59A7F /* LaunchScreen.storyboard */,
 				306A54F723613E3D00D59A7F /* Info.plist */,
-				BE18B9A228F0FC2500FF72A9 /* Secrets.swift */,
-				BE18B9A428F0FC2D00FF72A9 /* GoogleService-Info.plist */,
-				C850568028F114AE00995721 /* GoogleService-Info.plist */,
+				C888212C29E0FD7B001A94CE /* GoogleService-Info.plist */,
+				C888212B29E0FD7B001A94CE /* Secrets.swift */,
 			);
 			path = "berkeley-mobile";
 			sourceTree = "<group>";
@@ -1097,13 +1094,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BE18B9A528F0FC2D00FF72A9 /* GoogleService-Info.plist in Resources */,
 				01D269952544D86C000377B4 /* Apercu Light Italic.otf in Resources */,
 				306A54F623613E3D00D59A7F /* LaunchScreen.storyboard in Resources */,
 				306A54F323613E3D00D59A7F /* Assets.xcassets in Resources */,
 				01D269962544D86C000377B4 /* Apercu Bold Italic.otf in Resources */,
 				01D269942544D86C000377B4 /* Apercu Italic.otf in Resources */,
-				C850568128F114AE00995721 /* GoogleService-Info.plist in Resources */,
+				C888212E29E0FD7B001A94CE /* GoogleService-Info.plist in Resources */,
 				01D269992544D86C000377B4 /* Apercu Medium Italic.otf in Resources */,
 				01D269932544D86C000377B4 /* Apercu Light.otf in Resources */,
 				01D2699A2544D86C000377B4 /* Apercu Medium.otf in Resources */,
@@ -1180,7 +1176,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				130FA59F243B12B3005DC752 /* Resource.swift in Sources */,
-				BE18B9A328F0FC2500FF72A9 /* Secrets.swift in Sources */,
 				13B8E9592425819D00E7FCBF /* ResourceDataSource.swift in Sources */,
 				01FA50F324E8BA5400DCC490 /* LocationDetailView.swift in Sources */,
 				29CB28092404DD53009A2CFB /* StudyViewController.swift in Sources */,
@@ -1245,6 +1240,7 @@
 				2925D5FC2529546A00BBA266 /* CampusEventCollectionViewCell.swift in Sources */,
 				556DB0DF23E7F60900F12721 /* ResourcesViewController.swift in Sources */,
 				296DDEC1253BB117008E8940 /* CampusEventDetailViewController.swift in Sources */,
+				C888212D29E0FD7B001A94CE /* Secrets.swift in Sources */,
 				55DCF79423723452001B01B8 /* SearchBarView.swift in Sources */,
 				29A6610125C4EA6A004D2FC2 /* PendingGroupViewController.swift in Sources */,
 				133864AC2404E858001F9048 /* CalendarViewController.swift in Sources */,

@@ -10,4 +10,6 @@ import UIKit
 import Firebase
 
 class SafetyResourceViewController: UIViewController {
+    //main page for safety
+    //add floating action button
 }
