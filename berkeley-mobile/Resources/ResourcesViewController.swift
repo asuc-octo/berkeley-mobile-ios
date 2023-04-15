@@ -80,7 +80,8 @@ extension ResourcesViewController {
         segmentedControl.view.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         segmentedControl.view.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
-}
+    
+
 
 // MARK: - Analytics
 extension ResourcesViewController {
