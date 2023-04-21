@@ -12,25 +12,29 @@ import Firebase
 class SafetyResourceViewController: UIViewController {
     //main page for safety
     //add floating action button
-    override func loadView() {
-        let view = UIView()
-        view.backgroundColor = .lightGray
-        self.view = view
+    // 1
+    private var label: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.preferredFont(forTextStyle: .title1)
+        label.text = "Hello, UIKit!"
+        label.textAlignment = .center
         
-        let floatingButton = UIButton()
-        floatingButton.setTitle("Add", for: .normal)
-        floatingButton.backgroundColor = .black
-        floatingButton.layer.cornerRadius = 25
+        return label
+    }()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // 3
         
-        view.addSubview(floatingButton)
-        floatingButton.translatesAutoresizingMaskIntoConstraints = false
-
-        floatingButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        floatingButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        
-        floatingButton.bottomAnchor.constraint(equalTo: self.view.layoutMarginsGuide.bottomAnchor, constant: -10).isActive = true
-
-        floatingButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20).isActive = true
-       //floatingButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        view.addSubview(label)
+        NSLayoutConstraint.activate([
+            label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            label.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
+            label.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
+        ])
     }
+
+    
 }
