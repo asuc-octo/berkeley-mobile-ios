@@ -10,31 +10,41 @@ import UIKit
 import Firebase
 
 class SafetyResourceViewController: UIViewController {
-    //main page for safety
-    //add floating action button
-    // 1
-    private var label: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.preferredFont(forTextStyle: .title1)
-        label.text = "Hello, UIKit!"
-        label.textAlignment = .center
+    private var button: UIButton = {
+        let button = UIButton(type: .custom)
+        let xPostion:CGFloat = 50
+        let yPostion:CGFloat = 100
+        let buttonWidth:CGFloat = 150
+        let buttonHeight:CGFloat = 150
+
+        button.frame = CGRect(x:xPostion, y:yPostion, width:buttonWidth, height:buttonHeight)
         
-        return label
+        button.backgroundColor = UIColor.systemRed
+        button.setTitle("Need Help?", for: UIControl.State.normal)
+//        button.frame = CGRect(x: 160, y: 100, width: 100, height: 100)
+//        button.layer.cornerRadius = 0.5 * button.bounds.size.width
+        button.layer.cornerRadius = 10
+        button.clipsToBounds = true
+        button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        return button
     }()
+    
+    @objc func buttonAction(_ sender:UIButton!)
+    {
+        print("Button tapped")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // 3
-        
-        view.addSubview(label)
+        view.addSubview(button)
         NSLayoutConstraint.activate([
-            label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            label.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
-            label.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
+            button.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            button.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            button.widthAnchor.constraint(equalToConstant: 50),
+            button.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
-
     
 }
