@@ -26,7 +26,6 @@
 		01B2502F2516C45800CBA459 /* EventCalendarEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B2502E2516C45800CBA459 /* EventCalendarEntry.swift */; };
 		01BC8EB024E8C3E3005B4969 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BC8EAF24E8C3E3005B4969 /* DetailView.swift */; };
 		01C75E2E25292E5B00C25A32 /* DescriptionCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C75E2D25292E5B00C25A32 /* DescriptionCardView.swift */; };
-		01CDBB9925CA32AF006B93BD /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CDBB9825CA32AF006B93BD /* Secrets.swift */; };
 		01CDBBC725CA3B13006B93BD /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CDBBC625CA3B13006B93BD /* NetworkManager.swift */; };
 		01CDBBE925CA6AF9006B93BD /* StudyPact+Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CDBBE825CA6AF9006B93BD /* StudyPact+Endpoints.swift */; };
 		01CDBBED25CA6F4D006B93BD /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CDBBEC25CA6F4D006B93BD /* Response.swift */; };
@@ -92,7 +91,8 @@
 		13EA64CA2399CE5B00FD8E13 /* SearchItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13EA64C92399CE5B00FD8E13 /* SearchItem.swift */; };
 		13EA64CD2399CEDA00FD8E13 /* Gym.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13EA64CC2399CEDA00FD8E13 /* Gym.swift */; };
 		13EA64D02399D50C00FD8E13 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13EA64CF2399D50C00FD8E13 /* DataManager.swift */; };
-		29010C7A2539648B00CDA48A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 29010C792539648B00CDA48A /* GoogleService-Info.plist */; };
+		1A46381329A9A92000385F71 /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A46381129A9A92000385F71 /* Secret.swift */; };
+		1A46381429A9A92000385F71 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1A46381229A9A92000385F71 /* GoogleService-Info.plist */; };
 		29061D41241C450E002BC9D9 /* HasLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29061D40241C450E002BC9D9 /* HasLocation.swift */; };
 		2913595724B136BE00DE9AD6 /* CollapsibleCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2913595624B136BE00DE9AD6 /* CollapsibleCardView.swift */; };
 		2913595924B13DF200DE9AD6 /* OpenTimesCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2913595824B13DF200DE9AD6 /* OpenTimesCardView.swift */; };
@@ -220,7 +220,6 @@
 		01B2502E2516C45800CBA459 /* EventCalendarEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCalendarEntry.swift; sourceTree = "<group>"; };
 		01BC8EAF24E8C3E3005B4969 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		01C75E2D25292E5B00C25A32 /* DescriptionCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionCardView.swift; sourceTree = "<group>"; };
-		01CDBB9825CA32AF006B93BD /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		01CDBBC625CA3B13006B93BD /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		01CDBBE825CA6AF9006B93BD /* StudyPact+Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StudyPact+Endpoints.swift"; sourceTree = "<group>"; };
 		01CDBBEC25CA6F4D006B93BD /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
@@ -286,7 +285,8 @@
 		13EA64C92399CE5B00FD8E13 /* SearchItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchItem.swift; sourceTree = "<group>"; };
 		13EA64CC2399CEDA00FD8E13 /* Gym.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gym.swift; sourceTree = "<group>"; };
 		13EA64CF2399D50C00FD8E13 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
-		29010C792539648B00CDA48A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		1A46381129A9A92000385F71 /* Secret.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secret.swift; sourceTree = "<group>"; };
+		1A46381229A9A92000385F71 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		29061D40241C450E002BC9D9 /* HasLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasLocation.swift; sourceTree = "<group>"; };
 		2913595624B136BE00DE9AD6 /* CollapsibleCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsibleCardView.swift; sourceTree = "<group>"; };
 		2913595824B13DF200DE9AD6 /* OpenTimesCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenTimesCardView.swift; sourceTree = "<group>"; };
@@ -905,6 +905,8 @@
 		306A54E823613E3A00D59A7F /* berkeley-mobile */ = {
 			isa = PBXGroup;
 			children = (
+				1A46381229A9A92000385F71 /* GoogleService-Info.plist */,
+				1A46381129A9A92000385F71 /* Secret.swift */,
 				55DCF78523722CAE001B01B8 /* Assets */,
 				306A54E923613E3A00D59A7F /* AppDelegate.swift */,
 				016A56D7251C930D00531A12 /* AppDelegate+Migration.swift */,
@@ -925,8 +927,6 @@
 				306A54F223613E3D00D59A7F /* Assets.xcassets */,
 				306A54F423613E3D00D59A7F /* LaunchScreen.storyboard */,
 				306A54F723613E3D00D59A7F /* Info.plist */,
-				29010C792539648B00CDA48A /* GoogleService-Info.plist */,
-				01CDBB9825CA32AF006B93BD /* Secrets.swift */,
 			);
 			path = "berkeley-mobile";
 			sourceTree = "<group>";
@@ -1114,9 +1114,9 @@
 				01D269952544D86C000377B4 /* Apercu Light Italic.otf in Resources */,
 				306A54F623613E3D00D59A7F /* LaunchScreen.storyboard in Resources */,
 				306A54F323613E3D00D59A7F /* Assets.xcassets in Resources */,
-				29010C7A2539648B00CDA48A /* GoogleService-Info.plist in Resources */,
 				01D269962544D86C000377B4 /* Apercu Bold Italic.otf in Resources */,
 				01D269942544D86C000377B4 /* Apercu Italic.otf in Resources */,
+				1A46381429A9A92000385F71 /* GoogleService-Info.plist in Resources */,
 				01D269992544D86C000377B4 /* Apercu Medium Italic.otf in Resources */,
 				01D269932544D86C000377B4 /* Apercu Light.otf in Resources */,
 				01D2699A2544D86C000377B4 /* Apercu Medium.otf in Resources */,
@@ -1275,7 +1275,6 @@
 				13EA64CA2399CE5B00FD8E13 /* SearchItem.swift in Sources */,
 				13491DB8241E22130033F9AB /* Colors+Event.swift in Sources */,
 				13B39A9923E6A33C0039FBA2 /* Library.swift in Sources */,
-				01CDBB9925CA32AF006B93BD /* Secrets.swift in Sources */,
 				303F6AE4236A931D007E37DD /* SegmentedControlViewController.swift in Sources */,
 				559A7B6F2373DF39004EA501 /* SearchResultCell.swift in Sources */,
 				FDE7CD9925BCE6DB00F65A13 /* CreatePreferenceViewController.swift in Sources */,
@@ -1341,6 +1340,7 @@
 				01FA50F124E8B33100DCC490 /* LocationManager.swift in Sources */,
 				017C0B26251018BA00BFA80A /* Colors+MapMarker.swift in Sources */,
 				29570D4C2569D8F20086741B /* CalendarView.swift in Sources */,
+				1A46381329A9A92000385F71 /* Secret.swift in Sources */,
 				29345E2724A7E76300859A88 /* OverviewCardView.swift in Sources */,
 				01D11B902504560700BDF660 /* GymDetailViewController.swift in Sources */,
 				55AF442D2453ACE600F13232 /* DiningLocation.swift in Sources */,

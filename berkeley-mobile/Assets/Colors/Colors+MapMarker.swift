@@ -56,6 +56,18 @@ extension Color {
         static var mentalHealth: UIColor {
             return UIColor(displayP3Red: 249/255, green: 180/255, blue: 35/255, alpha: 1.0)
         }
+        
+        static var safetyAlertLow: UIColor {
+            return UIColor(displayP3Red: 249/255, green: 221/255, blue: 116/255, alpha: 1.0)
+        }
+        
+        static var safetyAlertMedium: UIColor {
+            return UIColor(displayP3Red: 238/255, green: 145/255, blue: 63/255, alpha: 1.0)
+        }
+        
+        static var safetyAlertHigh: UIColor {
+            return UIColor(displayP3Red: 204/255, green: 79/255, blue: 73/255, alpha: 1.0)
+        }
 
         static var other: UIColor {
             return UIColor(displayP3Red: 140/255, green: 140/255, blue: 140/255, alpha: 1.0)

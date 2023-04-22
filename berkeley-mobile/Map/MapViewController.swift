@@ -277,11 +277,14 @@ extension MapViewController: MKMapViewDelegate {
         } else if let marker = annotation as? MapMarker,
             let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: MapViewController.kAnnotationIdentifier) {
             annotationView.annotation = marker
-            if case .known(let type) = marker.type {
-                annotationView.image = type.icon()
-            } else {
-                annotationView.image = MapMarkerType.none.icon()
-            }
+            
+            // Set image icons for map markers
+            annotationView.image = marker.icon
+//            if case .known(let type) = marker.type {
+//                annotationView.image = type.icon()
+//            } else {
+//                annotationView.image = MapMarkerType.none.icon()
+//            }
             return annotationView
         } else if let searchAnnotation = annotation as? SearchAnnotation,
             // create new pin on map for searched item

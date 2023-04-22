@@ -143,11 +143,9 @@ class MapMarkerDetailView: UIView {
     private func setupView(_ marker: MapMarker) {
         verticalStack.removeAllArrangedSubviews()
         nameLabel.text = marker.title
-        if case .known(let type) = marker.type {
-            typeColorView.backgroundColor = type.color()
-        } else {
-            typeColorView.backgroundColor = MapMarkerType.none.color()
-        }
+        
+        // Set the color for marker type
+        typeColorView.backgroundColor = marker.color()
         notesLabel.text = marker.subtitle
         
         detailStack.removeAllArrangedSubviews()

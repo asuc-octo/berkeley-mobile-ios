@@ -47,6 +47,7 @@ enum KnownType<T: RawRepresentable>: RawRepresentable {
  */
 enum MapMarkerType: String, CaseIterable, Comparable {
     
+    // The order of cases here reflect the order of tag labels displayed in the Home view
     case restaurant = "Restaurant"
     case cafe = "Cafe"
     case store = "Store"
@@ -57,6 +58,7 @@ enum MapMarkerType: String, CaseIterable, Comparable {
     case rest = "Rest"
     case microwave = "Microwave"
     case printer = "Printer"
+    case safetyAlert = "Alert"
     case water = "Water"
     case waste = "Waste"
     
@@ -70,10 +72,116 @@ enum MapMarkerType: String, CaseIterable, Comparable {
         return lhsIdx < rhsIdx
     }
     
+    
+    
+    /** The color describing this marker type */
+//    func color() -> UIColor {
+//        switch self {
+//        case .microwave:
+//            return Color.MapMarker.microwave
+//        case .rest:
+//            return Color.MapMarker.rest
+//        case .printer:
+//            return Color.MapMarker.printer
+//        case .water:
+//            return Color.MapMarker.water
+//        case .bikes:
+//            return Color.MapMarker.bikes
+//        case .lactation:
+//            return Color.MapMarker.lactation
+//        case .waste:
+//            return Color.MapMarker.waste
+//        case .garden:
+//            return Color.MapMarker.garden
+//        case .store:
+//            return Color.MapMarker.store
+//        case .cafe:
+//            return Color.MapMarker.cafe
+//        case .mentalHealth:
+//            return Color.MapMarker.mentalHealth
+//        case .safetyAlert:
+//            return Color.MapMarker.safetyAlertMedium
+//        default:
+//            return Color.MapMarker.other
+//        }
+//    }
+    
+}
+
+// MARK: - MapMarker
+
+/** Object describing resource locations (Microwaves, Bikes, Nap Pods, etc.) */
+class MapMarker: NSObject, MKAnnotation, HasOpenTimes, SearchItem {
+    
+    var type: KnownType<MapMarkerType>
+    
+    var coordinate: CLLocationCoordinate2D
+    @Display var title: String?
+    @Display var subtitle: String?
+    
+    @Display var phone: String?
+    @Display var email: String?
+    @Display var address: String?
+    var onCampus: Bool?
+    var importanceLevel: Int?
+
+    var weeklyHours: WeeklyHours?
+    var appointment: Bool?
+
+    var mealPrice: String?
+    var cal1Card: Bool?
+    var eatWell: Bool?
+    
+    var searchName: String
+    var location: (Double, Double)
+    var locationName: String
+    var icon: UIImage? {
+        get {
+            return self.getIcon()
+        }
+    }
+    var name: String
+
+    init?(type: String,
+          location: CLLocationCoordinate2D,
+          name: String? = nil,
+          description: String? = nil,
+          address: String? = nil,
+          onCampus: Bool? = nil,
+          importanceLevel: Int? = nil,
+          phone: String? = nil,
+          email: String? = nil,
+          weeklyHours: WeeklyHours? = nil,
+          appointment: Bool? = nil,
+          mealPrice: String? = nil,
+          cal1Card: Bool? = nil,
+          eatWell: Bool? = nil) {
+        guard let type = KnownType<MapMarkerType>(rawValue: type) else { return nil }
+        self.type = type
+        self.coordinate = location
+        self.title = name
+        self.subtitle = description
+        self.address = address
+        self.onCampus = onCampus
+        self.importanceLevel = importanceLevel
+        self.phone = phone
+        self.email = email
+        self.weeklyHours = weeklyHours
+        self.mealPrice = mealPrice
+        self.cal1Card = cal1Card
+        self.eatWell = eatWell
+
+        self.searchName = name ?? ""
+        self.location = (location.latitude, location.longitude)
+        self.locationName = address ?? ""
+//        self.icon = nil
+        self.name = name ?? ""
+    }
+    
     /** The icon to be shown on the map at the marker location  */
-    func icon() -> UIImage {
+    private func getIcon() -> UIImage {
         let icon: UIImage?
-        switch self {
+        switch MapMarkerType(rawValue: self.type.rawValue) {
         case .microwave:
             icon = UIImage(named: "microwave-icon")?
                 .withShadow()
@@ -121,6 +229,25 @@ enum MapMarkerType: String, CaseIterable, Comparable {
             icon = UIImage(named: "mental-health-icon")?
                 .withShadow()
             break
+        case .safetyAlert:
+            switch self.importanceLevel {
+            case 0:
+                icon = UIImage(named: "safety-alert-low")?
+                    .withShadow()
+                break
+            case 1:
+                icon = UIImage(named: "safety-alert-medium")?
+                    .withShadow()
+                break
+            case 2:
+                icon = UIImage(named: "safety-alert-high")?
+                    .withShadow()
+                break
+            default:
+                icon = UIImage(named: "safety-alert-medium")?
+                    .withShadow()
+                break
+            }
         default:
             icon = UIImage(named: "Placemark")?
                 .colored(Color.MapMarker.other)
@@ -129,9 +256,9 @@ enum MapMarkerType: String, CaseIterable, Comparable {
         return (icon ?? UIImage()).resized(size: CGSize(width: 30, height: 30))
     }
     
-    /** The color describing this marker type */
     func color() -> UIColor {
-        switch self {
+        let k = MapMarkerType(rawValue: self.type.rawValue)
+        switch k {
         case .microwave:
             return Color.MapMarker.microwave
         case .rest:
@@ -154,74 +281,20 @@ enum MapMarkerType: String, CaseIterable, Comparable {
             return Color.MapMarker.cafe
         case .mentalHealth:
             return Color.MapMarker.mentalHealth
+        case .safetyAlert:
+            switch self.importanceLevel {
+            case 0:
+                return Color.MapMarker.safetyAlertLow
+            case 1:
+                return Color.MapMarker.safetyAlertMedium
+            case 2:
+                return Color.MapMarker.safetyAlertHigh
+            default:
+                return Color.MapMarker.safetyAlertMedium
+            }
         default:
             return Color.MapMarker.other
         }
-    }
-    
-}
-
-// MARK: - MapMarker
-
-/** Object describing resource locations (Microwaves, Bikes, Nap Pods, etc.) */
-class MapMarker: NSObject, MKAnnotation, HasOpenTimes, SearchItem {
-    
-    var type: KnownType<MapMarkerType>
-    
-    var coordinate: CLLocationCoordinate2D
-    @Display var title: String?
-    @Display var subtitle: String?
-    
-    @Display var phone: String?
-    @Display var email: String?
-    @Display var address: String?
-    var onCampus: Bool?
-
-    var weeklyHours: WeeklyHours?
-    var appointment: Bool?
-
-    var mealPrice: String?
-    var cal1Card: Bool?
-    var eatWell: Bool?
-    
-    var searchName: String
-    var location: (Double, Double)
-    var locationName: String
-    var icon: UIImage?
-    var name: String
-
-    init?(type: String,
-          location: CLLocationCoordinate2D,
-          name: String? = nil,
-          description: String? = nil,
-          address: String? = nil,
-          onCampus: Bool? = nil,
-          phone: String? = nil,
-          email: String? = nil,
-          weeklyHours: WeeklyHours? = nil,
-          appointment: Bool? = nil,
-          mealPrice: String? = nil,
-          cal1Card: Bool? = nil,
-          eatWell: Bool? = nil) {
-        guard let type = KnownType<MapMarkerType>(rawValue: type) else { return nil }
-        self.type = type
-        self.coordinate = location
-        self.title = name
-        self.subtitle = description
-        self.address = address
-        self.onCampus = onCampus
-        self.phone = phone
-        self.email = email
-        self.weeklyHours = weeklyHours
-        self.mealPrice = mealPrice
-        self.cal1Card = cal1Card
-        self.eatWell = eatWell
-
-        self.searchName = name ?? ""
-        self.location = (location.latitude, location.longitude)
-        self.locationName = address ?? ""
-        self.icon = nil
-        self.name = name ?? ""
     }
     
 }
