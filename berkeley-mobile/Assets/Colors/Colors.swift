@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-struct Color {
+struct BMColor {
     
     static var searchBarBackground: UIColor {
         return UIColor.init { (trait) -> UIColor in

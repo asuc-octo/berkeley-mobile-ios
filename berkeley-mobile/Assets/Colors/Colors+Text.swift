@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-extension Color {
+extension BMColor {
     
     static var primaryText: UIColor {
         return UIColor.init { (trait) -> UIColor in

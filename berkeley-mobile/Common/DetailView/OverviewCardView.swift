@@ -253,7 +253,7 @@ class OverviewCardView: CardView {
     let nameLabel: UILabel = {
         let label = UILabel()
         label.font = Font.bold(24)
-        label.textColor = Color.blackText
+        label.textColor = BMColor.blackText
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.4
@@ -272,7 +272,7 @@ class OverviewCardView: CardView {
     
     let addressIcon: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "Placemark")?.colored(Color.blackText)
+        image.image = UIImage(named: "Placemark")?.colored(BMColor.blackText)
         image.translatesAutoresizingMaskIntoConstraints = false
         image.contentMode = .scaleAspectFit
         image.clipsToBounds = true
@@ -282,7 +282,7 @@ class OverviewCardView: CardView {
     let addressLabel: UILabel = {
         let label = UILabel()
         label.font = Font.light(12)
-        label.textColor = Color.blackText
+        label.textColor = BMColor.blackText
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.75
@@ -293,7 +293,7 @@ class OverviewCardView: CardView {
     
     let clockIcon: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "Clock")?.colored(Color.blackText)
+        image.image = UIImage(named: "Clock")?.colored(BMColor.blackText)
         image.translatesAutoresizingMaskIntoConstraints = false
         image.contentMode = .scaleAspectFit
         image.clipsToBounds = true
@@ -303,7 +303,7 @@ class OverviewCardView: CardView {
     let openTimeLabel: UILabel = {
         let label = UILabel()
         label.font = Font.light(12)
-        label.textColor = Color.blackText
+        label.textColor = BMColor.blackText
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.75
@@ -314,7 +314,7 @@ class OverviewCardView: CardView {
     let chairImage:UIImageView = {
         let img = UIImageView()
         img.contentMode = .scaleAspectFit
-        img.image = UIImage(named: "Chair")?.colored(Color.blackText)
+        img.image = UIImage(named: "Chair")?.colored(BMColor.blackText)
         img.translatesAutoresizingMaskIntoConstraints = false
         img.clipsToBounds = true
         return img
@@ -343,7 +343,7 @@ class OverviewCardView: CardView {
     
     let phoneIcon: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "Phone")?.colored(Color.blackText)
+        image.image = UIImage(named: "Phone")?.colored(BMColor.blackText)
         image.translatesAutoresizingMaskIntoConstraints = false
         image.contentMode = .scaleAspectFit
         image.clipsToBounds = true
@@ -353,7 +353,7 @@ class OverviewCardView: CardView {
     let phoneLabel: UILabel =  {
         let label = UILabel()
         label.font = Font.light(12)
-        label.textColor = Color.blackText
+        label.textColor = BMColor.blackText
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.75

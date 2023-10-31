@@ -17,8 +17,8 @@ class ProfileLabel: UILabel {
         self.font = Font.bold(fontSize)
         self.layer.cornerRadius = radius
         self.layer.masksToBounds = true
-        self.backgroundColor = Color.StudyPact.Profile.defaultProfileBackground
-        self.textColor = Color.StudyPact.Profile.defaultProfileLetter
+        self.backgroundColor = BMColor.StudyPact.Profile.defaultProfileBackground
+        self.textColor = BMColor.StudyPact.Profile.defaultProfileLetter
     }
     
     required init?(coder: NSCoder) {

@@ -27,7 +27,7 @@ class CampusEventDetailViewController: UIViewController {
     }
     
     func setUpBackgroundView() {
-        view.backgroundColor = Color.modalBackground
+        view.backgroundColor = BMColor.modalBackground
         view.layer.cornerRadius = 15
         view.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         view.clipsToBounds = true

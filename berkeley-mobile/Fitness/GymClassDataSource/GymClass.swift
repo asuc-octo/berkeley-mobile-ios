@@ -44,7 +44,7 @@ class GymClass: CalendarEvent {
 
     /// The color associated with`type`. See `GymClassType` for provided colors.
     var color: UIColor {
-        return GymClassType(rawValue: type ?? "")?.color ?? Color.eventDefault
+        return GymClassType(rawValue: type ?? "")?.color ?? BMColor.eventDefault
     }
 
     init(name: String, start_time: Date, end_time: Date, class_type: String?, location: String?, link: String?, trainer: String?) {

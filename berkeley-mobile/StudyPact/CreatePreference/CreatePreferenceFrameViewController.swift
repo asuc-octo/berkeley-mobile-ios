@@ -13,7 +13,7 @@ class CreatePreferenceFrameViewController: UIViewController {
         let label = UILabel()
         label.font = Font.bold(24)
         label.textAlignment = .center
-        label.textColor = Color.blackText
+        label.textColor = BMColor.blackText
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         label.adjustsFontSizeToFitWidth = true

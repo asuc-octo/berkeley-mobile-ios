@@ -26,7 +26,7 @@ class DiningMenuCell: UITableViewCell {
         contentView.layer.shadowOffset = .zero
         contentView.layer.shadowColor = UIColor.black.cgColor
         contentView.layer.shadowPath = UIBezierPath(rect: contentView.bounds.insetBy(dx: 4, dy: 4)).cgPath
-        contentView.backgroundColor = Color.cellBackground
+        contentView.backgroundColor = BMColor.cellBackground
         contentView.layer.cornerRadius = 12
     }
     
@@ -96,7 +96,7 @@ class DiningMenuCell: UITableViewCell {
     let nameLabel:UILabel = {
         let label = UILabel()
         label.font = Font.medium(16)
-        label.textColor = Color.blackText
+        label.textColor = BMColor.blackText
 
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontSizeToFitWidth = true

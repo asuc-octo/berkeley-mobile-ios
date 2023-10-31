@@ -104,12 +104,12 @@ class SegmentedControlViewController: UIViewController {
 
         // Setup Indicator
         indicator = UIButton()
-        let image = UIImage(named: "Back")?.colored(Color.blackText)!.withRenderingMode(.alwaysTemplate)
+        let image = UIImage(named: "Back")?.colored(BMColor.blackText)!.withRenderingMode(.alwaysTemplate)
         indicator.addTarget(self, action: #selector(didTapIndicator), for: .touchUpInside)
         indicator.setImage(image, for: .normal)
-        indicator.tintColor = Color.secondaryText
+        indicator.tintColor = BMColor.secondaryText
         indicator.transform = CGAffineTransform(scaleX: -1, y: 1)
-        indicator.backgroundColor = Color.modalBackground
+        indicator.backgroundColor = BMColor.modalBackground
         indicator.layer.cornerRadius = size.height / 2
         indicator.layer.shadowRadius = 5
         indicator.layer.shadowOpacity = 0.25
@@ -128,7 +128,7 @@ class SegmentedControlViewController: UIViewController {
         let nonzeroSize = CGSize(width: 1, height: kControlHeight)
         control = SegmentedControl(frame: CGRect(origin: .zero, size: scrollable ? nonzeroSize : size),
                                 barHeight: kBarHeight,
-                                barColor: Color.segmentedControlHighlight)
+                                barColor: BMColor.segmentedControlHighlight)
         control.delegate = self
         scrollView.addSubview(control)
         control.translatesAutoresizingMaskIntoConstraints = false

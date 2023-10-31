@@ -23,7 +23,7 @@ class SelectPeopleView: UIView, EnableNextDelegate {
     func buttonGenerator(num: Int) -> UIButton {
         let btn = GroupNumberButton(number: num)
         btn.titleLabel?.font = Font.medium(24)
-        btn.setTitleColor(Color.primaryText, for: .normal)
+        btn.setTitleColor(BMColor.primaryText, for: .normal)
         btn.contentMode = .scaleAspectFit
         btn.translatesAutoresizingMaskIntoConstraints = false
         
@@ -56,14 +56,14 @@ class SelectPeopleView: UIView, EnableNextDelegate {
     
     @objc private func toggleButton(sender: GroupNumberButton) {
         if !sender.isSelected {
-            sender.backgroundColor = Color.StudyPact.CreatePreference.selectedPink
-            sender.setTitleColor(Color.primaryText, for: .normal)
+            sender.backgroundColor = BMColor.StudyPact.CreatePreference.selectedPink
+            sender.setTitleColor(BMColor.primaryText, for: .normal)
             sender.border?.isHidden = true
             sender.isSelected.toggle()
             
             if let buttonSelected = self.buttonSelected {
-                buttonSelected.backgroundColor = Color.modalBackground
-                buttonSelected.setTitleColor(Color.blackText, for: .normal)
+                buttonSelected.backgroundColor = BMColor.modalBackground
+                buttonSelected.setTitleColor(BMColor.blackText, for: .normal)
                 buttonSelected.border?.isHidden = false
                 buttonSelected.isSelected.toggle()
             }
@@ -118,7 +118,7 @@ private class GroupNumberButton: UIButton {
             guard let border = border else { return }
             let path = UIBezierPath(roundedRect: bounds, cornerRadius: self.layer.cornerRadius)
             border.path = path.cgPath
-            border.strokeColor = Color.StudyPact.StudyGroups.createPreferenceDottedBorder.cgColor
+            border.strokeColor = BMColor.StudyPact.StudyGroups.createPreferenceDottedBorder.cgColor
             border.lineDashPattern = [2, 2]
             border.fillColor = nil
             self.layer.addSublayer(border)

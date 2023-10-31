@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-extension Color {
+extension BMColor {
     // Colors for Resource Types
     struct Resource {
 

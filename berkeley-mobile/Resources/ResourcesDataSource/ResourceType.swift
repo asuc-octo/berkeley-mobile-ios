@@ -19,13 +19,13 @@ enum ResourceType: String {
     var color: UIColor {
         switch self {
         case .health:
-            return Color.Resource.health
+            return BMColor.Resource.health
         case .mentalHealth:
-            return Color.Resource.mentalHealth
+            return BMColor.Resource.mentalHealth
         case .basicNeeds:
-            return Color.Resource.basicNeeds
+            return BMColor.Resource.basicNeeds
         case .admin:
-            return Color.Resource.admin
+            return BMColor.Resource.admin
         }
     }
 

@@ -183,7 +183,7 @@ class CalendarCell: UICollectionViewCell {
     // configure this cell to show a day of the week as part of the calendar header
     public func configureHeader(text: String) {
         label.text = text
-        label.textColor = Color.Calendar.dayOfWeekHeader
+        label.textColor = BMColor.Calendar.dayOfWeekHeader
         label.font = Font.light(18)
         highlightView.backgroundColor = .clear
     }
@@ -195,7 +195,7 @@ class CalendarCell: UICollectionViewCell {
         label.text = String(calendarDay.day)
         // only highlight days from the current month
         if !calendarDay.isCurrentMonth {
-            label.textColor = Color.Calendar.grayedText
+            label.textColor = BMColor.Calendar.grayedText
             highlightView.backgroundColor = .clear
         } else {
             // get all colors this day should be highlighted in based on the calendar events taking place
@@ -208,14 +208,14 @@ class CalendarCell: UICollectionViewCell {
             }
             // if more than one color highlight, highlight in black
             if colors.count > 1 {
-                highlightView.backgroundColor = Color.Calendar.blackText
+                highlightView.backgroundColor = BMColor.Calendar.blackText
             } else if colors.count == 1 {
                 highlightView.backgroundColor = colors.first!
             } else {
                 highlightView.backgroundColor = .clear
             }
             if colors.isEmpty {
-                label.textColor = Color.Calendar.blackText
+                label.textColor = BMColor.Calendar.blackText
             } else {
                 label.textColor = .white
             }

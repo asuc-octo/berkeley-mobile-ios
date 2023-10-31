@@ -123,7 +123,7 @@ enum MapMarkerType: String, CaseIterable, Comparable {
             break
         default:
             icon = UIImage(named: "Placemark")?
-                .colored(Color.MapMarker.other)
+                .colored(BMColor.MapMarker.other)
             break
         }
         return (icon ?? UIImage()).resized(size: CGSize(width: 30, height: 30))
@@ -133,29 +133,29 @@ enum MapMarkerType: String, CaseIterable, Comparable {
     func color() -> UIColor {
         switch self {
         case .microwave:
-            return Color.MapMarker.microwave
+            return BMColor.MapMarker.microwave
         case .rest:
-            return Color.MapMarker.rest
+            return BMColor.MapMarker.rest
         case .printer:
-            return Color.MapMarker.printer
+            return BMColor.MapMarker.printer
         case .water:
-            return Color.MapMarker.water
+            return BMColor.MapMarker.water
         case .bikes:
-            return Color.MapMarker.bikes
+            return BMColor.MapMarker.bikes
         case .lactation:
-            return Color.MapMarker.lactation
+            return BMColor.MapMarker.lactation
         case .waste:
-            return Color.MapMarker.waste
+            return BMColor.MapMarker.waste
         case .garden:
-            return Color.MapMarker.garden
+            return BMColor.MapMarker.garden
         case .store:
-            return Color.MapMarker.store
+            return BMColor.MapMarker.store
         case .cafe:
-            return Color.MapMarker.cafe
+            return BMColor.MapMarker.cafe
         case .mentalHealth:
-            return Color.MapMarker.mentalHealth
+            return BMColor.MapMarker.mentalHealth
         default:
-            return Color.MapMarker.other
+            return BMColor.MapMarker.other
         }
     }
     

@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 // Colors for Events
-extension Color {
+extension BMColor {
     
     static var eventAcademic: UIColor {
         return UIColor(displayP3Red: 114/255, green: 151/255, blue: 230/255, alpha: 1.0)

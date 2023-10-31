@@ -86,7 +86,7 @@ class EventOverviewCardView: CardView {
     let nameLabel: UILabel = {
         let label = UILabel()
         label.font = Font.bold(24)
-        label.textColor = Color.blackText
+        label.textColor = BMColor.blackText
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.6
@@ -96,7 +96,7 @@ class EventOverviewCardView: CardView {
     
     let clockIcon: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "Clock")?.colored(Color.blackText)
+        image.image = UIImage(named: "Clock")?.colored(BMColor.blackText)
         image.translatesAutoresizingMaskIntoConstraints = false
         image.contentMode = .scaleAspectFit
         image.clipsToBounds = true
@@ -115,7 +115,7 @@ class EventOverviewCardView: CardView {
     let timeLabel: UILabel = {
         let label = UILabel()
         label.font = Font.light(12)
-        label.textColor = Color.blackText
+        label.textColor = BMColor.blackText
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.4
@@ -126,7 +126,7 @@ class EventOverviewCardView: CardView {
     let locationLabel: UILabel = {
         let label = UILabel()
         label.font = Font.light(12)
-        label.textColor = Color.blackText
+        label.textColor = BMColor.blackText
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.4

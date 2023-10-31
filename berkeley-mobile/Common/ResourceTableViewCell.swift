@@ -55,7 +55,7 @@ class ResourceTableViewCell: CardTableViewCell, ImageViewCell {
         cellImageView.widthAnchor.constraint(equalToConstant: contentView.frame.height * 2.33).isActive = true
         cellImageView.contentMode = .scaleAspectFill
 
-        resourceCategory.backgroundColor = Color.eventDefault
+        resourceCategory.backgroundColor = BMColor.eventDefault
         resourceCategory.setContentCompressionResistancePriority(.required, for: .vertical)
         resourceCategory.leftAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
         resourceCategory.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor).isActive = true

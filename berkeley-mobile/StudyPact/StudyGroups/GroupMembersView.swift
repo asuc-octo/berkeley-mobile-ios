@@ -260,8 +260,8 @@ class QuickActionButton: UIButton {
 
     override var isEnabled: Bool {
         didSet {
-            iconView.tintColor = isEnabled ? Color.StudyPact.StudyGroups.enabledButton :
-                Color.StudyPact.StudyGroups.disabledButton
+            iconView.tintColor = isEnabled ? BMColor.StudyPact.StudyGroups.enabledButton :
+                BMColor.StudyPact.StudyGroups.disabledButton
         }
     }
 
@@ -283,7 +283,7 @@ class QuickActionButton: UIButton {
         iconView = UIImageView()
         if iconImage != nil {
             iconView.image = iconImage?.withRenderingMode(.alwaysTemplate)
-            iconView.tintColor = Color.StudyPact.StudyGroups.enabledButton
+            iconView.tintColor = BMColor.StudyPact.StudyGroups.enabledButton
             iconView.contentMode = .scaleAspectFit
             addSubview(iconView)
             iconView.translatesAutoresizingMaskIntoConstraints = false

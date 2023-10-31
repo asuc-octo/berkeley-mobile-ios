@@ -47,17 +47,17 @@ class DiningRestriction {
         guard let restriction = known else { return nil }
         switch restriction {
         case .alcohol:
-            return UIImage(named: "ALCOHOL")?.colored(Color.primaryText)
+            return UIImage(named: "ALCOHOL")?.colored(BMColor.primaryText)
         case .egg:
             return UIImage(named: "EGG")
         case .fish:
             return UIImage(named: "FISH")
         case .gluten:
-            return UIImage(named: "GLUTEN")?.colored(Color.primaryText)
+            return UIImage(named: "GLUTEN")?.colored(BMColor.primaryText)
         case .halal:
-            return UIImage(named: "HALAL")?.colored(Color.primaryText)
+            return UIImage(named: "HALAL")?.colored(BMColor.primaryText)
         case .kosher:
-            return UIImage(named: "KOSHER")?.colored(Color.primaryText)
+            return UIImage(named: "KOSHER")?.colored(BMColor.primaryText)
         case .milk:
             return UIImage(named: "MILK")
         case .peanut:
@@ -71,9 +71,9 @@ class DiningRestriction {
         case .treenut:
             return UIImage(named: "TREENUTS")
         case .vegan:
-            return UIImage(named: "VEGAN")?.colored(Color.primaryText)
+            return UIImage(named: "VEGAN")?.colored(BMColor.primaryText)
         case .vegetarian:
-            return UIImage(named: "VEGETARIAN")?.colored(Color.primaryText)
+            return UIImage(named: "VEGETARIAN")?.colored(BMColor.primaryText)
         case .wheat:
             return UIImage(named: "WHEAT")
         default:

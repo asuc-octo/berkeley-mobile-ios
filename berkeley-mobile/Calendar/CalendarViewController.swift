@@ -20,7 +20,7 @@ class CalendarViewController: UIViewController {
         super.viewDidLoad()
         
         self.view.layoutMargins = UIEdgeInsets(top: 31, left: 16, bottom: 16, right: 16)
-        self.view.backgroundColor = Color.modalBackground
+        self.view.backgroundColor = BMColor.modalBackground
         
         setupHeader()
         setupSegmentedControls()

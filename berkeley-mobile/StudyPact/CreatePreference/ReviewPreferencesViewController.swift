@@ -17,7 +17,7 @@ class ReviewPreferencesViewController: UIViewController {
         label.font = Font.bold(36)
         label.text = "Let's Review!"
         label.textAlignment = .center
-        label.textColor = Color.blackText
+        label.textColor = BMColor.blackText
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         label.adjustsFontSizeToFitWidth = true
@@ -28,7 +28,7 @@ class ReviewPreferencesViewController: UIViewController {
         label.font = Font.medium(18)
         label.text = "You are looking for a:"
         label.textAlignment = .center
-        label.textColor = Color.blackText
+        label.textColor = BMColor.blackText
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         label.adjustsFontSizeToFitWidth = true
@@ -38,7 +38,7 @@ class ReviewPreferencesViewController: UIViewController {
         let label = UILabel()
         label.font = Font.bold(24)
         label.textAlignment = .center
-        label.textColor = Color.blackText
+        label.textColor = BMColor.blackText
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         label.adjustsFontSizeToFitWidth = true

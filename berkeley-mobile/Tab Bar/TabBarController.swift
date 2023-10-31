@@ -22,7 +22,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
                 
         delegate = self
         tabBar.isTranslucent = false
-        tabBar.tintColor = Color.blackText
+        tabBar.tintColor = BMColor.blackText
         
         let tabBarAppearance = UITabBarItem.appearance()
         let attributes = [NSAttributedString.Key.font: Font.regular(11)]
@@ -31,7 +31,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         if #available(iOS 15.0, *) {
             let appearance = UITabBarAppearance()
             appearance.configureWithOpaqueBackground()
-            appearance.backgroundColor = Color.cardBackground
+            appearance.backgroundColor = BMColor.cardBackground
             
             tabBar.standardAppearance = appearance
             tabBar.scrollEdgeAppearance = tabBar.standardAppearance

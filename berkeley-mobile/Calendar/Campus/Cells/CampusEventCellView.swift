@@ -20,9 +20,9 @@ class CampusEventCellView: UIView {
         self.layoutMargins = kCardPadding
         
         if upcoming {
-            timeLabel.textColor = Color.blueText
+            timeLabel.textColor = BMColor.blueText
         } else {
-            timeLabel.textColor = Color.blackText
+            timeLabel.textColor = BMColor.blackText
         }
         
         self.addSubview(nameLabel)
@@ -78,7 +78,7 @@ class CampusEventCellView: UIView {
     let nameLabel: UILabel = {
         let label = UILabel()
         label.font = Font.bold(18)
-        label.textColor = Color.blackText
+        label.textColor = BMColor.blackText
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.6
@@ -99,7 +99,7 @@ class CampusEventCellView: UIView {
     let timeLabel: UILabel = {
         let label = UILabel()
         label.font = Font.light(12)
-        label.textColor = Color.blackText
+        label.textColor = BMColor.blackText
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.4
@@ -110,7 +110,7 @@ class CampusEventCellView: UIView {
     let locationLabel: UILabel = {
         let label = UILabel()
         label.font = Font.light(12)
-        label.textColor = Color.blackText
+        label.textColor = BMColor.blackText
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.4

@@ -55,7 +55,7 @@ class CardCollectionViewCell: UICollectionViewCell {
         spacingConstraint.priority = .defaultHigh
         spacingConstraint.isActive = true
         
-        contentView.backgroundColor = Color.cellBackground
+        contentView.backgroundColor = BMColor.cellBackground
         contentView.layer.masksToBounds = true
         contentView.layer.cornerRadius = 7
         layer.shadowRadius = 5

@@ -29,7 +29,7 @@ class DiningViewController: UIViewController, SearchDrawerViewDelegate {
     let diningImage:UIImageView = {
         let img = UIImageView()
         img.contentMode = .scaleAspectFit
-        img.image = UIImage(named: "Dining")?.colored(Color.blackText)
+        img.image = UIImage(named: "Dining")?.colored(BMColor.blackText)
         img.translatesAutoresizingMaskIntoConstraints = false
         img.clipsToBounds = true
         return img
@@ -106,7 +106,7 @@ extension DiningViewController {
         header.text = "Find a place to dine"
         header.font = Font.bold(24)
         header.adjustsFontSizeToFitWidth = true
-        header.textColor = Color.blackText
+        header.textColor = BMColor.blackText
         card.addSubview(header)
         
         card.addSubview(diningImage)

@@ -21,10 +21,10 @@ class BorderedTextField: UITextField {
         
         self.layer.cornerRadius = 5
         self.layer.masksToBounds = true
-        self.layer.borderColor = Color.lightLightGrayText.cgColor
+        self.layer.borderColor = BMColor.lightLightGrayText.cgColor
         self.layer.borderWidth = 2
         self.font = Font.medium(14)
-        self.textColor = Color.blackText
+        self.textColor = BMColor.blackText
         self.adjustsFontSizeToFitWidth = false
         self.textAlignment = .left
         self.returnKeyType = .done
@@ -36,11 +36,11 @@ class BorderedTextField: UITextField {
     }
     
     func setInvalid() {
-        self.layer.borderColor = Color.highOccupancyTag.cgColor
+        self.layer.borderColor = BMColor.highOccupancyTag.cgColor
     }
     
     func setDefault() {
-        self.layer.borderColor = Color.lightLightGrayText.cgColor
+        self.layer.borderColor = BMColor.lightLightGrayText.cgColor
     }
         
     required init?(coder: NSCoder) {

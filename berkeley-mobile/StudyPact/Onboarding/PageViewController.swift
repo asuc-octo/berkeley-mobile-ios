@@ -70,7 +70,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
     
     func configurePageControl() {
         let initialPage = 0
-        pageColors = [Color.StudyPact.Onboarding.pink, Color.StudyPact.Onboarding.yellow, Color.StudyPact.Onboarding.blue]
+        pageColors = [BMColor.StudyPact.Onboarding.pink, BMColor.StudyPact.Onboarding.yellow, BMColor.StudyPact.Onboarding.blue]
         let page1 = StudyPactOnboardingViewController(stepText: "Sign Up", themeColor: pageColors[0], stepNumber: 1, screenshotImage: UIImage(named: "OnboardingScreenshot1")!, blobImage: UIImage(named: "OnboardingBlob1")!, descriptionText: "Sign up by tapping the Sign In button on the new study tab of the Berkeley Mobile home screen to authenticate your berkeley.edu Gmail account.", pageViewController: self, boldedStrings: ["Sign In", "study tab"])
         let page2 = StudyPactOnboardingViewController(stepText: "Create a Preference", themeColor: pageColors[1], stepNumber: 2, screenshotImage: UIImage(named: "OnboardingScreenshot2")!, blobImage: UIImage(named: "OnboardingBlob2")!, descriptionText: "Create a study preference by filling out your class details, preferred method of study, and number of members.", pageViewController: self)
         let page3 = StudyPactOnboardingViewController(stepText: "Get Matched!", themeColor: pageColors[2], stepNumber: 3, screenshotImage: UIImage(named: "OnboardingScreenshot3")!, blobImage: UIImage(named: "OnboardingBlob3")!, descriptionText: "Once you create a preference, your group will be marked as pending. Check back frequently to see if you’ve been matched with a group!", pageViewController: self, boldedStrings: ["pending"], getStarted: true)

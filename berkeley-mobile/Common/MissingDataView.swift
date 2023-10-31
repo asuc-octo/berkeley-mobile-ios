@@ -15,10 +15,10 @@ class MissingDataView: UIView {
     init(text: String) {
         super.init(frame: CGRect.zero)
         
-        backgroundColor = Color.cardBackground
+        backgroundColor = BMColor.cardBackground
         
         let label = UILabel()
-        label.textColor = Color.darkGrayText
+        label.textColor = BMColor.darkGrayText
         label.textAlignment = .center
         label.font = Font.medium(18)
         label.text = text

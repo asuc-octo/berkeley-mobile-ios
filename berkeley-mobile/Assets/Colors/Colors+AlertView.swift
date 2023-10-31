@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-extension Color {
+extension BMColor {
     /// Colors for the `ActionButton` class.
     struct AlertView {
 

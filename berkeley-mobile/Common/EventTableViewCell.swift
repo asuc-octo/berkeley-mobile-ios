@@ -44,7 +44,7 @@ class EventTableViewCell: CardTableViewCell {
         eventCategory.translatesAutoresizingMaskIntoConstraints = false
         eventLogo.translatesAutoresizingMaskIntoConstraints = false
         
-        eventTaggingColor.backgroundColor = Color.eventDefault
+        eventTaggingColor.backgroundColor = BMColor.eventDefault
         eventTaggingColor.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
         eventTaggingColor.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
         eventTaggingColor.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
@@ -73,7 +73,7 @@ class EventTableViewCell: CardTableViewCell {
         eventTime.leftAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
         eventTime.rightAnchor.constraint(equalTo: eventCategory.leftAnchor, constant: -5).isActive = true
         
-        eventCategory.backgroundColor = Color.eventDefault
+        eventCategory.backgroundColor = BMColor.eventDefault
         eventCategory.rightAnchor.constraint(equalTo: contentView.layoutMarginsGuide.rightAnchor).isActive = true
         eventCategory.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor).isActive = true
     }
@@ -85,7 +85,7 @@ class EventTableViewCell: CardTableViewCell {
         eventCategory.text = type
         eventCategory.isHidden = type == nil
         eventCategory.backgroundColor = color
-        eventTaggingColor.backgroundColor = color ?? Color.eventDefault
+        eventTaggingColor.backgroundColor = color ?? BMColor.eventDefault
     }
     
     func cellSetImage(image: UIImage, tapGesture: UITapGestureRecognizer) {

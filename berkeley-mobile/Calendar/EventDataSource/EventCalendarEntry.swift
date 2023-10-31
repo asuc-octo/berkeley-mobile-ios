@@ -48,14 +48,14 @@ class EventCalendarEntry: CalendarEvent, HasImage, CanFavorite {
 
     /// The color associated with this event's `type`.
     var color: UIColor {
-        guard let type = type else { return Color.eventDefault }
+        guard let type = type else { return BMColor.eventDefault }
         switch type {
         case "Holiday":
-            return Color.eventHoliday
+            return BMColor.eventHoliday
         case "Enrollment":
-            return Color.eventAcademic
+            return BMColor.eventAcademic
         default:
-            return Color.eventDefault
+            return BMColor.eventDefault
         }
     }
 

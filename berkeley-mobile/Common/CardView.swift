@@ -13,7 +13,7 @@ class CardView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        backgroundColor = Color.cardBackground
+        backgroundColor = BMColor.cardBackground
         layer.cornerRadius = 12
         layer.shadowRadius = 5
         layer.shadowOpacity = 0.25
