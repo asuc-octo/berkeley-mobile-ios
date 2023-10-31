@@ -178,7 +178,7 @@ class StudyGroupCell: UICollectionViewCell {
     let pendingTag: TagView = {
         let tag = TagView()
         tag.text = "Pending"
-        tag.backgroundColor = Color.pendingTag
+        tag.backgroundColor = BMColor.pendingTag
         tag.translatesAutoresizingMaskIntoConstraints = false
         return tag
     }()
@@ -291,7 +291,7 @@ class CreatePreferenceCell: UICollectionViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         let circleRadius: CGFloat = 9.5
         view.layer.cornerRadius = circleRadius
-        view.backgroundColor = Color.StudyPact.StudyGroups.createPreferenceGreenPlus
+        view.backgroundColor = BMColor.StudyPact.StudyGroups.createPreferenceGreenPlus
         view.widthAnchor.constraint(equalToConstant: 2 * circleRadius).isActive = true
         view.heightAnchor.constraint(equalToConstant: 2 * circleRadius).isActive = true
         
@@ -321,7 +321,7 @@ class CreatePreferenceCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = Color.modalBackground
+        backgroundColor = BMColor.modalBackground
         layer.cornerRadius = 12
         
         // dotted line border
@@ -329,7 +329,7 @@ class CreatePreferenceCell: UICollectionViewCell {
         let layer = CAShapeLayer.init()
         let path = UIBezierPath(roundedRect: bounds, cornerRadius: 12)
         layer.path = path.cgPath
-        layer.strokeColor = Color.StudyPact.StudyGroups.createPreferenceDottedBorder.cgColor
+        layer.strokeColor = BMColor.StudyPact.StudyGroups.createPreferenceDottedBorder.cgColor
         layer.lineDashPattern = [2, 2]
         layer.fillColor = nil
         contentView.layer.addSublayer(layer)

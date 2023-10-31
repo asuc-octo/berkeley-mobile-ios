@@ -45,7 +45,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UINavigation
         super.viewDidLoad()
         
         self.view.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
-        self.view.backgroundColor = Color.modalBackground
+        self.view.backgroundColor = BMColor.modalBackground
         
         setUpHeader()
         setUpProfile()
@@ -208,9 +208,9 @@ extension ProfileViewController {
     @objc private func logoutButtonPressed(sender: UIButton) {
         
         
-        let alertView = AlertView(headingText: "Logout?", messageText: "You will be returned to the login screen.", action1Label: "Cancel", action1Color: Color.AlertView.secondaryButton, action1Completion: {
+        let alertView = AlertView(headingText: "Logout?", messageText: "You will be returned to the login screen.", action1Label: "Cancel", action1Color: BMColor.AlertView.secondaryButton, action1Completion: {
             self.dismiss(animated: true, completion: nil)
-        }, action2Label: "Logout", action2Color: Color.ActionButton.background, action2Completion: {
+        }, action2Label: "Logout", action2Color: BMColor.ActionButton.background, action2Completion: {
             let auth = Auth.auth()
             do {
                 try auth.signOut()
@@ -250,8 +250,8 @@ extension ProfileViewController {
         let button = UIButton()
         button.setTitle("Logout", for: .normal)
         button.titleLabel?.font = Font.medium(18)
-        button.setTitleColor(Color.blackText, for: .normal)
-        button.setTitleColor(Color.lightGrayText, for: .selected)
+        button.setTitleColor(BMColor.blackText, for: .normal)
+        button.setTitleColor(BMColor.lightGrayText, for: .selected)
         
         profileView.addSubview(button)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -295,13 +295,13 @@ extension ProfileViewController {
         let regularAttributes: [NSAttributedString.Key : Any] = [
             NSAttributedString.Key.underlineStyle: 1,
             NSAttributedString.Key.font: Font.medium(14),
-            NSAttributedString.Key.foregroundColor: Color.lightGrayText
+            NSAttributedString.Key.foregroundColor: BMColor.lightGrayText
         ]
         
         let pressedAttributes: [NSAttributedString.Key : Any] = [
             NSAttributedString.Key.underlineStyle: 1,
             NSAttributedString.Key.font: Font.medium(14),
-            NSAttributedString.Key.foregroundColor: Color.lightLightGrayText
+            NSAttributedString.Key.foregroundColor: BMColor.lightLightGrayText
         ]
         
         let pictureButton = UIButton()
@@ -358,7 +358,7 @@ extension ProfileViewController {
         nameLabel.text = "Name"
         nameLabel.font = Font.medium(14)
         nameLabel.textAlignment = .left
-        nameLabel.textColor = Color.blackText
+        nameLabel.textColor = BMColor.blackText
         nameLabel.numberOfLines = 1
         nameLabel.adjustsFontSizeToFitWidth = true
         nameLabel.minimumScaleFactor = 0.7
@@ -393,7 +393,7 @@ extension ProfileViewController {
         emailLabel.text = "Email"
         emailLabel.font = Font.medium(14)
         emailLabel.textAlignment = .left
-        emailLabel.textColor = Color.blackText
+        emailLabel.textColor = BMColor.blackText
         emailLabel.numberOfLines = 1
         emailLabel.adjustsFontSizeToFitWidth = true
         emailLabel.minimumScaleFactor = 0.7
@@ -429,7 +429,7 @@ extension ProfileViewController {
         phoneLabel.text = "Phone Number"
         phoneLabel.font = Font.medium(14)
         phoneLabel.textAlignment = .left
-        phoneLabel.textColor = Color.blackText
+        phoneLabel.textColor = BMColor.blackText
         phoneLabel.numberOfLines = 1
         phoneLabel.adjustsFontSizeToFitWidth = true
         phoneLabel.minimumScaleFactor = 0.7
@@ -467,7 +467,7 @@ extension ProfileViewController {
         facebookLabel.numberOfLines = 2
         facebookLabel.font = Font.medium(14)
         facebookLabel.textAlignment = .left
-        facebookLabel.textColor = Color.blackText
+        facebookLabel.textColor = BMColor.blackText
         facebookLabel.adjustsFontSizeToFitWidth = true
         facebookLabel.minimumScaleFactor = 0.7
 
@@ -482,7 +482,7 @@ extension ProfileViewController {
         facebookField.textField.delegate = self
         facebookField.textField.autocorrectionType = .no
         facebookField.textField.keyboardType = .URL
-        facebookField.textField.textColor = Color.blackText
+        facebookField.textField.textColor = BMColor.blackText
         
         fbRow.addArrangedSubview(facebookField)
 
@@ -495,7 +495,7 @@ extension ProfileViewController {
         facebookTextField = facebookField
         
         // ** BUTTONS ** //
-        let cancelButton = ActionButton(title: "Cancel", font: Font.bold(14), defaultColor: Color.StudyPact.StudyGroups.leaveGroupButton, pressedColor: Color.StudyPact.StudyGroups.leaveGroupButton)
+        let cancelButton = ActionButton(title: "Cancel", font: Font.bold(14), defaultColor: BMColor.StudyPact.StudyGroups.leaveGroupButton, pressedColor: BMColor.StudyPact.StudyGroups.leaveGroupButton)
         cancelButton.layer.shadowRadius = 2.5
         cancelButton.addTarget(self, action: #selector(cancelButtonPressed), for: .touchUpInside)
         
@@ -534,7 +534,7 @@ extension ProfileViewController {
         warningLabel.numberOfLines = 1
         warningLabel.adjustsFontSizeToFitWidth = true
         warningLabel.minimumScaleFactor = 0.7
-        warningLabel.textColor = Color.lightGrayText
+        warningLabel.textColor = BMColor.lightGrayText
         warningLabel.textAlignment = .center
         
         view.addSubview(warningLabel)

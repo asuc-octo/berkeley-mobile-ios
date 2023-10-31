@@ -104,7 +104,7 @@ extension CovidResourceViewController {
         
         let updatedLabel = UILabel()
         updatedLabel.font = Font.light(14)
-        updatedLabel.textColor = Color.lightGrayText
+        updatedLabel.textColor = BMColor.lightGrayText
         updatedLabel.textAlignment = .left
         updatedLabel.text = "Last Updated: "
         
@@ -131,7 +131,7 @@ extension CovidResourceViewController {
         subView.layer.cornerRadius = 12
         subView.layer.masksToBounds = true
         subView.layer.borderWidth = 3
-        subView.layer.borderColor = Color.selectedButtonBackground.cgColor
+        subView.layer.borderColor = BMColor.selectedButtonBackground.cgColor
                 
         let cardStack = UIStackView()
         cardStack.axis = .vertical
@@ -145,7 +145,7 @@ extension CovidResourceViewController {
         headerLabel.text = cardHeader
         headerLabel.font = Font.medium(20)
         headerLabel.textAlignment = .center
-        headerLabel.textColor = Color.selectedButtonBackground
+        headerLabel.textColor = BMColor.selectedButtonBackground
         headerLabel.numberOfLines = 1
         headerLabel.adjustsFontSizeToFitWidth = true
         headerLabel.minimumScaleFactor = 0.7
@@ -161,7 +161,7 @@ extension CovidResourceViewController {
         }
         valueLabel.font = Font.bold(40)
         valueLabel.textAlignment = .center
-        valueLabel.textColor = Color.selectedButtonBackground
+        valueLabel.textColor = BMColor.selectedButtonBackground
         valueLabel.numberOfLines = 1
         valueLabel.adjustsFontSizeToFitWidth = true
         valueLabel.minimumScaleFactor = 0.5
@@ -193,7 +193,7 @@ extension CovidResourceViewController {
         headerLabel.text = "Need an appointment?"
         headerLabel.font = Font.bold(24)
         headerLabel.textAlignment = .left
-        headerLabel.textColor = Color.blackText
+        headerLabel.textColor = BMColor.blackText
         headerLabel.numberOfLines = 1
         headerLabel.adjustsFontSizeToFitWidth = true
         headerLabel.minimumScaleFactor = 0.7
@@ -205,7 +205,7 @@ extension CovidResourceViewController {
         subtitleLabel.adjustsFontSizeToFitWidth = true
         subtitleLabel.minimumScaleFactor = 0.7
         subtitleLabel.textAlignment = .left
-        subtitleLabel.textColor = Color.blackText
+        subtitleLabel.textColor = BMColor.blackText
         
         card.addSubview(headerLabel)
         card.addSubview(subtitleLabel)
@@ -222,7 +222,7 @@ extension CovidResourceViewController {
         
         let appointmentButton = UIButton()
         appointmentButton.setTitle("Book Now", for: .normal)
-        appointmentButton.backgroundColor = Color.lowOccupancyTag
+        appointmentButton.backgroundColor = BMColor.lowOccupancyTag
         appointmentButton.layer.cornerRadius = 15
         appointmentButton.layer.masksToBounds = true
         appointmentButton.titleLabel?.font = Font.medium(16)
@@ -273,7 +273,7 @@ extension CovidResourceViewController {
         onCampusLabel.adjustsFontSizeToFitWidth = true
         onCampusLabel.minimumScaleFactor = 0.7
         onCampusLabel.textAlignment = .center
-        onCampusLabel.textColor = Color.blackText
+        onCampusLabel.textColor = BMColor.blackText
         
         let subtitleLabel = UILabel()
         subtitleLabel.text = "Complete the health survey before entering campus."
@@ -282,7 +282,7 @@ extension CovidResourceViewController {
         subtitleLabel.adjustsFontSizeToFitWidth = true
         subtitleLabel.minimumScaleFactor = 0.7
         subtitleLabel.textAlignment = .center
-        subtitleLabel.textColor = Color.blackText
+        subtitleLabel.textColor = BMColor.blackText
         
         let screenButton = ActionButton(title: "Start Health Survey", font: Font.regular(12))
         screenButton.addTarget(self, action: #selector(screeningButtonPressed), for: .touchUpInside)

@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 // Colors for Gym Class Types
-extension Color {
+extension BMColor {
     
     static var classAllAround: UIColor {
         UIColor(displayP3Red: 16/255, green: 206/255, blue: 180/255, alpha: 1.0)

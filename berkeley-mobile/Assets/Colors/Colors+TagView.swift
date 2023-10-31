@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 // Colors for commonly-used TagViews
-extension Color {
+extension BMColor {
     
     static var openTag: UIColor {
         return UIColor(displayP3Red: 133/255, green: 158/255, blue: 248/255, alpha: 1.0)

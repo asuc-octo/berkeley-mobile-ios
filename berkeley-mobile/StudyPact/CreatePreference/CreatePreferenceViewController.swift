@@ -31,8 +31,8 @@ class CreatePreferenceViewController: UIPageViewController, UIPageViewController
         let button = UIButton()
         button.setTitle("Next", for: .normal)
         button.titleLabel?.font = Font.regular(18)
-        button.setTitleColor(Color.primaryText, for: .normal)
-        button.backgroundColor = Color.StudyPact.CreatePreference.enabledNextButton
+        button.setTitleColor(BMColor.primaryText, for: .normal)
+        button.backgroundColor = BMColor.StudyPact.CreatePreference.enabledNextButton
         button.addTarget(self, action: #selector(nextClicked(_:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -41,8 +41,8 @@ class CreatePreferenceViewController: UIPageViewController, UIPageViewController
         let button = UIButton()
         button.setTitle("Save Preference", for: .normal)
         button.titleLabel?.font = Font.regular(18)
-        button.setTitleColor(Color.primaryText, for: .normal)
-        button.backgroundColor = Color.StudyPact.CreatePreference.selectedPink
+        button.setTitleColor(BMColor.primaryText, for: .normal)
+        button.backgroundColor = BMColor.StudyPact.CreatePreference.selectedPink
         button.addTarget(self, action: #selector(savePreference(_:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.isHidden = true
@@ -51,7 +51,7 @@ class CreatePreferenceViewController: UIPageViewController, UIPageViewController
     let closeButton: UIButton = {
         let button = UIButton()
         button.setTitle("X", for: .normal)
-        button.setTitleColor(Color.secondaryText, for: .normal)
+        button.setTitleColor(BMColor.secondaryText, for: .normal)
         button.addTarget(self, action: #selector(closeButton(_:)), for: .touchUpInside)
         return button
     }()
@@ -59,7 +59,7 @@ class CreatePreferenceViewController: UIPageViewController, UIPageViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = Color.modalBackground
+        self.view.backgroundColor = BMColor.modalBackground
         
         self.dataSource = self
         self.delegate = self
@@ -139,11 +139,11 @@ class CreatePreferenceViewController: UIPageViewController, UIPageViewController
         if currentDelegate.isNextEnabled {
             self.dataSource = self
             nextButton.isEnabled = true
-            nextButton.backgroundColor = Color.StudyPact.CreatePreference.enabledNextButton
+            nextButton.backgroundColor = BMColor.StudyPact.CreatePreference.enabledNextButton
         } else {
             self.dataSource = nil
             nextButton.isEnabled = false
-            nextButton.backgroundColor = Color.StudyPact.CreatePreference.disabledNextbutton
+            nextButton.backgroundColor = BMColor.StudyPact.CreatePreference.disabledNextbutton
         }
     }
     
@@ -173,11 +173,11 @@ class CreatePreferenceViewController: UIPageViewController, UIPageViewController
         setViewControllers([pages[initialPage]], direction: .forward, animated: true, completion: nil)
         
         // pageControl
-        self.pageControl.currentPageIndicatorTintColor = Color.primaryText
-        self.pageControl.pageIndicatorTintColor = Color.secondaryText
+        self.pageControl.currentPageIndicatorTintColor = BMColor.primaryText
+        self.pageControl.pageIndicatorTintColor = BMColor.secondaryText
         self.pageControl.numberOfPages = self.pages.count
         self.pageControl.currentPage = initialPage
-        self.pageControl.pageIndicatorTintColor = Color.StudyPact.Onboarding.blue
+        self.pageControl.pageIndicatorTintColor = BMColor.StudyPact.Onboarding.blue
         self.view.addSubview(self.pageControl)
         
         self.pageControl.translatesAutoresizingMaskIntoConstraints = false
@@ -185,7 +185,7 @@ class CreatePreferenceViewController: UIPageViewController, UIPageViewController
         self.pageControl.widthAnchor.constraint(equalToConstant: 140).isActive = true
         self.pageControl.heightAnchor.constraint(equalToConstant: 20).isActive = true
         self.pageControl.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        self.pageControl.tintColor = Color.StudyPact.Onboarding.pageViewBackgroundTint
+        self.pageControl.tintColor = BMColor.StudyPact.Onboarding.pageViewBackgroundTint
         self.pageControl.isUserInteractionEnabled = false
     }
     

@@ -39,14 +39,14 @@ class LocationDetailView: IconPairView, DetailView {
     init() {
         icon = UIImageView()
         icon.translatesAutoresizingMaskIntoConstraints = false
-        icon.image = UIImage(named: "Walk")?.colored(Color.blackText)
+        icon.image = UIImage(named: "Walk")?.colored(BMColor.blackText)
         icon.contentMode = .scaleAspectFit
         icon.clipsToBounds = true
 
         label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Font.light(12)
-        label.textColor = Color.blackText
+        label.textColor = BMColor.blackText
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.75
         label.numberOfLines = 2

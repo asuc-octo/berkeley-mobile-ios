@@ -90,7 +90,7 @@ class FilterTableViewCell: CardTableViewCell, ImageViewCell {
     let nameLabel: UILabel = {
         let label = UILabel()
         label.font = Font.bold(18)
-        label.textColor = Color.blackText
+        label.textColor = BMColor.blackText
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.4
@@ -110,7 +110,7 @@ class FilterTableViewCell: CardTableViewCell, ImageViewCell {
     let recLabel: UILabel = {
         let label = UILabel()
         label.font = Font.mediumItalic(10)
-        label.textColor = Color.darkGrayText
+        label.textColor = BMColor.darkGrayText
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -128,7 +128,7 @@ class FilterTableViewCell: CardTableViewCell, ImageViewCell {
     let chairImage:UIImageView = {
         let img = UIImageView()
         img.contentMode = .scaleAspectFit
-        img.image = UIImage(named: "Chair")?.colored(Color.blackText)
+        img.image = UIImage(named: "Chair")?.colored(BMColor.blackText)
         img.translatesAutoresizingMaskIntoConstraints = false
         img.clipsToBounds = true
         return img

@@ -47,7 +47,7 @@ class StudyPactNewFeatureViewController: UIViewController {
         button.titleLabel?.font = Font.medium(15)
         button.setTitle("Get Started!", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = Color.StudyPact.Onboarding.getStartedBlue
+        button.backgroundColor = BMColor.StudyPact.Onboarding.getStartedBlue
         button.addTarget(self, action: #selector(getStarted(_:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.widthAnchor.constraint(equalToConstant: 130).isActive = true
@@ -58,10 +58,10 @@ class StudyPactNewFeatureViewController: UIViewController {
         let button = UIButton()
         button.titleLabel?.font = Font.medium(15)
         button.setTitle("Sign Up Later.", for: .normal)
-        button.setTitleColor(Color.StudyPact.Onboarding.getStartedBlue, for: .normal)
+        button.setTitleColor(BMColor.StudyPact.Onboarding.getStartedBlue, for: .normal)
         button.backgroundColor = .white
         button.layer.borderWidth = 2
-        button.layer.borderColor = Color.StudyPact.Onboarding.getStartedBlue.cgColor
+        button.layer.borderColor = BMColor.StudyPact.Onboarding.getStartedBlue.cgColor
         button.addTarget(self, action: #selector(dismiss(_:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.widthAnchor.constraint(equalToConstant: 130).isActive = true

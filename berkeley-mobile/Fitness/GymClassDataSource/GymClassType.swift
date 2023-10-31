@@ -22,19 +22,19 @@ enum GymClassType: String {
     var color: UIColor {
         switch self {
         case .allAround:
-            return Color.classAllAround
+            return BMColor.classAllAround
         case .cardio:
-            return Color.classCardio
+            return BMColor.classCardio
         case .mindBody:
-            return Color.classMindBody
+            return BMColor.classMindBody
         case .core:
-            return Color.classCore
+            return BMColor.classCore
         case .dance:
-            return Color.classDance
+            return BMColor.classDance
         case .strength:
-            return Color.classStrength
+            return BMColor.classStrength
         case .aqua:
-            return Color.classAqua
+            return BMColor.classAqua
         }
     }
     

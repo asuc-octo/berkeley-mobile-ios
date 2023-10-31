@@ -20,13 +20,13 @@ enum OccupancyStatus {
         switch self {
         case OccupancyStatus.high:
             badge.text = "High"
-            badge.backgroundColor = Color.highOccupancyTag
+            badge.backgroundColor = BMColor.highOccupancyTag
         case OccupancyStatus.medium:
             badge.text = "Medium"
-            badge.backgroundColor = Color.medOccupancyTag
+            badge.backgroundColor = BMColor.medOccupancyTag
         case OccupancyStatus.low:
             badge.text = "Low"
-            badge.backgroundColor = Color.lowOccupancyTag
+            badge.backgroundColor = BMColor.lowOccupancyTag
         }
         return badge
     }

@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-extension Color {
+extension BMColor {
     struct StudyPact {
         struct Onboarding {
             static var pink: UIColor {

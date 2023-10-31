@@ -28,7 +28,7 @@ class TaggedTextField: UIView {
     
     private func setupView() {
         let field = BorderedTextField()
-        field.textColor = Color.lightLightGrayText
+        field.textColor = BMColor.lightLightGrayText
         
         self.addSubview(field)
         
@@ -39,7 +39,7 @@ class TaggedTextField: UIView {
         
         let label = UILabel()
         label.attributedText = NSAttributedString.boldedText(withString: self.tagText, boldStrings: self.tagBoldStrings, font: Font.regular(10), boldFont: Font.bold(10))
-        label.textColor = Color.lightGrayText
+        label.textColor = BMColor.lightGrayText
         label.textAlignment = .left
         label.numberOfLines = 1
         label.adjustsFontSizeToFitWidth = true

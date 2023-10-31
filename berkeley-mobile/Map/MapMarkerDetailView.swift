@@ -81,7 +81,7 @@ class MapMarkerDetailView: UIView {
         let offset = (kButtonSize - iconSize) / 2
         let closeImage = UIImage(named: "Clear")?.resized(size: CGSize(width: iconSize, height: iconSize))
         closeButton = UIButton(type: .system)
-        closeButton.tintColor = Color.primaryText
+        closeButton.tintColor = BMColor.primaryText
         closeButton.setImage(closeImage, for: .normal)
         closeButton.imageView?.contentMode = .center
         closeButton.addTarget(self, action: #selector(closeView), for: .touchUpInside)
@@ -97,7 +97,7 @@ class MapMarkerDetailView: UIView {
         contentView.addSubview(nameLabel)
         nameLabel.numberOfLines = 0
         nameLabel.font = Font.bold(20)
-        nameLabel.textColor = Color.primaryText
+        nameLabel.textColor = BMColor.primaryText
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor, constant: -offset).isActive = true
         nameLabel.leftAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
@@ -113,7 +113,7 @@ class MapMarkerDetailView: UIView {
         notesLabel = UILabel()
         notesLabel.numberOfLines = 0
         notesLabel.font = Font.light(10)
-        notesLabel.textColor = Color.primaryText
+        notesLabel.textColor = BMColor.primaryText
         
         detailStack = UIStackView(axis: .horizontal, distribution: .fill, spacing: kViewMargin)
         detailStack.alignment = .center
@@ -229,26 +229,26 @@ enum MapMarkerDetail {
         switch self {
         case .openNow:
             guard let isOpen = marker.isOpen else { return nil }
-            let icon = UIImage(named: "Clock")?.colored(Color.blackText)
+            let icon = UIImage(named: "Clock")?.colored(BMColor.blackText)
             let tag = isOpen ? TagView.open : TagView.closed
             return viewWithIcon(icon, view: tag)
         case .location:
             guard let description = marker.address else { return nil }
-            let icon = UIImage(named: "Placemark")?.colored(Color.blackText)
+            let icon = UIImage(named: "Placemark")?.colored(BMColor.blackText)
             let label = UILabel()
             label.numberOfLines = 0
             label.font = Font.light(12)
-            label.textColor = Color.primaryText
+            label.textColor = BMColor.primaryText
             label.text = description
             return viewWithIcon(icon, view: label)
         case .price:
             guard let price = marker.mealPrice else { return nil }
-            let icon = UIImage(named: "Dining")?.colored(Color.blackText)
+            let icon = UIImage(named: "Dining")?.colored(BMColor.blackText)
             let label = UILabel()
             label.numberOfLines = 1
             label.setContentCompressionResistancePriority(.required, for: .horizontal)
             label.font = Font.light(12)
-            label.textColor = Color.primaryText
+            label.textColor = BMColor.primaryText
             label.text = price
             return viewWithIcon(icon, view: label)
         default:

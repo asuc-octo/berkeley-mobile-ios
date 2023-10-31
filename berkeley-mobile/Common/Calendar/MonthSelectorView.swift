@@ -108,11 +108,11 @@ class MonthSelectCell: UICollectionViewCell {
     override var isSelected: Bool {
         didSet {
             if self.isSelected {
-                contentView.backgroundColor = Color.selectedButtonBackground
+                contentView.backgroundColor = BMColor.selectedButtonBackground
                 label.textColor = .white
             } else {
-                contentView.backgroundColor = Color.cardBackground
-                label.textColor = Color.blackText
+                contentView.backgroundColor = BMColor.cardBackground
+                label.textColor = BMColor.blackText
             }
         }
     }

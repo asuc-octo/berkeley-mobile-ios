@@ -28,9 +28,9 @@ extension UIViewController {
     
     // Presents an alert with multiple options and completion handler
     public func presentAlertLinkUrl(title: String, message: String, website_url: URL) {
-        let alertVC = AlertView(headingText: title, messageText: message, action1Label: "Cancel", action1Color: Color.AlertView.secondaryButton, action1Completion: {
+        let alertVC = AlertView(headingText: title, messageText: message, action1Label: "Cancel", action1Color: BMColor.AlertView.secondaryButton, action1Completion: {
             self.dismiss(animated: true, completion: nil)
-        }, action2Label: "Yes", action2Color: Color.ActionButton.background, action2Completion: {
+        }, action2Label: "Yes", action2Color: BMColor.ActionButton.background, action2Completion: {
             self.dismiss(animated: true, completion: nil)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 UIApplication.shared.open(website_url, options: [:])
@@ -52,9 +52,9 @@ extension UIViewController {
         let mapItem = MKMapItem(placemark: placemark)
         mapItem.name = name
         
-        let alertVC = AlertView(headingText: title, messageText: message, action1Label: "Cancel", action1Color: Color.AlertView.secondaryButton, action1Completion: {
+        let alertVC = AlertView(headingText: title, messageText: message, action1Label: "Cancel", action1Color: BMColor.AlertView.secondaryButton, action1Completion: {
             self.dismiss(animated: true, completion: nil)
-        }, action2Label: "Yes", action2Color: Color.ActionButton.background, action2Completion: {
+        }, action2Label: "Yes", action2Color: BMColor.ActionButton.background, action2Completion: {
             if query {
                 let mapUrl = URL(string: "http://maps.apple.com/?q=\(name.replacingOccurrences(of: " ", with: "+"))")!
                 if UIApplication.shared.canOpenURL(mapUrl) {  // People can uninstall the maps app, maybe handle this better in the future
@@ -83,7 +83,7 @@ extension UIViewController {
     }
     
     public func presentFailureAlert(title: String, message: String) {
-        let alertVC = AlertView(headingText: title, messageText: message, action1Label: "OK", action1Color: Color.ActionButton.background, action1Completion: {
+        let alertVC = AlertView(headingText: title, messageText: message, action1Label: "OK", action1Color: BMColor.ActionButton.background, action1Completion: {
             self.dismiss(animated: true, completion: nil)
         }, action2Label: "", action2Color: UIColor.clear, action2Completion: { return }, withOnlyOneAction: true)
 

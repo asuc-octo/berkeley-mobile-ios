@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
     
@@ -58,7 +59,6 @@ class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
         drawerStatePositions[.full] = self.view.safeAreaInsets.top + (self.view.frame.maxY / 2)
         self.initialDrawerCenter = drawerViewController!.view.center
         moveDrawer(to: drawerViewController!.currState, duration: 0)
-        
         checkOnboarding()
     }
         
@@ -76,22 +76,54 @@ extension MainContainerViewController {
 }
 
 // MARK: - Onboarding
-
 extension MainContainerViewController {
     func checkOnboarding() {
         let currentVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.0.0"
         let current = Version(version: currentVersion)
         // only show new feature popup for versions 10.1.2 and before
-        if current > Version(version: "10.1.2") {
-            return
+        if current <= Version(version: "10.1.2") {
+            attemptShowStudyPactNewFeature()
         }
-        
-        let launchedBefore = UserDefaults.standard.bool(forKey: UserDefaultKeys.StudyPact.hasShownNewFeature)
+    
+        attemptShowFeedbackForm()
+    }
+    
+    private func attemptShowStudyPactNewFeature() {
+        let hasShownStudyPactNewFeature = UserDefaultKeys.StudyPact.hasShownNewFeature
+        let launchedBefore = UserDefaults.standard.bool(forKey: hasShownStudyPactNewFeature)
         if !launchedBefore {
             let vc = StudyPactNewFeatureViewController()
             vc.modalPresentationStyle = .fullScreen
             self.present(vc, animated: true, completion: nil)
-            UserDefaults.standard.set(true, forKey: UserDefaultKeys.StudyPact.hasShownNewFeature)
+            UserDefaults.standard.set(true, forKey: hasShownStudyPactNewFeature)
+        }
+    }
+    
+    private func attemptShowFeedbackForm() {
+        let hasShownFeedbackFormKey = UserDefaultKeys.hasShownFeedbackFrom
+        let shownFeedbackForm = UserDefaults.standard.bool(forKey: hasShownFeedbackFormKey)
+        if !shownFeedbackForm {
+            let feedbackFormVC = UIViewController()
+            feedbackFormVC.view.backgroundColor = .red
+            
+            let feedbackFormContentView = UIHostingController(rootView: FeedbackFormView())
+            feedbackFormVC.addChild(feedbackFormContentView)
+            feedbackFormVC.view.addSubview(feedbackFormContentView.view)
+
+            feedbackFormContentView.view.translatesAutoresizingMaskIntoConstraints = false
+
+            NSLayoutConstraint.activate([
+                feedbackFormContentView.view.topAnchor.constraint(equalTo: feedbackFormVC.view.topAnchor),
+                feedbackFormContentView.view.leadingAnchor.constraint(equalTo: feedbackFormVC.view.leadingAnchor),
+                feedbackFormContentView.view.trailingAnchor.constraint(equalTo: feedbackFormVC.view.trailingAnchor),
+                feedbackFormContentView.view.bottomAnchor.constraint(equalTo: feedbackFormVC.view.bottomAnchor)
+            ])
+            
+            feedbackFormVC.modalPresentationStyle = .fullScreen
+            feedbackFormVC.modalTransitionStyle = .coverVertical
+            present(feedbackFormVC, animated: true)
+            
+            UserDefaults.standard.set(true, forKey: hasShownFeedbackFormKey)
         }
     }
 }

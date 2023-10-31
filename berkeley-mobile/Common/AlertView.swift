@@ -13,7 +13,7 @@ class AlertView: UIViewController {
     let heading: UILabel = {
         var txt = UILabel()
         txt.font = Font.bold(18)
-        txt.textColor = Color.blackText
+        txt.textColor = BMColor.blackText
         txt.numberOfLines = 0
         txt.textAlignment = .center
         txt.translatesAutoresizingMaskIntoConstraints = false
@@ -23,7 +23,7 @@ class AlertView: UIViewController {
     let message: UILabel = {
         var txt = UILabel()
         txt.font = Font.regular(15)
-        txt.textColor = Color.blackText
+        txt.textColor = BMColor.blackText
         txt.numberOfLines = 0
         txt.textAlignment = .center
         txt.translatesAutoresizingMaskIntoConstraints = false
@@ -123,7 +123,7 @@ class AlertView: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Color.modalBackground
+        view.backgroundColor = BMColor.modalBackground
         setupView()
     }
     
@@ -131,7 +131,7 @@ class AlertView: UIViewController {
     func setupView(){
         
         let backgroundView = UIView()
-        backgroundView.backgroundColor = Color.modalBackground
+        backgroundView.backgroundColor = BMColor.modalBackground
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(backgroundView)
         

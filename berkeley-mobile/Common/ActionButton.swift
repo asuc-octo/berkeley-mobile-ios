@@ -21,7 +21,7 @@ class ActionButton: UIButton {
         }
     }
 
-    init(title: String, font: UIFont = Font.medium(12), defaultColor: UIColor = Color.ActionButton.background, pressedColor: UIColor = Color.ActionButton.highlighted) {
+    init(title: String, font: UIFont = Font.medium(12), defaultColor: UIColor = BMColor.ActionButton.background, pressedColor: UIColor = BMColor.ActionButton.highlighted) {
         self.defaultColor = defaultColor
         self.pressedColor = pressedColor
         super.init(frame: .zero)
@@ -40,7 +40,7 @@ class ActionButton: UIButton {
         guard let label = titleLabel else { return }
         setTitle(title, for: .normal)
         label.font = font
-        label.textColor = Color.ActionButton.color
+        label.textColor = BMColor.ActionButton.color
     }
 
     required init?(coder: NSCoder) {
@@ -71,7 +71,7 @@ class RoundedActionButton: UIButton {
         guard let label = titleLabel else { return }
         setTitle(title, for: .normal)
         label.font = font
-        label.textColor = Color.ActionButton.color
+        label.textColor = BMColor.ActionButton.color
         
         // Set leading icon if there is one
         if iconImage != nil {

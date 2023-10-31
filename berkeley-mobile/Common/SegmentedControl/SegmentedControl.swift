@@ -84,10 +84,10 @@ class SegmentedControl: UISegmentedControl {
         
         setTitleTextAttributes([
             NSAttributedString.Key.font: Font.bold(18),
-            NSAttributedString.Key.foregroundColor: Color.secondaryText
+            NSAttributedString.Key.foregroundColor: BMColor.secondaryText
         ], for: .normal)
         setTitleTextAttributes([
-            NSAttributedString.Key.foregroundColor: Color.primaryText
+            NSAttributedString.Key.foregroundColor: BMColor.primaryText
         ], for: .selected)
         
         self.apportionsSegmentWidthsByContent = true

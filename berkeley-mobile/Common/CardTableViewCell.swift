@@ -19,7 +19,7 @@ class CardTableViewCell: UITableViewCell {
         
         // Setup corner radius and drop shadow
         backgroundColor = .clear
-        backgroundView?.backgroundColor = Color.modalBackground
+        backgroundView?.backgroundColor = BMColor.modalBackground
         
         backgroundView?.layer.masksToBounds = false
         backgroundView?.layer.cornerRadius = 12

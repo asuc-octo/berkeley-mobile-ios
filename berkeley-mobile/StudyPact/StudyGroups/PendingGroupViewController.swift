@@ -33,7 +33,7 @@ class PendingGroupViewController: UIViewController {
     let pendingLabel: UILabel = {
         let label = UILabel()
         label.text = "Match Pending"
-        label.textColor = Color.StudyPact.StudyGroups.pendingLabel
+        label.textColor = BMColor.StudyPact.StudyGroups.pendingLabel
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Font.bold(24)
         return label
@@ -42,7 +42,7 @@ class PendingGroupViewController: UIViewController {
     let removeButton: UIButton = {
         let button = UIButton()
         button.setTitle("Remove Pending Request", for: .normal)
-        button.backgroundColor = Color.StudyPact.StudyGroups.leaveGroupButton
+        button.backgroundColor = BMColor.StudyPact.StudyGroups.leaveGroupButton
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = Font.medium(12)
         let radius: CGFloat = 20
@@ -61,7 +61,7 @@ class PendingGroupViewController: UIViewController {
     }
     
     private func setUpBackgroundView() {
-        view.backgroundColor = Color.modalBackground
+        view.backgroundColor = BMColor.modalBackground
         view.layer.cornerRadius = 15
         view.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         view.clipsToBounds = true
@@ -95,9 +95,9 @@ class PendingGroupViewController: UIViewController {
     
     @objc func removeRequest() {
         
-        let alertController = AlertView(headingText: "Remove Pending Request", messageText: "Would you like to remove your pending request to join a study group for \(studyGroup.className)?", action1Label: "Cancel", action1Color: Color.AlertView.secondaryButton, action1Completion: {
+        let alertController = AlertView(headingText: "Remove Pending Request", messageText: "Would you like to remove your pending request to join a study group for \(studyGroup.className)?", action1Label: "Cancel", action1Color: BMColor.AlertView.secondaryButton, action1Completion: {
             self.dismiss(animated: true, completion: nil)
-        }, action2Label: "Yes", action2Color: Color.ActionButton.background, action2Completion: {
+        }, action2Label: "Yes", action2Color: BMColor.ActionButton.background, action2Completion: {
             StudyPact.shared.cancelPending(group: self.studyGroup) { success in
                 if success {
                     self.dismiss(animated: true, completion: nil)

@@ -13,4 +13,5 @@ struct UserDefaultKeys {
         static let hasShownNewFeature = "hasShownNewFeature"
         static let hasShownOnboarding = "hasShownOnboarding"
     }
+    static let hasShownFeedbackFrom = "hasShownFeedbackForm"
 }

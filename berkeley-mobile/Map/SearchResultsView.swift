@@ -92,7 +92,7 @@ class SearchResultsView: UIView {
     
     private func initTableView() {
         tableView = UITableView()
-        tableView.backgroundColor = Color.searchBarBackground
+        tableView.backgroundColor = BMColor.searchBarBackground
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none

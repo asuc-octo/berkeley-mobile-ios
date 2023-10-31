@@ -21,9 +21,9 @@ class StudyGroupDetailsViewController: UIViewController {
     }
     
     @objc func leaveGroup() {
-        let alertController = AlertView(headingText: "Leave Study Group", messageText: "Would you like to leave your study group for \(_studyGroup.className)?", action1Label: "Cancel", action1Color: Color.AlertView.secondaryButton, action1Completion: {
+        let alertController = AlertView(headingText: "Leave Study Group", messageText: "Would you like to leave your study group for \(_studyGroup.className)?", action1Label: "Cancel", action1Color: BMColor.AlertView.secondaryButton, action1Completion: {
             self.dismiss(animated: true, completion: nil)
-        }, action2Label: "Yes", action2Color: Color.ActionButton.background, action2Completion: {
+        }, action2Label: "Yes", action2Color: BMColor.ActionButton.background, action2Completion: {
             StudyPact.shared.leaveGroup(group: self._studyGroup) { success in
                 if success {
                     self.dismiss(animated: true, completion: nil)
@@ -65,7 +65,7 @@ class StudyGroupDetailsViewController: UIViewController {
     }()
     
     func setUpBackgroundView() {
-        view.backgroundColor = Color.modalBackground
+        view.backgroundColor = BMColor.modalBackground
         view.layer.cornerRadius = 15
         view.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         view.clipsToBounds = true

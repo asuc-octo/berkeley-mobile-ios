@@ -30,7 +30,7 @@ class CampusEventCollectionViewCell: UICollectionViewCell, ImageViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        contentView.backgroundColor = Color.cellBackground
+        contentView.backgroundColor = BMColor.cellBackground
         contentView.layer.masksToBounds = true
         contentView.layer.cornerRadius = 7
         layer.shadowRadius = 5

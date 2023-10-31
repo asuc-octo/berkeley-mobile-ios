@@ -109,7 +109,7 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
         studyGroupsLabel.text = "Your Study Groups"
         studyGroupsLabel.font = Font.bold(24)
         studyGroupsLabel.adjustsFontSizeToFitWidth = true
-        studyGroupsLabel.textColor = Color.blackText
+        studyGroupsLabel.textColor = BMColor.blackText
         studyPactCard.addSubview(studyGroupsLabel)
         studyGroupsLabel.setContentHuggingPriority(.required, for: .vertical)
         studyGroupsLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -118,7 +118,7 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         allButton.setTitle("See All >", for: .normal)
         allButton.titleLabel?.font = Font.light(12)
-        allButton.setTitleColor(Color.primaryText, for: .normal)
+        allButton.setTitleColor(BMColor.primaryText, for: .normal)
         allButton.setTitleColor(.black, for: .highlighted)
         allButton.addTarget(self, action: #selector(goToAllStudyGroups), for: .touchUpInside)
         studyPactCard.addSubview(allButton)
@@ -164,7 +164,7 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
                 studyGroupsGrid = nil
             }
             if studyPactContent.subviews.count == 0 {
-                let profileButton = ActionButton(title: "Sign In to Get Started With Study Pact!", defaultColor: Color.StudyPact.StudyGroups.getStartedButton, pressedColor: Color.StudyPact.StudyGroups.getStartedPressed)
+                let profileButton = ActionButton(title: "Sign In to Get Started With Study Pact!", defaultColor: BMColor.StudyPact.StudyGroups.getStartedButton, pressedColor: BMColor.StudyPact.StudyGroups.getStartedPressed)
                 profileButton.addTarget(self, action: #selector(goToProfile), for: .touchUpInside)
                 studyPactContent.addSubview(profileButton)
                 profileButton.translatesAutoresizingMaskIntoConstraints = false
@@ -196,7 +196,7 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
     let bookImage:UIImageView = {
         let img = UIImageView()
         img.contentMode = .scaleAspectFit
-        img.image = UIImage(named: "Book")?.colored(Color.blackText)
+        img.image = UIImage(named: "Book")?.colored(BMColor.blackText)
         img.translatesAutoresizingMaskIntoConstraints = false
         img.clipsToBounds = true
         return img
@@ -217,7 +217,7 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
         studyLabel.text = "Find your study spot"
         studyLabel.font = Font.bold(24)
         studyLabel.adjustsFontSizeToFitWidth = true
-        studyLabel.textColor = Color.blackText
+        studyLabel.textColor = BMColor.blackText
         card.addSubview(studyLabel)
         
         card.addSubview(bookImage)

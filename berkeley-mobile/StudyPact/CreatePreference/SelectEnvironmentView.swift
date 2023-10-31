@@ -34,7 +34,7 @@ class SelectEnvironmentView: UIView, EnableNextDelegate {
         label.font = Font.medium(13)
         label.text = "study alone, but keep each other accountable"
         label.textAlignment = .center
-        label.textColor = Color.StudyPact.CreatePreference.grayText
+        label.textColor = BMColor.StudyPact.CreatePreference.grayText
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         label.adjustsFontSizeToFitWidth = true
@@ -46,7 +46,7 @@ class SelectEnvironmentView: UIView, EnableNextDelegate {
         label.font = Font.medium(13)
         label.text = "work together to finish tasks"
         label.textAlignment = .center
-        label.textColor = Color.StudyPact.CreatePreference.grayText
+        label.textColor = BMColor.StudyPact.CreatePreference.grayText
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         label.adjustsFontSizeToFitWidth = true
@@ -63,9 +63,9 @@ class SelectEnvironmentView: UIView, EnableNextDelegate {
         
         button.setTitle(title, for: .normal)
         button.titleLabel?.font = Font.medium(16)
-        button.backgroundColor = Color.modalBackground
+        button.backgroundColor = BMColor.modalBackground
         
-        button.setTitleColor(Color.StudyPact.CreatePreference.grayText, for: .normal)
+        button.setTitleColor(BMColor.StudyPact.CreatePreference.grayText, for: .normal)
         button.addTarget(self, action: #selector(toggleButton(sender:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.heightAnchor.constraint(equalToConstant: 30).isActive = true
@@ -76,18 +76,18 @@ class SelectEnvironmentView: UIView, EnableNextDelegate {
     
     @objc func toggleButton(sender: ActionButton) {
         if !sender.isSelected {
-            sender.backgroundColor = Color.StudyPact.CreatePreference.selectedBlue
-            sender.setTitleColor(Color.primaryText, for: .normal)
+            sender.backgroundColor = BMColor.StudyPact.CreatePreference.selectedBlue
+            sender.setTitleColor(BMColor.primaryText, for: .normal)
             sender.isSelected.toggle()
             if let buttonSelected = self.buttonSelected {
-                buttonSelected.backgroundColor = Color.modalBackground
+                buttonSelected.backgroundColor = BMColor.modalBackground
                 buttonSelected.isSelected.toggle()
-                buttonSelected.setTitleColor(Color.StudyPact.CreatePreference.grayText, for: .normal)
+                buttonSelected.setTitleColor(BMColor.StudyPact.CreatePreference.grayText, for: .normal)
                 switch buttonSelected {
                 case quietButton:
-                    quietLabel.textColor = Color.StudyPact.CreatePreference.grayText
+                    quietLabel.textColor = BMColor.StudyPact.CreatePreference.grayText
                 case collaborativeButton:
-                    collaborativeLabel.textColor = Color.StudyPact.CreatePreference.grayText
+                    collaborativeLabel.textColor = BMColor.StudyPact.CreatePreference.grayText
                 default:
                     break
                 }
@@ -95,9 +95,9 @@ class SelectEnvironmentView: UIView, EnableNextDelegate {
             self.buttonSelected = sender
             switch sender {
             case quietButton:
-                quietLabel.textColor = Color.StudyPact.CreatePreference.selectedBlue
+                quietLabel.textColor = BMColor.StudyPact.CreatePreference.selectedBlue
             case collaborativeButton:
-                collaborativeLabel.textColor = Color.StudyPact.CreatePreference.selectedBlue
+                collaborativeLabel.textColor = BMColor.StudyPact.CreatePreference.selectedBlue
             default:
                 break
             }

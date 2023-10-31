@@ -37,7 +37,7 @@ class Resource: SearchItem, HasLocation, HasOpenTimes {
 
     /// The color associated with`type`. See `ResourceType` for provided colors.
     var color: UIColor {
-        return ResourceType(rawValue: type ?? "")?.color ?? Color.eventDefault
+        return ResourceType(rawValue: type ?? "")?.color ?? BMColor.eventDefault
     }
     
     init(name: String, address: String?, latitude: Double?, longitude: Double?, description: String?, hours: WeeklyHours?, type: String?) {

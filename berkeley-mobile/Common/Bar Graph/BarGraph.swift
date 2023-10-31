@@ -75,7 +75,7 @@ class BarGraph: UIView {
      */
     private func addBar(_ bar: BarEntry) {
         mainLayer.addRoundedRectangleLayer(frame: bar.barFrame, cornerRadius: barRadius, color: bar.data.color.cgColor)
-        mainLayer.addTextLayer(frame: bar.bottomTitleFrame, color: Color.blackText.cgColor, fontSize: 10, text: bar.data.bottomText)
+        mainLayer.addTextLayer(frame: bar.bottomTitleFrame, color: BMColor.blackText.cgColor, fontSize: 10, text: bar.data.bottomText)
     }
     
     /// Computes the total width necessary to include all entries

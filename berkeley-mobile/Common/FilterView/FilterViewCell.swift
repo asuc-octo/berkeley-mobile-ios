@@ -25,11 +25,11 @@ class FilterViewCell: UICollectionViewCell {
     override var isSelected: Bool {
         didSet {
             if self.isSelected {
-                contentView.backgroundColor = Color.selectedButtonBackground
+                contentView.backgroundColor = BMColor.selectedButtonBackground
                 label.textColor = .white
             } else {
-                contentView.backgroundColor = Color.cardBackground
-                label.textColor = Color.secondaryText
+                contentView.backgroundColor = BMColor.cardBackground
+                label.textColor = BMColor.secondaryText
             }
         }
     }

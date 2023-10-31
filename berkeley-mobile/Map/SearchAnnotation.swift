@@ -34,7 +34,7 @@ class SearchAnnotation: NSObject, MKAnnotation {
     }
     
     func color() -> UIColor {
-        return Color.mapAnnotationColor
+        return BMColor.mapAnnotationColor
     }
     
 }

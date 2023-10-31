@@ -169,7 +169,7 @@ extension FitnessViewController {
         let scheduleButton = UIButton()
         scheduleButton.setTitle("See Full Schedule >", for: .normal)
         scheduleButton.titleLabel?.font = Font.light(12)
-        scheduleButton.setTitleColor(Color.primaryText, for: .normal)
+        scheduleButton.setTitleColor(BMColor.primaryText, for: .normal)
         // TODO: Set color
         scheduleButton.setTitleColor(.black, for: .highlighted)
         scheduleButton.addTarget(self, action: #selector(willExpandClasses), for: .touchUpInside)
