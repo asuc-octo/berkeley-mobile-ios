@@ -17,7 +17,7 @@ extension CALayer {
         textLayer.backgroundColor = UIColor.clear.cgColor
         textLayer.alignmentMode = CATextLayerAlignmentMode.center
         textLayer.contentsScale = UIScreen.main.scale
-        textLayer.font = Font.light(fontSize)
+        textLayer.font = BMFont.light(fontSize)
         textLayer.fontSize = fontSize
         textLayer.string = text
         self.addSublayer(textLayer)

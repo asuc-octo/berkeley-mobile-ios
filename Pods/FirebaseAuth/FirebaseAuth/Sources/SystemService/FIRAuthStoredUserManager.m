@@ -49,8 +49,8 @@ static NSString *kStoredUserCoderKey = @"firebase_auth_stored_user_coder_key";
 
 #pragma mark - User Access Group
 
-- (NSString *_Nullable)getStoredUserAccessGroupWithError:(NSError *_Nullable *_Nullable)outError {
-  NSData *data = [self.userDefaults dataForKey:kStoredUserAccessGroupKey error:outError];
+- (NSString *_Nullable)getStoredUserAccessGroup {
+  NSData *data = [self.userDefaults dataForKey:kStoredUserAccessGroupKey error:NULL];
   if (data) {
     NSString *userAccessGroup = [NSString stringWithUTF8String:data.bytes];
     return userAccessGroup;
@@ -59,13 +59,12 @@ static NSString *kStoredUserCoderKey = @"firebase_auth_stored_user_coder_key";
   }
 }
 
-- (BOOL)setStoredUserAccessGroup:(NSString *_Nullable)accessGroup
-                           error:(NSError *_Nullable *_Nullable)outError {
+- (BOOL)setStoredUserAccessGroup:(NSString *_Nullable)accessGroup {
   NSData *data = [accessGroup dataUsingEncoding:NSUTF8StringEncoding];
   if (!data) {
-    return [self.userDefaults removeDataForKey:kStoredUserAccessGroupKey error:outError];
+    return [self.userDefaults removeDataForKey:kStoredUserAccessGroupKey error:NULL];
   } else {
-    return [self.userDefaults setData:data forKey:kStoredUserAccessGroupKey error:outError];
+    return [self.userDefaults setData:data forKey:kStoredUserAccessGroupKey error:NULL];
   }
 }
 
@@ -75,16 +74,9 @@ static NSString *kStoredUserCoderKey = @"firebase_auth_stored_user_coder_key";
              shareAuthStateAcrossDevices:(BOOL)shareAuthStateAcrossDevices
                        projectIdentifier:(NSString *)projectIdentifier
                                    error:(NSError *_Nullable *_Nullable)outError {
-  NSMutableDictionary *query = [[NSMutableDictionary alloc] init];
-  query[(__bridge id)kSecClass] = (__bridge id)kSecClassGenericPassword;
-
-  query[(__bridge id)kSecAttrAccessGroup] = accessGroup;
-  query[(__bridge id)kSecAttrService] = projectIdentifier;
-  query[(__bridge id)kSecAttrAccount] = kSharedKeychainAccountValue;
-  if (shareAuthStateAcrossDevices) {
-    query[(__bridge id)kSecAttrSynchronizable] = (__bridge id)kCFBooleanTrue;
-  }
-
+  NSMutableDictionary *query = [self keychainQueryForAccessGroup:accessGroup
+                                     shareAuthStateAcrossDevices:shareAuthStateAcrossDevices
+                                               projectIdentifier:projectIdentifier];
   NSData *data = [self.keychainServices getItemWithQuery:query error:outError];
   // If there's an outError parameter and it's populated, or there's no data, return.
   if ((outError && *outError) || !data) {
@@ -97,7 +89,7 @@ static NSString *kStoredUserCoderKey = @"firebase_auth_stored_user_coder_key";
     return nil;
   }
 #else
-// iOS 12 deprecation
+  // iOS 12 deprecation
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
   NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
@@ -113,27 +105,20 @@ static NSString *kStoredUserCoderKey = @"firebase_auth_stored_user_coder_key";
     shareAuthStateAcrossDevices:(BOOL)shareAuthStateAcrossDevices
               projectIdentifier:(NSString *)projectIdentifier
                           error:(NSError *_Nullable *_Nullable)outError {
-  NSMutableDictionary *query = [[NSMutableDictionary alloc] init];
-  query[(__bridge id)kSecClass] = (__bridge id)kSecClassGenericPassword;
+  NSMutableDictionary *query = [self keychainQueryForAccessGroup:accessGroup
+                                     shareAuthStateAcrossDevices:shareAuthStateAcrossDevices
+                                               projectIdentifier:projectIdentifier];
   if (shareAuthStateAcrossDevices) {
     query[(__bridge id)kSecAttrAccessible] = (__bridge id)kSecAttrAccessibleAfterFirstUnlock;
   } else {
     query[(__bridge id)kSecAttrAccessible] =
         (__bridge id)kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly;
   }
-
-  query[(__bridge id)kSecAttrAccessGroup] = accessGroup;
-  query[(__bridge id)kSecAttrService] = projectIdentifier;
-  query[(__bridge id)kSecAttrAccount] = kSharedKeychainAccountValue;
-  if (shareAuthStateAcrossDevices) {
-    query[(__bridge id)kSecAttrSynchronizable] = (__bridge id)kCFBooleanTrue;
-  }
-
 #if TARGET_OS_WATCH
   NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initRequiringSecureCoding:false];
 #else
   NSMutableData *data = [NSMutableData data];
-// iOS 12 deprecation
+  // iOS 12 deprecation
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
   NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
@@ -153,23 +138,44 @@ static NSString *kStoredUserCoderKey = @"firebase_auth_stored_user_coder_key";
            shareAuthStateAcrossDevices:(BOOL)shareAuthStateAcrossDevices
                      projectIdentifier:(NSString *)projectIdentifier
                                  error:(NSError *_Nullable *_Nullable)outError {
-  NSMutableDictionary *query = [[NSMutableDictionary alloc] init];
-  query[(__bridge id)kSecClass] = (__bridge id)kSecClassGenericPassword;
+  NSMutableDictionary *query = [self keychainQueryForAccessGroup:accessGroup
+                                     shareAuthStateAcrossDevices:shareAuthStateAcrossDevices
+                                               projectIdentifier:projectIdentifier];
   if (shareAuthStateAcrossDevices) {
     query[(__bridge id)kSecAttrAccessible] = (__bridge id)kSecAttrAccessibleAfterFirstUnlock;
   } else {
     query[(__bridge id)kSecAttrAccessible] =
         (__bridge id)kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly;
   }
-  if (shareAuthStateAcrossDevices) {
-    query[(__bridge id)kSecAttrSynchronizable] = (__bridge id)kCFBooleanTrue;
-  }
+  return [self.keychainServices removeItemWithQuery:query error:outError];
+}
 
+#pragma mark - Internal Methods
+
+- (NSMutableDictionary *)keychainQueryForAccessGroup:(NSString *)accessGroup
+                         shareAuthStateAcrossDevices:(BOOL)shareAuthStateAcrossDevices
+                                   projectIdentifier:(NSString *)projectIdentifier {
+  NSMutableDictionary *query = [[NSMutableDictionary alloc] init];
+  query[(__bridge id)kSecClass] = (__bridge id)kSecClassGenericPassword;
   query[(__bridge id)kSecAttrAccessGroup] = accessGroup;
   query[(__bridge id)kSecAttrService] = projectIdentifier;
   query[(__bridge id)kSecAttrAccount] = kSharedKeychainAccountValue;
 
-  return [self.keychainServices removeItemWithQuery:query error:outError];
+  if (@available(iOS 13.0, macOS 10.15, macCatalyst 13.0, tvOS 13.0, watchOS 6.0, *)) {
+    /*
+      "The data protection key affects operations only in macOS.
+      Other platforms automatically behave as if the key is set to true,
+      and ignore the key in the query dictionary. You can safely use the key on all platforms."
+      [kSecUseDataProtectionKeychain](https://developer.apple.com/documentation/security/ksecusedataprotectionkeychain)
+    */
+    query[(__bridge id)kSecUseDataProtectionKeychain] = (__bridge id)kCFBooleanTrue;
+  }
+
+  if (shareAuthStateAcrossDevices) {
+    query[(__bridge id)kSecAttrSynchronizable] = (__bridge id)kCFBooleanTrue;
+  }
+
+  return query;
 }
 
 @end

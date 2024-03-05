@@ -252,7 +252,7 @@ class OverviewCardView: CardView {
     // MARK: - View Elements
     let nameLabel: UILabel = {
         let label = UILabel()
-        label.font = Font.bold(24)
+        label.font = BMFont.bold(24)
         label.textColor = BMColor.blackText
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontSizeToFitWidth = true
@@ -281,7 +281,7 @@ class OverviewCardView: CardView {
     
     let addressLabel: UILabel = {
         let label = UILabel()
-        label.font = Font.light(12)
+        label.font = BMFont.light(12)
         label.textColor = BMColor.blackText
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontSizeToFitWidth = true
@@ -302,7 +302,7 @@ class OverviewCardView: CardView {
     
     let openTimeLabel: UILabel = {
         let label = UILabel()
-        label.font = Font.light(12)
+        label.font = BMFont.light(12)
         label.textColor = BMColor.blackText
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontSizeToFitWidth = true
@@ -352,7 +352,7 @@ class OverviewCardView: CardView {
     
     let phoneLabel: UILabel =  {
         let label = UILabel()
-        label.font = Font.light(12)
+        label.font = BMFont.light(12)
         label.textColor = BMColor.blackText
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontSizeToFitWidth = true

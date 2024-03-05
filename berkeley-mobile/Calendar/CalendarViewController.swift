@@ -29,7 +29,7 @@ class CalendarViewController: UIViewController {
     // Events Label and Blobs
     private func setupHeader() {
         eventsLabel = UILabel()
-        eventsLabel.font = Font.bold(30)
+        eventsLabel.font = BMFont.bold(30)
         eventsLabel.text = "Events"
         view.addSubview(eventsLabel)
         eventsLabel.translatesAutoresizingMaskIntoConstraints = false

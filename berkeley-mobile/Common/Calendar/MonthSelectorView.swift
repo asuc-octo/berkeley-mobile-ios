@@ -130,7 +130,7 @@ class MonthSelectCell: UICollectionViewCell {
     public func configure(month: Int, boldText: Bool) {
         guard let text = DateFormatter().monthSymbols[safe: month - 1] else { return }
         label.text = text
-        label.font = boldText ? Font.bold(16) : Font.light(16)
+        label.font = boldText ? BMFont.bold(16) : BMFont.light(16)
     }
     
     required init?(coder: NSCoder) {

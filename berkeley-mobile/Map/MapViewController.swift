@@ -90,6 +90,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
             guard let markers = markers.first as? [String: [MapMarker]] else { return }
             self.mapMarkers = Array(markers.values)
             var types = Array(markers.keys)
+            
             types.sort {
                 guard let rhs = MapMarkerType(rawValue: $1) else { return true }
                 guard let lhs = MapMarkerType(rawValue: $0) else { return false }
@@ -199,8 +200,6 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         filterView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         filterView.contentInset = UIEdgeInsets(top: 0, left: view.layoutMargins.left,
                                                bottom: 0, right: view.layoutMargins.right)
-        
-        
         
     }
     
@@ -423,6 +422,7 @@ extension MapViewController: SearchResultsViewDelegate {
             let coordinateRegion = MKCoordinateRegion(center: location.coordinate,
                                                       latitudinalMeters: regionRadius * 2.0, longitudinalMeters: regionRadius * 2.0)
             mapView.setRegion(coordinateRegion, animated: true)
+            print("Placemark Item: \(placemark.item)")
             let item = placemark.item
             if let item = item {
                 let annotation:SearchAnnotation = SearchAnnotation(item: item, location: location.coordinate)

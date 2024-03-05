@@ -28,10 +28,18 @@
 #import "FirebaseAuth/Sources/User/FIRUser_Internal.h"
 
 #if TARGET_OS_IOS
-#import "FirebaseAuth/Sources/Public/FirebaseAuth/FIRPhoneMultiFactorAssertion.h"
-
 #import "FirebaseAuth/Sources/AuthProvider/Phone/FIRPhoneAuthCredential_Internal.h"
 #import "FirebaseAuth/Sources/MultiFactor/Phone/FIRPhoneMultiFactorAssertion+Internal.h"
+#import "FirebaseAuth/Sources/MultiFactor/Phone/FIRPhoneMultiFactorInfo+Internal.h"
+#import "FirebaseAuth/Sources/Public/FirebaseAuth/FIRPhoneMultiFactorAssertion.h"
+
+#import "FirebaseAuth/Sources/MultiFactor/TOTP/FIRTOTPMultiFactorAssertion+Internal.h"
+#import "FirebaseAuth/Sources/MultiFactor/TOTP/FIRTOTPMultiFactorInfo.h"
+#import "FirebaseAuth/Sources/MultiFactor/TOTP/FIRTOTPSecret+Internal.h"
+#import "FirebaseAuth/Sources/Public/FirebaseAuth/FIRTOTPMultiFactorAssertion.h"
+#import "FirebaseAuth/Sources/Public/FirebaseAuth/FIRTOTPMultiFactorGenerator.h"
+#import "FirebaseAuth/Sources/Public/FirebaseAuth/FIRTOTPSecret.h"
+
 #endif
 
 NS_ASSUME_NONNULL_BEGIN
@@ -53,16 +61,33 @@ static NSString *kUserCodingKey = @"user";
                 displayName:(nullable NSString *)displayName
                  completion:(nullable FIRAuthVoidErrorCallback)completion {
 #if TARGET_OS_IOS
-  FIRPhoneMultiFactorAssertion *phoneAssertion = (FIRPhoneMultiFactorAssertion *)assertion;
-  FIRAuthProtoFinalizeMFAPhoneRequestInfo *finalizeMFAPhoneRequestInfo =
-      [[FIRAuthProtoFinalizeMFAPhoneRequestInfo alloc]
-          initWithSessionInfo:phoneAssertion.authCredential.verificationID
-             verificationCode:phoneAssertion.authCredential.verificationCode];
-  FIRFinalizeMFAEnrollmentRequest *request =
-      [[FIRFinalizeMFAEnrollmentRequest alloc] initWithIDToken:self.user.rawAccessToken
-                                                   displayName:displayName
-                                              verificationInfo:finalizeMFAPhoneRequestInfo
-                                          requestConfiguration:self.user.requestConfiguration];
+  FIRFinalizeMFAEnrollmentRequest *request = nil;
+  if ([assertion.factorID isEqualToString:FIRPhoneMultiFactorID]) {
+    FIRPhoneMultiFactorAssertion *phoneAssertion = (FIRPhoneMultiFactorAssertion *)assertion;
+    FIRAuthProtoFinalizeMFAPhoneRequestInfo *finalizeMFAPhoneRequestInfo =
+        [[FIRAuthProtoFinalizeMFAPhoneRequestInfo alloc]
+            initWithSessionInfo:phoneAssertion.authCredential.verificationID
+               verificationCode:phoneAssertion.authCredential.verificationCode];
+    request =
+        [[FIRFinalizeMFAEnrollmentRequest alloc] initWithIDToken:self.user.rawAccessToken
+                                                     displayName:displayName
+                                           phoneVerificationInfo:finalizeMFAPhoneRequestInfo
+                                            requestConfiguration:self.user.requestConfiguration];
+  } else if ([assertion.factorID isEqualToString:FIRTOTPMultiFactorID]) {
+    FIRTOTPMultiFactorAssertion *TOTPAssertion = (FIRTOTPMultiFactorAssertion *)assertion;
+    FIRAuthProtoFinalizeMFATOTPEnrollmentRequestInfo *finalizeMFATOTPRequestInfo =
+        [[FIRAuthProtoFinalizeMFATOTPEnrollmentRequestInfo alloc]
+            initWithSessionInfo:TOTPAssertion.secret.sessionInfo
+               verificationCode:TOTPAssertion.oneTimePassword];
+    request =
+        [[FIRFinalizeMFAEnrollmentRequest alloc] initWithIDToken:self.user.rawAccessToken
+                                                     displayName:displayName
+                                            TOTPVerificationInfo:finalizeMFATOTPRequestInfo
+                                            requestConfiguration:self.user.requestConfiguration];
+  }
+  if (request == nil) {
+    return;
+  }
   [FIRAuthBackend
       finalizeMultiFactorEnrollment:request
                            callback:^(FIRFinalizeMFAEnrollmentResponse *_Nullable response,
@@ -83,6 +108,7 @@ static NSString *kUserCodingKey = @"user";
                                                               [[FIRAuthDataResult alloc]
                                                                         initWithUser:user
                                                                   additionalUserInfo:nil];
+
                                                           FIRAuthDataResultCallback
                                                               decoratedCallback = [FIRAuth.auth
                                                                   signInFlowAuthDataResultCallbackByDecoratingCallback:
@@ -155,9 +181,16 @@ static NSString *kUserCodingKey = @"user";
   if (self) {
     NSMutableArray<FIRMultiFactorInfo *> *multiFactorInfoArray = [[NSMutableArray alloc] init];
     for (FIRAuthProtoMFAEnrollment *MFAEnrollment in MFAEnrollments) {
-      FIRMultiFactorInfo *multiFactorInfo =
-          [[FIRMultiFactorInfo alloc] initWithProto:MFAEnrollment];
-      [multiFactorInfoArray addObject:multiFactorInfo];
+      if (MFAEnrollment.phoneInfo) {
+        FIRMultiFactorInfo *multiFactorInfo =
+            [[FIRPhoneMultiFactorInfo alloc] initWithProto:MFAEnrollment];
+        [multiFactorInfoArray addObject:multiFactorInfo];
+      }
+      if (MFAEnrollment.TOTPInfo) {
+        FIRMultiFactorInfo *multiFactorInfo =
+            [[FIRTOTPMultiFactorInfo alloc] initWithProto:MFAEnrollment];
+        [multiFactorInfoArray addObject:multiFactorInfo];
+      }
     }
     _enrolledFactors = [multiFactorInfoArray copy];
   }
@@ -174,18 +207,21 @@ static NSString *kUserCodingKey = @"user";
 - (nullable instancetype)initWithCoder:(NSCoder *)aDecoder {
   self = [self init];
   if (self) {
+    NSSet *enrolledFactorsClasses = [NSSet setWithArray:@[
+      [NSArray class], [FIRMultiFactorInfo class], [FIRPhoneMultiFactorInfo class],
+      [FIRTOTPMultiFactorInfo class]
+    ]];
     NSArray<FIRMultiFactorInfo *> *enrolledFactors =
-        [aDecoder decodeObjectOfClass:[NSArray<FIRMultiFactorInfo *> class]
-                               forKey:kEnrolledFactorsCodingKey];
+        [aDecoder decodeObjectOfClasses:enrolledFactorsClasses forKey:kEnrolledFactorsCodingKey];
     _enrolledFactors = enrolledFactors;
-    _user = [aDecoder decodeObjectOfClass:[FIRUser class] forKey:kUserCodingKey];
+    // Do not decode `user` weak property.
   }
   return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
   [aCoder encodeObject:_enrolledFactors forKey:kEnrolledFactorsCodingKey];
-  [aCoder encodeObject:_user forKey:kUserCodingKey];
+  // Do not encode `user` weak property.
 }
 
 @end

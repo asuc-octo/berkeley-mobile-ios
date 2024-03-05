@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-struct Font {
+struct BMFont {
     static let regular = {
         (size: CGFloat) -> UIFont in
         return UIFont(name: "Apercu-Regular", size: size) ?? UIFont.systemFont(ofSize: size)

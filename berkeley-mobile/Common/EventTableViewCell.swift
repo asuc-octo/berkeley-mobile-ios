@@ -50,7 +50,7 @@ class EventTableViewCell: CardTableViewCell {
         eventTaggingColor.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
         eventTaggingColor.widthAnchor.constraint(equalToConstant: 10).isActive = true
         
-        eventName.font = Font.bold(18)
+        eventName.font = BMFont.bold(18)
         eventName.numberOfLines = 2
         eventName.adjustsFontSizeToFitWidth = true
         eventName.minimumScaleFactor = 0.7
@@ -66,7 +66,7 @@ class EventTableViewCell: CardTableViewCell {
         eventLogo.heightAnchor.constraint(equalToConstant: kLogoHeight).isActive = true
         eventLogo.contentMode = .scaleAspectFit
         
-        eventTime.font = Font.light(12)
+        eventTime.font = BMFont.light(12)
         eventTime.numberOfLines = 2
         eventTime.setContentCompressionResistancePriority(.required, for: .vertical)
         eventTime.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor).isActive = true

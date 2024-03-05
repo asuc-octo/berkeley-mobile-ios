@@ -47,14 +47,14 @@ class SearchBarView: UIView, UITextFieldDelegate {
         self.layer.shadowOffset = .zero
         self.layer.shadowRadius = 8
         
-        textField = MaterialTextField(hint: "What are you looking for?", textColor: BMColor.blackText, font: Font.regular(16.0), bgColor: BMColor.searchBarBackground, delegate: self)
+        textField = MaterialTextField(hint: "What are you looking for?", textColor: BMColor.blackText, font: BMFont.regular(16.0), bgColor: BMColor.searchBarBackground, delegate: self)
         textField.cornerRadius = 15.0
         textField.setCornerBorder(color: BMColor.searchBarBackground, cornerRadius: 15.0, borderWidth: 0.0)
         textField.autocorrectionType = .no
         textField.returnKeyType = .search
         textField.enablesReturnKeyAutomatically = true
         
-        leftButton = MaterialButton(icon: leftButtonImage.colored(BMColor.searchBarIconColor), textColor: BMColor.blackText, font: Font.regular(16), bgColor: BMColor.searchBarBackground, cornerRadius: 15.0)
+        leftButton = MaterialButton(icon: leftButtonImage.colored(BMColor.searchBarIconColor), textColor: BMColor.blackText, font: BMFont.regular(16), bgColor: BMColor.searchBarBackground, cornerRadius: 15.0)
         rightButton = MaterialButton(icon: UIImage(named: "Clear")?.colored(BMColor.searchBarIconColor), bgColor: BMColor.searchBarBackground, cornerRadius: 15.0)
         
         stackView = UIStackView(arrangedSubviews: [leftButton, textField, rightButton])

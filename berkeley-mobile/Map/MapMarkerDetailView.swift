@@ -96,7 +96,7 @@ class MapMarkerDetailView: UIView {
         nameLabel = UILabel()
         contentView.addSubview(nameLabel)
         nameLabel.numberOfLines = 0
-        nameLabel.font = Font.bold(20)
+        nameLabel.font = BMFont.bold(20)
         nameLabel.textColor = BMColor.primaryText
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor, constant: -offset).isActive = true
@@ -112,7 +112,7 @@ class MapMarkerDetailView: UIView {
 
         notesLabel = UILabel()
         notesLabel.numberOfLines = 0
-        notesLabel.font = Font.light(10)
+        notesLabel.font = BMFont.light(10)
         notesLabel.textColor = BMColor.primaryText
         
         detailStack = UIStackView(axis: .horizontal, distribution: .fill, spacing: kViewMargin)
@@ -142,13 +142,23 @@ class MapMarkerDetailView: UIView {
     // TODO: A bit expensive to remake views + constraints. Fix by keeping references to views.
     private func setupView(_ marker: MapMarker) {
         verticalStack.removeAllArrangedSubviews()
+        
         nameLabel.text = marker.title
         if case .known(let type) = marker.type {
             typeColorView.backgroundColor = type.color()
         } else {
             typeColorView.backgroundColor = MapMarkerType.none.color()
         }
-        notesLabel.text = marker.subtitle
+    
+        if case .known(let type) = marker.type, type == .genderInclusiveRestrooms {
+            let accessibleGIRs = marker.accessibleGIRs ?? []
+            let nonAccessibleGIRs = marker.nonAccessibleGIRs ?? []
+            let accessibleGIRsString = accessibleGIRs.isEmpty ? "None" : accessibleGIRs.joined(separator: ", ")
+            let nonAccessibleGIRsString = nonAccessibleGIRs.isEmpty ? "None" : nonAccessibleGIRs.joined(separator: ", ")
+            notesLabel.text = "Accessible: \(accessibleGIRsString) \nNon-Accessible: \(nonAccessibleGIRsString)"
+        } else {
+            notesLabel.text = marker.subtitle
+        }
         
         detailStack.removeAllArrangedSubviews()
         // Show average meal price only for cafe markers
@@ -237,7 +247,7 @@ enum MapMarkerDetail {
             let icon = UIImage(named: "Placemark")?.colored(BMColor.blackText)
             let label = UILabel()
             label.numberOfLines = 0
-            label.font = Font.light(12)
+            label.font = BMFont.light(12)
             label.textColor = BMColor.primaryText
             label.text = description
             return viewWithIcon(icon, view: label)
@@ -247,7 +257,7 @@ enum MapMarkerDetail {
             let label = UILabel()
             label.numberOfLines = 1
             label.setContentCompressionResistancePriority(.required, for: .horizontal)
-            label.font = Font.light(12)
+            label.font = BMFont.light(12)
             label.textColor = BMColor.primaryText
             label.text = price
             return viewWithIcon(icon, view: label)

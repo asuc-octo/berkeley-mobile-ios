@@ -51,7 +51,7 @@ class FilterViewCell: UICollectionViewCell {
         layoutMargins = UIEdgeInsets(top: 5, left: 16, bottom: 5, right: 16)
         
         label = UILabel()
-        label.font = Font.bold(14)
+        label.font = BMFont.bold(14)
         label.textAlignment = .center
         contentView.addSubview(label)
         label.translatesAutoresizingMaskIntoConstraints = false

@@ -15,13 +15,18 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "FirebaseAuth/Sources/Public/FirebaseAuth/FIRAuth.h"
 #import "FirebaseAuth/Sources/Public/FirebaseAuth/FIRMultiFactorInfo.h"
-
 #import "FirebaseAuth/Sources/Utilities/FIRAuthInternalErrors.h"
 
 @class FIRAuthCredential;
 
 NS_ASSUME_NONNULL_BEGIN
+
+/** @var kMissingRecaptchaTokenErrorPrefix
+    @brief The prefix of the error message of missing recaptcha token during authenticating.
+ */
+static NSString *const kMissingRecaptchaTokenErrorPrefix = @"MISSING_RECAPTCHA_TOKEN";
 
 /** @class FIRAuthErrorUtils
     @brief Utility class used to construct @c NSError instances.
@@ -90,6 +95,18 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (NSError *)unexpectedErrorResponseWithDeserializedResponse:(id)deserializedResponse;
 
+/** @fn unexpectedErrorResponseWithDeserializedResponse:underlyingError:
+    @brief Constructs an @c NSError with the @c FIRAuthInternalErrorCodeUnexpectedErrorResponse
+        code, and populated @c FIRAuthErrorUserInfoDeserializedResponseKey and
+        @c NSUnderlyingErrorKey keys in the @c NSError.userInfo dictionary.
+    @param deserializedResponse The value of the @c FIRAuthErrorUserInfoDeserializedResponseKey key.
+    @param underlyingError The value of the @c NSUnderlyingErrorKey key.
+    @remarks This error is used when a network request results in an error, and the body data was
+        deserializable as JSON, but couldn't be decoded as an error.
+ */
++ (NSError *)unexpectedErrorResponseWithDeserializedResponse:(id)deserializedResponse
+                                             underlyingError:(NSError *)underlyingError;
+
 /** @fn malformedJWTErrorWithToken:underlyingError:
     @brief Constructs an @c NSError with the code set to @c FIRAuthErrorCodeMalformedJWT and
         populates the userInfo dictionary with an error message, the bad token, and an underlying
@@ -98,7 +115,7 @@ NS_ASSUME_NONNULL_BEGIN
     @param underlyingError The error that caused this error. If this parameter is nil, the
         NSUnderlyingErrorKey value will not be set.
     @remarks This error is returned when JWT parsing fails.
-    @returns An @c FIRAuthErrorCodeMalformedJWT error wrapping an underlying error, if available.
+    @return An @c FIRAuthErrorCodeMalformedJWT error wrapping an underlying error, if available.
  */
 + (NSError *)malformedJWTErrorWithToken:(NSString *)token
                         underlyingError:(NSError *_Nullable)underlyingError;
@@ -477,9 +494,10 @@ NS_ASSUME_NONNULL_BEGIN
     @brief Constructs an @c NSError with the @c FIRAuthErrorCodeSecondFactorRequired code.
     @return The NSError instance associated with the given FIRAuthError.
  */
-+ (NSError *)secondFactorRequiredErrorWithPendingCredential:(NSString *)MFAPendingCredential
-                                                      hints:(NSArray<FIRMultiFactorInfo *> *)
-                                                                multiFactorInfo;
++ (NSError *)
+    secondFactorRequiredErrorWithPendingCredential:(NSString *)MFAPendingCredential
+                                             hints:(NSArray<FIRMultiFactorInfo *> *)multiFactorInfo
+                                              auth:(FIRAuth *)auth;
 #endif
 
 /** @fn appNotVerifiedErrorWithMessage:
@@ -495,6 +513,13 @@ NS_ASSUME_NONNULL_BEGIN
     @return The NSError instance associated with the given FIRAuthError.
  */
 + (NSError *)missingClientIdentifierErrorWithMessage:(nullable NSString *)message;
+
+/** @fn missingClientTypeErrorWithMessage:
+    @brief Constructs an @c NSError with the @c FIRAuthErrorCodeMissingClientType code.
+    @param message Error message from the backend, if any.
+    @return The NSError instance associated with the given FIRAuthError.
+ */
++ (NSError *)missingClientTypeErrorWithMessage:(nullable NSString *)message;
 
 /** @fn captchaCheckFailedErrorWithMessage:
     @brief Constructs an @c NSError with the @c FIRAuthErrorCaptchaCheckFailed code.
@@ -592,6 +617,14 @@ NS_ASSUME_NONNULL_BEGIN
     @remarks This error indicates the operation is not supported in a multi-tenant context.
  */
 + (NSError *)unsupportedTenantOperationError;
+
++ (NSError *)blockingCloudFunctionServerResponseWithMessage:(nullable NSString *)message;
+
+/** @fn recaptchaSDKNotLinkedError
+   @brief Constructs an @c NSError with the @c FIRAuthErrorCodeRecaptchaSDKNotLinked code.
+   @return The NSError instance associated with the given FIRAuthError.
+ */
++ (NSError *)recaptchaSDKNotLinkedError;
 
 @end
 

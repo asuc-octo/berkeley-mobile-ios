@@ -40,6 +40,7 @@ class MapDataSource: DataSource {
               let lat = dict["latitude"] as? Double, let lon = dict["longitude"] as? Double else {
             return nil
         }
+
         let cl = CLLocationCoordinate2D(latitude: lat, longitude: lon)
         let weeklyHours = MapMarker.parseWeeklyHours(dict: dict["open_close_array"] as? [[String: Any]])
         return MapMarker(type: type,
@@ -54,6 +55,8 @@ class MapDataSource: DataSource {
                          appointment: dict["by_appointment"] as? Bool,
                          mealPrice: dict["Average_Meal"] as? String,
                          cal1Card: dict["Cal1Card_Accepted"] as? Bool,
-                         eatWell: dict["EatWell_Accepted"] as? Bool)
+                         eatWell: dict["EatWell_Accepted"] as? Bool,
+                         accessibleGIRs: dict["accessibleGIRs"] as? [String],
+                         nonAccesibleGIRs: dict["nonAccessibleGIRs"] as? [String])
     }
 }

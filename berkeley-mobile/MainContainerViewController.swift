@@ -59,49 +59,17 @@ class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
         drawerStatePositions[.full] = self.view.safeAreaInsets.top + (self.view.frame.maxY / 2)
         self.initialDrawerCenter = drawerViewController!.view.center
         moveDrawer(to: drawerViewController!.currState, duration: 0)
-        checkOnboarding()
+        attemptShowFeedbackForm()
     }
         
     override func viewSafeAreaInsetsDidChange() {
         (drawerViewController as! MainDrawerViewController).bottomOffset = self.view.safeAreaInsets.top
         DrawerViewController.bottomOffsetY = self.view.safeAreaInsets.top
     }
-
-}
-
-extension MainContainerViewController {
-    func handlePanGesture(gesture: UIPanGestureRecognizer) {
-        handlePan(gesture: gesture)
-    }
-}
-
-// MARK: - Onboarding
-extension MainContainerViewController {
-    func checkOnboarding() {
-        let currentVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.0.0"
-        let current = Version(version: currentVersion)
-        // only show new feature popup for versions 10.1.2 and before
-        if current <= Version(version: "10.1.2") {
-            attemptShowStudyPactNewFeature()
-        }
     
-        attemptShowFeedbackForm()
-    }
-    
-    private func attemptShowStudyPactNewFeature() {
-        let hasShownStudyPactNewFeature = UserDefaultKeys.StudyPact.hasShownNewFeature
-        let launchedBefore = UserDefaults.standard.bool(forKey: hasShownStudyPactNewFeature)
-        if !launchedBefore {
-            let vc = StudyPactNewFeatureViewController()
-            vc.modalPresentationStyle = .fullScreen
-            self.present(vc, animated: true, completion: nil)
-            UserDefaults.standard.set(true, forKey: hasShownStudyPactNewFeature)
-        }
-    }
     
     private func attemptShowFeedbackForm() {
-        let hasShownFeedbackFormKey = UserDefaultKeys.hasShownFeedbackFrom
-        let shownFeedbackForm = UserDefaults.standard.bool(forKey: hasShownFeedbackFormKey)
+        let shownFeedbackForm = UserDefaults.standard.bool(forKey: UserDefaultKeys.hasShownFeedbackFrom)
         if !shownFeedbackForm {
             let feedbackFormVC = UIViewController()
             feedbackFormVC.view.backgroundColor = .red
@@ -122,8 +90,12 @@ extension MainContainerViewController {
             feedbackFormVC.modalPresentationStyle = .fullScreen
             feedbackFormVC.modalTransitionStyle = .coverVertical
             present(feedbackFormVC, animated: true)
-            
-            UserDefaults.standard.set(true, forKey: hasShownFeedbackFormKey)
         }
+    }
+}
+
+extension MainContainerViewController {
+    func handlePanGesture(gesture: UIPanGestureRecognizer) {
+        handlePan(gesture: gesture)
     }
 }

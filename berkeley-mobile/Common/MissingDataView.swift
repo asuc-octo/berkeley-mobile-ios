@@ -20,7 +20,7 @@ class MissingDataView: UIView {
         let label = UILabel()
         label.textColor = BMColor.darkGrayText
         label.textAlignment = .center
-        label.font = Font.medium(18)
+        label.font = BMFont.medium(18)
         label.text = text
         
         label.translatesAutoresizingMaskIntoConstraints = false

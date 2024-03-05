@@ -137,7 +137,7 @@ class OccupancyGraphCardView: CardView {
     
     let occupancyLabel: UILabel = {
         let label = UILabel()
-        label.font = Font.bold(16)
+        label.font = BMFont.bold(16)
         label.textColor = BMColor.blackText
         label.text = "Occupancy"
         label.translatesAutoresizingMaskIntoConstraints = false

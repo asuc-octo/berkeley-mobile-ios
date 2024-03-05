@@ -45,7 +45,7 @@ class LocationDetailView: IconPairView, DetailView {
 
         label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = Font.light(12)
+        label.font = BMFont.light(12)
         label.textColor = BMColor.blackText
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.75

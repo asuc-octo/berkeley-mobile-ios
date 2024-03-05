@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-fileprivate let kHeaderFont: UIFont = Font.bold(24)
+fileprivate let kHeaderFont: UIFont = BMFont.bold(24)
 fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
 fileprivate let kViewMargin: CGFloat = 16
 fileprivate let kClassesHeight: CGFloat = 300
@@ -168,7 +168,7 @@ extension FitnessViewController {
         
         let scheduleButton = UIButton()
         scheduleButton.setTitle("See Full Schedule >", for: .normal)
-        scheduleButton.titleLabel?.font = Font.light(12)
+        scheduleButton.titleLabel?.font = BMFont.light(12)
         scheduleButton.setTitleColor(BMColor.primaryText, for: .normal)
         // TODO: Set color
         scheduleButton.setTitleColor(.black, for: .highlighted)

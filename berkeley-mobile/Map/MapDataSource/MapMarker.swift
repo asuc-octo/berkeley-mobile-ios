@@ -51,6 +51,7 @@ enum MapMarkerType: String, CaseIterable, Comparable {
     case cafe = "Cafe"
     case store = "Store"
     case mentalHealth = "Mental Health"
+    case genderInclusiveRestrooms = "Gender Inclusive Restrooms"
     case garden = "Campus Garden"
     case bikes = "Lyft Bike"
     case lactation = "Lactation"
@@ -74,6 +75,17 @@ enum MapMarkerType: String, CaseIterable, Comparable {
     func icon() -> UIImage {
         let icon: UIImage?
         switch self {
+        case .genderInclusiveRestrooms:
+            icon = UIImage(
+                systemName: "toilet.circle.fill",
+                withConfiguration:UIImage.SymbolConfiguration(weight: .regular))?.applyingSymbolConfiguration(
+                    UIImage.SymbolConfiguration(paletteColors:[
+                        .white,
+                        .label,
+                        .systemPurple
+                    ])
+                )
+            break
         case .microwave:
             icon = UIImage(named: "microwave-icon")?
                 .withShadow()
@@ -132,6 +144,8 @@ enum MapMarkerType: String, CaseIterable, Comparable {
     /** The color describing this marker type */
     func color() -> UIColor {
         switch self {
+        case .genderInclusiveRestrooms:
+            return UIColor.systemPink
         case .microwave:
             return BMColor.MapMarker.microwave
         case .rest:
@@ -189,6 +203,9 @@ class MapMarker: NSObject, MKAnnotation, HasOpenTimes, SearchItem {
     var locationName: String
     var icon: UIImage?
     var name: String
+    
+    var accessibleGIRs: [String]?
+    var nonAccessibleGIRs: [String]?
 
     init?(type: String,
           location: CLLocationCoordinate2D,
@@ -202,7 +219,9 @@ class MapMarker: NSObject, MKAnnotation, HasOpenTimes, SearchItem {
           appointment: Bool? = nil,
           mealPrice: String? = nil,
           cal1Card: Bool? = nil,
-          eatWell: Bool? = nil) {
+          eatWell: Bool? = nil,
+          accessibleGIRs: [String]? = nil,
+          nonAccesibleGIRs: [String]? = nil) {
         guard let type = KnownType<MapMarkerType>(rawValue: type) else { return nil }
         self.type = type
         self.coordinate = location
@@ -222,6 +241,9 @@ class MapMarker: NSObject, MKAnnotation, HasOpenTimes, SearchItem {
         self.locationName = address ?? ""
         self.icon = nil
         self.name = name ?? ""
+        
+        self.accessibleGIRs = accessibleGIRs
+        self.nonAccessibleGIRs = nonAccesibleGIRs
     }
     
 }

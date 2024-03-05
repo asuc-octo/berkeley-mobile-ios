@@ -152,7 +152,7 @@ extension CampusCalendarViewController {
         contentView.setConstraintsToView(top: card, bottom: card, left: card, right: card)
 
         let headerLabel = UILabel()
-        headerLabel.font = Font.bold(24)
+        headerLabel.font = BMFont.bold(24)
         headerLabel.text = "Upcoming"
         contentView.addSubview(headerLabel)
         headerLabel.translatesAutoresizingMaskIntoConstraints = false

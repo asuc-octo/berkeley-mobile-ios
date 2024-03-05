@@ -104,7 +104,7 @@ extension DiningViewController {
         
         let header = UILabel()
         header.text = "Find a place to dine"
-        header.font = Font.bold(24)
+        header.font = BMFont.bold(24)
         header.adjustsFontSizeToFitWidth = true
         header.textColor = BMColor.blackText
         card.addSubview(header)

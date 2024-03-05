@@ -11,7 +11,6 @@ import Foundation
 /** The list of `DataSource` classes to fetch data from. Add to this list to add new data to the app. */
 fileprivate let kDataSources: [DataSource.Type] = [
     MapDataSource.self,
-    ResourceDataSource.self,
     LibraryDataSource.self,
     DiningHallDataSource.self,
     GymDataSource.self

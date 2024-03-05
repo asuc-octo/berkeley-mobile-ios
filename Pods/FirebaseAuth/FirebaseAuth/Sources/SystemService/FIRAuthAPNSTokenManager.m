@@ -18,7 +18,7 @@
 #if !TARGET_OS_OSX && !TARGET_OS_WATCH
 
 #import <GoogleUtilities/GULAppEnvironmentUtil.h>
-#import "FirebaseCore/Sources/Private/FirebaseCoreInternal.h"
+#import "FirebaseCore/Extension/FirebaseCoreInternal.h"
 
 #import "FirebaseAuth/Sources/Auth/FIRAuthGlobalWorkQueue.h"
 #import "FirebaseAuth/Sources/Auth/FIRAuth_Internal.h"
@@ -79,9 +79,9 @@ static const NSTimeInterval kLegacyRegistrationTimeout = 30;
     } else {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
-#if TARGET_OS_IOS
+#if TARGET_OS_IOS && (!defined(TARGET_OS_VISION) || !TARGET_OS_VISION)
       [self->_application registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert];
-#endif  // TARGET_OS_IOS
+#endif  // TARGET_OS_IOS && (!defined(TARGET_OS_VISION) || !TARGET_OS_VISION)
 #pragma clang diagnostic pop
     }
   });
@@ -136,7 +136,6 @@ static const NSTimeInterval kLegacyRegistrationTimeout = 30;
 
 /** @fn isProductionApp
     @brief Whether or not the app has production (versus sandbox) provisioning profile.
-    @remarks This method is adapted from @c FIRInstanceID .
  */
 + (BOOL)isProductionApp {
   const BOOL defaultAppTypeProd = YES;
