@@ -22,7 +22,7 @@ class CardCollectionViewCell: UICollectionViewCell {
         layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
         
         title = UILabel()
-        title.font = Font.bold(18)
+        title.font = BMFont.bold(18)
         title.lineBreakMode = .byWordWrapping
         title.numberOfLines = 2
         title.adjustsFontSizeToFitWidth = true
@@ -41,7 +41,7 @@ class CardCollectionViewCell: UICollectionViewCell {
         badge.rightAnchor.constraint(equalTo: layoutMarginsGuide.rightAnchor).isActive = true
         
         subtitle = UILabel()
-        subtitle.font = Font.light(12)
+        subtitle.font = BMFont.light(12)
         subtitle.numberOfLines = 2
         subtitle.setContentHuggingPriority(.required, for: .vertical)
         subtitle.setContentCompressionResistancePriority(.required, for: .vertical)

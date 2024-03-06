@@ -77,7 +77,7 @@ class CampusEventCellView: UIView {
     
     let nameLabel: UILabel = {
         let label = UILabel()
-        label.font = Font.bold(18)
+        label.font = BMFont.bold(18)
         label.textColor = BMColor.blackText
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontSizeToFitWidth = true
@@ -98,7 +98,7 @@ class CampusEventCellView: UIView {
     
     let timeLabel: UILabel = {
         let label = UILabel()
-        label.font = Font.light(12)
+        label.font = BMFont.light(12)
         label.textColor = BMColor.blackText
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontSizeToFitWidth = true
@@ -109,7 +109,7 @@ class CampusEventCellView: UIView {
     
     let locationLabel: UILabel = {
         let label = UILabel()
-        label.font = Font.light(12)
+        label.font = BMFont.light(12)
         label.textColor = BMColor.blackText
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontSizeToFitWidth = true

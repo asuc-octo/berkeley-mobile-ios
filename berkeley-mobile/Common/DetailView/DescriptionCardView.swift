@@ -29,7 +29,7 @@ class DescriptionCardView: CardView {
         layoutMargins = kCardPadding
 
         cardTitle = UILabel()
-        cardTitle.font = Font.bold(16)
+        cardTitle.font = BMFont.bold(16)
         cardTitle.text = "Description"
         addSubview(cardTitle)
 
@@ -39,7 +39,7 @@ class DescriptionCardView: CardView {
         cardTitle.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor).isActive = true
 
         descriptionLabel = UILabel()
-        descriptionLabel.font = Font.light(12)
+        descriptionLabel.font = BMFont.light(12)
         descriptionLabel.numberOfLines = 0
         descriptionLabel.text = description
         addSubview(descriptionLabel)

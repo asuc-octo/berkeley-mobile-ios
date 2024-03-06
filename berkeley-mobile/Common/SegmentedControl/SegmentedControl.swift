@@ -83,7 +83,7 @@ class SegmentedControl: UISegmentedControl {
         setDividerImage(UIImage(), forLeftSegmentState: .normal, rightSegmentState: .normal, barMetrics: .default)
         
         setTitleTextAttributes([
-            NSAttributedString.Key.font: Font.bold(18),
+            NSAttributedString.Key.font: BMFont.bold(18),
             NSAttributedString.Key.foregroundColor: BMColor.secondaryText
         ], for: .normal)
         setTitleTextAttributes([

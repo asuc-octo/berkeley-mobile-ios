@@ -12,7 +12,7 @@ class AlertView: UIViewController {
     
     let heading: UILabel = {
         var txt = UILabel()
-        txt.font = Font.bold(18)
+        txt.font = BMFont.bold(18)
         txt.textColor = BMColor.blackText
         txt.numberOfLines = 0
         txt.textAlignment = .center
@@ -22,7 +22,7 @@ class AlertView: UIViewController {
 
     let message: UILabel = {
         var txt = UILabel()
-        txt.font = Font.regular(15)
+        txt.font = BMFont.regular(15)
         txt.textColor = BMColor.blackText
         txt.numberOfLines = 0
         txt.textAlignment = .center
@@ -64,8 +64,8 @@ class AlertView: UIViewController {
         heading.text = headingText
         message.text = messageText
         
-        btn1 = ActionButton(title: btn1String, font: Font.regular(14), defaultColor: btn1Color, pressedColor: btn1Color)
-        btn2 = ActionButton(title: btn2String, font: Font.regular(14), defaultColor: btn2Color, pressedColor: btn2Color)
+        btn1 = ActionButton(title: btn1String, font: BMFont.regular(14), defaultColor: btn1Color, pressedColor: btn1Color)
+        btn2 = ActionButton(title: btn2String, font: BMFont.regular(14), defaultColor: btn2Color, pressedColor: btn2Color)
         btn1.layer.cornerRadius = 5
         btn2.layer.cornerRadius = 5
         btn1.titleLabel?.adjustsFontSizeToFitWidth = true

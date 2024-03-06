@@ -89,7 +89,7 @@ class FilterTableViewCell: CardTableViewCell, ImageViewCell {
     
     let nameLabel: UILabel = {
         let label = UILabel()
-        label.font = Font.bold(18)
+        label.font = BMFont.bold(18)
         label.textColor = BMColor.blackText
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontSizeToFitWidth = true
@@ -109,7 +109,7 @@ class FilterTableViewCell: CardTableViewCell, ImageViewCell {
     
     let recLabel: UILabel = {
         let label = UILabel()
-        label.font = Font.mediumItalic(10)
+        label.font = BMFont.mediumItalic(10)
         label.textColor = BMColor.darkGrayText
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

@@ -140,6 +140,7 @@ struct FeedbackFormView: View {
         ])
         
         presentationMode.wrappedValue.dismiss()
+        UserDefaults.standard.set(true, forKey: UserDefaultKeys.hasShownFeedbackFrom)
     }
 }
 

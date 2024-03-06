@@ -61,9 +61,9 @@ class OpenTimesCardView: CollapsibleCardView {
             dayLabel.translatesAutoresizingMaskIntoConstraints = false
             // if this is the current day, bold the day name label
             if DayOfWeek.weekday(Date()) == day {
-                dayLabel.font = Font.bold(10)
+                dayLabel.font = BMFont.bold(10)
             } else {
-                dayLabel.font = Font.light(10)
+                dayLabel.font = BMFont.light(10)
             }
             dayLabel.text = day.stringRepresentation()
             if let dayView = leftRightView(leftView: dayLabel, rightView: hourSpanLabelStack(weekday: day)) {
@@ -120,9 +120,9 @@ class OpenTimesCardView: CollapsibleCardView {
         }
         // bold label if the current time is in the interval and it's in the openedView
         if shouldBoldIfCurrent, interval.contains(Date()) {
-            label.font = Font.bold(10)
+            label.font = BMFont.bold(10)
         } else {
-            label.font = Font.light(10)
+            label.font = BMFont.light(10)
         }
         return label
     }
@@ -136,9 +136,9 @@ class OpenTimesCardView: CollapsibleCardView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Closed"
         if bold {
-            label.font = Font.bold(10)
+            label.font = BMFont.bold(10)
         } else {
-            label.font = Font.light(10)
+            label.font = BMFont.light(10)
         }
         return label
     }

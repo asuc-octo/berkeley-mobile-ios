@@ -152,7 +152,7 @@ class CalendarCell: UICollectionViewCell {
     let label: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = Font.light(18)
+        label.font = BMFont.light(18)
         return label
     }()
     let highlightView: UIView = {
@@ -184,7 +184,7 @@ class CalendarCell: UICollectionViewCell {
     public func configureHeader(text: String) {
         label.text = text
         label.textColor = BMColor.Calendar.dayOfWeekHeader
-        label.font = Font.light(18)
+        label.font = BMFont.light(18)
         highlightView.backgroundColor = .clear
     }
     
@@ -221,9 +221,9 @@ class CalendarCell: UICollectionViewCell {
             }
         }
         if boldText {
-            label.font = Font.bold(20)
+            label.font = BMFont.bold(20)
         } else {
-            label.font = Font.light(18)
+            label.font = BMFont.light(18)
         }
     }
 }

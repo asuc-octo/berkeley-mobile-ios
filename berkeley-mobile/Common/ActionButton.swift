@@ -21,7 +21,7 @@ class ActionButton: UIButton {
         }
     }
 
-    init(title: String, font: UIFont = Font.medium(12), defaultColor: UIColor = BMColor.ActionButton.background, pressedColor: UIColor = BMColor.ActionButton.highlighted) {
+    init(title: String, font: UIFont = BMFont.medium(12), defaultColor: UIColor = BMColor.ActionButton.background, pressedColor: UIColor = BMColor.ActionButton.highlighted) {
         self.defaultColor = defaultColor
         self.pressedColor = pressedColor
         super.init(frame: .zero)
@@ -53,7 +53,7 @@ class RoundedActionButton: UIButton {
     
     
 
-    init(title: String, font: UIFont = Font.medium(12), color: UIColor = UIColor.gray, iconImage: UIImage?, iconSize: CGFloat? = 24, cornerRadius: CGFloat = 20, iconOffset: CGFloat = -70) {
+    init(title: String, font: UIFont = BMFont.medium(12), color: UIColor = UIColor.gray, iconImage: UIImage?, iconSize: CGFloat? = 24, cornerRadius: CGFloat = 20, iconOffset: CGFloat = -70) {
         super.init(frame: .zero)
         contentEdgeInsets = UIEdgeInsets(top: 13, left: (iconImage != nil) ? 40 : 16, bottom: 13, right: 16)
         backgroundColor = color

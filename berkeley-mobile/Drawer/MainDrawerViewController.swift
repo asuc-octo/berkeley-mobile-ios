@@ -41,7 +41,6 @@ class MainDrawerViewController: DrawerViewController {
     // set up the libraries, dining, and fitness tabs
     func setupTabBar() {
         tabBarViewController.pages = [
-            Page(viewController: StudyViewController(), label: "Study"),
             Page(viewController: DiningViewController(), label: "Dining"),
             Page(viewController: FitnessViewController(), label: "Fitness")
         ]
@@ -59,8 +58,6 @@ class MainDrawerViewController: DrawerViewController {
         for page in tabBarViewController.pages {
             if let dining = page.viewController as? DiningViewController {
                 dining.mainContainer = container
-            } else if let study = page.viewController as? StudyViewController {
-                study.mainContainer = container
             } else if let gym = page.viewController as? FitnessViewController {
                 gym.mainContainer = container
             }

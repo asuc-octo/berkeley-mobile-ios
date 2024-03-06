@@ -73,13 +73,13 @@ class SearchResultsView: UIView {
         
         noResultsLabel = UILabel()
         noResultsLabel.text = "Nothing found!"
-        noResultsLabel.font = Font.regular(17)
+        noResultsLabel.font = BMFont.regular(17)
         noResultsLabel.textAlignment = .center
         noResultsLabel.numberOfLines = 3
         
         errorLabel = UILabel()
         errorLabel.text = ""
-        errorLabel.font = Font.regular(17)
+        errorLabel.font = BMFont.regular(17)
         errorLabel.textAlignment = .center
         errorLabel.numberOfLines = 3
         

@@ -7,13 +7,13 @@
 //
 
 import UIKit
+import SwiftUI
 
 class TabBarController: UITabBarController, UITabBarControllerDelegate {
     
     let mapView = MainContainerViewController()
-    let resourcesView = ResourcesViewController()
     let calendarView = CalendarViewController()
-    let profileView = ProfileViewController()
+    let resourcesView = UIHostingController(rootView: ResourcesView())
     
     static var homePressedMessage = "dismissDrawerWithHomePress"
 
@@ -25,8 +25,9 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         tabBar.tintColor = BMColor.blackText
         
         let tabBarAppearance = UITabBarItem.appearance()
-        let attributes = [NSAttributedString.Key.font: Font.regular(11)]
+        let attributes = [NSAttributedString.Key.font: BMFont.regular(11)]
         tabBarAppearance.setTitleTextAttributes(attributes, for: .normal)
+        tabBar.isTranslucent = true
         
         if #available(iOS 15.0, *) {
             let appearance = UITabBarAppearance()
@@ -38,13 +39,10 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         }
         
         mapView.tabBarItem = UITabBarItem(title: "Home", image: UIImage(named: "Home"), tag: 0)
-        resourcesView.tabBarItem = UITabBarItem(title: "Resources", image: UIImage(named: "Resources"), tag: 1)
         calendarView.tabBarItem = UITabBarItem(title: "Events", image: UIImage(named: "Calendar"), tag: 2)
-        profileView.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(named: "Profile"), tag: 3)
+        resourcesView.tabBarItem = UITabBarItem(title: "Resources", image: UIImage(systemName: "tray.full"), tag: 3)
         
-        self.viewControllers = [mapView, resourcesView, calendarView, profileView]
-        
-        
+        self.viewControllers = [mapView, calendarView, resourcesView]
     }
     
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
@@ -53,12 +51,6 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
                 let nc = NotificationCenter.default
                 nc.post(name: Notification.Name(TabBarController.homePressedMessage), object: nil)
             }
-        }
-    }
-    
-    public func selectProfileTab() {
-        if let profileIndex = self.viewControllers?.firstIndex(of: profileView) {
-            self.selectedIndex = profileIndex
         }
     }
     

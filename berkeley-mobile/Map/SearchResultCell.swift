@@ -27,11 +27,11 @@ class SearchResultCell: MaterialTableViewCell {
         
         icon = UIImageView(image: UIImage(named: "Placemark")?.colored(BMColor.searchBarIconColor))
         title = UILabel()
-        title.font = Font.regular(16)
+        title.font = BMFont.regular(16)
         subTitle = UILabel()
-        subTitle.font = Font.regular(14)
+        subTitle.font = BMFont.regular(14)
         caption = UILabel()
-        caption.font = Font.regular(12)
+        caption.font = BMFont.regular(12)
         caption.adjustsFontSizeToFitWidth = true
         
         leftStack = UIStackView(arrangedSubviews: [icon, caption], axis: .vertical, distribution: .fillProportionally, spacing: 0.0)

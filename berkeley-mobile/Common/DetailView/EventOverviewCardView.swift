@@ -85,7 +85,7 @@ class EventOverviewCardView: CardView {
     // MARK: - View Elements
     let nameLabel: UILabel = {
         let label = UILabel()
-        label.font = Font.bold(24)
+        label.font = BMFont.bold(24)
         label.textColor = BMColor.blackText
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontSizeToFitWidth = true
@@ -114,7 +114,7 @@ class EventOverviewCardView: CardView {
     
     let timeLabel: UILabel = {
         let label = UILabel()
-        label.font = Font.light(12)
+        label.font = BMFont.light(12)
         label.textColor = BMColor.blackText
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontSizeToFitWidth = true
@@ -125,7 +125,7 @@ class EventOverviewCardView: CardView {
     
     let locationLabel: UILabel = {
         let label = UILabel()
-        label.font = Font.light(12)
+        label.font = BMFont.light(12)
         label.textColor = BMColor.blackText
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontSizeToFitWidth = true
