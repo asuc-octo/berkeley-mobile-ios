@@ -120,7 +120,6 @@ struct ResourcePageView: View {
                                     ForEach(resourceSection.resources, id: \.id) { resource in
                                         ResourceLinkView(resource: resource)
                                         .listRowSeparator(.hidden)
-                                        
                                     }
                                 }
                             },
@@ -133,7 +132,6 @@ struct ResourcePageView: View {
                             }
                         )
                         .listRowBackground(Color.clear)
-                        .listRowSeparator(.hidden)
                     }
                 }
                 .scrollContentBackground(.hidden)
