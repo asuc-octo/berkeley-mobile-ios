@@ -19,13 +19,14 @@ struct MapMarkersDropdownButton: View {
             Image(systemName: "chevron.down.circle")
                 .background(Color(uiColor: BMColor.modalBackground))
                 .foregroundColor(Color(uiColor: BMColor.blackText))
-                .font(.system(size: 40))
+                .font(.system(size: 42))
                 .clipShape(Circle())
         }
         .fullScreenCover(isPresented: $isPresentingMapMarkersDropdownView) {
             MapMarkersDropdownView(selectedMapMakerTypeCompletionHandler: selectedMapMakerTypeCompletionHandler)
                 .background(BMBackgroundBlurView().ignoresSafeArea(.all))
         }
+        .shadow(color: Color(uiColor: UIColor.black).opacity(0.2), radius: 5, x: 0, y: 5)
     }
 }
 

@@ -221,10 +221,10 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
                                                bottom: 0, right: view.layoutMargins.right)
         
         NSLayoutConstraint.activate([
-            mapMarkersDropdownButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-            mapMarkersDropdownButton.widthAnchor.constraint(equalToConstant: 30),
-            mapMarkersDropdownButton.heightAnchor.constraint(equalToConstant: 30),
-            mapMarkersDropdownButton.topAnchor.constraint(equalTo: filterView.bottomAnchor, constant: kViewMargin)
+            mapMarkersDropdownButton.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
+            mapMarkersDropdownButton.widthAnchor.constraint(equalToConstant: 40),
+            mapMarkersDropdownButton.heightAnchor.constraint(equalToConstant: 40),
+            mapMarkersDropdownButton.topAnchor.constraint(equalTo: filterView.bottomAnchor, constant: kViewMargin + 5)
         ])
     }
     
