@@ -46,8 +46,6 @@ enum KnownType<T: RawRepresentable>: RawRepresentable {
  name on Firebase. Add to this enum to add another type of map resource.
  */
 enum MapMarkerType: String, CaseIterable, Comparable {
-    
-    case restaurant = "Restaurant"
     case cafe = "Cafe"
     case store = "Store"
     case mentalHealth = "Mental Health"
@@ -59,8 +57,7 @@ enum MapMarkerType: String, CaseIterable, Comparable {
     case microwave = "Microwave"
     case printer = "Printer"
     case water = "Water"
-    case waste = "Waste"
-    
+    case waste = "Waste"t
     case none = "_none"
     
     static func < (lhs: MapMarkerType, rhs: MapMarkerType) -> Bool {

@@ -25,8 +25,7 @@ struct ResourcesView: View {
                     }
                     
                     if resourcesVM.resourceCategories.isEmpty {
-                        Text("No Resources Available")
-                            .font(Font(BMFont.bold(21)))
+                       noResourcesAvailableView
                     } else {
                         Picker(selection: $tabSelectedValue, label: Text("")) {
                             ForEach(Array(resourcesVM.resourceCategories.enumerated()), id: \.offset) { idx, category in
@@ -58,6 +57,15 @@ struct ResourcesView: View {
                 .edgesIgnoringSafeArea(.top)
                 .offset(x: 30)
                 .frame(width: geo.size.width, height: geo.size.height , alignment: .topTrailing)
+        }
+    }
+    
+    private var noResourcesAvailableView: some View {
+        VStack {
+            Spacer()
+            Text("No Resources Available")
+                .font(Font(BMFont.bold(21)))
+            Spacer()
         }
     }
     

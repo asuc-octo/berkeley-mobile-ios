@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -41,7 +41,6 @@
 		01D2699D2544E005000377B4 /* AcademicCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D2699C2544E005000377B4 /* AcademicCalendarViewController.swift */; };
 		01FA50F124E8B33100DCC490 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FA50F024E8B33100DCC490 /* LocationManager.swift */; };
 		01FA50F324E8BA5400DCC490 /* LocationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FA50F224E8BA5400DCC490 /* LocationDetailView.swift */; };
-		0B07A47A14FC87CF20DD4870 /* Pods_berkeley_mobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CAC9CEE1078D95B189B835 /* Pods_berkeley_mobile.framework */; };
 		130FA59E243B1243005DC752 /* DiningRestriction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130FA59D243B1243005DC752 /* DiningRestriction.swift */; };
 		13135BB22412442C0056B169 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39AB323E777AC0039FBA2 /* FilterView.swift */; };
 		13135BB3241244370056B169 /* FilterViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39AB223E777AC0039FBA2 /* FilterViewCell.swift */; };
@@ -136,6 +135,7 @@
 		306A54F623613E3D00D59A7F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 306A54F423613E3D00D59A7F /* LaunchScreen.storyboard */; };
 		306A54FE236142B800D59A7F /* DrawerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306A54FD236142B800D59A7F /* DrawerViewController.swift */; };
 		306A550023614C0000D59A7F /* MainContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306A54FF23614C0000D59A7F /* MainContainerViewController.swift */; };
+		47E625C4AFB6802788C56FCC /* Pods_berkeley_mobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 009098AE14DA5A91CB4733A6 /* Pods_berkeley_mobile.framework */; };
 		5516088624392E5100B1E55B /* DiningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5516088524392E5100B1E55B /* DiningViewController.swift */; };
 		5516088824393F3F00B1E55B /* MissingDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5516088724393F3F00B1E55B /* MissingDataView.swift */; };
 		5532B67B2390CBF600293BE0 /* MaterialLoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532B67A2390CBF600293BE0 /* MaterialLoadingIndicator.swift */; };
@@ -159,6 +159,7 @@
 		55DCF7A123724835001B01B8 /* MaterialButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF7A023724835001B01B8 /* MaterialButton.swift */; };
 		E80ECC2F2AFB02B2004604BA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E80ECC2E2AFB02B2004604BA /* GoogleService-Info.plist */; };
 		E80ECC312AFB02BA004604BA /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80ECC302AFB02BA004604BA /* Secrets.swift */; };
+		E81767582B9A516200599254 /* MapMarkersDropdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81767572B9A516200599254 /* MapMarkersDropdownView.swift */; };
 		E83C6CEB2B71D8C20085E277 /* ResourcesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83C6CEA2B71D8C20085E277 /* ResourcesView.swift */; };
 		E83C6CED2B71DF190085E277 /* SafariWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83C6CEC2B71DF190085E277 /* SafariWebView.swift */; };
 		E83D87942AB3CD1E00C4113C /* FeedbackFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83D87932AB3CD1E00C4113C /* FeedbackFormView.swift */; };
@@ -168,6 +169,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		009098AE14DA5A91CB4733A6 /* Pods_berkeley_mobile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_berkeley_mobile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		016A56D32519E96800531A12 /* CampusCalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusCalendarViewController.swift; sourceTree = "<group>"; };
 		016A56D5251AD38F00531A12 /* CalendarEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEvent.swift; sourceTree = "<group>"; };
 		016A56D7251C930D00531A12 /* AppDelegate+Migration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Migration.swift"; sourceTree = "<group>"; };
@@ -202,6 +204,7 @@
 		01D2699C2544E005000377B4 /* AcademicCalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcademicCalendarViewController.swift; sourceTree = "<group>"; };
 		01FA50F024E8B33100DCC490 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		01FA50F224E8BA5400DCC490 /* LocationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailView.swift; sourceTree = "<group>"; };
+		0EF369A28DCE41D7C2C6F336 /* Pods-berkeley-mobile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeley-mobile.debug.xcconfig"; path = "Target Support Files/Pods-berkeley-mobile/Pods-berkeley-mobile.debug.xcconfig"; sourceTree = "<group>"; };
 		130FA59D243B1243005DC752 /* DiningRestriction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningRestriction.swift; sourceTree = "<group>"; };
 		132087AE23F3B05D00AE273C /* Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
 		1336A319241C3FD300949F32 /* GymClassDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymClassDataSource.swift; sourceTree = "<group>"; };
@@ -298,7 +301,6 @@
 		306A54F723613E3D00D59A7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		306A54FD236142B800D59A7F /* DrawerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerViewController.swift; sourceTree = "<group>"; };
 		306A54FF23614C0000D59A7F /* MainContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainContainerViewController.swift; sourceTree = "<group>"; };
-		37EAAE670B992408AC0799BC /* Pods-berkeley-mobile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeley-mobile.debug.xcconfig"; path = "Target Support Files/Pods-berkeley-mobile/Pods-berkeley-mobile.debug.xcconfig"; sourceTree = "<group>"; };
 		5516088524392E5100B1E55B /* DiningViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiningViewController.swift; sourceTree = "<group>"; };
 		5516088724393F3F00B1E55B /* MissingDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissingDataView.swift; sourceTree = "<group>"; };
 		5532B67A2390CBF600293BE0 /* MaterialLoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialLoadingIndicator.swift; sourceTree = "<group>"; };
@@ -323,14 +325,14 @@
 		55DCF79A237243D4001B01B8 /* MaterialTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialTextField.swift; sourceTree = "<group>"; };
 		55DCF79C237243F5001B01B8 /* RippleLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RippleLayer.swift; sourceTree = "<group>"; };
 		55DCF7A023724835001B01B8 /* MaterialButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialButton.swift; sourceTree = "<group>"; };
-		61110ED9482F3D5A5CFFE6B9 /* Pods-berkeley-mobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeley-mobile.release.xcconfig"; path = "Target Support Files/Pods-berkeley-mobile/Pods-berkeley-mobile.release.xcconfig"; sourceTree = "<group>"; };
+		61D128E68A4FC209FFCDE60F /* Pods-berkeley-mobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeley-mobile.release.xcconfig"; path = "Target Support Files/Pods-berkeley-mobile/Pods-berkeley-mobile.release.xcconfig"; sourceTree = "<group>"; };
 		E80ECC2E2AFB02B2004604BA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E80ECC302AFB02BA004604BA /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
+		E81767572B9A516200599254 /* MapMarkersDropdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMarkersDropdownView.swift; sourceTree = "<group>"; };
 		E83C6CEA2B71D8C20085E277 /* ResourcesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcesView.swift; sourceTree = "<group>"; };
 		E83C6CEC2B71DF190085E277 /* SafariWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebView.swift; sourceTree = "<group>"; };
 		E83D87932AB3CD1E00C4113C /* FeedbackFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackFormView.swift; sourceTree = "<group>"; };
 		E8BC7B642B96CB7F002BF46D /* ResourcesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcesViewModel.swift; sourceTree = "<group>"; };
-		F9CAC9CEE1078D95B189B835 /* Pods_berkeley_mobile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_berkeley_mobile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD44FE6025EB0EAD00F713EB /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
 		FDD7946B260FE09D00ABE60E /* Colors+AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+AlertView.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -340,7 +342,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0B07A47A14FC87CF20DD4870 /* Pods_berkeley_mobile.framework in Frameworks */,
+				47E625C4AFB6802788C56FCC /* Pods_berkeley_mobile.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -737,6 +739,7 @@
 				559A7B6E2373DF39004EA501 /* SearchResultCell.swift */,
 				55DCF79323723452001B01B8 /* SearchBarView.swift */,
 				556CCD2123E7771800F41BF9 /* MapPlacemark.swift */,
+				E81767572B9A516200599254 /* MapMarkersDropdownView.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -748,7 +751,7 @@
 				306A54E723613E3A00D59A7F /* Products */,
 				D7D8E5ACD8A49B3560D555D9 /* Pods */,
 				133864A62404E7C4001F9048 /* Recovered References */,
-				363082A88983B33882823350 /* Frameworks */,
+				E8902E4A2B9A73770010F5F9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -787,14 +790,6 @@
 				E80ECC302AFB02BA004604BA /* Secrets.swift */,
 			);
 			path = "berkeley-mobile";
-			sourceTree = "<group>";
-		};
-		363082A88983B33882823350 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				F9CAC9CEE1078D95B189B835 /* Pods_berkeley_mobile.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		556CCD2B23E79E9000F41BF9 /* Tab Bar */ = {
@@ -847,10 +842,18 @@
 		D7D8E5ACD8A49B3560D555D9 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				37EAAE670B992408AC0799BC /* Pods-berkeley-mobile.debug.xcconfig */,
-				61110ED9482F3D5A5CFFE6B9 /* Pods-berkeley-mobile.release.xcconfig */,
+				0EF369A28DCE41D7C2C6F336 /* Pods-berkeley-mobile.debug.xcconfig */,
+				61D128E68A4FC209FFCDE60F /* Pods-berkeley-mobile.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		E8902E4A2B9A73770010F5F9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				009098AE14DA5A91CB4733A6 /* Pods_berkeley_mobile.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		E8BC7B632B96CB3B002BF46D /* Resources */ = {
@@ -870,11 +873,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 306A54FA23613E3D00D59A7F /* Build configuration list for PBXNativeTarget "berkeley-mobile" */;
 			buildPhases = (
-				AD795EDFEF1E9CD321BBE840 /* [CP] Check Pods Manifest.lock */,
+				7BD4C05A9ADAE1E4C03286D6 /* [CP] Check Pods Manifest.lock */,
 				306A54E223613E3A00D59A7F /* Sources */,
 				306A54E323613E3A00D59A7F /* Frameworks */,
 				306A54E423613E3A00D59A7F /* Resources */,
-				906BA4AE982A6CF067DAAB6A /* [CP] Embed Pods Frameworks */,
+				5F6013C0C645F1FA4C0EFACB /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -941,7 +944,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		906BA4AE982A6CF067DAAB6A /* [CP] Embed Pods Frameworks */ = {
+		5F6013C0C645F1FA4C0EFACB /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -958,7 +961,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-berkeley-mobile/Pods-berkeley-mobile-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		AD795EDFEF1E9CD321BBE840 /* [CP] Check Pods Manifest.lock */ = {
+		7BD4C05A9ADAE1E4C03286D6 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1021,6 +1024,7 @@
 				13B39A8D23E689BC0039FBA2 /* DataSource.swift in Sources */,
 				299ACFB2244A5A15000F3E86 /* Occupancy.swift in Sources */,
 				2948155F253274C500D113B6 /* ImageViewCell.swift in Sources */,
+				E81767582B9A516200599254 /* MapMarkersDropdownView.swift in Sources */,
 				E8BC7B652B96CB7F002BF46D /* ResourcesViewModel.swift in Sources */,
 				016A56D6251AD38F00531A12 /* CalendarEvent.swift in Sources */,
 				13580AFC243934C800D309AA /* GymsController.swift in Sources */,
@@ -1265,7 +1269,7 @@
 		};
 		306A54FB23613E3D00D59A7F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 37EAAE670B992408AC0799BC /* Pods-berkeley-mobile.debug.xcconfig */;
+			baseConfigurationReference = 0EF369A28DCE41D7C2C6F336 /* Pods-berkeley-mobile.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -1277,7 +1281,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 10.1.5;
+				MARKETING_VERSION = 10.2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = org.asuc.ASUC;
 				PRODUCT_NAME = Berkeley;
 				SWIFT_VERSION = 5.0;
@@ -1287,9 +1291,10 @@
 		};
 		306A54FC23613E3D00D59A7F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 61110ED9482F3D5A5CFFE6B9 /* Pods-berkeley-mobile.release.xcconfig */;
+			baseConfigurationReference = 61D128E68A4FC209FFCDE60F /* Pods-berkeley-mobile.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2XN7A3Y7GG;
@@ -1299,9 +1304,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 10.1.5;
+				MARKETING_VERSION = 10.2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = org.asuc.ASUC;
 				PRODUCT_NAME = Berkeley;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

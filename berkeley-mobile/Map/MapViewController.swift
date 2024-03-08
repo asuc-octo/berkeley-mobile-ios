@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftUI
 import MapKit
 import Firebase
 
@@ -26,6 +27,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
     private var maskView: UIView!
     private var searchBar: SearchBarView!
     private var searchResultsView: SearchResultsView!
+    private var mapMarkersDropdownButton: UIView!
     private var userLocationButton: UIButton!
     private var compass: MKCompassButton!
     private var locationButtonTapped: Bool!
@@ -86,6 +88,8 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         filterView.allowsMultipleSelection = false
         filterView.filterDelegates.append(self)
         
+        createMapMarkerDropdownButton()
+        
         DataManager.shared.fetch(source: MapDataSource.self) { markers in
             guard let markers = markers.first as? [String: [MapMarker]] else { return }
             self.mapMarkers = Array(markers.values)
@@ -101,7 +105,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
             }
         }
         
-        self.view.addSubViews([mapView, filterView, markerDetail, maskView, searchResultsView, searchBar])
+        self.view.addSubViews([mapView, filterView, mapMarkersDropdownButton, markerDetail, maskView, searchResultsView, searchBar])
         setupSubviews()
         userLocationButton = UIButton(type: .custom)
         view.addSubview(userLocationButton)
@@ -122,6 +126,21 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         updateUserLocationButton()
     }
     
+    private func createMapMarkerDropdownButton() {
+        let mapMarkersDropdownButtonView = MapMarkersDropdownButton { [weak self] selectedType in
+            guard let self = self else { return }
+            if let selectedIndex = self.filterView.labels.firstIndex(of: selectedType.rawValue) {
+                showMapMarkersFromFilterView(for: self.filters, on: self.mapMarkers, with: [selectedIndex])
+                self.filterView.selectItem(index: selectedIndex)
+            }
+        }
+    
+        mapMarkersDropdownButton = UIHostingController(rootView: mapMarkersDropdownButtonView).view
+        mapMarkersDropdownButton.translatesAutoresizingMaskIntoConstraints = false
+        mapMarkersDropdownButton.isUserInteractionEnabled = true
+        mapMarkersDropdownButton.backgroundColor = UIColor.clear
+    }
+    
     private func centerMapOnLocation(_ location: CLLocation, mapView: MKMapView, animated: Bool) {
         let regionRadius: CLLocationDistance = 1000
         let coordinateRegion = MKCoordinateRegion(center: location.coordinate,
@@ -137,8 +156,8 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         view.insertSubview(compass, belowSubview: maskView)
         // Position the compass to bottom-right of `FilterView`
         compass.translatesAutoresizingMaskIntoConstraints = false
-        compass.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
-        compass.topAnchor.constraint(equalTo: filterView.bottomAnchor, constant: kViewMargin).isActive = true
+        compass.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor).isActive = true
+        compass.topAnchor.constraint(equalTo: userLocationButton.bottomAnchor, constant: kViewMargin).isActive = true
     }
     
     //sets up user location button properties
@@ -197,10 +216,16 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         filterView.heightAnchor.constraint(equalToConstant: FilterViewCell.kCellSize.height).isActive = true
         filterView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: kViewMargin).isActive = true
         filterView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        filterView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        filterView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         filterView.contentInset = UIEdgeInsets(top: 0, left: view.layoutMargins.left,
                                                bottom: 0, right: view.layoutMargins.right)
         
+        NSLayoutConstraint.activate([
+            mapMarkersDropdownButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            mapMarkersDropdownButton.widthAnchor.constraint(equalToConstant: 30),
+            mapMarkersDropdownButton.heightAnchor.constraint(equalToConstant: 30),
+            mapMarkersDropdownButton.topAnchor.constraint(equalTo: filterView.bottomAnchor, constant: kViewMargin)
+        ])
     }
     
     private func showSearchResultsView(_ show: Bool) {
@@ -220,12 +245,8 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
     
     // MARK: - Map Markers
     
-    var workItem: DispatchWorkItem?
-    private func updateMapMarkers() {
-        self.previousMapMarker = nil
-        workItem?.cancel()
-        let selectedIndices = filterView.indexPathsForSelectedItems?.map { $0.row }
-        workItem = Filter.satisfiesAny(filters: filters, on: mapMarkers, indices: selectedIndices, completion: {
+    private func showMapMarkersFromFilterView(for filters: [Filter<[MapMarker]>], on mapMarkers: [[MapMarker]], with indices: [Int]?) {
+        _ = Filter.satisfiesAny(filters: filters, on: mapMarkers, indices: indices, completion: {
             filtered in
             DispatchQueue.main.async {
                 // TODO: Speed this up?
@@ -233,6 +254,18 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
                 self.removeAnnotations(type: MapMarker.self)
                 self.mapView.addAnnotations(Array(filtered.joined()))
             }
+        })
+    }
+    
+    var workItem: DispatchWorkItem?
+    private func updateMapMarkers() {
+        self.previousMapMarker = nil
+        workItem?.cancel()
+        let selectedIndices = filterView.indexPathsForSelectedItems?.map { $0.row }
+        workItem = Filter.satisfiesAny(filters: filters, on: mapMarkers, indices: selectedIndices, completion: {
+            [weak self] filtered in
+            guard let self = self else { return }
+            self.showMapMarkersFromFilterView(for: self.filters, on: self.mapMarkers, with: selectedIndices)
         })
     }
     
