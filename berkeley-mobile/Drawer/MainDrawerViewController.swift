@@ -24,7 +24,7 @@ class MainDrawerViewController: DrawerViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         setupTabBar()
     }
@@ -42,7 +42,8 @@ class MainDrawerViewController: DrawerViewController {
     func setupTabBar() {
         tabBarViewController.pages = [
             Page(viewController: DiningViewController(), label: "Dining"),
-            Page(viewController: FitnessViewController(), label: "Fitness")
+            Page(viewController: FitnessViewController(), label: "Fitness"),
+            Page(viewController: StudyViewController(), label: "Study")
         ]
         for page in tabBarViewController.pages {
             guard let vc = page.viewController as? SearchDrawerViewDelegate else { continue }
