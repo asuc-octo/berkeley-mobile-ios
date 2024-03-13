@@ -25,7 +25,6 @@ class LibraryDetailViewController: SearchDrawerViewController {
         setUpScrollView()
         setUpOverviewCard()
         setUpOpenTimesCard()
-        setUpOccupancyCard()
         setUpBookButton()
         setupDescriptionCard()
     }
@@ -74,13 +73,6 @@ extension LibraryDetailViewController {
         }, toggleCompletionAction: nil)
         guard let openTimesCard = self.openTimesCard else { return }
         scrollingStackView.stackView.addArrangedSubview(openTimesCard)
-    }
-    
-    func setUpOccupancyCard() {
-        guard let occupancy = library.occupancy, let forDay = occupancy.occupancy(for: DayOfWeek.weekday(Date())), forDay.count > 0 else { return }
-        occupancyCard = OccupancyGraphCardView(occupancy: occupancy, isOpen: library.isOpen)
-        guard let occupancyCard = self.occupancyCard else { return }
-        scrollingStackView.stackView.addArrangedSubview(occupancyCard)
     }
 
     func setupDescriptionCard() {

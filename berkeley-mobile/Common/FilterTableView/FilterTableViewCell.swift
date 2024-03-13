@@ -68,20 +68,6 @@ class FilterTableViewCell: CardTableViewCell, ImageViewCell {
         self.recLabel.text = "Recommended"
         self.recLabel.isHidden = true
         
-        if let itemWithOccupancy = item as? HasOccupancy, let status = itemWithOccupancy.getCurrentOccupancyStatus(isOpen: (item as? HasOpenTimes)?.isOpen) {
-            let occupancyView = IconPairView(icon: chairImage, iconHeight: 16, iconWidth: 28, attachedView: status.badge())
-            locationOccupancyView.addSubview(occupancyView)
-            occupancyView.topAnchor.constraint(equalTo: locationOccupancyView.topAnchor).isActive = true
-            occupancyView.bottomAnchor.constraint(equalTo: locationOccupancyView.bottomAnchor).isActive = true
-            if locationDetailVisible {
-                occupancyView.rightAnchor.constraint(equalTo: locationOccupancyView.rightAnchor).isActive = true
-                occupancyView.leftAnchor.constraint(greaterThanOrEqualTo: locationDetailView.rightAnchor, constant: 5).isActive = true
-            } else {
-                occupancyView.rightAnchor.constraint(lessThanOrEqualTo: locationOccupancyView.rightAnchor).isActive = true
-                occupancyView.leftAnchor.constraint(equalTo: locationOccupancyView.leftAnchor).isActive = true
-            }
-        }
-        
         if let itemWithImage = item as? HasImage {
             updateImage(item: itemWithImage)
         }
