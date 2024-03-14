@@ -455,7 +455,6 @@ extension MapViewController: SearchResultsViewDelegate {
             let coordinateRegion = MKCoordinateRegion(center: location.coordinate,
                                                       latitudinalMeters: regionRadius * 2.0, longitudinalMeters: regionRadius * 2.0)
             mapView.setRegion(coordinateRegion, animated: true)
-            print("Placemark Item: \(placemark.item)")
             let item = placemark.item
             if let item = item {
                 let annotation:SearchAnnotation = SearchAnnotation(item: item, location: location.coordinate)

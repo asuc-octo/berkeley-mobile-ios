@@ -43,16 +43,11 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
             object: nil
         )
       
-        // fetch libraries and fetch occupancy data afterwards
+        // fetch libraries 
         DataManager.shared.fetch(source: LibraryDataSource.self) { libraries in
             self.libraries = libraries as? [Library] ?? []
             self.filterTableView.setData(data: libraries as! [Library])
             self.filterTableView.update()
-            DataManager.shared.fetch(source: OccupancyDataSource.self) {_ in
-                DispatchQueue.main.async {
-                    self.filterTableView.update()
-                }
-            }
         }
     }
     
@@ -137,7 +132,7 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func setupFilterTableView() {
         let functions: [TableFunction] = [
-            Sort<Library>(label: "Nearby", sort: Library.locationComparator()),
+            Sort<Library>(label: "Nearby", sort: SortingFunctions.sortClose),
             Filter<Library>(label: "Open", filter: {lib in lib.isOpen ?? false}),
         ]
         filterTableView = FilterTableView<Library>(frame: .zero, tableFunctions: functions, defaultSort: SortingFunctions.sortAlph(item1:item2:), initialSelectedIndices: [0])
