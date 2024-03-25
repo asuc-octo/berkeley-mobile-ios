@@ -1,3 +1,9 @@
+> [!NOTE]
+> See this fork's CocoaPods-specific build and publishing instructions
+> [here](#cocoapods).
+
+---
+
 **LevelDB is a fast key-value storage library written at Google that provides an ordered mapping from string keys to string values.**
 
 [![Build Status](https://travis-ci.org/google/leveldb.svg?branch=master)](https://travis-ci.org/google/leveldb)
@@ -229,3 +235,33 @@ in util/env_posix.cc.
 
 * **include/leveldb/table.h, include/leveldb/table_builder.h**: Lower-level modules that most
 clients probably won't use directly.
+
+---
+
+## CocoaPods
+
+CocoaPods 1.x currently does not support libraries with C++ headers. See
+https://github.com/CocoaPods/CocoaPods/issues/5152. The workaround is to use
+the CocoaPods option `--skip-import-validation`.
+
+## Updating the podspec (assuming the library is not changing)
+
+  * Update `s.version` within `leveldb-library.podspec` to the next semantic
+    version.
+  * Locally validate the pod via:
+    ```console
+    pod spec lint leveldb-library.podspec --skip-import-validation
+    ```
+  * Open a pull request with the podspec change, and request review.
+  * Once merged, tag the `firebase-release` branch with `CocoaPods-X.Y.Z` where
+    `X.Y.Z` is the next version that was specified in the podspec.
+  * Stage the podspec for pre-releasting testing via:
+    ```console
+    pod repo push --use-json staging leveldb-library.podspec --skip-import-validation
+    ```
+  * After a nightly CI run (or a manually triggered global CI run) in the
+    firebase-ios-sdk repo indicates there are no issues with the staged pod,
+    the pod can be published with:
+    ```console
+    pod trunk push leveldb-library.podspec --skip-import-validation
+    ```

@@ -1286,6 +1286,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 10.2.5;
+				MARKETING_VERSION = 10.2.4;
 				PRODUCT_BUNDLE_IDENTIFIER = org.asuc.ASUC;
 				PRODUCT_NAME = Berkeley;
 				SWIFT_VERSION = 5.0;
@@ -1309,6 +1310,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 10.2.5;
+				MARKETING_VERSION = 10.2.4;
 				PRODUCT_BUNDLE_IDENTIFIER = org.asuc.ASUC;
 				PRODUCT_NAME = Berkeley;
 				PROVISIONING_PROFILE_SPECIFIER = "";
