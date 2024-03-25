@@ -156,6 +156,13 @@ class MapMarkerDetailView: UIView {
             let accessibleGIRsString = accessibleGIRs.isEmpty ? "None" : accessibleGIRs.joined(separator: ", ")
             let nonAccessibleGIRsString = nonAccessibleGIRs.isEmpty ? "None" : nonAccessibleGIRs.joined(separator: ", ")
             notesLabel.text = "Accessible: \(accessibleGIRsString) \nNon-Accessible: \(nonAccessibleGIRsString)"
+        } else if case .known(let type) = marker.type, type == .menstrualProductDispensers {
+            guard let mpdRooms = marker.mpdRooms else { return }
+            var resultingString = ""
+            for room in mpdRooms {
+                resultingString += "Gender Type: \(room.bathroomType)\nFloor: \(room.floorName)\nRoom Number: \(room.roomNumber)\nProducts: \(room.productType)\n\n"
+            }
+            notesLabel.text = resultingString
         } else {
             notesLabel.text = marker.subtitle
         }
