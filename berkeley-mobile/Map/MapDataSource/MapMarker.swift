@@ -50,6 +50,7 @@ enum MapMarkerType: String, CaseIterable, Comparable {
     case store = "Store"
     case mentalHealth = "Mental Health"
     case genderInclusiveRestrooms = "Gender Inclusive Restrooms"
+    case menstrualProductDispensers = "Menstrual Products"
     case garden = "Campus Garden"
     case bikes = "Lyft Bike"
     case lactation = "Lactation"
@@ -83,6 +84,16 @@ enum MapMarkerType: String, CaseIterable, Comparable {
                     ])
                 )
             break
+        case .menstrualProductDispensers:
+            icon = UIImage(
+                systemName: "drop.circle.fill",
+                withConfiguration:UIImage.SymbolConfiguration(weight: .regular))?.applyingSymbolConfiguration(
+                    UIImage.SymbolConfiguration(paletteColors:[
+                        .white,
+                        .label,
+                        .systemPink
+                    ])
+                )
         case .microwave:
             icon = UIImage(named: "microwave-icon")?
                 .withShadow()
@@ -187,10 +198,10 @@ class MapMarker: NSObject, MKAnnotation, HasOpenTimes, SearchItem {
     @Display var email: String?
     @Display var address: String?
     var onCampus: Bool?
-
+    
     var weeklyHours: WeeklyHours?
     var appointment: Bool?
-
+    
     var mealPrice: String?
     var cal1Card: Bool?
     var eatWell: Bool?
@@ -203,7 +214,9 @@ class MapMarker: NSObject, MKAnnotation, HasOpenTimes, SearchItem {
     
     var accessibleGIRs: [String]?
     var nonAccessibleGIRs: [String]?
-
+    
+    var mpdRooms: [BMMPDRoomInfo]?
+    
     init?(type: String,
           location: CLLocationCoordinate2D,
           name: String? = nil,
@@ -217,6 +230,7 @@ class MapMarker: NSObject, MKAnnotation, HasOpenTimes, SearchItem {
           mealPrice: String? = nil,
           cal1Card: Bool? = nil,
           eatWell: Bool? = nil,
+          mpdRooms: [BMMPDRoomInfo]? = nil,
           accessibleGIRs: [String]? = nil,
           nonAccesibleGIRs: [String]? = nil) {
         guard let type = KnownType<MapMarkerType>(rawValue: type) else { return nil }
@@ -232,7 +246,8 @@ class MapMarker: NSObject, MKAnnotation, HasOpenTimes, SearchItem {
         self.mealPrice = mealPrice
         self.cal1Card = cal1Card
         self.eatWell = eatWell
-
+        self.mpdRooms = mpdRooms
+        
         self.searchName = name ?? ""
         self.location = (location.latitude, location.longitude)
         self.locationName = address ?? ""
@@ -242,5 +257,11 @@ class MapMarker: NSObject, MKAnnotation, HasOpenTimes, SearchItem {
         self.accessibleGIRs = accessibleGIRs
         self.nonAccessibleGIRs = nonAccesibleGIRs
     }
-    
+}
+
+struct BMMPDRoomInfo: Codable {
+    var bathroomType: String
+    var productType: String
+    var floorName: String
+    var roomNumber: String
 }

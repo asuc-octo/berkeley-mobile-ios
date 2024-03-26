@@ -47,7 +47,6 @@ class ResourcesViewModel: ObservableObject {
         let db = Firestore.firestore()
         db.collection("Resource Categories").getDocuments { querySnapshot, error in
             guard error == nil else {
-                print(error)
                 return
             }
             guard let documents = querySnapshot?.documents else { return }
@@ -64,7 +63,6 @@ class ResourcesViewModel: ObservableObject {
         let db = Firestore.firestore()
         db.collection("Resource Shoutouts").getDocuments { querySnapshot, error in
             guard error == nil else {
-                print(error)
                 return
             }
             guard let documents = querySnapshot?.documents else { return }
