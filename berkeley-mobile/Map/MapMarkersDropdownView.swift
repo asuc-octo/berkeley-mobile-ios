@@ -83,7 +83,7 @@ struct MapMarkersDropdownView: View {
 }
 
 //MARK: - BMBackgroundBlurView
-fileprivate struct BMBackgroundBlurView: UIViewRepresentable {
+struct BMBackgroundBlurView: UIViewRepresentable {
     func makeUIView(context: Context) -> UIView {
         let view = UIVisualEffectView(effect: UIBlurEffect(style: .light))
         DispatchQueue.main.async {

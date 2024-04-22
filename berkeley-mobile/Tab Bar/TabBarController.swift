@@ -13,6 +13,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
     
     let mapView = MainContainerViewController()
     let calendarView = CalendarViewController()
+    let safetyView = UIHostingController(rootView: SafetyView())
     let resourcesView = UIHostingController(rootView: ResourcesView())
     
     static var homePressedMessage = "dismissDrawerWithHomePress"
@@ -39,10 +40,11 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         }
         
         mapView.tabBarItem = UITabBarItem(title: "Home", image: UIImage(named: "Home"), tag: 0)
-        calendarView.tabBarItem = UITabBarItem(title: "Events", image: UIImage(named: "Calendar"), tag: 2)
+        calendarView.tabBarItem = UITabBarItem(title: "Events", image: UIImage(named: "Calendar"), tag: 1)
+        safetyView.tabBarItem = UITabBarItem(title: "Safety", image: UIImage(systemName: "exclamationmark.shield"), tag: 2)
         resourcesView.tabBarItem = UITabBarItem(title: "Resources", image: UIImage(systemName: "tray.full"), tag: 3)
         
-        self.viewControllers = [mapView, calendarView, resourcesView]
+        self.viewControllers = [mapView, calendarView, safetyView, resourcesView]
     }
     
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
