@@ -9,12 +9,12 @@
 import SwiftUI
 import MapKit
 
-
 struct SafetyView: View {
     @StateObject private var safetyViewManager = SafetyViewManager()
     @Namespace private var safetyLogDetailAnimation
     @State private var selectedSafetyLog: BMSafetyLog?
     @State private var isPresentingSafetyLogDetailView = false
+    @State private var selectedSafetyLogFilterStates: [BMSafetyLogFilterState]? = [BMSafetyLogFilterState]()
     
     var body: some View {
         ZStack {
@@ -23,38 +23,137 @@ struct SafetyView: View {
                     MapPin(coordinate: safetyLog.coordinate)
                 }
                     .edgesIgnoringSafeArea(.all)
-                BMDrawerView {
-                    VStack(alignment: .leading) {
-                        HStack {
-                            Text("Alerts")
-                                .bold()
-                                .font(.title)
-                        }
-                        List(safetyViewManager.safetyLogs, id: \.id) { safetyLog in
-                            SafetyLogView(safetyLog: safetyLog, isPresentingFullScreen: false)
-                                .listRowBackground(Color.clear)
-                                .listRowSeparator(.hidden)
-                                .listRowInsets(EdgeInsets())
-                                .onTapGesture {
-                                    withAnimation {
-                                        selectedSafetyLog = safetyLog
-                                        isPresentingSafetyLogDetailView.toggle()
-                                    }
-                                }
-                                .matchedGeometryEffect(id: safetyLog.id, in: safetyLogDetailAnimation)
-                        }
-                        .listStyle(PlainListStyle())
-                        .scrollContentBackground(.hidden)
-                    }
-                }
+               drawerView
             }
             .allowsHitTesting(isPresentingSafetyLogDetailView ? false : true)
-            .blur(radius: isPresentingSafetyLogDetailView ? 50 : 0)
+            .blur(radius: isPresentingSafetyLogDetailView ? 40 : 0)
             
             if isPresentingSafetyLogDetailView {
                 SafetyLogDetailView(isPresentingSafetyLogDetailView: $isPresentingSafetyLogDetailView, selectedSafetyLog: selectedSafetyLog!)
                 .padding()
                 .matchedGeometryEffect(id: selectedSafetyLog!.id, in: safetyLogDetailAnimation)
+            }
+        }
+    }
+    
+    private var drawerView: some View {
+        BMDrawerView {
+            VStack(alignment: .leading) {
+                VStack {
+                    HStack {
+                        Text("Alerts")
+                            .bold()
+                            .font(.title)
+                        Spacer()
+                        SafetyLogFilterButton(safetyLogFilterStates: $selectedSafetyLogFilterStates)
+                    }
+                    
+                    //Selected Filter Types Section
+                    if let safetyLogFilterStates = selectedSafetyLogFilterStates, !safetyLogFilterStates.isEmpty {
+                        ScrollView(.horizontal) {
+                            HStack {
+                                ForEach(safetyLogFilterStates, id: \.id) { filterState in
+                                    HStack {
+                                        Text(filterState.rawValue.capitalized)
+                                            .foregroundStyle(.white)
+                                        Button(action: {
+                                            withAnimation {
+                                                //Remove filter state
+                                                if let removeIndex = selectedSafetyLogFilterStates?.firstIndex(of: filterState) {
+                                                    selectedSafetyLogFilterStates?.remove(at: removeIndex)
+                                                }
+                                            }
+                                        }) {
+                                            Image(systemName: "xmark.circle.fill")
+                                                .font(.system(size: 14))
+                                                .foregroundStyle(.regularMaterial)
+                                        }
+                                    }
+                                    .padding(8)
+                                    .background(.gray.opacity(0.6))
+                                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                                }
+                            }
+                        }
+                        .scrollIndicators(.hidden)
+                    }
+                }
+                
+                if !safetyViewManager.filteredSafetyLogs.isEmpty {
+                    List(safetyViewManager.filteredSafetyLogs, id: \.id) { safetyLog in
+                        SafetyLogView(safetyLog: safetyLog, isPresentingFullScreen: false)
+                            .listRowBackground(Color.clear)
+                            .listRowSeparator(.hidden)
+                            .listRowInsets(EdgeInsets())
+                            .onTapGesture {
+                                withAnimation {
+                                    selectedSafetyLog = safetyLog
+                                    isPresentingSafetyLogDetailView.toggle()
+                                }
+                            }
+                            .matchedGeometryEffect(id: safetyLog.id, in: safetyLogDetailAnimation)
+                    }
+                    .listStyle(PlainListStyle())
+                    .scrollContentBackground(.hidden)
+                    .transition(.scale)
+                } else {
+                    //Show Empty View
+                    HStack {
+                        Spacer()
+                        Text("No Available Results")
+                            .bold()
+                            .foregroundStyle(.gray)
+                            .font(.title)
+                        Spacer()
+                    }
+                    .padding(EdgeInsets(top: 50, leading: 0, bottom: 50, trailing: 0))
+                    .transition(.scale)
+                }
+            }
+        }
+        .onChange(of: selectedSafetyLogFilterStates) { newValue in
+            //Filter safety logs based on new filter states
+            guard let selectedSafetyLogFilterStates = selectedSafetyLogFilterStates else { return }
+            guard !selectedSafetyLogFilterStates.isEmpty else {
+                safetyViewManager.filteredSafetyLogs = safetyViewManager.safetyLogs
+                return
+            }
+            
+            var filteredSafetyLogs = [BMSafetyLog]()
+            
+            let currentDate = Date()
+            let timeFilterStates = selectedSafetyLogFilterStates.filter { BMSafetyLogFilterState.timeFilterStates.contains($0) }
+            let crimeTypeFilterStates = Array(Set(selectedSafetyLogFilterStates).subtracting(Set(timeFilterStates)))
+            
+            if !timeFilterStates.isEmpty {
+                for selectedTimeFilterState in timeFilterStates {
+                    switch selectedTimeFilterState {
+                    case .thisMonth:
+                        let thisMonthLogs = safetyViewManager.safetyLogs.filter{Calendar.current.isDate($0.date, equalTo: currentDate, toGranularity: .month)}
+                        print(thisMonthLogs)
+                        filteredSafetyLogs.append(contentsOf: thisMonthLogs)
+                    case .thisWeek:
+                        let thisWeekLogs = safetyViewManager.safetyLogs.filter{Calendar.current.isDate($0.date, equalTo: currentDate, toGranularity: .weekOfYear)}
+                        filteredSafetyLogs.append(contentsOf: thisWeekLogs)
+                    case .thisYear:
+                        let thisYearLogs = safetyViewManager.safetyLogs.filter{Calendar.current.isDate($0.date, equalTo: currentDate, toGranularity: .year)}
+                        filteredSafetyLogs.append(contentsOf: thisYearLogs)
+                    case .today:
+                        filteredSafetyLogs = filteredSafetyLogs.filter {Calendar.current.isDateInToday($0.date)}
+                    default:
+                        break
+                    }
+                }
+            } else {
+                filteredSafetyLogs = safetyViewManager.safetyLogs
+            }
+            
+            for crimeFilterState in crimeTypeFilterStates {
+                filteredSafetyLogs = filteredSafetyLogs.filter { $0.getSafetyLogState == crimeFilterState}
+            }
+            
+            withAnimation {
+                safetyViewManager.filteredSafetyLogs = filteredSafetyLogs
             }
         }
     }
@@ -126,18 +225,7 @@ struct SafetyLogView: View {
             Group {
                 logTitle
                 logDateAndTime
-                
-                if isPresentingFullScreen {
-                    logLocationView
-                } else {
-                    Button(action: {}) {
-                        logLocationView
-                            .padding(5)
-                            .background(.green.opacity(0.2))
-                            .clipShape(RoundedRectangle(cornerRadius: 5))
-                    }
-                        
-                }
+                logLocationView
             }
             Text(safetyLog.detail)
                 .font(.caption)
@@ -170,6 +258,52 @@ struct SafetyLogView: View {
         }
         .foregroundStyle(.green)
         
+    }
+}
+
+//MARK: - SafetyLogFilterButton
+struct SafetyLogFilterButton: View {
+    @Binding var safetyLogFilterStates: [BMSafetyLogFilterState]?
+    var body: some View {
+        Menu {
+            Menu("Crime Type") {
+                Button("Robbery", action: { addToSafetyLogFilterStates(for: .robbery)})
+                Button("Aggravated Assault", action: { addToSafetyLogFilterStates(for: .aggravatedAssault )})
+                Button("Burglary", action: { addToSafetyLogFilterStates(for: .burglary)})
+                Button("Sexual Assault", action: {addToSafetyLogFilterStates(for: .sexualAssault)})
+                Button("Others", action: {addToSafetyLogFilterStates(for: .others)})
+            }
+            Menu("When") {
+                Button("Today", action: {addToSafetyLogFilterStates(for: .today)} )
+                Button("This Week", action: {addToSafetyLogFilterStates(for: .thisWeek)} )
+                Button("This Month", action: {addToSafetyLogFilterStates(for: .thisMonth)} )
+                Button("This Year", action: {addToSafetyLogFilterStates(for: .thisYear)} )
+            }
+        } label: {
+            RoundedRectangle(cornerRadius: 20)
+                .strokeBorder(.purple, lineWidth: 1.0)
+                .background(RoundedRectangle(cornerRadius: 20).fill(.purple.opacity(0.6)))
+                .frame(width: 90, height: 35)
+                .overlay(
+                    HStack {
+                        Text("Filter")
+                            .fontWeight(.bold)
+                        Image(systemName: "chevron.down")
+                    }
+                    .foregroundStyle(.white)
+                )
+        }
+        .menuOrder(.fixed)
+    }
+    
+    private func addToSafetyLogFilterStates(for newFilterState: BMSafetyLogFilterState) {
+        guard let safetyLogFilterStates = safetyLogFilterStates else { return }
+        
+        if !safetyLogFilterStates.contains(newFilterState) {
+            withAnimation {
+                self.safetyLogFilterStates?.append(newFilterState)
+            }
+        }
     }
 }
 

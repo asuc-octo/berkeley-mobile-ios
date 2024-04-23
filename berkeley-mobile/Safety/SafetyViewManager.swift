@@ -32,8 +32,28 @@ struct BMSafetyLog: Identifiable, Codable, Hashable {
     var coordinate: CLLocationCoordinate2D {
         CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
     }
+    
+    var getSafetyLogState: BMSafetyLogFilterState {
+        for filterState in BMSafetyLogFilterState.allCases {
+            if filterState.rawValue.lowercased().trimmingCharacters(in: .whitespacesAndNewlines) == crime.lowercased().trimmingCharacters(in: .whitespacesAndNewlines) {
+                return filterState
+            }
+        }
+        return .others
+    }
 }
 
+enum BMSafetyLogFilterState: String, CaseIterable {
+    case today = "Today", thisWeek = "This Week", thisMonth = "This Month", thisYear = "This Year"
+    case robbery = "Robbery", aggravatedAssault = "Aggravated Assault", burglary = "Burglary", sexualAssault = "Sexual Assault", others = "Others"
+    static var timeFilterStates: [BMSafetyLogFilterState] = [.today, .thisWeek, .thisMonth, .thisYear]
+}
+
+extension BMSafetyLogFilterState: Identifiable {
+    var id: Self { self }
+}
+
+//MARK: - SafetyViewManager
 final class SafetyViewManager: NSObject, ObservableObject {
     private let locationManager = CLLocationManager()
     
@@ -42,6 +62,7 @@ final class SafetyViewManager: NSObject, ObservableObject {
         span: .init(latitudeDelta: 0.02, longitudeDelta: 0.02)
     )
     @Published var safetyLogs = [BMSafetyLog]()
+    @Published var filteredSafetyLogs = [BMSafetyLog]()
     
     override init() {
         super.init()
@@ -77,7 +98,7 @@ final class SafetyViewManager: NSObject, ObservableObject {
             }
             fetchedSafetyLogs.sort(by: { $0.date > $1.date })
             self.safetyLogs = fetchedSafetyLogs
-            print("SafetyLogs Count: \(self.safetyLogs.count)")
+            self.filteredSafetyLogs = fetchedSafetyLogs
         }
     }
 }
@@ -94,11 +115,11 @@ extension SafetyViewManager: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         locationManager.stopUpdatingLocation()
-//        locations.last.map {
-//            region = MKCoordinateRegion(
-//                center: $0.coordinate,
-//                span: .init(latitudeDelta: 0.01, longitudeDelta: 0.01)
-//            )
-//        }
+        locations.last.map {
+            region = MKCoordinateRegion(
+                center: $0.coordinate,
+                span: .init(latitudeDelta: 0.01, longitudeDelta: 0.01)
+            )
+        }
     }
 }

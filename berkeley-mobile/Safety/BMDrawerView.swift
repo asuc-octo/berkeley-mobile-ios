@@ -22,9 +22,9 @@ struct BMDrawerView<Content: View>: View {
 
     private var indicator: some View {
         RoundedRectangle(cornerRadius: 16)
-            .fill(.gray.opacity(0.4))
+            .fill(.gray.opacity(0.6))
             .frame(
-                    width: 26,
+                    width: 30,
                     height: 6
             )
     }
@@ -41,8 +41,9 @@ struct BMDrawerView<Content: View>: View {
             }
             .padding(.vertical, 10)
             .padding(.horizontal, 16)
-            .frame(width: geometry.size.width, height: geometry.size.height, alignment: .top)
-            .background(Color(.white))
+            //the multiplier to geometry.size.height prevents the bottommost content from being obscured by the tabbar
+            .frame(width: geometry.size.width, height: geometry.size.height * 0.90, alignment: .top)
+            .background(Color(uiColor: BMColor.cardBackground))
             .clipShape(
                 .rect(
                     topLeadingRadius: 20,
@@ -58,6 +59,8 @@ struct BMDrawerView<Content: View>: View {
                 withAnimation(.interactiveSpring()) {
                     DragGesture()
                         .onChanged{ value in
+                            //prevent user from dragging drawer view upwards at .large state
+                            guard !(currentOffset < 0 && drawerViewState == .large) else { return }
                             withAnimation(.spring()){
                                 currentOffset = value.translation.height
                             }
@@ -68,7 +71,7 @@ struct BMDrawerView<Content: View>: View {
                                     switch drawerViewState {
                                     case .small:
                                         drawerViewState = .medium
-                                        endOffset = -startingOffset / 7
+                                        endOffset = -startingOffset / 6.8
                                     case .medium:
                                         drawerViewState = .large
                                         endOffset = -startingOffset * 0.9
@@ -81,10 +84,10 @@ struct BMDrawerView<Content: View>: View {
                                         break
                                     case .medium:
                                         drawerViewState = .small
-                                        endOffset = startingOffset * 0.9
+                                        endOffset = startingOffset * 0.88
                                     case .large:
                                         drawerViewState = .medium
-                                        endOffset = -startingOffset / 7
+                                        endOffset = -startingOffset / 6.8
                                     }
                                 }
                                 currentOffset = 0
