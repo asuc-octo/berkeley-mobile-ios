@@ -19,7 +19,7 @@ struct SafetyView: View {
     var body: some View {
         ZStack {
             Group {
-                Map(coordinateRegion: $safetyViewManager.region, showsUserLocation: true, annotationItems: safetyViewManager.safetyLogs) { safetyLog in
+                Map(coordinateRegion: $safetyViewManager.region, showsUserLocation: true, annotationItems: safetyViewManager.filteredSafetyLogs) { safetyLog in
                     MapPin(coordinate: safetyLog.coordinate)
                 }
                 .edgesIgnoringSafeArea(.all)
@@ -143,7 +143,8 @@ struct SafetyView: View {
                         let thisYearLogs = safetyViewManager.safetyLogs.filter{Calendar.current.isDate($0.date, equalTo: currentDate, toGranularity: .year)}
                         filteredSafetyLogs.append(contentsOf: thisYearLogs)
                     case .today:
-                        filteredSafetyLogs = filteredSafetyLogs.filter {Calendar.current.isDateInToday($0.date)}
+                        let todayLogs = safetyViewManager.safetyLogs.filter{Calendar.current.isDateInToday($0.date)}
+                        filteredSafetyLogs.append(contentsOf: todayLogs)
                     default:
                         break
                     }
