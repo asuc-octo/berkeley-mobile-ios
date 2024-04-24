@@ -22,16 +22,16 @@ struct SafetyView: View {
                 Map(coordinateRegion: $safetyViewManager.region, showsUserLocation: true, annotationItems: safetyViewManager.safetyLogs) { safetyLog in
                     MapPin(coordinate: safetyLog.coordinate)
                 }
-                    .edgesIgnoringSafeArea(.all)
-               drawerView
+                .edgesIgnoringSafeArea(.all)
+                drawerView
             }
             .allowsHitTesting(isPresentingSafetyLogDetailView ? false : true)
             .blur(radius: isPresentingSafetyLogDetailView ? 40 : 0)
             
             if isPresentingSafetyLogDetailView {
                 SafetyLogDetailView(isPresentingSafetyLogDetailView: $isPresentingSafetyLogDetailView, selectedSafetyLog: selectedSafetyLog!)
-                .padding()
-                .matchedGeometryEffect(id: selectedSafetyLog!.id, in: safetyLogDetailAnimation)
+                    .padding()
+                    .matchedGeometryEffect(id: selectedSafetyLog!.id, in: safetyLogDetailAnimation)
             }
         }
     }
@@ -42,6 +42,7 @@ struct SafetyView: View {
                 VStack {
                     HStack {
                         Text("Alerts")
+                            .font(Font(BMFont.regular(30)))
                             .bold()
                             .font(.title)
                         Spacer()
@@ -55,6 +56,7 @@ struct SafetyView: View {
                                 ForEach(safetyLogFilterStates, id: \.id) { filterState in
                                     HStack {
                                         Text(filterState.rawValue.capitalized)
+                                            .font(Font(BMFont.regular(16)))
                                             .foregroundStyle(.white)
                                         Button(action: {
                                             withAnimation {
@@ -82,9 +84,11 @@ struct SafetyView: View {
                 if !safetyViewManager.filteredSafetyLogs.isEmpty {
                     List(safetyViewManager.filteredSafetyLogs, id: \.id) { safetyLog in
                         SafetyLogView(safetyLog: safetyLog, isPresentingFullScreen: false)
+                            .contentShape(RoundedRectangle(cornerRadius: 10))
                             .listRowBackground(Color.clear)
                             .listRowSeparator(.hidden)
                             .listRowInsets(EdgeInsets())
+                           
                             .onTapGesture {
                                 withAnimation {
                                     selectedSafetyLog = safetyLog
@@ -194,8 +198,9 @@ struct SafetyLogDetailView: View {
                 isPresentingSafetyLogDetailView.toggle()
             }
         }) {
+            //TODO: Make into own custom view if future calls 
             Image(systemName: "xmark.circle.fill")
-                .font(.system(size: 30))
+                .font(.system(size: 35))
                 .foregroundStyle(.gray)
         }
     }
@@ -228,8 +233,10 @@ struct SafetyLogView: View {
                 logLocationView
             }
             Text(safetyLog.detail)
+                .font(Font(BMFont.regular(12)))
                 .font(.caption)
                 .foregroundStyle(.secondary)
+           
         }
         .padding()
     }
@@ -237,6 +244,7 @@ struct SafetyLogView: View {
     private var logTitle: some View {
         HStack {
             Text(safetyLog.crime.capitalized)
+                .font(Font(BMFont.regular(23)))
                 .bold()
                 .font(.title2)
             Spacer()
@@ -246,6 +254,7 @@ struct SafetyLogView: View {
     //TODO: - Add "Yesterday" and "Today" verbage
     private var logDateAndTime: some View {
         Text(safetyLog.date.formatted(date: .abbreviated, time: .shortened))
+            .font(Font(BMFont.regular(17)))
             .font(.subheadline)
     }
     
@@ -253,6 +262,7 @@ struct SafetyLogView: View {
         HStack {
             Image(systemName: "mappin.and.ellipse")
             Text(safetyLog.location.capitalized)
+                .font(Font(BMFont.regular(14)))
                 .font(.caption)
                 .bold()
         }
@@ -287,6 +297,7 @@ struct SafetyLogFilterButton: View {
                 .overlay(
                     HStack {
                         Text("Filter")
+                            .font(Font(BMFont.regular(18)))
                             .fontWeight(.bold)
                         Image(systemName: "chevron.down")
                     }

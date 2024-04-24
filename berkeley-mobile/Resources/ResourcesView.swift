@@ -14,6 +14,11 @@ struct ResourcesView: View {
     @State private var shoutoutTabSelectedValue = 0
     @StateObject private var resourcesVM = ResourcesViewModel()
     
+    init() {
+        //Use this if NavigationBarTitle is with Large Font
+        UINavigationBar.appearance().largeTitleTextAttributes = [.font : BMFont.bold(30)]
+    }
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -46,6 +51,7 @@ struct ResourcesView: View {
                 }
                 .navigationTitle("Resources")
             }
+            .background(Color(BMColor.cardBackground))
         }
     }
     
@@ -135,7 +141,7 @@ struct ResourcePageView: View {
                                 if let sectionHeaderText = resourceSection.title {
                                     Text(sectionHeaderText)
                                         .bold()
-                                        .font(Font(BMFont.bold(29)))
+                                        .font(Font(BMFont.bold(25)))
                                 }
                             }
                         )
