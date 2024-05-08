@@ -15,11 +15,15 @@ struct SafetyView: View {
     @State private var selectedSafetyLog: BMSafetyLog?
     @State private var isPresentingSafetyLogDetailView = false
     @State private var selectedSafetyLogFilterStates: [BMSafetyLogFilterState]? = [BMSafetyLogFilterState]()
+    @State var region = MKCoordinateRegion(
+        center: CLLocation(latitude: CLLocationDegrees(exactly: 37.871684)!, longitude: CLLocationDegrees(-122.259934)).coordinate,
+        span: .init(latitudeDelta: 0.02, longitudeDelta: 0.02)
+    )
     
     var body: some View {
         ZStack {
             Group {
-                Map(coordinateRegion: $safetyViewManager.region, showsUserLocation: true, annotationItems: safetyViewManager.filteredSafetyLogs) { safetyLog in
+                Map(coordinateRegion: $region, showsUserLocation: true, annotationItems: safetyViewManager.safetyLogs) { safetyLog in
                     MapPin(coordinate: safetyLog.coordinate)
                 }
                 .edgesIgnoringSafeArea(.all)

@@ -97,8 +97,11 @@ final class SafetyViewManager: NSObject, ObservableObject {
                 return try? queryDocumentSnapshot.data(as: BMSafetyLog.self)
             }
             fetchedSafetyLogs.sort(by: { $0.date > $1.date })
-            self.safetyLogs = fetchedSafetyLogs
-            self.filteredSafetyLogs = fetchedSafetyLogs
+            
+            DispatchQueue.main.async {
+                self.safetyLogs = fetchedSafetyLogs
+                self.filteredSafetyLogs = fetchedSafetyLogs
+            }
         }
     }
 }
