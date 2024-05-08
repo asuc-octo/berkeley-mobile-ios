@@ -40,7 +40,9 @@ class MapDataSource: DataSource {
               let lat = dict["latitude"] as? Double, let lon = dict["longitude"] as? Double else {
             return nil
         }
-
+        
+        
+       
         let cl = CLLocationCoordinate2D(latitude: lat, longitude: lon)
         let weeklyHours = MapMarker.parseWeeklyHours(dict: dict["open_close_array"] as? [[String: Any]])
         return MapMarker(type: type,
@@ -56,7 +58,20 @@ class MapDataSource: DataSource {
                          mealPrice: dict["Average_Meal"] as? String,
                          cal1Card: dict["Cal1Card_Accepted"] as? Bool,
                          eatWell: dict["EatWell_Accepted"] as? Bool,
+                         mpdRooms: getMPDRooms(type: type, dict: dict),
                          accessibleGIRs: dict["accessibleGIRs"] as? [String],
                          nonAccesibleGIRs: dict["nonAccessibleGIRs"] as? [String])
+    }
+    
+    private static func getMPDRooms(type: String, dict: [String: Any]) -> [BMMPDRoomInfo]? {
+        if type == "Menstrual Products" {
+            guard let rooms = dict["rooms"] as? [[String: Any]] else { return nil}
+            var newRoomInfos = [BMMPDRoomInfo]()
+            for room in rooms {
+                newRoomInfos.append(BMMPDRoomInfo(bathroomType: room["bathroomType"] as? String ?? "", productType: room["productType"] as? String ?? "", floorName: room["floorName"] as? String ?? "", roomNumber: room["roomNumber"] as? String ?? ""))
+            }
+           return newRoomInfos
+        }
+        return nil
     }
 }
