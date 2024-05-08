@@ -164,6 +164,9 @@
 		E83C6CED2B71DF190085E277 /* SafariWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83C6CEC2B71DF190085E277 /* SafariWebView.swift */; };
 		E83D87942AB3CD1E00C4113C /* FeedbackFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83D87932AB3CD1E00C4113C /* FeedbackFormView.swift */; };
 		E86F59232B9BA85700907251 /* StudyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E86F59222B9BA85700907251 /* StudyViewController.swift */; };
+		E8B2738D2BD5C83F0009831A /* SafetyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B2738C2BD5C83F0009831A /* SafetyView.swift */; };
+		E8B2738F2BD5E46B0009831A /* BMDrawerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B2738E2BD5E46B0009831A /* BMDrawerView.swift */; };
+		E8B273912BD5E5770009831A /* SafetyViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B273902BD5E5770009831A /* SafetyViewManager.swift */; };
 		E8BC7B652B96CB7F002BF46D /* ResourcesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8BC7B642B96CB7F002BF46D /* ResourcesViewModel.swift */; };
 		FD44FE6125EB0EAD00F713EB /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD44FE6025EB0EAD00F713EB /* AlertView.swift */; };
 		FDD7946C260FE09D00ABE60E /* Colors+AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD7946B260FE09D00ABE60E /* Colors+AlertView.swift */; };
@@ -334,6 +337,9 @@
 		E83C6CEC2B71DF190085E277 /* SafariWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebView.swift; sourceTree = "<group>"; };
 		E83D87932AB3CD1E00C4113C /* FeedbackFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackFormView.swift; sourceTree = "<group>"; };
 		E86F59222B9BA85700907251 /* StudyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyViewController.swift; sourceTree = "<group>"; };
+		E8B2738C2BD5C83F0009831A /* SafetyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyView.swift; sourceTree = "<group>"; };
+		E8B2738E2BD5E46B0009831A /* BMDrawerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMDrawerView.swift; sourceTree = "<group>"; };
+		E8B273902BD5E5770009831A /* SafetyViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyViewManager.swift; sourceTree = "<group>"; };
 		E8BC7B642B96CB7F002BF46D /* ResourcesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcesViewModel.swift; sourceTree = "<group>"; };
 		FD44FE6025EB0EAD00F713EB /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
 		FDD7946B260FE09D00ABE60E /* Colors+AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+AlertView.swift"; sourceTree = "<group>"; };
@@ -779,6 +785,7 @@
 				13B39A8E23E6A1ED0039FBA2 /* Libraries */,
 				136DC9792398B43F009B1810 /* Fitness */,
 				1336A31E241D90B800949F32 /* Dining */,
+				E8B273292BCF6A390009831A /* Safety */,
 				303F6AE6236A9C3D007E37DD /* Map */,
 				E8BC7B632B96CB3B002BF46D /* Resources */,
 				133864A72404E857001F9048 /* Calendar */,
@@ -857,6 +864,16 @@
 				009098AE14DA5A91CB4733A6 /* Pods_berkeley_mobile.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E8B273292BCF6A390009831A /* Safety */ = {
+			isa = PBXGroup;
+			children = (
+				E8B2738C2BD5C83F0009831A /* SafetyView.swift */,
+				E8B2738E2BD5E46B0009831A /* BMDrawerView.swift */,
+				E8B273902BD5E5770009831A /* SafetyViewManager.swift */,
+			);
+			path = Safety;
 			sourceTree = "<group>";
 		};
 		E8BC7B632B96CB3B002BF46D /* Resources */ = {
@@ -1051,6 +1068,7 @@
 				13E25DFD238C949E00B670B5 /* FitnessViewController.swift in Sources */,
 				55DCF79B237243D4001B01B8 /* MaterialTextField.swift in Sources */,
 				554CB9A023F3A83F00BB1715 /* EventTableViewCell.swift in Sources */,
+				E8B273912BD5E5770009831A /* SafetyViewManager.swift in Sources */,
 				E86F59232B9BA85700907251 /* StudyViewController.swift in Sources */,
 				01B250282516AD4F00CBA459 /* IconPairView.swift in Sources */,
 				FDD7946C260FE09D00ABE60E /* Colors+AlertView.swift in Sources */,
@@ -1094,6 +1112,7 @@
 				29061D41241C450E002BC9D9 /* HasLocation.swift in Sources */,
 				1336A31A241C3FD300949F32 /* GymClassDataSource.swift in Sources */,
 				29387E9524BBBC1000070BCE /* BarGraph.swift in Sources */,
+				E8B2738F2BD5E46B0009831A /* BMDrawerView.swift in Sources */,
 				01B2502F2516C45800CBA459 /* EventCalendarEntry.swift in Sources */,
 				2946939F25F4421700619481 /* CalendarTablePairView.swift in Sources */,
 				2925D5FA2529405500BBA266 /* CampusEventCellView.swift in Sources */,
@@ -1111,6 +1130,7 @@
 				01D11B8E2504453B00BDF660 /* ScrollingStackView.swift in Sources */,
 				29387E9924BBBC9300070BCE /* BarEntry+DataEntry.swift in Sources */,
 				306A54EC23613E3A00D59A7F /* SceneDelegate.swift in Sources */,
+				E8B2738D2BD5C83F0009831A /* SafetyView.swift in Sources */,
 				01CDBBF125CA6F58006B93BD /* RequestError.swift in Sources */,
 				01FA50F124E8B33100DCC490 /* LocationManager.swift in Sources */,
 				017C0B26251018BA00BFA80A /* Colors+MapMarker.swift in Sources */,
@@ -1277,7 +1297,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2XN7A3Y7GG;
 				INFOPLIST_FILE = "berkeley-mobile/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
@@ -1285,7 +1305,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 10.2.5;
+				MARKETING_VERSION = 10.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = org.asuc.ASUC;
 				PRODUCT_NAME = Berkeley;
 				SWIFT_VERSION = 5.0;
@@ -1300,7 +1320,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4HBETBULVA;
 				INFOPLIST_FILE = "berkeley-mobile/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
@@ -1308,7 +1328,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 10.2.5;
+				MARKETING_VERSION = 10.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = org.asuc.ASUC;
 				PRODUCT_NAME = Berkeley;
 				PROVISIONING_PROFILE_SPECIFIER = "";
