@@ -60,16 +60,32 @@ extension CalendarEvent {
     var dateString: String {
         get {
             var dateString = ""
+            
+            // Check if to see if event is an "All Day" event
+            if date.doesDateComponentsAreEqualTo(hour: 0, minute: 0, sec: 0), let end,
+                end.doesDateComponentsAreEqualTo(hour: 11, minute: 59, sec: 59) {
+                return "All Day"
+            }
+            
             if date.dateOnly() == Date().dateOnly() {
                 dateString += "Today / "
+            } else if Date.isDateTomorrow(baseDate: Date(), date: date) {
+                dateString += "Tomorrow / "
             } else {
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "MM/dd/yyyy"
                 dateString += dateFormatter.string(from: date) + " / "
             }
+            
             let timeFormatter = DateFormatter()
             timeFormatter.dateFormat = "h:mm a"
-            dateString += timeFormatter.string(from: date)
+            
+            dateString += date.getDateString(withFormatter: timeFormatter)
+            
+            if let end {
+                dateString += " - \(end.getDateString(withFormatter: timeFormatter))"
+            }
+            
             return dateString
         }
     }

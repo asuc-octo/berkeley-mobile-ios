@@ -20,6 +20,12 @@ class CalendarTablePairView: UIView {
     private var tableEntries: [EventCalendarEntry] = []
     private var calendarTableHeightConstraint: NSLayoutConstraint?
     
+    var isLoading = false {
+        didSet {
+            reloadCalendarTableView()
+        }
+    }
+    
     public init(parentVC: UIViewController) {
         self.parentVC = parentVC
         missingDataView = MissingDataView(parentView: calendarTable, text: "No events found")
@@ -33,6 +39,7 @@ class CalendarTablePairView: UIView {
         
         calendarTable.backgroundColor = UIColor.clear
         calendarTable.register(EventTableViewCell.self, forCellReuseIdentifier: EventTableViewCell.kCellIdentifier)
+        calendarTable.register(SkeletonLoadingCell.self, forCellReuseIdentifier: SkeletonLoadingCell.kCellIdentifier)
         calendarTable.rowHeight = EventTableViewCell.kCellHeight
         calendarTable.delegate = self
         calendarTable.dataSource = self
@@ -50,6 +57,7 @@ class CalendarTablePairView: UIView {
     
     public func setCalendarEntries(entries: [EventCalendarEntry]) {
         calendarView.calendarEntries = entries
+        reloadCalendarTableView()
     }
     
     func setUpScrollView() {
@@ -70,24 +78,48 @@ class CalendarTablePairView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    private func reloadCalendarTableView() {
+        if (calendarView.calendarEntries.count == 0) {
+            hideCalendarTable()
+        } else {
+            showCalendarTable()
+            calendarTable.reloadData()
+        }
+    }
+    
+    private func showCalendarTable() {
+        missingDataView.isHidden = true
+        calendarTable.isHidden = false
+    }
+    
+    private func hideCalendarTable() {
+        missingDataView.isHidden = false
+        missingDataView.isHidden = true
+    }
 }
 
 // MARK: - Calendar Table Delegates
 
 extension CalendarTablePairView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tableEntries.count
+        return isLoading ? 5 : tableEntries.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: EventTableViewCell.kCellIdentifier, for: indexPath)
-            as? EventTableViewCell {
-            if let entry = tableEntries[safe: indexPath.row] {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {        
+        if isLoading {
+            let cell = tableView.dequeueReusableCell(withIdentifier: SkeletonLoadingCell.kCellIdentifier, for: indexPath)
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: EventTableViewCell.kCellIdentifier, for: indexPath)
+            
+            if let cell = cell as? EventTableViewCell,
+                let entry = tableEntries[safe: indexPath.row] {
                 cell.cellConfigure(event: entry, type: entry.type, color: entry.color)
-                return cell
             }
+            
+            return cell
         }
-        return UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -108,7 +140,7 @@ extension CalendarTablePairView: CalendarViewDelegate {
             missingDataView.isHidden = true
         }
         tableEntries = selectedEntries
-        calendarTable.reloadData()
+        reloadCalendarTableView()
         if selectedEntries.isEmpty {
             calendarTableHeightConstraint?.constant = self.frame.height * 0.2
         } else {

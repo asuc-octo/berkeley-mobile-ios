@@ -38,7 +38,8 @@ class EventCalendarEntry: CalendarEvent, HasImage, CanFavorite {
 
     // MARK: Additional Fields
     /// The main category this event belongs to (e.g. Academic, Career) used to determine where it is displayed
-    var category: String
+    // FIXME: category should be more suited as an enum
+    //var category: String
     /// Link to register for the event
     var registerLink: URL?
     /// Link to where the event was found
@@ -59,10 +60,10 @@ class EventCalendarEntry: CalendarEvent, HasImage, CanFavorite {
         }
     }
 
-    init(category: String, name: String, date: Date, description: String? = nil, location: String? = nil, registerLink: String? = nil, imageURL: String? = nil, sourceLink: String? = nil, type: String? = nil) {
-        self.category = category
+    init(name: String, date: Date, end: Date? = nil, description: String? = nil, location: String? = nil, registerLink: String? = nil, imageURL: String? = nil, sourceLink: String? = nil, type: String? = nil) {
         self.name = name
         self.date = date
+        self.end = end 
         self.description = description
         self.location = location
         self.registerLink = URL(string: registerLink ?? "")
