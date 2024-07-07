@@ -54,8 +54,9 @@ class EventScrapper: NSObject {
 extension EventScrapper: WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        guard currNumOfRescrapes < 6 else {
+        guard currNumOfRescrapes < allowedNumOfRescrapes else {
             currNumOfRescrapes = 0
+            delegate?.eventScrapperDidError(with: "Cannot load events in reasonable time. Please try again later.")
             return
         }
         
