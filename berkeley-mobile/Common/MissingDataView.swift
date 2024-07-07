@@ -8,10 +8,16 @@
 
 import UIKit
 
+protocol MissingDataViewDelegate: AnyObject {
+    func missingDataViewDidReload()
+}
+
 class MissingDataView: UIView {
     
+    weak var delegate: MissingDataViewDelegate?
+    
     private var missingLabel: UILabel!
-
+    
     init(text: String) {
         super.init(frame: CGRect.zero)
         
@@ -26,7 +32,7 @@ class MissingDataView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         
         self.addSubview(label)
-
+        
         label.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         label.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         
@@ -49,5 +55,24 @@ class MissingDataView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func showReloadButton(withTitle title: String) {
+        let reloadButton = ActionButton(title: title)
+        reloadButton.addTarget(self, action: #selector(reloadData), for: .touchUpInside)
+        reloadButton.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(reloadButton)
+        
+        let padding: CGFloat = 20
+        
+        NSLayoutConstraint.activate([
+            reloadButton.topAnchor.constraint(equalTo: missingLabel.bottomAnchor, constant: padding),
+            reloadButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
+            reloadButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
+            reloadButton.heightAnchor.constraint(equalToConstant: 35)
+        ])
+    }
 
+    @objc private func reloadData() {
+        delegate?.missingDataViewDidReload()
+    }
 }

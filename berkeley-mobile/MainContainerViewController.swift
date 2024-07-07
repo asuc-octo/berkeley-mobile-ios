@@ -59,7 +59,7 @@ class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
         drawerStatePositions[.full] = self.view.safeAreaInsets.top + (self.view.frame.maxY / 2)
         self.initialDrawerCenter = drawerViewController!.view.center
         moveDrawer(to: drawerViewController!.currState, duration: 0)
-        attemptShowFeedbackForm()
+        //attemptShowFeedbackForm()
     }
         
     override func viewSafeAreaInsetsDidChange() {

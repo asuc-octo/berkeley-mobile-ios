@@ -19,7 +19,6 @@
 		01A11F0C2717B8A800455F00 /* DiningMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A11F0B2717B8A800455F00 /* DiningMenuViewController.swift */; };
 		01AA1B88253BB4AC003AB75A /* UIScrollView+GestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AA1B87253BB4AC003AB75A /* UIScrollView+GestureRecognizer.swift */; };
 		01B250282516AD4F00CBA459 /* IconPairView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B250272516AD4F00CBA459 /* IconPairView.swift */; };
-		01B2502D2516C42E00CBA459 /* EventDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B2502C2516C42E00CBA459 /* EventDataSource.swift */; };
 		01B2502F2516C45800CBA459 /* EventCalendarEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B2502E2516C45800CBA459 /* EventCalendarEntry.swift */; };
 		01BC8EB024E8C3E3005B4969 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BC8EAF24E8C3E3005B4969 /* DetailView.swift */; };
 		01C75E2E25292E5B00C25A32 /* DescriptionCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C75E2D25292E5B00C25A32 /* DescriptionCardView.swift */; };
@@ -168,6 +167,10 @@
 		E8B2738F2BD5E46B0009831A /* BMDrawerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B2738E2BD5E46B0009831A /* BMDrawerView.swift */; };
 		E8B273912BD5E5770009831A /* SafetyViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B273902BD5E5770009831A /* SafetyViewManager.swift */; };
 		E8BC7B652B96CB7F002BF46D /* ResourcesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8BC7B642B96CB7F002BF46D /* ResourcesViewModel.swift */; };
+		E8FCD6842C374A81004B66A3 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = E8FCD6832C374A81004B66A3 /* SwiftSoup */; };
+		E8FCD6862C389186004B66A3 /* SkeletonLoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8FCD6852C389186004B66A3 /* SkeletonLoadingCell.swift */; };
+		E8FCD6882C38AEC9004B66A3 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8FCD6872C38AEC9004B66A3 /* String+Extension.swift */; };
+		E8FCD68A2C3A382F004B66A3 /* EventScrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8FCD6892C3A382F004B66A3 /* EventScrapper.swift */; };
 		FD44FE6125EB0EAD00F713EB /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD44FE6025EB0EAD00F713EB /* AlertView.swift */; };
 		FDD7946C260FE09D00ABE60E /* Colors+AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD7946B260FE09D00ABE60E /* Colors+AlertView.swift */; };
 /* End PBXBuildFile section */
@@ -186,7 +189,6 @@
 		01A11F0B2717B8A800455F00 /* DiningMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiningMenuViewController.swift; sourceTree = "<group>"; };
 		01AA1B87253BB4AC003AB75A /* UIScrollView+GestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+GestureRecognizer.swift"; sourceTree = "<group>"; };
 		01B250272516AD4F00CBA459 /* IconPairView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconPairView.swift; sourceTree = "<group>"; };
-		01B2502C2516C42E00CBA459 /* EventDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDataSource.swift; sourceTree = "<group>"; };
 		01B2502E2516C45800CBA459 /* EventCalendarEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCalendarEntry.swift; sourceTree = "<group>"; };
 		01BC8EAF24E8C3E3005B4969 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		01C75E2D25292E5B00C25A32 /* DescriptionCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionCardView.swift; sourceTree = "<group>"; };
@@ -341,6 +343,9 @@
 		E8B2738E2BD5E46B0009831A /* BMDrawerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMDrawerView.swift; sourceTree = "<group>"; };
 		E8B273902BD5E5770009831A /* SafetyViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyViewManager.swift; sourceTree = "<group>"; };
 		E8BC7B642B96CB7F002BF46D /* ResourcesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcesViewModel.swift; sourceTree = "<group>"; };
+		E8FCD6852C389186004B66A3 /* SkeletonLoadingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonLoadingCell.swift; sourceTree = "<group>"; };
+		E8FCD6872C38AEC9004B66A3 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		E8FCD6892C3A382F004B66A3 /* EventScrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventScrapper.swift; sourceTree = "<group>"; };
 		FD44FE6025EB0EAD00F713EB /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
 		FDD7946B260FE09D00ABE60E /* Colors+AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+AlertView.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -351,6 +356,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				47E625C4AFB6802788C56FCC /* Pods_berkeley_mobile.framework in Frameworks */,
+				E8FCD6842C374A81004B66A3 /* SwiftSoup in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -513,6 +519,7 @@
 				5516088724393F3F00B1E55B /* MissingDataView.swift */,
 				2913595624B136BE00DE9AD6 /* CollapsibleCardView.swift */,
 				01D11B8D2504453B00BDF660 /* ScrollingStackView.swift */,
+				E8FCD6852C389186004B66A3 /* SkeletonLoadingCell.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -586,6 +593,7 @@
 				136DC97C2398B4F3009B1810 /* UIImage+Extensions.swift */,
 				13DACD212411DF7200A09982 /* UIStackView+Extensions.swift */,
 				01AA1B87253BB4AC003AB75A /* UIScrollView+GestureRecognizer.swift */,
+				E8FCD6872C38AEC9004B66A3 /* String+Extension.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -642,8 +650,8 @@
 		2925D5F625293E9D00BBA266 /* EventDataSource */ = {
 			isa = PBXGroup;
 			children = (
-				01B2502C2516C42E00CBA459 /* EventDataSource.swift */,
 				01B2502E2516C45800CBA459 /* EventCalendarEntry.swift */,
+				E8FCD6892C3A382F004B66A3 /* EventScrapper.swift */,
 			);
 			path = EventDataSource;
 			sourceTree = "<group>";
@@ -904,6 +912,9 @@
 			dependencies = (
 			);
 			name = "berkeley-mobile";
+			packageProductDependencies = (
+				E8FCD6832C374A81004B66A3 /* SwiftSoup */,
+			);
 			productName = "bm-persona";
 			productReference = 306A54E623613E3A00D59A7F /* Berkeley.app */;
 			productType = "com.apple.product-type.application";
@@ -932,6 +943,9 @@
 				Base,
 			);
 			mainGroup = 306A54DD23613E3A00D59A7F;
+			packageReferences = (
+				E8FCD6822C374A81004B66A3 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
+			);
 			productRefGroup = 306A54E723613E3A00D59A7F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1020,6 +1034,7 @@
 				29EE163F241C4E310041482E /* SortingFunctions.swift in Sources */,
 				29AB5BBF241D8766007C3ECA /* HasOpenTimes.swift in Sources */,
 				306A54EE23613E3A00D59A7F /* MapViewController.swift in Sources */,
+				E8FCD6862C389186004B66A3 /* SkeletonLoadingCell.swift in Sources */,
 				13DACD222411DF7200A09982 /* UIStackView+Extensions.swift in Sources */,
 				01A11F0C2717B8A800455F00 /* DiningMenuViewController.swift in Sources */,
 				2954F592245CD4B600DA66DA /* MainDrawerViewDelegate.swift in Sources */,
@@ -1033,6 +1048,7 @@
 				55C6936B240E143500400B60 /* ResourceTableViewCell.swift in Sources */,
 				13135BB22412442C0056B169 /* FilterView.swift in Sources */,
 				29AB5BC5241D8CB4007C3ECA /* FilterTableView.swift in Sources */,
+				E8FCD68A2C3A382F004B66A3 /* EventScrapper.swift in Sources */,
 				306A54FE236142B800D59A7F /* DrawerViewController.swift in Sources */,
 				13B39A8B23E682850039FBA2 /* Date+Extension.swift in Sources */,
 				135D7F75243A9AB3003F8BD1 /* GymClassType.swift in Sources */,
@@ -1048,7 +1064,6 @@
 				E8BC7B652B96CB7F002BF46D /* ResourcesViewModel.swift in Sources */,
 				016A56D6251AD38F00531A12 /* CalendarEvent.swift in Sources */,
 				13580AFC243934C800D309AA /* GymsController.swift in Sources */,
-				01B2502D2516C42E00CBA459 /* EventDataSource.swift in Sources */,
 				29B3D78824539FF3006762E5 /* MainDrawerViewController.swift in Sources */,
 				13491DBC242098B30033F9AB /* AtomicDictionary.swift in Sources */,
 				01BC8EB024E8C3E3005B4969 /* DetailView.swift in Sources */,
@@ -1145,6 +1160,7 @@
 				FD44FE6125EB0EAD00F713EB /* AlertView.swift in Sources */,
 				01AA1B88253BB4AC003AB75A /* UIScrollView+GestureRecognizer.swift in Sources */,
 				13491DB6241E21740033F9AB /* Colors+TagView.swift in Sources */,
+				E8FCD6882C38AEC9004B66A3 /* String+Extension.swift in Sources */,
 				556CCD2223E7771800F41BF9 /* MapPlacemark.swift in Sources */,
 				297678872426B7BA00FDD1EB /* SearchAnnotation.swift in Sources */,
 				01CDFF6A257C614900D9FBD6 /* Colors+Resource.swift in Sources */,
@@ -1359,6 +1375,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E8FCD6822C374A81004B66A3 /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scinfu/SwiftSoup";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.7.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E8FCD6832C374A81004B66A3 /* SwiftSoup */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E8FCD6822C374A81004B66A3 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
+			productName = SwiftSoup;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 306A54DE23613E3A00D59A7F /* Project object */;
 }
