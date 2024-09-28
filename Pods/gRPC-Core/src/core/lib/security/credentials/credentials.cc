@@ -1,37 +1,39 @@
-/*
- *
- * Copyright 2015 gRPC authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- */
-
-#include <grpc/support/port_platform.h>
+//
+//
+// Copyright 2015 gRPC authors.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+//
 
 #include "src/core/lib/security/credentials/credentials.h"
 
 #include <stdint.h>
 #include <string.h>
 
-#include <grpc/support/log.h>
+#include "absl/log/check.h"
+#include "absl/log/log.h"
+
+#include <grpc/support/port_platform.h>
 
 #include "src/core/lib/channel/channel_args.h"
 #include "src/core/lib/debug/trace.h"
-#include "src/core/lib/gpr/useful.h"
+#include "src/core/lib/gprpp/crash.h"
 #include "src/core/lib/iomgr/exec_ctx.h"
 #include "src/core/lib/surface/api_trace.h"
+#include "src/core/util/useful.h"
 
-/* -- Common. -- */
+// -- Common. --
 
 void grpc_channel_credentials_release(grpc_channel_credentials* creds) {
   GRPC_API_TRACE("grpc_channel_credentials_release(creds=%p)", 1, (creds));
@@ -73,8 +75,8 @@ grpc_channel_credentials* grpc_channel_credentials_from_arg(
     const grpc_arg* arg) {
   if (strcmp(arg->key, GRPC_ARG_CHANNEL_CREDENTIALS) != 0) return nullptr;
   if (arg->type != GRPC_ARG_POINTER) {
-    gpr_log(GPR_ERROR, "Invalid type %d for arg %s", arg->type,
-            GRPC_ARG_CHANNEL_CREDENTIALS);
+    LOG(ERROR) << "Invalid type " << arg->type << " for arg "
+               << GRPC_ARG_CHANNEL_CREDENTIALS;
     return nullptr;
   }
   return static_cast<grpc_channel_credentials*>(arg->value.pointer.p);
@@ -111,7 +113,7 @@ void grpc_server_credentials::set_auth_metadata_processor(
 
 void grpc_server_credentials_set_auth_metadata_processor(
     grpc_server_credentials* creds, grpc_auth_metadata_processor processor) {
-  GPR_DEBUG_ASSERT(creds != nullptr);
+  DCHECK_NE(creds, nullptr);
   creds->set_auth_metadata_processor(processor);
 }
 
@@ -139,8 +141,8 @@ grpc_arg grpc_server_credentials_to_arg(grpc_server_credentials* c) {
 grpc_server_credentials* grpc_server_credentials_from_arg(const grpc_arg* arg) {
   if (strcmp(arg->key, GRPC_SERVER_CREDENTIALS_ARG) != 0) return nullptr;
   if (arg->type != GRPC_ARG_POINTER) {
-    gpr_log(GPR_ERROR, "Invalid type %d for arg %s", arg->type,
-            GRPC_SERVER_CREDENTIALS_ARG);
+    LOG(ERROR) << "Invalid type " << arg->type << " for arg "
+               << GRPC_SERVER_CREDENTIALS_ARG;
     return nullptr;
   }
   return static_cast<grpc_server_credentials*>(arg->value.pointer.p);
