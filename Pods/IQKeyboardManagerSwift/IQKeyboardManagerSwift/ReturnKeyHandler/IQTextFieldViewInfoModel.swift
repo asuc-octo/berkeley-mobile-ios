@@ -27,8 +27,8 @@ import UIKit
 @MainActor
 internal final class IQTextFieldViewInfoModel: NSObject {
 
-    weak var textFieldDelegate: UITextFieldDelegate?
-    weak var textViewDelegate: UITextViewDelegate?
+    weak var textFieldDelegate: (any UITextFieldDelegate)?
+    weak var textViewDelegate: (any UITextViewDelegate)?
     weak var textFieldView: UIView?
     let originalReturnKeyType: UIReturnKeyType
 

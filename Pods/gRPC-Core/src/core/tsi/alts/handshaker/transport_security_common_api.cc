@@ -1,26 +1,27 @@
-/*
- *
- * Copyright 2018 gRPC authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- */
-
-#include <grpc/support/port_platform.h>
+//
+//
+// Copyright 2018 gRPC authors.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+//
 
 #include "src/core/tsi/alts/handshaker/transport_security_common_api.h"
 
-#include "upb/upb.hpp"
+#include "absl/log/log.h"
+#include "upb/mem/arena.hpp"
+
+#include <grpc/support/port_platform.h>
 
 bool grpc_gcp_rpc_protocol_versions_set_max(
     grpc_gcp_rpc_protocol_versions* versions, uint32_t max_major,
@@ -100,7 +101,7 @@ bool grpc_gcp_rpc_protocol_versions_decode(
           reinterpret_cast<const char*>(GRPC_SLICE_START_PTR(slice)),
           GRPC_SLICE_LENGTH(slice), arena.ptr());
   if (versions_msg == nullptr) {
-    gpr_log(GPR_ERROR, "cannot deserialize RpcProtocolVersions message");
+    LOG(ERROR) << "cannot deserialize RpcProtocolVersions message";
     return false;
   }
   grpc_gcp_rpc_protocol_versions_assign_from_upb(versions, versions_msg);
@@ -201,13 +202,13 @@ bool grpc_gcp_rpc_protocol_versions_check(
             "grpc_gcp_rpc_protocol_versions_check().");
     return false;
   }
-  /* max_common_version is MIN(local.max, peer.max) */
+  // max_common_version is MIN(local.max, peer.max)
   const grpc_gcp_rpc_protocol_versions_version* max_common_version =
       grpc_core::internal::grpc_gcp_rpc_protocol_version_compare(
           &local_versions->max_rpc_version, &peer_versions->max_rpc_version) > 0
           ? &peer_versions->max_rpc_version
           : &local_versions->max_rpc_version;
-  /* min_common_version is MAX(local.min, peer.min) */
+  // min_common_version is MAX(local.min, peer.min)
   const grpc_gcp_rpc_protocol_versions_version* min_common_version =
       grpc_core::internal::grpc_gcp_rpc_protocol_version_compare(
           &local_versions->min_rpc_version, &peer_versions->min_rpc_version) > 0

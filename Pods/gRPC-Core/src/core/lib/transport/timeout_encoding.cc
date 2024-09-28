@@ -1,28 +1,30 @@
-/*
- *
- * Copyright 2015 gRPC authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- */
-
-#include <grpc/support/port_platform.h>
+//
+//
+// Copyright 2015 gRPC authors.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+//
 
 #include "src/core/lib/transport/timeout_encoding.h"
 
+#include <limits>
+
 #include "absl/base/attributes.h"
+#include "absl/log/check.h"
 
 #include <grpc/support/log.h>
+#include <grpc/support/port_platform.h>
 #include <grpc/support/time.h>
 
 namespace grpc_core {
@@ -30,7 +32,7 @@ namespace grpc_core {
 namespace {
 
 int64_t DivideRoundingUp(int64_t dividend, int64_t divisor) {
-  return (dividend + divisor - 1) / divisor;
+  return (dividend - 1 + divisor) / divisor;
 }
 
 constexpr int64_t kSecondsPerMinute = 60;
@@ -173,12 +175,15 @@ Timeout Timeout::FromMillis(int64_t millis) {
   } else if (millis < 100000) {
     int64_t value = DivideRoundingUp(millis, 100);
     if (value % 10 != 0) return Timeout(value, Unit::kHundredMilliseconds);
+  } else if (millis > std::numeric_limits<int64_t>::max() - 999) {
+    // prevent signed integer overflow.
+    return Timeout(kMaxHours, Unit::kHours);
   }
   return Timeout::FromSeconds(DivideRoundingUp(millis, 1000));
 }
 
 Timeout Timeout::FromSeconds(int64_t seconds) {
-  GPR_DEBUG_ASSERT(seconds != 0);
+  DCHECK_NE(seconds, 0);
   if (seconds < 1000) {
     if (seconds % kSecondsPerMinute != 0) {
       return Timeout(seconds, Unit::kSeconds);
@@ -198,7 +203,7 @@ Timeout Timeout::FromSeconds(int64_t seconds) {
 }
 
 Timeout Timeout::FromMinutes(int64_t minutes) {
-  GPR_DEBUG_ASSERT(minutes != 0);
+  DCHECK_NE(minutes, 0);
   if (minutes < 1000) {
     if (minutes % kMinutesPerHour != 0) {
       return Timeout(minutes, Unit::kMinutes);
@@ -218,7 +223,7 @@ Timeout Timeout::FromMinutes(int64_t minutes) {
 }
 
 Timeout Timeout::FromHours(int64_t hours) {
-  GPR_DEBUG_ASSERT(hours != 0);
+  DCHECK_NE(hours, 0);
   if (hours < kMaxHours) {
     return Timeout(hours, Unit::kHours);
   }
@@ -230,14 +235,14 @@ absl::optional<Duration> ParseTimeout(const Slice& text) {
   const uint8_t* p = text.begin();
   const uint8_t* end = text.end();
   int have_digit = 0;
-  /* skip whitespace */
+  // skip whitespace
   for (; p != end && *p == ' '; p++) {
   }
-  /* decode numeric part */
+  // decode numeric part
   for (; p != end && *p >= '0' && *p <= '9'; p++) {
     int32_t digit = static_cast<int32_t>(*p - static_cast<uint8_t>('0'));
     have_digit = 1;
-    /* spec allows max. 8 digits, but we allow values up to 1,000,000,000 */
+    // spec allows max. 8 digits, but we allow values up to 1,000,000,000
     if (x >= (100 * 1000 * 1000)) {
       if (x != (100 * 1000 * 1000) || digit != 0) {
         return Duration::Infinity();
@@ -246,11 +251,11 @@ absl::optional<Duration> ParseTimeout(const Slice& text) {
     x = x * 10 + digit;
   }
   if (!have_digit) return absl::nullopt;
-  /* skip whitespace */
+  // skip whitespace
   for (; p != end && *p == ' '; p++) {
   }
   if (p == end) return absl::nullopt;
-  /* decode unit specifier */
+  // decode unit specifier
   Duration timeout;
   switch (*p) {
     case 'n':

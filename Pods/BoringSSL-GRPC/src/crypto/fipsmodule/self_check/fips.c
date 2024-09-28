@@ -28,10 +28,52 @@ int FIPS_mode(void) {
 
 int FIPS_mode_set(int on) { return on == FIPS_mode(); }
 
+const char *FIPS_module_name(void) { return "BoringCrypto"; }
+
+uint32_t FIPS_version(void) {
+  return 0;
+}
+
+int FIPS_query_algorithm_status(const char *algorithm) {
+#if defined(BORINGSSL_FIPS)
+  static const char kApprovedAlgorithms[][13] = {
+    "AES-CBC",
+    "AES-CCM",
+    "AES-CTR",
+    "AES-ECB",
+    "AES-GCM",
+    "AES-KW",
+    "AES-KWP",
+    "ctrDRBG",
+    "ECC-SSC",
+    "ECDSA-sign",
+    "ECDSA-verify",
+    "FFC-SSC",
+    "HMAC",
+    "RSA-sign",
+    "RSA-verify",
+    "SHA-1",
+    "SHA2-224",
+    "SHA2-256",
+    "SHA2-384",
+    "SHA2-512",
+    "SHA2-512/256",
+  };
+  for (size_t i = 0; i < OPENSSL_ARRAY_SIZE(kApprovedAlgorithms); i++) {
+    if (strcmp(algorithm, kApprovedAlgorithms[i]) == 0) {
+      return 1;
+    }
+  }
+#endif  // BORINGSSL_FIPS
+
+  return 0;
+}
+
 #if defined(BORINGSSL_FIPS_COUNTERS)
 
 size_t FIPS_read_counter(enum fips_counter_t counter) {
-  if (counter < 0 || counter > fips_counter_max) {
+  size_t index = (size_t)counter;
+  if (index > fips_counter_max) {
     abort();
   }
 
@@ -41,11 +83,12 @@ size_t FIPS_read_counter(enum fips_counter_t counter) {
     return 0;
   }
 
-  return array[counter];
+  return array[index];
 }
 
 void boringssl_fips_inc_counter(enum fips_counter_t counter) {
-  if (counter < 0 || counter > fips_counter_max) {
+  size_t index = (size_t)counter;
+  if (index > fips_counter_max) {
     abort();
   }
 
@@ -53,12 +96,11 @@ void boringssl_fips_inc_counter(enum fips_counter_t counter) {
       CRYPTO_get_thread_local(OPENSSL_THREAD_LOCAL_FIPS_COUNTERS);
   if (!array) {
     const size_t num_bytes = sizeof(size_t) * (fips_counter_max + 1);
-    array = OPENSSL_malloc(num_bytes);
+    array = OPENSSL_zalloc(num_bytes);
     if (!array) {
       return;
     }
 
-    OPENSSL_memset(array, 0, num_bytes);
     if (!CRYPTO_set_thread_local(OPENSSL_THREAD_LOCAL_FIPS_COUNTERS, array,
                                  OPENSSL_free)) {
       // |OPENSSL_free| has already been called by |CRYPTO_set_thread_local|.
@@ -66,7 +108,7 @@ void boringssl_fips_inc_counter(enum fips_counter_t counter) {
     }
   }
 
-  array[counter]++;
+  array[index]++;
 }
 
 #else

@@ -14,7 +14,6 @@
 #import "FIRComponent.h"
 #import "FIRComponentContainer.h"
 #import "FIRComponentType.h"
-#import "FIRDependency.h"
 #import "FirebaseCoreInternal.h"
 #import "FIRHeartbeatLogger.h"
 #import "FIRLibrary.h"
