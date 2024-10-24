@@ -35,7 +35,7 @@ class AcademicCalendarViewController: UIViewController {
         calendarTablePair.isLoading = true
         
         eventScrapper.delegate = self
-        eventScrapper.scrape(at: "https://events.berkeley.edu/events/week/categories/Academic")
+        eventScrapper.scrape(at: EventScrapper.Constants.academicCalendarURLString)
     }
 }
 
@@ -49,6 +49,7 @@ extension AcademicCalendarViewController: EventScrapperDelegate {
     }
     
     func eventScrapperDidError(with errorDescription: String) {
+        calendarTablePair.isLoading = false
         presentFailureAlert(title: "Unable To Parse Website", message: errorDescription)
     }
 

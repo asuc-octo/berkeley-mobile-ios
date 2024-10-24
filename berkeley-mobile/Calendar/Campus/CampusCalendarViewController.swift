@@ -45,7 +45,7 @@ class CampusCalendarViewController: UIViewController {
         calendarTable.reloadData()
         
         eventScrapper.delegate = self
-        eventScrapper.scrape(at: "https://events.berkeley.edu/events/all")
+        eventScrapper.scrape(at: EventScrapper.Constants.campusWideCalendarURLString)
     }
     
     private func reloadCalendarTableView() {

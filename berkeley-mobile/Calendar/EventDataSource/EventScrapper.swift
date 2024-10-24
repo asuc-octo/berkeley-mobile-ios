@@ -17,6 +17,11 @@ protocol EventScrapperDelegate: AnyObject {
 
 class EventScrapper: NSObject {
     
+    struct Constants {
+        static let academicCalendarURLString = "https://events.berkeley.edu/events/week/categories/Academic"
+        static let campusWideCalendarURLString = "https://events.berkeley.edu/events/all"
+    }
+    
     /// Allowed number of rescrapes until `EventScrapper` gives up on scrapping.
     var allowedNumOfRescrapes: Int = 5
     
@@ -60,7 +65,7 @@ extension EventScrapper: WKNavigationDelegate {
             return
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             webView.evaluateJavaScript("document.body.innerHTML") { result, error in
                 guard let htmlContent = result as? String, error == nil else {
                     self.delegate?.eventScrapperDidError(with: error?.localizedDescription ?? "Unrecognized error message")
@@ -106,7 +111,7 @@ extension EventScrapper: WKNavigationDelegate {
                                 let fullSourceLink = eventLinkHrefString.isEmpty ? nil : "https://events.berkeley.edu" + eventLinkHrefString
                                 
                                 let imageLink = try eventLinkElement.select("picture.lw_image > img").attr("src")
-                                                            
+
                                 let newEventCalendarEntry = EventCalendarEntry(name: eventTitle, date: eventStartTimeDate ?? dateWithYear, end: eventEndTimeDate, description: eventSummaryText, location: locationName, imageURL: imageLink, sourceLink: fullSourceLink)
                                 scrappedCalendarEntries.append(newEventCalendarEntry)
                             }
@@ -121,6 +126,7 @@ extension EventScrapper: WKNavigationDelegate {
                     
                     self.delegate?.eventScrapperDidFinishScrapping(results: scrappedCalendarEntries)
                 } catch {
+                    print("error: \(error)")
                     self.delegate?.eventScrapperDidError(with: error.localizedDescription)
                 }
             }
