@@ -153,6 +153,7 @@
 #include <limits.h>
 #include <string.h>
 
+#include <algorithm>
 #include <utility>
 
 #include <openssl_grpc/aead.h>
@@ -215,6 +216,14 @@ static void ssl_get_client_disabled(const SSL_HANDSHAKE *hs,
   }
 }
 
+static bool ssl_add_tls13_cipher(CBB *cbb, uint16_t cipher_id,
+                                 ssl_compliance_policy_t policy) {
+  if (ssl_tls13_cipher_meets_policy(cipher_id, policy)) {
+    return CBB_add_u16(cbb, cipher_id);
+  }
+  return true;
+}
+
 static bool ssl_write_client_cipher_list(const SSL_HANDSHAKE *hs, CBB *out,
                                          ssl_client_hello_type_t type) {
   const SSL *const ssl = hs->ssl;
@@ -235,16 +244,22 @@ static bool ssl_write_client_cipher_list(const SSL_HANDSHAKE *hs, CBB *out,
   // Add TLS 1.3 ciphers. Order ChaCha20-Poly1305 relative to AES-GCM based on
   // hardware support.
   if (hs->max_version >= TLS1_3_VERSION) {
-    if (!EVP_has_aes_hardware() &&
-        !CBB_add_u16(&child, TLS1_CK_CHACHA20_POLY1305_SHA256 & 0xffff)) {
-      return false;
-    }
-    if (!CBB_add_u16(&child, TLS1_CK_AES_128_GCM_SHA256 & 0xffff) ||
-        !CBB_add_u16(&child, TLS1_CK_AES_256_GCM_SHA384 & 0xffff)) {
-      return false;
-    }
-    if (EVP_has_aes_hardware() &&
-        !CBB_add_u16(&child, TLS1_CK_CHACHA20_POLY1305_SHA256 & 0xffff)) {
+    const bool has_aes_hw = ssl->config->aes_hw_override
+                                ? ssl->config->aes_hw_override_value
+                                : EVP_has_aes_hardware();
+
+    if ((!has_aes_hw &&  //
+         !ssl_add_tls13_cipher(&child,
+                               TLS1_3_CK_CHACHA20_POLY1305_SHA256 & 0xffff,
+                               ssl->config->tls13_cipher_policy)) ||
+        !ssl_add_tls13_cipher(&child, TLS1_3_CK_AES_128_GCM_SHA256 & 0xffff,
+                              ssl->config->tls13_cipher_policy) ||
+        !ssl_add_tls13_cipher(&child, TLS1_3_CK_AES_256_GCM_SHA384 & 0xffff,
+                              ssl->config->tls13_cipher_policy) ||
+        (has_aes_hw &&  //
+         !ssl_add_tls13_cipher(&child,
+                               TLS1_3_CK_CHACHA20_POLY1305_SHA256 & 0xffff,
+                               ssl->config->tls13_cipher_policy))) {
       return false;
     }
   }
@@ -307,7 +322,8 @@ bool ssl_write_client_hello_without_extensions(const SSL_HANDSHAKE *hs,
 
   if (SSL_is_dtls(ssl)) {
     if (!CBB_add_u8_length_prefixed(cbb, &child) ||
-        !CBB_add_bytes(&child, ssl->d1->cookie, ssl->d1->cookie_len)) {
+        !CBB_add_bytes(&child, hs->dtls_cookie.data(),
+                       hs->dtls_cookie.size())) {
       return false;
     }
   }
@@ -331,7 +347,7 @@ bool ssl_add_client_hello(SSL_HANDSHAKE *hs) {
   Array<uint8_t> msg;
   if (!ssl->method->init_message(ssl, cbb.get(), &body, SSL3_MT_CLIENT_HELLO) ||
       !ssl_write_client_hello_without_extensions(hs, &body, type,
-                                                 /*empty_session_id*/ false) ||
+                                                 /*empty_session_id=*/false) ||
       !ssl_add_clienthello_tlsext(hs, &body, /*out_encoded=*/nullptr,
                                   &needs_psk_binder, type, CBB_len(&body)) ||
       !ssl->method->finish_message(ssl, cbb.get(), &msg)) {
@@ -620,15 +636,16 @@ static enum ssl_hs_wait_t do_read_hello_verify_request(SSL_HANDSHAKE *hs) {
   uint16_t server_version;
   if (!CBS_get_u16(&hello_verify_request, &server_version) ||
       !CBS_get_u8_length_prefixed(&hello_verify_request, &cookie) ||
-      CBS_len(&cookie) > sizeof(ssl->d1->cookie) ||
       CBS_len(&hello_verify_request) != 0) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
     ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
     return ssl_hs_error;
   }
 
-  OPENSSL_memcpy(ssl->d1->cookie, CBS_data(&cookie), CBS_len(&cookie));
-  ssl->d1->cookie_len = CBS_len(&cookie);
+  if (!hs->dtls_cookie.CopyFrom(cookie)) {
+    ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_INTERNAL_ERROR);
+    return ssl_hs_error;
+  }
 
   ssl->method->next_message(ssl);
 
@@ -825,11 +842,18 @@ static enum ssl_hs_wait_t do_read_server_hello(SSL_HANDSHAKE *hs) {
       ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_INTERNAL_ERROR);
       return ssl_hs_error;
     }
-    // Note: session_id could be empty.
-    hs->new_session->session_id_length = CBS_len(&server_hello.session_id);
+
+    // Save the session ID from the server. This may be empty if the session
+    // isn't resumable, or if we'll receive a session ticket later.
+    assert(CBS_len(&server_hello.session_id) <= SSL3_SESSION_ID_SIZE);
+    static_assert(SSL3_SESSION_ID_SIZE <= UINT8_MAX,
+                  "max session ID is too large");
+    hs->new_session->session_id_length =
+        static_cast<uint8_t>(CBS_len(&server_hello.session_id));
     OPENSSL_memcpy(hs->new_session->session_id,
                    CBS_data(&server_hello.session_id),
                    CBS_len(&server_hello.session_id));
+
     hs->new_session->cipher = hs->new_cipher;
   }
 
@@ -1090,7 +1114,6 @@ static enum ssl_hs_wait_t do_read_server_key_exchange(SSL_HANDSHAKE *hs) {
     char *raw = nullptr;
     if (CBS_len(&psk_identity_hint) != 0 &&
         !CBS_strdup(&psk_identity_hint, &raw)) {
-      OPENSSL_PUT_ERROR(SSL, ERR_R_MALLOC_FAILURE);
       ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_INTERNAL_ERROR);
       return ssl_hs_error;
     }
@@ -1110,7 +1133,6 @@ static enum ssl_hs_wait_t do_read_server_key_exchange(SSL_HANDSHAKE *hs) {
       ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
       return ssl_hs_error;
     }
-    hs->new_session->group_id = group_id;
 
     // Ensure the group is consistent with preferences.
     if (!tls1_check_group_id(hs, group_id)) {
@@ -1119,10 +1141,9 @@ static enum ssl_hs_wait_t do_read_server_key_exchange(SSL_HANDSHAKE *hs) {
       return ssl_hs_error;
     }
 
-    // Initialize ECDH and save the peer public key for later.
-    hs->key_shares[0] = SSLKeyShare::Create(group_id);
-    if (!hs->key_shares[0] ||
-        !hs->peer_key.CopyFrom(point)) {
+    // Save the group and peer public key for later.
+    hs->new_session->group_id = group_id;
+    if (!hs->peer_key.CopyFrom(point)) {
       return ssl_hs_error;
     }
   } else if (!(alg_k & SSL_kPSK)) {
@@ -1148,7 +1169,8 @@ static enum ssl_hs_wait_t do_read_server_key_exchange(SSL_HANDSHAKE *hs) {
         return ssl_hs_error;
       }
       uint8_t alert = SSL_AD_DECODE_ERROR;
-      if (!tls12_check_peer_sigalg(hs, &alert, signature_algorithm)) {
+      if (!tls12_check_peer_sigalg(hs, &alert, signature_algorithm,
+                                   hs->peer_pubkey.get())) {
         ssl_send_alert(ssl, SSL3_AL_FATAL, alert);
         return ssl_hs_error;
       }
@@ -1311,6 +1333,42 @@ static enum ssl_hs_wait_t do_read_server_hello_done(SSL_HANDSHAKE *hs) {
   return ssl_hs_ok;
 }
 
+static bool check_credential(SSL_HANDSHAKE *hs, const SSL_CREDENTIAL *cred,
+                             uint16_t *out_sigalg) {
+  if (cred->type != SSLCredentialType::kX509) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_UNKNOWN_CERTIFICATE_TYPE);
+    return false;
+  }
+
+  if (hs->config->check_client_certificate_type) {
+    // Check the certificate types advertised by the peer.
+    uint8_t cert_type;
+    switch (EVP_PKEY_id(cred->pubkey.get())) {
+      case EVP_PKEY_RSA:
+        cert_type = SSL3_CT_RSA_SIGN;
+        break;
+      case EVP_PKEY_EC:
+      case EVP_PKEY_ED25519:
+        cert_type = TLS_CT_ECDSA_SIGN;
+        break;
+      default:
+        OPENSSL_PUT_ERROR(SSL, SSL_R_UNKNOWN_CERTIFICATE_TYPE);
+        return false;
+    }
+    if (std::find(hs->certificate_types.begin(), hs->certificate_types.end(),
+                  cert_type) == hs->certificate_types.end()) {
+      OPENSSL_PUT_ERROR(SSL, SSL_R_UNKNOWN_CERTIFICATE_TYPE);
+      return false;
+    }
+  }
+
+  // All currently supported credentials require a signature. Note this does not
+  // check the ECDSA curve. Prior to TLS 1.3, there is no way to determine which
+  // ECDSA curves are supported by the peer, so we must assume all curves are
+  // supported.
+  return tls1_choose_signature_algorithm(hs, cred, out_sigalg);
+}
+
 static enum ssl_hs_wait_t do_send_client_certificate(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
 
@@ -1338,16 +1396,36 @@ static enum ssl_hs_wait_t do_send_client_certificate(SSL_HANDSHAKE *hs) {
     }
   }
 
-  if (!ssl_has_certificate(hs)) {
-    // Without a client certificate, the handshake buffer may be released.
-    hs->transcript.FreeBuffer();
-  }
-
-  if (!ssl_on_certificate_selected(hs) ||
-      !ssl_output_cert_chain(hs)) {
+  Array<SSL_CREDENTIAL *> creds;
+  if (!ssl_get_credential_list(hs, &creds)) {
     return ssl_hs_error;
   }
 
+  if (creds.empty()) {
+    // If there were no credentials, proceed without a client certificate. In
+    // this case, the handshake buffer may be released early.
+    hs->transcript.FreeBuffer();
+  } else {
+    // Select the credential to use.
+    for (SSL_CREDENTIAL *cred : creds) {
+      ERR_clear_error();
+      uint16_t sigalg;
+      if (check_credential(hs, cred, &sigalg)) {
+        hs->credential = UpRef(cred);
+        hs->signature_algorithm = sigalg;
+        break;
+      }
+    }
+    if (hs->credential == nullptr) {
+      // The error from the last attempt is in the error queue.
+      ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_HANDSHAKE_FAILURE);
+      return ssl_hs_error;
+    }
+  }
+
+  if (!ssl_send_tls12_certificate(hs)) {
+    return ssl_hs_error;
+  }
 
   hs->state = state_send_client_key_exchange;
   return ssl_hs_ok;
@@ -1382,11 +1460,13 @@ static enum ssl_hs_wait_t do_send_client_key_exchange(SSL_HANDSHAKE *hs) {
     ssl_key_usage_t intended_use = (alg_k & SSL_kRSA)
                                        ? key_usage_encipherment
                                        : key_usage_digital_signature;
-    if (hs->config->enforce_rsa_key_usage ||
-        EVP_PKEY_id(hs->peer_pubkey.get()) != EVP_PKEY_RSA) {
-      if (!ssl_cert_check_key_usage(&leaf_cbs, intended_use)) {
+    if (!ssl_cert_check_key_usage(&leaf_cbs, intended_use)) {
+      if (hs->config->enforce_rsa_key_usage ||
+          EVP_PKEY_id(hs->peer_pubkey.get()) != EVP_PKEY_RSA) {
         return ssl_hs_error;
       }
+      ERR_clear_error();
+      ssl->s3->was_key_usage_invalid = true;
     }
   }
 
@@ -1413,7 +1493,6 @@ static enum ssl_hs_wait_t do_send_client_key_exchange(SSL_HANDSHAKE *hs) {
 
     hs->new_session->psk_identity.reset(OPENSSL_strdup(identity));
     if (hs->new_session->psk_identity == nullptr) {
-      OPENSSL_PUT_ERROR(SSL, ERR_R_MALLOC_FAILURE);
       return ssl_hs_error;
     }
 
@@ -1457,15 +1536,16 @@ static enum ssl_hs_wait_t do_send_client_key_exchange(SSL_HANDSHAKE *hs) {
       return ssl_hs_error;
     }
   } else if (alg_k & SSL_kECDHE) {
-    // Generate a keypair and serialize the public half.
     CBB child;
     if (!CBB_add_u8_length_prefixed(&body, &child)) {
       return ssl_hs_error;
     }
 
-    // Compute the premaster.
+    // Generate a premaster secret and encapsulate it.
+    bssl::UniquePtr<SSLKeyShare> kem =
+        SSLKeyShare::Create(hs->new_session->group_id);
     uint8_t alert = SSL_AD_DECODE_ERROR;
-    if (!hs->key_shares[0]->Accept(&child, &pms, &alert, hs->peer_key)) {
+    if (!kem || !kem->Encap(&child, &pms, &alert, hs->peer_key)) {
       ssl_send_alert(ssl, SSL3_AL_FATAL, alert);
       return ssl_hs_error;
     }
@@ -1473,9 +1553,7 @@ static enum ssl_hs_wait_t do_send_client_key_exchange(SSL_HANDSHAKE *hs) {
       return ssl_hs_error;
     }
 
-    // The key exchange state may now be discarded.
-    hs->key_shares[0].reset();
-    hs->key_shares[1].reset();
+    // The peer key can now be discarded.
     hs->peer_key.Reset();
   } else if (alg_k & SSL_kPSK) {
     // For plain PSK, other_secret is a block of 0s with the same length as
@@ -1501,7 +1579,6 @@ static enum ssl_hs_wait_t do_send_client_key_exchange(SSL_HANDSHAKE *hs) {
         !CBB_add_u16_length_prefixed(pms_cbb.get(), &child) ||
         !CBB_add_bytes(&child, psk, psk_len) ||
         !CBBFinishArray(pms_cbb.get(), &pms)) {
-      OPENSSL_PUT_ERROR(SSL, ERR_R_MALLOC_FAILURE);
       return ssl_hs_error;
     }
   }
@@ -1526,12 +1603,11 @@ static enum ssl_hs_wait_t do_send_client_key_exchange(SSL_HANDSHAKE *hs) {
 static enum ssl_hs_wait_t do_send_client_certificate_verify(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
 
-  if (!hs->cert_request || !ssl_has_certificate(hs)) {
+  if (!hs->cert_request || hs->credential == nullptr) {
     hs->state = state_send_client_finished;
     return ssl_hs_ok;
   }
 
-  assert(ssl_has_private_key(hs));
   ScopedCBB cbb;
   CBB body, child;
   if (!ssl->method->init_message(ssl, cbb.get(), &body,
@@ -1539,21 +1615,17 @@ static enum ssl_hs_wait_t do_send_client_certificate_verify(SSL_HANDSHAKE *hs) {
     return ssl_hs_error;
   }
 
-  uint16_t signature_algorithm;
-  if (!tls1_choose_signature_algorithm(hs, &signature_algorithm)) {
-    ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_HANDSHAKE_FAILURE);
-    return ssl_hs_error;
-  }
+  assert(hs->signature_algorithm != 0);
   if (ssl_protocol_version(ssl) >= TLS1_2_VERSION) {
     // Write out the digest type in TLS 1.2.
-    if (!CBB_add_u16(&body, signature_algorithm)) {
+    if (!CBB_add_u16(&body, hs->signature_algorithm)) {
       OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
       return ssl_hs_error;
     }
   }
 
   // Set aside space for the signature.
-  const size_t max_sig_len = EVP_PKEY_size(hs->local_pubkey.get());
+  const size_t max_sig_len = EVP_PKEY_size(hs->credential->pubkey.get());
   uint8_t *ptr;
   if (!CBB_add_u16_length_prefixed(&body, &child) ||
       !CBB_reserve(&child, &ptr, max_sig_len)) {
@@ -1562,7 +1634,7 @@ static enum ssl_hs_wait_t do_send_client_certificate_verify(SSL_HANDSHAKE *hs) {
 
   size_t sig_len = max_sig_len;
   switch (ssl_private_key_sign(hs, ptr, &sig_len, max_sig_len,
-                               signature_algorithm,
+                               hs->signature_algorithm,
                                hs->transcript.buffer())) {
     case ssl_private_key_success:
       break;

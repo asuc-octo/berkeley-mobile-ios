@@ -59,11 +59,11 @@
 #include <openssl_grpc/err.h>
 #include <openssl_grpc/mem.h>
 #include <openssl_grpc/sha.h>
-#include <openssl_grpc/type_check.h>
 
 #include "../../internal.h"
 #include "../bn/internal.h"
 #include "../ec/internal.h"
+#include "../service_indicator/internal.h"
 #include "internal.h"
 
 
@@ -71,17 +71,14 @@
 // ECDSA.
 static void digest_to_scalar(const EC_GROUP *group, EC_SCALAR *out,
                              const uint8_t *digest, size_t digest_len) {
-  const BIGNUM *order = &group->order;
+  const BIGNUM *order = EC_GROUP_get0_order(group);
   size_t num_bits = BN_num_bits(order);
   // Need to truncate digest if it is too long: first truncate whole bytes.
   size_t num_bytes = (num_bits + 7) / 8;
   if (digest_len > num_bytes) {
     digest_len = num_bytes;
   }
-  OPENSSL_memset(out, 0, sizeof(EC_SCALAR));
-  for (size_t i = 0; i < digest_len; i++) {
-    out->bytes[i] = digest[digest_len - 1 - i];
-  }
+  bn_big_endian_to_words(out->words, order->width, digest, digest_len);
 
   // If it is still too long, truncate remaining bits with a shift.
   if (8 * digest_len > num_bits) {
@@ -151,8 +148,8 @@ int ECDSA_SIG_set0(ECDSA_SIG *sig, BIGNUM *r, BIGNUM *s) {
   return 1;
 }
 
-int ECDSA_do_verify(const uint8_t *digest, size_t digest_len,
-                    const ECDSA_SIG *sig, const EC_KEY *eckey) {
+int ecdsa_do_verify_no_self_test(const uint8_t *digest, size_t digest_len,
+                                 const ECDSA_SIG *sig, const EC_KEY *eckey) {
   const EC_GROUP *group = EC_KEY_get0_group(eckey);
   const EC_POINT *pub_key = EC_KEY_get0_public_key(eckey);
   if (group == NULL || pub_key == NULL || sig == NULL) {
@@ -184,7 +181,7 @@ int ECDSA_do_verify(const uint8_t *digest, size_t digest_len,
   ec_scalar_mul_montgomery(group, &u1, &m, &s_inv_mont);
   ec_scalar_mul_montgomery(group, &u2, &r, &s_inv_mont);
 
-  EC_RAW_POINT point;
+  EC_JACOBIAN point;
   if (!ec_point_mul_scalar_public(group, &point, &u1, &pub_key->raw, &u2)) {
     OPENSSL_PUT_ERROR(ECDSA, ERR_R_EC_LIB);
     return 0;
@@ -196,6 +193,13 @@ int ECDSA_do_verify(const uint8_t *digest, size_t digest_len,
   }
 
   return 1;
+}
+
+int ECDSA_do_verify(const uint8_t *digest, size_t digest_len,
+                    const ECDSA_SIG *sig, const EC_KEY *eckey) {
+  boringssl_ensure_ecc_self_test();
+
+  return ecdsa_do_verify_no_self_test(digest, digest_len, sig, eckey);
 }
 
 static ECDSA_SIG *ecdsa_sign_impl(const EC_GROUP *group, int *out_retry,
@@ -212,14 +216,14 @@ static ECDSA_SIG *ecdsa_sign_impl(const EC_GROUP *group, int *out_retry,
   }
 
   // Compute r, the x-coordinate of k * generator.
-  EC_RAW_POINT tmp_point;
+  EC_JACOBIAN tmp_point;
   EC_SCALAR r;
   if (!ec_point_mul_scalar_base(group, &tmp_point, k) ||
       !ec_get_x_coordinate_as_scalar(group, &r, &tmp_point)) {
     return NULL;
   }
 
-  if (ec_scalar_is_zero(group, &r)) {
+  if (constant_time_declassify_int(ec_scalar_is_zero(group, &r))) {
     *out_retry = 1;
     return NULL;
   }
@@ -246,11 +250,13 @@ static ECDSA_SIG *ecdsa_sign_impl(const EC_GROUP *group, int *out_retry,
   ec_scalar_inv0_montgomery(group, &tmp, k);     // tmp = k^-1 R^2
   ec_scalar_from_montgomery(group, &tmp, &tmp);  // tmp = k^-1 R
   ec_scalar_mul_montgomery(group, &s, &s, &tmp);
-  if (ec_scalar_is_zero(group, &s)) {
+  if (constant_time_declassify_int(ec_scalar_is_zero(group, &s))) {
     *out_retry = 1;
     return NULL;
   }
 
+  CONSTTIME_DECLASSIFY(r.words, sizeof(r.words));
+  CONSTTIME_DECLASSIFY(s.words, sizeof(r.words));
   ECDSA_SIG *ret = ECDSA_SIG_new();
   if (ret == NULL ||  //
       !bn_set_words(ret->r, r.words, order->width) ||
@@ -292,12 +298,16 @@ ECDSA_SIG *ecdsa_sign_with_nonce_for_known_answer_test(const uint8_t *digest,
 ECDSA_SIG *ECDSA_sign_with_nonce_and_leak_private_key_for_testing(
     const uint8_t *digest, size_t digest_len, const EC_KEY *eckey,
     const uint8_t *nonce, size_t nonce_len) {
+  boringssl_ensure_ecc_self_test();
+
   return ecdsa_sign_with_nonce_for_known_answer_test(digest, digest_len, eckey,
                                                      nonce, nonce_len);
 }
 
 ECDSA_SIG *ECDSA_do_sign(const uint8_t *digest, size_t digest_len,
                          const EC_KEY *eckey) {
+  boringssl_ensure_ecc_self_test();
+
   if (eckey->ecdsa_meth && eckey->ecdsa_meth->sign) {
     OPENSSL_PUT_ERROR(ECDSA, ECDSA_R_NOT_IMPLEMENTED);
     return NULL;
@@ -313,8 +323,11 @@ ECDSA_SIG *ECDSA_do_sign(const uint8_t *digest, size_t digest_len,
 
   // Pass a SHA512 hash of the private key and digest as additional data
   // into the RBG. This is a hardening measure against entropy failure.
-  OPENSSL_STATIC_ASSERT(SHA512_DIGEST_LENGTH >= 32,
-                        "additional_data is too large for SHA-512");
+  static_assert(SHA512_DIGEST_LENGTH >= 32,
+                "additional_data is too large for SHA-512");
+
+  FIPS_service_indicator_lock_state();
+
   SHA512_CTX sha;
   uint8_t additional_data[SHA512_DIGEST_LENGTH];
   SHA512_Init(&sha);
@@ -322,17 +335,38 @@ ECDSA_SIG *ECDSA_do_sign(const uint8_t *digest, size_t digest_len,
   SHA512_Update(&sha, digest, digest_len);
   SHA512_Final(additional_data, &sha);
 
+  // Cap iterations so callers who supply invalid values as custom groups do not
+  // infinite loop. This does not impact valid parameters (e.g. those covered by
+  // FIPS) because the probability of requiring even one retry is negligible,
+  // let alone 32.
+  static const int kMaxIterations = 32;
+  ECDSA_SIG *ret = NULL;
+  int iters = 0;
   for (;;) {
     EC_SCALAR k;
     if (!ec_random_nonzero_scalar(group, &k, additional_data)) {
-      return NULL;
+      ret = NULL;
+      goto out;
     }
 
+    // TODO(davidben): Move this inside |ec_random_nonzero_scalar| or lower, so
+    // that all scalars we generate are, by default, secret.
+    CONSTTIME_SECRET(k.words, sizeof(k.words));
+
     int retry;
-    ECDSA_SIG *sig =
-        ecdsa_sign_impl(group, &retry, priv_key, &k, digest, digest_len);
-    if (sig != NULL || !retry) {
-      return sig;
+    ret = ecdsa_sign_impl(group, &retry, priv_key, &k, digest, digest_len);
+    if (ret != NULL || !retry) {
+      goto out;
+    }
+
+    iters++;
+    if (iters > kMaxIterations) {
+      OPENSSL_PUT_ERROR(ECDSA, ECDSA_R_TOO_MANY_ITERATIONS);
+      goto out;
     }
   }
+
+out:
+  FIPS_service_indicator_unlock_state();
+  return ret;
 }

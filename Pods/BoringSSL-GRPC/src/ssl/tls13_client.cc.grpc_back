@@ -192,11 +192,14 @@ static enum ssl_hs_wait_t do_read_hello_retry_request(SSL_HANDSHAKE *hs) {
   }
 
   // The cipher suite must be one we offered. We currently offer all supported
-  // TLS 1.3 ciphers, so check the version.
+  // TLS 1.3 ciphers unless policy controls limited it. So we check the version
+  // and that it's ok per policy.
   const SSL_CIPHER *cipher = SSL_get_cipher_by_value(server_hello.cipher_suite);
   if (cipher == nullptr ||
       SSL_CIPHER_get_min_version(cipher) > ssl_protocol_version(ssl) ||
-      SSL_CIPHER_get_max_version(cipher) < ssl_protocol_version(ssl)) {
+      SSL_CIPHER_get_max_version(cipher) < ssl_protocol_version(ssl) ||
+      !ssl_tls13_cipher_meets_policy(SSL_CIPHER_get_protocol_id(cipher),
+                                     ssl->config->tls13_cipher_policy)) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_WRONG_CIPHER_RETURNED);
     ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_ILLEGAL_PARAMETER);
     return ssl_hs_error;
@@ -372,7 +375,7 @@ static enum ssl_hs_wait_t do_read_server_hello(SSL_HANDSHAKE *hs) {
   }
 
   // Check the cipher suite, in case this is after HelloRetryRequest.
-  if (SSL_CIPHER_get_value(hs->new_cipher) != server_hello.cipher_suite) {
+  if (SSL_CIPHER_get_protocol_id(hs->new_cipher) != server_hello.cipher_suite) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_WRONG_CIPHER_RETURNED);
     ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_ILLEGAL_PARAMETER);
     return ssl_hs_error;
@@ -667,7 +670,6 @@ static enum ssl_hs_wait_t do_read_certificate_request(SSL_HANDSHAKE *hs) {
   } else {
     hs->ca_names.reset(sk_CRYPTO_BUFFER_new_null());
     if (!hs->ca_names) {
-      OPENSSL_PUT_ERROR(SSL, ERR_R_MALLOC_FAILURE);
       ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_INTERNAL_ERROR);
       return ssl_hs_error;
     }
@@ -809,10 +811,14 @@ static enum ssl_hs_wait_t do_send_client_encrypted_extensions(
       !ssl->s3->early_data_accepted) {
     ScopedCBB cbb;
     CBB body, extensions, extension;
+    uint16_t extension_type = TLSEXT_TYPE_application_settings_old;
+    if (hs->config->alps_use_new_codepoint) {
+      extension_type = TLSEXT_TYPE_application_settings;
+    }
     if (!ssl->method->init_message(ssl, cbb.get(), &body,
                                    SSL3_MT_ENCRYPTED_EXTENSIONS) ||
         !CBB_add_u16_length_prefixed(&body, &extensions) ||
-        !CBB_add_u16(&extensions, TLSEXT_TYPE_application_settings) ||
+        !CBB_add_u16(&extensions, extension_type) ||
         !CBB_add_u16_length_prefixed(&extensions, &extension) ||
         !CBB_add_bytes(&extension,
                        hs->new_session->local_application_settings.data(),
@@ -824,6 +830,17 @@ static enum ssl_hs_wait_t do_send_client_encrypted_extensions(
 
   hs->tls13_state = state_send_client_certificate;
   return ssl_hs_ok;
+}
+
+static bool check_credential(SSL_HANDSHAKE *hs, const SSL_CREDENTIAL *cred,
+                             uint16_t *out_sigalg) {
+  if (cred->type != SSLCredentialType::kX509) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_UNKNOWN_CERTIFICATE_TYPE);
+    return false;
+  }
+
+  // All currently supported credentials require a signature.
+  return tls1_choose_signature_algorithm(hs, cred, out_sigalg);
 }
 
 static enum ssl_hs_wait_t do_send_client_certificate(SSL_HANDSHAKE *hs) {
@@ -853,8 +870,30 @@ static enum ssl_hs_wait_t do_send_client_certificate(SSL_HANDSHAKE *hs) {
     }
   }
 
-  if (!ssl_on_certificate_selected(hs) ||
-      !tls13_add_certificate(hs)) {
+  Array<SSL_CREDENTIAL *> creds;
+  if (!ssl_get_credential_list(hs, &creds)) {
+    return ssl_hs_error;
+  }
+
+  if (!creds.empty()) {
+    // Select the credential to use.
+    for (SSL_CREDENTIAL *cred : creds) {
+      ERR_clear_error();
+      uint16_t sigalg;
+      if (check_credential(hs, cred, &sigalg)) {
+        hs->credential = UpRef(cred);
+        hs->signature_algorithm = sigalg;
+        break;
+      }
+    }
+    if (hs->credential == nullptr) {
+      // The error from the last attempt is in the error queue.
+      ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_HANDSHAKE_FAILURE);
+      return ssl_hs_error;
+    }
+  }
+
+  if (!tls13_add_certificate(hs)) {
     return ssl_hs_error;
   }
 
@@ -864,7 +903,7 @@ static enum ssl_hs_wait_t do_send_client_certificate(SSL_HANDSHAKE *hs) {
 
 static enum ssl_hs_wait_t do_send_client_certificate_verify(SSL_HANDSHAKE *hs) {
   // Don't send CertificateVerify if there is no certificate.
-  if (!ssl_has_certificate(hs)) {
+  if (hs->credential == nullptr) {
     hs->tls13_state = state_complete_second_flight;
     return ssl_hs_ok;
   }
