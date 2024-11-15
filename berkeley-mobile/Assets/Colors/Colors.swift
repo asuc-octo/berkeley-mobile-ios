@@ -68,6 +68,23 @@ struct BMColor {
     static var segmentedControlHighlight: UIColor {
         return UIColor(displayP3Red: 250/255, green: 212/255, blue: 126/255, alpha: 1.0)
     }
+    
+    static var gradientDarkGrey: UIColor {
+        return UIColor.init { (trait) -> UIColor in
+            return trait.userInterfaceStyle == .dark ?
+                UIColor(displayP3Red: CGFloat(239) / 255.0 * 0.2, green: CGFloat(241) / 255.0 * 0.2, blue: CGFloat(241) / 255.0 * 0.2, alpha: 1.0) :
+                UIColor(displayP3Red: 250/255, green: 250/255, blue: 250/255, alpha: 1.0)
+        }
+    }
+
+    static var gradientLightGrey: UIColor {
+        return UIColor.init { (trait) -> UIColor in
+            return trait.userInterfaceStyle == .dark ?
+                UIColor(displayP3Red: CGFloat(201) / 255.0 * 0.5, green: CGFloat(201) / 255.0 * 0.5, blue: CGFloat(201) / 255.0 * 0.5, alpha: 1.0) :
+                UIColor(displayP3Red: 201/255, green: 201/255, blue: 201/255, alpha: 1.0)
+        }
+    }
+    
 }
 
 

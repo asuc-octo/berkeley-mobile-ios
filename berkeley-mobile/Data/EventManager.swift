@@ -21,7 +21,7 @@ class EventManager: NSObject {
                 event.startDate = calendarEvent.date
                 event.endDate = calendarEvent.end ?? calendarEvent.date
                 event.location = calendarEvent.location
-                event.notes = calendarEvent.additionalDescription + (calendarEvent.description ?? "")
+                event.notes = calendarEvent.additionalDescription + (calendarEvent.descriptionText ?? "")
                 event.calendar = self.eventStore.defaultCalendarForNewEvents
                 do {
                     try self.eventStore.save(event, span: .thisEvent)

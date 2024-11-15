@@ -28,17 +28,4 @@ class MapPlacemark {
         locationName = locName
     }
     
-//    let geocoder = CLGeocoder()
-//    geocoder.reverseGeocodeLocation(cl) { (places, error) in
-//        if error == nil {
-//            for p in places ?? [] {
-//                print(p.name)
-//                print(placemarks.count)
-//                placemarks.append(p)
-//            }
-//        } else {
-//
-//        }
-//    }
-    
 }

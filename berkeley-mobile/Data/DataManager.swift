@@ -18,8 +18,7 @@ fileprivate let kDataSources: [DataSource.Type] = [
 
 /// Data sources that should be loaded after the first group. Either lower priority/takes too long, or depends on previous sources being loaded.
 fileprivate let kDataSourcesSecond: [DataSource.Type] = [
-    OccupancyDataSource.self,
-    EventDataSource.self
+    OccupancyDataSource.self
 ]
 
 class DataManager {

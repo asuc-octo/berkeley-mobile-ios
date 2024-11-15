@@ -14,11 +14,11 @@ fileprivate let kViewMargin: CGFloat = 6
 
 /// Displays the 'Academic' events in the Calendar tab.
 class AcademicCalendarViewController: UIViewController {
-    /// Categories to include from all events
-    private static let categories = ["Academic Calendar"]
     
     private var scrollingStackView: ScrollingStackView!
     private var calendarTablePair: CalendarTablePairView!
+    
+    private let eventScrapper = EventScrapper()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,21 +28,48 @@ class AcademicCalendarViewController: UIViewController {
         
         setupScrollView()
         setUpCalendar()
+        scrapeAcademicEvents()
+    }
+
+    private func scrapeAcademicEvents() {
+        calendarTablePair.isLoading = true
         
-        DataManager.shared.fetch(source: EventDataSource.self) { calendarEntries in
-            let entries = (calendarEntries as? [EventCalendarEntry])?.filter({ entry -> Bool in
-                return AcademicCalendarViewController.categories.contains(entry.category)
-            }) ?? []
-            self.calendarTablePair.setCalendarEntries(entries: entries.sorted(by: {
-                $0.date.compare($1.date) == .orderedAscending
-            }))
+        eventScrapper.delegate = self
+        
+        let academicCalendarURLString = EventScrapper.Constants.academicCalendarURLString
+        let rescapeData = eventScrapper.shouldRescrape(for: academicCalendarURLString, lastRefreshDateKey: UserDefaultKeys.academicEventsLastSavedDate)
+        
+        if rescapeData.shouldRescape {
+            eventScrapper.scrape(at: academicCalendarURLString)
+        } else {
+            DispatchQueue.main.async {
+                self.calendarTablePair.isLoading = false
+                self.calendarTablePair.setCalendarEntries(entries: rescapeData.savedEvents)
+            }
         }
     }
+}
+
+// MARK: - EventScrapperDelegate
+
+extension AcademicCalendarViewController: EventScrapperDelegate {
+    
+    func eventScrapperDidFinishScrapping(results: [EventCalendarEntry]) {
+        calendarTablePair.isLoading = false
+        calendarTablePair.setCalendarEntries(entries: results)
+    }
+    
+    func eventScrapperDidError(with errorDescription: String) {
+        calendarTablePair.isLoading = false
+        presentFailureAlert(title: "Unable To Parse Website", message: errorDescription)
+    }
+
 }
 
 // MARK: - View
 
 extension AcademicCalendarViewController {
+    
     private func setupScrollView() {
         scrollingStackView = ScrollingStackView()
         scrollingStackView.setLayoutMargins(view.layoutMargins)
@@ -70,12 +97,15 @@ extension AcademicCalendarViewController {
         calendarTablePair.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
         calendarTablePair.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
     }
+    
 }
 
 extension AcademicCalendarViewController {
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         Analytics.logEvent("opened_academic_calendar", parameters: nil)
     }
+    
 }
 

@@ -52,7 +52,7 @@ class CampusEventDetailViewController: UIViewController {
     }
     
     func setupDescriptionCard() {
-        guard let descriptionCard = DescriptionCardView(description: event.description) else { return }
+        guard let descriptionCard = DescriptionCardView(description: event.descriptionText) else { return }
         
         scrollingStackView.stackView.addArrangedSubview(descriptionCard)
     }

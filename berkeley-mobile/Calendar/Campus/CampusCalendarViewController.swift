@@ -14,9 +14,7 @@ fileprivate let kViewMargin: CGFloat = 16
 
 /// Displays the campus-wide and org. events in the Calendar tab.
 class CampusCalendarViewController: UIViewController {
-    /// Categories to include from all events
-    private static let categories = ["Career"]
-
+    
     private var scrollingStackView: ScrollingStackView!
 
     private var upcomingMissingView: MissingDataView!
@@ -26,44 +24,74 @@ class CampusCalendarViewController: UIViewController {
     private var calendarTable: UITableView!
 
     private var calendarEntries: [EventCalendarEntry] = []
+    
+    private let eventScrapper = EventScrapper()
+    private var isLoading = false
+    private var numOfRescrapes = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Note: The top inset value will be also used as a vertical margin for `scrollingStackView`.
         self.view.layoutMargins = UIEdgeInsets(top: 8, left: 16, bottom: 16, right: 16)
-
+        
         setupScrollView()
-        // remove upcoming card for now because it doesn't add any new information/value
-        // setupUpcoming()
         setupCalendarList()
-
-        DataManager.shared.fetch(source: EventDataSource.self) { calendarEntries in
-            self.calendarEntries = (calendarEntries as? [EventCalendarEntry])?.filter({ entry -> Bool in
-                return CampusCalendarViewController.categories.contains(entry.category)
-            }) ?? []
-
-            self.calendarEntries = self.calendarEntries.sorted(by: {
-                $0.date.compare($1.date) == .orderedAscending
-            })
-            
-            self.calendarEntries = self.calendarEntries.filter({
-                $0.date > Date()
-            })
-            if (self.calendarEntries.count == 0) {
-                // self.upcomingMissingView.isHidden = false
-                self.calendarMissingView.isHidden = false
-                self.calendarTable.isHidden = true
-            } else {
-                // self.upcomingMissingView.isHidden = true
-                self.calendarMissingView.isHidden = true
-                self.calendarTable.isHidden = false
-            }
-
-            self.calendarTable.reloadData()
-            // self.eventsCollection.reloadData()
+        scrapeCampuswideData()
+    }
+    
+    private func scrapeCampuswideData() {
+        isLoading = true
+        calendarTable.reloadData()
+        
+        eventScrapper.delegate = self
+        
+        let campusWideCalendarURLString = EventScrapper.Constants.campuswideCalendarURLString
+        let rescapeData = eventScrapper.shouldRescrape(for: campusWideCalendarURLString, lastRefreshDateKey: UserDefaultKeys.campuswideEventsLastSavedDate)
+        
+        if rescapeData.shouldRescape {
+            eventScrapper.scrape(at: campusWideCalendarURLString)
+        } else {
+            calendarEntries = rescapeData.savedEvents
+            isLoading = false
+            reloadCalendarTableView()
         }
     }
+    
+    private func reloadCalendarTableView() {
+        if calendarEntries.isEmpty {
+            hideCalendarTable()
+        } else {
+            showCalendarTable()
+            calendarTable.reloadData()
+        }
+    }
+    
+    private func showCalendarTable() {
+        calendarMissingView.isHidden = true
+        calendarTable.isHidden = false
+    }
+    
+    private func hideCalendarTable() {
+        calendarMissingView.isHidden = false
+        calendarTable.isHidden = true
+    }
+}
+
+// MARK: - EventScrapperDelegate
+extension CampusCalendarViewController: EventScrapperDelegate {
+    
+    func eventScrapperDidFinishScrapping(results: [EventCalendarEntry]) {
+        calendarEntries = results
+        isLoading = false
+        reloadCalendarTableView()
+    }
+    
+    func eventScrapperDidError(with errorDescription: String) {
+        presentFailureAlert(title: "Unable To Parse Website", message: errorDescription)
+        reloadCalendarTableView()
+    }
+    
 }
 
 // MARK: - Calendar Table Delegates
@@ -71,18 +99,22 @@ class CampusCalendarViewController: UIViewController {
 extension CampusCalendarViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return calendarEntries.count
+        return isLoading ? 5 : calendarEntries.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: CampusEventTableViewCell.kCellIdentifier, for: indexPath)
-            as? CampusEventTableViewCell {
-            if let entry = calendarEntries[safe: indexPath.row] {
-                cell.updateContents(event: entry)
-                return cell
+        if isLoading {
+            let cell = tableView.dequeueReusableCell(withIdentifier: SkeletonLoadingCell.kCellIdentifier, for: indexPath)
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: CampusEventTableViewCell.kCellIdentifier, for: indexPath)
+            
+            if let card = cell as? CampusEventTableViewCell,
+                let entry = calendarEntries[safe: indexPath.row] {
+                card.updateContents(event: entry)
             }
+            return cell
         }
-        return UITableViewCell()
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -104,12 +136,19 @@ extension CampusCalendarViewController: UICollectionViewDelegate, UICollectionVi
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CampusEventCollectionViewCell.kCellIdentifier, for: indexPath)
-        if let card = cell as? CampusEventCollectionViewCell {
-            if let entry = calendarEntries[safe: indexPath.row] {
-                card.updateContents(event: entry)
-            }
+        if isLoading {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SkeletonLoadingCell.kCellIdentifier, for: indexPath)
+            return cell
         }
+        
+        // Load actual data
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CampusEventCollectionViewCell.kCellIdentifier, for: indexPath)
+        
+        if let card = cell as? CampusEventCollectionViewCell,
+            let entry = calendarEntries[safe: indexPath.row] {
+            card.updateContents(event: entry)
+        }
+            
         return cell
     }
     
@@ -120,6 +159,17 @@ extension CampusCalendarViewController: UICollectionViewDelegate, UICollectionVi
             present(vc, animated: true)
         }
     }
+}
+
+// MARK: - MissingDataViewDelegate
+
+extension CampusCalendarViewController: MissingDataViewDelegate {
+    
+    func missingDataViewDidReload() {
+        showCalendarTable()
+        scrapeCampuswideData()
+    }
+
 }
 
 // MARK: - View
@@ -188,7 +238,9 @@ extension CampusCalendarViewController {
 
         let table = UITableView()
         table.register(CampusEventTableViewCell.self, forCellReuseIdentifier: CampusEventTableViewCell.kCellIdentifier)
+        table.register(SkeletonLoadingCell.self, forCellReuseIdentifier: SkeletonLoadingCell.kCellIdentifier)
         table.rowHeight = CampusEventTableViewCell.kCellHeight
+        table.backgroundColor = BMColor.cardBackground
         table.delegate = self
         table.dataSource = self
         table.showsVerticalScrollIndicator = false
@@ -202,6 +254,8 @@ extension CampusCalendarViewController {
 
         calendarTable = table
         calendarMissingView = MissingDataView(parentView: card, text: "No events found")
+        calendarMissingView.showReloadButton(withTitle: "Reload Events")
+        calendarMissingView.delegate = self
     }
 }
 
