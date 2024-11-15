@@ -84,6 +84,8 @@ extension SkeletonLoadingCell {
         
         backgroundView = .none
         backgroundColor = BMColor.cardBackground
+        
+        isUserInteractionEnabled = false
     }
     
     func layout() {

@@ -24,7 +24,7 @@ class EventCalendarEntry: NSObject, NSCoding, CalendarEvent, HasImage, CanFavori
     }
     
     // MARK: CalendarEvent Fields
-    @Display var name: String = ""
+    @Display var name: String = "N/A"
     var date: Date = Date()
     var end: Date?
     @Display var descriptionText: String?
