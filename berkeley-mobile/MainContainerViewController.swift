@@ -69,28 +69,34 @@ class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
     
     
     private func attemptShowFeedbackForm() {
-        let shownFeedbackForm = UserDefaults.standard.bool(forKey: UserDefaultKeys.hasShownFeedbackFrom)
-        if !shownFeedbackForm {
-            let feedbackFormVC = UIViewController()
-            feedbackFormVC.view.backgroundColor = .red
-            
-            let feedbackFormContentView = UIHostingController(rootView: FeedbackFormView())
-            feedbackFormVC.addChild(feedbackFormContentView)
-            feedbackFormVC.view.addSubview(feedbackFormContentView.view)
-
-            feedbackFormContentView.view.translatesAutoresizingMaskIntoConstraints = false
-
-            NSLayoutConstraint.activate([
-                feedbackFormContentView.view.topAnchor.constraint(equalTo: feedbackFormVC.view.topAnchor),
-                feedbackFormContentView.view.leadingAnchor.constraint(equalTo: feedbackFormVC.view.leadingAnchor),
-                feedbackFormContentView.view.trailingAnchor.constraint(equalTo: feedbackFormVC.view.trailingAnchor),
-                feedbackFormContentView.view.bottomAnchor.constraint(equalTo: feedbackFormVC.view.bottomAnchor)
-            ])
-            
-            feedbackFormVC.modalPresentationStyle = .fullScreen
-            feedbackFormVC.modalTransitionStyle = .coverVertical
-            present(feedbackFormVC, animated: true)
+        let numAppLaunchForFeedbackForm = UserDefaults.standard.integer(forKey: UserDefaultKeys.numAppLaunchForFeedbackForm)
+        
+        guard numAppLaunchForFeedbackForm == 1 else {
+            if numAppLaunchForFeedbackForm == 0 {
+                UserDefaults.standard.set(1, forKey: UserDefaultKeys.numAppLaunchForFeedbackForm)
+            }
+            return
         }
+        
+        let feedbackFormVC = UIViewController()
+        feedbackFormVC.view.backgroundColor = .red
+        
+        let feedbackFormContentView = UIHostingController(rootView: FeedbackFormView())
+        feedbackFormVC.addChild(feedbackFormContentView)
+        feedbackFormVC.view.addSubview(feedbackFormContentView.view)
+
+        feedbackFormContentView.view.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            feedbackFormContentView.view.topAnchor.constraint(equalTo: feedbackFormVC.view.topAnchor),
+            feedbackFormContentView.view.leadingAnchor.constraint(equalTo: feedbackFormVC.view.leadingAnchor),
+            feedbackFormContentView.view.trailingAnchor.constraint(equalTo: feedbackFormVC.view.trailingAnchor),
+            feedbackFormContentView.view.bottomAnchor.constraint(equalTo: feedbackFormVC.view.bottomAnchor)
+        ])
+        
+        feedbackFormVC.modalPresentationStyle = .fullScreen
+        feedbackFormVC.modalTransitionStyle = .coverVertical
+        present(feedbackFormVC, animated: true)
     }
 }
 
