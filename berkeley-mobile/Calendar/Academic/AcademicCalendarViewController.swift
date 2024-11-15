@@ -35,7 +35,18 @@ class AcademicCalendarViewController: UIViewController {
         calendarTablePair.isLoading = true
         
         eventScrapper.delegate = self
-        eventScrapper.scrape(at: EventScrapper.Constants.academicCalendarURLString)
+        
+        let academicCalendarURLString = EventScrapper.Constants.academicCalendarURLString
+        let rescapeData = eventScrapper.shouldRescrape(for: academicCalendarURLString, lastRefreshDateKey: UserDefaultKeys.academicEventsLastSavedDate)
+        
+        if rescapeData.shouldRescape {
+            eventScrapper.scrape(at: academicCalendarURLString)
+        } else {
+            DispatchQueue.main.async {
+                self.calendarTablePair.isLoading = false
+                self.calendarTablePair.setCalendarEntries(entries: rescapeData.savedEvents)
+            }
+        }
     }
 }
 

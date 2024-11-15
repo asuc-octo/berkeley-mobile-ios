@@ -80,7 +80,7 @@ class CalendarTablePairView: UIView {
     }
     
     private func reloadCalendarTableView() {
-        if (calendarView.calendarEntries.count == 0) {
+        if calendarView.calendarEntries.isEmpty {
             hideCalendarTable()
         } else {
             showCalendarTable()

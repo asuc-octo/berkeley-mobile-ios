@@ -14,4 +14,6 @@ struct UserDefaultKeys {
         static let hasShownOnboarding = "hasShownOnboarding"
     }
     static let numAppLaunchForFeedbackForm = "numAppLaunchForFeedbackForm"
+    static let academicEventsLastSavedDate = "academicEventsLastSavedDate"
+    static let campuswideEventsLastSavedDate = "campuswideEventsLastSavedDate"
 }

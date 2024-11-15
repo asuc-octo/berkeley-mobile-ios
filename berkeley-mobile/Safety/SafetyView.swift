@@ -138,7 +138,6 @@ struct SafetyView: View {
                     switch selectedTimeFilterState {
                     case .thisMonth:
                         let thisMonthLogs = safetyViewManager.safetyLogs.filter{Calendar.current.isDate($0.date, equalTo: currentDate, toGranularity: .month)}
-                        print(thisMonthLogs)
                         filteredSafetyLogs.append(contentsOf: thisMonthLogs)
                     case .thisWeek:
                         let thisWeekLogs = safetyViewManager.safetyLogs.filter{Calendar.current.isDate($0.date, equalTo: currentDate, toGranularity: .weekOfYear)}

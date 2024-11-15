@@ -19,7 +19,7 @@ class EventScrapper: NSObject {
     
     struct Constants {
         static let academicCalendarURLString = "https://events.berkeley.edu/events/week/categories/Academic"
-        static let campusWideCalendarURLString = "https://events.berkeley.edu/events/all"
+        static let campuswideCalendarURLString = "https://events.berkeley.edu/events/all"
     }
     
     /// Allowed number of rescrapes until `EventScrapper` gives up on scrapping.
@@ -29,7 +29,7 @@ class EventScrapper: NSObject {
     
     weak var delegate: EventScrapperDelegate?
     
-    private var urlString: String!
+    private var urlString: String?
     
     private let webView: WKWebView = {
         let prefs = WKPreferences()
@@ -45,14 +45,37 @@ class EventScrapper: NSObject {
     }
     
     func scrape(at urlString: String) {
-        guard let berkCampuswideEventsURL = URL(string: urlString) else {
+        guard let url = URL(string: urlString) else {
             return
         }
     
         self.urlString = urlString
         
-        webView.load(URLRequest(url: berkCampuswideEventsURL))
+        webView.load(URLRequest(url: url))
     }
+    
+    func retrieveSavedEvents(for urlString: String) -> [EventCalendarEntry] {
+        guard let decodedData = UserDefaults.standard.data(forKey: urlString) else {
+            return []
+        }
+        
+        let decodedEvents = NSArray.unsecureUnarchived(from: decodedData) as? [EventCalendarEntry]
+        return decodedEvents ?? []
+    }
+    
+    func shouldRescrape(for urlString: String, lastRefreshDateKey: String) -> (shouldRescape: Bool, savedEvents: [EventCalendarEntry]) {
+        let savedAcademicEvents = retrieveSavedEvents(for: urlString)
+        let lastSavedDate = UserDefaults.standard.object(forKey: lastRefreshDateKey) as? Date ?? Date()
+        let endOfDayDate = Calendar.current.date(bySettingHour: 23, minute: 59, second: 59, of: lastSavedDate) ?? Date()
+        let rescape = savedAcademicEvents.isEmpty || lastSavedDate >= endOfDayDate
+        
+        if rescape {
+            UserDefaults.standard.set(Date(), forKey: lastRefreshDateKey)
+        }
+        
+        return (rescape, savedAcademicEvents)
+    }
+    
 }
 
 // MARK: - WKNavigationDelegate
@@ -96,14 +119,12 @@ extension EventScrapper: WKNavigationDelegate {
                                 var eventStartTimeDate = eventStartTime.convertTimeStringToDate(baseDate: dateWithYear, endTimeString: eventEndTime)
                                 var eventEndTimeDate = eventEndTime.convertTimeStringToDate(baseDate: dateWithYear)
                                 
-                                // TODO: Parse postfix element
                                 if try eventTimeElement.text().contains("All Day") {
                                     eventStartTimeDate = Date.getTodayShiftDate(for: dateWithYear, hourComponent: 0, minuteComponent: 0, secondComponent: 0)
                                     eventEndTimeDate = Date.getTodayShiftDate(for: dateWithYear, hourComponent: 11, minuteComponent: 59, secondComponent: 59)
                                 }
                                 
                                 let eventTitle = try eventLink.select("div.lw_events_title > a").text()
-                                // TODO: Insert newlines for pages with blocks
                                 let eventSummaryText = try eventLink.select("div.lw_events_summary").text()
                                 
                                 let eventLinkElement = try eventLink.select("span.lw_item_thumb > a")
@@ -112,24 +133,36 @@ extension EventScrapper: WKNavigationDelegate {
                                 
                                 let imageLink = try eventLinkElement.select("picture.lw_image > img").attr("src")
 
-                                let newEventCalendarEntry = EventCalendarEntry(name: eventTitle, date: eventStartTimeDate ?? dateWithYear, end: eventEndTimeDate, description: eventSummaryText, location: locationName, imageURL: imageLink, sourceLink: fullSourceLink)
+                                let newEventCalendarEntry = EventCalendarEntry(name: eventTitle, date: eventStartTimeDate ?? dateWithYear, end: eventEndTimeDate, descriptionText: eventSummaryText, location: locationName, imageURL: imageLink, sourceLink: fullSourceLink)
                                 scrappedCalendarEntries.append(newEventCalendarEntry)
                             }
                         }
                     }
                     
                     guard !scrappedCalendarEntries.isEmpty else {
-                        self.currNumOfRescrapes += 1
-                        self.scrape(at: self.urlString)
+                        if let urlString = self.urlString {
+                            self.currNumOfRescrapes += 1
+                            self.scrape(at: urlString)
+                        }
                         return
                     }
                     
+                    self.saveEventCalendarEntries(for: scrappedCalendarEntries)
                     self.delegate?.eventScrapperDidFinishScrapping(results: scrappedCalendarEntries)
                 } catch {
-                    print("error: \(error)")
                     self.delegate?.eventScrapperDidError(with: error.localizedDescription)
                 }
             }
+        }
+    }
+    
+    private func saveEventCalendarEntries(for entries: [EventCalendarEntry]) {
+        guard let urlString else {
+            return
+        }
+        
+        if let encodedData = try? NSKeyedArchiver.archivedData(withRootObject: entries, requiringSecureCoding: false) {
+            UserDefaults.standard.set(encodedData, forKey: urlString)
         }
     }
     

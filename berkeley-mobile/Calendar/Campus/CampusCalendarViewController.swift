@@ -45,11 +45,21 @@ class CampusCalendarViewController: UIViewController {
         calendarTable.reloadData()
         
         eventScrapper.delegate = self
-        eventScrapper.scrape(at: EventScrapper.Constants.campusWideCalendarURLString)
+        
+        let campusWideCalendarURLString = EventScrapper.Constants.campuswideCalendarURLString
+        let rescapeData = eventScrapper.shouldRescrape(for: campusWideCalendarURLString, lastRefreshDateKey: UserDefaultKeys.campuswideEventsLastSavedDate)
+        
+        if rescapeData.shouldRescape {
+            eventScrapper.scrape(at: campusWideCalendarURLString)
+        } else {
+            calendarEntries = rescapeData.savedEvents
+            isLoading = false
+            reloadCalendarTableView()
+        }
     }
     
     private func reloadCalendarTableView() {
-        if (calendarEntries.count == 0) {
+        if calendarEntries.isEmpty {
             hideCalendarTable()
         } else {
             showCalendarTable()

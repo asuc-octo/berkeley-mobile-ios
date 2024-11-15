@@ -16,7 +16,7 @@ class GymClass: CalendarEvent {
     @Display var name: String
     var date: Date
     var end: Date?
-    @Display var description: String?
+    @Display var descriptionText: String?
     @Display var location: String?
     
     var additionalDescription: String {

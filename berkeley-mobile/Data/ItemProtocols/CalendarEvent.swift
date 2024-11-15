@@ -25,7 +25,7 @@ protocol CalendarEvent {
     var end: Date? { get set }
     
     /// An optional description for the event.
-    var description: String? { get set }
+    var descriptionText: String? { get set }
     
     /// Subclass specific additional description to include when adding the event to the user's calendar. Should be used to include details like gym class trainer, links, etc.
     var additionalDescription: String { get }
