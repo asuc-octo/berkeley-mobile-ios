@@ -40,8 +40,6 @@ extension String {
                       let endHour = Int(String(endTimeString.first!)) else {
                     return nil
                 }
-                
-                print("Start hour: \(startHour) end hour: \(endHour)")
                                     
                 if endTimeString.hasSuffix(dateFormatter.amSymbol!)
                     || ((startHour != 12) && (startHour > endHour))  {
@@ -51,8 +49,6 @@ extension String {
                 }
             }
         }
-        
-        print("Processed String: \(processedString)")
         
         if let date = dateFormatter.date(from: processedString) {
             // Combine with today's date to form a complete date object
