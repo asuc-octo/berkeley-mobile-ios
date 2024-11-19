@@ -7,13 +7,13 @@
 //
 
 import Firebase
+import FirebaseCore
+import FirebaseMessaging
 import GoogleSignIn
 import IQKeyboardManagerSwift
 import UIKit
 import UserNotifications
 
-import FirebaseCore
-import FirebaseMessaging
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -56,7 +56,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
     
-    // Receive displayed notifications for iOS 10 devices.
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                   willPresent notification: UNNotification) async
         -> UNNotificationPresentationOptions {
@@ -65,8 +64,6 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                               didReceive response: UNNotificationResponse) async {
-        let userInfo = response.notification.request.content.userInfo
-        
         let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
         let tabBarController = sceneDelegate?.window?.rootViewController as? TabBarController
         tabBarController?.selectedIndex = 2
