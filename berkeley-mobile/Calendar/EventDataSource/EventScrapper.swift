@@ -65,12 +65,13 @@ class EventScrapper: NSObject {
     
     func shouldRescrape(for urlString: String, lastRefreshDateKey: String) -> (shouldRescape: Bool, savedEvents: [EventCalendarEntry]) {
         let savedAcademicEvents = retrieveSavedEvents(for: urlString)
-        let lastSavedDate = UserDefaults.standard.object(forKey: lastRefreshDateKey) as? Date ?? Date()
-        let endOfDayDate = Calendar.current.date(bySettingHour: 23, minute: 59, second: 59, of: lastSavedDate) ?? Date()
-        let rescape = savedAcademicEvents.isEmpty || lastSavedDate >= endOfDayDate
+        let currentDate = Date()
+        let lastSavedDate = UserDefaults.standard.object(forKey: lastRefreshDateKey) as? Date ?? currentDate
+        let endOfDayDate = Calendar.current.date(bySettingHour: 23, minute: 59, second: 59, of: lastSavedDate) ?? currentDate
+        let rescape = savedAcademicEvents.isEmpty || currentDate >= endOfDayDate
         
         if rescape {
-            UserDefaults.standard.set(Date(), forKey: lastRefreshDateKey)
+            UserDefaults.standard.set(currentDate, forKey: lastRefreshDateKey)
         }
         
         return (rescape, savedAcademicEvents)
@@ -78,7 +79,9 @@ class EventScrapper: NSObject {
     
 }
 
+
 // MARK: - WKNavigationDelegate
+
 extension EventScrapper: WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
