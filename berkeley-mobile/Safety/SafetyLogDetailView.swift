@@ -99,9 +99,9 @@ struct SafetyLogView: View {
         }
     }
     
-    // TODO: - Add "Yesterday" and "Today" verbage
+    @ViewBuilder
     private var logDateAndTime: some View {
-        Text(safetyLog.date.formatted(date: .abbreviated, time: .shortened))
+        Text(getSafetyLogDateString())
             .font(Font(BMFont.regular(17)))
             .font(.subheadline)
     }
@@ -116,6 +116,17 @@ struct SafetyLogView: View {
         }
         .foregroundStyle(.green)
         
+    }
+    
+    private func getSafetyLogDateString() -> String {
+        let date = safetyLog.date
+        let dayOfTheWeek = DayOfWeek.weekday(date)
+        
+        if date.isWithinPastWeek() {
+            return "\(dayOfTheWeek.stringRepresentation(includesYesterdayTodayVerbage: true)) at \(date.formatted(date: .omitted, time: .shortened))"
+        }
+        
+        return date.formatted(date: .abbreviated, time: .shortened)
     }
 }
 

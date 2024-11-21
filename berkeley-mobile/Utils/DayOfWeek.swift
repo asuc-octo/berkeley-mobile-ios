@@ -23,10 +23,22 @@ enum DayOfWeek: Int, CaseIterable {
     }
     
     func adding(num: Int) -> DayOfWeek {
-        return DayOfWeek(rawValue: (self.rawValue + num) % 7)!
+        return DayOfWeek(rawValue: (rawValue + num) % 7)!
     }
     
-    func stringRepresentation() -> String {
+    func stringRepresentation(includesYesterdayTodayVerbage: Bool = false) -> String {
+        if includesYesterdayTodayVerbage {
+            let weekdayNum = Date().weekday()
+            
+            if weekdayNum % 7 == rawValue {
+                return "Today"
+            }
+            
+            if (weekdayNum - 1) % 7 == rawValue {
+                return "Yesterday"
+            }
+        }
+
         switch self {
         case .sunday:
             return "Sunday"

@@ -54,7 +54,6 @@ struct SafetyView: View {
                                 .listRowBackground(Color.clear)
                                 .listRowSeparator(.hidden)
                                 .listRowInsets(EdgeInsets())
-                               
                                 .onTapGesture {
                                     withAnimation {
                                         selectedSafetyLog = safetyLog
