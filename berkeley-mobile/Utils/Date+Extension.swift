@@ -126,4 +126,11 @@ extension Date {
         return formatter.string(from: self)
     }
     
+    /// Returns if the given date is within the past week
+    func isWithinPastWeek() -> Bool {
+        let now = Date()
+        let oneWeekAgo = Calendar.current.date(byAdding: .day, value: -7, to: now)!
+        return self > oneWeekAgo && self <= now
+    }
+    
 }

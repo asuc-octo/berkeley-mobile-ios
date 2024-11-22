@@ -6,23 +6,32 @@
 //  Copyright © 2019 RJ Pimentel. All rights reserved.
 //
 
-import UIKit
 import Firebase
-import IQKeyboardManagerSwift
+import FirebaseCore
+import FirebaseMessaging
 import GoogleSignIn
+import IQKeyboardManagerSwift
+import UIKit
+import UserNotifications
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
         FirebaseApp.configure()
         self.checkForUpdate()
         DataManager.shared.fetchAll()
         LocationManager.shared.requestLocation()
         IQKeyboardManager.shared.enable = true
-//        GIDSignIn.sharedInstance()?.clientID = FirebaseApp.app()?.options.clientID
-        // Force initialize so we can load the previous sign in on launch
+        
+        Messaging.messaging().delegate = self
+        UNUserNotificationCenter.current().delegate = self
+        
+        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+        UNUserNotificationCenter.current().requestAuthorization(options: authOptions, completionHandler: {_, _ in})
+        application.registerForRemoteNotifications()
+        
         return true
     }
 
@@ -40,6 +49,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
 
+}
 
+
+// MARK: - UNUserNotificationCenterDelegate
+
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                  willPresent notification: UNNotification) async
+        -> UNNotificationPresentationOptions {
+        return [[.banner, .sound]]
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                              didReceive response: UNNotificationResponse) async {
+        let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
+        let tabBarController = sceneDelegate?.window?.rootViewController as? TabBarController
+        tabBarController?.selectedIndex = 2
+    }
+    
+}
+
+
+// MARK: - MessagingDelegate
+extension AppDelegate: MessagingDelegate {
+    
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+
+        let dataDict: [String: String] = ["token": fcmToken ?? ""]
+        NotificationCenter.default.post(
+          name: Notification.Name("FCMToken"),
+          object: nil,
+          userInfo: dataDict
+        )
+        
+        Messaging.messaging().subscribe(toTopic: "all") { _ in }
+    }
+    
 }
 

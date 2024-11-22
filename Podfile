@@ -8,6 +8,7 @@ target 'berkeley-mobile' do
   # Pods for berkeley-mobile
   pod 'Firebase/Analytics'
   pod 'Firebase'
+  pod 'FirebaseMessaging'
   pod 'Firebase/Firestore'
   pod 'IQKeyboardManagerSwift'
   pod 'Firebase/Auth'
