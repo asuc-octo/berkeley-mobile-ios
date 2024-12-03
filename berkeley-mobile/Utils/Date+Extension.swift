@@ -133,4 +133,8 @@ extension Date {
         return self > oneWeekAgo && self <= now
     }
     
+    /// Get integer representation of a calendar component from date
+    func get(_ component: Calendar.Component, calendar: Calendar = Calendar.current) -> Int {
+        return calendar.component(component, from: self)
+    }
 }

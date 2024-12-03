@@ -181,7 +181,7 @@ class CalendarCell: UICollectionViewCell {
     }
     
     // configure this cell to show a day of the week as part of the calendar header
-    public func configureHeader(text: String) {
+    fileprivate func configureHeader(text: String) {
         label.text = text
         label.textColor = BMColor.Calendar.dayOfWeekHeader
         label.font = BMFont.light(18)
@@ -189,7 +189,7 @@ class CalendarCell: UICollectionViewCell {
     }
     
     // configure this cell to show a day of the month and highlight it appropriately
-    public func configureDay(entries: [EventCalendarEntry] = [],
+    fileprivate func configureDay(entries: [EventCalendarEntry] = [],
                              calendarDay: (day: Int, isCurrentMonth: Bool),
                              boldText: Bool = false) {
         label.text = String(calendarDay.day)
@@ -201,7 +201,7 @@ class CalendarCell: UICollectionViewCell {
             // get all colors this day should be highlighted in based on the calendar events taking place
             var colors: Set<UIColor> = []
             for entry in entries {
-                let entryDay = Calendar.current.component(.day, from: entry.date)
+                let entryDay = entry.date.get(.day)
                 if entryDay == calendarDay.day {
                     colors.insert(entry.color)
                 }
@@ -226,6 +226,16 @@ class CalendarCell: UICollectionViewCell {
             label.font = BMFont.light(18)
         }
     }
+    
+    func performTapAnimation() {
+        UIView.animate(withDuration: 0.3) {
+            self.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+        } completion: { _ in
+            UIView.animate(withDuration: 0.3) {
+                self.transform = .identity
+            }
+        }
+    }
 }
 
 extension CalendarView: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -244,7 +254,7 @@ extension CalendarView: UICollectionViewDelegate, UICollectionViewDataSource {
             if indexPath.section == 0, let text = DayOfWeek(rawValue: indexPath.row)?.charRepresentation() {
                 calendarCell.configureHeader(text: text)
             } else {
-                let cellIndex = (indexPath.section - 1) * collectionView.numberOfItems(inSection: indexPath.section) + indexPath.row
+                let cellIndex = getCellIndex(with: indexPath, in: collectionView)
                 let calendarDay = calendarDays[cellIndex]
                 // highlight and bold the text if the cell is for today
                 let todayComponents = calendar.dateComponents([.year, .month, .day], from: Date())
@@ -253,6 +263,27 @@ extension CalendarView: UICollectionViewDelegate, UICollectionViewDataSource {
             }
         }
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cellIndex = getCellIndex(with: indexPath, in: collectionView)
+        
+        guard cellIndex >= 0 else {
+            return
+        }
+        
+        let cell = collectionView.cellForItem(at: indexPath) as? CalendarCell
+        let calendarDay = calendarDays[cellIndex]
+        let isTappable = currentMonthCalendarEntries.contains(where: { $0.date.get(.day) == calendarDay.day })
+        
+        if isTappable {
+            delegate?.didSelectDay(day: calendarDay.day)
+            cell?.performTapAnimation()
+        }
+    }
+    
+    private func getCellIndex(with indexPath: IndexPath, in collectionView: UICollectionView) -> Int {
+        return (indexPath.section - 1) * collectionView.numberOfItems(inSection: indexPath.section) + indexPath.row
     }
 }
 
@@ -266,4 +297,6 @@ extension CalendarView: MonthSelectorDelegate {
 protocol CalendarViewDelegate {
     /// delegate is alerted when the month changes and is given the EventCalendarEntries shown for the current month
     func didChangeMonth(selectedEntries: [EventCalendarEntry]) -> Void
+    /// delegate is alerted when a valid day is tapped
+    func didSelectDay(day: Int) -> Void
 }

@@ -85,6 +85,7 @@ class CalendarTablePairView: UIView {
         } else {
             showCalendarTable()
             calendarTable.reloadData()
+            calendarTableScrollToToday()
         }
     }
     
@@ -96,6 +97,11 @@ class CalendarTablePairView: UIView {
     private func hideCalendarTable() {
         missingDataView.isHidden = false
         missingDataView.isHidden = true
+    }
+    
+    private func calendarTableScrollToToday() {
+        let todayDay = Date().get(.day)
+        didSelectDay(day: todayDay)
     }
 }
 
@@ -147,5 +153,12 @@ extension CalendarTablePairView: CalendarViewDelegate {
             calendarTableHeightConstraint?.constant = min(calendarTable.contentSize.height, self.frame.height * 0.7)
         }
         self.layoutIfNeeded()
+    }
+    
+    func didSelectDay(day: Int) {
+        guard let tableEntryIndex = tableEntries.firstIndex(where: { $0.date.get(.day) == day }) else {
+            return
+        }
+        calendarTable.scrollToRow(at: IndexPath(row: tableEntryIndex, section: 0), at: .top, animated: true)
     }
 }
