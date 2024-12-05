@@ -29,6 +29,8 @@ class RSFScrapper: NSObject {
     
     weak var delegate: RSFScrapperDelegate?
     
+    private var occupancyText : String?
+    
     private var urlString: String?
     
     private let webView: WKWebView = {
@@ -56,8 +58,9 @@ class RSFScrapper: NSObject {
     
     // TODO: Add helper public methods to access occupancy
     
-    func getOccupancy() {
+    func getOccupancy() -> String {
         scrape(at: Constants.weightRoomURLString)
+        return (occupancyText ?? "Not working")
     }
     
 }
@@ -87,6 +90,8 @@ extension RSFScrapper: WKNavigationDelegate {
                     if let weightOccupancyText = try doc.select("div.styles_fullness__rayxl > span").first()?.text() {
                         print("Weight Occupancy: \(weightOccupancyText)")
                         self.delegate?.rsfScrapperDidFinishScrapping(result: weightOccupancyText)
+                        self.occupancyText = weightOccupancyText
+    
                     } else {
                         print("Unable to find weight occupancy text")
                         if let urlString = self.urlString {

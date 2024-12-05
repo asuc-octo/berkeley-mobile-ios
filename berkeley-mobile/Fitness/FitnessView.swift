@@ -13,33 +13,19 @@ struct OccupancyView: View {
     
     var body: some View {
         VStack {
-            Text("RSF Weight Room Occupancy")
-                .font(.title)
-                .padding()
-
-            if let occupancy = viewModel.occupancy {
-                Gauge(value: occupancy, in: 0...100) {
-                    Text("Occupancy")
-                } currentValueLabel: {
-                    Text("\(occupancy, specifier: "%.0f")%")
-                }
-                .gaugeStyle(.accessoryCircular)
-                .padding()
-            } else if viewModel.isLoading {
-                ProgressView("Loading occupancy...")
-            } else if let errorMessage = viewModel.errorMessage {
-                Text(errorMessage)
-                    .foregroundColor(.red)
-                    .multilineTextAlignment(.center)
-                    .padding()
+            Gauge(value: viewModel.occupancy ?? 0, in: 0...100) {
+                Text("\(String(describing: viewModel.occupancy))")
+                    .foregroundColor(.green)
             }
         }
         .onAppear {
             viewModel.startAutoRefresh()
         }
         .onDisappear {
-            viewModel.stopAutoRefresh()
+            viewModel
+                .stopAutoRefresh()
         }
+        
     }
 }
 
@@ -60,7 +46,7 @@ class OccupancyViewModel: NSObject, ObservableObject, RSFScrapperDelegate {
 
     func startAutoRefresh() {
         refreshOccupancy()
-        timer = Timer.scheduledTimer(withTimeInterval: 60.0, repeats: true) { [weak self] _ in
+        timer = Timer.scheduledTimer(withTimeInterval: 30.0, repeats: true) { [weak self] _ in
             self?.refreshOccupancy()
         }
     }
@@ -75,7 +61,6 @@ class OccupancyViewModel: NSObject, ObservableObject, RSFScrapperDelegate {
     func refreshOccupancy() {
         isLoading = true
         errorMessage = nil
-        scrapper.getOccupancy()
     }
 
     // MARK: - RSFScrapperDelegate Methods
