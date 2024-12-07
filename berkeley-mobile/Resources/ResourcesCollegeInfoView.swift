@@ -8,75 +8,59 @@
 
 import SwiftUI
 
-import SwiftUI
 
 struct ResourcesCollegeInfoView: View {
     var body: some View {
-        VStack(spacing: 20) {
-            VStack {
-                HStack {
-                    Image("Gilman Hall")
-                        .resizable()
-                        .scaledToFit()
-                        .padding(.leading)
-                    Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")
-                        .font(Font.custom("BMFont", size:14))
-                        .padding(.trailing)
-                    Spacer()
-                }
-            }
-            
-            HStack {
-                Image("Placemark")
-                    .padding(.leading)
-                Text("121 Gilman Hall, Berkeley")
-                    .font(Font.custom("BMFont", size:16))
-                Spacer()
-            }
-            
-            HStack(spacing: 16) {
-                Text("Monday – Friday")
-                    .font(Font.custom("BMFont", size:14))
-                    .padding(.leading)
-                Spacer()
-                VStack(alignment: .trailing) {
-                    Text("8:30 AM - 12:00 PM").font(Font.custom("BMFont", size:14))
-                    Text("1:00 PM - 5:00 PM").font(Font.custom("BMFont", size:14))
-                }
-                .font(.subheadline)
-                Button(action: {}) {
-                    Text("Open")
-                        .font(Font.custom("BMFont", size:14))
-                        .foregroundColor(.white)
-                        .padding(.vertical, 6)
-                        .padding(.horizontal, 12)
-                        .background(.blue)
-                        .clipShape(Capsule())
-                }
-                
-            }
-            .padding(.horizontal)
-            
-            HStack {
-                Image("Gilman Map")
-                    .resizable()
-                    .scaledToFit()
-                    .padding(.all)
-            }
-            
-            HStack {
-                Text("Undergraduate    Graduate")
-                    .font(Font.custom("BMFont", size:16))
-                    .padding(.leading)
-                Spacer()
-            }
+        VStack(alignment: .leading, spacing: 20) {
+            imageDetailedTextView
+            addressPlacemarkView
+            timeDayView
             Spacer()
+        }
+        .font(Font(BMFont.regular(14)))
+        .padding()
+    }
+    
+    private var imageDetailedTextView: some View {
+        HStack {
+            Image("Gilman Hall")
+                .resizable()
+                .scaledToFit()
+            
+            Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")
+        }
+    }
+    
+    private var addressPlacemarkView: some View {
+        HStack {
+            Image("Placemark")
+            Text("121 Gilman Hall, Berkeley")
+        }
+    }
+    
+    private var timeDayView: some View {
+        HStack(spacing: 16) {
+            Text("Monday – Friday")
+            
+            Spacer()
+            
+            VStack(alignment: .trailing) {
+                Text("8:30 AM - 12:00 PM")
+                Text("1:00 PM - 5:00 PM")
+            }
+            .font(.subheadline)
+            
+            Button(action: {}) {
+                Text("Open")
+                    .foregroundColor(.white)
+                    .padding(EdgeInsets(top: 6, leading: 12, bottom: 6, trailing: 12))
+                    .background(.blue)
+                    .clipShape(Capsule())
+            }
         }
     }
 }
 
-struct ResourcesCollegeInfoView_Preview: PreviewProvider {
-    static var previews: some View {
-        ResourcesCollegeInfoView()
-    }
+#Preview {
+    ResourcesCollegeInfoView()
 }
