@@ -12,10 +12,22 @@ struct OccupancyView: View {
     @StateObject private var viewModel = OccupancyViewModel()
     
     var body: some View {
+        
         VStack {
-            Gauge(value: viewModel.occupancy ?? 0, in: 0...100) {
-                Text("\(String(describing: viewModel.occupancy))")
-                    .foregroundColor(.green)
+            if let occupancy = viewModel.occupancy {
+                Gauge(value: occupancy, in: 0...199) {
+                    Text("BPM")
+                } currentValueLabel: {
+                    Text("\(Int(occupancy))")
+                } minimumValueLabel: {
+                    Text("\(Int(0))")
+                } maximumValueLabel: {
+                    Text("\(Int(100))")
+                }
+                .gaugeStyle(.accessoryCircular)
+                .tint(colorGauge(occupancy))
+            } else {
+                ProgressView()
             }
         }
         .onAppear {
@@ -26,6 +38,17 @@ struct OccupancyView: View {
                 .stopAutoRefresh()
         }
         
+    }
+    
+    private func colorGauge(_ value: Double) -> Color {
+        switch value {
+        case 70...90:
+                .orange
+        case 90...200:
+                .red
+        default:
+                .green
+        }
     }
 }
 
@@ -46,7 +69,7 @@ class OccupancyViewModel: NSObject, ObservableObject, RSFScrapperDelegate {
 
     func startAutoRefresh() {
         refreshOccupancy()
-        timer = Timer.scheduledTimer(withTimeInterval: 30.0, repeats: true) { [weak self] _ in
+        timer = Timer.scheduledTimer(withTimeInterval: 10.0, repeats: true) { [weak self] _ in
             self?.refreshOccupancy()
         }
     }
@@ -61,6 +84,7 @@ class OccupancyViewModel: NSObject, ObservableObject, RSFScrapperDelegate {
     func refreshOccupancy() {
         isLoading = true
         errorMessage = nil
+        scrapper.scrape(at: RSFScrapper.Constants.weightRoomURLString)
     }
 
     // MARK: - RSFScrapperDelegate Methods
@@ -68,8 +92,9 @@ class OccupancyViewModel: NSObject, ObservableObject, RSFScrapperDelegate {
     func rsfScrapperDidFinishScrapping(result: String?) {
         DispatchQueue.main.async {
             self.isLoading = false
-            if let result = result, let occupancy = Double(result.trimmingCharacters(in: .whitespacesAndNewlines).replacingOccurrences(of: "%", with: "")) {
-                self.occupancy = occupancy
+            if let result = result, let occupancy = result.split(separator: "%").first {
+                self.occupancy = Double(String(occupancy))
+                self.errorMessage = nil
             } else {
                 self.errorMessage = "Failed to parse occupancy data."
             }
