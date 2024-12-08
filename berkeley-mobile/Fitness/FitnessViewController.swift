@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import SwiftUI
 
 fileprivate let kHeaderFont: UIFont = BMFont.bold(24)
 fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
@@ -157,6 +158,29 @@ extension FitnessViewController {
         card.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
         card.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
         card.heightAnchor.constraint(equalToConstant: kClassesHeight).isActive = true
+        
+        let occupancyView = UIHostingController(rootView: OccupancyView()).view!
+        
+        occupancyView.translatesAutoresizingMaskIntoConstraints = false
+        occupancyView.layer.cornerRadius = 12
+        occupancyView.clipsToBounds = true
+        occupancyView.backgroundColor = .systemGray6
+        scrollView.addSubview(occupancyView)
+        
+        
+        NSLayoutConstraint.activate([
+            card.topAnchor.constraint(equalTo: content.layoutMarginsGuide.topAnchor),
+            card.leftAnchor.constraint(equalTo: content.layoutMarginsGuide.leftAnchor),
+            card.heightAnchor.constraint(equalToConstant: kClassesHeight),
+            card.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.6, constant: -8),
+
+            occupancyView.topAnchor.constraint(equalTo: card.topAnchor),
+            occupancyView.leftAnchor.constraint(equalTo: card.rightAnchor, constant: 8),
+                    occupancyView.rightAnchor.constraint(equalTo: content.layoutMarginsGuide.rightAnchor),
+                    occupancyView.heightAnchor.constraint(equalTo: card.heightAnchor)
+        ])
+        
+        
         
         let headerLabel = UILabel()
         headerLabel.font = kHeaderFont

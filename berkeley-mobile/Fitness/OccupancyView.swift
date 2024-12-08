@@ -1,5 +1,5 @@
 //
-//  FitnessView.swift
+//  OccupancyView.swift
 //  berkeley-mobile
 //
 //  Created by Dylan Chhum on 12/3/24.
@@ -15,14 +15,16 @@ struct OccupancyView: View {
         
         VStack {
             if let occupancy = viewModel.occupancy {
-                Gauge(value: occupancy, in: 0...199) {
+                Gauge(value: occupancy, in: 0...100) {
                     Text("BPM")
                 } currentValueLabel: {
                     Text("\(Int(occupancy))")
                 } minimumValueLabel: {
                     Text("\(Int(0))")
+                        .foregroundStyle(.green)
                 } maximumValueLabel: {
                     Text("\(Int(100))")
+                        .foregroundStyle(.red)
                 }
                 .gaugeStyle(.accessoryCircular)
                 .tint(colorGauge(occupancy))
@@ -69,8 +71,10 @@ class OccupancyViewModel: NSObject, ObservableObject, RSFScrapperDelegate {
 
     func startAutoRefresh() {
         refreshOccupancy()
-        timer = Timer.scheduledTimer(withTimeInterval: 10.0, repeats: true) { [weak self] _ in
+        timer = Timer.scheduledTimer(withTimeInterval: 10.0, repeats: true)  { [weak self] _ in
             self?.refreshOccupancy()
+            
+            //Change timer 
         }
     }
 

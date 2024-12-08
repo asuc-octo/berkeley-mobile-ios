@@ -156,8 +156,8 @@
 		55DCF79B237243D4001B01B8 /* MaterialTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF79A237243D4001B01B8 /* MaterialTextField.swift */; };
 		55DCF79D237243F5001B01B8 /* RippleLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF79C237243F5001B01B8 /* RippleLayer.swift */; };
 		55DCF7A123724835001B01B8 /* MaterialButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF7A023724835001B01B8 /* MaterialButton.swift */; };
-		7F1E165B2CFFD70C0037426C /* FitnessScrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1E165A2CFFD7020037426C /* FitnessScrapper.swift */; };
-		7F1E165D2CFFF01D0037426C /* FitnessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1E165C2CFFF0040037426C /* FitnessView.swift */; };
+		7F1E165B2CFFD70C0037426C /* RSFScrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1E165A2CFFD7020037426C /* RSFScrapper.swift */; };
+		7F1E165D2CFFF01D0037426C /* OccupancyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1E165C2CFFF0040037426C /* OccupancyView.swift */; };
 		7F9D49612CF3DD5C0047A529 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F9D49602CF3DD5C0047A529 /* Secrets.swift */; };
 		7F9D49622CF3DD5C0047A529 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F9D495F2CF3DD5C0047A529 /* GoogleService-Info.plist */; };
 		E80330EB2CE431C200DC9574 /* DepthButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80330EA2CE431C200DC9574 /* DepthButtonStyle.swift */; };
@@ -338,8 +338,8 @@
 		55DCF79C237243F5001B01B8 /* RippleLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RippleLayer.swift; sourceTree = "<group>"; };
 		55DCF7A023724835001B01B8 /* MaterialButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialButton.swift; sourceTree = "<group>"; };
 		61D128E68A4FC209FFCDE60F /* Pods-berkeley-mobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeley-mobile.release.xcconfig"; path = "Target Support Files/Pods-berkeley-mobile/Pods-berkeley-mobile.release.xcconfig"; sourceTree = "<group>"; };
-		7F1E165A2CFFD7020037426C /* FitnessScrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitnessScrapper.swift; sourceTree = "<group>"; };
-		7F1E165C2CFFF0040037426C /* FitnessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitnessView.swift; sourceTree = "<group>"; };
+		7F1E165A2CFFD7020037426C /* RSFScrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSFScrapper.swift; sourceTree = "<group>"; };
+		7F1E165C2CFFF0040037426C /* OccupancyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OccupancyView.swift; sourceTree = "<group>"; };
 		7F9D495F2CF3DD5C0047A529 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7F9D49602CF3DD5C0047A529 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		E80330EA2CE431C200DC9574 /* DepthButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepthButtonStyle.swift; sourceTree = "<group>"; };
@@ -491,8 +491,8 @@
 		136DC9792398B43F009B1810 /* Fitness */ = {
 			isa = PBXGroup;
 			children = (
-				7F1E165A2CFFD7020037426C /* FitnessScrapper.swift */,
-				7F1E165C2CFFF0040037426C /* FitnessView.swift */,
+				7F1E165A2CFFD7020037426C /* RSFScrapper.swift */,
+				7F1E165C2CFFF0040037426C /* OccupancyView.swift */,
 				13EA64C62399CDF900FD8E13 /* GymDataSource */,
 				1336A31D241C400F00949F32 /* GymClassDataSource */,
 				01D11B8F2504560700BDF660 /* GymDetailViewController.swift */,
@@ -1049,7 +1049,7 @@
 				29F11EC72516C150007DCFD7 /* BarView.swift in Sources */,
 				55DCF78723722CBD001B01B8 /* Colors.swift in Sources */,
 				29B3D7862453984A006762E5 /* DrawerViewDelegate.swift in Sources */,
-				7F1E165D2CFFF01D0037426C /* FitnessView.swift in Sources */,
+				7F1E165D2CFFF01D0037426C /* OccupancyView.swift in Sources */,
 				559AF6E0251EAA2800463E2A /* DetailTapGestureRecognizer.swift in Sources */,
 				29EE163F241C4E310041482E /* SortingFunctions.swift in Sources */,
 				29AB5BBF241D8766007C3ECA /* HasOpenTimes.swift in Sources */,
@@ -1147,7 +1147,7 @@
 				29387E9D24BBBE8E00070BCE /* OccupancyGraphCardView.swift in Sources */,
 				13EA64D02399D50C00FD8E13 /* DataManager.swift in Sources */,
 				E80330EB2CE431C200DC9574 /* DepthButtonStyle.swift in Sources */,
-				7F1E165B2CFFD70C0037426C /* FitnessScrapper.swift in Sources */,
+				7F1E165B2CFFD70C0037426C /* RSFScrapper.swift in Sources */,
 				29B3A1742439A60A00093750 /* DiningMenuCell.swift in Sources */,
 				1336A326241D9B9900949F32 /* DiningHall.swift in Sources */,
 				29061D41241C450E002BC9D9 /* HasLocation.swift in Sources */,
