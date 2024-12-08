@@ -88,12 +88,10 @@ extension RSFScrapper: WKNavigationDelegate {
                     let doc = try SwiftSoup.parse(htmlContent)
                     
                     if let weightOccupancyText = try doc.select("div.styles_fullness__rayxl > span").first()?.text() {
-                        print("Weight Occupancy: \(weightOccupancyText)")
                         self.delegate?.rsfScrapperDidFinishScrapping(result: weightOccupancyText)
                         self.occupancyText = weightOccupancyText
     
                     } else {
-                        print("Unable to find weight occupancy text")
                         if let urlString = self.urlString {
                             self.currNumOfRescrapes += 1
                             self.scrape(at: urlString)

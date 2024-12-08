@@ -11,27 +11,42 @@ import SwiftUI
 struct OccupancyView: View {
     @StateObject private var viewModel = OccupancyViewModel()
     
+    private struct Constants {
+        static let minOccupancy: CGFloat = 0
+        static let maxOccupancy: CGFloat = 100
+        static let occupancyText = "RSF Weight Rooms"
+        static let labelSize: CGFloat = 9
+        
+        static let mediumLowerBound: CGFloat = 70
+        static let mediumHighBound: CGFloat = 90
+        static let highHighBound: CGFloat = 200
+    }
+    
     var body: some View {
         
         VStack {
             if let occupancy = viewModel.occupancy {
-                Gauge(value: occupancy, in: 0...100) {
-                    Text("BPM")
+                Gauge(value: occupancy, in: Constants.minOccupancy...Constants.maxOccupancy) {
+                    Text(Constants.occupancyText)
                 } currentValueLabel: {
                     Text("\(Int(occupancy))")
                 } minimumValueLabel: {
-                    Text("\(Int(0))")
+                    Text("\(Int(Constants.minOccupancy))")
                         .foregroundStyle(.green)
                 } maximumValueLabel: {
-                    Text("\(Int(100))")
+                    Text("\(Int(Constants.maxOccupancy))")
                         .foregroundStyle(.red)
                 }
                 .gaugeStyle(.accessoryCircular)
                 .tint(colorGauge(occupancy))
+                
+                Text(Constants.occupancyText)
+                    .font(Font(BMFont.regular(Constants.labelSize)))
             } else {
                 ProgressView()
             }
         }
+        .background(Color(uiColor: BMColor.cardBackground))
         .onAppear {
             viewModel.startAutoRefresh()
         }
@@ -39,22 +54,25 @@ struct OccupancyView: View {
             viewModel
                 .stopAutoRefresh()
         }
-        
     }
     
     private func colorGauge(_ value: Double) -> Color {
         switch value {
-        case 70...90:
-                .orange
-        case 90...200:
-                .red
+        case Constants.mediumLowerBound...Constants.mediumHighBound:
+            .orange
+        case Constants.mediumHighBound...Constants.highHighBound:
+            .red
         default:
-                .green
+            .green
         }
     }
 }
 
-class OccupancyViewModel: NSObject, ObservableObject, RSFScrapperDelegate {
+
+// MARK: - OccupancyViewModel
+
+class OccupancyViewModel: NSObject, ObservableObject {
+    
     @Published var occupancy: Double? = nil
     @Published var isLoading = false
     @Published var errorMessage: String? = nil
@@ -67,14 +85,10 @@ class OccupancyViewModel: NSObject, ObservableObject, RSFScrapperDelegate {
         scrapper.delegate = self
     }
 
-    // MARK: - Automatic Refresh Control
-
     func startAutoRefresh() {
         refreshOccupancy()
-        timer = Timer.scheduledTimer(withTimeInterval: 10.0, repeats: true)  { [weak self] _ in
+        timer = Timer.scheduledTimer(withTimeInterval: 60.0, repeats: true)  { [weak self] _ in
             self?.refreshOccupancy()
-            
-            //Change timer 
         }
     }
 
@@ -83,16 +97,19 @@ class OccupancyViewModel: NSObject, ObservableObject, RSFScrapperDelegate {
         timer = nil
     }
 
-    // MARK: - Manual Refresh (For Testing or Optional Use)
-
     func refreshOccupancy() {
         isLoading = true
         errorMessage = nil
         scrapper.scrape(at: RSFScrapper.Constants.weightRoomURLString)
     }
 
-    // MARK: - RSFScrapperDelegate Methods
+}
 
+
+// MARK: - RSFScrapperDelegate
+
+extension OccupancyViewModel: RSFScrapperDelegate {
+    
     func rsfScrapperDidFinishScrapping(result: String?) {
         DispatchQueue.main.async {
             self.isLoading = false
@@ -111,6 +128,7 @@ class OccupancyViewModel: NSObject, ObservableObject, RSFScrapperDelegate {
             self.errorMessage = errorDescription
         }
     }
+    
 }
 
 #Preview {

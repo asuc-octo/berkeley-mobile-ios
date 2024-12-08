@@ -34,6 +34,7 @@ class FitnessViewController: UIViewController, SearchDrawerViewDelegate {
     private var scrollView: UIScrollView!
     private var content: UIView!
     
+    private var occupancyCard: CardView!
     private var classesCard: CardView!
     private var gymCard: CardView!
     
@@ -60,7 +61,8 @@ class FitnessViewController: UIViewController, SearchDrawerViewDelegate {
         view.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
         
         setupScrollView()
-        setupClasses()
+        setupOccupancyCard()
+        setupClassesCard()
         setupGyms()
         
         // Update `filterTableView` when user location is updated.
@@ -148,38 +150,38 @@ extension FitnessViewController {
         scrollView.contentSize.height = gymCard.frame.maxY + view.layoutMargins.bottom
     }
     
+    func setupOccupancyCard() {
+        let occupancyCard = CardView()
+        occupancyCard.layoutMargins = kCardPadding
+        occupancyCard.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.addSubview(occupancyCard)
+        self.occupancyCard = occupancyCard
+        
+        let occupancyView = UIHostingController(rootView: OccupancyView()).view!
+        occupancyView.translatesAutoresizingMaskIntoConstraints = false
+        occupancyView.layer.cornerRadius = 12
+        occupancyView.backgroundColor = UIColor.clear
+        occupancyCard.addSubview(occupancyView)
+
+        NSLayoutConstraint.activate([
+            occupancyCard.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
+            occupancyCard.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
+            occupancyCard.widthAnchor.constraint(equalToConstant: kClassesCollapsedHeight),
+            occupancyCard.heightAnchor.constraint(equalToConstant: kClassesCollapsedHeight),
+            
+            occupancyView.topAnchor.constraint(equalTo: occupancyCard.topAnchor),
+            occupancyView.leadingAnchor.constraint(equalTo: occupancyCard.leadingAnchor),
+            occupancyView.trailingAnchor.constraint(equalTo: occupancyCard.trailingAnchor),
+            occupancyView.bottomAnchor.constraint(equalTo: occupancyCard.bottomAnchor)
+        ])
+    }
+    
     // Upcoming Classes
-    func setupClasses() {
+    func setupClassesCard() {
         let card = CardView()
         card.layoutMargins = kCardPadding
         scrollView.addSubview(card)
         card.translatesAutoresizingMaskIntoConstraints = false
-        card.topAnchor.constraint(equalTo: content.layoutMarginsGuide.topAnchor).isActive = true
-        card.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
-        card.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
-        card.heightAnchor.constraint(equalToConstant: kClassesHeight).isActive = true
-        
-        let occupancyView = UIHostingController(rootView: OccupancyView()).view!
-        
-        occupancyView.translatesAutoresizingMaskIntoConstraints = false
-        occupancyView.layer.cornerRadius = 12
-        occupancyView.clipsToBounds = true
-        scrollView.addSubview(occupancyView)
-        
-        
-        NSLayoutConstraint.activate([
-            card.topAnchor.constraint(equalTo: content.layoutMarginsGuide.topAnchor),
-            card.leftAnchor.constraint(equalTo: content.layoutMarginsGuide.leftAnchor),
-            card.heightAnchor.constraint(equalToConstant: kClassesHeight),
-            card.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.6, constant: -8),
-
-            occupancyView.topAnchor.constraint(equalTo: card.topAnchor),
-            occupancyView.leftAnchor.constraint(equalTo: card.rightAnchor, constant: 8),
-                    occupancyView.rightAnchor.constraint(equalTo: content.layoutMarginsGuide.rightAnchor),
-                    occupancyView.heightAnchor.constraint(equalTo: card.heightAnchor)
-        ])
-        
-        
         
         let headerLabel = UILabel()
         headerLabel.font = kHeaderFont
@@ -220,6 +222,13 @@ extension FitnessViewController {
         classesCard = card
         showButton = scheduleButton
         missingClassesView = MissingDataView(parentView: classesTable, text: "No classes found")
+        
+        NSLayoutConstraint.activate([
+            card.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
+            card.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
+            card.heightAnchor.constraint(equalToConstant: kClassesHeight),
+            card.trailingAnchor.constraint(equalTo: occupancyCard.leadingAnchor, constant: -15),
+        ])
     }
     
     // Gyms
