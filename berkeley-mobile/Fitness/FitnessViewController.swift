@@ -164,7 +164,6 @@ extension FitnessViewController {
         occupancyView.translatesAutoresizingMaskIntoConstraints = false
         occupancyView.layer.cornerRadius = 12
         occupancyView.clipsToBounds = true
-        occupancyView.backgroundColor = .systemGray6
         scrollView.addSubview(occupancyView)
         
         
