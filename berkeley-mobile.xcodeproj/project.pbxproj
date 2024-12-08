@@ -158,6 +158,8 @@
 		55DCF7A123724835001B01B8 /* MaterialButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF7A023724835001B01B8 /* MaterialButton.swift */; };
 		7F1E165B2CFFD70C0037426C /* RSFScrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1E165A2CFFD7020037426C /* RSFScrapper.swift */; };
 		7F1E165D2CFFF01D0037426C /* OccupancyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1E165C2CFFF0040037426C /* OccupancyView.swift */; };
+		7F1E16872D05BED20037426C /* StadiumScrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1E16862D05BEC90037426C /* StadiumScrapper.swift */; };
+		7F1E16892D05C0540037426C /* StadiumMeterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1E16882D05C0490037426C /* StadiumMeterView.swift */; };
 		7F9D49612CF3DD5C0047A529 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F9D49602CF3DD5C0047A529 /* Secrets.swift */; };
 		7F9D49622CF3DD5C0047A529 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F9D495F2CF3DD5C0047A529 /* GoogleService-Info.plist */; };
 		E80330EB2CE431C200DC9574 /* DepthButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80330EA2CE431C200DC9574 /* DepthButtonStyle.swift */; };
@@ -340,6 +342,8 @@
 		61D128E68A4FC209FFCDE60F /* Pods-berkeley-mobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeley-mobile.release.xcconfig"; path = "Target Support Files/Pods-berkeley-mobile/Pods-berkeley-mobile.release.xcconfig"; sourceTree = "<group>"; };
 		7F1E165A2CFFD7020037426C /* RSFScrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSFScrapper.swift; sourceTree = "<group>"; };
 		7F1E165C2CFFF0040037426C /* OccupancyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OccupancyView.swift; sourceTree = "<group>"; };
+		7F1E16862D05BEC90037426C /* StadiumScrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StadiumScrapper.swift; sourceTree = "<group>"; };
+		7F1E16882D05C0490037426C /* StadiumMeterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StadiumMeterView.swift; sourceTree = "<group>"; };
 		7F9D495F2CF3DD5C0047A529 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7F9D49602CF3DD5C0047A529 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		E80330EA2CE431C200DC9574 /* DepthButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepthButtonStyle.swift; sourceTree = "<group>"; };
@@ -492,6 +496,8 @@
 			isa = PBXGroup;
 			children = (
 				7F1E165A2CFFD7020037426C /* RSFScrapper.swift */,
+				7F1E16862D05BEC90037426C /* StadiumScrapper.swift */,
+				7F1E16882D05C0490037426C /* StadiumMeterView.swift */,
 				7F1E165C2CFFF0040037426C /* OccupancyView.swift */,
 				13EA64C62399CDF900FD8E13 /* GymDataSource */,
 				1336A31D241C400F00949F32 /* GymClassDataSource */,
@@ -1140,6 +1146,7 @@
 				298EE26A25BB6C33002BAF0F /* Colors+StudyPact.swift in Sources */,
 				016A56D8251C930D00531A12 /* AppDelegate+Migration.swift in Sources */,
 				55DCF78923722CF1001B01B8 /* Fonts.swift in Sources */,
+				7F1E16892D05C0540037426C /* StadiumMeterView.swift in Sources */,
 				296F1B272439341300924C8D /* DiningDetailViewController.swift in Sources */,
 				13492D2D240E179F00AD3D1F /* MapMarkerDetailView.swift in Sources */,
 				1346B9192420AD4800383399 /* WeeklyHours.swift in Sources */,
@@ -1155,6 +1162,7 @@
 				29387E9524BBBC1000070BCE /* BarGraph.swift in Sources */,
 				E8B2738F2BD5E46B0009831A /* BMDrawerView.swift in Sources */,
 				01B2502F2516C45800CBA459 /* EventCalendarEntry.swift in Sources */,
+				7F1E16872D05BED20037426C /* StadiumScrapper.swift in Sources */,
 				2946939F25F4421700619481 /* CalendarTablePairView.swift in Sources */,
 				2925D5FA2529405500BBA266 /* CampusEventCellView.swift in Sources */,
 				5516088624392E5100B1E55B /* DiningViewController.swift in Sources */,

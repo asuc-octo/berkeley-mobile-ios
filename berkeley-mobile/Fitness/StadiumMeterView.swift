@@ -1,25 +1,34 @@
 //
-//  OccupancyView.swift
+//  StadiumMeterView.swift
 //  berkeley-mobile
 //
-//  Created by Dylan Chhum on 12/3/24.
+//  Created by Dylan Chhum on 12/8/24.
 //  Copyright © 2024 ASUC OCTO. All rights reserved.
 //
 
 import SwiftUI
 
-struct OccupancyView: View {
-    @StateObject private var viewModel = OccupancyViewModel()
+struct StadiumMeterView: View {
+    @StateObject private var viewModel = StadiumMeterViewModel()
+    
+    
     
     private struct Constants {
         static let minOccupancy: CGFloat = 0
         static let maxOccupancy: CGFloat = 100
-        static let occupancyText = "RSF Weight Rooms"
+        static let occupancyText = "Stadium Fitness Center"
         static let labelSize: CGFloat = 9
         
         static let mediumLowerBound: CGFloat = 70
         static let mediumHighBound: CGFloat = 90
         static let highHighBound: CGFloat = 200
+        
+        static let date = Date()
+        
+        static var formattedDate: String {
+            let formatter = DateFormatter()
+            return formatter.string(from: date)
+        }
     }
     
     var body: some View {
@@ -61,6 +70,7 @@ struct OccupancyView: View {
                 Text(Constants.occupancyText)
                     .font(Font(BMFont.regular(Constants.labelSize)))
             }
+            Text(Constants.formattedDate)
         }
         .background(Color(uiColor: BMColor.cardBackground))
         .onAppear {
@@ -70,6 +80,8 @@ struct OccupancyView: View {
             viewModel
                 .stopAutoRefresh()
         }
+        
+        
     }
     
     private func colorGauge(_ value: Double) -> Color {
@@ -87,13 +99,13 @@ struct OccupancyView: View {
 
 // MARK: - OccupancyViewModel
 
-class OccupancyViewModel: NSObject, ObservableObject {
+class StadiumMeterViewModel: NSObject, ObservableObject {
     
     @Published var occupancy: Double? = nil
     @Published var isLoading = false
     @Published var errorMessage: String? = nil
 
-    private let scrapper = RSFScrapper()
+    private let scrapper = StadiumScrapper()
     private var timer: Timer?
 
     override init() {
@@ -116,7 +128,7 @@ class OccupancyViewModel: NSObject, ObservableObject {
     func refreshOccupancy() {
         isLoading = true
         errorMessage = nil
-        scrapper.scrape(at: RSFScrapper.Constants.weightRoomURLString)
+        scrapper.scrape(at: StadiumScrapper.Constants.stadiumURLString)
     }
 
 }
@@ -124,9 +136,9 @@ class OccupancyViewModel: NSObject, ObservableObject {
 
 // MARK: - RSFScrapperDelegate
 
-extension OccupancyViewModel: RSFScrapperDelegate {
+extension StadiumMeterViewModel: StadiumScrapperDelegate {
     
-    func rsfScrapperDidFinishScrapping(result: String?) {
+    func stadiumScrapperDidFinishScrapping(result: String?) {
         DispatchQueue.main.async {
             self.isLoading = false
             if let result = result, let occupancy = result.split(separator: "%").first {
@@ -138,7 +150,7 @@ extension OccupancyViewModel: RSFScrapperDelegate {
         }
     }
 
-    func rsfScrapperDidError(with errorDescription: String) {
+    func stadiumScrapperDidError(with errorDescription: String) {
         DispatchQueue.main.async {
             self.isLoading = false
             self.errorMessage = errorDescription
@@ -148,5 +160,5 @@ extension OccupancyViewModel: RSFScrapperDelegate {
 }
 
 #Preview {
-    OccupancyView()
+    StadiumMeterView()
 }
