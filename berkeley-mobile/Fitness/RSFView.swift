@@ -34,53 +34,96 @@ struct RSFView: View {
                 return  "8 a.m - 11 p.m."
             default :
                 return "7 a.m. - 11 p.m."
-    
             }
         }
     }
     
     var body: some View {
-        //Need to refactor the gauges 
+        //Need to refactor the gauges
+        // Major refactor will do later
         
         VStack {
-            if let occupancy = viewModel.occupancy {
-                Gauge(value: occupancy, in: Constants.minOccupancy...Constants.maxOccupancy) {
+            if #available(iOS 17.0, *) {
+                if let occupancy = viewModel.occupancy {
+                    Gauge(value: occupancy, in: Constants.minOccupancy...Constants.maxOccupancy) {
+                        Text(Constants.occupancyText)
+                    } currentValueLabel: {
+                        Text("\(Int(occupancy))")
+                    } minimumValueLabel: {
+                        Text("\(Int(Constants.minOccupancy))")
+                            .foregroundStyle(.green)
+                    } maximumValueLabel: {
+                        Text("\(Int(Constants.maxOccupancy))")
+                            .foregroundStyle(.red)
+                    }
+                    .gaugeStyle(.accessoryCircular)
+                    .tint(colorGauge(occupancy))
+                    .contentTransition(.numericText())
+                    
                     Text(Constants.occupancyText)
-                } currentValueLabel: {
-                    Text("\(Int(occupancy))")
-                } minimumValueLabel: {
-                    Text("\(Int(Constants.minOccupancy))")
-                        .foregroundStyle(.green)
-                } maximumValueLabel: {
-                    Text("\(Int(Constants.maxOccupancy))")
-                        .foregroundStyle(.red)
+                        .font(Font(BMFont.regular(Constants.labelSize)))
+                    Text(Constants.currTimes)
+                        .font(Font(BMFont.regular(Constants.labelSize)))
+                } else {
+                    let occupancy = 0
+                    Gauge(value: CGFloat(occupancy), in: Constants.minOccupancy...Constants.maxOccupancy) {
+                        Text(Constants.occupancyText)
+                    } currentValueLabel: {
+                        Text("\(Int(occupancy))")
+                    } minimumValueLabel: {
+                        Text("\(Int(Constants.minOccupancy))")
+                            .foregroundStyle(.green)
+                    } maximumValueLabel: {
+                        Text("\(Int(Constants.maxOccupancy))")
+                            .foregroundStyle(.red)
+                    }
+                    .gaugeStyle(.accessoryCircular)
+                    .tint(colorGauge(Double(occupancy)))
+                    .redacted(reason: .placeholder)
+                    
+                    Text(Constants.occupancyText)
+                        .font(Font(BMFont.regular(Constants.labelSize)))
                 }
-                .gaugeStyle(.accessoryCircular)
-                .tint(colorGauge(occupancy))
-                
-                Text(Constants.occupancyText)
-                    .font(Font(BMFont.regular(Constants.labelSize)))
-                Text(Constants.currTimes)
-                    .font(Font(BMFont.regular(Constants.labelSize)))
             } else {
-                let occupancy = 0
-                Gauge(value: CGFloat(occupancy), in: Constants.minOccupancy...Constants.maxOccupancy) {
+                if let occupancy = viewModel.occupancy {
+                    Gauge(value: occupancy, in: Constants.minOccupancy...Constants.maxOccupancy) {
+                        Text(Constants.occupancyText)
+                    } currentValueLabel: {
+                        Text("\(Int(occupancy))")
+                    } minimumValueLabel: {
+                        Text("\(Int(Constants.minOccupancy))")
+                            .foregroundStyle(.green)
+                    } maximumValueLabel: {
+                        Text("\(Int(Constants.maxOccupancy))")
+                            .foregroundStyle(.red)
+                    }
+                    .gaugeStyle(.accessoryCircular)
+                    .tint(colorGauge(occupancy))
+                    
                     Text(Constants.occupancyText)
-                } currentValueLabel: {
-                    Text("\(Int(occupancy))")
-                } minimumValueLabel: {
-                    Text("\(Int(Constants.minOccupancy))")
-                        .foregroundStyle(.green)
-                } maximumValueLabel: {
-                    Text("\(Int(Constants.maxOccupancy))")
-                        .foregroundStyle(.red)
+                        .font(Font(BMFont.regular(Constants.labelSize)))
+                    Text(Constants.currTimes)
+                        .font(Font(BMFont.regular(Constants.labelSize)))
+                } else {
+                    let occupancy = 0
+                    Gauge(value: CGFloat(occupancy), in: Constants.minOccupancy...Constants.maxOccupancy) {
+                        Text(Constants.occupancyText)
+                    } currentValueLabel: {
+                        Text("\(Int(occupancy))")
+                    } minimumValueLabel: {
+                        Text("\(Int(Constants.minOccupancy))")
+                            .foregroundStyle(.green)
+                    } maximumValueLabel: {
+                        Text("\(Int(Constants.maxOccupancy))")
+                            .foregroundStyle(.red)
+                    }
+                    .gaugeStyle(.accessoryCircular)
+                    .tint(colorGauge(Double(occupancy)))
+                    .redacted(reason: .placeholder)
+                    
+                    Text(Constants.occupancyText)
+                        .font(Font(BMFont.regular(Constants.labelSize)))
                 }
-                .gaugeStyle(.accessoryCircular)
-                .tint(colorGauge(Double(occupancy)))
-                .redacted(reason: .placeholder)
-                
-                Text(Constants.occupancyText)
-                    .font(Font(BMFont.regular(Constants.labelSize)))
             }
         }
         .background(Color(uiColor: BMColor.cardBackground))
