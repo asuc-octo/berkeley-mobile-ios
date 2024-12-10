@@ -15,6 +15,7 @@ class DiningViewController: UIViewController, SearchDrawerViewDelegate {
     private var diningLocations: [DiningLocation] = []
     
     private var headerLabel: UILabel!
+    private var diningImageView: UIImageView!
     private var diningCard: CardView!
     
     // DrawerViewDelegate properties
@@ -26,14 +27,9 @@ class DiningViewController: UIViewController, SearchDrawerViewDelegate {
     var mainContainer: MainContainerViewController?
     var pinDelegate: SearchResultsViewDelegate?
     
-    let diningImage:UIImageView = {
-        let img = UIImageView()
-        img.contentMode = .scaleAspectFit
-        img.image = UIImage(named: "Dining")?.colored(BMColor.blackText)
-        img.translatesAutoresizingMaskIntoConstraints = false
-        img.clipsToBounds = true
-        return img
-    }()
+    private var diningImage: UIImage? {
+        UIImage(named: "Dining")?.colored(BMColor.blackText)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,6 +58,12 @@ class DiningViewController: UIViewController, SearchDrawerViewDelegate {
                 }
             }
         }
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        diningImageView.image = diningImage
     }
 }
 
@@ -109,15 +111,22 @@ extension DiningViewController {
         header.textColor = BMColor.blackText
         card.addSubview(header)
         
-        card.addSubview(diningImage)
-        diningImage.centerYAnchor.constraint(equalTo: header.centerYAnchor).isActive = true
-        diningImage.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
-        diningImage.heightAnchor.constraint(equalToConstant: 26).isActive = true
-        diningImage.widthAnchor.constraint(equalToConstant: 26).isActive = true
+        let diningImageView = UIImageView()
+        diningImageView.contentMode = .scaleAspectFit
+        diningImageView.image = diningImage
+        diningImageView.translatesAutoresizingMaskIntoConstraints = false
+        diningImageView.clipsToBounds = true
+        self.diningImageView = diningImageView
+        
+        card.addSubview(diningImageView)
+        diningImageView.centerYAnchor.constraint(equalTo: header.centerYAnchor).isActive = true
+        diningImageView.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
+        diningImageView.heightAnchor.constraint(equalToConstant: 26).isActive = true
+        diningImageView.widthAnchor.constraint(equalToConstant: 26).isActive = true
         
         header.translatesAutoresizingMaskIntoConstraints = false
         header.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true
-        header.leftAnchor.constraint(equalTo: diningImage.rightAnchor, constant: 15).isActive = true
+        header.leftAnchor.constraint(equalTo: diningImageView.rightAnchor, constant: 15).isActive = true
         header.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
         
         setupTableView()

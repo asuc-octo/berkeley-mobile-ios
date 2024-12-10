@@ -16,11 +16,24 @@ class SearchBarView: UIView, UITextFieldDelegate {
     var textField: MaterialTextField!
     var leftButton: MaterialButton!
     var rightButton: MaterialButton!
-    var leftButtonImage: UIImage = UIImage(named: "Search")!
     
     private var onStartSearch: ((Bool) -> Void)?
     private var onClearInput: (() -> Void)?
     private var startSearch: DispatchWorkItem?
+    
+    private var isSearching = false
+    
+    private var searchIcon: UIImage? {
+        UIImage(named: "Search")?.colored(BMColor.searchBarIconColor)
+    }
+    
+    private var backIcon: UIImage? {
+        UIImage(named: "Back")?.colored(BMColor.searchBarIconColor)
+    }
+    
+    private var clearIcon: UIImage? {
+        UIImage(named: "Clear")?.colored(BMColor.searchBarIconColor)
+    }
         
     // MARK: Init
     
@@ -39,6 +52,12 @@ class SearchBarView: UIView, UITextFieldDelegate {
         self.onStartSearch = onStartSearch
         self.onClearInput = onClearInput
     }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        updateButtonImages()
+    }
 
     private func initSearchBar() {
         self.backgroundColor = BMColor.searchBarBackground
@@ -54,8 +73,8 @@ class SearchBarView: UIView, UITextFieldDelegate {
         textField.returnKeyType = .search
         textField.enablesReturnKeyAutomatically = true
         
-        leftButton = MaterialButton(icon: leftButtonImage.colored(BMColor.searchBarIconColor), textColor: BMColor.blackText, font: BMFont.regular(16), bgColor: BMColor.searchBarBackground, cornerRadius: 15.0)
-        rightButton = MaterialButton(icon: UIImage(named: "Clear")?.colored(BMColor.searchBarIconColor), bgColor: BMColor.searchBarBackground, cornerRadius: 15.0)
+        leftButton = MaterialButton(icon: searchIcon, textColor: BMColor.blackText, font: BMFont.regular(16), bgColor: BMColor.searchBarBackground, cornerRadius: 15.0)
+        rightButton = MaterialButton(icon: clearIcon, bgColor: BMColor.searchBarBackground, cornerRadius: 15.0)
         
         stackView = UIStackView(arrangedSubviews: [leftButton, textField, rightButton])
         stackView.spacing = 0.0
@@ -110,13 +129,20 @@ class SearchBarView: UIView, UITextFieldDelegate {
     }
     
     func changeLeftButton(_ isSearching: Bool) {
+        self.isSearching = isSearching
+        
         guard leftButton.tag != (isSearching ? 1 : 0) else { return }
         leftButton.tag = isSearching ? 1 : 0
-        leftButton.setImage(isSearching ? UIImage(named: "Back")?.colored(BMColor.searchBarIconColor)! : leftButtonImage.colored(BMColor.searchBarIconColor)!, for: .normal)
+        updateButtonImages()
         
         if !isSearching {
             textField.resignFirstResponder()
         }
+    }
+    
+    private func updateButtonImages() {
+        leftButton.setImage(isSearching ? backIcon : searchIcon, for: .normal)
+        rightButton.setImage(clearIcon, for: .normal)
     }
     
     // MARK: - Delegation Implementation

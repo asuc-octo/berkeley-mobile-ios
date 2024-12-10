@@ -26,6 +26,11 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
     // MARK: Setup
     private var scrollView: UIScrollView!
     private var content: UIView!
+    private var bookImageView: UIImageView!
+    
+    private var bookIcon: UIImage? {
+        UIImage(named: "Book")?.colored(BMColor.blackText)
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -64,6 +69,12 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
         scrollView.contentSize.height = libraryCard.frame.maxY + view.layoutMargins.bottom
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        bookImageView.image = bookIcon
+    }
+    
     func setUpScrollView() {
         scrollView = UIScrollView()
         view.addSubview(scrollView)
@@ -83,14 +94,6 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     private var libraryCard: CardView!
     
-    let bookImage:UIImageView = {
-        let img = UIImageView()
-        img.contentMode = .scaleAspectFit
-        img.image = UIImage(named: "Book")?.colored(BMColor.blackText)
-        img.translatesAutoresizingMaskIntoConstraints = false
-        img.clipsToBounds = true
-        return img
-    }()
     
     func setUpTableView() {
         let card = CardView()
@@ -110,14 +113,21 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
         studyLabel.textColor = BMColor.blackText
         card.addSubview(studyLabel)
         
-        card.addSubview(bookImage)
-        bookImage.centerYAnchor.constraint(equalTo: studyLabel.centerYAnchor).isActive = true
-        bookImage.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
-        bookImage.heightAnchor.constraint(equalToConstant: 26).isActive = true
-        bookImage.widthAnchor.constraint(equalToConstant: 26).isActive = true
+        let bookImageView = UIImageView()
+        bookImageView.contentMode = .scaleAspectFit
+        bookImageView.image = bookIcon
+        bookImageView.translatesAutoresizingMaskIntoConstraints = false
+        bookImageView.clipsToBounds = true
+        self.bookImageView = bookImageView
+        
+        card.addSubview(bookImageView)
+        bookImageView.centerYAnchor.constraint(equalTo: studyLabel.centerYAnchor).isActive = true
+        bookImageView.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
+        bookImageView.heightAnchor.constraint(equalToConstant: 26).isActive = true
+        bookImageView.widthAnchor.constraint(equalToConstant: 26).isActive = true
         
         studyLabel.translatesAutoresizingMaskIntoConstraints = false
-        studyLabel.leftAnchor.constraint(equalTo: bookImage.rightAnchor, constant: 15).isActive = true
+        studyLabel.leftAnchor.constraint(equalTo: bookImageView.rightAnchor, constant: 15).isActive = true
         studyLabel.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
         studyLabel.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true
         

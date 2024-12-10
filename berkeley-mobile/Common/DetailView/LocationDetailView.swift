@@ -19,8 +19,18 @@ class LocationDetailView: IconPairView, DetailView {
 
     /// The item configuring this view.
     private var item: HasLocation?
+    
+    private var walkIcon: UIImage? {
+        UIImage(named: "Walk")?.colored(BMColor.blackText)
+    }
 
     weak var delegate: DetailViewDelegate?
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        icon.image = walkIcon
+    }
 
     var missingData: Bool {
         guard let item = item else { return true }
@@ -39,7 +49,6 @@ class LocationDetailView: IconPairView, DetailView {
     init() {
         icon = UIImageView()
         icon.translatesAutoresizingMaskIntoConstraints = false
-        icon.image = UIImage(named: "Walk")?.colored(BMColor.blackText)
         icon.contentMode = .scaleAspectFit
         icon.clipsToBounds = true
 
@@ -52,6 +61,8 @@ class LocationDetailView: IconPairView, DetailView {
         label.numberOfLines = 2
 
         super.init(icon: icon, iconHeight: 16, iconWidth: 16, attachedView: label)
+        
+        icon.image = walkIcon
 
         // Register for location updates
         LocationManager.notificationCenter.addObserver(

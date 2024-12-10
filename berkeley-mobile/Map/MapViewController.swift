@@ -18,6 +18,11 @@ fileprivate let kViewMargin: CGFloat = 16
 class MapViewController: UIViewController, SearchDrawerViewDelegate {
 
     static let kAnnotationIdentifier = "MapMarkerAnnotation"
+    
+    private enum UserLocationButtonStyle {
+        case outline
+        case filled
+    }
 
     // this allows the map to move the main drawer
     open var mainContainer: MainContainerViewController?
@@ -126,6 +131,12 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         updateUserLocationButton()
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        let isUserLocationButtonTapped = locationButtonTapped != nil && locationButtonTapped!
+        updateUserLocationButtonImage(withStyle: isUserLocationButtonTapped ? .filled : .outline)
+    }
+    
     private func createMapMarkerDropdownButton() {
         let mapMarkersDropdownButtonView = MapMarkersDropdownButton { [weak self] selectedType in
             guard let self = self else { return }
@@ -170,7 +181,6 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         userLocationButton.layer.shadowOpacity = 0.2
         userLocationButton.layer.shadowColor = UIColor.black.cgColor
         userLocationButton.layer.shadowOffset = CGSize(width: 0, height: 5)
-        userLocationButton.setImage(UIImage(named: "navigation-outline")!.colored(BMColor.blackText), for: .normal)
         userLocationButton.addTarget(self, action: #selector(jumpToUserLocation), for: .touchUpInside)
         let _buttonWidth = mapView.frame.width * 0.12
         userLocationButton.translatesAutoresizingMaskIntoConstraints = false
@@ -178,6 +188,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         userLocationButton.heightAnchor.constraint(equalToConstant: _buttonWidth).isActive = true
         userLocationButton.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
         userLocationButton.topAnchor.constraint(equalTo: filterView.bottomAnchor, constant: kViewMargin).isActive = true
+        updateUserLocationButtonImage(withStyle: .outline)
     }
 
     @objc func homePressed() {
@@ -190,8 +201,17 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
     @objc func jumpToUserLocation() {
         if LocationManager.shared.userLocation != nil {
             centerMapOnLocation(LocationManager.shared.userLocation!, mapView: mapView, animated: true)
-            userLocationButton.setImage(UIImage(named: "navigation-filled")!.colored(BMColor.blackText), for: .normal)
+            updateUserLocationButtonImage(withStyle: .filled)
             locationButtonTapped = true
+        }
+    }
+    
+    private func updateUserLocationButtonImage(withStyle style: UserLocationButtonStyle) {
+        switch style {
+        case .outline:
+            userLocationButton.setImage(UIImage(named: "navigation-outline")!.colored(BMColor.blackText), for: .normal)
+        case .filled:
+            userLocationButton.setImage(UIImage(named: "navigation-filled")!.colored(BMColor.blackText), for: .normal)
         }
     }
     
