@@ -160,8 +160,8 @@ class OverviewCardView: CardView {
         }
 
         if !excludedElements.contains(.occupancy), let itemWithOccupancy = item as? HasOccupancy, let status = itemWithOccupancy.getCurrentOccupancyStatus(isOpen: (item as? HasOpenTimes)?.isOpen) {
-            let occupancyView = IconPairView(icon: chairImage, iconHeight: 16, iconWidth: 28, attachedView: status.badge())
-            belowImageHorizontalStack.addArrangedSubview(occupancyView)
+            let RSFView = IconPairView(icon: chairImage, iconHeight: 16, iconWidth: 28, attachedView: status.badge())
+            belowImageHorizontalStack.addArrangedSubview(RSFView)
         }
         
         if !excludedElements.contains(.favorite), let favoritableItem = item as? CanFavorite {

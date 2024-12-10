@@ -34,7 +34,7 @@ class FitnessViewController: UIViewController, SearchDrawerViewDelegate {
     private var scrollView: UIScrollView!
     private var content: UIView!
     
-    private var occupancyCard: CardView!
+    private var RSFCard: CardView!
     private var classesCard: CardView!
     private var gymCard: CardView!
     
@@ -61,7 +61,7 @@ class FitnessViewController: UIViewController, SearchDrawerViewDelegate {
         view.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
         
         setupScrollView()
-        setupOccupancyCard()
+        setupRSFCard()
         setupClassesCard()
         setupGyms()
         
@@ -150,29 +150,29 @@ extension FitnessViewController {
         scrollView.contentSize.height = gymCard.frame.maxY + view.layoutMargins.bottom
     }
     
-    func setupOccupancyCard() {
-        let occupancyCard = CardView()
-        occupancyCard.layoutMargins = kCardPadding
-        occupancyCard.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.addSubview(occupancyCard)
-        self.occupancyCard = occupancyCard
+    func setupRSFCard() {
+        let RSFCard = CardView()
+        RSFCard.layoutMargins = kCardPadding
+        RSFCard.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.addSubview(RSFCard)
+        self.RSFCard = RSFCard
         
-        let occupancyView = UIHostingController(rootView: OccupancyView()).view!
-        occupancyView.translatesAutoresizingMaskIntoConstraints = false
-        occupancyView.layer.cornerRadius = 12
-        occupancyView.backgroundColor = UIColor.clear
-        occupancyCard.addSubview(occupancyView)
+        let RSFView = UIHostingController(rootView: RSFView()).view!
+        RSFView.translatesAutoresizingMaskIntoConstraints = false
+        RSFView.layer.cornerRadius = 12
+        RSFView.backgroundColor = UIColor.clear
+        RSFCard.addSubview(RSFView)
 
         NSLayoutConstraint.activate([
-            occupancyCard.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
-            occupancyCard.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
-            occupancyCard.widthAnchor.constraint(equalToConstant: kClassesCollapsedHeight),
-            occupancyCard.heightAnchor.constraint(equalToConstant: kClassesCollapsedHeight),
+            RSFCard.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
+            RSFCard.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
+            RSFCard.widthAnchor.constraint(equalToConstant: kClassesCollapsedHeight),
+            RSFCard.heightAnchor.constraint(equalToConstant: kClassesCollapsedHeight),
             
-            occupancyView.topAnchor.constraint(equalTo: occupancyCard.topAnchor),
-            occupancyView.leadingAnchor.constraint(equalTo: occupancyCard.leadingAnchor),
-            occupancyView.trailingAnchor.constraint(equalTo: occupancyCard.trailingAnchor),
-            occupancyView.bottomAnchor.constraint(equalTo: occupancyCard.bottomAnchor)
+            RSFView.topAnchor.constraint(equalTo: RSFCard.topAnchor),
+            RSFView.leadingAnchor.constraint(equalTo: RSFCard.leadingAnchor),
+            RSFView.trailingAnchor.constraint(equalTo: RSFCard.trailingAnchor),
+            RSFView.bottomAnchor.constraint(equalTo: RSFCard.bottomAnchor)
         ])
     }
     
@@ -227,7 +227,7 @@ extension FitnessViewController {
             card.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
             card.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
             card.heightAnchor.constraint(equalToConstant: kClassesHeight),
-            card.trailingAnchor.constraint(equalTo: occupancyCard.leadingAnchor, constant: -15),
+            card.trailingAnchor.constraint(equalTo: RSFCard.leadingAnchor, constant: -15),
         ])
     }
     

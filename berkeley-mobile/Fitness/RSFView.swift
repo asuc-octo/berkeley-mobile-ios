@@ -1,5 +1,5 @@
 //
-//  OccupancyView.swift
+//  RSFView.swift
 //  berkeley-mobile
 //
 //  Created by Dylan Chhum on 12/3/24.
@@ -8,8 +8,8 @@
 
 import SwiftUI
 
-struct OccupancyView: View {
-    @StateObject private var viewModel = OccupancyViewModel()
+struct RSFView: View {
+    @StateObject private var viewModel = RSFViewModel()
     
     private struct Constants {
         static let minOccupancy: CGFloat = 0
@@ -20,9 +20,27 @@ struct OccupancyView: View {
         static let mediumLowerBound: CGFloat = 70
         static let mediumHighBound: CGFloat = 90
         static let highHighBound: CGFloat = 200
+        
+        static var currTimes : String {
+            let currDate = Date()
+            
+            let currDay =
+            String(currDate.formatted(Date.FormatStyle().weekday(.wide)))
+            
+            switch currDay {
+            case "Saturday":
+                return  "8 a.m. - 6 p.m."
+            case "Sunday":
+                return  "8 a.m - 11 p.m."
+            default :
+                return "7 a.m. - 11 p.m."
+    
+            }
+        }
     }
     
     var body: some View {
+        //Need to refactor the gauges 
         
         VStack {
             if let occupancy = viewModel.occupancy {
@@ -42,6 +60,8 @@ struct OccupancyView: View {
                 
                 Text(Constants.occupancyText)
                     .font(Font(BMFont.regular(Constants.labelSize)))
+                Text(Constants.currTimes)
+                    .font(Font(BMFont.regular(Constants.labelSize)))
             } else {
                 let occupancy = 0
                 Gauge(value: CGFloat(occupancy), in: Constants.minOccupancy...Constants.maxOccupancy) {
@@ -57,6 +77,7 @@ struct OccupancyView: View {
                 }
                 .gaugeStyle(.accessoryCircular)
                 .tint(colorGauge(Double(occupancy)))
+                .redacted(reason: .placeholder)
                 
                 Text(Constants.occupancyText)
                     .font(Font(BMFont.regular(Constants.labelSize)))
@@ -82,12 +103,13 @@ struct OccupancyView: View {
             .green
         }
     }
+    
 }
 
 
-// MARK: - OccupancyViewModel
+// MARK: - RSFViewModel
 
-class OccupancyViewModel: NSObject, ObservableObject {
+class RSFViewModel: NSObject, ObservableObject {
     
     @Published var occupancy: Double? = nil
     @Published var isLoading = false
@@ -124,7 +146,7 @@ class OccupancyViewModel: NSObject, ObservableObject {
 
 // MARK: - RSFScrapperDelegate
 
-extension OccupancyViewModel: RSFScrapperDelegate {
+extension RSFViewModel: RSFScrapperDelegate {
     
     func rsfScrapperDidFinishScrapping(result: String?) {
         DispatchQueue.main.async {
@@ -148,5 +170,5 @@ extension OccupancyViewModel: RSFScrapperDelegate {
 }
 
 #Preview {
-    OccupancyView()
+    RSFView()
 }

@@ -157,7 +157,7 @@
 		55DCF79D237243F5001B01B8 /* RippleLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF79C237243F5001B01B8 /* RippleLayer.swift */; };
 		55DCF7A123724835001B01B8 /* MaterialButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF7A023724835001B01B8 /* MaterialButton.swift */; };
 		7F1E165B2CFFD70C0037426C /* RSFScrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1E165A2CFFD7020037426C /* RSFScrapper.swift */; };
-		7F1E165D2CFFF01D0037426C /* OccupancyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1E165C2CFFF0040037426C /* OccupancyView.swift */; };
+		7F1E165D2CFFF01D0037426C /* RSFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1E165C2CFFF0040037426C /* RSFView.swift */; };
 		7F1E16872D05BED20037426C /* StadiumScrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1E16862D05BEC90037426C /* StadiumScrapper.swift */; };
 		7F1E16892D05C0540037426C /* StadiumMeterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1E16882D05C0490037426C /* StadiumMeterView.swift */; };
 		7F9D49612CF3DD5C0047A529 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F9D49602CF3DD5C0047A529 /* Secrets.swift */; };
@@ -341,7 +341,7 @@
 		55DCF7A023724835001B01B8 /* MaterialButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialButton.swift; sourceTree = "<group>"; };
 		61D128E68A4FC209FFCDE60F /* Pods-berkeley-mobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeley-mobile.release.xcconfig"; path = "Target Support Files/Pods-berkeley-mobile/Pods-berkeley-mobile.release.xcconfig"; sourceTree = "<group>"; };
 		7F1E165A2CFFD7020037426C /* RSFScrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSFScrapper.swift; sourceTree = "<group>"; };
-		7F1E165C2CFFF0040037426C /* OccupancyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OccupancyView.swift; sourceTree = "<group>"; };
+		7F1E165C2CFFF0040037426C /* RSFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSFView.swift; sourceTree = "<group>"; };
 		7F1E16862D05BEC90037426C /* StadiumScrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StadiumScrapper.swift; sourceTree = "<group>"; };
 		7F1E16882D05C0490037426C /* StadiumMeterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StadiumMeterView.swift; sourceTree = "<group>"; };
 		7F9D495F2CF3DD5C0047A529 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -498,7 +498,7 @@
 				7F1E165A2CFFD7020037426C /* RSFScrapper.swift */,
 				7F1E16862D05BEC90037426C /* StadiumScrapper.swift */,
 				7F1E16882D05C0490037426C /* StadiumMeterView.swift */,
-				7F1E165C2CFFF0040037426C /* OccupancyView.swift */,
+				7F1E165C2CFFF0040037426C /* RSFView.swift */,
 				13EA64C62399CDF900FD8E13 /* GymDataSource */,
 				1336A31D241C400F00949F32 /* GymClassDataSource */,
 				01D11B8F2504560700BDF660 /* GymDetailViewController.swift */,
@@ -1055,7 +1055,7 @@
 				29F11EC72516C150007DCFD7 /* BarView.swift in Sources */,
 				55DCF78723722CBD001B01B8 /* Colors.swift in Sources */,
 				29B3D7862453984A006762E5 /* DrawerViewDelegate.swift in Sources */,
-				7F1E165D2CFFF01D0037426C /* OccupancyView.swift in Sources */,
+				7F1E165D2CFFF01D0037426C /* RSFView.swift in Sources */,
 				559AF6E0251EAA2800463E2A /* DetailTapGestureRecognizer.swift in Sources */,
 				29EE163F241C4E310041482E /* SortingFunctions.swift in Sources */,
 				29AB5BBF241D8766007C3ECA /* HasOpenTimes.swift in Sources */,

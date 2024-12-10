@@ -23,14 +23,24 @@ struct StadiumMeterView: View {
         static let mediumHighBound: CGFloat = 90
         static let highHighBound: CGFloat = 200
         
-        static let date = Date()
-        
-        static var formattedDate: String {
-            let formatter = DateFormatter()
-            formatter.dateStyle = .long
-            formatter.timeStyle = .none
-            return formatter.string(from: date)
+        static var currTimes : String {
+            let currDate = Date()
+            
+            let currDay =
+            String(currDate.formatted(Date.FormatStyle().weekday(.wide)))
+            
+            switch currDay {
+            case "Saturday":
+                return currDay + ": 8 a.m. - 6 p.m."
+            case "Sunday":
+                return currDay + ": 8 a.m - 11 p.m."
+            default :
+                return currDay + ": 7 a.m. - 11 p.m."
+    
+            }
         }
+        
+        
     }
     
     var body: some View {
@@ -68,11 +78,12 @@ struct StadiumMeterView: View {
                 }
                 .gaugeStyle(.accessoryCircular)
                 .tint(colorGauge(Double(occupancy)))
+                .redacted(reason: .placeholder)
                 
                 Text(Constants.occupancyText)
                     .font(Font(BMFont.regular(Constants.labelSize)))
             }
-            Text(Constants.formattedDate)
+            Text(Constants.currTimes)
         }
         .background(Color(uiColor: BMColor.cardBackground))
         .onAppear {
@@ -99,7 +110,7 @@ struct StadiumMeterView: View {
 }
 
 
-// MARK: - OccupancyViewModel
+// MARK: - RSFViewModel
 
 class StadiumMeterViewModel: NSObject, ObservableObject {
     
