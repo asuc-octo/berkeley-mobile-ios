@@ -168,7 +168,7 @@ class RSFViewModel: NSObject, ObservableObject {
 
     func startAutoRefresh() {
         refreshOccupancy()
-        timer = Timer.scheduledTimer(withTimeInterval: 60.0, repeats: true)  { [weak self] _ in
+        timer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true)  { [weak self] _ in
             self?.refreshOccupancy()
         }
     }

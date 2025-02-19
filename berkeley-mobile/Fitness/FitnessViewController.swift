@@ -35,6 +35,7 @@ class FitnessViewController: UIViewController, SearchDrawerViewDelegate {
     private var content: UIView!
     
     private var RSFCard: CardView!
+    private var CMSCard: CardView!
     private var classesCard: CardView!
     private var gymCard: CardView!
     

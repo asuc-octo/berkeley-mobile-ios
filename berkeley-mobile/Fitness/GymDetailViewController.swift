@@ -89,6 +89,8 @@ extension GymDetailViewController {
         guard let RSFCard = self.RSFCard else { return }
         scrollingStackView.stackView.addArrangedSubview(RSFCard)
     }
+    
+    
 
     func setupMoreButton() {
         guard gym.website != nil else { return }
