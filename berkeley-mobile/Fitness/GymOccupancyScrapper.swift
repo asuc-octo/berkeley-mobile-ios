@@ -1,5 +1,5 @@
 //
-//  RSFScrapper.swift
+//  GymOccupancyScrapper.swift
 //  berkeley-mobile
 //
 //  Created by Dylan Chhum on 12/3/24.
@@ -10,24 +10,20 @@ import Foundation
 import SwiftSoup
 import WebKit
 
-protocol RSFScrapperDelegate: AnyObject {
+protocol GymOccupancyScrapperDelegate: AnyObject {
     func rsfScrapperDidFinishScrapping(result: String?)
     func rsfScrapperDidError(with errorDescription: String)
 }
 
-class RSFScrapper: NSObject {
+class GymOccupancyScrapper: NSObject {
     
-    struct Constants {
-        static let weightRoomURLString = "https://safe.density.io/#/displays/dsp_956223069054042646?token=shr_o69HxjQ0BYrY2FPD9HxdirhJYcFDCeRolEd744Uj88e&share&qr"
-    }
-    
-    /// Allowed number of rescrapes until `RSFScrapper` gives up on scrapping.
+    /// Allowed number of rescrapes until `GymOccupancyScrapper` gives up on scrapping.
     var allowedNumOfRescrapes: Int = 5
     
     private var currNumOfRescrapes: Int = 0
     private var timer: Timer?
     
-    weak var delegate: RSFScrapperDelegate?
+    weak var delegate: GymOccupancyScrapperDelegate?
     
     private var occupancyText : String?
     
@@ -56,19 +52,12 @@ class RSFScrapper: NSObject {
         webView.load(URLRequest(url: url))
     }
     
-    // TODO: Add helper public methods to access occupancy
-    
-    func getOccupancy() -> String {
-        scrape(at: Constants.weightRoomURLString)
-        return (occupancyText ?? "Not working")
-    }
-    
 }
 
 
 // MARK: - WKNavigationDelegate
 
-extension RSFScrapper: WKNavigationDelegate {
+extension GymOccupancyScrapper: WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         guard currNumOfRescrapes < allowedNumOfRescrapes else {
