@@ -13,8 +13,8 @@ struct SegmentedControlView: View {
     private struct Constants {
         static let tabSpacing: CGFloat = 20
         static let textSize: CGFloat = 18
-        static let indicatorOffset: CGFloat = -28
-        static let indicatorHeight: CGFloat = 13
+        static let indicatorOffset: CGFloat = 1
+        static let indicatorHeight: CGFloat = 8
     }
     
     var tabNames: [String]
@@ -31,15 +31,15 @@ struct SegmentedControlView: View {
                     }
                 }) {
                     VStack(spacing: Constants.indicatorOffset) {
+                        Text(tabName)
+                            .foregroundStyle(Color(uiColor: selectedTabIndex == index ? BMColor.primaryText : BMColor.secondaryText))
+                            .font(Font(BMFont.bold(Constants.textSize)))
+                        
                         if selectedTabIndex == index {
                             capsule
                         } else {
                             placeholderCapsule
                         }
-                        
-                        Text(tabName)
-                            .foregroundStyle(Color(uiColor: selectedTabIndex == index ? BMColor.primaryText : BMColor.secondaryText))
-                            .font(Font(BMFont.bold(Constants.textSize)))
                     }
                 }
             }
