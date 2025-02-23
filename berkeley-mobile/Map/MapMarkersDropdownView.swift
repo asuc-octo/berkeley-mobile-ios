@@ -24,15 +24,16 @@ struct MapMarkersDropdownButton: View {
 
     var selectedMapMakerTypeCompletionHandler: () -> Void
     
+    private let widthAndHeight: CGFloat = 50
+    
     var body: some View {
         Button(action: {
             isPresentingMapMarkersDropdownView.toggle()
         }) {
             Circle()
-                .fill(Color(uiColor: BMColor.modalBackground))
-                .frame(width: 50, height: 50)
-                .font(.system(size: 42))
-                .clipShape(Circle())
+                .strokeBorder(.gray, lineWidth: 0.5)
+                .background(Circle().fill(.regularMaterial))
+                .frame(width: widthAndHeight, height: widthAndHeight)
                 .overlay(
                     Image(uiImage: viewModel.mapMarkerTypes[viewModel.selectedFilterIndex].icon())
                 )
@@ -41,7 +42,6 @@ struct MapMarkersDropdownButton: View {
             MapMarkersDropdownView(selectedMapMakerTypeCompletionHandler: selectedMapMakerTypeCompletionHandler)
                 .background(BMBackgroundBlurView().ignoresSafeArea(.all))
         }
-        .shadow(color: Color(uiColor: UIColor.black).opacity(0.2), radius: 5, x: 0, y: 5)
     }
 }
 
@@ -122,8 +122,10 @@ struct BMBackgroundBlurView: UIViewRepresentable {
 
 #Preview("MapMarkersDropdownView") {
     MapMarkersDropdownView(selectedMapMakerTypeCompletionHandler: { })
+        .environmentObject(MapMarkersDropdownViewModel())
 }
 
 #Preview("MapMarkersDropdownButton") {
     MapMarkersDropdownButton(selectedMapMakerTypeCompletionHandler: { })
+        .environmentObject(MapMarkersDropdownViewModel())
 }
