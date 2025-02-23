@@ -81,6 +81,8 @@
 		13EA64CA2399CE5B00FD8E13 /* SearchItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13EA64C92399CE5B00FD8E13 /* SearchItem.swift */; };
 		13EA64CD2399CEDA00FD8E13 /* Gym.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13EA64CC2399CEDA00FD8E13 /* Gym.swift */; };
 		13EA64D02399D50C00FD8E13 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13EA64CF2399D50C00FD8E13 /* DataManager.swift */; };
+		1D69CE8A2D6AC22300845105 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1D69CE892D6AC22300845105 /* GoogleService-Info.plist */; };
+		1D69CE8C2D6AC22A00845105 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D69CE8B2D6AC22A00845105 /* Secrets.swift */; };
 		29061D41241C450E002BC9D9 /* HasLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29061D40241C450E002BC9D9 /* HasLocation.swift */; };
 		2913595724B136BE00DE9AD6 /* CollapsibleCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2913595624B136BE00DE9AD6 /* CollapsibleCardView.swift */; };
 		2913595924B13DF200DE9AD6 /* OpenTimesCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2913595824B13DF200DE9AD6 /* OpenTimesCardView.swift */; };
@@ -158,13 +160,11 @@
 		55DCF7A123724835001B01B8 /* MaterialButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF7A023724835001B01B8 /* MaterialButton.swift */; };
 		E80330EB2CE431C200DC9574 /* DepthButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80330EA2CE431C200DC9574 /* DepthButtonStyle.swift */; };
 		E80330ED2CE7EBB100DC9574 /* NSCoding+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80330EC2CE7EBB100DC9574 /* NSCoding+Extension.swift */; };
-		E80ECC312AFB02BA004604BA /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80ECC302AFB02BA004604BA /* Secrets.swift */; };
 		E81767582B9A516200599254 /* MapMarkersDropdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81767572B9A516200599254 /* MapMarkersDropdownView.swift */; };
 		E83C6CEB2B71D8C20085E277 /* ResourcesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83C6CEA2B71D8C20085E277 /* ResourcesView.swift */; };
 		E83C6CED2B71DF190085E277 /* SafariWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83C6CEC2B71DF190085E277 /* SafariWebView.swift */; };
 		E83D87942AB3CD1E00C4113C /* FeedbackFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83D87932AB3CD1E00C4113C /* FeedbackFormView.swift */; };
 		E86F59232B9BA85700907251 /* StudyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E86F59222B9BA85700907251 /* StudyViewController.swift */; };
-		E8A6D0322D0653F60024836E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E8A6D0312D0653F60024836E /* GoogleService-Info.plist */; };
 		E8B2738D2BD5C83F0009831A /* SafetyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B2738C2BD5C83F0009831A /* SafetyView.swift */; };
 		E8B2738F2BD5E46B0009831A /* BMDrawerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B2738E2BD5E46B0009831A /* BMDrawerView.swift */; };
 		E8B273912BD5E5770009831A /* SafetyViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B273902BD5E5770009831A /* SafetyViewManager.swift */; };
@@ -257,6 +257,8 @@
 		13EA64C92399CE5B00FD8E13 /* SearchItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchItem.swift; sourceTree = "<group>"; };
 		13EA64CC2399CEDA00FD8E13 /* Gym.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gym.swift; sourceTree = "<group>"; };
 		13EA64CF2399D50C00FD8E13 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		1D69CE892D6AC22300845105 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		1D69CE8B2D6AC22A00845105 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		29061D40241C450E002BC9D9 /* HasLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasLocation.swift; sourceTree = "<group>"; };
 		2913595624B136BE00DE9AD6 /* CollapsibleCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsibleCardView.swift; sourceTree = "<group>"; };
 		2913595824B13DF200DE9AD6 /* OpenTimesCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenTimesCardView.swift; sourceTree = "<group>"; };
@@ -339,13 +341,11 @@
 		E80330EA2CE431C200DC9574 /* DepthButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepthButtonStyle.swift; sourceTree = "<group>"; };
 		E80330EC2CE7EBB100DC9574 /* NSCoding+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSCoding+Extension.swift"; sourceTree = "<group>"; };
 		E80330EE2CE9A8EB00DC9574 /* berkeley-mobile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "berkeley-mobile.entitlements"; sourceTree = "<group>"; };
-		E80ECC302AFB02BA004604BA /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		E81767572B9A516200599254 /* MapMarkersDropdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMarkersDropdownView.swift; sourceTree = "<group>"; };
 		E83C6CEA2B71D8C20085E277 /* ResourcesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcesView.swift; sourceTree = "<group>"; };
 		E83C6CEC2B71DF190085E277 /* SafariWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebView.swift; sourceTree = "<group>"; };
 		E83D87932AB3CD1E00C4113C /* FeedbackFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackFormView.swift; sourceTree = "<group>"; };
 		E86F59222B9BA85700907251 /* StudyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyViewController.swift; sourceTree = "<group>"; };
-		E8A6D0312D0653F60024836E /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E8B2738C2BD5C83F0009831A /* SafetyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyView.swift; sourceTree = "<group>"; };
 		E8B2738E2BD5E46B0009831A /* BMDrawerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMDrawerView.swift; sourceTree = "<group>"; };
 		E8B273902BD5E5770009831A /* SafetyViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyViewManager.swift; sourceTree = "<group>"; };
@@ -817,8 +817,8 @@
 				306A54F223613E3D00D59A7F /* Assets.xcassets */,
 				306A54F423613E3D00D59A7F /* LaunchScreen.storyboard */,
 				306A54F723613E3D00D59A7F /* Info.plist */,
-				E8A6D0312D0653F60024836E /* GoogleService-Info.plist */,
-				E80ECC302AFB02BA004604BA /* Secrets.swift */,
+				1D69CE892D6AC22300845105 /* GoogleService-Info.plist */,
+				1D69CE8B2D6AC22A00845105 /* Secrets.swift */,
 			);
 			path = "berkeley-mobile";
 			sourceTree = "<group>";
@@ -979,7 +979,7 @@
 				306A54F323613E3D00D59A7F /* Assets.xcassets in Resources */,
 				01D269962544D86C000377B4 /* Apercu Bold Italic.otf in Resources */,
 				01D269942544D86C000377B4 /* Apercu Italic.otf in Resources */,
-				E8A6D0322D0653F60024836E /* GoogleService-Info.plist in Resources */,
+				1D69CE8A2D6AC22300845105 /* GoogleService-Info.plist in Resources */,
 				01D269992544D86C000377B4 /* Apercu Medium Italic.otf in Resources */,
 				01D269932544D86C000377B4 /* Apercu Light.otf in Resources */,
 				01D2699A2544D86C000377B4 /* Apercu Medium.otf in Resources */,
@@ -1038,7 +1038,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E80ECC312AFB02BA004604BA /* Secrets.swift in Sources */,
 				01FA50F324E8BA5400DCC490 /* LocationDetailView.swift in Sources */,
 				306A550023614C0000D59A7F /* MainContainerViewController.swift in Sources */,
 				29F11EC72516C150007DCFD7 /* BarView.swift in Sources */,
@@ -1076,6 +1075,7 @@
 				2948155F253274C500D113B6 /* ImageViewCell.swift in Sources */,
 				E81767582B9A516200599254 /* MapMarkersDropdownView.swift in Sources */,
 				E8BC7B652B96CB7F002BF46D /* ResourcesViewModel.swift in Sources */,
+				1D69CE8C2D6AC22A00845105 /* Secrets.swift in Sources */,
 				016A56D6251AD38F00531A12 /* CalendarEvent.swift in Sources */,
 				13580AFC243934C800D309AA /* GymsController.swift in Sources */,
 				E8EBE7622CEC2FD700A220BB /* SafetyLogDetailView.swift in Sources */,
