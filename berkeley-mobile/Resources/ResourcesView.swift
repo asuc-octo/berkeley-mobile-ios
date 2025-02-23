@@ -32,12 +32,10 @@ struct ResourcesView: View {
                     if resourcesVM.resourceCategories.isEmpty {
                        noResourcesAvailableView
                     } else {
-                        Picker(selection: $tabSelectedValue, label: Text("")) {
-                            ForEach(Array(resourcesVM.resourceCategories.enumerated()), id: \.offset) { idx, category in
-                                Text(category.name).tag(idx)
-                            }
-                        }
-                        .pickerStyle(.segmented)
+                        SegmentedControlView(
+                            tabNames: resourcesVM.resourceCategories.map { $0.name },
+                            selectedTabIndex: $tabSelectedValue
+                        )
                         .padding()
                         
                         TabView(selection: $tabSelectedValue) {
