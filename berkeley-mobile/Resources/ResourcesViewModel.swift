@@ -33,10 +33,16 @@ struct BMResourceShoutout: Identifiable, Hashable, Codable {
     var url: URL?
 }
 
-//MARK: - ResourcesViewModel 
+
+// MARK: - ResourcesViewModel 
+
 class ResourcesViewModel: ObservableObject {
     @Published var shoutouts = [BMResourceShoutout]()
     @Published var resourceCategories = [BMResourceCategory]()
+    
+    var resourceCategoryNames: [String] {
+        resourceCategories.map { category in category.name }
+    }
     
     init() {
         fetchResourceShoutouts()
