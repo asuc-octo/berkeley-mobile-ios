@@ -41,7 +41,7 @@ class ResourcesViewModel: ObservableObject {
     @Published var resourceCategories = [BMResourceCategory]()
     
     var resourceCategoryNames: [String] {
-        resourceCategories.map { category in category.name }
+        resourceCategories.map { $0.name }
     }
     
     init() {
