@@ -8,6 +8,8 @@
 
 import Foundation
 import UIKit
+import SwiftUI
+
 
 struct BMFont {
     static let regular = {
