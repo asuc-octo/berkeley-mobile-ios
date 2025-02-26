@@ -43,8 +43,7 @@ struct MapMarkersDropdownView: View {
                     HStack(spacing: 15){
                         Image(uiImage: type.icon())
                         Text(type.rawValue)
-                            .fontWeight(.semibold)
-                            .font(.title3)
+                            .font(Font(BMFont.regular(25)))
                     }
                     .listRowSeparator(.hidden)
                     .listRowBackground(Color.clear)
