@@ -160,11 +160,11 @@
 		E80330ED2CE7EBB100DC9574 /* NSCoding+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80330EC2CE7EBB100DC9574 /* NSCoding+Extension.swift */; };
 		E80ECC312AFB02BA004604BA /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80ECC302AFB02BA004604BA /* Secrets.swift */; };
 		E81767582B9A516200599254 /* MapMarkersDropdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81767572B9A516200599254 /* MapMarkersDropdownView.swift */; };
+		E83B6D972D6FC93400AA9422 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E83B6D962D6FC93400AA9422 /* GoogleService-Info.plist */; };
 		E83C6CEB2B71D8C20085E277 /* ResourcesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83C6CEA2B71D8C20085E277 /* ResourcesView.swift */; };
 		E83C6CED2B71DF190085E277 /* SafariWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83C6CEC2B71DF190085E277 /* SafariWebView.swift */; };
 		E83D87942AB3CD1E00C4113C /* FeedbackFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83D87932AB3CD1E00C4113C /* FeedbackFormView.swift */; };
 		E86F59232B9BA85700907251 /* StudyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E86F59222B9BA85700907251 /* StudyViewController.swift */; };
-		E8A6D0322D0653F60024836E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E8A6D0312D0653F60024836E /* GoogleService-Info.plist */; };
 		E8B2738D2BD5C83F0009831A /* SafetyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B2738C2BD5C83F0009831A /* SafetyView.swift */; };
 		E8B2738F2BD5E46B0009831A /* BMDrawerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B2738E2BD5E46B0009831A /* BMDrawerView.swift */; };
 		E8B273912BD5E5770009831A /* SafetyViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B273902BD5E5770009831A /* SafetyViewManager.swift */; };
@@ -341,11 +341,11 @@
 		E80330EE2CE9A8EB00DC9574 /* berkeley-mobile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "berkeley-mobile.entitlements"; sourceTree = "<group>"; };
 		E80ECC302AFB02BA004604BA /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		E81767572B9A516200599254 /* MapMarkersDropdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMarkersDropdownView.swift; sourceTree = "<group>"; };
+		E83B6D962D6FC93400AA9422 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E83C6CEA2B71D8C20085E277 /* ResourcesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcesView.swift; sourceTree = "<group>"; };
 		E83C6CEC2B71DF190085E277 /* SafariWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebView.swift; sourceTree = "<group>"; };
 		E83D87932AB3CD1E00C4113C /* FeedbackFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackFormView.swift; sourceTree = "<group>"; };
 		E86F59222B9BA85700907251 /* StudyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyViewController.swift; sourceTree = "<group>"; };
-		E8A6D0312D0653F60024836E /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E8B2738C2BD5C83F0009831A /* SafetyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyView.swift; sourceTree = "<group>"; };
 		E8B2738E2BD5E46B0009831A /* BMDrawerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMDrawerView.swift; sourceTree = "<group>"; };
 		E8B273902BD5E5770009831A /* SafetyViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyViewManager.swift; sourceTree = "<group>"; };
@@ -817,7 +817,7 @@
 				306A54F223613E3D00D59A7F /* Assets.xcassets */,
 				306A54F423613E3D00D59A7F /* LaunchScreen.storyboard */,
 				306A54F723613E3D00D59A7F /* Info.plist */,
-				E8A6D0312D0653F60024836E /* GoogleService-Info.plist */,
+				E83B6D962D6FC93400AA9422 /* GoogleService-Info.plist */,
 				E80ECC302AFB02BA004604BA /* Secrets.swift */,
 			);
 			path = "berkeley-mobile";
@@ -979,7 +979,7 @@
 				306A54F323613E3D00D59A7F /* Assets.xcassets in Resources */,
 				01D269962544D86C000377B4 /* Apercu Bold Italic.otf in Resources */,
 				01D269942544D86C000377B4 /* Apercu Italic.otf in Resources */,
-				E8A6D0322D0653F60024836E /* GoogleService-Info.plist in Resources */,
+				E83B6D972D6FC93400AA9422 /* GoogleService-Info.plist in Resources */,
 				01D269992544D86C000377B4 /* Apercu Medium Italic.otf in Resources */,
 				01D269932544D86C000377B4 /* Apercu Light.otf in Resources */,
 				01D2699A2544D86C000377B4 /* Apercu Medium.otf in Resources */,
