@@ -43,12 +43,8 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
     private var previousMapMarker:MapMarker?
     private var previousPlaceMark: MKAnnotation?
     
-    private var filterView: FilterView!
-    private var filters: [Filter<[MapMarker]>] = [] {
-        didSet {
-            filterView.labels = filters.map { $0.label }
-        }
-    }
+    private var filters: [Filter<[MapMarker]>] = []
+    private let mapMarkersDropdownViewModel = MapMarkersDropdownViewModel()
     private var mapMarkers: [[MapMarker]] = []
     private var markerDetail: MapMarkerDetailView!
     
@@ -83,13 +79,6 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         markerDetail.delegate = self
         markerDetail.marker = nil
         
-        filterView = FilterView(frame: .zero)
-        filterView.animating = true
-        filterView.allowsMultipleSelection = false
-        filterView.filterDelegates.append(self)
-        
-        createMapMarkerDropdownButton()
-        
         DataManager.shared.fetch(source: MapDataSource.self) { markers in
             guard let markers = markers.first as? [String: [MapMarker]] else { return }
             self.mapMarkers = Array(markers.values)
@@ -103,9 +92,15 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
             self.filters = types.map { type in
                 Filter(label: type) { $0.first?.type.rawValue == type }
             }
+            self.mapMarkersDropdownViewModel.sortMapMarkerTypes(basedOn: self.filters)
+            
+            // Select the first map marker option 
+            self.showMapMarkersFromFilterView(for: self.filters, on: self.mapMarkers, with: [0])
         }
         
-        self.view.addSubViews([mapView, filterView, mapMarkersDropdownButton, markerDetail, maskView, searchResultsView, searchBar])
+        createMapMarkerDropdownButton()
+        
+        self.view.addSubViews([mapView, mapMarkersDropdownButton, markerDetail, maskView, searchResultsView, searchBar])
         setupSubviews()
         userLocationButton = UIButton(type: .custom)
         view.addSubview(userLocationButton)
@@ -127,15 +122,12 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
     }
     
     private func createMapMarkerDropdownButton() {
-        let mapMarkersDropdownButtonView = MapMarkersDropdownButton { [weak self] selectedType in
+        let mapMarkersDropdownButtonView = MapMarkersDropdownButton { [weak self] in
             guard let self = self else { return }
-            if let selectedIndex = self.filterView.labels.firstIndex(of: selectedType.rawValue) {
-                showMapMarkersFromFilterView(for: self.filters, on: self.mapMarkers, with: [selectedIndex])
-                self.filterView.selectItem(index: selectedIndex)
-            }
+            showMapMarkersFromFilterView(for: self.filters, on: self.mapMarkers, with: [mapMarkersDropdownViewModel.selectedFilterIndex])
         }
     
-        mapMarkersDropdownButton = UIHostingController(rootView: mapMarkersDropdownButtonView).view
+        mapMarkersDropdownButton = UIHostingController(rootView: mapMarkersDropdownButtonView.environmentObject(mapMarkersDropdownViewModel)).view
         mapMarkersDropdownButton.translatesAutoresizingMaskIntoConstraints = false
         mapMarkersDropdownButton.isUserInteractionEnabled = true
         mapMarkersDropdownButton.backgroundColor = UIColor.clear
@@ -177,7 +169,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         userLocationButton.widthAnchor.constraint(equalToConstant: _buttonWidth).isActive = true
         userLocationButton.heightAnchor.constraint(equalToConstant: _buttonWidth).isActive = true
         userLocationButton.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
-        userLocationButton.topAnchor.constraint(equalTo: filterView.bottomAnchor, constant: kViewMargin).isActive = true
+        userLocationButton.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: kViewMargin).isActive = true
     }
 
     @objc func homePressed() {
@@ -212,19 +204,11 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         markerDetail.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
         markerDetail.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
         
-        filterView.translatesAutoresizingMaskIntoConstraints = false
-        filterView.heightAnchor.constraint(equalToConstant: FilterViewCell.kCellSize.height).isActive = true
-        filterView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: kViewMargin).isActive = true
-        filterView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        filterView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        filterView.contentInset = UIEdgeInsets(top: 0, left: view.layoutMargins.left,
-                                               bottom: 0, right: view.layoutMargins.right)
-        
         NSLayoutConstraint.activate([
             mapMarkersDropdownButton.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
             mapMarkersDropdownButton.widthAnchor.constraint(equalToConstant: 40),
             mapMarkersDropdownButton.heightAnchor.constraint(equalToConstant: 40),
-            mapMarkersDropdownButton.topAnchor.constraint(equalTo: filterView.bottomAnchor, constant: kViewMargin + 5)
+            mapMarkersDropdownButton.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: kViewMargin + 5)
         ])
     }
     
@@ -261,11 +245,10 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
     private func updateMapMarkers() {
         self.previousMapMarker = nil
         workItem?.cancel()
-        let selectedIndices = filterView.indexPathsForSelectedItems?.map { $0.row }
-        workItem = Filter.satisfiesAny(filters: filters, on: mapMarkers, indices: selectedIndices, completion: {
+        workItem = Filter.satisfiesAny(filters: filters, on: mapMarkers, indices: [mapMarkersDropdownViewModel.selectedFilterIndex], completion: {
             [weak self] filtered in
             guard let self = self else { return }
-            self.showMapMarkersFromFilterView(for: self.filters, on: self.mapMarkers, with: selectedIndices)
+            self.showMapMarkersFromFilterView(for: self.filters, on: self.mapMarkers, with: [mapMarkersDropdownViewModel.selectedFilterIndex])
         })
     }
     
