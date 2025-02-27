@@ -60,6 +60,15 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         
         mapView = MKMapView()
         mapView.delegate = self
+        
+        // Setting the map boundaries:
+        let fullMapCenter = CLLocationCoordinate2D(latitude: 37.76251429388581, longitude: -122.27164812506234)
+        let fullMapRegion = MKCoordinateRegion(center: fullMapCenter, span: MKCoordinateSpan(latitudeDelta: 0.8458437031956976, longitudeDelta: 0.6425468841745499))
+        mapView.cameraBoundary = MKMapView.CameraBoundary(coordinateRegion: fullMapRegion)
+        let cameraDistance: CLLocationDistance = 300000
+        let maximumZoom = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: cameraDistance)
+        mapView.cameraZoomRange = maximumZoom
+        
         mapView.register(MKAnnotationView.self, forAnnotationViewWithReuseIdentifier: MapViewController.kAnnotationIdentifier)
         maskView = UIView()
         maskView.backgroundColor = BMColor.searchBarBackground
