@@ -39,7 +39,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
     
     private var searchAnnotation: SearchAnnotation?
     
-    //variables for search markers
+    // Variables for search markers
     private var previousMapMarker:MapMarker?
     private var previousPlaceMark: MKAnnotation?
     
@@ -158,7 +158,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         mapView.setRegion(coordinateRegion, animated: animated)
     }
 
-    /// Repoisitions the map's compass so that it is not obscured by the search bar.
+    // Repoisitions the map's compass so that it is not obscured by the search bar.
     private func updateCompassPosition() {
         if compass != nil { return }
         mapView.showsCompass = false
@@ -170,7 +170,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         compass.topAnchor.constraint(equalTo: userLocationButton.bottomAnchor, constant: kViewMargin).isActive = true
     }
     
-    //sets up user location button properties
+    // sets up user location button properties
     private func updateUserLocationButton() {
         userLocationButton.clipsToBounds = true
         userLocationButton.layer.masksToBounds = false
@@ -292,7 +292,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
 
 }
 
-// MARK: FilterViewDelegate, Analytics
+// MARK: - FilterViewDelegate, Analytics
 
 extension MapViewController: FilterViewDelegate {
 
@@ -309,7 +309,7 @@ extension MapViewController: FilterViewDelegate {
     }
 }
 
-// MARK: MKMapViewDelegate, Analytics {
+// MARK: - MKMapViewDelegate, Analytics {
 
 extension MapViewController: MKMapViewDelegate {
     
@@ -383,7 +383,7 @@ extension MapViewController: MKMapViewDelegate {
     
 }
 
-// MARK: MapMarkerDetailViewDelegate
+// MARK: - MapMarkerDetailViewDelegate
 
 extension MapViewController: MapMarkerDetailViewDelegate {
     
