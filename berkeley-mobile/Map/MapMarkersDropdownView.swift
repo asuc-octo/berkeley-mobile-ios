@@ -8,9 +8,14 @@
 
 import SwiftUI
 
+
 class MapMarkersDropdownViewModel: ObservableObject {
     @Published var selectedFilterIndex = 0
     @Published var mapMarkerTypes = MapMarkerType.allCases
+    
+    var selectedMapMarkerUIImage: UIImage {
+        mapMarkerTypes[selectedFilterIndex].icon()
+    }
     
     func sortMapMarkerTypes(basedOn filters: [Filter<[MapMarker]>]) {
         let filterLabels = filters.map { $0.label }
@@ -30,14 +35,9 @@ struct MapMarkersDropdownButton: View {
         Button(action: {
             isPresentingMapMarkersDropdownView.toggle()
         }) {
-            Circle()
-                .strokeBorder(.gray, lineWidth: 0.5)
-                .background(Circle().fill(.regularMaterial))
-                .frame(width: widthAndHeight, height: widthAndHeight)
-                .overlay(
-                    Image(uiImage: viewModel.mapMarkerTypes[viewModel.selectedFilterIndex].icon())
-                )
+            Image(uiImage: viewModel.selectedMapMarkerUIImage)
         }
+        .buttonStyle(HomeMapControlButtonStyle())
         .fullScreenCover(isPresented: $isPresentingMapMarkersDropdownView) {
             MapMarkersDropdownView(selectedMapMakerTypeCompletionHandler: selectedMapMakerTypeCompletionHandler)
                 .background(BMBackgroundBlurView().ignoresSafeArea(.all))
