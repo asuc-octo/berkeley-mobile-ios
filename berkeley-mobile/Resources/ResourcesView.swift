@@ -8,14 +8,16 @@
 
 import SwiftUI
 
-//MARK: ResourcesView
+
+// MARK: ResourcesView
+
 struct ResourcesView: View {
+    @StateObject private var resourcesVM = ResourcesViewModel()
     @State private var tabSelectedValue = 0
     @State private var shoutoutTabSelectedValue = 0
-    @StateObject private var resourcesVM = ResourcesViewModel()
     
     init() {
-        //Use this if NavigationBarTitle is with Large Font
+        // Use this if NavigationBarTitle is with Large Font
         UINavigationBar.appearance().largeTitleTextAttributes = [.font : BMFont.bold(30)]
     }
     
@@ -32,12 +34,10 @@ struct ResourcesView: View {
                     if resourcesVM.resourceCategories.isEmpty {
                        noResourcesAvailableView
                     } else {
-                        Picker(selection: $tabSelectedValue, label: Text("")) {
-                            ForEach(Array(resourcesVM.resourceCategories.enumerated()), id: \.offset) { idx, category in
-                                Text(category.name).tag(idx)
-                            }
-                        }
-                        .pickerStyle(.segmented)
+                        SegmentedControlView(
+                            tabNames: resourcesVM.resourceCategoryNames,
+                            selectedTabIndex: $tabSelectedValue
+                        )
                         .padding()
                         
                         TabView(selection: $tabSelectedValue) {
@@ -114,7 +114,9 @@ struct ResourcesView: View {
     }
 }
 
-//MARK: - ResourcePageView
+
+// MARK: - ResourcePageView
+
 struct ResourcePageView: View {
     var resourceSections: [BMResourceSection]
 
@@ -154,7 +156,9 @@ struct ResourcePageView: View {
     }
 }
 
-//MARK: - ResourceLinkView
+
+// MARK: - ResourceLinkView
+
 struct ResourceLinkView: View {
     var resource: BMResource
     
@@ -194,7 +198,9 @@ struct ResourceLinkView: View {
     }
 }
 
-//MARK: - ResourceShoutoutView
+
+// MARK: - ResourceShoutoutView
+
 struct ResourceShoutoutView: View {
     var callout: BMResourceShoutout
     

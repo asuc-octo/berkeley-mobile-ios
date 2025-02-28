@@ -8,39 +8,61 @@
 
 import SwiftUI
 
+
+class MapMarkersDropdownViewModel: ObservableObject {
+    @Published var selectedFilterIndex = 0
+    @Published var mapMarkerTypes = MapMarkerType.allCases
+    
+    var selectedMapMarkerUIImage: UIImage {
+        mapMarkerTypes[selectedFilterIndex].icon()
+    }
+    
+    func sortMapMarkerTypes(basedOn filters: [Filter<[MapMarker]>]) {
+        let filterLabels = filters.map { $0.label }
+        mapMarkerTypes = filterLabels.compactMap { MapMarkerType(rawValue: $0) }
+    }
+}
+
 struct MapMarkersDropdownButton: View {
+    @EnvironmentObject var viewModel: MapMarkersDropdownViewModel
     @State private var isPresentingMapMarkersDropdownView = false
-    var selectedMapMakerTypeCompletionHandler: (MapMarkerType) -> Void
+
+    var selectedMapMakerTypeCompletionHandler: () -> Void
+    
+    private let widthAndHeight: CGFloat = 50
     
     var body: some View {
         Button(action: {
             isPresentingMapMarkersDropdownView.toggle()
         }) {
-            Image(systemName: "chevron.down.circle")
-                .background(Color(uiColor: BMColor.modalBackground))
-                .foregroundColor(Color(uiColor: BMColor.blackText))
-                .font(.system(size: 42))
-                .clipShape(Circle())
+            Image(uiImage: viewModel.selectedMapMarkerUIImage)
         }
+        .buttonStyle(HomeMapControlButtonStyle())
         .fullScreenCover(isPresented: $isPresentingMapMarkersDropdownView) {
             MapMarkersDropdownView(selectedMapMakerTypeCompletionHandler: selectedMapMakerTypeCompletionHandler)
                 .background(BMBackgroundBlurView().ignoresSafeArea(.all))
         }
-        .shadow(color: Color(uiColor: UIColor.black).opacity(0.2), radius: 5, x: 0, y: 5)
     }
 }
 
-//MARK: - MapMarkersDropdownView
+
+// MARK: - MapMarkersDropdownView
+
 struct MapMarkersDropdownView: View {
+    @EnvironmentObject var viewModel: MapMarkersDropdownViewModel
     @Environment(\.dismiss) private var dismiss
-    private let mapMarkerTypes = MapMarkerType.allCases.sorted(by: { $0.rawValue < $1.rawValue })
-    var selectedMapMakerTypeCompletionHandler: (MapMarkerType) -> Void
+  
+    var selectedMapMakerTypeCompletionHandler: () -> Void
     
     var body: some View {
         ZStack {
-            List(mapMarkerTypes, id: \.self) { type in
-                if type != MapMarkerType.none {
-                    HStack(spacing: 15){
+            List(Array(viewModel.mapMarkerTypes.enumerated()), id: \.offset) { index, type in
+                Button(action: {
+                    viewModel.selectedFilterIndex = index
+                    selectedMapMakerTypeCompletionHandler()
+                    dismiss()
+                }) {
+                    HStack(spacing: 15) {
                         Image(uiImage: type.icon())
                         Text(type.rawValue)
                             .font(Font(BMFont.regular(20)))
@@ -52,7 +74,12 @@ struct MapMarkersDropdownView: View {
                         selectedMapMakerTypeCompletionHandler(type)
                         dismiss()
                     }
+                    .contentShape(Rectangle())
                 }
+                .buttonStyle(.plain)
+                .listRowSeparator(.hidden)
+                .listRowBackground(Color.clear)
+                .frame(height: 40)
             }
             .padding(EdgeInsets(top: 20, leading: 0, bottom: 0, trailing: 0))
             .scrollIndicators(.hidden)
@@ -81,7 +108,9 @@ struct MapMarkersDropdownView: View {
     }
 }
 
-//MARK: - BMBackgroundBlurView
+
+// MARK: - BMBackgroundBlurView
+
 struct BMBackgroundBlurView: UIViewRepresentable {
     func makeUIView(context: Context) -> UIView {
         let view = UIVisualEffectView(effect: UIBlurEffect(style: .light))
@@ -96,9 +125,11 @@ struct BMBackgroundBlurView: UIViewRepresentable {
 
 
 #Preview("MapMarkersDropdownView") {
-    MapMarkersDropdownView(selectedMapMakerTypeCompletionHandler: {_ in})
+    MapMarkersDropdownView(selectedMapMakerTypeCompletionHandler: { })
+        .environmentObject(MapMarkersDropdownViewModel())
 }
 
 #Preview("MapMarkersDropdownButton") {
-    MapMarkersDropdownButton(selectedMapMakerTypeCompletionHandler: {_ in})
+    MapMarkersDropdownButton(selectedMapMakerTypeCompletionHandler: { })
+        .environmentObject(MapMarkersDropdownViewModel())
 }
