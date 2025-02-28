@@ -16,14 +16,14 @@ class MapUserLocationButtonViewModel: ObservableObject {
 struct MapUserLocationButton: View {
     @EnvironmentObject var viewModel: MapUserLocationButtonViewModel
     
-    var honeUserLocationCompletionHandler: () -> Void
+    var homeInUserLocationCompletionHandler: () -> Void
     
     var body: some View {
         Button(action: {
             if !viewModel.isHomingInOnUserLocation {
                 withAnimation {
                     viewModel.isHomingInOnUserLocation = true
-                    honeUserLocationCompletionHandler()
+                    homeInUserLocationCompletionHandler()
                 }
             }
         }) {
