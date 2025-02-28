@@ -10,7 +10,7 @@ import SwiftUI
 
 
 class MapUserLocationButtonViewModel: ObservableObject {
-    @Published var isHoningInOnUserLocation = false
+    @Published var isHomingInOnUserLocation = false
 }
 
 struct MapUserLocationButton: View {
@@ -20,14 +20,14 @@ struct MapUserLocationButton: View {
     
     var body: some View {
         Button(action: {
-            if !viewModel.isHoningInOnUserLocation {
+            if !viewModel.isHomingInOnUserLocation {
                 withAnimation {
-                    viewModel.isHoningInOnUserLocation = true
+                    viewModel.isHomingInOnUserLocation = true
                     honeUserLocationCompletionHandler()
                 }
             }
         }) {
-            Image(systemName: viewModel.isHoningInOnUserLocation ? "location.fill" : "location")
+            Image(systemName: viewModel.isHomingInOnUserLocation ? "location.fill" : "location")
                 .font(.system(size: 24))
         }
         .buttonStyle(HomeMapControlButtonStyle())

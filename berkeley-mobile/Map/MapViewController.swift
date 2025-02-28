@@ -346,7 +346,7 @@ extension MapViewController: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
-        mapUserLocationViewModel.isHoningInOnUserLocation = mapUserLocationButtonTapped
+        mapUserLocationViewModel.isHomingInOnUserLocation = mapUserLocationButtonTapped
     }
     
 }
