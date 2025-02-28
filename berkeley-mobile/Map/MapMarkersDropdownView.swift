@@ -67,13 +67,6 @@ struct MapMarkersDropdownView: View {
                         Text(type.rawValue)
                             .font(Font(BMFont.regular(20)))
                     }
-                    .listRowSeparator(.hidden)
-                    .listRowBackground(Color.clear)
-                    .frame(height: 40)
-                    .onTapGesture {
-                        selectedMapMakerTypeCompletionHandler(type)
-                        dismiss()
-                    }
                     .contentShape(Rectangle())
                 }
                 .buttonStyle(.plain)
