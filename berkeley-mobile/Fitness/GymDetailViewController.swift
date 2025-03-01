@@ -17,13 +17,13 @@ class GymDetailViewController: SearchDrawerViewController {
 
     var overviewCard: OverviewCardView!
     var openTimesCard: OpenTimesCardView?
-    var RSFCard: OccupancyGraphCardView?
+    var occupancyCard: OccupancyGraphCardView?
     var moreButton: ActionButton?
     var descriptionCard: DescriptionCardView?
 
     override var upperLimitState: DrawerState? {
         return openTimesCard == nil &&
-               RSFCard == nil &&
+               occupancyCard == nil &&
                moreButton == nil &&
                descriptionCard == nil ? .middle : nil
     }
@@ -34,7 +34,7 @@ class GymDetailViewController: SearchDrawerViewController {
         setUpScrollView()
         setUpOverviewCard()
         setUpOpenTimesCard()
-        setUpRSFCard()
+        setUpoccupancyCard()
         setupMoreButton()
         setupDescriptionCard()
     }
@@ -83,11 +83,11 @@ extension GymDetailViewController {
         scrollingStackView.stackView.addArrangedSubview(openTimesCard)
     }
 
-    func setUpRSFCard() {
+    func setUpoccupancyCard() {
         guard let occupancy = gym.occupancy, let forDay = occupancy.occupancy(for: DayOfWeek.weekday(Date())), forDay.count > 0 else { return }
-        RSFCard = OccupancyGraphCardView(occupancy: occupancy, isOpen: gym.isOpen)
-        guard let RSFCard = self.RSFCard else { return }
-        scrollingStackView.stackView.addArrangedSubview(RSFCard)
+        occupancyCard = OccupancyGraphCardView(occupancy: occupancy, isOpen: gym.isOpen)
+        guard let occupancyCard = self.occupancyCard else { return }
+        scrollingStackView.stackView.addArrangedSubview(occupancyCard)
     }
     
     
