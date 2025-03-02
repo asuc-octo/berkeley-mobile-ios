@@ -6,10 +6,29 @@
 //  Copyright © 2019 RJ Pimentel. All rights reserved.
 //
 
-import UIKit
-import SwiftUI
-import MapKit
 import Firebase
+import MapKit
+import SwiftUI
+import UIKit
+
+
+// MARK: - HomeMapView
+
+struct HomeMapView: UIViewControllerRepresentable {
+    typealias UIViewControllerType = MapViewController
+    
+    private let mapViewController: MapViewController
+    
+    init(mapViewController: MapViewController) {
+        self.mapViewController = mapViewController
+    }
+    
+    func makeUIViewController(context: Context) -> MapViewController {
+        mapViewController
+    }
+    
+    func updateUIViewController(_ uiViewController: MapViewController, context: Context) {}
+}
 
 
 // MARK: - MapViewController
@@ -41,7 +60,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
     
     private var searchAnnotation: SearchAnnotation?
     
-    //variables for search markers
+    // Variables for search markers
     private var previousMapMarker:MapMarker?
     private var previousPlaceMark: MKAnnotation?
     
@@ -52,11 +71,13 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
     private var mapMarkers: [[MapMarker]] = []
     private var markerDetail: MapMarkerDetailView!
     
+    var homeViewModel: HomeViewModel?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        view.layoutMargins = UIEdgeInsets(top: kLayoutMarginsInset, left: kLayoutMarginsInset, bottom: kLayoutMarginsInset, right: kLayoutMarginsInset)
+        view.layoutMargins = UIEdgeInsets(top: kLayoutMarginsInset + 50, left: kLayoutMarginsInset, bottom: kLayoutMarginsInset, right: kLayoutMarginsInset)
         
         mapView = MKMapView()
         mapView.delegate = self
@@ -68,6 +89,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         searchBar = SearchBarView(
             onStartSearch: { [weak self] (isSearching) in
                 guard let self = self else { return }
+                self.homeViewModel?.isShowingDrawer = isSearching
                 self.showSearchResultsView(isSearching)
             }, onClearInput: { [weak self] in
                 guard let self = self else { return }
@@ -89,17 +111,11 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         
         self.view.addSubViews([mapView, mapUserLocationButton, mapMarkersDropdownButton, markerDetail, maskView, searchResultsView, searchBar])
         setupSubviews()
-
-        // Listen for home button press
-        NotificationCenter.default.addObserver(self,
-            selector: #selector(homePressed),
-            name: Notification.Name(TabBarController.homePressedMessage),
-            object: nil
-        )
+        
+        centerMapAtBerkeley()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    private func centerMapAtBerkeley() {
         mapView.isZoomEnabled = true
         centerMapOnLocation(CLLocation(latitude: CLLocationDegrees(exactly: 37.871684)!, longitude: CLLocationDegrees(-122.259934)), mapView: mapView, animated: false)
         updateCompassPosition()
@@ -198,7 +214,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         searchBar.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
         
         markerDetail.translatesAutoresizingMaskIntoConstraints = false
-        markerDetail.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
+        markerDetail.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -75).isActive = true
         markerDetail.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
         markerDetail.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
         
@@ -326,6 +342,7 @@ extension MapViewController: MKMapViewDelegate {
             Analytics.logEvent("point_of_interest_clicked", parameters: ["Place": annotation.title ?? "Unknown"])
             markerDetail.marker = annotation
             mainContainer?.hideTop()
+            homeViewModel?.isShowingDrawer = true
         }
     }
     
@@ -334,7 +351,10 @@ extension MapViewController: MKMapViewDelegate {
             UIView.animate(withDuration: 0.1, animations: {
                 view.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
             })
+            
             markerDetail.marker = nil
+            homeViewModel?.isShowingDrawer = false
+
             // if a marker is deselected wait to see if another marker was selected
             DispatchQueue.main.async {
                 // if no other marker was selected, show the top drawer
@@ -360,6 +380,7 @@ extension MapViewController: MapMarkerDetailViewDelegate {
         mapView.selectedAnnotations.forEach { annotation in
             if annotation.isKind(of: MapMarker.self) {
                 mapView.deselectAnnotation(annotation, animated: true)
+                    homeViewModel?.isShowingDrawer = false
             }
         }
     }
@@ -433,7 +454,7 @@ extension MapViewController: SearchResultsViewDelegate {
             let regionRadius: CLLocationDistance = 250
             // center map on searched location
             let coordinateRegion = MKCoordinateRegion(center: location.coordinate,
-                                                      latitudinalMeters: regionRadius * 2.0, longitudinalMeters: regionRadius * 2.0)
+                                                      latitudinalMeters: regionRadius * 2.0, longitudinalMeters: regionRadius)
             mapView.setRegion(coordinateRegion, animated: true)
             let item = placemark.item
             if let item = item {
@@ -460,7 +481,7 @@ extension MapViewController: SearchResultsViewDelegate {
                 // otherwise: still dismiss any past detail views and show the drawer underneath
                 
                 if let type = type(of: item) as? AnyClass {
-                    presentDetail(type: type, item: item, containingVC: mainContainer!, position: .middle)
+                    homeViewModel?.presentDetail(type: type, item: item)
                 }
             }
         }

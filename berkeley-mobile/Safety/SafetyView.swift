@@ -40,7 +40,7 @@ struct SafetyView: View {
     }
     
     private var drawerView: some View {
-        BMDrawerView {
+        BMDrawerView(horizontalPadding: 16) {
             VStack(alignment: .leading) {
                 alertsDrawerHeaderView
                 

@@ -14,23 +14,16 @@ enum BMDrawerViewState {
 
 struct BMDrawerView<Content: View>: View {
     private let content: Content
+    private let horizontalPadding: CGFloat
 
     @State private var startingOffset: CGFloat = UIScreen.main.bounds.height * 0.8 / 2
     @State private var currentOffset:CGFloat = 0
     @State private var endOffset:CGFloat = 0
     @State private var drawerViewState = BMDrawerViewState.medium
 
-    private var indicator: some View {
-        RoundedRectangle(cornerRadius: 16)
-            .fill(.gray.opacity(0.6))
-            .frame(
-                    width: 30,
-                    height: 6
-            )
-    }
-
-    init(@ViewBuilder content: () -> Content) {
+    init(horizontalPadding: CGFloat = 5.0, @ViewBuilder content: () -> Content) {
         self.content = content()
+        self.horizontalPadding = horizontalPadding
     }
 
     var body: some View {
@@ -40,10 +33,10 @@ struct BMDrawerView<Content: View>: View {
                 self.content
             }
             .padding(.vertical, 10)
-            .padding(.horizontal, 16)
-            //the multiplier to geometry.size.height prevents the bottommost content from being obscured by the tabbar
+            .padding(.horizontal, horizontalPadding)
+            // The multiplier to geometry.size.height prevents the bottommost content from being obscured by the tabbar
             .frame(width: geometry.size.width, height: geometry.size.height * 0.90, alignment: .top)
-            .background(Color(uiColor: BMColor.cardBackground))
+            .background(.regularMaterial)
             .clipShape(
                 .rect(
                     topLeadingRadius: 20,
@@ -74,7 +67,7 @@ struct BMDrawerView<Content: View>: View {
                                         endOffset = -startingOffset / 6.8
                                     case .medium:
                                         drawerViewState = .large
-                                        endOffset = -startingOffset * 0.9
+                                        endOffset = -startingOffset * 0.95
                                     case .large:
                                         break
                                     }
@@ -98,5 +91,14 @@ struct BMDrawerView<Content: View>: View {
         }
         .edgesIgnoringSafeArea([.bottom, .horizontal])
         .shadow(color: Color(hue: 1.0, saturation: 0.0, brightness: 0.0, opacity: 0.08), radius: 12, y: -8)
+    }
+    
+    private var indicator: some View {
+        RoundedRectangle(cornerRadius: 16)
+            .fill(.gray.opacity(0.6))
+            .frame(
+                    width: 30,
+                    height: 6
+            )
     }
 }
