@@ -15,22 +15,24 @@ struct HomeSectionListRowView: View {
     
     var body: some View {
         HStack {
-            VStack (alignment: .leading, spacing: 30) {
+            VStack (alignment: .leading) {
                 Text(title)
                     .foregroundStyle(Color(BMColor.blackText))
                     .font(Font(BMFont.bold(18)))
-                    .lineLimit(1)
+                
+                Spacer()
                 
                 HStack {
                     Image(systemName: "figure.walk")
                         .foregroundStyle(Color(BMColor.blackText))
-                        .font(.headline)
+                        .font(.system(size: 16))
                     
                     Text("\(distance, specifier: "%.1f") mi")
                         .foregroundStyle(Color(BMColor.blackText))
                         .font(Font(BMFont.regular(16)))
                 }
             }
+            .frame(height: 74)
             
             Spacer()
             
