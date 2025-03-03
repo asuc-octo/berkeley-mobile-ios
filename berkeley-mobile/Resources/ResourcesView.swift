@@ -128,73 +128,29 @@ struct ResourcePageView: View {
                     .font(Font(BMFont.regular(30)))
                     .foregroundStyle(.secondary)
             } else {
-                List {
-                    ForEach(resourceSections, id: \.self) { resourceSection in
-                        DisclosureGroup(
-                            content: {
-                                VStack(alignment: .leading) {
-                                    ForEach(resourceSection.resources, id: \.id) { resource in
-                                        ResourceLinkView(resource: resource)
-                                        .listRowSeparator(.hidden)
+                ScrollView {
+                    VStack(spacing: 0) {
+                        ForEach(resourceSections, id: \.self) { resourceSection in
+                            if let sectionHeaderText = resourceSection.title {
+                                VStack(spacing: 0) {
+                                    ResourcesSectionDropdown(title: sectionHeaderText, accentColor: .orange) {
+                                        VStack(spacing: 0) {
+                                            ForEach(resourceSection.resources, id: \.id) { resource in
+                                                ResourceItemView(resource: resource)
+                                            }
+                                        }
                                     }
                                 }
-                            },
-                            label: {
-                                if let sectionHeaderText = resourceSection.title {
-                                    Text(sectionHeaderText)
-                                        .bold()
-                                        .font(Font(BMFont.bold(25)))
-                                }
+                                
+                                Divider()
                             }
-                        )
-                        .listRowBackground(Color.clear)
+                        }
                     }
+                    .padding(.vertical, 8)
                 }
-                .scrollContentBackground(.hidden)
+                .background(Color(BMColor.cardBackground))
             }
         }
-    }
-}
-
-
-// MARK: - ResourceLinkView
-
-struct ResourceLinkView: View {
-    var resource: BMResource
-    
-    @State private var isPresentingWebView = false
-    
-    var body: some View {
-        RoundedRectangle(cornerRadius: 10)
-            .stroke(.gray, lineWidth: 1)
-            .frame(height: 130)
-            .overlay(
-                HStack {
-                    VStack(alignment: .leading) {
-                        Spacer()
-                        Text("\(resource.name)")
-                            .font(Font(BMFont.regular(17)))
-                            .fontWeight(.heavy)
-                        Spacer()
-                    }
-                    .bold()
-                    Spacer()
-                    Image(systemName: "chevron.right")
-                        .foregroundStyle(.gray)
-                        .bold()
-                        .font(.system(size: 13))
-                }
-                .padding()
-            )
-            .onTapGesture {
-                isPresentingWebView.toggle()
-            }
-            .fullScreenCover(isPresented: $isPresentingWebView) {
-                if let url = resource.url {
-                    SafariWebView(url: url)
-                        .edgesIgnoringSafeArea(.all)
-                }
-            }
     }
 }
 
