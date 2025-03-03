@@ -42,6 +42,10 @@ struct SegmentedControlView: View {
                         }
                     }
                 }
+                
+                if index != tabNames.count - 1 {
+                    Spacer()
+                }
             }
         }
         .fixedSize(horizontal: true, vertical: false)

@@ -6,8 +6,30 @@
 //  Copyright © 2020 RJ Pimentel. All rights reserved.
 //
 
-import UIKit
 import Firebase
+import UIKit
+import SwiftUI
+
+// MARK: - DiningView
+
+struct DiningView: UIViewControllerRepresentable {
+    typealias UIViewControllerType = DiningViewController
+    
+    private let mapViewController: MapViewController
+    
+    init(mapViewController: MapViewController) {
+        self.mapViewController = mapViewController
+    }
+    
+    func makeUIViewController(context: Context) -> DiningViewController {
+        return DiningViewController(mapViewController: mapViewController)
+    }
+    
+    func updateUIViewController(_ uiViewController: DiningViewController, context: Context) {}
+}
+
+
+// MARK: - DiningViewController
 
 class DiningViewController: UIViewController, SearchDrawerViewDelegate {
     
@@ -22,6 +44,7 @@ class DiningViewController: UIViewController, SearchDrawerViewDelegate {
     var initialDrawerCenter = CGPoint()
     var initialGestureTranslation: CGPoint = CGPoint()
     var drawerStatePositions: [DrawerState : CGFloat] = [:]
+    
     // SearchDrawerViewDelegate property
     var mainContainer: MainContainerViewController?
     var pinDelegate: SearchResultsViewDelegate?
@@ -34,12 +57,18 @@ class DiningViewController: UIViewController, SearchDrawerViewDelegate {
         img.clipsToBounds = true
         return img
     }()
-
+    
+    init(mapViewController: MapViewController) {
+        pinDelegate = mapViewController
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        view.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
         
         setupCardView()
         
@@ -65,6 +94,7 @@ class DiningViewController: UIViewController, SearchDrawerViewDelegate {
     }
 }
 
+
 // MARK: TableView Delegate and Data Source
 
 extension DiningViewController: UITableViewDelegate, UITableViewDataSource {
@@ -88,6 +118,7 @@ extension DiningViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+
 // MARK: View
 
 extension DiningViewController {
@@ -98,7 +129,7 @@ extension DiningViewController {
         view.addSubview(card)
         card.translatesAutoresizingMaskIntoConstraints = false
         card.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
-        card.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
+        card.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -75).isActive = true
         card.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
         card.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
         
@@ -145,6 +176,7 @@ extension DiningViewController {
         self.filterTableView.tableView.delegate = self
     }
 }
+
 
 // MARK: - Analytics
 

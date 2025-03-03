@@ -15,8 +15,6 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
     let calendarView = CalendarViewController()
     let safetyView = UIHostingController(rootView: SafetyView())
     let resourcesView = UIHostingController(rootView: ResourcesView())
-    
-    static var homePressedMessage = "dismissDrawerWithHomePress"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,15 +43,6 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         resourcesView.tabBarItem = UITabBarItem(title: "Resources", image: UIImage(systemName: "tray.full"), tag: 3)
         
         self.viewControllers = [mapView, calendarView, safetyView, resourcesView]
-    }
-    
-    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        if self.selectedViewController == mapView {
-            if item.tag == 0 {
-                let nc = NotificationCenter.default
-                nc.post(name: Notification.Name(TabBarController.homePressedMessage), object: nil)
-            }
-        }
     }
     
     public func selectMainTab() {

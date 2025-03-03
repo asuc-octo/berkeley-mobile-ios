@@ -6,12 +6,37 @@
 //  Copyright © 2020 RJ Pimentel. All rights reserved.
 //
 
-import UIKit
 import Firebase
+import UIKit
+import SwiftUI
+
+
+// MARK: - GymDetailView
+
+struct GymDetailView: UIViewControllerRepresentable {
+    typealias UIViewControllerType = GymDetailViewController
+    
+    private let gym: Gym
+    
+    init(gym: Gym) {
+        self.gym = gym
+    }
+    
+    func makeUIViewController(context: Context) -> GymDetailViewController {
+        let gymDetailVC = GymDetailViewController()
+        gymDetailVC.gym = gym
+        return gymDetailVC
+    }
+    
+    func updateUIViewController(_ uiViewController: GymDetailViewController, context: Context) {}
+}
+
+
+// MARK: - GymDetailViewController
 
 fileprivate let kViewMargin: CGFloat = 16
 
-class GymDetailViewController: SearchDrawerViewController {
+class GymDetailViewController: UIViewController {
 
     var gym: Gym!
 
@@ -20,13 +45,6 @@ class GymDetailViewController: SearchDrawerViewController {
     var occupancyCard: OccupancyGraphCardView?
     var moreButton: ActionButton?
     var descriptionCard: DescriptionCardView?
-
-    override var upperLimitState: DrawerState? {
-        return openTimesCard == nil &&
-               occupancyCard == nil &&
-               moreButton == nil &&
-               descriptionCard == nil ? .middle : nil
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,13 +55,6 @@ class GymDetailViewController: SearchDrawerViewController {
         setUpOccupancyCard()
         setupMoreButton()
         setupDescriptionCard()
-    }
-
-    override func viewDidLayoutSubviews() {
-        /* Set the bottom cutoff point for when the drawer appears
-        The "middle" position for the view will show everything in the overview card
-        When collapsible open time card is added, change this to show that card as well. */
-        middleCutoffPosition = (openTimesCard?.frame.maxY ?? overviewCard.frame.maxY) + scrollingStackView.yOffset + 8
     }
 
     /// Opens `gym.website` in Safari. Called as a result of tapping on `moreButton`.
@@ -74,10 +85,7 @@ extension GymDetailViewController {
 
     func setUpOpenTimesCard() {
         guard gym.weeklyHours != nil else { return }
-        openTimesCard = OpenTimesCardView(item: gym, animationView: scrollingStackView, toggleAction: { open in
-            if open, self.currState != .full {
-                self.delegate.moveDrawer(to: .full)
-            }
+        openTimesCard = OpenTimesCardView(item: gym, animationView: scrollingStackView, toggleAction: { _ in
         })
         guard let openTimesCard = self.openTimesCard else { return }
         scrollingStackView.stackView.addArrangedSubview(openTimesCard)
@@ -105,11 +113,10 @@ extension GymDetailViewController {
     }
 
     func setUpScrollView() {
-        scrollingStackView.scrollView.drawerViewController = self
         scrollingStackView.scrollView.setupDummyGesture()
         view.addSubview(scrollingStackView)
         scrollingStackView.setLayoutMargins(UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16))
-        scrollingStackView.topAnchor.constraint(equalTo: barView.bottomAnchor, constant: kViewMargin).isActive = true
+        scrollingStackView.topAnchor.constraint(equalTo: view.topAnchor, constant: kViewMargin).isActive = true
         scrollingStackView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         scrollingStackView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         scrollingStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true

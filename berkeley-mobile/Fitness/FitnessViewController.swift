@@ -6,8 +6,30 @@
 //  Copyright © 2019 RJ Pimentel. All rights reserved.
 //
 
-import UIKit
 import Firebase
+import UIKit
+import SwiftUI
+
+// MARK: - FitnessView
+
+struct FitnessView: UIViewControllerRepresentable {
+    typealias UIViewControllerType = FitnessViewController
+    
+    private let mapViewController: MapViewController
+    
+    init(mapViewController: MapViewController) {
+        self.mapViewController = mapViewController
+    }
+    
+    func makeUIViewController(context: Context) -> FitnessViewController {
+        FitnessViewController(mapViewController: mapViewController)
+    }
+    
+    func updateUIViewController(_ uiViewController: FitnessViewController, context: Context) {}
+}
+
+
+// MARK: - FitnessViewController
 
 fileprivate let kHeaderFont: UIFont = BMFont.bold(24)
 fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
@@ -52,11 +74,17 @@ class FitnessViewController: UIViewController, SearchDrawerViewDelegate {
     private var classesController = GymClassesController()
     private var gymsController = GymsController()
     
+    init(mapViewController: MapViewController) {
+        pinDelegate = mapViewController
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        view.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
         
         setupScrollView()
         setupClasses()
@@ -208,7 +236,7 @@ extension FitnessViewController {
         card.topAnchor.constraint(equalTo: classesCard.bottomAnchor, constant: kViewMargin).isActive = true
         card.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
         card.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
-        card.heightAnchor.constraint(equalTo: view.layoutMarginsGuide.heightAnchor).isActive = true
+        card.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -75).isActive = true
         gymCard = card
         
         let fitnessLabel = UILabel()

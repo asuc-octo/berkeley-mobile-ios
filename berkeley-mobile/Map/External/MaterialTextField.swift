@@ -132,7 +132,7 @@ open class MaterialTextField : UITextField {
      - Parameter textColor: the text color of the button.
      - Parameter textSize:  the text size of the button label.
      */
-    public convenience init(hint: String, textColor: UIColor, font: UIFont? = nil, bgColor: UIColor, delegate: UITextFieldDelegate? = nil) {
+    public convenience init(hint: String, textColor: UIColor, font: UIFont? = nil, bgColor: UIColor) {
         self.init()
         
         self.attributedPlaceholder = NSAttributedString(string: hint,
@@ -144,7 +144,6 @@ open class MaterialTextField : UITextField {
         }
         
         self.backgroundColor = bgColor
-        self.delegate = delegate
     }
     
     required public init?(coder aDecoder: NSCoder) {
