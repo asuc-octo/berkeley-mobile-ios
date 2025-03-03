@@ -9,8 +9,9 @@
 import SwiftUI
 
 class HomeViewModel: ObservableObject {
-    @Published var isShowingDrawer = false
-    @Published var isShowingHomeDrawerDetailView: (type: HomeDrawerViewType, item: SearchItem)? = nil
+    @Published var isShowingDrawer = true
+    @Published var homeDrawerDetailViewInfo: (type: HomeDrawerViewType, item: SearchItem)? = nil
+    @Published var drawerViewState = BMDrawerViewState.medium
     
     enum HomeDrawerViewType {
         case dining
@@ -21,14 +22,15 @@ class HomeViewModel: ObservableObject {
     func presentDetail(type: AnyClass, item: SearchItem) {
         withAnimation {
             if type == DiningHall.self {
-                isShowingHomeDrawerDetailView = (.dining, item)
+                homeDrawerDetailViewInfo = (.dining, item)
             } else if type == Gym.self {
-                isShowingHomeDrawerDetailView = (.fitness, item)
+                homeDrawerDetailViewInfo = (.fitness, item)
             } else if type == Library.self {
-                isShowingHomeDrawerDetailView = (.study, item)
+                homeDrawerDetailViewInfo = (.study, item)
             } else {
                 return
             }
+            drawerViewState = .small
         }
     }
 }
@@ -55,8 +57,8 @@ struct HomeView: View {
             HomeMapView(mapViewController: mapViewController)
                 .ignoresSafeArea()
             VStack {
-                if !homeViewModel.isShowingDrawer {
-                    BMDrawerView {
+                if homeViewModel.isShowingDrawer {
+                    BMDrawerView(drawerViewState: $homeViewModel.drawerViewState) {
                         VStack {
                             homeDrawerHeaderView
                             homeDrawerContentView
@@ -81,7 +83,8 @@ struct HomeView: View {
     private var homeDrawerBackButton: some View {
         Button(action: {
             withAnimation {
-                homeViewModel.isShowingHomeDrawerDetailView = nil
+                homeViewModel.homeDrawerDetailViewInfo = nil
+                mapViewController.handleDrawerDismissal()
             }
         }) {
             Image(systemName: "chevron.left.circle.fill")
@@ -92,7 +95,7 @@ struct HomeView: View {
     
     private var homeDrawerHeaderView: some View {
         HStack {
-            if homeViewModel.isShowingHomeDrawerDetailView != nil {
+            if homeViewModel.homeDrawerDetailViewInfo != nil {
                 homeDrawerBackButton
                     .padding(.leading)
                 Spacer()
@@ -104,7 +107,7 @@ struct HomeView: View {
     
     private var homeDrawerContentView: some View {
         Group {
-            if let detailViewInfo = homeViewModel.isShowingHomeDrawerDetailView {
+            if let detailViewInfo = homeViewModel.homeDrawerDetailViewInfo {
                 switch detailViewInfo.type {
                 case .dining:
                     DiningDetailView(diningHall: detailViewInfo.item as! DiningHall)

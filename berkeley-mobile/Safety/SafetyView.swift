@@ -14,6 +14,7 @@ struct SafetyView: View {
     @Namespace private var safetyLogDetailAnimation
     @State private var selectedSafetyLog: BMSafetyLog?
     @State private var isPresentingSafetyLogDetailView = false
+    @State private var drawerViewState = BMDrawerViewState.medium
     @State var region = MKCoordinateRegion(
         center: CLLocation(latitude: CLLocationDegrees(exactly: 37.871684)!, longitude: CLLocationDegrees(-122.259934)).coordinate,
         span: .init(latitudeDelta: 0.02, longitudeDelta: 0.02)
@@ -40,7 +41,7 @@ struct SafetyView: View {
     }
     
     private var drawerView: some View {
-        BMDrawerView(horizontalPadding: 16) {
+        BMDrawerView(drawerViewState: $drawerViewState, hPadding: 16) {
             VStack(alignment: .leading) {
                 alertsDrawerHeaderView
                 

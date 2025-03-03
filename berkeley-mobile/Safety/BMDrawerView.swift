@@ -8,22 +8,27 @@
 
 import SwiftUI
 
-enum BMDrawerViewState {
-    case small, medium, large
+enum BMDrawerViewState: Int {
+    case small = 1, medium = 2, large = 3
 }
 
 struct BMDrawerView<Content: View>: View {
     private let content: Content
-    private let horizontalPadding: CGFloat
+    private let hPadding: CGFloat
 
     @State private var startingOffset: CGFloat = UIScreen.main.bounds.height * 0.8 / 2
     @State private var currentOffset:CGFloat = 0
     @State private var endOffset:CGFloat = 0
-    @State private var drawerViewState = BMDrawerViewState.medium
+    @Binding var drawerViewState: BMDrawerViewState
 
-    init(horizontalPadding: CGFloat = 5.0, @ViewBuilder content: () -> Content) {
+    init(
+        drawerViewState: Binding<BMDrawerViewState>,
+        hPadding: CGFloat = 5.0,
+        @ViewBuilder content: () -> Content
+    ) {
         self.content = content()
-        self.horizontalPadding = horizontalPadding
+        self.hPadding = hPadding
+        self._drawerViewState = drawerViewState
     }
 
     var body: some View {
@@ -33,7 +38,7 @@ struct BMDrawerView<Content: View>: View {
                 self.content
             }
             .padding(.vertical, 10)
-            .padding(.horizontal, horizontalPadding)
+            .padding(.horizontal, hPadding)
             // The multiplier to geometry.size.height prevents the bottommost content from being obscured by the tabbar
             .frame(width: geometry.size.width, height: geometry.size.height * 0.90, alignment: .top)
             .background(.regularMaterial)
@@ -52,7 +57,7 @@ struct BMDrawerView<Content: View>: View {
                 withAnimation(.interactiveSpring()) {
                     DragGesture()
                         .onChanged{ value in
-                            //prevent user from dragging drawer view upwards at .large state
+                            // Prevent user from dragging drawer view upwards at .large state
                             guard !(currentOffset < 0 && drawerViewState == .large) else { return }
                             withAnimation(.spring()){
                                 currentOffset = value.translation.height
@@ -60,30 +65,7 @@ struct BMDrawerView<Content: View>: View {
                         }
                         .onEnded{ value in
                             withAnimation(.spring()){
-                                if currentOffset < -50  {
-                                    switch drawerViewState {
-                                    case .small:
-                                        drawerViewState = .medium
-                                        endOffset = -startingOffset / 6.8
-                                    case .medium:
-                                        drawerViewState = .large
-                                        endOffset = -startingOffset * 0.95
-                                    case .large:
-                                        break
-                                    }
-                                } else if currentOffset > 50 {
-                                    switch drawerViewState {
-                                    case .small:
-                                        break
-                                    case .medium:
-                                        drawerViewState = .small
-                                        endOffset = startingOffset * 0.88
-                                    case .large:
-                                        drawerViewState = .medium
-                                        endOffset = -startingOffset / 6.8
-                                    }
-                                }
-                                currentOffset = 0
+                                panSetDrawerState()
                             }
                         }
                 }
@@ -91,6 +73,17 @@ struct BMDrawerView<Content: View>: View {
         }
         .edgesIgnoringSafeArea([.bottom, .horizontal])
         .shadow(color: Color(hue: 1.0, saturation: 0.0, brightness: 0.0, opacity: 0.08), radius: 12, y: -8)
+        .onChange(of: drawerViewState) { [drawerViewState] newState in
+            let diff = drawerViewState.rawValue - newState.rawValue
+            
+            if diff < 0 {
+                expandDrawerState(to: newState)
+            } else {
+                shrinkDrawerState(to: newState)
+            }
+            
+            currentOffset = 0
+        }
     }
     
     private var indicator: some View {
@@ -100,5 +93,53 @@ struct BMDrawerView<Content: View>: View {
                     width: 30,
                     height: 6
             )
+    }
+    
+    private func panSetDrawerState() {
+        if currentOffset < -50  {
+            switch drawerViewState {
+            case .small:
+                drawerViewState = .medium
+            case .medium:
+                drawerViewState = .large
+            case .large:
+                currentOffset = 0
+                break
+            }
+        } else if currentOffset > 50 {
+            switch drawerViewState {
+            case .small:
+                currentOffset = 0
+                break
+            case .medium:
+                drawerViewState = .small
+            case .large:
+                drawerViewState = .medium
+            }
+        } else {
+            currentOffset = 0
+        }
+    }
+    
+    private func shrinkDrawerState(to newState: BMDrawerViewState) {
+        switch newState {
+        case .small:
+            endOffset = startingOffset * 0.88
+        case .medium:
+            endOffset = -startingOffset / 6.8
+        case .large:
+            break
+        }
+    }
+    
+    private func expandDrawerState(to newState: BMDrawerViewState) {
+        switch newState {
+        case .small:
+            break
+        case .medium:
+            endOffset = -startingOffset / 6.8
+        case .large:
+            endOffset = -startingOffset * 0.95
+        }
     }
 }

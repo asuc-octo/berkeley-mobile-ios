@@ -145,6 +145,7 @@ extension DiningDetailViewController {
     }
 }
 
+
 // MARK: - Analytics
 
 extension DiningDetailViewController {

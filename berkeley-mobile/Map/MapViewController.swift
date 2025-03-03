@@ -89,7 +89,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         searchBar = SearchBarView(
             onStartSearch: { [weak self] (isSearching) in
                 guard let self = self else { return }
-                self.homeViewModel?.isShowingDrawer = isSearching
+                self.homeViewModel?.isShowingDrawer = !isSearching
                 self.showSearchResultsView(isSearching)
             }, onClearInput: { [weak self] in
                 guard let self = self else { return }
@@ -380,7 +380,7 @@ extension MapViewController: MapMarkerDetailViewDelegate {
         mapView.selectedAnnotations.forEach { annotation in
             if annotation.isKind(of: MapMarker.self) {
                 mapView.deselectAnnotation(annotation, animated: true)
-                    homeViewModel?.isShowingDrawer = false
+                homeViewModel?.isShowingDrawer = false
             }
         }
     }
@@ -481,6 +481,7 @@ extension MapViewController: SearchResultsViewDelegate {
                 // otherwise: still dismiss any past detail views and show the drawer underneath
                 
                 if let type = type(of: item) as? AnyClass {
+                    homeViewModel?.isShowingDrawer = true
                     homeViewModel?.presentDetail(type: type, item: item)
                 }
             }
