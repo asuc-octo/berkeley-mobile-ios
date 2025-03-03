@@ -166,7 +166,7 @@ struct ResourceItemView: View {
                 .stroke(Color.gray.opacity(0.1), lineWidth: 1)
         )
         .cornerRadius(10)
-        .padding(.vertical, 12)
+        .padding(.vertical, 4)
         .fullScreenCover(isPresented: $isPresentingWebView) {
             if let url = resource.url {
                 SafariWebView(url: url)
