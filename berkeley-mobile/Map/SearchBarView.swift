@@ -31,7 +31,7 @@ class SearchBarView: UIView, UITextFieldDelegate {
         leftButton.addTarget(self, action: #selector(leftButtonTapped), for: .touchUpInside)
         rightButton.addTarget(self, action: #selector(rightButtonTapped), for: .touchUpInside)
         textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        textField.addTarget(self, action: #selector(textFieldDidTap), for: .touchUpInside)
+        textField.addTarget(self, action: #selector(tappedOnTextField), for: .touchUpInside)
     }
     
     convenience init(onStartSearch: ((Bool) -> Void)?, onClearInput: (() -> Void)?, delegate: SearchBarDelegate) {
@@ -86,7 +86,8 @@ class SearchBarView: UIView, UITextFieldDelegate {
     }
     
     // Back or Search button
-    @objc private func leftButtonTapped() {
+    @objc
+    private func leftButtonTapped() {
         if leftButton.tag == 1 {
             // Go back
             textField.text = ""
@@ -98,8 +99,15 @@ class SearchBarView: UIView, UITextFieldDelegate {
         }
     }
     
+    @objc
+    private func tappedOnTextField() {
+        textField.becomeFirstResponder()
+        onStartSearch?(true)
+    }
+    
     // Clear Button
-    @objc private func rightButtonTapped() {
+    @objc
+    private func rightButtonTapped() {
         textField.text = ""
         rightButton.isHidden = true
         onClearInput?()
@@ -135,12 +143,10 @@ class SearchBarView: UIView, UITextFieldDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: search)
     }
     
-    @objc
-    func textFieldDidTap(_ textField: UITextField) {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.text = textField.text?.trimmingCharacters(in: .whitespaces).count == 0 ? "" : textField.text
         setButtonStates(hasInput: textField.text?.count != 0, isSearching: true)
         delegate?.searchbarTextFieldDidBeginEditing(textField)
-        textField.becomeFirstResponder()
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {

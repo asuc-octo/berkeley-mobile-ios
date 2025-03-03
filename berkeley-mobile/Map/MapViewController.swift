@@ -11,7 +11,6 @@ import MapKit
 import SwiftUI
 import UIKit
 
-
 // MARK: - HomeMapView
 
 struct HomeMapView: UIViewControllerRepresentable {
@@ -145,6 +144,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
     
     private func createMapLocationButton() {
         let mapUserLocationButtonView = MapUserLocationButton { [weak self] in
+            self?.homeViewModel?.drawerViewState = .small
             self?.jumpToUserLocation()
         }
         
