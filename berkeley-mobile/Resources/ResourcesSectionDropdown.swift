@@ -89,8 +89,7 @@ struct ResourceItemView: View {
             return providedColor
         }
         
-        // Use the resource name to deterministically select a color
-        // This ensures the same resource always gets the same color
+        // ensure the same resource always gets the same color
         let nameHash = resource.name.hash
         let colorIndex = abs(nameHash) % ResourceItemView.colorPalette.count
         return ResourceItemView.colorPalette[colorIndex]
