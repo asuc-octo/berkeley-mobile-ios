@@ -70,6 +70,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
     private let mapMarkersDropdownViewModel = MapMarkersDropdownViewModel()
     private var mapMarkers: [[MapMarker]] = []
     private var markerDetail: MapMarkerDetailView!
+    private var isShowingSearchResultsView = false
     
     var homeViewModel: HomeViewModel?
 
@@ -233,13 +234,15 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
     
     private func showSearchResultsView(_ show: Bool) {
         if show {
-            self.maskView.isHidden = false
-            self.searchResultsView.isHidden = false
+            maskView.isHidden = false
+            isShowingSearchResultsView = true
+            searchResultsView.isHidden = false
             mainContainer?.hideTop()
         } else {
-            self.maskView.isHidden = true
-            self.searchResultsView.isHidden = true
-            self.searchResultsView.isScrolling = false
+            maskView.isHidden = true
+            searchResultsView.isHidden = true
+            searchResultsView.isScrolling = false
+            isShowingSearchResultsView = false
             mainContainer?.showTop()
         }
     }
@@ -342,7 +345,7 @@ extension MapViewController: MKMapViewDelegate {
             Analytics.logEvent("point_of_interest_clicked", parameters: ["Place": annotation.title ?? "Unknown"])
             markerDetail.marker = annotation
             mainContainer?.hideTop()
-            homeViewModel?.isShowingDrawer = true
+            homeViewModel?.isShowingDrawer = false
         }
     }
     
@@ -353,7 +356,7 @@ extension MapViewController: MKMapViewDelegate {
             })
             
             markerDetail.marker = nil
-            homeViewModel?.isShowingDrawer = false
+            homeViewModel?.isShowingDrawer = true
 
             // if a marker is deselected wait to see if another marker was selected
             DispatchQueue.main.async {
@@ -380,7 +383,7 @@ extension MapViewController: MapMarkerDetailViewDelegate {
         mapView.selectedAnnotations.forEach { annotation in
             if annotation.isKind(of: MapMarker.self) {
                 mapView.deselectAnnotation(annotation, animated: true)
-                homeViewModel?.isShowingDrawer = false
+                homeViewModel?.isShowingDrawer = true
             }
         }
     }
@@ -399,15 +402,18 @@ extension MapViewController: SearchBarDelegate {
         }
     }
     
-    func textFieldDidBeginEditing(_ textField: UITextField) {
+    func searchbarTextFieldDidBeginEditing(_ textField: UITextField) {
+        homeViewModel?.isShowingDrawer = false
         showSearchResultsView(true)
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        guard !searchResultsView.isScrolling else { return }
+    func searchbarTextFieldDidEndEditing(_ textField: UITextField) {
+        guard !searchResultsView.isScrolling else {
+            return
+        }
         showSearchResultsView(false)
         searchBar.setButtonStates(hasInput: textField.text?.count != 0, isSearching: false)
-    }   
+    }
     
     func searchbarTextShouldReturn(_ textField: UITextField) -> Bool {
         return true
@@ -521,12 +527,13 @@ extension MapViewController: SearchResultsViewDelegate {
                 self.previousMapMarker = mapMarker
             }
             mapView.selectAnnotation(mapMarker, animated: true)
+            
+            homeViewModel?.isShowingDrawer = false
         }
         DispatchQueue.main.async {
             // clear text field
             self.searchBar.textField.text = ""
             self.searchBar.textFieldDidEndEditing(self.searchBar.textField)
-            self.mainContainer?.hideTop()
         }
     }
 

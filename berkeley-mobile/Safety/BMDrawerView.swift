@@ -58,13 +58,16 @@ struct BMDrawerView<Content: View>: View {
                     DragGesture()
                         .onChanged{ value in
                             // Prevent user from dragging drawer view upwards at .large state
-                            guard !(currentOffset < 0 && drawerViewState == .large) else { return }
-                            withAnimation(.spring()){
+                            guard !(currentOffset < 0 && drawerViewState == .large) else {
+                                return
+                            }
+                            
+                            withAnimation(.spring){
                                 currentOffset = value.translation.height
                             }
                         }
                         .onEnded{ value in
-                            withAnimation(.spring()){
+                            withAnimation(.spring){
                                 panSetDrawerState()
                             }
                         }
@@ -76,13 +79,15 @@ struct BMDrawerView<Content: View>: View {
         .onChange(of: drawerViewState) { [drawerViewState] newState in
             let diff = drawerViewState.rawValue - newState.rawValue
             
-            if diff < 0 {
-                expandDrawerState(to: newState)
-            } else {
-                shrinkDrawerState(to: newState)
+            withAnimation(.spring) {
+                if diff < 0 {
+                    expandDrawerState(to: newState)
+                } else {
+                    shrinkDrawerState(to: newState)
+                }
+                
+                currentOffset = 0
             }
-            
-            currentOffset = 0
         }
     }
     

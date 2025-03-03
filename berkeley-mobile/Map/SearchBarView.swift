@@ -31,6 +31,7 @@ class SearchBarView: UIView, UITextFieldDelegate {
         leftButton.addTarget(self, action: #selector(leftButtonTapped), for: .touchUpInside)
         rightButton.addTarget(self, action: #selector(rightButtonTapped), for: .touchUpInside)
         textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        textField.addTarget(self, action: #selector(textFieldDidTap), for: .touchUpInside)
     }
     
     convenience init(onStartSearch: ((Bool) -> Void)?, onClearInput: (() -> Void)?, delegate: SearchBarDelegate) {
@@ -47,11 +48,12 @@ class SearchBarView: UIView, UITextFieldDelegate {
         self.layer.shadowOffset = .zero
         self.layer.shadowRadius = 8
         
-        textField = MaterialTextField(hint: "What are you looking for?", textColor: BMColor.blackText, font: BMFont.regular(16.0), bgColor: BMColor.searchBarBackground, delegate: self)
+        textField = MaterialTextField(hint: "What are you looking for?", textColor: BMColor.blackText, font: BMFont.regular(16.0), bgColor: BMColor.searchBarBackground)
         textField.cornerRadius = 15.0
         textField.setCornerBorder(color: BMColor.searchBarBackground, cornerRadius: 15.0, borderWidth: 0.0)
         textField.autocorrectionType = .no
         textField.returnKeyType = .search
+        textField.delegate = self
         textField.enablesReturnKeyAutomatically = true
         
         leftButton = MaterialButton(icon: leftButtonImage.colored(BMColor.searchBarIconColor), textColor: BMColor.blackText, font: BMFont.regular(16), bgColor: BMColor.searchBarBackground, cornerRadius: 15.0)
@@ -133,16 +135,19 @@ class SearchBarView: UIView, UITextFieldDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: search)
     }
     
-    func textFieldDidBeginEditing(_ textField: UITextField) {
+    @objc
+    func textFieldDidTap(_ textField: UITextField) {
         textField.text = textField.text?.trimmingCharacters(in: .whitespaces).count == 0 ? "" : textField.text
         setButtonStates(hasInput: textField.text?.count != 0, isSearching: true)
-        delegate?.textFieldDidBeginEditing(textField)
+        delegate?.searchbarTextFieldDidBeginEditing(textField)
+        textField.becomeFirstResponder()
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         textField.text = textField.text?.trimmingCharacters(in: .whitespaces).count == 0 ? "" : textField.text
         setButtonStates(hasInput: textField.text?.count != 0, isSearching: false)
-        delegate?.textFieldDidEndEditing(textField)
+        delegate?.searchbarTextFieldDidEndEditing(textField)
+        textField.resignFirstResponder()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -159,7 +164,7 @@ class SearchBarView: UIView, UITextFieldDelegate {
 
 protocol SearchBarDelegate: UITextFieldDelegate {
     func searchbarTextDidChange(_ textField: UITextField)
-    func textFieldDidBeginEditing(_ textField: UITextField)
-    func textFieldDidEndEditing(_ textField: UITextField)
+    func searchbarTextFieldDidBeginEditing(_ textField: UITextField)
+    func searchbarTextFieldDidEndEditing(_ textField: UITextField)
     func searchbarTextShouldReturn(_ textField: UITextField) -> Bool
 }
