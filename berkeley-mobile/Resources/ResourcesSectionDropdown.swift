@@ -130,10 +130,6 @@ struct ResourceItemView: View {
     
     private var expandedContent: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("Details for \(resource.name)")
-                .font(Font(BMFont.regular(14)))
-                .padding(.bottom, 4)
-            
             Button(action: {
                 isPresentingWebView.toggle()
             }) {
