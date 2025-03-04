@@ -60,9 +60,7 @@ class GymDetailViewController: UIViewController {
     /// Opens `gym.website` in Safari. Called as a result of tapping on `moreButton`.
     @objc private func moreButtonClicked(sender: UIButton) {
         guard let url = gym.website else { return }
-        presentAlertLinkUrl(title: "Are you sure you want to open Safari?",
-                            message: "Berkeley Mobile wants to open this fitness location's website",
-                            website_url: url)
+        UIApplication.shared.open(url, options: [:])
     }
 
     var scrollingStackView: ScrollingStackView = {
