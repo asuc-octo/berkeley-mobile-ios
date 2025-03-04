@@ -41,7 +41,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
     
     private var searchAnnotation: SearchAnnotation?
     
-    //variables for search markers
+    // Variables for search markers
     private var previousMapMarker:MapMarker?
     private var previousPlaceMark: MKAnnotation?
     
@@ -60,6 +60,16 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         
         mapView = MKMapView()
         mapView.delegate = self
+        
+        // Setting the map boundaries:
+        let fullMapCenter = CLLocationCoordinate2D(latitude: 37.76251429388581, longitude: -122.27164812506234)
+        let fullMapSpan = MKCoordinateSpan(latitudeDelta: 0.8458437031956976, longitudeDelta: 0.6425468841745499)
+        let fullMapRegion = MKCoordinateRegion(center: fullMapCenter, span: fullMapSpan)
+        mapView.cameraBoundary = MKMapView.CameraBoundary(coordinateRegion: fullMapRegion)
+        let cameraDistance: CLLocationDistance = 300000
+        let maximumZoom = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: cameraDistance)
+        mapView.cameraZoomRange = maximumZoom
+        
         mapView.register(MKAnnotationView.self, forAnnotationViewWithReuseIdentifier: MapViewController.kAnnotationIdentifier)
         maskView = UIView()
         maskView.backgroundColor = BMColor.searchBarBackground
@@ -156,7 +166,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         mapView.setRegion(coordinateRegion, animated: animated)
     }
 
-    /// Repoisitions the map's compass so that it is not obscured by the search bar.
+    // Repoisitions the map's compass so that it is not obscured by the search bar.
     private func updateCompassPosition() {
         if compass != nil { return }
         mapView.showsCompass = false
@@ -267,8 +277,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
 
 }
 
-
-// MARK: FilterViewDelegate, Analytics
+// MARK: - FilterViewDelegate, Analytics
 
 extension MapViewController: FilterViewDelegate {
 
@@ -285,8 +294,7 @@ extension MapViewController: FilterViewDelegate {
     }
 }
 
-
-// MARK: MKMapViewDelegate, Analytics {
+// MARK: - MKMapViewDelegate, Analytics {
 
 extension MapViewController: MKMapViewDelegate {
     
@@ -351,8 +359,7 @@ extension MapViewController: MKMapViewDelegate {
     
 }
 
-
-// MARK: MapMarkerDetailViewDelegate
+// MARK: - MapMarkerDetailViewDelegate
 
 extension MapViewController: MapMarkerDetailViewDelegate {
     
