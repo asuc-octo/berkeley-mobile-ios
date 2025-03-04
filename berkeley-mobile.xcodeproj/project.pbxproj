@@ -125,6 +125,7 @@
 		29CB280A2404DD71009A2CFB /* FilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39AA423E774600039FBA2 /* FilterTableViewCell.swift */; };
 		29EE163F241C4E310041482E /* SortingFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EE163E241C4E310041482E /* SortingFunctions.swift */; };
 		29F11EC72516C150007DCFD7 /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F11EC62516C150007DCFD7 /* BarView.swift */; };
+		2EC1656A2D752A7300F88B60 /* HomeSectionListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC165692D752A7300F88B60 /* HomeSectionListRowView.swift */; };
 		303F6AE1236A931D007E37DD /* SegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303F6ADD236A931D007E37DD /* SegmentedControl.swift */; };
 		303F6AE4236A931D007E37DD /* SegmentedControlViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303F6AE0236A931D007E37DD /* SegmentedControlViewController.swift */; };
 		306A54EA23613E3A00D59A7F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306A54E923613E3A00D59A7F /* AppDelegate.swift */; };
@@ -302,6 +303,7 @@
 		29B3D78724539FF3006762E5 /* MainDrawerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainDrawerViewController.swift; sourceTree = "<group>"; };
 		29EE163E241C4E310041482E /* SortingFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingFunctions.swift; sourceTree = "<group>"; };
 		29F11EC62516C150007DCFD7 /* BarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarView.swift; sourceTree = "<group>"; };
+		2EC165692D752A7300F88B60 /* HomeSectionListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSectionListRowView.swift; sourceTree = "<group>"; };
 		303F6ADD236A931D007E37DD /* SegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedControl.swift; sourceTree = "<group>"; };
 		303F6AE0236A931D007E37DD /* SegmentedControlViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedControlViewController.swift; sourceTree = "<group>"; };
 		306A54E623613E3A00D59A7F /* Berkeley.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Berkeley.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -733,6 +735,7 @@
 			children = (
 				29AB5BC4241D8CB4007C3ECA /* FilterTableView.swift */,
 				13B39AA423E774600039FBA2 /* FilterTableViewCell.swift */,
+				2EC165692D752A7300F88B60 /* HomeSectionListRowView.swift */,
 			);
 			path = FilterTableView;
 			sourceTree = "<group>";
@@ -1117,6 +1120,7 @@
 				13491DB8241E22130033F9AB /* Colors+Event.swift in Sources */,
 				13B39A9923E6A33C0039FBA2 /* Library.swift in Sources */,
 				303F6AE4236A931D007E37DD /* SegmentedControlViewController.swift in Sources */,
+				2EC1656A2D752A7300F88B60 /* HomeSectionListRowView.swift in Sources */,
 				559A7B6F2373DF39004EA501 /* SearchResultCell.swift in Sources */,
 				299ACFB0244A58CD000F3E86 /* OccupancyDataSource.swift in Sources */,
 				29345E2B24A7EC2B00859A88 /* HasImage.swift in Sources */,
