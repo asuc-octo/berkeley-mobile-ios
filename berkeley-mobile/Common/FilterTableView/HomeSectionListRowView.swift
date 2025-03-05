@@ -28,7 +28,6 @@ struct HomeSectionListRowView: View {
             imageView
         }
         .padding(.horizontal, 16)
-        .frame(maxWidth: .infinity)
         .frame(height: 100)
         .background(Color(BMColor.modalBackground))
         .clipShape(.rect(cornerRadius: 12))
