@@ -8,7 +8,6 @@
 
 import SwiftUI
 
-
 struct ResourcesSectionDropdown<Content: View>: View {
     let title: String
     let accentColor: Color
@@ -31,7 +30,6 @@ struct ResourcesSectionDropdown<Content: View>: View {
                     .font(Font(BMFont.bold(25)))
                     .foregroundColor(Color.primary)
                     .padding(.vertical, 16)
-                
                 Spacer()
                 
                 Image(systemName: "chevron.right")
@@ -47,9 +45,7 @@ struct ResourcesSectionDropdown<Content: View>: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            
             headerButton
-            
             if isExpanded {
                 Divider()
                 content
@@ -62,6 +58,8 @@ struct ResourcesSectionDropdown<Content: View>: View {
     }
 }
 
+
+// MARK: - ResourceItemView
 
 struct ResourceItemView: View {
     var resource: BMResource
@@ -84,8 +82,7 @@ struct ResourceItemView: View {
         if let providedColor = accentColor {
             return providedColor
         }
-        
-       
+
         let nameHash = resource.name.hash
         let colorIndex = abs(nameHash) % ResourceItemView.colorPalette.count
         return ResourceItemView.colorPalette[colorIndex]
@@ -108,17 +105,14 @@ struct ResourceItemView: View {
             }
         }) {
             HStack {
-             
                 Text(resource.name)
                     .font(Font(BMFont.regular(17)))
-                    .fontWeight(.bold)
+                    .bold()
                     .foregroundColor(.primary)
                     .padding(.leading, 16)
                     .padding(.vertical, 8)
-                
                 Spacer()
-                
-               
+
                 Image(systemName: "chevron.right")
                     .foregroundStyle(.gray)
                     .rotationEffect(.degrees(isExpanded ? 90 : 0))
@@ -160,7 +154,7 @@ struct ResourceItemView: View {
         HStack {
             coloredBar
             
-            VStack(alignment: .leading, spacing: 0) {
+            VStack(alignment: .leading) {
                 headerButton
                 if isExpanded {
                     expandedContent
