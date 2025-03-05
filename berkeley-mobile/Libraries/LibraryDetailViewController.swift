@@ -18,7 +18,7 @@ class LibraryDetailViewController: SearchDrawerViewController {
     var library : Library!
     var overviewCard: OverviewCardView!
     var openTimesCard: OpenTimesCardView?
-    var RSFCard: OccupancyGraphCardView?
+    var occupancyCard: OccupancyGraphCardView?
     
     override func viewDidLoad() {
         super.viewDidLoad()

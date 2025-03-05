@@ -25,7 +25,7 @@ class FilterTableViewCell: CardTableViewCell, ImageViewCell {
         contentView.addSubview(nameLabel)
         contentView.addSubview(cellImageView)
         contentView.addSubview(recLabel)
-        contentView.addSubview(locationRSFView)
+        contentView.addSubview(locationOccupancyView)
         
         recLabel.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
         recLabel.leftAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
@@ -39,10 +39,10 @@ class FilterTableViewCell: CardTableViewCell, ImageViewCell {
         cellImageView.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor).isActive = true
         cellImageView.widthAnchor.constraint(equalTo: cellImageView.heightAnchor, multiplier: 1.0).isActive = true
         
-        locationRSFView.rightAnchor.constraint(equalTo: cellImageView.leftAnchor, constant: -10).isActive = true
-        locationRSFView.topAnchor.constraint(greaterThanOrEqualTo: nameLabel.bottomAnchor, constant: 5).isActive = true
-        locationRSFView.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor, constant: -5).isActive = true
-        locationRSFView.leftAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
+        locationOccupancyView.rightAnchor.constraint(equalTo: cellImageView.leftAnchor, constant: -10).isActive = true
+        locationOccupancyView.topAnchor.constraint(greaterThanOrEqualTo: nameLabel.bottomAnchor, constant: 5).isActive = true
+        locationOccupancyView.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor, constant: -5).isActive = true
+        locationOccupancyView.leftAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leftAnchor).isActive = true
     }
     
     required init?(coder: NSCoder) {
@@ -51,7 +51,7 @@ class FilterTableViewCell: CardTableViewCell, ImageViewCell {
     
     // Sets the contents of the cell based on an item passed in
     func updateContents(item: SearchItem) {
-        locationRSFView.subviews.forEach({ $0.removeFromSuperview() })
+        locationOccupancyView.subviews.forEach({ $0.removeFromSuperview() })
         
         nameLabel.text = item.searchName
         var locationDetailVisible = false
@@ -59,11 +59,11 @@ class FilterTableViewCell: CardTableViewCell, ImageViewCell {
             locationDetailVisible = true
             locationDetailView.delegate = self
             locationDetailView.configure(for: itemWithLocation)
-            locationRSFView.addSubview(locationDetailView)
-            locationDetailView.rightAnchor.constraint(lessThanOrEqualTo: locationRSFView.rightAnchor).isActive = true
-            locationDetailView.topAnchor.constraint(equalTo: locationRSFView.topAnchor).isActive = true
-            locationDetailView.bottomAnchor.constraint(equalTo: locationRSFView.bottomAnchor).isActive = true
-            locationDetailView.leftAnchor.constraint(equalTo: locationRSFView.leftAnchor).isActive = true
+            locationOccupancyView.addSubview(locationDetailView)
+            locationDetailView.rightAnchor.constraint(lessThanOrEqualTo: locationOccupancyView.rightAnchor).isActive = true
+            locationDetailView.topAnchor.constraint(equalTo: locationOccupancyView.topAnchor).isActive = true
+            locationDetailView.bottomAnchor.constraint(equalTo: locationOccupancyView.bottomAnchor).isActive = true
+            locationDetailView.leftAnchor.constraint(equalTo: locationOccupancyView.leftAnchor).isActive = true
         }
         self.recLabel.text = "Recommended"
         self.recLabel.isHidden = true
@@ -105,7 +105,7 @@ class FilterTableViewCell: CardTableViewCell, ImageViewCell {
         return LocationDetailView()
     }()
     
-    let locationRSFView: UIView = {
+    let locationOccupancyView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
