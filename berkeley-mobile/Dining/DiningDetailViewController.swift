@@ -6,26 +6,43 @@
 //  Copyright © 2020 RJ Pimentel. All rights reserved.
 //
 
-import UIKit
 import CoreLocation
 import Firebase
+import UIKit
+import SwiftUI
+
+// MARK: - DiningDetailView
+
+struct DiningDetailView: UIViewControllerRepresentable {
+    typealias UIViewControllerType = DiningDetailViewController
+    
+    private let diningHall: DiningLocation
+    
+    init(diningHall: DiningLocation) {
+        self.diningHall = diningHall
+    }
+    
+    func makeUIViewController(context: Context) -> DiningDetailViewController {
+        let diningDetailVC = DiningDetailViewController()
+        diningDetailVC.diningHall = diningHall
+        return diningDetailVC
+    }
+    
+    func updateUIViewController(_ uiViewController: DiningDetailViewController, context: Context) {}
+}
+
+
+// MARK: - DiningDetailViewController
 
 fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
 fileprivate let kViewMargin: CGFloat = 16
 
-class DiningDetailViewController: SearchDrawerViewController {
-
+class DiningDetailViewController: UIViewController {
     static let mealTimesChronological = ["breakfast": 0, "brunch": 1, "lunch": 2, "dinner": 3, "late night": 4, "other": 5]
 
     var diningHall: DiningLocation!
     var overviewCard: OverviewCardView!
     var segmentedControl: SegmentedControlViewController!
-
-    override var upperLimitState: DrawerState? {
-        get {
-            return segmentedControl == nil ? .middle : nil
-        }
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,19 +51,13 @@ class DiningDetailViewController: SearchDrawerViewController {
         setUpMenuControl()
         view.layoutSubviews()
     }
-    
-    override func viewDidLayoutSubviews() {
-        // set the bottom cutoff point for when drawer appears
-        // the "middle" position for the view will show everything in the overview card
-        middleCutoffPosition = overviewCard.frame.maxY + 8
-    }
 }
 
 extension DiningDetailViewController {
     func setUpOverviewCard() {
         overviewCard = OverviewCardView(item: diningHall)
         view.addSubview(overviewCard)
-        overviewCard.topAnchor.constraint(equalTo: barView.bottomAnchor, constant: kViewMargin).isActive = true
+        overviewCard.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: kViewMargin).isActive = true
         overviewCard.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
         overviewCard.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
         overviewCard.heightAnchor.constraint(equalToConstant: 200).isActive = true
@@ -133,6 +144,7 @@ extension DiningDetailViewController {
         return mealHours
     }
 }
+
 
 // MARK: - Analytics
 

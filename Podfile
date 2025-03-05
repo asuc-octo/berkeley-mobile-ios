@@ -10,7 +10,6 @@ target 'berkeley-mobile' do
   pod 'Firebase'
   pod 'FirebaseMessaging'
   pod 'Firebase/Firestore'
-  pod 'IQKeyboardManagerSwift'
   pod 'Firebase/Auth'
   pod 'GoogleSignIn'
   pod "SearchTextField"
