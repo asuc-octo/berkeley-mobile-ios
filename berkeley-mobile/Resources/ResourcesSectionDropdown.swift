@@ -13,7 +13,7 @@ struct ResourcesSectionDropdown<Content: View>: View {
     let accentColor: Color
     let content: Content
     
-    @State private var isExpanded: Bool = false
+    @State private var isExpanded = false
     
     init(title: String, accentColor: Color, @ViewBuilder content: () -> Content) {
         self.title = title
@@ -31,7 +31,7 @@ struct ResourcesSectionDropdown<Content: View>: View {
                     .foregroundColor(Color.primary)
                     .padding(.vertical, 16)
                 Spacer()
-                
+
                 Image(systemName: "chevron.right")
                     .foregroundStyle(.gray)
                     .fontWeight(.heavy)
@@ -44,7 +44,7 @@ struct ResourcesSectionDropdown<Content: View>: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
+        VStack(alignment: .leading) {
             headerButton
             if isExpanded {
                 Divider()
