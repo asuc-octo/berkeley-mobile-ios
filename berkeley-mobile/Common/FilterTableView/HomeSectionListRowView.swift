@@ -12,9 +12,10 @@ struct HomeSectionListRowView: View {
     var title: String
     var distance: Double
     var image: UIImage
+    
     var body: some View {
         HStack {
-            VStack (alignment: .leading) {
+            VStack(alignment: .leading) {
                 Text(title)
                     .foregroundStyle(Color(BMColor.blackText))
                     .font(Font(BMFont.bold(18)))
