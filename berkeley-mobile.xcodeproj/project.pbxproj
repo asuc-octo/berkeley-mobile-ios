@@ -51,7 +51,6 @@
 		1336A326241D9B9900949F32 /* DiningHall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1336A325241D9B9900949F32 /* DiningHall.swift */; };
 		1336A329241DA56100949F32 /* DiningHallDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1336A328241DA56100949F32 /* DiningHallDataSource.swift */; };
 		133864A42404DCCA001F9048 /* MapMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133864A32404DCCA001F9048 /* MapMarker.swift */; };
-		133864AC2404E858001F9048 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133864A82404E857001F9048 /* CalendarViewController.swift */; };
 		1346B9172420AA4500383399 /* DayOfWeek.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1346B9162420AA4500383399 /* DayOfWeek.swift */; };
 		1346B9192420AD4800383399 /* WeeklyHours.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1346B9182420AD4800383399 /* WeeklyHours.swift */; };
 		13491DB6241E21740033F9AB /* Colors+TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13491DB5241E21740033F9AB /* Colors+TagView.swift */; };
@@ -228,7 +227,6 @@
 		1336A325241D9B9900949F32 /* DiningHall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiningHall.swift; sourceTree = "<group>"; };
 		1336A328241DA56100949F32 /* DiningHallDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiningHallDataSource.swift; sourceTree = "<group>"; };
 		133864A32404DCCA001F9048 /* MapMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMarker.swift; sourceTree = "<group>"; };
-		133864A82404E857001F9048 /* CalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		1346B9162420AA4500383399 /* DayOfWeek.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayOfWeek.swift; sourceTree = "<group>"; };
 		1346B9182420AD4800383399 /* WeeklyHours.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyHours.swift; sourceTree = "<group>"; };
 		13491DB5241E21740033F9AB /* Colors+TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+TagView.swift"; sourceTree = "<group>"; };
@@ -459,7 +457,6 @@
 				2925D5F625293E9D00BBA266 /* EventDataSource */,
 				294FF42C2544F71200346E91 /* Academic */,
 				2925D5F425293E5A00BBA266 /* Campus */,
-				133864A82404E857001F9048 /* CalendarViewController.swift */,
 				E83B6D9E2D780B4200AA9422 /* EventsView.swift */,
 			);
 			name = Calendar;
@@ -1104,7 +1101,6 @@
 				2925D5FC2529546A00BBA266 /* CampusEventCollectionViewCell.swift in Sources */,
 				296DDEC1253BB117008E8940 /* CampusEventDetailViewController.swift in Sources */,
 				55DCF79423723452001B01B8 /* SearchBarView.swift in Sources */,
-				133864AC2404E858001F9048 /* CalendarViewController.swift in Sources */,
 				1346B9172420AA4500383399 /* DayOfWeek.swift in Sources */,
 				29345E2D24A7FFB600859A88 /* CanFavorite.swift in Sources */,
 				1396013623865E2E005E4788 /* TagView.swift in Sources */,
