@@ -36,7 +36,7 @@ class HomeViewModel: ObservableObject {
 }
 
 struct HomeView: View {
-    @StateObject private var homeViewModel = HomeViewModel()
+    @StateObject private var homeViewModel: HomeViewModel
     @State private var tabSelectedIndex = 0
     @State private var selectedDetent: PresentationDetent = .fraction(0.45)
     
