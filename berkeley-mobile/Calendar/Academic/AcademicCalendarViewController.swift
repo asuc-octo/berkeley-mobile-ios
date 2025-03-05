@@ -6,8 +6,22 @@
 //  Copyright © 2020 ASUC OCTO. All rights reserved.
 //
 
-import UIKit
 import Firebase
+import UIKit
+import SwiftUI
+
+struct AcademicCalendarView: UIViewControllerRepresentable {
+    typealias UIViewControllerType = AcademicCalendarViewController
+    
+    func makeUIViewController(context: Context) -> AcademicCalendarViewController {
+        AcademicCalendarViewController()
+    }
+    
+    func updateUIViewController(_ uiViewController: AcademicCalendarViewController, context: Context) {}
+}
+
+
+// MARK: - AcademicCalendarViewController
 
 fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 6, left: 6, bottom: 6, right: 6)
 fileprivate let kViewMargin: CGFloat = 6
