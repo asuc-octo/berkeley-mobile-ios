@@ -25,6 +25,7 @@ struct HomeSectionListRowView: View {
             .frame(height: 74)
             
             Spacer()
+            
             imageView
         }
         .padding(.horizontal, 16)
