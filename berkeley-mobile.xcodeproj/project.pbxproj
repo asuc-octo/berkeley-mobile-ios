@@ -158,7 +158,6 @@
 		55DCF7A123724835001B01B8 /* MaterialButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF7A023724835001B01B8 /* MaterialButton.swift */; };
 		7F1E165B2CFFD70C0037426C /* GymOccupancyScrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1E165A2CFFD7020037426C /* GymOccupancyScrapper.swift */; };
 		7F9D49612CF3DD5C0047A529 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F9D49602CF3DD5C0047A529 /* Secrets.swift */; };
-		7F9D49622CF3DD5C0047A529 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F9D495F2CF3DD5C0047A529 /* GoogleService-Info.plist */; };
 		E80330EB2CE431C200DC9574 /* DepthButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80330EA2CE431C200DC9574 /* DepthButtonStyle.swift */; };
 		E80330ED2CE7EBB100DC9574 /* NSCoding+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80330EC2CE7EBB100DC9574 /* NSCoding+Extension.swift */; };
 		E81767582B9A516200599254 /* MapMarkersDropdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81767572B9A516200599254 /* MapMarkersDropdownView.swift */; };
@@ -344,7 +343,6 @@
 		55DCF7A023724835001B01B8 /* MaterialButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialButton.swift; sourceTree = "<group>"; };
 		61D128E68A4FC209FFCDE60F /* Pods-berkeley-mobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeley-mobile.release.xcconfig"; path = "Target Support Files/Pods-berkeley-mobile/Pods-berkeley-mobile.release.xcconfig"; sourceTree = "<group>"; };
 		7F1E165A2CFFD7020037426C /* GymOccupancyScrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymOccupancyScrapper.swift; sourceTree = "<group>"; };
-		7F9D495F2CF3DD5C0047A529 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7F9D49602CF3DD5C0047A529 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		E80330EA2CE431C200DC9574 /* DepthButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepthButtonStyle.swift; sourceTree = "<group>"; };
 		E80330EC2CE7EBB100DC9574 /* NSCoding+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSCoding+Extension.swift"; sourceTree = "<group>"; };
@@ -836,6 +834,7 @@
 				306A54F223613E3D00D59A7F /* Assets.xcassets */,
 				306A54F423613E3D00D59A7F /* LaunchScreen.storyboard */,
 				306A54F723613E3D00D59A7F /* Info.plist */,
+				7F9D49602CF3DD5C0047A529 /* Secrets.swift */,
 			);
 			path = "berkeley-mobile";
 			sourceTree = "<group>";
