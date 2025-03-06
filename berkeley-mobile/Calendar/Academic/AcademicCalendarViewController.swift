@@ -44,6 +44,11 @@ class AcademicCalendarViewController: UIViewController {
         setUpCalendar()
         scrapeAcademicEvents()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        Analytics.logEvent("opened_academic_calendar", parameters: nil)
+    }
 
     private func scrapeAcademicEvents() {
         calendarTablePair.isLoading = true
@@ -62,7 +67,35 @@ class AcademicCalendarViewController: UIViewController {
             }
         }
     }
+    
+    private func setupScrollView() {
+        scrollingStackView = ScrollingStackView()
+        scrollingStackView.setLayoutMargins(view.layoutMargins)
+        scrollingStackView.scrollView.showsVerticalScrollIndicator = false
+        scrollingStackView.stackView.spacing = kViewMargin
+        view.addSubview(scrollingStackView)
+        scrollingStackView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
+        scrollingStackView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        scrollingStackView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        scrollingStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+    }
+    
+    private func setUpCalendar() {
+        let card = CardView()
+        card.layoutMargins = kCardPadding
+        scrollingStackView.stackView.addArrangedSubview(card)
+        card.translatesAutoresizingMaskIntoConstraints = false
+        card.bottomAnchor.constraint(equalTo: self.view.layoutMarginsGuide.bottomAnchor).isActive = true
+        
+        calendarTablePair = CalendarTablePairView(parentVC: self)
+        card.addSubview(calendarTablePair)
+        calendarTablePair.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true
+        calendarTablePair.bottomAnchor.constraint(equalTo: card.layoutMarginsGuide.bottomAnchor).isActive = true
+        calendarTablePair.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
+        calendarTablePair.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
+    }
 }
+
 
 // MARK: - EventScrapperDelegate
 
@@ -78,48 +111,5 @@ extension AcademicCalendarViewController: EventScrapperDelegate {
         presentFailureAlert(title: "Unable To Parse Website", message: errorDescription)
     }
 
-}
-
-// MARK: - View
-
-extension AcademicCalendarViewController {
-    
-    private func setupScrollView() {
-        scrollingStackView = ScrollingStackView()
-        scrollingStackView.setLayoutMargins(view.layoutMargins)
-        scrollingStackView.scrollView.showsVerticalScrollIndicator = false
-        scrollingStackView.stackView.spacing = kViewMargin
-        view.addSubview(scrollingStackView)
-        scrollingStackView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
-        scrollingStackView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        scrollingStackView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        scrollingStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-    }
-    
-    // MARK: Calendar
-    private func setUpCalendar() {
-        let card = CardView()
-        card.layoutMargins = kCardPadding
-        scrollingStackView.stackView.addArrangedSubview(card)
-        card.translatesAutoresizingMaskIntoConstraints = false
-        card.bottomAnchor.constraint(equalTo: self.view.layoutMarginsGuide.bottomAnchor).isActive = true
-        
-        calendarTablePair = CalendarTablePairView(parentVC: self)
-        card.addSubview(calendarTablePair)
-        calendarTablePair.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true
-        calendarTablePair.bottomAnchor.constraint(equalTo: card.layoutMarginsGuide.bottomAnchor).isActive = true
-        calendarTablePair.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
-        calendarTablePair.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
-    }
-    
-}
-
-extension AcademicCalendarViewController {
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        Analytics.logEvent("opened_academic_calendar", parameters: nil)
-    }
-    
 }
 
