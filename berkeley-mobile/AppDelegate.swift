@@ -10,7 +10,6 @@ import Firebase
 import FirebaseCore
 import FirebaseMessaging
 import GoogleSignIn
-import IQKeyboardManagerSwift
 import UIKit
 import UserNotifications
 
@@ -23,7 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.checkForUpdate()
         DataManager.shared.fetchAll()
         LocationManager.shared.requestLocation()
-        IQKeyboardManager.shared.enable = true
         
         Messaging.messaging().delegate = self
         UNUserNotificationCenter.current().delegate = self

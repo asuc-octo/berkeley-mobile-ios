@@ -47,8 +47,8 @@ xcuserdata/
 *.moved-aside
 *.xccheckout
 *.xcscmblueprint
-GoogleService-Info.plist
-Secrets.swift
+berkeley-mobile/GoogleService-Info.plist
+berkeley-mobile/Secrets.swift
 
 ## Cocoapods
 ##Pods/

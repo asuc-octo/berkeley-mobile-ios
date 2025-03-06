@@ -6,14 +6,34 @@
 //  Copyright © 2019 RJ Pimentel. All rights reserved.
 //
 
-import UIKit
-import SwiftUI
-import MapKit
 import Firebase
+import MapKit
+import SwiftUI
+import UIKit
 
-fileprivate let kViewMargin: CGFloat = 16
+// MARK: - HomeMapView
+
+struct HomeMapView: UIViewControllerRepresentable {
+    typealias UIViewControllerType = MapViewController
+    
+    private let mapViewController: MapViewController
+    
+    init(mapViewController: MapViewController) {
+        self.mapViewController = mapViewController
+    }
+    
+    func makeUIViewController(context: Context) -> MapViewController {
+        mapViewController
+    }
+    
+    func updateUIViewController(_ uiViewController: MapViewController, context: Context) {}
+}
+
 
 // MARK: - MapViewController
+
+fileprivate let kViewMargin: CGFloat = 16
+fileprivate let kLayoutMarginsInset: CGFloat = 21
 
 class MapViewController: UIViewController, SearchDrawerViewDelegate {
 
@@ -27,10 +47,10 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
     private var maskView: UIView!
     private var searchBar: SearchBarView!
     private var searchResultsView: SearchResultsView!
+    private var mapUserLocationButton: UIView!
     private var mapMarkersDropdownButton: UIView!
-    private var userLocationButton: UIButton!
     private var compass: MKCompassButton!
-    private var locationButtonTapped: Bool!
+    
     // DrawerViewDelegate properties
     var drawerViewController: DrawerViewController?
     var initialDrawerCenter = CGPoint()
@@ -39,27 +59,38 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
     
     private var searchAnnotation: SearchAnnotation?
     
-    //variables for search markers
+    // Variables for search markers
     private var previousMapMarker:MapMarker?
     private var previousPlaceMark: MKAnnotation?
     
-    private var filterView: FilterView!
-    private var filters: [Filter<[MapMarker]>] = [] {
-        didSet {
-            filterView.labels = filters.map { $0.label }
-        }
-    }
+    private var filters: [Filter<[MapMarker]>] = []
+    private var mapUserLocationButtonTapped = false
+    private let mapUserLocationViewModel = MapUserLocationButtonViewModel()
+    private let mapMarkersDropdownViewModel = MapMarkersDropdownViewModel()
     private var mapMarkers: [[MapMarker]] = []
     private var markerDetail: MapMarkerDetailView!
+    private var isShowingSearchResultsView = false
     
+    var homeViewModel: HomeViewModel?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        view.layoutMargins = UIEdgeInsets(top: 21, left: 21, bottom: 21, right: 21)
+        view.layoutMargins = UIEdgeInsets(top: kLayoutMarginsInset + 50, left: kLayoutMarginsInset, bottom: kLayoutMarginsInset, right: kLayoutMarginsInset)
         
         mapView = MKMapView()
         mapView.delegate = self
+        
+        // Setting the map boundaries:
+        let fullMapCenter = CLLocationCoordinate2D(latitude: 37.76251429388581, longitude: -122.27164812506234)
+        let fullMapSpan = MKCoordinateSpan(latitudeDelta: 0.8458437031956976, longitudeDelta: 0.6425468841745499)
+        let fullMapRegion = MKCoordinateRegion(center: fullMapCenter, span: fullMapSpan)
+        mapView.cameraBoundary = MKMapView.CameraBoundary(coordinateRegion: fullMapRegion)
+        let cameraDistance: CLLocationDistance = 300000
+        let maximumZoom = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: cameraDistance)
+        mapView.cameraZoomRange = maximumZoom
+        
         mapView.register(MKAnnotationView.self, forAnnotationViewWithReuseIdentifier: MapViewController.kAnnotationIdentifier)
         maskView = UIView()
         maskView.backgroundColor = BMColor.searchBarBackground
@@ -68,6 +99,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         searchBar = SearchBarView(
             onStartSearch: { [weak self] (isSearching) in
                 guard let self = self else { return }
+                self.homeViewModel?.isShowingDrawer = !isSearching
                 self.showSearchResultsView(isSearching)
             }, onClearInput: { [weak self] in
                 guard let self = self else { return }
@@ -83,13 +115,23 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         markerDetail.delegate = self
         markerDetail.marker = nil
         
-        filterView = FilterView(frame: .zero)
-        filterView.animating = true
-        filterView.allowsMultipleSelection = false
-        filterView.filterDelegates.append(self)
-        
+        fetchFromMapDataSource()
+        createMapLocationButton()
         createMapMarkerDropdownButton()
         
+        self.view.addSubViews([mapView, mapUserLocationButton, mapMarkersDropdownButton, markerDetail, maskView, searchResultsView, searchBar])
+        setupSubviews()
+        
+        centerMapAtBerkeley()
+    }
+    
+    private func centerMapAtBerkeley() {
+        mapView.isZoomEnabled = true
+        centerMapOnLocation(CLLocation(latitude: CLLocationDegrees(exactly: 37.871684)!, longitude: CLLocationDegrees(-122.259934)), mapView: mapView, animated: false)
+        updateCompassPosition()
+    }
+    
+    private func fetchFromMapDataSource() {
         DataManager.shared.fetch(source: MapDataSource.self) { markers in
             guard let markers = markers.first as? [String: [MapMarker]] else { return }
             self.mapMarkers = Array(markers.values)
@@ -103,39 +145,32 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
             self.filters = types.map { type in
                 Filter(label: type) { $0.first?.type.rawValue == type }
             }
+            self.mapMarkersDropdownViewModel.sortMapMarkerTypes(basedOn: self.filters)
+            
+            // Select the first map marker option
+            self.showMapMarkersFromFilterView(for: self.filters, on: self.mapMarkers, with: [0])
         }
-        
-        self.view.addSubViews([mapView, filterView, mapMarkersDropdownButton, markerDetail, maskView, searchResultsView, searchBar])
-        setupSubviews()
-        userLocationButton = UIButton(type: .custom)
-        view.addSubview(userLocationButton)
-
-        // Listen for home button press
-        NotificationCenter.default.addObserver(self,
-            selector: #selector(homePressed),
-            name: Notification.Name(TabBarController.homePressedMessage),
-            object: nil
-        )
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        mapView.isZoomEnabled = true
-        centerMapOnLocation(CLLocation(latitude: CLLocationDegrees(exactly: 37.871684)!, longitude: CLLocationDegrees(-122.259934)), mapView: mapView, animated: false)
-        updateCompassPosition()
-        updateUserLocationButton()
+    private func createMapLocationButton() {
+        let mapUserLocationButtonView = MapUserLocationButton { [weak self] in
+            self?.homeViewModel?.drawerViewState = .small
+            self?.jumpToUserLocation()
+        }
+        
+        mapUserLocationButton = UIHostingController(rootView: mapUserLocationButtonView.environmentObject(mapUserLocationViewModel)).view
+        mapUserLocationButton.translatesAutoresizingMaskIntoConstraints = false
+        mapUserLocationButton.isUserInteractionEnabled = true
+        mapUserLocationButton.backgroundColor = UIColor.clear
     }
     
     private func createMapMarkerDropdownButton() {
-        let mapMarkersDropdownButtonView = MapMarkersDropdownButton { [weak self] selectedType in
+        let mapMarkersDropdownButtonView = MapMarkersDropdownButton { [weak self] in
             guard let self = self else { return }
-            if let selectedIndex = self.filterView.labels.firstIndex(of: selectedType.rawValue) {
-                showMapMarkersFromFilterView(for: self.filters, on: self.mapMarkers, with: [selectedIndex])
-                self.filterView.selectItem(index: selectedIndex)
-            }
+            showMapMarkersFromFilterView(for: self.filters, on: self.mapMarkers, with: [mapMarkersDropdownViewModel.selectedFilterIndex])
         }
     
-        mapMarkersDropdownButton = UIHostingController(rootView: mapMarkersDropdownButtonView).view
+        mapMarkersDropdownButton = UIHostingController(rootView: mapMarkersDropdownButtonView.environmentObject(mapMarkersDropdownViewModel)).view
         mapMarkersDropdownButton.translatesAutoresizingMaskIntoConstraints = false
         mapMarkersDropdownButton.isUserInteractionEnabled = true
         mapMarkersDropdownButton.backgroundColor = UIColor.clear
@@ -148,7 +183,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         mapView.setRegion(coordinateRegion, animated: animated)
     }
 
-    /// Repoisitions the map's compass so that it is not obscured by the search bar.
+    // Repoisitions the map's compass so that it is not obscured by the search bar.
     private func updateCompassPosition() {
         if compass != nil { return }
         mapView.showsCompass = false
@@ -157,29 +192,9 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         // Position the compass to bottom-right of `FilterView`
         compass.translatesAutoresizingMaskIntoConstraints = false
         compass.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor).isActive = true
-        compass.topAnchor.constraint(equalTo: userLocationButton.bottomAnchor, constant: kViewMargin).isActive = true
+        compass.topAnchor.constraint(equalTo: mapUserLocationButton.bottomAnchor, constant: kViewMargin).isActive = true
     }
     
-    //sets up user location button properties
-    private func updateUserLocationButton() {
-        userLocationButton.clipsToBounds = true
-        userLocationButton.layer.masksToBounds = false
-        userLocationButton.backgroundColor = BMColor.modalBackground
-        userLocationButton.layer.cornerRadius = mapView.frame.width * 0.12 * 0.5
-        userLocationButton.layer.shadowRadius = 5
-        userLocationButton.layer.shadowOpacity = 0.2
-        userLocationButton.layer.shadowColor = UIColor.black.cgColor
-        userLocationButton.layer.shadowOffset = CGSize(width: 0, height: 5)
-        userLocationButton.setImage(UIImage(named: "navigation-outline")!.colored(BMColor.blackText), for: .normal)
-        userLocationButton.addTarget(self, action: #selector(jumpToUserLocation), for: .touchUpInside)
-        let _buttonWidth = mapView.frame.width * 0.12
-        userLocationButton.translatesAutoresizingMaskIntoConstraints = false
-        userLocationButton.widthAnchor.constraint(equalToConstant: _buttonWidth).isActive = true
-        userLocationButton.heightAnchor.constraint(equalToConstant: _buttonWidth).isActive = true
-        userLocationButton.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
-        userLocationButton.topAnchor.constraint(equalTo: filterView.bottomAnchor, constant: kViewMargin).isActive = true
-    }
-
     @objc func homePressed() {
         // Dismiss any map markers if opened
         if markerDetail.marker != nil {
@@ -187,12 +202,14 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         }
     }
     
-    @objc func jumpToUserLocation() {
-        if LocationManager.shared.userLocation != nil {
-            centerMapOnLocation(LocationManager.shared.userLocation!, mapView: mapView, animated: true)
-            userLocationButton.setImage(UIImage(named: "navigation-filled")!.colored(BMColor.blackText), for: .normal)
-            locationButtonTapped = true
+    func jumpToUserLocation() {
+        guard let userLocation = LocationManager.shared.userLocation else {
+            return
         }
+        
+        mapUserLocationButtonTapped = true
+        centerMapOnLocation(userLocation, mapView: mapView, animated: true)
+        mapUserLocationButtonTapped = false
     }
     
     private func setupSubviews() {
@@ -208,40 +225,38 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         searchBar.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
         
         markerDetail.translatesAutoresizingMaskIntoConstraints = false
-        markerDetail.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
+        markerDetail.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -75).isActive = true
         markerDetail.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
         markerDetail.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
         
-        filterView.translatesAutoresizingMaskIntoConstraints = false
-        filterView.heightAnchor.constraint(equalToConstant: FilterViewCell.kCellSize.height).isActive = true
-        filterView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: kViewMargin).isActive = true
-        filterView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        filterView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        filterView.contentInset = UIEdgeInsets(top: 0, left: view.layoutMargins.left,
-                                               bottom: 0, right: view.layoutMargins.right)
-        
         NSLayoutConstraint.activate([
+            mapUserLocationButton.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
+            mapUserLocationButton.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: kViewMargin),
+            mapUserLocationButton.widthAnchor.constraint(equalToConstant: HomeMapControlButtonStyle.widthAndHeight),
+            mapUserLocationButton.heightAnchor.constraint(equalToConstant: HomeMapControlButtonStyle.widthAndHeight),
+            
             mapMarkersDropdownButton.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
-            mapMarkersDropdownButton.widthAnchor.constraint(equalToConstant: 40),
-            mapMarkersDropdownButton.heightAnchor.constraint(equalToConstant: 40),
-            mapMarkersDropdownButton.topAnchor.constraint(equalTo: filterView.bottomAnchor, constant: kViewMargin + 5)
+            mapMarkersDropdownButton.widthAnchor.constraint(equalToConstant: HomeMapControlButtonStyle.widthAndHeight),
+            mapMarkersDropdownButton.heightAnchor.constraint(equalToConstant: HomeMapControlButtonStyle.widthAndHeight),
+            mapMarkersDropdownButton.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: kViewMargin)
         ])
     }
     
     private func showSearchResultsView(_ show: Bool) {
         if show {
-            self.maskView.isHidden = false
-            self.searchResultsView.isHidden = false
+            maskView.isHidden = false
+            isShowingSearchResultsView = true
+            searchResultsView.isHidden = false
             mainContainer?.hideTop()
-            self.userLocationButton.isHidden = true
         } else {
-            self.maskView.isHidden = true
-            self.searchResultsView.isHidden = true
-            self.searchResultsView.isScrolling = false
+            maskView.isHidden = true
+            searchResultsView.isHidden = true
+            searchResultsView.isScrolling = false
+            isShowingSearchResultsView = false
             mainContainer?.showTop()
-            self.userLocationButton?.isHidden = false
         }
     }
+    
     
     // MARK: - Map Markers
     
@@ -261,11 +276,10 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
     private func updateMapMarkers() {
         self.previousMapMarker = nil
         workItem?.cancel()
-        let selectedIndices = filterView.indexPathsForSelectedItems?.map { $0.row }
-        workItem = Filter.satisfiesAny(filters: filters, on: mapMarkers, indices: selectedIndices, completion: {
+        workItem = Filter.satisfiesAny(filters: filters, on: mapMarkers, indices: [mapMarkersDropdownViewModel.selectedFilterIndex], completion: {
             [weak self] filtered in
             guard let self = self else { return }
-            self.showMapMarkersFromFilterView(for: self.filters, on: self.mapMarkers, with: selectedIndices)
+            self.showMapMarkersFromFilterView(for: self.filters, on: self.mapMarkers, with: [mapMarkersDropdownViewModel.selectedFilterIndex])
         })
     }
     
@@ -282,7 +296,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
 
 }
 
-// MARK: FilterViewDelegate, Analytics
+// MARK: - FilterViewDelegate, Analytics
 
 extension MapViewController: FilterViewDelegate {
 
@@ -299,7 +313,7 @@ extension MapViewController: FilterViewDelegate {
     }
 }
 
-// MARK: MKMapViewDelegate, Analytics {
+// MARK: - MKMapViewDelegate, Analytics {
 
 extension MapViewController: MKMapViewDelegate {
     
@@ -329,8 +343,6 @@ extension MapViewController: MKMapViewDelegate {
         return MKAnnotationView()
     }
     
-    
-    
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         // if map marker is selected, hide the top drawer to show the marker detail
         if let annotation = view.annotation as? MapMarker {
@@ -341,16 +353,19 @@ extension MapViewController: MKMapViewDelegate {
             Analytics.logEvent("point_of_interest_clicked", parameters: ["Place": annotation.title ?? "Unknown"])
             markerDetail.marker = annotation
             mainContainer?.hideTop()
+            homeViewModel?.isShowingDrawer = false
         }
     }
- 
     
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
         if (view.annotation as? MapMarker) != nil {
             UIView.animate(withDuration: 0.1, animations: {
                 view.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
             })
+            
             markerDetail.marker = nil
+            homeViewModel?.isShowingDrawer = true
+
             // if a marker is deselected wait to see if another marker was selected
             DispatchQueue.main.async {
                 // if no other marker was selected, show the top drawer
@@ -362,18 +377,12 @@ extension MapViewController: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
-        guard userLocationButton != nil else {return}
-        guard locationButtonTapped != nil else {return}
-        if !locationButtonTapped {
-            userLocationButton.setImage(UIImage(named: "navigation-filled")!.colored(BMColor.blackText), for: .normal)
-        } else {
-            userLocationButton.setImage(UIImage(named: "navigation-outline")!.colored(BMColor.blackText), for: .normal)
-        }
+        mapUserLocationViewModel.isHomingInOnUserLocation = mapUserLocationButtonTapped
     }
     
 }
 
-// MARK: MapMarkerDetailViewDelegate
+// MARK: - MapMarkerDetailViewDelegate
 
 extension MapViewController: MapMarkerDetailViewDelegate {
     
@@ -381,11 +390,13 @@ extension MapViewController: MapMarkerDetailViewDelegate {
         mapView.selectedAnnotations.forEach { annotation in
             if annotation.isKind(of: MapMarker.self) {
                 mapView.deselectAnnotation(annotation, animated: true)
+                homeViewModel?.isShowingDrawer = true
             }
         }
     }
     
 }
+
 
 // MARK: - SearchBarDelegate
 
@@ -398,15 +409,18 @@ extension MapViewController: SearchBarDelegate {
         }
     }
     
-    func textFieldDidBeginEditing(_ textField: UITextField) {
+    func searchbarTextFieldDidBeginEditing(_ textField: UITextField) {
+        homeViewModel?.isShowingDrawer = false
         showSearchResultsView(true)
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        guard !searchResultsView.isScrolling else { return }
+    func searchbarTextFieldDidEndEditing(_ textField: UITextField) {
+        guard !searchResultsView.isScrolling else {
+            return
+        }
         showSearchResultsView(false)
         searchBar.setButtonStates(hasInput: textField.text?.count != 0, isSearching: false)
-    }   
+    }
     
     func searchbarTextShouldReturn(_ textField: UITextField) -> Bool {
         return true
@@ -453,7 +467,7 @@ extension MapViewController: SearchResultsViewDelegate {
             let regionRadius: CLLocationDistance = 250
             // center map on searched location
             let coordinateRegion = MKCoordinateRegion(center: location.coordinate,
-                                                      latitudinalMeters: regionRadius * 2.0, longitudinalMeters: regionRadius * 2.0)
+                                                      latitudinalMeters: regionRadius * 2.0, longitudinalMeters: regionRadius)
             mapView.setRegion(coordinateRegion, animated: true)
             let item = placemark.item
             if let item = item {
@@ -480,7 +494,8 @@ extension MapViewController: SearchResultsViewDelegate {
                 // otherwise: still dismiss any past detail views and show the drawer underneath
                 
                 if let type = type(of: item) as? AnyClass {
-                    presentDetail(type: type, item: item, containingVC: mainContainer!, position: .middle)
+                    homeViewModel?.isShowingDrawer = true
+                    homeViewModel?.presentDetail(type: type, item: item)
                 }
             }
         }
@@ -519,17 +534,17 @@ extension MapViewController: SearchResultsViewDelegate {
                 self.previousMapMarker = mapMarker
             }
             mapView.selectAnnotation(mapMarker, animated: true)
+            
+            homeViewModel?.isShowingDrawer = false
         }
         DispatchQueue.main.async {
             // clear text field
             self.searchBar.textField.text = ""
             self.searchBar.textFieldDidEndEditing(self.searchBar.textField)
-            self.mainContainer?.hideTop()
         }
     }
 
 }
-
 
 extension MapViewController {
     func handlePanGesture(gesture: UIPanGestureRecognizer) {

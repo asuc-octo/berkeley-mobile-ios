@@ -8,14 +8,16 @@
 
 import SwiftUI
 
-//MARK: ResourcesView
+
+// MARK: ResourcesView
+
 struct ResourcesView: View {
+    @StateObject private var resourcesVM = ResourcesViewModel()
     @State private var tabSelectedValue = 0
     @State private var shoutoutTabSelectedValue = 0
-    @StateObject private var resourcesVM = ResourcesViewModel()
     
     init() {
-        //Use this if NavigationBarTitle is with Large Font
+        // Use this if NavigationBarTitle is with Large Font
         UINavigationBar.appearance().largeTitleTextAttributes = [.font : BMFont.bold(30)]
     }
     
@@ -32,12 +34,10 @@ struct ResourcesView: View {
                     if resourcesVM.resourceCategories.isEmpty {
                        noResourcesAvailableView
                     } else {
-                        Picker(selection: $tabSelectedValue, label: Text("")) {
-                            ForEach(Array(resourcesVM.resourceCategories.enumerated()), id: \.offset) { idx, category in
-                                Text(category.name).tag(idx)
-                            }
-                        }
-                        .pickerStyle(.segmented)
+                        SegmentedControlView(
+                            tabNames: resourcesVM.resourceCategoryNames,
+                            selectedTabIndex: $tabSelectedValue
+                        )
                         .padding()
                         
                         TabView(selection: $tabSelectedValue) {
@@ -114,7 +114,9 @@ struct ResourcesView: View {
     }
 }
 
-//MARK: - ResourcePageView
+
+// MARK: - ResourcePageView
+
 struct ResourcePageView: View {
     var resourceSections: [BMResourceSection]
 
@@ -126,75 +128,35 @@ struct ResourcePageView: View {
                     .font(Font(BMFont.regular(30)))
                     .foregroundStyle(.secondary)
             } else {
-                List {
-                    ForEach(resourceSections, id: \.self) { resourceSection in
-                        DisclosureGroup(
-                            content: {
-                                VStack(alignment: .leading) {
-                                    ForEach(resourceSection.resources, id: \.id) { resource in
-                                        ResourceLinkView(resource: resource)
-                                        .listRowSeparator(.hidden)
+                ScrollView {
+                    VStack(spacing: 0) {
+                        ForEach(resourceSections, id: \.self) { resourceSection in
+                            if let sectionHeaderText = resourceSection.title {
+                                VStack(spacing: 0) {
+                                    ResourcesSectionDropdown(title: sectionHeaderText, accentColor: .orange) {
+                                        VStack(spacing: 0) {
+                                            ForEach(resourceSection.resources, id: \.id) { resource in
+                                                ResourceItemView(resource: resource)
+                                            }
+                                        }
                                     }
                                 }
-                            },
-                            label: {
-                                if let sectionHeaderText = resourceSection.title {
-                                    Text(sectionHeaderText)
-                                        .bold()
-                                        .font(Font(BMFont.bold(25)))
-                                }
+                                
+                                Divider()
                             }
-                        )
-                        .listRowBackground(Color.clear)
+                        }
                     }
+                    .padding(.vertical, 8)
                 }
-                .scrollContentBackground(.hidden)
+                .background(Color(BMColor.cardBackground))
             }
         }
     }
 }
 
-//MARK: - ResourceLinkView
-struct ResourceLinkView: View {
-    var resource: BMResource
-    
-    @State private var isPresentingWebView = false
-    
-    var body: some View {
-        RoundedRectangle(cornerRadius: 10)
-            .stroke(.gray, lineWidth: 1)
-            .frame(height: 130)
-            .overlay(
-                HStack {
-                    VStack(alignment: .leading) {
-                        Spacer()
-                        Text("\(resource.name)")
-                            .font(Font(BMFont.regular(17)))
-                            .fontWeight(.heavy)
-                        Spacer()
-                    }
-                    .bold()
-                    Spacer()
-                    Image(systemName: "chevron.right")
-                        .foregroundStyle(.gray)
-                        .bold()
-                        .font(.system(size: 13))
-                }
-                .padding()
-            )
-            .onTapGesture {
-                isPresentingWebView.toggle()
-            }
-            .fullScreenCover(isPresented: $isPresentingWebView) {
-                if let url = resource.url {
-                    SafariWebView(url: url)
-                        .edgesIgnoringSafeArea(.all)
-                }
-            }
-    }
-}
 
-//MARK: - ResourceShoutoutView
+// MARK: - ResourceShoutoutView
+
 struct ResourceShoutoutView: View {
     var callout: BMResourceShoutout
     
