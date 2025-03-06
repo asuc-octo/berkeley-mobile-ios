@@ -120,7 +120,6 @@
 		29B1D307254E1C8700BAD88F /* EventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B1D306254E1C8700BAD88F /* EventManager.swift */; };
 		29B3A1742439A60A00093750 /* DiningMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B3A1732439A60A00093750 /* DiningMenuCell.swift */; };
 		29B3D7862453984A006762E5 /* DrawerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B3D7852453984A006762E5 /* DrawerViewDelegate.swift */; };
-		29B3D78824539FF3006762E5 /* MainDrawerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B3D78724539FF3006762E5 /* MainDrawerViewController.swift */; };
 		29CB280A2404DD71009A2CFB /* FilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39AA423E774600039FBA2 /* FilterTableViewCell.swift */; };
 		29EE163F241C4E310041482E /* SortingFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EE163E241C4E310041482E /* SortingFunctions.swift */; };
 		29F11EC72516C150007DCFD7 /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F11EC62516C150007DCFD7 /* BarView.swift */; };
@@ -164,6 +163,7 @@
 		E83B6D9B2D7123CB00AA9422 /* MapUserLocationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B6D9A2D7123CB00AA9422 /* MapUserLocationButton.swift */; };
 		E83B6D9F2D780B4200AA9422 /* EventsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B6D9E2D780B4200AA9422 /* EventsView.swift */; };
 		E83B6DA12D781AF100AA9422 /* BMTopBlobView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B6DA02D781AF100AA9422 /* BMTopBlobView.swift */; };
+		E83B6D9D2D72FD6F00AA9422 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B6D9C2D72FD6F00AA9422 /* HomeView.swift */; };
 		E83C6CEB2B71D8C20085E277 /* ResourcesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83C6CEA2B71D8C20085E277 /* ResourcesView.swift */; };
 		E83C6CED2B71DF190085E277 /* SafariWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83C6CEC2B71DF190085E277 /* SafariWebView.swift */; };
 		E83D87942AB3CD1E00C4113C /* FeedbackFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83D87932AB3CD1E00C4113C /* FeedbackFormView.swift */; };
@@ -299,7 +299,6 @@
 		29B1D306254E1C8700BAD88F /* EventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventManager.swift; sourceTree = "<group>"; };
 		29B3A1732439A60A00093750 /* DiningMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiningMenuCell.swift; sourceTree = "<group>"; };
 		29B3D7852453984A006762E5 /* DrawerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerViewDelegate.swift; sourceTree = "<group>"; };
-		29B3D78724539FF3006762E5 /* MainDrawerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainDrawerViewController.swift; sourceTree = "<group>"; };
 		29EE163E241C4E310041482E /* SortingFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingFunctions.swift; sourceTree = "<group>"; };
 		29F11EC62516C150007DCFD7 /* BarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarView.swift; sourceTree = "<group>"; };
 		303F6ADD236A931D007E37DD /* SegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedControl.swift; sourceTree = "<group>"; };
@@ -348,6 +347,7 @@
 		E83B6D9A2D7123CB00AA9422 /* MapUserLocationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapUserLocationButton.swift; sourceTree = "<group>"; };
 		E83B6D9E2D780B4200AA9422 /* EventsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsView.swift; sourceTree = "<group>"; };
 		E83B6DA02D781AF100AA9422 /* BMTopBlobView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMTopBlobView.swift; sourceTree = "<group>"; };
+		E83B6D9C2D72FD6F00AA9422 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		E83C6CEA2B71D8C20085E277 /* ResourcesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcesView.swift; sourceTree = "<group>"; };
 		E83C6CEC2B71DF190085E277 /* SafariWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebView.swift; sourceTree = "<group>"; };
 		E83D87932AB3CD1E00C4113C /* FeedbackFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackFormView.swift; sourceTree = "<group>"; };
@@ -745,7 +745,6 @@
 			children = (
 				29F11EC62516C150007DCFD7 /* BarView.swift */,
 				306A54FD236142B800D59A7F /* DrawerViewController.swift */,
-				29B3D78724539FF3006762E5 /* MainDrawerViewController.swift */,
 				297678882426D2C500FDD1EB /* SearchDrawerViewController.swift */,
 				29B3D7852453984A006762E5 /* DrawerViewDelegate.swift */,
 				2954F591245CD4B600DA66DA /* MainDrawerViewDelegate.swift */,
@@ -811,6 +810,7 @@
 				306A54EB23613E3A00D59A7F /* SceneDelegate.swift */,
 				306A54FF23614C0000D59A7F /* MainContainerViewController.swift */,
 				E83D87932AB3CD1E00C4113C /* FeedbackFormView.swift */,
+				E83B6D9C2D72FD6F00AA9422 /* HomeView.swift */,
 				13EA64CE2399D4A100FD8E13 /* Data */,
 				13B39A8E23E6A1ED0039FBA2 /* Libraries */,
 				136DC9792398B43F009B1810 /* Fitness */,
@@ -1090,11 +1090,11 @@
 				E83B6D992D7121D300AA9422 /* View+Extension.swift in Sources */,
 				13580AFC243934C800D309AA /* GymsController.swift in Sources */,
 				E8EBE7622CEC2FD700A220BB /* SafetyLogDetailView.swift in Sources */,
-				29B3D78824539FF3006762E5 /* MainDrawerViewController.swift in Sources */,
 				13491DBC242098B30033F9AB /* AtomicDictionary.swift in Sources */,
 				01BC8EB024E8C3E3005B4969 /* DetailView.swift in Sources */,
 				13580AFA243934BF00D309AA /* GymClassesController.swift in Sources */,
 				1396013423865E2E005E4788 /* CardCollectionViewCell.swift in Sources */,
+				E83B6D9D2D72FD6F00AA9422 /* HomeView.swift in Sources */,
 				55DCF79D237243F5001B01B8 /* RippleLayer.swift in Sources */,
 				132087AF23F3B05D00AE273C /* Filter.swift in Sources */,
 				0181711125CAA3B300BA6317 /* AnyJSON.swift in Sources */,

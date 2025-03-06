@@ -6,8 +6,30 @@
 //  Copyright © 2019 RJ Pimentel. All rights reserved.
 //
 
-import UIKit
 import Firebase
+import UIKit
+import SwiftUI
+
+// MARK: - StudyView
+
+struct StudyView: UIViewControllerRepresentable {
+    typealias UIViewControllerType = StudyViewController
+    
+    private let mapViewController: MapViewController
+    
+    init(mapViewController: MapViewController) {
+        self.mapViewController = mapViewController
+    }
+    
+    func makeUIViewController(context: Context) -> StudyViewController {
+        StudyViewController(mapViewController: mapViewController)
+    }
+    
+    func updateUIViewController(_ uiViewController: StudyViewController, context: Context) {}
+}
+
+
+// MARK: - StudyViewController
 
 fileprivate let kViewMargin: CGFloat = 16
 
@@ -27,6 +49,15 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
     private var scrollView: UIScrollView!
     private var content: UIView!
     
+    init(mapViewController: MapViewController) {
+        pinDelegate = mapViewController
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -43,7 +74,6 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
             object: nil
         )
       
-        // fetch libraries 
         DataManager.shared.fetch(source: LibraryDataSource.self) { libraries in
             self.libraries = libraries as? [Library] ?? []
             self.filterTableView.setData(data: libraries as! [Library])
@@ -54,7 +84,6 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
     override func loadView() {
         super.loadView()
         safeArea = view.layoutMarginsGuide
-        view.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
         setUpScrollView()
         setUpTableView()
     }
@@ -66,12 +95,14 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func setUpScrollView() {
         scrollView = UIScrollView()
-        view.addSubview(scrollView)
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.setConstraintsToView(top: view, bottom: view, left: view, right: view)
         scrollView.showsVerticalScrollIndicator = false
+        view.addSubview(scrollView)
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
         
         content = UIView()
+        content.backgroundColor = BMColor.cardBackground
+        content.layer.cornerRadius = 12
         scrollView.addSubview(content)
         content.layoutMargins = view.layoutMargins
     }
@@ -96,10 +127,10 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
         let card = CardView()
         libraryCard = card
         card.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
-        scrollView.addSubview(card)
+        view.addSubview(card)
         card.translatesAutoresizingMaskIntoConstraints = false
-        card.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: kViewMargin).isActive = true
-        card.heightAnchor.constraint(equalTo: view.layoutMarginsGuide.heightAnchor).isActive = true
+        card.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        card.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -75).isActive = true
         card.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
         card.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
         

@@ -20,50 +20,6 @@ protocol SearchDrawerViewDelegate: DrawerViewDelegate {
 
 extension SearchDrawerViewDelegate where Self: UIViewController {
     
-    /* present a detail view drawer
-     type is set to DiningHall, Library, etc. to determine what type of detail view is needed */
-    func presentDetail(type: AnyClass, item: SearchItem, containingVC: UIViewController, position: DrawerState) {
-        let containingView = containingVC.view!
-        if type == DiningHall.self {
-            drawerViewController = DiningDetailViewController()
-            (drawerViewController as! DiningDetailViewController).diningHall = (item as! DiningLocation)
-        } else if type == Library.self {
-            drawerViewController = LibraryDetailViewController()
-            (drawerViewController as! LibraryDetailViewController).library = (item as! Library)
-        } else if type == Gym.self {
-            drawerViewController = GymDetailViewController()
-            (drawerViewController as! GymDetailViewController).gym = (item as! Gym)
-        } else {
-            return
-        }
-        containingVC.add(child: drawerViewController!)
-        drawerViewController!.delegate = self
-        // set the size of the new drawer to be equal to the size of the containing view
-        drawerViewController!.view.frame = containingView.frame
-        // drawer starts in the hidden position, will move up from there
-        drawerViewController!.view.center.y = containingView.frame.maxY * 1.5
-        // necessary to move the center of the drawer later on
-        drawerViewController!.view.translatesAutoresizingMaskIntoConstraints = true
-        // necessary to set the correct cutoff for the 'middle' position of the drawer
-        drawerViewController!.view.layoutIfNeeded()
-        drawerViewController!.viewDidLayoutSubviews()
-        
-        if let cutoff = (drawerViewController as! SearchDrawerViewController).middleCutoffPosition {
-            // offset to indicate drawers are draggable
-            let dragOffset: CGFloat = 30
-            drawerStatePositions[.middle] = containingView.frame.maxY + containingView.frame.maxY / 2 - cutoff - dragOffset
-        } else {
-            // default to showing 30% of the view if no cutoff set
-            drawerStatePositions[.middle] = containingView.frame.midY + containingView.frame.maxY * 0.7
-        }
-        drawerStatePositions[.hidden] = containingView.frame.maxY + containingView.frame.maxY / 2
-        drawerStatePositions[.full] = containingView.safeAreaInsets.top + (containingView.frame.maxY / 2)
-        containingVC.view.layoutIfNeeded()
-        self.initialDrawerCenter = self.drawerViewController!.view.center
-        // add the new drawer on top of all existing ones
-        self.mainContainer?.coverTop(newTop: self, newState: position)
-    }
-    
     func dropPin(item: SearchItem?) {
         guard let item = item else { return }
         pinDelegate?.choosePlacemark(MapPlacemark(loc: CLLocation(latitude: item.location.0, longitude: item.location.1), name: item.name, locName: item.locationName, item: item))
