@@ -24,7 +24,7 @@ struct ResourcesView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                imageBlobView
+                BMTopBlobView(imageName: "BlobRight", xOffset: 30, width: 150, height: 150)
         
                 VStack {
                     if !resourcesVM.shoutouts.isEmpty  {
@@ -52,17 +52,6 @@ struct ResourcesView: View {
                 .navigationTitle("Resources")
             }
             .background(Color(BMColor.cardBackground))
-        }
-    }
-    
-    private var imageBlobView: some View {
-        GeometryReader { geo in
-            Image("BlobRight")
-                .resizable()
-                .frame(width: 150, height: 150)
-                .edgesIgnoringSafeArea(.top)
-                .offset(x: 30)
-                .frame(width: geo.size.width, height: geo.size.height , alignment: .topTrailing)
         }
     }
     

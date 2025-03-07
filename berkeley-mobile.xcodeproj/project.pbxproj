@@ -51,7 +51,6 @@
 		1336A326241D9B9900949F32 /* DiningHall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1336A325241D9B9900949F32 /* DiningHall.swift */; };
 		1336A329241DA56100949F32 /* DiningHallDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1336A328241DA56100949F32 /* DiningHallDataSource.swift */; };
 		133864A42404DCCA001F9048 /* MapMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133864A32404DCCA001F9048 /* MapMarker.swift */; };
-		133864AC2404E858001F9048 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133864A82404E857001F9048 /* CalendarViewController.swift */; };
 		1346B9172420AA4500383399 /* DayOfWeek.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1346B9162420AA4500383399 /* DayOfWeek.swift */; };
 		1346B9192420AD4800383399 /* WeeklyHours.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1346B9182420AD4800383399 /* WeeklyHours.swift */; };
 		13491DB6241E21740033F9AB /* Colors+TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13491DB5241E21740033F9AB /* Colors+TagView.swift */; };
@@ -163,6 +162,8 @@
 		E83B6D972D6FC93400AA9422 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E83B6D962D6FC93400AA9422 /* GoogleService-Info.plist */; };
 		E83B6D992D7121D300AA9422 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B6D982D7121D300AA9422 /* View+Extension.swift */; };
 		E83B6D9B2D7123CB00AA9422 /* MapUserLocationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B6D9A2D7123CB00AA9422 /* MapUserLocationButton.swift */; };
+		E83B6D9F2D780B4200AA9422 /* EventsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B6D9E2D780B4200AA9422 /* EventsView.swift */; };
+		E83B6DA12D781AF100AA9422 /* BMTopBlobView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B6DA02D781AF100AA9422 /* BMTopBlobView.swift */; };
 		E83B6D9D2D72FD6F00AA9422 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B6D9C2D72FD6F00AA9422 /* HomeView.swift */; };
 		E83B6DA52D7A85D500AA9422 /* GymOccupancyScrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B6DA42D7A85D500AA9422 /* GymOccupancyScrapper.swift */; };
 		E83B6DA72D7A85F200AA9422 /* GymOccupancyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B6DA62D7A85F200AA9422 /* GymOccupancyView.swift */; };
@@ -230,7 +231,6 @@
 		1336A325241D9B9900949F32 /* DiningHall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiningHall.swift; sourceTree = "<group>"; };
 		1336A328241DA56100949F32 /* DiningHallDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiningHallDataSource.swift; sourceTree = "<group>"; };
 		133864A32404DCCA001F9048 /* MapMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMarker.swift; sourceTree = "<group>"; };
-		133864A82404E857001F9048 /* CalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		1346B9162420AA4500383399 /* DayOfWeek.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayOfWeek.swift; sourceTree = "<group>"; };
 		1346B9182420AD4800383399 /* WeeklyHours.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyHours.swift; sourceTree = "<group>"; };
 		13491DB5241E21740033F9AB /* Colors+TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+TagView.swift"; sourceTree = "<group>"; };
@@ -350,6 +350,8 @@
 		E83B6D962D6FC93400AA9422 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E83B6D982D7121D300AA9422 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		E83B6D9A2D7123CB00AA9422 /* MapUserLocationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapUserLocationButton.swift; sourceTree = "<group>"; };
+		E83B6D9E2D780B4200AA9422 /* EventsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsView.swift; sourceTree = "<group>"; };
+		E83B6DA02D781AF100AA9422 /* BMTopBlobView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMTopBlobView.swift; sourceTree = "<group>"; };
 		E83B6D9C2D72FD6F00AA9422 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		E83B6DA42D7A85D500AA9422 /* GymOccupancyScrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymOccupancyScrapper.swift; sourceTree = "<group>"; };
 		E83B6DA62D7A85F200AA9422 /* GymOccupancyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymOccupancyView.swift; sourceTree = "<group>"; };
@@ -463,7 +465,7 @@
 				2925D5F625293E9D00BBA266 /* EventDataSource */,
 				294FF42C2544F71200346E91 /* Academic */,
 				2925D5F425293E5A00BBA266 /* Campus */,
-				133864A82404E857001F9048 /* CalendarViewController.swift */,
+				E83B6D9E2D780B4200AA9422 /* EventsView.swift */,
 			);
 			name = Calendar;
 			path = "berkeley-mobile/Calendar";
@@ -543,6 +545,7 @@
 				2913595624B136BE00DE9AD6 /* CollapsibleCardView.swift */,
 				01D11B8D2504453B00BDF660 /* ScrollingStackView.swift */,
 				E8FCD6852C389186004B66A3 /* SkeletonLoadingCell.swift */,
+				E83B6DA02D781AF100AA9422 /* BMTopBlobView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1110,7 +1113,6 @@
 				2925D5FC2529546A00BBA266 /* CampusEventCollectionViewCell.swift in Sources */,
 				296DDEC1253BB117008E8940 /* CampusEventDetailViewController.swift in Sources */,
 				55DCF79423723452001B01B8 /* SearchBarView.swift in Sources */,
-				133864AC2404E858001F9048 /* CalendarViewController.swift in Sources */,
 				1346B9172420AA4500383399 /* DayOfWeek.swift in Sources */,
 				29345E2D24A7FFB600859A88 /* CanFavorite.swift in Sources */,
 				1396013623865E2E005E4788 /* TagView.swift in Sources */,
@@ -1181,6 +1183,7 @@
 				29387E9B24BBBD9D00070BCE /* CALayerExtension.swift in Sources */,
 				1396013323865E2E005E4788 /* CardCollectionView.swift in Sources */,
 				29570D4E2569DE990086741B /* Colors+Calendar.swift in Sources */,
+				E83B6D9F2D780B4200AA9422 /* EventsView.swift in Sources */,
 				13B39A9A23E6A33C0039FBA2 /* LibraryDataSource.swift in Sources */,
 				E83D87942AB3CD1E00C4113C /* FeedbackFormView.swift in Sources */,
 				01D11B8E2504453B00BDF660 /* ScrollingStackView.swift in Sources */,
@@ -1207,6 +1210,7 @@
 				297678872426B7BA00FDD1EB /* SearchAnnotation.swift in Sources */,
 				01CDFF6A257C614900D9FBD6 /* Colors+Resource.swift in Sources */,
 				13741B6C2400D866003D1EEB /* MapDataSource.swift in Sources */,
+				E83B6DA12D781AF100AA9422 /* BMTopBlobView.swift in Sources */,
 				1336A320241D924300949F32 /* DiningItem.swift in Sources */,
 				299ACFB4244A5F90000F3E86 /* HasOccupancy.swift in Sources */,
 				294693A425F44AA900619481 /* MonthSelectorView.swift in Sources */,
