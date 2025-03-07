@@ -52,7 +52,7 @@ class GymDetailViewController: UIViewController {
         setUpScrollView()
         setUpOverviewCard()
         setUpOpenTimesCard()
-        setUpOccupancyCard()
+        setUpoccupancyCard()
         setupMoreButton()
         setupDescriptionCard()
     }
@@ -89,12 +89,14 @@ extension GymDetailViewController {
         scrollingStackView.stackView.addArrangedSubview(openTimesCard)
     }
 
-    func setUpOccupancyCard() {
+    func setUpoccupancyCard() {
         guard let occupancy = gym.occupancy, let forDay = occupancy.occupancy(for: DayOfWeek.weekday(Date())), forDay.count > 0 else { return }
         occupancyCard = OccupancyGraphCardView(occupancy: occupancy, isOpen: gym.isOpen)
         guard let occupancyCard = self.occupancyCard else { return }
         scrollingStackView.stackView.addArrangedSubview(occupancyCard)
     }
+    
+    
 
     func setupMoreButton() {
         guard gym.website != nil else { return }
