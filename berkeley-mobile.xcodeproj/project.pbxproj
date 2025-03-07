@@ -162,9 +162,9 @@
 		E83B6D972D6FC93400AA9422 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E83B6D962D6FC93400AA9422 /* GoogleService-Info.plist */; };
 		E83B6D992D7121D300AA9422 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B6D982D7121D300AA9422 /* View+Extension.swift */; };
 		E83B6D9B2D7123CB00AA9422 /* MapUserLocationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B6D9A2D7123CB00AA9422 /* MapUserLocationButton.swift */; };
+		E83B6D9D2D72FD6F00AA9422 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B6D9C2D72FD6F00AA9422 /* HomeView.swift */; };
 		E83B6D9F2D780B4200AA9422 /* EventsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B6D9E2D780B4200AA9422 /* EventsView.swift */; };
 		E83B6DA12D781AF100AA9422 /* BMTopBlobView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B6DA02D781AF100AA9422 /* BMTopBlobView.swift */; };
-		E83B6D9D2D72FD6F00AA9422 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B6D9C2D72FD6F00AA9422 /* HomeView.swift */; };
 		E83B6DA52D7A85D500AA9422 /* GymOccupancyScrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B6DA42D7A85D500AA9422 /* GymOccupancyScrapper.swift */; };
 		E83B6DA72D7A85F200AA9422 /* GymOccupancyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B6DA62D7A85F200AA9422 /* GymOccupancyView.swift */; };
 		E83B6DA92D7A860E00AA9422 /* GymOccupancyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B6DA82D7A860E00AA9422 /* GymOccupancyViewModel.swift */; };
@@ -350,9 +350,9 @@
 		E83B6D962D6FC93400AA9422 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E83B6D982D7121D300AA9422 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		E83B6D9A2D7123CB00AA9422 /* MapUserLocationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapUserLocationButton.swift; sourceTree = "<group>"; };
+		E83B6D9C2D72FD6F00AA9422 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		E83B6D9E2D780B4200AA9422 /* EventsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsView.swift; sourceTree = "<group>"; };
 		E83B6DA02D781AF100AA9422 /* BMTopBlobView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMTopBlobView.swift; sourceTree = "<group>"; };
-		E83B6D9C2D72FD6F00AA9422 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		E83B6DA42D7A85D500AA9422 /* GymOccupancyScrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymOccupancyScrapper.swift; sourceTree = "<group>"; };
 		E83B6DA62D7A85F200AA9422 /* GymOccupancyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymOccupancyView.swift; sourceTree = "<group>"; };
 		E83B6DA82D7A860E00AA9422 /* GymOccupancyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymOccupancyViewModel.swift; sourceTree = "<group>"; };
@@ -1368,7 +1368,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 10.3.4;
+				MARKETING_VERSION = 10.4;
 				PRODUCT_BUNDLE_IDENTIFIER = org.asuc.ASUC;
 				PRODUCT_NAME = Berkeley;
 				SWIFT_VERSION = 5.0;
@@ -1392,7 +1392,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 10.3.4;
+				MARKETING_VERSION = 10.4;
 				PRODUCT_BUNDLE_IDENTIFIER = org.asuc.ASUC;
 				PRODUCT_NAME = Berkeley;
 				PROVISIONING_PROFILE_SPECIFIER = "";
