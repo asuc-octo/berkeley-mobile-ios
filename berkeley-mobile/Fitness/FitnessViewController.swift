@@ -55,23 +55,18 @@ class FitnessViewController: UIViewController, SearchDrawerViewDelegate {
     private var scrollView: UIScrollView!
     private var content: UIView!
     
+    private var RSFCard: CardView!
+    private var CMSCard: CardView!
     private var classesCard: CardView!
     private var gymCard: CardView!
-    
-    private var showButton: UIButton!
     private var missingClassesView: MissingDataView!
     
     private var bClassesExpanded = false
     
-    // For use in the "Classes" card
-    private var classesTable: UITableView!
     // To display a list of gyms in the "Fitness Centers" card
     var filterTableView = FilterTableView<Gym>(frame: .zero, tableFunctions: [], defaultSort: SortingFunctions.sortAlph(item1:item2:))
-    
     var gyms: [Gym] = []
-    var futureClasses: [GymClass] = []
     
-    private var classesController = GymClassesController()
     private var gymsController = GymsController()
     
     init(mapViewController: MapViewController) {
@@ -87,7 +82,8 @@ class FitnessViewController: UIViewController, SearchDrawerViewDelegate {
         super.viewDidLoad()
         
         setupScrollView()
-        setupClasses()
+        setupRSFGymOccupancyCard()
+        setupCMSGymOccupancyCard()
         setupGyms()
         
         // Update `filterTableView` when user location is updated.
@@ -98,29 +94,7 @@ class FitnessViewController: UIViewController, SearchDrawerViewDelegate {
             object: nil
         )
         
-        classesController.vc = self
         gymsController.vc = self
-        
-        // Fetch Gym Classes
-        DataManager.shared.fetch(source: GymClassDataSource.self) { classes in
-            let classes = classes as? [[GymClass]] ?? []
-            // How the classes are sorted (start time, then alphabetical)
-            let sortFn = { (lhs: GymClass, rhs: GymClass) -> Bool in
-                lhs.date == rhs.date ? lhs.name < rhs.name :  lhs.date < rhs.date
-            }
-            
-            self.futureClasses = classes.reduce([], +).sorted(by: sortFn)
-            
-            if (self.futureClasses.count == 0) {
-                self.showButton.isHidden = true
-                self.missingClassesView.isHidden = false
-                self.classesCard.setHeightConstraint(kClassesCollapsedHeight)
-            }
-            
-            self.classesTable.reloadData()
-            self.scrollView.layoutSubviews()
-            self.viewDidLayoutSubviews()
-        }
         
         // fetch gyms and fetch occupancy data afterwards
         DataManager.shared.fetch(source: GymDataSource.self) { gyms in
@@ -175,56 +149,56 @@ extension FitnessViewController {
         scrollView.contentSize.height = gymCard.frame.maxY + view.layoutMargins.bottom
     }
     
-    // Upcoming Classes
-    func setupClasses() {
-        let card = CardView()
-        card.layoutMargins = kCardPadding
-        scrollView.addSubview(card)
-        card.translatesAutoresizingMaskIntoConstraints = false
-        card.topAnchor.constraint(equalTo: content.layoutMarginsGuide.topAnchor).isActive = true
-        card.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
-        card.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
-        card.heightAnchor.constraint(equalToConstant: kClassesHeight).isActive = true
+    func setupRSFGymOccupancyCard() {
+        let RSFCard = CardView()
+        RSFCard.layoutMargins = kCardPadding
+        RSFCard.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.addSubview(RSFCard)
+        self.RSFCard = RSFCard
         
-        let headerLabel = UILabel()
-        headerLabel.font = kHeaderFont
-        headerLabel.text = "Classes"
-        card.addSubview(headerLabel)
-        headerLabel.translatesAutoresizingMaskIntoConstraints = false
-        headerLabel.topAnchor.constraint(equalTo: card.layoutMarginsGuide.topAnchor).isActive = true
-        headerLabel.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
+        let RSFView = UIHostingController(rootView: GymOccupancyView(location: .rsf)).view!
+        RSFView.translatesAutoresizingMaskIntoConstraints = false
+        RSFView.layer.cornerRadius = 12
+        RSFView.backgroundColor = UIColor.clear
+        RSFCard.addSubview(RSFView)
+
+        NSLayoutConstraint.activate([
+            RSFCard.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
+            RSFCard.widthAnchor.constraint(equalToConstant: kClassesCollapsedHeight),
+            RSFCard.heightAnchor.constraint(equalToConstant: kClassesCollapsedHeight),
+            RSFCard.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
+            
+            RSFView.topAnchor.constraint(equalTo: RSFCard.topAnchor),
+            RSFView.leadingAnchor.constraint(equalTo: RSFCard.leadingAnchor),
+            RSFView.trailingAnchor.constraint(equalTo: RSFCard.trailingAnchor),
+            RSFView.bottomAnchor.constraint(equalTo: RSFCard.bottomAnchor)
+        ])
+    }
+    
+    func setupCMSGymOccupancyCard() {
+        let CMSCard = CardView()
+        CMSCard.layoutMargins = kCardPadding
+        CMSCard.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.addSubview(CMSCard)
         
-        let scheduleButton = UIButton()
-        scheduleButton.setTitle("See Full Schedule >", for: .normal)
-        scheduleButton.titleLabel?.font = BMFont.light(12)
-        scheduleButton.setTitleColor(BMColor.primaryText, for: .normal)
-        // TODO: Set color
-        scheduleButton.setTitleColor(.black, for: .highlighted)
-        scheduleButton.addTarget(self, action: #selector(willExpandClasses), for: .touchUpInside)
-        card.addSubview(scheduleButton)
-        scheduleButton.translatesAutoresizingMaskIntoConstraints = false
-        scheduleButton.centerYAnchor.constraint(equalTo: headerLabel.centerYAnchor).isActive = true
-        scheduleButton.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
-        scheduleButton.leftAnchor.constraint(greaterThanOrEqualTo: headerLabel.rightAnchor, constant: 5).isActive = true
-        
-        classesTable = UITableView()
-        classesTable.separatorStyle = .none
-        classesTable.showsVerticalScrollIndicator = false
-        classesTable.rowHeight = EventTableViewCell.kCellHeight
-        classesTable.backgroundColor = UIColor.clear
-        classesTable.dataSource = classesController
-        classesTable.delegate = classesController
-        classesTable.register(EventTableViewCell.self, forCellReuseIdentifier: GymClassesController.kCellIdentifier)
-        card.addSubview(classesTable)
-        classesTable.translatesAutoresizingMaskIntoConstraints = false
-        classesTable.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: kViewMargin).isActive = true
-        classesTable.leftAnchor.constraint(equalTo: card.layoutMarginsGuide.leftAnchor).isActive = true
-        classesTable.rightAnchor.constraint(equalTo: card.layoutMarginsGuide.rightAnchor).isActive = true
-        classesTable.bottomAnchor.constraint(equalTo: card.layoutMarginsGuide.bottomAnchor).isActive = true
-                
-        classesCard = card
-        showButton = scheduleButton
-        missingClassesView = MissingDataView(parentView: classesTable, text: "No classes found")
+        let CMSView = UIHostingController(rootView: GymOccupancyView(location: .stadium)).view!
+        CMSView.translatesAutoresizingMaskIntoConstraints = false
+        CMSView.layer.cornerRadius = 12
+        CMSView.backgroundColor = UIColor.clear
+        CMSCard.addSubview(CMSView)
+
+        NSLayoutConstraint.activate([
+            RSFCard.trailingAnchor.constraint(equalTo: CMSCard.leadingAnchor, constant: -15),
+            
+            CMSCard.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
+            CMSCard.widthAnchor.constraint(equalToConstant: kClassesCollapsedHeight),
+            CMSCard.heightAnchor.constraint(equalToConstant: kClassesCollapsedHeight),
+            
+            CMSView.topAnchor.constraint(equalTo: CMSCard.topAnchor),
+            CMSView.leadingAnchor.constraint(equalTo: CMSCard.leadingAnchor),
+            CMSView.trailingAnchor.constraint(equalTo: CMSCard.trailingAnchor),
+            CMSView.bottomAnchor.constraint(equalTo: CMSCard.bottomAnchor)
+        ])
     }
     
     // Gyms
@@ -233,7 +207,7 @@ extension FitnessViewController {
         card.layoutMargins = kCardPadding
         scrollView.addSubview(card)
         card.translatesAutoresizingMaskIntoConstraints = false
-        card.topAnchor.constraint(equalTo: classesCard.bottomAnchor, constant: kViewMargin).isActive = true
+        card.topAnchor.constraint(equalTo: RSFCard.bottomAnchor, constant: kViewMargin).isActive = true
         card.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
         card.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
         card.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -75).isActive = true
