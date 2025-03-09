@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import SwiftUI
 
 /**
     Helper to handle Data Source protocols for collections with Gyms.
@@ -32,13 +33,17 @@ extension GymsController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: FilterTableViewCell.kCellIdentifier, for: indexPath) as? FilterTableViewCell {
-            if let gym: Gym = vc.filterTableView.filteredData[safe: indexPath.row] {
-                cell.updateContents(item: gym)
-                return cell
-            }
+        let cell = tableView.dequeueReusableCell(withIdentifier: FilterTableViewCell.kCellIdentifier, for: indexPath)
+        let gym = vc.filterTableView.filteredData[indexPath.row]
+        
+        let cellViewModel = HomeSectionListRowViewModel()
+        cellViewModel.configureRow(with: gym)
+        
+        cell.contentConfiguration = UIHostingConfiguration {
+            HomeSectionListRowView()
+                .environmentObject(cellViewModel)
         }
-        return UITableViewCell()
+        return cell
     }
     
 }
