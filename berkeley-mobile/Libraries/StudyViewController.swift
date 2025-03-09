@@ -183,12 +183,16 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: FilterTableViewCell.kCellIdentifier, for: indexPath) as? FilterTableViewCell {
-            if let lib: Library = self.filterTableView.filteredData[safe: indexPath.row] {
-                cell.updateContents(item: lib)
-                return cell
-            }
+        let cell = tableView.dequeueReusableCell(withIdentifier: FilterTableViewCell.kCellIdentifier, for: indexPath)
+        let library = self.filterTableView.filteredData[indexPath.row]
+        
+        let cellViewModel = HomeSectionListRowViewModel()
+        cellViewModel.configureRow(with: library)
+        
+        cell.contentConfiguration = UIHostingConfiguration {
+            HomeSectionListRowView()
+                .environmentObject(cellViewModel)
         }
-        return UITableViewCell()
+        return cell
     }
 }
