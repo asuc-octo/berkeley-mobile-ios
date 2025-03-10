@@ -164,7 +164,7 @@ struct ResourceItemView: View {
         .background(Color(BMColor.cardBackground))
         .overlay(
             RoundedRectangle(cornerRadius: 10)
-                .stroke(Color.gray.opacity(0.1), lineWidth: 1)
+                .stroke(Color.gray.opacity(0.3), lineWidth: 1.8)
         )
         .cornerRadius(10)
         .padding(.vertical, 4)
