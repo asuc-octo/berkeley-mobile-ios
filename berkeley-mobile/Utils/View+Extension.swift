@@ -30,7 +30,7 @@ struct HomeMapControlButtonStyle: ButtonStyle {
 struct Cardify: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .padding()
+            .padding(3)
             .background(
                 RoundedRectangle(cornerRadius: 12)
                     .fill(Color(BMColor.cardBackground)) 
