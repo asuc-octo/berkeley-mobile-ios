@@ -54,12 +54,18 @@ struct MapMakerDetailSwiftView: View {
                         Spacer()
                         Image(systemName: "clock")
                         
-                        Rectangle()
-                            .fill(Color.blue)
-                            .cornerRadius(300)
-                            .frame(width: 75, height: 25)
-                            .overlay(Text("Open")
-                                .foregroundStyle(Color.white))
+                        
+                        Button {
+                            return
+                        } label: {
+                            Rectangle()
+                                .fill(Color.blue)
+                                .cornerRadius(300)
+                                .frame(width: 75, height: 25)
+                                .overlay(Text("Open")
+                                    .foregroundStyle(Color.white))
+                        }
+                        
                         
                         Spacer()
                         Image(systemName: "mappin.and.ellipse")
