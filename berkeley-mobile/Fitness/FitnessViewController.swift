@@ -46,6 +46,7 @@ class FitnessViewController: UIViewController, SearchDrawerViewDelegate {
     var initialDrawerCenter = CGPoint()
     var initialGestureTranslation: CGPoint = CGPoint()
     var drawerStatePositions: [DrawerState : CGFloat] = [:]
+    
     // SearchDrawerViewDelegate property
     var mainContainer: MainContainerViewController?
     var pinDelegate: SearchResultsViewDelegate?
@@ -96,7 +97,7 @@ class FitnessViewController: UIViewController, SearchDrawerViewDelegate {
         
         gymsController.vc = self
         
-        // fetch gyms and fetch occupancy data afterwards
+        // Fetch gyms and fetch occupancy data afterwards
         DataManager.shared.fetch(source: GymDataSource.self) { gyms in
             self.gyms = gyms as? [Gym] ?? []
             self.filterTableView.setData(data: gyms as! [Gym])
