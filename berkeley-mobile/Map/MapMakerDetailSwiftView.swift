@@ -8,87 +8,116 @@
 
 import SwiftUI
 
+// MARK: - MapMakerDetailSwiftView
+
 struct MapMakerDetailSwiftView: View {
+
     var body: some View {
         ZStack {
-            Color(.black)
-                .opacity(0.4)
-                .ignoresSafeArea()
+            background
             
             HStack {
-                Rectangle()
-                    .fill(Color.purple)
-                    .frame(width: 10)
+                colorAccentBar
                 
                 VStack {
-                    HStack {
-                        Text("The Den")
-                            .font(.title)
-                            .bold()
-                            .padding([.leading], 25)
-                            .padding(.top, 10)
-                        Spacer()
-                        
-                        Button {
-                            return
-                        } label: {
-                            Image(systemName: "xmark")
-                            .padding(.trailing, 10)
-                            .foregroundStyle(Color.gray)
-                        }
-                       
-                        
-                    }
-                    
+                    headerView
                     Spacer()
-                    
-                    HStack {
-                        Text("A retail Cal Dining location featuring a Peet Coffee & tea store, made- to-go order deli and bagels bar, smoothies, and grab-and-go items.")
-                            .font(.system(size: 15, weight: .light))
-                            .padding(.leading, 20)
-                    }
-                    
+                    descriptionView
                     Spacer()
-                    
-                    HStack {
-                        Spacer()
-                        Image(systemName: "clock")
-                        
-                        
-                        Button {
-                            return
-                        } label: {
-                            Rectangle()
-                                .fill(Color.blue)
-                                .cornerRadius(300)
-                                .frame(width: 75, height: 25)
-                                .overlay(Text("Open")
-                                    .foregroundStyle(Color.white))
-                        }
-                        
-                        
-                        Spacer()
-                        Image(systemName: "mappin.and.ellipse")
-                        Text("Residential Student Services Building")
-                            .font(.system(size: 15, weight: .light))
-                        Spacer()
-                        Image(systemName: "fork.knife")
-                        Text("<10")
-                        Spacer()
-                        
-                    }
-                    
+                    infoRowView
                 }
-                
             }
             .background(Color.white)
             .clipShape(RoundedRectangle(cornerRadius: 12))
-            .frame(width:400, height: 150)
+            .frame(width: 400, height: 150)
             .shadow(color: Color.black.opacity(0.2), radius: 10, x: 0, y: 5)
             .padding(.horizontal, 20)
-            
         }
-
+    }
+    
+    // MARK: - Private Views
+    private var background: some View {
+        Color(.black)
+            .opacity(0.4)
+            .ignoresSafeArea()
+    }
+    
+    private var colorAccentBar: some View {
+        Rectangle()
+            .fill(Color.purple)
+            .frame(width: 10)
+    }
+    
+    private var headerView: some View {
+        HStack {
+            Text("The Den")
+                .font(.title)
+                .bold()
+                .padding([.leading], 25)
+                .padding(.top, 10)
+            Spacer()
+            
+            Button(action: {
+                return
+            }) {
+                Image(systemName: "xmark")
+                    .padding(.trailing, 10)
+                    .foregroundStyle(Color.gray)
+            }
+        }
+    }
+    
+    private var descriptionView: some View {
+        HStack {
+            Text("A retail Cal Dining location featuring a Peet Coffee & tea store, made- to-go order deli and bagels bar, smoothies, and grab-and-go items.")
+                .font(Font(BMFont.light(15)))
+                .padding(.leading, 20)
+        }
+    }
+    
+    private var infoRowView: some View {
+        HStack {
+            Spacer()
+            Image(systemName: "clock")
+            
+            openStatusButton
+            
+            Spacer()
+            locationInfoView
+            Spacer()
+            
+            categoryView
+            Spacer()
+        }
+    }
+    
+    private var openStatusButton: some View {
+        Button(action : {
+            return
+        }) {
+            Rectangle()
+                .fill(Color.blue)
+                .cornerRadius(300)
+                .frame(width: 75, height: 25)
+                .overlay(Text("Open")
+                    .foregroundStyle(Color.white))
+        }
+    }
+    
+    private var locationInfoView: some View {
+        HStack {
+            Image(systemName: "mappin.and.ellipse")
+            Text("Residential Student Services Building")
+                .font(Font(BMFont.light(15)))
+        }
+    }
+    
+    private var categoryView: some View {
+        HStack {
+            Image(systemName: "fork.knife")
+            Text("<10")
+                .font(Font(BMFont.light(15)))
+        }
     }
 }
 
