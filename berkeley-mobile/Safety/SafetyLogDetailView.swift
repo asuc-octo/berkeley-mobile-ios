@@ -11,8 +11,7 @@ import SwiftUI
 
 
 struct SafetyLogDetailView: View {
-    @Binding var isPresentingSafetyLogDetailView: Bool
-    var selectedSafetyLog: BMSafetyLog
+    @Binding var selectedSafetyLog: BMSafetyLog?
     
     var body: some View {
         VStack {
@@ -20,29 +19,32 @@ struct SafetyLogDetailView: View {
                 closeButton
                 Spacer()
             }
-            Spacer()
+            .padding(.bottom, 10)
             
-            Map(coordinateRegion: .constant(MKCoordinateRegion(center: selectedSafetyLog.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))), annotationItems: [selectedSafetyLog]) { safetyLog in
-                MapPin(coordinate: safetyLog.coordinate)
+            ScrollView(.vertical) {
+                if let selectedSafetyLog = selectedSafetyLog {
+                    Map(coordinateRegion: .constant(MKCoordinateRegion(center: selectedSafetyLog.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))), annotationItems: [selectedSafetyLog]) { safetyLog in
+                        MapPin(coordinate: safetyLog.coordinate)
+                    }
+                    .allowsHitTesting(false)
+                    .frame(height: 250)
+                    .frame(minWidth: 300, maxWidth: 500)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                    .shadow(color: .gray.opacity(0.5), radius: 7)
+                    .padding()
+                    
+                    Spacer()
+                    SafetyLogView(safetyLog: selectedSafetyLog, isPresentingFullScreen: true)
+                    Spacer()
+
+                }
             }
-            .allowsHitTesting(false)
-            .frame(height: 250)
-            .frame(minWidth: 300, maxWidth: 500)
-            .clipShape(RoundedRectangle(cornerRadius: 10))
-            .shadow(color: .gray.opacity(0.5), radius: 7)
-            
-            
-            Spacer()
-            SafetyLogView(safetyLog: selectedSafetyLog, isPresentingFullScreen: true)
-            Spacer()
         }
     }
     
     private var closeButton: some View {
         Button(action: {
-            withAnimation {
-                isPresentingSafetyLogDetailView.toggle()
-            }
+            selectedSafetyLog = nil
         }) {
             // TODO: Make into own custom view if future calls
             Image(systemName: "xmark.circle.fill")
@@ -56,6 +58,8 @@ struct SafetyLogDetailView: View {
 // MARK: - SafetyLogView
 
 struct SafetyLogView: View {
+    @EnvironmentObject private var viewModel: SafetyViewModel
+    
     var safetyLog: BMSafetyLog
     var isPresentingFullScreen: Bool
     
@@ -64,7 +68,7 @@ struct SafetyLogView: View {
             mainBody
         } else {
             RoundedRectangle(cornerRadius: 10)
-                .stroke(.gray.opacity(0.6), lineWidth: 1)
+                .stroke(viewModel.crimeColors[safetyLog.getSafetyLogState.rawValue] ?? .gray.opacity(0.6), lineWidth: 1)
                 .frame(minWidth: 300, maxWidth: 500, minHeight: 200)
                 .overlay(
                     mainBody
@@ -130,7 +134,14 @@ struct SafetyLogView: View {
     }
 }
 
-#Preview {
-    SafetyLogDetailView(isPresentingSafetyLogDetailView: .constant(true), selectedSafetyLog: SafetyViewManager.getSampleSafetyLog())
+#Preview("SafetyLogDetailView") {
+    SafetyLogDetailView(selectedSafetyLog: .constant(SafetyViewModel.getSampleSafetyLog()))
         .padding()
+        .environmentObject(SafetyViewModel())
+}
+
+#Preview("SafetyLogView") {
+    SafetyLogView(safetyLog: SafetyViewModel.getSampleSafetyLog(), isPresentingFullScreen: false)
+        .padding()
+        .environmentObject(SafetyViewModel())
 }
