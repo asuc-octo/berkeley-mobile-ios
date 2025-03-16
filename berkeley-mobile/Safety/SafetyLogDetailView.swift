@@ -9,7 +9,6 @@
 import MapKit
 import SwiftUI
 
-
 struct SafetyLogDetailView: View {
     @Binding var selectedSafetyLog: BMSafetyLog?
     @Binding var drawerViewState: BMDrawerViewState
@@ -34,12 +33,11 @@ struct SafetyLogDetailView: View {
                     .shadow(color: .gray.opacity(0.5), radius: 7)
                     .padding()
                     
-                    Spacer()
                     SafetyLogView(safetyLog: selectedSafetyLog, isPresentingFullScreen: true)
-                    Spacer()
-
                 }
             }
+            
+            Spacer()
         }
     }
     
