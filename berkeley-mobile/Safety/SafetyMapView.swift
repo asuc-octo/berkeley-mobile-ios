@@ -90,14 +90,7 @@ struct SafetyNewMapView: View {
                             mapLegendButton
                         }
                         
-                        if #available(iOS 17.0, *) {
-                            mapZoomInButton
-                            .contentTransition(
-                                .symbolEffect(.replace)
-                            )
-                        } else {
-                            mapZoomInButton
-                        }
+                        mapZoomInButton
                     }
                     
                     if isShowingLegend {
