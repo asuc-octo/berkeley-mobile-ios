@@ -69,6 +69,11 @@ final class SafetyViewModel: NSObject, ObservableObject {
         static let safetyLogsCollectionName = "Safety Logs"
     }
     
+    struct BMCrimeInfo {
+        var color: Color
+        var count: Int
+    }
+    
     @Published var region = MKCoordinateRegion(
         center: CLLocation(latitude: CLLocationDegrees(exactly: 37.871684)!, longitude: CLLocationDegrees(-122.259934)).coordinate,
         span: .init(latitudeDelta: 0.02, longitudeDelta: 0.02)
@@ -76,7 +81,7 @@ final class SafetyViewModel: NSObject, ObservableObject {
     @Published var safetyLogs = [BMSafetyLog]()
     @Published var filteredSafetyLogs = [BMSafetyLog]()
     @Published var isFetchingLogs = false
-    @Published var crimeColors = [String: Color]()
+    @Published var crimeInfos = [BMSafetyLogFilterState: BMCrimeInfo]()
     @Published var selectedSafetyLogFilterStates: [BMSafetyLogFilterState] = [] {
         didSet {
             updateFilterState()
@@ -201,10 +206,9 @@ final class SafetyViewModel: NSObject, ObservableObject {
     private func associateCrimesWithColor() {
         let colors: [Color] = [.red, .green, .blue, .yellow, .purple, .orange, .mint]
         let displayCrimeTypes: [BMSafetyLogFilterState] = [.aggravatedAssault, .burglary, .robbery, .sexualAssault, .others]
-        for (crime, color) in zip(displayCrimeTypes.map { $0.rawValue }, colors) {
-            withAnimation {
-                crimeColors[crime] = color
-            }
+        for (crime, color) in zip(displayCrimeTypes, colors) {
+            let crimeTypeCount = safetyLogs.filter { $0.getSafetyLogState == crime }.count
+            crimeInfos[crime] = BMCrimeInfo(color: color, count: crimeTypeCount)
         }
     }
     

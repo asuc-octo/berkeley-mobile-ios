@@ -12,6 +12,7 @@ import SwiftUI
 
 struct SafetyLogDetailView: View {
     @Binding var selectedSafetyLog: BMSafetyLog?
+    @Binding var drawerViewState: BMDrawerViewState
     
     var body: some View {
         VStack {
@@ -44,7 +45,10 @@ struct SafetyLogDetailView: View {
     
     private var closeButton: some View {
         Button(action: {
-            selectedSafetyLog = nil
+            withAnimation {
+                drawerViewState = .small
+                selectedSafetyLog = nil
+            }
         }) {
             // TODO: Make into own custom view if future calls
             Image(systemName: "xmark.circle.fill")
@@ -68,7 +72,7 @@ struct SafetyLogView: View {
             mainBody
         } else {
             RoundedRectangle(cornerRadius: 10)
-                .stroke(viewModel.crimeColors[safetyLog.getSafetyLogState.rawValue] ?? .gray.opacity(0.6), lineWidth: 1)
+                .stroke(viewModel.crimeInfos[safetyLog.getSafetyLogState]?.color ?? .gray.opacity(0.6), lineWidth: 1)
                 .frame(minWidth: 300, maxWidth: 500, minHeight: 200)
                 .overlay(
                     mainBody
@@ -135,7 +139,7 @@ struct SafetyLogView: View {
 }
 
 #Preview("SafetyLogDetailView") {
-    SafetyLogDetailView(selectedSafetyLog: .constant(SafetyViewModel.getSampleSafetyLog()))
+    SafetyLogDetailView(selectedSafetyLog: .constant(SafetyViewModel.getSampleSafetyLog()), drawerViewState: .constant(.small))
         .padding()
         .environmentObject(SafetyViewModel())
 }
