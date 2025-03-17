@@ -21,7 +21,7 @@ class SizeReporter: ObservableObject {
 
 struct OpenTimesCard: View {
     let item: HasOpenTimes
-    @State private var isExpanded: Bool = false
+    @State private var isExpanded = false
     @EnvironmentObject private var sizeReporter: SizeReporter
     
     private var currentDayOfWeek: Int {
