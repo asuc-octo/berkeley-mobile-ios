@@ -24,6 +24,10 @@ struct OpenTimesCard: View {
     @State private var isExpanded: Bool = false
     @EnvironmentObject private var sizeReporter: SizeReporter
     
+    private var currentDayOfWeek: Int {
+        Calendar.current.component(.weekday, from: Date()) - 1
+    }
+    
     private let dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
     
     var body: some View {
@@ -52,7 +56,7 @@ struct OpenTimesCard: View {
             )
             .onPreferenceChange(SizePreferenceKey.self) { newSize in
                 if isExpanded {
-                    withAnimation(.spring(response: 0.3, dampingFraction: 1.0)) {
+                    withAnimation(.spring(response: 0.6, dampingFraction: 1.0)) {
                         sizeReporter.updateSize(newSize)
                     }
                 } else {
@@ -80,7 +84,7 @@ struct OpenTimesCard: View {
                             .font(.system(size: 12, weight: .medium)) 
                             .padding(.horizontal, 12) 
                             .padding(.vertical, 4) 
-                            .background(isOpen ? Color.green : Color(red: 0.4, green: 0.5, blue: 0.95)) 
+                            .background(isOpen ? Color.green : Color.blue.opacity(0.7)) 
                             .foregroundColor(.white)
                             .cornerRadius(12) 
                     }
@@ -101,7 +105,7 @@ struct OpenTimesCard: View {
                     .foregroundColor(Color.gray)
                     .font(.system(size: 12, weight: .medium)) 
                     .rotationEffect(.degrees(isExpanded ? 180 : 0))
-                    .animation(isExpanded ? nil : .spring(response: 0.3, dampingFraction: 1.0), value: isExpanded)
+                    .animation(isExpanded ? nil : .spring(response: 0.6, dampingFraction: 1.0), value: isExpanded)
             }
             .contentShape(Rectangle()) 
             .padding(.horizontal, 14) 
@@ -117,21 +121,21 @@ struct OpenTimesCard: View {
     @ViewBuilder
     private func expandableContentView() -> some View {
         VStack(spacing: 2) { 
-            ForEach(dayNames.indices, id: \.self) { index in
+            ForEach(0..<dayNames.count, id: \.self) { index in
                 let day = dayNames[index]
+                let dayOfWeek = DayOfWeek.allCases[index]
+                let isCurrentDay = index == currentDayOfWeek
                 
                 HStack() {
                     Text(day)
-                        .font(.system(size: 12)) 
+                        .font(.system(size: 12, weight: isCurrentDay ? .bold : .regular)) 
                         .foregroundColor(.black)
                         .padding(.leading, 55)
                         .lineLimit(1) 
                         .lineSpacing(0) 
                         .frame(maxWidth: .infinity, alignment: .leading)
                     
-                    Text("Closed")
-                        .font(.system(size: 12)) 
-                        .foregroundColor(.black)
+                    hoursView(for: dayOfWeek, isCurrentDay: isCurrentDay)
                         .padding(.trailing, 55)
                         .lineLimit(1) 
                         .lineSpacing(0) 
@@ -146,13 +150,42 @@ struct OpenTimesCard: View {
     }
     
     private func toggleWithAnimation() {
-        if isExpanded {
-            isExpanded = false
-        } else {
-            withAnimation(.spring(response: 0.4, dampingFraction: 1.0)) {
-                isExpanded = true
-            }
+        withAnimation(.spring(response: 0.4, dampingFraction: 1.0)) {
+            isExpanded.toggle()
         }
+    }
+    
+    private func hoursView(for day: DayOfWeek, isCurrentDay: Bool) -> some View {
+        let defaultText = Text("Closed")
+            .font(.system(size: 12, weight: isCurrentDay ? .bold : .regular))
+            .foregroundColor(Color(.darkGray))
+        
+        // Default if no weekly hours are available
+        guard let weeklyHours = item.weeklyHours else {
+            return defaultText
+        }
+        
+        let intervals = weeklyHours.hoursForWeekday(day)
+        
+        guard !intervals.isEmpty, 
+              !intervals.allSatisfy({ $0.dateInterval.duration <= 0 }),
+              let interval = intervals.first else {
+            return defaultText
+        }
+        
+        let formatter = DateIntervalFormatter()
+        formatter.dateStyle = .none
+        formatter.timeStyle = .short
+        
+        guard let start = interval.dateInterval.start.timeOnly(),
+              let end = interval.dateInterval.end.timeOnly() else {
+            return defaultText
+        }
+        
+        let timeText = formatter.string(from: start, to: end)
+        return Text(timeText)
+            .foregroundColor(Color(.darkGray))
+            .font(.system(size: 12, weight: interval.dateInterval.contains(Date()) ? .bold : .regular))
     }
     
     private func formatTimeInterval(_ interval: DateInterval) -> some View {
@@ -193,8 +226,7 @@ struct OpenTimesCard_Previews: PreviewProvider {
         @StateObject private var sizeReporter = SizeReporter()
         
         var body: some View {
-            
-            OpenTimesCard(item: ClosedMockItem())
+            OpenTimesCard(item: ClosedItem())
                 .environmentObject(sizeReporter)
                 .frame(width: 350)
                 .background(Color(UIColor.systemGroupedBackground))
@@ -202,15 +234,14 @@ struct OpenTimesCard_Previews: PreviewProvider {
         }
     }
     
-    struct ClosedMockItem: HasOpenTimes {
+    struct ClosedItem: HasOpenTimes {
         var weeklyHours: WeeklyHours? = createEmptyWeeklyHours()
         var isOpen: Bool? = false
         
         func nextOpenInterval() -> HoursInterval? {
-            return nil /
+            return nil
         }
         
-        // Create weekly hours with all days set to closed
         static func createEmptyWeeklyHours() -> WeeklyHours {
             let weeklyHours = WeeklyHours()
             return weeklyHours
