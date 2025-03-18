@@ -67,7 +67,7 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
         super.viewDidLoad()
         
         // update `filterTableView` when user location is updated.
-        LocationManager.notificationCenter.addObserver(
+        BMLocationManager.notificationCenter.addObserver(
             filterTableView,
             selector: #selector(filterTableView.update),
             name: .locationUpdated,

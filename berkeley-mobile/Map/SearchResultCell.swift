@@ -71,7 +71,7 @@ class SearchResultCell: MaterialTableViewCell {
         subTitle.text = currentPlacemark.locationName // TODO: - fix
         
         guard
-            let userLoc = LocationManager.shared.userLocation,
+            let userLoc = BMLocationManager.shared.userLocation,
             let placemarkLoc = currentPlacemark.location
         else {
             return
