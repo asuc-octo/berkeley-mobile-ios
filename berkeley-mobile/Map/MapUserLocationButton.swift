@@ -65,7 +65,6 @@ struct MapUserLocationButton: View {
         let hasLocationSymbolName = viewModel.isHomingInOnUserLocation ? "location.fill" : "location"
         Image(systemName: viewModel.isUserLocationAvailable ? hasLocationSymbolName : "location.slash")
             .font(.system(size: 24))
-            .opacity(viewModel.isUserLocationAvailable ? 1 : 0.6)
     }
 }
 
