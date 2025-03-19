@@ -36,9 +36,9 @@ struct CampusEventRowView: View {
         HStack {
             VStack(alignment: .leading, spacing: 10) {
                 Text(viewModel.title)
-                    .font(Font(BMFont.bold(16)))
+                    .font(Font(BMFont.bold(15)))
                 Spacer()
-                Group {
+                VStack(alignment: .leading) {
                     Text(viewModel.timeText)
                         .fontWeight(.semibold)
                     Text(viewModel.locationText)
