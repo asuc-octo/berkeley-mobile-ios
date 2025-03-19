@@ -123,10 +123,18 @@ extension CampusCalendarViewController: UITableViewDelegate, UITableViewDataSour
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: CampusEventTableViewCell.kCellIdentifier, for: indexPath)
             
-            if let card = cell as? CampusEventTableViewCell,
-                let entry = calendarEntries[safe: indexPath.row] {
-                card.updateContents(event: entry)
+            guard let entry = calendarEntries[safe: indexPath.row] else {
+                return cell
             }
+            
+            let cellViewModel = CampusEventRowViewModel()
+            cellViewModel.configure(with: entry)
+            
+            cell.contentConfiguration = UIHostingConfiguration {
+                CampusEventRowView()
+                    .environmentObject(cellViewModel)
+            }
+            
             return cell
         }
     }
