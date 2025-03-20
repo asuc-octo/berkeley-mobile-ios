@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct HomeMapControlButtonStyle: ButtonStyle {
+struct BMControlButtonStyle: ButtonStyle {
     static let widthAndHeight: CGFloat = 45
     
     func makeBody(configuration: Configuration) -> some View {
