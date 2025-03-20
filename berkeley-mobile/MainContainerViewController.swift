@@ -22,10 +22,15 @@ class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
     var initialGestureTranslation: CGPoint = CGPoint()
     var drawerStatePositions: [DrawerState: CGFloat] = [:]
     
+    private var homeViewController: UIViewController!
+    private var homeView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let homeView = UIHostingController(rootView: HomeView()).view!
+        homeViewController = UIHostingController(rootView: HomeView())
+        addChild(homeViewController)
+        homeView = homeViewController.view!
         homeView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(homeView)
         
@@ -35,6 +40,8 @@ class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
             homeView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             homeView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+        
+        homeViewController.didMove(toParent: self)
     }
 
     override func viewDidAppear(_ animated: Bool) {

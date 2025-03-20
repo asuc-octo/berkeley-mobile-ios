@@ -22,7 +22,7 @@ struct BMColor {
     
     static var searchBarIconColor: UIColor {
         return UIColor.init { (trait) -> UIColor in
-            return trait.userInterfaceStyle == .dark ? UIColor.white : UIColor.darkGray
+            return trait.userInterfaceStyle == .dark ? .lightGray : .gray
         }
     }
 

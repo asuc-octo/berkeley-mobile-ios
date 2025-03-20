@@ -8,8 +8,7 @@
 
 import SwiftUI
 
-
-struct BMControlButtonStyle: ButtonStyle {
+struct HomeMapControlButtonStyle: ButtonStyle {
     static let widthAndHeight: CGFloat = 45
     
     func makeBody(configuration: Configuration) -> some View {
@@ -17,7 +16,7 @@ struct BMControlButtonStyle: ButtonStyle {
             .frame(width: BMControlButtonStyle.widthAndHeight, height: BMControlButtonStyle.widthAndHeight)
             .background(
                 Circle()
-                    .fill(.thinMaterial)
+                    .fill(.thickMaterial)
             )
             .overlay(
                 Circle()
@@ -26,6 +25,14 @@ struct BMControlButtonStyle: ButtonStyle {
     }
 }
 
+struct SearchResultsListRowButtonStyle: ButtonStyle {
+    
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .background(configuration.isPressed ? .gray.opacity(0.3) : .white.opacity(0.001))
+            .clipShape(.rect(cornerRadius: 12))
+    }
+}
 
 struct Cardify: ViewModifier {
     func body(content: Content) -> some View {
@@ -42,5 +49,5 @@ struct Cardify: ViewModifier {
 extension View {
     func cardify() -> some View {
         self.modifier(Cardify())
-    }
+        }
 }

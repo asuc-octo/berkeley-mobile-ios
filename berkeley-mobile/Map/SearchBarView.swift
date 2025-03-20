@@ -1,176 +1,97 @@
 //
 //  SearchBarView.swift
-//  bm-persona
+//  berkeley-mobile
 //
-//  Created by Oscar Bjorkman on 11/5/19.
-//  Copyright © 2019 RJ Pimentel. All rights reserved.
+//  Created by Baurzhan on 3/6/25.
+//  Copyright © 2025 ASUC OCTO. All rights reserved.
 //
 
-import UIKit
+import MapKit
+import SwiftUI
 
-class SearchBarView: UIView, UITextFieldDelegate {
-    
-    open weak var delegate: SearchBarDelegate?
+// MARK: - SearchBarView
 
-    var stackView: UIStackView!
-    var textField: MaterialTextField!
-    var leftButton: MaterialButton!
-    var rightButton: MaterialButton!
-    var leftButtonImage: UIImage = UIImage(named: "Search")!
+struct SearchBarView: View {
+    @EnvironmentObject var viewModel: SearchViewModel
+    @FocusState private var isFocused: Bool
     
-    private var onStartSearch: ((Bool) -> Void)?
-    private var onClearInput: (() -> Void)?
-    private var startSearch: DispatchWorkItem?
-        
-    // MARK: Init
+    private var onSearchBarTap: ((Bool) -> Void)?
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        initSearchBar()
-        
-        leftButton.addTarget(self, action: #selector(leftButtonTapped), for: .touchUpInside)
-        rightButton.addTarget(self, action: #selector(rightButtonTapped), for: .touchUpInside)
-        textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        textField.addTarget(self, action: #selector(tappedOnTextField), for: .touchUpInside)
-    }
-    
-    convenience init(onStartSearch: ((Bool) -> Void)?, onClearInput: (() -> Void)?, delegate: SearchBarDelegate) {
-        self.init(frame: .zero)
-        self.delegate = delegate
-        self.onStartSearch = onStartSearch
-        self.onClearInput = onClearInput
-    }
-
-    private func initSearchBar() {
-        self.backgroundColor = BMColor.searchBarBackground
-        self.layer.shadowColor = UIColor.black.cgColor
-        self.layer.shadowOpacity = 0.3
-        self.layer.shadowOffset = .zero
-        self.layer.shadowRadius = 8
-        
-        textField = MaterialTextField(hint: "What are you looking for?", textColor: BMColor.blackText, font: BMFont.regular(16.0), bgColor: BMColor.searchBarBackground)
-        textField.cornerRadius = 15.0
-        textField.setCornerBorder(color: BMColor.searchBarBackground, cornerRadius: 15.0, borderWidth: 0.0)
-        textField.autocorrectionType = .no
-        textField.returnKeyType = .search
-        textField.delegate = self
-        textField.enablesReturnKeyAutomatically = true
-        
-        leftButton = MaterialButton(icon: leftButtonImage.colored(BMColor.searchBarIconColor), textColor: BMColor.blackText, font: BMFont.regular(16), bgColor: BMColor.searchBarBackground, cornerRadius: 15.0)
-        rightButton = MaterialButton(icon: UIImage(named: "Clear")?.colored(BMColor.searchBarIconColor), bgColor: BMColor.searchBarBackground, cornerRadius: 15.0)
-        
-        stackView = UIStackView(arrangedSubviews: [leftButton, textField, rightButton])
-        stackView.spacing = 0.0
-        stackView.axis = .horizontal
-        stackView.distribution = .fillProportionally
-        
-        self.addSubview(stackView)
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        setButtonStates(hasInput: false, isSearching: false)
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        stackView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
-        stackView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
-        stackView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        
-        leftButton.widthAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 0.8).isActive = true
-        rightButton.widthAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 0.8).isActive = true
-        
-        let radius = self.frame.height / 2.5
-        self.layer.cornerRadius = radius
-    }
-    
-    // Back or Search button
-    @objc
-    private func leftButtonTapped() {
-        if leftButton.tag == 1 {
-            // Go back
-            textField.text = ""
-            textFieldDidEndEditing(textField)
-            onStartSearch?(false)
-        } else {
-            textField.becomeFirstResponder()
-            onStartSearch?(true)
+    var body: some View {
+        HStack {
+            leftIcon
+            
+            TextField("What are you looking for?", text: $viewModel.searchText)
+                .focused($isFocused)
+                .onChange(of: viewModel.searchText) { _ in
+                    viewModel.searchLocations(viewModel.searchText)
+                }
+            
+            if !viewModel.searchText.isEmpty {
+                rightIcon
+            }
+        }
+        .padding()
+        .background(.regularMaterial)
+        .clipShape(.rect(cornerRadius: 15))
+        .shadow(color: .black.opacity(0.3), radius: 8)
+        .onChange(of: isFocused) { newValue in // onChange syntax will need to change in later iOS
+            if viewModel.isSearchBarFocused != newValue {
+                viewModel.isSearchBarFocused = newValue
+            }
+            
+            if newValue == true {
+                onSearchBarTap?(true)
+            } else {
+                onSearchBarTap?(false)
+            }
+        }
+        .onChange(of: viewModel.isSearchBarFocused) { newValue in
+            if isFocused != newValue {
+                isFocused = newValue
+            }
         }
     }
     
-    @objc
-    private func tappedOnTextField() {
-        textField.becomeFirstResponder()
-        onStartSearch?(true)
-    }
-    
-    // Clear Button
-    @objc
-    private func rightButtonTapped() {
-        textField.text = ""
-        rightButton.isHidden = true
-        onClearInput?()
-    }
-    
-    // MARK: - Button Handlers
-    func setButtonStates(hasInput: Bool, isSearching: Bool) {
-        rightButton.isHidden = !hasInput
-        changeLeftButton(isSearching)
-    }
-    
-    func changeLeftButton(_ isSearching: Bool) {
-        guard leftButton.tag != (isSearching ? 1 : 0) else { return }
-        leftButton.tag = isSearching ? 1 : 0
-        leftButton.setImage(isSearching ? UIImage(named: "Back")?.colored(BMColor.searchBarIconColor)! : leftButtonImage.colored(BMColor.searchBarIconColor)!, for: .normal)
-        
-        if !isSearching {
-            textField.resignFirstResponder()
+    private var leftIcon: some View {
+        Button(action: {
+            if isFocused {
+                isFocused = false
+                viewModel.clearSearchText()
+            } else {
+                isFocused = true
+            }
+        }) {
+            Image(systemName: isFocused ? "chevron.left" : "magnifyingglass")
+                .foregroundStyle(Color(BMColor.searchBarIconColor))
+                .fontWeight(.semibold)
+                .frame(width: 20, alignment: .center) // So that changing an icon didn't move the TextField
         }
     }
     
-    // MARK: - Delegation Implementation
-    @objc private func textFieldDidChange(_ textField: UITextField) {
-        startSearch?.cancel()
-        textField.text = textField.text?.trimmingCharacters(in: .whitespaces).count == 0 ? "" : textField.text
-        setButtonStates(hasInput: textField.text?.count != 0, isSearching: true)
-        
-        startSearch = DispatchWorkItem { [weak self] in
-            guard let self = self, let startSearch = self.startSearch, !startSearch.isCancelled else { return }
-            self.delegate?.searchbarTextDidChange(textField)
+    private var rightIcon: some View {
+        Button(action: {
+            viewModel.clearSearchText()
+        }) {
+            Image(systemName: "xmark")
+                .foregroundStyle(Color(BMColor.searchBarIconColor))
+                .fontWeight(.semibold)
+                .frame(width: 20, alignment: .center)
         }
-        guard let search = self.startSearch else { return }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: search)
     }
     
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        textField.text = textField.text?.trimmingCharacters(in: .whitespaces).count == 0 ? "" : textField.text
-        setButtonStates(hasInput: textField.text?.count != 0, isSearching: true)
-        delegate?.searchbarTextFieldDidBeginEditing(textField)
+    init(onSearchBarTap: ((Bool) -> Void)? = nil) {
+        self.onSearchBarTap = onSearchBarTap
     }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        textField.text = textField.text?.trimmingCharacters(in: .whitespaces).count == 0 ? "" : textField.text
-        setButtonStates(hasInput: textField.text?.count != 0, isSearching: false)
-        delegate?.searchbarTextFieldDidEndEditing(textField)
-        textField.resignFirstResponder()
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.text = textField.text?.trimmingCharacters(in: .whitespaces).count == 0 ? "" : textField.text
-        setButtonStates(hasInput: textField.text?.count != 0, isSearching: false)
-        return delegate?.searchbarTextShouldReturn(textField) ?? true
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
 }
 
-protocol SearchBarDelegate: UITextFieldDelegate {
-    func searchbarTextDidChange(_ textField: UITextField)
-    func searchbarTextFieldDidBeginEditing(_ textField: UITextField)
-    func searchbarTextFieldDidEndEditing(_ textField: UITextField)
-    func searchbarTextShouldReturn(_ textField: UITextField) -> Bool
+#Preview {
+    SearchBarView()
+        .padding()
+        .ignoresSafeArea()
+        .environmentObject(SearchViewModel(chooseMapMarker: { mapMarker in
+            print("\(mapMarker)")
+        }, choosePlacemark: { placemark in
+            print("\(placemark)")
+        }))
 }

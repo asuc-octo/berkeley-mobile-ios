@@ -275,3 +275,17 @@ enum MapMarkerDetail {
     }
     
 }
+
+// MARK: - UIStackView
+extension UIStackView {
+    convenience init(arrangedSubviews: [UIView]? = nil, axis: NSLayoutConstraint.Axis, distribution: UIStackView.Distribution, spacing: CGFloat) {
+        if let arrangedSubviews = arrangedSubviews {
+            self.init(arrangedSubviews: arrangedSubviews)
+        } else {
+            self.init()
+        }
+        self.axis = axis
+        self.spacing = spacing
+        self.distribution = distribution
+    }
+}
