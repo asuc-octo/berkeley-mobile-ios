@@ -93,10 +93,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         createSearchBarComponents() // Initializes searchBarViewController
         addChild(searchBarViewController) // To give access to the focus environment
         
-        markerDetail = MapMarkerDetailView()
-        markerDetail.translatesAutoresizingMaskIntoConstraints = false
-        markerDetail.delegate = self
-        markerDetail.marker = nil
+        createMarkerDetail()
         
         fetchFromMapDataSource()
         createMapLocationButton()
@@ -176,6 +173,13 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         searchResultsView.translatesAutoresizingMaskIntoConstraints = false
         searchResultsView.backgroundColor = UIColor.clear
         showSearchResultsView(false)
+    }
+    
+    private func createMarkerDetail() {
+        markerDetail = MapMarkerDetailView()
+        markerDetail.translatesAutoresizingMaskIntoConstraints = false
+        markerDetail.delegate = self
+        markerDetail.marker = nil
     }
     
     private func createMapLocationButton() {
