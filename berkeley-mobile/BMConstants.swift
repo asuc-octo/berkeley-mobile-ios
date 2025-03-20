@@ -1,5 +1,5 @@
 //
-//  Constants.swift
+//  BMConstants.swift
 //  berkeley-mobile
 //
 //  Created by Justin Wong on 3/15/25.
@@ -9,7 +9,7 @@
 import Foundation
 import MapKit
 
-struct Constants {
+struct BMConstants {
     static var mapBoundsRegion: MKCoordinateRegion {
         let fullMapCenter = CLLocationCoordinate2D(latitude: 37.76251429388581, longitude: -122.27164812506234)
         let fullMapSpan = MKCoordinateSpan(latitudeDelta: 0.8458437031956976, longitudeDelta: 0.6425468841745499)

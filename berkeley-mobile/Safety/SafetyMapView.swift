@@ -25,7 +25,7 @@ struct SafetyMapView: View {
     }
     
     private var oldMapView: some View {
-        Map(coordinateRegion: .constant(Constants.mapBoundsRegion), showsUserLocation: true, annotationItems: safetyViewModel.filteredSafetyLogs) { safetyLog in
+        Map(coordinateRegion: .constant(BMConstants.mapBoundsRegion), showsUserLocation: true, annotationItems: safetyViewModel.filteredSafetyLogs) { safetyLog in
             MapPin(coordinate: safetyLog.coordinate)
         }
         .edgesIgnoringSafeArea(.all)
@@ -46,7 +46,7 @@ struct SafetyNewMapView: View {
     @Binding var isShowingLegend: Bool
     @Binding var drawerViewState: BMDrawerViewState
     
-    private let bounds = MapCameraBounds(centerCoordinateBounds: Constants.mapBoundsRegion, maximumDistance: Constants.mapMaxZoomDistance)
+    private let bounds = MapCameraBounds(centerCoordinateBounds: BMConstants.mapBoundsRegion, maximumDistance: BMConstants.mapMaxZoomDistance)
     
     var body: some View {
         ZStack {
@@ -122,7 +122,7 @@ struct SafetyNewMapView: View {
         Button(action: {
             withAnimation(.spring) {
                 isZoomIn.toggle()
-                mapCameraPosition = .region(Constants.berkeleyRegion)
+                mapCameraPosition = .region(BMConstants.berkeleyRegion)
                 drawerViewState = .small
             }
         }) {

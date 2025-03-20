@@ -73,10 +73,7 @@ final class SafetyViewModel: NSObject, ObservableObject {
         var count: Int
     }
     
-    @Published var region = MKCoordinateRegion(
-        center: CLLocation(latitude: CLLocationDegrees(exactly: 37.871684)!, longitude: CLLocationDegrees(-122.259934)).coordinate,
-        span: .init(latitudeDelta: 0.02, longitudeDelta: 0.02)
-    )
+    @Published var region = BMConstants.berkeleyRegion
     @Published var safetyLogs = [BMSafetyLog]()
     @Published var filteredSafetyLogs = [BMSafetyLog]()
     @Published var isFetchingLogs = false

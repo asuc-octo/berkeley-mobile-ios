@@ -119,14 +119,14 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
     }
     
     private func setMapBoundsAndZoom() {
-        mapView.cameraBoundary = MKMapView.CameraBoundary(coordinateRegion: Constants.mapBoundsRegion)
-        let maximumZoom = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: Constants.mapMaxZoomDistance)
+        mapView.cameraBoundary = MKMapView.CameraBoundary(coordinateRegion: BMConstants.mapBoundsRegion)
+        let maximumZoom = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: BMConstants.mapMaxZoomDistance)
         mapView.cameraZoomRange = maximumZoom
     }
     
     private func centerMapAtBerkeley() {
         mapView.isZoomEnabled = true
-        centerMapOnLocation(Constants.berkeleyLocation, mapView: mapView, animated: false)
+        centerMapOnLocation(BMConstants.berkeleyLocation, mapView: mapView, animated: false)
         updateCompassPosition()
     }
     
