@@ -11,27 +11,17 @@ import SwiftUI
 class HomeSectionListRowViewModel: ObservableObject {
     @Published var title = ""
     @Published var distance = 0.0
-    @Published var image = UIImage(imageLiteralResourceName: "DoeGlade")
+    @Published var image = Constants.doeGladeImage
     
     func configureRow(with rowItem: SearchItem & HasLocation & HasImage) {
         withAnimation {
             title = rowItem.searchName
             distance = rowItem.distanceToUser ?? 0.0
-            fetchImage(for: rowItem)
-        }
-    }
-    
-    private func fetchImage(for itemWithImage: HasImage) {
-        if let itemImage = itemWithImage.image {
-            image = itemImage
-        } else if let url = itemWithImage.imageURL {
-            ImageLoader.shared.getImage(url: url) { result in
-                switch result {
-                case .success(let image):
-                    self.image = image
-                default:
-                    break
+            rowItem.fetchImage { image in
+                guard let image else {
+                    return
                 }
+                self.image = image
             }
         }
     }
