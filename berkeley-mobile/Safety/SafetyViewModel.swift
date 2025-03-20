@@ -11,7 +11,6 @@ import Firebase
 import MapKit
 import SwiftUI
 
-
 struct BMSafetyLog: Identifiable, Codable, Hashable {
     
     var id = UUID()

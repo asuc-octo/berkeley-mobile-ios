@@ -97,10 +97,9 @@ struct SafetyNewMapView: View {
                         mapLegend
                             .shadow(color: .gray, radius: 10)
                     }
-                    Spacer()
                 }
-                Spacer()
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             .padding()
         }
     }
