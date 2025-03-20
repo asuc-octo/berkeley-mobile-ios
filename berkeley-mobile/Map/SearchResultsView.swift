@@ -22,7 +22,7 @@ struct SearchResultsView: View {
                     .frame(height: spacerHeight)
                 
             case .loading:
-                // In UIKit we are using activityIndicator.startAnimating() - wasn't sure if we should keep it.
+                // In UIKit we are using activityIndicator.startAnimating() - wasn't sure if we should keep it, so just used ProgressView().
                 ProgressView()
                 Spacer()
                     .frame(height: spacerHeight)

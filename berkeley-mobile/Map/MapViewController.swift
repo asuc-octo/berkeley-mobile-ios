@@ -89,10 +89,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         mapView.register(MKAnnotationView.self, forAnnotationViewWithReuseIdentifier: MapViewController.kAnnotationIdentifier)
         mapView.showsUserLocation = true
         
-        maskView = UIHostingController(rootView: MaskView()).view
-        maskView.translatesAutoresizingMaskIntoConstraints = false
-        maskView.backgroundColor = UIColor.clear
-
+        createMaskView()
         createSearchBarComponents() // Initializes searchBarViewController
         addChild(searchBarViewController) // To give access to the focus environment
         
@@ -146,6 +143,12 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         }
     }
 
+    private func createMaskView() {
+        maskView = UIHostingController(rootView: MaskView()).view
+        maskView.translatesAutoresizingMaskIntoConstraints = false
+        maskView.backgroundColor = UIColor.clear
+    }
+    
     private func createSearchBarComponents() {
         // SearchViewModel
         searchViewModel = SearchViewModel(chooseMapMarker: { mapMarker in
@@ -449,7 +452,7 @@ extension MapViewController: SearchResultsViewDelegate {
             // center map on searched location
             let coordinateRegion = MKCoordinateRegion(center: location.coordinate,
                                                       latitudinalMeters: regionRadius * 2.0, longitudinalMeters: regionRadius)
-            mapView.setRegion(coordinateRegion, animated: true)
+            mapView.setRegionWithDuration(coordinateRegion, duration: 0.5)
             let item = placemark.item
             if let item = item {
                 let annotation:SearchAnnotation = SearchAnnotation(item: item, location: location.coordinate)
@@ -505,7 +508,7 @@ extension MapViewController: SearchResultsViewDelegate {
             let coordinateLocation:CLLocationCoordinate2D = CLLocationCoordinate2DMake(location.0, location.1)
             let coordinateRegion = MKCoordinateRegion(center: coordinateLocation,
                                                       latitudinalMeters: regionRadius * 2.0, longitudinalMeters: regionRadius * 2.0)
-            mapView.setRegion(coordinateRegion, animated: true)
+            mapView.setRegionWithDuration(coordinateRegion, duration: 0.5)
             if !mapView.annotations.contains(where: { annotation in
                 return annotation as? MapMarker == mapMarker
             }) {
@@ -532,5 +535,13 @@ extension MapViewController {
     func handleDrawerDismissal() {
         removeAnnotations(type: SearchAnnotation.self)
         searchAnnotation = nil
+    }
+}
+
+extension MKMapView {
+    func setRegionWithDuration(_ zoomRegion: MKCoordinateRegion, duration: TimeInterval) {
+        MKMapView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0, initialSpringVelocity: 10, options: UIView.AnimationOptions.curveEaseIn, animations: {
+            self.setRegion(zoomRegion, animated: true)
+            }, completion: nil)
     }
 }
