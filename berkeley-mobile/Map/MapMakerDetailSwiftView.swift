@@ -5,7 +5,6 @@
 //  Created by Dylan Chhum on 3/11/25.
 //  Copyright © 2025 ASUC OCTO. All rights reserved.
 //
-
 import SwiftUI
 
 // MARK: - MapMakerDetailSwiftView
@@ -27,24 +26,25 @@ struct MapMakerDetailSwiftView: View {
                     infoRowView
                 }
             }
-            .background(Color.white)
+            .background(.white)
             .clipShape(RoundedRectangle(cornerRadius: 12))
             .frame(width: 400, height: 150)
-            .shadow(color: Color.black.opacity(0.2), radius: 10, x: 0, y: 5)
+            .shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: 5)
             .padding(.horizontal, 20)
         }
     }
     
     // MARK: - Private Views
+    
     private var background: some View {
-        Color(.black)
+            .black
             .opacity(0.4)
             .ignoresSafeArea()
     }
     
     private var colorAccentBar: some View {
         Rectangle()
-            .fill(Color.purple)
+            .fill(.purple)
             .frame(width: 10)
     }
     
@@ -57,9 +57,7 @@ struct MapMakerDetailSwiftView: View {
                 .padding(.top, 10)
             Spacer()
             
-            Button(action: {
-                return
-            }) {
+            Button(action: {}) {
                 Image(systemName: "xmark")
                     .padding(.trailing, 10)
                     .foregroundStyle(Color.gray)
@@ -92,15 +90,13 @@ struct MapMakerDetailSwiftView: View {
     }
     
     private var openStatusButton: some View {
-        Button(action : {
-            return
-        }) {
+        Button(action : {}) {
             Rectangle()
-                .fill(Color.blue)
+                .fill(.blue)
                 .cornerRadius(300)
                 .frame(width: 75, height: 25)
                 .overlay(Text("Open")
-                    .foregroundStyle(Color.white))
+                    .foregroundStyle(.white))
         }
     }
     
