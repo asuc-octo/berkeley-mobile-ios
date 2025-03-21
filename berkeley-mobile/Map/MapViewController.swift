@@ -44,15 +44,15 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
     var pinDelegate: SearchResultsViewDelegate?
     
     private var mapView: MKMapView!
-    private var maskView: UIView!
+    private var mapUserLocationButton: UIView!
+    private var mapMarkersDropdownButton: UIView!
+    
     private var searchBarViewController: UIViewController!
     private var searchBar: UIView!
     private var searchResultsView: UIView!
-    private var mapUserLocationButton: UIView!
-    private var mapMarkersDropdownButton: UIView!
-    private var compass: MKCompassButton!
-    
     private var searchViewModel: SearchViewModel!
+    
+    private var compass: MKCompassButton!
     
     // DrawerViewDelegate properties
     var drawerViewController: DrawerViewController?
@@ -89,7 +89,6 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         mapView.register(MKAnnotationView.self, forAnnotationViewWithReuseIdentifier: MapViewController.kAnnotationIdentifier)
         mapView.showsUserLocation = true
         
-        createMaskView()
         createSearchBarComponents() // Initializes searchBarViewController
         addChild(searchBarViewController) // To give access to the focus environment
         
@@ -99,7 +98,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         createMapLocationButton()
         createMapMarkerDropdownButton()
         
-        self.view.addSubViews([mapView, mapUserLocationButton, mapMarkersDropdownButton, markerDetail, maskView, searchResultsView, searchBar])
+        self.view.addSubViews([mapView, mapUserLocationButton, mapMarkersDropdownButton, markerDetail, searchResultsView, searchBar])
         setupSubviews()
         
         centerMapAtBerkeley()
@@ -138,12 +137,6 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
             // Select the first map marker option
             self.showMapMarkersFromFilterView(for: self.filters, on: self.mapMarkers, with: [0])
         }
-    }
-
-    private func createMaskView() {
-        maskView = UIHostingController(rootView: MaskView()).view
-        maskView.translatesAutoresizingMaskIntoConstraints = false
-        maskView.backgroundColor = .clear
     }
     
     private func createSearchBarComponents() {
@@ -217,7 +210,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         if compass != nil { return }
         mapView.showsCompass = false
         compass = MKCompassButton(mapView: mapView)
-        view.insertSubview(compass, belowSubview: maskView)
+        view.insertSubview(compass, belowSubview: searchResultsView)
         // Position the compass to bottom-right of `FilterView`
         compass.translatesAutoresizingMaskIntoConstraints = false
         compass.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor).isActive = true
@@ -246,25 +239,19 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         
         let searchBarTopMargin: CGFloat = 74 // 74.0 from view.topAnchor
         let searchBarHeight = searchBar.intrinsicContentSize.height // Prints 54.0
-        let searchResultsTopMargin: CGFloat = 10
         let mapBtnsTopMargin: CGFloat = 141
         let markerDetailBottomMargin: CGFloat = -96
         
         NSLayoutConstraint.activate([
-            maskView.topAnchor.constraint(equalTo: view.topAnchor),
-            maskView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            maskView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            maskView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            
             searchBar.topAnchor.constraint(equalTo: view.topAnchor, constant: searchBarTopMargin),
             searchBar.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
             searchBar.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
             searchBar.heightAnchor.constraint(equalToConstant: searchBarHeight),
             
-            searchResultsView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: searchResultsTopMargin),
-            searchResultsView.bottomAnchor.constraint(equalTo: maskView.bottomAnchor),
-            searchResultsView.leadingAnchor.constraint(equalTo: searchBar.leadingAnchor),
-            searchResultsView.trailingAnchor.constraint(equalTo: searchBar.trailingAnchor),
+            searchResultsView.topAnchor.constraint(equalTo: view.topAnchor),
+            searchResultsView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            searchResultsView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            searchResultsView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
             markerDetail.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: markerDetailBottomMargin),
             markerDetail.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor),
@@ -284,11 +271,9 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
     
     private func showSearchResultsView(_ show: Bool) {
         if show {
-            maskView.isHidden = false
             searchResultsView.isHidden = false
             mainContainer?.hideTop()
         } else {
-            maskView.isHidden = true
             searchResultsView.isHidden = true
             DispatchQueue.main.async {
                 self.homeViewModel?.drawerViewState = .small
@@ -336,6 +321,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
 
 }
 
+
 // MARK: - FilterViewDelegate, Analytics
 
 extension MapViewController: FilterViewDelegate {
@@ -352,6 +338,7 @@ extension MapViewController: FilterViewDelegate {
         updateMapMarkers()
     }
 }
+
 
 // MARK: - MKMapViewDelegate, Analytics {
 
@@ -422,6 +409,7 @@ extension MapViewController: MKMapViewDelegate {
     
 }
 
+
 // MARK: - MapMarkerDetailViewDelegate
 
 extension MapViewController: MapMarkerDetailViewDelegate {
@@ -436,6 +424,9 @@ extension MapViewController: MapMarkerDetailViewDelegate {
     }
     
 }
+
+
+// MARK: - SearchResultsViewDelegate
 
 extension MapViewController: SearchResultsViewDelegate {
 

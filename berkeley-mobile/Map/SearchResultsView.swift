@@ -11,34 +11,37 @@ import SwiftUI
 
 struct SearchResultsView: View {
     @EnvironmentObject var viewModel: SearchViewModel
-    let spacerHeight: CGFloat = 128 // Pushing some content visually to the center due to the top anchor of the SearchResultsView starting from the bottom of the SearchBarView
+    private let searchResultsListTopPadding: CGFloat = 138 // SearchBarTopMargin (74) + SearchBarHeight (54) + 10
     
     var body: some View {
-        VStack {
-            switch viewModel.state {
-            case .idle:
-                BMContentUnavailableView(iconName: "text.magnifyingglass", title: "Type Something", subtitle: "Search for anything you need.")
-                Spacer()
-                    .frame(height: spacerHeight)
-                
-            case .loading:
-                // In UIKit we are using activityIndicator.startAnimating() - wasn't sure if we should keep it, so just used ProgressView().
-                ProgressView()
-                Spacer()
-                    .frame(height: spacerHeight)
-                
-            case .populated:
-                populatedList
-                
-            case .empty:
-                BMContentUnavailableView(iconName: "magnifyingglass", title: "Nothing found!", subtitle: "Try a different keyword.")
-                Spacer()
-                    .frame(height: spacerHeight)
-                
-            case .error(let error):
-                BMContentUnavailableView(iconName: "exclamationmark.circle", title: "There is an Error", subtitle: error.localizedDescription)
-                Spacer()
-                    .frame(height: spacerHeight)
+        ZStack {
+            if viewModel.isSearchBarFocused {
+                // Masking view behind, when search bar is focused:
+                VStack{}
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(.regularMaterial)
+            }
+            
+            VStack {
+                switch viewModel.state {
+                case .idle:
+                    BMContentUnavailableView(iconName: "text.magnifyingglass", title: "Type Something", subtitle: "Search for anything you need.")
+                    
+                case .loading:
+                    // In UIKit we are using activityIndicator.startAnimating() - wasn't sure if we should keep it, so just used ProgressView().
+                    ProgressView()
+                    
+                case .populated:
+                    populatedList
+                        .padding(.top, searchResultsListTopPadding)
+                        .padding(.horizontal, 21)
+                    
+                case .empty:
+                    BMContentUnavailableView(iconName: "magnifyingglass", title: "Nothing found!", subtitle: "Try a different keyword.")
+                    
+                case .error(let error):
+                    BMContentUnavailableView(iconName: "exclamationmark.circle", title: "There is an Error", subtitle: error.localizedDescription)
+                }
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
@@ -64,6 +67,5 @@ struct SearchResultsView: View {
 
 #Preview {
     SearchResultsView()
-        .padding()
         .environmentObject(SearchViewModel(chooseMapMarker: { _ in }) { _ in })
 }
