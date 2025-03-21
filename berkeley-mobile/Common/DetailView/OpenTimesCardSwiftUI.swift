@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct OpenTimesCard: View {
-    let item: HasOpenTimes
-    
     @State private var isExpanded = false
+
+    let item: HasOpenTimes
     
     private let dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
     
     var body: some View {
-        VStack(spacing: 0) {
+        VStack {
             headerView()
                 .background(Color(BMColor.cardBackground))
                 .zIndex(1) 
@@ -63,7 +63,6 @@ struct OpenTimesCard: View {
                         Text(formatTimeIntervalText(nextOpenInterval.dateInterval))
                             .foregroundColor(Color(.darkGray))
                             .font(.system(size: 12, weight: nextOpenInterval.dateInterval.contains(Date()) ? .bold : .regular))
-                            .padding(.trailing, 0)
                     } 
                 }
                 
@@ -95,20 +94,17 @@ struct OpenTimesCard: View {
                 
                 HStack {
                     Text(day)
-                        .font(.system(size: 12, weight: isCurrentDay ? .bold : .regular)) 
                         .foregroundColor(.black)
                         .padding(.leading, 55)
-                        .lineSpacing(0) 
-                        
                     
                     Spacer()
                     
                     Text(hoursText(for: dayOfWeek, isCurrentDay: isCurrentDay))
-                        .font(.system(size: 12, weight: isCurrentDay ? .bold : .regular))
                         .foregroundColor(Color(.darkGray))
-                        .lineSpacing(0)
                         .padding(.trailing, 26)
                 }
+                .font(.system(size: 12, weight: isCurrentDay ? .bold : .regular))
+                .lineSpacing(0)
                 .frame(height: 22) 
                 .contentShape(Rectangle())
                 .lineLimit(1)
@@ -157,31 +153,6 @@ struct OpenTimesCard: View {
         }
         
         return formatter.string(from: start, to: end)
-    }
-}
-
-// Position the OpenTimesCard at the top of any view
-struct TimeCardTopModifier: ViewModifier {
-    func body(content: Content) -> some View {
-        ZStack(alignment: .top) {
-            Color(.systemGroupedBackground)
-                .edgesIgnoringSafeArea(.all)
-        
-            VStack {
-                content
-                    .padding(.horizontal, 16)
-                    .padding(.top, 12)
-
-                Spacer()
-                
-            }
-        }
-    }
-}
-
-extension View {
-    func positionedAtTop() -> some View {
-        self.modifier(TimeCardTopModifier())
     }
 }
 

@@ -25,3 +25,29 @@ struct HomeMapControlButtonStyle: ButtonStyle {
             )
     }
 }
+
+
+// MARK: - OpenTimesCard Positioning
+
+struct OpenTimesCardTopModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        ZStack(alignment: .top) {
+            Color(.systemGroupedBackground)
+                .edgesIgnoringSafeArea(.all)
+        
+            VStack {
+                content
+                    .padding(.horizontal, 16)
+                    .padding(.top, 12)
+
+                Spacer()
+            }
+        }
+    }
+}
+
+extension View {
+    func positionedAtTop() -> some View {
+        self.modifier(OpenTimesCardTopModifier())
+    }
+}
