@@ -51,7 +51,9 @@ class SearchViewModel: ObservableObject {
         self.choosePlacemark = choosePlacemark
     }
     
+    
     // MARK: - SearchBarView's funcs:
+    
     func clearSearchText() {
         searchText = ""
     }
@@ -80,7 +82,9 @@ class SearchViewModel: ObservableObject {
         }
     }
     
+    
     // MARK: - SearchResultsView's funcs:
+    
     func updatePlacemarksList(newPlacemarks: [MapPlacemark]?, error: Error?) {
         if let error {
             state = .error(error)

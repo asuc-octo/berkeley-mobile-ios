@@ -211,7 +211,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
                                                   latitudinalMeters: regionRadius * 2.0, longitudinalMeters: regionRadius * 2.0)
         mapView.setRegion(coordinateRegion, animated: animated)
     }
-
+    
     // Repoisitions the map's compass so that it is not obscured by the search bar.
     private func updateCompassPosition() {
         if compass != nil { return }

@@ -11,15 +11,13 @@ import SwiftUI
 
 struct SearchResultsListRowView: View {
     let placemark: MapPlacemark
-
+    
     var distance: Double? {
-        guard let userLocation = LocationManager.shared.userLocation,
-              let placemarkLocation = placemark.location
-        else {
+        guard let placemarkLocation = placemark.location else {
             return nil
         }
         
-        return round(userLocation.distance(from: placemarkLocation) / 1600.0 * 10) / 10
+        return placemarkLocation.distanceFromUser()
     }
     
     var body: some View {
@@ -67,4 +65,18 @@ struct SearchResultsListRowView: View {
     .background(.regularMaterial)
     .clipShape(.rect(cornerRadius: 12))
     .padding()
+}
+
+extension CLLocation {
+    /// Returns the distance to the user in miles if user location is shared, otherwise `nil`.
+    func distanceFromUser() -> Double? {
+        guard let userLocation = LocationManager.shared.userLocation else {
+            return nil
+        }
+        
+        let metersDistance = userLocation.distance(from: self)
+        let measurement = Measurement(value: metersDistance, unit: UnitLength.meters)
+        
+        return measurement.converted(to: .miles).value
+    }
 }
