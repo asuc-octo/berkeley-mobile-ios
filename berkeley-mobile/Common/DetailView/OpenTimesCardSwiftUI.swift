@@ -7,61 +7,30 @@
 
 import SwiftUI
 
-class SizeReporter: ObservableObject {
-    @Published var size: CGSize = .zero
-
-    var onSizeChange: ((CGSize) -> Void)?
-    
-    func updateSize(_ newSize: CGSize) {
-        if newSize != size {
-            size = newSize
-            onSizeChange?(newSize)
-        }
-    }
-}
-
 struct OpenTimesCard: View {
     let item: HasOpenTimes
-    @EnvironmentObject private var sizeReporter: SizeReporter
     
     @State private var isExpanded = false
     
     private let dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
     
     var body: some View {
-        GeometryReader { geometry in
-            VStack {
-                headerView()
-                    .background(Color.white)
-                    .frame(width: geometry.size.width)
-                
-                if isExpanded {
-                    expandableContentView()
-                        .transition(.opacity) 
-                }
-            }
-            .background(Color.white)
-            .cornerRadius(12)
-            .shadow(color: Color.black.opacity(0.05), radius: 3, x: 0, y: 1) 
-            .overlay(
-                GeometryReader { geometry in
-                    Color.clear
-                        .preference(key: SizePreferenceKey.self, value: geometry.size)
-                        .onAppear {
-                            sizeReporter.updateSize(geometry.size)
-                        }
-                }
-            )
-            .onPreferenceChange(SizePreferenceKey.self) { newSize in
-                if isExpanded {
-                    withAnimation(.spring(response: 0.6, dampingFraction: 1.0)) {
-                        sizeReporter.updateSize(newSize)
-                    }
-                } else {
-                    sizeReporter.updateSize(newSize)
-                }
+        VStack(spacing: 0) {
+            headerView()
+                .background(Color(BMColor.cardBackground))
+                .zIndex(1) 
+            
+            if isExpanded {
+                expandableContentView()
+                    .transition(.move(edge: .top).combined(with: .opacity))
             }
         }
+        .background(Color(BMColor.cardBackground))
+        .cornerRadius(15)
+        .shadow(color: .black.opacity(0.05), radius: 3, x: 0, y: 1)
+        .animation(.spring(response: 0.4, dampingFraction: 1.0), value: isExpanded)
+        .padding(.bottom, 8) 
+        .zIndex(100)
     }
     
     @ViewBuilder
@@ -74,7 +43,7 @@ struct OpenTimesCard: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 18, height: 18) 
-                    .foregroundColor(Color.gray)
+                    .foregroundColor(.gray)
                 
                 HStack {
                     if let isOpen = item.isOpen {
@@ -82,7 +51,7 @@ struct OpenTimesCard: View {
                             .font(.system(size: 12, weight: .medium)) 
                             .padding(.horizontal, 12) 
                             .padding(.vertical, 4) 
-                            .background(isOpen ? Color.blue : Color.blue.opacity(0.7)) 
+                            .background(isOpen ? .blue : .blue.opacity(0.7)) 
                             .foregroundColor(.white)
                             .cornerRadius(12)
                             .frame(width: 80, alignment: .leading)
@@ -95,16 +64,11 @@ struct OpenTimesCard: View {
                             .foregroundColor(Color(.darkGray))
                             .font(.system(size: 12, weight: nextOpenInterval.dateInterval.contains(Date()) ? .bold : .regular))
                             .padding(.trailing, 0)
-                    } else {
-                        Text("Closed")
-                            .font(.system(size: 12, weight: .regular)) 
-                            .foregroundColor(Color(.darkGray))
-                            .padding(.trailing, 0)
-                    }
+                    } 
                 }
                 
                 Image(systemName: "chevron.down")
-                    .foregroundColor(Color.gray)
+                    .foregroundColor(.gray)
                     .font(.system(size: 12, weight: .medium)) 
                     .rotationEffect(.degrees(isExpanded ? 180 : 0))
                     .animation(isExpanded ? nil : .spring(response: 0.6, dampingFraction: 1.0), value: isExpanded)
@@ -151,7 +115,7 @@ struct OpenTimesCard: View {
             }
         }
         .padding(.vertical, 6)
-        .background(.white)
+        .background(Color(BMColor.cardBackground))
     }
     
     private func toggleWithAnimation() {
@@ -161,7 +125,6 @@ struct OpenTimesCard: View {
     }
     
     private func hoursText(for day: DayOfWeek, isCurrentDay: Bool) -> String {
-        // Default if no weekly hours are available
         guard let weeklyHours = item.weeklyHours else {
             return "Closed"
         }
@@ -170,18 +133,15 @@ struct OpenTimesCard: View {
         
         guard !intervals.isEmpty, 
               !intervals.allSatisfy({ $0.dateInterval.duration <= 0 }),
-              let interval = intervals.first else {
+              let interval = intervals.first,
+              let start = interval.dateInterval.start.timeOnly(),
+              let end = interval.dateInterval.end.timeOnly() else {
             return "Closed"
         }
         
         let formatter = DateIntervalFormatter()
         formatter.dateStyle = .none
         formatter.timeStyle = .short
-        
-        guard let start = interval.dateInterval.start.timeOnly(),
-              let end = interval.dateInterval.end.timeOnly() else {
-            return "Closed"
-        }
         
         return formatter.string(from: start, to: end)
     }
@@ -191,20 +151,37 @@ struct OpenTimesCard: View {
         formatter.dateStyle = .none
         formatter.timeStyle = .short
         
-        if let start = interval.start.timeOnly(),
-           let end = interval.end.timeOnly() {
-            return formatter.string(from: start, to: end)
-        } else {
+        guard let start = interval.start.timeOnly(),
+              let end = interval.end.timeOnly() else {
             return ""
+        }
+        
+        return formatter.string(from: start, to: end)
+    }
+}
+
+// Position the OpenTimesCard at the top of any view
+struct TimeCardTopModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        ZStack(alignment: .top) {
+            Color(.systemGroupedBackground)
+                .edgesIgnoringSafeArea(.all)
+        
+            VStack {
+                content
+                    .padding(.horizontal, 16)
+                    .padding(.top, 12)
+
+                Spacer()
+                
+            }
         }
     }
 }
 
-struct SizePreferenceKey: PreferenceKey {
-    static var defaultValue: CGSize = .zero
-    
-    static func reduce(value: inout CGSize, nextValue: () -> CGSize) {
-        value = nextValue()
+extension View {
+    func positionedAtTop() -> some View {
+        self.modifier(TimeCardTopModifier())
     }
 }
 
@@ -214,21 +191,15 @@ struct SizePreferenceKey: PreferenceKey {
 struct OpenTimesCard_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            // Preview 1: Closed
             OpenTimesCard(item: ClosedItem())
-                .environmentObject(SizeReporter())
-                .frame(width: 350)
-                .background(Color(UIColor.systemGroupedBackground))
-                .padding()
+                .positionedAtTop()
+                .previewLayout(.sizeThatFits)
                 .previewDisplayName("Closed Item")
-            
-            // Preview 2: Open
-            OpenTimesCard(item: OpenItem())
-                .environmentObject(SizeReporter())
-                .frame(width: 350)
-                .background(Color(UIColor.systemGroupedBackground))
-                .padding()
-                .previewDisplayName("Open Item")
+        
+        OpenTimesCard(item: OpenItem())
+            .positionedAtTop()
+            .previewLayout(.sizeThatFits)
+            .previewDisplayName("Open Item")
         }
     }
     
@@ -250,15 +221,10 @@ struct OpenTimesCard_Previews: PreviewProvider {
     // Close hour sample item 
     struct OpenItem: HasOpenTimes {
         var weeklyHours: WeeklyHours? = createSampleWeeklyHours()
-        
-        var isOpen: Bool? {
-            return true
-        }
+        var isOpen: Bool? = true
         
         func nextOpenInterval() -> HoursInterval? {
-    
             guard let weeklyHours = weeklyHours else { return nil }
-            
             let today = DayOfWeek.weekday(Date())
             let intervals = weeklyHours.hoursForWeekday(today)
             return intervals.first
@@ -292,4 +258,3 @@ struct OpenTimesCard_Previews: PreviewProvider {
         }
     }
 }
-
