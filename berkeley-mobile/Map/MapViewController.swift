@@ -406,7 +406,6 @@ extension MapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
         mapUserLocationViewModel.isHomingInOnUserLocation = mapUserLocationButtonTapped
     }
-    
 }
 
 
@@ -422,7 +421,6 @@ extension MapViewController: MapMarkerDetailViewDelegate {
             }
         }
     }
-    
 }
 
 
@@ -450,7 +448,7 @@ extension MapViewController: SearchResultsViewDelegate {
             mapView.setRegionWithDuration(coordinateRegion, duration: 0.5)
             let item = placemark.item
             if let item {
-                let annotation:SearchAnnotation = SearchAnnotation(item: item, location: location.coordinate)
+                let annotation: SearchAnnotation = SearchAnnotation(item: item, location: location.coordinate)
                 annotation.title = item.searchName
                 searchAnnotation = annotation
                 // add and select marker for search item, remove resource view if any
@@ -466,6 +464,7 @@ extension MapViewController: SearchResultsViewDelegate {
                     self.previousPlaceMark = annotation
                 }
                 mapView.selectAnnotation(annotation, animated: true)
+                
                 if markerDetail.marker != nil {
                     mapView.deselectAnnotation(markerDetail.marker, animated: true)
                 }
@@ -479,7 +478,6 @@ extension MapViewController: SearchResultsViewDelegate {
             }
         }
         DispatchQueue.main.async {
-            // clear text field
             self.showSearchResultsView(false)
         }
     }
@@ -504,6 +502,7 @@ extension MapViewController: SearchResultsViewDelegate {
             let coordinateRegion = MKCoordinateRegion(center: coordinateLocation,
                                                       latitudinalMeters: regionRadius * 2.0, longitudinalMeters: regionRadius * 2.0)
             mapView.setRegionWithDuration(coordinateRegion, duration: 0.5)
+            
             if !mapView.annotations.contains(where: { annotation in
                 return annotation as? MapMarker == mapMarker
             }) {
@@ -512,7 +511,9 @@ extension MapViewController: SearchResultsViewDelegate {
             }
             mapView.selectAnnotation(mapMarker, animated: true)
             
-            homeViewModel?.isShowingDrawer = false
+            DispatchQueue.main.async { // Sth somewhere sets .isShowingDrawer back to true, asynchronously. might be animation, but this helps to set it correctly when MapMarker is chosen.
+                self.homeViewModel?.isShowingDrawer = false
+            }
         }
     }
 }
