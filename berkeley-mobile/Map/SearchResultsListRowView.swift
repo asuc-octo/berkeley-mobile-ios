@@ -68,6 +68,7 @@ struct SearchResultsListRowView: View {
 }
 
 extension CLLocation {
+    
     /// Returns the distance to the user in miles if user location is shared, otherwise `nil`.
     func distanceFromUser() -> Double? {
         guard let userLocation = LocationManager.shared.userLocation else {
