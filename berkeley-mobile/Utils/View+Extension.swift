@@ -27,6 +27,25 @@ struct BMControlButtonStyle: ButtonStyle {
 }
 
 
+// MARK: - OpenTimesCard Positioning
+
+struct OpenTimesCardTopModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        ZStack(alignment: .top) {
+            Color(.systemGroupedBackground)
+                .edgesIgnoringSafeArea(.all)
+        
+            VStack {
+                content
+                    .padding(.horizontal, 16)
+                    .padding(.top, 12)
+
+                Spacer()
+            }
+        }
+    }
+}
+
 struct Cardify: ViewModifier {
     func body(content: Content) -> some View {
         content
@@ -40,6 +59,10 @@ struct Cardify: ViewModifier {
 }
 
 extension View {
+    func positionedAtTop() -> some View {
+        self.modifier(OpenTimesCardTopModifier())
+    }
+  
     func cardify() -> some View {
         self.modifier(Cardify())
     }
