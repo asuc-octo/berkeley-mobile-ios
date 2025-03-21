@@ -19,7 +19,7 @@ struct SearchBarView: View {
     
     var body: some View {
         HStack {
-            leftIcon
+            searchOrBackIcon
             
             TextField("What are you looking for?", text: $viewModel.searchText)
                 .focused($isFocused)
@@ -28,7 +28,7 @@ struct SearchBarView: View {
                 }
             
             if !viewModel.searchText.isEmpty {
-                rightIcon
+                clearTextIcon
             }
         }
         .padding()
@@ -39,12 +39,7 @@ struct SearchBarView: View {
             if viewModel.isSearchBarFocused != newValue {
                 viewModel.isSearchBarFocused = newValue
             }
-            
-            if newValue == true {
-                onSearchBarTap?(true)
-            } else {
-                onSearchBarTap?(false)
-            }
+            onSearchBarTap?(newValue)
         }
         .onChange(of: viewModel.isSearchBarFocused) { newValue in
             if isFocused != newValue {
@@ -53,14 +48,12 @@ struct SearchBarView: View {
         }
     }
     
-    private var leftIcon: some View {
+    private var searchOrBackIcon: some View {
         Button(action: {
             if isFocused {
-                isFocused = false
                 viewModel.clearSearchText()
-            } else {
-                isFocused = true
             }
+            isFocused.toggle()
         }) {
             Image(systemName: isFocused ? "chevron.left" : "magnifyingglass")
                 .foregroundStyle(Color(BMColor.searchBarIconColor))
@@ -69,7 +62,7 @@ struct SearchBarView: View {
         }
     }
     
-    private var rightIcon: some View {
+    private var clearTextIcon: some View {
         Button(action: {
             viewModel.clearSearchText()
         }) {
@@ -89,9 +82,5 @@ struct SearchBarView: View {
     SearchBarView()
         .padding()
         .ignoresSafeArea()
-        .environmentObject(SearchViewModel(chooseMapMarker: { mapMarker in
-            print("\(mapMarker)")
-        }, choosePlacemark: { placemark in
-            print("\(placemark)")
-        }))
+        .environmentObject(SearchViewModel(chooseMapMarker: { _ in }) { _ in })
 }

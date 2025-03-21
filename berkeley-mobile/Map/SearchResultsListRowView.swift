@@ -13,9 +13,8 @@ struct SearchResultsListRowView: View {
     let placemark: MapPlacemark
 
     var distance: Double? {
-        guard
-            let userLocation = LocationManager.shared.userLocation,
-            let placemarkLocation = placemark.location
+        guard let userLocation = LocationManager.shared.userLocation,
+              let placemarkLocation = placemark.location
         else {
             return nil
         }
@@ -32,7 +31,7 @@ struct SearchResultsListRowView: View {
                     .frame(width: 8)
                     .foregroundStyle(Color(BMColor.searchBarIconColor))
                 
-                if let distance { // If user location is unavailable, then we don't show the distance
+                if let distance {
                     Text("\(distance, specifier: "%.1f") mi")
                         .font(Font(BMFont.regular(12)))
                 }
@@ -48,11 +47,10 @@ struct SearchResultsListRowView: View {
             }
             .frame(height: 36)
             
-            Spacer() // To push stuff to the leading edge.
+            Spacer()
         }
         .padding(10)
         .frame(height: 60.0)
-        .frame(maxWidth: .infinity)
     }
 }
 
@@ -60,7 +58,7 @@ struct SearchResultsListRowView: View {
     let previewCoordinates = CLLocation(latitude: 37.87538, longitude: -122.25612109999999)
     let previewPlacemark = MapPlacemark(loc: previewCoordinates, name: "Foothill", locName: "2700 Hearst Ave, Berkeley, CA 94720")
     
-    return VStack {
+    VStack {
         Button(action: {}) {
             SearchResultsListRowView(placemark: previewPlacemark)
         }

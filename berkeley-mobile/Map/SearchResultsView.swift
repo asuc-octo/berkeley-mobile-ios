@@ -65,9 +65,5 @@ struct SearchResultsView: View {
 #Preview {
     SearchResultsView()
         .padding()
-        .environmentObject(SearchViewModel(chooseMapMarker: { mapMarker in
-            print("\(mapMarker)")
-        }, choosePlacemark: { placemark in
-            print("\(placemark)")
-        }))
+        .environmentObject(SearchViewModel(chooseMapMarker: { _ in }) { _ in })
 }

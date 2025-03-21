@@ -51,17 +51,18 @@ class SearchViewModel: ObservableObject {
         self.choosePlacemark = choosePlacemark
     }
     
-    // SearchBarView's funcs:
+    // MARK: - SearchBarView's funcs:
     func clearSearchText() {
         searchText = ""
     }
     
     func searchLocations(_ keyword: String, completion: (([MapPlacemark], Error?) -> Void)? = nil) {
-        
         state = .loading
         
         DispatchQueue.global(qos: .userInteractive).async { [weak self] in
-            guard let self = self else { return }
+            guard let self else {
+                return
+            }
             
             let data = DataManager.shared.searchable
             let filtered = data.filter { ($0.searchName.lowercased().contains(keyword.lowercased()) && $0.location.0 != 0 && $0.location.1 != 0) }
@@ -79,14 +80,14 @@ class SearchViewModel: ObservableObject {
         }
     }
     
-    // SearchResultsView's funcs:
+    // MARK: - SearchResultsView's funcs:
     func updatePlacemarksList(newPlacemarks: [MapPlacemark]?, error: Error?) {
-        if let error = error {
+        if let error {
             state = .error(error)
             return
         }
         
-        guard let newPlacemarks = newPlacemarks, !newPlacemarks.isEmpty else {
+        guard let newPlacemarks, !newPlacemarks.isEmpty else {
             if searchText.isEmpty {
                 state = .idle
             } else {
@@ -102,8 +103,8 @@ class SearchViewModel: ObservableObject {
         searchText = ""
         isSearchBarFocused = false
         
-        if let placemark = placemark.item as? MapMarker {
-            chooseMapMarker(placemark)
+        if let mapMarker = placemark.item as? MapMarker {
+            chooseMapMarker(mapMarker)
         }
         else {
             choosePlacemark(placemark)

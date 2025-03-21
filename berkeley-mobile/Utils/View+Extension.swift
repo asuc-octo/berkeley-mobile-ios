@@ -49,5 +49,5 @@ struct Cardify: ViewModifier {
 extension View {
     func cardify() -> some View {
         self.modifier(Cardify())
-        }
+    }
 }

@@ -74,7 +74,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
     private var markerDetail: MapMarkerDetailView!
     
     var homeViewModel: HomeViewModel?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -143,20 +143,20 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
     private func createMaskView() {
         maskView = UIHostingController(rootView: MaskView()).view
         maskView.translatesAutoresizingMaskIntoConstraints = false
-        maskView.backgroundColor = UIColor.clear
+        maskView.backgroundColor = .clear
     }
     
     private func createSearchBarComponents() {
-        // SearchViewModel
         searchViewModel = SearchViewModel(chooseMapMarker: { mapMarker in
             self.chooseMapMarker(mapMarker)
         }) { placemark in
             self.choosePlacemark(placemark)
         }
         
-        // SearchBarView
         let searchBarView = SearchBarView(onSearchBarTap: { [weak self] isSearching in
-            guard let self = self else { return }
+            guard let self else {
+                return
+            }
             self.homeViewModel?.isShowingDrawer = !isSearching
             self.showSearchResultsView(isSearching)
         })
@@ -166,12 +166,11 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         searchBar = searchBarViewController.view
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         searchBar.isUserInteractionEnabled = true
-        searchBar.backgroundColor = UIColor.clear
+        searchBar.backgroundColor = .clear
         
-        // SearchResultsView
         searchResultsView = UIHostingController(rootView: SearchResultsView().environmentObject(searchViewModel)).view
         searchResultsView.translatesAutoresizingMaskIntoConstraints = false
-        searchResultsView.backgroundColor = UIColor.clear
+        searchResultsView.backgroundColor = .clear
         showSearchResultsView(false)
     }
     
@@ -247,6 +246,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         
         let searchBarTopMargin: CGFloat = 74 // 74.0 from view.topAnchor
         let searchBarHeight = searchBar.intrinsicContentSize.height // Prints 54.0
+        let searchResultsTopMargin: CGFloat = 10
         let mapBtnsTopMargin: CGFloat = 141
         let markerDetailBottomMargin: CGFloat = -96
         
@@ -261,7 +261,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
             searchBar.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
             searchBar.heightAnchor.constraint(equalToConstant: searchBarHeight),
             
-            searchResultsView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
+            searchResultsView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: searchResultsTopMargin),
             searchResultsView.bottomAnchor.constraint(equalTo: maskView.bottomAnchor),
             searchResultsView.leadingAnchor.constraint(equalTo: searchBar.leadingAnchor),
             searchResultsView.trailingAnchor.constraint(equalTo: searchBar.trailingAnchor),
@@ -458,7 +458,7 @@ extension MapViewController: SearchResultsViewDelegate {
                                                       latitudinalMeters: regionRadius * 2.0, longitudinalMeters: regionRadius)
             mapView.setRegionWithDuration(coordinateRegion, duration: 0.5)
             let item = placemark.item
-            if let item = item {
+            if let item {
                 let annotation:SearchAnnotation = SearchAnnotation(item: item, location: location.coordinate)
                 annotation.title = item.searchName
                 searchAnnotation = annotation

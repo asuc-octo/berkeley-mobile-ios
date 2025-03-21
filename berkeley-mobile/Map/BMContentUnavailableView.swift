@@ -14,7 +14,7 @@ struct BMContentUnavailableView: View {
     let subtitle: String
     
     var body: some View {
-        VStack(spacing: 0) {
+        VStack {
             Image(systemName: iconName)
                 .resizable()
                 .scaledToFit()
