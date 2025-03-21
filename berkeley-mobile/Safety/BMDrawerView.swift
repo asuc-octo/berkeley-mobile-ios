@@ -129,7 +129,7 @@ struct BMDrawerView<Content: View>: View {
     private func shrinkDrawerState(to newState: BMDrawerViewState) {
         switch newState {
         case .small:
-            endOffset = startingOffset * 0.88
+            endOffset = startingOffset * 0.7
         case .medium:
             endOffset = -startingOffset / 6.8
         case .large:

@@ -12,7 +12,7 @@ import SwiftUI
 class TabBarController: UITabBarController, UITabBarControllerDelegate {
     
     let mapView = MainContainerViewController()
-    let calendarView = CalendarViewController()
+    let calendarView = UIHostingController(rootView: EventsView())
     let safetyView = UIHostingController(rootView: SafetyView())
     let resourcesView = UIHostingController(rootView: ResourcesView())
 
