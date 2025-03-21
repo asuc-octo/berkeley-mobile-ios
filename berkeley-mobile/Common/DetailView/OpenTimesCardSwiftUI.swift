@@ -156,25 +156,6 @@ struct OpenTimesCard: View {
     }
 }
 
-
-// MARK: - Preview
-
-struct OpenTimesCard_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            OpenTimesCard(item: ClosedItem())
-                .positionedAtTop()
-                .previewLayout(.sizeThatFits)
-                .previewDisplayName("Closed Item")
-        
-        OpenTimesCard(item: OpenItem())
-            .positionedAtTop()
-            .previewLayout(.sizeThatFits)
-            .previewDisplayName("Open Item")
-        }
-    }
-    
-    // Open hour sample item 
     struct ClosedItem: HasOpenTimes {
         var weeklyHours: WeeklyHours? = createEmptyWeeklyHours()
         var isOpen: Bool? = false
@@ -189,7 +170,6 @@ struct OpenTimesCard_Previews: PreviewProvider {
         }
     }
     
-    // Close hour sample item 
     struct OpenItem: HasOpenTimes {
         var weeklyHours: WeeklyHours? = createSampleWeeklyHours()
         var isOpen: Bool? = true
@@ -228,4 +208,20 @@ struct OpenTimesCard_Previews: PreviewProvider {
             return weeklyHours
         }
     }
+
+
+// MARK: - Previews
+
+#Preview("Closed Item Card") {
+    OpenTimesCard(item: ClosedItem())
+        .positionedAtTop()
+        .previewLayout(.sizeThatFits)
 }
+ 
+#Preview("Open Item Card") {
+    OpenTimesCard(item: OpenItem())
+        .positionedAtTop()
+        .previewLayout(.sizeThatFits)
+}
+
+
