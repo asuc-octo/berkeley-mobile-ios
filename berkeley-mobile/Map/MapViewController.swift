@@ -82,14 +82,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         mapView = MKMapView()
         mapView.delegate = self
         
-        // Setting the map boundaries:
-        let fullMapCenter = CLLocationCoordinate2D(latitude: 37.76251429388581, longitude: -122.27164812506234)
-        let fullMapSpan = MKCoordinateSpan(latitudeDelta: 0.8458437031956976, longitudeDelta: 0.6425468841745499)
-        let fullMapRegion = MKCoordinateRegion(center: fullMapCenter, span: fullMapSpan)
-        mapView.cameraBoundary = MKMapView.CameraBoundary(coordinateRegion: fullMapRegion)
-        let cameraDistance: CLLocationDistance = 300000
-        let maximumZoom = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: cameraDistance)
-        mapView.cameraZoomRange = maximumZoom
+        setMapBoundsAndZoom()
         
         mapView.register(MKAnnotationView.self, forAnnotationViewWithReuseIdentifier: MapViewController.kAnnotationIdentifier)
         maskView = UIView()
@@ -125,9 +118,15 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         centerMapAtBerkeley()
     }
     
+    private func setMapBoundsAndZoom() {
+        mapView.cameraBoundary = MKMapView.CameraBoundary(coordinateRegion: BMConstants.mapBoundsRegion)
+        let maximumZoom = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: BMConstants.mapMaxZoomDistance)
+        mapView.cameraZoomRange = maximumZoom
+    }
+    
     private func centerMapAtBerkeley() {
         mapView.isZoomEnabled = true
-        centerMapOnLocation(CLLocation(latitude: CLLocationDegrees(exactly: 37.871684)!, longitude: CLLocationDegrees(-122.259934)), mapView: mapView, animated: false)
+        centerMapOnLocation(BMConstants.berkeleyLocation, mapView: mapView, animated: false)
         updateCompassPosition()
     }
     
@@ -232,12 +231,12 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         NSLayoutConstraint.activate([
             mapUserLocationButton.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
             mapUserLocationButton.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: kViewMargin),
-            mapUserLocationButton.widthAnchor.constraint(equalToConstant: HomeMapControlButtonStyle.widthAndHeight),
-            mapUserLocationButton.heightAnchor.constraint(equalToConstant: HomeMapControlButtonStyle.widthAndHeight),
+            mapUserLocationButton.widthAnchor.constraint(equalToConstant: BMControlButtonStyle.widthAndHeight),
+            mapUserLocationButton.heightAnchor.constraint(equalToConstant: BMControlButtonStyle.widthAndHeight),
             
             mapMarkersDropdownButton.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
-            mapMarkersDropdownButton.widthAnchor.constraint(equalToConstant: HomeMapControlButtonStyle.widthAndHeight),
-            mapMarkersDropdownButton.heightAnchor.constraint(equalToConstant: HomeMapControlButtonStyle.widthAndHeight),
+            mapMarkersDropdownButton.widthAnchor.constraint(equalToConstant: BMControlButtonStyle.widthAndHeight),
+            mapMarkersDropdownButton.heightAnchor.constraint(equalToConstant: BMControlButtonStyle.widthAndHeight),
             mapMarkersDropdownButton.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: kViewMargin)
         ])
     }
