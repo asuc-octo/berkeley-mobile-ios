@@ -28,7 +28,6 @@ struct SearchResultsView: View {
                     BMContentUnavailableView(iconName: "text.magnifyingglass", title: "Type Something", subtitle: "Search for anything you need.")
                     
                 case .loading:
-                    // In UIKit we are using activityIndicator.startAnimating() - wasn't sure if we should keep it, so just used ProgressView().
                     ProgressView()
                     
                 case .populated:

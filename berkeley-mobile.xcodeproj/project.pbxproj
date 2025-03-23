@@ -129,6 +129,7 @@
 		2ED4FB672D8A3FA00086306A /* BMContentUnavailableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED4FB662D8A3FA00086306A /* BMContentUnavailableView.swift */; };
 		2ED4FB692D8B7C430086306A /* SearchResultsListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED4FB682D8B7C430086306A /* SearchResultsListRowView.swift */; };
 		2ED4FB6B2D8BCB390086306A /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED4FB6A2D8BCB390086306A /* SearchViewModel.swift */; };
+		2EDE80992D90BE620037BA9F /* CLLocation+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDE80982D90BE620037BA9F /* CLLocation+Extension.swift */; };
 		303F6AE1236A931D007E37DD /* SegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303F6ADD236A931D007E37DD /* SegmentedControl.swift */; };
 		303F6AE4236A931D007E37DD /* SegmentedControlViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303F6AE0236A931D007E37DD /* SegmentedControlViewController.swift */; };
 		306A54EA23613E3A00D59A7F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306A54E923613E3A00D59A7F /* AppDelegate.swift */; };
@@ -315,6 +316,7 @@
 		2ED4FB662D8A3FA00086306A /* BMContentUnavailableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMContentUnavailableView.swift; sourceTree = "<group>"; };
 		2ED4FB682D8B7C430086306A /* SearchResultsListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsListRowView.swift; sourceTree = "<group>"; };
 		2ED4FB6A2D8BCB390086306A /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		2EDE80982D90BE620037BA9F /* CLLocation+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocation+Extension.swift"; sourceTree = "<group>"; };
 		303F6ADD236A931D007E37DD /* SegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedControl.swift; sourceTree = "<group>"; };
 		303F6AE0236A931D007E37DD /* SegmentedControlViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedControlViewController.swift; sourceTree = "<group>"; };
 		306A54E623613E3A00D59A7F /* Berkeley.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Berkeley.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -631,6 +633,7 @@
 				E8FCD6872C38AEC9004B66A3 /* String+Extension.swift */,
 				E80330EC2CE7EBB100DC9574 /* NSCoding+Extension.swift */,
 				E83B6D982D7121D300AA9422 /* View+Extension.swift */,
+				2EDE80982D90BE620037BA9F /* CLLocation+Extension.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1180,6 +1183,7 @@
 				29B3A1742439A60A00093750 /* DiningMenuCell.swift in Sources */,
 				1336A326241D9B9900949F32 /* DiningHall.swift in Sources */,
 				29061D41241C450E002BC9D9 /* HasLocation.swift in Sources */,
+				2EDE80992D90BE620037BA9F /* CLLocation+Extension.swift in Sources */,
 				1336A31A241C3FD300949F32 /* GymClassDataSource.swift in Sources */,
 				29387E9524BBBC1000070BCE /* BarGraph.swift in Sources */,
 				E8B2738F2BD5E46B0009831A /* BMDrawerView.swift in Sources */,

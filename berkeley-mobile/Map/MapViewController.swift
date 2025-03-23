@@ -536,7 +536,7 @@ extension MapViewController {
 
 extension MKMapView {
     func setRegionWithDuration(_ zoomRegion: MKCoordinateRegion, duration: TimeInterval) {
-        MKMapView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0, initialSpringVelocity: 10, options: UIView.AnimationOptions.curveEaseIn, animations: {
+        UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0, initialSpringVelocity: 10, options: .curveEaseIn, animations: {
             self.setRegion(zoomRegion, animated: true)
             }, completion: nil)
     }

@@ -9,8 +9,6 @@
 import MapKit
 import SwiftUI
 
-// MARK: - SearchBarView
-
 struct SearchBarView: View {
     @EnvironmentObject var viewModel: SearchViewModel
     @FocusState private var isFocused: Bool
