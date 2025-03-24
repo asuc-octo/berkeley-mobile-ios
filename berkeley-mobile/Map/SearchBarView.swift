@@ -34,15 +34,11 @@ struct SearchBarView: View {
         .clipShape(.rect(cornerRadius: 15))
         .shadow(color: .black.opacity(0.3), radius: 8)
         .onChange(of: isFocused) { newValue in // onChange syntax will need to change in later iOS
-            if viewModel.isSearchBarFocused != newValue {
-                viewModel.isSearchBarFocused = newValue
-            }
+            viewModel.isSearchBarFocused = newValue
             onSearchBarTap?(newValue)
         }
         .onChange(of: viewModel.isSearchBarFocused) { newValue in
-            if isFocused != newValue {
-                isFocused = newValue
-            }
+            isFocused = newValue
         }
     }
     
