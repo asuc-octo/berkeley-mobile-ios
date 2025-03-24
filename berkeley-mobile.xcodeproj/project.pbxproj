@@ -80,7 +80,6 @@
 		13EA64CD2399CEDA00FD8E13 /* Gym.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13EA64CC2399CEDA00FD8E13 /* Gym.swift */; };
 		13EA64D02399D50C00FD8E13 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13EA64CF2399D50C00FD8E13 /* DataManager.swift */; };
 		1DB006AD2D71C8D6001CC870 /* ResourcesSectionDropdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB006AC2D71C8C0001CC870 /* ResourcesSectionDropdown.swift */; };
-		1DB006AF2D7C1C61001CC870 /* GymDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB006AE2D7C1C61001CC870 /* GymDetailView.swift */; };
 		1DB006B12D7C1CD0001CC870 /* OpenTimesCardSwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB006B02D7C1CD0001CC870 /* OpenTimesCardSwiftUI.swift */; };
 		29061D41241C450E002BC9D9 /* HasLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29061D40241C450E002BC9D9 /* HasLocation.swift */; };
 		2913595724B136BE00DE9AD6 /* CollapsibleCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2913595624B136BE00DE9AD6 /* CollapsibleCardView.swift */; };
@@ -267,7 +266,6 @@
 		13EA64CC2399CEDA00FD8E13 /* Gym.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gym.swift; sourceTree = "<group>"; };
 		13EA64CF2399D50C00FD8E13 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		1DB006AC2D71C8C0001CC870 /* ResourcesSectionDropdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcesSectionDropdown.swift; sourceTree = "<group>"; };
-		1DB006AE2D7C1C61001CC870 /* GymDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailView.swift; sourceTree = "<group>"; };
 		1DB006B02D7C1CD0001CC870 /* OpenTimesCardSwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenTimesCardSwiftUI.swift; sourceTree = "<group>"; };
 		29061D40241C450E002BC9D9 /* HasLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasLocation.swift; sourceTree = "<group>"; };
 		2913595624B136BE00DE9AD6 /* CollapsibleCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsibleCardView.swift; sourceTree = "<group>"; };
@@ -511,7 +509,6 @@
 				13EA64C62399CDF900FD8E13 /* GymDataSource */,
 				1336A31D241C400F00949F32 /* GymClassDataSource */,
 				01D11B8F2504560700BDF660 /* GymDetailViewController.swift */,
-				1DB006AE2D7C1C61001CC870 /* GymDetailView.swift */,
 				13E25DFC238C949E00B670B5 /* FitnessViewController.swift */,
 				135D7F78243AA6B1003F8BD1 /* Fitness+Controllers */,
 				E83B6DA42D7A85D500AA9422 /* GymOccupancyScrapper.swift */,
@@ -1220,7 +1217,6 @@
 				01AA1B88253BB4AC003AB75A /* UIScrollView+GestureRecognizer.swift in Sources */,
 				13491DB6241E21740033F9AB /* Colors+TagView.swift in Sources */,
 				E8FCD6882C38AEC9004B66A3 /* String+Extension.swift in Sources */,
-				1DB006AF2D7C1C61001CC870 /* GymDetailView.swift in Sources */,
 				556CCD2223E7771800F41BF9 /* MapPlacemark.swift in Sources */,
 				297678872426B7BA00FDD1EB /* SearchAnnotation.swift in Sources */,
 				01CDFF6A257C614900D9FBD6 /* Colors+Resource.swift in Sources */,

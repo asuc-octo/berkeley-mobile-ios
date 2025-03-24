@@ -33,7 +33,7 @@ struct OpenTimesCardTopModifier: ViewModifier {
     func body(content: Content) -> some View {
         ZStack(alignment: .top) {
             Color(.systemGroupedBackground)
-                .edgesIgnoringSafeArea(.all)
+                .ignoresSafeArea(.all)
         
             VStack {
                 content

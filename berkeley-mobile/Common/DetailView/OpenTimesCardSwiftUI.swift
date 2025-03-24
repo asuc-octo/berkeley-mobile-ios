@@ -39,39 +39,17 @@ struct OpenTimesCard: View {
             toggleWithAnimation()
         }) {
             HStack(spacing: 12) { 
-                Image(systemName: "clock.fill") 
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 18, height: 18) 
-                    .foregroundColor(.gray)
+                clockIcon
                 
                 HStack {
-                    if let isOpen = item.isOpen {
-                        Text(isOpen ? "Open" : "Closed")
-                            .font(.system(size: 12, weight: .medium)) 
-                            .padding(.horizontal, 12) 
-                            .padding(.vertical, 4) 
-                            .background(isOpen ? .blue : .blue.opacity(0.7)) 
-                            .foregroundColor(.white)
-                            .cornerRadius(12)
-                            .frame(width: 80, alignment: .leading)
-                    }
+                    statusBadge
                     
                     Spacer()
                     
-                    if let nextOpenInterval = item.nextOpenInterval() {
-                        Text(formatTimeIntervalText(nextOpenInterval.dateInterval))
-                            .foregroundColor(Color(.darkGray))
-                            .font(.system(size: 12, weight: nextOpenInterval.dateInterval.contains(Date()) ? .bold : .regular))
-                    } 
+                    openTimeText
                 }
                 
-                Image(systemName: "chevron.down")
-                    .foregroundColor(.gray)
-                    .font(.system(size: 12, weight: .medium)) 
-                    .rotationEffect(.degrees(isExpanded ? 180 : 0))
-                    .animation(isExpanded ? nil : .spring(response: 0.6, dampingFraction: 1.0), value: isExpanded)
-                    .frame(width: 14)
+                chevronIcon
             }
             .contentShape(Rectangle()) 
             .padding(.horizontal, 14) 
@@ -82,6 +60,46 @@ struct OpenTimesCard: View {
         if isExpanded {
             Divider()
         }
+    }
+    
+    private var clockIcon: some View {
+        Image(systemName: "clock") 
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .frame(width: 18, height: 18) 
+    }
+    
+    private var statusBadge: some View {
+        Group {
+            if let isOpen = item.isOpen {
+                Text(isOpen ? "Open" : "Closed")
+                    .font(.system(size: 12, weight: .medium)) 
+                    .padding(.horizontal, 12) 
+                    .padding(.vertical, 4) 
+                    .background(isOpen ? Color.green : Color.red) 
+                    .foregroundColor(.white)
+                    .cornerRadius(12)
+                    .frame(width: 80, alignment: .leading)
+            }
+        }
+    }
+    
+    private var openTimeText: some View {
+        Group {
+            if let nextOpenInterval = item.nextOpenInterval() {
+                Text(formatTimeIntervalText(nextOpenInterval.dateInterval))
+                    .foregroundColor(Color(.darkGray))
+                    .font(.system(size: 12, weight: nextOpenInterval.dateInterval.contains(Date()) ? .bold : .regular))
+            }
+        }
+    }
+    
+    private var chevronIcon: some View {
+        Image(systemName: "chevron.right")
+            .font(.system(size: 12, weight: .medium)) 
+            .rotationEffect(.degrees(isExpanded ? 90 : 0))
+            .animation(isExpanded ? nil : .spring(response: 0.6, dampingFraction: 1.0), value: isExpanded)
+            .frame(width: 14)
     }
     
     @ViewBuilder
@@ -158,7 +176,6 @@ struct OpenTimesCard: View {
 
     struct ClosedItem: HasOpenTimes {
         var weeklyHours: WeeklyHours? = createEmptyWeeklyHours()
-        var isOpen: Bool? = false
         
         func nextOpenInterval() -> HoursInterval? {
             return nil
@@ -172,10 +189,11 @@ struct OpenTimesCard: View {
     
     struct OpenItem: HasOpenTimes {
         var weeklyHours: WeeklyHours? = createSampleWeeklyHours()
-        var isOpen: Bool? = true
         
         func nextOpenInterval() -> HoursInterval? {
-            guard let weeklyHours = weeklyHours else { return nil }
+            guard let weeklyHours = weeklyHours else {
+                return nil
+            }
             let today = DayOfWeek.weekday(Date())
             let intervals = weeklyHours.hoursForWeekday(today)
             return intervals.first
@@ -186,25 +204,22 @@ struct OpenTimesCard: View {
             
             func createHoursInterval(day: DayOfWeek, startHour: Int, startMinute: Int = 0, endHour: Int, endMinute: Int = 0) {
                 let today = Date()
-                let calendar = Calendar.current
                 
-                let todayComponents = calendar.dateComponents([.year, .month, .day], from: today)
-                guard let baseDate = calendar.date(from: todayComponents) else { return }
-                
-                guard let startDate = calendar.date(bySettingHour: startHour, minute: startMinute, second: 0, of: baseDate),
-                      let endDate = calendar.date(bySettingHour: endHour, minute: endMinute, second: 0, of: baseDate) else { return }
+                let startDate = Date.getTodayShiftDate(for: today, hourComponent: startHour, minuteComponent: startMinute, secondComponent: 0)
+                let endDate = Date.getTodayShiftDate(for: today, hourComponent: endHour, minuteComponent: endMinute, secondComponent: 0)
                 
                 let interval = HoursInterval(dateInterval: DateInterval(start: startDate, end: endDate))
                 weeklyHours.addInterval(interval, to: day)
             }
             
             // Sample hours
-            createHoursInterval(day: .monday, startHour: 9, endHour: 17)      // 9 AM - 5 PM
-            createHoursInterval(day: .tuesday, startHour: 9, endHour: 17)     // 9 AM - 5 PM
-            createHoursInterval(day: .wednesday, startHour: 9, endHour: 17)   // 9 AM - 5 PM
-            createHoursInterval(day: .thursday, startHour: 9, endHour: 17)    // 9 AM - 5 PM
-            createHoursInterval(day: .friday, startHour: 9, endHour: 16)      // 9 AM - 4 PM
-            createHoursInterval(day: .saturday, startHour: 10, endHour: 14)   // 10 AM - 2 PM
+            createHoursInterval(day: .monday, startHour: 0, startMinute: 0, endHour: 23, endMinute: 59)
+            createHoursInterval(day: .tuesday, startHour: 0, startMinute: 0, endHour: 23, endMinute: 59)
+            createHoursInterval(day: .wednesday, startHour: 0, startMinute: 0, endHour: 23, endMinute: 59)
+            createHoursInterval(day: .thursday, startHour: 0, startMinute: 0, endHour: 23, endMinute: 59)
+            createHoursInterval(day: .friday, startHour: 0, startMinute: 0, endHour: 23, endMinute: 59)
+            createHoursInterval(day: .saturday, startHour: 0, startMinute: 0, endHour: 23, endMinute: 59)
+            createHoursInterval(day: .sunday, startHour: 0, startMinute: 0, endHour: 23, endMinute: 59)
             return weeklyHours
         }
     }
@@ -215,13 +230,11 @@ struct OpenTimesCard: View {
 #Preview("Closed Item Card") {
     OpenTimesCard(item: ClosedItem())
         .positionedAtTop()
-        .previewLayout(.sizeThatFits)
 }
  
 #Preview("Open Item Card") {
     OpenTimesCard(item: OpenItem())
         .positionedAtTop()
-        .previewLayout(.sizeThatFits)
 }
 
 
