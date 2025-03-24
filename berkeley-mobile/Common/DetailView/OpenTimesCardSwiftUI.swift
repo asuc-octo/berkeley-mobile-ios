@@ -69,28 +69,25 @@ struct OpenTimesCard: View {
             .frame(width: 18, height: 18) 
     }
     
+    @ViewBuilder
     private var statusBadge: some View {
-        Group {
-            if let isOpen = item.isOpen {
-                Text(isOpen ? "Open" : "Closed")
-                    .font(.system(size: 12, weight: .medium)) 
-                    .padding(.horizontal, 12) 
-                    .padding(.vertical, 4) 
-                    .background(isOpen ? Color.green : Color.red) 
-                    .foregroundColor(.white)
-                    .cornerRadius(12)
-                    .frame(width: 80, alignment: .leading)
-            }
+        if let isOpen = item.isOpen {
+            Text(isOpen ? "Open" : "Closed")
+                .font(.system(size: 12, weight: .medium)) 
+                .padding(.horizontal, 12) 
+                .padding(.vertical, 4) 
+                .background(isOpen ? Color.green : Color.red) 
+                .foregroundColor(.white)
+                .cornerRadius(12)
+                .frame(width: 80, alignment: .leading)
         }
     }
     
+    @ViewBuilder
     private var openTimeText: some View {
-        Group {
-            if let nextOpenInterval = item.nextOpenInterval() {
-                Text(formatTimeIntervalText(nextOpenInterval.dateInterval))
-                    .foregroundColor(Color(.darkGray))
-                    .font(.system(size: 12, weight: nextOpenInterval.dateInterval.contains(Date()) ? .bold : .regular))
-            }
+        if let nextOpenInterval = item.nextOpenInterval() {
+            Text(formatTimeIntervalText(nextOpenInterval.dateInterval))
+                .font(.system(size: 12, weight: nextOpenInterval.dateInterval.contains(Date()) ? .bold : .regular))
         }
     }
     
@@ -98,7 +95,7 @@ struct OpenTimesCard: View {
         Image(systemName: "chevron.right")
             .font(.system(size: 12, weight: .medium)) 
             .rotationEffect(.degrees(isExpanded ? 90 : 0))
-            .animation(isExpanded ? nil : .spring(response: 0.6, dampingFraction: 1.0), value: isExpanded)
+            .animation(.spring(response: 0.6, dampingFraction: 1.0), value: isExpanded)
             .frame(width: 14)
     }
     
@@ -112,13 +109,11 @@ struct OpenTimesCard: View {
                 
                 HStack {
                     Text(day)
-                        .foregroundColor(.black)
                         .padding(.leading, 55)
                     
                     Spacer()
                     
                     Text(hoursText(for: dayOfWeek, isCurrentDay: isCurrentDay))
-                        .foregroundColor(Color(.darkGray))
                         .padding(.trailing, 26)
                 }
                 .font(.system(size: 12, weight: isCurrentDay ? .bold : .regular))
@@ -213,13 +208,9 @@ struct OpenTimesCard: View {
             }
             
             // Sample hours
-            createHoursInterval(day: .monday, startHour: 0, startMinute: 0, endHour: 23, endMinute: 59)
-            createHoursInterval(day: .tuesday, startHour: 0, startMinute: 0, endHour: 23, endMinute: 59)
-            createHoursInterval(day: .wednesday, startHour: 0, startMinute: 0, endHour: 23, endMinute: 59)
-            createHoursInterval(day: .thursday, startHour: 0, startMinute: 0, endHour: 23, endMinute: 59)
-            createHoursInterval(day: .friday, startHour: 0, startMinute: 0, endHour: 23, endMinute: 59)
-            createHoursInterval(day: .saturday, startHour: 0, startMinute: 0, endHour: 23, endMinute: 59)
-            createHoursInterval(day: .sunday, startHour: 0, startMinute: 0, endHour: 23, endMinute: 59)
+            for day in DayOfWeek.allCases {
+                createHoursInterval(day: day, startHour: 0, startMinute: 0, endHour: 23, endMinute: 59)
+            }
             return weeklyHours
         }
     }
@@ -236,5 +227,3 @@ struct OpenTimesCard: View {
     OpenTimesCard(item: OpenItem())
         .positionedAtTop()
 }
-
-
