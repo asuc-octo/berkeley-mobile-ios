@@ -11,7 +11,7 @@ import SwiftUI
 
 struct SearchResultsView: View {
     @EnvironmentObject var viewModel: SearchViewModel
-    private let searchResultsListTopPadding: CGFloat = 138 // SearchBarTopMargin (74) + SearchBarHeight (54) + 10
+    private let searchResultsListTopPadding: CGFloat = 128 // SearchBarTopMargin (74) + SearchBarHeight (54)
     
     var body: some View {
         ZStack {
@@ -34,12 +34,13 @@ struct SearchResultsView: View {
                     populatedList
                         .padding(.top, searchResultsListTopPadding)
                         .padding(.horizontal, 21)
+                        .padding(.bottom, 96)
                     
                 case .empty:
-                    BMContentUnavailableView(iconName: "magnifyingglass", title: "Nothing found!", subtitle: "Try a different keyword.")
+                    BMContentUnavailableView(iconName: "magnifyingglass", title: "Nothing Found!", subtitle: "Try a different keyword.")
                     
                 case .error(let error):
-                    BMContentUnavailableView(iconName: "exclamationmark.circle", title: "There is an Error", subtitle: error.localizedDescription)
+                    BMContentUnavailableView(iconName: "exclamationmark.circle", title: "An Error Occurred", subtitle: error.localizedDescription)
                 }
             }
         }
@@ -60,6 +61,7 @@ struct SearchResultsView: View {
                     .buttonStyle(SearchResultsListRowButtonStyle())
                 }
             }
+            .padding(.top, 10)
         }
     }
 }
