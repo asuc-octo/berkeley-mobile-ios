@@ -87,7 +87,7 @@ class CalendarTablePairView: UIView {
         calendarView = UIHostingController(rootView: bmCalendarView.environmentObject(calendarViewModel)).view
         calendarView.translatesAutoresizingMaskIntoConstraints = false
         calendarView.isUserInteractionEnabled = true
-        calendarView.backgroundColor = UIColor.clear
+        calendarView.backgroundColor = .clear
     }
     
     private func reloadCalendarTableView() {
@@ -122,6 +122,7 @@ class CalendarTablePairView: UIView {
         calendarTable.scrollToRow(at: IndexPath(row: tableEntryIndex, section: 0), at: .top, animated: true)
     }
 }
+
 
 // MARK: - Calendar Table Delegates
 

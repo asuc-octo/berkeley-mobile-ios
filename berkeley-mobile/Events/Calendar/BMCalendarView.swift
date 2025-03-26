@@ -8,14 +8,11 @@
 
 import SwiftUI
 
-typealias BMDateEntryPair = (date: Date, entry: EventCalendarEntry?)
+typealias BMDateHasEntryPair = (date: Date, hasEntry: Bool)
 
 class BMCalendarViewModel: ObservableObject {
-    @Published var dateEntryPairs = [BMDateEntryPair]()
-    
-    var calendarEntries: [EventCalendarEntry] {
-        dateEntryPairs.compactMap { $0.entry }
-    }
+    @Published var dateEntryPairs = [BMDateHasEntryPair]()
+    var calendarEntries = [EventCalendarEntry]()
     
     private let calendar = Calendar.current
     
@@ -24,9 +21,11 @@ class BMCalendarViewModel: ObservableObject {
     }
     
     func setCalendarEntries(for entries: [EventCalendarEntry]) {
+        self.calendarEntries = entries
+        
         dateEntryPairs = dateEntryPairs.map { datePair in
-            let entry = entries.first(where: { $0.date.isSameDay(as: datePair.date) })
-            return (datePair.date, entry)
+            let hasEntry = entries.contains(where: { $0.date.isSameDay(as: datePair.date) })
+            return (datePair.date, hasEntry)
         }
     }
     
@@ -50,7 +49,7 @@ class BMCalendarViewModel: ObservableObject {
             }
         }
         
-        self.dateEntryPairs = dates.map {(date: $0, entry: nil)}
+        self.dateEntryPairs = dates.map {(date: $0, hasEntry: false)}
     }
 }
 
@@ -93,16 +92,12 @@ struct BMCalendarView: View {
 struct CalendarEntryButton: View {
     @State private var isTapped = false
     
-    var datePair: BMDateEntryPair
+    var datePair: BMDateHasEntryPair
     var didSelectDay: ((Int) -> Void)?
-    
-    private var hasEntry: Bool {
-        datePair.entry != nil
-    }
     
     var body: some View {
         Button(action: {
-            guard hasEntry else {
+            guard datePair.hasEntry else {
                 return
             }
             peformBounceAnimation()
@@ -113,18 +108,30 @@ struct CalendarEntryButton: View {
                 .font(Font(datePair.date.isToday() ? BMFont.bold(20) : BMFont.light(18)))
                 .frame(width: 30, height: 30)
                 .padding(3)
-                .background(hasEntry ? Color(datePair.entry!.color) : .clear)
+                .background(getBackgroundColor())
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 .scaleEffect(isTapped ? 1.2 : 1)
         }
-        .disabled(hasEntry ? false : true)
+        .disabled(datePair.hasEntry ? false : true)
     }
     
     private func getForegroundColor() -> Color {
-        if datePair.entry != nil {
-            Color(.white)
+        if datePair.hasEntry {
+            .white
         } else {
             Color(datePair.date.isToday() ? BMColor.Calendar.blackText : BMColor.Calendar.grayedText)
+        }
+    }
+    
+    private func getBackgroundColor() -> Color {
+        guard datePair.hasEntry else {
+           return .clear
+        }
+        
+        if datePair.date.isToday() {
+            return Color(BMColor.selectedButtonBackground)
+        } else {
+            return .gray.opacity(0.7)
         }
     }
     
