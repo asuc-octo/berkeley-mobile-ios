@@ -100,7 +100,7 @@ struct CalendarEntryButton: View {
             guard datePair.hasEntry else {
                 return
             }
-            peformBounceAnimation()
+            performBounceAnimation()
             didSelectDay?(datePair.date.get(.day))
         }) {
             Text("\(Calendar.current.component(.day, from: datePair.date))")
@@ -135,7 +135,7 @@ struct CalendarEntryButton: View {
         }
     }
     
-    private func peformBounceAnimation() {
+    private func performBounceAnimation() {
         withAnimation(.bouncy) {
             isTapped.toggle()
         }
