@@ -1,5 +1,5 @@
 //
-//  OpenTimesCardSwiftUI.swift
+//  OpenTimesCardSwiftUIView.swift
 //      
 //  Created by Yihang Chen on 3/13/25.
 //  Copyright © 2025 ASUC OCTO. All rights reserved.
@@ -7,12 +7,17 @@
 
 import SwiftUI
 
-struct OpenTimesCard: View {
+struct OpenTimesCardSwiftUIView: View {
     @State private var isExpanded = false
 
     let item: HasOpenTimes
     
-    private let dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+    private let timeFormatter: DateIntervalFormatter = {
+        let formatter = DateIntervalFormatter()
+        formatter.dateStyle = .none
+        formatter.timeStyle = .short
+        return formatter
+    }()
     
     var body: some View {
         VStack {
@@ -102,13 +107,12 @@ struct OpenTimesCard: View {
     @ViewBuilder
     private func expandableContentView() -> some View {
         VStack(spacing: 2) { 
-            ForEach(0..<dayNames.count, id: \.self) { index in
-                let day = dayNames[index]
+            ForEach(0..<DayOfWeek.allCases.count, id: \.self) { index in
                 let dayOfWeek = DayOfWeek.allCases[index]
                 let isCurrentDay = index == Date().weekday()
                 
                 HStack {
-                    Text(day)
+                    Text(dayOfWeek.description)
                         .padding(.leading, 55)
                     
                     Spacer()
@@ -148,24 +152,16 @@ struct OpenTimesCard: View {
             return "Closed"
         }
         
-        let formatter = DateIntervalFormatter()
-        formatter.dateStyle = .none
-        formatter.timeStyle = .short
-        
-        return formatter.string(from: start, to: end)
+        return timeFormatter.string(from: start, to: end)
     }
     
     private func formatTimeIntervalText(_ interval: DateInterval) -> String {
-        let formatter = DateIntervalFormatter()
-        formatter.dateStyle = .none
-        formatter.timeStyle = .short
-        
         guard let start = interval.start.timeOnly(),
               let end = interval.end.timeOnly() else {
             return ""
         }
         
-        return formatter.string(from: start, to: end)
+        return timeFormatter.string(from: start, to: end)
     }
 }
 
@@ -177,8 +173,7 @@ struct OpenTimesCard: View {
         }
         
         static func createEmptyWeeklyHours() -> WeeklyHours {
-            let weeklyHours = WeeklyHours()
-            return weeklyHours
+            return WeeklyHours()
         }
     }
     
@@ -186,7 +181,7 @@ struct OpenTimesCard: View {
         var weeklyHours: WeeklyHours? = createSampleWeeklyHours()
         
         func nextOpenInterval() -> HoursInterval? {
-            guard let weeklyHours = weeklyHours else {
+            guard let weeklyHours else {
                 return nil
             }
             let today = DayOfWeek.weekday(Date())
@@ -219,11 +214,11 @@ struct OpenTimesCard: View {
 // MARK: - Previews
 
 #Preview("Closed Item Card") {
-    OpenTimesCard(item: ClosedItem())
+    OpenTimesCardSwiftUIView(item: ClosedItem())
         .positionedAtTop()
 }
  
 #Preview("Open Item Card") {
-    OpenTimesCard(item: OpenItem())
+    OpenTimesCardSwiftUIView(item: OpenItem())
         .positionedAtTop()
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum DayOfWeek: Int, CaseIterable {
+enum DayOfWeek: Int, CaseIterable, CustomStringConvertible {
     
     case sunday    = 0
     case monday    = 1
@@ -17,6 +17,14 @@ enum DayOfWeek: Int, CaseIterable {
     case thursday  = 4
     case friday    = 5
     case saturday  = 6
+    
+    var description: String {
+        return stringRepresentation()
+    }
+    
+    static var allDayNames: [String] {
+        return DayOfWeek.allCases.map { $0.description }
+    }
     
     static func weekday(_ date: Date) -> DayOfWeek {
         return DayOfWeek(rawValue: date.weekday())!
