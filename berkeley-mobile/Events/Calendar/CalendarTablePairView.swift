@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 6, left: 6, bottom: 6, right: 6)
 fileprivate let kViewMargin: CGFloat = 6
@@ -14,10 +15,10 @@ fileprivate let kViewMargin: CGFloat = 6
 /// Pairs a CalendarView with a UITableView that shows matching events
 class CalendarTablePairView: UIView {
     private weak var parentVC: UIViewController?
-    private var calendarTable: UITableView = UITableView()
-    private var calendarView: CalendarView = CalendarView()
+    private var calendarTable = UITableView()
+    private var calendarViewModel = BMCalendarViewModel()
+    private var calendarView: UIView!
     private var missingDataView: MissingDataView
-    private var tableEntries: [EventCalendarEntry] = []
     private var calendarTableHeightConstraint: NSLayoutConstraint?
     
     var isLoading = false {
@@ -32,9 +33,8 @@ class CalendarTablePairView: UIView {
         super.init(frame: .zero)
         self.translatesAutoresizingMaskIntoConstraints = false
         setUpScrollView()
+        configureCalendarView()
         
-        calendarView.translatesAutoresizingMaskIntoConstraints = false
-        calendarView.delegate = self
         scrollingStackView.stackView.addArrangedSubview(calendarView)
         
         calendarTable.backgroundColor = UIColor.clear
@@ -55,12 +55,16 @@ class CalendarTablePairView: UIView {
         calendarTableHeightConstraint?.isActive = true
     }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     public func setCalendarEntries(entries: [EventCalendarEntry]) {
-        calendarView.calendarEntries = entries
+        calendarViewModel.setCalendarEntries(for: entries)
         reloadCalendarTableView()
     }
     
-    func setUpScrollView() {
+    private func setUpScrollView() {
         self.addSubview(scrollingStackView)
         scrollingStackView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         scrollingStackView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
@@ -75,12 +79,19 @@ class CalendarTablePairView: UIView {
         return scrollingStackView
     }()
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    private func configureCalendarView() {
+        let bmCalendarView = BMCalendarView() { [weak self] day in
+            self?.scrollToDay(for: day)
+        }
+        
+        calendarView = UIHostingController(rootView: bmCalendarView.environmentObject(calendarViewModel)).view
+        calendarView.translatesAutoresizingMaskIntoConstraints = false
+        calendarView.isUserInteractionEnabled = true
+        calendarView.backgroundColor = .clear
     }
     
     private func reloadCalendarTableView() {
-        if calendarView.calendarEntries.isEmpty {
+        if calendarViewModel.calendarEntries.isEmpty {
             hideCalendarTable()
         } else {
             showCalendarTable()
@@ -101,15 +112,23 @@ class CalendarTablePairView: UIView {
     
     private func calendarTableScrollToToday() {
         let todayDay = Date().get(.day)
-        didSelectDay(day: todayDay)
+        scrollToDay(for: todayDay)
+    }
+    
+    private func scrollToDay(for day: Int) {
+        guard let tableEntryIndex = calendarViewModel.calendarEntries.firstIndex(where: { $0.date.get(.day) == day }) else {
+            return
+        }
+        calendarTable.scrollToRow(at: IndexPath(row: tableEntryIndex, section: 0), at: .top, animated: true)
     }
 }
+
 
 // MARK: - Calendar Table Delegates
 
 extension CalendarTablePairView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return isLoading ? 5 : tableEntries.count
+        return isLoading ? 5 : calendarViewModel.calendarEntries.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {        
@@ -120,7 +139,7 @@ extension CalendarTablePairView: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: EventTableViewCell.kCellIdentifier, for: indexPath)
             
             if let cell = cell as? EventTableViewCell,
-                let entry = tableEntries[safe: indexPath.row] {
+               let entry = calendarViewModel.calendarEntries[safe: indexPath.row] {
                 cell.cellConfigure(event: entry, type: entry.type, color: entry.color)
             }
             
@@ -129,36 +148,10 @@ extension CalendarTablePairView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let event = tableEntries[safe: indexPath.row],
+        if let event = calendarViewModel.calendarEntries[safe: indexPath.row],
            let parentVC = parentVC {
             event.addToDeviceCalendar(vc: parentVC)
         }
         tableView.deselectRow(at: indexPath, animated: true)
-    }
-}
-
-extension CalendarTablePairView: CalendarViewDelegate {
-    // when the calendar changes month, update the table
-    func didChangeMonth(selectedEntries: [EventCalendarEntry]) {
-        if selectedEntries.isEmpty {
-            missingDataView.isHidden = false
-        } else {
-            missingDataView.isHidden = true
-        }
-        tableEntries = selectedEntries
-        reloadCalendarTableView()
-        if selectedEntries.isEmpty {
-            calendarTableHeightConstraint?.constant = self.frame.height * 0.2
-        } else {
-            calendarTableHeightConstraint?.constant = min(calendarTable.contentSize.height, self.frame.height * 0.7)
-        }
-        self.layoutIfNeeded()
-    }
-    
-    func didSelectDay(day: Int) {
-        guard let tableEntryIndex = tableEntries.firstIndex(where: { $0.date.get(.day) == day }) else {
-            return
-        }
-        calendarTable.scrollToRow(at: IndexPath(row: tableEntryIndex, section: 0), at: .top, animated: true)
     }
 }
