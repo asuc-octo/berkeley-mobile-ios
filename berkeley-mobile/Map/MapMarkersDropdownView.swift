@@ -66,6 +66,7 @@ struct MapMarkersDropdownView: View {
                         Image(uiImage: type.icon())
                         Text(type.rawValue)
                             .font(Font(BMFont.regular(20)))
+                        Spacer()
                     }
                     .contentShape(Rectangle())
                 }
