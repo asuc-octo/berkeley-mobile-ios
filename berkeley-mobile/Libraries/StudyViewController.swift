@@ -108,7 +108,7 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     // MARK: Libraries
-    var filterTableView: FilterTableView = FilterTableView<Library>(frame: .zero, tableFunctions: [], defaultSort: SortingFunctions.sortAlph(item1:item2:))
+    var filterTableView: FilterTableView = FilterTableView<Library>(frame: .zero, tableFunctions: [], defaultSort: SortingFunctions.sortClose(loc1:loc2:))
     var safeArea: UILayoutGuide!
     var libraries: [Library] = []
     
@@ -166,7 +166,7 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
             Sort<Library>(label: "Nearby", sort: SortingFunctions.sortClose),
             Filter<Library>(label: "Open", filter: {lib in lib.isOpen ?? false}),
         ]
-        filterTableView = FilterTableView<Library>(frame: .zero, tableFunctions: functions, defaultSort: SortingFunctions.sortAlph(item1:item2:), initialSelectedIndices: [0])
+        filterTableView = FilterTableView<Library>(frame: .zero, tableFunctions: functions, defaultSort: SortingFunctions.sortClose(loc1:loc2:), initialSelectedIndices: [0])
         self.filterTableView.tableView.register(FilterTableViewCell.self, forCellReuseIdentifier: FilterTableViewCell.kCellIdentifier)
         self.filterTableView.tableView.dataSource = self
         self.filterTableView.tableView.delegate = self
