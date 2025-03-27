@@ -43,10 +43,9 @@ struct HomeView: View {
     private var mapViewController: MapViewController
     
     init() {
-        let homeViewModel = HomeViewModel()
         let mapViewController = MapViewController()
         
-        _homeViewModel = StateObject(wrappedValue: homeViewModel)
+        _homeViewModel = StateObject(wrappedValue: HomeViewModel())
         
         mapViewController.homeViewModel = homeViewModel
         self.mapViewController = mapViewController
