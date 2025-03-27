@@ -22,10 +22,15 @@ class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
     var initialGestureTranslation: CGPoint = CGPoint()
     var drawerStatePositions: [DrawerState: CGFloat] = [:]
     
+    private let homeViewModel = HomeViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let homeView = UIHostingController(rootView: HomeView()).view!
+        let mapVC = MapViewController()
+        mapVC.homeViewModel = homeViewModel
+        
+        let homeView = UIHostingController(rootView: HomeView(mapViewController: mapVC).environmentObject(homeViewModel)).view!
         homeView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(homeView)
         
