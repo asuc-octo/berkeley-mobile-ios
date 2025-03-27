@@ -19,7 +19,22 @@ enum DayOfWeek: Int, CaseIterable, CustomStringConvertible {
     case saturday  = 6
     
     var description: String {
-        return stringRepresentation()
+        switch self {
+        case .sunday:
+            return "Sunday"
+        case .monday:
+            return "Monday"
+        case .tuesday:
+            return "Tuesday"
+        case .wednesday:
+            return "Wednesday"
+        case .thursday:
+            return "Thursday"
+        case .friday:
+            return "Friday"
+        case .saturday:
+            return "Saturday"
+        }
     }
     
     static var allDayNames: [String] {
@@ -47,22 +62,7 @@ enum DayOfWeek: Int, CaseIterable, CustomStringConvertible {
             }
         }
 
-        switch self {
-        case .sunday:
-            return "Sunday"
-        case .monday:
-            return "Monday"
-        case .tuesday:
-            return "Tuesday"
-        case .wednesday:
-            return "Wednesday"
-        case .thursday:
-            return "Thursday"
-        case .friday:
-            return "Friday"
-        case .saturday:
-            return "Saturday"
-        }
+        return description
     }
     
     func charRepresentation() -> String {
