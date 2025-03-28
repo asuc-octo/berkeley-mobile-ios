@@ -88,18 +88,19 @@ extension BMLocationManager: CLLocationManagerDelegate {
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.last {
-            userLocation = location
-            BMLocationManager.notificationCenter.post(name: .locationUpdated, object: location)
+        guard let location = locations.last else {
+            return
         }
+        userLocation = location
+        BMLocationManager.notificationCenter.post(name: .locationUpdated, object: location)
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        if let clErr = error as? CLError {
-            if clErr.code == CLError.denied {
-                manager.stopUpdatingLocation()
-            }
+        guard let clErr = error as? CLError else {
+            return
         }
-        print("Location Error: ", error)
+        if clErr.code == CLError.denied {
+            manager.stopUpdatingLocation()
+        }
     }
 }
