@@ -9,14 +9,7 @@
 import SwiftUI
 
 struct GymOccupancyView: View {
-    @StateObject private var viewModel: GymOccupancyViewModel
-    
-    private let location: GymOccupancyLocation
-    
-    init(location: GymOccupancyLocation) {
-        self.location = location
-        _viewModel = StateObject(wrappedValue: GymOccupancyViewModel(location: location))
-    }
+    @ObservedObject var viewModel: GymOccupancyViewModel
     
     private struct Constants {
         static let minOccupancy: CGFloat = 0
@@ -31,16 +24,18 @@ struct GymOccupancyView: View {
     var body: some View {
         VStack {
             if let occupancy = viewModel.occupancyPercentage {
-                GymOccupancyGaugeView(occupancy: occupancy, gymName: location.rawValue)
+                GymOccupancyGaugeView(occupancy: occupancy, gymName: viewModel.location.rawValue)
             } else {
-                GymRedactedOccupancyGaugeView(gymLocationName: location.rawValue)
+                GymRedactedOccupancyGaugeView(gymLocationName: viewModel.location.rawValue)
             }
             
-            Text(location.rawValue)
+            Text(viewModel.location.rawValue)
                 .font(Font(BMFont.regular(9)))
         }
         .onAppear {
-            viewModel.startAutoRefresh()
+            if viewModel.occupancyPercentage == nil {
+                viewModel.startAutoRefresh()
+            }
         }
         .onDisappear {
             viewModel.stopAutoRefresh()
