@@ -20,7 +20,7 @@ struct OpenTimesCardSwiftUIView: View {
     }()
     
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             headerView()
                 .background(Color(BMColor.cardBackground))
                 .zIndex(1) 
