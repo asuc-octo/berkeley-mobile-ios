@@ -80,7 +80,7 @@
 		13EA64CD2399CEDA00FD8E13 /* Gym.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13EA64CC2399CEDA00FD8E13 /* Gym.swift */; };
 		13EA64D02399D50C00FD8E13 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13EA64CF2399D50C00FD8E13 /* DataManager.swift */; };
 		1DB006AD2D71C8D6001CC870 /* ResourcesSectionDropdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB006AC2D71C8C0001CC870 /* ResourcesSectionDropdown.swift */; };
-		1DB006B12D7C1CD0001CC870 /* OpenTimesCardSwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB006B02D7C1CD0001CC870 /* OpenTimesCardSwiftUI.swift */; };
+		1DB88F6D2D94DF78007713F7 /* OpenTimesCardSwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB88F6C2D94DF78007713F7 /* OpenTimesCardSwiftUIView.swift */; };
 		29061D41241C450E002BC9D9 /* HasLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29061D40241C450E002BC9D9 /* HasLocation.swift */; };
 		2913595724B136BE00DE9AD6 /* CollapsibleCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2913595624B136BE00DE9AD6 /* CollapsibleCardView.swift */; };
 		2913595924B13DF200DE9AD6 /* OpenTimesCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2913595824B13DF200DE9AD6 /* OpenTimesCardView.swift */; };
@@ -266,7 +266,7 @@
 		13EA64CC2399CEDA00FD8E13 /* Gym.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gym.swift; sourceTree = "<group>"; };
 		13EA64CF2399D50C00FD8E13 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		1DB006AC2D71C8C0001CC870 /* ResourcesSectionDropdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcesSectionDropdown.swift; sourceTree = "<group>"; };
-		1DB006B02D7C1CD0001CC870 /* OpenTimesCardSwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenTimesCardSwiftUI.swift; sourceTree = "<group>"; };
+		1DB88F6C2D94DF78007713F7 /* OpenTimesCardSwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenTimesCardSwiftUIView.swift; sourceTree = "<group>"; };
 		29061D40241C450E002BC9D9 /* HasLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasLocation.swift; sourceTree = "<group>"; };
 		2913595624B136BE00DE9AD6 /* CollapsibleCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsibleCardView.swift; sourceTree = "<group>"; };
 		2913595824B13DF200DE9AD6 /* OpenTimesCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenTimesCardView.swift; sourceTree = "<group>"; };
@@ -664,7 +664,7 @@
 				01BC8EAF24E8C3E3005B4969 /* DetailView.swift */,
 				01FA50F224E8BA5400DCC490 /* LocationDetailView.swift */,
 				29345E2624A7E76300859A88 /* OverviewCardView.swift */,
-				1DB006B02D7C1CD0001CC870 /* OpenTimesCardSwiftUI.swift */,
+				1DB88F6C2D94DF78007713F7 /* OpenTimesCardSwiftUIView.swift */,
 				296B8AA62544D97F00C3A219 /* EventOverviewCardView.swift */,
 				2913595824B13DF200DE9AD6 /* OpenTimesCardView.swift */,
 				29387E9C24BBBE8E00070BCE /* OccupancyGraphCardView.swift */,
@@ -1125,6 +1125,7 @@
 				1346B9172420AA4500383399 /* DayOfWeek.swift in Sources */,
 				E8912BE52D7FE40500C645B9 /* SafetyMapView.swift in Sources */,
 				29345E2D24A7FFB600859A88 /* CanFavorite.swift in Sources */,
+				1DB88F6D2D94DF78007713F7 /* OpenTimesCardSwiftUIView.swift in Sources */,
 				1396013623865E2E005E4788 /* TagView.swift in Sources */,
 				5532B67B2390CBF600293BE0 /* MaterialLoadingIndicator.swift in Sources */,
 				13E25DFD238C949E00B670B5 /* FitnessViewController.swift in Sources */,
@@ -1142,7 +1143,6 @@
 				13B39A9923E6A33C0039FBA2 /* Library.swift in Sources */,
 				E83B6DA72D7A85F200AA9422 /* GymOccupancyView.swift in Sources */,
 				303F6AE4236A931D007E37DD /* SegmentedControlViewController.swift in Sources */,
-				1DB006B12D7C1CD0001CC870 /* OpenTimesCardSwiftUI.swift in Sources */,
 				2EC1656A2D752A7300F88B60 /* HomeSectionListRowView.swift in Sources */,
 				559A7B6F2373DF39004EA501 /* SearchResultCell.swift in Sources */,
 				299ACFB0244A58CD000F3E86 /* OccupancyDataSource.swift in Sources */,
