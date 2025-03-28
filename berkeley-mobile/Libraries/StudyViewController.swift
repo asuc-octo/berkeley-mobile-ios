@@ -166,7 +166,7 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
             Sort<Library>(label: "Nearby", sort: SortingFunctions.sortClose),
             Filter<Library>(label: "Open", filter: {lib in lib.isOpen ?? false}),
         ]
-        filterTableView = FilterTableView<Library>(frame: .zero, tableFunctions: functions, defaultSort: SortingFunctions.sortClose(loc1:loc2:), initialSelectedIndices: [0])
+        filterTableView = FilterTableView<Library>(frame: .zero, tableFunctions: functions, defaultSort: SortingFunctions.sortClose(loc1:loc2:))
         self.filterTableView.tableView.register(FilterTableViewCell.self, forCellReuseIdentifier: FilterTableViewCell.kCellIdentifier)
         self.filterTableView.tableView.dataSource = self
         self.filterTableView.tableView.delegate = self

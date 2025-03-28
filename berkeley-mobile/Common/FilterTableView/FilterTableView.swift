@@ -12,15 +12,15 @@ fileprivate let kViewMargin: CGFloat = 16
 
 class FilterTableView<T>: UIView {
     let tableView = UITableView(frame: .zero, style: .plain)
-    var missingView: MissingDataView!
+    private var missingView: MissingDataView!
 
-    var data: [T] = []
     var filteredData: [T] = []
-    var tableFunctions: [TableFunction] = []
-    var sortIndex: Int?
     var defaultSort: ((T, T) -> Bool)
+
+    private var tableFunctions: [TableFunction] = []
+    private var sortIndex: Int?
     
-    init(frame: CGRect, tableFunctions: [TableFunction], defaultSort: @escaping ((T, T) -> Bool), initialSelectedIndices: [Int] = [], filterView: FilterView? = nil) {
+    init(frame: CGRect, tableFunctions: [TableFunction], defaultSort: @escaping ((T, T) -> Bool)) {
         self.defaultSort = defaultSort
         super.init(frame: frame)
         self.setupSubviews()
@@ -36,7 +36,6 @@ class FilterTableView<T>: UIView {
     }
     
     func setupSubviews() {
-        self.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         self.addSubview(tableView)
         
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
@@ -58,7 +57,6 @@ class FilterTableView<T>: UIView {
     }
     
     func setData(data: [T]) {
-        self.data = data
         self.filteredData = data
         sort()
     }
@@ -75,8 +73,7 @@ class FilterTableView<T>: UIView {
     
     @objc
     func update() {
-        filteredData = data
-        filteredData.sort(by: defaultSort)
+        sort()
         
         DispatchQueue.main.async {
             if (self.filteredData.isEmpty) {

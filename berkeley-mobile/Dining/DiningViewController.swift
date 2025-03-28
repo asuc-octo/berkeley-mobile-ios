@@ -172,7 +172,7 @@ extension DiningViewController {
             Sort<DiningLocation>(label: "Nearby", sort: DiningHall.locationComparator()),
             Filter<DiningLocation>(label: "Open", filter: {diningHall in diningHall.isOpen ?? false}),
         ]
-        filterTableView = FilterTableView<DiningLocation>(frame: .zero, tableFunctions: functions, defaultSort: SortingFunctions.sortClose(loc1:loc2:), initialSelectedIndices: [0])
+        filterTableView = FilterTableView<DiningLocation>(frame: .zero, tableFunctions: functions, defaultSort: SortingFunctions.sortClose(loc1:loc2:))
         self.filterTableView.tableView.register(FilterTableViewCell.self, forCellReuseIdentifier: FilterTableViewCell.kCellIdentifier)
         self.filterTableView.tableView.dataSource = self
         self.filterTableView.tableView.delegate = self

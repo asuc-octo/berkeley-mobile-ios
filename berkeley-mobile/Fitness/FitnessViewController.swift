@@ -240,7 +240,7 @@ extension FitnessViewController {
             Sort<Gym>(label: "Nearby", sort: Gym.locationComparator()),
             Filter<Gym>(label: "Open", filter: {gym in gym.isOpen ?? false}),
         ]
-        filterTableView = FilterTableView<Gym>(frame: .zero, tableFunctions: functions, defaultSort: SortingFunctions.sortClose(loc1:loc2:), initialSelectedIndices: [0])
+        filterTableView = FilterTableView<Gym>(frame: .zero, tableFunctions: functions, defaultSort: SortingFunctions.sortClose(loc1:loc2:))
         self.filterTableView.tableView.register(FilterTableViewCell.self, forCellReuseIdentifier: FilterTableViewCell.kCellIdentifier)
         self.filterTableView.tableView.dataSource = gymsController
         self.filterTableView.tableView.delegate = gymsController
