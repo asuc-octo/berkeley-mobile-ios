@@ -9,12 +9,12 @@
 import SwiftUI
 
 
-struct HomeMapControlButtonStyle: ButtonStyle {
+struct BMControlButtonStyle: ButtonStyle {
     static let widthAndHeight: CGFloat = 45
     
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .frame(width: HomeMapControlButtonStyle.widthAndHeight, height: HomeMapControlButtonStyle.widthAndHeight)
+            .frame(width: BMControlButtonStyle.widthAndHeight, height: BMControlButtonStyle.widthAndHeight)
             .background(
                 Circle()
                     .fill(.thinMaterial)

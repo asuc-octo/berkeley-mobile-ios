@@ -37,7 +37,7 @@ struct MapMarkersDropdownButton: View {
         }) {
             Image(uiImage: viewModel.selectedMapMarkerUIImage)
         }
-        .buttonStyle(HomeMapControlButtonStyle())
+        .buttonStyle(BMControlButtonStyle())
         .fullScreenCover(isPresented: $isPresentingMapMarkersDropdownView) {
             MapMarkersDropdownView(selectedMapMakerTypeCompletionHandler: selectedMapMakerTypeCompletionHandler)
                 .background(BMBackgroundBlurView().ignoresSafeArea(.all))
@@ -66,6 +66,7 @@ struct MapMarkersDropdownView: View {
                         Image(uiImage: type.icon())
                         Text(type.rawValue)
                             .font(Font(BMFont.regular(20)))
+                        Spacer()
                     }
                     .contentShape(Rectangle())
                 }

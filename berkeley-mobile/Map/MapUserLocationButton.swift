@@ -30,7 +30,7 @@ struct MapUserLocationButton: View {
             Image(systemName: viewModel.isHomingInOnUserLocation ? "location.fill" : "location")
                 .font(.system(size: 24))
         }
-        .buttonStyle(HomeMapControlButtonStyle())
+        .buttonStyle(BMControlButtonStyle())
     }
 }
 

@@ -5,71 +5,9 @@ import Foundation
  * Provides several conviences methods for Date.
  */
 extension Date {
-    /// Returns `date` with (hour:min) of this Date.
-    func sameTime(on date: Date) -> Date? {
-        let calendar = Calendar.current
-        let now = calendar.dateComponents([.year, .month, .day], from: date)
-        
-        var components = calendar.dateComponents([.hour, .minute], from: self)
-        components.year = now.year
-        components.month = now.month
-        components.day = now.day
-        
-        return calendar.date(from: components)
-    }
     
-    /// Returns today with (hour:min) of this Date.
-    func sameTimeToday() -> Date? {
-        return sameTime(on: Date())
-    }
     
-    /// Returns soonest date with (weekday:hour:min) of this Date.
-    func sameDayThisWeek() -> Date? {
-        let calendar = Calendar.current
-        
-        let components = calendar.dateComponents([.hour, .minute, .weekday], from: self)
-        if self == calendar.startOfDay(for: Date()) {
-            return self
-        }
-        return calendar.nextDate(after: calendar.startOfDay(for: Date()), matching: components, matchingPolicy: .nextTime, repeatedTimePolicy: .first, direction: .forward)
-    }
-    
-    /// Returns if the given date is tomorrow's date based on some date.
-    static func isDateTomorrow(baseDate: Date, date: Date) -> Bool {
-        let calendar = Calendar.current
-
-        if let startOfTomorrow = calendar.date(byAdding: .day, value: 1, to: calendar.startOfDay(for: baseDate)) {
-            return calendar.isDate(date, inSameDayAs: startOfTomorrow)
-        } else {
-            return false
-        }
-    }
-
-    /// Returns a date with this date's hour and minute component only.
-    func timeOnly() -> Date? {
-        let calendar = Calendar.current
-        return calendar.date(from: calendar.dateComponents([.hour, .minute], from: self))
-    }
-    
-    /// Returns a date with this date's year, month, and day component only.
-    func dateOnly() -> Date? {
-        let calendar = Calendar.current
-        return calendar.date(from: calendar.dateComponents([.year, .month, .day], from: self))
-    }
-    
-    /// Returns the weekday as an integer (0 -> Sunday, 6 -> Saturday)
-    func weekday() -> Int {
-        return Calendar.current.component(.weekday, from: self) - 1
-    }
-    
-    /// Returns whether this Date is between Date range [a, b] inclusive.
-    func isBetween(_ a: Date?, _ b: Date?) -> Bool {
-        if a == nil || b == nil {
-            return false 
-        }
-        
-        return a! <= self && self <= b!
-    }
+    // MARK: - Static Methods
     
     /// Returns true if this Date is earlier or equal to given other.
     static func <= (_ this: inout Date, _ other: Date) -> Bool {
@@ -111,6 +49,74 @@ extension Date {
         return calendar.date(from: components)
     }
     
+    /// Returns if the given date is tomorrow's date based on some date.
+    static func isDateTomorrow(baseDate: Date, date: Date) -> Bool {
+        let calendar = Calendar.current
+
+        if let startOfTomorrow = calendar.date(byAdding: .day, value: 1, to: calendar.startOfDay(for: baseDate)) {
+            return calendar.isDate(date, inSameDayAs: startOfTomorrow)
+        } else {
+            return false
+        }
+    }
+    
+    // MARK: - Instance Methods
+    
+    /// Returns `date` with (hour:min) of this Date.
+    func sameTime(on date: Date) -> Date? {
+        let calendar = Calendar.current
+        let now = calendar.dateComponents([.year, .month, .day], from: date)
+        
+        var components = calendar.dateComponents([.hour, .minute], from: self)
+        components.year = now.year
+        components.month = now.month
+        components.day = now.day
+        
+        return calendar.date(from: components)
+    }
+    
+    /// Returns today with (hour:min) of this Date.
+    func sameTimeToday() -> Date? {
+        return sameTime(on: Date())
+    }
+    
+    /// Returns soonest date with (weekday:hour:min) of this Date.
+    func sameDayThisWeek() -> Date? {
+        let calendar = Calendar.current
+        
+        let components = calendar.dateComponents([.hour, .minute, .weekday], from: self)
+        if self == calendar.startOfDay(for: Date()) {
+            return self
+        }
+        return calendar.nextDate(after: calendar.startOfDay(for: Date()), matching: components, matchingPolicy: .nextTime, repeatedTimePolicy: .first, direction: .forward)
+    }
+    
+    /// Returns a date with this date's hour and minute component only.
+    func timeOnly() -> Date? {
+        let calendar = Calendar.current
+        return calendar.date(from: calendar.dateComponents([.hour, .minute], from: self))
+    }
+    
+    /// Returns a date with this date's year, month, and day component only.
+    func dateOnly() -> Date? {
+        let calendar = Calendar.current
+        return calendar.date(from: calendar.dateComponents([.year, .month, .day], from: self))
+    }
+    
+    /// Returns the weekday as an integer (0 -> Sunday, 6 -> Saturday)
+    func weekday() -> Int {
+        return Calendar.current.component(.weekday, from: self) - 1
+    }
+    
+    /// Returns whether this Date is between Date range [a, b] inclusive.
+    func isBetween(_ a: Date?, _ b: Date?) -> Bool {
+        if a == nil || b == nil {
+            return false 
+        }
+        
+        return a! <= self && self <= b!
+    }
+    
     /// Returns a `Bool` if the date components are equivalent to the given date.
     func doesDateComponentsAreEqualTo(hour: Int, minute: Int, sec: Int) -> Bool {
         let components = Calendar.current.dateComponents([.hour, .minute, .second], from: self)
@@ -136,5 +142,17 @@ extension Date {
     /// Get integer representation of a calendar component from date
     func get(_ component: Calendar.Component, calendar: Calendar = Calendar.current) -> Int {
         return calendar.component(component, from: self)
+    }
+    
+    func getStartOfDay() -> Date {
+        Calendar.current.startOfDay(for: self)
+    }
+    
+    func isToday() -> Bool {
+        Calendar.current.isDateInToday(self)
+    }
+    
+    func isSameDay(as date2: Date) -> Bool {
+        return Calendar.current.isDate(self, inSameDayAs: date2)
     }
 }
