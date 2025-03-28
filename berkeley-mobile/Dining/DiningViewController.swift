@@ -33,7 +33,7 @@ struct DiningView: UIViewControllerRepresentable {
 
 class DiningViewController: UIViewController, SearchDrawerViewDelegate {
     
-    private var filterTableView: FilterTableView = FilterTableView<DiningLocation>(frame: .zero, tableFunctions: [], defaultSort: SortingFunctions.sortAlph(item1:item2:))
+    private var filterTableView: FilterTableView = FilterTableView<DiningLocation>(frame: .zero, tableFunctions: [], defaultSort: SortingFunctions.sortClose(loc1:loc2:))
     private var diningLocations: [DiningLocation] = []
     
     private var headerLabel: UILabel!
@@ -172,7 +172,7 @@ extension DiningViewController {
             Sort<DiningLocation>(label: "Nearby", sort: DiningHall.locationComparator()),
             Filter<DiningLocation>(label: "Open", filter: {diningHall in diningHall.isOpen ?? false}),
         ]
-        filterTableView = FilterTableView<DiningLocation>(frame: .zero, tableFunctions: functions, defaultSort: SortingFunctions.sortAlph(item1:item2:), initialSelectedIndices: [0])
+        filterTableView = FilterTableView<DiningLocation>(frame: .zero, tableFunctions: functions, defaultSort: SortingFunctions.sortClose(loc1:loc2:))
         self.filterTableView.tableView.register(FilterTableViewCell.self, forCellReuseIdentifier: FilterTableViewCell.kCellIdentifier)
         self.filterTableView.tableView.dataSource = self
         self.filterTableView.tableView.delegate = self
