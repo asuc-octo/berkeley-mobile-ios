@@ -13,6 +13,9 @@ class HomeViewModel: ObservableObject {
     @Published var homeDrawerDetailViewInfo: (type: HomeDrawerViewType, item: SearchItem)? = nil
     @Published var drawerViewState = BMDrawerViewState.medium
     
+    let rsfOccupancyViewModel = GymOccupancyViewModel(location: .rsf)
+    let stadiumOccupancyViewModel = GymOccupancyViewModel(location: .stadium)
+    
     enum HomeDrawerViewType {
         case dining
         case fitness

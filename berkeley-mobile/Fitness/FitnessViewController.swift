@@ -69,9 +69,11 @@ class FitnessViewController: UIViewController, SearchDrawerViewDelegate {
     var gyms: [Gym] = []
     
     private var gymsController = GymsController()
+    private var mapViewController: MapViewController!
     
     init(mapViewController: MapViewController) {
         pinDelegate = mapViewController
+        self.mapViewController = mapViewController
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -151,13 +153,17 @@ extension FitnessViewController {
     }
     
     func setupRSFGymOccupancyCard() {
+        guard let homeViewModel = mapViewController.homeViewModel else {
+            return
+        }
+        
         let RSFCard = CardView()
         RSFCard.layoutMargins = kCardPadding
         RSFCard.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(RSFCard)
         self.RSFCard = RSFCard
         
-        let RSFView = UIHostingController(rootView: GymOccupancyView(location: .rsf)).view!
+        let RSFView = UIHostingController(rootView: GymOccupancyView(viewModel: homeViewModel.rsfOccupancyViewModel)).view!
         RSFView.translatesAutoresizingMaskIntoConstraints = false
         RSFView.layer.cornerRadius = 12
         RSFView.backgroundColor = UIColor.clear
@@ -177,12 +183,16 @@ extension FitnessViewController {
     }
     
     func setupCMSGymOccupancyCard() {
+        guard let homeViewModel = mapViewController.homeViewModel else {
+            return
+        }
+        
         let CMSCard = CardView()
         CMSCard.layoutMargins = kCardPadding
         CMSCard.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(CMSCard)
         
-        let CMSView = UIHostingController(rootView: GymOccupancyView(location: .stadium)).view!
+        let CMSView = UIHostingController(rootView: GymOccupancyView(viewModel: homeViewModel.stadiumOccupancyViewModel)).view!
         CMSView.translatesAutoresizingMaskIntoConstraints = false
         CMSView.layer.cornerRadius = 12
         CMSView.backgroundColor = UIColor.clear
