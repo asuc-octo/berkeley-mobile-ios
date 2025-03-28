@@ -60,6 +60,29 @@ extension Date {
         }
     }
     
+    /// Get date a certain weeks from today.
+    /// - Parameters:
+    ///   - numWeeks: If negative then we get date in the past. If positive, we get date in the future
+    ///   - dayOfWeek: The `DayOfWeek` of the desired date
+    /// - Returns: Returns an Optional date
+    static func getDateCertainWeeksRelativeToToday(numWeeks: Int, dayOfWeek: DayOfWeek) -> Date? {
+        let calendar = Calendar.current
+        let startOfToday = Date().getStartOfDay()
+        
+        guard let dateWeeksFromToday = calendar.date(byAdding: .day, value: numWeeks * 7, to: startOfToday) else {
+            return nil
+        }
+        
+        let currentWeekday = dateWeeksFromToday.weekday()
+        var daysDifference = dayOfWeek.rawValue - currentWeekday
+        
+        if daysDifference < 0 {
+            daysDifference += 7
+        }
+        
+        return calendar.date(byAdding: .day, value: daysDifference, to: dateWeeksFromToday)
+    } 
+    
     // MARK: - Instance Methods
     
     /// Returns `date` with (hour:min) of this Date.

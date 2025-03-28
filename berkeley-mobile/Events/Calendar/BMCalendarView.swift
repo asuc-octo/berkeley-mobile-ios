@@ -30,17 +30,15 @@ class BMCalendarViewModel: ObservableObject {
     }
     
     private func populateDates() {
-        let startOfToday = Date().getStartOfDay()
-        guard let dateTwoWeeksAgo = calendar.date(byAdding: .day, value: -14, to: startOfToday),
-              let dateOneWeekFromToday = calendar.date(byAdding: .day, value: 7, to: startOfToday),
-              let nextSaturday = calendar.date(byAdding: .day, value: DayOfWeek.saturday.rawValue - DayOfWeek.weekday(dateOneWeekFromToday).rawValue + 1, to: dateOneWeekFromToday) else {
+        guard let sundayTwoWeeksAgo = Date.getDateCertainWeeksRelativeToToday(numWeeks: -2, dayOfWeek: .sunday),
+            let saturdayTwoWeeksFromNow = Date.getDateCertainWeeksRelativeToToday(numWeeks: 2, dayOfWeek: .saturday) else {
             return
         }
         
         var dates = [Date]()
-        var currentDate = dateTwoWeeksAgo
+        var currentDate = sundayTwoWeeksAgo
 
-        while currentDate <= nextSaturday {
+        while currentDate <= saturdayTwoWeeksFromNow {
             dates.append(currentDate)
             if let nextDate = calendar.date(byAdding: .day, value: 1, to: currentDate) {
                 currentDate = nextDate
