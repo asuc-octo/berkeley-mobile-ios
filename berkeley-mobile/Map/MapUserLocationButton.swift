@@ -8,9 +8,25 @@
 
 import SwiftUI
 
-
 class MapUserLocationButtonViewModel: ObservableObject {
     @Published var isHomingInOnUserLocation = false
+    @Published var isUserLocationAvailable = false
+    
+    init() {
+        BMLocationManager.notificationCenter.addObserver(
+            self,
+            selector: #selector(userLocationIsUpdated),
+            name: .locationUpdated,
+            object: nil
+        )
+    }
+    
+    @objc
+    func userLocationIsUpdated() {
+        withAnimation {
+            isUserLocationAvailable = BMLocationManager.shared.userLocation != nil
+        }
+    }
 }
 
 struct MapUserLocationButton: View {
@@ -20,6 +36,11 @@ struct MapUserLocationButton: View {
     
     var body: some View {
         Button(action: {
+            guard viewModel.isUserLocationAvailable else {
+                BMLocationManager.shared.handleLocationAuthorization()
+                return
+            }
+            
             if !viewModel.isHomingInOnUserLocation {
                 withAnimation {
                     viewModel.isHomingInOnUserLocation = true
@@ -27,10 +48,23 @@ struct MapUserLocationButton: View {
                 }
             }
         }) {
-            Image(systemName: viewModel.isHomingInOnUserLocation ? "location.fill" : "location")
-                .font(.system(size: 24))
+            if #available(iOS 17.0, *) {
+                locationImage
+                    .contentTransition (
+                        .symbolEffect(.replace)
+                    )
+            } else {
+                locationImage
+            }
         }
         .buttonStyle(BMControlButtonStyle())
+    }
+    
+    @ViewBuilder
+    private var locationImage: some View {
+        let hasLocationSymbolName = viewModel.isHomingInOnUserLocation ? "location.fill" : "location"
+        Image(systemName: viewModel.isUserLocationAvailable ? hasLocationSymbolName : "location.slash")
+            .font(.system(size: 24))
     }
 }
 

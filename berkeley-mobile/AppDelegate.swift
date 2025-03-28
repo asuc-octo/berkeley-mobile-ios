@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         self.checkForUpdate()
         DataManager.shared.fetchAll()
-        LocationManager.shared.requestLocation()
+        BMLocationManager.shared.requestLocation()
         
         Messaging.messaging().delegate = self
         UNUserNotificationCenter.current().delegate = self
