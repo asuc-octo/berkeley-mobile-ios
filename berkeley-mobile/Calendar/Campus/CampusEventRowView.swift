@@ -34,18 +34,19 @@ struct CampusEventRowView: View {
     
     var body: some View {
         HStack {
-            VStack(alignment: .leading, spacing: 10) {
+            VStack(alignment: .leading) {
                 Text(viewModel.title)
                     .font(Font(BMFont.bold(15)))
                 Spacer()
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: 3) {
                     Text(viewModel.timeText)
                         .fontWeight(.semibold)
                     Text(viewModel.locationText)
                 }
                 .fontWeight(.light)
             }
-            .font(Font(BMFont.regular(12)))
+            .font(Font(BMFont.regular(11)))
+            .frame(height: imageWidthAndHeight)
             
             Spacer()
             
@@ -66,5 +67,6 @@ struct CampusEventRowView: View {
     viewModel.configure(with: entry)
     
     return CampusEventRowView()
+        .padding()
         .environmentObject(viewModel)
 }
