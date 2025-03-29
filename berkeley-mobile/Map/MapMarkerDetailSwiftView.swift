@@ -87,7 +87,7 @@ struct MapMarkerDetailSwiftView: View {
             .lineLimit(3)
             .minimumScaleFactor(0.6)
             .fixedSize(horizontal: false, vertical: true)
-            .padding(.horizontal, 6)
+            .padding(.horizontal, 10)
             
     }
     
@@ -139,7 +139,6 @@ struct MapMarkerDetailSwiftView: View {
             Text(marker?.address ?? "No Address")
                 .font(Font(BMFont.regular(12)))
                 .foregroundColor(.primary)
-                .lineLimit(3)
                 .minimumScaleFactor(0.6)
         }
     }
