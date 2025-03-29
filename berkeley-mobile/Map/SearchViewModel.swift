@@ -41,7 +41,7 @@ enum SearchResultsState {
 
 class SearchViewModel: ObservableObject {
     @Published var searchText = ""
-    @Published var isSearchBarFocused = false
+    @Published var isSearching = false
     @Published var state = SearchResultsState.idle
     var chooseMapMarker: (MapMarker) -> Void
     var choosePlacemark: (MapPlacemark) -> Void
@@ -105,7 +105,7 @@ class SearchViewModel: ObservableObject {
     
     func selectListRow(_ placemark: MapPlacemark) {
         searchText = ""
-        isSearchBarFocused = false
+        isSearching = false
         
         if let mapMarker = placemark.item as? MapMarker {
             chooseMapMarker(mapMarker)

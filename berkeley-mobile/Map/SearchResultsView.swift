@@ -15,12 +15,11 @@ struct SearchResultsView: View {
     
     var body: some View {
         ZStack {
-            if viewModel.isSearchBarFocused {
-                // Masking view behind, when search bar is focused:
-                VStack{}
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(.regularMaterial)
-            }
+            // Masking view behind, when search is active:
+            VStack{}
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(.regularMaterial)
+            
             
             VStack {
                 switch viewModel.state {
@@ -63,6 +62,7 @@ struct SearchResultsView: View {
             }
             .padding(.top, 10)
         }
+        .scrollDismissesKeyboard(.immediately)
     }
 }
 

@@ -21,6 +21,7 @@ struct SearchBarView: View {
             
             TextField("What are you looking for?", text: $viewModel.searchText)
                 .focused($isFocused)
+                .autocorrectionDisabled()
                 .onChange(of: viewModel.searchText) { _ in
                     viewModel.searchLocations(viewModel.searchText)
                 }
@@ -34,22 +35,24 @@ struct SearchBarView: View {
         .clipShape(.rect(cornerRadius: 15))
         .shadow(color: .black.opacity(0.3), radius: 8)
         .onChange(of: isFocused) { newValue in // onChange syntax will need to change in later iOS
-            viewModel.isSearchBarFocused = newValue
-            onSearchBarTap?(newValue)
+            if case .populated = viewModel.state {} else {
+                viewModel.isSearching = newValue
+            }
         }
-        .onChange(of: viewModel.isSearchBarFocused) { newValue in
+        .onChange(of: viewModel.isSearching) { newValue in
             isFocused = newValue
+            onSearchBarTap?(newValue)
         }
     }
     
     private var searchOrBackIcon: some View {
         Button(action: {
-            if isFocused {
+            if viewModel.isSearching {
                 viewModel.clearSearchText()
             }
-            isFocused.toggle()
+            viewModel.isSearching.toggle()
         }) {
-            Image(systemName: isFocused ? "chevron.left" : "magnifyingglass")
+            Image(systemName: viewModel.isSearching ? "chevron.left" : "magnifyingglass")
                 .foregroundStyle(Color(BMColor.searchBarIconColor))
                 .fontWeight(.semibold)
                 .frame(width: 20, alignment: .center) // So that changing an icon didn't move the TextField
@@ -63,7 +66,7 @@ struct SearchBarView: View {
             Image(systemName: "xmark")
                 .foregroundStyle(Color(BMColor.searchBarIconColor))
                 .fontWeight(.semibold)
-                .frame(width: 20, alignment: .center)
+                .frame(width: 30, alignment: .center)
         }
     }
     
