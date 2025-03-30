@@ -65,7 +65,7 @@ class FitnessViewController: UIViewController, SearchDrawerViewDelegate {
     private var bClassesExpanded = false
     
     // To display a list of gyms in the "Fitness Centers" card
-    var filterTableView = FilterTableView<Gym>(frame: .zero, tableFunctions: [], defaultSort: SortingFunctions.sortAlph(item1:item2:))
+    var filterTableView = FilterTableView<Gym>(frame: .zero, tableFunctions: [], defaultSort: SortingFunctions.sortClose(loc1:loc2:))
     var gyms: [Gym] = []
     
     private var gymsController = GymsController()
@@ -240,7 +240,7 @@ extension FitnessViewController {
             Sort<Gym>(label: "Nearby", sort: Gym.locationComparator()),
             Filter<Gym>(label: "Open", filter: {gym in gym.isOpen ?? false}),
         ]
-        filterTableView = FilterTableView<Gym>(frame: .zero, tableFunctions: functions, defaultSort: SortingFunctions.sortAlph(item1:item2:), initialSelectedIndices: [0])
+        filterTableView = FilterTableView<Gym>(frame: .zero, tableFunctions: functions, defaultSort: SortingFunctions.sortClose(loc1:loc2:))
         self.filterTableView.tableView.register(FilterTableViewCell.self, forCellReuseIdentifier: FilterTableViewCell.kCellIdentifier)
         self.filterTableView.tableView.dataSource = gymsController
         self.filterTableView.tableView.delegate = gymsController
