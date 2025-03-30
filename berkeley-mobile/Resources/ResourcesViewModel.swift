@@ -39,45 +39,54 @@ struct BMResourceShoutout: Identifiable, Hashable, Codable {
 class ResourcesViewModel: ObservableObject {
     @Published var shoutouts = [BMResourceShoutout]()
     @Published var resourceCategories = [BMResourceCategory]()
-    
+    @Published var isLoading = true // Track loading state
+
     var resourceCategoryNames: [String] {
         resourceCategories.map { $0.name }
     }
-    
+
     init() {
-        fetchResourceShoutouts()
-        fetchResourceCategories()
+        loadResources()
     }
-    
-    private func fetchResourceCategories() {
-        let db = Firestore.firestore()
-        db.collection("Resource Categories").getDocuments { querySnapshot, error in
-            guard error == nil else {
-                return
-            }
-            guard let documents = querySnapshot?.documents else { return }
-            var fetchedResourceCategories = [BMResourceCategory]()
-            fetchedResourceCategories = documents.compactMap { queryDocumentSnapshot -> BMResourceCategory? in
-                return try? queryDocumentSnapshot.data(as: BMResourceCategory.self)
-            }
-            fetchedResourceCategories.sort(by: { $0.name < $1.name })
-            self.resourceCategories = fetchedResourceCategories
+
+    private func loadResources() {
+        isLoading = true
+        let dispatchGroup = DispatchGroup()
+
+        dispatchGroup.enter()
+        fetchResourceShoutouts {
+            dispatchGroup.leave()
+        }
+
+        dispatchGroup.enter()
+        fetchResourceCategories {
+            dispatchGroup.leave()
+        }
+
+        dispatchGroup.notify(queue: .main) {
+            self.isLoading = false
         }
     }
-    
-    private func fetchResourceShoutouts() {
+
+    private func fetchResourceCategories(completion: @escaping () -> Void) {
+        let db = Firestore.firestore()
+        db.collection("Resource Categories").getDocuments { querySnapshot, error in
+            defer { completion() }
+            guard error == nil, let documents = querySnapshot?.documents else { return }
+            
+            self.resourceCategories = documents.compactMap { try? $0.data(as: BMResourceCategory.self) }
+                .sorted { $0.name < $1.name }
+        }
+    }
+
+    private func fetchResourceShoutouts(completion: @escaping () -> Void) {
         let db = Firestore.firestore()
         db.collection("Resource Shoutouts").getDocuments { querySnapshot, error in
-            guard error == nil else {
-                return
-            }
-            guard let documents = querySnapshot?.documents else { return }
-            var fetchedResourceShoutouts = [BMResourceShoutout]()
-            fetchedResourceShoutouts = documents.compactMap { queryDocumentSnapshot -> BMResourceShoutout? in
-                return try? queryDocumentSnapshot.data(as: BMResourceShoutout.self)
-            }
-            fetchedResourceShoutouts.sort(by: { $0.creationDate < $1.creationDate })
-            self.shoutouts = fetchedResourceShoutouts
+            defer { completion() }
+            guard error == nil, let documents = querySnapshot?.documents else { return }
+            
+            self.shoutouts = documents.compactMap { try? $0.data(as: BMResourceShoutout.self) }
+                .sorted { $0.creationDate < $1.creationDate }
         }
     }
 }

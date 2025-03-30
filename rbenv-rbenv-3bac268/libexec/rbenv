@@ -1,0 +1,129 @@
+#!/usr/bin/env bash
+set -e
+
+if [ "$1" = "--debug" ]; then
+  export RBENV_DEBUG=1
+  shift
+fi
+
+if [ -n "$RBENV_DEBUG" ]; then
+  # https://web.archive.org/web/20221105082147/https://wiki-dev.bash-hackers.org/scripting/debuggingtips#making_xtrace_more_useful
+  export PS4='+(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
+  set -x
+fi
+
+abort() {
+  { if [ "$#" -eq 0 ]; then cat -
+    else echo "rbenv: $*"
+    fi
+  } >&2
+  exit 1
+}
+
+if [ -z "${RBENV_ROOT}" ]; then
+  RBENV_ROOT="${HOME}/.rbenv"
+else
+  RBENV_ROOT="${RBENV_ROOT%/}"
+fi
+export RBENV_ROOT
+
+if [ -z "${RBENV_DIR}" ]; then
+  RBENV_DIR="$PWD"
+else
+  [[ $RBENV_DIR == /* ]] || RBENV_DIR="$PWD/$RBENV_DIR"
+  cd "$RBENV_DIR" 2>/dev/null || abort "cannot change working directory to \`$RBENV_DIR'"
+  RBENV_DIR="$PWD"
+  cd "$OLDPWD"
+fi
+export RBENV_DIR
+
+[ -n "$RBENV_ORIG_PATH" ] || export RBENV_ORIG_PATH="$PATH"
+
+canonicalize() {
+  local readlink resolved_path
+  if readlink="$(type -P greadlink)" || readlink="$(type -P readlink)"; then
+    # happy path: GNU & BSD readlink, macOS 12.3+
+    if resolved_path="$("$readlink" -f "$1" 2>/dev/null)"; then
+      printf "%s\n" "$resolved_path"
+      return 0
+    fi
+    # likely macOS < 12.3 with old readlink
+    local path="$1"
+    while [ -L "$path" ]; do
+      resolved_path="$("$readlink" "$path" 2>/dev/null)"
+      [[ $resolved_path == /* ]] || resolved_path="$(cd "${path%/*}/${resolved_path%/*}" && pwd)/${resolved_path##*/}"
+      path="$resolved_path"
+    done
+    printf "%s\n" "$path"
+    return 0
+  fi
+  # fail if the argument is a symlink and was not canonicalized
+  [ ! -L "$1" ] || return 1
+}
+
+shopt -s nullglob
+
+# all this trouble just to find out where rbenv's executables live
+rbenv_bin="${BASH_SOURCE:-$0}"
+if libexec_dir="$(canonicalize "$rbenv_bin")"; then
+  libexec_dir="${libexec_dir%/*}"
+else
+  libexec_dir="${rbenv_bin%/*}"
+  [ "$libexec_dir" != "." ] || libexec_dir="$PWD"
+fi
+
+for plugin_bin in "${RBENV_ROOT}/plugins/"*/bin; do
+  PATH="${plugin_bin}:${PATH}"
+done
+export PATH="${libexec_dir}:${PATH}"
+
+RBENV_HOOK_PATH="${RBENV_HOOK_PATH}:${RBENV_ROOT}/rbenv.d"
+if [ ! "${libexec_dir%/*}"/rbenv.d -ef "$RBENV_ROOT"/rbenv.d ]; then
+  # Add rbenv's own `rbenv.d` unless rbenv was cloned to RBENV_ROOT
+  RBENV_HOOK_PATH="${RBENV_HOOK_PATH}:${libexec_dir%/*}/rbenv.d"
+fi
+RBENV_HOOK_PATH="${RBENV_HOOK_PATH}:/usr/local/etc/rbenv.d:/etc/rbenv.d:/usr/lib/rbenv/hooks"
+for plugin_hook in "${RBENV_ROOT}/plugins/"*/etc/rbenv.d; do
+  RBENV_HOOK_PATH="${RBENV_HOOK_PATH}:${plugin_hook}"
+done
+RBENV_HOOK_PATH="${RBENV_HOOK_PATH#:}"
+export RBENV_HOOK_PATH
+
+shopt -u nullglob
+
+
+command="$1"
+case "$command" in
+"" )
+  { rbenv---version
+    rbenv-help
+  } | abort
+  ;;
+-v | --version )
+  exec rbenv---version
+  ;;
+-h | --help )
+  exec rbenv-help
+  ;;
+* )
+  command_path="$(type -P "rbenv-$command" || true)"
+  if [ -z "$command_path" ]; then
+    if [ "$command" == "shell" ]; then
+      abort "shell integration not enabled. Run \`rbenv init' for instructions."
+    else
+      abort "no such command \`$command'"
+    fi
+  fi
+
+  shift 1
+  if [ "$1" = --help ]; then
+    if [[ "$command" == "sh-"* ]]; then
+      echo "rbenv help \"$command\""
+    else
+      exec rbenv-help "$command"
+    fi
+  else
+    exec "$command_path" "$@"
+  fi
+  ;;
+esac

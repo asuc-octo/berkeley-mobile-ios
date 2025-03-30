@@ -1,0 +1,208 @@
+#!/usr/bin/env bash
+#
+# Summary: Display help for a command
+#
+# Usage: rbenv help [--usage] COMMAND
+#
+# Parses and displays help contents from a command's source file.
+#
+# A command is considered documented if it starts with a comment block
+# that has a `Summary:' or `Usage:' section. Usage instructions can
+# span multiple lines as long as subsequent lines are indented.
+# The remainder of the comment block is displayed as extended
+# documentation.
+
+set -e
+[ -n "$RBENV_DEBUG" ] && set -x
+
+# Provide rbenv completions
+if [ "$1" = "--complete" ]; then
+  echo --usage
+  exec rbenv-commands
+fi
+
+command_path() {
+  local command="$1"
+  type -P rbenv-"$command" rbenv-sh-"$command" | head -n1
+}
+
+extract_initial_comment_block() {
+  sed -ne "
+    /^#/ !{
+      q
+    }
+
+    s/^#$/# /
+
+    /^# / {
+      s/^# //
+      p
+    }
+  "
+}
+
+collect_documentation() {
+  local awk
+  awk="$(type -P gawk)" || awk="$(type -P awk)" || true
+  if [ -z "$awk" ]; then
+    echo "rbenv: cannot find awk" >&2
+    return 1
+  fi
+
+  # shellcheck disable=SC2016
+  "$awk" '
+    /^Summary:/ {
+      summary = substr($0, 10)
+      next
+    }
+
+    /^Usage:/ {
+      reading_usage = 1
+      usage = usage "\n" $0
+      next
+    }
+
+    /^( *$|       )/ && reading_usage {
+      usage = usage "\n" $0
+      next
+    }
+
+    {
+      reading_usage = 0
+      help = help "\n" $0
+    }
+
+    function escape(str) {
+      gsub(/[`\\$"]/, "\\\\&", str)
+      return str
+    }
+
+    function trim(str) {
+      sub(/^\n*/, "", str)
+      sub(/\n*$/, "", str)
+      return str
+    }
+
+    END {
+      if (usage || summary) {
+        print "summary=\"" escape(summary) "\""
+        print "usage=\"" escape(trim(usage)) "\""
+        print "help=\"" escape(trim(help)) "\""
+      }
+    }
+  '
+}
+
+documentation_for() {
+  local filename
+  filename="$(command_path "$1")"
+  if [ -n "$filename" ]; then
+    extract_initial_comment_block < "$filename" | collect_documentation
+  fi
+}
+
+print_summary() {
+  local command="$1"
+  local summary usage help
+  eval "$(documentation_for "$command")"
+
+  if [ -n "$summary" ]; then
+    printf "   %-9s   %s\n" "$command" "$summary"
+  fi
+}
+
+print_summaries() {
+  for command; do
+    print_summary "$command"
+  done
+}
+
+print_help() {
+  local command="$1"
+  local summary usage help
+  eval "$(documentation_for "$command")"
+  [ -n "$help" ] || help="$summary"
+
+  if [ -n "$usage" ] || [ -n "$summary" ]; then
+    if [ -n "$usage" ]; then
+      echo "$usage"
+    else
+      echo "Usage: rbenv ${command}"
+    fi
+    if [ -n "$help" ]; then
+      echo
+      echo "$help"
+      echo
+    fi
+  else
+    echo "Sorry, this command isn't documented yet." >&2
+    return 1
+  fi
+}
+
+print_usage() {
+  local command="$1"
+  local summary usage help
+  eval "$(documentation_for "$command")"
+  if [ -n "$usage" ]; then
+    echo "$usage"
+  else
+    echo "Usage: rbenv ${command}"
+  fi
+}
+
+if [ "$1" = "--complete-commands" ]; then
+  command_prefix="${2:-}"
+  seen=()
+  IFS=: read -d '' -r -a paths <<<"$PATH" || true
+  shopt -s nullglob
+  for path in "${paths[@]}"; do
+    for command in "${path}/rbenv-${command_prefix}"*; do
+      command_name="${command##*/}"
+      command_name="${command_name#rbenv-}"
+      command_name="${command_name#sh-}"
+      [[ " ${seen[*]} " != *" ${command_name} "* ]] || continue
+      seen+=("$command_name")
+      summary=""
+      eval "$(extract_initial_comment_block < "$command" | collect_documentation)"
+      [ -n "$summary" ] || continue
+      printf "%s:%s\n" "$command_name" "$summary"
+    done
+  done
+  exit 0
+fi
+
+unset usage
+if [ "$1" = "--usage" ]; then
+  usage="1"
+  shift
+fi
+
+if [ -z "$1" ] || [ "$1" == "rbenv" ]; then
+  if [ -z "$usage" ] && [ -t 1 ] && type -P man >/dev/null; then
+    MANPATH="${BASH_SOURCE%/*}/../share/man:$MANPATH" exec man rbenv
+  fi
+  echo "Usage: rbenv <command> [<args>...]"
+  [ -n "$usage" ] && exit
+  echo
+  echo "Commands to manage available Ruby versions:"
+  print_summaries versions install uninstall rehash
+  echo
+  echo "Commands to view or change the current Ruby version:"
+  print_summaries version local global shell
+  echo
+  echo "See \`rbenv help <command>' for information on a specific command."
+  echo "For full documentation, see: https://github.com/rbenv/rbenv#readme"
+else
+  command="$1"
+  if [ -n "$(command_path "$command")" ]; then
+    if [ -n "$usage" ]; then
+      print_usage "$command"
+    else
+      print_help "$command"
+    fi
+  else
+    echo "rbenv: no such command \`$command'" >&2
+    exit 1
+  fi
+fi

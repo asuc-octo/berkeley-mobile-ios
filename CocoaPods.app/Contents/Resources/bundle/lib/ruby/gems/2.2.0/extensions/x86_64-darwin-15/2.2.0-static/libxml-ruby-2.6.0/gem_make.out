@@ -1,0 +1,615 @@
+current directory: /Users/orta/dev/mac/CocoaPods-app/destroot/bundle/lib/ruby/gems/2.2.0/gems/libxml-ruby-2.6.0/ext/libxml
+/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/bin/ruby -r ./siteconf20180509-91974-1paf09h.rb extconf.rb
+checking for socket() in -lsocket... no
+checking for gethostbyname() in -lnsl... no
+checking for atan() in -lm... yes
+checking for inflate() in -lz... yes
+checking for iconv_open() in -liconv... yes
+2018-05-09 14:20:22.768 xcodebuild[92009:127147] [MT] PluginLoading: Required plug-in compatibility UUID ACA8656B-FEA8-4B6D-8E4A-93F4C95C362C for plug-in at path '~/Library/Application Support/Developer/Shared/Xcode/Plug-ins/SFDYCIPlugin.xcplugin' not present in DVTPlugInCompatibilityUUIDs
+2018-05-09 14:20:22.770 xcodebuild[92009:127147] [MT] PluginLoading: Required plug-in compatibility UUID ACA8656B-FEA8-4B6D-8E4A-93F4C95C362C for plug-in at path '~/Library/Application Support/Developer/Shared/Xcode/Plug-ins/Preferences.xcplugin' not present in DVTPlugInCompatibilityUUIDs
+2018-05-09 14:20:22.771 xcodebuild[92009:127147] [MT] PluginLoading: Required plug-in compatibility UUID ACA8656B-FEA8-4B6D-8E4A-93F4C95C362C for plug-in at path '~/Library/Application Support/Developer/Shared/Xcode/Plug-ins/OMColorSense.xcplugin' not present in DVTPlugInCompatibilityUUIDs
+2018-05-09 14:20:22.772 xcodebuild[92009:127147] [MT] PluginLoading: Required plug-in compatibility UUID ACA8656B-FEA8-4B6D-8E4A-93F4C95C362C for plug-in at path '~/Library/Application Support/Developer/Shared/Xcode/Plug-ins/KSImageNamed.xcplugin' not present in DVTPlugInCompatibilityUUIDs
+2018-05-09 14:20:22.773 xcodebuild[92009:127147] [MT] PluginLoading: Required plug-in compatibility UUID ACA8656B-FEA8-4B6D-8E4A-93F4C95C362C for plug-in at path '~/Library/Application Support/Developer/Shared/Xcode/Plug-ins/HasPreferences.xcplugin' not present in DVTPlugInCompatibilityUUIDs
+2018-05-09 14:20:22.773 xcodebuild[92009:127147] [MT] PluginLoading: Required plug-in compatibility UUID ACA8656B-FEA8-4B6D-8E4A-93F4C95C362C for plug-in at path '~/Library/Application Support/Developer/Shared/Xcode/Plug-ins/FuzzyAutocomplete.xcplugin' not present in DVTPlugInCompatibilityUUIDs
+2018-05-09 14:20:22.779 xcodebuild[92009:127147] [MT] PluginLoading: Required plug-in compatibility UUID ACA8656B-FEA8-4B6D-8E4A-93F4C95C362C for plug-in at path '~/Library/Application Support/Developer/Shared/Xcode/Plug-ins/DemoXcodePlugin.xcplugin' not present in DVTPlugInCompatibilityUUIDs
+2018-05-09 14:20:22.779 xcodebuild[92009:127147] [MT] PluginLoading: Required plug-in compatibility UUID ACA8656B-FEA8-4B6D-8E4A-93F4C95C362C for plug-in at path '~/Library/Application Support/Developer/Shared/Xcode/Plug-ins/ChangeMarks.xcplugin' not present in DVTPlugInCompatibilityUUIDs
+checking for xmlParseDoc() in -lxml2... yes
+checking for libxml/xmlversion.h... yes
+checking for rb_io_bufwrite() in ruby/io.h... yes
+creating extconf.h
+creating Makefile
+
+To see why this extension failed to compile, please check the mkmf.log which can be found here:
+
+  /Users/orta/dev/mac/CocoaPods-app/destroot/bundle/lib/ruby/gems/2.2.0/extensions/x86_64-darwin-15/2.2.0-static/libxml-ruby-2.6.0/mkmf.log
+
+current directory: /Users/orta/dev/mac/CocoaPods-app/destroot/bundle/lib/ruby/gems/2.2.0/gems/libxml-ruby-2.6.0/ext/libxml
+make "DESTDIR=" clean
+
+current directory: /Users/orta/dev/mac/CocoaPods-app/destroot/bundle/lib/ruby/gems/2.2.0/gems/libxml-ruby-2.6.0/ext/libxml
+make "DESTDIR="
+compiling libxml.c
+compiling ruby_xml.c
+ruby_xml.c:612:23: warning: assigning to 'const char *' from 'xmlChar *' (aka 'unsigned char *') converts between pointers to integer types with different sign [-Wpointer-sign]
+  xmlTreeIndentString = xmlStrdup((xmlChar *)StringValuePtr(string));
+                      ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+compiling ruby_xml_attr.c
+compiling ruby_xml_attr_decl.c
+ruby_xml_attr_decl.c:57:53: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+    return rxml_new_cstr((const char*) xattr->name, xattr->doc->encoding);
+                                                    ^~~~~~~~~~~~~~~~~~~~
+./ruby_xml_encoding.h:11:51: note: passing argument to parameter 'xencoding' here
+VALUE rxml_new_cstr(const char* xstr, const char* xencoding);
+                                                  ^
+1 warning generated.
+compiling ruby_xml_attributes.c
+compiling ruby_xml_cbg.c
+compiling ruby_xml_document.c
+ruby_xml_document.c:804:13: warning: assigning to 'const char *' from 'const xmlChar *' (aka 'const unsigned char *') converts between pointers to integer types with different sign [-Wpointer-sign]
+  xencoding = xdoc->encoding;
+            ^ ~~~~~~~~~~~~~~
+1 warning generated.
+compiling ruby_xml_dtd.c
+compiling ruby_xml_encoding.c
+compiling ruby_xml_error.c
+compiling ruby_xml_html_parser.c
+compiling ruby_xml_html_parser_context.c
+compiling ruby_xml_html_parser_options.c
+compiling ruby_xml_input_cbg.c
+compiling ruby_xml_io.c
+ruby_xml_io.c:40:10: warning: implicit declaration of function 'rb_io_bufwrite' is invalid in C99 [-Wimplicit-function-declaration]
+  return rb_io_bufwrite((VALUE) context, buffer, (size_t) len);
+         ^
+1 warning generated.
+compiling ruby_xml_namespace.c
+compiling ruby_xml_namespaces.c
+compiling ruby_xml_node.c
+compiling ruby_xml_parser.c
+compiling ruby_xml_parser_context.c
+ruby_xml_parser_context.c:53:53: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+  xmlDocDumpFormatMemoryEnc(xdoc, &buffer, &length, xdoc->encoding, 0);
+                                                    ^~~~~~~~~~~~~~
+/Applications/Xcode7.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/usr/include/libxml2/libxml/tree.h:1172:19: note: passing argument to parameter 'txt_encoding' here
+                                         const char *txt_encoding,
+                                                     ^
+ruby_xml_parser_context.c:191:49: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+    return rxml_new_cstr(ctxt->input->filename, ctxt->encoding);
+                                                ^~~~~~~~~~~~~~
+./ruby_xml_encoding.h:11:51: note: passing argument to parameter 'xencoding' here
+VALUE rxml_new_cstr(const char* xstr, const char* xencoding);
+                                                  ^
+ruby_xml_parser_context.c:211:21: warning: initializing 'const xmlChar *' (aka 'const unsigned char *') with an expression of type 'char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+    const xmlChar * xurl = StringValuePtr(url);
+                    ^      ~~~~~~~~~~~~~~~~~~~
+ruby_xml_parser_context.c:252:44: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+    return (rxml_new_cstr(ctxt->directory, ctxt->encoding));
+                                           ^~~~~~~~~~~~~~
+./ruby_xml_encoding.h:11:51: note: passing argument to parameter 'xencoding' here
+VALUE rxml_new_cstr(const char* xstr, const char* xencoding);
+                                                  ^
+ruby_xml_parser_context.c:356:39: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+  return INT2NUM(xmlParseCharEncoding(ctxt->encoding));
+                                      ^~~~~~~~~~~~~~
+/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/ruby.h:1312:35: note: expanded from macro 'INT2NUM'
+# define INT2NUM(v) INT2FIX((int)(v))
+                                  ^
+/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/ruby.h:241:30: note: expanded from macro 'INT2FIX'
+#define INT2FIX(i) (((VALUE)(i))<<1 | FIXNUM_FLAG)
+                             ^
+/Applications/Xcode7.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/usr/include/libxml2/libxml/encoding.h:195:37: note: passing argument to parameter 'name' here
+        xmlParseCharEncoding            (const char *name);
+                                                     ^
+ruby_xml_parser_context.c:510:53: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+    return (rxml_new_cstr((const char*) ctxt->name, ctxt->encoding));
+                                                    ^~~~~~~~~~~~~~
+./ruby_xml_encoding.h:11:51: note: passing argument to parameter 'xencoding' here
+VALUE rxml_new_cstr(const char* xstr, const char* xencoding);
+                                                  ^
+ruby_xml_parser_context.c:537:74: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+      rb_ary_push(tab_ary, rxml_new_cstr((const char*) ctxt->nameTab[i], ctxt->encoding));
+                                                                         ^~~~~~~~~~~~~~
+./ruby_xml_encoding.h:11:51: note: passing argument to parameter 'xencoding' here
+VALUE rxml_new_cstr(const char* xstr, const char* xencoding);
+                                                  ^
+ruby_xml_parser_context.c:803:59: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+    return (rxml_new_cstr((const char*) ctxt->intSubName, ctxt->encoding));
+                                                          ^~~~~~~~~~~~~~
+./ruby_xml_encoding.h:11:51: note: passing argument to parameter 'xencoding' here
+VALUE rxml_new_cstr(const char* xstr, const char* xencoding);
+                                                  ^
+ruby_xml_parser_context.c:822:58: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+    return (rxml_new_cstr((const char*) ctxt->extSubURI, ctxt->encoding));
+                                                         ^~~~~~~~~~~~~~
+./ruby_xml_encoding.h:11:51: note: passing argument to parameter 'xencoding' here
+VALUE rxml_new_cstr(const char* xstr, const char* xencoding);
+                                                  ^
+ruby_xml_parser_context.c:841:61: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+    return (rxml_new_cstr((const char*) ctxt->extSubSystem, ctxt->encoding));
+                                                            ^~~~~~~~~~~~~~
+./ruby_xml_encoding.h:11:51: note: passing argument to parameter 'xencoding' here
+VALUE rxml_new_cstr(const char* xstr, const char* xencoding);
+                                                  ^
+ruby_xml_parser_context.c:926:56: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+    return (rxml_new_cstr((const char*) ctxt->version, ctxt->encoding));
+                                                       ^~~~~~~~~~~~~~
+./ruby_xml_encoding.h:11:51: note: passing argument to parameter 'xencoding' here
+VALUE rxml_new_cstr(const char* xstr, const char* xencoding);
+                                                  ^
+11 warnings generated.
+compiling ruby_xml_parser_options.c
+compiling ruby_xml_reader.c
+ruby_xml_reader.c:531:47: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+    result = rxml_new_cstr((const char*) xml, xencoding);
+                                              ^~~~~~~~~
+./ruby_xml_encoding.h:11:51: note: passing argument to parameter 'xencoding' here
+VALUE rxml_new_cstr(const char* xstr, const char* xencoding);
+                                                  ^
+ruby_xml_reader.c:557:47: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+    result = rxml_new_cstr((const char*) xml, xencoding);
+                                              ^~~~~~~~~
+./ruby_xml_encoding.h:11:51: note: passing argument to parameter 'xencoding' here
+VALUE rxml_new_cstr(const char* xstr, const char* xencoding);
+                                                  ^
+ruby_xml_reader.c:595:47: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+    result = rxml_new_cstr((const char*) xml, xencoding);
+                                              ^~~~~~~~~
+./ruby_xml_encoding.h:11:51: note: passing argument to parameter 'xencoding' here
+VALUE rxml_new_cstr(const char* xstr, const char* xencoding);
+                                                  ^
+ruby_xml_reader.c:661:49: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+  return (result == NULL ? Qnil : rxml_new_cstr(result, xencoding));
+                                                ^~~~~~
+./ruby_xml_encoding.h:11:33: note: passing argument to parameter 'xstr' here
+VALUE rxml_new_cstr(const char* xstr, const char* xencoding);
+                                ^
+ruby_xml_reader.c:661:57: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+  return (result == NULL ? Qnil : rxml_new_cstr(result, xencoding));
+                                                        ^~~~~~~~~
+./ruby_xml_encoding.h:11:51: note: passing argument to parameter 'xencoding' here
+VALUE rxml_new_cstr(const char* xstr, const char* xencoding);
+                                                  ^
+ruby_xml_reader.c:676:49: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+  return (result == NULL ? Qnil : rxml_new_cstr(result, xencoding));
+                                                ^~~~~~
+./ruby_xml_encoding.h:11:33: note: passing argument to parameter 'xstr' here
+VALUE rxml_new_cstr(const char* xstr, const char* xencoding);
+                                ^
+ruby_xml_reader.c:676:57: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+  return (result == NULL ? Qnil : rxml_new_cstr(result, xencoding));
+                                                        ^~~~~~~~~
+./ruby_xml_encoding.h:11:51: note: passing argument to parameter 'xencoding' here
+VALUE rxml_new_cstr(const char* xstr, const char* xencoding);
+                                                  ^
+ruby_xml_reader.c:712:41: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+    return INT2NUM(xmlParseCharEncoding(xencoding));
+                                        ^~~~~~~~~
+/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/ruby.h:1312:35: note: expanded from macro 'INT2NUM'
+# define INT2NUM(v) INT2FIX((int)(v))
+                                  ^
+/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/ruby.h:241:30: note: expanded from macro 'INT2FIX'
+#define INT2FIX(i) (((VALUE)(i))<<1 | FIXNUM_FLAG)
+                             ^
+/Applications/Xcode7.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/usr/include/libxml2/libxml/encoding.h:195:37: note: passing argument to parameter 'name' here
+        xmlParseCharEncoding            (const char *name);
+                                                     ^
+ruby_xml_reader.c:729:49: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+  return (result == NULL ? Qnil : rxml_new_cstr(result, xencoding));
+                                                ^~~~~~
+./ruby_xml_encoding.h:11:33: note: passing argument to parameter 'xstr' here
+VALUE rxml_new_cstr(const char* xstr, const char* xencoding);
+                                ^
+ruby_xml_reader.c:729:57: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+  return (result == NULL ? Qnil : rxml_new_cstr(result, xencoding));
+                                                        ^~~~~~~~~
+./ruby_xml_encoding.h:11:51: note: passing argument to parameter 'xencoding' here
+VALUE rxml_new_cstr(const char* xstr, const char* xencoding);
+                                                  ^
+ruby_xml_reader.c:744:49: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+  return (result == NULL ? Qnil : rxml_new_cstr(result, xencoding));
+                                                ^~~~~~
+./ruby_xml_encoding.h:11:33: note: passing argument to parameter 'xstr' here
+VALUE rxml_new_cstr(const char* xstr, const char* xencoding);
+                                ^
+ruby_xml_reader.c:744:57: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+  return (result == NULL ? Qnil : rxml_new_cstr(result, xencoding));
+                                                        ^~~~~~~~~
+./ruby_xml_encoding.h:11:51: note: passing argument to parameter 'xencoding' here
+VALUE rxml_new_cstr(const char* xstr, const char* xencoding);
+                                                  ^
+ruby_xml_reader.c:759:49: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+  return (result == NULL ? Qnil : rxml_new_cstr(result, xencoding));
+                                                ^~~~~~
+./ruby_xml_encoding.h:11:33: note: passing argument to parameter 'xstr' here
+VALUE rxml_new_cstr(const char* xstr, const char* xencoding);
+                                ^
+ruby_xml_reader.c:759:57: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+  return (result == NULL ? Qnil : rxml_new_cstr(result, xencoding));
+                                                        ^~~~~~~~~
+./ruby_xml_encoding.h:11:51: note: passing argument to parameter 'xencoding' here
+VALUE rxml_new_cstr(const char* xstr, const char* xencoding);
+                                                  ^
+ruby_xml_reader.c:774:49: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+  return (result == NULL ? Qnil : rxml_new_cstr(result, xencoding));
+                                                ^~~~~~
+./ruby_xml_encoding.h:11:33: note: passing argument to parameter 'xstr' here
+VALUE rxml_new_cstr(const char* xstr, const char* xencoding);
+                                ^
+ruby_xml_reader.c:774:57: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+  return (result == NULL ? Qnil : rxml_new_cstr(result, xencoding));
+                                                        ^~~~~~~~~
+./ruby_xml_encoding.h:11:51: note: passing argument to parameter 'xencoding' here
+VALUE rxml_new_cstr(const char* xstr, const char* xencoding);
+                                                  ^
+ruby_xml_reader.c:830:49: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+  return (result == NULL ? Qnil : rxml_new_cstr(result, xencoding));
+                                                ^~~~~~
+./ruby_xml_encoding.h:11:33: note: passing argument to parameter 'xstr' here
+VALUE rxml_new_cstr(const char* xstr, const char* xencoding);
+                                ^
+ruby_xml_reader.c:830:57: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+  return (result == NULL ? Qnil : rxml_new_cstr(result, xencoding));
+                                                        ^~~~~~~~~
+./ruby_xml_encoding.h:11:51: note: passing argument to parameter 'xencoding' here
+VALUE rxml_new_cstr(const char* xstr, const char* xencoding);
+                                                  ^
+ruby_xml_reader.c:845:49: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+  return (result == NULL ? Qnil : rxml_new_cstr(result, xencoding));
+                                                ^~~~~~
+./ruby_xml_encoding.h:11:33: note: passing argument to parameter 'xstr' here
+VALUE rxml_new_cstr(const char* xstr, const char* xencoding);
+                                ^
+ruby_xml_reader.c:845:57: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+  return (result == NULL ? Qnil : rxml_new_cstr(result, xencoding));
+                                                        ^~~~~~~~~
+./ruby_xml_encoding.h:11:51: note: passing argument to parameter 'xencoding' here
+VALUE rxml_new_cstr(const char* xstr, const char* xencoding);
+                                                  ^
+ruby_xml_reader.c:898:28: warning: passing 'xmlChar *' (aka 'unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+    result = rxml_new_cstr(xattr, xencoding);
+                           ^~~~~
+./ruby_xml_encoding.h:11:33: note: passing argument to parameter 'xstr' here
+VALUE rxml_new_cstr(const char* xstr, const char* xencoding);
+                                ^
+ruby_xml_reader.c:898:35: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+    result = rxml_new_cstr(xattr, xencoding);
+                                  ^~~~~~~~~
+./ruby_xml_encoding.h:11:51: note: passing argument to parameter 'xencoding' here
+VALUE rxml_new_cstr(const char* xstr, const char* xencoding);
+                                                  ^
+ruby_xml_reader.c:922:28: warning: passing 'xmlChar *' (aka 'unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+    result = rxml_new_cstr(xattr, xencoding);
+                           ^~~~~
+./ruby_xml_encoding.h:11:33: note: passing argument to parameter 'xstr' here
+VALUE rxml_new_cstr(const char* xstr, const char* xencoding);
+                                ^
+ruby_xml_reader.c:922:35: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+    result = rxml_new_cstr(xattr, xencoding);
+                                  ^~~~~~~~~
+./ruby_xml_encoding.h:11:51: note: passing argument to parameter 'xencoding' here
+VALUE rxml_new_cstr(const char* xstr, const char* xencoding);
+                                                  ^
+ruby_xml_reader.c:945:28: warning: passing 'xmlChar *' (aka 'unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+    result = rxml_new_cstr(xattr, xencoding);
+                           ^~~~~
+./ruby_xml_encoding.h:11:33: note: passing argument to parameter 'xstr' here
+VALUE rxml_new_cstr(const char* xstr, const char* xencoding);
+                                ^
+ruby_xml_reader.c:945:35: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+    result = rxml_new_cstr(xattr, xencoding);
+                                  ^~~~~~~~~
+./ruby_xml_encoding.h:11:51: note: passing argument to parameter 'xencoding' here
+VALUE rxml_new_cstr(const char* xstr, const char* xencoding);
+                                                  ^
+ruby_xml_reader.c:963:28: warning: passing 'xmlChar *' (aka 'unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+    result = rxml_new_cstr(xattr, xencoding);
+                           ^~~~~
+./ruby_xml_encoding.h:11:33: note: passing argument to parameter 'xstr' here
+VALUE rxml_new_cstr(const char* xstr, const char* xencoding);
+                                ^
+ruby_xml_reader.c:963:35: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+    result = rxml_new_cstr(xattr, xencoding);
+                                  ^~~~~~~~~
+./ruby_xml_encoding.h:11:51: note: passing argument to parameter 'xencoding' here
+VALUE rxml_new_cstr(const char* xstr, const char* xencoding);
+                                                  ^
+28 warnings generated.
+compiling ruby_xml_relaxng.c
+compiling ruby_xml_sax2_handler.c
+ruby_xml_sax2_handler.c:82:28: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+      name = rxml_new_cstr(xprefix, NULL);
+                           ^~~~~~~
+./ruby_xml_encoding.h:11:33: note: passing argument to parameter 'xstr' here
+VALUE rxml_new_cstr(const char* xstr, const char* xencoding);
+                                ^
+ruby_xml_sax2_handler.c:84:25: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+      rb_str_cat2(name, xlocalname); 
+                        ^~~~~~~~~~
+/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/intern.h:881:21: note: expanded from macro 'rb_str_cat2'
+#define rb_str_cat2 rb_str_cat_cstr
+                    ^
+/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/intern.h:862:40: note: expanded from macro 'rb_str_cat_cstr'
+        rb_str_cat((str), (ptr), (long)strlen(ptr)) : \
+                                              ^~~
+/Applications/Xcode7.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/usr/include/string.h:82:28: note: passing argument to parameter here
+size_t   strlen(const char *);
+                            ^
+ruby_xml_sax2_handler.c:84:7: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+      rb_str_cat2(name, xlocalname); 
+      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/intern.h:881:21: note: expanded from macro 'rb_str_cat2'
+#define rb_str_cat2 rb_str_cat_cstr
+                    ^
+/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/intern.h:862:20: note: expanded from macro 'rb_str_cat_cstr'
+        rb_str_cat((str), (ptr), (long)strlen(ptr)) : \
+                          ^~~~~
+/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/intern.h:757:36: note: passing argument to parameter here
+VALUE rb_str_cat(VALUE, const char*, long);
+                                   ^
+ruby_xml_sax2_handler.c:84:7: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+      rb_str_cat2(name, xlocalname); 
+      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/intern.h:881:21: note: expanded from macro 'rb_str_cat2'
+#define rb_str_cat2 rb_str_cat_cstr
+                    ^
+/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/intern.h:863:25: note: expanded from macro 'rb_str_cat_cstr'
+        rb_str_cat_cstr((str), (ptr));          \
+                               ^~~~~
+/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/intern.h:758:41: note: passing argument to parameter here
+VALUE rb_str_cat_cstr(VALUE, const char*);
+                                        ^
+ruby_xml_sax2_handler.c:88:28: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+      name = rxml_new_cstr(xlocalname, NULL);
+                           ^~~~~~~~~~
+./ruby_xml_encoding.h:11:33: note: passing argument to parameter 'xstr' here
+VALUE rxml_new_cstr(const char* xstr, const char* xencoding);
+                                ^
+ruby_xml_sax2_handler.c:94:28: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+             rxml_new_cstr(xlocalname, NULL),
+                           ^~~~~~~~~~
+./ruby_xml_encoding.h:11:33: note: passing argument to parameter 'xstr' here
+VALUE rxml_new_cstr(const char* xstr, const char* xencoding);
+                                ^
+ruby_xml_sax2_handler.c:95:38: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+             xprefix ? rxml_new_cstr(xprefix, NULL) : Qnil,
+                                     ^~~~~~~
+./ruby_xml_encoding.h:11:33: note: passing argument to parameter 'xstr' here
+VALUE rxml_new_cstr(const char* xstr, const char* xencoding);
+                                ^
+ruby_xml_sax2_handler.c:96:35: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+             xURI ? rxml_new_cstr(xURI, NULL) : Qnil);
+                                  ^~~~
+./ruby_xml_encoding.h:11:33: note: passing argument to parameter 'xstr' here
+VALUE rxml_new_cstr(const char* xstr, const char* xencoding);
+                                ^
+ruby_xml_sax2_handler.c:205:38: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+      VALUE attrName = rxml_new_cstr(xattributes[i+0], NULL);
+                                     ^~~~~~~~~~~~~~~~
+./ruby_xml_encoding.h:11:33: note: passing argument to parameter 'xstr' here
+VALUE rxml_new_cstr(const char* xstr, const char* xencoding);
+                                ^
+ruby_xml_sax2_handler.c:206:43: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+      VALUE attrValue = rxml_new_cstr_len(xattributes[i+3], xattributes[i+4] - xattributes[i+3], NULL);
+                                          ^~~~~~~~~~~~~~~~
+./ruby_xml_encoding.h:12:37: note: passing argument to parameter 'xstr' here
+VALUE rxml_new_cstr_len(const char* xstr, const int length, const char* xencoding);
+                                    ^
+ruby_xml_sax2_handler.c:217:57: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+      VALUE nsPrefix = xnamespaces[i+0] ? rxml_new_cstr(xnamespaces[i+0], NULL) : Qnil;
+                                                        ^~~~~~~~~~~~~~~~
+./ruby_xml_encoding.h:11:33: note: passing argument to parameter 'xstr' here
+VALUE rxml_new_cstr(const char* xstr, const char* xencoding);
+                                ^
+ruby_xml_sax2_handler.c:218:54: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+      VALUE nsURI = xnamespaces[i+1] ? rxml_new_cstr(xnamespaces[i+1], NULL) : Qnil;
+                                                     ^~~~~~~~~~~~~~~~
+./ruby_xml_encoding.h:11:33: note: passing argument to parameter 'xstr' here
+VALUE rxml_new_cstr(const char* xstr, const char* xencoding);
+                                ^
+ruby_xml_sax2_handler.c:229:28: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+      name = rxml_new_cstr(xprefix, NULL);
+                           ^~~~~~~
+./ruby_xml_encoding.h:11:33: note: passing argument to parameter 'xstr' here
+VALUE rxml_new_cstr(const char* xstr, const char* xencoding);
+                                ^
+ruby_xml_sax2_handler.c:231:25: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+      rb_str_cat2(name, xlocalname); 
+                        ^~~~~~~~~~
+/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/intern.h:881:21: note: expanded from macro 'rb_str_cat2'
+#define rb_str_cat2 rb_str_cat_cstr
+                    ^
+/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/intern.h:862:40: note: expanded from macro 'rb_str_cat_cstr'
+        rb_str_cat((str), (ptr), (long)strlen(ptr)) : \
+                                              ^~~
+/Applications/Xcode7.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/usr/include/string.h:82:28: note: passing argument to parameter here
+size_t   strlen(const char *);
+                            ^
+ruby_xml_sax2_handler.c:231:7: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+      rb_str_cat2(name, xlocalname); 
+      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/intern.h:881:21: note: expanded from macro 'rb_str_cat2'
+#define rb_str_cat2 rb_str_cat_cstr
+                    ^
+/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/intern.h:862:20: note: expanded from macro 'rb_str_cat_cstr'
+        rb_str_cat((str), (ptr), (long)strlen(ptr)) : \
+                          ^~~~~
+/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/intern.h:757:36: note: passing argument to parameter here
+VALUE rb_str_cat(VALUE, const char*, long);
+                                   ^
+ruby_xml_sax2_handler.c:231:7: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+      rb_str_cat2(name, xlocalname); 
+      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/intern.h:881:21: note: expanded from macro 'rb_str_cat2'
+#define rb_str_cat2 rb_str_cat_cstr
+                    ^
+/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/intern.h:863:25: note: expanded from macro 'rb_str_cat_cstr'
+        rb_str_cat_cstr((str), (ptr));          \
+                               ^~~~~
+/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/intern.h:758:41: note: passing argument to parameter here
+VALUE rb_str_cat_cstr(VALUE, const char*);
+                                        ^
+ruby_xml_sax2_handler.c:235:28: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+      name = rxml_new_cstr(xlocalname, NULL);
+                           ^~~~~~~~~~
+./ruby_xml_encoding.h:11:33: note: passing argument to parameter 'xstr' here
+VALUE rxml_new_cstr(const char* xstr, const char* xencoding);
+                                ^
+ruby_xml_sax2_handler.c:241:28: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+             rxml_new_cstr(xlocalname, NULL),
+                           ^~~~~~~~~~
+./ruby_xml_encoding.h:11:33: note: passing argument to parameter 'xstr' here
+VALUE rxml_new_cstr(const char* xstr, const char* xencoding);
+                                ^
+ruby_xml_sax2_handler.c:243:38: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+             xprefix ? rxml_new_cstr(xprefix, NULL) : Qnil,
+                                     ^~~~~~~
+./ruby_xml_encoding.h:11:33: note: passing argument to parameter 'xstr' here
+VALUE rxml_new_cstr(const char* xstr, const char* xencoding);
+                                ^
+ruby_xml_sax2_handler.c:244:35: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+             xURI ? rxml_new_cstr(xURI, NULL) : Qnil,
+                                  ^~~~
+./ruby_xml_encoding.h:11:33: note: passing argument to parameter 'xstr' here
+VALUE rxml_new_cstr(const char* xstr, const char* xencoding);
+                                ^
+20 warnings generated.
+compiling ruby_xml_sax_parser.c
+compiling ruby_xml_schema.c
+ruby_xml_schema.c:207:35: warning: passing 'xmlChar *' (aka 'unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+  rb_hash_aset(types, rb_str_new2(name), rtype);
+                                  ^~~~
+/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/intern.h:872:21: note: expanded from macro 'rb_str_new2'
+#define rb_str_new2 rb_str_new_cstr
+                    ^
+/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/intern.h:803:40: note: expanded from macro 'rb_str_new_cstr'
+        rb_str_new_static((str), (long)strlen(str)) : \
+                                              ^~~
+/Applications/Xcode7.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/usr/include/string.h:82:28: note: passing argument to parameter here
+size_t   strlen(const char *);
+                            ^
+ruby_xml_schema.c:207:23: warning: passing 'xmlChar *' (aka 'unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+  rb_hash_aset(types, rb_str_new2(name), rtype);
+                      ^~~~~~~~~~~~~~~~~
+/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/intern.h:872:21: note: expanded from macro 'rb_str_new2'
+#define rb_str_new2 rb_str_new_cstr
+                    ^
+/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/intern.h:803:20: note: expanded from macro 'rb_str_new_cstr'
+        rb_str_new_static((str), (long)strlen(str)) : \
+                          ^~~~~
+/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/intern.h:728:37: note: passing argument to parameter here
+VALUE rb_str_new_static(const char *, long);
+                                    ^
+ruby_xml_schema.c:207:35: warning: passing 'xmlChar *' (aka 'unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+  rb_hash_aset(types, rb_str_new2(name), rtype);
+                                  ^~~~
+/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/intern.h:872:21: note: expanded from macro 'rb_str_new2'
+#define rb_str_new2 rb_str_new_cstr
+                    ^
+/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/intern.h:804:18: note: expanded from macro 'rb_str_new_cstr'
+        rb_str_new_cstr(str);                   \
+                        ^~~
+/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/intern.h:708:34: note: passing argument to parameter here
+VALUE rb_str_new_cstr(const char*);
+                                 ^
+ruby_xml_schema.c:237:38: warning: passing 'xmlChar *' (aka 'unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+  rb_hash_aset(elements, rb_str_new2(name), relement);
+                                     ^~~~
+/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/intern.h:872:21: note: expanded from macro 'rb_str_new2'
+#define rb_str_new2 rb_str_new_cstr
+                    ^
+/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/intern.h:803:40: note: expanded from macro 'rb_str_new_cstr'
+        rb_str_new_static((str), (long)strlen(str)) : \
+                                              ^~~
+/Applications/Xcode7.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/usr/include/string.h:82:28: note: passing argument to parameter here
+size_t   strlen(const char *);
+                            ^
+ruby_xml_schema.c:237:26: warning: passing 'xmlChar *' (aka 'unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+  rb_hash_aset(elements, rb_str_new2(name), relement);
+                         ^~~~~~~~~~~~~~~~~
+/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/intern.h:872:21: note: expanded from macro 'rb_str_new2'
+#define rb_str_new2 rb_str_new_cstr
+                    ^
+/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/intern.h:803:20: note: expanded from macro 'rb_str_new_cstr'
+        rb_str_new_static((str), (long)strlen(str)) : \
+                          ^~~~~
+/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/intern.h:728:37: note: passing argument to parameter here
+VALUE rb_str_new_static(const char *, long);
+                                    ^
+ruby_xml_schema.c:237:38: warning: passing 'xmlChar *' (aka 'unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+  rb_hash_aset(elements, rb_str_new2(name), relement);
+                                     ^~~~
+/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/intern.h:872:21: note: expanded from macro 'rb_str_new2'
+#define rb_str_new2 rb_str_new_cstr
+                    ^
+/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/intern.h:804:18: note: expanded from macro 'rb_str_new_cstr'
+        rb_str_new_cstr(str);                   \
+                        ^~~
+/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/intern.h:708:34: note: passing argument to parameter here
+VALUE rb_str_new_cstr(const char*);
+                                 ^
+6 warnings generated.
+compiling ruby_xml_schema_attribute.c
+compiling ruby_xml_schema_element.c
+compiling ruby_xml_schema_facet.c
+compiling ruby_xml_schema_type.c
+compiling ruby_xml_writer.c
+ruby_xml_writer.c:242:48: warning: passing 'xmlChar *' (aka 'unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+        content = rb_external_str_new_with_enc(rwo->buffer->content, rwo->buffer->use, rwo->encoding);
+                                               ^~~~~~~~~~~~~~~~~~~~
+/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/encoding.h:104:48: note: passing argument to parameter 'ptr' here
+VALUE rb_external_str_new_with_enc(const char *ptr, long len, rb_encoding *);
+                                               ^
+ruby_xml_writer.c:278:48: warning: passing 'xmlChar *' (aka 'unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+            ret = rxml_writer_c_to_ruby_string(rwo->buffer->content, rwo->buffer->use);
+                                               ^~~~~~~~~~~~~~~~~~~~
+ruby_xml_writer.c:43:34: note: expanded from macro 'rxml_writer_c_to_ruby_string'
+    rb_external_str_new_with_enc(string, string_len, rb_utf8_encoding())
+                                 ^~~~~~
+/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/encoding.h:104:48: note: passing argument to parameter 'ptr' here
+VALUE rb_external_str_new_with_enc(const char *ptr, long len, rb_encoding *);
+                                               ^
+2 warnings generated.
+compiling ruby_xml_xinclude.c
+compiling ruby_xml_xpath.c
+ruby_xml_xpath.c:107:63: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+      result = rxml_new_cstr((const char*)xobject->stringval, xctxt->doc->encoding);
+                                                              ^~~~~~~~~~~~~~~~~~~~
+./ruby_xml_encoding.h:11:51: note: passing argument to parameter 'xencoding' here
+VALUE rxml_new_cstr(const char* xstr, const char* xencoding);
+                                                  ^
+1 warning generated.
+compiling ruby_xml_xpath_context.c
+ruby_xml_xpath_context.c:162:64: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+        VALUE prefix = rxml_new_cstr((const char*)xns->prefix, xctxt->doc->encoding);
+                                                               ^~~~~~~~~~~~~~~~~~~~
+./ruby_xml_encoding.h:11:51: note: passing argument to parameter 'xencoding' here
+VALUE rxml_new_cstr(const char* xstr, const char* xencoding);
+                                                  ^
+ruby_xml_xpath_context.c:163:59: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+        VALUE uri = rxml_new_cstr((const char*)xns->href, xctxt->doc->encoding);
+                                                          ^~~~~~~~~~~~~~~~~~~~
+./ruby_xml_encoding.h:11:51: note: passing argument to parameter 'xencoding' here
+VALUE rxml_new_cstr(const char* xstr, const char* xencoding);
+                                                  ^
+ruby_xml_xpath_context.c:218:36: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+      ruri = rxml_new_cstr(&cp[1], xctxt->doc->encoding);
+                                   ^~~~~~~~~~~~~~~~~~~~
+./ruby_xml_encoding.h:11:51: note: passing argument to parameter 'xencoding' here
+VALUE rxml_new_cstr(const char* xstr, const char* xencoding);
+                                                  ^
+3 warnings generated.
+compiling ruby_xml_xpath_expression.c
+compiling ruby_xml_xpath_object.c
+ruby_xml_xpath_object.c:295:62: warning: passing 'const xmlChar *' (aka 'const unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+  return rxml_new_cstr((const char*) rxpop->xpop->stringval, rxpop->xdoc->encoding);
+                                                             ^~~~~~~~~~~~~~~~~~~~~
+./ruby_xml_encoding.h:11:51: note: passing argument to parameter 'xencoding' here
+VALUE rxml_new_cstr(const char* xstr, const char* xencoding);
+                                                  ^
+1 warning generated.
+compiling ruby_xml_xpointer.c
+linking shared-object libxml_ruby.bundle
+
+current directory: /Users/orta/dev/mac/CocoaPods-app/destroot/bundle/lib/ruby/gems/2.2.0/gems/libxml-ruby-2.6.0/ext/libxml
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 libxml_ruby.bundle ./.gem.20180509-91974-dwmf9o

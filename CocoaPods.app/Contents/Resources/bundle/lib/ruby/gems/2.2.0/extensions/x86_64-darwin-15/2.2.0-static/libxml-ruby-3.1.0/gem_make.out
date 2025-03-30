@@ -1,0 +1,59 @@
+current directory: /Users/orta/dev/mac/CocoaPods-app/destroot/bundle/lib/ruby/gems/2.2.0/gems/libxml-ruby-3.1.0/ext/libxml
+/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/bin/ruby -r ./siteconf20180509-92239-1n39yib.rb extconf.rb
+checking for libxml/xmlversion.h in /opt/include/libxml2,/opt/local/include/libxml2,/usr/local/include/libxml2,/usr/include/libxml2... yes
+checking for xmlParseDoc() in -lxml2... yes
+checking for rb_io_bufwrite() in ruby/io.h... yes
+creating extconf.h
+creating Makefile
+
+To see why this extension failed to compile, please check the mkmf.log which can be found here:
+
+  /Users/orta/dev/mac/CocoaPods-app/destroot/bundle/lib/ruby/gems/2.2.0/extensions/x86_64-darwin-15/2.2.0-static/libxml-ruby-3.1.0/mkmf.log
+
+current directory: /Users/orta/dev/mac/CocoaPods-app/destroot/bundle/lib/ruby/gems/2.2.0/gems/libxml-ruby-3.1.0/ext/libxml
+make "DESTDIR=" clean
+
+current directory: /Users/orta/dev/mac/CocoaPods-app/destroot/bundle/lib/ruby/gems/2.2.0/gems/libxml-ruby-3.1.0/ext/libxml
+make "DESTDIR="
+compiling libxml.c
+compiling ruby_xml.c
+compiling ruby_xml_attr.c
+compiling ruby_xml_attr_decl.c
+compiling ruby_xml_attributes.c
+compiling ruby_xml_cbg.c
+compiling ruby_xml_document.c
+compiling ruby_xml_dtd.c
+compiling ruby_xml_encoding.c
+compiling ruby_xml_error.c
+compiling ruby_xml_html_parser.c
+compiling ruby_xml_html_parser_context.c
+compiling ruby_xml_html_parser_options.c
+compiling ruby_xml_input_cbg.c
+compiling ruby_xml_io.c
+compiling ruby_xml_namespace.c
+compiling ruby_xml_namespaces.c
+compiling ruby_xml_node.c
+compiling ruby_xml_parser.c
+compiling ruby_xml_parser_context.c
+compiling ruby_xml_parser_options.c
+compiling ruby_xml_reader.c
+compiling ruby_xml_relaxng.c
+compiling ruby_xml_sax2_handler.c
+compiling ruby_xml_sax_parser.c
+compiling ruby_xml_schema.c
+compiling ruby_xml_schema_attribute.c
+compiling ruby_xml_schema_element.c
+compiling ruby_xml_schema_facet.c
+compiling ruby_xml_schema_type.c
+compiling ruby_xml_writer.c
+compiling ruby_xml_xinclude.c
+compiling ruby_xml_xpath.c
+compiling ruby_xml_xpath_context.c
+compiling ruby_xml_xpath_expression.c
+compiling ruby_xml_xpath_object.c
+compiling ruby_xml_xpointer.c
+linking shared-object libxml_ruby.bundle
+
+current directory: /Users/orta/dev/mac/CocoaPods-app/destroot/bundle/lib/ruby/gems/2.2.0/gems/libxml-ruby-3.1.0/ext/libxml
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 libxml_ruby.bundle ./.gem.20180509-92239-1b7nb34

@@ -1,0 +1,8 @@
+../libexec/rbenv-realpath.dylib:
+	@echo "Warning: this Makefile is obsolete and kept only for backwards compatibility." >&2
+	@echo "You can remove the \`configure && make ...' step from your rbenv setup." >&2
+
+clean:
+	rm -f *.o ../libexec/*.dylib
+
+.PHONY: ../libexec/rbenv-realpath.dylib clean

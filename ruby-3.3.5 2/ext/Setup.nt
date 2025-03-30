@@ -1,0 +1,25 @@
+#option platform cygwin|mingw|mswin
+#option nodynamic
+
+bigdecimal
+cgi/escape
+digest
+digest/md5
+digest/rmd160
+digest/sha1
+digest/sha2
+etc
+fcntl
+#io/wait
+nkf
+#openssl
+#pty
+#racc/cparse
+#readline
+#ripper
+socket
+stringio
+strscan
+#syslog
+win32ole
+#zlib
