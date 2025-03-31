@@ -32,10 +32,12 @@ class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
         let mapVC = MapViewController()
         mapVC.homeViewModel = homeViewModel
         homeViewController = UIHostingController(rootView: HomeView(mapViewController: mapVC).environmentObject(homeViewModel))
-        addChild(homeViewController)
         homeView = homeViewController.view!
         homeView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(homeView)
+        
+        addChild(homeViewController)
+        homeViewController.didMove(toParent: self)
         
         NSLayoutConstraint.activate([
             homeView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -43,8 +45,6 @@ class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
             homeView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             homeView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-        
-        homeViewController.didMove(toParent: self)
     }
 
     override func viewDidAppear(_ animated: Bool) {
