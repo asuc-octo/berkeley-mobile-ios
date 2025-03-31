@@ -12,11 +12,13 @@ fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 16, left: 16, bot
 fileprivate let kViewMargin: CGFloat = 16
 fileprivate let kButtonSize: CGFloat = 24
 
+
 // MARK: - MapMarkerDetailViewDelegate
 
 protocol MapMarkerDetailViewDelegate {
     func didCloseMarkerDetailView(_ sender: MapMarkerDetailView);
 }
+
 
 // MARK: - MapMarkerDetailView
 
@@ -200,6 +202,7 @@ class MapMarkerDetailView: UIView {
     }
 }
 
+
 // MARK: - MapMarkerDetail
 
 /** Describes types of subviews for `MapMarkerDetailView`. */
@@ -274,4 +277,20 @@ enum MapMarkerDetail {
         }
     }
     
+}
+
+
+// MARK: - UIStackView
+
+extension UIStackView {
+    convenience init(arrangedSubviews: [UIView]? = nil, axis: NSLayoutConstraint.Axis, distribution: UIStackView.Distribution, spacing: CGFloat) {
+        if let arrangedSubviews {
+            self.init(arrangedSubviews: arrangedSubviews)
+        } else {
+            self.init()
+        }
+        self.axis = axis
+        self.spacing = spacing
+        self.distribution = distribution
+    }
 }

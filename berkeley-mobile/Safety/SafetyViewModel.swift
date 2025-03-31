@@ -1,5 +1,5 @@
 //
-//  SafetyViewManager.swift
+//  SafetyViewModel.swift
 //  berkeley-mobile
 //
 //  Created by Justin Wong on 4/21/24.
@@ -10,7 +10,6 @@ import CoreLocation
 import Firebase
 import MapKit
 import SwiftUI
-
 
 struct BMSafetyLog: Identifiable, Codable, Hashable {
     
@@ -63,24 +62,27 @@ extension BMSafetyLogFilterState: Identifiable {
 
 // MARK: - SafetyViewManager
 
-final class SafetyViewManager: NSObject, ObservableObject {
+final class SafetyViewModel: NSObject, ObservableObject {
     
     private struct Constants {
         static let safetyLogsCollectionName = "Safety Logs"
     }
     
-    @Published var region = MKCoordinateRegion(
-        center: CLLocation(latitude: CLLocationDegrees(exactly: 37.871684)!, longitude: CLLocationDegrees(-122.259934)).coordinate,
-        span: .init(latitudeDelta: 0.02, longitudeDelta: 0.02)
-    )
+    struct BMCrimeInfo {
+        var color: Color
+        var count: Int
+    }
+    
+    @Published var region = BMConstants.berkeleyRegion
     @Published var safetyLogs = [BMSafetyLog]()
     @Published var filteredSafetyLogs = [BMSafetyLog]()
+    @Published var isFetchingLogs = false
+    @Published var crimeInfos = [BMSafetyLogFilterState: BMCrimeInfo]()
     @Published var selectedSafetyLogFilterStates: [BMSafetyLogFilterState] = [] {
         didSet {
             updateFilterState()
         }
     }
-    @Published var isFetchingLogs = false
     
     private let locationManager = CLLocationManager()
     private let db = Firestore.firestore()
@@ -126,6 +128,7 @@ final class SafetyViewManager: NSObject, ObservableObject {
                 self.safetyLogs = fetchedSafetyLogs
                 self.filteredSafetyLogs = fetchedSafetyLogs
                 self.isFetchingLogs = false
+                self.associateCrimesWithColor()
             }
         }
     }
@@ -196,12 +199,21 @@ final class SafetyViewManager: NSObject, ObservableObject {
         }
     }
     
+    private func associateCrimesWithColor() {
+        let colors: [Color] = [.red, .green, .blue, .yellow, .purple, .orange, .mint]
+        let displayCrimeTypes: [BMSafetyLogFilterState] = [.aggravatedAssault, .burglary, .robbery, .sexualAssault, .others]
+        for (crime, color) in zip(displayCrimeTypes, colors) {
+            let crimeTypeCount = safetyLogs.filter { $0.getSafetyLogState == crime }.count
+            crimeInfos[crime] = BMCrimeInfo(color: color, count: crimeTypeCount)
+        }
+    }
+    
 }
 
 
 // MARK: - CLLocationManagerDelegate
 
-extension SafetyViewManager: CLLocationManagerDelegate {
+extension SafetyViewModel: CLLocationManagerDelegate {
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         guard .authorizedWhenInUse == manager.authorizationStatus else {
@@ -230,7 +242,7 @@ extension SafetyViewManager: CLLocationManagerDelegate {
 
 // MARK: - Sample Data
 
-extension SafetyViewManager {
+extension SafetyViewModel {
     
     static func getSampleSafetyLog() -> BMSafetyLog {
         BMSafetyLog(crime: "Aggravated Assault", date: Date(), detail: "On 4/10/24 at approximately 1855 hours, victim was walking north bound on Gayley Road. A blue convertible Pontiac driving south bound Gayley road from Hearst Ave struck the victim with an unknown projectile. The suspect vehicle continued south bound Gayley Road then proceeded east bound Rim Way. The vehicle was occupied by 2 males and 1 female. The rear passenger subject was responsible for the incident.   Case 24-01042  Aggravated assault is an unlawful attack by one person upon another for the purpose of inflicting severe or aggravated bodily injury. This type of assault is usually accompanied by the use of a weapon or by means likely to produce death or great bodily harm.", latitude: 1.0, location: "Gayley Road, South of Hearst Ave", longitude: 1.0)
