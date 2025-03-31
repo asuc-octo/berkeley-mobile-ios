@@ -14,12 +14,8 @@ import SwiftUI
 
 struct MapMarkerDetailSwiftView: View {
     var marker: MapMarker?
-    var onClose: ((DismissReason) -> Void)?
-    
-    enum DismissReason {
-        case closeButton
-        case flipping
-    }
+    var onClose: (() -> Void)?
+
     
     var body: some View {
         ZStack {
@@ -76,7 +72,7 @@ struct MapMarkerDetailSwiftView: View {
             Spacer()
             
             Button(action: {
-                onClose?(.closeButton)
+                onClose?()
             }) {
                 Image(systemName: "xmark")
                     .font(.system(size: 20))
@@ -275,6 +271,6 @@ struct MapMarkerDetailSwiftView: View {
             accessibleGIRs: nil,
             nonAccesibleGIRs: nil
         ),
-        onClose: {_ in}
+        onClose: {}
     )
 }
