@@ -23,14 +23,17 @@ class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
     var drawerStatePositions: [DrawerState: CGFloat] = [:]
     
     private let homeViewModel = HomeViewModel()
+    private var homeViewController: UIViewController!
+    private var homeView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let mapVC = MapViewController()
         mapVC.homeViewModel = homeViewModel
-        
-        let homeView = UIHostingController(rootView: HomeView(mapViewController: mapVC).environmentObject(homeViewModel)).view!
+        homeViewController = UIHostingController(rootView: HomeView(mapViewController: mapVC).environmentObject(homeViewModel))
+        addChild(homeViewController)
+        homeView = homeViewController.view!
         homeView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(homeView)
         
@@ -40,6 +43,8 @@ class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
             homeView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             homeView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+        
+        homeViewController.didMove(toParent: self)
     }
 
     override func viewDidAppear(_ animated: Bool) {

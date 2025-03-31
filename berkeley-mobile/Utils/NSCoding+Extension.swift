@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 extension NSCoding where Self: NSObject {
     
     static func unsecureUnarchived(from data: Data) -> Self? {
