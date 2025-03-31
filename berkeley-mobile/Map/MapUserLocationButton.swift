@@ -57,7 +57,7 @@ struct MapUserLocationButton: View {
                 locationImage
             }
         }
-        .buttonStyle(HomeMapControlButtonStyle())
+        .buttonStyle(BMControlButtonStyle())
     }
     
     @ViewBuilder

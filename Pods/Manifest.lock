@@ -1405,7 +1405,6 @@ PODS:
   - nanopb/encode (3.30910.0)
   - PromisesObjC (2.4.0)
   - RecaptchaInterop (100.0.0)
-  - SearchTextField (1.2.4)
 
 DEPENDENCIES:
   - Firebase
@@ -1414,7 +1413,6 @@ DEPENDENCIES:
   - Firebase/Firestore
   - FirebaseMessaging
   - GoogleSignIn
-  - SearchTextField
 
 SPEC REPOS:
   trunk:
@@ -1447,7 +1445,6 @@ SPEC REPOS:
     - nanopb
     - PromisesObjC
     - RecaptchaInterop
-    - SearchTextField
 
 SPEC CHECKSUMS:
   abseil: d121da9ef7e2ff4cab7666e76c5a3e0915ae08c3
@@ -1479,8 +1476,7 @@ SPEC CHECKSUMS:
   nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
-  SearchTextField: 40dc3cc57def5a211f263cac263622c163bbc25a
 
-PODFILE CHECKSUM: 2091f13716ec0f480bb8ef80a3ddf97f22067ffd
+PODFILE CHECKSUM: bd8bcd991af5935b82351c2294836674ca8af324
 
 COCOAPODS: 1.16.2

@@ -32,13 +32,9 @@ extension HasLocation {
 
     /// Returns the distance to the user in miles if possible, otherwise `nil`.
     var distanceToUser: Double? {
-        guard let location = BMLocationManager.shared.userLocation else { return nil }
         if let lat = latitude, let lon = longitude, lat != Double.nan, lon != Double.nan {
             let itemLocation = CLLocation(latitude: lat, longitude: lon)
-            let meters = location.distance(from: itemLocation)
-            let measurement = Measurement(value: meters, unit: UnitLength.meters)
-            let miles = measurement.converted(to: UnitLength.miles).value
-            return miles
+            return itemLocation.distanceFromUser()
         }
         return nil
     }

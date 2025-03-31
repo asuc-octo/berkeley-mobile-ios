@@ -12,7 +12,6 @@ target 'berkeley-mobile' do
   pod 'Firebase/Firestore'
   pod 'Firebase/Auth'
   pod 'GoogleSignIn'
-  pod "SearchTextField"
 end
 
 

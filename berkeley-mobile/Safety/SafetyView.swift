@@ -10,34 +10,32 @@ import SwiftUI
 import MapKit
 
 struct SafetyView: View {
-    @StateObject private var safetyViewManager = SafetyViewManager()
+    @StateObject private var safetyViewModel = SafetyViewModel()
     @Namespace private var safetyLogDetailAnimation
     @State private var selectedSafetyLog: BMSafetyLog?
-    @State private var isPresentingSafetyLogDetailView = false
     @State private var drawerViewState = BMDrawerViewState.medium
-    @State var region = MKCoordinateRegion(
-        center: CLLocation(latitude: CLLocationDegrees(exactly: 37.871684)!, longitude: CLLocationDegrees(-122.259934)).coordinate,
-        span: .init(latitudeDelta: 0.02, longitudeDelta: 0.02)
-    )
+    
+    private var isPresentingSafetyLogDetailView: Bool {
+        selectedSafetyLog != nil
+    }
     
     var body: some View {
         ZStack {
             Group {
-                Map(coordinateRegion: $region, showsUserLocation: true, annotationItems: safetyViewManager.safetyLogs) { safetyLog in
-                    MapPin(coordinate: safetyLog.coordinate)
-                }
-                .edgesIgnoringSafeArea(.all)
+                SafetyMapView(selectedSafetyLog: $selectedSafetyLog, drawerViewState: $drawerViewState)
+                    .environmentObject(safetyViewModel)
                 drawerView
             }
             .allowsHitTesting(isPresentingSafetyLogDetailView ? false : true)
             .blur(radius: isPresentingSafetyLogDetailView ? 40 : 0)
             
             if isPresentingSafetyLogDetailView {
-                SafetyLogDetailView(isPresentingSafetyLogDetailView: $isPresentingSafetyLogDetailView, selectedSafetyLog: selectedSafetyLog!)
+                SafetyLogDetailView(selectedSafetyLog: $selectedSafetyLog, drawerViewState: $drawerViewState)
                     .padding()
                     .matchedGeometryEffect(id: selectedSafetyLog!.id, in: safetyLogDetailAnimation)
             }
         }
+        .animation(.easeInOut, value: isPresentingSafetyLogDetailView)
     }
     
     private var drawerView: some View {
@@ -45,23 +43,21 @@ struct SafetyView: View {
             VStack(alignment: .leading) {
                 alertsDrawerHeaderView
                 
-                if safetyViewManager.isFetchingLogs {
+                if safetyViewModel.isFetchingLogs {
                     loadingSafetyLogsView
                 } else {
-                    if !safetyViewManager.filteredSafetyLogs.isEmpty {
-                        List(safetyViewManager.filteredSafetyLogs, id: \.id) { safetyLog in
+                    if !safetyViewModel.filteredSafetyLogs.isEmpty {
+                        List(safetyViewModel.filteredSafetyLogs, id: \.id) { safetyLog in
                             SafetyLogView(safetyLog: safetyLog, isPresentingFullScreen: false)
                                 .contentShape(RoundedRectangle(cornerRadius: 10))
                                 .listRowBackground(Color.clear)
                                 .listRowSeparator(.hidden)
                                 .listRowInsets(EdgeInsets())
                                 .onTapGesture {
-                                    withAnimation {
-                                        selectedSafetyLog = safetyLog
-                                        isPresentingSafetyLogDetailView.toggle()
-                                    }
+                                    selectedSafetyLog = safetyLog
                                 }
                                 .matchedGeometryEffect(id: safetyLog.id, in: safetyLogDetailAnimation)
+                                .environmentObject(safetyViewModel)
                         }
                         .listStyle(PlainListStyle())
                         .scrollContentBackground(.hidden)
@@ -81,8 +77,14 @@ struct SafetyView: View {
                     .font(Font(BMFont.regular(30)))
                     .bold()
                     .font(.title)
+                if !safetyViewModel.filteredSafetyLogs.isEmpty {
+                    Spacer()
+                    Text("^[\(safetyViewModel.filteredSafetyLogs.count) Result](inflect: true)")
+                        .font(Font(BMFont.regular(16)))
+                        .foregroundStyle(.gray)
+                }
                 Spacer()
-                SafetyLogFilterButton(safetyLogFilterStates: $safetyViewManager.selectedSafetyLogFilterStates)
+                SafetyLogFilterButton(safetyLogFilterStates: $safetyViewModel.selectedSafetyLogFilterStates, drawerViewState: $drawerViewState)
             }
             filterStatesScrollView
         }
@@ -90,18 +92,19 @@ struct SafetyView: View {
     
     @ViewBuilder
     private var filterStatesScrollView: some View {
-        if !safetyViewManager.selectedSafetyLogFilterStates.isEmpty {
+        if !safetyViewModel.selectedSafetyLogFilterStates.isEmpty {
             ScrollView(.horizontal) {
                 HStack {
-                    ForEach(safetyViewManager.selectedSafetyLogFilterStates, id: \.id) { filterState in
+                    ForEach(safetyViewModel.selectedSafetyLogFilterStates, id: \.id) { filterState in
                         HStack {
                             Text(filterState.rawValue.capitalized)
                                 .font(Font(BMFont.regular(16)))
                                 .foregroundStyle(.white)
                             Button(action: {
                                 withAnimation {
-                                    if let removeIndex = safetyViewManager.selectedSafetyLogFilterStates.firstIndex(of: filterState) {
-                                        safetyViewManager.selectedSafetyLogFilterStates.remove(at: removeIndex)
+                                    if let removeIndex = safetyViewModel.selectedSafetyLogFilterStates.firstIndex(of: filterState) {
+                                        safetyViewModel.selectedSafetyLogFilterStates.remove(at: removeIndex)
+                                        drawerViewState = .small
                                     }
                                 }
                             }) {
@@ -157,6 +160,7 @@ struct SafetyView: View {
 
 struct SafetyLogFilterButton: View {
     @Binding var safetyLogFilterStates: [BMSafetyLogFilterState]
+    @Binding var drawerViewState: BMDrawerViewState
     
     var body: some View {
         Menu {
@@ -194,7 +198,8 @@ struct SafetyLogFilterButton: View {
     private func addToSafetyLogFilterStates(for newFilterState: BMSafetyLogFilterState) {
         if !safetyLogFilterStates.contains(newFilterState) {
             withAnimation {
-                self.safetyLogFilterStates.append(newFilterState)
+                safetyLogFilterStates.append(newFilterState)
+                drawerViewState = .small
             }
         }
     }
