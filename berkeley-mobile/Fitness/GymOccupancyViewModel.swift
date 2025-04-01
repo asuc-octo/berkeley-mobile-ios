@@ -30,9 +30,9 @@ class GymOccupancyViewModel: NSObject, ObservableObject {
     @Published var occupancyPercentage: Double? = nil
     @Published var isLoading = false
     @Published var errorMessage: String? = nil
+    @Published var location: GymOccupancyLocation
 
     private let scrapper = GymOccupancyScrapper()
-    private var location: GymOccupancyLocation
     private var timer: Timer?
     
     init(location: GymOccupancyLocation) {
