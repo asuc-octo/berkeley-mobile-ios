@@ -7,21 +7,14 @@
 //
  
 import Foundation
+import SwiftUI
 import UIKit
 
 struct BMColor {
     
-    static var searchBarBackground: UIColor {
-        return UIColor.init { (trait) -> UIColor in
-            return trait.userInterfaceStyle == .dark ?
-                UIColor(displayP3Red: 69/255, green: 68/255, blue: 68/255, alpha: 1.0) :
-                UIColor(displayP3Red: 250/255, green: 250/255, blue: 250/255, alpha: 1.0)
-        }
-    }
-    
     static var searchBarIconColor: UIColor {
         return UIColor.init { (trait) -> UIColor in
-            return trait.userInterfaceStyle == .dark ? UIColor.white : UIColor.darkGray
+            return trait.userInterfaceStyle == .dark ? .lightGray : .gray
         }
     }
 
@@ -87,6 +80,8 @@ struct BMColor {
     
 }
 
+
+// MARK: - UIColor Extension
 
 extension UIColor {
     

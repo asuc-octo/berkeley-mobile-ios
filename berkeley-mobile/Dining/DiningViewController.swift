@@ -33,7 +33,7 @@ struct DiningView: UIViewControllerRepresentable {
 
 class DiningViewController: UIViewController, SearchDrawerViewDelegate {
     
-    private var filterTableView: FilterTableView = FilterTableView<DiningLocation>(frame: .zero, tableFunctions: [], defaultSort: SortingFunctions.sortAlph(item1:item2:))
+    private var filterTableView: FilterTableView = FilterTableView<DiningLocation>(frame: .zero, tableFunctions: [], defaultSort: SortingFunctions.sortClose(loc1:loc2:))
     private var diningLocations: [DiningLocation] = []
     
     private var headerLabel: UILabel!
@@ -80,7 +80,7 @@ class DiningViewController: UIViewController, SearchDrawerViewDelegate {
             object: nil
         )
         
-        // fetch dining hall and cafe data, make sure occupancy data has been fetched after each one is complete
+        // Fetch dining hall and cafe data, make sure occupancy data has been fetched after each one is complete
         DataManager.shared.fetch(source: DiningHallDataSource.self) { diningLocations in
             self.diningLocations.append(contentsOf: diningLocations as? [DiningLocation] ?? [])
             self.filterTableView.setData(data: self.diningLocations)
@@ -99,13 +99,17 @@ class DiningViewController: UIViewController, SearchDrawerViewDelegate {
 
 extension DiningViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: FilterTableViewCell.kCellIdentifier, for: indexPath) as? FilterTableViewCell {
-            if let diningHall: DiningLocation = self.filterTableView.filteredData[safe: indexPath.row] {
-                cell.updateContents(item: diningHall)
-                return cell
-            }
+        let cell = tableView.dequeueReusableCell(withIdentifier: FilterTableViewCell.kCellIdentifier, for: indexPath)
+        let diningHall = self.filterTableView.filteredData[indexPath.row]
+        
+        let cellViewModel = HomeSectionListRowViewModel()
+        cellViewModel.configureRow(with: diningHall)
+        
+        cell.contentConfiguration = UIHostingConfiguration {
+            HomeSectionListRowView()
+                .environmentObject(cellViewModel)
         }
-        return UITableViewCell()
+        return cell
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -122,7 +126,6 @@ extension DiningViewController: UITableViewDelegate, UITableViewDataSource {
 // MARK: View
 
 extension DiningViewController {
-    // General card page
     func setupCardView() {
         let card = CardView()
         card.layoutMargins = UIEdgeInsets(top: 20, left: 16, bottom: 16, right: 16)
@@ -164,13 +167,12 @@ extension DiningViewController {
         headerLabel = header
     }
     
-    // Table of dining locations
     func setupTableView() {
         let functions: [TableFunction] = [
             Sort<DiningLocation>(label: "Nearby", sort: DiningHall.locationComparator()),
             Filter<DiningLocation>(label: "Open", filter: {diningHall in diningHall.isOpen ?? false}),
         ]
-        filterTableView = FilterTableView<DiningLocation>(frame: .zero, tableFunctions: functions, defaultSort: SortingFunctions.sortAlph(item1:item2:), initialSelectedIndices: [0])
+        filterTableView = FilterTableView<DiningLocation>(frame: .zero, tableFunctions: functions, defaultSort: SortingFunctions.sortClose(loc1:loc2:))
         self.filterTableView.tableView.register(FilterTableViewCell.self, forCellReuseIdentifier: FilterTableViewCell.kCellIdentifier)
         self.filterTableView.tableView.dataSource = self
         self.filterTableView.tableView.delegate = self

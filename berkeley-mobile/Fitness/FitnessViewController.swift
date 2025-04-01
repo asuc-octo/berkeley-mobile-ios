@@ -46,6 +46,7 @@ class FitnessViewController: UIViewController, SearchDrawerViewDelegate {
     var initialDrawerCenter = CGPoint()
     var initialGestureTranslation: CGPoint = CGPoint()
     var drawerStatePositions: [DrawerState : CGFloat] = [:]
+    
     // SearchDrawerViewDelegate property
     var mainContainer: MainContainerViewController?
     var pinDelegate: SearchResultsViewDelegate?
@@ -64,7 +65,7 @@ class FitnessViewController: UIViewController, SearchDrawerViewDelegate {
     private var bClassesExpanded = false
     
     // To display a list of gyms in the "Fitness Centers" card
-    var filterTableView = FilterTableView<Gym>(frame: .zero, tableFunctions: [], defaultSort: SortingFunctions.sortAlph(item1:item2:))
+    var filterTableView = FilterTableView<Gym>(frame: .zero, tableFunctions: [], defaultSort: SortingFunctions.sortClose(loc1:loc2:))
     var gyms: [Gym] = []
     
     private var gymsController = GymsController()
@@ -96,7 +97,7 @@ class FitnessViewController: UIViewController, SearchDrawerViewDelegate {
         
         gymsController.vc = self
         
-        // fetch gyms and fetch occupancy data afterwards
+        // Fetch gyms and fetch occupancy data afterwards
         DataManager.shared.fetch(source: GymDataSource.self) { gyms in
             self.gyms = gyms as? [Gym] ?? []
             self.filterTableView.setData(data: gyms as! [Gym])
@@ -239,7 +240,7 @@ extension FitnessViewController {
             Sort<Gym>(label: "Nearby", sort: Gym.locationComparator()),
             Filter<Gym>(label: "Open", filter: {gym in gym.isOpen ?? false}),
         ]
-        filterTableView = FilterTableView<Gym>(frame: .zero, tableFunctions: functions, defaultSort: SortingFunctions.sortAlph(item1:item2:), initialSelectedIndices: [0])
+        filterTableView = FilterTableView<Gym>(frame: .zero, tableFunctions: functions, defaultSort: SortingFunctions.sortClose(loc1:loc2:))
         self.filterTableView.tableView.register(FilterTableViewCell.self, forCellReuseIdentifier: FilterTableViewCell.kCellIdentifier)
         self.filterTableView.tableView.dataSource = gymsController
         self.filterTableView.tableView.delegate = gymsController
