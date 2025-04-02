@@ -39,19 +39,14 @@ class HomeViewModel: ObservableObject {
 }
 
 struct HomeView: View {
-    @StateObject private var homeViewModel: HomeViewModel
+    @EnvironmentObject private var homeViewModel: HomeViewModel
+    
     @State private var tabSelectedIndex = 0
     @State private var selectedDetent: PresentationDetent = .fraction(0.45)
     
     private var mapViewController: MapViewController
     
-    init() {
-        let homeViewModel = HomeViewModel()
-        let mapViewController = MapViewController()
-        
-        _homeViewModel = StateObject(wrappedValue: homeViewModel)
-        
-        mapViewController.homeViewModel = homeViewModel
+    init(mapViewController: MapViewController) {
         self.mapViewController = mapViewController
     }
     
@@ -138,5 +133,6 @@ struct HomeView: View {
 }
 
 #Preview {
-    HomeView()
+    HomeView(mapViewController: MapViewController())
+        .environmentObject(HomeViewModel())
 }
