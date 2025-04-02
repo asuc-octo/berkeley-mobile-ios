@@ -42,7 +42,9 @@ struct MapMarkerDetailSwiftView: View {
     
     private var colorAccentBar: some View {
         let markerColor: Color = {
-            guard let marker else { return .purple }
+            guard let marker else {
+                return .purple
+            }
                     
             switch marker.type {
                 case .known(let type):
