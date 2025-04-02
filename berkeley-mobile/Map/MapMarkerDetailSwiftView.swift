@@ -37,7 +37,8 @@ struct MapMarkerDetailSwiftView: View {
         }
     }
     
-    // MARK: - Private Views
+    
+// MARK: - Private Views
     
     private var colorAccentBar: some View {
         let markerColor: Color = {
