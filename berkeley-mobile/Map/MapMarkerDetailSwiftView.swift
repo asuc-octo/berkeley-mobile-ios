@@ -15,7 +15,6 @@ import SwiftUI
 struct MapMarkerDetailSwiftView: View {
     var marker: MapMarker?
     var onClose: (() -> Void)?
-    
     var body: some View {
         ZStack {
             HStack {
