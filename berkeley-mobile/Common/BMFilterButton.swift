@@ -2,7 +2,7 @@
 //  BMFilterButton.swift
 //  berkeley-mobile
 //
-//  Created by HetV PatL on 4/1/25.
+//  Created by Hetvi Patel on 4/1/25.
 //  Copyright © 2025 ASUC OCTO. All rights reserved.
 //
 
