@@ -25,7 +25,7 @@ protocol MapMarkerDetailViewDelegate {
 /** The view that is shown when a  `MapMarker` is selected. */
 class MapMarkerDetailView: UIView {
     
-    open var marker : MapMarker? {
+    open var marker: MapMarker? {
         didSet {
             if let marker = marker {
                 setupView(marker)
