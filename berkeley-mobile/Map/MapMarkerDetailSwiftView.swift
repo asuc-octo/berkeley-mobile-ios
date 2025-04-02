@@ -15,11 +15,9 @@ import SwiftUI
 struct MapMarkerDetailSwiftView: View {
     var marker: MapMarker?
     var onClose: (() -> Void)?
-
     
     var body: some View {
         ZStack {
-            
             HStack {
                 colorAccentBar
                 
@@ -42,7 +40,6 @@ struct MapMarkerDetailSwiftView: View {
     
     // MARK: - Private Views
     
-    
     private var colorAccentBar: some View {
         let markerColor: Color = {
             guard let marker else { return .purple }
@@ -52,14 +49,12 @@ struct MapMarkerDetailSwiftView: View {
                     return Color(type.color())
                 case .unknown:
                     return Color(BMColor.MapMarker.other)
-                    }
-                }()
-        
+            }
+        }()
         
         return Rectangle()
                 .fill(markerColor)
                 .frame(width: 16)
-        
     }
     
     private var headerView: some View {
@@ -71,9 +66,9 @@ struct MapMarkerDetailSwiftView: View {
                 .minimumScaleFactor(0.7)
             Spacer()
             
-            Button(action: {
+            Button {
                 onClose?()
-            }) {
+            } label: {
                 Image(systemName: "xmark")
                     .font(.system(size: 20))
                     .padding(.trailing, 10)
@@ -89,7 +84,6 @@ struct MapMarkerDetailSwiftView: View {
             .minimumScaleFactor(0.6)
             .fixedSize(horizontal: false, vertical: true)
             .padding(.horizontal, 6)
-            
     }
     
     private var infoRowView: some View {
@@ -114,21 +108,14 @@ struct MapMarkerDetailSwiftView: View {
     
     private var openStatusButton: some View {
         Group {
-            if marker?.isOpen ?? false {
-                Capsule()
-                    .fill(Color.blue)
-                    .frame(width: 70, height: 28)
-                    .overlay(Text("Open")
+            Capsule()
+                .fill(marker?.isOpen ?? false ? Color.blue : Color(red: 0.4, green: 0.5, blue: 0.9))
+                .frame(width: 70, height: 28)
+                .overlay {
+                    Text(marker?.isOpen ?? false ? "Open" : "Closed")
                         .font(Font(BMFont.medium(14)))
-                        .foregroundStyle(.white))
-            } else {
-                Capsule()
-                    .fill(Color(red: 0.4, green: 0.5, blue: 0.9))
-                    .frame(width: 70, height: 28)
-                    .overlay(Text("Closed")
-                        .font(Font(BMFont.medium(14)))
-                        .foregroundStyle(.white))
-            }
+                        .foregroundStyle(.white)
+                }
         }
     }
     
@@ -146,20 +133,23 @@ struct MapMarkerDetailSwiftView: View {
     }
     
     private var categoryView: some View {
-        HStack() {
+        HStack {
             Image(systemName: getCategoryIcon())
                 .font(.system(size: 20))
                 .foregroundColor(.secondary)
-            if let marker, case .known(let type) = marker.type, type == .cafe, let mealPrice = marker.mealPrice {
-                Text(mealPrice)
-                    .font(Font(BMFont.regular(12)))
-                    .foregroundColor(.primary)
-                    .minimumScaleFactor(0.7)
-            } else {
-                Text("<10")
-                    .font(Font(BMFont.regular(12)))
-                    .foregroundColor(.primary)
+            
+            Group {
+                if let marker, case .known(let type) = marker.type, type == .cafe, let mealPrice = marker.mealPrice {
+                    Text(mealPrice)
+                        .font(Font(BMFont.regular(12)))
+                        .foregroundColor(.primary)
+                } else {
+                    Text("<10")
+                        .font(Font(BMFont.regular(12)))
+                        .foregroundColor(.primary)
+                }
             }
+            .minimumScaleFactor(0.7)
         }
     }
     
@@ -205,50 +195,57 @@ struct MapMarkerDetailSwiftView: View {
         }
     }
     
-    
+
+// MARK: - GIR Info View
+
     private var girInfoView: some View {
-        VStack {
-            let accessibleGIRs = marker?.accessibleGIRs ?? []
-            let nonAccessibleGIRs = marker?.nonAccessibleGIRs ?? []
-            
-            Text("Accessible:")
-                .font(Font(BMFont.bold(12)))
-                .padding(.leading, 20)
-            
-            Text(accessibleGIRs.isEmpty ? "None" : accessibleGIRs.joined(separator: ", "))
-                .font(Font(BMFont.light(12)))
-                .padding(.leading, 20)
-            
-            Text("Non-Accessible:")
-                .font(Font(BMFont.bold(12)))
-                .padding(.leading, 20)
-                .padding(.top, 4)
-            
-            Text(nonAccessibleGIRs.isEmpty ? "None" : nonAccessibleGIRs.joined(separator: ", "))
-                .font(Font(BMFont.light(12)))
-                .padding(.leading, 20)
+        VStack(alignment: .leading, spacing: 2) {
+            Group {
+                let accessibleGIRs = marker?.accessibleGIRs ?? []
+                let nonAccessibleGIRs = marker?.nonAccessibleGIRs ?? []
+                
+                Text("Accessible:")
+                    .font(Font(BMFont.bold(12)))
+                
+                Text(accessibleGIRs.isEmpty ? "None" : accessibleGIRs.joined(separator: ", "))
+                    .font(Font(BMFont.light(12)))
+                
+                Text("Non-Accessible:")
+                    .font(Font(BMFont.bold(12)))
+                    .padding(.top, 4)
+                
+                Text(nonAccessibleGIRs.isEmpty ? "None" : nonAccessibleGIRs.joined(separator: ", "))
+                    .font(Font(BMFont.light(12)))
+            }
+            .padding(.leading, 20)
         }
     }
     
+
+// MARK: - MPD Info View
+
     private var mpdInfoView: some View {
         VStack {
             ForEach(marker?.mpdRooms ?? [], id: \.roomNumber) { room in
-                VStack(alignment: .leading, spacing: 2) {
-                    Text("Gender Type: \(room.bathroomType)")
-                        .font(Font(BMFont.light(12)))
-                    Text("Floor: \(room.floorName)")
-                        .font(Font(BMFont.light(12)))
-                    Text("Room Number: \(room.roomNumber)")
-                        .font(Font(BMFont.light(12)))
-                    Text("Products: \(room.productType)")
-                        .font(Font(BMFont.light(12)))
+                Group {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("Gender Type: \(room.bathroomType)")
+                            .font(Font(BMFont.light(12)))
+                        Text("Floor: \(room.floorName)")
+                            .font(Font(BMFont.light(12)))
+                        Text("Room Number: \(room.roomNumber)")
+                            .font(Font(BMFont.light(12)))
+                        Text("Products: \(room.productType)")
+                            .font(Font(BMFont.light(12)))
+                    }
+                    .padding(.leading, 20)
+                    .padding(.bottom, 8)
                 }
-                .padding(.leading, 20)
-                .padding(.bottom, 8)
             }
         }
     }
 }
+
 
 // MARK: - Preview
 

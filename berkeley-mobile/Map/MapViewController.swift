@@ -70,7 +70,6 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
     private let mapMarkersDropdownViewModel = MapMarkersDropdownViewModel()
     private var mapMarkers: [[MapMarker]] = []
     private var markerDetail: UIHostingController<MapMarkerDetailSwiftView>!
-    private var markerDetailView: MapMarkerDetailSwiftView!
     
     var homeViewModel: HomeViewModel?
     
@@ -179,12 +178,16 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
     }
     
     private func createMarkerDetailView() {
-        markerDetailView = MapMarkerDetailSwiftView(marker: nil, onClose: { [weak self] in
+        // Create a temporary variable for the view
+        let markerDetailView = MapMarkerDetailSwiftView(marker: nil, onClose: { [weak self] in
             self?.dismissMarkerDetail()
         })
+        
+        // Assign to the class property
         markerDetail = UIHostingController(rootView: markerDetailView)
         markerDetail.view.backgroundColor = .clear
         markerDetail.view.isHidden = true
+        markerDetail.view.translatesAutoresizingMaskIntoConstraints = false
         addChild(markerDetail)
         markerDetail.didMove(toParent: self)
     }
@@ -358,7 +361,7 @@ extension MapViewController: FilterViewDelegate {
 }
 
 
-// MARK: - MKMapViewDelegate, Analytics {
+// MARK: - MKMapViewDelegate, Analytics
 
 extension MapViewController: MKMapViewDelegate {
     
@@ -389,12 +392,12 @@ extension MapViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         if let annotation = view.annotation as? MapMarker {
-            UIView.animate(withDuration: 0.1, animations: {
+            UIView.animate(withDuration: 0.1) {
                 view.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
-            })
+            }
             Analytics.logEvent("point_of_interest_clicked", parameters: ["Place": annotation.title ?? "Unknown"])
             
-            markerDetailView = MapMarkerDetailSwiftView(marker: annotation, onClose: { [weak self] in
+            let markerDetailView = MapMarkerDetailSwiftView(marker: annotation, onClose: { [weak self] in
                 self?.dismissMarkerDetail()
             })
             markerDetail.rootView = markerDetailView
@@ -407,9 +410,9 @@ extension MapViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
         if (view.annotation as? MapMarker) != nil {
-            UIView.animate(withDuration: 0.1, animations: {
+            UIView.animate(withDuration: 0.1) {
                 view.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-            })
+            }
             
             markerDetail.view.isHidden = true
             homeViewModel?.isShowingDrawer = true
@@ -537,8 +540,8 @@ extension MapViewController {
 
 extension MKMapView {
     func setRegionWithDuration(_ zoomRegion: MKCoordinateRegion, duration: TimeInterval) {
-        UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0, initialSpringVelocity: 10, options: .curveEaseIn, animations: {
+        UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0, initialSpringVelocity: 10, options: .curveEaseIn) {
             self.setRegion(zoomRegion, animated: true)
-            }, completion: nil)
+        }
     }
 }
