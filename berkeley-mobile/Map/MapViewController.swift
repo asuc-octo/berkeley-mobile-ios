@@ -225,7 +225,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
     }
     
     func jumpToUserLocation() {
-        guard let userLocation = LocationManager.shared.userLocation else {
+        guard let userLocation = BMLocationManager.shared.userLocation else {
             return
         }
         

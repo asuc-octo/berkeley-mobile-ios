@@ -90,7 +90,7 @@ class FitnessViewController: UIViewController, SearchDrawerViewDelegate {
         setupGyms()
         
         // Update `filterTableView` when user location is updated.
-        LocationManager.notificationCenter.addObserver(
+        BMLocationManager.notificationCenter.addObserver(
             filterTableView,
             selector: #selector(filterTableView.update),
             name: .locationUpdated,
