@@ -156,6 +156,7 @@
 		55DCF79B237243D4001B01B8 /* MaterialTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF79A237243D4001B01B8 /* MaterialTextField.swift */; };
 		55DCF79D237243F5001B01B8 /* RippleLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF79C237243F5001B01B8 /* RippleLayer.swift */; };
 		55DCF7A123724835001B01B8 /* MaterialButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF7A023724835001B01B8 /* MaterialButton.swift */; };
+		C14CCB612D9CC2730075FE69 /* BMFilterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14CCB602D9CC2680075FE69 /* BMFilterButton.swift */; };
 		E80330EB2CE431C200DC9574 /* DepthButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80330EA2CE431C200DC9574 /* DepthButtonStyle.swift */; };
 		E80330ED2CE7EBB100DC9574 /* NSCoding+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80330EC2CE7EBB100DC9574 /* NSCoding+Extension.swift */; };
 		E80ECC312AFB02BA004604BA /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80ECC302AFB02BA004604BA /* Secrets.swift */; };
@@ -336,6 +337,7 @@
 		55DCF79C237243F5001B01B8 /* RippleLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RippleLayer.swift; sourceTree = "<group>"; };
 		55DCF7A023724835001B01B8 /* MaterialButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialButton.swift; sourceTree = "<group>"; };
 		61D128E68A4FC209FFCDE60F /* Pods-berkeley-mobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeley-mobile.release.xcconfig"; path = "Target Support Files/Pods-berkeley-mobile/Pods-berkeley-mobile.release.xcconfig"; sourceTree = "<group>"; };
+		C14CCB602D9CC2680075FE69 /* BMFilterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMFilterButton.swift; sourceTree = "<group>"; };
 		E80330EA2CE431C200DC9574 /* DepthButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepthButtonStyle.swift; sourceTree = "<group>"; };
 		E80330EC2CE7EBB100DC9574 /* NSCoding+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSCoding+Extension.swift"; sourceTree = "<group>"; };
 		E80330EE2CE9A8EB00DC9574 /* berkeley-mobile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "berkeley-mobile.entitlements"; sourceTree = "<group>"; };
@@ -508,6 +510,7 @@
 		1396012D23865E2E005E4788 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				C14CCB602D9CC2680075FE69 /* BMFilterButton.swift */,
 				303F6AE5236A9C0D007E37DD /* SegmentedControl */,
 				29387E9324BBBBDF00070BCE /* Bar Graph */,
 				2913595524B135B600DE9AD6 /* DetailView */,
@@ -1142,6 +1145,7 @@
 				E80330EB2CE431C200DC9574 /* DepthButtonStyle.swift in Sources */,
 				29B3A1742439A60A00093750 /* DiningMenuCell.swift in Sources */,
 				1336A326241D9B9900949F32 /* DiningHall.swift in Sources */,
+				C14CCB612D9CC2730075FE69 /* BMFilterButton.swift in Sources */,
 				29061D41241C450E002BC9D9 /* HasLocation.swift in Sources */,
 				1336A31A241C3FD300949F32 /* GymClassDataSource.swift in Sources */,
 				29387E9524BBBC1000070BCE /* BarGraph.swift in Sources */,
