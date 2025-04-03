@@ -37,9 +37,6 @@ struct GymOccupancyView: View {
                 viewModel.startAutoRefresh()
             }
         }
-        .onDisappear {
-            viewModel.stopAutoRefresh()
-        }
     }
 }
 
