@@ -25,27 +25,32 @@ struct ResourcesView: View {
         NavigationStack {
             ZStack {
                 BMTopBlobView(imageName: "BlobRight", xOffset: 30, width: 150, height: 150)
-        
+
                 VStack {
-                    if !resourcesVM.shoutouts.isEmpty  {
-                        resourceShoutoutsTabView
-                    }
-                    
-                    if resourcesVM.resourceCategories.isEmpty {
-                       noResourcesAvailableView
+                    if resourcesVM.isLoading {
+                        ProgressView("Loading Resources...")
+                            .padding()
                     } else {
-                        SegmentedControlView(
-                            tabNames: resourcesVM.resourceCategoryNames,
-                            selectedTabIndex: $tabSelectedValue
-                        )
-                        .padding()
-                        
-                        TabView(selection: $tabSelectedValue) {
-                            ForEach(Array(resourcesVM.resourceCategories.enumerated()), id: \.offset) { idx, category in
-                                ResourcePageView(resourceSections: category.sections).tag(idx)
-                            }
+                        if !resourcesVM.shoutouts.isEmpty {
+                            resourceShoutoutsTabView
                         }
-                        .tabViewStyle(.page(indexDisplayMode: .never))
+
+                        if resourcesVM.resourceCategories.isEmpty {
+                            noResourcesAvailableView
+                        } else {
+                            SegmentedControlView(
+                                tabNames: resourcesVM.resourceCategoryNames,
+                                selectedTabIndex: $tabSelectedValue
+                            )
+                            .padding()
+
+                            TabView(selection: $tabSelectedValue) {
+                                ForEach(Array(resourcesVM.resourceCategories.enumerated()), id: \.offset) { idx, category in
+                                    ResourcePageView(resourceSections: category.sections).tag(idx)
+                                }
+                            }
+                            .tabViewStyle(.page(indexDisplayMode: .never))
+                        }
                     }
                     Spacer()
                 }
@@ -54,6 +59,7 @@ struct ResourcesView: View {
             .background(Color(BMColor.cardBackground))
         }
     }
+
     
     private var noResourcesAvailableView: some View {
         VStack {

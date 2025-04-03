@@ -1,0 +1,151 @@
+find_header: checking for libxml/xmlversion.h in /opt/include/libxml2,/opt/local/include/libxml2,/usr/local/include/libxml2,/usr/include/libxml2... -------------------- yes
+
+"/usr/bin/clang -o conftest -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/x86_64-darwin15 -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/backward -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0 -I. -I/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -mmacosx-version-min=10.10 -isysroot /Applications/Xcode7.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk -pipe conftest.c  -L. -L/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/lib -L. -L/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/lib -fstack-protector -L/usr/local/lib     -lruby-static -framework CoreFoundation  -lpthread -ldl -lobjc "
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main(int argc, char **argv)
+4: {
+5:   return 0;
+6: }
+/* end */
+
+"/usr/bin/clang -E -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/x86_64-darwin15 -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/backward -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0 -I. -I/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -mmacosx-version-min=10.10 -isysroot /Applications/Xcode7.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk -pipe  conftest.c -o conftest.i"
+conftest.c:3:10: fatal error: 'libxml/xmlversion.h' file not found
+#include <libxml/xmlversion.h>
+         ^
+1 error generated.
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <libxml/xmlversion.h>
+/* end */
+
+"/usr/bin/clang -E -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/x86_64-darwin15 -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/backward -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0 -I. -I/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -mmacosx-version-min=10.10 -isysroot /Applications/Xcode7.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk -pipe -I/opt/include/libxml2 conftest.c -o conftest.i"
+conftest.c:3:10: fatal error: 'libxml/xmlversion.h' file not found
+#include <libxml/xmlversion.h>
+         ^
+1 error generated.
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <libxml/xmlversion.h>
+/* end */
+
+"/usr/bin/clang -E -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/x86_64-darwin15 -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/backward -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0 -I. -I/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -mmacosx-version-min=10.10 -isysroot /Applications/Xcode7.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk -pipe -I/opt/local/include/libxml2 conftest.c -o conftest.i"
+conftest.c:3:10: fatal error: 'libxml/xmlversion.h' file not found
+#include <libxml/xmlversion.h>
+         ^
+1 error generated.
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <libxml/xmlversion.h>
+/* end */
+
+"/usr/bin/clang -E -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/x86_64-darwin15 -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/backward -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0 -I. -I/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -mmacosx-version-min=10.10 -isysroot /Applications/Xcode7.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk -pipe -I/usr/local/include/libxml2 conftest.c -o conftest.i"
+conftest.c:3:10: fatal error: 'libxml/xmlversion.h' file not found
+#include <libxml/xmlversion.h>
+         ^
+1 error generated.
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <libxml/xmlversion.h>
+/* end */
+
+"/usr/bin/clang -E -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/x86_64-darwin15 -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/backward -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0 -I. -I/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -mmacosx-version-min=10.10 -isysroot /Applications/Xcode7.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk -pipe -I/usr/include/libxml2 conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <libxml/xmlversion.h>
+/* end */
+
+--------------------
+
+find_library: checking for xmlParseDoc() in -lxml2... -------------------- yes
+
+"/usr/bin/clang -o conftest -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/x86_64-darwin15 -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/backward -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0 -I. -I/usr/include/libxml2 -I/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -mmacosx-version-min=10.10 -isysroot /Applications/Xcode7.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk -pipe conftest.c  -L. -L/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/lib -L. -L/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/lib -fstack-protector -L/usr/local/lib     -lruby-static -framework CoreFoundation -lxml2  -lpthread -ldl -lobjc "
+conftest.c:13:57: error: use of undeclared identifier 'xmlParseDoc'
+int t(void) { void ((*volatile p)()); p = (void ((*)()))xmlParseDoc; return 0; }
+                                                        ^
+1 error generated.
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     printf("%p", &t);
+ 9:   }
+10: 
+11:   return 0;
+12: }
+13: int t(void) { void ((*volatile p)()); p = (void ((*)()))xmlParseDoc; return 0; }
+/* end */
+
+"/usr/bin/clang -o conftest -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/x86_64-darwin15 -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/backward -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0 -I. -I/usr/include/libxml2 -I/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -mmacosx-version-min=10.10 -isysroot /Applications/Xcode7.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk -pipe conftest.c  -L. -L/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/lib -L. -L/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/lib -fstack-protector -L/usr/local/lib     -lruby-static -framework CoreFoundation -lxml2  -lpthread -ldl -lobjc "
+conftest.c:13:15: warning: implicit declaration of function 'xmlParseDoc' is invalid in C99 [-Wimplicit-function-declaration]
+int t(void) { xmlParseDoc(); return 0; }
+              ^
+1 warning generated.
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     printf("%p", &t);
+ 9:   }
+10: 
+11:   return 0;
+12: }
+13: int t(void) { xmlParseDoc(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for rb_io_bufwrite() in ruby/io.h... -------------------- yes
+
+"/usr/bin/clang -o conftest -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/x86_64-darwin15 -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/backward -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0 -I. -I/usr/include/libxml2 -I/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -mmacosx-version-min=10.10 -isysroot /Applications/Xcode7.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk -pipe conftest.c  -L. -L/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/lib -L. -L/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/lib -fstack-protector -L/usr/local/lib    -lxml2  -lruby-static -framework CoreFoundation -lxml2  -lpthread -ldl -lobjc "
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: #include <ruby/io.h>
+ 4: 
+ 5: /*top*/
+ 6: extern int t(void);
+ 7: int main(int argc, char **argv)
+ 8: {
+ 9:   if (argc > 1000000) {
+10:     printf("%p", &t);
+11:   }
+12: 
+13:   return 0;
+14: }
+15: int t(void) { void ((*volatile p)()); p = (void ((*)()))rb_io_bufwrite; return 0; }
+/* end */
+
+--------------------
+
+extconf.h is:
+/* begin */
+1: #ifndef EXTCONF_H
+2: #define EXTCONF_H
+3: #define HAVE_RB_IO_BUFWRITE 1
+4: #endif
+/* end */
+
