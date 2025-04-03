@@ -24,7 +24,6 @@ struct MapMarkerDetailSwiftView: View {
                     headerView
                     descriptionView
                     infoRowView
-                        .padding(.horizontal, 6)
                 }
             }
             .background(Color(.systemBackground))
@@ -84,7 +83,6 @@ struct MapMarkerDetailSwiftView: View {
             .lineLimit(3)
             .minimumScaleFactor(0.6)
             .fixedSize(horizontal: false, vertical: true)
-            .padding(.horizontal, 6)
     }
     
     private var infoRowView: some View {
@@ -104,7 +102,7 @@ struct MapMarkerDetailSwiftView: View {
             
             categoryView
         }
-        .padding(.bottom, 6)
+        .padding(.trailing, 6)
     }
     
     private var openStatusButton: some View {
