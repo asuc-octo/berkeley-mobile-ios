@@ -26,12 +26,11 @@ struct MapMarkerDetailSwiftView: View {
                     infoRowView
                         .padding(.horizontal, 6)
                 }
-                .padding(.vertical, 10)
             }
             .background(Color(.systemBackground))
             .clipShape(RoundedRectangle(cornerRadius: 12))
             .frame(maxWidth: .infinity)
-            .frame(minWidth: 100, maxHeight: 150)
+            .frame(minWidth: 100, maxHeight: 120)
             .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 2)
             .padding(.horizontal, 20)
         }
@@ -62,7 +61,7 @@ struct MapMarkerDetailSwiftView: View {
     private var headerView: some View {
         HStack {
             Text(marker?.title ?? "Unknown")
-                .font(Font(BMFont.bold(24)))
+                .font(Font(BMFont.bold(18)))
                 .foregroundColor(.primary)
                 .lineLimit(1)
                 .minimumScaleFactor(0.7)
@@ -81,7 +80,7 @@ struct MapMarkerDetailSwiftView: View {
     
     private var descriptionView: some View {
         Text(marker?.subtitle ?? "No description")
-            .font(Font(BMFont.regular(14)))
+            .font(Font(BMFont.regular(12)))
             .lineLimit(3)
             .minimumScaleFactor(0.6)
             .fixedSize(horizontal: false, vertical: true)
