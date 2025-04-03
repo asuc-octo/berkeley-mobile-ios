@@ -9,8 +9,9 @@
 import SwiftUI
 
 struct BMFilterButton: View {
-    let title: String
     @Binding var isSelected: Bool
+    let title: String
+    
     var body: some View {
         Button(action: {
             isSelected.toggle()
@@ -26,25 +27,21 @@ struct BMFilterButton: View {
                 .shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 0)
                 .frame(height: 28)
         }
+        .buttonStyle(PlainButtonStyle())
     }
 }
 
-// Preview buttons
-struct InteractiveButtonPreview: View {
+struct BMFilterButtonPreviewView: View {
     @State private var nearbySelected = false
-    @State private var openSelected = true
 
     var body: some View {
         HStack {
-            BMFilterButton(title: "Nearby", isSelected: $nearbySelected)
-            BMFilterButton(title: "Open", isSelected: $openSelected)
+            BMFilterButton(isSelected: $nearbySelected, title: "Nearby")
         }
         .padding()
     }
 }
 
-struct BMFilterButton_Previews: PreviewProvider {
-    static var previews: some View {
-        InteractiveButtonPreview()
-    }
+#Preview {
+    BMFilterButtonPreviewView()
 }
