@@ -20,14 +20,19 @@ struct MapMarkerDetailSwiftView: View {
             HStack {
                 colorAccentBar
                 
-                VStack(alignment: .leading, spacing: 8) {
+                VStack(alignment: .leading, spacing: 4) {
                     headerView
                     Spacer()
                     descriptionView
+                        .padding(.top, 2)
                     Spacer()
                     infoRowView
+                        .padding([.bottom, .trailing], 8)
+                    
                 }
-                .padding(10)
+                .padding(.vertical, 8)
+                .padding(.horizontal, 10)
+                Spacer()
             }
             .background(Color(.systemBackground))
             .clipShape(RoundedRectangle(cornerRadius: 12))
@@ -39,56 +44,56 @@ struct MapMarkerDetailSwiftView: View {
     }
     
     
-// MARK: - Private Views
+    // MARK: - Private Views
     
     private var colorAccentBar: some View {
         let markerColor: Color = {
             guard let marker else {
                 return .purple
             }
-                    
+            
             switch marker.type {
-                case .known(let type):
-                    return Color(type.color())
-                case .unknown:
-                    return Color(BMColor.MapMarker.other)
+            case .known(let type):
+                return Color(type.color())
+            case .unknown:
+                return Color(BMColor.MapMarker.other)
             }
         }()
         
         return Rectangle()
-                .fill(markerColor)
-                .frame(width: 12)
+            .fill(markerColor)
+            .frame(width: 12)
     }
     
     private var headerView: some View {
         HStack {
-            Text(marker?.title ?? "Unknown")
-                .font(Font(BMFont.bold(25)))
+            Text((marker?.title ?? "Unknown").capitalized)
+                .font(Font(BMFont.bold(21)))
                 .foregroundColor(.primary)
-                .lineLimit(1)
+                .fixedSize(horizontal: false, vertical: true)
             Spacer()
             
             Button {
                 onClose?()
             } label: {
                 Image(systemName: "xmark")
-                    .font(.system(size: 20))
-                    .padding(.trailing, 10)
+                    .font(.system(size: 16))
                     .foregroundStyle(Color.secondary)
             }
         }
+        .padding(.trailing, 4)
     }
     
     private var descriptionView: some View {
         Text(marker?.subtitle ?? "No description")
             .font(Font(BMFont.regular(10)))
-            .lineLimit(3)
             .fixedSize(horizontal: false, vertical: true)
+            .padding(.trailing, 8)
     }
     
     private var infoRowView: some View {
-        HStack {
-            HStack {
+        HStack(spacing: 12) {
+            HStack(spacing: 4) {
                 Image(systemName: "clock")
                     .font(.system(size: 12))
                     .foregroundColor(.secondary)
@@ -120,15 +125,15 @@ struct MapMarkerDetailSwiftView: View {
     }
     
     private var locationInfoView: some View {
-        HStack {
+        HStack(spacing: 2) {
             Image(systemName: "mappin.and.ellipse")
                 .font(.system(size: 12))
                 .foregroundColor(.secondary)
             Text(marker?.address ?? "No Address")
                 .font(Font(BMFont.regular(12)))
                 .foregroundColor(.primary)
-                .lineLimit(3)
-                .minimumScaleFactor(0.6)
+                .lineLimit(1)
+                .truncationMode(.tail)
         }
     }
     
@@ -193,56 +198,6 @@ struct MapMarkerDetailSwiftView: View {
             return "mappin"
         }
     }
-    
-
-// MARK: - GIR Info View
-
-    private var girInfoView: some View {
-        VStack(alignment: .leading, spacing: 2) {
-            Group {
-                let accessibleGIRs = marker?.accessibleGIRs ?? []
-                let nonAccessibleGIRs = marker?.nonAccessibleGIRs ?? []
-                
-                Text("Accessible:")
-                    .font(Font(BMFont.bold(12)))
-                
-                Text(accessibleGIRs.isEmpty ? "None" : accessibleGIRs.joined(separator: ", "))
-                    .font(Font(BMFont.light(12)))
-                
-                Text("Non-Accessible:")
-                    .font(Font(BMFont.bold(12)))
-                    .padding(.top, 4)
-                
-                Text(nonAccessibleGIRs.isEmpty ? "None" : nonAccessibleGIRs.joined(separator: ", "))
-                    .font(Font(BMFont.light(12)))
-            }
-            .padding(.leading, 20)
-        }
-    }
-    
-
-// MARK: - MPD Info View
-
-    private var mpdInfoView: some View {
-        VStack {
-            ForEach(marker?.mpdRooms ?? [], id: \.roomNumber) { room in
-                Group {
-                    VStack(alignment: .leading, spacing: 2) {
-                        Text("Gender Type: \(room.bathroomType)")
-                            .font(Font(BMFont.light(12)))
-                        Text("Floor: \(room.floorName)")
-                            .font(Font(BMFont.light(12)))
-                        Text("Room Number: \(room.roomNumber)")
-                            .font(Font(BMFont.light(12)))
-                        Text("Products: \(room.productType)")
-                            .font(Font(BMFont.light(12)))
-                    }
-                    .padding(.leading, 20)
-                    .padding(.bottom, 8)
-                }
-            }
-        }
-    }
 }
 
 
@@ -253,7 +208,7 @@ struct MapMarkerDetailSwiftView: View {
         marker: MapMarker(
             type: "Cafe",
             location: CLLocationCoordinate2D(latitude: 37.871684, longitude: -122.259934),
-            name: "Golden Bear Cafe",
+            name: "Babette South Hall Coffee Bar",
             description: "A retail Cal Dining location featuring a Peet Coffee & tea store, made- to-go order deli and bagels bar, smoothies, and grab-and-go items.",
             address: "Lower Sproul Plaza",
             onCampus: true,
