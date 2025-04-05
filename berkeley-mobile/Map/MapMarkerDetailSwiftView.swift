@@ -22,14 +22,17 @@ struct MapMarkerDetailSwiftView: View {
                 
                 VStack(alignment: .leading, spacing: 8) {
                     headerView
+                    Spacer()
                     descriptionView
+                    Spacer()
                     infoRowView
                 }
+                .padding(10)
             }
             .background(Color(.systemBackground))
             .clipShape(RoundedRectangle(cornerRadius: 12))
             .frame(maxWidth: .infinity)
-            .frame(minWidth: 100, maxHeight: 120)
+            .frame(minWidth: 200, maxHeight: 140)
             .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 2)
             .padding(.horizontal, 20)
         }
@@ -54,16 +57,15 @@ struct MapMarkerDetailSwiftView: View {
         
         return Rectangle()
                 .fill(markerColor)
-                .frame(width: 16)
+                .frame(width: 12)
     }
     
     private var headerView: some View {
         HStack {
             Text(marker?.title ?? "Unknown")
-                .font(Font(BMFont.bold(18)))
+                .font(Font(BMFont.bold(25)))
                 .foregroundColor(.primary)
                 .lineLimit(1)
-                .minimumScaleFactor(0.7)
             Spacer()
             
             Button {
@@ -79,18 +81,18 @@ struct MapMarkerDetailSwiftView: View {
     
     private var descriptionView: some View {
         Text(marker?.subtitle ?? "No description")
-            .font(Font(BMFont.regular(12)))
+            .font(Font(BMFont.regular(10)))
             .lineLimit(3)
-            .minimumScaleFactor(0.6)
             .fixedSize(horizontal: false, vertical: true)
     }
     
     private var infoRowView: some View {
         HStack {
             HStack {
-                Image(systemName: "clock.fill")
-                    .font(.system(size: 20))
+                Image(systemName: "clock")
+                    .font(.system(size: 12))
                     .foregroundColor(.secondary)
+                    .rotationEffect(.init(degrees: 90))
                 openStatusButton
             }
             
@@ -102,17 +104,16 @@ struct MapMarkerDetailSwiftView: View {
             
             categoryView
         }
-        .padding(.trailing, 6)
     }
     
     private var openStatusButton: some View {
         Group {
             Capsule()
                 .fill(marker?.isOpen ?? false ? Color.blue : Color(red: 0.4, green: 0.5, blue: 0.9))
-                .frame(width: 70, height: 28)
+                .frame(width: 44, height: 14)
                 .overlay {
                     Text(marker?.isOpen ?? false ? "Open" : "Closed")
-                        .font(Font(BMFont.medium(14)))
+                        .font(Font(BMFont.medium(8)))
                         .foregroundStyle(.white)
                 }
         }
@@ -121,7 +122,7 @@ struct MapMarkerDetailSwiftView: View {
     private var locationInfoView: some View {
         HStack {
             Image(systemName: "mappin.and.ellipse")
-                .font(.system(size: 20))
+                .font(.system(size: 12))
                 .foregroundColor(.secondary)
             Text(marker?.address ?? "No Address")
                 .font(Font(BMFont.regular(12)))
@@ -134,7 +135,7 @@ struct MapMarkerDetailSwiftView: View {
     private var categoryView: some View {
         HStack {
             Image(systemName: getCategoryIcon())
-                .font(.system(size: 20))
+                .font(.system(size: 12))
                 .foregroundColor(.secondary)
             
             Group {
@@ -148,7 +149,6 @@ struct MapMarkerDetailSwiftView: View {
                         .foregroundColor(.primary)
                 }
             }
-            .minimumScaleFactor(0.7)
         }
     }
     
