@@ -25,31 +25,27 @@ struct ResourcesView: View {
             ZStack {
                 BMTopBlobView(imageName: "BlobRight", xOffset: 30, width: 150, height: 150)
                     
+                VStack {
                     if resourcesVM.resourceCategories.isEmpty {
-                       noResourcesAvailableView
+                        noResourcesAvailableView
                     } else {
-                        VStack {
-                            if !resourcesVM.shoutouts.isEmpty  {
-                                resourceShoutoutsTabView
+                        SegmentedControlView(
+                            tabNames: resourcesVM.resourceCategoryNames,
+                            selectedTabIndex: $tabSelectedValue
+                        )
+                        .padding()
+                        
+                        TabView(selection: $tabSelectedValue) {
+                            ForEach(Array(resourcesVM.resourceCategories.enumerated()), id: \.offset) { idx, category in
+                                ResourcePageView(resourceSections: category.sections).tag(idx)
                             }
-                            
-                            SegmentedControlView(
-                                tabNames: resourcesVM.resourceCategoryNames,
-                                selectedTabIndex: $tabSelectedValue
-                            )
-                            .padding()
-                            
-                            TabView(selection: $tabSelectedValue) {
-                                ForEach(Array(resourcesVM.resourceCategories.enumerated()), id: \.offset) { idx, category in
-                                    ResourcePageView(resourceSections: category.sections).tag(idx)
-                                }
-                            }
-                            .tabViewStyle(.page(indexDisplayMode: .never))
-                            
-                            Spacer()
                         }
-                        .navigationTitle("Resources")
+                        .tabViewStyle(.page(indexDisplayMode: .never))
+                        
+                        Spacer()
                     }
+                }
+                .navigationTitle("Resources")
             }
             .background(Color(BMColor.cardBackground))
         }
@@ -62,6 +58,7 @@ struct ResourcesView: View {
                 subtitle: "Try again later."
         )
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+        .offset(y: -45)
     }
     
     private var resourceShoutoutsTabView: some View {
