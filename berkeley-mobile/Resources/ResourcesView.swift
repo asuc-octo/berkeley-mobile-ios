@@ -8,7 +8,6 @@
 
 import SwiftUI
 
-
 // MARK: ResourcesView
 
 struct ResourcesView: View {
@@ -25,43 +24,44 @@ struct ResourcesView: View {
         NavigationStack {
             ZStack {
                 BMTopBlobView(imageName: "BlobRight", xOffset: 30, width: 150, height: 150)
-        
-                VStack {
-                    if !resourcesVM.shoutouts.isEmpty  {
-                        resourceShoutoutsTabView
-                    }
                     
                     if resourcesVM.resourceCategories.isEmpty {
                        noResourcesAvailableView
                     } else {
-                        SegmentedControlView(
-                            tabNames: resourcesVM.resourceCategoryNames,
-                            selectedTabIndex: $tabSelectedValue
-                        )
-                        .padding()
-                        
-                        TabView(selection: $tabSelectedValue) {
-                            ForEach(Array(resourcesVM.resourceCategories.enumerated()), id: \.offset) { idx, category in
-                                ResourcePageView(resourceSections: category.sections).tag(idx)
+                        VStack {
+                            if !resourcesVM.shoutouts.isEmpty  {
+                                resourceShoutoutsTabView
                             }
+                            
+                            SegmentedControlView(
+                                tabNames: resourcesVM.resourceCategoryNames,
+                                selectedTabIndex: $tabSelectedValue
+                            )
+                            .padding()
+                            
+                            TabView(selection: $tabSelectedValue) {
+                                ForEach(Array(resourcesVM.resourceCategories.enumerated()), id: \.offset) { idx, category in
+                                    ResourcePageView(resourceSections: category.sections).tag(idx)
+                                }
+                            }
+                            .tabViewStyle(.page(indexDisplayMode: .never))
+                            
+                            Spacer()
                         }
-                        .tabViewStyle(.page(indexDisplayMode: .never))
+                        .navigationTitle("Resources")
                     }
-                    Spacer()
-                }
-                .navigationTitle("Resources")
             }
             .background(Color(BMColor.cardBackground))
         }
     }
     
     private var noResourcesAvailableView: some View {
-        VStack {
-            Spacer()
-            Text("No Resources Available")
-                .font(Font(BMFont.bold(21)))
-            Spacer()
-        }
+        BMContentUnavailableView(
+                iconName: "exclamationmark.triangle",
+                title: "No Resources Available",
+                subtitle: "Try again later."
+        )
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
     }
     
     private var resourceShoutoutsTabView: some View {
