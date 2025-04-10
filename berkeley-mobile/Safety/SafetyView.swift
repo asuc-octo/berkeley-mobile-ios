@@ -11,7 +11,6 @@ import MapKit
 
 struct SafetyView: View {
     @StateObject private var safetyViewModel = SafetyViewModel()
-    @Namespace private var safetyLogDetailAnimation
     @State private var selectedSafetyLog: BMSafetyLog?
     @State private var drawerViewState = BMDrawerViewState.medium
     
@@ -32,7 +31,6 @@ struct SafetyView: View {
             if isPresentingSafetyLogDetailView {
                 SafetyLogDetailView(selectedSafetyLog: $selectedSafetyLog, drawerViewState: $drawerViewState)
                     .padding()
-                    .matchedGeometryEffect(id: selectedSafetyLog!.id, in: safetyLogDetailAnimation)
             }
         }
         .animation(.easeInOut, value: isPresentingSafetyLogDetailView)
@@ -56,7 +54,6 @@ struct SafetyView: View {
                                 .onTapGesture {
                                     selectedSafetyLog = safetyLog
                                 }
-                                .matchedGeometryEffect(id: safetyLog.id, in: safetyLogDetailAnimation)
                                 .environmentObject(safetyViewModel)
                         }
                         .listStyle(PlainListStyle())
