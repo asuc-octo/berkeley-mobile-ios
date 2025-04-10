@@ -58,8 +58,7 @@ class ResourcesViewModel: ObservableObject {
         do {
             let querySnapshot = try await collection.getDocuments()
             let documents = querySnapshot.documents
-            var fetchedResourceCategories = [BMResourceCategory]()
-            fetchedResourceCategories = documents.compactMap { queryDocumentSnapshot -> BMResourceCategory? in
+            var fetchedResourceCategories = documents.compactMap { queryDocumentSnapshot -> BMResourceCategory? in
                 try? queryDocumentSnapshot.data(as: BMResourceCategory.self)
             }
             fetchedResourceCategories.sort(by: { $0.name < $1.name })
