@@ -82,7 +82,7 @@ struct GymDetailSwiftUIView: View {
                         }
                         
                         // Phone and distance on the same line
-                        HStack(spacing: 4) {
+                        HStack(spacing: 10) {
                             // Phone number
                             if let phoneNumber = gym.phoneNumber, !phoneNumber.isEmpty {
                                 HStack(spacing: 5) {
@@ -98,12 +98,12 @@ struct GymDetailSwiftUIView: View {
                                 }
                             }
                             
-                            Spacer(minLength: 4)
+                           
                             
                             // Distance
                             if let hasLocation = gym as? HasLocation, 
                                let distance = hasLocation.distanceToUser {
-                                HStack() {
+                                HStack(spacing: 3) {
                                     Image(systemName: "figure.walk")
                                         .foregroundColor(.gray)
                                         .frame(width: 16, height: 16)
@@ -128,7 +128,7 @@ struct GymDetailSwiftUIView: View {
                             Image(systemName: "photo")
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
-                                .frame(width: 110, height: 220)
+                                .frame(width: 120, height: 220)
                                 .foregroundColor(.gray.opacity(0.3))
                                 .background(Color.gray.opacity(0.1))
                                 .clipShape(RoundedRectangle(cornerRadius: 8))
@@ -136,13 +136,13 @@ struct GymDetailSwiftUIView: View {
                             image
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
-                                .frame(width: 110, height: 220)
+                                .frame(width: 120, height: 220)
                                 .clipShape(RoundedRectangle(cornerRadius: 8))
                         case .failure:
                             Image(systemName: "photo")
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
-                                .frame(width: 110, height: 220)
+                                .frame(width: 120, height: 220)
                                 .foregroundColor(.gray)
                                 .background(Color.gray.opacity(0.1))
                                 .clipShape(RoundedRectangle(cornerRadius: 8))
