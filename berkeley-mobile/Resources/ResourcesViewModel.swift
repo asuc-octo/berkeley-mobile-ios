@@ -39,7 +39,7 @@ struct BMResourceShoutout: Identifiable, Hashable, Codable {
 class ResourcesViewModel: ObservableObject {
     @Published var shoutouts = [BMResourceShoutout]()
     @Published var resourceCategories = [BMResourceCategory]()
-    let db = Firestore.firestore()
+    private let db = Firestore.firestore()
     
     var resourceCategoryNames: [String] {
         resourceCategories.map { $0.name }
@@ -47,8 +47,11 @@ class ResourcesViewModel: ObservableObject {
     
     init() {
         Task {
-            await fetchResourceShoutouts()
-            await fetchResourceCategories()
+            async let shoutouts: () = fetchResourceShoutouts()
+            async let categories: () = fetchResourceCategories()
+            
+            await shoutouts
+            await categories
         }
     }
     
