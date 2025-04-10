@@ -13,22 +13,16 @@ import SwiftUI
 
 // MARK: - GymDetailView
 
-struct GymDetailView: UIViewControllerRepresentable {
-    typealias UIViewControllerType = GymDetailViewController
-    
+struct GymDetailView: View {
     private let gym: Gym
     
     init(gym: Gym) {
         self.gym = gym
     }
     
-    func makeUIViewController(context: Context) -> GymDetailViewController {
-        let gymDetailVC = GymDetailViewController()
-        gymDetailVC.gym = gym
-        return gymDetailVC
+    var body: some View {
+        GymDetailSwiftUIView(gym: gym)
     }
-    
-    func updateUIViewController(_ uiViewController: GymDetailViewController, context: Context) {}
 }
 
 
