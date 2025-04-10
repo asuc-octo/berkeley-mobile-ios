@@ -47,11 +47,7 @@ class ResourcesViewModel: ObservableObject {
     
     init() {
         Task {
-            async let shoutouts: () = fetchResourceShoutouts()
-            async let categories: () = fetchResourceCategories()
-            
-            await shoutouts
-            await categories
+            await fetchResourceCategories()
         }
     }
     
@@ -70,24 +66,6 @@ class ResourcesViewModel: ObservableObject {
             self.resourceCategories = fetchedResourceCategories
         } catch {
             print("Error getting document (Resource Categories): \(error)")
-        }
-    }
-    
-    @MainActor
-    private func fetchResourceShoutouts() async {
-        let collection = db.collection("Resource Shoutouts")
-        
-        do {
-            let querySnapshot = try await collection.getDocuments()
-            let documents = querySnapshot.documents
-            var fetchedResourceShoutouts = [BMResourceShoutout]()
-            fetchedResourceShoutouts = documents.compactMap { queryDocumentSnapshot -> BMResourceShoutout? in
-                try? queryDocumentSnapshot.data(as: BMResourceShoutout.self)
-            }
-            fetchedResourceShoutouts.sort(by: { $0.creationDate < $1.creationDate })
-            self.shoutouts = fetchedResourceShoutouts
-        } catch {
-            print("Error getting document (Resource Shoutouts): \(error)")
         }
     }
 }
