@@ -1,0 +1,2 @@
+#!ruby
+load File.realpath("../gems/rake-13.1.0/exe/rake", __dir__)

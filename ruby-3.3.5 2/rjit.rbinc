@@ -1,0 +1,54 @@
+// -*- c -*-
+// DO NOT MODIFY THIS FILE DIRECTLY.
+// auto-generated file
+//   by ./tool/mk_builtin_loader.rb
+//   with rjit.rb
+#include "internal/compilers.h"     /* for MAYBE_UNUSED */
+#include "internal/warnings.h"      /* for COMPILER_WARNING_PUSH */
+#include "ruby/ruby.h"              /* for VALUE */
+#include "builtin.h"                /* for RB_BUILTIN_FUNCTION */
+struct rb_execution_context_struct; /* in vm_core.h */
+
+static VALUE builtin_inline_class_4(struct rb_execution_context_struct *ec, const VALUE self)
+{
+#line 4 "rjit.rb"
+return RBOOL(rb_rjit_enabled);
+#line 17 "rjit.rbinc"
+}
+
+static VALUE builtin_inline_class_9(struct rb_execution_context_struct *ec, const VALUE self)
+{
+#line 9 "rjit.rb"
+
+      rb_rjit_call_p = true;
+      return Qnil;
+#line 26 "rjit.rbinc"
+}
+
+void Init_builtin_rjit(void)
+{
+  // table definition
+  static const struct rb_builtin_function rjit_table[] = {
+    RB_BUILTIN_FUNCTION(0, _bi0, builtin_inline_class_4, 0),
+    RB_BUILTIN_FUNCTION(1, _bi1, builtin_inline_class_9, 0),
+    RB_BUILTIN_FUNCTION(2, rjit_stats_enabled_p, rjit_stats_enabled_p, 0),
+    RB_BUILTIN_FUNCTION(3, rjit_stop_stats, rjit_stop_stats, 0),
+    RB_BUILTIN_FUNCTION(4, rjit_trace_exits_enabled_p, rjit_trace_exits_enabled_p, 0),
+    RB_BUILTIN_FUNCTION(-1, NULL, NULL, 0),
+  };
+
+  // arity_check
+COMPILER_WARNING_PUSH
+#if GCC_VERSION_SINCE(5, 1, 0) || defined __clang__
+COMPILER_WARNING_ERROR(-Wincompatible-pointer-types)
+#endif
+  if (0) rb_builtin_function_check_arity0(builtin_inline_class_4);
+  if (0) rb_builtin_function_check_arity0(builtin_inline_class_9);
+  if (0) rb_builtin_function_check_arity0(rjit_stats_enabled_p);
+  if (0) rb_builtin_function_check_arity0(rjit_stop_stats);
+  if (0) rb_builtin_function_check_arity0(rjit_trace_exits_enabled_p);
+COMPILER_WARNING_POP
+
+  // load
+  rb_load_with_builtin_functions("rjit", rjit_table);
+}

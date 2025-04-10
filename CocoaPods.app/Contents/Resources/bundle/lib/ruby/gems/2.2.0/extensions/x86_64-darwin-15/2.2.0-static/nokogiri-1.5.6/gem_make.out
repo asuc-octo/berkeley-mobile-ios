@@ -1,0 +1,87 @@
+current directory: /Users/orta/dev/mac/CocoaPods-app/destroot/bundle/lib/ruby/gems/2.2.0/gems/nokogiri-1.5.6/ext/nokogiri
+/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/bin/ruby -r ./siteconf20180509-92475-1ulqkun.rb extconf.rb
+checking for libxml/parser.h... yes
+checking for libxslt/xslt.h... yes
+checking for libexslt/exslt.h... yes
+checking for iconv_open() in iconv.h... no
+checking for iconv_open() in -liconv... yes
+checking for xmlParseDoc() in -lxml2... yes
+checking for xsltParseStylesheetDoc() in -lxslt... yes
+checking for exsltFuncRegister() in -lexslt... yes
+checking for xmlHasFeature()... yes
+checking for xmlFirstElementChild()... yes
+checking for xmlRelaxNGSetParserStructuredErrors()... yes
+checking for xmlRelaxNGSetParserStructuredErrors()... yes
+checking for xmlRelaxNGSetValidStructuredErrors()... yes
+checking for xmlSchemaSetValidStructuredErrors()... yes
+checking for xmlSchemaSetParserStructuredErrors()... yes
+creating Makefile
+
+To see why this extension failed to compile, please check the mkmf.log which can be found here:
+
+  /Users/orta/dev/mac/CocoaPods-app/destroot/bundle/lib/ruby/gems/2.2.0/extensions/x86_64-darwin-15/2.2.0-static/nokogiri-1.5.6/mkmf.log
+
+current directory: /Users/orta/dev/mac/CocoaPods-app/destroot/bundle/lib/ruby/gems/2.2.0/gems/nokogiri-1.5.6/ext/nokogiri
+make "DESTDIR=" clean
+
+current directory: /Users/orta/dev/mac/CocoaPods-app/destroot/bundle/lib/ruby/gems/2.2.0/gems/nokogiri-1.5.6/ext/nokogiri
+make "DESTDIR="
+compiling html_document.c
+compiling html_element_description.c
+compiling html_entity_lookup.c
+compiling html_sax_parser_context.c
+compiling html_sax_push_parser.c
+compiling nokogiri.c
+compiling xml_attr.c
+compiling xml_attribute_decl.c
+compiling xml_cdata.c
+compiling xml_comment.c
+compiling xml_document.c
+compiling xml_document_fragment.c
+compiling xml_dtd.c
+compiling xml_element_content.c
+compiling xml_element_decl.c
+compiling xml_encoding_handler.c
+compiling xml_entity_decl.c
+compiling xml_entity_reference.c
+compiling xml_io.c
+compiling xml_libxml2_hacks.c
+compiling xml_namespace.c
+compiling xml_node.c
+compiling xml_node_set.c
+compiling xml_processing_instruction.c
+compiling xml_reader.c
+compiling xml_relax_ng.c
+compiling xml_sax_parser.c
+compiling xml_sax_parser_context.c
+compiling xml_sax_push_parser.c
+compiling xml_schema.c
+compiling xml_syntax_error.c
+compiling xml_text.c
+compiling xml_xpath_context.c
+compiling xslt_stylesheet.c
+xslt_stylesheet.c:217:21: warning: incompatible pointer to integer conversion passing 'void *' to parameter of type 'VALUE' (aka 'unsigned long') [-Wint-conversion]
+    Data_Get_Struct(ctxt->style->_private, nokogiriXsltStylesheetTuple,
+                    ^~~~~~~~~~~~~~~~~~~~~
+/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/ruby.h:1051:41: note: expanded from macro 'Data_Get_Struct'
+    ((sval) = (type*)rb_data_object_get(obj))
+                                        ^~~
+/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/ruby.h:1204:26: note: passing argument to parameter 'obj' here
+rb_data_object_get(VALUE obj)
+                         ^
+xslt_stylesheet.c:230:21: warning: incompatible pointer to integer conversion passing 'void *' to parameter of type 'VALUE' (aka 'unsigned long') [-Wint-conversion]
+    Data_Get_Struct(ctxt->style->_private, nokogiriXsltStylesheetTuple,
+                    ^~~~~~~~~~~~~~~~~~~~~
+/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/ruby.h:1051:41: note: expanded from macro 'Data_Get_Struct'
+    ((sval) = (type*)rb_data_object_get(obj))
+                                        ^~~
+/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/ruby.h:1204:26: note: passing argument to parameter 'obj' here
+rb_data_object_get(VALUE obj)
+                         ^
+2 warnings generated.
+linking shared-object nokogiri/nokogiri.bundle
+ld: warning: directory not found for option '-L/opt/local/lib'
+
+current directory: /Users/orta/dev/mac/CocoaPods-app/destroot/bundle/lib/ruby/gems/2.2.0/gems/nokogiri-1.5.6/ext/nokogiri
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 nokogiri.bundle ./.gem.20180509-92475-1yg6x59/nokogiri

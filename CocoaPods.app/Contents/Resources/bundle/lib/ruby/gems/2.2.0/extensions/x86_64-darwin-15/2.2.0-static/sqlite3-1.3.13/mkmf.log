@@ -1,0 +1,547 @@
+package configuration for sqlite3 is not found
+find_header: checking for sqlite3.h... -------------------- yes
+
+"/usr/bin/clang -o conftest -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/x86_64-darwin15 -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/backward -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0 -I. -I/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -mmacosx-version-min=10.10 -isysroot /Applications/Xcode7.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk -pipe conftest.c  -L. -L/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/lib -L. -L/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/lib -fstack-protector -L/usr/local/lib     -lruby-static -framework CoreFoundation  -lpthread -ldl -lobjc "
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main(int argc, char **argv)
+4: {
+5:   return 0;
+6: }
+/* end */
+
+"/usr/bin/clang -E -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/x86_64-darwin15 -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/backward -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0 -I. -I/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -mmacosx-version-min=10.10 -isysroot /Applications/Xcode7.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk -pipe  conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <sqlite3.h>
+/* end */
+
+--------------------
+
+find_library: checking for pthread_create() in -lpthread... -------------------- yes
+
+"/usr/bin/clang -o conftest -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/x86_64-darwin15 -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/backward -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0 -I. -I/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -mmacosx-version-min=10.10 -isysroot /Applications/Xcode7.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk -pipe conftest.c  -L. -L/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/lib -L. -L/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/lib -fstack-protector -L/usr/local/lib     -lruby-static -framework CoreFoundation -lpthread  -lpthread -ldl -lobjc "
+conftest.c:13:57: error: use of undeclared identifier 'pthread_create'
+int t(void) { void ((*volatile p)()); p = (void ((*)()))pthread_create; return 0; }
+                                                        ^
+1 error generated.
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     printf("%p", &t);
+ 9:   }
+10: 
+11:   return 0;
+12: }
+13: int t(void) { void ((*volatile p)()); p = (void ((*)()))pthread_create; return 0; }
+/* end */
+
+"/usr/bin/clang -o conftest -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/x86_64-darwin15 -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/backward -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0 -I. -I/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -mmacosx-version-min=10.10 -isysroot /Applications/Xcode7.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk -pipe conftest.c  -L. -L/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/lib -L. -L/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/lib -fstack-protector -L/usr/local/lib     -lruby-static -framework CoreFoundation -lpthread  -lpthread -ldl -lobjc "
+conftest.c:13:15: warning: implicit declaration of function 'pthread_create' is invalid in C99 [-Wimplicit-function-declaration]
+int t(void) { pthread_create(); return 0; }
+              ^
+1 warning generated.
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     printf("%p", &t);
+ 9:   }
+10: 
+11:   return 0;
+12: }
+13: int t(void) { pthread_create(); return 0; }
+/* end */
+
+--------------------
+
+find_library: checking for sqlite3_libversion_number() in -lsqlite3... -------------------- yes
+
+"/usr/bin/clang -o conftest -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/x86_64-darwin15 -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/backward -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0 -I. -I/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -mmacosx-version-min=10.10 -isysroot /Applications/Xcode7.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk -pipe conftest.c  -L. -L/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/lib -L. -L/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/lib -fstack-protector -L/usr/local/lib    -lpthread  -lruby-static -framework CoreFoundation -lsqlite3 -lpthread  -lpthread -ldl -lobjc "
+conftest.c:13:57: error: use of undeclared identifier 'sqlite3_libversion_number'
+int t(void) { void ((*volatile p)()); p = (void ((*)()))sqlite3_libversion_number; return 0; }
+                                                        ^
+1 error generated.
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     printf("%p", &t);
+ 9:   }
+10: 
+11:   return 0;
+12: }
+13: int t(void) { void ((*volatile p)()); p = (void ((*)()))sqlite3_libversion_number; return 0; }
+/* end */
+
+"/usr/bin/clang -o conftest -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/x86_64-darwin15 -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/backward -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0 -I. -I/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -mmacosx-version-min=10.10 -isysroot /Applications/Xcode7.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk -pipe conftest.c  -L. -L/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/lib -L. -L/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/lib -fstack-protector -L/usr/local/lib    -lpthread  -lruby-static -framework CoreFoundation -lsqlite3 -lpthread  -lpthread -ldl -lobjc "
+conftest.c:13:15: warning: implicit declaration of function 'sqlite3_libversion_number' is invalid in C99 [-Wimplicit-function-declaration]
+int t(void) { sqlite3_libversion_number(); return 0; }
+              ^
+1 warning generated.
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     printf("%p", &t);
+ 9:   }
+10: 
+11:   return 0;
+12: }
+13: int t(void) { sqlite3_libversion_number(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for rb_proc_arity()... -------------------- yes
+
+"/usr/bin/clang -o conftest -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/x86_64-darwin15 -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/backward -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0 -I. -I/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -mmacosx-version-min=10.10 -isysroot /Applications/Xcode7.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk -pipe conftest.c  -L. -L/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/lib -L. -L/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/lib -fstack-protector -L/usr/local/lib    -lsqlite3 -lpthread  -lruby-static -framework CoreFoundation -lsqlite3 -lpthread  -lpthread -ldl -lobjc "
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     printf("%p", &t);
+ 9:   }
+10: 
+11:   return 0;
+12: }
+13: int t(void) { void ((*volatile p)()); p = (void ((*)()))rb_proc_arity; return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for rb_integer_pack()... -------------------- yes
+
+"/usr/bin/clang -o conftest -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/x86_64-darwin15 -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/backward -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0 -I. -I/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -mmacosx-version-min=10.10 -isysroot /Applications/Xcode7.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk -pipe conftest.c  -L. -L/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/lib -L. -L/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/lib -fstack-protector -L/usr/local/lib    -lsqlite3 -lpthread  -lruby-static -framework CoreFoundation -lsqlite3 -lpthread  -lpthread -ldl -lobjc "
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     printf("%p", &t);
+ 9:   }
+10: 
+11:   return 0;
+12: }
+13: int t(void) { void ((*volatile p)()); p = (void ((*)()))rb_integer_pack; return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for sqlite3_initialize()... -------------------- yes
+
+"/usr/bin/clang -o conftest -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/x86_64-darwin15 -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/backward -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0 -I. -I/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -mmacosx-version-min=10.10 -isysroot /Applications/Xcode7.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk -pipe conftest.c  -L. -L/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/lib -L. -L/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/lib -fstack-protector -L/usr/local/lib    -lsqlite3 -lpthread  -lruby-static -framework CoreFoundation -lsqlite3 -lpthread  -lpthread -ldl -lobjc "
+conftest.c:13:57: error: use of undeclared identifier 'sqlite3_initialize'
+int t(void) { void ((*volatile p)()); p = (void ((*)()))sqlite3_initialize; return 0; }
+                                                        ^
+1 error generated.
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     printf("%p", &t);
+ 9:   }
+10: 
+11:   return 0;
+12: }
+13: int t(void) { void ((*volatile p)()); p = (void ((*)()))sqlite3_initialize; return 0; }
+/* end */
+
+"/usr/bin/clang -o conftest -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/x86_64-darwin15 -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/backward -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0 -I. -I/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -mmacosx-version-min=10.10 -isysroot /Applications/Xcode7.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk -pipe conftest.c  -L. -L/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/lib -L. -L/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/lib -fstack-protector -L/usr/local/lib    -lsqlite3 -lpthread  -lruby-static -framework CoreFoundation -lsqlite3 -lpthread  -lpthread -ldl -lobjc "
+conftest.c:13:15: warning: implicit declaration of function 'sqlite3_initialize' is invalid in C99 [-Wimplicit-function-declaration]
+int t(void) { sqlite3_initialize(); return 0; }
+              ^
+1 warning generated.
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     printf("%p", &t);
+ 9:   }
+10: 
+11:   return 0;
+12: }
+13: int t(void) { sqlite3_initialize(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for sqlite3_backup_init()... -------------------- yes
+
+"/usr/bin/clang -o conftest -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/x86_64-darwin15 -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/backward -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0 -I. -I/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -mmacosx-version-min=10.10 -isysroot /Applications/Xcode7.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk -pipe conftest.c  -L. -L/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/lib -L. -L/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/lib -fstack-protector -L/usr/local/lib    -lsqlite3 -lpthread  -lruby-static -framework CoreFoundation -lsqlite3 -lpthread  -lpthread -ldl -lobjc "
+conftest.c:13:57: error: use of undeclared identifier 'sqlite3_backup_init'
+int t(void) { void ((*volatile p)()); p = (void ((*)()))sqlite3_backup_init; return 0; }
+                                                        ^
+1 error generated.
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     printf("%p", &t);
+ 9:   }
+10: 
+11:   return 0;
+12: }
+13: int t(void) { void ((*volatile p)()); p = (void ((*)()))sqlite3_backup_init; return 0; }
+/* end */
+
+"/usr/bin/clang -o conftest -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/x86_64-darwin15 -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/backward -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0 -I. -I/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -mmacosx-version-min=10.10 -isysroot /Applications/Xcode7.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk -pipe conftest.c  -L. -L/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/lib -L. -L/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/lib -fstack-protector -L/usr/local/lib    -lsqlite3 -lpthread  -lruby-static -framework CoreFoundation -lsqlite3 -lpthread  -lpthread -ldl -lobjc "
+conftest.c:13:15: warning: implicit declaration of function 'sqlite3_backup_init' is invalid in C99 [-Wimplicit-function-declaration]
+int t(void) { sqlite3_backup_init(); return 0; }
+              ^
+1 warning generated.
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     printf("%p", &t);
+ 9:   }
+10: 
+11:   return 0;
+12: }
+13: int t(void) { sqlite3_backup_init(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for sqlite3_column_database_name()... -------------------- no
+
+"/usr/bin/clang -o conftest -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/x86_64-darwin15 -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/backward -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0 -I. -I/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -mmacosx-version-min=10.10 -isysroot /Applications/Xcode7.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk -pipe conftest.c  -L. -L/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/lib -L. -L/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/lib -fstack-protector -L/usr/local/lib    -lsqlite3 -lpthread  -lruby-static -framework CoreFoundation -lsqlite3 -lpthread  -lpthread -ldl -lobjc "
+conftest.c:13:57: error: use of undeclared identifier 'sqlite3_column_database_name'
+int t(void) { void ((*volatile p)()); p = (void ((*)()))sqlite3_column_database_name; return 0; }
+                                                        ^
+1 error generated.
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     printf("%p", &t);
+ 9:   }
+10: 
+11:   return 0;
+12: }
+13: int t(void) { void ((*volatile p)()); p = (void ((*)()))sqlite3_column_database_name; return 0; }
+/* end */
+
+"/usr/bin/clang -o conftest -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/x86_64-darwin15 -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/backward -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0 -I. -I/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -mmacosx-version-min=10.10 -isysroot /Applications/Xcode7.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk -pipe conftest.c  -L. -L/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/lib -L. -L/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/lib -fstack-protector -L/usr/local/lib    -lsqlite3 -lpthread  -lruby-static -framework CoreFoundation -lsqlite3 -lpthread  -lpthread -ldl -lobjc "
+conftest.c:13:15: warning: implicit declaration of function 'sqlite3_column_database_name' is invalid in C99 [-Wimplicit-function-declaration]
+int t(void) { sqlite3_column_database_name(); return 0; }
+              ^
+1 warning generated.
+Undefined symbols for architecture x86_64:
+  "_sqlite3_column_database_name", referenced from:
+      _t in conftest-07bb44.o
+ld: symbol(s) not found for architecture x86_64
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     printf("%p", &t);
+ 9:   }
+10: 
+11:   return 0;
+12: }
+13: int t(void) { sqlite3_column_database_name(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for sqlite3_enable_load_extension()... -------------------- no
+
+"/usr/bin/clang -o conftest -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/x86_64-darwin15 -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/backward -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0 -I. -I/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -mmacosx-version-min=10.10 -isysroot /Applications/Xcode7.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk -pipe conftest.c  -L. -L/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/lib -L. -L/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/lib -fstack-protector -L/usr/local/lib    -lsqlite3 -lpthread  -lruby-static -framework CoreFoundation -lsqlite3 -lpthread  -lpthread -ldl -lobjc "
+conftest.c:13:57: error: use of undeclared identifier 'sqlite3_enable_load_extension'
+int t(void) { void ((*volatile p)()); p = (void ((*)()))sqlite3_enable_load_extension; return 0; }
+                                                        ^
+1 error generated.
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     printf("%p", &t);
+ 9:   }
+10: 
+11:   return 0;
+12: }
+13: int t(void) { void ((*volatile p)()); p = (void ((*)()))sqlite3_enable_load_extension; return 0; }
+/* end */
+
+"/usr/bin/clang -o conftest -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/x86_64-darwin15 -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/backward -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0 -I. -I/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -mmacosx-version-min=10.10 -isysroot /Applications/Xcode7.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk -pipe conftest.c  -L. -L/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/lib -L. -L/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/lib -fstack-protector -L/usr/local/lib    -lsqlite3 -lpthread  -lruby-static -framework CoreFoundation -lsqlite3 -lpthread  -lpthread -ldl -lobjc "
+conftest.c:13:15: warning: implicit declaration of function 'sqlite3_enable_load_extension' is invalid in C99 [-Wimplicit-function-declaration]
+int t(void) { sqlite3_enable_load_extension(); return 0; }
+              ^
+1 warning generated.
+Undefined symbols for architecture x86_64:
+  "_sqlite3_enable_load_extension", referenced from:
+      _t in conftest-9b724b.o
+ld: symbol(s) not found for architecture x86_64
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     printf("%p", &t);
+ 9:   }
+10: 
+11:   return 0;
+12: }
+13: int t(void) { sqlite3_enable_load_extension(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for sqlite3_load_extension()... -------------------- no
+
+"/usr/bin/clang -o conftest -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/x86_64-darwin15 -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/backward -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0 -I. -I/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -mmacosx-version-min=10.10 -isysroot /Applications/Xcode7.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk -pipe conftest.c  -L. -L/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/lib -L. -L/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/lib -fstack-protector -L/usr/local/lib    -lsqlite3 -lpthread  -lruby-static -framework CoreFoundation -lsqlite3 -lpthread  -lpthread -ldl -lobjc "
+conftest.c:13:57: error: use of undeclared identifier 'sqlite3_load_extension'
+int t(void) { void ((*volatile p)()); p = (void ((*)()))sqlite3_load_extension; return 0; }
+                                                        ^
+1 error generated.
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     printf("%p", &t);
+ 9:   }
+10: 
+11:   return 0;
+12: }
+13: int t(void) { void ((*volatile p)()); p = (void ((*)()))sqlite3_load_extension; return 0; }
+/* end */
+
+"/usr/bin/clang -o conftest -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/x86_64-darwin15 -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/backward -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0 -I. -I/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -mmacosx-version-min=10.10 -isysroot /Applications/Xcode7.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk -pipe conftest.c  -L. -L/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/lib -L. -L/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/lib -fstack-protector -L/usr/local/lib    -lsqlite3 -lpthread  -lruby-static -framework CoreFoundation -lsqlite3 -lpthread  -lpthread -ldl -lobjc "
+conftest.c:13:15: warning: implicit declaration of function 'sqlite3_load_extension' is invalid in C99 [-Wimplicit-function-declaration]
+int t(void) { sqlite3_load_extension(); return 0; }
+              ^
+1 warning generated.
+Undefined symbols for architecture x86_64:
+  "_sqlite3_load_extension", referenced from:
+      _t in conftest-b28faf.o
+ld: symbol(s) not found for architecture x86_64
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     printf("%p", &t);
+ 9:   }
+10: 
+11:   return 0;
+12: }
+13: int t(void) { sqlite3_load_extension(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for sqlite3_open_v2()... -------------------- yes
+
+"/usr/bin/clang -o conftest -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/x86_64-darwin15 -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/backward -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0 -I. -I/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -mmacosx-version-min=10.10 -isysroot /Applications/Xcode7.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk -pipe conftest.c  -L. -L/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/lib -L. -L/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/lib -fstack-protector -L/usr/local/lib    -lsqlite3 -lpthread  -lruby-static -framework CoreFoundation -lsqlite3 -lpthread  -lpthread -ldl -lobjc "
+conftest.c:13:57: error: use of undeclared identifier 'sqlite3_open_v2'
+int t(void) { void ((*volatile p)()); p = (void ((*)()))sqlite3_open_v2; return 0; }
+                                                        ^
+1 error generated.
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     printf("%p", &t);
+ 9:   }
+10: 
+11:   return 0;
+12: }
+13: int t(void) { void ((*volatile p)()); p = (void ((*)()))sqlite3_open_v2; return 0; }
+/* end */
+
+"/usr/bin/clang -o conftest -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/x86_64-darwin15 -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/backward -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0 -I. -I/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -mmacosx-version-min=10.10 -isysroot /Applications/Xcode7.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk -pipe conftest.c  -L. -L/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/lib -L. -L/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/lib -fstack-protector -L/usr/local/lib    -lsqlite3 -lpthread  -lruby-static -framework CoreFoundation -lsqlite3 -lpthread  -lpthread -ldl -lobjc "
+conftest.c:13:15: warning: implicit declaration of function 'sqlite3_open_v2' is invalid in C99 [-Wimplicit-function-declaration]
+int t(void) { sqlite3_open_v2(); return 0; }
+              ^
+1 warning generated.
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     printf("%p", &t);
+ 9:   }
+10: 
+11:   return 0;
+12: }
+13: int t(void) { sqlite3_open_v2(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for sqlite3_prepare_v2()... -------------------- yes
+
+"/usr/bin/clang -o conftest -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/x86_64-darwin15 -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/backward -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0 -I. -I/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -mmacosx-version-min=10.10 -isysroot /Applications/Xcode7.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk -pipe conftest.c  -L. -L/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/lib -L. -L/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/lib -fstack-protector -L/usr/local/lib    -lsqlite3 -lpthread  -lruby-static -framework CoreFoundation -lsqlite3 -lpthread  -lpthread -ldl -lobjc "
+conftest.c:13:57: error: use of undeclared identifier 'sqlite3_prepare_v2'
+int t(void) { void ((*volatile p)()); p = (void ((*)()))sqlite3_prepare_v2; return 0; }
+                                                        ^
+1 error generated.
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     printf("%p", &t);
+ 9:   }
+10: 
+11:   return 0;
+12: }
+13: int t(void) { void ((*volatile p)()); p = (void ((*)()))sqlite3_prepare_v2; return 0; }
+/* end */
+
+"/usr/bin/clang -o conftest -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/x86_64-darwin15 -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/backward -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0 -I. -I/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -mmacosx-version-min=10.10 -isysroot /Applications/Xcode7.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk -pipe conftest.c  -L. -L/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/lib -L. -L/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/lib -fstack-protector -L/usr/local/lib    -lsqlite3 -lpthread  -lruby-static -framework CoreFoundation -lsqlite3 -lpthread  -lpthread -ldl -lobjc "
+conftest.c:13:15: warning: implicit declaration of function 'sqlite3_prepare_v2' is invalid in C99 [-Wimplicit-function-declaration]
+int t(void) { sqlite3_prepare_v2(); return 0; }
+              ^
+1 warning generated.
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     printf("%p", &t);
+ 9:   }
+10: 
+11:   return 0;
+12: }
+13: int t(void) { sqlite3_prepare_v2(); return 0; }
+/* end */
+
+--------------------
+
+have_type: checking for sqlite3_int64 in sqlite3.h... -------------------- yes
+
+"/usr/bin/clang -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/x86_64-darwin15 -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/backward -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0 -I. -I/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -mmacosx-version-min=10.10 -isysroot /Applications/Xcode7.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk -pipe   -c conftest.c"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <sqlite3.h>
+4: 
+5: /*top*/
+6: typedef sqlite3_int64 conftest_type;
+7: int conftestval[sizeof(conftest_type)?1:-1];
+/* end */
+
+--------------------
+
+have_type: checking for sqlite3_uint64 in sqlite3.h... -------------------- yes
+
+"/usr/bin/clang -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/x86_64-darwin15 -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0/ruby/backward -I/Users/orta/dev/mac/CocoaPods-app/destroot/bundle/include/ruby-2.2.0 -I. -I/Users/orta/dev/mac/CocoaPods-app/destroot/dependencies/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -mmacosx-version-min=10.10 -isysroot /Applications/Xcode7.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk -pipe   -c conftest.c"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <sqlite3.h>
+4: 
+5: /*top*/
+6: typedef sqlite3_uint64 conftest_type;
+7: int conftestval[sizeof(conftest_type)?1:-1];
+/* end */
+
+--------------------
+

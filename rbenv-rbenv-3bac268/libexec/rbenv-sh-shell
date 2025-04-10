@@ -1,0 +1,144 @@
+#!/usr/bin/env bash
+#
+# Summary: Set or show the shell-specific Ruby version
+#
+# Usage: rbenv shell <version>
+#        rbenv shell -
+#        rbenv shell --unset
+#
+# Sets a shell-specific Ruby version by setting the `RBENV_VERSION'
+# environment variable in your shell. This version overrides local
+# application-specific versions and the global version.
+#
+# <version> should be a string matching a Ruby version known to rbenv.
+# The special version string `system' will use your default system Ruby.
+# Run `rbenv versions' for a list of available Ruby versions.
+#
+# When `-` is passed instead of the version string, the previously set
+# version will be restored. With `--unset`, the `RBENV_VERSION`
+# environment variable gets unset, restoring the environment to the
+# state before the first `rbenv shell` call.
+
+set -e
+[ -n "$RBENV_DEBUG" ] && set -x
+
+# Provide rbenv completions
+if [ "$1" = "--complete" ]; then
+  echo --unset
+  echo system
+  exec rbenv-versions --bare
+fi
+
+version="$1"
+shell="$(basename "${RBENV_SHELL:-$SHELL}")"
+
+if [ -z "$version" ]; then
+  if [ -z "$RBENV_VERSION" ]; then
+    echo "rbenv: no shell-specific version configured" >&2
+    exit 1
+  else
+    echo 'echo "$RBENV_VERSION"'
+    exit
+  fi
+fi
+
+if [ "$version" = "--unset" ]; then
+  case "$shell" in
+  fish )
+    echo 'set -gu RBENV_VERSION_OLD "$RBENV_VERSION"'
+    echo "set -e RBENV_VERSION"
+    ;;
+  zsh )
+    echo "typeset -g RBENV_VERSION_OLD=\"\${RBENV_VERSION-}\""
+    echo "unset RBENV_VERSION"
+    ;;
+  * )
+    echo 'RBENV_VERSION_OLD="${RBENV_VERSION-}"'
+    echo "unset RBENV_VERSION"
+    ;;
+  esac
+  exit
+fi
+
+if [ "$version" = "-" ]; then
+  case "$shell" in
+  fish )
+    cat <<EOS
+if set -q RBENV_VERSION_OLD
+  if [ -n "\$RBENV_VERSION_OLD" ]
+    set RBENV_VERSION_OLD_ "\$RBENV_VERSION"
+    set -gx RBENV_VERSION "\$RBENV_VERSION_OLD"
+    set -gu RBENV_VERSION_OLD "\$RBENV_VERSION_OLD_"
+    set -e RBENV_VERSION_OLD_
+  else
+    set -gu RBENV_VERSION_OLD "\$RBENV_VERSION"
+    set -e RBENV_VERSION
+  end
+else
+  echo "rbenv: RBENV_VERSION_OLD is not set" >&2
+  false
+end
+EOS
+    ;;
+  zsh )
+    cat <<EOS
+if [ -n "\${RBENV_VERSION_OLD+x}" ]; then
+  if [ -n "\$RBENV_VERSION_OLD" ]; then
+    local RBENV_VERSION_OLD_="\$RBENV_VERSION"
+    export RBENV_VERSION="\$RBENV_VERSION_OLD"
+    RBENV_VERSION_OLD="\$RBENV_VERSION_OLD_"
+    unset RBENV_VERSION_OLD_
+  else
+    typeset -g RBENV_VERSION_OLD="\$RBENV_VERSION"
+    unset RBENV_VERSION
+  fi
+else
+  echo "rbenv: RBENV_VERSION_OLD is not set" >&2
+  false
+fi
+EOS
+    ;;
+  * )
+    cat <<EOS
+if [ -n "\${RBENV_VERSION_OLD+x}" ]; then
+  if [ -n "\$RBENV_VERSION_OLD" ]; then
+    RBENV_VERSION_OLD_="\$RBENV_VERSION"
+    export RBENV_VERSION="\$RBENV_VERSION_OLD"
+    RBENV_VERSION_OLD="\$RBENV_VERSION_OLD_"
+    unset RBENV_VERSION_OLD_
+  else
+    RBENV_VERSION_OLD="\$RBENV_VERSION"
+    unset RBENV_VERSION
+  fi
+else
+  echo "rbenv: RBENV_VERSION_OLD is not set" >&2
+  false
+fi
+EOS
+    ;;
+  esac
+  exit
+fi
+
+# Make sure the specified version is installed.
+if rbenv-prefix "$version" >/dev/null; then
+  if [ "$version" != "$RBENV_VERSION" ]; then
+    case "$shell" in
+    fish )
+      echo 'set -gu RBENV_VERSION_OLD "$RBENV_VERSION"'
+      echo "set -gx RBENV_VERSION \"$version\""
+      ;;
+    zsh )
+      echo "typeset -g RBENV_VERSION_OLD=\"\${RBENV_VERSION-}\""
+      echo "export RBENV_VERSION=\"$version\""
+      ;;
+    * )
+      echo 'RBENV_VERSION_OLD="${RBENV_VERSION-}"'
+      echo "export RBENV_VERSION=\"$version\""
+      ;;
+    esac
+  fi
+else
+  echo "false"
+  exit 1
+fi
