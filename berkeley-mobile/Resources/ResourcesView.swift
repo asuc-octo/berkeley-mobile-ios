@@ -8,7 +8,6 @@
 
 import SwiftUI
 
-
 // MARK: ResourcesView
 
 struct ResourcesView: View {
@@ -25,14 +24,10 @@ struct ResourcesView: View {
         NavigationStack {
             ZStack {
                 BMTopBlobView(imageName: "BlobRight", xOffset: 30, width: 150, height: 150)
-        
-                VStack {
-                    if !resourcesVM.shoutouts.isEmpty  {
-                        resourceShoutoutsTabView
-                    }
                     
+                VStack {
                     if resourcesVM.resourceCategories.isEmpty {
-                       noResourcesAvailableView
+                        noResourcesAvailableView
                     } else {
                         SegmentedControlView(
                             tabNames: resourcesVM.resourceCategoryNames,
@@ -46,8 +41,9 @@ struct ResourcesView: View {
                             }
                         }
                         .tabViewStyle(.page(indexDisplayMode: .never))
+                        
+                        Spacer()
                     }
-                    Spacer()
                 }
                 .navigationTitle("Resources")
             }
@@ -56,12 +52,13 @@ struct ResourcesView: View {
     }
     
     private var noResourcesAvailableView: some View {
-        VStack {
-            Spacer()
-            Text("No Resources Available")
-                .font(Font(BMFont.bold(21)))
-            Spacer()
-        }
+        BMContentUnavailableView(
+                iconName: "exclamationmark.triangle",
+                title: "No Resources Available",
+                subtitle: "Try again later."
+        )
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+        .offset(y: -45)
     }
     
     private var resourceShoutoutsTabView: some View {
