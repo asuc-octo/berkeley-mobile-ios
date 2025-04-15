@@ -142,12 +142,12 @@ struct GymOccupancyWidgetRowView: View {
         }
     }
     
-    private var isAnIncrease: Bool {
+    private var percentageDiff: Double {
         switch location {
         case .rsf:
-            return entry.RSFOccupancyPercentages.current > entry.RSFOccupancyPercentages.prior ?? 0.0
+            return entry.RSFOccupancyPercentages.current - (entry.RSFOccupancyPercentages.prior ?? 0.0)
         case .stadium:
-            return entry.stadiumOccupancyPercentages.current > entry.stadiumOccupancyPercentages.prior ?? 0.0
+            return entry.stadiumOccupancyPercentages.current - (entry.stadiumOccupancyPercentages.prior ?? 0.0)
         }
     }
     
@@ -156,15 +156,18 @@ struct GymOccupancyWidgetRowView: View {
             .font(Font(BMFont.regular(13)))
             .bold()
         HStack {
-            increaseDecreaseIndicator
+            if percentageDiff != 0 {
+                increaseDecreaseIndicator
+                    .transition(.scale)
+            }
             occupancyPercentageText
         }
     }
     
     private var increaseDecreaseIndicator: some View {
         Image(systemName: "triangle.fill")
-            .rotationEffect(isAnIncrease ? .degrees(0) : .degrees(180))
-            .foregroundStyle(isAnIncrease ? .red : .green)
+            .rotationEffect(percentageDiff > 0 ? .degrees(0) : .degrees(180))
+            .foregroundStyle(percentageDiff > 0 ? .red : .green)
             .font(.system(size: 16))
     }
     
@@ -206,4 +209,6 @@ struct GymOccupancyWidget: Widget {
 } timeline: {
     GymOccupancyEntry(date: .now, RSFOccupancyPercentages: (71, 93), stadiumOccupancyPercentages: (68, 40))
     GymOccupancyEntry(date: .now, RSFOccupancyPercentages: (93, 74), stadiumOccupancyPercentages: (40, 43))
+    GymOccupancyEntry(date: .now, RSFOccupancyPercentages: (74, 74), stadiumOccupancyPercentages: (40, 40))
+    GymOccupancyEntry(date: .now, RSFOccupancyPercentages: (74, 108), stadiumOccupancyPercentages: (40, 9))
 }
