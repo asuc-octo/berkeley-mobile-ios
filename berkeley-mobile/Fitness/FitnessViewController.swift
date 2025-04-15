@@ -9,6 +9,7 @@
 import Firebase
 import UIKit
 import SwiftUI
+import WidgetKit
 
 // MARK: - FitnessView
 
@@ -110,6 +111,8 @@ class FitnessViewController: UIViewController, SearchDrawerViewDelegate {
                 }
             }
         }
+        
+        WidgetCenter.shared.reloadTimelines(ofKind: "GymOccupancyWidget")
     }
     
     @objc func willExpandClasses() {

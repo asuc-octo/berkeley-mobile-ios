@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import WidgetKit
 
 typealias GymOccupancyLocation = GymOccupancyViewModel.GymOccupancyLocation
 
@@ -97,7 +96,6 @@ extension GymOccupancyViewModel: GymOccupancyScrapperDelegate {
         DispatchQueue.main.async {
             self.isLoading = false
             if let result, let occupancy = result.split(separator: "%").first {
-                WidgetCenter.shared.reloadTimelines(ofKind: "GymOccupancyWidget")
                 self.occupancyPercentage = Double(String(occupancy))
                 self.completionHandler?(Double(String(occupancy)))
                 self.errorMessage = nil
