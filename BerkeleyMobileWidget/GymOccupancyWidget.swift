@@ -156,19 +156,17 @@ struct GymOccupancyWidgetRowView: View {
             .font(Font(BMFont.regular(13)))
             .bold()
         HStack {
-            if percentageDiff != 0 {
-                increaseDecreaseIndicator
-                    .transition(.scale)
-            }
+            increaseDecreaseIndicator
             occupancyPercentageText
         }
     }
     
     private var increaseDecreaseIndicator: some View {
-        Image(systemName: "triangle.fill")
-            .rotationEffect(percentageDiff > 0 ? .degrees(0) : .degrees(180))
+        Image(systemName: percentageDiff == 0 ? "equal.circle.fill" : "triangle.fill")
+            .rotationEffect(percentageDiff >= 0 ? .degrees(0) : .degrees(180))
             .foregroundStyle(percentageDiff > 0 ? .red : .green)
             .font(.system(size: 16))
+            .frame(width: 20)
     }
     
     private var occupancyPercentageText: some View {
@@ -209,6 +207,6 @@ struct GymOccupancyWidget: Widget {
 } timeline: {
     GymOccupancyEntry(date: .now, RSFOccupancyPercentages: (71, 93), stadiumOccupancyPercentages: (68, 40))
     GymOccupancyEntry(date: .now, RSFOccupancyPercentages: (93, 74), stadiumOccupancyPercentages: (40, 43))
-    GymOccupancyEntry(date: .now, RSFOccupancyPercentages: (74, 74), stadiumOccupancyPercentages: (40, 40))
+    GymOccupancyEntry(date: .now, RSFOccupancyPercentages: (74, 74), stadiumOccupancyPercentages: (43, 40))
     GymOccupancyEntry(date: .now, RSFOccupancyPercentages: (74, 108), stadiumOccupancyPercentages: (40, 9))
 }
