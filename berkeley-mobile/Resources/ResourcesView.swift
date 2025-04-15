@@ -27,10 +27,6 @@ struct ResourcesView: View {
                 BMTopBlobView(imageName: "BlobRight", xOffset: 30, width: 150, height: 150)
         
                 VStack {
-                    if !resourcesVM.shoutouts.isEmpty  {
-                        resourceShoutoutsTabView
-                    }
-                    
                     if resourcesVM.resourceCategories.isEmpty {
                        noResourcesAvailableView
                     } else {
@@ -62,44 +58,6 @@ struct ResourcesView: View {
                 .font(Font(BMFont.bold(21)))
             Spacer()
         }
-    }
-    
-    private var resourceShoutoutsTabView: some View {
-        HStack {
-            Button(action: {
-                withAnimation {
-                    shoutoutTabSelectedValue -= 1
-                }
-            }) {
-                Image(systemName: "chevron.left")
-                    .foregroundStyle(.gray)
-                    .fontWeight(.heavy)
-            }
-            .opacity(shoutoutTabSelectedValue - 1 >= 0 ? 1 : 0)
-            .disabled(shoutoutTabSelectedValue - 1 >= 0 ? false : true)
-            
-            TabView(selection: $shoutoutTabSelectedValue) {
-                ForEach(Array(resourcesVM.shoutouts.enumerated()), id: \.element) { idx, shoutOut in
-                    ResourceShoutoutView(callout: shoutOut)
-                        .tag(idx)
-                }
-            }
-            .frame(height: 150)
-            .tabViewStyle(.page(indexDisplayMode: .never))
-            
-            Button(action: {
-                withAnimation {
-                    shoutoutTabSelectedValue += 1
-                }
-            }) {
-                Image(systemName: "chevron.right")
-                    .foregroundStyle(.gray)
-                    .fontWeight(.heavy)
-            }
-            .opacity(shoutoutTabSelectedValue + 1 < resourcesVM.shoutouts.count ? 1 : 0)
-            .disabled(shoutoutTabSelectedValue + 1 < resourcesVM.shoutouts.count ? false : true)
-        }
-        .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
     }
 }
 
