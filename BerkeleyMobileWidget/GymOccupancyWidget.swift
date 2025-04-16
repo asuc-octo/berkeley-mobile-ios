@@ -58,12 +58,10 @@ struct GymOccupancyProvider: TimelineProvider {
             )
             completion(entry)
         } else {
-            fetchGymOccupancies { currRSFOccupancy, currStadiumOccupancy in
-                let entry = GymOccupancyEntry(date: Date(),
-                                          RSFOccupancyPercentages: (priorRSFOccupancy, currRSFOccupancy),
-                                          stadiumOccupancyPercentages: (priorStadiumOccupancy, currStadiumOccupancy))
-                completion(entry)
-            }
+            let entry = GymOccupancyEntry(date: Date(),
+                                          RSFOccupancyPercentages: (priorRSFOccupancy, rsfGymOccupancyViewModel.occupancyPercentage ?? 0),
+                                          stadiumOccupancyPercentages: ( priorStadiumOccupancy,stadiumGymOccupancyViewModel.occupancyPercentage ?? 0))
+            completion(entry)
         }
     }
 
