@@ -157,6 +157,7 @@
 		55DCF79B237243D4001B01B8 /* MaterialTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF79A237243D4001B01B8 /* MaterialTextField.swift */; };
 		55DCF79D237243F5001B01B8 /* RippleLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF79C237243F5001B01B8 /* RippleLayer.swift */; };
 		55DCF7A123724835001B01B8 /* MaterialButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF7A023724835001B01B8 /* MaterialButton.swift */; };
+		8B868B902DA73E7F002A4D31 /* HomeDrawerSectionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B868B8F2DA73E5F002A4D31 /* HomeDrawerSectionListView.swift */; };
 		C14CCB612D9CC2730075FE69 /* BMFilterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14CCB602D9CC2680075FE69 /* BMFilterButton.swift */; };
 		E80330EB2CE431C200DC9574 /* DepthButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80330EA2CE431C200DC9574 /* DepthButtonStyle.swift */; };
 		E80330ED2CE7EBB100DC9574 /* NSCoding+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80330EC2CE7EBB100DC9574 /* NSCoding+Extension.swift */; };
@@ -352,6 +353,7 @@
 		55DCF79C237243F5001B01B8 /* RippleLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RippleLayer.swift; sourceTree = "<group>"; };
 		55DCF7A023724835001B01B8 /* MaterialButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialButton.swift; sourceTree = "<group>"; };
 		61D128E68A4FC209FFCDE60F /* Pods-berkeley-mobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeley-mobile.release.xcconfig"; path = "Target Support Files/Pods-berkeley-mobile/Pods-berkeley-mobile.release.xcconfig"; sourceTree = "<group>"; };
+		8B868B8F2DA73E5F002A4D31 /* HomeDrawerSectionListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDrawerSectionListView.swift; sourceTree = "<group>"; };
 		C14CCB602D9CC2680075FE69 /* BMFilterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMFilterButton.swift; sourceTree = "<group>"; };
 		E80330EA2CE431C200DC9574 /* DepthButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepthButtonStyle.swift; sourceTree = "<group>"; };
 		E80330EC2CE7EBB100DC9574 /* NSCoding+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSCoding+Extension.swift"; sourceTree = "<group>"; };
@@ -763,6 +765,7 @@
 		29BED7BF241DF43B0049C022 /* FilterTableView */ = {
 			isa = PBXGroup;
 			children = (
+				8B868B8F2DA73E5F002A4D31 /* HomeDrawerSectionListView.swift */,
 				29AB5BC4241D8CB4007C3ECA /* FilterTableView.swift */,
 				13B39AA423E774600039FBA2 /* FilterTableViewCell.swift */,
 				2EC165692D752A7300F88B60 /* HomeSectionListRowView.swift */,
@@ -1163,6 +1166,7 @@
 				13491DB8241E22130033F9AB /* Colors+Event.swift in Sources */,
 				13B39A9923E6A33C0039FBA2 /* Library.swift in Sources */,
 				E83B6DA72D7A85F200AA9422 /* GymOccupancyView.swift in Sources */,
+				8B868B902DA73E7F002A4D31 /* HomeDrawerSectionListView.swift in Sources */,
 				303F6AE4236A931D007E37DD /* SegmentedControlViewController.swift in Sources */,
 				2EC1656A2D752A7300F88B60 /* HomeSectionListRowView.swift in Sources */,
 				299ACFB0244A58CD000F3E86 /* OccupancyDataSource.swift in Sources */,
