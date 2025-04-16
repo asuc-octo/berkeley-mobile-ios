@@ -25,19 +25,10 @@ struct BMResourceSection: Hashable, Codable {
     var resources: [BMResource]
 }
 
-struct BMResourceShoutout: Identifiable, Hashable, Codable {
-    var id = UUID()
-    var title: String
-    var subtitle: String
-    var creationDate: Date
-    var url: URL?
-}
-
 
 // MARK: - ResourcesViewModel 
 
 class ResourcesViewModel: ObservableObject {
-    @Published var shoutouts = [BMResourceShoutout]()
     @Published var resourceCategories = [BMResourceCategory]()
     private let db = Firestore.firestore()
     
