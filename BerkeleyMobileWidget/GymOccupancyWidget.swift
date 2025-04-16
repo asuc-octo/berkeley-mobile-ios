@@ -28,7 +28,7 @@ class GymOccupancyEntryCache {
 // MARK: - GymOccupancyProvider
 
 struct GymOccupancyProvider: TimelineProvider {
-    private let rsfGymOccupancyViewModel = GymOccupancyViewModel(location: .rsf)
+    private let RSFGymOccupancyViewModel = GymOccupancyViewModel(location: .rsf)
     private let stadiumGymOccupancyViewModel = GymOccupancyViewModel(location: .stadium)
     private let entryCache = GymOccupancyEntryCache()
     
@@ -48,7 +48,7 @@ struct GymOccupancyProvider: TimelineProvider {
     }
 
     func getSnapshot(in context: Context, completion: @escaping (GymOccupancyEntry) -> ()) {
-        let areOccupancyPercentagesUnavailable = rsfGymOccupancyViewModel.occupancyPercentage == nil && stadiumGymOccupancyViewModel.occupancyPercentage == nil
+        let areOccupancyPercentagesUnavailable = RSFGymOccupancyViewModel.occupancyPercentage == nil && stadiumGymOccupancyViewModel.occupancyPercentage == nil
         
         if context.isPreview && areOccupancyPercentagesUnavailable {
             let entry = GymOccupancyEntry(
@@ -59,7 +59,7 @@ struct GymOccupancyProvider: TimelineProvider {
             completion(entry)
         } else {
             let entry = GymOccupancyEntry(date: Date(),
-                                          RSFOccupancyPercentages: (priorRSFOccupancy, rsfGymOccupancyViewModel.occupancyPercentage ?? 0),
+                                          RSFOccupancyPercentages: (priorRSFOccupancy, RSFGymOccupancyViewModel.occupancyPercentage ?? 0),
                                           stadiumOccupancyPercentages: ( priorStadiumOccupancy,stadiumGymOccupancyViewModel.occupancyPercentage ?? 0))
             completion(entry)
         }
@@ -81,7 +81,7 @@ struct GymOccupancyProvider: TimelineProvider {
     }
     
     private func fetchGymOccupancies(completion: @escaping (Double, Double) -> Void) {
-        rsfGymOccupancyViewModel.refreshWithCompletionHandler { RSFOccupancy in
+        RSFGymOccupancyViewModel.refreshWithCompletionHandler { RSFOccupancy in
             stadiumGymOccupancyViewModel.refreshWithCompletionHandler { stadiumOccupancy in
                completion(RSFOccupancy ?? 0, stadiumOccupancy ?? 0)
             }
