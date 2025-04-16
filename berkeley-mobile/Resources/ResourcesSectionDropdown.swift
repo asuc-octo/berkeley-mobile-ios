@@ -30,6 +30,8 @@ struct ResourcesSectionDropdown<Content: View>: View {
                     .font(Font(BMFont.bold(25)))
                     .foregroundColor(Color.primary)
                     .padding(.vertical, 16)
+                    .multilineTextAlignment(.leading)
+                
                 Spacer()
 
                 Image(systemName: "chevron.right")
@@ -111,6 +113,8 @@ struct ResourceItemView: View {
                     .foregroundColor(.primary)
                     .padding(.leading, 16)
                     .padding(.vertical, 8)
+                    .multilineTextAlignment(.leading)
+                
                 Spacer()
 
                 Image(systemName: "chevron.right")
