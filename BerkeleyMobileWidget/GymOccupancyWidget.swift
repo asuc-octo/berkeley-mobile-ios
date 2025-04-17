@@ -16,7 +16,7 @@ struct GymOccupancyEntry: TimelineEntry {
     static let defaultStadiumOccupancyPercentages: GymOccupancyChange = (43, 68)
     
     let date: Date
-    let RSFOccupancyPercentages: GymOccupancyChange
+    let rsfOccupancyPercentages: GymOccupancyChange
     let stadiumOccupancyPercentages: GymOccupancyChange
 }
 
@@ -28,12 +28,12 @@ class GymOccupancyEntryCache {
 // MARK: - GymOccupancyProvider
 
 struct GymOccupancyProvider: TimelineProvider {
-    private let RSFGymOccupancyViewModel = GymOccupancyViewModel(location: .rsf)
+    private let rsfGymOccupancyViewModel = GymOccupancyViewModel(location: .rsf)
     private let stadiumGymOccupancyViewModel = GymOccupancyViewModel(location: .stadium)
     private let entryCache = GymOccupancyEntryCache()
     
     private var priorRSFOccupancy: Double?  {
-        entryCache.entry?.RSFOccupancyPercentages.current
+        entryCache.entry?.rsfOccupancyPercentages.current
     }
     private var priorStadiumOccupancy: Double? {
         entryCache.entry?.stadiumOccupancyPercentages.current
@@ -42,24 +42,24 @@ struct GymOccupancyProvider: TimelineProvider {
     func placeholder(in context: Context) -> GymOccupancyEntry {
         GymOccupancyEntry(
             date: Date(),
-            RSFOccupancyPercentages: GymOccupancyEntry.defaultRSFOccupancyPercentages,
+            rsfOccupancyPercentages: GymOccupancyEntry.defaultRSFOccupancyPercentages,
             stadiumOccupancyPercentages: GymOccupancyEntry.defaultStadiumOccupancyPercentages
         )
     }
 
     func getSnapshot(in context: Context, completion: @escaping (GymOccupancyEntry) -> ()) {
-        let areOccupancyPercentagesUnavailable = RSFGymOccupancyViewModel.occupancyPercentage == nil && stadiumGymOccupancyViewModel.occupancyPercentage == nil
+        let areOccupancyPercentagesUnavailable = rsfGymOccupancyViewModel.occupancyPercentage == nil && stadiumGymOccupancyViewModel.occupancyPercentage == nil
         
         if context.isPreview && areOccupancyPercentagesUnavailable {
             let entry = GymOccupancyEntry(
                 date: Date(),
-                RSFOccupancyPercentages: GymOccupancyEntry.defaultRSFOccupancyPercentages,
+                rsfOccupancyPercentages: GymOccupancyEntry.defaultRSFOccupancyPercentages,
                 stadiumOccupancyPercentages: GymOccupancyEntry.defaultStadiumOccupancyPercentages
             )
             completion(entry)
         } else {
             let entry = GymOccupancyEntry(date: Date(),
-                                          RSFOccupancyPercentages: (priorRSFOccupancy, RSFGymOccupancyViewModel.occupancyPercentage ?? 0),
+                                          rsfOccupancyPercentages: (priorRSFOccupancy, rsfGymOccupancyViewModel.occupancyPercentage ?? 0),
                                           stadiumOccupancyPercentages: ( priorStadiumOccupancy,stadiumGymOccupancyViewModel.occupancyPercentage ?? 0))
             completion(entry)
         }
@@ -69,7 +69,7 @@ struct GymOccupancyProvider: TimelineProvider {
         fetchGymOccupancies { currRSFOccupancy, currStadiumOccupancy in
             let entry = GymOccupancyEntry(
                 date: Date(),
-                RSFOccupancyPercentages: (priorRSFOccupancy, currRSFOccupancy),
+                rsfOccupancyPercentages: (priorRSFOccupancy, currRSFOccupancy),
                 stadiumOccupancyPercentages: (priorStadiumOccupancy, currStadiumOccupancy)
             )
             
@@ -81,7 +81,7 @@ struct GymOccupancyProvider: TimelineProvider {
     }
     
     private func fetchGymOccupancies(completion: @escaping (Double, Double) -> Void) {
-        RSFGymOccupancyViewModel.refreshWithCompletionHandler { RSFOccupancy in
+        rsfGymOccupancyViewModel.refreshWithCompletionHandler { RSFOccupancy in
             stadiumGymOccupancyViewModel.refreshWithCompletionHandler { stadiumOccupancy in
                completion(RSFOccupancy ?? 0, stadiumOccupancy ?? 0)
             }
@@ -125,7 +125,7 @@ struct GymOccupancyWidgetRowView: View {
     private var occupancyColor: Color {
         switch location {
         case .rsf:
-            GymOccupancyViewModel.getOccupancyColor(percentage: entry.RSFOccupancyPercentages.current)
+            GymOccupancyViewModel.getOccupancyColor(percentage: entry.rsfOccupancyPercentages.current)
         case .stadium:
             GymOccupancyViewModel.getOccupancyColor(percentage: entry.stadiumOccupancyPercentages.current)
         }
@@ -134,7 +134,7 @@ struct GymOccupancyWidgetRowView: View {
     private var occupancyPercentage: Double {
         switch location {
         case .rsf:
-            return entry.RSFOccupancyPercentages.current
+            return entry.rsfOccupancyPercentages.current
         case .stadium:
             return entry.stadiumOccupancyPercentages.current
         }
@@ -143,7 +143,7 @@ struct GymOccupancyWidgetRowView: View {
     private var percentageDiff: Double {
         switch location {
         case .rsf:
-            return entry.RSFOccupancyPercentages.current - (entry.RSFOccupancyPercentages.prior ?? 0.0)
+            return entry.rsfOccupancyPercentages.current - (entry.rsfOccupancyPercentages.prior ?? 0.0)
         case .stadium:
             return entry.stadiumOccupancyPercentages.current - (entry.stadiumOccupancyPercentages.prior ?? 0.0)
         }
@@ -203,8 +203,8 @@ struct GymOccupancyWidget: Widget {
 #Preview(as: .systemSmall) {
     GymOccupancyWidget()
 } timeline: {
-    GymOccupancyEntry(date: .now, RSFOccupancyPercentages: (71, 93), stadiumOccupancyPercentages: (68, 40))
-    GymOccupancyEntry(date: .now, RSFOccupancyPercentages: (93, 74), stadiumOccupancyPercentages: (40, 43))
-    GymOccupancyEntry(date: .now, RSFOccupancyPercentages: (74, 74), stadiumOccupancyPercentages: (43, 40))
-    GymOccupancyEntry(date: .now, RSFOccupancyPercentages: (74, 108), stadiumOccupancyPercentages: (40, 9))
+    GymOccupancyEntry(date: .now, rsfOccupancyPercentages: (71, 93), stadiumOccupancyPercentages: (68, 40))
+    GymOccupancyEntry(date: .now, rsfOccupancyPercentages: (93, 74), stadiumOccupancyPercentages: (40, 43))
+    GymOccupancyEntry(date: .now, rsfOccupancyPercentages: (74, 74), stadiumOccupancyPercentages: (43, 40))
+    GymOccupancyEntry(date: .now, rsfOccupancyPercentages: (74, 108), stadiumOccupancyPercentages: (40, 9))
 }
