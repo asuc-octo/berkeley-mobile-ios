@@ -13,7 +13,6 @@ import SwiftUI
 struct ResourcesView: View {
     @StateObject private var resourcesVM = ResourcesViewModel()
     @State private var tabSelectedValue = 0
-    @State private var shoutoutTabSelectedValue = 0
     
     init() {
         // Use this if NavigationBarTitle is with Large Font
@@ -99,40 +98,6 @@ struct ResourcePageView: View {
                 .background(Color(BMColor.cardBackground))
             }
         }
-    }
-}
-
-
-// MARK: - ResourceShoutoutView
-
-struct ResourceShoutoutView: View {
-    var callout: BMResourceShoutout
-    
-    var body: some View {
-        RoundedRectangle(cornerRadius: 10)
-            .fill(.green.opacity(0.8))
-            .frame(width: 300, height: 100)
-            .overlay(
-                VStack(alignment: .leading) {
-                    HStack {
-                        Text(callout.title)
-                            .bold()
-                            .font(Font(BMFont.regular(23)))
-                        Spacer()
-                        
-                        if callout.url != nil {
-                            Button(action: {}) {
-                                Image(systemName: "link")
-                            }
-                        }
-                    }
-                    Spacer()
-                    Text(callout.subtitle)
-                        .font(Font(BMFont.regular(13)))
-                }
-                .foregroundStyle(.white)
-                .padding()
-            )
     }
 }
 
