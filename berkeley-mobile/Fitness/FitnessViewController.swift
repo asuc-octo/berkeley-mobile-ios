@@ -9,6 +9,7 @@
 import Firebase
 import UIKit
 import SwiftUI
+import WidgetKit
 
 // MARK: - FitnessView
 
@@ -110,6 +111,8 @@ class FitnessViewController: UIViewController, SearchDrawerViewDelegate {
                 }
             }
         }
+        
+        WidgetCenter.shared.reloadTimelines(ofKind: "GymOccupancyWidget")
     }
     
     @objc func willExpandClasses() {
@@ -163,7 +166,7 @@ extension FitnessViewController {
         scrollView.addSubview(RSFCard)
         self.RSFCard = RSFCard
         
-        let RSFView = UIHostingController(rootView: GymOccupancyView(viewModel: homeViewModel.rsfOccupancyViewModel)).view!
+        let RSFView = UIHostingController(rootView: GymOccupancyView().environmentObject(homeViewModel.rsfOccupancyViewModel)).view!
         RSFView.translatesAutoresizingMaskIntoConstraints = false
         RSFView.layer.cornerRadius = 12
         RSFView.backgroundColor = UIColor.clear
@@ -192,7 +195,7 @@ extension FitnessViewController {
         CMSCard.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(CMSCard)
         
-        let CMSView = UIHostingController(rootView: GymOccupancyView(viewModel: homeViewModel.stadiumOccupancyViewModel)).view!
+        let CMSView = UIHostingController(rootView: GymOccupancyView().environmentObject(homeViewModel.stadiumOccupancyViewModel)).view!
         CMSView.translatesAutoresizingMaskIntoConstraints = false
         CMSView.layer.cornerRadius = 12
         CMSView.backgroundColor = UIColor.clear
