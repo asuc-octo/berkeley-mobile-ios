@@ -1592,7 +1592,7 @@
 				INFOPLIST_FILE = BerkeleyMobileWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = BerkeleyMobileWidget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 ASUC OCTO. All rights reserved.";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1628,7 +1628,7 @@
 				INFOPLIST_FILE = BerkeleyMobileWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = BerkeleyMobileWidget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 ASUC OCTO. All rights reserved.";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

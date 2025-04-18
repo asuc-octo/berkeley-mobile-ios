@@ -184,14 +184,8 @@ struct GymOccupancyWidget: Widget {
 
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: GymOccupancyProvider()) { entry in
-            if #available(iOS 17.0, *) {
-                GymOccupancyWidgetEntryView(entry: entry)
-                    .containerBackground(.fill.tertiary, for: .widget)
-            } else {
-                GymOccupancyWidgetEntryView(entry: entry)
-                    .padding()
-                    .background()
-            }
+            GymOccupancyWidgetEntryView(entry: entry)
+                .containerBackground(.fill.tertiary, for: .widget)
         }
         .contentMarginsDisabled()
         .configurationDisplayName("Gym Occupancy")
