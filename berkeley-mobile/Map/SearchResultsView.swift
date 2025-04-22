@@ -20,12 +20,17 @@ struct SearchResultsView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(.regularMaterial)
             
-            
             VStack {
                 switch viewModel.state {
                 case .idle:
-                    BMContentUnavailableView(iconName: "text.magnifyingglass", title: "Type Something", subtitle: "Search for anything you need.")
-                    
+                    if viewModel.recentSearch.isEmpty {
+                        BMContentUnavailableView(iconName: "text.magnifyingglass", title: "Type Something", subtitle: "Search for anything you need.")
+                    } else {
+                        recentSearchList
+                            .padding(.top, searchResultsListTopPadding)
+                            .padding(.horizontal, 21)
+                            .padding(.bottom, 96)
+                    }
                 case .loading:
                     ProgressView()
                     
@@ -56,6 +61,27 @@ struct SearchResultsView: View {
                         viewModel.selectListRow(placemark)
                     }) {
                         SearchResultsListRowView(placemark: placemark)
+                    }
+                    .buttonStyle(SearchResultsListRowButtonStyle())
+                }
+            }
+            .padding(.top, 10)
+        }
+        .scrollDismissesKeyboard(.immediately)
+    }
+    
+    private var recentSearchList: some View {
+        ScrollView {
+            VStack(spacing: 2) {
+                ForEach(viewModel.recentSearch, id: \.self) { codablePlacemark in
+                    Button(action: {
+                        if let placemark = MapPlacemark.fromCodable(codablePlacemark) {
+                            viewModel.selectListRow(placemark)
+                        } else {
+                            print("failed to reconstruct")
+                        }
+                    }) {
+                        Text(codablePlacemark.searchName ?? "")
                     }
                     .buttonStyle(SearchResultsListRowButtonStyle())
                 }

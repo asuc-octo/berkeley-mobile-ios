@@ -43,12 +43,15 @@ class SearchViewModel: ObservableObject {
     @Published var searchText = ""
     @Published var isSearching = false
     @Published var state = SearchResultsState.idle
+    @Published var recentSearch: [CodableMapPlacemark]
+    
     var chooseMapMarker: (MapMarker) -> Void
     var choosePlacemark: (MapPlacemark) -> Void
     
     init(chooseMapMarker: @escaping (MapMarker) -> Void, choosePlacemark: @escaping (MapPlacemark) -> Void) {
         self.chooseMapMarker = chooseMapMarker
         self.choosePlacemark = choosePlacemark
+        self.recentSearch = RecentSearchManager.load()
     }
     
     
@@ -109,9 +112,11 @@ class SearchViewModel: ObservableObject {
         
         if let mapMarker = placemark.item as? MapMarker {
             chooseMapMarker(mapMarker)
-        }
-        else {
+        } else {
             choosePlacemark(placemark)
         }
+        
+        recentSearch = RecentSearchManager.add(placemark, to: recentSearch)
+        RecentSearchManager.save(recentSearch)
     }
 }

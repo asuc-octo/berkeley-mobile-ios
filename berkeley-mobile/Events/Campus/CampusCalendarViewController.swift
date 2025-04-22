@@ -61,7 +61,7 @@ class CampusCalendarViewController: UIViewController {
         eventScrapper.delegate = self
         
         let campusWideCalendarURLString = EventScrapper.Constants.campuswideCalendarURLString
-        let rescapeData = eventScrapper.shouldRescrape(for: campusWideCalendarURLString, lastRefreshDateKey: UserDefaultKeys.campuswideEventsLastSavedDate)
+        let rescapeData = eventScrapper.shouldRescrape(for: campusWideCalendarURLString, lastRefreshDateKey: UserDefaultsKeys.campuswideEventsLastSavedDate.rawValue)
         
         if rescapeData.shouldRescape {
             eventScrapper.scrape(at: campusWideCalendarURLString)
