@@ -85,6 +85,11 @@ class SearchViewModel: ObservableObject {
         }
     }
     
+    func deleteRecentSearchItem(_ offsets: IndexSet) {
+        recentSearch = RecentSearchManager.delete(at: offsets, in: recentSearch)
+        RecentSearchManager.save(recentSearch)
+    }
+    
     
     // MARK: - SearchResultsView's funcs:
     
@@ -107,6 +112,9 @@ class SearchViewModel: ObservableObject {
     }
     
     func selectListRow(_ placemark: MapPlacemark) {
+        recentSearch = RecentSearchManager.add(placemark, to: recentSearch)
+        RecentSearchManager.save(recentSearch)
+        
         searchText = ""
         isSearching = false
         
@@ -115,8 +123,5 @@ class SearchViewModel: ObservableObject {
         } else {
             choosePlacemark(placemark)
         }
-        
-        recentSearch = RecentSearchManager.add(placemark, to: recentSearch)
-        RecentSearchManager.save(recentSearch)
     }
 }

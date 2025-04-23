@@ -71,24 +71,34 @@ struct SearchResultsView: View {
     }
     
     private var recentSearchList: some View {
-        ScrollView {
-            VStack(spacing: 2) {
+        VStack {
+            HStack {
+                Text("Recent")
+                    .font(Font(BMFont.regular(14)))
+                Spacer()
+            }
+            .padding(.top, 16)
+            
+            List {
                 ForEach(viewModel.recentSearch, id: \.self) { codablePlacemark in
                     Button(action: {
-                        if let placemark = MapPlacemark.fromCodable(codablePlacemark) {
-                            viewModel.selectListRow(placemark)
-                        } else {
-                            print("failed to reconstruct")
+                        guard let placemark = MapPlacemark.fromCodable(codablePlacemark) else {
+                            return
                         }
+                        viewModel.selectListRow(placemark)
                     }) {
-                        Text(codablePlacemark.searchName ?? "")
+                        RecentSearchListRowView(codablePlacemark: codablePlacemark)
                     }
                     .buttonStyle(SearchResultsListRowButtonStyle())
+                    .listRowSeparator(.hidden)
+                    .listRowInsets(EdgeInsets())
+                    .listRowBackground(Color.clear)
                 }
+                .onDelete(perform: viewModel.deleteRecentSearchItem)
             }
-            .padding(.top, 10)
+            .listStyle(.plain)
+            .scrollDismissesKeyboard(.immediately)
         }
-        .scrollDismissesKeyboard(.immediately)
     }
 }
 

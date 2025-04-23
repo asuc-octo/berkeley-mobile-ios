@@ -41,6 +41,16 @@ struct RecentSearchManager {
         return updatedRecentSearch
     }
     
+    static func delete(at offsets: IndexSet, in recentSearch: [CodableMapPlacemark]) -> [CodableMapPlacemark] {
+        guard let index = offsets.first else {
+            return recentSearch
+        }
+        
+        var updatedRecentSearch = recentSearch
+        updatedRecentSearch.remove(at: index)
+        return updatedRecentSearch
+    }
+    
     static func save(_ recentSearch: [CodableMapPlacemark]) {
         if let encodedRecentSearch = try? JSONEncoder().encode(recentSearch) {
             UserDefaults.standard.set(encodedRecentSearch, forKey: .recentSearch)
