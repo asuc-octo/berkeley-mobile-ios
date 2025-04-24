@@ -139,6 +139,7 @@
 		306A54FE236142B800D59A7F /* DrawerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306A54FD236142B800D59A7F /* DrawerViewController.swift */; };
 		306A550023614C0000D59A7F /* MainContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306A54FF23614C0000D59A7F /* MainContainerViewController.swift */; };
 		47E625C4AFB6802788C56FCC /* Pods_berkeley_mobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 009098AE14DA5A91CB4733A6 /* Pods_berkeley_mobile.framework */; };
+		53C9FD012DB9C31E003A3178 /* CampusEventDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C9FD002DB9C31E003A3178 /* CampusEventDetailView.swift */; };
 		5516088624392E5100B1E55B /* DiningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5516088524392E5100B1E55B /* DiningViewController.swift */; };
 		5516088824393F3F00B1E55B /* MissingDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5516088724393F3F00B1E55B /* MissingDataView.swift */; };
 		5532B67B2390CBF600293BE0 /* MaterialLoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532B67A2390CBF600293BE0 /* MaterialLoadingIndicator.swift */; };
@@ -371,6 +372,7 @@
 		306A54F723613E3D00D59A7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		306A54FD236142B800D59A7F /* DrawerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerViewController.swift; sourceTree = "<group>"; };
 		306A54FF23614C0000D59A7F /* MainContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainContainerViewController.swift; sourceTree = "<group>"; };
+		53C9FD002DB9C31E003A3178 /* CampusEventDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusEventDetailView.swift; sourceTree = "<group>"; };
 		5516088524392E5100B1E55B /* DiningViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiningViewController.swift; sourceTree = "<group>"; };
 		5516088724393F3F00B1E55B /* MissingDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissingDataView.swift; sourceTree = "<group>"; };
 		5532B67A2390CBF600293BE0 /* MaterialLoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialLoadingIndicator.swift; sourceTree = "<group>"; };
@@ -760,6 +762,7 @@
 			children = (
 				016A56D32519E96800531A12 /* CampusCalendarViewController.swift */,
 				296DDEC0253BB117008E8940 /* CampusEventDetailViewController.swift */,
+				53C9FD002DB9C31E003A3178 /* CampusEventDetailView.swift */,
 				2925D5FD2529547300BBA266 /* Cells */,
 				E8C2BD2F2D8A457400165554 /* CampusEventRowView.swift */,
 			);
@@ -1363,6 +1366,7 @@
 				E8FCD6882C38AEC9004B66A3 /* String+Extension.swift in Sources */,
 				556CCD2223E7771800F41BF9 /* MapPlacemark.swift in Sources */,
 				297678872426B7BA00FDD1EB /* SearchAnnotation.swift in Sources */,
+				53C9FD012DB9C31E003A3178 /* CampusEventDetailView.swift in Sources */,
 				01CDFF6A257C614900D9FBD6 /* Colors+Resource.swift in Sources */,
 				2ED4FB672D8A3FA00086306A /* BMContentUnavailableView.swift in Sources */,
 				13741B6C2400D866003D1EEB /* MapDataSource.swift in Sources */,
