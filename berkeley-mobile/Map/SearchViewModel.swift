@@ -124,4 +124,9 @@ class SearchViewModel: ObservableObject {
             choosePlacemark(placemark)
         }
     }
+    
+    func deleteAllRecentSearch() {
+        recentSearch = []
+        RecentSearchManager.save(recentSearch)
+    }
 }

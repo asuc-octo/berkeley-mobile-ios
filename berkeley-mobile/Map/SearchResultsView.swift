@@ -73,9 +73,17 @@ struct SearchResultsView: View {
     private var recentSearchList: some View {
         VStack {
             HStack {
-                Text("Recent")
+                Text("Recents")
                     .font(Font(BMFont.regular(14)))
+                
                 Spacer()
+                
+                Button(action: {
+                    viewModel.deleteAllRecentSearch()
+                }) {
+                    Text("Clear all")
+                        .font(Font(BMFont.regular(14)))
+                }
             }
             .padding(.top, 16)
             
