@@ -37,7 +37,7 @@ struct SearchBarView: View {
         .onChange(of: isFocused) { newValue in // onChange syntax will need to change in later iOS
             switch viewModel.state {
             case .populated,
-                    .idle where (!viewModel.recentSearch.isEmpty && viewModel.isSearching):
+                    .idle where (!viewModel.recentSearches.isEmpty && viewModel.isSearching):
                 /*
                  .scrollDismissesKeyboard(.immediately) in SearchResultsView
                  triggers FocusState change by default.

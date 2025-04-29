@@ -11,7 +11,8 @@ import SwiftUI
 
 struct SearchResultsView: View {
     @EnvironmentObject var viewModel: SearchViewModel
-    private let searchResultsListTopPadding: CGFloat = 128 // SearchBarTopMargin (74) + SearchBarHeight (54)
+    // top padding: 128 = SearchBarTopMargin (74) + SearchBarHeight (54)
+    private let listPadding = EdgeInsets(top: 128, leading: 21, bottom: 96, trailing: 21)
     
     var body: some View {
         ZStack {
@@ -23,22 +24,18 @@ struct SearchResultsView: View {
             VStack {
                 switch viewModel.state {
                 case .idle:
-                    if viewModel.recentSearch.isEmpty {
+                    if viewModel.recentSearches.isEmpty {
                         BMContentUnavailableView(iconName: "text.magnifyingglass", title: "Type Something", subtitle: "Search for anything you need.")
                     } else {
-                        recentSearchList
-                            .padding(.top, searchResultsListTopPadding)
-                            .padding(.horizontal, 21)
-                            .padding(.bottom, 96)
+                        recentSearchesList
+                            .padding(listPadding)
                     }
                 case .loading:
                     ProgressView()
                     
                 case .populated:
                     populatedList
-                        .padding(.top, searchResultsListTopPadding)
-                        .padding(.horizontal, 21)
-                        .padding(.bottom, 96)
+                        .padding(listPadding)
                     
                 case .empty:
                     BMContentUnavailableView(iconName: "magnifyingglass", title: "Nothing Found!", subtitle: "Try a different keyword.")
@@ -70,7 +67,7 @@ struct SearchResultsView: View {
         .scrollDismissesKeyboard(.immediately)
     }
     
-    private var recentSearchList: some View {
+    private var recentSearchesList: some View {
         VStack {
             HStack {
                 Text("Recents")
@@ -79,7 +76,9 @@ struct SearchResultsView: View {
                 Spacer()
                 
                 Button(action: {
-                    viewModel.deleteAllRecentSearch()
+                    withAnimation(.snappy) {
+                        viewModel.deleteAllRecentSearch()
+                    }
                 }) {
                     Text("Clear all")
                         .font(Font(BMFont.regular(14)))
@@ -88,7 +87,7 @@ struct SearchResultsView: View {
             .padding(.top, 16)
             
             List {
-                ForEach(viewModel.recentSearch, id: \.self) { codablePlacemark in
+                ForEach(viewModel.recentSearches, id: \.self) { codablePlacemark in
                     Button(action: {
                         guard let placemark = MapPlacemark.fromCodable(codablePlacemark) else {
                             return

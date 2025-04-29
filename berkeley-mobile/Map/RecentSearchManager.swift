@@ -12,7 +12,7 @@ struct RecentSearchManager {
     private static let capacity = 7
     
     static func load() -> [CodableMapPlacemark] {
-        if let saved = UserDefaults.standard.data(forKey: .recentSearch),
+        if let saved = UserDefaults.standard.data(forKey: .recentSearches),
            let decoded = try? JSONDecoder().decode([CodableMapPlacemark].self, from: saved) {
                 return decoded
         } else {
@@ -20,40 +20,39 @@ struct RecentSearchManager {
         }
     }
     
-    static func add(_ placemark: MapPlacemark, to recentSearch: [CodableMapPlacemark]) -> [CodableMapPlacemark] {
+    static func add(_ placemark: MapPlacemark, to recentSearches: [CodableMapPlacemark]) -> [CodableMapPlacemark] {
         guard let codablePlacemark = placemark.toCodable() else {
-            return recentSearch
+            return recentSearches
         }
         
-        var updatedRecentSearch = recentSearch
-        
-        // remove if already exists
-        if let index = updatedRecentSearch.firstIndex(where: { $0 == codablePlacemark }) {
-            updatedRecentSearch.remove(at: index)
+        var updatedRecentSearches = recentSearches
+
+        if let existingIndex = updatedRecentSearches.firstIndex(where: { $0 == codablePlacemark }) {
+            updatedRecentSearches.remove(at: existingIndex)
         }
         
-        updatedRecentSearch.insert(codablePlacemark, at: 0)
+        updatedRecentSearches.insert(codablePlacemark, at: 0)
         
-        if updatedRecentSearch.count > capacity {
-            updatedRecentSearch.removeLast()
+        if updatedRecentSearches.count > capacity {
+            updatedRecentSearches.removeLast()
         }
         
-        return updatedRecentSearch
+        return updatedRecentSearches
     }
     
-    static func delete(at offsets: IndexSet, in recentSearch: [CodableMapPlacemark]) -> [CodableMapPlacemark] {
+    static func delete(at offsets: IndexSet, in recentSearches: [CodableMapPlacemark]) -> [CodableMapPlacemark] {
         guard let index = offsets.first else {
-            return recentSearch
+            return recentSearches
         }
         
-        var updatedRecentSearch = recentSearch
-        updatedRecentSearch.remove(at: index)
-        return updatedRecentSearch
+        var updatedRecentSearches = recentSearches
+        updatedRecentSearches.remove(at: index)
+        return updatedRecentSearches
     }
     
-    static func save(_ recentSearch: [CodableMapPlacemark]) {
-        if let encodedRecentSearch = try? JSONEncoder().encode(recentSearch) {
-            UserDefaults.standard.set(encodedRecentSearch, forKey: .recentSearch)
+    static func save(_ recentSearches: [CodableMapPlacemark]) {
+        if let encodedRecentSearch = try? JSONEncoder().encode(recentSearches) {
+            UserDefaults.standard.set(encodedRecentSearch, forKey: .recentSearches)
         }
     }
 }
