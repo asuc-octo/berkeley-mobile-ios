@@ -160,7 +160,7 @@ struct GymDetailSwiftUIView: View {
         }
         
         private var defaultImage: some View {
-            Image(Constants.doeGladeImage)
+            Image(uiImage: Constants.doeGladeImage)
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .frame(width: 120, height: 200)
