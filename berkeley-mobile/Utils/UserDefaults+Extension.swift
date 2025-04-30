@@ -12,7 +12,7 @@ enum UserDefaultsKeys: String {
     case numAppLaunchForFeedbackForm = "numAppLaunchForFeedbackForm"
     case academicEventsLastSavedDate = "academicEventsLastSavedDate"
     case campuswideEventsLastSavedDate = "campuswideEventsLastSavedDate"
-    case recentSearches = "RecentSearch"
+    case recentSearches = "recentSearches"
 }
 
 extension UserDefaults {
