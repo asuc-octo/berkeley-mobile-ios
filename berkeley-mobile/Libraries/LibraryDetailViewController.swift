@@ -111,3 +111,23 @@ extension LibraryDetailViewController {
         Analytics.logEvent("opened_library", parameters: ["library" : library.name])
     }
 }
+
+let previewLibrary = Library(
+    name: "Doe Library",
+    description: "A beautiful study space at the heart of campus.",
+    address: "Doe Library, UC Berkeley, CA",
+    phoneNumber: "(510) 642-3333",
+    weeklyHours: nil,
+    weeklyByAppointment: [false, false, false, false, false, false, false],
+    imageLink: nil,
+    latitude: 37.8721,
+    longitude: -122.2594
+)
+#if DEBUG
+struct LibraryDetailView_Previews: PreviewProvider {
+    static var previews: some View {
+        LibraryDetailView(library: previewLibrary)
+    }
+}
+#endif
+
