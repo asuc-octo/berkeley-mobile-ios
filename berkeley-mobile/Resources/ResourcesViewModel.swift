@@ -42,7 +42,6 @@ class ResourcesViewModel: ObservableObject {
         }
     }
     
-    @MainActor
     private func fetchResourceCategories() async {
         let collection = db.collection("Resource Categories")
         
@@ -52,8 +51,10 @@ class ResourcesViewModel: ObservableObject {
             var fetchedResourceCategories = documents.compactMap { queryDocumentSnapshot -> BMResourceCategory? in
                 try? queryDocumentSnapshot.data(as: BMResourceCategory.self)
             }
-            fetchedResourceCategories.sort(by: { $0.name < $1.name })
-            self.resourceCategories = fetchedResourceCategories
+            let sortedCategories = fetchedResourceCategories.sorted { $0.name < $1.name }
+            await MainActor.run {
+                self.resourceCategories = sortedCategories
+            }
         } catch {
             print("Error getting document (Resource Categories): \(error)")
         }
