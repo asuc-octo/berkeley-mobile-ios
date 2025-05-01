@@ -39,7 +39,8 @@ struct BMResourceShoutout: Identifiable, Hashable, Codable {
 class ResourcesViewModel: ObservableObject {
     @Published var shoutouts = [BMResourceShoutout]()
     @Published var resourceCategories = [BMResourceCategory]()
-    
+    @Published var isLoading = true
+
     var resourceCategoryNames: [String] {
         resourceCategories.map { $0.name }
     }
@@ -62,6 +63,7 @@ class ResourcesViewModel: ObservableObject {
             }
             fetchedResourceCategories.sort(by: { $0.name < $1.name })
             self.resourceCategories = fetchedResourceCategories
+            self.isLoading = false
         }
     }
     

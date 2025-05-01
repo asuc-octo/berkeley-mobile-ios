@@ -14,8 +14,6 @@ struct ResourcesView: View {
     @StateObject private var resourcesVM = ResourcesViewModel()
     @State private var tabSelectedValue = 0
     @State private var shoutoutTabSelectedValue = 0
-    @State private var isLoading = true
-
     
     init() {
         // Use this if NavigationBarTitle is with Large Font
@@ -28,36 +26,31 @@ struct ResourcesView: View {
                 BMTopBlobView(imageName: "BlobRight", xOffset: 30, width: 150, height: 150)
                     
                 VStack {
-                    if isLoading {
-                        ProgressView("Loading Resources...")
-                    } else {
-
-                        if resourcesVM.resourceCategories.isEmpty {
-                            noResourcesAvailableView
-                        } else {
-                            SegmentedControlView(
-                                tabNames: resourcesVM.resourceCategoryNames,
-                                selectedTabIndex: $tabSelectedValue
-                            )
-                            .padding()
-                            
-                            TabView(selection: $tabSelectedValue) {
-                                ForEach(Array(resourcesVM.resourceCategories.enumerated()), id: \.offset) { idx, category in
-                                    ResourcePageView(resourceSections: category.sections).tag(idx)
-                                }
-                            }
-                            .tabViewStyle(.page(indexDisplayMode: .never))
-                        }
+                    if resourcesVM.isLoading {
                         Spacer()
+                        ProgressView("Loading Resources")
+                            .progressViewStyle(CircularProgressViewStyle(tint: Color.gray))
+                    } else if !resourcesVM.shoutouts.isEmpty {
+                        resourceShoutoutsTabView
+                    } else if resourcesVM.resourceCategories.isEmpty {
+                        noResourcesAvailableView
+                    } else {
+                        SegmentedControlView(
+                            tabNames: resourcesVM.resourceCategoryNames,
+                            selectedTabIndex: $tabSelectedValue
+                        )
+                        .padding()
+                        
+                        TabView(selection: $tabSelectedValue) {
+                            ForEach(Array(resourcesVM.resourceCategories.enumerated()), id: \.offset) { idx, category in
+                                ResourcePageView(resourceSections: category.sections).tag(idx)
+                            }
+                        }
+                        .tabViewStyle(.page(indexDisplayMode: .never))
                     }
+                    Spacer()
                 }
                 .navigationTitle("Resources")
-                .onAppear {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                        isLoading = false
-                    }
-                }
-
             }
             .background(Color(BMColor.cardBackground))
         }
