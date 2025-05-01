@@ -14,6 +14,8 @@ struct ResourcesView: View {
     @StateObject private var resourcesVM = ResourcesViewModel()
     @State private var tabSelectedValue = 0
     @State private var shoutoutTabSelectedValue = 0
+    @State private var isLoading = true // ADDED
+
     
     init() {
         // Use this if NavigationBarTitle is with Large Font
@@ -26,26 +28,36 @@ struct ResourcesView: View {
                 BMTopBlobView(imageName: "BlobRight", xOffset: 30, width: 150, height: 150)
                     
                 VStack {
-                    if resourcesVM.resourceCategories.isEmpty {
-                        noResourcesAvailableView
-                    } else {
-                        SegmentedControlView(
-                            tabNames: resourcesVM.resourceCategoryNames,
-                            selectedTabIndex: $tabSelectedValue
-                        )
-                        .padding()
-                        
-                        TabView(selection: $tabSelectedValue) {
-                            ForEach(Array(resourcesVM.resourceCategories.enumerated()), id: \.offset) { idx, category in
-                                ResourcePageView(resourceSections: category.sections).tag(idx)
+                    if isLoading { // ADDED
+                        ProgressView("Loading Resources...") // ADDED
+                    } else { // ADDED
+
+                        if resourcesVM.resourceCategories.isEmpty {
+                            noResourcesAvailableView
+                        } else {
+                            SegmentedControlView(
+                                tabNames: resourcesVM.resourceCategoryNames,
+                                selectedTabIndex: $tabSelectedValue
+                            )
+                            .padding()
+                            
+                            TabView(selection: $tabSelectedValue) {
+                                ForEach(Array(resourcesVM.resourceCategories.enumerated()), id: \.offset) { idx, category in
+                                    ResourcePageView(resourceSections: category.sections).tag(idx)
+                                }
                             }
+                            .tabViewStyle(.page(indexDisplayMode: .never))
                         }
-                        .tabViewStyle(.page(indexDisplayMode: .never))
-                        
                         Spacer()
                     }
                 }
                 .navigationTitle("Resources")
+                .onAppear { // ADDED
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                        isLoading = false
+                    }
+                } // ADDED
+
             }
             .background(Color(BMColor.cardBackground))
         }
