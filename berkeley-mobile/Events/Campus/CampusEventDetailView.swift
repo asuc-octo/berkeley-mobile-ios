@@ -142,21 +142,7 @@ struct DescriptionView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
     }
 }
-
-struct BoxViewModifier: ViewModifier {
-    var padding: CGFloat = 16
-    
-    func body(content: Content) -> some View {
-        content
-            .padding(padding)
-            .foregroundStyle(.white)
-            .font(.subheadline)
-            .fontWeight(.semibold)
-            .background(Color(.darkGray))
-            .clipShape(RoundedRectangle(cornerRadius: 8))
-    }
-}
-        
+     
 #Preview {
     let sampleEvent = EventCalendarEntry(
         name: "Sample Event",
