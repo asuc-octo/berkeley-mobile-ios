@@ -15,12 +15,12 @@ struct CampusEventDetailView: View {
                 
                 // Event overview card
                 EventOverviewView(event: event)
-                    .modifier(BoxViewModifier())
+                    .modifier(Cardify())
                 
                 // Description card
                 if let description = event.descriptionText {
                     DescriptionView(description: description)
-                        .modifier(BoxViewModifier())
+                        .modifier(Cardify())
                 }
                 
                 // Buttons
