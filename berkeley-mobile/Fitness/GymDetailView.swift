@@ -1,5 +1,5 @@
 //
-//  GymDetailSwiftUIView.swift
+//  GymDetailView.swift
 //
 //  Created by Yihang Chen on 4/9/25.
 //  Copyright © 2025 ASUC OCTO. All rights reserved.
@@ -8,7 +8,7 @@
 import SwiftUI
 import Firebase
 
-struct GymDetailSwiftUIView: View {
+struct GymDetailView: View {
     @Environment(\.openURL) private var openURL
 
     let gym: Gym
@@ -204,6 +204,6 @@ struct GymDetailSwiftUIView: View {
     sampleGym.longitude = -122.2614
     
     return NavigationView {
-        GymDetailSwiftUIView(gym: sampleGym)
+        GymDetailView(gym: sampleGym)
     }
 } 

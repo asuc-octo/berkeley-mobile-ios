@@ -27,7 +27,6 @@
 		01CDBBF125CA6F58006B93BD /* RequestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CDBBF025CA6F58006B93BD /* RequestError.swift */; };
 		01CDFF6A257C614900D9FBD6 /* Colors+Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CDFF69257C614900D9FBD6 /* Colors+Resource.swift */; };
 		01D11B8E2504453B00BDF660 /* ScrollingStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D11B8D2504453B00BDF660 /* ScrollingStackView.swift */; };
-		01D11B902504560700BDF660 /* GymDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D11B8F2504560700BDF660 /* GymDetailViewController.swift */; };
 		01D269932544D86C000377B4 /* Apercu Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 01D2698A2544D86B000377B4 /* Apercu Light.otf */; };
 		01D269942544D86C000377B4 /* Apercu Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 01D2698B2544D86B000377B4 /* Apercu Italic.otf */; };
 		01D269952544D86C000377B4 /* Apercu Light Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 01D2698C2544D86B000377B4 /* Apercu Light Italic.otf */; };
@@ -79,9 +78,9 @@
 		13EA64CA2399CE5B00FD8E13 /* SearchItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13EA64C92399CE5B00FD8E13 /* SearchItem.swift */; };
 		13EA64CD2399CEDA00FD8E13 /* Gym.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13EA64CC2399CEDA00FD8E13 /* Gym.swift */; };
 		13EA64D02399D50C00FD8E13 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13EA64CF2399D50C00FD8E13 /* DataManager.swift */; };
+		1D7DD6E02DC2EB5B00A6BBA7 /* GymDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7DD6DF2DC2EB5B00A6BBA7 /* GymDetailView.swift */; };
 		1DB006AD2D71C8D6001CC870 /* ResourcesSectionDropdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB006AC2D71C8C0001CC870 /* ResourcesSectionDropdown.swift */; };
 		1DB88F6D2D94DF78007713F7 /* OpenTimesCardSwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB88F6C2D94DF78007713F7 /* OpenTimesCardSwiftUIView.swift */; };
-		1DB88F712DA76AC2007713F7 /* GymDetailSwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB88F702DA76AC2007713F7 /* GymDetailSwiftUIView.swift */; };
 		29061D41241C450E002BC9D9 /* HasLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29061D40241C450E002BC9D9 /* HasLocation.swift */; };
 		2913595724B136BE00DE9AD6 /* CollapsibleCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2913595624B136BE00DE9AD6 /* CollapsibleCardView.swift */; };
 		2913595924B13DF200DE9AD6 /* OpenTimesCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2913595824B13DF200DE9AD6 /* OpenTimesCardView.swift */; };
@@ -218,7 +217,6 @@
 		01CDBBF025CA6F58006B93BD /* RequestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestError.swift; sourceTree = "<group>"; };
 		01CDFF69257C614900D9FBD6 /* Colors+Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+Resource.swift"; sourceTree = "<group>"; };
 		01D11B8D2504453B00BDF660 /* ScrollingStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollingStackView.swift; sourceTree = "<group>"; };
-		01D11B8F2504560700BDF660 /* GymDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailViewController.swift; sourceTree = "<group>"; };
 		01D2698A2544D86B000377B4 /* Apercu Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Apercu Light.otf"; sourceTree = "<group>"; };
 		01D2698B2544D86B000377B4 /* Apercu Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Apercu Italic.otf"; sourceTree = "<group>"; };
 		01D2698C2544D86B000377B4 /* Apercu Light Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Apercu Light Italic.otf"; sourceTree = "<group>"; };
@@ -272,9 +270,9 @@
 		13EA64C92399CE5B00FD8E13 /* SearchItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchItem.swift; sourceTree = "<group>"; };
 		13EA64CC2399CEDA00FD8E13 /* Gym.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gym.swift; sourceTree = "<group>"; };
 		13EA64CF2399D50C00FD8E13 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		1D7DD6DF2DC2EB5B00A6BBA7 /* GymDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailView.swift; sourceTree = "<group>"; };
 		1DB006AC2D71C8C0001CC870 /* ResourcesSectionDropdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcesSectionDropdown.swift; sourceTree = "<group>"; };
 		1DB88F6C2D94DF78007713F7 /* OpenTimesCardSwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenTimesCardSwiftUIView.swift; sourceTree = "<group>"; };
-		1DB88F702DA76AC2007713F7 /* GymDetailSwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailSwiftUIView.swift; sourceTree = "<group>"; };
 		29061D40241C450E002BC9D9 /* HasLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasLocation.swift; sourceTree = "<group>"; };
 		2913595624B136BE00DE9AD6 /* CollapsibleCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsibleCardView.swift; sourceTree = "<group>"; };
 		2913595824B13DF200DE9AD6 /* OpenTimesCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenTimesCardView.swift; sourceTree = "<group>"; };
@@ -523,13 +521,12 @@
 			children = (
 				13EA64C62399CDF900FD8E13 /* GymDataSource */,
 				1336A31D241C400F00949F32 /* GymClassDataSource */,
-				01D11B8F2504560700BDF660 /* GymDetailViewController.swift */,
-				1DB88F702DA76AC2007713F7 /* GymDetailSwiftUIView.swift */,
 				13E25DFC238C949E00B670B5 /* FitnessViewController.swift */,
 				135D7F78243AA6B1003F8BD1 /* Fitness+Controllers */,
 				E83B6DA42D7A85D500AA9422 /* GymOccupancyScrapper.swift */,
 				E83B6DA62D7A85F200AA9422 /* GymOccupancyView.swift */,
 				E83B6DA82D7A860E00AA9422 /* GymOccupancyViewModel.swift */,
+				1D7DD6DF2DC2EB5B00A6BBA7 /* GymDetailView.swift */,
 			);
 			path = Fitness;
 			sourceTree = "<group>";
@@ -1190,6 +1187,7 @@
 				01D2699D2544E005000377B4 /* AcademicCalendarViewController.swift in Sources */,
 				1336A31C241C400800949F32 /* GymClass.swift in Sources */,
 				E8B5975F2CA62D6F006DFBD5 /* SegmentedControlView.swift in Sources */,
+				1D7DD6E02DC2EB5B00A6BBA7 /* GymDetailView.swift in Sources */,
 				13EA64C82399CE0800FD8E13 /* GymDataSource.swift in Sources */,
 				2E1C227D2D835A9D0021803C /* SearchBarView.swift in Sources */,
 				298EE26A25BB6C33002BAF0F /* Colors+StudyPact.swift in Sources */,
@@ -1238,7 +1236,6 @@
 				017C0B26251018BA00BFA80A /* Colors+MapMarker.swift in Sources */,
 				E83B6DA92D7A860E00AA9422 /* GymOccupancyViewModel.swift in Sources */,
 				29345E2724A7E76300859A88 /* OverviewCardView.swift in Sources */,
-				01D11B902504560700BDF660 /* GymDetailViewController.swift in Sources */,
 				55AF442D2453ACE600F13232 /* DiningLocation.swift in Sources */,
 				1336A329241DA56100949F32 /* DiningHallDataSource.swift in Sources */,
 				136DC97B2398B4D1009B1810 /* UIViewController+Extensions.swift in Sources */,
@@ -1257,7 +1254,6 @@
 				1336A320241D924300949F32 /* DiningItem.swift in Sources */,
 				299ACFB4244A5F90000F3E86 /* HasOccupancy.swift in Sources */,
 				E8912C2A2D869D6900C645B9 /* BMConstants.swift in Sources */,
-				1DB88F712DA76AC2007713F7 /* GymDetailSwiftUIView.swift in Sources */,
 				2969747625D8A77C005ED231 /* UserDefaultKeys.swift in Sources */,
 				559A7B6D2373DEFA004EA501 /* MaterialTableViewCell.swift in Sources */,
 				13EA64CD2399CEDA00FD8E13 /* Gym.swift in Sources */,
