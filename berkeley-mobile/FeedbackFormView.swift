@@ -167,7 +167,7 @@ struct FeedbackFormView: View {
     
     private func dismissForm() {
         dismiss()
-        UserDefaults.standard.set(2, forKey: UserDefaultKeys.numAppLaunchForFeedbackForm)
+        UserDefaults.standard.set(2, forKey: .numAppLaunchForFeedbackForm)
     }
 }
 

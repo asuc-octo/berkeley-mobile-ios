@@ -183,6 +183,7 @@ enum MapMarkerType: String, CaseIterable, Comparable {
     
 }
 
+
 // MARK: - MapMarker
 
 /** Object describing resource locations (Microwaves, Bikes, Nap Pods, etc.) */
