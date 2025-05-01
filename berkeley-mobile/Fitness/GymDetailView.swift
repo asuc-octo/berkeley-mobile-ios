@@ -6,61 +6,25 @@
 //
 
 import SwiftUI
-import Firebase
 
-struct GymDetailView: View {
-    @Environment(\.openURL) private var openURL
-
-    let gym: Gym
-    init(gym: Gym) {
-        self.gym = gym
-    }
+struct CategoryOverviewCard: View {
+    let category: SearchItem & HasLocation & HasImage
     
     var body: some View {
-        ScrollView {
-            VStack(spacing: 16) {
-                overviewCard
+        HStack(alignment: .top, spacing: 16) {
+            VStack(alignment: .leading) {
+                TitleView(name: category.name)
                 
-                if gym.weeklyHours != nil {
-                    OpenTimesCardSwiftUIView(item: gym)
-                }
+                Spacer(minLength: 20)
                 
-                if let website = gym.website {
-                    BMActionButton(title: "Learn More") {
-                        openURL(website)
-                    }
-                }
-                
-                if let description = gym.description, !description.isEmpty {
-                    descriptionCard(description: description)
-                }
+                ContactInfoView(category: category)
             }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 5)
+            
+            Spacer()
+            
+            ImageView(imageURL: category.imageURL)
         }
-        .navigationTitle(gym.name)
-        .onAppear {
-            Analytics.logEvent("opened_gym", parameters: ["gym": gym.name])
-        }
-    }
-    
-    private var overviewCard: some View {
-        VStack {
-            HStack(alignment: .top, spacing: 16) {
-                VStack(alignment: .leading) {
-                    CategoryTitleView(name: gym.name)
-                    
-                    Spacer(minLength: 20)
-                    
-                    CategoryContactInfoView(category: gym)
-                }
-                
-                Spacer()
-                
-                CategoryImageView(imageURL: gym.imageURL)
-            }
-            .padding(12)
-        }
+        .padding(12)
         .background(Color(BMColor.cardBackground))
         .cornerRadius(12)
         .shadow(color: Color(uiColor: .label).opacity(0.15), radius: 5, x: 0, y: 0)
@@ -68,7 +32,7 @@ struct GymDetailView: View {
         .padding(.horizontal, 4)
     }
     
-    private struct CategoryTitleView: View {
+    struct TitleView: View {
         let name: String
         
         var body: some View {
@@ -80,7 +44,7 @@ struct GymDetailView: View {
         }
     }
     
-    private struct CategoryContactInfoView: View {
+    struct ContactInfoView: View {
         let category: SearchItem & HasLocation
         
         var body: some View {
@@ -93,8 +57,8 @@ struct GymDetailView: View {
                     )
                 }
                 
-                if let hasContact = category as? HasContact, 
-                   let phoneNumber = hasContact.phoneNumber, 
+                if let hasPhone = category as? HasPhoneNumber, 
+                   let phoneNumber = hasPhone.phoneNumber,
                    !phoneNumber.isEmpty {
                     ContactInfoRow(
                         iconName: "phone.fill",
@@ -109,10 +73,11 @@ struct GymDetailView: View {
                     )
                 }
             }
+            .foregroundColor(Color(BMColor.blackText))
         }
     }
     
-    private struct ContactInfoRow: View {
+    struct ContactInfoRow: View {
         let iconName: String
         let text: String
         var lineLimit: Int? = 1
@@ -120,19 +85,17 @@ struct GymDetailView: View {
         var body: some View {
             HStack(alignment: .top, spacing: 10) {
                 Image(systemName: iconName)
-                    .foregroundColor(Color(BMColor.blackText))
                     .frame(width: 18, height: 18)
                 
                 Text(text)
                     .font(Font(BMFont.light(12)))
-                    .foregroundColor(Color(BMColor.blackText))
                     .lineLimit(lineLimit)
                     .fixedSize(horizontal: false, vertical: true)
             }
         }
     }
     
-    private struct CategoryImageView: View {
+    struct ImageView: View {
         let imageURL: URL?
         
         var body: some View {
@@ -174,6 +137,40 @@ struct GymDetailView: View {
                 )
         }
     }
+}
+
+struct GymDetailView: View {
+    @Environment(\.openURL) private var openURL
+
+    let gym: Gym
+    init(gym: Gym) {
+        self.gym = gym
+    }
+    
+    var body: some View {
+        ScrollView {
+            VStack(spacing: 16) {
+                CategoryOverviewCard(category: gym)
+                
+                if gym.weeklyHours != nil {
+                    OpenTimesCardSwiftUIView(item: gym)
+                }
+                
+                if let website = gym.website {
+                    BMActionButton(title: "Learn More") {
+                        openURL(website)
+                    }
+                }
+                
+                if let description = gym.description, !description.isEmpty {
+                    descriptionCard(description: description)
+                }
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 5)
+        }
+        .navigationTitle(gym.name)
+    }
     
     private func descriptionCard(description: String) -> some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -191,12 +188,6 @@ struct GymDetailView: View {
         .cornerRadius(12)
     }
 }
-
-protocol HasContact {
-    var phoneNumber: String? { get }
-}
-
-extension Gym: HasContact {}
 
 #Preview {
     let sampleGym = Gym(
