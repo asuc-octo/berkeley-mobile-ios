@@ -140,8 +140,10 @@ extension CampusCalendarViewController: UITableViewDelegate, UITableViewDataSour
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = CampusEventDetailViewController()
         if let entry = calendarEntries[safe: indexPath.row] {
-            let vc = CampusEventDetailView(event: entry, eventManager: EventManager())
+            vc.event = entry
+            present(vc, animated: true)
             tableView.deselectRow(at: indexPath, animated: true)
         }
     }

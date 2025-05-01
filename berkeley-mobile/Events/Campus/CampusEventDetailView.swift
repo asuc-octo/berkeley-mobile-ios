@@ -2,13 +2,12 @@ import SwiftUI
 import EventKit
 
 struct CampusEventDetailView: View {
-    let event: EventCalendarEntry
     @State private var learnMoreAlert = false
     @State private var registerAlert = false
     @State private var calendarSuccess = false
     @State private var calendarError = false
     let eventManager: EventManager
-    
+    let event: EventCalendarEntry
     
     var body: some View {
         ScrollView {
@@ -170,5 +169,5 @@ struct BoxViewModifier: ViewModifier {
         sourceLink: "https://berkeley.edu/event",
         type: "Default"
     )
-    CampusEventDetailView(event: sampleEvent, eventManager: EventManager())
+    CampusEventDetailView(eventManager: EventManager(), event: sampleEvent)
 }
