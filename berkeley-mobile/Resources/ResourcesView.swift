@@ -14,7 +14,7 @@ struct ResourcesView: View {
     @StateObject private var resourcesVM = ResourcesViewModel()
     @State private var tabSelectedValue = 0
     @State private var shoutoutTabSelectedValue = 0
-    @State private var isLoading = true // ADDED
+    @State private var isLoading = true
 
     
     init() {
@@ -28,9 +28,9 @@ struct ResourcesView: View {
                 BMTopBlobView(imageName: "BlobRight", xOffset: 30, width: 150, height: 150)
                     
                 VStack {
-                    if isLoading { // ADDED
-                        ProgressView("Loading Resources...") // ADDED
-                    } else { // ADDED
+                    if isLoading {
+                        ProgressView("Loading Resources...")
+                    } else {
 
                         if resourcesVM.resourceCategories.isEmpty {
                             noResourcesAvailableView
@@ -52,11 +52,11 @@ struct ResourcesView: View {
                     }
                 }
                 .navigationTitle("Resources")
-                .onAppear { // ADDED
+                .onAppear {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                         isLoading = false
                     }
-                } // ADDED
+                }
 
             }
             .background(Color(BMColor.cardBackground))
