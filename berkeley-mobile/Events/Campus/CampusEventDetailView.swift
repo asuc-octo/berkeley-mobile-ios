@@ -5,13 +5,17 @@ struct CampusEventDetailView: View {
     let event: EventCalendarEntry
     @State private var learnMoreAlert = false
     @State private var registerAlert = false
+    @State private var calendarSuccess = false
+    @State private var calendarError = false
+    let eventManager: EventManager
+    
     
     var body: some View {
         ScrollView {
             VStack(spacing: 16) {
                 
                 // Event overview card
-                EventOverviewCard(event: event)
+                EventOverviewView(event: event)
                     .modifier(BoxViewModifier())
                 
                 // Description card
@@ -35,7 +39,13 @@ struct CampusEventDetailView: View {
                     }
                     
                     BMActionButton(title: "Add To Calendar") {
-                        addToDeviceCalendar()
+                        EventManager.shared.addEventToCalendar(calendarEvent: event) { success in
+                            if success {
+                                calendarSuccess = true
+                            } else {
+                                calendarError = true
+                            }
+                        }
                     }
                 }
                 .frame(maxWidth: .infinity)
@@ -65,45 +75,10 @@ struct CampusEventDetailView: View {
             Text("Berkeley Mobile wants to open the web page to register for this event.")
         }
     }
-    
-    private func addToDeviceCalendar() {
-        let eventStore = EKEventStore()
-        
-        if #available(iOS 17.0, *) {
-            eventStore.requestFullAccessToEvents { granted, error in
-                handleCalendarAccess(granted: granted, eventStore: eventStore)
-            }
-        } else {
-            eventStore.requestAccess(to: .event) { granted, error in
-                handleCalendarAccess(granted: granted, eventStore: eventStore)
-            }
-        }
-    }
-    
-    private func handleCalendarAccess(granted: Bool, eventStore: EKEventStore) {
-        if granted {
-            let ekEvent = EKEvent(eventStore: eventStore)
-            ekEvent.title = event.name
-            ekEvent.startDate = event.date
-            ekEvent.endDate = event.end ?? event.date.addingTimeInterval(3600) // Default 1 hour if no end time
-            ekEvent.notes = event.descriptionText
-            
-            if let location = event.location {
-                ekEvent.location = location
-            }
-            
-            ekEvent.calendar = eventStore.defaultCalendarForNewEvents
-            
-            do {
-                try eventStore.save(ekEvent, span: .thisEvent)
-            } catch {
-                print("Error saving event to calendar: \(error)")
-            }
-        }
-    }
 }
 
-struct EventOverviewCard: View {
+// MARK: - EventOverviewView
+struct EventOverviewView: View {
     let event: EventCalendarEntry
     
     var body: some View {
@@ -118,22 +93,24 @@ struct EventOverviewCard: View {
             }
             
             HStack {
-                Image("Clock")
+                Image(systemName: "clock")
                     .resizable()
                     .renderingMode(.template)
                     .foregroundColor(Color(BMColor.blackText))
                     .frame(width: 16, height: 16)
                 
-                Text(event.dateString)
+                Text(event.date, style: .date)
                     .font(Font(BMFont.light(12)))
                     .foregroundColor(Color(BMColor.blackText))
             }
             
             if let location = event.location {
                 HStack {
-                    Image("Placemark")
+                    Image(systemName: "mappin")
                         .resizable()
+                        .scaledToFit()
                         .frame(width: 16, height: 16)
+                        .foregroundColor(Color(.black))
                     
                     Text(location)
                         .font(Font(BMFont.light(12)))
@@ -180,23 +157,18 @@ struct BoxViewModifier: ViewModifier {
             .clipShape(RoundedRectangle(cornerRadius: 8))
     }
 }
-
-// Preview provider
-struct CampusEventDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        // Create a sample event for preview
-        let sampleEvent = EventCalendarEntry(
-            name: "Sample Event",
-            date: Date(),
-            end: Date().addingTimeInterval(7200),
-            descriptionText: "I wrote a script, which would ideally take about 480 hours to runs (It has to do a same thing 60 times.) But the problem is I have to use a VPN Client to get to the network before connecting to the machine. The Client automatically closes after 10 hours, closing my console and thus my script. So my question is:",
-            location: "Sproul Plaza",
-            registerLink: "https://berkeley.edu/register",
-            imageURL: nil,
-            sourceLink: "https://berkeley.edu/event",
-            type: "Default"
-        )
         
-        return CampusEventDetailView(event: sampleEvent)
-    }
+#Preview {
+    let sampleEvent = EventCalendarEntry(
+        name: "Sample Event",
+        date: Date(),
+        end: Date().addingTimeInterval(7200),
+        descriptionText: "I wrote a script, which would ideally take about 480 hours to runs (It has to do a same thing 60 times.) But the problem is I have to use a VPN Client to get to the network before connecting to the machine. The Client automatically closes after 10 hours, closing my console and thus my script. So my question is:",
+        location: "Sproul Plaza",
+        registerLink: "https://berkeley.edu/register",
+        imageURL: nil,
+        sourceLink: "https://berkeley.edu/event",
+        type: "Default"
+    )
+    CampusEventDetailView(event: sampleEvent, eventManager: EventManager())
 }
