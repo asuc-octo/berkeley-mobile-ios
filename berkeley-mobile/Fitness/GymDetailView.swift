@@ -48,42 +48,44 @@ struct GymDetailView: View {
         VStack {
             HStack(alignment: .top, spacing: 16) {
                 VStack(alignment: .leading) {
-                    GymTitleView(name: gym.name)
+                    CategoryTitleView(name: gym.name)
                     
                     Spacer(minLength: 20)
                     
-                    GymContactInfoView(gym: gym)
+                    CategoryContactInfoView(category: gym)
                 }
                 
                 Spacer()
                 
-                GymImageView(imageURL: gym.imageURL)
+                CategoryImageView(imageURL: gym.imageURL)
             }
-            .padding(8)
+            .padding(12)
         }
         .background(Color(BMColor.cardBackground))
         .cornerRadius(12)
         .shadow(color: Color(uiColor: .label).opacity(0.15), radius: 5, x: 0, y: 0)
+        .padding(.vertical, 8)
+        .padding(.horizontal, 4)
     }
     
-    private struct GymTitleView: View {
+    private struct CategoryTitleView: View {
         let name: String
         
         var body: some View {
             Text(name)
-                .font(Font(BMFont.bold(28)))
+                .font(Font(BMFont.bold(23)))
                 .foregroundColor(Color(BMColor.blackText))
                 .lineLimit(3)
                 .padding(.top, 8)
         }
     }
     
-    private struct GymContactInfoView: View {
-        let gym: Gym
+    private struct CategoryContactInfoView: View {
+        let category: SearchItem & HasLocation
         
         var body: some View {
             VStack(alignment: .leading, spacing: 12) {
-                if let address = gym.address, !address.isEmpty {
+                if let address = category.address, !address.isEmpty {
                     ContactInfoRow(
                         iconName: "location.fill",
                         text: address,
@@ -91,15 +93,16 @@ struct GymDetailView: View {
                     )
                 }
                 
-                if let phoneNumber = gym.phoneNumber, !phoneNumber.isEmpty {
+                if let hasContact = category as? HasContact, 
+                   let phoneNumber = hasContact.phoneNumber, 
+                   !phoneNumber.isEmpty {
                     ContactInfoRow(
                         iconName: "phone.fill",
                         text: phoneNumber
                     )
                 }
                 
-                if let hasLocation = gym as? HasLocation, 
-                   let distance = hasLocation.distanceToUser {
+                if let distance = category.distanceToUser {
                     ContactInfoRow(
                         iconName: "figure.walk",
                         text: String(format: "%.1f miles", distance)
@@ -121,7 +124,7 @@ struct GymDetailView: View {
                     .frame(width: 18, height: 18)
                 
                 Text(text)
-                    .font(Font(BMFont.light(14)))
+                    .font(Font(BMFont.light(12)))
                     .foregroundColor(Color(BMColor.blackText))
                     .lineLimit(lineLimit)
                     .fixedSize(horizontal: false, vertical: true)
@@ -129,7 +132,7 @@ struct GymDetailView: View {
         }
     }
     
-    private struct GymImageView: View {
+    private struct CategoryImageView: View {
         let imageURL: URL?
         
         var body: some View {
@@ -188,6 +191,12 @@ struct GymDetailView: View {
         .cornerRadius(12)
     }
 }
+
+protocol HasContact {
+    var phoneNumber: String? { get }
+}
+
+extension Gym: HasContact {}
 
 #Preview {
     let sampleGym = Gym(
