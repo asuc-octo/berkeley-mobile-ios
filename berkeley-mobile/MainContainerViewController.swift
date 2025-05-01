@@ -53,11 +53,11 @@ class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
     }
     
     private func attemptShowFeedbackForm() {
-        let numAppLaunchForFeedbackForm = UserDefaults.standard.integer(forKey: UserDefaultKeys.numAppLaunchForFeedbackForm)
+        let numAppLaunchForFeedbackForm = UserDefaults.standard.integer(forKey: .numAppLaunchForFeedbackForm)
         
         guard numAppLaunchForFeedbackForm == 1 else {
             if numAppLaunchForFeedbackForm == 0 {
-                UserDefaults.standard.set(1, forKey: UserDefaultKeys.numAppLaunchForFeedbackForm)
+                UserDefaults.standard.set(1, forKey: .numAppLaunchForFeedbackForm)
             }
             return
         }
