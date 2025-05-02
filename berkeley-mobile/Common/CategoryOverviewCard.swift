@@ -1,13 +1,14 @@
 //
-//  GymDetailView.swift
+//  CategoryOverviewCard.swift
+//  berkeley-mobile
 //
-//  Created by Yihang Chen on 4/9/25.
+//  Created by Yihang Chen on 5/1/25.
 //  Copyright © 2025 ASUC OCTO. All rights reserved.
 //
 
 import SwiftUI
 
-struct ContactInfoRow: View {
+struct BMContactInfoRow: View {
     let iconName: String
     let text: String
     var lineLimit: Int? = 1
@@ -25,7 +26,7 @@ struct ContactInfoRow: View {
     }
 }
 
-struct CategoryOverviewCard: View {
+struct BMCategoryOverviewCard: View {
     let category: SearchItem & HasLocation & HasImage
     
     var body: some View {
@@ -61,7 +62,7 @@ struct CategoryOverviewCard: View {
     private var contactInfoView: some View {
         VStack(alignment: .leading, spacing: 12) {
             if let address = category.address, !address.isEmpty {
-                ContactInfoRow(
+                BMContactInfoRow(
                     iconName: "location.fill",
                     text: address,
                     lineLimit: nil
@@ -71,14 +72,14 @@ struct CategoryOverviewCard: View {
             if let hasPhone = category as? HasPhoneNumber, 
                let phoneNumber = hasPhone.phoneNumber,
                !phoneNumber.isEmpty {
-                ContactInfoRow(
+                BMContactInfoRow(
                     iconName: "phone.fill",
                     text: phoneNumber
                 )
             }
             
             if let distance = category.distanceToUser {
-                ContactInfoRow(
+                BMContactInfoRow(
                     iconName: "figure.walk",
                     text: String(format: "%.1f miles", distance)
                 )
@@ -127,55 +128,4 @@ struct CategoryOverviewCard: View {
                     .stroke(Color(uiColor: .systemGray4), lineWidth: 0.5)
             )
     }
-}
-
-struct GymDetailView: View {
-    @Environment(\.openURL) private var openURL
-
-    let gym: Gym
-    init(gym: Gym) {
-        self.gym = gym
-    }
-    
-    var body: some View {
-        ScrollView {
-            VStack(spacing: 16) {
-                BMCategoryOverviewCard(category: gym)
-                
-                if gym.weeklyHours != nil {
-                    OpenTimesCardSwiftUIView(item: gym)
-                }
-                
-                if let website = gym.website {
-                    BMActionButton(title: "Learn More") {
-                        openURL(website)
-                    }
-                }
-                
-                if let description = gym.description, !description.isEmpty {
-                    BMDescriptionCard(description: description)
-                }
-            }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 5)
-        }
-        .navigationTitle(gym.name)
-    }
-}
-
-#Preview {
-    let sampleGym = Gym(
-        name: "RSF (Recreational Sports Facility)",
-        description: "The Recreational Sports Facility (RSF) is UC Berkeley's largest fitness center, offering state-of-the-art equipment, group exercise classes, and various sports courts. Located at the heart of campus, it provides comprehensive fitness options for students and faculty.",
-        address: "2301 Bancroft Way, Berkeley, CA 94720",
-        phoneNumber: "(510) 111-2222",
-        imageLink: nil,
-        weeklyHours: nil,
-        link: "https://recsports.berkeley.edu/rsf/"
-    )
-    
-    sampleGym.latitude = 37.8687
-    sampleGym.longitude = -122.2614
-    
-    return GymDetailView(gym: sampleGym)
 } 
