@@ -24,10 +24,9 @@ struct MapMarkerDetailSwiftView: View {
                     headerView
                     Spacer()
                     descriptionView
-                        .padding(.top, 2)
                     Spacer()
                     infoRowView
-                        .padding([.bottom, .trailing], 8)
+                        .padding([.trailing], 8)
                     
                 }
                 .padding(.vertical, 8)
@@ -115,17 +114,18 @@ struct MapMarkerDetailSwiftView: View {
         Group {
             Capsule()
                 .fill(marker?.isOpen ?? false ? Color.blue : Color(red: 0.4, green: 0.5, blue: 0.9))
-                .frame(width: 44, height: 14)
+                .frame(width: 48, height: 18)
                 .overlay {
                     Text(marker?.isOpen ?? false ? "Open" : "Closed")
-                        .font(Font(BMFont.medium(8)))
+                        .font(Font(BMFont.medium(9)))
                         .foregroundStyle(.white)
                 }
+                .padding(.horizontal, 2)
         }
     }
     
     private var locationInfoView: some View {
-        HStack(spacing: 2) {
+        HStack(spacing: 6) {
             Image(systemName: "mappin.and.ellipse")
                 .font(.system(size: 12))
                 .foregroundColor(.secondary)
