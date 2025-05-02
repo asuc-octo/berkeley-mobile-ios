@@ -66,7 +66,7 @@ struct MapMarkerDetailSwiftView: View {
     }
     
     private var headerView: some View {
-        HStack {
+        HStack(alignment: .top) {
             Text((marker?.title ?? "Unknown").capitalized)
                 .font(Font(BMFont.bold(21)))
                 .foregroundColor(.primary)
@@ -79,9 +79,9 @@ struct MapMarkerDetailSwiftView: View {
                 Image(systemName: "xmark")
                     .font(.system(size: 16))
                     .foregroundStyle(Color.secondary)
+                    .padding(.trailing, 4)
             }
         }
-        .padding(.trailing, 4)
     }
     
     private var descriptionView: some View {
