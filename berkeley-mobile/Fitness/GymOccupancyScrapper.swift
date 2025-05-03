@@ -11,8 +11,8 @@ import SwiftSoup
 import WebKit
 
 protocol GymOccupancyScrapperDelegate: AnyObject {
-    func rsfScrapperDidFinishScrapping(result: String?)
-    func rsfScrapperDidError(with errorDescription: String)
+    func scrapperDidFinishScrapping(result: String?)
+    func scrapperDidError(with errorDescription: String)
 }
 
 class GymOccupancyScrapper: NSObject {
@@ -62,14 +62,14 @@ extension GymOccupancyScrapper: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         guard currNumOfRescrapes < allowedNumOfRescrapes else {
             currNumOfRescrapes = 0
-            delegate?.rsfScrapperDidError(with: "Cannot load events in reasonable time. Please try again later.")
+            delegate?.scrapperDidError(with: "Cannot load events in reasonable time. Please try again later.")
             return
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             webView.evaluateJavaScript("document.body.innerHTML") { result, error in
                 guard let htmlContent = result as? String, error == nil else {
-                    self.delegate?.rsfScrapperDidError(with: error?.localizedDescription ?? "Unrecognized error message")
+                    self.delegate?.scrapperDidError(with: error?.localizedDescription ?? "Unrecognized error message")
                     return
                 }
                 
@@ -77,7 +77,7 @@ extension GymOccupancyScrapper: WKNavigationDelegate {
                     let doc = try SwiftSoup.parse(htmlContent)
                     
                     if let weightOccupancyText = try doc.select("div.styles_fullness__rayxl > span").first()?.text() {
-                        self.delegate?.rsfScrapperDidFinishScrapping(result: weightOccupancyText)
+                        self.delegate?.scrapperDidFinishScrapping(result: weightOccupancyText)
                         self.occupancyText = weightOccupancyText
     
                     } else {
@@ -87,7 +87,7 @@ extension GymOccupancyScrapper: WKNavigationDelegate {
                         }
                     }
                 } catch {
-                    self.delegate?.rsfScrapperDidError(with: error.localizedDescription)
+                    self.delegate?.scrapperDidError(with: error.localizedDescription)
                 }
             }
         }

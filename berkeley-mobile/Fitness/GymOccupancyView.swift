@@ -9,41 +9,23 @@
 import SwiftUI
 
 struct GymOccupancyView: View {
-    @StateObject private var viewModel: GymOccupancyViewModel
-    
-    private let location: GymOccupancyLocation
-    
-    init(location: GymOccupancyLocation) {
-        self.location = location
-        _viewModel = StateObject(wrappedValue: GymOccupancyViewModel(location: location))
-    }
-    
-    private struct Constants {
-        static let minOccupancy: CGFloat = 0
-        static let maxOccupancy: CGFloat = 100
-        static let labelSize: CGFloat = 9
-        
-        static let mediumLowerBound: CGFloat = 70
-        static let mediumHighBound: CGFloat = 90
-        static let highHighBound: CGFloat = 200
-    }
+    @EnvironmentObject var viewModel: GymOccupancyViewModel
     
     var body: some View {
         VStack {
             if let occupancy = viewModel.occupancyPercentage {
-                GymOccupancyGaugeView(occupancy: occupancy, gymName: location.rawValue)
+                GymOccupancyGaugeView(occupancy: occupancy, gymName: viewModel.location.rawValue)
             } else {
-                GymRedactedOccupancyGaugeView(gymLocationName: location.rawValue)
+                GymRedactedOccupancyGaugeView(gymLocationName: viewModel.location.rawValue)
             }
             
-            Text(location.rawValue)
+            Text(viewModel.location.rawValue)
                 .font(Font(BMFont.regular(9)))
         }
         .onAppear {
-            viewModel.startAutoRefresh()
-        }
-        .onDisappear {
-            viewModel.stopAutoRefresh()
+            if viewModel.occupancyPercentage == nil {
+                viewModel.startAutoRefresh()
+            }
         }
     }
 }
@@ -52,43 +34,25 @@ struct GymOccupancyView: View {
 // MARK: - GymOccupancyGaugeView
 
 struct GymOccupancyGaugeView: View {
+    @EnvironmentObject var viewModel: GymOccupancyViewModel
+    
     var occupancy: Double
     var gymName: String
     
-    private struct Constants {
-        static let minOccupancy: CGFloat = 0
-        static let maxOccupancy: CGFloat = 100
-        
-        static let mediumLowerBound: CGFloat = 70
-        static let mediumHighBound: CGFloat = 90
-        static let highHighBound: CGFloat = 200
-    }
-    
     var body: some View {
-        Gauge(value: occupancy, in: Constants.minOccupancy...Constants.maxOccupancy) {
+        Gauge(value: occupancy, in: GymOccupancyViewModel.Constants.minOccupancy...GymOccupancyViewModel.Constants.maxOccupancy) {
             Text(gymName)
         } currentValueLabel: {
             Text("\(Int(occupancy))")
         } minimumValueLabel: {
-            Text("\(Int(Constants.minOccupancy))")
+            Text("\(Int(GymOccupancyViewModel.Constants.minOccupancy))")
                 .foregroundStyle(.green)
         } maximumValueLabel: {
-            Text("\(Int(Constants.maxOccupancy))")
+            Text("\(Int(GymOccupancyViewModel.Constants.maxOccupancy))")
                 .foregroundStyle(.red)
         }
         .gaugeStyle(.accessoryCircular)
-        .tint(getGaugeColor(occupancy))
-    }
-    
-    private func getGaugeColor(_ value: Double) -> Color {
-        switch value {
-        case Constants.mediumLowerBound...Constants.mediumHighBound:
-            .orange
-        case Constants.mediumHighBound...Constants.highHighBound:
-            .red
-        default:
-            .green
-        }
+        .tint(GymOccupancyViewModel.getOccupancyColor(percentage: occupancy))
     }
 }
 
@@ -116,6 +80,8 @@ struct GymRedactedOccupancyGaugeView: View {
 #Preview {
     Group {
         GymOccupancyGaugeView(occupancy: 78, gymName: "RSF Weight Rooms")
+            .environmentObject(GymOccupancyViewModel(location: .rsf))
         GymRedactedOccupancyGaugeView(gymLocationName: "CMS Fitness Center")
+            .environmentObject(GymOccupancyViewModel(location: .stadium))
     }
 }

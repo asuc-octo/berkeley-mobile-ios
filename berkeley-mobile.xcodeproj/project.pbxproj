@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -38,7 +38,7 @@
 		01D2699A2544D86C000377B4 /* Apercu Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 01D269912544D86C000377B4 /* Apercu Medium.otf */; };
 		01D2699B2544D86C000377B4 /* Apercu Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 01D269922544D86C000377B4 /* Apercu Regular.otf */; };
 		01D2699D2544E005000377B4 /* AcademicCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D2699C2544E005000377B4 /* AcademicCalendarViewController.swift */; };
-		01FA50F124E8B33100DCC490 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FA50F024E8B33100DCC490 /* LocationManager.swift */; };
+		01FA50F124E8B33100DCC490 /* BMLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FA50F024E8B33100DCC490 /* BMLocationManager.swift */; };
 		01FA50F324E8BA5400DCC490 /* LocationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FA50F224E8BA5400DCC490 /* LocationDetailView.swift */; };
 		130FA59E243B1243005DC752 /* DiningRestriction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130FA59D243B1243005DC752 /* DiningRestriction.swift */; };
 		13135BB22412442C0056B169 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39AB323E777AC0039FBA2 /* FilterView.swift */; };
@@ -80,6 +80,7 @@
 		13EA64CD2399CEDA00FD8E13 /* Gym.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13EA64CC2399CEDA00FD8E13 /* Gym.swift */; };
 		13EA64D02399D50C00FD8E13 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13EA64CF2399D50C00FD8E13 /* DataManager.swift */; };
 		1DB006AD2D71C8D6001CC870 /* ResourcesSectionDropdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB006AC2D71C8C0001CC870 /* ResourcesSectionDropdown.swift */; };
+		1DB88F6D2D94DF78007713F7 /* OpenTimesCardSwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB88F6C2D94DF78007713F7 /* OpenTimesCardSwiftUIView.swift */; };
 		29061D41241C450E002BC9D9 /* HasLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29061D40241C450E002BC9D9 /* HasLocation.swift */; };
 		2913595724B136BE00DE9AD6 /* CollapsibleCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2913595624B136BE00DE9AD6 /* CollapsibleCardView.swift */; };
 		2913595924B13DF200DE9AD6 /* OpenTimesCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2913595824B13DF200DE9AD6 /* OpenTimesCardView.swift */; };
@@ -101,7 +102,6 @@
 		2948155F253274C500D113B6 /* ImageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2948155E253274C500D113B6 /* ImageViewCell.swift */; };
 		2954F592245CD4B600DA66DA /* MainDrawerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2954F591245CD4B600DA66DA /* MainDrawerViewDelegate.swift */; };
 		29570D4E2569DE990086741B /* Colors+Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29570D4D2569DE990086741B /* Colors+Calendar.swift */; };
-		2969747625D8A77C005ED231 /* UserDefaultKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2969747525D8A77C005ED231 /* UserDefaultKeys.swift */; };
 		296B8AA72544D97F00C3A219 /* EventOverviewCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296B8AA62544D97F00C3A219 /* EventOverviewCardView.swift */; };
 		296DDEC1253BB117008E8940 /* CampusEventDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296DDEC0253BB117008E8940 /* CampusEventDetailViewController.swift */; };
 		296F1B272439341300924C8D /* DiningDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296F1B262439341300924C8D /* DiningDetailViewController.swift */; };
@@ -122,6 +122,8 @@
 		29EE163F241C4E310041482E /* SortingFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EE163E241C4E310041482E /* SortingFunctions.swift */; };
 		29F11EC72516C150007DCFD7 /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F11EC62516C150007DCFD7 /* BarView.swift */; };
 		2E1C227D2D835A9D0021803C /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1C227C2D835A9D0021803C /* SearchBarView.swift */; };
+		2E76503B2DB76C89009B5551 /* RecentSearchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E76503A2DB76C89009B5551 /* RecentSearchManager.swift */; };
+		2E76503D2DB773A0009B5551 /* UserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E76503C2DB773A0009B5551 /* UserDefaults+Extension.swift */; };
 		2E765C252D88BF3E008708CD /* SearchResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E765C242D88BF3E008708CD /* SearchResultsView.swift */; };
 		2EC1656A2D752A7300F88B60 /* HomeSectionListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC165692D752A7300F88B60 /* HomeSectionListRowView.swift */; };
 		2ED4FB672D8A3FA00086306A /* BMContentUnavailableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED4FB662D8A3FA00086306A /* BMContentUnavailableView.swift */; };
@@ -157,6 +159,7 @@
 		55DCF79D237243F5001B01B8 /* RippleLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF79C237243F5001B01B8 /* RippleLayer.swift */; };
 		55DCF7A123724835001B01B8 /* MaterialButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF7A023724835001B01B8 /* MaterialButton.swift */; };
 		7FC99C602D810A820010724D /* MapMarkerDetailSwiftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FC99C5F2D810A820010724D /* MapMarkerDetailSwiftView.swift */; };
+		C14CCB612D9CC2730075FE69 /* BMFilterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14CCB602D9CC2680075FE69 /* BMFilterButton.swift */; };
 		E80330EB2CE431C200DC9574 /* DepthButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80330EA2CE431C200DC9574 /* DepthButtonStyle.swift */; };
 		E80330ED2CE7EBB100DC9574 /* NSCoding+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80330EC2CE7EBB100DC9574 /* NSCoding+Extension.swift */; };
 		E80ECC312AFB02BA004604BA /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80ECC302AFB02BA004604BA /* Secrets.swift */; };
@@ -174,6 +177,23 @@
 		E83C6CED2B71DF190085E277 /* SafariWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83C6CEC2B71DF190085E277 /* SafariWebView.swift */; };
 		E83D87942AB3CD1E00C4113C /* FeedbackFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83D87932AB3CD1E00C4113C /* FeedbackFormView.swift */; };
 		E86F59232B9BA85700907251 /* StudyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E86F59222B9BA85700907251 /* StudyViewController.swift */; };
+		E889F75C2DA323C100202556 /* BMActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E889F75B2DA323C100202556 /* BMActionButton.swift */; };
+		E889F7FC2DAC4DEE00202556 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E889F7FB2DAC4DEE00202556 /* WidgetKit.framework */; };
+		E889F7FE2DAC4DEE00202556 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E889F7FD2DAC4DEE00202556 /* SwiftUI.framework */; };
+		E889F8092DAC4DEF00202556 /* BerkeleyMobileWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E889F7FA2DAC4DEE00202556 /* BerkeleyMobileWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		E889F80F2DAC4FAE00202556 /* GymOccupancyScrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B6DA42D7A85D500AA9422 /* GymOccupancyScrapper.swift */; };
+		E889F8112DAC516100202556 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = E889F8102DAC516100202556 /* SwiftSoup */; };
+		E889F8122DAC664E00202556 /* GymOccupancyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B6DA82D7A860E00AA9422 /* GymOccupancyViewModel.swift */; };
+		E889F82E2DAC9FC100202556 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF78823722CF1001B01B8 /* Fonts.swift */; };
+		E889F82F2DACA02C00202556 /* Apercu Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 01D2698A2544D86B000377B4 /* Apercu Light.otf */; };
+		E889F8302DACA02C00202556 /* Apercu Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 01D269912544D86C000377B4 /* Apercu Medium.otf */; };
+		E889F8312DACA02C00202556 /* Apercu Medium Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 01D269902544D86C000377B4 /* Apercu Medium Italic.otf */; };
+		E889F8322DACA02C00202556 /* Apercu Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 01D2698E2544D86C000377B4 /* Apercu Bold.otf */; };
+		E889F8332DACA02C00202556 /* Apercu Bold Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 01D2698D2544D86B000377B4 /* Apercu Bold Italic.otf */; };
+		E889F8342DACA02C00202556 /* Apercu Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 01D2698B2544D86B000377B4 /* Apercu Italic.otf */; };
+		E889F8352DACA02C00202556 /* Apercu Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 01D269922544D86C000377B4 /* Apercu Regular.otf */; };
+		E889F8362DACA02C00202556 /* Apercu Mono.otf in Resources */ = {isa = PBXBuildFile; fileRef = 01D2698F2544D86C000377B4 /* Apercu Mono.otf */; };
+		E889F8372DACA02C00202556 /* Apercu Light Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 01D2698C2544D86B000377B4 /* Apercu Light Italic.otf */; };
 		E8912BE52D7FE40500C645B9 /* SafetyMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8912BE42D7FE40500C645B9 /* SafetyMapView.swift */; };
 		E8912C2A2D869D6900C645B9 /* BMConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8912C292D869D6900C645B9 /* BMConstants.swift */; };
 		E8B2738D2BD5C83F0009831A /* SafetyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B2738C2BD5C83F0009831A /* SafetyView.swift */; };
@@ -181,6 +201,8 @@
 		E8B273912BD5E5770009831A /* SafetyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B273902BD5E5770009831A /* SafetyViewModel.swift */; };
 		E8B5975F2CA62D6F006DFBD5 /* SegmentedControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B5975E2CA62D6F006DFBD5 /* SegmentedControlView.swift */; };
 		E8BC7B652B96CB7F002BF46D /* ResourcesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8BC7B642B96CB7F002BF46D /* ResourcesViewModel.swift */; };
+		E8C2BD302D8A457400165554 /* CampusEventRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C2BD2F2D8A457400165554 /* CampusEventRowView.swift */; };
+		E8C2BD322D8A475800165554 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C2BD312D8A475300165554 /* Constants.swift */; };
 		E8C2BDA72D912B3A00165554 /* BMCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C2BDA62D912B3A00165554 /* BMCalendarView.swift */; };
 		E8EBE7622CEC2FD700A220BB /* SafetyLogDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EBE7612CEC2FD700A220BB /* SafetyLogDetailView.swift */; };
 		E8FCD6842C374A81004B66A3 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = E8FCD6832C374A81004B66A3 /* SwiftSoup */; };
@@ -190,6 +212,30 @@
 		FD44FE6125EB0EAD00F713EB /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD44FE6025EB0EAD00F713EB /* AlertView.swift */; };
 		FDD7946C260FE09D00ABE60E /* Colors+AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD7946B260FE09D00ABE60E /* Colors+AlertView.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E889F8072DAC4DEF00202556 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 306A54DE23613E3A00D59A7F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E889F7F92DAC4DEE00202556;
+			remoteInfo = BerkeleyMobileWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E889F80A2DAC4DEF00202556 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				E889F8092DAC4DEF00202556 /* BerkeleyMobileWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		009098AE14DA5A91CB4733A6 /* Pods_berkeley_mobile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_berkeley_mobile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -224,7 +270,7 @@
 		01D269912544D86C000377B4 /* Apercu Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Apercu Medium.otf"; sourceTree = "<group>"; };
 		01D269922544D86C000377B4 /* Apercu Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Apercu Regular.otf"; sourceTree = "<group>"; };
 		01D2699C2544E005000377B4 /* AcademicCalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcademicCalendarViewController.swift; sourceTree = "<group>"; };
-		01FA50F024E8B33100DCC490 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		01FA50F024E8B33100DCC490 /* BMLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMLocationManager.swift; sourceTree = "<group>"; };
 		01FA50F224E8BA5400DCC490 /* LocationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailView.swift; sourceTree = "<group>"; };
 		0EF369A28DCE41D7C2C6F336 /* Pods-berkeley-mobile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeley-mobile.debug.xcconfig"; path = "Target Support Files/Pods-berkeley-mobile/Pods-berkeley-mobile.debug.xcconfig"; sourceTree = "<group>"; };
 		130FA59D243B1243005DC752 /* DiningRestriction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningRestriction.swift; sourceTree = "<group>"; };
@@ -268,6 +314,7 @@
 		13EA64CC2399CEDA00FD8E13 /* Gym.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gym.swift; sourceTree = "<group>"; };
 		13EA64CF2399D50C00FD8E13 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		1DB006AC2D71C8C0001CC870 /* ResourcesSectionDropdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcesSectionDropdown.swift; sourceTree = "<group>"; };
+		1DB88F6C2D94DF78007713F7 /* OpenTimesCardSwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenTimesCardSwiftUIView.swift; sourceTree = "<group>"; };
 		29061D40241C450E002BC9D9 /* HasLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasLocation.swift; sourceTree = "<group>"; };
 		2913595624B136BE00DE9AD6 /* CollapsibleCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsibleCardView.swift; sourceTree = "<group>"; };
 		2913595824B13DF200DE9AD6 /* OpenTimesCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenTimesCardView.swift; sourceTree = "<group>"; };
@@ -289,7 +336,6 @@
 		2948155E253274C500D113B6 /* ImageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewCell.swift; sourceTree = "<group>"; };
 		2954F591245CD4B600DA66DA /* MainDrawerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainDrawerViewDelegate.swift; sourceTree = "<group>"; };
 		29570D4D2569DE990086741B /* Colors+Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+Calendar.swift"; sourceTree = "<group>"; };
-		2969747525D8A77C005ED231 /* UserDefaultKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultKeys.swift; sourceTree = "<group>"; };
 		296B8AA62544D97F00C3A219 /* EventOverviewCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventOverviewCardView.swift; sourceTree = "<group>"; };
 		296DDEC0253BB117008E8940 /* CampusEventDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusEventDetailViewController.swift; sourceTree = "<group>"; };
 		296F1B262439341300924C8D /* DiningDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiningDetailViewController.swift; sourceTree = "<group>"; };
@@ -309,6 +355,8 @@
 		29EE163E241C4E310041482E /* SortingFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingFunctions.swift; sourceTree = "<group>"; };
 		29F11EC62516C150007DCFD7 /* BarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarView.swift; sourceTree = "<group>"; };
 		2E1C227C2D835A9D0021803C /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
+		2E76503A2DB76C89009B5551 /* RecentSearchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchManager.swift; sourceTree = "<group>"; };
+		2E76503C2DB773A0009B5551 /* UserDefaults+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extension.swift"; sourceTree = "<group>"; };
 		2E765C242D88BF3E008708CD /* SearchResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsView.swift; sourceTree = "<group>"; };
 		2EC165692D752A7300F88B60 /* HomeSectionListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSectionListRowView.swift; sourceTree = "<group>"; };
 		2ED4FB662D8A3FA00086306A /* BMContentUnavailableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMContentUnavailableView.swift; sourceTree = "<group>"; };
@@ -349,6 +397,7 @@
 		55DCF7A023724835001B01B8 /* MaterialButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialButton.swift; sourceTree = "<group>"; };
 		61D128E68A4FC209FFCDE60F /* Pods-berkeley-mobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeley-mobile.release.xcconfig"; path = "Target Support Files/Pods-berkeley-mobile/Pods-berkeley-mobile.release.xcconfig"; sourceTree = "<group>"; };
 		7FC99C5F2D810A820010724D /* MapMarkerDetailSwiftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMarkerDetailSwiftView.swift; sourceTree = "<group>"; };
+		C14CCB602D9CC2680075FE69 /* BMFilterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMFilterButton.swift; sourceTree = "<group>"; };
 		E80330EA2CE431C200DC9574 /* DepthButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepthButtonStyle.swift; sourceTree = "<group>"; };
 		E80330EC2CE7EBB100DC9574 /* NSCoding+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSCoding+Extension.swift"; sourceTree = "<group>"; };
 		E80330EE2CE9A8EB00DC9574 /* berkeley-mobile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "berkeley-mobile.entitlements"; sourceTree = "<group>"; };
@@ -367,6 +416,10 @@
 		E83C6CEC2B71DF190085E277 /* SafariWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebView.swift; sourceTree = "<group>"; };
 		E83D87932AB3CD1E00C4113C /* FeedbackFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackFormView.swift; sourceTree = "<group>"; };
 		E86F59222B9BA85700907251 /* StudyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyViewController.swift; sourceTree = "<group>"; };
+		E889F75B2DA323C100202556 /* BMActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMActionButton.swift; sourceTree = "<group>"; };
+		E889F7FA2DAC4DEE00202556 /* BerkeleyMobileWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = BerkeleyMobileWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		E889F7FB2DAC4DEE00202556 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		E889F7FD2DAC4DEE00202556 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		E8912BE42D7FE40500C645B9 /* SafetyMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyMapView.swift; sourceTree = "<group>"; };
 		E8912C292D869D6900C645B9 /* BMConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMConstants.swift; sourceTree = "<group>"; };
 		E8B2738C2BD5C83F0009831A /* SafetyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyView.swift; sourceTree = "<group>"; };
@@ -374,6 +427,8 @@
 		E8B273902BD5E5770009831A /* SafetyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyViewModel.swift; sourceTree = "<group>"; };
 		E8B5975E2CA62D6F006DFBD5 /* SegmentedControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlView.swift; sourceTree = "<group>"; };
 		E8BC7B642B96CB7F002BF46D /* ResourcesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcesViewModel.swift; sourceTree = "<group>"; };
+		E8C2BD2F2D8A457400165554 /* CampusEventRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusEventRowView.swift; sourceTree = "<group>"; };
+		E8C2BD312D8A475300165554 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		E8C2BDA62D912B3A00165554 /* BMCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMCalendarView.swift; sourceTree = "<group>"; };
 		E8EBE7612CEC2FD700A220BB /* SafetyLogDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyLogDetailView.swift; sourceTree = "<group>"; };
 		E8FCD6852C389186004B66A3 /* SkeletonLoadingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonLoadingCell.swift; sourceTree = "<group>"; };
@@ -383,6 +438,20 @@
 		FDD7946B260FE09D00ABE60E /* Colors+AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+AlertView.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		E889F80D2DAC4DEF00202556 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = E889F7F92DAC4DEE00202556 /* BerkeleyMobileWidgetExtension */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		E889F7FF2DAC4DEE00202556 /* BerkeleyMobileWidget */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (E889F80D2DAC4DEF00202556 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = BerkeleyMobileWidget; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
 		306A54E323613E3A00D59A7F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
@@ -390,6 +459,16 @@
 			files = (
 				47E625C4AFB6802788C56FCC /* Pods_berkeley_mobile.framework in Frameworks */,
 				E8FCD6842C374A81004B66A3 /* SwiftSoup in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E889F7F72DAC4DEE00202556 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E889F7FE2DAC4DEE00202556 /* SwiftUI.framework in Frameworks */,
+				E889F7FC2DAC4DEE00202556 /* WidgetKit.framework in Frameworks */,
+				E889F8112DAC516100202556 /* SwiftSoup in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -535,6 +614,7 @@
 		1396012D23865E2E005E4788 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				C14CCB602D9CC2680075FE69 /* BMFilterButton.swift */,
 				303F6AE5236A9C0D007E37DD /* SegmentedControl */,
 				29387E9324BBBBDF00070BCE /* Bar Graph */,
 				2913595524B135B600DE9AD6 /* DetailView */,
@@ -556,6 +636,7 @@
 				01D11B8D2504453B00BDF660 /* ScrollingStackView.swift */,
 				E8FCD6852C389186004B66A3 /* SkeletonLoadingCell.swift */,
 				E83B6DA02D781AF100AA9422 /* BMTopBlobView.swift */,
+				E889F75B2DA323C100202556 /* BMActionButton.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -634,6 +715,7 @@
 				E80330EC2CE7EBB100DC9574 /* NSCoding+Extension.swift */,
 				E83B6D982D7121D300AA9422 /* View+Extension.swift */,
 				2EDE80982D90BE620037BA9F /* CLLocation+Extension.swift */,
+				2E76503C2DB773A0009B5551 /* UserDefaults+Extension.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -656,7 +738,7 @@
 				0176B61125FD9347004D379C /* PropertyWrappers */,
 				13EA64CF2399D50C00FD8E13 /* DataManager.swift */,
 				13B39A8C23E689BC0039FBA2 /* DataSource.swift */,
-				01FA50F024E8B33100DCC490 /* LocationManager.swift */,
+				01FA50F024E8B33100DCC490 /* BMLocationManager.swift */,
 				29B1D306254E1C8700BAD88F /* EventManager.swift */,
 				29EE163E241C4E310041482E /* SortingFunctions.swift */,
 			);
@@ -669,6 +751,7 @@
 				01BC8EAF24E8C3E3005B4969 /* DetailView.swift */,
 				01FA50F224E8BA5400DCC490 /* LocationDetailView.swift */,
 				29345E2624A7E76300859A88 /* OverviewCardView.swift */,
+				1DB88F6C2D94DF78007713F7 /* OpenTimesCardSwiftUIView.swift */,
 				296B8AA62544D97F00C3A219 /* EventOverviewCardView.swift */,
 				2913595824B13DF200DE9AD6 /* OpenTimesCardView.swift */,
 				29387E9C24BBBE8E00070BCE /* OccupancyGraphCardView.swift */,
@@ -683,6 +766,7 @@
 				016A56D32519E96800531A12 /* CampusCalendarViewController.swift */,
 				296DDEC0253BB117008E8940 /* CampusEventDetailViewController.swift */,
 				2925D5FD2529547300BBA266 /* Cells */,
+				E8C2BD2F2D8A457400165554 /* CampusEventRowView.swift */,
 			);
 			path = Campus;
 			sourceTree = "<group>";
@@ -796,6 +880,7 @@
 				7FC99C5F2D810A820010724D /* MapMarkerDetailSwiftView.swift */,
 				2E765C242D88BF3E008708CD /* SearchResultsView.swift */,
 				2ED4FB6A2D8BCB390086306A /* SearchViewModel.swift */,
+				2E76503A2DB76C89009B5551 /* RecentSearchManager.swift */,
 				2ED4FB682D8B7C430086306A /* SearchResultsListRowView.swift */,
 				2ED4FB662D8A3FA00086306A /* BMContentUnavailableView.swift */,
 				556CCD2123E7771800F41BF9 /* MapPlacemark.swift */,
@@ -809,6 +894,7 @@
 			isa = PBXGroup;
 			children = (
 				306A54E823613E3A00D59A7F /* berkeley-mobile */,
+				E889F7FF2DAC4DEE00202556 /* BerkeleyMobileWidget */,
 				306A54E723613E3A00D59A7F /* Products */,
 				D7D8E5ACD8A49B3560D555D9 /* Pods */,
 				133864A62404E7C4001F9048 /* Recovered References */,
@@ -820,6 +906,7 @@
 			isa = PBXGroup;
 			children = (
 				306A54E623613E3A00D59A7F /* Berkeley.app */,
+				E889F7FA2DAC4DEE00202556 /* BerkeleyMobileWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -836,6 +923,7 @@
 				306A54FF23614C0000D59A7F /* MainContainerViewController.swift */,
 				E83D87932AB3CD1E00C4113C /* FeedbackFormView.swift */,
 				E83B6D9C2D72FD6F00AA9422 /* HomeView.swift */,
+				E8C2BD312D8A475300165554 /* Constants.swift */,
 				13EA64CE2399D4A100FD8E13 /* Data */,
 				13B39A8E23E6A1ED0039FBA2 /* Libraries */,
 				136DC9792398B43F009B1810 /* Fitness */,
@@ -871,7 +959,6 @@
 				13491DB4241E215E0033F9AB /* Colors */,
 				55DCF78A23723238001B01B8 /* Fonts */,
 				55DCF78823722CF1001B01B8 /* Fonts.swift */,
-				2969747525D8A77C005ED231 /* UserDefaultKeys.swift */,
 			);
 			path = Assets;
 			sourceTree = "<group>";
@@ -917,6 +1004,8 @@
 			isa = PBXGroup;
 			children = (
 				009098AE14DA5A91CB4733A6 /* Pods_berkeley_mobile.framework */,
+				E889F7FB2DAC4DEE00202556 /* WidgetKit.framework */,
+				E889F7FD2DAC4DEE00202556 /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -956,10 +1045,12 @@
 				306A54E323613E3A00D59A7F /* Frameworks */,
 				306A54E423613E3A00D59A7F /* Resources */,
 				5F6013C0C645F1FA4C0EFACB /* [CP] Embed Pods Frameworks */,
+				E889F80A2DAC4DEF00202556 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				E889F8082DAC4DEF00202556 /* PBXTargetDependency */,
 			);
 			name = "berkeley-mobile";
 			packageProductDependencies = (
@@ -969,18 +1060,44 @@
 			productReference = 306A54E623613E3A00D59A7F /* Berkeley.app */;
 			productType = "com.apple.product-type.application";
 		};
+		E889F7F92DAC4DEE00202556 /* BerkeleyMobileWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E889F80E2DAC4DEF00202556 /* Build configuration list for PBXNativeTarget "BerkeleyMobileWidgetExtension" */;
+			buildPhases = (
+				E889F7F62DAC4DEE00202556 /* Sources */,
+				E889F7F72DAC4DEE00202556 /* Frameworks */,
+				E889F7F82DAC4DEE00202556 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				E889F7FF2DAC4DEE00202556 /* BerkeleyMobileWidget */,
+			);
+			name = BerkeleyMobileWidgetExtension;
+			packageProductDependencies = (
+				E889F8102DAC516100202556 /* SwiftSoup */,
+			);
+			productName = BerkeleyMobileWidgetExtension;
+			productReference = E889F7FA2DAC4DEE00202556 /* BerkeleyMobileWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		306A54DE23613E3A00D59A7F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1100;
+				LastSwiftUpdateCheck = 1630;
 				LastUpgradeCheck = 1100;
 				ORGANIZATIONNAME = "ASUC OCTO";
 				TargetAttributes = {
 					306A54E523613E3A00D59A7F = {
 						CreatedOnToolsVersion = 11.0;
+					};
+					E889F7F92DAC4DEE00202556 = {
+						CreatedOnToolsVersion = 16.3;
 					};
 				};
 			};
@@ -1001,6 +1118,7 @@
 			projectRoot = "";
 			targets = (
 				306A54E523613E3A00D59A7F /* berkeley-mobile */,
+				E889F7F92DAC4DEE00202556 /* BerkeleyMobileWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -1025,6 +1143,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E889F7F82DAC4DEE00202556 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E889F82F2DACA02C00202556 /* Apercu Light.otf in Resources */,
+				E889F8302DACA02C00202556 /* Apercu Medium.otf in Resources */,
+				E889F8312DACA02C00202556 /* Apercu Medium Italic.otf in Resources */,
+				E889F8322DACA02C00202556 /* Apercu Bold.otf in Resources */,
+				E889F8332DACA02C00202556 /* Apercu Bold Italic.otf in Resources */,
+				E889F8342DACA02C00202556 /* Apercu Italic.otf in Resources */,
+				E889F8352DACA02C00202556 /* Apercu Regular.otf in Resources */,
+				E889F8362DACA02C00202556 /* Apercu Mono.otf in Resources */,
+				E889F8372DACA02C00202556 /* Apercu Light Italic.otf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -1036,9 +1170,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-berkeley-mobile/Pods-berkeley-mobile-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-berkeley-mobile/Pods-berkeley-mobile-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1091,6 +1229,7 @@
 				2954F592245CD4B600DA66DA /* MainDrawerViewDelegate.swift in Sources */,
 				557756692544D822009C03BD /* Collection+Extension.swift in Sources */,
 				5546CB91251B0A4500BE1876 /* UIDevice+Extensions.swift in Sources */,
+				2E76503B2DB76C89009B5551 /* RecentSearchManager.swift in Sources */,
 				2975D5402459301B00514B43 /* SearchDrawerViewDelegate.swift in Sources */,
 				01CDBBED25CA6F4D006B93BD /* Response.swift in Sources */,
 				133864A42404DCCA001F9048 /* MapMarker.swift in Sources */,
@@ -1101,6 +1240,7 @@
 				29AB5BC5241D8CB4007C3ECA /* FilterTableView.swift in Sources */,
 				E8FCD68A2C3A382F004B66A3 /* EventScrapper.swift in Sources */,
 				306A54FE236142B800D59A7F /* DrawerViewController.swift in Sources */,
+				2E76503D2DB773A0009B5551 /* UserDefaults+Extension.swift in Sources */,
 				13B39A8B23E682850039FBA2 /* Date+Extension.swift in Sources */,
 				E83B6D9B2D7123CB00AA9422 /* MapUserLocationButton.swift in Sources */,
 				135D7F75243A9AB3003F8BD1 /* GymClassType.swift in Sources */,
@@ -1115,21 +1255,25 @@
 				E81767582B9A516200599254 /* MapMarkersDropdownView.swift in Sources */,
 				E8BC7B652B96CB7F002BF46D /* ResourcesViewModel.swift in Sources */,
 				016A56D6251AD38F00531A12 /* CalendarEvent.swift in Sources */,
+				E889F75C2DA323C100202556 /* BMActionButton.swift in Sources */,
 				E83B6D992D7121D300AA9422 /* View+Extension.swift in Sources */,
 				13580AFC243934C800D309AA /* GymsController.swift in Sources */,
 				E8EBE7622CEC2FD700A220BB /* SafetyLogDetailView.swift in Sources */,
 				13491DBC242098B30033F9AB /* AtomicDictionary.swift in Sources */,
+				E8C2BD302D8A457400165554 /* CampusEventRowView.swift in Sources */,
 				01BC8EB024E8C3E3005B4969 /* DetailView.swift in Sources */,
 				1396013423865E2E005E4788 /* CardCollectionViewCell.swift in Sources */,
 				E83B6D9D2D72FD6F00AA9422 /* HomeView.swift in Sources */,
 				55DCF79D237243F5001B01B8 /* RippleLayer.swift in Sources */,
 				132087AF23F3B05D00AE273C /* Filter.swift in Sources */,
+				E8C2BD322D8A475800165554 /* Constants.swift in Sources */,
 				0181711125CAA3B300BA6317 /* AnyJSON.swift in Sources */,
 				2925D5FC2529546A00BBA266 /* CampusEventCollectionViewCell.swift in Sources */,
 				296DDEC1253BB117008E8940 /* CampusEventDetailViewController.swift in Sources */,
 				1346B9172420AA4500383399 /* DayOfWeek.swift in Sources */,
 				E8912BE52D7FE40500C645B9 /* SafetyMapView.swift in Sources */,
 				29345E2D24A7FFB600859A88 /* CanFavorite.swift in Sources */,
+				1DB88F6D2D94DF78007713F7 /* OpenTimesCardSwiftUIView.swift in Sources */,
 				1396013623865E2E005E4788 /* TagView.swift in Sources */,
 				5532B67B2390CBF600293BE0 /* MaterialLoadingIndicator.swift in Sources */,
 				13E25DFD238C949E00B670B5 /* FitnessViewController.swift in Sources */,
@@ -1184,6 +1328,7 @@
 				E80330EB2CE431C200DC9574 /* DepthButtonStyle.swift in Sources */,
 				29B3A1742439A60A00093750 /* DiningMenuCell.swift in Sources */,
 				1336A326241D9B9900949F32 /* DiningHall.swift in Sources */,
+				C14CCB612D9CC2730075FE69 /* BMFilterButton.swift in Sources */,
 				29061D41241C450E002BC9D9 /* HasLocation.swift in Sources */,
 				2EDE80992D90BE620037BA9F /* CLLocation+Extension.swift in Sources */,
 				1336A31A241C3FD300949F32 /* GymClassDataSource.swift in Sources */,
@@ -1211,7 +1356,7 @@
 				306A54EC23613E3A00D59A7F /* SceneDelegate.swift in Sources */,
 				E8B2738D2BD5C83F0009831A /* SafetyView.swift in Sources */,
 				01CDBBF125CA6F58006B93BD /* RequestError.swift in Sources */,
-				01FA50F124E8B33100DCC490 /* LocationManager.swift in Sources */,
+				01FA50F124E8B33100DCC490 /* BMLocationManager.swift in Sources */,
 				017C0B26251018BA00BFA80A /* Colors+MapMarker.swift in Sources */,
 				E83B6DA92D7A860E00AA9422 /* GymOccupancyViewModel.swift in Sources */,
 				29345E2724A7E76300859A88 /* OverviewCardView.swift in Sources */,
@@ -1234,7 +1379,6 @@
 				1336A320241D924300949F32 /* DiningItem.swift in Sources */,
 				299ACFB4244A5F90000F3E86 /* HasOccupancy.swift in Sources */,
 				E8912C2A2D869D6900C645B9 /* BMConstants.swift in Sources */,
-				2969747625D8A77C005ED231 /* UserDefaultKeys.swift in Sources */,
 				559A7B6D2373DEFA004EA501 /* MaterialTableViewCell.swift in Sources */,
 				13EA64CD2399CEDA00FD8E13 /* Gym.swift in Sources */,
 				1396013523865E2E005E4788 /* CardView.swift in Sources */,
@@ -1245,7 +1389,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E889F7F62DAC4DEE00202556 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E889F8122DAC664E00202556 /* GymOccupancyViewModel.swift in Sources */,
+				E889F82E2DAC9FC100202556 /* Fonts.swift in Sources */,
+				E889F80F2DAC4FAE00202556 /* GymOccupancyScrapper.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E889F8082DAC4DEF00202556 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E889F7F92DAC4DEE00202556 /* BerkeleyMobileWidgetExtension */;
+			targetProxy = E889F8072DAC4DEF00202556 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		306A54F423613E3D00D59A7F /* LaunchScreen.storyboard */ = {
@@ -1382,13 +1544,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 4HBETBULVA;
 				INFOPLIST_FILE = "berkeley-mobile/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 11.2;
+				MARKETING_VERSION = 11.5;
 				PRODUCT_BUNDLE_IDENTIFIER = org.asuc.ASUC;
 				PRODUCT_NAME = Berkeley;
 				SWIFT_VERSION = 5.0;
@@ -1406,18 +1569,89 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 4HBETBULVA;
 				INFOPLIST_FILE = "berkeley-mobile/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 11.2;
+				MARKETING_VERSION = 11.5;
 				PRODUCT_BUNDLE_IDENTIFIER = org.asuc.ASUC;
 				PRODUCT_NAME = Berkeley;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		E889F80B2DAC4DEF00202556 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4HBETBULVA;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = BerkeleyMobileWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = BerkeleyMobileWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 ASUC OCTO. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = org.asuc.ASUC.BerkeleyMobileWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E889F80C2DAC4DEF00202556 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4HBETBULVA;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = BerkeleyMobileWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = BerkeleyMobileWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 ASUC OCTO. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = org.asuc.ASUC.BerkeleyMobileWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -1442,6 +1676,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		E889F80E2DAC4DEF00202556 /* Build configuration list for PBXNativeTarget "BerkeleyMobileWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E889F80B2DAC4DEF00202556 /* Debug */,
+				E889F80C2DAC4DEF00202556 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
@@ -1456,6 +1699,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		E889F8102DAC516100202556 /* SwiftSoup */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E8FCD6822C374A81004B66A3 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
+			productName = SwiftSoup;
+		};
 		E8FCD6832C374A81004B66A3 /* SwiftSoup */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E8FCD6822C374A81004B66A3 /* XCRemoteSwiftPackageReference "SwiftSoup" */;

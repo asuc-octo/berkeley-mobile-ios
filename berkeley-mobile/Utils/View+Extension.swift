@@ -34,6 +34,25 @@ struct SearchResultsListRowButtonStyle: ButtonStyle {
     }
 }
 
+// MARK: - View Positioning
+
+struct PositionAtTopModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        ZStack(alignment: .top) {
+            Color(.systemGroupedBackground)
+                .ignoresSafeArea(.all)
+        
+            VStack {
+                content
+                    .padding(.horizontal, 16)
+                    .padding(.top, 12)
+
+                Spacer()
+            }
+        }
+    }
+}
+
 struct Cardify: ViewModifier {
     func body(content: Content) -> some View {
         content
@@ -47,6 +66,10 @@ struct Cardify: ViewModifier {
 }
 
 extension View {
+    func positionedAtTop() -> some View {
+        self.modifier(PositionAtTopModifier())
+    }
+  
     func cardify() -> some View {
         self.modifier(Cardify())
     }
