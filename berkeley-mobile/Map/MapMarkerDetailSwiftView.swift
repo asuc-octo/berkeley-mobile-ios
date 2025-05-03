@@ -25,12 +25,9 @@ struct MapMarkerDetailSwiftView: View {
                     Spacer()
                     descriptionView
                     Spacer()
-                    infoRowView
-                        .padding([.trailing], 8)
-                    
+                    infoRowView                    
                 }
                 .padding(.vertical, 8)
-                .padding(.horizontal, 10)
                 Spacer()
             }
             .background(Color(.systemBackground))
@@ -92,7 +89,7 @@ struct MapMarkerDetailSwiftView: View {
     
     private var infoRowView: some View {
         HStack {
-            HStack(spacing: 4) {
+            HStack(spacing: 8) {
                 Image(systemName: "clock")
                     .font(.system(size: 12))
                     .foregroundColor(.secondary)
@@ -111,7 +108,6 @@ struct MapMarkerDetailSwiftView: View {
     }
     
     private var openStatusButton: some View {
-        HStack(spacing: 6){
             Capsule()
                 .fill(marker?.isOpen ?? false ? Color.blue : Color(red: 0.4, green: 0.5, blue: 0.9))
                 .frame(width: 48, height: 18)
@@ -120,11 +116,10 @@ struct MapMarkerDetailSwiftView: View {
                         .font(Font(BMFont.medium(9)))
                         .foregroundStyle(.white)
                 }
-        }
     }
     
     private var locationInfoView: some View {
-        HStack(spacing: 6) {
+        HStack(spacing: 8) {
             Image(systemName: "mappin.and.ellipse")
                 .font(.system(size: 12))
                 .foregroundColor(.secondary)
@@ -137,7 +132,7 @@ struct MapMarkerDetailSwiftView: View {
     }
     
     private var categoryView: some View {
-        HStack(spacing: 6){
+        HStack(spacing: 8){
             Image(systemName: getCategoryIcon())
                 .font(.system(size: 12))
                 .foregroundColor(.secondary)
