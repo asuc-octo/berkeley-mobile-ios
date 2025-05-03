@@ -8,13 +8,11 @@
 
 import SwiftUI
 
-
 // MARK: ResourcesView
 
 struct ResourcesView: View {
     @StateObject private var resourcesVM = ResourcesViewModel()
     @State private var tabSelectedValue = 0
-    @State private var shoutoutTabSelectedValue = 0
     
     init() {
         // Use this if NavigationBarTitle is with Large Font
@@ -27,12 +25,8 @@ struct ResourcesView: View {
                 BMTopBlobView(imageName: "BlobRight", xOffset: 30, width: 150, height: 150)
         
                 VStack {
-                    if !resourcesVM.shoutouts.isEmpty  {
-                        resourceShoutoutsTabView
-                    }
-                    
                     if resourcesVM.resourceCategories.isEmpty {
-                       noResourcesAvailableView
+                        noResourcesAvailableView
                     } else {
                         SegmentedControlView(
                             tabNames: resourcesVM.resourceCategoryNames,
@@ -46,8 +40,9 @@ struct ResourcesView: View {
                             }
                         }
                         .tabViewStyle(.page(indexDisplayMode: .never))
+                        
+                        Spacer()
                     }
-                    Spacer()
                 }
                 .navigationTitle("Resources")
             }
@@ -56,50 +51,13 @@ struct ResourcesView: View {
     }
     
     private var noResourcesAvailableView: some View {
-        VStack {
-            Spacer()
-            Text("No Resources Available")
-                .font(Font(BMFont.bold(21)))
-            Spacer()
-        }
-    }
-    
-    private var resourceShoutoutsTabView: some View {
-        HStack {
-            Button(action: {
-                withAnimation {
-                    shoutoutTabSelectedValue -= 1
-                }
-            }) {
-                Image(systemName: "chevron.left")
-                    .foregroundStyle(.gray)
-                    .fontWeight(.heavy)
-            }
-            .opacity(shoutoutTabSelectedValue - 1 >= 0 ? 1 : 0)
-            .disabled(shoutoutTabSelectedValue - 1 >= 0 ? false : true)
-            
-            TabView(selection: $shoutoutTabSelectedValue) {
-                ForEach(Array(resourcesVM.shoutouts.enumerated()), id: \.element) { idx, shoutOut in
-                    ResourceShoutoutView(callout: shoutOut)
-                        .tag(idx)
-                }
-            }
-            .frame(height: 150)
-            .tabViewStyle(.page(indexDisplayMode: .never))
-            
-            Button(action: {
-                withAnimation {
-                    shoutoutTabSelectedValue += 1
-                }
-            }) {
-                Image(systemName: "chevron.right")
-                    .foregroundStyle(.gray)
-                    .fontWeight(.heavy)
-            }
-            .opacity(shoutoutTabSelectedValue + 1 < resourcesVM.shoutouts.count ? 1 : 0)
-            .disabled(shoutoutTabSelectedValue + 1 < resourcesVM.shoutouts.count ? false : true)
-        }
-        .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
+        BMContentUnavailableView(
+                iconName: "exclamationmark.triangle",
+                title: "No Resources Available",
+                subtitle: "Try again later."
+        )
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+        .offset(y: -45)
     }
 }
 
@@ -140,40 +98,6 @@ struct ResourcePageView: View {
                 .background(Color(BMColor.cardBackground))
             }
         }
-    }
-}
-
-
-// MARK: - ResourceShoutoutView
-
-struct ResourceShoutoutView: View {
-    var callout: BMResourceShoutout
-    
-    var body: some View {
-        RoundedRectangle(cornerRadius: 10)
-            .fill(.green.opacity(0.8))
-            .frame(width: 300, height: 100)
-            .overlay(
-                VStack(alignment: .leading) {
-                    HStack {
-                        Text(callout.title)
-                            .bold()
-                            .font(Font(BMFont.regular(23)))
-                        Spacer()
-                        
-                        if callout.url != nil {
-                            Button(action: {}) {
-                                Image(systemName: "link")
-                            }
-                        }
-                    }
-                    Spacer()
-                    Text(callout.subtitle)
-                        .font(Font(BMFont.regular(13)))
-                }
-                .foregroundStyle(.white)
-                .padding()
-            )
     }
 }
 

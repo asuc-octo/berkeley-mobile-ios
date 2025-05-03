@@ -9,6 +9,7 @@
 import Firebase
 import UIKit
 import SwiftUI
+import WidgetKit
 
 // MARK: - FitnessView
 
@@ -69,9 +70,11 @@ class FitnessViewController: UIViewController, SearchDrawerViewDelegate {
     var gyms: [Gym] = []
     
     private var gymsController = GymsController()
+    private var mapViewController: MapViewController!
     
     init(mapViewController: MapViewController) {
         pinDelegate = mapViewController
+        self.mapViewController = mapViewController
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -88,7 +91,7 @@ class FitnessViewController: UIViewController, SearchDrawerViewDelegate {
         setupGyms()
         
         // Update `filterTableView` when user location is updated.
-        LocationManager.notificationCenter.addObserver(
+        BMLocationManager.notificationCenter.addObserver(
             filterTableView,
             selector: #selector(filterTableView.update),
             name: .locationUpdated,
@@ -108,6 +111,8 @@ class FitnessViewController: UIViewController, SearchDrawerViewDelegate {
                 }
             }
         }
+        
+        WidgetCenter.shared.reloadTimelines(ofKind: "GymOccupancyWidget")
     }
     
     @objc func willExpandClasses() {
@@ -151,13 +156,17 @@ extension FitnessViewController {
     }
     
     func setupRSFGymOccupancyCard() {
+        guard let homeViewModel = mapViewController.homeViewModel else {
+            return
+        }
+        
         let RSFCard = CardView()
         RSFCard.layoutMargins = kCardPadding
         RSFCard.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(RSFCard)
         self.RSFCard = RSFCard
         
-        let RSFView = UIHostingController(rootView: GymOccupancyView(location: .rsf)).view!
+        let RSFView = UIHostingController(rootView: GymOccupancyView().environmentObject(homeViewModel.rsfOccupancyViewModel)).view!
         RSFView.translatesAutoresizingMaskIntoConstraints = false
         RSFView.layer.cornerRadius = 12
         RSFView.backgroundColor = UIColor.clear
@@ -177,12 +186,16 @@ extension FitnessViewController {
     }
     
     func setupCMSGymOccupancyCard() {
+        guard let homeViewModel = mapViewController.homeViewModel else {
+            return
+        }
+        
         let CMSCard = CardView()
         CMSCard.layoutMargins = kCardPadding
         CMSCard.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(CMSCard)
         
-        let CMSView = UIHostingController(rootView: GymOccupancyView(location: .stadium)).view!
+        let CMSView = UIHostingController(rootView: GymOccupancyView().environmentObject(homeViewModel.stadiumOccupancyViewModel)).view!
         CMSView.translatesAutoresizingMaskIntoConstraints = false
         CMSView.layer.cornerRadius = 12
         CMSView.backgroundColor = UIColor.clear

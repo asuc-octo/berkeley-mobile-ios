@@ -22,17 +22,22 @@ class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
     var initialGestureTranslation: CGPoint = CGPoint()
     var drawerStatePositions: [DrawerState: CGFloat] = [:]
     
+    private let homeViewModel = HomeViewModel()
     private var homeViewController: UIViewController!
     private var homeView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        homeViewController = UIHostingController(rootView: HomeView())
-        addChild(homeViewController)
+        let mapVC = MapViewController()
+        mapVC.homeViewModel = homeViewModel
+        homeViewController = UIHostingController(rootView: HomeView(mapViewController: mapVC).environmentObject(homeViewModel))
         homeView = homeViewController.view!
         homeView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(homeView)
+        
+        addChild(homeViewController)
+        homeViewController.didMove(toParent: self)
         
         NSLayoutConstraint.activate([
             homeView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -40,8 +45,6 @@ class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
             homeView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             homeView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-        
-        homeViewController.didMove(toParent: self)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -50,11 +53,11 @@ class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
     }
     
     private func attemptShowFeedbackForm() {
-        let numAppLaunchForFeedbackForm = UserDefaults.standard.integer(forKey: UserDefaultKeys.numAppLaunchForFeedbackForm)
+        let numAppLaunchForFeedbackForm = UserDefaults.standard.integer(forKey: .numAppLaunchForFeedbackForm)
         
         guard numAppLaunchForFeedbackForm == 1 else {
             if numAppLaunchForFeedbackForm == 0 {
-                UserDefaults.standard.set(1, forKey: UserDefaultKeys.numAppLaunchForFeedbackForm)
+                UserDefaults.standard.set(1, forKey: .numAppLaunchForFeedbackForm)
             }
             return
         }

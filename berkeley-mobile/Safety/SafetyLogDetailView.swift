@@ -36,8 +36,6 @@ struct SafetyLogDetailView: View {
                     SafetyLogView(safetyLog: selectedSafetyLog, isPresentingFullScreen: true)
                 }
             }
-            
-            Spacer()
         }
     }
     

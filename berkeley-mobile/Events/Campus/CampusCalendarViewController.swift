@@ -61,7 +61,7 @@ class CampusCalendarViewController: UIViewController {
         eventScrapper.delegate = self
         
         let campusWideCalendarURLString = EventScrapper.Constants.campuswideCalendarURLString
-        let rescapeData = eventScrapper.shouldRescrape(for: campusWideCalendarURLString, lastRefreshDateKey: UserDefaultKeys.campuswideEventsLastSavedDate)
+        let rescapeData = eventScrapper.shouldRescrape(for: campusWideCalendarURLString, lastRefreshDateKey: UserDefaultsKeys.campuswideEventsLastSavedDate.rawValue)
         
         if rescapeData.shouldRescape {
             eventScrapper.scrape(at: campusWideCalendarURLString)
@@ -123,10 +123,18 @@ extension CampusCalendarViewController: UITableViewDelegate, UITableViewDataSour
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: CampusEventTableViewCell.kCellIdentifier, for: indexPath)
             
-            if let card = cell as? CampusEventTableViewCell,
-                let entry = calendarEntries[safe: indexPath.row] {
-                card.updateContents(event: entry)
+            guard let entry = calendarEntries[safe: indexPath.row] else {
+                return cell
             }
+            
+            let cellViewModel = CampusEventRowViewModel()
+            cellViewModel.configure(with: entry)
+            
+            cell.contentConfiguration = UIHostingConfiguration {
+                CampusEventRowView()
+                    .environmentObject(cellViewModel)
+            }
+            
             return cell
         }
     }

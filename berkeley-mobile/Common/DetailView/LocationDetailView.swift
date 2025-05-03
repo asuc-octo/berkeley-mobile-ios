@@ -54,7 +54,7 @@ class LocationDetailView: IconPairView, DetailView {
         super.init(icon: icon, iconHeight: 16, iconWidth: 16, attachedView: label)
 
         // Register for location updates
-        LocationManager.notificationCenter.addObserver(
+        BMLocationManager.notificationCenter.addObserver(
             self,
             selector: #selector(locationUpdated(_:)),
             name: .locationUpdated,

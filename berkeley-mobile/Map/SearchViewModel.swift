@@ -43,12 +43,15 @@ class SearchViewModel: ObservableObject {
     @Published var searchText = ""
     @Published var isSearching = false
     @Published var state = SearchResultsState.idle
+    @Published var recentSearches: [CodableMapPlacemark]
+    
     var chooseMapMarker: (MapMarker) -> Void
     var choosePlacemark: (MapPlacemark) -> Void
     
     init(chooseMapMarker: @escaping (MapMarker) -> Void, choosePlacemark: @escaping (MapPlacemark) -> Void) {
         self.chooseMapMarker = chooseMapMarker
         self.choosePlacemark = choosePlacemark
+        self.recentSearches = RecentSearchManager.load()
     }
     
     
@@ -82,6 +85,11 @@ class SearchViewModel: ObservableObject {
         }
     }
     
+    func deleteRecentSearchItem(_ offsets: IndexSet) {
+        recentSearches = RecentSearchManager.delete(at: offsets, in: recentSearches)
+        RecentSearchManager.save(recentSearches)
+    }
+    
     
     // MARK: - SearchResultsView's funcs:
     
@@ -104,14 +112,21 @@ class SearchViewModel: ObservableObject {
     }
     
     func selectListRow(_ placemark: MapPlacemark) {
+        recentSearches = RecentSearchManager.add(placemark, to: recentSearches)
+        RecentSearchManager.save(recentSearches)
+        
         searchText = ""
         isSearching = false
         
         if let mapMarker = placemark.item as? MapMarker {
             chooseMapMarker(mapMarker)
-        }
-        else {
+        } else {
             choosePlacemark(placemark)
         }
+    }
+    
+    func deleteAllRecentSearch() {
+        recentSearches = []
+        RecentSearchManager.save(recentSearches)
     }
 }
