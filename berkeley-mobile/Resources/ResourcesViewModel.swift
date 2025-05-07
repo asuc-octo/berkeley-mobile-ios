@@ -42,35 +42,20 @@ class ResourcesViewModel: ObservableObject {
         }
     }
     
-    @MainActor
     private func fetchResourceCategories() async {
         let collection = db.collection("Resource Categories")
         
         do {
             let querySnapshot = try await collection.getDocuments()
             let documents = querySnapshot.documents
-            var fetchedResourceCategories = documents.compactMap { queryDocumentSnapshot -> BMResourceCategory? in
+            let fetchedResourceCategories = documents.compactMap { queryDocumentSnapshot -> BMResourceCategory? in
                 try? queryDocumentSnapshot.data(as: BMResourceCategory.self)
             }
-            fetchedResourceCategories.sort(by: { $0.name < $1.name })
-            self.resourceCategories = fetchedResourceCategories
-            self.isLoading = false
-        }
-    }
-    
-    private func fetchResourceShoutouts() {
-        let db = Firestore.firestore()
-        db.collection("Resource Shoutouts").getDocuments { querySnapshot, error in
-            guard error == nil else {
-                return
+            
+            let sortedCategories = fetchedResourceCategories.sorted { $0.name < $1.name }
+            await MainActor.run {
+                self.resourceCategories = sortedCategories
             }
-            guard let documents = querySnapshot?.documents else { return }
-            var fetchedResourceShoutouts = [BMResourceShoutout]()
-            fetchedResourceShoutouts = documents.compactMap { queryDocumentSnapshot -> BMResourceShoutout? in
-                return try? queryDocumentSnapshot.data(as: BMResourceShoutout.self)
-            }
-            fetchedResourceShoutouts.sort(by: { $0.creationDate < $1.creationDate })
-            self.shoutouts = fetchedResourceShoutouts
         } catch {
             print("Error getting document (Resource Categories): \(error)")
         }
