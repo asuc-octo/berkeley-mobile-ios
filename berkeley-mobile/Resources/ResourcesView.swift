@@ -8,13 +8,9 @@
 
 import SwiftUI
 
-// MARK: ResourcesView
-
 struct ResourcesView: View {
     @StateObject private var resourcesVM = ResourcesViewModel()
     @State private var tabSelectedValue = 0
-    @State private var shoutoutTabSelectedValue = 0
-    @State private var isLoading = true
     
     init() {
         // Use this if NavigationBarTitle is with Large Font
@@ -29,10 +25,8 @@ struct ResourcesView: View {
                 VStack {
                     if resourcesVM.isLoading {
                         Spacer()
-                        ProgressView("Loading Resources")
-                            .progressViewStyle(CircularProgressViewStyle(tint: Color.gray))
-                    } else if !resourcesVM.shoutouts.isEmpty {
-                        resourceShoutoutsTabView
+                        ProgressView()
+                            .controlSize(.large)
                     } else if resourcesVM.resourceCategories.isEmpty {
                         noResourcesAvailableView
                     } else {

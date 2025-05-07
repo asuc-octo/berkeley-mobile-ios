@@ -30,9 +30,11 @@ struct BMResourceSection: Hashable, Codable {
 
 class ResourcesViewModel: ObservableObject {
     @Published var resourceCategories = [BMResourceCategory]()
-    @Published var isLoading = true
+    @Published var isLoading = false
+    
     private let db = Firestore.firestore()
-        var resourceCategoryNames: [String] {
+    
+    var resourceCategoryNames: [String] {
         resourceCategories.map { $0.name }
     }
     
@@ -46,6 +48,7 @@ class ResourcesViewModel: ObservableObject {
         let collection = db.collection("Resource Categories")
         
         do {
+            isLoading = true
             let querySnapshot = try await collection.getDocuments()
             let documents = querySnapshot.documents
             let fetchedResourceCategories = documents.compactMap { queryDocumentSnapshot -> BMResourceCategory? in
@@ -55,9 +58,13 @@ class ResourcesViewModel: ObservableObject {
             let sortedCategories = fetchedResourceCategories.sorted { $0.name < $1.name }
             await MainActor.run {
                 self.resourceCategories = sortedCategories
+                self.isLoading = false
             }
         } catch {
             print("Error getting document (Resource Categories): \(error)")
+            await MainActor.run {
+                self.isLoading = false
+            }
         }
     }
 }
