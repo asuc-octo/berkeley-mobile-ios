@@ -1,0 +1,69 @@
+//
+//  AcademicEventRowView.swift
+//  berkeley-mobile
+//
+//  Created by Justin Wong on 5/6/25.
+//  Copyright © 2025 ASUC OCTO. All rights reserved.
+//
+
+import SwiftUI
+
+struct AcademicEventRowView: View {
+    
+    private struct Constants {
+        static let cornerRadius: CGFloat = 8
+        static let imageWidthHeight: CGFloat = 60
+    }
+    
+    var event: CalendarEvent
+    var color: Color
+    var imageURL: URL?
+    
+    var body: some View {
+        HStack {
+            colorBarView
+            VStack(alignment: .leading, spacing: 7) {
+                Text(event.name)
+                    .font(Font(BMFont.bold(12)))
+                Text(event.dateString)
+                    .font(Font(BMFont.light(11)))
+            }
+            Spacer()
+            imageView
+                .padding(.trailing, 10)
+        }
+        .frame(height: 75)
+        .clipShape(RoundedRectangle(cornerRadius: Constants.cornerRadius))
+        .cardify()
+    }
+    
+    private var colorBarView: some View {
+        color
+            .frame(width: 8)
+    }
+    
+    private var imageView: some View {
+        AsyncImage(url: imageURL) { phase in
+            switch phase {
+            case .empty:
+                EmptyView()
+            case .success(let image):
+                image.resizable()
+                     .aspectRatio(contentMode: .fit)
+                     .frame(maxWidth: Constants.imageWidthHeight, maxHeight: Constants.imageWidthHeight)
+                     .clipShape(RoundedRectangle(cornerRadius: Constants.cornerRadius))
+            default:
+                EmptyView()
+            }
+        }
+    }
+}
+
+#Preview {
+    Group {
+        AcademicEventRowView(event: EventCalendarEntry(name: "Seminar 231, Public Finance", date: Date()), color: .red)
+            .frame(width: 300)
+        AcademicEventRowView(event: EventCalendarEntry(name: "Dissertation Talk: Toward Trustworthy Language Models: Interpretation Methods and Clinical Decision Support Applications", date: Date()), color: .gray, imageURL: URL(string: "https://events.berkeley.edu/live/image/gid/84/width/200/height/200/crop/1/src_region/0,0,1080,1080/8428_NewEECSLogo-Livewhale.rev.1729531907.png"))
+            .frame(width: 300)
+    }
+}

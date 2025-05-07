@@ -6,8 +6,8 @@
 //  Copyright © 2021 ASUC OCTO. All rights reserved.
 //
 
-import UIKit
 import SwiftUI
+import UIKit
 
 fileprivate let kCardPadding: UIEdgeInsets = UIEdgeInsets(top: 6, left: 6, bottom: 6, right: 6)
 fileprivate let kViewMargin: CGFloat = 6
@@ -38,9 +38,8 @@ class CalendarTablePairView: UIView {
         scrollingStackView.stackView.addArrangedSubview(calendarView)
         
         calendarTable.backgroundColor = UIColor.clear
-        calendarTable.register(EventTableViewCell.self, forCellReuseIdentifier: EventTableViewCell.kCellIdentifier)
         calendarTable.register(SkeletonLoadingCell.self, forCellReuseIdentifier: SkeletonLoadingCell.kCellIdentifier)
-        calendarTable.rowHeight = EventTableViewCell.kCellHeight
+        calendarTable.rowHeight = 86
         calendarTable.delegate = self
         calendarTable.dataSource = self
         calendarTable.showsVerticalScrollIndicator = false
@@ -136,11 +135,14 @@ extension CalendarTablePairView: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: SkeletonLoadingCell.kCellIdentifier, for: indexPath)
             return cell
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: EventTableViewCell.kCellIdentifier, for: indexPath)
+            let cell = UITableViewCell(style: .default, reuseIdentifier: "AcademicEventRowCell")
+            cell.backgroundColor = .clear
+            cell.selectionStyle = .none
             
-            if let cell = cell as? EventTableViewCell,
-               let entry = calendarViewModel.calendarEntries[safe: indexPath.row] {
-                cell.cellConfigure(event: entry, type: entry.type, color: entry.color)
+            if let entry = calendarViewModel.calendarEntries[safe: indexPath.row] {
+                cell.contentConfiguration = UIHostingConfiguration {
+                    AcademicEventRowView(event: entry, color: Color(entry.color), imageURL: entry.imageURL)
+                }
             }
             
             return cell
