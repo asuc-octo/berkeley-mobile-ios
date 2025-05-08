@@ -10,6 +10,8 @@ import SwiftUI
 
 struct BMCachedAsyncImageView: View {
     var imageURL: URL?
+    var placeholderImage: UIImage?
+    var aspectRatio: ContentMode = .fit
     var widthAndHeight: CGFloat
     var cornerRadius: CGFloat = 0
     
@@ -17,10 +19,11 @@ struct BMCachedAsyncImageView: View {
     
     var body: some View {
         VStack {
+            let image = self.image ?? placeholderImage
             if let image {
                 Image(uiImage: image)
                     .resizable()
-                    .aspectRatio(contentMode: .fit)
+                    .aspectRatio(contentMode: aspectRatio)
                     .frame(maxWidth: widthAndHeight, maxHeight: widthAndHeight)
                     .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
             }
