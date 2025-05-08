@@ -47,18 +47,31 @@ struct AcademicCalendarView: View {
         if academicCalendarViewModel.isLoading {
             ProgressView()
         } else {
-            LazyVStack {
-                ForEach(Array(academicCalendarViewModel.calendarEntries.enumerated()), id: \.offset) { index, entry in
-                    Button(action: {
-                        academicCalendarViewModel.showAddEventToCalendarAlert(entry)
-                    }) {
-                        AcademicEventRowView(event: entry, color: Color(entry.color))
-                            .frame(width: 310)
-                            .id(index)
+            if academicCalendarViewModel.calendarEntries.isEmpty {
+                noEventsView
+            } else {
+                LazyVStack {
+                    ForEach(Array(academicCalendarViewModel.calendarEntries.enumerated()), id: \.offset) { index, entry in
+                        Button(action: {
+                            academicCalendarViewModel.showAddEventToCalendarAlert(entry)
+                        }) {
+                            AcademicEventRowView(event: entry, color: Color(entry.color))
+                                .frame(width: 310)
+                                .id(index)
+                        }
+                        .buttonStyle(PlainButtonStyle())
                     }
-                    .buttonStyle(PlainButtonStyle())
                 }
+                .padding(.bottom, 20)
             }
+        }
+    }
+    
+    private var noEventsView: some View {
+        VStack {
+            Spacer()
+            BMContentUnavailableView(iconName: "", title: "No Events Available", subtitle: "Please try again.")
+            Spacer()
         }
     }
     
