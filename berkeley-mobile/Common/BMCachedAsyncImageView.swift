@@ -11,7 +11,7 @@ import SwiftUI
 struct BMCachedAsyncImageView: View {
     var imageURL: URL?
     var widthAndHeight: CGFloat
-    var cornerRadius: CGFloat
+    var cornerRadius: CGFloat = 0
     
     @State private var image: UIImage?
     
