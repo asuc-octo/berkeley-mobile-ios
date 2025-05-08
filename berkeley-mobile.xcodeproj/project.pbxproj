@@ -144,7 +144,6 @@
 		5516088824393F3F00B1E55B /* MissingDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5516088724393F3F00B1E55B /* MissingDataView.swift */; };
 		5532B67B2390CBF600293BE0 /* MaterialLoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5532B67A2390CBF600293BE0 /* MaterialLoadingIndicator.swift */; };
 		5546CB91251B0A4500BE1876 /* UIDevice+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5546CB90251B0A4500BE1876 /* UIDevice+Extensions.swift */; };
-		554CB9A023F3A83F00BB1715 /* EventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554CB99F23F3A83F00BB1715 /* EventTableViewCell.swift */; };
 		556CCD2223E7771800F41BF9 /* MapPlacemark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556CCD2123E7771800F41BF9 /* MapPlacemark.swift */; };
 		556CCD2D23E79EC100F41BF9 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556CCD2C23E79EC100F41BF9 /* TabBarController.swift */; };
 		557756692544D822009C03BD /* Collection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557756682544D822009C03BD /* Collection+Extension.swift */; };
@@ -195,6 +194,8 @@
 		E889F8372DACA02C00202556 /* Apercu Light Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 01D2698C2544D86B000377B4 /* Apercu Light Italic.otf */; };
 		E8912BE52D7FE40500C645B9 /* SafetyMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8912BE42D7FE40500C645B9 /* SafetyMapView.swift */; };
 		E8912C2A2D869D6900C645B9 /* BMConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8912C292D869D6900C645B9 /* BMConstants.swift */; };
+		E891E2852DCD3104006CA0F5 /* BMCachedAsyncImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E891E2842DCD3104006CA0F5 /* BMCachedAsyncImageView.swift */; };
+		E89A33152DCB21780068DDAA /* AcademicEventRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89A33142DCB21780068DDAA /* AcademicEventRowView.swift */; };
 		E8B2738D2BD5C83F0009831A /* SafetyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B2738C2BD5C83F0009831A /* SafetyView.swift */; };
 		E8B2738F2BD5E46B0009831A /* BMDrawerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B2738E2BD5E46B0009831A /* BMDrawerView.swift */; };
 		E8B273912BD5E5770009831A /* SafetyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B273902BD5E5770009831A /* SafetyViewModel.swift */; };
@@ -377,7 +378,6 @@
 		5516088724393F3F00B1E55B /* MissingDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissingDataView.swift; sourceTree = "<group>"; };
 		5532B67A2390CBF600293BE0 /* MaterialLoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialLoadingIndicator.swift; sourceTree = "<group>"; };
 		5546CB90251B0A4500BE1876 /* UIDevice+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extensions.swift"; sourceTree = "<group>"; };
-		554CB99F23F3A83F00BB1715 /* EventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTableViewCell.swift; sourceTree = "<group>"; };
 		556CCD2123E7771800F41BF9 /* MapPlacemark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPlacemark.swift; sourceTree = "<group>"; };
 		556CCD2423E77C4F00F41BF9 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		556CCD2723E77C7300F41BF9 /* CalendarEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEntry.swift; sourceTree = "<group>"; };
@@ -420,6 +420,8 @@
 		E889F7FD2DAC4DEE00202556 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		E8912BE42D7FE40500C645B9 /* SafetyMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyMapView.swift; sourceTree = "<group>"; };
 		E8912C292D869D6900C645B9 /* BMConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMConstants.swift; sourceTree = "<group>"; };
+		E891E2842DCD3104006CA0F5 /* BMCachedAsyncImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMCachedAsyncImageView.swift; sourceTree = "<group>"; };
+		E89A33142DCB21780068DDAA /* AcademicEventRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcademicEventRowView.swift; sourceTree = "<group>"; };
 		E8B2738C2BD5C83F0009831A /* SafetyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyView.swift; sourceTree = "<group>"; };
 		E8B2738E2BD5E46B0009831A /* BMDrawerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMDrawerView.swift; sourceTree = "<group>"; };
 		E8B273902BD5E5770009831A /* SafetyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyViewModel.swift; sourceTree = "<group>"; };
@@ -612,7 +614,6 @@
 		1396012D23865E2E005E4788 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				C14CCB602D9CC2680075FE69 /* BMFilterButton.swift */,
 				303F6AE5236A9C0D007E37DD /* SegmentedControl */,
 				29387E9324BBBBDF00070BCE /* Bar Graph */,
 				2913595524B135B600DE9AD6 /* DetailView */,
@@ -626,7 +627,6 @@
 				1396013223865E2E005E4788 /* TagView.swift */,
 				018B982525327358004C3B26 /* ActionButton.swift */,
 				01B250272516AD4F00CBA459 /* IconPairView.swift */,
-				554CB99F23F3A83F00BB1715 /* EventTableViewCell.swift */,
 				559AF6DF251EAA2800463E2A /* DetailTapGestureRecognizer.swift */,
 				55C6936A240E143500400B60 /* ResourceTableViewCell.swift */,
 				5516088724393F3F00B1E55B /* MissingDataView.swift */,
@@ -634,7 +634,9 @@
 				01D11B8D2504453B00BDF660 /* ScrollingStackView.swift */,
 				E8FCD6852C389186004B66A3 /* SkeletonLoadingCell.swift */,
 				E83B6DA02D781AF100AA9422 /* BMTopBlobView.swift */,
+				C14CCB602D9CC2680075FE69 /* BMFilterButton.swift */,
 				E889F75B2DA323C100202556 /* BMActionButton.swift */,
+				E891E2842DCD3104006CA0F5 /* BMCachedAsyncImageView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -820,6 +822,7 @@
 			isa = PBXGroup;
 			children = (
 				01D2699C2544E005000377B4 /* AcademicCalendarViewController.swift */,
+				E89A33142DCB21780068DDAA /* AcademicEventRowView.swift */,
 			);
 			path = Academic;
 			sourceTree = "<group>";
@@ -1254,6 +1257,7 @@
 				016A56D6251AD38F00531A12 /* CalendarEvent.swift in Sources */,
 				E889F75C2DA323C100202556 /* BMActionButton.swift in Sources */,
 				E83B6D992D7121D300AA9422 /* View+Extension.swift in Sources */,
+				E891E2852DCD3104006CA0F5 /* BMCachedAsyncImageView.swift in Sources */,
 				13580AFC243934C800D309AA /* GymsController.swift in Sources */,
 				E8EBE7622CEC2FD700A220BB /* SafetyLogDetailView.swift in Sources */,
 				13491DBC242098B30033F9AB /* AtomicDictionary.swift in Sources */,
@@ -1275,7 +1279,6 @@
 				5532B67B2390CBF600293BE0 /* MaterialLoadingIndicator.swift in Sources */,
 				13E25DFD238C949E00B670B5 /* FitnessViewController.swift in Sources */,
 				55DCF79B237243D4001B01B8 /* MaterialTextField.swift in Sources */,
-				554CB9A023F3A83F00BB1715 /* EventTableViewCell.swift in Sources */,
 				E8B273912BD5E5770009831A /* SafetyViewModel.swift in Sources */,
 				E86F59232B9BA85700907251 /* StudyViewController.swift in Sources */,
 				2ED4FB692D8B7C430086306A /* SearchResultsListRowView.swift in Sources */,
@@ -1328,6 +1331,7 @@
 				29061D41241C450E002BC9D9 /* HasLocation.swift in Sources */,
 				2EDE80992D90BE620037BA9F /* CLLocation+Extension.swift in Sources */,
 				1336A31A241C3FD300949F32 /* GymClassDataSource.swift in Sources */,
+				E89A33152DCB21780068DDAA /* AcademicEventRowView.swift in Sources */,
 				29387E9524BBBC1000070BCE /* BarGraph.swift in Sources */,
 				E8B2738F2BD5E46B0009831A /* BMDrawerView.swift in Sources */,
 				2ED4FB6B2D8BCB390086306A /* SearchViewModel.swift in Sources */,
