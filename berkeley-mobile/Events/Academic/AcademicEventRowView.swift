@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct AcademicEventRowView: View {
     
@@ -15,24 +16,18 @@ struct AcademicEventRowView: View {
         static let imageWidthHeight: CGFloat = 60
     }
     
-    var event: CalendarEvent
+    var event: EventCalendarEntry
     var color: Color
-    var imageURL: URL?
     
     var body: some View {
         HStack {
             colorBarView
-            VStack(alignment: .leading, spacing: 7) {
-                Text(event.name)
-                    .font(Font(BMFont.bold(12)))
-                Text(event.dateString)
-                    .font(Font(BMFont.light(11)))
-            }
+            eventInfoSection
             Spacer()
-            imageView
+            BMCachedAsyncImageView(imageURL: event.imageURL, widthAndHeight: Constants.imageWidthHeight, cornerRadius: Constants.cornerRadius)
                 .padding(.trailing, 10)
         }
-        .frame(height: 75)
+        .frame(height: 80)
         .clipShape(RoundedRectangle(cornerRadius: Constants.cornerRadius))
         .cardify()
     }
@@ -42,20 +37,14 @@ struct AcademicEventRowView: View {
             .frame(width: 8)
     }
     
-    private var imageView: some View {
-        AsyncImage(url: imageURL) { phase in
-            switch phase {
-            case .empty:
-                EmptyView()
-            case .success(let image):
-                image.resizable()
-                     .aspectRatio(contentMode: .fit)
-                     .frame(maxWidth: Constants.imageWidthHeight, maxHeight: Constants.imageWidthHeight)
-                     .clipShape(RoundedRectangle(cornerRadius: Constants.cornerRadius))
-            default:
-                EmptyView()
-            }
+    private var eventInfoSection: some View {
+        VStack(alignment: .leading, spacing: 7) {
+            Text(event.name)
+                .font(Font(BMFont.bold(12)))
+            Text(event.dateString)
+                .font(Font(BMFont.light(11)))
         }
+        .padding(EdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0))
     }
 }
 
@@ -63,7 +52,7 @@ struct AcademicEventRowView: View {
     Group {
         AcademicEventRowView(event: EventCalendarEntry(name: "Seminar 231, Public Finance", date: Date()), color: .red)
             .frame(width: 300)
-        AcademicEventRowView(event: EventCalendarEntry(name: "Dissertation Talk: Toward Trustworthy Language Models: Interpretation Methods and Clinical Decision Support Applications", date: Date()), color: .gray, imageURL: URL(string: "https://events.berkeley.edu/live/image/gid/84/width/200/height/200/crop/1/src_region/0,0,1080,1080/8428_NewEECSLogo-Livewhale.rev.1729531907.png"))
+        AcademicEventRowView(event: EventCalendarEntry(name: "Dissertation Talk: Toward Trustworthy Language Models: Interpretation Methods and Clinical Decision Support Applications", date: Date(), imageURL: "https://events.berkeley.edu/live/image/gid/84/width/200/height/200/crop/1/src_region/0,0,1080,1080/8428_NewEECSLogo-Livewhale.rev.1729531907.png"), color: .gray)
             .frame(width: 300)
     }
 }

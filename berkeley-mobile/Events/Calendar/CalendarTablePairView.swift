@@ -141,7 +141,7 @@ extension CalendarTablePairView: UITableViewDelegate, UITableViewDataSource {
             
             if let entry = calendarViewModel.calendarEntries[safe: indexPath.row] {
                 cell.contentConfiguration = UIHostingConfiguration {
-                    AcademicEventRowView(event: entry, color: Color(entry.color), imageURL: entry.imageURL)
+                    AcademicEventRowView(event: entry, color: Color(entry.color))
                 }
             }
             
