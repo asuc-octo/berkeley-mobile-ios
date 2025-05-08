@@ -53,7 +53,7 @@ struct PositionAtTopModifier: ViewModifier {
     }
 }
 
-struct Cardify: ViewModifier {
+struct Shadowfy: ViewModifier {
     func body(content: Content) -> some View {
         content
             .background(
@@ -69,7 +69,7 @@ extension View {
         self.modifier(PositionAtTopModifier())
     }
   
-    func cardify() -> some View {
-        self.modifier(Cardify())
+    func shadowfy() -> some View {
+        self.modifier(Shadowfy())
     }
 }

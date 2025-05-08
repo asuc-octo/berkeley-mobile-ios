@@ -127,12 +127,8 @@ extension CampusCalendarViewController: UITableViewDelegate, UITableViewDataSour
                 return cell
             }
             
-            let cellViewModel = CampusEventRowViewModel()
-            cellViewModel.configure(with: entry)
-            
             cell.contentConfiguration = UIHostingConfiguration {
-                CampusEventRowView()
-                    .environmentObject(cellViewModel)
+                CampusEventRowView(entry: entry)
             }
             
             return cell

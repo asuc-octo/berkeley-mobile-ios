@@ -29,7 +29,7 @@ struct AcademicEventRowView: View {
         }
         .frame(height: 80)
         .clipShape(RoundedRectangle(cornerRadius: Constants.cornerRadius))
-        .cardify()
+        .shadowfy()
     }
     
     private var colorBarView: some View {
