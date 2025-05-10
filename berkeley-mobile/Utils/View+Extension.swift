@@ -8,6 +8,19 @@
 
 import SwiftUI
 
+// MARK: - Global Functions
+
+func withoutAnimation(action: @escaping () -> Void) {
+    var transaction = Transaction()
+    transaction.disablesAnimations = true
+    withTransaction(transaction) {
+        action()
+    }
+}
+
+
+// MARK: - Button Styles
+
 struct BMControlButtonStyle: ButtonStyle {
     static let widthAndHeight: CGFloat = 45
     
@@ -33,6 +46,7 @@ struct SearchResultsListRowButtonStyle: ButtonStyle {
             .clipShape(.rect(cornerRadius: 12))
     }
 }
+
 
 // MARK: - View Positioning
 
@@ -60,9 +74,12 @@ struct Shadowfy: ViewModifier {
                 RoundedRectangle(cornerRadius: 12)
                     .fill(Color(BMColor.cardBackground)) 
             )
-            .shadow(color: Color.black.opacity(0.25), radius: 5, x: 0, y: 0)
+            .shadow(color: .black.opacity(0.15), radius: 5, x: 0, y: 0)
     }
 }
+
+
+// MARK: - View Extension
 
 extension View {
     func positionedAtTop() -> some View {
