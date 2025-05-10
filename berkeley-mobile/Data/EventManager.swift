@@ -6,34 +6,35 @@
 //  Copyright © 2020 ASUC OCTO. All rights reserved.
 //
 
-import Foundation
 import EventKit
+import Foundation
 
 class EventManager: NSObject {
     static let shared = EventManager()
+    
     private let eventStore = EKEventStore()
     
-    public func addEventToCalendar(calendarEvent: CalendarEvent, completion: @escaping (Bool) -> Void) {
-        eventStore.requestAccess(to: .event) { (granted, error) in
-            if granted && error == nil {
-                let event: EKEvent = EKEvent(eventStore: self.eventStore)
-                event.title = calendarEvent.name
-                event.startDate = calendarEvent.date
-                event.endDate = calendarEvent.end ?? calendarEvent.date
-                event.location = calendarEvent.location
-                event.notes = calendarEvent.additionalDescription + (calendarEvent.descriptionText ?? "")
-                event.calendar = self.eventStore.defaultCalendarForNewEvents
-                do {
-                    try self.eventStore.save(event, span: .thisEvent)
-                    completion(true)
-                } catch let error as NSError {
-                    print("failed to save event with error : \(error)")
-                    completion(false)
-                }
-            } else {
-                print("failed to save event with error : \(String(describing: error)) or access not granted")
-                completion(false)
-            }
+    public func addEventToCalendar(calendarEvent: CalendarEvent) async throws {
+        var success = false
+        
+        if #available(iOS 17.0, *) {
+            success = try await eventStore.requestWriteOnlyAccessToEvents()
+        } else {
+            success = try await eventStore.requestAccess(to: .event)
         }
+        
+        try saveEvent(calendarEvent, shouldSave: success)
+    }
+    
+    private func saveEvent(_ calendarEvent: CalendarEvent, shouldSave: Bool) throws {
+        let event: EKEvent = EKEvent(eventStore: eventStore)
+        event.title = calendarEvent.name
+        event.startDate = calendarEvent.date
+        event.endDate = calendarEvent.end ?? calendarEvent.date
+        event.location = calendarEvent.location
+        event.notes = calendarEvent.additionalDescription + (calendarEvent.descriptionText ?? "")
+        event.calendar = eventStore.defaultCalendarForNewEvents
+        
+        try eventStore.save(event, span: .thisEvent)
     }
 }
