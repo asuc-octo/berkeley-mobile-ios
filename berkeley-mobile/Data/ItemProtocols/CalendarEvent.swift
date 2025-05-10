@@ -42,15 +42,14 @@ extension CalendarEvent {
         let alertController = AlertView(headingText: "Add to Calendar", messageText: "Would you like to add this event to your calendar?", action1Label: "Cancel", action1Color: BMColor.AlertView.secondaryButton, action1Completion: {
             vc.dismiss(animated: true, completion: nil)
         }, action2Label: "Yes", action2Color: BMColor.ActionButton.background, action2Completion: {
-            EventManager.shared.addEventToCalendar(calendarEvent: self) { success in
-                DispatchQueue.main.async {
-                    if success {
-                        vc.dismiss(animated: true, completion: nil)
-                        vc.presentSuccessAlert(title: "Successfully added to calendar")
-                    } else {
-                        vc.dismiss(animated: true, completion: nil)
-                        vc.presentFailureAlert(title: "Failed to add to calendar", message: "Make sure Berkeley Mobile has access to your calendar and try again.")
-                    }
+            Task { @MainActor in
+                do {
+                    try await EventManager.shared.addEventToCalendar(calendarEvent: self)
+                    vc.dismiss(animated: true, completion: nil)
+                    vc.presentSuccessAlert(title: "Successfully added to calendar")
+                } catch {
+                    vc.dismiss(animated: true, completion: nil)
+                    vc.presentFailureAlert(title: "Failed to add to calendar", message: "Make sure Berkeley Mobile has access to your calendar and try again.")
                 }
             }
         }, withOnlyOneAction: false)
