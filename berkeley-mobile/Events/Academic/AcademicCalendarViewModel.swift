@@ -10,7 +10,7 @@ import FirebaseAnalytics
 import SwiftUI
 
 class AcademicCalendarViewModel: ObservableObject {
-    @Published var calendarEntries: [EventCalendarEntry] = []
+    @Published var entries: [EventCalendarEntry] = []
     @Published var isLoading = false
     @Published var alert: BMAlert?
     
@@ -28,7 +28,7 @@ class AcademicCalendarViewModel: ObservableObject {
         if rescapeData.shouldRescape {
             eventScrapper.scrape(at: academicCalendarURLString)
         } else {
-            calendarEntries = rescapeData.savedEvents
+            entries = rescapeData.savedEvents
             isLoading = false
         }
     }
@@ -66,7 +66,7 @@ class AcademicCalendarViewModel: ObservableObject {
 extension AcademicCalendarViewModel: EventScrapperDelegate {
     func eventScrapperDidFinishScrapping(results: [EventCalendarEntry]) {
         isLoading = false
-        calendarEntries = results
+        entries = results
     }
     
     func eventScrapperDidError(with errorDescription: String) {

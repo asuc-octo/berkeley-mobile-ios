@@ -71,7 +71,7 @@ struct BMAlertView: View {
             }
         }
         .padding()
-        .background(.white)
+        .background(Color(BMColor.modalBackground))
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .frame(width: 350)
     }
