@@ -62,9 +62,20 @@ class Gym: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasImage, HasOp
         self.phoneNumber = phoneNumber
         self.weeklyHours = weeklyHours
         self.name = name.trimmingCharacters(in: .whitespacesAndNewlines)
-        self.imageURL = URL(string: imageLink ?? "")
+        
+        if let imgLink = imageLink, !imgLink.isEmpty, let url = URL(string: imgLink) {
+            self.imageURL = url
+        } else {
+            self.imageURL = nil
+        }
+        
         self.icon = UIImage(named: "Walk")?.colored(BMColor.blackText)
-        self.website = URL(string: link ?? "")
+        
+        if let webLink = link, !webLink.isEmpty, let url = URL(string: webLink) {
+            self.website = url
+        } else {
+            self.website = nil
+        }
     }
 
 }
