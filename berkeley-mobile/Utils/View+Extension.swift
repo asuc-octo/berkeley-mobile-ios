@@ -74,7 +74,7 @@ struct Shadowfy: ViewModifier {
                 RoundedRectangle(cornerRadius: 12)
                     .fill(Color(BMColor.cardBackground)) 
             )
-            .shadow(color: Color.black.opacity(0.25), radius: 5, x: 0, y: 0)
+            .shadow(color: .black.opacity(0.15), radius: 5, x: 0, y: 0)
     }
 }
 
