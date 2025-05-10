@@ -9,7 +9,7 @@
 import EventKit
 import Foundation
 
-class EventManager: NSObject {
+class EventManager {
     static let shared = EventManager()
     
     private let eventStore = EKEventStore()
