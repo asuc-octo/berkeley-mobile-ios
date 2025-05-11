@@ -9,8 +9,7 @@
 import Foundation
 import UIKit
 
-class EventCalendarEntry: NSObject, NSCoding, CalendarEvent, HasImage, CanFavorite {
-    
+class EventCalendarEntry: NSObject, NSCoding, Identifiable, CalendarEvent, HasImage, CanFavorite {
     private struct ArgumentNames {
         static let name = "name"
         static let date = "date"
@@ -124,6 +123,4 @@ class EventCalendarEntry: NSObject, NSCoding, CalendarEvent, HasImage, CanFavori
         
         self.type = coder.decodeObject(forKey: ArgumentNames.type) as? String
     }
-
-    
 }

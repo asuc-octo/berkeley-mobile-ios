@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct BMAlert: Identifiable {
+struct BMAlert: Equatable, Identifiable {
     enum BMAlertType {
         case action
         case notice
@@ -19,6 +19,10 @@ struct BMAlert: Identifiable {
     var message: String
     var type: BMAlertType
     var completion: (() -> Void)?
+    
+    static func == (lhs: BMAlert, rhs: BMAlert) -> Bool {
+        lhs.id == rhs.id
+    }
 }
 
 struct BMAlertView: View {

@@ -66,6 +66,7 @@ struct BMCalendarView: View {
             daysOfWeekHeader
             daysView
         }
+        .frame(height: 180)
         .padding()
     }
     

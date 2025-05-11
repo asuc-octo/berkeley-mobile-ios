@@ -1,5 +1,5 @@
 //
-//  AcademicCalendarViewModel.swift
+//  EventsViewModel.swift
 //  berkeley-mobile
 //
 //  Created by Justin Wong on 5/8/25.
@@ -9,34 +9,17 @@
 import FirebaseAnalytics
 import SwiftUI
 
-class AcademicCalendarViewModel: ObservableObject {
-    @Published var entries: [EventCalendarEntry] = []
-    @Published var isLoading = false
+class EventsViewModel: ObservableObject {
     @Published var alert: BMAlert?
-    
-    private let eventScrapper = EventScrapper()
-    
-    init() {
-        eventScrapper.delegate = self
-    }
-    
-    func scrapeAcademicEvents() {
-        isLoading = true
-        let academicCalendarURLString = EventScrapper.Constants.academicCalendarURLString
-        let rescapeData = eventScrapper.shouldRescrape(for: academicCalendarURLString, lastRefreshDateKey: UserDefaultsKeys.academicEventsLastSavedDate.rawValue)
-        
-        if rescapeData.shouldRescape {
-            eventScrapper.scrape(at: academicCalendarURLString)
-        } else {
-            entries = rescapeData.savedEvents
-            isLoading = false
-        }
-    }
     
     func logAcademicCalendarTabAnalytics() {
         Analytics.logEvent("opened_academic_calendar", parameters: nil)
     }
     
+    func logCampuswideTabAnalytics() {
+        Analytics.logEvent("opened_campus_wide_events", parameters: nil)
+    }
+
     func showAddEventToCalendarAlert(_ event: EventCalendarEntry) {
         withoutAnimation {
             self.alert = BMAlert(title: "Add To Calendar", message: "Would you like to add this event to your calendar?", type: .action) {
@@ -56,23 +39,6 @@ class AcademicCalendarViewModel: ObservableObject {
                     }
                 }
             }
-        }
-    }
-}
-
-
-// MARK: - EventScrapperDelegate
-
-extension AcademicCalendarViewModel: EventScrapperDelegate {
-    func eventScrapperDidFinishScrapping(results: [EventCalendarEntry]) {
-        isLoading = false
-        entries = results
-    }
-    
-    func eventScrapperDidError(with errorDescription: String) {
-        isLoading = false
-        withoutAnimation {
-            self.alert = BMAlert(title: "", message: "Successfully added to calendar!", type: .notice)
         }
     }
 }

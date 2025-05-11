@@ -9,36 +9,48 @@
 import SwiftUI
 
 struct AcademicCalendarView: View {
-    @StateObject private var academicCalendarViewModel = AcademicCalendarViewModel()
+    @EnvironmentObject var eventsViewModel: EventsViewModel
+    @StateObject private var academicEventScrapper = EventScrapper(type: .academic)
     @StateObject private var calendarViewModel = CalendarViewModel()
     
     var body: some View {
         ScrollViewReader { scrollProxy in
-            ScrollView(.vertical) {
-                VStack {
-                    calendarDivider
-                    BMCalendarView() { day in
-                        scrollToEvent(day: day, proxy: scrollProxy)
+            List {
+                Group {
+                    VStack {
+                        calendarDivider
+                        BMCalendarView() { day in
+                            scrollToEvent(day: day, proxy: scrollProxy)
+                        }
+                        .environmentObject(calendarViewModel)
+                        calendarDivider
                     }
-                    .environmentObject(calendarViewModel)
-                    calendarDivider
+                    .padding(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
+                    .buttonStyle(PlainButtonStyle())
+                    
+                    eventsListView
                 }
-                .padding(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
-                
-                eventsListView
+                .listRowSeparator(.hidden)
+                .listRowBackground(Color(BMColor.cardBackground))
+                .listRowInsets(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
             }
-            .scrollIndicators(.visible)
+            .listStyle(PlainListStyle())
+            .refreshable {
+                guard !academicEventScrapper.isLoading else {
+                    return
+                }
+                academicEventScrapper.scrape()
+            }
         }
         .onAppear {
-            academicCalendarViewModel.logAcademicCalendarTabAnalytics()
-            academicCalendarViewModel.scrapeAcademicEvents()
+            academicEventScrapper.scrape()
+            eventsViewModel.logAcademicCalendarTabAnalytics()
         }
-        .onChange(of: academicCalendarViewModel.entries) { entries in
+        .onChange(of: academicEventScrapper.entries) { entries in
             calendarViewModel.setEntries(entries)
         }
-        .fullScreenCover(item: $academicCalendarViewModel.alert) { alert in
-            BMAlertView(alert: alert)
-                .presentationBackground(Color.clear)
+        .onChange(of: academicEventScrapper.alert) { alert in
+            eventsViewModel.alert = alert
         }
     }
     
@@ -49,35 +61,31 @@ struct AcademicCalendarView: View {
     
     @ViewBuilder
     private var eventsListView: some View {
-        if academicCalendarViewModel.isLoading {
-            ProgressView()
-        } else {
-            if academicCalendarViewModel.entries.isEmpty {
-                noEventsView
+        Group {
+            if academicEventScrapper.isLoading {
+                ProgressView()
             } else {
-                LazyVStack {
-                    ForEach(Array(academicCalendarViewModel.entries.enumerated()), id: \.offset) { index, entry in
-                        Button(action: {
-                            academicCalendarViewModel.showAddEventToCalendarAlert(entry)
-                        }) {
-                            AcademicEventRowView(event: entry, color: Color(entry.color))
-                                .frame(width: 310)
-                                .id(index)
+                if academicEventScrapper.entries.isEmpty {
+                    BMNoEventsView()
+                } else {
+                    ForEach(Array(academicEventScrapper.entries.enumerated()), id: \.offset) { index, entry in
+                        HStack {
+                            Spacer()
+                            Button(action: {
+                                eventsViewModel.showAddEventToCalendarAlert(entry)
+                            }) {
+                                AcademicEventRowView(event: entry, color: Color(entry.color))
+                                    .frame(width: 310)
+                                    .id(index)
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                            Spacer()
                         }
-                        .buttonStyle(PlainButtonStyle())
                     }
                 }
-                .padding(.bottom, 20)
             }
         }
-    }
-    
-    private var noEventsView: some View {
-        VStack {
-            Spacer()
-            BMContentUnavailableView(iconName: "", title: "No Events Available", subtitle: "Please try again.")
-            Spacer()
-        }
+        .frame(maxWidth: .infinity, alignment: .center)
     }
     
     private func scrollToEvent(day: Int, proxy: ScrollViewProxy) {
@@ -94,4 +102,5 @@ struct AcademicCalendarView: View {
 #Preview {
     AcademicCalendarView()
         .background(Color(BMColor.cardBackground))
+        .environmentObject(EventsViewModel())
 }
