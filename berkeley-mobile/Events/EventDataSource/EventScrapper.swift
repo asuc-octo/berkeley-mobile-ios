@@ -58,34 +58,38 @@ class EventScrapper: NSObject, ObservableObject {
         webView.navigationDelegate = self
     }
     
-    func scrape() {
+    func scrape(forceRescrape: Bool = false) {
         guard let url = URL(string: type.getURLString()) else {
             return
         }
     
         isLoading = true
         
-        let rescapeData = shouldRescrape()
-        if rescapeData.shouldRescape {
+        entries.removeAll()
+        
+        let rescrapeInfo = getRescrapeInfo()
+        let shouldRescrape = forceRescrape || rescrapeInfo.shouldRescrape
+        
+        if shouldRescrape {
             webView.load(URLRequest(url: url))
         } else {
-            entries = rescapeData.savedEvents
+            entries = rescrapeInfo.savedEvents
             isLoading = false
         }
     }
     
-    private func shouldRescrape() -> (shouldRescape: Bool, savedEvents: [EventCalendarEntry]) {
+    private func getRescrapeInfo() -> (shouldRescrape: Bool, savedEvents: [EventCalendarEntry]) {
         let savedEvents = retrieveSavedEvents(for: type.getURLString())
         let currentDate = Date()
         let lastSavedDate = UserDefaults.standard.object(forKey: type.getLastRefreshDateKey()) as? Date ?? currentDate
         let endOfDayDate = Calendar.current.date(bySettingHour: 23, minute: 59, second: 59, of: lastSavedDate) ?? currentDate
-        let rescape = savedEvents.isEmpty || currentDate >= endOfDayDate
+        let rescrape = savedEvents.isEmpty || currentDate >= endOfDayDate
         
-        if rescape {
+        if rescrape {
             UserDefaults.standard.set(currentDate, forKey: type.getLastRefreshDateKey())
         }
         
-        return (rescape, savedEvents)
+        return (rescrape, savedEvents)
     }
     
     private func retrieveSavedEvents(for urlString: String) -> [EventCalendarEntry] {

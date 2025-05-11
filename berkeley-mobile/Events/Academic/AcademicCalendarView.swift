@@ -39,7 +39,7 @@ struct AcademicCalendarView: View {
                 guard !academicEventScrapper.isLoading else {
                     return
                 }
-                academicEventScrapper.scrape()
+                academicEventScrapper.scrape(forceRescrape: true)
             }
         }
         .onAppear {
@@ -64,6 +64,7 @@ struct AcademicCalendarView: View {
         Group {
             if academicEventScrapper.isLoading {
                 ProgressView()
+                    .id(UUID())
             } else {
                 if academicEventScrapper.entries.isEmpty {
                     BMNoEventsView()

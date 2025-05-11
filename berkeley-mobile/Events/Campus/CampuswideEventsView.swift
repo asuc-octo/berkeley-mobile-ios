@@ -33,6 +33,7 @@ struct CampuswideEventsView: View {
             Group {
                 if campuswideEventScrapper.isLoading {
                     ProgressView()
+                        .id(UUID())
                 } else if campuswideEventScrapper.entries.isEmpty {
                     BMNoEventsView()
                 } else {
@@ -72,7 +73,7 @@ struct CampuswideEventsView: View {
             guard !campuswideEventScrapper.isLoading else {
                 return
             }
-            campuswideEventScrapper.scrape()
+            campuswideEventScrapper.scrape(forceRescrape: true)
         }
     }
 }

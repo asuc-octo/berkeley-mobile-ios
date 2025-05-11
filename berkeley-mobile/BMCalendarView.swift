@@ -23,9 +23,11 @@ class CalendarViewModel: ObservableObject {
     func setEntries(_ entries: [EventCalendarEntry]) {
         self.entries = entries
         
-        dateEntryPairs = dateEntryPairs.map { datePair in
-            let hasEntry = entries.contains(where: { $0.date.isSameDay(as: datePair.date) })
-            return (datePair.date, hasEntry)
+        withAnimation(.bouncy) {
+            dateEntryPairs = dateEntryPairs.map { datePair in
+                let hasEntry = entries.contains(where: { $0.date.isSameDay(as: datePair.date) })
+                return (datePair.date, hasEntry)
+            }
         }
     }
     
