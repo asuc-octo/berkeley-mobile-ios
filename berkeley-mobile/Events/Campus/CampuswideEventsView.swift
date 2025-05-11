@@ -38,17 +38,13 @@ struct CampuswideEventsView: View {
                     BMNoEventsView()
                 } else {
                     ForEach(Array(campuswideEventScrapper.entries.enumerated()), id: \.offset) { index, entry in
-                        HStack {
-                            Spacer()
-                            Button(action: {
-                                selectedEntry = entry
-                            }) {
-                                CampusEventRowView(entry: entry)
-                                    .frame(width: 310)
-                            }
-                            .buttonStyle(PlainButtonStyle())
-                            Spacer()
+                        Button(action: {
+                            selectedEntry = entry
+                        }) {
+                            CampusEventRowView(entry: entry)
+                                .frame(width: 310)
                         }
+                        .buttonStyle(PlainButtonStyle())
                     }
                 }
             }

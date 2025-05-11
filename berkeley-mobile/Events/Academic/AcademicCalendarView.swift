@@ -70,18 +70,14 @@ struct AcademicCalendarView: View {
                     BMNoEventsView()
                 } else {
                     ForEach(Array(academicEventScrapper.entries.enumerated()), id: \.offset) { index, entry in
-                        HStack {
-                            Spacer()
-                            Button(action: {
-                                eventsViewModel.showAddEventToCalendarAlert(entry)
-                            }) {
-                                AcademicEventRowView(event: entry, color: Color(entry.color))
-                                    .frame(width: 310)
-                                    .id(index)
-                            }
-                            .buttonStyle(PlainButtonStyle())
-                            Spacer()
+                        Button(action: {
+                            eventsViewModel.showAddEventToCalendarAlert(entry)
+                        }) {
+                            AcademicEventRowView(event: entry, color: Color(entry.color))
+                                .frame(width: 310)
+                                .id(index)
                         }
+                        .buttonStyle(PlainButtonStyle())
                     }
                 }
             }

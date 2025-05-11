@@ -33,14 +33,14 @@ class CalendarViewModel: ObservableObject {
     
     private func populateDates() {
         guard let sundayTwoWeeksAgo = Date.getDateCertainWeeksRelativeToToday(numWeeks: -2, dayOfWeek: .sunday),
-            let saturdayTwoWeeksFromNow = Date.getDateCertainWeeksRelativeToToday(numWeeks: 2, dayOfWeek: .saturday) else {
+            let nextSaturday = Date.getDateCertainWeeksRelativeToToday(numWeeks: 1, dayOfWeek: .saturday) else {
             return
         }
         
         var dates = [Date]()
         var currentDate = sundayTwoWeeksAgo
 
-        while currentDate <= saturdayTwoWeeksFromNow {
+        while currentDate <= nextSaturday {
             dates.append(currentDate)
             if let nextDate = calendar.date(byAdding: .day, value: 1, to: currentDate) {
                 currentDate = nextDate
