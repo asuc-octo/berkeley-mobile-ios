@@ -29,14 +29,15 @@ class EventsViewModel: ObservableObject {
     }
     
     private func addAcademicEventToCalendar(_ event: EventCalendarEntry) {
-        EventManager.shared.addEventToCalendar(calendarEvent: event) { success in
-            DispatchQueue.main.async {
+        Task { @MainActor in
+            do {
+                try await EventManager.shared.addEventToCalendar(calendarEvent: event)
                 withoutAnimation {
-                    if success {
-                        self.alert = BMAlert(title: "", message: "Successfully added to calendar!", type: .notice)
-                    } else {
-                        self.alert = BMAlert(title: "Failed to add to calendar", message: "Make sure Berkeley Mobile has access to your calendar and try again.", type: .notice)
-                    }
+                    self.alert = BMAlert(title: "", message: "Successfully added to calendar!", type: .notice)
+                }
+            } catch {
+                withoutAnimation {
+                    self.alert = BMAlert(title: "Failed to add to calendar", message: "Make sure Berkeley Mobile has access to your calendar and try again.", type: .notice)
                 }
             }
         }
