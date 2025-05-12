@@ -774,6 +774,7 @@
 			children = (
 				01B2502E2516C45800CBA459 /* EventCalendarEntry.swift */,
 				E8FCD6892C3A382F004B66A3 /* EventScrapper.swift */,
+				E891E2982DCD4DA3006CA0F5 /* EventsViewModel.swift */,
 			);
 			path = EventDataSource;
 			sourceTree = "<group>";
@@ -800,9 +801,9 @@
 		294FF42C2544F71200346E91 /* Academic */ = {
 			isa = PBXGroup;
 			children = (
-				E891E2982DCD4DA3006CA0F5 /* EventsViewModel.swift */,
 				E891E2962DCD3F0D006CA0F5 /* AcademicCalendarView.swift */,
 				E89A33142DCB21780068DDAA /* AcademicEventRowView.swift */,
+				E8C2BDA62D912B3A00165554 /* BMCalendarView.swift */,
 			);
 			path = Academic;
 			sourceTree = "<group>";
@@ -912,7 +913,6 @@
 				303F6AE6236A9C3D007E37DD /* Map */,
 				E8BC7B632B96CB3B002BF46D /* Resources */,
 				133864A72404E857001F9048 /* Events */,
-				E8C2BDA62D912B3A00165554 /* BMCalendarView.swift */,
 				303F6ADC236A9274007E37DD /* Drawer */,
 				556CCD2B23E79E9000F41BF9 /* Tab Bar */,
 				1396012D23865E2E005E4788 /* Common */,
