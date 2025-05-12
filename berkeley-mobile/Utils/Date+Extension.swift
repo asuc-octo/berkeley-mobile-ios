@@ -74,7 +74,7 @@ extension Date {
         }
         
         let currentWeekday = dateWeeksFromToday.weekday()
-        let daysDifference = abs(dayOfWeek.rawValue - currentWeekday)
+        let daysDifference = (numWeeks < 0 ? -1 : 1) * abs(dayOfWeek.rawValue - currentWeekday)
         
         return calendar.date(byAdding: .day, value: daysDifference, to: dateWeeksFromToday)
     } 
