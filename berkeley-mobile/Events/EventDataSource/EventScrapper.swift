@@ -15,21 +15,12 @@ class EventScrapper: NSObject, ObservableObject {
         case academic
         case campuswide
         
-        func getURLString() -> String {
+        func getInfo() -> (URLString: String, lastRefreshDateKey: String) {
             switch self {
             case .academic:
-                return "https://events.berkeley.edu/events/week/categories/Academic"
+                return ("https://events.berkeley.edu/events/week/categories/Academic", UserDefaultsKeys.academicEventsLastSavedDate.rawValue)
             case .campuswide:
-                return "https://events.berkeley.edu/events/all"
-            }
-        }
-        
-        func getLastRefreshDateKey() -> String {
-            switch self {
-            case .academic:
-                return UserDefaultsKeys.academicEventsLastSavedDate.rawValue
-            case .campuswide:
-                return UserDefaultsKeys.campuswideEventsLastSavedDate.rawValue
+                return ("https://events.berkeley.edu/events/all", UserDefaultsKeys.campuswideEventsLastSavedDate.rawValue)
             }
         }
     }
@@ -59,7 +50,7 @@ class EventScrapper: NSObject, ObservableObject {
     }
     
     func scrape(forceRescrape: Bool = false) {
-        guard let url = URL(string: type.getURLString()) else {
+        guard let url = URL(string: type.getInfo().URLString) else {
             return
         }
     
@@ -79,14 +70,14 @@ class EventScrapper: NSObject, ObservableObject {
     }
     
     private func getRescrapeInfo() -> (shouldRescrape: Bool, savedEvents: [EventCalendarEntry]) {
-        let savedEvents = retrieveSavedEvents(for: type.getURLString())
+        let savedEvents = retrieveSavedEvents(for: type.getInfo().URLString)
         let currentDate = Date()
-        let lastSavedDate = UserDefaults.standard.object(forKey: type.getLastRefreshDateKey()) as? Date ?? currentDate
+        let lastSavedDate = UserDefaults.standard.object(forKey: type.getInfo().lastRefreshDateKey) as? Date ?? currentDate
         let endOfDayDate = Calendar.current.date(bySettingHour: 23, minute: 59, second: 59, of: lastSavedDate) ?? currentDate
         let rescrape = savedEvents.isEmpty || currentDate >= endOfDayDate
         
         if rescrape {
-            UserDefaults.standard.set(currentDate, forKey: type.getLastRefreshDateKey())
+            UserDefaults.standard.set(currentDate, forKey: type.getInfo().lastRefreshDateKey)
         }
         
         return (rescrape, savedEvents)
@@ -100,6 +91,10 @@ class EventScrapper: NSObject, ObservableObject {
         let decodedEvents = NSArray.unsecureUnarchived(from: decodedData) as? [EventCalendarEntry]
         return decodedEvents ?? []
     }
+    
+    private func repopulateWithSavedEvents() {
+        entries = retrieveSavedEvents(for: type.getInfo().URLString)
+    }
 }
 
 
@@ -110,6 +105,7 @@ extension EventScrapper: WKNavigationDelegate {
         guard currNumOfRescrapes < allowedNumOfRescrapes else {
             currNumOfRescrapes = 0
             alert = BMAlert(title: "Unable To Load Events", message: "Cannot load events in reasonable time. Please try again later.", type: .notice)
+            repopulateWithSavedEvents()
             isLoading = false
             return
         }
@@ -120,29 +116,31 @@ extension EventScrapper: WKNavigationDelegate {
             
                 guard let htmlContent = result as? String else {
                     await MainActor.run {
-                        self.alert = BMAlert(title: "Unable To Load Events", message: "Parsing website HTML content was unsuccessful. Please try again.", type: .notice)
-                        self.isLoading = false
+                        alert = BMAlert(title: "Unable To Load Events", message: "Parsing website HTML content was unsuccessful. Please try again.", type: .notice)
+                        repopulateWithSavedEvents()
+                        isLoading = false
                     }
                     return
                 }
                 
-                let scrappedCalendarEntries = try self.parseWebsiteForEvents(html: htmlContent)
+                let scrappedCalendarEntries = try parseWebsiteForEvents(html: htmlContent)
 
                 guard !scrappedCalendarEntries.isEmpty else {
-                    self.currNumOfRescrapes += 1
-                    self.scrape()
+                    currNumOfRescrapes += 1
+                    scrape()
                     return
                 }
 
-                self.saveEventCalendarEntries(for: scrappedCalendarEntries)
+                saveEventCalendarEntries(for: scrappedCalendarEntries)
                 await MainActor.run {
-                    self.entries = scrappedCalendarEntries
-                    self.isLoading = false
+                    entries = scrappedCalendarEntries
+                    isLoading = false
                 }
             } catch {
                 await MainActor.run {
-                    self.alert = BMAlert(title: "Unable To Load Events", message: error.localizedDescription, type: .notice)
-                    self.isLoading = false
+                    alert = BMAlert(title: "Unable To Load Events", message: error.localizedDescription, type: .notice)
+                    repopulateWithSavedEvents()
+                    isLoading = false
                 }
             }
         }
@@ -197,7 +195,7 @@ extension EventScrapper: WKNavigationDelegate {
     
     private func saveEventCalendarEntries(for entries: [EventCalendarEntry]) {
         if let encodedData = try? NSKeyedArchiver.archivedData(withRootObject: entries, requiringSecureCoding: false) {
-            UserDefaults.standard.set(encodedData, forKey: type.getURLString())
+            UserDefaults.standard.set(encodedData, forKey: type.getInfo().URLString)
         }
     }
 }

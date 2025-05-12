@@ -76,5 +76,6 @@ struct CampuswideEventsView: View {
 
 #Preview {
     CampuswideEventsView()
+        .background(Color(BMColor.cardBackground))
         .environmentObject(EventsViewModel())
 }
