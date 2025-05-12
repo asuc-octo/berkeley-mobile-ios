@@ -23,22 +23,24 @@ class CalendarViewModel: ObservableObject {
     func setEntries(_ entries: [EventCalendarEntry]) {
         self.entries = entries
         
-        dateEntryPairs = dateEntryPairs.map { datePair in
-            let hasEntry = entries.contains(where: { $0.date.isSameDay(as: datePair.date) })
-            return (datePair.date, hasEntry)
+        withAnimation(.bouncy) {
+            dateEntryPairs = dateEntryPairs.map { datePair in
+                let hasEntry = entries.contains(where: { $0.date.isSameDay(as: datePair.date) })
+                return (datePair.date, hasEntry)
+            }
         }
     }
     
     private func populateDates() {
         guard let sundayTwoWeeksAgo = Date.getDateCertainWeeksRelativeToToday(numWeeks: -2, dayOfWeek: .sunday),
-            let saturdayTwoWeeksFromNow = Date.getDateCertainWeeksRelativeToToday(numWeeks: 2, dayOfWeek: .saturday) else {
+            let nextSaturday = Date.getDateCertainWeeksRelativeToToday(numWeeks: 1, dayOfWeek: .saturday) else {
             return
         }
         
         var dates = [Date]()
         var currentDate = sundayTwoWeeksAgo
 
-        while currentDate <= saturdayTwoWeeksFromNow {
+        while currentDate <= nextSaturday {
             dates.append(currentDate)
             if let nextDate = calendar.date(byAdding: .day, value: 1, to: currentDate) {
                 currentDate = nextDate
@@ -66,6 +68,7 @@ struct BMCalendarView: View {
             daysOfWeekHeader
             daysView
         }
+        .frame(height: 180)
         .padding()
     }
     
