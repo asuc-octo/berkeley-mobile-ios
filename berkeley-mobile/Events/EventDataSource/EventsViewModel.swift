@@ -37,7 +37,11 @@ class EventsViewModel: ObservableObject {
                 }
             } catch {
                 withoutAnimation {
-                    self.alert = BMAlert(title: "Failed to add to calendar", message: "Make sure Berkeley Mobile has access to your calendar and try again.", type: .notice)
+                    if let bmError = error as? BMError, bmError == .mayExistedInCalendarAlready {
+                        self.alert = BMAlert(title: "Successfully added to calendar!", message: error.localizedDescription, type: .notice)
+                    } else {
+                        self.alert = BMAlert(title: "Failed to add to calendar", message: error.localizedDescription, type: .notice)
+                    }
                 }
             }
         }
