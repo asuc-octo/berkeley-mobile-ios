@@ -15,23 +15,16 @@ class EventManager {
     private let eventStore = EKEventStore()
     
     public func addEventToCalendar(calendarEvent: CalendarEvent) async throws {
-        let authStatus = EKEventStore.authorizationStatus(for: .event)
-        
-        switch authStatus {
-            case .notDetermined, .denied, .restricted:
-            if #available(iOS 17.0, *) {
-                try await eventStore.requestFullAccessToEvents()
-            } else {
-                try await eventStore.requestAccess(to: .event)
-            }
-            default:
-                break
+        if #available(iOS 17.0, *) {
+            try await eventStore.requestFullAccessToEvents()
+        } else {
+            try await eventStore.requestAccess(to: .event)
         }
         
-        try saveEvent(calendarEvent, authStatus: authStatus)
+        try saveEvent(calendarEvent)
     }
     
-    private func saveEvent(_ calendarEvent: CalendarEvent, authStatus: EKAuthorizationStatus) throws {
+    private func saveEvent(_ calendarEvent: CalendarEvent) throws {
         let eventStartDate = calendarEvent.date
         let eventEndDate = calendarEvent.end ?? calendarEvent.date
         
@@ -54,6 +47,7 @@ class EventManager {
         do {
             try eventStore.save(event, span: .thisEvent)
             if #available(iOS 17.0, *) {
+                let authStatus = EKEventStore.authorizationStatus(for: .event)
                 if authStatus == .writeOnly {
                     throw BMError.mayExistedInCalendarAlready
                 }
