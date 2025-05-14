@@ -195,6 +195,7 @@
 		E891E29B2DCD4E37006CA0F5 /* BMAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E891E29A2DCD4E37006CA0F5 /* BMAlertView.swift */; };
 		E891E2AD2DD00449006CA0F5 /* CampuswideEventsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E891E2AC2DD00449006CA0F5 /* CampuswideEventsView.swift */; };
 		E891E2AF2DD05029006CA0F5 /* BMNoEventsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E891E2AE2DD05029006CA0F5 /* BMNoEventsView.swift */; };
+		E891E2D92DD526FC006CA0F5 /* BMError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E891E2D82DD526FC006CA0F5 /* BMError.swift */; };
 		E89A33152DCB21780068DDAA /* AcademicEventRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89A33142DCB21780068DDAA /* AcademicEventRowView.swift */; };
 		E8B2738D2BD5C83F0009831A /* SafetyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B2738C2BD5C83F0009831A /* SafetyView.swift */; };
 		E8B2738F2BD5E46B0009831A /* BMDrawerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B2738E2BD5E46B0009831A /* BMDrawerView.swift */; };
@@ -420,6 +421,7 @@
 		E891E29A2DCD4E37006CA0F5 /* BMAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMAlertView.swift; sourceTree = "<group>"; };
 		E891E2AC2DD00449006CA0F5 /* CampuswideEventsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampuswideEventsView.swift; sourceTree = "<group>"; };
 		E891E2AE2DD05029006CA0F5 /* BMNoEventsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMNoEventsView.swift; sourceTree = "<group>"; };
+		E891E2D82DD526FC006CA0F5 /* BMError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMError.swift; sourceTree = "<group>"; };
 		E89A33142DCB21780068DDAA /* AcademicEventRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcademicEventRowView.swift; sourceTree = "<group>"; };
 		E8B2738C2BD5C83F0009831A /* SafetyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyView.swift; sourceTree = "<group>"; };
 		E8B2738E2BD5E46B0009831A /* BMDrawerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMDrawerView.swift; sourceTree = "<group>"; };
@@ -905,6 +907,7 @@
 				E83D87932AB3CD1E00C4113C /* FeedbackFormView.swift */,
 				E83B6D9C2D72FD6F00AA9422 /* HomeView.swift */,
 				E8C2BD312D8A475300165554 /* Constants.swift */,
+				E891E2D82DD526FC006CA0F5 /* BMError.swift */,
 				13EA64CE2399D4A100FD8E13 /* Data */,
 				13B39A8E23E6A1ED0039FBA2 /* Libraries */,
 				136DC9792398B43F009B1810 /* Fitness */,
@@ -1296,6 +1299,7 @@
 				55DCF78923722CF1001B01B8 /* Fonts.swift in Sources */,
 				296F1B272439341300924C8D /* DiningDetailViewController.swift in Sources */,
 				13492D2D240E179F00AD3D1F /* MapMarkerDetailView.swift in Sources */,
+				E891E2D92DD526FC006CA0F5 /* BMError.swift in Sources */,
 				1346B9192420AD4800383399 /* WeeklyHours.swift in Sources */,
 				29B1D307254E1C8700BAD88F /* EventManager.swift in Sources */,
 				E8C2BDA72D912B3A00165554 /* BMCalendarView.swift in Sources */,
@@ -1522,7 +1526,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "berkeley-mobile/berkeley-mobile.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 4HBETBULVA;
 				INFOPLIST_FILE = "berkeley-mobile/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
@@ -1546,7 +1550,7 @@
 				CODE_SIGN_ENTITLEMENTS = "berkeley-mobile/berkeley-mobile.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 4HBETBULVA;
 				INFOPLIST_FILE = "berkeley-mobile/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;

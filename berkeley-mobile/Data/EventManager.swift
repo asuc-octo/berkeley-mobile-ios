@@ -53,7 +53,7 @@ class EventManager {
                 }
             }
         } catch {
-            if let ekError = error as? EKError, ekError.code == .alarmGreaterThanRecurrence {
+            if let ekError = error as? EKError, ekError.errorCode == 1 {
                 throw BMError.insufficientAccessToCalendar
             } else {
                 throw error
