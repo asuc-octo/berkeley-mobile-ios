@@ -11,7 +11,7 @@ import SwiftUI
 class HomeSectionListRowViewModel: ObservableObject {
     @Published var title = ""
     @Published var distance = 0.0
-    @Published var image = Constants.doeGladeImage
+    @Published var image = BMConstants.doeGladeImage
     
     func configureRow(with rowItem: SearchItem & HasLocation & HasImage) {
         withAnimation {
