@@ -31,7 +31,7 @@ struct CampusEventRowView: View {
             
             Spacer()
             
-            BMCachedAsyncImageView(imageURL: entry.imageURL, placeholderImage: Constants.doeGladeImage, aspectRatio: .fill, widthAndHeight: imageWidthAndHeight, cornerRadius: 12)
+            BMCachedAsyncImageView(imageURL: entry.imageURL, placeholderImage: BMConstants.doeGladeImage, aspectRatio: .fill, widthAndHeight: imageWidthAndHeight, cornerRadius: 12)
                 .shadowfy()
         }
         .padding()

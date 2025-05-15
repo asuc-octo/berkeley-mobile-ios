@@ -31,7 +31,7 @@ class EventsViewModel: ObservableObject {
     private func addAcademicEventToCalendar(_ event: EventCalendarEntry) {
         Task { @MainActor in
             do {
-                try await EventManager.shared.addEventToCalendar(calendarEvent: event)
+                try await BMEventManager.shared.addEventToCalendar(calendarEvent: event)
                 withoutAnimation {
                     self.alert = BMAlert(title: "", message: "Successfully added to calendar!", type: .notice)
                 }

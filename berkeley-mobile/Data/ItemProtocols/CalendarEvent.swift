@@ -44,7 +44,7 @@ extension CalendarEvent {
         }, action2Label: "Yes", action2Color: BMColor.ActionButton.background, action2Completion: {
             Task { @MainActor in
                 do {
-                    try await EventManager.shared.addEventToCalendar(calendarEvent: self)
+                    try await BMEventManager.shared.addEventToCalendar(calendarEvent: self)
                     vc.dismiss(animated: true, completion: nil)
                     vc.presentSuccessAlert(title: "Successfully added to calendar")
                 } catch {

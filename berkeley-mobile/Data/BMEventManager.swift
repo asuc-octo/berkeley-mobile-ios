@@ -1,5 +1,5 @@
 //
-//  EventManager.swift
+//  BMEventManager.swift
 //  berkeley-mobile
 //
 //  Created by Shawn Huang on 10/31/20.
@@ -9,8 +9,8 @@
 import EventKit
 import Foundation
 
-class EventManager {
-    static let shared = EventManager()
+class BMEventManager {
+    static let shared = BMEventManager()
     
     private let eventStore = EKEventStore()
     

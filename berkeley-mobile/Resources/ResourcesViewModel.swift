@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import Firebase
 
 struct BMResourceCategory: Codable {
     var name: String
@@ -32,8 +31,6 @@ class ResourcesViewModel: ObservableObject {
     @Published var resourceCategories = [BMResourceCategory]()
     @Published var isLoading = false
     
-    private let db = Firestore.firestore()
-    
     var resourceCategoryNames: [String] {
         resourceCategories.map { $0.name }
     }
@@ -44,27 +41,15 @@ class ResourcesViewModel: ObservableObject {
         }
     }
     
+    @MainActor
     private func fetchResourceCategories() async {
-        let collection = db.collection("Resource Categories")
-        
         do {
             isLoading = true
-            let querySnapshot = try await collection.getDocuments()
-            let documents = querySnapshot.documents
-            let fetchedResourceCategories = documents.compactMap { queryDocumentSnapshot -> BMResourceCategory? in
-                try? queryDocumentSnapshot.data(as: BMResourceCategory.self)
-            }
-            
-            let sortedCategories = fetchedResourceCategories.sorted { $0.name < $1.name }
-            await MainActor.run {
-                self.resourceCategories = sortedCategories
-                self.isLoading = false
-            }
+            let sortedCategories = try await BMNetworkingManager.shared.fetchResourcesCategories()
+            resourceCategories = sortedCategories
+            isLoading = false
         } catch {
-            print("Error getting document (Resource Categories): \(error)")
-            await MainActor.run {
-                self.isLoading = false
-            }
+            isLoading = false
         }
     }
 }
