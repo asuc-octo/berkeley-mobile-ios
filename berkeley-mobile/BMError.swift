@@ -20,9 +20,9 @@ extension BMError: LocalizedError {
         case .insufficientAccessToCalendar:
             return NSLocalizedString("Insufficient permissions to access your calendar. Please go to Settings to allow calendar access.", comment: "Insufficent Permissions Error")
         case .eventAlreadyAddedInCalendar:
-            return NSLocalizedString("Event has already been added to your calendar.", comment: "Event Already Added To Calendar Error")
+            return NSLocalizedString("This event is already in your calendar.", comment: "Event Already Added To Calendar Error")
         case .mayExistedInCalendarAlready:
-            return NSLocalizedString("Event may already have been added to your calendar.", comment: "Event May Already Been Added Error")
+            return NSLocalizedString("This event may already be in your calendar. Please check for duplicates.", comment: "Event May Already Been Added Error")
         }
     }
 }
