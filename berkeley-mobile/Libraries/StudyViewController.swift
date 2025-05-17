@@ -186,12 +186,8 @@ class StudyViewController: UIViewController, UITableViewDataSource, UITableViewD
         let cell = tableView.dequeueReusableCell(withIdentifier: FilterTableViewCell.kCellIdentifier, for: indexPath)
         let library = self.filterTableView.filteredData[indexPath.row]
         
-        let cellViewModel = HomeSectionListRowViewModel()
-        cellViewModel.configureRow(with: library)
-        
         cell.contentConfiguration = UIHostingConfiguration {
-            HomeSectionListRowView()
-                .environmentObject(cellViewModel)
+            HomeSectionListRowView(rowItem: library)
         }
         return cell
     }
