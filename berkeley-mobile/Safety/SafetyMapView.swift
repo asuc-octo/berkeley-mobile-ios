@@ -52,11 +52,7 @@ struct SafetyNewMapView: View {
         ZStack {
             Map(position: $mapCameraPosition, bounds: bounds, selection: $selectedSafetyLog) {
                 ForEach(safetyViewModel.filteredSafetyLogs) { safetyLog in
-                    let dateText = "\(safetyLog.date.formatted(date: .numeric, time: .shortened))"
-                    let monogramText = "\(safetyLog.getSafetyLogState.rawValue.first!.uppercased())"
-                    Marker(dateText, monogram: Text(monogramText), coordinate: safetyLog.coordinate)
-                        .tint(safetyViewModel.crimeInfos[safetyLog.getSafetyLogState]?.color ?? .red)
-                        .tag(safetyLog)
+                    BMSafetyMapMarker(safetyLog: safetyLog)
                 }
             }
             .mapControlVisibility(.hidden)

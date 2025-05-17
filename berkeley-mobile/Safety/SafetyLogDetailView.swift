@@ -10,6 +10,8 @@ import MapKit
 import SwiftUI
 
 struct SafetyLogDetailView: View {
+    @EnvironmentObject var safetyViewModel: SafetyViewModel
+    
     @Binding var selectedSafetyLog: BMSafetyLog?
     @Binding var drawerViewState: BMDrawerViewState
     
@@ -23,8 +25,17 @@ struct SafetyLogDetailView: View {
             
             ScrollView(.vertical) {
                 if let selectedSafetyLog = selectedSafetyLog {
-                    Map(coordinateRegion: .constant(MKCoordinateRegion(center: selectedSafetyLog.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))), annotationItems: [selectedSafetyLog]) { safetyLog in
-                        MapPin(coordinate: safetyLog.coordinate)
+                    let mapRegion = MKCoordinateRegion(center: selectedSafetyLog.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+                    Group {
+                        if #available(iOS 17.0, *) {
+                            Map(bounds: MapCameraBounds(centerCoordinateBounds: mapRegion, minimumDistance: 2000)) {
+                                BMSafetyMapMarker(safetyLog: selectedSafetyLog)
+                            }
+                        } else {
+                            Map(coordinateRegion: .constant(mapRegion), annotationItems: [selectedSafetyLog]) { safetyLog in
+                                MapPin(coordinate: safetyLog.coordinate)
+                            }
+                        }
                     }
                     .allowsHitTesting(false)
                     .frame(height: 250)
