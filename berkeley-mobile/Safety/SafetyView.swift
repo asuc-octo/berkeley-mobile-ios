@@ -31,6 +31,7 @@ struct SafetyView: View {
             if isPresentingSafetyLogDetailView {
                 SafetyLogDetailView(selectedSafetyLog: $selectedSafetyLog, drawerViewState: $drawerViewState)
                     .padding()
+                    .environmentObject(safetyViewModel)
             }
         }
         .animation(.easeInOut, value: isPresentingSafetyLogDetailView)
