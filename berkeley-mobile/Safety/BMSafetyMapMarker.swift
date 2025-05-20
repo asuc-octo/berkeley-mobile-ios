@@ -23,3 +23,12 @@ struct BMSafetyMapMarker: MapContent {
             .tag(safetyLog)
     }
 }
+
+#Preview {
+    if #available(iOS 17.0, *) {
+        Map {
+            BMSafetyMapMarker(safetyLog: SafetyViewModel.getSampleSafetyLog())
+        }
+        .environmentObject(SafetyViewModel())
+    }
+}
