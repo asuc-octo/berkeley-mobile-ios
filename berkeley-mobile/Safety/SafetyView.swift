@@ -31,6 +31,7 @@ struct SafetyView: View {
             if isPresentingSafetyLogDetailView {
                 SafetyLogDetailView(selectedSafetyLog: $selectedSafetyLog, drawerViewState: $drawerViewState)
                     .padding()
+                    .environmentObject(safetyViewModel)
             }
         }
         .animation(.easeInOut, value: isPresentingSafetyLogDetailView)
@@ -41,7 +42,7 @@ struct SafetyView: View {
             VStack(alignment: .leading) {
                 alertsDrawerHeaderView
                 
-                if safetyViewModel.isFetchingLogs {
+                if safetyViewModel.isLoading {
                     loadingSafetyLogsView
                 } else {
                     if !safetyViewModel.filteredSafetyLogs.isEmpty {
@@ -59,6 +60,7 @@ struct SafetyView: View {
                         .listStyle(PlainListStyle())
                         .scrollContentBackground(.hidden)
                         .transition(.scale)
+                        .animation(.default, value: safetyViewModel.filteredSafetyLogs)
                     } else {
                         emptySafetyLogsView
                     }

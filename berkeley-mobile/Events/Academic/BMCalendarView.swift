@@ -10,9 +10,9 @@ import SwiftUI
 
 typealias BMDateHasEntryPair = (date: Date, hasEntry: Bool)
 
-class BMCalendarViewModel: ObservableObject {
+class CalendarViewModel: ObservableObject {
     @Published var dateEntryPairs = [BMDateHasEntryPair]()
-    var calendarEntries = [EventCalendarEntry]()
+    var entries = [EventCalendarEntry]()
     
     private let calendar = Calendar.current
     
@@ -20,25 +20,27 @@ class BMCalendarViewModel: ObservableObject {
         populateDates()
     }
     
-    func setCalendarEntries(for entries: [EventCalendarEntry]) {
-        self.calendarEntries = entries
+    func setEntries(_ entries: [EventCalendarEntry]) {
+        self.entries = entries
         
-        dateEntryPairs = dateEntryPairs.map { datePair in
-            let hasEntry = entries.contains(where: { $0.date.isSameDay(as: datePair.date) })
-            return (datePair.date, hasEntry)
+        withAnimation(.bouncy) {
+            dateEntryPairs = dateEntryPairs.map { datePair in
+                let hasEntry = entries.contains(where: { $0.date.isSameDay(as: datePair.date) })
+                return (datePair.date, hasEntry)
+            }
         }
     }
     
     private func populateDates() {
         guard let sundayTwoWeeksAgo = Date.getDateCertainWeeksRelativeToToday(numWeeks: -2, dayOfWeek: .sunday),
-            let saturdayTwoWeeksFromNow = Date.getDateCertainWeeksRelativeToToday(numWeeks: 2, dayOfWeek: .saturday) else {
+            let nextSaturday = Date.getDateCertainWeeksRelativeToToday(numWeeks: 1, dayOfWeek: .saturday) else {
             return
         }
         
         var dates = [Date]()
         var currentDate = sundayTwoWeeksAgo
 
-        while currentDate <= saturdayTwoWeeksFromNow {
+        while currentDate <= nextSaturday {
             dates.append(currentDate)
             if let nextDate = calendar.date(byAdding: .day, value: 1, to: currentDate) {
                 currentDate = nextDate
@@ -55,17 +57,18 @@ class BMCalendarViewModel: ObservableObject {
 // MARK: - BMCalendarView
 
 struct BMCalendarView: View {
-    @EnvironmentObject var viewModel: BMCalendarViewModel
+    @EnvironmentObject var viewModel: CalendarViewModel
     
     var didSelectDay: ((Int) -> Void)?
     
     private let columns = Array(repeating: GridItem(.flexible(minimum: 30)), count: 7)
     
     var body: some View {
-        LazyVGrid(columns: columns, spacing: 20) {
+        LazyVGrid(columns: columns, spacing: 8) {
             daysOfWeekHeader
             daysView
         }
+        .frame(height: 180)
         .padding()
     }
     
@@ -147,13 +150,13 @@ struct CalendarEntryButton: View {
 }
 
 #Preview {
-    let viewModel = BMCalendarViewModel()
+    let viewModel = CalendarViewModel()
     let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: Date())!
     let eventCalendarEntries = [
         EventCalendarEntry(name: "", date: Date(), end: Date(), descriptionText: "", location: "", imageURL: "", sourceLink: ""),
         EventCalendarEntry(name: "", date: tomorrow, end: tomorrow, descriptionText: "", location: "", imageURL: "", sourceLink: "")
     ]
-    viewModel.setCalendarEntries(for: eventCalendarEntries)
+    viewModel.setEntries(eventCalendarEntries)
     
     return BMCalendarView()
         .environmentObject(viewModel)

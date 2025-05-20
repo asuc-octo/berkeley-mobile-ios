@@ -35,7 +35,21 @@ struct SearchBarView: View {
         .clipShape(.rect(cornerRadius: 15))
         .shadow(color: .black.opacity(0.3), radius: 8)
         .onChange(of: isFocused) { newValue in // onChange syntax will need to change in later iOS
-            if case .populated = viewModel.state {} else {
+            switch viewModel.state {
+            case .populated,
+                    .idle where (!viewModel.recentSearches.isEmpty && viewModel.isSearching):
+                /*
+                 .scrollDismissesKeyboard(.immediately) in SearchResultsView
+                 triggers FocusState change by default.
+                 To keep searching state active when we want to scroll through
+                 the list of search items (case = .populated) or recent search
+                 items (.idle + !viewModel.recentSearch.isEmpty) we pass through
+                 this FocusState change.
+                 viewModel.isSearching condition is needed for scenario when
+                 searchBar is initally tapped from the HomeView.
+                */
+                break
+            default:
                 viewModel.isSearching = newValue
             }
         }

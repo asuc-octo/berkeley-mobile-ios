@@ -8,6 +8,19 @@
 
 import SwiftUI
 
+// MARK: - Global Functions
+
+func withoutAnimation(action: @escaping () -> Void) {
+    var transaction = Transaction()
+    transaction.disablesAnimations = true
+    withTransaction(transaction) {
+        action()
+    }
+}
+
+
+// MARK: - Button Styles
+
 struct BMControlButtonStyle: ButtonStyle {
     static let widthAndHeight: CGFloat = 45
     
@@ -34,6 +47,7 @@ struct SearchResultsListRowButtonStyle: ButtonStyle {
     }
 }
 
+
 // MARK: - View Positioning
 
 struct PositionAtTopModifier: ViewModifier {
@@ -53,24 +67,26 @@ struct PositionAtTopModifier: ViewModifier {
     }
 }
 
-struct Cardify: ViewModifier {
+struct Shadowfy: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .padding(3)
             .background(
                 RoundedRectangle(cornerRadius: 12)
                     .fill(Color(BMColor.cardBackground)) 
             )
-            .shadow(color: Color.black.opacity(0.25), radius: 5, x: 0, y: 0)
+            .shadow(color: .black.opacity(0.15), radius: 5, x: 0, y: 0)
     }
 }
+
+
+// MARK: - View Extension
 
 extension View {
     func positionedAtTop() -> some View {
         self.modifier(PositionAtTopModifier())
     }
   
-    func cardify() -> some View {
-        self.modifier(Cardify())
+    func shadowfy() -> some View {
+        self.modifier(Shadowfy())
     }
 }
