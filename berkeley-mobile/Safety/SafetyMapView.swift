@@ -51,6 +51,7 @@ struct SafetyNewMapView: View {
     var body: some View {
         ZStack {
             Map(position: $mapCameraPosition, bounds: bounds, selection: $selectedSafetyLog) {
+                UserAnnotation()
                 ForEach(safetyViewModel.filteredSafetyLogs) { safetyLog in
                     let dateText = "\(safetyLog.date.formatted(date: .numeric, time: .shortened))"
                     let monogramText = "\(safetyLog.getSafetyLogState.rawValue.first!.uppercased())"
