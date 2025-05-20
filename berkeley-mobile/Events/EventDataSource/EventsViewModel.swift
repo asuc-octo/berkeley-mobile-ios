@@ -36,10 +36,12 @@ class EventsViewModel: ObservableObject {
                     self.alert = BMAlert(title: "", message: "Successfully added to calendar!", type: .notice)
                 }
             } catch {
-                withoutAnimation {
-                    if let bmError = error as? BMError, bmError == .mayExistedInCalendarAlready {
+                if let bmError = error as? BMError, bmError == .mayExistedInCalendarAlready {
+                    withoutAnimation {
                         self.alert = BMAlert(title: "Successfully added to calendar!", message: error.localizedDescription, type: .notice)
-                    } else {
+                    }
+                } else {
+                    withoutAnimation {
                         self.alert = BMAlert(title: "Failed to add to calendar", message: error.localizedDescription, type: .notice)
                     }
                 }

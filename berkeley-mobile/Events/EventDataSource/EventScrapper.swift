@@ -80,6 +80,11 @@ class EventScrapper: NSObject, ObservableObject {
             UserDefaults.standard.set(currentDate, forKey: type.getInfo().lastRefreshDateKey)
         }
         
+        print(savedEvents[0].imageURL)
+        print(savedEvents[0].descriptionText)
+        print(savedEvents[0].registerLink)
+        print(savedEvents[0].location)
+    
         return (rescrape, savedEvents)
     }
     

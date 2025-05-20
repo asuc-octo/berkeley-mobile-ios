@@ -8,19 +8,19 @@
 
 import SwiftUI
 
-struct CampusEventDetailView: UIViewControllerRepresentable {
-    typealias UIViewControllerType = CampusEventDetailViewController
-    
-    var entry: EventCalendarEntry
-
-    func makeUIViewController(context: Context) -> CampusEventDetailViewController {
-        let detailVC = CampusEventDetailViewController()
-        detailVC.event = entry
-        return detailVC
-    }
-
-    func updateUIViewController(_ uiViewController: CampusEventDetailViewController, context: Context) {}
-}
+//struct CampusEventDetailView: UIViewControllerRepresentable {
+//    typealias UIViewControllerType = CampusEventDetailViewController
+//    
+//    var entry: EventCalendarEntry
+//
+//    func makeUIViewController(context: Context) -> CampusEventDetailViewController {
+//        let detailVC = CampusEventDetailViewController()
+//        detailVC.event = entry
+//        return detailVC
+//    }
+//
+//    func updateUIViewController(_ uiViewController: CampusEventDetailViewController, context: Context) {}
+//}
 
 struct CampuswideEventsView: View {
     @EnvironmentObject var eventsViewModel: EventsViewModel
@@ -61,15 +61,14 @@ struct CampuswideEventsView: View {
         .onChange(of: campuswideEventScrapper.alert) { alert in
             eventsViewModel.alert = alert
         }
-        .sheet(item: $selectedEntry) { entry in
-            CampusEventDetailView(entry: entry)
-                .ignoresSafeArea()
-        }
         .refreshable {
             guard !campuswideEventScrapper.isLoading else {
                 return
             }
             campuswideEventScrapper.scrape(forceRescrape: true)
+        }
+        .sheet(item: $selectedEntry) { entry in
+            CampusEventDetailView(event: entry)
         }
     }
 }
