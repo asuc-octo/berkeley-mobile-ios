@@ -35,27 +35,6 @@ protocol CalendarEvent {
 }
 
 extension CalendarEvent {
-    /// Prompts and adds this event to the user's local calendar.
-    ///
-    /// Override this function if additional fields need to be included in the exported event.
-    public func addToDeviceCalendar(vc: UIViewController) {
-        let alertController = AlertView(headingText: "Add to Calendar", messageText: "Would you like to add this event to your calendar?", action1Label: "Cancel", action1Color: BMColor.AlertView.secondaryButton, action1Completion: {
-            vc.dismiss(animated: true, completion: nil)
-        }, action2Label: "Yes", action2Color: BMColor.ActionButton.background, action2Completion: {
-            Task { @MainActor in
-                do {
-                    try await BMEventManager.shared.addEventToCalendar(calendarEvent: self)
-                    vc.dismiss(animated: true, completion: nil)
-                    vc.presentSuccessAlert(title: "Successfully added to calendar")
-                } catch {
-                    vc.dismiss(animated: true, completion: nil)
-                    vc.presentFailureAlert(title: "Failed to add to calendar", message: "Make sure Berkeley Mobile has access to your calendar and try again.")
-                }
-            }
-        }, withOnlyOneAction: false)
-        vc.present(alertController, animated: true, completion: nil)
-    }
-    
     var dateString: String {
         get {
             var dateString = ""

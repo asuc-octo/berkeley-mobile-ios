@@ -30,7 +30,7 @@ struct CampuswideEventsView: View {
                                         CampusEventDetailView(event: entry)
                                             .environmentObject(eventsViewModel)
                                     }
-                                        .opacity(0)
+                                    .opacity(0)
                                 )
                         }
                     }
