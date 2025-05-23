@@ -97,7 +97,6 @@ struct BMDetailHeaderView: View {
             }
             .padding()
             .font(Font(BMFont.light(12)))
-            .foregroundColor(Color(BMColor.blackText))
             .background(.regularMaterial)
             .clipShape(RoundedRectangle(cornerRadius: 12))
         }
@@ -119,7 +118,6 @@ struct BMDetailHeaderView: View {
             
             Text(event.dateString)
                 .font(Font(BMFont.light(12)))
-                .foregroundColor(Color(BMColor.blackText))
         }
     }
     
