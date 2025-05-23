@@ -92,7 +92,6 @@
 		2948155F253274C500D113B6 /* ImageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2948155E253274C500D113B6 /* ImageViewCell.swift */; };
 		2954F592245CD4B600DA66DA /* MainDrawerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2954F591245CD4B600DA66DA /* MainDrawerViewDelegate.swift */; };
 		29570D4E2569DE990086741B /* Colors+Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29570D4D2569DE990086741B /* Colors+Calendar.swift */; };
-		296B8AA72544D97F00C3A219 /* EventOverviewCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296B8AA62544D97F00C3A219 /* EventOverviewCardView.swift */; };
 		296F1B272439341300924C8D /* DiningDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296F1B262439341300924C8D /* DiningDetailViewController.swift */; };
 		2975D5402459301B00514B43 /* SearchDrawerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2975D53F2459301B00514B43 /* SearchDrawerViewDelegate.swift */; };
 		297678872426B7BA00FDD1EB /* SearchAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297678862426B7BA00FDD1EB /* SearchAnnotation.swift */; };
@@ -322,7 +321,6 @@
 		2948155E253274C500D113B6 /* ImageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewCell.swift; sourceTree = "<group>"; };
 		2954F591245CD4B600DA66DA /* MainDrawerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainDrawerViewDelegate.swift; sourceTree = "<group>"; };
 		29570D4D2569DE990086741B /* Colors+Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+Calendar.swift"; sourceTree = "<group>"; };
-		296B8AA62544D97F00C3A219 /* EventOverviewCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventOverviewCardView.swift; sourceTree = "<group>"; };
 		296F1B262439341300924C8D /* DiningDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiningDetailViewController.swift; sourceTree = "<group>"; };
 		2975D53F2459301B00514B43 /* SearchDrawerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDrawerViewDelegate.swift; sourceTree = "<group>"; };
 		297678862426B7BA00FDD1EB /* SearchAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAnnotation.swift; sourceTree = "<group>"; };
@@ -734,7 +732,6 @@
 				01FA50F224E8BA5400DCC490 /* LocationDetailView.swift */,
 				29345E2624A7E76300859A88 /* OverviewCardView.swift */,
 				1DB88F6C2D94DF78007713F7 /* OpenTimesCardSwiftUIView.swift */,
-				296B8AA62544D97F00C3A219 /* EventOverviewCardView.swift */,
 				2913595824B13DF200DE9AD6 /* OpenTimesCardView.swift */,
 				29387E9C24BBBE8E00070BCE /* OccupancyGraphCardView.swift */,
 				01C75E2D25292E5B00C25A32 /* DescriptionCardView.swift */,
@@ -1301,7 +1298,6 @@
 				E83C6CEB2B71D8C20085E277 /* ResourcesView.swift in Sources */,
 				0176B60F25FD933D004D379C /* Display.swift in Sources */,
 				018B982825328200004C3B26 /* Colors+ActionButton.swift in Sources */,
-				296B8AA72544D97F00C3A219 /* EventOverviewCardView.swift in Sources */,
 				29387E9B24BBBD9D00070BCE /* CALayerExtension.swift in Sources */,
 				1396013323865E2E005E4788 /* CardCollectionView.swift in Sources */,
 				29570D4E2569DE990086741B /* Colors+Calendar.swift in Sources */,
