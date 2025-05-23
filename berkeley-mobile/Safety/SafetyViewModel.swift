@@ -6,7 +6,6 @@
 //  Copyright © 2024 ASUC OCTO. All rights reserved.
 //
 
-import CoreLocation
 import MapKit
 import SwiftUI
 
@@ -72,28 +71,8 @@ final class SafetyViewModel: NSObject, ObservableObject {
         }
     }
     
-    private let locationManager = CLLocationManager()
-    
     override init() {
         super.init()
-        
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        setup()
-    }
-    
-    private func setup() {
-        switch locationManager.authorizationStatus {
-        // If we are authorized then we request location just once, to center the map
-        case .authorizedWhenInUse:
-            locationManager.requestLocation()
-        // If we don´t, we request authorization
-        case .notDetermined:
-            locationManager.startUpdatingLocation()
-            locationManager.requestWhenInUseAuthorization()
-        default:
-            break
-        }
         
         Task {
             await listenForSafetyLogs()
@@ -163,33 +142,6 @@ final class SafetyViewModel: NSObject, ObservableObject {
         for (crime, color) in zip(displayCrimeTypes, colors) {
             let crimeTypeCount = safetyLogs.filter { $0.getSafetyLogState == crime }.count
             crimeInfos[crime] = BMCrimeInfo(color: color, count: crimeTypeCount)
-        }
-    }
-}
-
-
-// MARK: - CLLocationManagerDelegate
-
-extension SafetyViewModel: CLLocationManagerDelegate {
-    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        guard .authorizedWhenInUse == manager.authorizationStatus else {
-            return
-        }
-        
-        locationManager.requestLocation()
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("Something went wrong: \(error)")
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        locationManager.stopUpdatingLocation()
-        locations.last.map {
-            region = MKCoordinateRegion(
-                center: $0.coordinate,
-                span: .init(latitudeDelta: 0.01, longitudeDelta: 0.01)
-            )
         }
     }
 }
