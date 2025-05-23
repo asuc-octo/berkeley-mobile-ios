@@ -1,5 +1,4 @@
 import SwiftUI
-import EventKit
 
 struct CampusEventDetailView: View {
     @EnvironmentObject var eventsViewModel: EventsViewModel
@@ -137,6 +136,9 @@ struct BMDetailHeaderView: View {
         }
     }
 }
+
+
+// MARK: - BMDetailDescriptionView
 
 struct BMDetailDescriptionView: View {
     let description: String
