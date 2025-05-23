@@ -3,7 +3,6 @@ import EventKit
 
 struct CampusEventDetailView: View {
     @EnvironmentObject var eventsViewModel: EventsViewModel
-    @Environment(\.dismiss) private var dismiss
     
     @State private var learnMoreAlert = false
     @State private var registerAlert = false
@@ -12,47 +11,13 @@ struct CampusEventDetailView: View {
     
     var body: some View {
         VStack {
-            HStack {
-                Button(action: {
-                    dismiss()
-                }) {
-                    Image(systemName: "xmark.circle.fill")
-                        .foregroundStyle(.gray.opacity(0.7))
-                        .font(.system(size: 35))
-                }
-                Spacer()
-            }
-            .padding(EdgeInsets(top: 20, leading: 10, bottom: 0, trailing: 0))
-            
             ScrollView {
                 VStack(spacing: 16) {
                     BMDetailHeaderView(event: event)
                         .shadowfy()
                         .padding(.top, 20)
-                    
-                    if let description = event.descriptionText, !description.isEmpty {
-                        BMDetailDescriptionView(description: description)
-                            .shadowfy()
-                    }
-                    
-                    VStack(spacing: 16) {
-                        if event.sourceLink != nil {
-                            BMActionButton(title: "Learn More") {
-                                learnMoreAlert = true
-                            }
-                        }
-                        
-                        if event.registerLink != nil {
-                            BMActionButton(title: "Register") {
-                                registerAlert = true
-                            }
-                        }
-                        
-                        BMActionButton(title: "Add To Calendar") {
-                            eventsViewModel.showAddEventToCalendarAlert(event)
-                        }
-                    }
-                    .frame(maxWidth: .infinity)
+                    descriptionSection
+                    buttonsSection
                     Spacer()
                 }
                 .padding(.horizontal)
@@ -80,6 +45,35 @@ struct CampusEventDetailView: View {
             Text("Berkeley Mobile wants to open the web page to register for this event.")
         }
     }
+    
+    @ViewBuilder
+    private var descriptionSection: some View {
+        if let description = event.descriptionText, !description.isEmpty {
+            BMDetailDescriptionView(description: description)
+                .shadowfy()
+        }
+    }
+    
+    private var buttonsSection: some View {
+        VStack(spacing: 16) {
+            if event.sourceLink != nil {
+                BMActionButton(title: "Learn More") {
+                    learnMoreAlert = true
+                }
+            }
+            
+            if event.registerLink != nil {
+                BMActionButton(title: "Register") {
+                    registerAlert = true
+                }
+            }
+            
+            BMActionButton(title: "Add To Calendar") {
+                eventsViewModel.showAddEventToCalendarAlert(event)
+            }
+        }
+        .frame(maxWidth: .infinity)
+    }
 }
 
 
@@ -90,42 +84,17 @@ struct BMDetailHeaderView: View {
     
     var body: some View {
         ZStack {
-            BMCachedAsyncImageView(imageURL: event.imageURL, placeholderImage: BMConstants.doeGladeImage, aspectRatio: .fit, widthAndHeight: 250, cornerRadius: 10)
+            BMCachedAsyncImageView(imageURL: event.imageURL, placeholderImage: BMConstants.doeGladeImage, aspectRatio: .fill, widthAndHeight: 330, cornerRadius: 10)
             
             VStack(alignment: .leading, spacing: 15) {
                 Spacer()
-                BMCachedAsyncImageView(imageURL: event.imageURL, placeholderImage: BMConstants.doeGladeImage, aspectRatio: .fit, widthAndHeight: 200, cornerRadius: 10)
+                BMCachedAsyncImageView(imageURL: event.imageURL, placeholderImage: BMConstants.doeGladeImage, aspectRatio: .fill, widthAndHeight: 130, cornerRadius: 10)
                     .frame(maxWidth: .infinity, alignment: .center)
                     .shadow(color: .gray, radius: 10)
-                    .rotation3DEffect(.degrees(20), axis: (x: 0, y: 1, z: 0))
-                
-                HStack {
-                    Text(event.name)
-                        .font(Font(BMFont.bold(20)))
-                    Spacer()
-                }
-                
-                HStack {
-                    Image(systemName: "clock")
-                        .resizable()
-                        .frame(width: 16, height: 16)
-                    
-                    Text(event.dateString)
-                        .font(Font(BMFont.light(12)))
-                        .foregroundColor(Color(BMColor.blackText))
-                }
-                
-                if let location = event.location {
-                    HStack {
-                        Image(systemName: "mappin.and.ellipse")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 16, height: 16)
-                        
-                        Text(location)
-                            .font(Font(BMFont.light(12)))
-                    }
-                }
+                eventNameView
+                timeView
+                locationView
+                Spacer()
             }
             .padding()
             .font(Font(BMFont.light(12)))
@@ -133,7 +102,39 @@ struct BMDetailHeaderView: View {
             .background(.regularMaterial)
             .clipShape(RoundedRectangle(cornerRadius: 12))
         }
-        .frame(height: 275)
+    }
+    
+    private var eventNameView: some View {
+        HStack {
+            Text(event.name)
+                .font(Font(BMFont.bold(20)))
+                .fixedSize(horizontal: false, vertical: true)
+            Spacer()
+        }
+    }
+    
+    private var timeView: some View {
+        HStack {
+            Image(systemName: "clock")
+                .font(.system(size: 16))
+            
+            Text(event.dateString)
+                .font(Font(BMFont.light(12)))
+                .foregroundColor(Color(BMColor.blackText))
+        }
+    }
+    
+    @ViewBuilder
+    private var locationView: some View {
+        if let location = event.location {
+            HStack {
+                Image(systemName: "mappin.and.ellipse")
+                    .font(.system(size: 16))
+                
+                Text(location)
+                    .font(Font(BMFont.light(12)))
+            }
+        }
     }
 }
 
