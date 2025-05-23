@@ -26,20 +26,6 @@ extension UIViewController {
         child.didMove(toParent: self)
     }
     
-    // Presents an alert with multiple options and completion handler
-    public func presentAlertLinkUrl(title: String, message: String, website_url: URL) {
-        let alertVC = AlertView(headingText: title, messageText: message, action1Label: "Cancel", action1Color: BMColor.AlertView.secondaryButton, action1Completion: {
-            self.dismiss(animated: true, completion: nil)
-        }, action2Label: "Yes", action2Color: BMColor.ActionButton.background, action2Completion: {
-            self.dismiss(animated: true, completion: nil)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                UIApplication.shared.open(website_url, options: [:])
-            }
-        }, withOnlyOneAction: false)
-
-        self.present(alertVC, animated: true, completion: nil)
-    }
-    
     // Presents an alert to open coordinates
     public func presentAlertLinkMaps(title: String, message: String, lat: CLLocationDegrees, lon: CLLocationDegrees, name: String) {
         var query = false
