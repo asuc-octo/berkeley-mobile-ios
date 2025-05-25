@@ -115,9 +115,7 @@ extension EventScrapper: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         guard currNumOfRescrapes < allowedNumOfRescrapes else {
             currNumOfRescrapes = 0
-            withoutAnimation {
-                self.alert = BMAlert(title: "Unable To Load Events", message: "Cannot load events in reasonable time. Please try again later.", type: .notice)
-            }
+            alert = BMAlert(title: "Unable To Load Events", message: "Cannot load events in reasonable time. Please try again later.", type: .notice)
             repopulateWithSavedGroupedEvents()
             isLoading = false
             return
@@ -129,9 +127,7 @@ extension EventScrapper: WKNavigationDelegate {
             
                 guard let htmlContent = result as? String else {
                     await MainActor.run {
-                        withoutAnimation {
-                            self.alert = BMAlert(title: "Unable To Load Events", message: "Parsing website HTML content was unsuccessful. Please try again.", type: .notice)
-                        }
+                        alert = BMAlert(title: "Unable To Load Events", message: "Parsing website HTML content was unsuccessful. Please try again.", type: .notice)
                         repopulateWithSavedGroupedEvents()
                         isLoading = false
                     }
@@ -154,9 +150,7 @@ extension EventScrapper: WKNavigationDelegate {
                 }
             } catch {
                 await MainActor.run {
-                    withoutAnimation {
-                        self.alert = BMAlert(title: "Unable To Load Events", message: error.localizedDescription, type: .notice)
-                    }
+                    alert = BMAlert(title: "Unable To Load Events", message: error.localizedDescription, type: .notice)
                     repopulateWithSavedGroupedEvents()
                     isLoading = false
                 }

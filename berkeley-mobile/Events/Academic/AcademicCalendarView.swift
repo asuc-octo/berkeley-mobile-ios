@@ -50,7 +50,9 @@ struct AcademicCalendarView: View {
             calendarViewModel.setEntries(entries)
         }
         .onChange(of: academicEventScrapper.alert) { alert in
-            eventsViewModel.alert = alert
+            withoutAnimation {
+                eventsViewModel.alert = alert
+            }
         }
     }
     

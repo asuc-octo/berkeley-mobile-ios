@@ -52,7 +52,9 @@ struct CampuswideEventsView: View {
             eventsViewModel.logCampuswideTabAnalytics()
         }
         .onChange(of: campuswideEventScrapper.alert) { alert in
-            eventsViewModel.alert = alert
+            withoutAnimation {
+                eventsViewModel.alert = alert
+            }
         }
         .refreshable {
             guard !campuswideEventScrapper.isLoading else {
