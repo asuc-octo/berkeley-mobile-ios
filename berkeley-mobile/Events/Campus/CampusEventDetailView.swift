@@ -140,7 +140,7 @@ struct BMDetailHeaderView: View {
     
     @ViewBuilder
     private var locationView: some View {
-        if let location = event.location {
+        if let location = event.location, !location.isEmpty {
             HStack {
                 Image(systemName: "mappin.and.ellipse")
                     .font(.system(size: 16))
