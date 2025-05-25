@@ -26,17 +26,17 @@ class EventScrapper: NSObject, ObservableObject {
     }
     
     @Published var entries: [Date: [BMEventCalendarEntry]] = [:]
+    @Published var isLoading = false
+    @Published var alert: BMAlert?
+    
     var groupedEntriesSortedKeys: [Date] {
         entries.keys.sorted()
     }
-    @Published var isLoading = false
-    @Published var alert: BMAlert?
     
     /// Allowed number of rescrapes until `EventScrapper` gives up on scrapping.
     private var allowedNumOfRescrapes = 5
     private var currNumOfRescrapes = 0
     private var type: EventScrapperType!
-    
     private var cachedSavedGroupedEvents: [Date: [BMEventCalendarEntry]] = [:]
     
     lazy private var webView: WKWebView = {
@@ -103,9 +103,7 @@ class EventScrapper: NSObject, ObservableObject {
     }
     
     private func groupEventsByDay(_ events: [BMEventCalendarEntry]) -> [Date: [BMEventCalendarEntry]] {
-        let groupedCalendarEntries = Dictionary(grouping: events, by: {
-            Calendar.current.startOfDay(for: $0.date)
-        })
+        let groupedCalendarEntries = Dictionary(grouping: events, by: { $0.date.getStartOfDay() })
         return groupedCalendarEntries
     }
 }
