@@ -14,7 +14,7 @@ class BMEventManager {
     
     private let eventStore = EKEventStore()
     
-    public func addEventToCalendar(calendarEvent: CalendarEvent) async throws {
+    public func addEventToCalendar(calendarEvent: BMCalendarEvent) async throws {
         if #available(iOS 17.0, *) {
             try await eventStore.requestFullAccessToEvents()
         } else {
@@ -24,7 +24,7 @@ class BMEventManager {
         try saveEvent(calendarEvent)
     }
     
-    private func saveEvent(_ calendarEvent: CalendarEvent) throws {
+    private func saveEvent(_ calendarEvent: BMCalendarEvent) throws {
         let eventStartDate = calendarEvent.date
         let eventEndDate = calendarEvent.end ?? calendarEvent.date
         

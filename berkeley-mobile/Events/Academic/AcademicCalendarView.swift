@@ -19,13 +19,13 @@ struct AcademicCalendarView: View {
                 Group {
                     VStack {
                         calendarDivider
-                        BMCalendarView() { day in
+                        CalendarView() { day in
                             scrollToEvent(day: day, proxy: scrollProxy)
                         }
                         .environmentObject(calendarViewModel)
                         calendarDivider
                     }
-                    .padding(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
+                    .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0))
                     .buttonStyle(PlainButtonStyle())
                     
                     eventsListView
@@ -69,15 +69,19 @@ struct AcademicCalendarView: View {
                 if academicEventScrapper.entries.isEmpty {
                     BMNoEventsView()
                 } else {
-                    ForEach(Array(academicEventScrapper.entries.enumerated()), id: \.offset) { index, entry in
-                        Button(action: {
-                            eventsViewModel.showAddEventToCalendarAlert(entry)
-                        }) {
-                            AcademicEventRowView(event: entry, color: Color(entry.color))
-                                .frame(width: 310)
-                                .id(index)
+                    ForEach(Array(academicEventScrapper.groupedEntriesSortedKeys.enumerated()), id: \.offset) { index, date in
+                        if let events = academicEventScrapper.entries[date] {
+                            EventsDateSection(date: date, events: events) { entry in
+                                Button(action: {
+                                    eventsViewModel.showAddEventToCalendarAlert(entry)
+                                }) {
+                                    AcademicEventRowView(event: entry)
+                                        .frame(width: 310)
+                                }
+                                .buttonStyle(PlainButtonStyle())
+                            }
+                            .id(index)
                         }
-                        .buttonStyle(PlainButtonStyle())
                     }
                 }
             }
@@ -86,7 +90,7 @@ struct AcademicCalendarView: View {
     }
     
     private func scrollToEvent(day: Int, proxy: ScrollViewProxy) {
-        guard let index = calendarViewModel.entries.firstIndex(where: { $0.date.get(.day) == day }) else {
+        guard let index = academicEventScrapper.groupedEntriesSortedKeys.map({ $0.get(.day)}).firstIndex(of: day) else {
             return
         }
         

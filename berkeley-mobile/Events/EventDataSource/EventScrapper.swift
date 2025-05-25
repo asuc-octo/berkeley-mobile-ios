@@ -25,7 +25,10 @@ class EventScrapper: NSObject, ObservableObject {
         }
     }
     
-    @Published var entries: [EventCalendarEntry] = []
+    @Published var entries: [Date: [BMEventCalendarEntry]] = [:]
+    var groupedEntriesSortedKeys: [Date] {
+        entries.keys.sorted()
+    }
     @Published var isLoading = false
     @Published var alert: BMAlert?
     
@@ -33,6 +36,8 @@ class EventScrapper: NSObject, ObservableObject {
     private var allowedNumOfRescrapes = 5
     private var currNumOfRescrapes = 0
     private var type: EventScrapperType!
+    
+    private var cachedSavedGroupedEvents: [Date: [BMEventCalendarEntry]] = [:]
     
     lazy private var webView: WKWebView = {
         let prefs = WKPreferences()
@@ -58,42 +63,50 @@ class EventScrapper: NSObject, ObservableObject {
         
         entries.removeAll()
         
-        let rescrapeInfo = getRescrapeInfo()
-        let shouldRescrape = forceRescrape || rescrapeInfo.shouldRescrape
+        let rescrapeInfo = getRescrapeInfo(force: forceRescrape)
         
-        if shouldRescrape {
+        if rescrapeInfo.shouldRescrape {
             webView.load(URLRequest(url: url))
         } else {
-            entries = rescrapeInfo.savedEvents
+            entries = rescrapeInfo.savedGroupedEvents
             isLoading = false
         }
     }
     
-    private func getRescrapeInfo() -> (shouldRescrape: Bool, savedEvents: [EventCalendarEntry]) {
-        let savedEvents = retrieveSavedEvents(for: type.getInfo().URLString)
+    private func getRescrapeInfo(force: Bool) -> (shouldRescrape: Bool, savedGroupedEvents: [Date: [BMEventCalendarEntry]]) {
+        let savedGroupedEvents = cachedSavedGroupedEvents.isEmpty ? retrieveSavedGroupedEvents() : cachedSavedGroupedEvents
         let currentDate = Date()
         let lastSavedDate = UserDefaults.standard.object(forKey: type.getInfo().lastRefreshDateKey) as? Date ?? currentDate
         let endOfDayDate = Calendar.current.date(bySettingHour: 23, minute: 59, second: 59, of: lastSavedDate) ?? currentDate
-        let rescrape = savedEvents.isEmpty || currentDate >= endOfDayDate
+        let rescrape = force || savedGroupedEvents.isEmpty || currentDate >= endOfDayDate
         
         if rescrape {
             UserDefaults.standard.set(currentDate, forKey: type.getInfo().lastRefreshDateKey)
         }
     
-        return (rescrape, savedEvents)
+        return (rescrape, savedGroupedEvents)
     }
     
-    private func retrieveSavedEvents(for urlString: String) -> [EventCalendarEntry] {
-        guard let decodedData = UserDefaults.standard.data(forKey: urlString) else {
-            return []
+    private func retrieveSavedGroupedEvents() -> [Date: [BMEventCalendarEntry]] {
+        guard let decodedData = UserDefaults.standard.data(forKey: type.getInfo().URLString) else {
+            return [:]
         }
         
-        let decodedEvents = NSArray.unsecureUnarchived(from: decodedData) as? [EventCalendarEntry]
-        return decodedEvents ?? []
+        let decodedEvents = NSArray.unsecureUnarchived(from: decodedData) as? [BMEventCalendarEntry] ?? []
+        let groupedSavedEvents = groupEventsByDay(decodedEvents)
+        return groupedSavedEvents
     }
     
-    private func repopulateWithSavedEvents() {
-        entries = retrieveSavedEvents(for: type.getInfo().URLString)
+    private func repopulateWithSavedGroupedEvents() {
+        let savedGroupedEvents = retrieveSavedGroupedEvents()
+        entries = savedGroupedEvents
+    }
+    
+    private func groupEventsByDay(_ events: [BMEventCalendarEntry]) -> [Date: [BMEventCalendarEntry]] {
+        let groupedCalendarEntries = Dictionary(grouping: events, by: {
+            Calendar.current.startOfDay(for: $0.date)
+        })
+        return groupedCalendarEntries
     }
 }
 
@@ -107,7 +120,7 @@ extension EventScrapper: WKNavigationDelegate {
             withoutAnimation {
                 self.alert = BMAlert(title: "Unable To Load Events", message: "Cannot load events in reasonable time. Please try again later.", type: .notice)
             }
-            repopulateWithSavedEvents()
+            repopulateWithSavedGroupedEvents()
             isLoading = false
             return
         }
@@ -121,7 +134,7 @@ extension EventScrapper: WKNavigationDelegate {
                         withoutAnimation {
                             self.alert = BMAlert(title: "Unable To Load Events", message: "Parsing website HTML content was unsuccessful. Please try again.", type: .notice)
                         }
-                        repopulateWithSavedEvents()
+                        repopulateWithSavedGroupedEvents()
                         isLoading = false
                     }
                     return
@@ -134,10 +147,11 @@ extension EventScrapper: WKNavigationDelegate {
                     scrape()
                     return
                 }
-
+                
                 saveEventCalendarEntries(for: scrappedCalendarEntries)
+                
                 await MainActor.run {
-                    entries = scrappedCalendarEntries
+                    entries = groupEventsByDay(scrappedCalendarEntries)
                     isLoading = false
                 }
             } catch {
@@ -145,19 +159,19 @@ extension EventScrapper: WKNavigationDelegate {
                     withoutAnimation {
                         self.alert = BMAlert(title: "Unable To Load Events", message: error.localizedDescription, type: .notice)
                     }
-                    repopulateWithSavedEvents()
+                    repopulateWithSavedGroupedEvents()
                     isLoading = false
                 }
             }
         }
     }
     
-    private func parseWebsiteForEvents(html: String) throws -> [EventCalendarEntry] {
+    private func parseWebsiteForEvents(html: String) throws -> [BMEventCalendarEntry] {
         let doc = try SwiftSoup.parse(html)
 
         let dateElements = try doc.select("div#lw_cal_events > h3")
 
-        var scrappedCalendarEntries = [EventCalendarEntry]()
+        var scrappedCalendarEntries = [BMEventCalendarEntry]()
 
         for dateElement in dateElements {
             let nextDiv = try dateElement.nextElementSibling()
@@ -191,7 +205,7 @@ extension EventScrapper: WKNavigationDelegate {
                     let imageLink = try eventLinkElement.select("picture.lw_image > img").attr("src")
                     
                     if !eventTitle.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                        let newEventCalendarEntry = EventCalendarEntry(name: eventTitle, date: eventStartTimeDate ?? dateWithYear, end: eventEndTimeDate, descriptionText: eventSummaryText, location: locationName, imageURL: imageLink, sourceLink: fullSourceLink)
+                        let newEventCalendarEntry = BMEventCalendarEntry(name: eventTitle, date: eventStartTimeDate ?? dateWithYear, end: eventEndTimeDate, descriptionText: eventSummaryText, location: locationName, imageURL: imageLink, sourceLink: fullSourceLink)
                         scrappedCalendarEntries.append(newEventCalendarEntry)
                     }
                 }
@@ -201,8 +215,9 @@ extension EventScrapper: WKNavigationDelegate {
         return scrappedCalendarEntries
     }
     
-    private func saveEventCalendarEntries(for entries: [EventCalendarEntry]) {
+    private func saveEventCalendarEntries(for entries: [BMEventCalendarEntry]) {
         if let encodedData = try? NSKeyedArchiver.archivedData(withRootObject: entries, requiringSecureCoding: false) {
+            print("success save data")
             UserDefaults.standard.set(encodedData, forKey: type.getInfo().URLString)
         }
     }

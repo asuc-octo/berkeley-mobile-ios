@@ -16,8 +16,7 @@ struct AcademicEventRowView: View {
         static let imageWidthHeight: CGFloat = 60
     }
     
-    var event: EventCalendarEntry
-    var color: Color
+    var event: BMEventCalendarEntry
     
     var body: some View {
         HStack {
@@ -33,7 +32,7 @@ struct AcademicEventRowView: View {
     }
     
     private var colorBarView: some View {
-        color
+        Color(event.color)
             .frame(width: 8)
     }
     
@@ -50,9 +49,9 @@ struct AcademicEventRowView: View {
 
 #Preview {
     Group {
-        AcademicEventRowView(event: EventCalendarEntry(name: "Seminar 231, Public Finance", date: Date()), color: .red)
+        AcademicEventRowView(event: BMEventCalendarEntry(name: "Seminar 231, Public Finance", date: Date()))
             .frame(width: 300)
-        AcademicEventRowView(event: EventCalendarEntry(name: "Dissertation Talk: Toward Trustworthy Language Models: Interpretation Methods and Clinical Decision Support Applications", date: Date(), imageURL: "https://events.berkeley.edu/live/image/gid/84/width/200/height/200/crop/1/src_region/0,0,1080,1080/8428_NewEECSLogo-Livewhale.rev.1729531907.png"), color: .gray)
+        AcademicEventRowView(event: BMEventCalendarEntry(name: "Dissertation Talk: Toward Trustworthy Language Models: Interpretation Methods and Clinical Decision Support Applications", date: Date(), imageURL: "https://events.berkeley.edu/live/image/gid/84/width/200/height/200/crop/1/src_region/0,0,1080,1080/8428_NewEECSLogo-Livewhale.rev.1729531907.png"))
             .frame(width: 300)
     }
 }

@@ -22,16 +22,20 @@ struct CampuswideEventsView: View {
                     } else if campuswideEventScrapper.entries.isEmpty {
                         BMNoEventsView()
                     } else {
-                        ForEach(Array(campuswideEventScrapper.entries.enumerated()), id: \.offset) { index, entry in
-                            CampusEventRowView(entry: entry)
-                                .frame(width: 310)
-                                .background(
-                                    NavigationLink("") {
-                                        CampusEventDetailView(event: entry)
-                                            .environmentObject(eventsViewModel)
-                                    }
-                                    .opacity(0)
-                                )
+                        ForEach(campuswideEventScrapper.entries.keys.sorted(), id: \.self) { date in
+                            if let events = campuswideEventScrapper.entries[date] {
+                                EventsDateSection(date: date, events: events) { entry in
+                                    CampusEventRowView(entry: entry)
+                                        .frame(width: 310)
+                                        .background(
+                                            NavigationLink("") {
+                                                CampusEventDetailView(event: entry)
+                                                    .environmentObject(eventsViewModel)
+                                            }
+                                            .opacity(0)
+                                        )
+                                }
+                            }
                         }
                     }
                 }

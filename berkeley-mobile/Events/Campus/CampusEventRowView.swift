@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct CampusEventRowView: View {
-    var entry: EventCalendarEntry
+    var entry: BMEventCalendarEntry
     
     private let imageWidthAndHeight: CGFloat = 110
     
@@ -41,7 +41,7 @@ struct CampusEventRowView: View {
 }
 
 #Preview {
-    let entry = EventCalendarEntry(name: "Exhibit: Amy Tan’s Backyard Birds", date: Date(), end: Date(), descriptionText: "The Backyard Bird Chronicles is a series of drawings by Amy Tan that contributed to her New York Times bestselling book of the same name. The resulting whimsical pictures capture the birds’ quirks, their personalities, their humor, and their dramas.", location: "The Bancroft Library Gallery", imageURL: "https://events.berkeley.edu/live/image/gid/139/width/200/height/200/crop/1/src_region/0,0,1535,2048/9842_Amytanimage.rev.1738954493.jpg", sourceLink: "https://events.berkeley.edu/events/event/290926-exhibit-amy-tans-backyard-birds")
+    let entry = BMEventCalendarEntry(name: "Exhibit: Amy Tan’s Backyard Birds", date: Date(), end: Date(), descriptionText: "The Backyard Bird Chronicles is a series of drawings by Amy Tan that contributed to her New York Times bestselling book of the same name. The resulting whimsical pictures capture the birds’ quirks, their personalities, their humor, and their dramas.", location: "The Bancroft Library Gallery", imageURL: "https://events.berkeley.edu/live/image/gid/139/width/200/height/200/crop/1/src_region/0,0,1535,2048/9842_Amytanimage.rev.1738954493.jpg", sourceLink: "https://events.berkeley.edu/events/event/290926-exhibit-amy-tans-backyard-birds")
     
     return CampusEventRowView(entry: entry)
         .padding()

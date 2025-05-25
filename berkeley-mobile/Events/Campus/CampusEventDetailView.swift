@@ -8,7 +8,7 @@ struct CampusEventDetailView: View {
     
     @EnvironmentObject var eventsViewModel: EventsViewModel
     
-    let event: EventCalendarEntry
+    let event: BMEventCalendarEntry
     
     @State private var alertType: AlertType?
     
@@ -91,7 +91,7 @@ struct CampusEventDetailView: View {
 // MARK: - BMDetailHeaderView
 
 struct BMDetailHeaderView: View {
-    let event: EventCalendarEntry
+    let event: BMEventCalendarEntry
     
     var body: some View {
         ZStack {
@@ -169,7 +169,7 @@ struct BMDetailDescriptionView: View {
 }
      
 #Preview {
-    let sampleEvent = EventCalendarEntry(
+    let sampleEvent = BMEventCalendarEntry(
         name: "Exhibit | A Storied Campus: Cal in Fiction",
         date: Date(),
         end: Date().addingTimeInterval(7200),

@@ -1,5 +1,5 @@
 //
-//  EventCalendarEntry.swift
+//  BMEventCalendarEntry.swift
 //  berkeley-mobile
 //
 //  Created by Oscar Bjorkman on 2/2/20.
@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class EventCalendarEntry: NSObject, NSCoding, Identifiable, CalendarEvent, HasImage, CanFavorite {
+class BMEventCalendarEntry: NSObject, NSCoding, Identifiable, BMCalendarEvent, HasImage, CanFavorite {
     private struct ArgumentNames {
         static let name = "name"
         static let date = "date"

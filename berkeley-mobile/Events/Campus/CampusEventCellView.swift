@@ -53,7 +53,7 @@ class CampusEventCellView: UIView {
      Update the values in the cell based on a new event (when collection/table is scrolled)
      imageUpdate called to update cell image if cell is still visible
      */
-    public func updateContents(event: EventCalendarEntry, cell: ImageViewCell) {
+    public func updateContents(event: BMEventCalendarEntry, cell: ImageViewCell) {
         nameLabel.text = event.name
         timeLabel.text = event.dateString
         
