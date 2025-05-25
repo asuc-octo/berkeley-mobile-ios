@@ -105,7 +105,7 @@ extension EventScrapper: WKNavigationDelegate {
         guard currNumOfRescrapes < allowedNumOfRescrapes else {
             currNumOfRescrapes = 0
             withoutAnimation {
-                self.git alert = BMAlert(title: "Unable To Load Events", message: "Cannot load events in reasonable time. Please try again later.", type: .notice)
+                self.alert = BMAlert(title: "Unable To Load Events", message: "Cannot load events in reasonable time. Please try again later.", type: .notice)
             }
             repopulateWithSavedEvents()
             isLoading = false
