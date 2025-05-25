@@ -33,3 +33,25 @@ struct EventsDateSection<Content: View>: View {
         .padding(.horizontal)
     }
 }
+
+#Preview {
+    let eventsViewModel = EventsViewModel()
+    Group {
+        EventsDateSection(date: Date(), events: [BMEventCalendarEntry.sampleEntry]) { entry in
+            CampusEventRowView(entry: entry)
+                .frame(width: 310)
+                .background(
+                    NavigationLink("") {
+                        CampusEventDetailView(event: entry)
+                    }
+                    .opacity(0)
+                )
+        }
+        
+        EventsDateSection(date: Date(), events: [BMEventCalendarEntry.sampleEntry]) { entry in
+            AcademicEventRowView(event: entry)
+                .frame(width: 310)
+        }
+    }
+    .environmentObject(eventsViewModel)
+}

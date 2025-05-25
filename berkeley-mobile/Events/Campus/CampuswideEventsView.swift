@@ -42,6 +42,7 @@ struct CampuswideEventsView: View {
                 .frame(maxWidth: .infinity, alignment: .center)
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color(BMColor.cardBackground))
+                .listRowInsets(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
             }
             .scrollContentBackground(.hidden)
             .listStyle(PlainListStyle())
