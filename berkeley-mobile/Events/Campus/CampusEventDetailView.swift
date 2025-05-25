@@ -117,7 +117,7 @@ struct BMDetailHeaderView: View {
                 .font(.system(size: 16))
             
             Text(event.dateString)
-                .font(Font(BMFont.light(12)))
+                .font(Font(BMFont.regular(12)))
         }
     }
     
@@ -129,7 +129,7 @@ struct BMDetailHeaderView: View {
                     .font(.system(size: 16))
                 
                 Text(location)
-                    .font(Font(BMFont.light(12)))
+                    .font(Font(BMFont.regular(12)))
             }
         }
     }
