@@ -1,12 +1,16 @@
 import SwiftUI
 
 struct CampusEventDetailView: View {
+    private enum AlertType {
+        case learnMore
+        case register
+    }
+    
     @EnvironmentObject var eventsViewModel: EventsViewModel
     
-    @State private var learnMoreAlert = false
-    @State private var registerAlert = false
-    
     let event: EventCalendarEntry
+    
+    @State private var alertType: AlertType?
     
     var body: some View {
         VStack {
@@ -23,25 +27,8 @@ struct CampusEventDetailView: View {
             }
         }
         .background(Color(BMColor.modalBackground))
-        .alert("Open Safari?", isPresented: $learnMoreAlert) {
-            Button("Cancel", role: .cancel) {}
-            Button("Open") {
-                if let url = event.sourceLink {
-                    UIApplication.shared.open(url)
-                }
-            }
-        } message: {
-            Text("Berkeley Mobile wants to open a web page with more info for this event.")
-        }
-        .alert("Open Safari?", isPresented: $registerAlert) {
-            Button("Cancel", role: .cancel) {}
-            Button("Open") {
-                if let url = event.registerLink {
-                    UIApplication.shared.open(url)
-                }
-            }
-        } message: {
-            Text("Berkeley Mobile wants to open the web page to register for this event.")
+        .onChange(of: alertType) { type in
+            presentAlert(type: type)
         }
     }
     
@@ -57,13 +44,13 @@ struct CampusEventDetailView: View {
         VStack(spacing: 16) {
             if event.sourceLink != nil {
                 BMActionButton(title: "Learn More") {
-                    learnMoreAlert = true
+                    alertType = .learnMore
                 }
             }
             
             if event.registerLink != nil {
                 BMActionButton(title: "Register") {
-                    registerAlert = true
+                    alertType = .register
                 }
             }
             
@@ -72,6 +59,31 @@ struct CampusEventDetailView: View {
             }
         }
         .frame(maxWidth: .infinity)
+    }
+    
+    private func presentAlert(type: AlertType?) {
+        guard let type else {
+            return
+        }
+        
+        var message = ""
+        var url: URL!
+        
+        switch type {
+        case .learnMore:
+            message = "Berkeley Mobile wants to open a web page with more info for this event."
+            url = event.sourceLink
+        case .register:
+            message = "Berkeley Mobile wants to open the web page to register for this event."
+            url = event.registerLink
+        }
+        
+        withoutAnimation {
+            eventsViewModel.alert = BMAlert(title: "Open in Safari?", message: message, type: .action) {
+                UIApplication.shared.open(url)
+            }
+            alertType = nil
+        }
     }
 }
 
