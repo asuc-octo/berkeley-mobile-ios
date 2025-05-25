@@ -79,7 +79,7 @@ class EventScrapper: NSObject, ObservableObject {
         if rescrape {
             UserDefaults.standard.set(currentDate, forKey: type.getInfo().lastRefreshDateKey)
         }
-        
+    
         return (rescrape, savedEvents)
     }
     
