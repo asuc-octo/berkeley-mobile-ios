@@ -27,6 +27,15 @@ struct CampusEventDetailView: View {
             }
         }
         .background(Color(BMColor.modalBackground))
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button(action: {
+                    eventsViewModel.showAddEventToCalendarAlert(event)
+                }) {
+                    Image(systemName: "calendar.badge.plus")
+                }
+            }
+        }
         .onChange(of: alertType) { type in
             presentAlert(type: type)
         }
@@ -52,10 +61,6 @@ struct CampusEventDetailView: View {
                 BMActionButton(title: "Register") {
                     alertType = .register
                 }
-            }
-            
-            BMActionButton(title: "Add To Calendar") {
-                eventsViewModel.showAddEventToCalendarAlert(event)
             }
         }
         .frame(maxWidth: .infinity)
