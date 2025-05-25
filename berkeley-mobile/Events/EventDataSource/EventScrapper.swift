@@ -104,7 +104,9 @@ extension EventScrapper: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         guard currNumOfRescrapes < allowedNumOfRescrapes else {
             currNumOfRescrapes = 0
-            alert = BMAlert(title: "Unable To Load Events", message: "Cannot load events in reasonable time. Please try again later.", type: .notice)
+            withoutAnimation {
+                self.git alert = BMAlert(title: "Unable To Load Events", message: "Cannot load events in reasonable time. Please try again later.", type: .notice)
+            }
             repopulateWithSavedEvents()
             isLoading = false
             return
@@ -116,7 +118,9 @@ extension EventScrapper: WKNavigationDelegate {
             
                 guard let htmlContent = result as? String else {
                     await MainActor.run {
-                        alert = BMAlert(title: "Unable To Load Events", message: "Parsing website HTML content was unsuccessful. Please try again.", type: .notice)
+                        withoutAnimation {
+                            self.alert = BMAlert(title: "Unable To Load Events", message: "Parsing website HTML content was unsuccessful. Please try again.", type: .notice)
+                        }
                         repopulateWithSavedEvents()
                         isLoading = false
                     }
@@ -138,7 +142,9 @@ extension EventScrapper: WKNavigationDelegate {
                 }
             } catch {
                 await MainActor.run {
-                    alert = BMAlert(title: "Unable To Load Events", message: error.localizedDescription, type: .notice)
+                    withoutAnimation {
+                        self.alert = BMAlert(title: "Unable To Load Events", message: error.localizedDescription, type: .notice)
+                    }
                     repopulateWithSavedEvents()
                     isLoading = false
                 }
@@ -184,8 +190,10 @@ extension EventScrapper: WKNavigationDelegate {
                     
                     let imageLink = try eventLinkElement.select("picture.lw_image > img").attr("src")
                     
-                    let newEventCalendarEntry = EventCalendarEntry(name: eventTitle, date: eventStartTimeDate ?? dateWithYear, end: eventEndTimeDate, descriptionText: eventSummaryText, location: locationName, imageURL: imageLink, sourceLink: fullSourceLink)
-                    scrappedCalendarEntries.append(newEventCalendarEntry)
+                    if !eventTitle.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                        let newEventCalendarEntry = EventCalendarEntry(name: eventTitle, date: eventStartTimeDate ?? dateWithYear, end: eventEndTimeDate, descriptionText: eventSummaryText, location: locationName, imageURL: imageLink, sourceLink: fullSourceLink)
+                        scrappedCalendarEntries.append(newEventCalendarEntry)
+                    }
                 }
             }
         }
