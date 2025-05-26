@@ -16,7 +16,7 @@ protocol BMCalendarEvent {
     var name: String { get set }
     
     /// The date and time that the event starts.
-    var date: Date { get set }
+    var startDate: Date { get set }
     
     /// Formatted date string to display. Shows "Date / Time" or "Today / Time".
     var dateString: String { get }
@@ -39,22 +39,22 @@ extension BMCalendarEvent {
         get {
             var dateString = ""
             
-            if date.dateOnly() == Date().dateOnly() {
+            if startDate.dateOnly() == Date().dateOnly() {
                 dateString += "Today"
-            } else if Date.isDateTomorrow(baseDate: Date(), date: date) {
+            } else if Date.isDateTomorrow(baseDate: Date(), date: startDate) {
                 dateString += "Tomorrow"
             } else {
-                dateString += date.getDateString(withFormat: "MM/dd/yyyy")
+                dateString += startDate.getDateString(withFormat: "MM/dd/yyyy")
             }
             dateString += " / "
             
             // Check if to see if event is an "All Day" event
-            if date.doesDateComponentsAreEqualTo(hour: 0, minute: 0, sec: 0), let end,
+            if startDate.doesDateComponentsAreEqualTo(hour: 0, minute: 0, sec: 0), let end,
                 end.doesDateComponentsAreEqualTo(hour: 11, minute: 59, sec: 59) {
                 return dateString + "All Day"
             }
             
-            dateString += date.getDateString(withFormat: "h:mm a")
+            dateString += startDate.getDateString(withFormat: "h:mm a")
             
             if let end {
                 dateString += " - \(end.getDateString(withFormat: "h:mm a"))"
@@ -62,5 +62,9 @@ extension BMCalendarEvent {
             
             return dateString
         }
+    }
+    
+    var endDate: Date {
+        end ?? startDate
     }
 }

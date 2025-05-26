@@ -28,16 +28,21 @@ struct CampusEventDetailView: View {
         }
         .background(Color(BMColor.modalBackground))
         .toolbar {
+            let doesEventExists = eventsViewModel.doesEventExists(for: event)
             ToolbarItem(placement: .topBarTrailing) {
                 Button(action: {
-                    eventsViewModel.showAddEventToCalendarAlert(event)
+                    if doesEventExists {
+                        eventsViewModel.showDeleteEventFromCalendarAlert(event)
+                    } else {
+                        eventsViewModel.showAddEventToCalendarAlert(event)
+                    }
                 }) {
-                    Image(systemName: "calendar.badge.plus")
+                    Image(systemName: doesEventExists ? "calendar.badge.checkmark" : "calendar.badge.plus")
                 }
             }
         }
         .onChange(of: alertType) { type in
-            presentAlert(type: type)
+            presentLinkAlert(type: type)
         }
     }
     
@@ -66,7 +71,7 @@ struct CampusEventDetailView: View {
         .frame(maxWidth: .infinity)
     }
     
-    private func presentAlert(type: AlertType?) {
+    private func presentLinkAlert(type: AlertType?) {
         guard let type else {
             return
         }

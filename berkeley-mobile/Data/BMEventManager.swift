@@ -14,7 +14,7 @@ class BMEventManager {
     
     private let eventStore = EKEventStore()
     
-    public func addEventToCalendar(calendarEvent: BMCalendarEvent) async throws {
+    func addEventToCalendar(calendarEvent: BMCalendarEvent) async throws {
         if #available(iOS 17.0, *) {
             try await eventStore.requestFullAccessToEvents()
         } else {
@@ -24,25 +24,43 @@ class BMEventManager {
         try saveEvent(calendarEvent)
     }
     
-    private func saveEvent(_ calendarEvent: BMCalendarEvent) throws {
-        let eventStartDate = calendarEvent.date
-        let eventEndDate = calendarEvent.end ?? calendarEvent.date
+    func deleteEvent(_ calendarEvent: BMCalendarEvent) throws {
+        let matchingExistingEvents = getMatchingEvents(for: calendarEvent)
+        guard let eventToDelete = matchingExistingEvents.first(where: makeEventMatcher(for: calendarEvent)) else {
+            throw BMError.unableToFindEventInCalendar
+        }
         
-        let predicate = eventStore.predicateForEvents(withStart: eventStartDate, end: eventEndDate, calendars: nil)
+        try eventStore.remove(eventToDelete, span: .thisEvent)
+    }
+    
+    func doesEventExists(for calendarEvent: BMCalendarEvent) -> Bool {
+        let matchingExistingEvents = getMatchingEvents(for: calendarEvent)
+        let eventAlreadyExists = matchingExistingEvents.contains(where: makeEventMatcher(for: calendarEvent))
+        return eventAlreadyExists
+    }
+    
+    private func makeEventMatcher(for calendarEvent: BMCalendarEvent) -> (EKEvent) -> Bool {
+        return { event in
+            event.title == calendarEvent.name &&
+            event.startDate == calendarEvent.startDate &&
+            event.endDate == calendarEvent.endDate
+        }
+    }
+    
+    private func getMatchingEvents(for calendarEvent: BMCalendarEvent) -> [EKEvent] {
+        let predicate = eventStore.predicateForEvents(withStart: calendarEvent.startDate, end: calendarEvent.endDate, calendars: nil)
         let existingEvents = eventStore.events(matching: predicate)
-        let eventAlreadyExists = existingEvents.contains { $0.title == calendarEvent.name && $0.startDate == eventStartDate && $0.endDate == eventEndDate }
+        return existingEvents
+    }
+    
+    private func saveEvent(_ calendarEvent: BMCalendarEvent) throws {
+        let eventAlreadyExists = doesEventExists(for: calendarEvent)
         
         guard !eventAlreadyExists else {
             throw BMError.eventAlreadyAddedInCalendar
         }
         
-        let event: EKEvent = EKEvent(eventStore: eventStore)
-        event.title = calendarEvent.name
-        event.startDate = eventStartDate
-        event.endDate = eventEndDate
-        event.location = calendarEvent.location
-        event.notes = calendarEvent.additionalDescription + (calendarEvent.descriptionText ?? "")
-        event.calendar = eventStore.defaultCalendarForNewEvents
+        let event = getEKEventFromCalendarEvent(for: calendarEvent)
         
         do {
             try eventStore.save(event, span: .thisEvent)
@@ -59,5 +77,16 @@ class BMEventManager {
                 throw error
             }
         }
+    }
+    
+    private func getEKEventFromCalendarEvent(for calendarEvent: BMCalendarEvent) -> EKEvent {
+        let event = EKEvent(eventStore: eventStore)
+        event.title = calendarEvent.name
+        event.startDate = calendarEvent.startDate
+        event.endDate = calendarEvent.endDate
+        event.location = calendarEvent.location
+        event.notes = calendarEvent.additionalDescription + (calendarEvent.descriptionText ?? "")
+        event.calendar = eventStore.defaultCalendarForNewEvents
+        return event
     }
 }

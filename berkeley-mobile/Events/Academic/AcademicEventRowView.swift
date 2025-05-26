@@ -15,6 +15,8 @@ struct AcademicEventRowView: View {
         static let imageWidthHeight: CGFloat = 60
     }
     
+    @EnvironmentObject var eventsViewModel: EventsViewModel
+    
     var event: BMEventCalendarEntry
     
     var body: some View {
@@ -25,9 +27,13 @@ struct AcademicEventRowView: View {
             BMCachedAsyncImageView(imageURL: event.imageURL, widthAndHeight: Constants.imageWidthHeight, cornerRadius: Constants.cornerRadius)
                 .padding(.trailing, 10)
         }
+        .overlay(
+            BMAddedCalendarStatusOverlay(event: event)
+        )
         .frame(height: 80)
         .clipShape(RoundedRectangle(cornerRadius: Constants.cornerRadius))
         .shadowfy()
+        .addEventsContextMenu(event: event)
     }
     
     private var colorBarView: some View {

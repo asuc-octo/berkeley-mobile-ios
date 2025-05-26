@@ -73,11 +73,11 @@ struct AcademicCalendarView: View {
                 } else {
                     ForEach(Array(academicEventScrapper.groupedEntriesSortedKeys.enumerated()), id: \.offset) { index, date in
                         if let events = academicEventScrapper.entries[date] {
-                            EventsDateSection(date: date, events: events) { entry in
+                            EventsDateSection(date: date, events: events) { event in
                                 Button(action: {
-                                    eventsViewModel.showAddEventToCalendarAlert(entry)
+                                    eventsViewModel.showAddEventToCalendarAlert(event)
                                 }) {
-                                    AcademicEventRowView(event: entry)
+                                    AcademicEventRowView(event: event)
                                         .frame(width: 310)
                                 }
                                 .buttonStyle(PlainButtonStyle())

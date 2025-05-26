@@ -103,7 +103,7 @@ class EventScrapper: NSObject, ObservableObject {
     }
     
     private func groupEventsByDay(_ events: [BMEventCalendarEntry]) -> [Date: [BMEventCalendarEntry]] {
-        let groupedCalendarEntries = Dictionary(grouping: events, by: { $0.date.getStartOfDay() })
+        let groupedCalendarEntries = Dictionary(grouping: events, by: { $0.startDate.getStartOfDay() })
         return groupedCalendarEntries
     }
 }

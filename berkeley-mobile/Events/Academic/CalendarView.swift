@@ -27,7 +27,7 @@ class CalendarViewModel: ObservableObject {
             dateEntryPairs = dateEntryPairs.map { datePair in
                 let hasEntry = entries.values
                     .flatMap {$0}
-                    .contains(where: { $0.date.isSameDay(as: datePair.date) })
+                    .contains(where: { $0.startDate.isSameDay(as: datePair.date) })
                 return (datePair.date, hasEntry)
             }
         }

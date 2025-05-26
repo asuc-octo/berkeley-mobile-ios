@@ -17,8 +17,8 @@ struct EventsDateSection<Content: View>: View {
     
     var body: some View {
         Section(header: sectionDateText) {
-            ForEach(events) { entry in
-                content(entry)
+            ForEach(events) { event in
+                content(event)
             }
         }
     }
@@ -37,19 +37,19 @@ struct EventsDateSection<Content: View>: View {
 #Preview {
     let eventsViewModel = EventsViewModel()
     Group {
-        EventsDateSection(date: Date(), events: [BMEventCalendarEntry.sampleEntry]) { entry in
-            CampusEventRowView(entry: entry)
+        EventsDateSection(date: Date(), events: [BMEventCalendarEntry.sampleEntry]) { event in
+            CampusEventRowView(event: event)
                 .frame(width: 310)
                 .background(
                     NavigationLink("") {
-                        CampusEventDetailView(event: entry)
+                        CampusEventDetailView(event: event)
                     }
                     .opacity(0)
                 )
         }
         
-        EventsDateSection(date: Date(), events: [BMEventCalendarEntry.sampleEntry]) { entry in
-            AcademicEventRowView(event: entry)
+        EventsDateSection(date: Date(), events: [BMEventCalendarEntry.sampleEntry]) { event in
+            AcademicEventRowView(event: event)
                 .frame(width: 310)
         }
     }
