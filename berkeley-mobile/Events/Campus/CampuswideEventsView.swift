@@ -22,22 +22,27 @@ struct CampuswideEventsView: View {
                     } else if campuswideEventScrapper.entries.isEmpty {
                         BMNoEventsView()
                     } else {
-                        ForEach(Array(campuswideEventScrapper.entries.enumerated()), id: \.offset) { index, entry in
-                            CampusEventRowView(entry: entry)
-                                .frame(width: 310)
-                                .background(
-                                    NavigationLink("") {
-                                        CampusEventDetailView(event: entry)
-                                            .environmentObject(eventsViewModel)
-                                    }
-                                    .opacity(0)
-                                )
+                        ForEach(campuswideEventScrapper.entries.keys.sorted(), id: \.self) { date in
+                            if let events = campuswideEventScrapper.entries[date] {
+                                EventsDateSection(date: date, events: events) { entry in
+                                    CampusEventRowView(entry: entry)
+                                        .frame(width: 310)
+                                        .background(
+                                            NavigationLink("") {
+                                                CampusEventDetailView(event: entry)
+                                                    .environmentObject(eventsViewModel)
+                                            }
+                                            .opacity(0)
+                                        )
+                                }
+                            }
                         }
                     }
                 }
                 .frame(maxWidth: .infinity, alignment: .center)
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color(BMColor.cardBackground))
+                .listRowInsets(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
             }
             .scrollContentBackground(.hidden)
             .listStyle(PlainListStyle())
@@ -47,7 +52,9 @@ struct CampuswideEventsView: View {
             eventsViewModel.logCampuswideTabAnalytics()
         }
         .onChange(of: campuswideEventScrapper.alert) { alert in
-            eventsViewModel.alert = alert
+            withoutAnimation {
+                eventsViewModel.alert = alert
+            }
         }
         .refreshable {
             guard !campuswideEventScrapper.isLoading else {

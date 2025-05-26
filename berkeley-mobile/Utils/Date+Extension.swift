@@ -144,12 +144,14 @@ extension Date {
     }
     
     /// Returns a string representation of the given date. With support for "Noon".
-    func getDateString(withFormatter formatter: DateFormatter) -> String {
+    func getDateString(withFormat dateFormat: String) -> String {
         if self.doesDateComponentsAreEqualTo(hour: 12, minute: 0, sec: 0) {
             return "Noon"
         }
         
-        return formatter.string(from: self)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = dateFormat
+        return dateFormatter.string(from: self)
     }
     
     /// Returns if the given date is within the past week

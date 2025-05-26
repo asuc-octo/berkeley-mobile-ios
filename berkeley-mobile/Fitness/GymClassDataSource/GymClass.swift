@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class GymClass: CalendarEvent {
+class GymClass: BMCalendarEvent {
 
     // MARK: CalendarEvent Fields
 

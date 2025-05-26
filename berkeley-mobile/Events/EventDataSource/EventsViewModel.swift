@@ -20,7 +20,7 @@ class EventsViewModel: ObservableObject {
         Analytics.logEvent("opened_campus_wide_events", parameters: nil)
     }
 
-    func showAddEventToCalendarAlert(_ event: EventCalendarEntry) {
+    func showAddEventToCalendarAlert(_ event: BMEventCalendarEntry) {
         withoutAnimation {
             self.alert = BMAlert(title: "Add To Calendar", message: "Would you like to add this event to your calendar?", type: .action) {
                 self.addAcademicEventToCalendar(event)
@@ -28,7 +28,7 @@ class EventsViewModel: ObservableObject {
         }
     }
     
-    private func addAcademicEventToCalendar(_ event: EventCalendarEntry) {
+    private func addAcademicEventToCalendar(_ event: BMEventCalendarEntry) {
         Task { @MainActor in
             do {
                 try await BMEventManager.shared.addEventToCalendar(calendarEvent: event)

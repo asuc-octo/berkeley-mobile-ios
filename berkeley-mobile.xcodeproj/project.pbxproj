@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		016A56D6251AD38F00531A12 /* CalendarEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016A56D5251AD38F00531A12 /* CalendarEvent.swift */; };
+		016A56D6251AD38F00531A12 /* BMCalendarEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016A56D5251AD38F00531A12 /* BMCalendarEvent.swift */; };
 		016A56D8251C930D00531A12 /* AppDelegate+Migration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016A56D7251C930D00531A12 /* AppDelegate+Migration.swift */; };
 		0176B60F25FD933D004D379C /* Display.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0176B60E25FD933D004D379C /* Display.swift */; };
 		017C0B26251018BA00BFA80A /* Colors+MapMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017C0B25251018BA00BFA80A /* Colors+MapMarker.swift */; };
@@ -16,7 +16,7 @@
 		01A11F0C2717B8A800455F00 /* DiningMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A11F0B2717B8A800455F00 /* DiningMenuViewController.swift */; };
 		01AA1B88253BB4AC003AB75A /* UIScrollView+GestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AA1B87253BB4AC003AB75A /* UIScrollView+GestureRecognizer.swift */; };
 		01B250282516AD4F00CBA459 /* IconPairView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B250272516AD4F00CBA459 /* IconPairView.swift */; };
-		01B2502F2516C45800CBA459 /* EventCalendarEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B2502E2516C45800CBA459 /* EventCalendarEntry.swift */; };
+		01B2502F2516C45800CBA459 /* BMEventCalendarEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B2502E2516C45800CBA459 /* BMEventCalendarEntry.swift */; };
 		01BC8EB024E8C3E3005B4969 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BC8EAF24E8C3E3005B4969 /* DetailView.swift */; };
 		01C75E2E25292E5B00C25A32 /* DescriptionCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C75E2D25292E5B00C25A32 /* DescriptionCardView.swift */; };
 		01CDFF6A257C614900D9FBD6 /* Colors+Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CDFF69257C614900D9FBD6 /* Colors+Resource.swift */; };
@@ -79,7 +79,6 @@
 		2913595924B13DF200DE9AD6 /* OpenTimesCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2913595824B13DF200DE9AD6 /* OpenTimesCardView.swift */; };
 		291B11E025043FF100F737A8 /* Sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291B11DF25043FF100F737A8 /* Sort.swift */; };
 		291B11E225044BDB00F737A8 /* HasName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291B11E125044BDB00F737A8 /* HasName.swift */; };
-		2925D5FA2529405500BBA266 /* CampusEventCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2925D5F92529405500BBA266 /* CampusEventCellView.swift */; };
 		29345E2724A7E76300859A88 /* OverviewCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29345E2624A7E76300859A88 /* OverviewCardView.swift */; };
 		29345E2924A7E7AC00859A88 /* HasPhoneNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29345E2824A7E7AC00859A88 /* HasPhoneNumber.swift */; };
 		29345E2B24A7EC2B00859A88 /* HasImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29345E2A24A7EC2B00859A88 /* HasImage.swift */; };
@@ -163,6 +162,7 @@
 		E83C6CEB2B71D8C20085E277 /* ResourcesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83C6CEA2B71D8C20085E277 /* ResourcesView.swift */; };
 		E83C6CED2B71DF190085E277 /* SafariWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83C6CEC2B71DF190085E277 /* SafariWebView.swift */; };
 		E83D87942AB3CD1E00C4113C /* FeedbackFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83D87932AB3CD1E00C4113C /* FeedbackFormView.swift */; };
+		E8472AEC2DE2DB80005C24EA /* EventsDateSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8472AEB2DE2DB80005C24EA /* EventsDateSection.swift */; };
 		E86F59232B9BA85700907251 /* StudyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E86F59222B9BA85700907251 /* StudyViewController.swift */; };
 		E889F75C2DA323C100202556 /* BMActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E889F75B2DA323C100202556 /* BMActionButton.swift */; };
 		E889F7FC2DAC4DEE00202556 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E889F7FB2DAC4DEE00202556 /* WidgetKit.framework */; };
@@ -199,7 +199,7 @@
 		E8B5975F2CA62D6F006DFBD5 /* SegmentedControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B5975E2CA62D6F006DFBD5 /* SegmentedControlView.swift */; };
 		E8BC7B652B96CB7F002BF46D /* ResourcesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8BC7B642B96CB7F002BF46D /* ResourcesViewModel.swift */; };
 		E8C2BD302D8A457400165554 /* CampusEventRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C2BD2F2D8A457400165554 /* CampusEventRowView.swift */; };
-		E8C2BDA72D912B3A00165554 /* BMCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C2BDA62D912B3A00165554 /* BMCalendarView.swift */; };
+		E8C2BDA72D912B3A00165554 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C2BDA62D912B3A00165554 /* CalendarView.swift */; };
 		E8EBE7622CEC2FD700A220BB /* SafetyLogDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EBE7612CEC2FD700A220BB /* SafetyLogDetailView.swift */; };
 		E8FCD6842C374A81004B66A3 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = E8FCD6832C374A81004B66A3 /* SwiftSoup */; };
 		E8FCD6882C38AEC9004B66A3 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8FCD6872C38AEC9004B66A3 /* String+Extension.swift */; };
@@ -234,7 +234,7 @@
 
 /* Begin PBXFileReference section */
 		009098AE14DA5A91CB4733A6 /* Pods_berkeley_mobile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_berkeley_mobile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		016A56D5251AD38F00531A12 /* CalendarEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEvent.swift; sourceTree = "<group>"; };
+		016A56D5251AD38F00531A12 /* BMCalendarEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMCalendarEvent.swift; sourceTree = "<group>"; };
 		016A56D7251C930D00531A12 /* AppDelegate+Migration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Migration.swift"; sourceTree = "<group>"; };
 		0176B60E25FD933D004D379C /* Display.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Display.swift; sourceTree = "<group>"; };
 		017C0B25251018BA00BFA80A /* Colors+MapMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+MapMarker.swift"; sourceTree = "<group>"; };
@@ -243,7 +243,7 @@
 		01A11F0B2717B8A800455F00 /* DiningMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiningMenuViewController.swift; sourceTree = "<group>"; };
 		01AA1B87253BB4AC003AB75A /* UIScrollView+GestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+GestureRecognizer.swift"; sourceTree = "<group>"; };
 		01B250272516AD4F00CBA459 /* IconPairView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconPairView.swift; sourceTree = "<group>"; };
-		01B2502E2516C45800CBA459 /* EventCalendarEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCalendarEntry.swift; sourceTree = "<group>"; };
+		01B2502E2516C45800CBA459 /* BMEventCalendarEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMEventCalendarEntry.swift; sourceTree = "<group>"; };
 		01BC8EAF24E8C3E3005B4969 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		01C75E2D25292E5B00C25A32 /* DescriptionCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionCardView.swift; sourceTree = "<group>"; };
 		01CDFF69257C614900D9FBD6 /* Colors+Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+Resource.swift"; sourceTree = "<group>"; };
@@ -308,7 +308,6 @@
 		2913595824B13DF200DE9AD6 /* OpenTimesCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenTimesCardView.swift; sourceTree = "<group>"; };
 		291B11DF25043FF100F737A8 /* Sort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sort.swift; sourceTree = "<group>"; };
 		291B11E125044BDB00F737A8 /* HasName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasName.swift; sourceTree = "<group>"; };
-		2925D5F92529405500BBA266 /* CampusEventCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusEventCellView.swift; sourceTree = "<group>"; };
 		29345E2624A7E76300859A88 /* OverviewCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewCardView.swift; sourceTree = "<group>"; };
 		29345E2824A7E7AC00859A88 /* HasPhoneNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasPhoneNumber.swift; sourceTree = "<group>"; };
 		29345E2A24A7EC2B00859A88 /* HasImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasImage.swift; sourceTree = "<group>"; };
@@ -397,6 +396,7 @@
 		E83C6CEA2B71D8C20085E277 /* ResourcesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcesView.swift; sourceTree = "<group>"; };
 		E83C6CEC2B71DF190085E277 /* SafariWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebView.swift; sourceTree = "<group>"; };
 		E83D87932AB3CD1E00C4113C /* FeedbackFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackFormView.swift; sourceTree = "<group>"; };
+		E8472AEB2DE2DB80005C24EA /* EventsDateSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsDateSection.swift; sourceTree = "<group>"; };
 		E86F59222B9BA85700907251 /* StudyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyViewController.swift; sourceTree = "<group>"; };
 		E889F75B2DA323C100202556 /* BMActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMActionButton.swift; sourceTree = "<group>"; };
 		E889F7FA2DAC4DEE00202556 /* BerkeleyMobileWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = BerkeleyMobileWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -420,7 +420,7 @@
 		E8B5975E2CA62D6F006DFBD5 /* SegmentedControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlView.swift; sourceTree = "<group>"; };
 		E8BC7B642B96CB7F002BF46D /* ResourcesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcesViewModel.swift; sourceTree = "<group>"; };
 		E8C2BD2F2D8A457400165554 /* CampusEventRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusEventRowView.swift; sourceTree = "<group>"; };
-		E8C2BDA62D912B3A00165554 /* BMCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMCalendarView.swift; sourceTree = "<group>"; };
+		E8C2BDA62D912B3A00165554 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		E8EBE7612CEC2FD700A220BB /* SafetyLogDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyLogDetailView.swift; sourceTree = "<group>"; };
 		E8FCD6872C38AEC9004B66A3 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		E8FCD6892C3A382F004B66A3 /* EventScrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventScrapper.swift; sourceTree = "<group>"; };
@@ -532,6 +532,7 @@
 				2925D5F625293E9D00BBA266 /* EventDataSource */,
 				294FF42C2544F71200346E91 /* Academic */,
 				2925D5F425293E5A00BBA266 /* Campus */,
+				E8472AEB2DE2DB80005C24EA /* EventsDateSection.swift */,
 				E83B6D9E2D780B4200AA9422 /* EventsView.swift */,
 				E891E2AE2DD05029006CA0F5 /* BMNoEventsView.swift */,
 			);
@@ -669,7 +670,7 @@
 				29AB5BBE241D8766007C3ECA /* HasOpenTimes.swift */,
 				299ACFB3244A5F90000F3E86 /* HasOccupancy.swift */,
 				291B11E125044BDB00F737A8 /* HasName.swift */,
-				016A56D5251AD38F00531A12 /* CalendarEvent.swift */,
+				016A56D5251AD38F00531A12 /* BMCalendarEvent.swift */,
 			);
 			path = ItemProtocols;
 			sourceTree = "<group>";
@@ -745,7 +746,6 @@
 				E891E2AC2DD00449006CA0F5 /* CampuswideEventsView.swift */,
 				53C9FD002DB9C31E003A3178 /* CampusEventDetailView.swift */,
 				E8C2BD2F2D8A457400165554 /* CampusEventRowView.swift */,
-				2925D5F92529405500BBA266 /* CampusEventCellView.swift */,
 			);
 			path = Campus;
 			sourceTree = "<group>";
@@ -753,7 +753,7 @@
 		2925D5F625293E9D00BBA266 /* EventDataSource */ = {
 			isa = PBXGroup;
 			children = (
-				01B2502E2516C45800CBA459 /* EventCalendarEntry.swift */,
+				01B2502E2516C45800CBA459 /* BMEventCalendarEntry.swift */,
 				E8FCD6892C3A382F004B66A3 /* EventScrapper.swift */,
 				E891E2982DCD4DA3006CA0F5 /* EventsViewModel.swift */,
 			);
@@ -784,7 +784,7 @@
 			children = (
 				E891E2962DCD3F0D006CA0F5 /* AcademicCalendarView.swift */,
 				E89A33142DCB21780068DDAA /* AcademicEventRowView.swift */,
-				E8C2BDA62D912B3A00165554 /* BMCalendarView.swift */,
+				E8C2BDA62D912B3A00165554 /* CalendarView.swift */,
 			);
 			path = Academic;
 			sourceTree = "<group>";
@@ -1175,6 +1175,7 @@
 			files = (
 				E80ECC312AFB02BA004604BA /* Secrets.swift in Sources */,
 				01FA50F324E8BA5400DCC490 /* LocationDetailView.swift in Sources */,
+				E8472AEC2DE2DB80005C24EA /* EventsDateSection.swift in Sources */,
 				1DB006AD2D71C8D6001CC870 /* ResourcesSectionDropdown.swift in Sources */,
 				306A550023614C0000D59A7F /* MainContainerViewController.swift in Sources */,
 				29F11EC72516C150007DCFD7 /* BarView.swift in Sources */,
@@ -1215,7 +1216,7 @@
 				2948155F253274C500D113B6 /* ImageViewCell.swift in Sources */,
 				E81767582B9A516200599254 /* MapMarkersDropdownView.swift in Sources */,
 				E8BC7B652B96CB7F002BF46D /* ResourcesViewModel.swift in Sources */,
-				016A56D6251AD38F00531A12 /* CalendarEvent.swift in Sources */,
+				016A56D6251AD38F00531A12 /* BMCalendarEvent.swift in Sources */,
 				E889F75C2DA323C100202556 /* BMActionButton.swift in Sources */,
 				E83B6D992D7121D300AA9422 /* View+Extension.swift in Sources */,
 				E891E2852DCD3104006CA0F5 /* BMCachedAsyncImageView.swift in Sources */,
@@ -1275,7 +1276,7 @@
 				E891E2D92DD526FC006CA0F5 /* BMError.swift in Sources */,
 				1346B9192420AD4800383399 /* WeeklyHours.swift in Sources */,
 				29B1D307254E1C8700BAD88F /* BMEventManager.swift in Sources */,
-				E8C2BDA72D912B3A00165554 /* BMCalendarView.swift in Sources */,
+				E8C2BDA72D912B3A00165554 /* CalendarView.swift in Sources */,
 				29387E9D24BBBE8E00070BCE /* OccupancyGraphCardView.swift in Sources */,
 				E83B6DA52D7A85D500AA9422 /* GymOccupancyScrapper.swift in Sources */,
 				13EA64D02399D50C00FD8E13 /* DataManager.swift in Sources */,
@@ -1291,8 +1292,7 @@
 				E8B2738F2BD5E46B0009831A /* BMDrawerView.swift in Sources */,
 				2ED4FB6B2D8BCB390086306A /* SearchViewModel.swift in Sources */,
 				E891E2F32DD68536006CA0F5 /* BMNetworkingManager.swift in Sources */,
-				01B2502F2516C45800CBA459 /* EventCalendarEntry.swift in Sources */,
-				2925D5FA2529405500BBA266 /* CampusEventCellView.swift in Sources */,
+				01B2502F2516C45800CBA459 /* BMEventCalendarEntry.swift in Sources */,
 				5516088624392E5100B1E55B /* DiningViewController.swift in Sources */,
 				2E765C252D88BF3E008708CD /* SearchResultsView.swift in Sources */,
 				E83C6CEB2B71D8C20085E277 /* ResourcesView.swift in Sources */,
