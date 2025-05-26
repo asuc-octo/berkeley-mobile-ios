@@ -12,6 +12,7 @@ enum BMError: Error {
     case eventAlreadyAddedInCalendar
     case insufficientAccessToCalendar
     case mayExistedInCalendarAlready
+    case unableToFindEventInCalendar
 }
 
 extension BMError: LocalizedError {
@@ -23,6 +24,8 @@ extension BMError: LocalizedError {
             return NSLocalizedString("This event is already in your calendar.", comment: "Event Already Added To Calendar Error")
         case .mayExistedInCalendarAlready:
             return NSLocalizedString("This event may already be in your calendar. Please check for duplicates.", comment: "Event May Already Been Added Error")
+        case .unableToFindEventInCalendar:
+            return NSLocalizedString("Unable to retrieve event from your calendar.", comment: "Unable To Find Event In Calendar")
         }
     }
 }

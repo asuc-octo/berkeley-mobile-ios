@@ -9,6 +9,8 @@
 import SwiftUI
 
 struct CampusEventRowView: View {
+    @EnvironmentObject var eventsViewModel: EventsViewModel
+    
     var entry: EventCalendarEntry
     
     private let imageWidthAndHeight: CGFloat = 110
@@ -33,10 +35,39 @@ struct CampusEventRowView: View {
             
             BMCachedAsyncImageView(imageURL: entry.imageURL, placeholderImage: BMConstants.doeGladeImage, aspectRatio: .fill, widthAndHeight: imageWidthAndHeight, cornerRadius: 12)
                 .shadowfy()
+                .overlay(
+                    addedCalendarStatusButtonOverlay
+                )
         }
         .padding()
         .shadowfy()
         .frame(height: 150)
+    }
+    
+    @ViewBuilder
+    private var addedCalendarStatusButtonOverlay: some View {
+        if eventsViewModel.doesEventExist(for: entry) {
+            VStack {
+                Spacer()
+                HStack {
+                    Spacer()
+                    BMAddedCalendarStatusButton()
+                }
+            }
+            .padding(5)
+        }
+    }
+}
+
+struct BMAddedCalendarStatusButton: View {
+    var body: some View {
+        Button(action: {
+            
+        }) {
+            Image(systemName: "calendar.badge.checkmark")
+                .font(.subheadline)
+        }
+        .buttonStyle(BMControlButtonStyle(widthAndHeight: 30))
     }
 }
 

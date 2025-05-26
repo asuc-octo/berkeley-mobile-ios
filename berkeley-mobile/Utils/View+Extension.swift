@@ -24,9 +24,11 @@ func withoutAnimation(action: @escaping () -> Void) {
 struct BMControlButtonStyle: ButtonStyle {
     static let widthAndHeight: CGFloat = 45
     
+    var widthAndHeight: CGFloat = BMControlButtonStyle.widthAndHeight
+    
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .frame(width: BMControlButtonStyle.widthAndHeight, height: BMControlButtonStyle.widthAndHeight)
+            .frame(width: widthAndHeight, height: widthAndHeight)
             .background(
                 Circle()
                     .fill(.thickMaterial)

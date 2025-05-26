@@ -25,7 +25,7 @@ class CalendarViewModel: ObservableObject {
         
         withAnimation(.bouncy) {
             dateEntryPairs = dateEntryPairs.map { datePair in
-                let hasEntry = entries.contains(where: { $0.date.isSameDay(as: datePair.date) })
+                let hasEntry = entries.contains(where: { $0.startDate.isSameDay(as: datePair.date) })
                 return (datePair.date, hasEntry)
             }
         }

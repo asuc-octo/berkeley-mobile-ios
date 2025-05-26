@@ -86,7 +86,7 @@ struct AcademicCalendarView: View {
     }
     
     private func scrollToEvent(day: Int, proxy: ScrollViewProxy) {
-        guard let index = calendarViewModel.entries.firstIndex(where: { $0.date.get(.day) == day }) else {
+        guard let index = calendarViewModel.entries.firstIndex(where: { $0.startDate.get(.day) == day }) else {
             return
         }
         

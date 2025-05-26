@@ -28,11 +28,18 @@ struct CampusEventDetailView: View {
         }
         .background(Color(BMColor.modalBackground))
         .toolbar {
+            let doesEventExists = eventsViewModel.doesEventExist(for: event)
             ToolbarItem(placement: .topBarTrailing) {
                 Button(action: {
-                    eventsViewModel.showAddEventToCalendarAlert(event)
+                    if doesEventExists {
+                        eventsViewModel.alert = BMAlert(title: "Delete Event?", message: "Do you want to delete this event from your Calendar?", type: .action) {
+                            eventsViewModel.deleteEvent(for: event)
+                        }
+                    } else {
+                        eventsViewModel.showAddEventToCalendarAlert(event)
+                    }
                 }) {
-                    Image(systemName: "calendar.badge.plus")
+                    Image(systemName: doesEventExists ? "calendar.badge.checkmark" : "calendar.badge.plus")
                 }
             }
         }

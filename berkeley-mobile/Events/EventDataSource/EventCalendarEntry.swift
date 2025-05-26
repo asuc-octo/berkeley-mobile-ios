@@ -24,7 +24,7 @@ class EventCalendarEntry: NSObject, NSCoding, Identifiable, CalendarEvent, HasIm
     
     // MARK: CalendarEvent Fields
     @Display var name: String = "N/A"
-    var date: Date = Date()
+    var startDate: Date = Date()
     var end: Date?
     @Display var descriptionText: String?
     @Display var location: String?
@@ -74,7 +74,7 @@ class EventCalendarEntry: NSObject, NSCoding, Identifiable, CalendarEvent, HasIm
 
     init(name: String, date: Date, end: Date? = nil, descriptionText: String? = nil, location: String? = nil, registerLink: String? = nil, imageURL: String? = nil, sourceLink: String? = nil, type: String? = nil) {
         self.name = name
-        self.date = date
+        self.startDate = date
         self.end = end 
         self.descriptionText = descriptionText
         self.location = location
@@ -86,7 +86,7 @@ class EventCalendarEntry: NSObject, NSCoding, Identifiable, CalendarEvent, HasIm
     
     func encode(with coder: NSCoder) {
         coder.encode(name, forKey: ArgumentNames.name)
-        coder.encode(date, forKey: ArgumentNames.date)
+        coder.encode(startDate, forKey: ArgumentNames.date)
         coder.encode(end, forKey: ArgumentNames.end)
         coder.encode(descriptionText, forKey: ArgumentNames.descriptionText)
         coder.encode(location, forKey: ArgumentNames.location)
@@ -103,7 +103,7 @@ class EventCalendarEntry: NSObject, NSCoding, Identifiable, CalendarEvent, HasIm
         }
         
         self.name = name
-        self.date = date
+        self.startDate = date
         
         self.end = coder.decodeObject(forKey: ArgumentNames.end) as? Date
         self.descriptionText = coder.decodeObject(forKey: ArgumentNames.descriptionText) as? String
