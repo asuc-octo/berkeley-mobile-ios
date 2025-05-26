@@ -28,15 +28,11 @@ struct CampusEventDetailView: View {
         }
         .background(Color(BMColor.modalBackground))
         .toolbar {
-            let doesEventExists = eventsViewModel.doesEventExist(for: event)
+            let doesEventExists = eventsViewModel.doesEventExists(for: event)
             ToolbarItem(placement: .topBarTrailing) {
                 Button(action: {
                     if doesEventExists {
-                        withoutAnimation {
-                            eventsViewModel.alert = BMAlert(title: "Delete Event?", message: "Do you want to delete this event from your Calendar?", type: .action) {
-                                eventsViewModel.deleteEvent(for: event)
-                            }
-                        }
+                        eventsViewModel.showDeleteEventFromCalendarAlert(event)
                     } else {
                         eventsViewModel.showAddEventToCalendarAlert(event)
                     }

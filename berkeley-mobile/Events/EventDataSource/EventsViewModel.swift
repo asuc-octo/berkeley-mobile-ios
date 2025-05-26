@@ -26,7 +26,13 @@ class EventsViewModel: ObservableObject {
         })
     }
     
-    func doesEventExist(for event: BMEventCalendarEntry) -> Bool {
+    func showDeleteEventFromCalendarAlert(_ event: BMEventCalendarEntry) {
+        presentAlertWithoutAnimation(BMAlert(title: "Delete Event?", message: "Do you want to delete this event from your Calendar?", type: .action) {
+            self.deleteEvent(for: event)
+        })
+    }
+    
+    func doesEventExists(for event: BMEventCalendarEntry) -> Bool {
         BMEventManager.shared.doesEventExists(for: event)
     }
     

@@ -97,7 +97,7 @@ struct EventsContextMenuModifier: ViewModifier {
     
     @ViewBuilder
     private var contextMenu: some View {
-        if eventsViewModel.doesEventExist(for: event) {
+        if eventsViewModel.doesEventExists(for: event) {
             Button(action: {
                 eventsViewModel.deleteEvent(for: event)
             }) {

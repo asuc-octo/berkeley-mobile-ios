@@ -14,7 +14,7 @@ struct BMAddedCalendarStatusOverlay: View {
     let event: BMEventCalendarEntry
     
     var body: some View {
-        if eventsViewModel.doesEventExist(for: event) {
+        if eventsViewModel.doesEventExists(for: event) {
             VStack {
                 Spacer()
                 HStack {
@@ -24,7 +24,6 @@ struct BMAddedCalendarStatusOverlay: View {
             }
             .padding(5)
         }
-        
     }
     
     private var addedCalendarStatusButton: some View {
