@@ -1,5 +1,5 @@
 //
-//  BMCalendarView.swift
+//  CalendarView.swift
 //  berkeley-mobile
 //
 //  Created by Justin Wong on 3/23/25.
@@ -12,7 +12,7 @@ typealias BMDateHasEntryPair = (date: Date, hasEntry: Bool)
 
 class CalendarViewModel: ObservableObject {
     @Published var dateEntryPairs = [BMDateHasEntryPair]()
-    var entries = [EventCalendarEntry]()
+    private var entries = [Date: [BMEventCalendarEntry]]()
     
     private let calendar = Calendar.current
     
@@ -20,12 +20,14 @@ class CalendarViewModel: ObservableObject {
         populateDates()
     }
     
-    func setEntries(_ entries: [EventCalendarEntry]) {
+    func setEntries(_ entries: [Date: [BMEventCalendarEntry]]) {
         self.entries = entries
         
         withAnimation(.bouncy) {
             dateEntryPairs = dateEntryPairs.map { datePair in
-                let hasEntry = entries.contains(where: { $0.startDate.isSameDay(as: datePair.date) })
+                let hasEntry = entries.values
+                    .flatMap {$0}
+                    .contains(where: { $0.startDate.isSameDay(as: datePair.date) })
                 return (datePair.date, hasEntry)
             }
         }
@@ -54,9 +56,9 @@ class CalendarViewModel: ObservableObject {
 }
 
 
-// MARK: - BMCalendarView
+// MARK: - CalendarView
 
-struct BMCalendarView: View {
+struct CalendarView: View {
     @EnvironmentObject var viewModel: CalendarViewModel
     
     var didSelectDay: ((Int) -> Void)?
@@ -153,11 +155,11 @@ struct CalendarEntryButton: View {
     let viewModel = CalendarViewModel()
     let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: Date())!
     let eventCalendarEntries = [
-        EventCalendarEntry(name: "", date: Date(), end: Date(), descriptionText: "", location: "", imageURL: "", sourceLink: ""),
-        EventCalendarEntry(name: "", date: tomorrow, end: tomorrow, descriptionText: "", location: "", imageURL: "", sourceLink: "")
-    ]
+        Date(): [BMEventCalendarEntry(name: "", date: Date(), end: Date(), descriptionText: "", location: "", imageURL: "", sourceLink: ""),
+        BMEventCalendarEntry(name: "", date: tomorrow, end: tomorrow, descriptionText: "", location: "", imageURL: "", sourceLink: "")
+    ]]
     viewModel.setEntries(eventCalendarEntries)
     
-    return BMCalendarView()
+    return CalendarView()
         .environmentObject(viewModel)
 }

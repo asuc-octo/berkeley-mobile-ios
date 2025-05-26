@@ -1,5 +1,5 @@
 //
-//  CalendarEvent.swift
+//  BMCalendarEvent.swift
 //  berkeley-mobile
 //
 //  Created by Kevin Hu on 9/22/20.
@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 /// Items conforming to this protocol are events that can be represented on a calendar.
-protocol CalendarEvent {
+protocol BMCalendarEvent {
     
     /// The name of the event.
     var name: String { get set }
@@ -34,7 +34,7 @@ protocol CalendarEvent {
     var location: String? { get set }
 }
 
-extension CalendarEvent {
+extension BMCalendarEvent {
     var dateString: String {
         get {
             var dateString = ""
@@ -44,9 +44,7 @@ extension CalendarEvent {
             } else if Date.isDateTomorrow(baseDate: Date(), date: startDate) {
                 dateString += "Tomorrow"
             } else {
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "MM/dd/yyyy"
-                dateString += dateFormatter.string(from: startDate)
+                dateString += startDate.getDateString(withFormat: "MM/dd/yyyy")
             }
             dateString += " / "
             
@@ -56,13 +54,10 @@ extension CalendarEvent {
                 return dateString + "All Day"
             }
             
-            let timeFormatter = DateFormatter()
-            timeFormatter.dateFormat = "h:mm a"
-            
-            dateString += startDate.getDateString(withFormatter: timeFormatter)
+            dateString += startDate.getDateString(withFormat: "h:mm a")
             
             if let end {
-                dateString += " - \(end.getDateString(withFormatter: timeFormatter))"
+                dateString += " - \(end.getDateString(withFormat: "h:mm a"))"
             }
             
             return dateString

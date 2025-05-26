@@ -19,18 +19,18 @@ class EventsViewModel: ObservableObject {
     func logCampuswideTabAnalytics() {
         Analytics.logEvent("opened_campus_wide_events", parameters: nil)
     }
-
-    func showAddEventToCalendarAlert(_ event: EventCalendarEntry) {
+    
+    func showAddEventToCalendarAlert(_ event: BMEventCalendarEntry) {
         alert = BMAlert(title: "Add To Calendar", message: "Would you like to add this event to your calendar?", type: .action) {
             self.addAcademicEventToCalendar(event)
         }
     }
     
-    func doesEventExist(for event: EventCalendarEntry) -> Bool {
+    func doesEventExist(for event: BMEventCalendarEntry) -> Bool {
         BMEventManager.shared.doesEventExists(for: event)
     }
     
-    func deleteEvent(for event: EventCalendarEntry) {
+    func deleteEvent(for event: BMEventCalendarEntry) {
         do {
             try BMEventManager.shared.deleteEvent(event)
             alert = BMAlert(title: "Successfully Deleted", message: "Event has been successfully deleted from your Calendar.", type: .notice)
@@ -39,7 +39,7 @@ class EventsViewModel: ObservableObject {
         }
     }
     
-    private func addAcademicEventToCalendar(_ event: EventCalendarEntry) {
+    private func addAcademicEventToCalendar(_ event: BMEventCalendarEntry) {
         Task { @MainActor in
             do {
                 try await BMEventManager.shared.addEventToCalendar(calendarEvent: event)

@@ -14,7 +14,7 @@ class BMEventManager {
     
     private let eventStore = EKEventStore()
     
-    func addEventToCalendar(calendarEvent: CalendarEvent) async throws {
+    func addEventToCalendar(calendarEvent: BMCalendarEvent) async throws {
         if #available(iOS 17.0, *) {
             try await eventStore.requestFullAccessToEvents()
         } else {
@@ -24,7 +24,7 @@ class BMEventManager {
         try saveEvent(calendarEvent)
     }
     
-    func deleteEvent(_ calendarEvent: CalendarEvent) throws {
+    func deleteEvent(_ calendarEvent: BMCalendarEvent) throws {
         let matchingExistingEvents = getMatchingEvents(for: calendarEvent)
         guard let eventToDelete = matchingExistingEvents.first(where: {
             $0.title == calendarEvent.name &&
@@ -37,20 +37,19 @@ class BMEventManager {
         try eventStore.remove(eventToDelete, span: .thisEvent)
     }
     
-    func doesEventExists(for calendarEvent: CalendarEvent) -> Bool {
+    func doesEventExists(for calendarEvent: BMCalendarEvent) -> Bool {
         let matchingExistingEvents = getMatchingEvents(for: calendarEvent)
         let eventAlreadyExists = matchingExistingEvents.contains { $0.title == calendarEvent.name && $0.startDate == calendarEvent.startDate && $0.endDate == calendarEvent.endDate }
-        
         return eventAlreadyExists
     }
     
-    private func getMatchingEvents(for calendarEvent: CalendarEvent) -> [EKEvent] {
+    private func getMatchingEvents(for calendarEvent: BMCalendarEvent) -> [EKEvent] {
         let predicate = eventStore.predicateForEvents(withStart: calendarEvent.startDate, end: calendarEvent.endDate, calendars: nil)
         let existingEvents = eventStore.events(matching: predicate)
         return existingEvents
     }
     
-    private func saveEvent(_ calendarEvent: CalendarEvent) throws {
+    private func saveEvent(_ calendarEvent: BMCalendarEvent) throws {
         let eventAlreadyExists = doesEventExists(for: calendarEvent)
         
         guard !eventAlreadyExists else {
@@ -76,7 +75,7 @@ class BMEventManager {
         }
     }
     
-    private func getEKEventFromCalendarEvent(for calendarEvent: CalendarEvent) -> EKEvent {
+    private func getEKEventFromCalendarEvent(for calendarEvent: BMCalendarEvent) -> EKEvent {
         let event = EKEvent(eventStore: eventStore)
         event.title = calendarEvent.name
         event.startDate = calendarEvent.startDate

@@ -8,7 +8,7 @@ struct CampusEventDetailView: View {
     
     @EnvironmentObject var eventsViewModel: EventsViewModel
     
-    let event: EventCalendarEntry
+    let event: BMEventCalendarEntry
     
     @State private var alertType: AlertType?
     
@@ -103,7 +103,7 @@ struct CampusEventDetailView: View {
 // MARK: - BMDetailHeaderView
 
 struct BMDetailHeaderView: View {
-    let event: EventCalendarEntry
+    let event: BMEventCalendarEntry
     
     var body: some View {
         ZStack {
@@ -181,17 +181,6 @@ struct BMDetailDescriptionView: View {
 }
      
 #Preview {
-    let sampleEvent = EventCalendarEntry(
-        name: "Exhibit | A Storied Campus: Cal in Fiction",
-        date: Date(),
-        end: Date().addingTimeInterval(7200),
-        descriptionText: "Mention of the name University of California, Berkeley, evokes a range of images: a celebrated institution, a seat of innovation, protests and activism, iconic architecture, colorful traditions, and … literary muse? The campus has long sparked the creativity of fiction writers, inspiring them to use it as a backdrop, a key player, or a barely disguised character within their tales. This exhibition highlights examples of these portrayals through book covers, excerpts, illustrations, photographs, and other materials largely selected from the University Archives and general collections of The Bancroft Library.",
-        location: "The Rowell Exhibition Cases, Doe Library, 2nd floo...",
-        registerLink: "https://berkeley.edu/register",
-        imageURL: "https://events.berkeley.edu/live/image/gid/139/width/200/height/200/crop/1/src_region/0,0,3200,2420/4595_cubanc00006587_ae_a.rev.1698182194.jpg",
-        sourceLink: "https://berkeley.edu/event",
-        type: "Default"
-    )
-    CampusEventDetailView(event: sampleEvent)
+    CampusEventDetailView(event: BMEventCalendarEntry.sampleEntry)
         .environmentObject(EventsViewModel())
 }

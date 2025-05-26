@@ -11,7 +11,7 @@ import SwiftUI
 struct BMAddedCalendarStatusOverlay: View {
     @EnvironmentObject var eventsViewModel: EventsViewModel
     
-    let event: EventCalendarEntry
+    let event: BMEventCalendarEntry
     
     var body: some View {
         if eventsViewModel.doesEventExist(for: event) {
