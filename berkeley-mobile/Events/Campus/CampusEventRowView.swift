@@ -11,20 +11,20 @@ import SwiftUI
 struct CampusEventRowView: View {
     @EnvironmentObject var eventsViewModel: EventsViewModel
     
-    var entry: BMEventCalendarEntry
+    var event: BMEventCalendarEntry
     
     private let imageWidthAndHeight: CGFloat = 110
     
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
-                Text(entry.name)
+                Text(event.name)
                     .font(Font(BMFont.bold(15)))
                 Spacer()
                 VStack(alignment: .leading, spacing: 3) {
-                    Text(entry.dateString)
+                    Text(event.dateString)
                         .fontWeight(.semibold)
-                    Text(entry.location ?? "")
+                    Text(event.location ?? "")
                 }
                 .fontWeight(.light)
             }
@@ -33,19 +33,20 @@ struct CampusEventRowView: View {
             
             Spacer()
             
-            BMCachedAsyncImageView(imageURL: entry.imageURL, placeholderImage: BMConstants.doeGladeImage, aspectRatio: .fill, widthAndHeight: imageWidthAndHeight, cornerRadius: 12)
+            BMCachedAsyncImageView(imageURL: event.imageURL, placeholderImage: BMConstants.doeGladeImage, aspectRatio: .fill, widthAndHeight: imageWidthAndHeight, cornerRadius: 12)
                 .shadowfy()
                 .overlay(
-                    BMAddedCalendarStatusOverlay(event: entry)
+                    BMAddedCalendarStatusOverlay(event: event)
                 )
         }
         .padding()
         .shadowfy()
         .frame(height: 150)
+        .addEventsContextMenu(event: event)
     }
 }
 
 #Preview {
-    return CampusEventRowView(entry: BMEventCalendarEntry.sampleEntry)
+    CampusEventRowView(event: BMEventCalendarEntry.sampleEntry)
         .padding()
 }

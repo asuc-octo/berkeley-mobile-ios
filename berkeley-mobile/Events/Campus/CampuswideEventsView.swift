@@ -24,12 +24,12 @@ struct CampuswideEventsView: View {
                     } else {
                         ForEach(campuswideEventScrapper.entries.keys.sorted(), id: \.self) { date in
                             if let events = campuswideEventScrapper.entries[date] {
-                                EventsDateSection(date: date, events: events) { entry in
-                                    CampusEventRowView(entry: entry)
+                                EventsDateSection(date: date, events: events) { event in
+                                    CampusEventRowView(event: event)
                                         .frame(width: 310)
                                         .background(
                                             NavigationLink("") {
-                                                CampusEventDetailView(event: entry)
+                                                CampusEventDetailView(event: event)
                                                     .environmentObject(eventsViewModel)
                                             }
                                             .opacity(0)

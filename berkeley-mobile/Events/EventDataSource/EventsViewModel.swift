@@ -39,7 +39,7 @@ class EventsViewModel: ObservableObject {
         }
     }
     
-    private func addAcademicEventToCalendar(_ event: BMEventCalendarEntry) {
+    func addAcademicEventToCalendar(_ event: BMEventCalendarEntry) {
         Task { @MainActor in
             do {
                 try await BMEventManager.shared.addEventToCalendar(calendarEvent: event)

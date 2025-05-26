@@ -81,14 +81,51 @@ struct Shadowfy: ViewModifier {
 }
 
 
+// MARK: - Other View Componments
+
+struct EventsContextMenuModifier: ViewModifier {
+    @EnvironmentObject var eventsViewModel: EventsViewModel
+    
+    let event: BMEventCalendarEntry
+    
+    func body(content: Content) -> some View {
+        content
+            .contextMenu {
+                contextMenu
+            }
+    }
+    
+    @ViewBuilder
+    private var contextMenu: some View {
+        if eventsViewModel.doesEventExist(for: event) {
+            Button(action: {
+                eventsViewModel.deleteEvent(for: event)
+            }) {
+                Label("Delete Event From Calendar", systemImage: "calendar.badge.minus")
+            }
+        } else {
+            Button(action: {
+                eventsViewModel.addAcademicEventToCalendar(event)
+            }) {
+                Label("Add Event To Calendar", systemImage: "calendar.badge.plus")
+            }
+        }
+    }
+}
+
+
 // MARK: - View Extension
 
 extension View {
     func positionedAtTop() -> some View {
-        self.modifier(PositionAtTopModifier())
+        modifier(PositionAtTopModifier())
     }
   
     func shadowfy() -> some View {
-        self.modifier(Shadowfy())
+        modifier(Shadowfy())
+    }
+    
+    func addEventsContextMenu(event: BMEventCalendarEntry) -> some View {
+        modifier(EventsContextMenuModifier(event: event))
     }
 }
