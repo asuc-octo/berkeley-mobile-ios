@@ -14,20 +14,13 @@ struct AcademicCalendarView: View {
     @StateObject private var calendarViewModel = CalendarViewModel()
     
     var body: some View {
-        ScrollViewReader { scrollProxy in
+        ScrollViewReader { proxy in
             List {
                 Group {
-                    VStack {
-                        calendarDivider
-                        CalendarView() { day in
-                            scrollToEvent(day: day, proxy: scrollProxy)
-                        }
-                        .environmentObject(calendarViewModel)
-                        calendarDivider
+                    CalendarSectionView(scrollProxy: proxy) { day in
+                        scrollToEvent(day: day, proxy: proxy)
                     }
-                    .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0))
-                    .buttonStyle(PlainButtonStyle())
-                    
+                    .environmentObject(calendarViewModel)
                     eventsListView
                 }
                 .listRowSeparator(.hidden)
@@ -56,11 +49,6 @@ struct AcademicCalendarView: View {
         }
     }
     
-    private var calendarDivider: some View {
-        Divider()
-            .background(Color(BMColor.gradientLightGrey))
-    }
-    
     @ViewBuilder
     private var eventsListView: some View {
         Group {
@@ -73,7 +61,7 @@ struct AcademicCalendarView: View {
                 } else {
                     ForEach(Array(academicEventScrapper.groupedEntriesSortedKeys.enumerated()), id: \.offset) { index, date in
                         if let events = academicEventScrapper.entries[date] {
-                            EventsDateSection(date: date, events: events) { event in
+                            EventsDateSectionView(date: date, events: events) { event in
                                 Button(action: {
                                     eventsViewModel.showAddEventToCalendarAlert(event)
                                 }) {

@@ -28,7 +28,7 @@ struct AcademicEventRowView: View {
                 .padding(.trailing, 10)
         }
         .overlay(
-            BMAddedCalendarStatusOverlay(event: event)
+            BMAddedCalendarStatusOverlayView(event: event)
         )
         .frame(height: 80)
         .clipShape(RoundedRectangle(cornerRadius: Constants.cornerRadius))

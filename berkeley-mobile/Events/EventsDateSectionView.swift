@@ -1,5 +1,5 @@
 //
-//  EventsDateSection.swift
+//  EventsDateSectionView.swift
 //  berkeley-mobile
 //
 //  Created by Justin Wong on 5/24/25.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct EventsDateSection<Content: View>: View {
+struct EventsDateSectionView<Content: View>: View {
     @EnvironmentObject var eventsViewModel: EventsViewModel
     
     var date: Date
@@ -37,7 +37,7 @@ struct EventsDateSection<Content: View>: View {
 #Preview {
     let eventsViewModel = EventsViewModel()
     Group {
-        EventsDateSection(date: Date(), events: [BMEventCalendarEntry.sampleEntry]) { event in
+        EventsDateSectionView(date: Date(), events: [BMEventCalendarEntry.sampleEntry]) { event in
             CampusEventRowView(event: event)
                 .frame(width: 310)
                 .background(
@@ -48,7 +48,7 @@ struct EventsDateSection<Content: View>: View {
                 )
         }
         
-        EventsDateSection(date: Date(), events: [BMEventCalendarEntry.sampleEntry]) { event in
+        EventsDateSectionView(date: Date(), events: [BMEventCalendarEntry.sampleEntry]) { event in
             AcademicEventRowView(event: event)
                 .frame(width: 310)
         }

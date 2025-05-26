@@ -36,7 +36,7 @@ struct CampusEventRowView: View {
             BMCachedAsyncImageView(imageURL: event.imageURL, placeholderImage: BMConstants.doeGladeImage, aspectRatio: .fill, widthAndHeight: imageWidthAndHeight, cornerRadius: 12)
                 .shadowfy()
                 .overlay(
-                    BMAddedCalendarStatusOverlay(event: event)
+                    BMAddedCalendarStatusOverlayView(event: event)
                 )
         }
         .padding()
