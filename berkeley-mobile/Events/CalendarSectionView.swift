@@ -35,7 +35,16 @@ struct CalendarSectionView: View {
 
 #Preview {
     let calendarViewModel = CalendarViewModel()
-    ScrollViewReader { proxy in
+    let today = Date().getStartOfDay()
+    let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: today)!
+    let tomorrowSampleEntry = BMEventCalendarEntry(name: "Tommorrow Event", date: tomorrow, end: tomorrow)
+    let entries = [
+        today: [BMEventCalendarEntry.sampleEntry],
+        tomorrow: [tomorrowSampleEntry]
+    ]
+    calendarViewModel.setEntries(entries)
+    
+    return ScrollViewReader { proxy in
         CalendarSectionView(scrollProxy: proxy)
             .environmentObject(calendarViewModel)
     }
