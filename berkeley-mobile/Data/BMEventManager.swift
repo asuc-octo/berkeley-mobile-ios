@@ -26,11 +26,7 @@ class BMEventManager {
     
     func deleteEvent(_ calendarEvent: BMCalendarEvent) throws {
         let matchingExistingEvents = getMatchingEvents(for: calendarEvent)
-        guard let eventToDelete = matchingExistingEvents.first(where: {
-            $0.title == calendarEvent.name &&
-            $0.startDate == calendarEvent.startDate &&
-            $0.endDate == calendarEvent.endDate
-        }) else {
+        guard let eventToDelete = matchingExistingEvents.first(where: makeEventMatcher(for: calendarEvent)) else {
             throw BMError.unableToFindEventInCalendar
         }
         
@@ -39,8 +35,16 @@ class BMEventManager {
     
     func doesEventExists(for calendarEvent: BMCalendarEvent) -> Bool {
         let matchingExistingEvents = getMatchingEvents(for: calendarEvent)
-        let eventAlreadyExists = matchingExistingEvents.contains { $0.title == calendarEvent.name && $0.startDate == calendarEvent.startDate && $0.endDate == calendarEvent.endDate }
+        let eventAlreadyExists = matchingExistingEvents.contains(where: makeEventMatcher(for: calendarEvent))
         return eventAlreadyExists
+    }
+    
+    private func makeEventMatcher(for calendarEvent: BMCalendarEvent) -> (EKEvent) -> Bool {
+        return { event in
+            event.title == calendarEvent.name &&
+            event.startDate == calendarEvent.startDate &&
+            event.endDate == calendarEvent.endDate
+        }
     }
     
     private func getMatchingEvents(for calendarEvent: BMCalendarEvent) -> [EKEvent] {
