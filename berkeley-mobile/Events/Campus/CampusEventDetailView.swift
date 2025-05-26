@@ -32,8 +32,10 @@ struct CampusEventDetailView: View {
             ToolbarItem(placement: .topBarTrailing) {
                 Button(action: {
                     if doesEventExists {
-                        eventsViewModel.alert = BMAlert(title: "Delete Event?", message: "Do you want to delete this event from your Calendar?", type: .action) {
-                            eventsViewModel.deleteEvent(for: event)
+                        withoutAnimation {
+                            eventsViewModel.alert = BMAlert(title: "Delete Event?", message: "Do you want to delete this event from your Calendar?", type: .action) {
+                                eventsViewModel.deleteEvent(for: event)
+                            }
                         }
                     } else {
                         eventsViewModel.showAddEventToCalendarAlert(event)
@@ -44,7 +46,7 @@ struct CampusEventDetailView: View {
             }
         }
         .onChange(of: alertType) { type in
-            presentAlert(type: type)
+            presentLinkAlert(type: type)
         }
     }
     
@@ -73,7 +75,7 @@ struct CampusEventDetailView: View {
         .frame(maxWidth: .infinity)
     }
     
-    private func presentAlert(type: AlertType?) {
+    private func presentLinkAlert(type: AlertType?) {
         guard let type else {
             return
         }

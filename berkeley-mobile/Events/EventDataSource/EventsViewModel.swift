@@ -21,9 +21,9 @@ class EventsViewModel: ObservableObject {
     }
     
     func showAddEventToCalendarAlert(_ event: BMEventCalendarEntry) {
-        alert = BMAlert(title: "Add To Calendar", message: "Would you like to add this event to your calendar?", type: .action) {
+        presentAlertWithoutAnimation(BMAlert(title: "Add To Calendar", message: "Would you like to add this event to your calendar?", type: .action) {
             self.addAcademicEventToCalendar(event)
-        }
+        })
     }
     
     func doesEventExist(for event: BMEventCalendarEntry) -> Bool {
@@ -33,9 +33,9 @@ class EventsViewModel: ObservableObject {
     func deleteEvent(for event: BMEventCalendarEntry) {
         do {
             try BMEventManager.shared.deleteEvent(event)
-            alert = BMAlert(title: "Successfully Deleted", message: "Event has been successfully deleted from your Calendar.", type: .notice)
+            presentAlertWithoutAnimation(BMAlert(title: "Successfully Deleted", message: "Event has been successfully deleted from your Calendar.", type: .notice))
         } catch {
-            alert = BMAlert(title: "Unable To Delete Event", message: error.localizedDescription, type: .notice)
+            presentAlertWithoutAnimation(BMAlert(title: "Unable To Delete Event", message: error.localizedDescription, type: .notice))
         }
     }
     
@@ -43,14 +43,20 @@ class EventsViewModel: ObservableObject {
         Task { @MainActor in
             do {
                 try await BMEventManager.shared.addEventToCalendar(calendarEvent: event)
-                alert = BMAlert(title: "", message: "Successfully added to calendar!", type: .notice)
+                presentAlertWithoutAnimation(BMAlert(title: "", message: "Successfully added to calendar!", type: .notice))
             } catch {
                 if let bmError = error as? BMError, bmError == .mayExistedInCalendarAlready {
-                    alert = BMAlert(title: "Successfully added to calendar!", message: error.localizedDescription, type: .notice)
+                    presentAlertWithoutAnimation(BMAlert(title: "Successfully added to calendar!", message: error.localizedDescription, type: .notice))
                 } else {
-                    alert = BMAlert(title: "Failed to add to calendar", message: error.localizedDescription, type: .notice)
+                    presentAlertWithoutAnimation(BMAlert(title: "Failed to add to calendar", message: error.localizedDescription, type: .notice))
                 }
             }
+        }
+    }
+    
+    private func presentAlertWithoutAnimation(_ alert: BMAlert) {
+        withoutAnimation {
+            self.alert = alert
         }
     }
 }
