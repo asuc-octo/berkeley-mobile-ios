@@ -1,5 +1,5 @@
 //
-//  BMAddedCalendarStatusOverlay.swift
+//  BMAddedCalendarStatusOverlayView.swift
 //  berkeley-mobile
 //
 //  Created by Justin Wong on 5/26/25.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct BMAddedCalendarStatusOverlay: View {
+struct BMAddedCalendarStatusOverlayView: View {
     @EnvironmentObject var eventsViewModel: EventsViewModel
     
     let event: BMEventCalendarEntry
