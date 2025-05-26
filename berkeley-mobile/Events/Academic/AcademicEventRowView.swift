@@ -27,6 +27,9 @@ struct AcademicEventRowView: View {
             BMCachedAsyncImageView(imageURL: event.imageURL, widthAndHeight: Constants.imageWidthHeight, cornerRadius: Constants.cornerRadius)
                 .padding(.trailing, 10)
         }
+        .overlay(
+            BMAddedCalendarStatusOverlay(event: event)
+        )
         .frame(height: 80)
         .clipShape(RoundedRectangle(cornerRadius: Constants.cornerRadius))
         .shadowfy()

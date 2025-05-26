@@ -163,6 +163,7 @@
 		E83C6CEB2B71D8C20085E277 /* ResourcesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83C6CEA2B71D8C20085E277 /* ResourcesView.swift */; };
 		E83C6CED2B71DF190085E277 /* SafariWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83C6CEC2B71DF190085E277 /* SafariWebView.swift */; };
 		E83D87942AB3CD1E00C4113C /* FeedbackFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83D87932AB3CD1E00C4113C /* FeedbackFormView.swift */; };
+		E8472B062DE453D6005C24EA /* BMAddedCalendarStatusOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8472B052DE453D6005C24EA /* BMAddedCalendarStatusOverlay.swift */; };
 		E86F59232B9BA85700907251 /* StudyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E86F59222B9BA85700907251 /* StudyViewController.swift */; };
 		E889F75C2DA323C100202556 /* BMActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E889F75B2DA323C100202556 /* BMActionButton.swift */; };
 		E889F7FC2DAC4DEE00202556 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E889F7FB2DAC4DEE00202556 /* WidgetKit.framework */; };
@@ -397,6 +398,7 @@
 		E83C6CEA2B71D8C20085E277 /* ResourcesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcesView.swift; sourceTree = "<group>"; };
 		E83C6CEC2B71DF190085E277 /* SafariWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebView.swift; sourceTree = "<group>"; };
 		E83D87932AB3CD1E00C4113C /* FeedbackFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackFormView.swift; sourceTree = "<group>"; };
+		E8472B052DE453D6005C24EA /* BMAddedCalendarStatusOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMAddedCalendarStatusOverlay.swift; sourceTree = "<group>"; };
 		E86F59222B9BA85700907251 /* StudyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyViewController.swift; sourceTree = "<group>"; };
 		E889F75B2DA323C100202556 /* BMActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMActionButton.swift; sourceTree = "<group>"; };
 		E889F7FA2DAC4DEE00202556 /* BerkeleyMobileWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = BerkeleyMobileWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -534,6 +536,7 @@
 				2925D5F425293E5A00BBA266 /* Campus */,
 				E83B6D9E2D780B4200AA9422 /* EventsView.swift */,
 				E891E2AE2DD05029006CA0F5 /* BMNoEventsView.swift */,
+				E8472B052DE453D6005C24EA /* BMAddedCalendarStatusOverlay.swift */,
 			);
 			name = Events;
 			path = "berkeley-mobile/Events";
@@ -1278,6 +1281,7 @@
 				E8C2BDA72D912B3A00165554 /* BMCalendarView.swift in Sources */,
 				29387E9D24BBBE8E00070BCE /* OccupancyGraphCardView.swift in Sources */,
 				E83B6DA52D7A85D500AA9422 /* GymOccupancyScrapper.swift in Sources */,
+				E8472B062DE453D6005C24EA /* BMAddedCalendarStatusOverlay.swift in Sources */,
 				13EA64D02399D50C00FD8E13 /* DataManager.swift in Sources */,
 				E80330EB2CE431C200DC9574 /* DepthButtonStyle.swift in Sources */,
 				29B3A1742439A60A00093750 /* DiningMenuCell.swift in Sources */,

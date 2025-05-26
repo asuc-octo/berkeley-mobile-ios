@@ -33,7 +33,7 @@ class EventsViewModel: ObservableObject {
     func deleteEvent(for event: EventCalendarEntry) {
         do {
             try BMEventManager.shared.deleteEvent(event)
-            alert = BMAlert(title: "Successfully Deleted", message: "Event has been successfully deleted from your Calendar", type: .notice)
+            alert = BMAlert(title: "Successfully Deleted", message: "Event has been successfully deleted from your Calendar.", type: .notice)
         } catch {
             alert = BMAlert(title: "Unable To Delete Event", message: error.localizedDescription, type: .notice)
         }
