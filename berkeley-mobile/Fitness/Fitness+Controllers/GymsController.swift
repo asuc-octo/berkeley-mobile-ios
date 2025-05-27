@@ -36,12 +36,8 @@ extension GymsController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: FilterTableViewCell.kCellIdentifier, for: indexPath)
         let gym = vc.filterTableView.filteredData[indexPath.row]
         
-        let cellViewModel = HomeSectionListRowViewModel()
-        cellViewModel.configureRow(with: gym)
-        
         cell.contentConfiguration = UIHostingConfiguration {
-            HomeSectionListRowView()
-                .environmentObject(cellViewModel)
+            HomeSectionListRowView(rowItem: gym)
         }
         return cell
     }

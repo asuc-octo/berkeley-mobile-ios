@@ -8,8 +8,6 @@
 
 import SwiftUI
 
-// MARK: ResourcesView
-
 struct ResourcesView: View {
     @StateObject private var resourcesVM = ResourcesViewModel()
     @State private var tabSelectedValue = 0
@@ -25,7 +23,11 @@ struct ResourcesView: View {
                 BMTopBlobView(imageName: "BlobRight", xOffset: 30, width: 150, height: 150)
         
                 VStack {
-                    if resourcesVM.resourceCategories.isEmpty {
+                    if resourcesVM.isLoading {
+                        Spacer()
+                        ProgressView()
+                            .controlSize(.large)
+                    } else if resourcesVM.resourceCategories.isEmpty {
                         noResourcesAvailableView
                     } else {
                         SegmentedControlView(
@@ -40,9 +42,8 @@ struct ResourcesView: View {
                             }
                         }
                         .tabViewStyle(.page(indexDisplayMode: .never))
-                        
-                        Spacer()
                     }
+                    Spacer()
                 }
                 .navigationTitle("Resources")
             }

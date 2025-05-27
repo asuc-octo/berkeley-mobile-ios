@@ -1,16 +1,14 @@
 //
-//  EventCalendarEntry.swift
+//  BMEventCalendarEntry.swift
 //  berkeley-mobile
 //
 //  Created by Oscar Bjorkman on 2/2/20.
 //  Copyright © 2020 ASUC OCTO. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
-class EventCalendarEntry: NSObject, NSCoding, CalendarEvent, HasImage, CanFavorite {
-    
+class BMEventCalendarEntry: NSObject, NSCoding, Identifiable, BMCalendarEvent, HasImage, CanFavorite {
     private struct ArgumentNames {
         static let name = "name"
         static let date = "date"
@@ -25,7 +23,7 @@ class EventCalendarEntry: NSObject, NSCoding, CalendarEvent, HasImage, CanFavori
     
     // MARK: CalendarEvent Fields
     @Display var name: String = "N/A"
-    var date: Date = Date()
+    var startDate: Date = Date()
     var end: Date?
     @Display var descriptionText: String?
     @Display var location: String?
@@ -75,7 +73,7 @@ class EventCalendarEntry: NSObject, NSCoding, CalendarEvent, HasImage, CanFavori
 
     init(name: String, date: Date, end: Date? = nil, descriptionText: String? = nil, location: String? = nil, registerLink: String? = nil, imageURL: String? = nil, sourceLink: String? = nil, type: String? = nil) {
         self.name = name
-        self.date = date
+        self.startDate = date
         self.end = end 
         self.descriptionText = descriptionText
         self.location = location
@@ -87,7 +85,7 @@ class EventCalendarEntry: NSObject, NSCoding, CalendarEvent, HasImage, CanFavori
     
     func encode(with coder: NSCoder) {
         coder.encode(name, forKey: ArgumentNames.name)
-        coder.encode(date, forKey: ArgumentNames.date)
+        coder.encode(startDate, forKey: ArgumentNames.date)
         coder.encode(end, forKey: ArgumentNames.end)
         coder.encode(descriptionText, forKey: ArgumentNames.descriptionText)
         coder.encode(location, forKey: ArgumentNames.location)
@@ -104,7 +102,7 @@ class EventCalendarEntry: NSObject, NSCoding, CalendarEvent, HasImage, CanFavori
         }
         
         self.name = name
-        self.date = date
+        self.startDate = date
         
         self.end = coder.decodeObject(forKey: ArgumentNames.end) as? Date
         self.descriptionText = coder.decodeObject(forKey: ArgumentNames.descriptionText) as? String
@@ -124,6 +122,18 @@ class EventCalendarEntry: NSObject, NSCoding, CalendarEvent, HasImage, CanFavori
         
         self.type = coder.decodeObject(forKey: ArgumentNames.type) as? String
     }
+}
 
-    
+extension BMEventCalendarEntry {
+    static let sampleEntry = BMEventCalendarEntry(
+        name: "Exhibit | A Storied Campus: Cal in Fiction",
+        date: Date(),
+        end: Date().addingTimeInterval(7200),
+        descriptionText: "Mention of the name University of California, Berkeley, evokes a range of images: a celebrated institution, a seat of innovation, protests and activism, iconic architecture, colorful traditions, and … literary muse? The campus has long sparked the creativity of fiction writers, inspiring them to use it as a backdrop, a key player, or a barely disguised character within their tales. This exhibition highlights examples of these portrayals through book covers, excerpts, illustrations, photographs, and other materials largely selected from the University Archives and general collections of The Bancroft Library.",
+        location: "The Rowell Exhibition Cases, Doe Library, 2nd floor",
+        registerLink: "https://berkeley.edu/register",
+        imageURL: "https://events.berkeley.edu/live/image/gid/139/width/200/height/200/crop/1/src_region/0,0,3200,2420/4595_cubanc00006587_ae_a.rev.1698182194.jpg",
+        sourceLink: "https://berkeley.edu/event",
+        type: "Default"
+    )
 }

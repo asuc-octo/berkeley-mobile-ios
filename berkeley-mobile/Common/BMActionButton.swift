@@ -10,6 +10,8 @@ import SwiftUI
 
 struct BMActionButton: View {
     var title: String
+    var backgroundColor = Color(uiColor: BMColor.ActionButton.background)
+    var showShadow: Bool = true
     var completionHandler: (() -> Void)?
     
     var body: some View {
@@ -25,9 +27,9 @@ struct BMActionButton: View {
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 13)
-            .background(Color(uiColor: BMColor.ActionButton.background))
+            .background(backgroundColor)
             .clipShape(RoundedRectangle(cornerRadius: 12))
-            .shadow(color: .black.opacity(0.25), radius: 5)
+            .shadow(color: .black.opacity(showShadow ? 0.25 : 0), radius: 5)
         }
         .buttonStyle(PlainButtonStyle())
     }
