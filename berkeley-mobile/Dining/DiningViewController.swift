@@ -102,12 +102,8 @@ extension DiningViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: FilterTableViewCell.kCellIdentifier, for: indexPath)
         let diningHall = self.filterTableView.filteredData[indexPath.row]
         
-        let cellViewModel = HomeSectionListRowViewModel()
-        cellViewModel.configureRow(with: diningHall)
-        
         cell.contentConfiguration = UIHostingConfiguration {
-            HomeSectionListRowView()
-                .environmentObject(cellViewModel)
+            HomeSectionListRowView(rowItem: diningHall)
         }
         return cell
     }

@@ -6,13 +6,10 @@
 //  Copyright © 2024 ASUC OCTO. All rights reserved.
 //
 
-import CoreLocation
-import Firebase
 import MapKit
 import SwiftUI
 
 struct BMSafetyLog: Identifiable, Codable, Hashable {
-    
     var id = UUID()
     var crime: String
     var date: Date
@@ -42,32 +39,22 @@ struct BMSafetyLog: Identifiable, Codable, Hashable {
         }
         return .others
     }
-    
 }
 
 enum BMSafetyLogFilterState: String, CaseIterable {
-    
     case today = "Today", thisWeek = "This Week", thisMonth = "This Month", thisYear = "This Year"
     case robbery = "Robbery", aggravatedAssault = "Aggravated Assault", burglary = "Burglary", sexualAssault = "Sexual Assault", others = "Others"
     static var timeFilterStates: [BMSafetyLogFilterState] = [.today, .thisWeek, .thisMonth, .thisYear]
-    
 }
 
 extension BMSafetyLogFilterState: Identifiable {
-    
     var id: Self { self }
-    
 }
 
 
 // MARK: - SafetyViewManager
 
 final class SafetyViewModel: NSObject, ObservableObject {
-    
-    private struct Constants {
-        static let safetyLogsCollectionName = "Safety Logs"
-    }
-    
     struct BMCrimeInfo {
         var color: Color
         var count: Int
@@ -76,83 +63,35 @@ final class SafetyViewModel: NSObject, ObservableObject {
     @Published var region = BMConstants.berkeleyRegion
     @Published var safetyLogs = [BMSafetyLog]()
     @Published var filteredSafetyLogs = [BMSafetyLog]()
-    @Published var isFetchingLogs = false
     @Published var crimeInfos = [BMSafetyLogFilterState: BMCrimeInfo]()
+    @Published var isLoading = false
     @Published var selectedSafetyLogFilterStates: [BMSafetyLogFilterState] = [] {
         didSet {
             updateFilterState()
         }
     }
     
-    private let locationManager = CLLocationManager()
-    private let db = Firestore.firestore()
-    
     override init() {
         super.init()
         
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        setup()
-        fetchResourceCategories()
-        listenForSafetyLogs()
-    }
-    
-    private func setup() {
-        switch locationManager.authorizationStatus {
-        // If we are authorized then we request location just once, to center the map
-        case .authorizedWhenInUse:
-            locationManager.requestLocation()
-        // If we don´t, we request authorization
-        case .notDetermined:
-            locationManager.startUpdatingLocation()
-            locationManager.requestWhenInUseAuthorization()
-        default:
-            break
+        Task {
+            await listenForSafetyLogs()
         }
     }
     
-    private func fetchResourceCategories() {
-        isFetchingLogs = true
-        
-        db.collection(Constants.safetyLogsCollectionName).getDocuments { querySnapshot, error in
-            guard let documents = querySnapshot?.documents else {
-                DispatchQueue.main.async {
-                    self.isFetchingLogs = false
-                }
-                return
-            }
-            
-            let fetchedSafetyLogs = self.convertSafetyLogsDocsIntoSafetyLogs(for: documents)
-            
-            DispatchQueue.main.async {
-                self.safetyLogs = fetchedSafetyLogs
-                self.filteredSafetyLogs = fetchedSafetyLogs
-                self.isFetchingLogs = false
-                self.associateCrimesWithColor()
-            }
+    @MainActor
+    private func listenForSafetyLogs() async {
+        do {
+            isLoading = true
+            let fetchedSafetyLogs = try await BMNetworkingManager.shared.fetchSafetyLogs()
+            safetyLogs = fetchedSafetyLogs
+            filteredSafetyLogs = filteredSafetyLogs == safetyLogs ? fetchedSafetyLogs : filteredSafetyLogs
+            updateFilterState()
+            associateCrimesWithColor()
+            isLoading = false
+        } catch {
+            isLoading = false
         }
-    }
-    
-    private func listenForSafetyLogs() {
-        db.collection(Constants.safetyLogsCollectionName).addSnapshotListener { querySnapshot, error in
-            guard let documents = querySnapshot?.documents else {
-                return
-            }
-            
-            let newSafetyLogs = self.convertSafetyLogsDocsIntoSafetyLogs(for: documents)
-            
-            DispatchQueue.main.async { 
-                self.filteredSafetyLogs = self.filteredSafetyLogs == self.safetyLogs ? newSafetyLogs : self.filteredSafetyLogs
-                self.safetyLogs = newSafetyLogs
-                self.updateFilterState()
-            }
-        }
-    }
-    
-    private func convertSafetyLogsDocsIntoSafetyLogs(for docs: [QueryDocumentSnapshot]) -> [BMSafetyLog] {
-        var safetyLogs = docs.compactMap { try? $0.data(as: BMSafetyLog.self) }
-        safetyLogs.sort(by: { $0.date > $1.date })
-        return safetyLogs
     }
     
     private func updateFilterState() {
@@ -194,9 +133,7 @@ final class SafetyViewModel: NSObject, ObservableObject {
             newFilteredSafetyLogs = newFilteredSafetyLogs.filter { $0.getSafetyLogState == crimeFilterState }
         }
         
-        withAnimation {
-            filteredSafetyLogs = newFilteredSafetyLogs
-        }
+        filteredSafetyLogs = newFilteredSafetyLogs
     }
     
     private func associateCrimesWithColor() {
@@ -207,45 +144,13 @@ final class SafetyViewModel: NSObject, ObservableObject {
             crimeInfos[crime] = BMCrimeInfo(color: color, count: crimeTypeCount)
         }
     }
-    
-}
-
-
-// MARK: - CLLocationManagerDelegate
-
-extension SafetyViewModel: CLLocationManagerDelegate {
-    
-    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        guard .authorizedWhenInUse == manager.authorizationStatus else {
-            return
-        }
-        
-        locationManager.requestLocation()
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("Something went wrong: \(error)")
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        locationManager.stopUpdatingLocation()
-        locations.last.map {
-            region = MKCoordinateRegion(
-                center: $0.coordinate,
-                span: .init(latitudeDelta: 0.01, longitudeDelta: 0.01)
-            )
-        }
-    }
-    
 }
 
 
 // MARK: - Sample Data
 
 extension SafetyViewModel {
-    
     static func getSampleSafetyLog() -> BMSafetyLog {
-        BMSafetyLog(crime: "Aggravated Assault", date: Date(), detail: "On 4/10/24 at approximately 1855 hours, victim was walking north bound on Gayley Road. A blue convertible Pontiac driving south bound Gayley road from Hearst Ave struck the victim with an unknown projectile. The suspect vehicle continued south bound Gayley Road then proceeded east bound Rim Way. The vehicle was occupied by 2 males and 1 female. The rear passenger subject was responsible for the incident.   Case 24-01042  Aggravated assault is an unlawful attack by one person upon another for the purpose of inflicting severe or aggravated bodily injury. This type of assault is usually accompanied by the use of a weapon or by means likely to produce death or great bodily harm.", latitude: 1.0, location: "Gayley Road, South of Hearst Ave", longitude: 1.0)
+        BMSafetyLog(crime: "Aggravated Assault", date: Date(), detail: "On 4/10/24 at approximately 1855 hours, victim was walking north bound on Gayley Road. A blue convertible Pontiac driving south bound Gayley road from Hearst Ave struck the victim with an unknown projectile. The suspect vehicle continued south bound Gayley Road then proceeded east bound Rim Way. The vehicle was occupied by 2 males and 1 female. The rear passenger subject was responsible for the incident.   Case 24-01042  Aggravated assault is an unlawful attack by one person upon another for the purpose of inflicting severe or aggravated bodily injury. This type of assault is usually accompanied by the use of a weapon or by means likely to produce death or great bodily harm.", latitude: 37.87015100000001, location: "Gayley Road, South of Hearst Ave", longitude: -122.2594606)
     }
-    
 }

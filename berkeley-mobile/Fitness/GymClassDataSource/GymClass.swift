@@ -9,12 +9,12 @@
 import Foundation
 import UIKit
 
-class GymClass: CalendarEvent {
+class GymClass: BMCalendarEvent {
 
     // MARK: CalendarEvent Fields
 
     @Display var name: String
-    var date: Date
+    var startDate: Date
     var end: Date?
     @Display var descriptionText: String?
     @Display var location: String?
@@ -49,7 +49,7 @@ class GymClass: CalendarEvent {
 
     init(name: String, start_time: Date, end_time: Date, class_type: String?, location: String?, link: String?, trainer: String?) {
         self.name = name.trimmingCharacters(in: .whitespacesAndNewlines)
-        self.date = start_time
+        self.startDate = start_time
         self.end = end_time
         self.type = class_type
         self.location = location
@@ -80,13 +80,13 @@ enum GymClassDescriptor {
         switch self {
         case .date:
             dateFormatter.dateFormat = "MMM d"
-            return dateFormatter.string(from: gymClass.date)
+            return dateFormatter.string(from: gymClass.startDate)
         case .startTime:
             dateFormatter.dateFormat = "h:mm a"
-            return dateFormatter.string(from: gymClass.date)
+            return dateFormatter.string(from: gymClass.startDate)
         case .duration:
             guard let end = gymClass.end else { return nil }
-            return componentsFormatter.string(from: gymClass.date, to: end)
+            return componentsFormatter.string(from: gymClass.startDate, to: end)
         case .location:
             return gymClass.location
         }

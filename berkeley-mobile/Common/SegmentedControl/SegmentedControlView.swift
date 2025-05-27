@@ -26,9 +26,7 @@ struct SegmentedControlView: View {
         HStack(spacing: Constants.tabSpacing) {
             ForEach(Array(tabNames.enumerated()), id: \.offset) { index, tabName in
                 Button(action: {
-                    withAnimation {
-                        selectedTabIndex = index
-                    }
+                    selectedTabIndex = index
                 }) {
                     VStack(spacing: Constants.indicatorOffset) {
                         Text(tabName)
@@ -49,6 +47,7 @@ struct SegmentedControlView: View {
             }
         }
         .fixedSize(horizontal: true, vertical: false)
+        .animation(.default, value: selectedTabIndex)
     }
     
     private var capsule: some View {

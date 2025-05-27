@@ -38,6 +38,8 @@
 	</dict>
 	<key>NSCalendarsUsageDescription</key>
 	<string>Calendar access will be used to allow you to add events you select to your calendar.</string>
+	<key>NSCalendarsFullAccessUsageDescription</key>
+	<string>Calendar access will be used to allow you to appropriately add events you select to your calendar.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Your location will be used to calculate distance to points of interest, display your location on the map, and for other location-based features.</string>
 	<key>UIAppFonts</key>
