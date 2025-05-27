@@ -25,12 +25,16 @@ class EventScrapper: NSObject, ObservableObject {
         }
     }
     
-    @Published var entries: [Date: [BMEventCalendarEntry]] = [:]
+    @Published var groupedEntries: [Date: [BMEventCalendarEntry]] = [:]
     @Published var isLoading = false
     @Published var alert: BMAlert?
     
     var groupedEntriesSortedKeys: [Date] {
-        entries.keys.sorted()
+        groupedEntries.keys.sorted()
+    }
+    
+    var allEntries: [BMEventCalendarEntry] {
+        groupedEntries.flatMap { $0.1 }
     }
     
     /// Allowed number of rescrapes until `EventScrapper` gives up on scrapping.
@@ -61,14 +65,14 @@ class EventScrapper: NSObject, ObservableObject {
     
         isLoading = true
         
-        entries.removeAll()
+        groupedEntries.removeAll()
         
         let rescrapeInfo = getRescrapeInfo(force: forceRescrape)
         
         if rescrapeInfo.shouldRescrape {
             webView.load(URLRequest(url: url))
         } else {
-            entries = rescrapeInfo.savedGroupedEvents
+            groupedEntries = rescrapeInfo.savedGroupedEvents
             isLoading = false
         }
     }
@@ -99,7 +103,7 @@ class EventScrapper: NSObject, ObservableObject {
     
     private func repopulateWithSavedGroupedEvents() {
         let savedGroupedEvents = retrieveSavedGroupedEvents()
-        entries = savedGroupedEvents
+        groupedEntries = savedGroupedEvents
     }
     
     private func groupEventsByDay(_ events: [BMEventCalendarEntry]) -> [Date: [BMEventCalendarEntry]] {
@@ -145,7 +149,7 @@ extension EventScrapper: WKNavigationDelegate {
                 saveEventCalendarEntries(for: scrappedCalendarEntries)
                 
                 await MainActor.run {
-                    entries = groupEventsByDay(scrappedCalendarEntries)
+                    groupedEntries = groupEventsByDay(scrappedCalendarEntries)
                     isLoading = false
                 }
             } catch {

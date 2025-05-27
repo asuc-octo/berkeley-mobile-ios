@@ -28,6 +28,15 @@ struct BMControlButtonStyle: ButtonStyle {
     
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
+            .addBadgeStyle(widthAndHeight: widthAndHeight)
+    }
+}
+
+struct BMBadgeStyleViewModifer: ViewModifier {
+    let widthAndHeight: CGFloat
+    
+    func body(content: Content) -> some View {
+        content
             .frame(width: widthAndHeight, height: widthAndHeight)
             .background(
                 Circle()
@@ -127,5 +136,9 @@ extension View {
     
     func addEventsContextMenu(event: BMEventCalendarEntry) -> some View {
         modifier(EventsContextMenuModifier(event: event))
+    }
+    
+    func addBadgeStyle(widthAndHeight: CGFloat) -> some View {
+        modifier(BMBadgeStyleViewModifer(widthAndHeight: widthAndHeight))
     }
 }
