@@ -16,19 +16,22 @@ struct EventsDateSectionView<Content: View>: View {
     @ViewBuilder var content: (BMEventCalendarEntry) -> Content
     
     var body: some View {
-        Section(header: sectionDateText) {
+        Section(header: sectionHeader) {
             ForEach(events) { event in
                 content(event)
             }
         }
     }
     
-    private var sectionDateText: some View {
+    private var sectionHeader: some View {
         HStack {
             Text(date.getDateString(withFormat: "EEEE, MMMM d"))
                 .bold()
                 .font(.headline)
             Spacer()
+            Text("\(events.count)")
+                .bold()
+                .addBadgeStyle(widthAndHeight: 25)
         }
         .padding(.horizontal)
     }

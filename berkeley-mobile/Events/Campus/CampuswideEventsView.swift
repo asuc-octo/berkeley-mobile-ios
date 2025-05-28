@@ -16,30 +16,18 @@ struct CampuswideEventsView: View {
     var body: some View {
         NavigationStack {
             ScrollViewReader { proxy in
-                List {
-                    Group {
-                        if campuswideEventScrapper.isLoading {
-                            ProgressView()
-                                .id(UUID())
-                        } else if campuswideEventScrapper.entries.isEmpty {
-                            BMNoEventsView()
-                        } else {
-                            Group {
-                                CalendarSectionView(scrollProxy: proxy) { day in
-                                    scrollToEvent(day: day, proxy: proxy)
-                                }
-                                .environmentObject(calendarViewModel)
-                                eventsListView
+                CalendarEventsListView(scrapper: campuswideEventScrapper, proxy: proxy) { event in
+                    CampusEventRowView(event: event)
+                        .frame(width: 310)
+                        .background(
+                            NavigationLink("") {
+                                CampusEventDetailView(event: event)
+                                    .environmentObject(eventsViewModel)
                             }
-                        }
-                    }
-                    .frame(maxWidth: .infinity, alignment: .center)
-                    .listRowSeparator(.hidden)
-                    .listRowBackground(Color(BMColor.cardBackground))
-                    .listRowInsets(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
+                            .opacity(0)
+                        )
                 }
-                .scrollContentBackground(.hidden)
-                .listStyle(PlainListStyle())
+                .environmentObject(calendarViewModel)
             }
         }
         .onAppear {
@@ -51,7 +39,7 @@ struct CampuswideEventsView: View {
                 eventsViewModel.alert = alert
             }
         }
-        .onChange(of: campuswideEventScrapper.entries) { entries in
+        .onChange(of: campuswideEventScrapper.groupedEntries) { entries in
             calendarViewModel.setEntries(entries)
         }
         .refreshable {
@@ -59,35 +47,6 @@ struct CampuswideEventsView: View {
                 return
             }
             campuswideEventScrapper.scrape(forceRescrape: true)
-        }
-    }
-    
-    private var eventsListView: some View {
-        ForEach(Array(campuswideEventScrapper.groupedEntriesSortedKeys.enumerated()), id: \.offset) { index,  date in
-            if let events = campuswideEventScrapper.entries[date] {
-                EventsDateSectionView(date: date, events: events) { event in
-                    CampusEventRowView(event: event)
-                        .frame(width: 310)
-                        .background(
-                            NavigationLink("") {
-                                CampusEventDetailView(event: event)
-                                    .environmentObject(eventsViewModel)
-                            }
-                            .opacity(0)
-                        )
-                }
-                .id(index)
-            }
-        }
-    }
-    
-    private func scrollToEvent(day: Int, proxy: ScrollViewProxy) {
-        guard let index = campuswideEventScrapper.groupedEntriesSortedKeys.map({ $0.get(.day)}).firstIndex(of: day) else {
-            return
-        }
-        
-        withAnimation {
-            proxy.scrollTo(index, anchor: .top)
         }
     }
 }

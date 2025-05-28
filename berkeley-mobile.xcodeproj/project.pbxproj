@@ -164,6 +164,7 @@
 		E8472AEC2DE2DB80005C24EA /* EventsDateSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8472AEB2DE2DB80005C24EA /* EventsDateSectionView.swift */; };
 		E8472B062DE453D6005C24EA /* BMAddedCalendarStatusOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8472B052DE453D6005C24EA /* BMAddedCalendarStatusOverlayView.swift */; };
 		E8472B382DE50F41005C24EA /* CalendarSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8472B372DE50F41005C24EA /* CalendarSectionView.swift */; };
+		E8472B4A2DE5304A005C24EA /* CalendarEventsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8472B492DE5304A005C24EA /* CalendarEventsListView.swift */; };
 		E86F59232B9BA85700907251 /* StudyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E86F59222B9BA85700907251 /* StudyViewController.swift */; };
 		E889F75C2DA323C100202556 /* BMActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E889F75B2DA323C100202556 /* BMActionButton.swift */; };
 		E889F7FC2DAC4DEE00202556 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E889F7FB2DAC4DEE00202556 /* WidgetKit.framework */; };
@@ -399,6 +400,7 @@
 		E8472AEB2DE2DB80005C24EA /* EventsDateSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsDateSectionView.swift; sourceTree = "<group>"; };
 		E8472B052DE453D6005C24EA /* BMAddedCalendarStatusOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMAddedCalendarStatusOverlayView.swift; sourceTree = "<group>"; };
 		E8472B372DE50F41005C24EA /* CalendarSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSectionView.swift; sourceTree = "<group>"; };
+		E8472B492DE5304A005C24EA /* CalendarEventsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEventsListView.swift; sourceTree = "<group>"; };
 		E86F59222B9BA85700907251 /* StudyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyViewController.swift; sourceTree = "<group>"; };
 		E889F75B2DA323C100202556 /* BMActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMActionButton.swift; sourceTree = "<group>"; };
 		E889F7FA2DAC4DEE00202556 /* BerkeleyMobileWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = BerkeleyMobileWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -535,10 +537,11 @@
 				294FF42C2544F71200346E91 /* Academic */,
 				2925D5F425293E5A00BBA266 /* Campus */,
 				E83B6D9E2D780B4200AA9422 /* EventsView.swift */,
+				E8472B492DE5304A005C24EA /* CalendarEventsListView.swift */,
 				E891E2AE2DD05029006CA0F5 /* BMNoEventsView.swift */,
 				E8472B052DE453D6005C24EA /* BMAddedCalendarStatusOverlayView.swift */,
-				E8472AEB2DE2DB80005C24EA /* EventsDateSectionView.swift */,
 				E8472B372DE50F41005C24EA /* CalendarSectionView.swift */,
+				E8472AEB2DE2DB80005C24EA /* EventsDateSectionView.swift */,
 			);
 			name = Events;
 			path = "berkeley-mobile/Events";
@@ -1192,6 +1195,7 @@
 				13DACD222411DF7200A09982 /* UIStackView+Extensions.swift in Sources */,
 				01A11F0C2717B8A800455F00 /* DiningMenuViewController.swift in Sources */,
 				2954F592245CD4B600DA66DA /* MainDrawerViewDelegate.swift in Sources */,
+				E8472B4A2DE5304A005C24EA /* CalendarEventsListView.swift in Sources */,
 				557756692544D822009C03BD /* Collection+Extension.swift in Sources */,
 				5546CB91251B0A4500BE1876 /* UIDevice+Extensions.swift in Sources */,
 				2E76503B2DB76C89009B5551 /* RecentSearchManager.swift in Sources */,
