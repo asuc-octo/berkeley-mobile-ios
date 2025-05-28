@@ -42,7 +42,6 @@ class GymDetailViewController: UIViewController {
 
     var overviewCard: OverviewCardView!
     var openTimesCard: OpenTimesCardView?
-    var occupancyCard: OccupancyGraphCardView?
     var moreButton: ActionButton?
     var descriptionCard: DescriptionCardView?
 
@@ -52,7 +51,6 @@ class GymDetailViewController: UIViewController {
         setUpScrollView()
         setUpOverviewCard()
         setUpOpenTimesCard()
-        setUpoccupancyCard()
         setupMoreButton()
         setupDescriptionCard()
     }
@@ -76,7 +74,7 @@ class GymDetailViewController: UIViewController {
 extension GymDetailViewController {
 
     func setUpOverviewCard() {
-        overviewCard = OverviewCardView(item: gym, excludedElements: [.openTimes, .occupancy])
+        overviewCard = OverviewCardView(item: gym, excludedElements: [.openTimes])
         overviewCard.heightAnchor.constraint(equalToConstant: 200).isActive = true
         scrollingStackView.stackView.addArrangedSubview(overviewCard)
     }
@@ -88,16 +86,7 @@ extension GymDetailViewController {
         guard let openTimesCard = self.openTimesCard else { return }
         scrollingStackView.stackView.addArrangedSubview(openTimesCard)
     }
-
-    func setUpoccupancyCard() {
-        guard let occupancy = gym.occupancy, let forDay = occupancy.occupancy(for: DayOfWeek.weekday(Date())), forDay.count > 0 else { return }
-        occupancyCard = OccupancyGraphCardView(occupancy: occupancy, isOpen: gym.isOpen)
-        guard let occupancyCard = self.occupancyCard else { return }
-        scrollingStackView.stackView.addArrangedSubview(occupancyCard)
-    }
     
-    
-
     func setupMoreButton() {
         guard gym.website != nil else { return }
         let button = ActionButton(title: "Learn More")

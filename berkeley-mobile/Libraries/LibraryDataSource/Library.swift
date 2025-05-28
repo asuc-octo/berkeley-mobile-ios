@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class Library: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasImage, HasOpenTimes, HasOccupancy {
+class Library: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasImage, HasOpenTimes {
     var searchName: String {
         return name
     }
@@ -37,7 +37,6 @@ class Library: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasImage, H
     @Display var address: String?
     @Display var phoneNumber: String?
     let weeklyHours: WeeklyHours?
-    var occupancy: Occupancy?
     var weeklyByAppointment:[Bool]
     var latitude: Double?
     var longitude: Double?
