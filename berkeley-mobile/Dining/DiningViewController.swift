@@ -80,16 +80,11 @@ class DiningViewController: UIViewController, SearchDrawerViewDelegate {
             object: nil
         )
         
-        // Fetch dining hall and cafe data, make sure occupancy data has been fetched after each one is complete
+        // Fetch dining hall and cafe data
         DataManager.shared.fetch(source: DiningHallDataSource.self) { diningLocations in
             self.diningLocations.append(contentsOf: diningLocations as? [DiningLocation] ?? [])
             self.filterTableView.setData(data: self.diningLocations)
             self.filterTableView.update()
-            DataManager.shared.fetch(source: OccupancyDataSource.self) {_ in
-                DispatchQueue.main.async {
-                    self.filterTableView.update()
-                }
-            }
         }
     }
 }
