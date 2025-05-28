@@ -24,30 +24,28 @@ struct CalendarEventsListView<Content:View>: View {
                 }
                 .environmentObject(calendarViewModel)
                
-                Group {
-                    if scrapper.isLoading {
-                        ProgressView()
-                            .id(UUID())
+                if scrapper.isLoading {
+                    ProgressView()
+                        .id(UUID())
+                } else {
+                    if scrapper.groupedEntries.isEmpty {
+                        BMNoEventsView()
                     } else {
-                        if scrapper.groupedEntries.isEmpty {
-                            BMNoEventsView()
-                        } else {
-                            Text("^[\(scrapper.allEntries.count) Event](inflect: true)")
-                                .font(Font(BMFont.medium(16)))
-                            
-                            ForEach(Array(scrapper.groupedEntriesSortedKeys.enumerated()), id: \.offset) { index, date in
-                                if let events = scrapper.groupedEntries[date] {
-                                    EventsDateSectionView(date: date, events: events) { event in
-                                        content(event)
-                                    }
-                                    .id(index)
+                        Text("^[\(scrapper.allEntries.count) Event](inflect: true)")
+                            .font(Font(BMFont.medium(16)))
+                        
+                        ForEach(Array(scrapper.groupedEntriesSortedKeys.enumerated()), id: \.offset) { index, date in
+                            if let events = scrapper.groupedEntries[date] {
+                                EventsDateSectionView(date: date, events: events) { event in
+                                    content(event)
                                 }
+                                .id(index)
                             }
                         }
                     }
                 }
-                .frame(maxWidth: .infinity, alignment: .center)
             }
+            .frame(maxWidth: .infinity, alignment: .center)
             .listRowSeparator(.hidden)
             .listRowBackground(Color(BMColor.cardBackground))
             .listRowInsets(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
