@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class DiningLocation: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasImage, HasOpenTimes, HasOccupancy {
+class DiningLocation: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasImage, HasOpenTimes {
     var icon: UIImage?
     
     var isFavorited: Bool = false
@@ -24,7 +24,6 @@ class DiningLocation: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasI
     
     var meals: MealMap
     var weeklyHours: WeeklyHours?
-    var occupancy: Occupancy?
     
     var latitude: Double?
     var longitude: Double?

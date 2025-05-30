@@ -38,7 +38,6 @@ class LibraryDetailViewController: UIViewController {
     var library : Library!
     var overviewCard: OverviewCardView!
     var openTimesCard: OpenTimesCardView?
-    var occupancyCard: OccupancyGraphCardView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,7 +70,7 @@ class LibraryDetailViewController: UIViewController {
 
 extension LibraryDetailViewController {
     func setUpOverviewCard() {
-        overviewCard = OverviewCardView(item: library, excludedElements: [.openTimes, .occupancy])
+        overviewCard = OverviewCardView(item: library, excludedElements: [.openTimes])
         overviewCard.heightAnchor.constraint(equalToConstant: 200).isActive = true
         scrollingStackView.stackView.addArrangedSubview(overviewCard)
     }
