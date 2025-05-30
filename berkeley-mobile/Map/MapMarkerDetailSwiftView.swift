@@ -10,55 +10,52 @@ import Foundation
 import MapKit
 import SwiftUI
 
-// MARK: - MapMarkerDetailSwiftView
-
 struct MapMarkerDetailSwiftView: View {
     var marker: MapMarker?
     var onClose: (() -> Void)?
+    
     var body: some View {
-        ZStack {
-            HStack {
-                colorAccentBar
-                
-                VStack(alignment: .leading, spacing: 4) {
-                    headerView
-                    Spacer()
-                    descriptionView
-                    Spacer()
-                    infoRowView                    
-                }
-                .padding(.vertical, 8)
+        HStack {
+            colorAccentBar
+            
+            VStack(alignment: .leading, spacing: 4) {
+                headerView
                 Spacer()
+                descriptionView
+                Spacer()
+                infoRowView                    
             }
-            .background(Color(.systemBackground))
-            .clipShape(RoundedRectangle(cornerRadius: 12))
-            .frame(maxWidth: .infinity)
-            .frame(minWidth: 200, maxHeight: 140)
-            .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 2)
-            .padding(.horizontal, 20)
+            .padding(.vertical, 8)
+            Spacer()
         }
+        .background(Color(.systemBackground))
+        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .frame(maxWidth: .infinity)
+        .frame(minWidth: 200, maxHeight: 140)
+        .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 2)
+        .padding(.horizontal, 20)
     }
     
     
     // MARK: - Private Views
     
     private var colorAccentBar: some View {
-        let markerColor: Color = {
-            guard let marker else {
-                return .purple
-            }
-            
-            switch marker.type {
-            case .known(let type):
-                return Color(type.color())
-            case .unknown:
-                return Color(BMColor.MapMarker.other)
-            }
-        }()
-        
-        return Rectangle()
-            .fill(markerColor)
+        Rectangle()
+            .fill(getMarkerColor())
             .frame(width: 12)
+    }
+    
+    private func getMarkerColor() -> Color {
+        guard let marker else {
+            return .purple
+        }
+        
+        switch marker.type {
+        case .known(let type):
+            return Color(type.color())
+        case .unknown:
+            return Color(BMColor.MapMarker.other)
+        }
     }
     
     private var headerView: some View {
@@ -69,9 +66,9 @@ struct MapMarkerDetailSwiftView: View {
                 .fixedSize(horizontal: false, vertical: true)
             Spacer()
             
-            Button {
+            Button(action: {
                 onClose?()
-            } label: {
+            }) {
                 Image(systemName: "xmark")
                     .font(.system(size: 16))
                     .foregroundStyle(Color.secondary)
@@ -88,14 +85,12 @@ struct MapMarkerDetailSwiftView: View {
     }
     
     private var infoRowView: some View {
-        HStack {
-            HStack(spacing: 8) {
-                Image(systemName: "clock")
-                    .font(.system(size: 12))
-                    .foregroundColor(.secondary)
-                    .rotationEffect(.init(degrees: 90))
-                openStatusButton
-            }
+        HStack(spacing: 8) {
+            Image(systemName: "clock")
+                .font(.system(size: 12))
+                .foregroundColor(.secondary)
+                .rotationEffect(.init(degrees: 90))
+            openStatusButton
             
             Spacer()
             
@@ -109,7 +104,7 @@ struct MapMarkerDetailSwiftView: View {
     
     private var openStatusButton: some View {
             Capsule()
-                .fill(marker?.isOpen ?? false ? Color.blue : Color(red: 0.4, green: 0.5, blue: 0.9))
+                .fill(marker?.isOpen ?? false ? .blue : Color(red: 0.4, green: 0.5, blue: 0.9))
                 .frame(width: 48, height: 18)
                 .overlay {
                     Text(marker?.isOpen ?? false ? "Open" : "Closed")
@@ -133,63 +128,27 @@ struct MapMarkerDetailSwiftView: View {
     
     private var categoryView: some View {
         HStack(spacing: 8){
-            Image(systemName: getCategoryIcon())
-                .font(.system(size: 12))
-                .foregroundColor(.secondary)
+            if let marker, case .known(let type) = marker.type {
+                Image(uiImage: type.icon())
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 12, height: 12)
+                    .foregroundColor(.secondary)
+            } else {
+                Image(systemName: "mappin")
+                    .font(.system(size: 12))
+                    .foregroundColor(.secondary)
+            }
             
             Group {
                 if let marker, case .known(let type) = marker.type, type == .cafe, let mealPrice = marker.mealPrice {
                     Text(mealPrice)
-                        .font(Font(BMFont.regular(12)))
-                        .foregroundColor(.primary)
                 } else {
                     Text("<10")
-                        .font(Font(BMFont.regular(12)))
-                        .foregroundColor(.primary)
                 }
             }
-        }
-    }
-    
-    private func getCategoryIcon() -> String {
-        guard let marker else {
-            return "questionmark.circle"
-        }
-        
-        switch marker.type {
-        case .known(let type):
-            switch type {
-            case .cafe:
-                return "fork.knife"
-            case .store:
-                return "bag"
-            case .mentalHealth:
-                return "brain"
-            case .genderInclusiveRestrooms:
-                return "toilet"
-            case .menstrualProductDispensers:
-                return "drop"
-            case .garden:
-                return "leaf"
-            case .bikes:
-                return "bicycle"
-            case .lactation:
-                return "heart"
-            case .rest:
-                return "bed.double"
-            case .microwave:
-                return "bolt"
-            case .printer:
-                return "printer"
-            case .water:
-                return "drop.fill"
-            case .waste:
-                return "trash"
-            case .none:
-                return "mappin"
-            }
-        case .unknown:
-            return "mappin"
+            .font(Font(BMFont.regular(12)))
+            .foregroundColor(.primary)
         }
     }
 }
