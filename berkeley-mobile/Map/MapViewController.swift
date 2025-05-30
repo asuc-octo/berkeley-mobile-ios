@@ -261,7 +261,6 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         let searchBarTopMargin: CGFloat = 74
         let searchBarHeight = searchBar.intrinsicContentSize.height
         let mapBtnsTopMargin: CGFloat = 141
-        let markerDetailBottomMargin: CGFloat = -96
         
         NSLayoutConstraint.activate([
             searchBar.topAnchor.constraint(equalTo: view.topAnchor, constant: searchBarTopMargin),
@@ -274,9 +273,10 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
             searchResultsView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             searchResultsView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
-            markerDetail.view.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: markerDetailBottomMargin),
-            markerDetail.view.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor),
-            markerDetail.view.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor),
+            markerDetail.view.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            markerDetail.view.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            markerDetail.view.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            markerDetail.view.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             
             mapUserLocationButton.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
             mapUserLocationButton.topAnchor.constraint(equalTo: view.topAnchor, constant: mapBtnsTopMargin),
