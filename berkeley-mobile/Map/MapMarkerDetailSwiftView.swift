@@ -121,8 +121,8 @@ struct MapMarkerDetailSwiftView: View {
             Text(marker?.address ?? "No Address")
                 .font(Font(BMFont.regular(12)))
                 .foregroundColor(.primary)
-                .lineLimit(1)
-                .truncationMode(.tail)
+                .minimumScaleFactor(0.5)
+                .lineLimit(2)
         }
     }
     
@@ -143,8 +143,6 @@ struct MapMarkerDetailSwiftView: View {
             Group {
                 if let marker, case .known(let type) = marker.type, type == .cafe, let mealPrice = marker.mealPrice {
                     Text(mealPrice)
-                } else {
-                    Text("<10")
                 }
             }
             .font(Font(BMFont.regular(12)))
