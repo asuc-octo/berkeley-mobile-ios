@@ -100,16 +100,11 @@ class FitnessViewController: UIViewController, SearchDrawerViewDelegate {
         
         gymsController.vc = self
         
-        // Fetch gyms and fetch occupancy data afterwards
+        // Fetch gyms data afterwards
         DataManager.shared.fetch(source: GymDataSource.self) { gyms in
             self.gyms = gyms as? [Gym] ?? []
             self.filterTableView.setData(data: gyms as! [Gym])
             self.filterTableView.update()
-            DataManager.shared.fetch(source: OccupancyDataSource.self) {_ in
-                DispatchQueue.main.async {
-                    self.filterTableView.update()
-                }
-            }
         }
         
         WidgetCenter.shared.reloadTimelines(ofKind: "GymOccupancyWidget")

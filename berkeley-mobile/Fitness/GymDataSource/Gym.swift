@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class Gym: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasImage, HasOpenTimes, HasOccupancy {
+class Gym: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasImage, HasOpenTimes {
 
     // MARK: SearchIitem
 
@@ -36,10 +36,6 @@ class Gym: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasImage, HasOp
     // MARK: HasOpenTimes
 
     let weeklyHours: WeeklyHours?
-
-    // MARK: HasOccupancy
-
-    var occupancy: Occupancy?
 
     // MARK: CanFavorite
 

@@ -15,19 +15,16 @@ struct AcademicCalendarView: View {
     
     var body: some View {
         ScrollViewReader { proxy in
-            List {
-                Group {
-                    CalendarSectionView(scrollProxy: proxy) { day in
-                        scrollToEvent(day: day, proxy: proxy)
-                    }
-                    .environmentObject(calendarViewModel)
-                    eventsListView
+            CalendarEventsListView(scrapper: academicEventScrapper, proxy: proxy) { event in
+                Button(action: {
+                    eventsViewModel.showAddEventToCalendarAlert(event)
+                }) {
+                    AcademicEventRowView(event: event)
+                        .frame(width: 310)
                 }
-                .listRowSeparator(.hidden)
-                .listRowBackground(Color(BMColor.cardBackground))
-                .listRowInsets(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
+                .buttonStyle(PlainButtonStyle())
             }
-            .listStyle(PlainListStyle())
+            .environmentObject(calendarViewModel)
             .refreshable {
                 guard !academicEventScrapper.isLoading else {
                     return
@@ -39,53 +36,13 @@ struct AcademicCalendarView: View {
             academicEventScrapper.scrape()
             eventsViewModel.logAcademicCalendarTabAnalytics()
         }
-        .onChange(of: academicEventScrapper.entries) { entries in
+        .onChange(of: academicEventScrapper.groupedEntries) { entries in
             calendarViewModel.setEntries(entries)
         }
         .onChange(of: academicEventScrapper.alert) { alert in
             withoutAnimation {
                 eventsViewModel.alert = alert
             }
-        }
-    }
-    
-    @ViewBuilder
-    private var eventsListView: some View {
-        Group {
-            if academicEventScrapper.isLoading {
-                ProgressView()
-                    .id(UUID())
-            } else {
-                if academicEventScrapper.entries.isEmpty {
-                    BMNoEventsView()
-                } else {
-                    ForEach(Array(academicEventScrapper.groupedEntriesSortedKeys.enumerated()), id: \.offset) { index, date in
-                        if let events = academicEventScrapper.entries[date] {
-                            EventsDateSectionView(date: date, events: events) { event in
-                                Button(action: {
-                                    eventsViewModel.showAddEventToCalendarAlert(event)
-                                }) {
-                                    AcademicEventRowView(event: event)
-                                        .frame(width: 310)
-                                }
-                                .buttonStyle(PlainButtonStyle())
-                            }
-                            .id(index)
-                        }
-                    }
-                }
-            }
-        }
-        .frame(maxWidth: .infinity, alignment: .center)
-    }
-    
-    private func scrollToEvent(day: Int, proxy: ScrollViewProxy) {
-        guard let index = academicEventScrapper.groupedEntriesSortedKeys.map({ $0.get(.day)}).firstIndex(of: day) else {
-            return
-        }
-        
-        withAnimation {
-            proxy.scrollTo(index, anchor: .top)
         }
     }
 }
