@@ -83,15 +83,15 @@ final class SafetyViewModel: NSObject, ObservableObject {
     private func listenForSafetyLogs() async {
         do {
             isLoading = true
+            defer {
+                isLoading = false
+            }
             let fetchedSafetyLogs = try await BMNetworkingManager.shared.fetchSafetyLogs()
             safetyLogs = fetchedSafetyLogs
             filteredSafetyLogs = filteredSafetyLogs == safetyLogs ? fetchedSafetyLogs : filteredSafetyLogs
             updateFilterState()
             associateCrimesWithColor()
-            isLoading = false
-        } catch {
-            isLoading = false
-        }
+        } catch {}
     }
     
     private func updateFilterState() {
