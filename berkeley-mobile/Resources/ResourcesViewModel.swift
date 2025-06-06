@@ -45,11 +45,11 @@ class ResourcesViewModel: ObservableObject {
     private func fetchResourceCategories() async {
         do {
             isLoading = true
+            defer {
+                isLoading = false
+            }
             let sortedCategories = try await BMNetworkingManager.shared.fetchResourcesCategories()
             resourceCategories = sortedCategories
-            isLoading = false
-        } catch {
-            isLoading = false
-        }
+        } catch {}
     }
 }

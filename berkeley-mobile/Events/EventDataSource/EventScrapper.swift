@@ -125,16 +125,19 @@ extension EventScrapper: WKNavigationDelegate {
             return
         }
         
-        Task {
+        Task { @MainActor in
+            isLoading = true
+                        
+            defer {
+                isLoading = false
+            }
+            
             do {
                 let result = try await webView.evaluateJavaScript("document.body.innerHTML")
             
                 guard let htmlContent = result as? String else {
-                    await MainActor.run {
-                        alert = BMAlert(title: "Unable To Load Events", message: "Parsing website HTML content was unsuccessful. Please try again.", type: .notice)
-                        repopulateWithSavedGroupedEvents()
-                        isLoading = false
-                    }
+                    alert = BMAlert(title: "Unable To Load Events", message: "Parsing website HTML content was unsuccessful. Please try again.", type: .notice)
+                    repopulateWithSavedGroupedEvents()
                     return
                 }
                 
@@ -148,16 +151,10 @@ extension EventScrapper: WKNavigationDelegate {
                 
                 saveEventCalendarEntries(for: scrappedCalendarEntries)
                 
-                await MainActor.run {
-                    groupedEntries = groupEventsByDay(scrappedCalendarEntries)
-                    isLoading = false
-                }
+                groupedEntries = groupEventsByDay(scrappedCalendarEntries)
             } catch {
-                await MainActor.run {
-                    alert = BMAlert(title: "Unable To Load Events", message: error.localizedDescription, type: .notice)
-                    repopulateWithSavedGroupedEvents()
-                    isLoading = false
-                }
+                alert = BMAlert(title: "Unable To Load Events", message: error.localizedDescription, type: .notice)
+                repopulateWithSavedGroupedEvents()
             }
         }
     }
