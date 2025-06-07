@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-// Colors for Gym Class Types
+// Colors for BMGym Class Types
 extension BMColor {
     
     static var classAllAround: UIColor {

@@ -38,8 +38,9 @@ class LocationDetailView: IconPairView, DetailView {
 
     init() {
         icon = UIImageView()
+        icon.tintColor = .label
         icon.translatesAutoresizingMaskIntoConstraints = false
-        icon.image = UIImage(named: "Walk")?.colored(BMColor.blackText)
+        icon.image = UIImage(systemName: "figure.walk")
         icon.contentMode = .scaleAspectFit
         icon.clipsToBounds = true
 

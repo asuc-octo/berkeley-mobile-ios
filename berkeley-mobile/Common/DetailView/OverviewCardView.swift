@@ -266,7 +266,8 @@ class OverviewCardView: CardView {
     
     let addressIcon: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "Placemark")?.colored(BMColor.blackText)
+        image.tintColor = .label
+        image.image = UIImage(systemName: "mappin.and.ellipse")
         image.translatesAutoresizingMaskIntoConstraints = false
         image.contentMode = .scaleAspectFit
         image.clipsToBounds = true
@@ -287,7 +288,8 @@ class OverviewCardView: CardView {
     
     let clockIcon: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "Clock")?.colored(BMColor.blackText)
+        image.tintColor = .label
+        image.image = UIImage(named: "clock")
         image.translatesAutoresizingMaskIntoConstraints = false
         image.contentMode = .scaleAspectFit
         image.clipsToBounds = true
@@ -307,8 +309,9 @@ class OverviewCardView: CardView {
     
     let chairImage:UIImageView = {
         let img = UIImageView()
+        img.tintColor = .label
         img.contentMode = .scaleAspectFit
-        img.image = UIImage(named: "Chair")?.colored(BMColor.blackText)
+        img.image = UIImage(systemName: "chair")
         img.translatesAutoresizingMaskIntoConstraints = false
         img.clipsToBounds = true
         return img
@@ -337,7 +340,8 @@ class OverviewCardView: CardView {
     
     let phoneIcon: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "Phone")?.colored(BMColor.blackText)
+        image.tintColor = .label
+        image.image = UIImage(systemName: "phone")
         image.translatesAutoresizingMaskIntoConstraints = false
         image.contentMode = .scaleAspectFit
         image.clipsToBounds = true
