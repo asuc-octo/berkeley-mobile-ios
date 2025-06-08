@@ -35,7 +35,6 @@
 		130FA59E243B1243005DC752 /* DiningRestriction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130FA59D243B1243005DC752 /* DiningRestriction.swift */; };
 		13135BB22412442C0056B169 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39AB323E777AC0039FBA2 /* FilterView.swift */; };
 		13135BB3241244370056B169 /* FilterViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B39AB223E777AC0039FBA2 /* FilterViewCell.swift */; };
-		132087AF23F3B05D00AE273C /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 132087AE23F3B05D00AE273C /* Filter.swift */; };
 		1336A31A241C3FD300949F32 /* GymClassDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1336A319241C3FD300949F32 /* GymClassDataSource.swift */; };
 		1336A31C241C400800949F32 /* GymClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1336A31B241C400800949F32 /* GymClass.swift */; };
 		1336A320241D924300949F32 /* DiningItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1336A31F241D924300949F32 /* DiningItem.swift */; };
@@ -241,7 +240,6 @@
 		01FA50F224E8BA5400DCC490 /* LocationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailView.swift; sourceTree = "<group>"; };
 		0EF369A28DCE41D7C2C6F336 /* Pods-berkeley-mobile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeley-mobile.debug.xcconfig"; path = "Target Support Files/Pods-berkeley-mobile/Pods-berkeley-mobile.debug.xcconfig"; sourceTree = "<group>"; };
 		130FA59D243B1243005DC752 /* DiningRestriction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningRestriction.swift; sourceTree = "<group>"; };
-		132087AE23F3B05D00AE273C /* Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
 		1336A319241C3FD300949F32 /* GymClassDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymClassDataSource.swift; sourceTree = "<group>"; };
 		1336A31B241C400800949F32 /* GymClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymClass.swift; sourceTree = "<group>"; };
 		1336A31F241D924300949F32 /* DiningItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiningItem.swift; sourceTree = "<group>"; };
@@ -595,7 +593,6 @@
 		13B39AB123E777AC0039FBA2 /* FilterView */ = {
 			isa = PBXGroup;
 			children = (
-				132087AE23F3B05D00AE273C /* Filter.swift */,
 				13B39AB323E777AC0039FBA2 /* FilterView.swift */,
 				13B39AB223E777AC0039FBA2 /* FilterViewCell.swift */,
 			);
@@ -1124,7 +1121,6 @@
 				01BC8EB024E8C3E3005B4969 /* DetailView.swift in Sources */,
 				1396013423865E2E005E4788 /* CardCollectionViewCell.swift in Sources */,
 				E83B6D9D2D72FD6F00AA9422 /* HomeView.swift in Sources */,
-				132087AF23F3B05D00AE273C /* Filter.swift in Sources */,
 				1346B9172420AA4500383399 /* DayOfWeek.swift in Sources */,
 				E8912BE52D7FE40500C645B9 /* SafetyMapView.swift in Sources */,
 				29345E2D24A7FFB600859A88 /* CanFavorite.swift in Sources */,
