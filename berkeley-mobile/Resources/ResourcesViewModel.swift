@@ -36,6 +36,7 @@ class ResourcesViewModel: ObservableObject {
     }
     
     init() {
+        isLoading = true
         Task {
             await fetchResourceCategories()
         }
@@ -44,7 +45,6 @@ class ResourcesViewModel: ObservableObject {
     @MainActor
     private func fetchResourceCategories() async {
         do {
-            isLoading = true
             defer {
                 isLoading = false
             }

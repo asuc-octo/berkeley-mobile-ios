@@ -74,6 +74,7 @@ final class SafetyViewModel: NSObject, ObservableObject {
     override init() {
         super.init()
         
+        isLoading = true
         Task {
             await listenForSafetyLogs()
         }
@@ -82,7 +83,6 @@ final class SafetyViewModel: NSObject, ObservableObject {
     @MainActor
     private func listenForSafetyLogs() async {
         do {
-            isLoading = true
             defer {
                 isLoading = false
             }
