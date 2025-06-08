@@ -30,7 +30,7 @@ struct ResourcesView: View {
                     } else if resourcesVM.resourceCategories.isEmpty {
                         noResourcesAvailableView
                     } else {
-                        SegmentedControlView(
+                        BMSegmentedControlView(
                             tabNames: resourcesVM.resourceCategoryNames,
                             selectedTabIndex: $tabSelectedValue
                         )

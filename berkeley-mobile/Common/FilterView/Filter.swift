@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Filter<T>: TableFunction {
+struct Filter<T> {
   
     var label: String
     var filter: ((T) -> Bool)?
@@ -33,5 +33,4 @@ struct Filter<T>: TableFunction {
         DispatchQueue.global(qos: .userInteractive).async(execute: workItem)
         return workItem
     }
-  
 }
