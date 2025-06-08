@@ -62,12 +62,19 @@ struct RecentSearchListRowView: View {
     
     var body: some View {
         HStack {
-            Image(systemName: "clock.arrow.trianglehead.counterclockwise.rotate.90")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 24)
-                .foregroundStyle(Color(BMColor.searchBarIconColor))
-                .frame(width: 52)
+            Group {
+                if #available(iOS 18.0, *) {
+                    Image(systemName: "clock.arrow.trianglehead.counterclockwise.rotate.90")
+                        .resizable()
+                } else {
+                    Image(systemName: "clock")
+                        .resizable()
+                }
+            }
+            .scaledToFit()
+            .frame(width: 24)
+            .foregroundStyle(Color(BMColor.searchBarIconColor))
+            .frame(width: 52)
             
             Text(codablePlacemark.searchName ?? "Not Available")
                 .font(Font(BMFont.regular(16)))
