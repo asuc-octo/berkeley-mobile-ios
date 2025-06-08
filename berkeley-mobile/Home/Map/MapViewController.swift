@@ -6,7 +6,7 @@
 //  Copyright © 2019 RJ Pimentel. All rights reserved.
 //
 
-import Firebase
+import FirebaseAnalytics
 import MapKit
 import SwiftUI
 import UIKit
@@ -66,7 +66,6 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
     private var previousMapMarker:MapMarker?
     private var previousPlaceMark: MKAnnotation?
     
-    private var filters: [Filter<[MapMarker]>] = []
     private var mapUserLocationButtonTapped = false
     private let mapUserLocationViewModel = MapUserLocationButtonViewModel()
     private let mapMarkersDropdownViewModel = MapMarkersDropdownViewModel()
@@ -120,22 +119,19 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
     
     private func fetchFromMapDataSource() {
         DataManager.shared.fetch(source: MapDataSource.self) { markers in
-            guard let markers = markers.first as? [String: [MapMarker]] else { return }
+            guard let markers = markers.first as? [String: [MapMarker]] else {
+                return
+            }
+            
+            let types = markers.keys.compactMap { MapMarkerType(rawValue: $0) }.sorted { $0 < $1 }
+            self.mapMarkersDropdownViewModel.setMapMarkerTypes(with: types)
             self.mapMarkers = Array(markers.values)
-            var types = Array(markers.keys)
-            
-            types.sort {
-                guard let rhs = MapMarkerType(rawValue: $1) else { return true }
-                guard let lhs = MapMarkerType(rawValue: $0) else { return false }
-                return lhs < rhs
+
+            guard !types.isEmpty else {
+                return
             }
-            self.filters = types.map { type in
-                Filter(label: type) { $0.first?.type.rawValue == type }
-            }
-            self.mapMarkersDropdownViewModel.sortMapMarkerTypes(basedOn: self.filters)
             
-            // Select the first map marker option
-            self.showMapMarkersFromFilterView(for: self.filters, on: self.mapMarkers, with: [0])
+            self.showSelectedMapMarkerTypeAnnotations(forType: types.first!)
         }
     }
     
@@ -189,7 +185,9 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
     private func createMapMarkerDropdownButton() {
         let mapMarkersDropdownButtonView = MapMarkersDropdownButton { [weak self] in
             guard let self = self else { return }
-            showMapMarkersFromFilterView(for: self.filters, on: self.mapMarkers, with: [mapMarkersDropdownViewModel.selectedFilterIndex])
+            let selectedMapMarkerType = mapMarkersDropdownViewModel.mapMarkerTypes[mapMarkersDropdownViewModel.selectedFilterIndex]
+            Analytics.logEvent("map_icon_clicked", parameters: ["Category": selectedMapMarkerType.rawValue])
+            showSelectedMapMarkerTypeAnnotations(forType: selectedMapMarkerType)
         }
     
         mapMarkersDropdownButton = UIHostingController(rootView: mapMarkersDropdownButtonView.environmentObject(mapMarkersDropdownViewModel)).view
@@ -205,13 +203,12 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         mapView.setRegion(coordinateRegion, animated: animated)
     }
     
-    // Repoisitions the map's compass so that it is not obscured by the search bar.
+    // Reposition the map's compass so that it is not obscured by the search bar.
     private func updateCompassPosition() {
         if compass != nil { return }
         mapView.showsCompass = false
         compass = MKCompassButton(mapView: mapView)
         view.insertSubview(compass, belowSubview: searchResultsView)
-        // Position the compass to bottom-right of `FilterView`
         compass.translatesAutoresizingMaskIntoConstraints = false
         compass.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor).isActive = true
         compass.topAnchor.constraint(equalTo: mapUserLocationButton.bottomAnchor, constant: kViewMargin).isActive = true
@@ -285,58 +282,30 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
     
     // MARK: - Map Markers
     
-    private func showMapMarkersFromFilterView(for filters: [Filter<[MapMarker]>], on mapMarkers: [[MapMarker]], with indices: [Int]?) {
-        _ = Filter.satisfiesAny(filters: filters, on: mapMarkers, indices: indices, completion: {
-            filtered in
-            DispatchQueue.main.async {
-                // TODO: Speed this up?
-                // remove only map markers, not search annotations
-                self.removeAnnotations(type: MapMarker.self)
-                let filteredAnnotations = Array(filtered.joined())
-                self.mapView.showAnnotations(filteredAnnotations, animated: true)
+    private func showSelectedMapMarkerTypeAnnotations(forType selectedType: MapMarkerType) {
+        removeAnnotations(type: MapMarker.self)
+        let selectedMapMarkers = getMapMarkersMatchingType(forType: selectedType)
+        mapView.showAnnotations(selectedMapMarkers, animated: true)
+    }
+    
+    private func getMapMarkersMatchingType(forType selectedType: MapMarkerType) -> [MapMarker] {
+        for mapMarkersOfSameType in mapMarkers {
+            if let firstMapMarker = mapMarkersOfSameType.first,
+                firstMapMarker.type.rawValue == selectedType.rawValue {
+                return mapMarkersOfSameType
             }
-        })
+        }
+        return []
     }
     
-    var workItem: DispatchWorkItem?
-    private func updateMapMarkers() {
-        self.previousMapMarker = nil
-        workItem?.cancel()
-        workItem = Filter.satisfiesAny(filters: filters, on: mapMarkers, indices: [mapMarkersDropdownViewModel.selectedFilterIndex], completion: {
-            [weak self] filtered in
-            guard let self = self else { return }
-            self.showMapMarkersFromFilterView(for: self.filters, on: self.mapMarkers, with: [mapMarkersDropdownViewModel.selectedFilterIndex])
-        })
-    }
-    
-    // remove all annotations on the map of one type
     func removeAnnotations<T>(type: T.Type) {
         var remove: [MKAnnotation] = []
-        for annotation in self.mapView.annotations {
+        for annotation in mapView.annotations {
             if annotation.isKind(of: type as! AnyClass) {
                 remove.append(annotation)
             }
         }
-        self.mapView.removeAnnotations(remove)
-    }
-
-}
-
-
-// MARK: - FilterViewDelegate, Analytics
-
-extension MapViewController: FilterViewDelegate {
-
-    func filterView(_ filterView: FilterView, didSelect index: Int) {
-        if let category = filters[safe: index]?.label {
-            // Log the display name of the marker category that is selected.
-            Analytics.logEvent("map_icon_clicked", parameters: ["Category": category])
-        }
-        updateMapMarkers()
-    }
-    
-    func filterView(_ filterView: FilterView, didDeselect index: Int) {
-        updateMapMarkers()
+        mapView.removeAnnotations(remove)
     }
 }
 
@@ -523,6 +492,9 @@ extension MapViewController: SearchResultsViewDelegate {
     }
 }
 
+
+// MARK: - MapViewController Gestures + Drawer
+
 extension MapViewController {
     func handlePanGesture(gesture: UIPanGestureRecognizer) {
         let state = handlePan(gesture: gesture)
@@ -538,6 +510,9 @@ extension MapViewController {
         searchAnnotation = nil
     }
 }
+
+
+// MARK: - MKMapView
 
 extension MKMapView {
     func setRegionWithDuration(_ zoomRegion: MKCoordinateRegion, duration: TimeInterval) {

@@ -17,9 +17,8 @@ class MapMarkersDropdownViewModel: ObservableObject {
         mapMarkerTypes[selectedFilterIndex].icon()
     }
     
-    func sortMapMarkerTypes(basedOn filters: [Filter<[MapMarker]>]) {
-        let filterLabels = filters.map { $0.label }
-        mapMarkerTypes = filterLabels.compactMap { MapMarkerType(rawValue: $0) }
+    func setMapMarkerTypes(with types: [MapMarkerType]) {
+        mapMarkerTypes = types
     }
 }
 
