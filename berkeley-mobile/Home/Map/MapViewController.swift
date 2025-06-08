@@ -292,7 +292,8 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
                 // TODO: Speed this up?
                 // remove only map markers, not search annotations
                 self.removeAnnotations(type: MapMarker.self)
-                self.mapView.addAnnotations(Array(filtered.joined()))
+                let filteredAnnotations = Array(filtered.joined())
+                self.mapView.showAnnotations(filteredAnnotations, animated: true)
             }
         })
     }
