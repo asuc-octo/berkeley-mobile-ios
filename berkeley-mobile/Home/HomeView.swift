@@ -6,7 +6,6 @@
 //  Copyright © 2025 ASUC OCTO. All rights reserved.
 //
 
-import FirebaseAnalytics
 import SwiftUI
 
 struct HomeView: View {
@@ -96,7 +95,7 @@ struct HomeView: View {
                     case 0:
                         BMHomeSectionListView(sectionType: .dining, items: homeViewModel.diningHalls, mapViewController: mapViewController)
                             .onAppear {
-                                Analytics.logEvent("opened_food_screen", parameters: nil)
+                                homeViewModel.logOpenedDiningHomeSectionAnalytics()
                             }
                     case 1:
                         FitnessView(mapViewController: mapViewController)

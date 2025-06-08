@@ -5,6 +5,8 @@
 //  Created by Justin Wong on 6/6/25.
 //  Copyright © 2025 ASUC OCTO. All rights reserved.
 //
+
+import FirebaseAnalytics
 import SwiftUI
 
 enum HomeDrawerViewType {
@@ -25,14 +27,14 @@ enum HomeDrawerViewType {
 }
 
 class HomeViewModel: ObservableObject {
-    @Published var isShowingDrawer = true
-    @Published var homeDrawerDetailViewInfo: (type: HomeDrawerViewType, item: SearchItem)? = nil
-    @Published var drawerViewState = BMDrawerViewState.medium
-    
     @Published var isFetching = false
     @Published var diningHalls: [BMDiningLocation] = []
     @Published var libraries: [BMLibrary] = []
     @Published var gyms: [BMGym] = []
+    
+    @Published var isShowingDrawer = true
+    @Published var homeDrawerDetailViewInfo: (type: HomeDrawerViewType, item: SearchItem)? = nil
+    @Published var drawerViewState = BMDrawerViewState.medium
     
     let rsfOccupancyViewModel = GymOccupancyViewModel(location: .rsf)
     let stadiumOccupancyViewModel = GymOccupancyViewModel(location: .stadium)
@@ -54,6 +56,10 @@ class HomeViewModel: ObservableObject {
             }
             drawerViewState = .small
         }
+    }
+    
+    func logOpenedDiningHomeSectionAnalytics() {
+        Analytics.logEvent("opened_food_screen", parameters: nil)
     }
     
     private func fetchHomeSectionsData() {
