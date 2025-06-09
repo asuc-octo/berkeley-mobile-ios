@@ -39,10 +39,7 @@ struct EventsView: View {
             }
             .background(Color(BMColor.cardBackground))
         }
-        .fullScreenCover(item: $eventsViewModel.alert) { alert in
-            BMAlertView(alert: alert)
-                .presentationBackground(Color.clear)
-        }
+        .alertsOverlayView(alert: $eventsViewModel.alert)
     }
 }
 

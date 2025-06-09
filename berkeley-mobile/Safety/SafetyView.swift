@@ -35,6 +35,7 @@ struct SafetyView: View {
             }
         }
         .animation(.easeInOut, value: isPresentingSafetyLogDetailView)
+        .alertsOverlayView(alert: $safetyViewModel.alert)
     }
     
     private var drawerView: some View {

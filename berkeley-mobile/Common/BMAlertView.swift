@@ -67,7 +67,7 @@ struct BMAlertView: View {
                     }
                     .frame(width: 100)
                 } else {
-                    BMActionButton(title: "Ok", backgroundColor: Color(BMColor.ActionButton.background), showShadow: false) {
+                    BMActionButton(title: "OK", backgroundColor: Color(BMColor.ActionButton.background), showShadow: false) {
                         performAlertAction()
                     }
                     .frame(width: 100)

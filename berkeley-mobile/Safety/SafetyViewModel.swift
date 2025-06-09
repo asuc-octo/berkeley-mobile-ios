@@ -65,6 +65,7 @@ final class SafetyViewModel: NSObject, ObservableObject {
     @Published var filteredSafetyLogs = [BMSafetyLog]()
     @Published var crimeInfos = [BMSafetyLogFilterState: BMCrimeInfo]()
     @Published var isLoading = false
+    @Published var alert: BMAlert?
     @Published var selectedSafetyLogFilterStates: [BMSafetyLogFilterState] = [] {
         didSet {
             updateFilterState()
@@ -91,7 +92,11 @@ final class SafetyViewModel: NSObject, ObservableObject {
             filteredSafetyLogs = filteredSafetyLogs == safetyLogs ? fetchedSafetyLogs : filteredSafetyLogs
             updateFilterState()
             associateCrimesWithColor()
-        } catch {}
+        } catch {
+            withoutAnimation {
+                self.alert = BMAlert(title: "Failed To Fetch Safety Logs", message: error.localizedDescription, type: .notice)
+            }
+        }
     }
     
     private func updateFilterState() {
