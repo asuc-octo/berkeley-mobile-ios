@@ -6,8 +6,8 @@
 //  Copyright © 2024 ASUC OCTO. All rights reserved.
 //
 
-import SwiftUI
 import MapKit
+import SwiftUI
 
 struct SafetyView: View {
     @StateObject private var safetyViewModel = SafetyViewModel()
@@ -31,9 +31,11 @@ struct SafetyView: View {
             if isPresentingSafetyLogDetailView {
                 SafetyLogDetailView(selectedSafetyLog: $selectedSafetyLog, drawerViewState: $drawerViewState)
                     .padding()
+                    .environmentObject(safetyViewModel)
             }
         }
         .animation(.easeInOut, value: isPresentingSafetyLogDetailView)
+        .alertsOverlayView(alert: $safetyViewModel.alert)
     }
     
     private var drawerView: some View {
@@ -41,7 +43,7 @@ struct SafetyView: View {
             VStack(alignment: .leading) {
                 alertsDrawerHeaderView
                 
-                if safetyViewModel.isFetchingLogs {
+                if safetyViewModel.isLoading {
                     loadingSafetyLogsView
                 } else {
                     if !safetyViewModel.filteredSafetyLogs.isEmpty {
@@ -59,6 +61,7 @@ struct SafetyView: View {
                         .listStyle(PlainListStyle())
                         .scrollContentBackground(.hidden)
                         .transition(.scale)
+                        .animation(.default, value: safetyViewModel.filteredSafetyLogs)
                     } else {
                         emptySafetyLogsView
                     }
@@ -82,6 +85,8 @@ struct SafetyView: View {
                 }
                 Spacer()
                 SafetyLogFilterButton(safetyLogFilterStates: $safetyViewModel.selectedSafetyLogFilterStates, drawerViewState: $drawerViewState)
+                    .disabled(safetyViewModel.filteredSafetyLogs.isEmpty)
+                    .opacity(safetyViewModel.filteredSafetyLogs.isEmpty ? 0.5 : 1)
             }
             filterStatesScrollView
         }
@@ -205,4 +210,3 @@ struct SafetyLogFilterButton: View {
 #Preview {
     SafetyView()
 }
-

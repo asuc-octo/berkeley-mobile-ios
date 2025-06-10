@@ -17,7 +17,6 @@ enum OverviewElements {
     case phone
     case distance
     case openTimes
-    case occupancy
     case favorite
 }
 
@@ -158,11 +157,6 @@ class OverviewCardView: CardView {
             leftVerticalStack.topAnchor.constraint(greaterThanOrEqualTo: nameLabel.bottomAnchor, constant: kViewMargin).isActive = true
             leftVerticalStack.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -1 * kViewMargin).isActive = true
         }
-
-        if !excludedElements.contains(.occupancy), let itemWithOccupancy = item as? HasOccupancy, let status = itemWithOccupancy.getCurrentOccupancyStatus(isOpen: (item as? HasOpenTimes)?.isOpen) {
-            let occupancyView = IconPairView(icon: chairImage, iconHeight: 16, iconWidth: 28, attachedView: status.badge())
-            belowImageHorizontalStack.addArrangedSubview(occupancyView)
-        }
         
         if !excludedElements.contains(.favorite), let favoritableItem = item as? CanFavorite {
             if favoritableItem.isFavorited {
@@ -272,7 +266,8 @@ class OverviewCardView: CardView {
     
     let addressIcon: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "Placemark")?.colored(BMColor.blackText)
+        image.tintColor = .label
+        image.image = UIImage(systemName: "mappin.and.ellipse")
         image.translatesAutoresizingMaskIntoConstraints = false
         image.contentMode = .scaleAspectFit
         image.clipsToBounds = true
@@ -293,7 +288,8 @@ class OverviewCardView: CardView {
     
     let clockIcon: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "Clock")?.colored(BMColor.blackText)
+        image.tintColor = .label
+        image.image = UIImage(named: "clock")
         image.translatesAutoresizingMaskIntoConstraints = false
         image.contentMode = .scaleAspectFit
         image.clipsToBounds = true
@@ -313,8 +309,9 @@ class OverviewCardView: CardView {
     
     let chairImage:UIImageView = {
         let img = UIImageView()
+        img.tintColor = .label
         img.contentMode = .scaleAspectFit
-        img.image = UIImage(named: "Chair")?.colored(BMColor.blackText)
+        img.image = UIImage(systemName: "chair")
         img.translatesAutoresizingMaskIntoConstraints = false
         img.clipsToBounds = true
         return img
@@ -343,7 +340,8 @@ class OverviewCardView: CardView {
     
     let phoneIcon: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "Phone")?.colored(BMColor.blackText)
+        image.tintColor = .label
+        image.image = UIImage(systemName: "phone")
         image.translatesAutoresizingMaskIntoConstraints = false
         image.contentMode = .scaleAspectFit
         image.clipsToBounds = true

@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import Firebase
 
 struct BMResourceCategory: Codable {
     var name: String
@@ -33,10 +32,15 @@ class ResourcesViewModel: ObservableObject {
     @Published var isLoading = true
     private let db = Firestore.firestore()
         var resourceCategoryNames: [String] {
+    @Published var isLoading = false
+    @Published var alert: BMAlert?
+    
+    var resourceCategoryNames: [String] {
         resourceCategories.map { $0.name }
     }
     
     init() {
+        isLoading = true
         Task {
             await fetchResourceCategories()
         }
@@ -44,13 +48,9 @@ class ResourcesViewModel: ObservableObject {
     
     @MainActor
     private func fetchResourceCategories() async {
-        let collection = db.collection("Resource Categories")
-        
         do {
-            let querySnapshot = try await collection.getDocuments()
-            let documents = querySnapshot.documents
-            var fetchedResourceCategories = documents.compactMap { queryDocumentSnapshot -> BMResourceCategory? in
-                try? queryDocumentSnapshot.data(as: BMResourceCategory.self)
+            defer {
+                isLoading = false
             }
             fetchedResourceCategories.sort(by: { $0.name < $1.name })
             self.resourceCategories = fetchedResourceCategories
@@ -71,8 +71,12 @@ class ResourcesViewModel: ObservableObject {
             }
             fetchedResourceShoutouts.sort(by: { $0.creationDate < $1.creationDate })
             self.shoutouts = fetchedResourceShoutouts
+            let sortedCategories = try await BMNetworkingManager.shared.fetchResourcesCategories()
+            resourceCategories = sortedCategories
         } catch {
-            print("Error getting document (Resource Categories): \(error)")
+            withoutAnimation {
+                self.alert = BMAlert(title: "Failed To Fetch Resources", message: error.localizedDescription, type: .notice)
+            }
         }
     }
 }

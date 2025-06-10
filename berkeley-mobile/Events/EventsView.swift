@@ -9,6 +9,8 @@
 import SwiftUI
 
 struct EventsView: View {
+    @StateObject private var eventsViewModel = EventsViewModel()
+    
     @State private var tabSelectedIndex = 0
     
     var body: some View {
@@ -17,23 +19,27 @@ struct EventsView: View {
                 BMTopBlobView(imageName: "BlobTopRight", xOffset: 50, yOffset: -45, width: 300, height: 150)
                 
                 VStack {
-                    SegmentedControlView(
+                    BMSegmentedControlView(
                         tabNames: ["Academic", "Campus-Wide"],
                         selectedTabIndex: $tabSelectedIndex
                     )
                     .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0))
     
-                    ZStack {
+                    TabView(selection: $tabSelectedIndex) {
                         AcademicCalendarView()
-                            .opacity(tabSelectedIndex == 0 ? 1 : 0)
-                        CampusCalendarView()
-                            .opacity(tabSelectedIndex == 1 ? 1 : 0)
+                            .environmentObject(eventsViewModel)
+                            .tag(0)
+                        CampuswideEventsView()
+                            .environmentObject(eventsViewModel)
+                            .tag(1)
                     }
+                    .tabViewStyle(.page(indexDisplayMode: .never))
                 }
                 .navigationTitle("Events")
             }
             .background(Color(BMColor.cardBackground))
         }
+        .alertsOverlayView(alert: $eventsViewModel.alert)
     }
 }
 
