@@ -30,12 +30,14 @@ struct BMResourceSection: Hashable, Codable {
 class ResourcesViewModel: ObservableObject {
     @Published var resourceCategories = [BMResourceCategory]()
     @Published var isLoading = false
+    @Published var alert: BMAlert?
     
     var resourceCategoryNames: [String] {
         resourceCategories.map { $0.name }
     }
     
     init() {
+        isLoading = true
         Task {
             await fetchResourceCategories()
         }
@@ -44,12 +46,15 @@ class ResourcesViewModel: ObservableObject {
     @MainActor
     private func fetchResourceCategories() async {
         do {
-            isLoading = true
+            defer {
+                isLoading = false
+            }
             let sortedCategories = try await BMNetworkingManager.shared.fetchResourcesCategories()
             resourceCategories = sortedCategories
-            isLoading = false
         } catch {
-            isLoading = false
+            withoutAnimation {
+                self.alert = BMAlert(title: "Failed To Fetch Resources", message: error.localizedDescription, type: .notice)
+            }
         }
     }
 }
