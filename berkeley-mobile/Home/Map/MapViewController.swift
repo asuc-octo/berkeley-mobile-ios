@@ -221,10 +221,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         mapView.setRegion(coordinateRegion, animated: animated)
     }
     
-<<<<<<< HEAD:berkeley-mobile/Map/MapViewController.swift
-=======
     // Reposition the map's compass so that it is not obscured by the search bar.
->>>>>>> master:berkeley-mobile/Home/Map/MapViewController.swift
     private func updateCompassPosition() {
         if compass != nil { return }
         mapView.showsCompass = false
