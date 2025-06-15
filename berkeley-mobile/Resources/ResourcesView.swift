@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ResourcesView: View {
-    @StateObject private var resourcesVM = ResourcesViewModel()
+    @StateObject private var resourcesViewModel = ResourcesViewModel()
     @State private var tabSelectedValue = 0
     
     init() {
@@ -23,21 +23,21 @@ struct ResourcesView: View {
                 BMTopBlobView(imageName: "BlobRight", xOffset: 30, width: 150, height: 150)
         
                 VStack {
-                    if resourcesVM.isLoading {
+                    if resourcesViewModel.isLoading {
                         Spacer()
                         ProgressView()
                             .controlSize(.large)
-                    } else if resourcesVM.resourceCategories.isEmpty {
+                    } else if resourcesViewModel.resourceCategories.isEmpty {
                         noResourcesAvailableView
                     } else {
-                        SegmentedControlView(
-                            tabNames: resourcesVM.resourceCategoryNames,
+                        BMSegmentedControlView(
+                            tabNames: resourcesViewModel.resourceCategoryNames,
                             selectedTabIndex: $tabSelectedValue
                         )
                         .padding()
                         
                         TabView(selection: $tabSelectedValue) {
-                            ForEach(Array(resourcesVM.resourceCategories.enumerated()), id: \.offset) { idx, category in
+                            ForEach(Array(resourcesViewModel.resourceCategories.enumerated()), id: \.offset) { idx, category in
                                 ResourcePageView(resourceSections: category.sections).tag(idx)
                             }
                         }
@@ -48,6 +48,7 @@ struct ResourcesView: View {
                 .navigationTitle("Resources")
             }
             .background(Color(BMColor.cardBackground))
+            .alertsOverlayView(alert: $resourcesViewModel.alert)
         }
     }
     

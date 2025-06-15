@@ -65,6 +65,7 @@ final class SafetyViewModel: NSObject, ObservableObject {
     @Published var filteredSafetyLogs = [BMSafetyLog]()
     @Published var crimeInfos = [BMSafetyLogFilterState: BMCrimeInfo]()
     @Published var isLoading = false
+    @Published var alert: BMAlert?
     @Published var selectedSafetyLogFilterStates: [BMSafetyLogFilterState] = [] {
         didSet {
             updateFilterState()
@@ -74,6 +75,7 @@ final class SafetyViewModel: NSObject, ObservableObject {
     override init() {
         super.init()
         
+        isLoading = true
         Task {
             await listenForSafetyLogs()
         }
@@ -82,15 +84,18 @@ final class SafetyViewModel: NSObject, ObservableObject {
     @MainActor
     private func listenForSafetyLogs() async {
         do {
-            isLoading = true
+            defer {
+                isLoading = false
+            }
             let fetchedSafetyLogs = try await BMNetworkingManager.shared.fetchSafetyLogs()
             safetyLogs = fetchedSafetyLogs
             filteredSafetyLogs = filteredSafetyLogs == safetyLogs ? fetchedSafetyLogs : filteredSafetyLogs
             updateFilterState()
             associateCrimesWithColor()
-            isLoading = false
         } catch {
-            isLoading = false
+            withoutAnimation {
+                self.alert = BMAlert(title: "Failed To Fetch Safety Logs", message: error.localizedDescription, type: .notice)
+            }
         }
     }
     

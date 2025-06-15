@@ -12,6 +12,12 @@ import MapKit
 struct BMConstants {
     static let doeGladeImage = UIImage(imageLiteralResourceName: "DoeGlade")
     
+    //MARK: - Strings
+    
+    static let diningSectionTitle = "Find A Place To Dine"
+    static let fitnessSectionTitle = "Fitness Locations"
+    static let studySectionTitle = "Find A Place To Study"
+    
     
     // MARK: - Map
     

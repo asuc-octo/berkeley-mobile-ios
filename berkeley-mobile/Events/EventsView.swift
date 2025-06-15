@@ -19,7 +19,7 @@ struct EventsView: View {
                 BMTopBlobView(imageName: "BlobTopRight", xOffset: 50, yOffset: -45, width: 300, height: 150)
                 
                 VStack {
-                    SegmentedControlView(
+                    BMSegmentedControlView(
                         tabNames: ["Academic", "Campus-Wide"],
                         selectedTabIndex: $tabSelectedIndex
                     )
@@ -39,10 +39,7 @@ struct EventsView: View {
             }
             .background(Color(BMColor.cardBackground))
         }
-        .fullScreenCover(item: $eventsViewModel.alert) { alert in
-            BMAlertView(alert: alert)
-                .presentationBackground(Color.clear)
-        }
+        .alertsOverlayView(alert: $eventsViewModel.alert)
     }
 }
 

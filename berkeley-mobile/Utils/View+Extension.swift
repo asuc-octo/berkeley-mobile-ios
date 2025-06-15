@@ -122,6 +122,18 @@ struct EventsContextMenuModifier: ViewModifier {
     }
 }
 
+struct BMAlertsOverlayViewModifier: ViewModifier {
+    @Binding var alert: BMAlert?
+    
+    func body(content: Content) -> some View {
+        content
+            .fullScreenCover(item: $alert) { alert in
+            BMAlertView(alert: alert)
+                .presentationBackground(Color.clear)
+        }
+    }
+}
+
 
 // MARK: - View Extension
 
@@ -140,5 +152,9 @@ extension View {
     
     func addBadgeStyle(widthAndHeight: CGFloat) -> some View {
         modifier(BMBadgeStyleViewModifer(widthAndHeight: widthAndHeight))
+    }
+    
+    func alertsOverlayView(alert: Binding<BMAlert?>) -> some View {
+        modifier(BMAlertsOverlayViewModifier(alert: alert))
     }
 }
