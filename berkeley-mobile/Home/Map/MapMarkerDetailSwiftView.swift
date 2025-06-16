@@ -6,7 +6,6 @@
 //  Copyright © 2025 ASUC OCTO. All rights reserved.
 //
 
-import Foundation
 import MapKit
 import SwiftUI
 
@@ -28,7 +27,7 @@ struct MapMarkerDetailSwiftView: View {
             .padding(.vertical, 8)
             Spacer()
         }
-        .background(Color(.systemBackground))
+        .background(Color(BMColor.cardBackground))
         .clipShape(RoundedRectangle(cornerRadius: 12))
         .frame(maxWidth: .infinity)
         .frame(minWidth: 200, maxHeight: 140)
@@ -62,7 +61,7 @@ struct MapMarkerDetailSwiftView: View {
         HStack(alignment: .top) {
             Text((marker?.title ?? "Unknown").capitalized)
                 .font(Font(BMFont.bold(21)))
-                .foregroundColor(.primary)
+                .foregroundStyle(.primary)
                 .fixedSize(horizontal: false, vertical: true)
             Spacer()
             
@@ -88,7 +87,7 @@ struct MapMarkerDetailSwiftView: View {
         HStack(spacing: 8) {
             Image(systemName: "clock")
                 .font(.system(size: 12))
-                .foregroundColor(.secondary)
+                .foregroundStyle(.secondary)
                 .rotationEffect(.init(degrees: 90))
             openStatusButton
             
@@ -117,7 +116,7 @@ struct MapMarkerDetailSwiftView: View {
         HStack(spacing: 8) {
             Image(systemName: "mappin.and.ellipse")
                 .font(.system(size: 12))
-                .foregroundColor(.secondary)
+                .foregroundStyle(.secondary)
             Text(marker?.address ?? "No Address")
                 .font(Font(BMFont.regular(12)))
                 .foregroundColor(.primary)
@@ -133,20 +132,18 @@ struct MapMarkerDetailSwiftView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 12, height: 12)
-                    .foregroundColor(.secondary)
+                    .foregroundStyle(.secondary)
             } else {
                 Image(systemName: "mappin")
                     .font(.system(size: 12))
-                    .foregroundColor(.secondary)
+                    .foregroundStyle(.secondary)
             }
             
-            Group {
-                if let marker, case .known(let type) = marker.type, type == .cafe, let mealPrice = marker.mealPrice {
-                    Text(mealPrice)
-                }
+            if let marker, case .known(let type) = marker.type, type == .cafe, let mealPrice = marker.mealPrice {
+                Text(mealPrice)
+                    .font(Font(BMFont.regular(12)))
+                    .foregroundColor(.primary)
             }
-            .font(Font(BMFont.regular(12)))
-            .foregroundColor(.primary)
         }
     }
 }
