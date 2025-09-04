@@ -34,18 +34,26 @@ struct BMControlButtonStyle: ButtonStyle {
 
 struct BMBadgeStyleViewModifer: ViewModifier {
     let widthAndHeight: CGFloat
+    let isInteractive: Bool
     
     func body(content: Content) -> some View {
         content
             .frame(width: widthAndHeight, height: widthAndHeight)
-            .background(
-                Circle()
-                    .fill(.thickMaterial)
-            )
-            .overlay(
-                Circle()
-                    .strokeBorder(.gray, lineWidth: 0.5)
-            )
+            .modify {
+                if #available(iOS 26.0, *) {
+                    $0.glassEffect(.regular.interactive(isInteractive), in: .circle)
+                } else {
+                    $0.background(
+                        Circle()
+                            .fill(.thickMaterial)
+                    )
+                    $0.overlay(
+                        Circle()
+                            .strokeBorder(.gray, lineWidth: 0.5)
+                    )
+                }
+            }
+            
     }
 }
 
@@ -150,11 +158,15 @@ extension View {
         modifier(EventsContextMenuModifier(event: event))
     }
     
-    func addBadgeStyle(widthAndHeight: CGFloat) -> some View {
-        modifier(BMBadgeStyleViewModifer(widthAndHeight: widthAndHeight))
+    func addBadgeStyle(widthAndHeight: CGFloat, isInteractive: Bool = true) -> some View {
+        modifier(BMBadgeStyleViewModifer(widthAndHeight: widthAndHeight, isInteractive: isInteractive))
     }
     
     func alertsOverlayView(alert: Binding<BMAlert?>) -> some View {
         modifier(BMAlertsOverlayViewModifier(alert: alert))
+    }
+    
+    func modify<Content>(@ViewBuilder _ transform: (Self) -> Content) -> Content {
+        transform(self)
     }
 }

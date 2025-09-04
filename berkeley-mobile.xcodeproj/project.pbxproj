@@ -155,6 +155,8 @@
 		E889F8352DACA02C00202556 /* Apercu Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 01D269922544D86C000377B4 /* Apercu Regular.otf */; };
 		E889F8362DACA02C00202556 /* Apercu Mono.otf in Resources */ = {isa = PBXBuildFile; fileRef = 01D2698F2544D86C000377B4 /* Apercu Mono.otf */; };
 		E889F8372DACA02C00202556 /* Apercu Light Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 01D2698C2544D86B000377B4 /* Apercu Light Italic.otf */; };
+		E88A61F82E6A242A00D845DA /* SafetyLogFilterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88A61F72E6A242A00D845DA /* SafetyLogFilterButton.swift */; };
+		E88A61FA2E6A253000D845DA /* SafetyViewFilterScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88A61F92E6A253000D845DA /* SafetyViewFilterScrollView.swift */; };
 		E8912BE52D7FE40500C645B9 /* SafetyMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8912BE42D7FE40500C645B9 /* SafetyMapView.swift */; };
 		E8912C2A2D869D6900C645B9 /* BMConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8912C292D869D6900C645B9 /* BMConstants.swift */; };
 		E891E2852DCD3104006CA0F5 /* BMCachedAsyncImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E891E2842DCD3104006CA0F5 /* BMCachedAsyncImageView.swift */; };
@@ -165,7 +167,7 @@
 		E891E2AF2DD05029006CA0F5 /* BMNoEventsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E891E2AE2DD05029006CA0F5 /* BMNoEventsView.swift */; };
 		E891E2D92DD526FC006CA0F5 /* BMError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E891E2D82DD526FC006CA0F5 /* BMError.swift */; };
 		E891E2F32DD68536006CA0F5 /* BMNetworkingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E891E2F22DD68536006CA0F5 /* BMNetworkingManager.swift */; };
-		E891E2FD2DD86A91006CA0F5 /* BMSafetyMapMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E891E2FC2DD86A91006CA0F5 /* BMSafetyMapMarker.swift */; };
+		E891E2FD2DD86A91006CA0F5 /* SafetyMapMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E891E2FC2DD86A91006CA0F5 /* SafetyMapMarker.swift */; };
 		E89A33152DCB21780068DDAA /* AcademicEventRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89A33142DCB21780068DDAA /* AcademicEventRowView.swift */; };
 		E89F20452DF2CD2E00C488EF /* BMHomeSectionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89F20442DF2CD2E00C488EF /* BMHomeSectionListView.swift */; };
 		E89F20472DF3F5DA00C488EF /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89F20462DF3F5DA00C488EF /* HomeViewModel.swift */; };
@@ -353,6 +355,8 @@
 		E889F7FA2DAC4DEE00202556 /* BerkeleyMobileWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = BerkeleyMobileWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		E889F7FB2DAC4DEE00202556 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		E889F7FD2DAC4DEE00202556 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		E88A61F72E6A242A00D845DA /* SafetyLogFilterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyLogFilterButton.swift; sourceTree = "<group>"; };
+		E88A61F92E6A253000D845DA /* SafetyViewFilterScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyViewFilterScrollView.swift; sourceTree = "<group>"; };
 		E8912BE42D7FE40500C645B9 /* SafetyMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyMapView.swift; sourceTree = "<group>"; };
 		E8912C292D869D6900C645B9 /* BMConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMConstants.swift; sourceTree = "<group>"; };
 		E891E2842DCD3104006CA0F5 /* BMCachedAsyncImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMCachedAsyncImageView.swift; sourceTree = "<group>"; };
@@ -363,7 +367,7 @@
 		E891E2AE2DD05029006CA0F5 /* BMNoEventsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMNoEventsView.swift; sourceTree = "<group>"; };
 		E891E2D82DD526FC006CA0F5 /* BMError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMError.swift; sourceTree = "<group>"; };
 		E891E2F22DD68536006CA0F5 /* BMNetworkingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMNetworkingManager.swift; sourceTree = "<group>"; };
-		E891E2FC2DD86A91006CA0F5 /* BMSafetyMapMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMSafetyMapMarker.swift; sourceTree = "<group>"; };
+		E891E2FC2DD86A91006CA0F5 /* SafetyMapMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyMapMarker.swift; sourceTree = "<group>"; };
 		E89A33142DCB21780068DDAA /* AcademicEventRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcademicEventRowView.swift; sourceTree = "<group>"; };
 		E89F20442DF2CD2E00C488EF /* BMHomeSectionListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMHomeSectionListView.swift; sourceTree = "<group>"; };
 		E89F20462DF3F5DA00C488EF /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -551,6 +555,7 @@
 				E891E29A2DCD4E37006CA0F5 /* BMAlertView.swift */,
 				E891E2842DCD3104006CA0F5 /* BMCachedAsyncImageView.swift */,
 				2ED4FB662D8A3FA00086306A /* BMContentUnavailableView.swift */,
+				E8B2738E2BD5E46B0009831A /* BMDrawerView.swift */,
 				C14CCB602D9CC2680075FE69 /* BMFilterButton.swift */,
 				E8B5975E2CA62D6F006DFBD5 /* BMSegmentedControlView.swift */,
 				E83B6DA02D781AF100AA9422 /* BMTopBlobView.swift */,
@@ -867,9 +872,10 @@
 				E8B273902BD5E5770009831A /* SafetyViewModel.swift */,
 				E8B2738C2BD5C83F0009831A /* SafetyView.swift */,
 				E8EBE7612CEC2FD700A220BB /* SafetyLogDetailView.swift */,
+				E88A61F72E6A242A00D845DA /* SafetyLogFilterButton.swift */,
+				E891E2FC2DD86A91006CA0F5 /* SafetyMapMarker.swift */,
 				E8912BE42D7FE40500C645B9 /* SafetyMapView.swift */,
-				E8B2738E2BD5E46B0009831A /* BMDrawerView.swift */,
-				E891E2FC2DD86A91006CA0F5 /* BMSafetyMapMarker.swift */,
+				E88A61F92E6A253000D845DA /* SafetyViewFilterScrollView.swift */,
 			);
 			path = Safety;
 			sourceTree = "<group>";
@@ -1068,6 +1074,7 @@
 				01FA50F324E8BA5400DCC490 /* LocationDetailView.swift in Sources */,
 				E8472AEC2DE2DB80005C24EA /* EventsDateSectionView.swift in Sources */,
 				1DB006AD2D71C8D6001CC870 /* ResourcesSectionDropdown.swift in Sources */,
+				E88A61FA2E6A253000D845DA /* SafetyViewFilterScrollView.swift in Sources */,
 				306A550023614C0000D59A7F /* MainContainerViewController.swift in Sources */,
 				29F11EC72516C150007DCFD7 /* BarView.swift in Sources */,
 				55DCF78723722CBD001B01B8 /* Colors.swift in Sources */,
@@ -1100,7 +1107,7 @@
 				556CCD2D23E79EC100F41BF9 /* TabBarController.swift in Sources */,
 				01C75E2E25292E5B00C25A32 /* DescriptionCardView.swift in Sources */,
 				13B39A8D23E689BC0039FBA2 /* DataSource.swift in Sources */,
-				E891E2FD2DD86A91006CA0F5 /* BMSafetyMapMarker.swift in Sources */,
+				E891E2FD2DD86A91006CA0F5 /* SafetyMapMarker.swift in Sources */,
 				2948155F253274C500D113B6 /* ImageViewCell.swift in Sources */,
 				E81767582B9A516200599254 /* MapMarkersDropdownView.swift in Sources */,
 				E8BC7B652B96CB7F002BF46D /* ResourcesViewModel.swift in Sources */,
@@ -1151,6 +1158,7 @@
 				13492D2D240E179F00AD3D1F /* MapMarkerDetailView.swift in Sources */,
 				E891E2D92DD526FC006CA0F5 /* BMError.swift in Sources */,
 				1346B9192420AD4800383399 /* WeeklyHours.swift in Sources */,
+				E88A61F82E6A242A00D845DA /* SafetyLogFilterButton.swift in Sources */,
 				29B1D307254E1C8700BAD88F /* BMEventManager.swift in Sources */,
 				E8C2BDA72D912B3A00165554 /* CalendarView.swift in Sources */,
 				E83B6DA52D7A85D500AA9422 /* GymOccupancyScrapper.swift in Sources */,

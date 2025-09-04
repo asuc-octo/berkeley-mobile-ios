@@ -15,10 +15,14 @@ struct SafetyMapView: View {
     @State private var isShowingLegend = false
     @Binding var selectedSafetyLog: BMSafetyLog?
     @Binding var drawerViewState: BMDrawerViewState
+    var isPresentingDetailView: Bool
     
     var body: some View {
         if #available(iOS 17.0, *) {
-            SafetyNewMapView(selectedSafetyLog: $selectedSafetyLog, isShowingLegend: $isShowingLegend, drawerViewState: $drawerViewState)
+            SafetyNewMapView(selectedSafetyLog: $selectedSafetyLog,
+                             isShowingLegend: $isShowingLegend,
+                             drawerViewState: $drawerViewState,
+                             isPresentingDetailView: isPresentingDetailView)
         } else {
             oldMapView
         }
@@ -45,15 +49,37 @@ struct SafetyNewMapView: View {
     @Binding var selectedSafetyLog: BMSafetyLog?
     @Binding var isShowingLegend: Bool
     @Binding var drawerViewState: BMDrawerViewState
+    var isPresentingDetailView: Bool
     
     private let bounds = MapCameraBounds(centerCoordinateBounds: BMConstants.mapBoundsRegion, maximumDistance: BMConstants.mapMaxZoomDistance)
     
     var body: some View {
+        if #available(iOS 26.0, *) {
+            mapViewWithHUD
+                .toolbar {
+                    if !isPresentingDetailView {
+                        ToolbarItemGroup(placement: .topBarLeading) {
+                            mapLegendButton
+                            mapZoomInButton
+                        }
+                        ToolbarItemGroup(placement: .topBarTrailing) {
+                            SafetyLogFilterButton(safetyLogFilterStates: $safetyViewModel.selectedSafetyLogFilterStates, drawerViewState: $drawerViewState)
+                                .opacity(safetyViewModel.filteredSafetyLogs.isEmpty ? 0.5 : 1)
+                                .tint(.purple)
+                        }
+                    }
+                }
+        } else {
+            mapViewWithHUD
+        }
+    }
+    
+    private var mapViewWithHUD: some View {
         ZStack {
             Map(position: $mapCameraPosition, bounds: bounds, selection: $selectedSafetyLog) {
                 UserAnnotation()
                 ForEach(safetyViewModel.filteredSafetyLogs) { safetyLog in
-                    BMSafetyMapMarker(safetyLog: safetyLog)
+                    SafetyMapMarker(safetyLog: safetyLog)
                 }
             }
             .mapControlVisibility(.hidden)
@@ -74,20 +100,30 @@ struct SafetyNewMapView: View {
     
     @ViewBuilder
     private var mapHUD: some View {
-        if !safetyViewModel.crimeInfos.isEmpty {
-            VStack {
+        VStack {
+            if #available(iOS 26.0, *) {
+                if !safetyViewModel.selectedSafetyLogFilterStates.isEmpty {
+                    SafetyViewFilterScrollView(drawerViewState: $drawerViewState)
+                }
+            }
+            
+            if !safetyViewModel.crimeInfos.isEmpty {
                 HStack(alignment: .top, spacing: 10) {
-                    VStack {
-                        if #available(iOS 17.0, *) {
-                            mapLegendButton
-                            .contentTransition(
-                                .symbolEffect(.replace)
-                            )
-                        } else {
-                            mapLegendButton
+                    if #unavailable(iOS 26.0) {
+                        VStack {
+                            if #available(iOS 17.0, *) {
+                                mapLegendButton
+                                .contentTransition(
+                                    .symbolEffect(.replace)
+                                )
+                            } else {
+                                mapLegendButton
+                            }
+                            
+                            mapZoomInButton
+                                
                         }
-                        
-                        mapZoomInButton
+                        .buttonStyle(BMControlButtonStyle())
                     }
                     
                     if isShowingLegend {
@@ -95,10 +131,10 @@ struct SafetyNewMapView: View {
                             .shadow(color: .gray, radius: 10)
                     }
                 }
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-            .padding()
         }
+        .padding()
     }
     
     private var mapLegendButton: some View {
@@ -111,7 +147,6 @@ struct SafetyNewMapView: View {
                 .font(.system(size: 20))
                 .fontWeight(.semibold)
         }
-        .buttonStyle(BMControlButtonStyle())
         .transition(.scale)
     }
     
@@ -126,7 +161,6 @@ struct SafetyNewMapView: View {
             Image(systemName: "scope")
         }
         .symbolEffect(.bounce, value: isZoomIn)
-        .buttonStyle(BMControlButtonStyle())
     }
     
     private var mapLegend: some View {
@@ -150,7 +184,13 @@ struct SafetyNewMapView: View {
         }
         .frame(width: 250)
         .padding()
-        .background(.regularMaterial)
+        .modify {
+            if #available(iOS 26.0, *) {
+                $0.glassEffect(in: .rect(cornerRadius: 10))
+            } else {
+                $0.background(.regularMaterial)
+            }
+        }
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .transition(.scale)
     }
@@ -167,6 +207,6 @@ struct SafetyNewMapView: View {
 @available(iOS 17.0, *)
 #Preview {
     @Previewable @State var drawerViewState = BMDrawerViewState.medium
-    SafetyMapView(selectedSafetyLog: .constant(nil), drawerViewState: $drawerViewState)
+    SafetyMapView(selectedSafetyLog: .constant(nil), drawerViewState: $drawerViewState, isPresentingDetailView: false)
         .environmentObject(SafetyViewModel())
 }

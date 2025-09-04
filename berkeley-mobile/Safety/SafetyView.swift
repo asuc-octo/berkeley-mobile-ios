@@ -19,9 +19,31 @@ struct SafetyView: View {
     }
     
     var body: some View {
+        if #available(iOS 26.0, *) {
+            NavigationStack {
+                safetyContentView
+                .toolbar {
+                    if isPresentingSafetyLogDetailView {
+                        ToolbarItem(placement: .cancellationAction) {
+                            Button(role: .cancel) {
+                                drawerViewState = .small
+                                selectedSafetyLog = nil
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            safetyContentView
+        }
+    }
+    
+    private var safetyContentView: some View {
         ZStack {
             Group {
-                SafetyMapView(selectedSafetyLog: $selectedSafetyLog, drawerViewState: $drawerViewState)
+                SafetyMapView(selectedSafetyLog: $selectedSafetyLog,
+                              drawerViewState: $drawerViewState,
+                              isPresentingDetailView: isPresentingSafetyLogDetailView)
                     .environmentObject(safetyViewModel)
                 drawerView
             }
@@ -70,6 +92,36 @@ struct SafetyView: View {
         }
     }
     
+    private var drawerContentView: some View {
+        VStack(alignment: .leading) {
+            alertsDrawerHeaderView
+            
+            if safetyViewModel.isLoading {
+                loadingSafetyLogsView
+            } else {
+                if !safetyViewModel.filteredSafetyLogs.isEmpty {
+                    List(safetyViewModel.filteredSafetyLogs, id: \.id) { safetyLog in
+                        SafetyLogView(safetyLog: safetyLog, isPresentingFullScreen: false)
+                            .contentShape(RoundedRectangle(cornerRadius: 10))
+                            .listRowBackground(Color.clear)
+                            .listRowSeparator(.hidden)
+                            .listRowInsets(EdgeInsets())
+                            .onTapGesture {
+                                selectedSafetyLog = safetyLog
+                            }
+                            .environmentObject(safetyViewModel)
+                    }
+                    .listStyle(PlainListStyle())
+                    .scrollContentBackground(.hidden)
+                    .transition(.scale)
+                    .animation(.default, value: safetyViewModel.filteredSafetyLogs)
+                } else {
+                    emptySafetyLogsView
+                }
+            }
+        }
+    }
+    
     private var alertsDrawerHeaderView: some View {
         VStack {
             HStack {
@@ -77,51 +129,26 @@ struct SafetyView: View {
                     .font(Font(BMFont.regular(30)))
                     .bold()
                     .font(.title)
+                Spacer()
                 if !safetyViewModel.filteredSafetyLogs.isEmpty {
-                    Spacer()
                     Text("^[\(safetyViewModel.filteredSafetyLogs.count) Result](inflect: true)")
                         .font(Font(BMFont.regular(16)))
                         .foregroundStyle(.gray)
                 }
-                Spacer()
-                SafetyLogFilterButton(safetyLogFilterStates: $safetyViewModel.selectedSafetyLogFilterStates, drawerViewState: $drawerViewState)
-                    .disabled(safetyViewModel.filteredSafetyLogs.isEmpty)
-                    .opacity(safetyViewModel.filteredSafetyLogs.isEmpty ? 0.5 : 1)
-            }
-            filterStatesScrollView
-        }
-    }
-    
-    @ViewBuilder
-    private var filterStatesScrollView: some View {
-        if !safetyViewModel.selectedSafetyLogFilterStates.isEmpty {
-            ScrollView(.horizontal) {
-                HStack {
-                    ForEach(safetyViewModel.selectedSafetyLogFilterStates, id: \.id) { filterState in
-                        HStack {
-                            Text(filterState.rawValue.capitalized)
-                                .font(Font(BMFont.regular(16)))
-                                .foregroundStyle(.white)
-                            Button(action: {
-                                withAnimation {
-                                    if let removeIndex = safetyViewModel.selectedSafetyLogFilterStates.firstIndex(of: filterState) {
-                                        safetyViewModel.selectedSafetyLogFilterStates.remove(at: removeIndex)
-                                        drawerViewState = .small
-                                    }
-                                }
-                            }) {
-                                Image(systemName: "xmark.circle.fill")
-                                    .font(.system(size: 14))
-                                    .foregroundStyle(.regularMaterial)
-                            }
-                        }
-                        .padding(8)
-                        .background(.gray.opacity(0.6))
-                        .clipShape(RoundedRectangle(cornerRadius: 20))
-                    }
+                if #unavailable(iOS 26.0) {
+                    Spacer()
+                    SafetyLogFilterButton(safetyLogFilterStates: $safetyViewModel.selectedSafetyLogFilterStates, drawerViewState: $drawerViewState)
+                        .disabled(safetyViewModel.filteredSafetyLogs.isEmpty)
+                        .opacity(safetyViewModel.filteredSafetyLogs.isEmpty ? 0.5 : 1)
                 }
             }
-            .scrollIndicators(.hidden)
+            
+            if #unavailable(iOS 26.0) {
+                if !safetyViewModel.selectedSafetyLogFilterStates.isEmpty {
+                    SafetyViewFilterScrollView(drawerViewState: $drawerViewState)
+                        .environmentObject(safetyViewModel)
+                }
+            }
         }
     }
     
@@ -160,52 +187,7 @@ struct SafetyView: View {
 
 // MARK: - SafetyLogFilterButton
 
-struct SafetyLogFilterButton: View {
-    @Binding var safetyLogFilterStates: [BMSafetyLogFilterState]
-    @Binding var drawerViewState: BMDrawerViewState
-    
-    var body: some View {
-        Menu {
-            Menu("Crime Type") {
-                Button("Robbery", action: { addToSafetyLogFilterStates(for: .robbery)})
-                Button("Aggravated Assault", action: { addToSafetyLogFilterStates(for: .aggravatedAssault )})
-                Button("Burglary", action: { addToSafetyLogFilterStates(for: .burglary)})
-                Button("Sexual Assault", action: {addToSafetyLogFilterStates(for: .sexualAssault)})
-                Button("Others", action: {addToSafetyLogFilterStates(for: .others)})
-            }
-            Menu("When") {
-                Button("Today", action: {addToSafetyLogFilterStates(for: .today)} )
-                Button("This Week", action: {addToSafetyLogFilterStates(for: .thisWeek)} )
-                Button("This Month", action: {addToSafetyLogFilterStates(for: .thisMonth)} )
-                Button("This Year", action: {addToSafetyLogFilterStates(for: .thisYear)} )
-            }
-        } label: {
-            RoundedRectangle(cornerRadius: 20)
-                .strokeBorder(.purple, lineWidth: 1.0)
-                .background(RoundedRectangle(cornerRadius: 20).fill(.purple.opacity(0.6)))
-                .frame(width: 90, height: 35)
-                .overlay(
-                    HStack {
-                        Text("Filter")
-                            .font(Font(BMFont.regular(18)))
-                            .fontWeight(.bold)
-                        Image(systemName: "chevron.down")
-                    }
-                    .foregroundStyle(.white)
-                )
-        }
-        .menuOrder(.fixed)
-    }
-    
-    private func addToSafetyLogFilterStates(for newFilterState: BMSafetyLogFilterState) {
-        if !safetyLogFilterStates.contains(newFilterState) {
-            withAnimation {
-                safetyLogFilterStates.append(newFilterState)
-                drawerViewState = .small
-            }
-        }
-    }
-}
+
 
 #Preview {
     SafetyView()

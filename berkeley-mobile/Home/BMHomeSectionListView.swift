@@ -37,7 +37,7 @@ struct BMHomeSectionListView: View {
             Spacer()
             Text("\(items.count)")
                 .font(Font(BMFont.bold(15)))
-                .addBadgeStyle(widthAndHeight: 30)
+                .addBadgeStyle(widthAndHeight: 30, isInteractive: false)
         }
         .font(Font(BMFont.bold(20)))
     }

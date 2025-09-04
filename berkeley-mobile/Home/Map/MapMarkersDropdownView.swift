@@ -54,31 +54,25 @@ struct MapMarkersDropdownView: View {
     var selectedMapMakerTypeCompletionHandler: () -> Void
     
     var body: some View {
-        ZStack {
-            List(Array(viewModel.mapMarkerTypes.enumerated()), id: \.offset) { index, type in
-                Button(action: {
-                    viewModel.selectedFilterIndex = index
-                    selectedMapMakerTypeCompletionHandler()
-                    dismiss()
-                }) {
-                    HStack(spacing: 15) {
-                        Image(uiImage: type.icon())
-                        Text(type.rawValue)
-                            .font(Font(BMFont.regular(20)))
-                        Spacer()
+        
+        if #available(iOS 26.0, *) {
+            NavigationStack {
+                mapMarkersListView
+                    .padding(EdgeInsets(top: -20, leading: 0, bottom: 0, trailing: 0))
+                    .toolbar {
+                        ToolbarItem(placement: .cancellationAction) {
+                            Button(role: .cancel) {
+                                dismiss()
+                            }
+                        }
                     }
-                    .contentShape(Rectangle())
-                }
-                .buttonStyle(.plain)
-                .listRowSeparator(.hidden)
-                .listRowBackground(Color.clear)
-                .frame(height: 40)
             }
-            .padding(EdgeInsets(top: 20, leading: 0, bottom: 0, trailing: 0))
-            .scrollIndicators(.hidden)
-            .scrollContentBackground(.hidden)
-            
-            dismissButton
+        } else {
+            ZStack {
+                mapMarkersListView
+                    .padding(EdgeInsets(top: 20, leading: 0, bottom: 0, trailing: 0))
+                dismissButton
+            }
         }
     }
     
@@ -98,6 +92,31 @@ struct MapMarkersDropdownView: View {
             .background(.ultraThinMaterial)
             Spacer()
         }
+    }
+
+    private var mapMarkersListView: some View {
+        List(Array(viewModel.mapMarkerTypes.enumerated()), id: \.offset) { index, type in
+            Button(action: {
+                viewModel.selectedFilterIndex = index
+                selectedMapMakerTypeCompletionHandler()
+                dismiss()
+            }) {
+                HStack(spacing: 15) {
+                    Image(uiImage: type.icon())
+                    Text(type.rawValue)
+                        .font(Font(BMFont.regular(20)))
+                    Spacer()
+                }
+                .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            .listRowSeparator(.hidden)
+            .listRowBackground(Color.clear)
+            .frame(height: 40)
+        }
+        .scrollIndicators(.hidden)
+        .scrollContentBackground(.hidden)
+        .presentationBackground(.thinMaterial)
     }
 }
 

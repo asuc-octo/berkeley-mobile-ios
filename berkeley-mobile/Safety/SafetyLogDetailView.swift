@@ -17,11 +17,13 @@ struct SafetyLogDetailView: View {
     
     var body: some View {
         VStack {
-            HStack {
-                closeButton
-                Spacer()
+            if #unavailable(iOS 26.0) {
+                HStack {
+                    closeButton
+                    Spacer()
+                }
+                .padding(.bottom, 10)
             }
-            .padding(.bottom, 10)
             
             ScrollView(.vertical) {
                 if let selectedSafetyLog = selectedSafetyLog {
@@ -29,7 +31,7 @@ struct SafetyLogDetailView: View {
                     Group {
                         if #available(iOS 17.0, *) {
                             Map(bounds: MapCameraBounds(centerCoordinateBounds: mapRegion, minimumDistance: 2000)) {
-                                BMSafetyMapMarker(safetyLog: selectedSafetyLog)
+                                SafetyMapMarker(safetyLog: selectedSafetyLog)
                             }
                         } else {
                             Map(coordinateRegion: .constant(mapRegion), annotationItems: [selectedSafetyLog]) { safetyLog in
