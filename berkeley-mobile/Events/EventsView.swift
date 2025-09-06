@@ -39,7 +39,7 @@ struct EventsView: View {
             }
             .background(Color(BMColor.cardBackground))
         }
-        .alertsOverlayView(alert: $eventsViewModel.alert)
+        .presentAlert(alert: $eventsViewModel.alert)
     }
 }
 
