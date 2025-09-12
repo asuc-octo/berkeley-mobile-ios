@@ -15,8 +15,10 @@ struct BMHomeSectionListView: View {
     
     var body: some View {
         VStack {
-            sectionHeaderView
-            
+            if #unavailable(iOS 26.0) {
+                sectionHeaderView
+            }
+           
             if #available(iOS 17.0, *) {
                 listView
                     .contentMargins(.top, 0)
@@ -42,18 +44,41 @@ struct BMHomeSectionListView: View {
         .font(Font(BMFont.bold(20)))
     }
     
+    @ViewBuilder
     private var listView: some View {
-        List(items, id: \.name) { item in
-            Button(action: {
-                mapViewController.choosePlacemark(item: item)
-            }) {
-                HomeSectionListRowView(rowItem: item)
-                    .frame(width: 290)
+        if #available(iOS 26.0, *) {
+            List {
+                Section {
+                    ForEach(items, id: \.name) { item in
+                        Button(action: {
+                            mapViewController.choosePlacemark(item: item)
+                        }) {
+                            HomeSectionListRowView(rowItem: item)
+                                .frame(width: 290)
+                        }
+                        .listRowSeparator(.hidden)
+                        .listRowBackground(Color(BMColor.cardBackground))
+                    }
+                } header: {
+                    sectionHeaderView
+                }
             }
-            .listRowSeparator(.hidden)
-            .listRowBackground(Color(BMColor.cardBackground))
+            .listStyle(.plain)
+            .scrollContentBackground(.hidden)
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+        } else {
+            List(items, id: \.name) { item in
+                Button(action: {
+                    mapViewController.choosePlacemark(item: item)
+                }) {
+                    HomeSectionListRowView(rowItem: item)
+                        .frame(width: 290)
+                }
+                .listRowSeparator(.hidden)
+                .listRowBackground(Color(BMColor.cardBackground))
+            }
+            .scrollContentBackground(.hidden)
         }
-        .scrollContentBackground(.hidden)
     }
 }
 

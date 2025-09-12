@@ -46,8 +46,7 @@ struct BMBadgeStyleViewModifer: ViewModifier {
                     $0.background(
                         Circle()
                             .fill(.thickMaterial)
-                    )
-                    $0.overlay(
+                    ).overlay(
                         Circle()
                             .strokeBorder(.gray, lineWidth: 0.5)
                     )
