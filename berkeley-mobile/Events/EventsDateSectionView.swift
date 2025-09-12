@@ -30,8 +30,8 @@ struct EventsDateSectionView<Content: View>: View {
                 .font(.headline)
             Spacer()
             Text("\(events.count)")
-                .bold()
-                .addBadgeStyle(widthAndHeight: 25)
+                .font(Font(BMFont.bold(15)))
+                .addBadgeStyle(widthAndHeight: 30, isInteractive: false)
         }
         .padding(.horizontal)
     }

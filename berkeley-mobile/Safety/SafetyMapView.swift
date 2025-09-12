@@ -65,7 +65,6 @@ struct SafetyNewMapView: View {
                         ToolbarItemGroup(placement: .topBarTrailing) {
                             SafetyLogFilterButton(safetyLogFilterStates: $safetyViewModel.selectedSafetyLogFilterStates, drawerViewState: $drawerViewState)
                                 .opacity(safetyViewModel.filteredSafetyLogs.isEmpty ? 0.5 : 1)
-                                .tint(.purple)
                         }
                     }
                 }
