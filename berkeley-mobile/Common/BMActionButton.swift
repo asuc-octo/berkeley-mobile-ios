@@ -15,23 +15,38 @@ struct BMActionButton: View {
     var completionHandler: (() -> Void)?
     
     var body: some View {
-        Button(action: {
-            completionHandler?()
-        }) {
-            HStack {
-                Spacer()
+        if #available(iOS 26.0, *) {
+            Button(action: {
+                completionHandler?()
+            }) {
                 Text(title)
                     .foregroundStyle(.white)
-                    .font(Font(BMFont.medium(12)))
-                Spacer()
+                    .fontWeight(.semibold)
             }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 13)
-            .background(backgroundColor)
-            .clipShape(RoundedRectangle(cornerRadius: 12))
-            .shadow(color: .black.opacity(showShadow ? 0.25 : 0), radius: 5)
+            .frame(maxWidth: .infinity)
+            .padding()
+            .background(.blue)
+            .glassEffect(.regular.interactive())
+            .clipShape(.capsule)
+        } else {
+            Button(action: {
+                completionHandler?()
+            }) {
+                HStack {
+                    Spacer()
+                    Text(title)
+                        .foregroundStyle(.white)
+                        .font(Font(BMFont.medium(12)))
+                    Spacer()
+                }
+                .padding(.horizontal, 16)
+                .padding(.vertical, 13)
+                .background(backgroundColor)
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+                .shadow(color: .black.opacity(showShadow ? 0.25 : 0), radius: 5)
+            }
+            .buttonStyle(PlainButtonStyle())
         }
-        .buttonStyle(PlainButtonStyle())
     }
 }
 

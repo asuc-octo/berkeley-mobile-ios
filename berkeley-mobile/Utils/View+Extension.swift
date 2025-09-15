@@ -34,18 +34,25 @@ struct BMControlButtonStyle: ButtonStyle {
 
 struct BMBadgeStyleViewModifer: ViewModifier {
     let widthAndHeight: CGFloat
+    let isInteractive: Bool
     
     func body(content: Content) -> some View {
         content
             .frame(width: widthAndHeight, height: widthAndHeight)
-            .background(
-                Circle()
-                    .fill(.thickMaterial)
-            )
-            .overlay(
-                Circle()
-                    .strokeBorder(.gray, lineWidth: 0.5)
-            )
+            .modify {
+                if #available(iOS 26.0, *) {
+                    $0.glassEffect(.regular.interactive(isInteractive), in: .circle)
+                } else {
+                    $0.background(
+                        Circle()
+                            .fill(.thickMaterial)
+                    ).overlay(
+                        Circle()
+                            .strokeBorder(.gray, lineWidth: 0.5)
+                    )
+                }
+            }
+            
     }
 }
 
@@ -122,15 +129,62 @@ struct EventsContextMenuModifier: ViewModifier {
     }
 }
 
-struct BMAlertsOverlayViewModifier: ViewModifier {
+struct AlertPresentationViewModifier: ViewModifier {
+    private struct Constants {
+        static let confirmationActionTitle = "Yes"
+        static let noticeActionTitle = "OK"
+    }
+    
     @Binding var alert: BMAlert?
+    
+    private var isAlertPresented: Binding<Bool> {
+        Binding(
+            get: { alert != nil },
+            set: { newValue in
+                if !newValue { alert = nil }
+            }
+        )
+    }
     
     func body(content: Content) -> some View {
         content
-            .fullScreenCover(item: $alert) { alert in
-            BMAlertView(alert: alert)
-                .presentationBackground(Color.clear)
-        }
+            .modify {
+                $0.alert(
+                    alert?.title ?? "",
+                    isPresented: isAlertPresented,
+                    presenting: alert
+                ) { _ in
+                    switch alert?.type {
+                    case .action:
+                        Button("Cancel", role: .cancel) {}
+                        if #available(iOS 26.0, *) {
+                            Button(Constants.confirmationActionTitle, role: .confirm) {
+                                alert?.completion?()
+                            }
+                            .keyboardShortcut(.defaultAction)
+                        } else {
+                            Button(Constants.confirmationActionTitle) {
+                                alert?.completion?()
+                            }
+                        }
+                    case .notice:
+                        if #available(iOS 26.0, *) {
+                            Button(Constants.noticeActionTitle, role: .confirm) {
+                                alert?.completion?()
+                            }
+                            .keyboardShortcut(.defaultAction)
+                        } else {
+                            Button(Constants.noticeActionTitle) {
+                                alert?.completion?()
+                            }
+                        }
+                    default:
+                        EmptyView()
+                    }
+                } message: { presented in
+                    Text(presented.message)
+                }
+            }
     }
 }
 
@@ -150,11 +204,15 @@ extension View {
         modifier(EventsContextMenuModifier(event: event))
     }
     
-    func addBadgeStyle(widthAndHeight: CGFloat) -> some View {
-        modifier(BMBadgeStyleViewModifer(widthAndHeight: widthAndHeight))
+    func addBadgeStyle(widthAndHeight: CGFloat, isInteractive: Bool = true) -> some View {
+        modifier(BMBadgeStyleViewModifer(widthAndHeight: widthAndHeight, isInteractive: isInteractive))
     }
     
-    func alertsOverlayView(alert: Binding<BMAlert?>) -> some View {
-        modifier(BMAlertsOverlayViewModifier(alert: alert))
+    func presentAlert(alert: Binding<BMAlert?>) -> some View {
+        modifier(AlertPresentationViewModifier(alert: alert))
+    }
+    
+    func modify<Content>(@ViewBuilder _ transform: (Self) -> Content) -> Content {
+        transform(self)
     }
 }
