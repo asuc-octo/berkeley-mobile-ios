@@ -48,7 +48,10 @@ class BMEventManager {
     }
     
     private func getMatchingEvents(for calendarEvent: BMCalendarEvent) -> [EKEvent] {
-        let predicate = eventStore.predicateForEvents(withStart: calendarEvent.startDate, end: calendarEvent.endDate, calendars: nil)
+        guard let endDate = Calendar.current.date(byAdding: .year, value: 1, to: calendarEvent.startDate) else {
+            return []
+        }
+        let predicate = eventStore.predicateForEvents(withStart: calendarEvent.startDate, end: endDate, calendars: nil)
         let existingEvents = eventStore.events(matching: predicate)
         return existingEvents
     }
