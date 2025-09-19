@@ -83,11 +83,6 @@ class EventScrapper: NSObject, ObservableObject {
         let lastSavedDate = UserDefaults.standard.object(forKey: type.getInfo().lastRefreshDateKey) as? Date ?? currentDate
         let endOfDayDate = Calendar.current.date(bySettingHour: 23, minute: 59, second: 59, of: lastSavedDate) ?? currentDate
         let rescrape = force || savedGroupedEvents.isEmpty || currentDate >= endOfDayDate
-        
-        if rescrape {
-            UserDefaults.standard.set(currentDate, forKey: type.getInfo().lastRefreshDateKey)
-        }
-    
         return (rescrape, savedGroupedEvents)
     }
     
@@ -148,7 +143,7 @@ extension EventScrapper: WKNavigationDelegate {
                     scrape()
                     return
                 }
-                
+                                
                 saveEventCalendarEntries(for: scrappedCalendarEntries)
                 
                 groupedEntries = groupEventsByDay(scrappedCalendarEntries)
@@ -210,7 +205,7 @@ extension EventScrapper: WKNavigationDelegate {
     
     private func saveEventCalendarEntries(for entries: [BMEventCalendarEntry]) {
         if let encodedData = try? NSKeyedArchiver.archivedData(withRootObject: entries, requiringSecureCoding: false) {
-            print("success save data")
+            UserDefaults.standard.set(Date(), forKey: type.getInfo().lastRefreshDateKey)
             UserDefaults.standard.set(encodedData, forKey: type.getInfo().URLString)
         }
     }
