@@ -42,21 +42,21 @@ struct ResourcesSectionDropdown<Content: View>: View {
             }
             .padding(.horizontal, 16)
         }
-        .background(Color(BMColor.cardBackground))
+        .background(Color(BMColor.cellBackground))
     }
     
     var body: some View {
         VStack(alignment: .leading) {
             headerButton
             if isExpanded {
-                Divider()
                 content
                     .padding(.vertical, 8)
             }
         }
-        .background(Color(BMColor.cardBackground))
         .padding(.horizontal, 16)
         .padding(.vertical, 8)
+        .background(Color(BMColor.cellBackground))
+        .clipShape(RoundedRectangle(cornerRadius: 10))
     }
 }
 

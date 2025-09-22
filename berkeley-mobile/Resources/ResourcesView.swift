@@ -78,20 +78,17 @@ struct ResourcePageView: View {
                     .foregroundStyle(.secondary)
             } else {
                 ScrollView {
-                    VStack(spacing: 0) {
+                    VStack(spacing: 10) {
                         ForEach(resourceSections, id: \.self) { resourceSection in
                             if let sectionHeaderText = resourceSection.title {
-                                VStack(spacing: 0) {
-                                    ResourcesSectionDropdown(title: sectionHeaderText, accentColor: .orange) {
-                                        VStack(spacing: 0) {
-                                            ForEach(resourceSection.resources, id: \.id) { resource in
-                                                ResourceItemView(resource: resource)
-                                            }
+                                ResourcesSectionDropdown(title: sectionHeaderText, accentColor: .orange) {
+                                    VStack(spacing: 0) {
+                                        ForEach(resourceSection.resources, id: \.id) { resource in
+                                            ResourceItemView(resource: resource)
                                         }
                                     }
                                 }
-                                
-                                Divider()
+                                .padding(.horizontal)
                             }
                         }
                     }
