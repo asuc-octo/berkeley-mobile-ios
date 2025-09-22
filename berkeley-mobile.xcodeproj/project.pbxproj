@@ -168,7 +168,6 @@
 		E891E2D92DD526FC006CA0F5 /* BMError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E891E2D82DD526FC006CA0F5 /* BMError.swift */; };
 		E891E2F32DD68536006CA0F5 /* BMNetworkingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E891E2F22DD68536006CA0F5 /* BMNetworkingManager.swift */; };
 		E891E2FD2DD86A91006CA0F5 /* SafetyMapMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E891E2FC2DD86A91006CA0F5 /* SafetyMapMarker.swift */; };
-		E89A33152DCB21780068DDAA /* AcademicEventRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89A33142DCB21780068DDAA /* AcademicEventRowView.swift */; };
 		E89F20452DF2CD2E00C488EF /* BMHomeSectionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89F20442DF2CD2E00C488EF /* BMHomeSectionListView.swift */; };
 		E89F20472DF3F5DA00C488EF /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89F20462DF3F5DA00C488EF /* HomeViewModel.swift */; };
 		E89F20492DF3F7B200C488EF /* FitnessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89F20482DF3F7B200C488EF /* FitnessView.swift */; };
@@ -367,7 +366,6 @@
 		E891E2D82DD526FC006CA0F5 /* BMError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMError.swift; sourceTree = "<group>"; };
 		E891E2F22DD68536006CA0F5 /* BMNetworkingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMNetworkingManager.swift; sourceTree = "<group>"; };
 		E891E2FC2DD86A91006CA0F5 /* SafetyMapMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyMapMarker.swift; sourceTree = "<group>"; };
-		E89A33142DCB21780068DDAA /* AcademicEventRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcademicEventRowView.swift; sourceTree = "<group>"; };
 		E89F20442DF2CD2E00C488EF /* BMHomeSectionListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMHomeSectionListView.swift; sourceTree = "<group>"; };
 		E89F20462DF3F5DA00C488EF /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		E89F20482DF3F7B200C488EF /* FitnessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitnessView.swift; sourceTree = "<group>"; };
@@ -698,7 +696,6 @@
 			isa = PBXGroup;
 			children = (
 				E891E2962DCD3F0D006CA0F5 /* AcademicCalendarView.swift */,
-				E89A33142DCB21780068DDAA /* AcademicEventRowView.swift */,
 				E8C2BDA62D912B3A00165554 /* CalendarView.swift */,
 			);
 			path = Academic;
@@ -1167,7 +1164,6 @@
 				29061D41241C450E002BC9D9 /* HasLocation.swift in Sources */,
 				2EDE80992D90BE620037BA9F /* CLLocation+Extension.swift in Sources */,
 				1336A31A241C3FD300949F32 /* GymClassDataSource.swift in Sources */,
-				E89A33152DCB21780068DDAA /* AcademicEventRowView.swift in Sources */,
 				E8B2738F2BD5E46B0009831A /* BMDrawerView.swift in Sources */,
 				2ED4FB6B2D8BCB390086306A /* SearchViewModel.swift in Sources */,
 				E891E2F32DD68536006CA0F5 /* BMNetworkingManager.swift in Sources */,

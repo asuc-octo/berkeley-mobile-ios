@@ -18,7 +18,7 @@ struct CampuswideEventsView: View {
             ScrollViewReader { proxy in
                 CalendarEventsListView(scrapper: campuswideEventScrapper, proxy: proxy) { event in
                     CampusEventRowView(event: event)
-                        .frame(width: 310)
+                        .padding(.horizontal)
                         .background(
                             NavigationLink("") {
                                 CampusEventDetailView(event: event)

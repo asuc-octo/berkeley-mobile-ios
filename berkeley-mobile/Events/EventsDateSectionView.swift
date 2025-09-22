@@ -52,7 +52,7 @@ struct EventsDateSectionView<Content: View>: View {
         }
         
         EventsDateSectionView(date: Date(), events: [BMEventCalendarEntry.sampleEntry]) { event in
-            AcademicEventRowView(event: event)
+            CampusEventRowView(event: event)
                 .frame(width: 310)
         }
     }

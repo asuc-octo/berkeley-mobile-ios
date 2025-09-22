@@ -20,6 +20,7 @@ struct CampusEventRowView: View {
             VStack(alignment: .leading) {
                 Text(event.name)
                     .font(Font(BMFont.bold(15)))
+                    .padding(.top, 7.5)
                 Spacer()
                 VStack(alignment: .leading, spacing: 3) {
                     Text(event.dateString)

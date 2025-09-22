@@ -16,12 +16,16 @@ struct AcademicCalendarView: View {
     var body: some View {
         ScrollViewReader { proxy in
             CalendarEventsListView(scrapper: academicEventScrapper, proxy: proxy) { event in
-                Button(action: {
-                    eventsViewModel.showAddEventToCalendarAlert(event)
-                }) {
-                    AcademicEventRowView(event: event)
-                        .frame(width: 310)
-                }
+                    CampusEventRowView(event: event)
+                        .padding(.horizontal)
+                        .background(
+                            NavigationLink("") {
+                                CampusEventDetailView(event: event)
+                                    .environmentObject(eventsViewModel)
+                            }
+                            .opacity(0)
+                        )
+                
                 .buttonStyle(PlainButtonStyle())
             }
             .environmentObject(calendarViewModel)
