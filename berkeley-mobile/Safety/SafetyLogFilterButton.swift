@@ -29,7 +29,8 @@ struct SafetyLogFilterButton: View {
             }
         } label: {
             if #available(iOS 26.0, *) {
-                Image(systemName: safetyLogFilterStates.isEmpty ? "line.3.horizontal.decrease" :  "line.3.horizontal.decrease.circle.fill")
+                Image(systemName: safetyLogFilterStates.isEmpty ? "line.3.horizontal.decrease" : "line.3.horizontal.decrease.circle.fill")
+                    .foregroundStyle(safetyLogFilterStates.isEmpty ? AnyShapeStyle(.primary) : AnyShapeStyle(Color.purple))
             } else {
                 RoundedRectangle(cornerRadius: 20)
                     .strokeBorder(.purple, lineWidth: 1.0)
