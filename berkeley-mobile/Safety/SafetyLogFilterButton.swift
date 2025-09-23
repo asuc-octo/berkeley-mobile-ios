@@ -14,7 +14,7 @@ struct SafetyLogFilterButton: View {
     
     var body: some View {
         Menu {
-            Menu("Crime Type") {
+            Menu("Crime") {
                 Button("Robbery", action: { addToSafetyLogFilterStates(for: .robbery)})
                 Button("Aggravated Assault", action: { addToSafetyLogFilterStates(for: .aggravatedAssault )})
                 Button("Burglary", action: { addToSafetyLogFilterStates(for: .burglary)})
