@@ -107,16 +107,16 @@ struct BMDetailHeaderView: View {
         ZStack {
             BMCachedAsyncImageView(imageURL: event.imageURL, placeholderImage: BMConstants.doeGladeImage, aspectRatio: .fill, widthAndHeight: 330, cornerRadius: 10)
             
-                VStack(alignment: .leading, spacing: 8) {
-                    Spacer()
-                    BMCachedAsyncImageView(imageURL: event.imageURL, placeholderImage: BMConstants.doeGladeImage, aspectRatio: .fill, widthAndHeight: 130, cornerRadius: 10)
-                        .frame(maxWidth: .infinity, alignment: .center)
-                        .shadow(color: .gray, radius: 10)
-                    eventNameView
-                    timeView
-                    locationView
-                    Spacer()
-                }
+            VStack(alignment: .leading, spacing: 8) {
+                Spacer()
+                BMCachedAsyncImageView(imageURL: event.imageURL, placeholderImage: BMConstants.doeGladeImage, aspectRatio: .fill, widthAndHeight: 130, cornerRadius: 10)
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .shadow(color: .gray, radius: 10)
+                eventNameView
+                timeView
+                locationView
+                Spacer()
+            }
             .padding()
             .font(Font(BMFont.light(12)))
             .background(.regularMaterial)
