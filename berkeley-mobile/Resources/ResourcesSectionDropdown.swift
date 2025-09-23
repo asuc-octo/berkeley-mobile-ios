@@ -42,7 +42,6 @@ struct ResourcesSectionDropdown<Content: View>: View {
             }
             .padding(.horizontal, 16)
         }
-        .background(Color(BMColor.cardBackground))
     }
     
     var body: some View {
@@ -54,9 +53,10 @@ struct ResourcesSectionDropdown<Content: View>: View {
                     .padding(.vertical, 8)
             }
         }
-        .background(Color(BMColor.cardBackground))
+        .shadowfy()
         .padding(.horizontal, 16)
         .padding(.vertical, 8)
+        
     }
 }
 
@@ -174,6 +174,23 @@ struct ResourceItemView: View {
         .padding(.vertical, 4)
         .fullScreenCover(isPresented: $isPresentingWebView) {
             websiteView
+        }
+    }
+}
+
+#Preview {
+    ResourcesSectionDropdown(title: "Center for Teaching and Learning", accentColor: .blue) {
+        VStack(spacing: 0) {
+            ResourceItemView(resource: BMResource(
+                id: UUID(),
+                name: "Academic Support Center",
+                url: URL(string: "https://example.com")
+            ))
+            ResourceItemView(resource: BMResource(
+                id: UUID(),
+                name: "Career Services",
+                url: URL(string: "https://example.com")
+            ))
         }
     }
 }
