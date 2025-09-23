@@ -42,6 +42,7 @@ struct ResourcesSectionDropdown<Content: View>: View {
             }
             .padding(.horizontal, 16)
         }
+        .background(Color(BMColor.cellBackground))
     }
     
     var body: some View {
@@ -53,10 +54,9 @@ struct ResourcesSectionDropdown<Content: View>: View {
                     .padding(.vertical, 8)
             }
         }
-        .shadowfy()
-        .padding(.horizontal, 16)
-        .padding(.vertical, 8)
-        
+        .background(Color(BMColor.cellBackground))
+        .clipShape(RoundedRectangle(cornerRadius: 10))
+        .padding(.horizontal, 20)
     }
 }
 

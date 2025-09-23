@@ -66,8 +66,6 @@ struct ResourcesView: View {
 
 // MARK: - ResourcePageView
 
-//I am changing here
-// I could wrap everything in a cardview within the divider that might work
 struct ResourcePageView: View {
     var resourceSections: [BMResourceSection]
 
@@ -80,19 +78,18 @@ struct ResourcePageView: View {
                     .foregroundStyle(.secondary)
             } else {
                 ScrollView {
-                    VStack(spacing: 6) {
+                    VStack(spacing: 10) {
                         ForEach(resourceSections, id: \.self) { resourceSection in
                             if let sectionHeaderText = resourceSection.title {
-                                    ResourcesSectionDropdown(title: sectionHeaderText, accentColor: .orange) {
-                                        VStack(spacing: 0) {
-                                            ForEach(resourceSection.resources, id: \.id) { resource in
-                                                ResourceItemView(resource: resource)
-                                            }
+                                ResourcesSectionDropdown(title: sectionHeaderText, accentColor: .orange) {
+                                    VStack(spacing: 0) {
+                                        ForEach(resourceSection.resources, id: \.id) { resource in
+                                            ResourceItemView(resource: resource)
                                         }
                                     }
+                                }
                             }
                         }
-                        .padding(.horizontal, 10)
                     }
                 }
                 .background(Color(BMColor.cardBackground))
