@@ -56,13 +56,21 @@ struct FeedbackFormView: View {
             }
             .navigationBarTitle("We Want Your Feedback!", displayMode: .inline)
             .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button(action: {
-                        dismissForm()
-                    }) {
-                        Image(systemName: "xmark.circle.fill")
-                            .font(.system(size: 20))
-                            .foregroundStyle(.gray)
+                if #available(iOS 26.0, *) {
+                    ToolbarItem(placement: .cancellationAction) {
+                        Button(role: .cancel) {
+                            dismissForm()
+                        }
+                    }
+                } else {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button(action: {
+                            dismissForm()
+                        }) {
+                            Image(systemName: "xmark.circle.fill")
+                                .font(.system(size: 20))
+                                .foregroundStyle(.gray)
+                        }
                     }
                 }
             }
