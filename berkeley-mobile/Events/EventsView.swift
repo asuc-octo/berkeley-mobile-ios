@@ -8,7 +8,6 @@
 
 import SwiftUI
 
-
 struct GenericEventsView: View {
     @EnvironmentObject var eventsViewModel: EventsViewModel
     @StateObject private var GenericEventScrapper: EventScrapper
