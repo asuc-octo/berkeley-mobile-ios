@@ -1,6 +1,11 @@
 import SwiftUI
 
-struct CampusEventDetailView: View {
+
+
+
+
+
+struct EventDetailView: View {
     private enum AlertType {
         case learnMore
         case register
@@ -179,6 +184,6 @@ struct BMDetailDescriptionView: View {
 }
      
 #Preview {
-    CampusEventDetailView(event: BMEventCalendarEntry.sampleEntry)
+    EventDetailView(event: BMEventCalendarEntry.sampleEntry)
         .environmentObject(EventsViewModel())
 }

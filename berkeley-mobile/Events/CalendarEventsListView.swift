@@ -70,7 +70,7 @@ struct CalendarEventsListView<Content:View>: View {
     
     return ScrollViewReader { proxy in
         CalendarEventsListView(scrapper: scrapper, proxy: proxy) { event in
-            CampusEventRowView(event: event)
+            EventRowView(event: event)
                 .frame(width: 310)
         }
         .environmentObject(EventsViewModel())

@@ -8,6 +8,54 @@
 
 import SwiftUI
 
+
+struct GenericEventsView: View {
+    @EnvironmentObject var eventsViewModel: EventsViewModel
+    @StateObject private var GenericEventScrapper: EventScrapper
+    @StateObject private var calendarViewModel = CalendarViewModel()
+    
+    init(GenericEventScrapper: EventScrapper) {
+            _GenericEventScrapper = StateObject(wrappedValue: GenericEventScrapper)
+        }
+    
+    var body: some View {
+        NavigationStack {
+            ScrollViewReader { proxy in
+                CalendarEventsListView(scrapper: GenericEventScrapper, proxy: proxy) { event in
+                    EventRowView(event: event)
+                        .padding(.horizontal)
+                        .background(
+                            NavigationLink("") {
+                                EventDetailView(event: event)
+                                    .environmentObject(eventsViewModel)
+                            }
+                            .opacity(0)
+                        )
+                }
+                .environmentObject(calendarViewModel)
+            }
+        }
+        .onAppear {
+            GenericEventScrapper.scrape()
+            eventsViewModel.logCampuswideTabAnalytics()
+        }
+        .onChange(of: GenericEventScrapper.alert) { alert in
+            withoutAnimation {
+                eventsViewModel.alert = alert
+            }
+        }
+        .onChange(of: GenericEventScrapper.groupedEntries) { entries in
+            calendarViewModel.setEntries(entries)
+        }
+        .refreshable {
+            guard !GenericEventScrapper.isLoading else {
+                return
+            }
+            GenericEventScrapper.scrape(forceRescrape: true)
+        }
+    }
+}
+
 struct EventsView: View {
     @StateObject private var eventsViewModel = EventsViewModel()
     
@@ -26,10 +74,10 @@ struct EventsView: View {
                     .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0))
     
                     TabView(selection: $tabSelectedIndex) {
-                        AcademicCalendarView()
+                        GenericEventsView(GenericEventScrapper: EventScrapper(type: .academic))
                             .environmentObject(eventsViewModel)
                             .tag(0)
-                        CampuswideEventsView()
+                        GenericEventsView(GenericEventScrapper: EventScrapper(type: .campuswide))
                             .environmentObject(eventsViewModel)
                             .tag(1)
                     }
