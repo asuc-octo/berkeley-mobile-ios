@@ -49,7 +49,7 @@ class EventsViewModel: ObservableObject {
         Task { @MainActor in
             do {
                 try await BMEventManager.shared.addEventToCalendar(calendarEvent: event)
-                presentAlertWithoutAnimation(BMAlert(title: "Event Added To Calendar", message: "View in your Calendar?", type: .action) {
+                presentAlertWithoutAnimation(BMAlert(title: "Event Added To Calendar", message: "Would you like to open this event in Calendar?", type: .action) {
                     let interval = event.startDate.timeIntervalSinceReferenceDate
                     let url = URL(string: "calshow:\(interval)")!
                     UIApplication.shared.open(url, options: [:], completionHandler: nil)
