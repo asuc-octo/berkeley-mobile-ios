@@ -1,10 +1,5 @@
 import SwiftUI
 
-
-
-
-
-
 struct EventDetailView: View {
     private enum AlertType {
         case learnMore
