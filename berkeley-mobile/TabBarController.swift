@@ -26,6 +26,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         let tabBarAppearance = UITabBarItem.appearance()
         let attributes = [NSAttributedString.Key.font: BMFont.regular(11)]
         tabBarAppearance.setTitleTextAttributes(attributes, for: .normal)
+        tabBar.tintColor = UIColor.label
         tabBar.isTranslucent = true
         
         if #available(iOS 15.0, *) {

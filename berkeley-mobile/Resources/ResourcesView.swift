@@ -48,7 +48,7 @@ struct ResourcesView: View {
                 .navigationTitle("Resources")
             }
             .background(Color(BMColor.cardBackground))
-            .alertsOverlayView(alert: $resourcesViewModel.alert)
+            .presentAlert(alert: $resourcesViewModel.alert)
         }
     }
     

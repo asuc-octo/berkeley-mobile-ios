@@ -48,7 +48,7 @@ struct CalendarEventsListView<Content:View>: View {
             .frame(maxWidth: .infinity, alignment: .center)
             .listRowSeparator(.hidden)
             .listRowBackground(Color(BMColor.cardBackground))
-            .listRowInsets(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
+            .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 4, trailing: 0))
         }
         .listStyle(PlainListStyle())
     }
@@ -70,7 +70,7 @@ struct CalendarEventsListView<Content:View>: View {
     
     return ScrollViewReader { proxy in
         CalendarEventsListView(scrapper: scrapper, proxy: proxy) { event in
-            AcademicEventRowView(event: event)
+            EventRowView(event: event)
                 .frame(width: 310)
         }
         .environmentObject(EventsViewModel())

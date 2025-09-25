@@ -40,7 +40,7 @@ struct BMDrawerView<Content: View>: View {
             .padding(.vertical, 10)
             .padding(.horizontal, hPadding)
             // The multiplier to geometry.size.height prevents the bottommost content from being obscured by the tabbar
-            .frame(width: geometry.size.width, height: geometry.size.height * 0.90, alignment: .top)
+            .frame(width: geometry.size.width, height: geometry.size.height, alignment: .top)
             .background(.regularMaterial)
             .clipShape(
                 .rect(
@@ -129,7 +129,7 @@ struct BMDrawerView<Content: View>: View {
     private func shrinkDrawerState(to newState: BMDrawerViewState) {
         switch newState {
         case .small:
-            endOffset = startingOffset * 0.7
+            endOffset = startingOffset * 0.5
         case .medium:
             endOffset = -startingOffset / 6.8
         case .large:

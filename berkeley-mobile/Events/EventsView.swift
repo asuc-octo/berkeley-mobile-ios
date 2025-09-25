@@ -8,6 +8,53 @@
 
 import SwiftUI
 
+struct GenericEventsView: View {
+    @EnvironmentObject var eventsViewModel: EventsViewModel
+    @StateObject private var genericEventScrapper: EventScrapper
+    @StateObject private var calendarViewModel = CalendarViewModel()
+    
+    init(genericEventScrapper: EventScrapper) {
+        _genericEventScrapper = StateObject(wrappedValue: genericEventScrapper)
+    }
+    
+    var body: some View {
+        NavigationStack {
+            ScrollViewReader { proxy in
+                CalendarEventsListView(scrapper: genericEventScrapper, proxy: proxy) { event in
+                    EventRowView(event: event)
+                        .padding(.horizontal)
+                        .background(
+                            NavigationLink("") {
+                                EventDetailView(event: event)
+                                    .environmentObject(eventsViewModel)
+                            }
+                            .opacity(0)
+                        )
+                }
+                .environmentObject(calendarViewModel)
+            }
+        }
+        .onAppear {
+            genericEventScrapper.scrape()
+            eventsViewModel.logCampuswideTabAnalytics()
+        }
+        .onChange(of: genericEventScrapper.alert) { alert in
+            withoutAnimation {
+                eventsViewModel.alert = alert
+            }
+        }
+        .onChange(of: genericEventScrapper.groupedEntries) { entries in
+            calendarViewModel.setEntries(entries)
+        }
+        .refreshable {
+            guard !genericEventScrapper.isLoading else {
+                return
+            }
+            genericEventScrapper.scrape(forceRescrape: true)
+        }
+    }
+}
+
 struct EventsView: View {
     @StateObject private var eventsViewModel = EventsViewModel()
     
@@ -26,10 +73,10 @@ struct EventsView: View {
                     .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0))
     
                     TabView(selection: $tabSelectedIndex) {
-                        AcademicCalendarView()
+                        GenericEventsView(genericEventScrapper: EventScrapper(type: .academic))
                             .environmentObject(eventsViewModel)
                             .tag(0)
-                        CampuswideEventsView()
+                        GenericEventsView(genericEventScrapper: EventScrapper(type: .campuswide))
                             .environmentObject(eventsViewModel)
                             .tag(1)
                     }
@@ -39,7 +86,7 @@ struct EventsView: View {
             }
             .background(Color(BMColor.cardBackground))
         }
-        .alertsOverlayView(alert: $eventsViewModel.alert)
+        .presentAlert(alert: $eventsViewModel.alert)
     }
 }
 
