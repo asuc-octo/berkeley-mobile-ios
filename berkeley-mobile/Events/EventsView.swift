@@ -10,17 +10,17 @@ import SwiftUI
 
 struct GenericEventsView: View {
     @EnvironmentObject var eventsViewModel: EventsViewModel
-    @StateObject private var GenericEventScrapper: EventScrapper
+    @StateObject private var genericEventScrapper: EventScrapper
     @StateObject private var calendarViewModel = CalendarViewModel()
     
-    init(GenericEventScrapper: EventScrapper) {
-            _GenericEventScrapper = StateObject(wrappedValue: GenericEventScrapper)
-        }
+    init(genericEventScrapper: EventScrapper) {
+        _genericEventScrapper = StateObject(wrappedValue: genericEventScrapper)
+    }
     
     var body: some View {
         NavigationStack {
             ScrollViewReader { proxy in
-                CalendarEventsListView(scrapper: GenericEventScrapper, proxy: proxy) { event in
+                CalendarEventsListView(scrapper: genericEventScrapper, proxy: proxy) { event in
                     EventRowView(event: event)
                         .padding(.horizontal)
                         .background(
@@ -35,22 +35,22 @@ struct GenericEventsView: View {
             }
         }
         .onAppear {
-            GenericEventScrapper.scrape()
+            genericEventScrapper.scrape()
             eventsViewModel.logCampuswideTabAnalytics()
         }
-        .onChange(of: GenericEventScrapper.alert) { alert in
+        .onChange(of: genericEventScrapper.alert) { alert in
             withoutAnimation {
                 eventsViewModel.alert = alert
             }
         }
-        .onChange(of: GenericEventScrapper.groupedEntries) { entries in
+        .onChange(of: genericEventScrapper.groupedEntries) { entries in
             calendarViewModel.setEntries(entries)
         }
         .refreshable {
-            guard !GenericEventScrapper.isLoading else {
+            guard !genericEventScrapper.isLoading else {
                 return
             }
-            GenericEventScrapper.scrape(forceRescrape: true)
+            genericEventScrapper.scrape(forceRescrape: true)
         }
     }
 }
@@ -73,10 +73,10 @@ struct EventsView: View {
                     .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0))
     
                     TabView(selection: $tabSelectedIndex) {
-                        GenericEventsView(GenericEventScrapper: EventScrapper(type: .academic))
+                        GenericEventsView(genericEventScrapper: EventScrapper(type: .academic))
                             .environmentObject(eventsViewModel)
                             .tag(0)
-                        GenericEventsView(GenericEventScrapper: EventScrapper(type: .campuswide))
+                        GenericEventsView(genericEventScrapper: EventScrapper(type: .campuswide))
                             .environmentObject(eventsViewModel)
                             .tag(1)
                     }
