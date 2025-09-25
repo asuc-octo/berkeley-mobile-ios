@@ -1,5 +1,5 @@
 //
-//  BMSafetyMapMarker.swift
+//  SafetyMapMarker.swift
 //  berkeley-mobile
 //
 //  Created by Justin Wong on 5/16/25.
@@ -10,7 +10,7 @@ import MapKit
 import SwiftUI
 
 @available(iOS 17.0, *)
-struct BMSafetyMapMarker: MapContent {
+struct SafetyMapMarker: MapContent {
     @EnvironmentObject var safetyViewModel: SafetyViewModel
     
     var safetyLog: BMSafetyLog
@@ -27,7 +27,7 @@ struct BMSafetyMapMarker: MapContent {
 #Preview {
     if #available(iOS 17.0, *) {
         Map {
-            BMSafetyMapMarker(safetyLog: SafetyViewModel.getSampleSafetyLog())
+            SafetyMapMarker(safetyLog: SafetyViewModel.getSampleSafetyLog())
         }
         .environmentObject(SafetyViewModel())
     }

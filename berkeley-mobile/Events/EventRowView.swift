@@ -1,5 +1,5 @@
 //
-//  CampusEventRowView.swift
+//  EventRowView.swift
 //  berkeley-mobile
 //
 //  Created by Justin Wong on 3/18/25.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct CampusEventRowView: View {
+struct EventRowView: View {
     @EnvironmentObject var eventsViewModel: EventsViewModel
     
     var event: BMEventCalendarEntry
@@ -20,6 +20,7 @@ struct CampusEventRowView: View {
             VStack(alignment: .leading) {
                 Text(event.name)
                     .font(Font(BMFont.bold(15)))
+                    .padding(.top, 7.5)
                 Spacer()
                 VStack(alignment: .leading, spacing: 3) {
                     Text(event.dateString)
@@ -47,6 +48,6 @@ struct CampusEventRowView: View {
 }
 
 #Preview {
-    CampusEventRowView(event: BMEventCalendarEntry.sampleEntry)
+    EventRowView(event: BMEventCalendarEntry.sampleEntry)
         .padding()
 }

@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct CampusEventDetailView: View {
+struct EventDetailView: View {
     private enum AlertType {
         case learnMore
         case register
@@ -107,7 +107,7 @@ struct BMDetailHeaderView: View {
         ZStack {
             BMCachedAsyncImageView(imageURL: event.imageURL, placeholderImage: BMConstants.doeGladeImage, aspectRatio: .fill, widthAndHeight: 330, cornerRadius: 10)
             
-            VStack(alignment: .leading, spacing: 15) {
+            VStack(alignment: .leading, spacing: 8) {
                 Spacer()
                 BMCachedAsyncImageView(imageURL: event.imageURL, placeholderImage: BMConstants.doeGladeImage, aspectRatio: .fill, widthAndHeight: 130, cornerRadius: 10)
                     .frame(maxWidth: .infinity, alignment: .center)
@@ -179,6 +179,6 @@ struct BMDetailDescriptionView: View {
 }
      
 #Preview {
-    CampusEventDetailView(event: BMEventCalendarEntry.sampleEntry)
+    EventDetailView(event: BMEventCalendarEntry.sampleEntry)
         .environmentObject(EventsViewModel())
 }

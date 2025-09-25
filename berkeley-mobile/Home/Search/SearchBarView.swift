@@ -31,7 +31,13 @@ struct SearchBarView: View {
             }
         }
         .padding()
-        .background(.regularMaterial)
+        .modify {
+            if #available(iOS 26.0, *) {
+                $0.glassEffect(.regular.interactive(), in: .rect(cornerRadius: 15))
+            } else {
+                $0.background(.regularMaterial)
+            }
+        }
         .clipShape(.rect(cornerRadius: 15))
         .shadow(color: .black.opacity(0.3), radius: 8)
         .onChange(of: isFocused) { newValue in // onChange syntax will need to change in later iOS
