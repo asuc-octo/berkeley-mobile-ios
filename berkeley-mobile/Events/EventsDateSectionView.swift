@@ -33,7 +33,7 @@ struct EventsDateSectionView<Content: View>: View {
                 .font(Font(BMFont.bold(15)))
                 .addBadgeStyle(widthAndHeight: 30, isInteractive: false)
         }
-        .padding(.horizontal)
+        .padding()
     }
 }
 
@@ -41,18 +41,18 @@ struct EventsDateSectionView<Content: View>: View {
     let eventsViewModel = EventsViewModel()
     Group {
         EventsDateSectionView(date: Date(), events: [BMEventCalendarEntry.sampleEntry]) { event in
-            CampusEventRowView(event: event)
+            EventRowView(event: event)
                 .frame(width: 310)
                 .background(
                     NavigationLink("") {
-                        CampusEventDetailView(event: event)
+                        EventDetailView(event: event)
                     }
                     .opacity(0)
                 )
         }
         
         EventsDateSectionView(date: Date(), events: [BMEventCalendarEntry.sampleEntry]) { event in
-            AcademicEventRowView(event: event)
+            EventRowView(event: event)
                 .frame(width: 310)
         }
     }
