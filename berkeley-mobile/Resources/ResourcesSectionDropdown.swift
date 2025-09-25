@@ -49,9 +49,9 @@ struct ResourcesSectionDropdown<Content: View>: View {
         VStack(alignment: .leading) {
             headerButton
             if isExpanded {
-                Divider()
                 content
                     .padding(.vertical, 8)
+                    .padding(.horizontal, 10)
             }
         }
         .background(Color(BMColor.cellBackground))
