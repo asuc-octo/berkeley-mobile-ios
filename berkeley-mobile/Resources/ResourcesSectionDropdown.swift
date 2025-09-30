@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import StoreKit
 
 struct ResourcesSectionDropdown<Content: View>: View {
     let title: String
@@ -130,6 +131,8 @@ struct ResourceItemView: View {
         VStack(alignment: .leading, spacing: 8) {
             Button(action: {
                 isPresentingWebView.toggle()
+                ReviewPrompter.shared.incSuccessfulEvent()
+//                ReviewPrompter.shared.resetForTesting()
             }) {
                 HStack {
                     Image(systemName: "globe")

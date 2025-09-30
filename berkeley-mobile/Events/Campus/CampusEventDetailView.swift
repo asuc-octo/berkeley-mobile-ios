@@ -91,9 +91,11 @@ struct CampusEventDetailView: View {
         withoutAnimation {
             eventsViewModel.alert = BMAlert(title: "Open in Safari?", message: message, type: .action) {
                 UIApplication.shared.open(url)
+                
             }
             alertType = nil
         }
+        ReviewPrompter.shared.incSuccessfulEvent()
     }
 }
 

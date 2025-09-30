@@ -52,6 +52,7 @@ class LibraryDetailViewController: UIViewController {
     @objc private func bookButtonClicked(sender: UIButton) {
         guard let url = URL(string: kBookingURL) else { return }
         UIApplication.shared.open(url, options: [:])
+        ReviewPrompter.shared.incSuccessfulEvent()
     }
 
     var scrollingStackView: ScrollingStackView = {

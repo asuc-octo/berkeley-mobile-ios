@@ -59,6 +59,7 @@ class GymDetailViewController: UIViewController {
     @objc private func moreButtonClicked(sender: UIButton) {
         guard let url = gym.website else { return }
         UIApplication.shared.open(url, options: [:])
+        ReviewPrompter.shared.incSuccessfulEvent()
     }
 
     var scrollingStackView: ScrollingStackView = {

@@ -50,6 +50,7 @@ class EventsViewModel: ObservableObject {
             do {
                 try await BMEventManager.shared.addEventToCalendar(calendarEvent: event)
                 presentAlertWithoutAnimation(BMAlert(title: "", message: "Successfully added to calendar!", type: .notice))
+                ReviewPrompter.shared.incSuccessfulEvent()
             } catch {
                 if let bmError = error as? BMError, bmError == .mayExistedInCalendarAlready {
                     presentAlertWithoutAnimation(BMAlert(title: "Successfully added to calendar!", message: error.localizedDescription, type: .notice))
