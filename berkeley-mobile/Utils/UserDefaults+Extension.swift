@@ -10,6 +10,7 @@ import Foundation
 
 enum UserDefaultsKeys: String {
     case numAppLaunchForFeedbackForm = "numAppLaunchForFeedbackForm"
+    case numAppLaunchForAppStoreReview = "numAppLaunchForAppStoreReview"
     case academicEventsLastSavedDate = "academicEventsLastSavedDate"
     case campuswideEventsLastSavedDate = "campuswideEventsLastSavedDate"
     case recentSearches = "recentSearches"
@@ -26,5 +27,9 @@ extension UserDefaults {
     
     func data(forKey key: UserDefaultsKeys) -> Data? {
         data(forKey: key.rawValue)
+    }
+    
+    func increment(forKey key: UserDefaultsKeys) {
+        set(integer(forKey: key) + 1, forKey: key)
     }
 }

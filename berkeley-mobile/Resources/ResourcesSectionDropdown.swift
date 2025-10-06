@@ -131,8 +131,6 @@ struct ResourceItemView: View {
         VStack(alignment: .leading, spacing: 8) {
             Button(action: {
                 isPresentingWebView.toggle()
-                ReviewPrompter.shared.incSuccessfulEvent()
-//                ReviewPrompter.shared.resetForTesting()
             }) {
                 HStack {
                     Image(systemName: "globe")

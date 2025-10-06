@@ -95,7 +95,6 @@ struct CampusEventDetailView: View {
             }
             alertType = nil
         }
-        ReviewPrompter.shared.incSuccessfulEvent()
     }
 }
 

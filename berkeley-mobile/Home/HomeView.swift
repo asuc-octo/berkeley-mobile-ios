@@ -13,7 +13,6 @@ struct HomeView: View {
     
     @State private var tabSelectedIndex = 0
     @State private var selectedDetent: PresentationDetent = .fraction(0.45)
-    @Environment(\.requestReview) private var requestReview
     private var mapViewController: MapViewController
     
     init(mapViewController: MapViewController) {
@@ -41,9 +40,7 @@ struct HomeView: View {
                 homeViewModel.drawerViewState = .medium
             }
             .onAppear {
-                if ReviewPrompter.shared.shouldPromptForReview(){
-                    requestReview()
-                }
+                
             }
         }
     }
