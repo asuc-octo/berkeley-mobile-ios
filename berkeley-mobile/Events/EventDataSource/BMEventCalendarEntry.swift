@@ -122,6 +122,34 @@ class BMEventCalendarEntry: NSObject, NSCoding, Identifiable, BMCalendarEvent, H
         
         self.type = coder.decodeObject(forKey: ArgumentNames.type) as? String
     }
+    
+    var dateString: String {
+        let calendar = Calendar.current
+        let today = Date()
+        
+        if calendar.isDate(startDate, inSameDayAs: today) {
+            return "Today"
+        } else if let tomorrow = calendar.date(byAdding: .day, value: 1, to: today),
+                  calendar.isDate(startDate, inSameDayAs: tomorrow) {
+            return "Tomorrow"
+        } else {
+            let formatter = DateFormatter()
+            formatter.dateStyle = .medium
+            return formatter.string(from: startDate)
+        }
+    }
+    
+    var timeString: String {
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        if let endDate = end {
+            return "\(formatter.string(from: startDate)) - \(formatter.string(from: endDate))"
+        } else {
+            return formatter.string(from: startDate)
+        }
+    }
+
+
 }
 
 extension BMEventCalendarEntry {
