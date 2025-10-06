@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>592064103331-73lugm9urcosj9uetcsk0bsno0lf5ek2.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.592064103331-73lugm9urcosj9uetcsk0bsno0lf5ek2</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>592064103331-oti8m2ibvlnpof822c1gqvte97vefshi.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCMnCLU444kw1W7ultwW-lZ_rWNNScr6Q4</string>
+	<key>GCM_SENDER_ID</key>
+	<string>592064103331</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>org.asuc.ASUC</string>
+	<key>PROJECT_ID</key>
+	<string>berkeley-mobile</string>
+	<key>STORAGE_BUCKET</key>
+	<string>berkeley-mobile.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:592064103331:ios:f4a130a6c7f74596</string>
+	<key>DATABASE_URL</key>
+	<string>https://berkeley-mobile.firebaseio.com</string>
+</dict>
+</plist>

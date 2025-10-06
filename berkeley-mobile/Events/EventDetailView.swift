@@ -133,13 +133,25 @@ struct BMDetailHeaderView: View {
         }
     }
     
+    
     private var timeView: some View {
-        HStack {
-            Image(systemName: "clock")
-                .font(.system(size: 16))
-            
-            Text(event.dateString)
-                .font(Font(BMFont.regular(12)))
+        VStack(alignment: .leading, spacing: 4) {
+            // Date line
+            HStack {
+                Image(systemName: "calendar")
+                    .font(.system(size: 16))
+                    .foregroundColor(.secondary)
+                Text(event.dateString)
+                    .font(Font(BMFont.regular(12)))
+            }
+            // Time line
+            HStack {
+                Image(systemName: "clock")
+                    .font(.system(size: 16))
+                    .foregroundColor(.secondary)
+                Text(event.timeString)
+                    .font(Font(BMFont.regular(12)))
+            }
         }
     }
     
