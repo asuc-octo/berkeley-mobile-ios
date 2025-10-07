@@ -43,21 +43,21 @@ struct ResourcesSectionDropdown<Content: View>: View {
             }
             .padding(.horizontal, 16)
         }
-        .background(Color(BMColor.cardBackground))
+        .background(Color(BMColor.cellBackground))
     }
     
     var body: some View {
         VStack(alignment: .leading) {
             headerButton
             if isExpanded {
-                Divider()
                 content
                     .padding(.vertical, 8)
+                    .padding(.horizontal, 10)
             }
         }
-        .background(Color(BMColor.cardBackground))
-        .padding(.horizontal, 16)
-        .padding(.vertical, 8)
+        .background(Color(BMColor.cellBackground))
+        .clipShape(RoundedRectangle(cornerRadius: 10))
+        .padding(.horizontal, 20)
     }
 }
 
@@ -76,7 +76,7 @@ struct ResourceItemView: View {
         .orange,
         Color(red: 0.4, green: 0.65, blue: 0.9),   // Light blue
         Color(red: 0.9, green: 0.4, blue: 0.4),    // Coral
-        Color(red: 0.5, green: 0.8, blue: 0.5),    // Mint 
+        Color(red: 0.5, green: 0.8, blue: 0.5),    // Mint
         Color(red: 0.7, green: 0.4, blue: 0.7),    // Violet purple
         Color(red: 0.95, green: 0.6, blue: 0.1)    // Golden
     ]
@@ -97,7 +97,7 @@ struct ResourceItemView: View {
     private var coloredBar: some View {
         Rectangle()
             .fill(colorForResource)
-            .frame(width: 8)  
+            .frame(width: 8)
             .cornerRadius(3)
     }
     

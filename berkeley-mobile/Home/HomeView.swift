@@ -60,9 +60,16 @@ struct HomeView: View {
                 mapViewController.handleDrawerDismissal()
             }
         }) {
-            Image(systemName: "chevron.left.circle.fill")
-                .font(.system(size: 30))
-                .foregroundStyle(.gray)
+            if #available(iOS 26.0, *) {
+                Image(systemName: "chevron.left.circle.fill")
+                    .font(.system(size: 40))
+                    .tint(.gray)
+                    .glassEffect(.regular.interactive(), in: .circle)
+            } else {
+                Image(systemName: "chevron.left.circle.fill")
+                    .font(.system(size: 40))
+                    .foregroundStyle(.gray)
+            }
         }
     }
     

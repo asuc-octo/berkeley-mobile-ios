@@ -107,7 +107,7 @@
 		306A54FE236142B800D59A7F /* DrawerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306A54FD236142B800D59A7F /* DrawerViewController.swift */; };
 		306A550023614C0000D59A7F /* MainContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306A54FF23614C0000D59A7F /* MainContainerViewController.swift */; };
 		47E625C4AFB6802788C56FCC /* Pods_berkeley_mobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 009098AE14DA5A91CB4733A6 /* Pods_berkeley_mobile.framework */; };
-		53C9FD012DB9C31E003A3178 /* CampusEventDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C9FD002DB9C31E003A3178 /* CampusEventDetailView.swift */; };
+		53C9FD012DB9C31E003A3178 /* EventDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C9FD002DB9C31E003A3178 /* EventDetailView.swift */; };
 		5546CB91251B0A4500BE1876 /* UIDevice+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5546CB90251B0A4500BE1876 /* UIDevice+Extensions.swift */; };
 		556CCD2223E7771800F41BF9 /* MapPlacemark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556CCD2123E7771800F41BF9 /* MapPlacemark.swift */; };
 		556CCD2D23E79EC100F41BF9 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556CCD2C23E79EC100F41BF9 /* TabBarController.swift */; };
@@ -155,18 +155,17 @@
 		E889F8352DACA02C00202556 /* Apercu Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 01D269922544D86C000377B4 /* Apercu Regular.otf */; };
 		E889F8362DACA02C00202556 /* Apercu Mono.otf in Resources */ = {isa = PBXBuildFile; fileRef = 01D2698F2544D86C000377B4 /* Apercu Mono.otf */; };
 		E889F8372DACA02C00202556 /* Apercu Light Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 01D2698C2544D86B000377B4 /* Apercu Light Italic.otf */; };
+		E88A61F82E6A242A00D845DA /* SafetyLogFilterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88A61F72E6A242A00D845DA /* SafetyLogFilterButton.swift */; };
+		E88A61FA2E6A253000D845DA /* SafetyViewFilterScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88A61F92E6A253000D845DA /* SafetyViewFilterScrollView.swift */; };
+		E88A61FE2E6A3B8800D845DA /* BMAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88A61FD2E6A3B8800D845DA /* BMAlert.swift */; };
 		E8912BE52D7FE40500C645B9 /* SafetyMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8912BE42D7FE40500C645B9 /* SafetyMapView.swift */; };
 		E8912C2A2D869D6900C645B9 /* BMConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8912C292D869D6900C645B9 /* BMConstants.swift */; };
 		E891E2852DCD3104006CA0F5 /* BMCachedAsyncImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E891E2842DCD3104006CA0F5 /* BMCachedAsyncImageView.swift */; };
-		E891E2972DCD3F0D006CA0F5 /* AcademicCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E891E2962DCD3F0D006CA0F5 /* AcademicCalendarView.swift */; };
 		E891E2992DCD4DA3006CA0F5 /* EventsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E891E2982DCD4DA3006CA0F5 /* EventsViewModel.swift */; };
-		E891E29B2DCD4E37006CA0F5 /* BMAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E891E29A2DCD4E37006CA0F5 /* BMAlertView.swift */; };
-		E891E2AD2DD00449006CA0F5 /* CampuswideEventsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E891E2AC2DD00449006CA0F5 /* CampuswideEventsView.swift */; };
 		E891E2AF2DD05029006CA0F5 /* BMNoEventsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E891E2AE2DD05029006CA0F5 /* BMNoEventsView.swift */; };
 		E891E2D92DD526FC006CA0F5 /* BMError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E891E2D82DD526FC006CA0F5 /* BMError.swift */; };
 		E891E2F32DD68536006CA0F5 /* BMNetworkingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E891E2F22DD68536006CA0F5 /* BMNetworkingManager.swift */; };
-		E891E2FD2DD86A91006CA0F5 /* BMSafetyMapMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E891E2FC2DD86A91006CA0F5 /* BMSafetyMapMarker.swift */; };
-		E89A33152DCB21780068DDAA /* AcademicEventRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89A33142DCB21780068DDAA /* AcademicEventRowView.swift */; };
+		E891E2FD2DD86A91006CA0F5 /* SafetyMapMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E891E2FC2DD86A91006CA0F5 /* SafetyMapMarker.swift */; };
 		E89F20452DF2CD2E00C488EF /* BMHomeSectionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89F20442DF2CD2E00C488EF /* BMHomeSectionListView.swift */; };
 		E89F20472DF3F5DA00C488EF /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89F20462DF3F5DA00C488EF /* HomeViewModel.swift */; };
 		E89F20492DF3F7B200C488EF /* FitnessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89F20482DF3F7B200C488EF /* FitnessView.swift */; };
@@ -175,7 +174,7 @@
 		E8B273912BD5E5770009831A /* SafetyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B273902BD5E5770009831A /* SafetyViewModel.swift */; };
 		E8B5975F2CA62D6F006DFBD5 /* BMSegmentedControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B5975E2CA62D6F006DFBD5 /* BMSegmentedControlView.swift */; };
 		E8BC7B652B96CB7F002BF46D /* ResourcesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8BC7B642B96CB7F002BF46D /* ResourcesViewModel.swift */; };
-		E8C2BD302D8A457400165554 /* CampusEventRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C2BD2F2D8A457400165554 /* CampusEventRowView.swift */; };
+		E8C2BD302D8A457400165554 /* EventRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C2BD2F2D8A457400165554 /* EventRowView.swift */; };
 		E8C2BDA72D912B3A00165554 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C2BDA62D912B3A00165554 /* CalendarView.swift */; };
 		E8EBE7622CEC2FD700A220BB /* SafetyLogDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EBE7612CEC2FD700A220BB /* SafetyLogDetailView.swift */; };
 		E8FCD6842C374A81004B66A3 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = E8FCD6832C374A81004B66A3 /* SwiftSoup */; };
@@ -314,7 +313,7 @@
 		306A54F723613E3D00D59A7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		306A54FD236142B800D59A7F /* DrawerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerViewController.swift; sourceTree = "<group>"; };
 		306A54FF23614C0000D59A7F /* MainContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainContainerViewController.swift; sourceTree = "<group>"; };
-		53C9FD002DB9C31E003A3178 /* CampusEventDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusEventDetailView.swift; sourceTree = "<group>"; };
+		53C9FD002DB9C31E003A3178 /* EventDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailView.swift; sourceTree = "<group>"; };
 		5546CB90251B0A4500BE1876 /* UIDevice+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extensions.swift"; sourceTree = "<group>"; };
 		556CCD2123E7771800F41BF9 /* MapPlacemark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPlacemark.swift; sourceTree = "<group>"; };
 		556CCD2423E77C4F00F41BF9 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
@@ -354,18 +353,17 @@
 		E889F7FA2DAC4DEE00202556 /* BerkeleyMobileWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = BerkeleyMobileWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		E889F7FB2DAC4DEE00202556 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		E889F7FD2DAC4DEE00202556 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		E88A61F72E6A242A00D845DA /* SafetyLogFilterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyLogFilterButton.swift; sourceTree = "<group>"; };
+		E88A61F92E6A253000D845DA /* SafetyViewFilterScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyViewFilterScrollView.swift; sourceTree = "<group>"; };
+		E88A61FD2E6A3B8800D845DA /* BMAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMAlert.swift; sourceTree = "<group>"; };
 		E8912BE42D7FE40500C645B9 /* SafetyMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyMapView.swift; sourceTree = "<group>"; };
 		E8912C292D869D6900C645B9 /* BMConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMConstants.swift; sourceTree = "<group>"; };
 		E891E2842DCD3104006CA0F5 /* BMCachedAsyncImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMCachedAsyncImageView.swift; sourceTree = "<group>"; };
-		E891E2962DCD3F0D006CA0F5 /* AcademicCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcademicCalendarView.swift; sourceTree = "<group>"; };
 		E891E2982DCD4DA3006CA0F5 /* EventsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsViewModel.swift; sourceTree = "<group>"; };
-		E891E29A2DCD4E37006CA0F5 /* BMAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMAlertView.swift; sourceTree = "<group>"; };
-		E891E2AC2DD00449006CA0F5 /* CampuswideEventsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampuswideEventsView.swift; sourceTree = "<group>"; };
 		E891E2AE2DD05029006CA0F5 /* BMNoEventsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMNoEventsView.swift; sourceTree = "<group>"; };
 		E891E2D82DD526FC006CA0F5 /* BMError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMError.swift; sourceTree = "<group>"; };
 		E891E2F22DD68536006CA0F5 /* BMNetworkingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMNetworkingManager.swift; sourceTree = "<group>"; };
-		E891E2FC2DD86A91006CA0F5 /* BMSafetyMapMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMSafetyMapMarker.swift; sourceTree = "<group>"; };
-		E89A33142DCB21780068DDAA /* AcademicEventRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcademicEventRowView.swift; sourceTree = "<group>"; };
+		E891E2FC2DD86A91006CA0F5 /* SafetyMapMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyMapMarker.swift; sourceTree = "<group>"; };
 		E89F20442DF2CD2E00C488EF /* BMHomeSectionListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMHomeSectionListView.swift; sourceTree = "<group>"; };
 		E89F20462DF3F5DA00C488EF /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		E89F20482DF3F7B200C488EF /* FitnessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitnessView.swift; sourceTree = "<group>"; };
@@ -374,7 +372,7 @@
 		E8B273902BD5E5770009831A /* SafetyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyViewModel.swift; sourceTree = "<group>"; };
 		E8B5975E2CA62D6F006DFBD5 /* BMSegmentedControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMSegmentedControlView.swift; sourceTree = "<group>"; };
 		E8BC7B642B96CB7F002BF46D /* ResourcesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcesViewModel.swift; sourceTree = "<group>"; };
-		E8C2BD2F2D8A457400165554 /* CampusEventRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusEventRowView.swift; sourceTree = "<group>"; };
+		E8C2BD2F2D8A457400165554 /* EventRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRowView.swift; sourceTree = "<group>"; };
 		E8C2BDA62D912B3A00165554 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		E8EBE7612CEC2FD700A220BB /* SafetyLogDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyLogDetailView.swift; sourceTree = "<group>"; };
 		E8FCD6872C38AEC9004B66A3 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
@@ -483,14 +481,15 @@
 			isa = PBXGroup;
 			children = (
 				2925D5F625293E9D00BBA266 /* EventDataSource */,
-				294FF42C2544F71200346E91 /* Academic */,
-				2925D5F425293E5A00BBA266 /* Campus */,
 				E83B6D9E2D780B4200AA9422 /* EventsView.swift */,
 				E8472B492DE5304A005C24EA /* CalendarEventsListView.swift */,
 				E891E2AE2DD05029006CA0F5 /* BMNoEventsView.swift */,
 				E8472B052DE453D6005C24EA /* BMAddedCalendarStatusOverlayView.swift */,
 				E8472B372DE50F41005C24EA /* CalendarSectionView.swift */,
 				E8472AEB2DE2DB80005C24EA /* EventsDateSectionView.swift */,
+				53C9FD002DB9C31E003A3178 /* EventDetailView.swift */,
+				E8C2BD2F2D8A457400165554 /* EventRowView.swift */,
+				E8C2BDA62D912B3A00165554 /* CalendarView.swift */,
 			);
 			name = Events;
 			path = "berkeley-mobile/Events";
@@ -542,7 +541,7 @@
 				2913595524B135B600DE9AD6 /* DetailView */,
 				13B39AB123E777AC0039FBA2 /* FilterView */,
 				29481560253274CA00D113B6 /* Images */,
-				FD44FE6025EB0EAD00F713EB /* AlertView.swift */,
+				E88A61FD2E6A3B8800D845DA /* BMAlert.swift */,
 				1396013123865E2E005E4788 /* CardView.swift */,
 				1396013223865E2E005E4788 /* TagView.swift */,
 				018B982525327358004C3B26 /* ActionButton.swift */,
@@ -551,9 +550,9 @@
 				2913595624B136BE00DE9AD6 /* CollapsibleCardView.swift */,
 				01D11B8D2504453B00BDF660 /* ScrollingStackView.swift */,
 				E889F75B2DA323C100202556 /* BMActionButton.swift */,
-				E891E29A2DCD4E37006CA0F5 /* BMAlertView.swift */,
 				E891E2842DCD3104006CA0F5 /* BMCachedAsyncImageView.swift */,
 				2ED4FB662D8A3FA00086306A /* BMContentUnavailableView.swift */,
+				E8B2738E2BD5E46B0009831A /* BMDrawerView.swift */,
 				C14CCB602D9CC2680075FE69 /* BMFilterButton.swift */,
 				E8B5975E2CA62D6F006DFBD5 /* BMSegmentedControlView.swift */,
 				E83B6DA02D781AF100AA9422 /* BMTopBlobView.swift */,
@@ -666,16 +665,6 @@
 			path = DetailView;
 			sourceTree = "<group>";
 		};
-		2925D5F425293E5A00BBA266 /* Campus */ = {
-			isa = PBXGroup;
-			children = (
-				E891E2AC2DD00449006CA0F5 /* CampuswideEventsView.swift */,
-				53C9FD002DB9C31E003A3178 /* CampusEventDetailView.swift */,
-				E8C2BD2F2D8A457400165554 /* CampusEventRowView.swift */,
-			);
-			path = Campus;
-			sourceTree = "<group>";
-		};
 		2925D5F625293E9D00BBA266 /* EventDataSource */ = {
 			isa = PBXGroup;
 			children = (
@@ -693,16 +682,6 @@
 				2948155E253274C500D113B6 /* ImageViewCell.swift */,
 			);
 			path = Images;
-			sourceTree = "<group>";
-		};
-		294FF42C2544F71200346E91 /* Academic */ = {
-			isa = PBXGroup;
-			children = (
-				E891E2962DCD3F0D006CA0F5 /* AcademicCalendarView.swift */,
-				E89A33142DCB21780068DDAA /* AcademicEventRowView.swift */,
-				E8C2BDA62D912B3A00165554 /* CalendarView.swift */,
-			);
-			path = Academic;
 			sourceTree = "<group>";
 		};
 		303F6ADC236A9274007E37DD /* Drawer */ = {
@@ -870,9 +849,10 @@
 				E8B273902BD5E5770009831A /* SafetyViewModel.swift */,
 				E8B2738C2BD5C83F0009831A /* SafetyView.swift */,
 				E8EBE7612CEC2FD700A220BB /* SafetyLogDetailView.swift */,
+				E88A61F72E6A242A00D845DA /* SafetyLogFilterButton.swift */,
+				E891E2FC2DD86A91006CA0F5 /* SafetyMapMarker.swift */,
 				E8912BE42D7FE40500C645B9 /* SafetyMapView.swift */,
-				E8B2738E2BD5E46B0009831A /* BMDrawerView.swift */,
-				E891E2FC2DD86A91006CA0F5 /* BMSafetyMapMarker.swift */,
+				E88A61F92E6A253000D845DA /* SafetyViewFilterScrollView.swift */,
 			);
 			path = Safety;
 			sourceTree = "<group>";
@@ -1071,6 +1051,7 @@
 				01FA50F324E8BA5400DCC490 /* LocationDetailView.swift in Sources */,
 				E8472AEC2DE2DB80005C24EA /* EventsDateSectionView.swift in Sources */,
 				1DB006AD2D71C8D6001CC870 /* ResourcesSectionDropdown.swift in Sources */,
+				E88A61FA2E6A253000D845DA /* SafetyViewFilterScrollView.swift in Sources */,
 				306A550023614C0000D59A7F /* MainContainerViewController.swift in Sources */,
 				29F11EC72516C150007DCFD7 /* BarView.swift in Sources */,
 				55DCF78723722CBD001B01B8 /* Colors.swift in Sources */,
@@ -1103,7 +1084,7 @@
 				556CCD2D23E79EC100F41BF9 /* TabBarController.swift in Sources */,
 				01C75E2E25292E5B00C25A32 /* DescriptionCardView.swift in Sources */,
 				13B39A8D23E689BC0039FBA2 /* DataSource.swift in Sources */,
-				E891E2FD2DD86A91006CA0F5 /* BMSafetyMapMarker.swift in Sources */,
+				E891E2FD2DD86A91006CA0F5 /* SafetyMapMarker.swift in Sources */,
 				2948155F253274C500D113B6 /* ImageViewCell.swift in Sources */,
 				E81767582B9A516200599254 /* MapMarkersDropdownView.swift in Sources */,
 				E8BC7B652B96CB7F002BF46D /* ResourcesViewModel.swift in Sources */,
@@ -1113,7 +1094,7 @@
 				E891E2852DCD3104006CA0F5 /* BMCachedAsyncImageView.swift in Sources */,
 				E8EBE7622CEC2FD700A220BB /* SafetyLogDetailView.swift in Sources */,
 				13491DBC242098B30033F9AB /* AtomicDictionary.swift in Sources */,
-				E8C2BD302D8A457400165554 /* CampusEventRowView.swift in Sources */,
+				E8C2BD302D8A457400165554 /* EventRowView.swift in Sources */,
 				E89F20472DF3F5DA00C488EF /* HomeViewModel.swift in Sources */,
 				01BC8EB024E8C3E3005B4969 /* DetailView.swift in Sources */,
 				E83B6D9D2D72FD6F00AA9422 /* HomeView.swift in Sources */,
@@ -1126,7 +1107,6 @@
 				2ED4FB692D8B7C430086306A /* SearchResultsListRowView.swift in Sources */,
 				01B250282516AD4F00CBA459 /* IconPairView.swift in Sources */,
 				FDD7946C260FE09D00ABE60E /* Colors+AlertView.swift in Sources */,
-				E891E29B2DCD4E37006CA0F5 /* BMAlertView.swift in Sources */,
 				E80330ED2CE7EBB100DC9574 /* NSCoding+Extension.swift in Sources */,
 				2948155D25326D1400D113B6 /* ImageLoader.swift in Sources */,
 				13EA64CA2399CE5B00FD8E13 /* SearchItem.swift in Sources */,
@@ -1154,6 +1134,8 @@
 				13492D2D240E179F00AD3D1F /* MapMarkerDetailView.swift in Sources */,
 				E891E2D92DD526FC006CA0F5 /* BMError.swift in Sources */,
 				1346B9192420AD4800383399 /* WeeklyHours.swift in Sources */,
+				E88A61FE2E6A3B8800D845DA /* BMAlert.swift in Sources */,
+				E88A61F82E6A242A00D845DA /* SafetyLogFilterButton.swift in Sources */,
 				29B1D307254E1C8700BAD88F /* BMEventManager.swift in Sources */,
 				E8C2BDA72D912B3A00165554 /* CalendarView.swift in Sources */,
 				E83B6DA52D7A85D500AA9422 /* GymOccupancyScrapper.swift in Sources */,
@@ -1166,7 +1148,6 @@
 				29061D41241C450E002BC9D9 /* HasLocation.swift in Sources */,
 				2EDE80992D90BE620037BA9F /* CLLocation+Extension.swift in Sources */,
 				1336A31A241C3FD300949F32 /* GymClassDataSource.swift in Sources */,
-				E89A33152DCB21780068DDAA /* AcademicEventRowView.swift in Sources */,
 				E8B2738F2BD5E46B0009831A /* BMDrawerView.swift in Sources */,
 				2ED4FB6B2D8BCB390086306A /* SearchViewModel.swift in Sources */,
 				E891E2F32DD68536006CA0F5 /* BMNetworkingManager.swift in Sources */,
@@ -1183,10 +1164,8 @@
 				306A54EC23613E3A00D59A7F /* SceneDelegate.swift in Sources */,
 				E8B2738D2BD5C83F0009831A /* SafetyView.swift in Sources */,
 				01FA50F124E8B33100DCC490 /* BMLocationManager.swift in Sources */,
-				E891E2AD2DD00449006CA0F5 /* CampuswideEventsView.swift in Sources */,
 				017C0B26251018BA00BFA80A /* Colors+MapMarker.swift in Sources */,
 				E83B6DA92D7A860E00AA9422 /* GymOccupancyViewModel.swift in Sources */,
-				E891E2972DCD3F0D006CA0F5 /* AcademicCalendarView.swift in Sources */,
 				29345E2724A7E76300859A88 /* OverviewCardView.swift in Sources */,
 				01D11B902504560700BDF660 /* GymDetailViewController.swift in Sources */,
 				55AF442D2453ACE600F13232 /* BMDiningLocation.swift in Sources */,
@@ -1194,13 +1173,12 @@
 				136DC97B2398B4D1009B1810 /* UIViewController+Extensions.swift in Sources */,
 				2913595724B136BE00DE9AD6 /* CollapsibleCardView.swift in Sources */,
 				E83C6CED2B71DF190085E277 /* SafariWebView.swift in Sources */,
-				FD44FE6125EB0EAD00F713EB /* AlertView.swift in Sources */,
 				01AA1B88253BB4AC003AB75A /* UIScrollView+GestureRecognizer.swift in Sources */,
 				13491DB6241E21740033F9AB /* Colors+TagView.swift in Sources */,
 				E8FCD6882C38AEC9004B66A3 /* String+Extension.swift in Sources */,
 				556CCD2223E7771800F41BF9 /* MapPlacemark.swift in Sources */,
 				297678872426B7BA00FDD1EB /* SearchAnnotation.swift in Sources */,
-				53C9FD012DB9C31E003A3178 /* CampusEventDetailView.swift in Sources */,
+				53C9FD012DB9C31E003A3178 /* EventDetailView.swift in Sources */,
 				01CDFF6A257C614900D9FBD6 /* Colors+Resource.swift in Sources */,
 				2ED4FB672D8A3FA00086306A /* BMContentUnavailableView.swift in Sources */,
 				13741B6C2400D866003D1EEB /* MapDataSource.swift in Sources */,
@@ -1378,7 +1356,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 11.7;
+				MARKETING_VERSION = 11.9;
 				PRODUCT_BUNDLE_IDENTIFIER = org.asuc.ASUC;
 				PRODUCT_NAME = Berkeley;
 				SWIFT_VERSION = 5.0;
@@ -1402,7 +1380,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 11.7;
+				MARKETING_VERSION = 11.9;
 				PRODUCT_BUNDLE_IDENTIFIER = org.asuc.ASUC;
 				PRODUCT_NAME = Berkeley;
 				PROVISIONING_PROFILE_SPECIFIER = "";

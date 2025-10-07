@@ -32,12 +32,14 @@ struct HomeMapView: UIViewControllerRepresentable {
 
 // MARK: - MapViewController
 
-fileprivate let kViewMargin: CGFloat = 16
-fileprivate let kLayoutMarginsInset: CGFloat = 21
-
 class MapViewController: UIViewController, SearchDrawerViewDelegate {
-
-    static let kAnnotationIdentifier = "MapMarkerAnnotation"
+    
+    private struct Constants {
+        static let kAnnotationIdentifier = "MapMarkerAnnotation"
+        static let kViewMargin: CGFloat = 16
+        static let kLayoutMarginsInset: CGFloat = 21
+        static let mapBtnsTopMargin: CGFloat = 141
+    }
 
     // this allows the map to move the main drawer
     open var mainContainer: MainContainerViewController?
@@ -78,14 +80,17 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        view.layoutMargins = UIEdgeInsets(top: kLayoutMarginsInset + 50, left: kLayoutMarginsInset, bottom: kLayoutMarginsInset, right: kLayoutMarginsInset)
+        view.layoutMargins = UIEdgeInsets(top: Constants.kLayoutMarginsInset + 50,
+                                          left: Constants.kLayoutMarginsInset,
+                                          bottom: Constants.kLayoutMarginsInset,
+                                          right: Constants.kLayoutMarginsInset)
         
         mapView = MKMapView()
         mapView.delegate = self
         
         setMapBoundsAndZoom()
         
-        mapView.register(MKAnnotationView.self, forAnnotationViewWithReuseIdentifier: MapViewController.kAnnotationIdentifier)
+        mapView.register(MKAnnotationView.self, forAnnotationViewWithReuseIdentifier: Constants.kAnnotationIdentifier)
         mapView.showsUserLocation = true
         
         createSearchBarComponents() // Initializes searchBarViewController
@@ -95,9 +100,8 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         
         fetchFromMapDataSource()
         createMapLocationButton()
-        createMapMarkerDropdownButton()
         
-        self.view.addSubViews([mapView, mapUserLocationButton, mapMarkersDropdownButton, markerDetail, searchResultsView, searchBar])
+        self.view.addSubViews([mapView, mapUserLocationButton, markerDetail, searchResultsView, searchBar])
         setupSubviews()
         
         centerMapAtBerkeley()
@@ -124,13 +128,15 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
             }
             
             let types = markers.keys.compactMap { MapMarkerType(rawValue: $0) }.sorted { $0 < $1 }
-            self.mapMarkersDropdownViewModel.setMapMarkerTypes(with: types)
-            self.mapMarkers = Array(markers.values)
-
+            
             guard !types.isEmpty else {
                 return
             }
             
+            self.mapMarkersDropdownViewModel.setMapMarkerTypes(with: types)
+            self.mapMarkers = Array(markers.values)
+            
+            self.createMapMarkerDropdownButton()
             self.showSelectedMapMarkerTypeAnnotations(forType: types.first!)
         }
     }
@@ -194,6 +200,14 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         mapMarkersDropdownButton.translatesAutoresizingMaskIntoConstraints = false
         mapMarkersDropdownButton.isUserInteractionEnabled = true
         mapMarkersDropdownButton.backgroundColor = UIColor.clear
+        view.addSubview(self.mapMarkersDropdownButton)
+        
+        NSLayoutConstraint.activate([
+            mapMarkersDropdownButton.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
+            mapMarkersDropdownButton.widthAnchor.constraint(equalToConstant: BMControlButtonStyle.widthAndHeight),
+            mapMarkersDropdownButton.heightAnchor.constraint(equalToConstant: BMControlButtonStyle.widthAndHeight),
+            mapMarkersDropdownButton.topAnchor.constraint(equalTo: view.topAnchor, constant: Constants.mapBtnsTopMargin)
+        ])
     }
     
     private func centerMapOnLocation(_ location: CLLocation, mapView: MKMapView, animated: Bool) {
@@ -211,7 +225,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         view.insertSubview(compass, belowSubview: searchResultsView)
         compass.translatesAutoresizingMaskIntoConstraints = false
         compass.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor).isActive = true
-        compass.topAnchor.constraint(equalTo: mapUserLocationButton.bottomAnchor, constant: kViewMargin).isActive = true
+        compass.topAnchor.constraint(equalTo: mapUserLocationButton.bottomAnchor, constant: Constants.kViewMargin).isActive = true
     }
     
     @objc func homePressed() {
@@ -235,8 +249,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         mapView.setConstraintsToView(top: self.view, bottom: self.view, left: self.view, right: self.view)
         
         let searchBarTopMargin: CGFloat = 74 // 74.0 from view.topAnchor
-        let searchBarHeight = searchBar.intrinsicContentSize.height // Prints 54.0
-        let mapBtnsTopMargin: CGFloat = 141
+        let searchBarHeight = searchBar.intrinsicContentSize.height
         let markerDetailBottomMargin: CGFloat = -96
         
         NSLayoutConstraint.activate([
@@ -255,14 +268,9 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
             markerDetail.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor),
             
             mapUserLocationButton.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
-            mapUserLocationButton.topAnchor.constraint(equalTo: view.topAnchor, constant: mapBtnsTopMargin),
+            mapUserLocationButton.topAnchor.constraint(equalTo: view.topAnchor, constant: Constants.mapBtnsTopMargin),
             mapUserLocationButton.widthAnchor.constraint(equalToConstant: BMControlButtonStyle.widthAndHeight),
             mapUserLocationButton.heightAnchor.constraint(equalToConstant: BMControlButtonStyle.widthAndHeight),
-            
-            mapMarkersDropdownButton.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
-            mapMarkersDropdownButton.widthAnchor.constraint(equalToConstant: BMControlButtonStyle.widthAndHeight),
-            mapMarkersDropdownButton.heightAnchor.constraint(equalToConstant: BMControlButtonStyle.widthAndHeight),
-            mapMarkersDropdownButton.topAnchor.constraint(equalTo: view.topAnchor, constant: mapBtnsTopMargin)
         ])
     }
     
@@ -318,7 +326,7 @@ extension MapViewController: MKMapViewDelegate {
         if annotation is MKUserLocation {
            return nil
         } else if let marker = annotation as? MapMarker,
-            let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: MapViewController.kAnnotationIdentifier) {
+            let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: Constants.kAnnotationIdentifier) {
             annotationView.annotation = marker
             if case .known(let type) = marker.type {
                 annotationView.image = type.icon()
