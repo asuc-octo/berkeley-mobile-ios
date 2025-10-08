@@ -48,7 +48,7 @@ struct HomeSectionListRowView: View {
 }
 
 #Preview {
-    let foothillDiningHall = DiningHall(name: "Foothill", address: nil, phoneNumber: nil, imageLink: "https://firebasestorage.googleapis.com/v0/b/berkeley-mobile.appspot.com/o/images%2FFoothill.jpg?alt=media&token=b645d675-6f51-45ea-99f7-9b36576e14b7", shifts: MealMap(), hours: nil, latitude: 37.87538, longitude: -122.25612109999999)
+    let foothillDiningHall = BMDiningHall(name: "Foothill", address: nil, phoneNumber: nil, imageLink: "https://firebasestorage.googleapis.com/v0/b/berkeley-mobile.appspot.com/o/images%2FFoothill.jpg?alt=media&token=b645d675-6f51-45ea-99f7-9b36576e14b7", hours: [], latitude: 37.87538, longitude: -122.25612109999999)
     
     return HomeSectionListRowView(rowItem: foothillDiningHall)
         .padding(40)

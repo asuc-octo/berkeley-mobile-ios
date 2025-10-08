@@ -12,7 +12,6 @@ import Foundation
 fileprivate let kDataSources: [DataSource.Type] = [
     MapDataSource.self,
     LibraryDataSource.self,
-    DiningHallDataSource.self,
     GymDataSource.self
 ]
 

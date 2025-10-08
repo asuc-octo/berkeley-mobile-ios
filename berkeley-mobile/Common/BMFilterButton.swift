@@ -24,7 +24,6 @@ struct BMFilterButton: View {
                 .background(isSelected ? Color(uiColor: BMColor.selectedButtonBackground) : Color(uiColor: BMColor.cardBackground))
                 .foregroundColor(isSelected ? .white : Color(uiColor: BMColor.secondaryText))
                 .cornerRadius(14)
-                .shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 0)
                 .frame(height: 28)
         }
         .buttonStyle(PlainButtonStyle())

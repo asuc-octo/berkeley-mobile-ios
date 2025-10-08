@@ -6,10 +6,10 @@
 //  Copyright © 2016 org.berkeleyMobile. All rights reserved.
 //
 
-import UIKit
 import MapKit
+import UIKit
 
-class BMLibrary: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasImage, HasOpenTimes {
+struct BMLibrary: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasImage, HasOpenTimes {
     var searchName: String {
         return name
     }
@@ -52,6 +52,16 @@ class BMLibrary: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasImage,
         self.name = name
         self.imageURL = URL(string: imageLink ?? "")
         self.icon = UIImage(systemName: "text.book.closed")
+    }
+}
+
+extension BMLibrary: Hashable {
+    static func == (lhs: BMLibrary, rhs: BMLibrary) -> Bool {
+        lhs.name == rhs.name
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(name)
     }
 }
 
