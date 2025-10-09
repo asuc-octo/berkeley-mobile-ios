@@ -61,7 +61,7 @@ struct SafetyView: View {
     }
     
     private var drawerView: some View {
-        BMDrawerView(drawerViewState: $drawerViewState, hPadding: 16) {
+        BMDrawerView(drawerViewState: $drawerViewState, hPadding: 15, vPadding: 15) {
             VStack(alignment: .leading) {
                 alertsDrawerHeaderView
                 
