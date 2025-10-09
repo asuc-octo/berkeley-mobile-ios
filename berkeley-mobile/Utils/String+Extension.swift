@@ -68,7 +68,6 @@ extension String {
     func convertToDateInterval(on day: Date = Date(), timeZone: TimeZone = .current) -> DateInterval? {
         let cleaned = self
             .replacingOccurrences(of: ".", with: "")
-            .replacingOccurrences(of: "–", with: "-")
             .replacingOccurrences(of: "—", with: "-")
             .uppercased()
 
