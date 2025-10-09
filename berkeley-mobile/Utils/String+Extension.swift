@@ -60,4 +60,47 @@ extension String {
         }
     }
     
+    /// Converts a String with a time range like `"7:50 p.m. - 10:00 p.m."` into a `DateInterval`
+    /// - Parameters:
+    ///   - day: A date of the range. By default, set to the current date.
+    ///   - timeZone: A time zone of the range. By default, set to `TimeZone.current`.
+    /// - Returns: A an Optional `DateInterval` with the two dates of the range.
+    func convertToDateInterval(on day: Date = Date(), timeZone: TimeZone = .current) -> DateInterval? {
+        let cleaned = self
+            .replacingOccurrences(of: ".", with: "")
+            .replacingOccurrences(of: "–", with: "-")
+            .replacingOccurrences(of: "—", with: "-")
+            .uppercased()
+
+        let parts = cleaned.split(separator: "-", maxSplits: 1)
+            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+        guard parts.count == 2 else {
+            return nil
+        }
+        
+        var calendar = Calendar.current
+        calendar.timeZone = timeZone
+
+        func hm(_ s: String) -> (h: Int, m: Int)? {
+            let dateFormat = s.contains(":") ? "h:mm a" : "h a"
+            guard let d = s.convertToDate(dateFormat: dateFormat) else {
+                return nil
+            }
+            let dateComponents = calendar.dateComponents(in: timeZone, from: d)
+            return (dateComponents.hour ?? 0, dateComponents.minute ?? 0)
+        }
+
+        guard let (startHour, startMinute) = hm(String(parts[0])),
+              let (endHour, endMinute) = hm(String(parts[1])) else {
+            return nil
+        }
+
+        guard let start = calendar.date(bySettingHour: startHour, minute: startMinute, second: 0, of: day),
+              let endSame = calendar.date(bySettingHour: endHour, minute: endMinute, second: 0, of: day) else {
+            return nil
+        }
+
+        let end = endSame >= start ? endSame : calendar.date(byAdding: .day, value: 1, to: endSame)!
+        return DateInterval(start: start, end: end)
+    }
 }

@@ -11,9 +11,7 @@ import FirebaseCore
 import UIKit
 
 /// `BMDiningHall` is the representation for a dining hall used throughout the app. We fetch the dining halls from Firebase as `BMDininghallDocument` and convert them into `BMDiningHall`.
-struct BMDiningHall: SearchItem, HasLocation, HasPhoneNumber,
-    HasImage
-{
+struct BMDiningHall: SearchItem, HasLocation, HasPhoneNumber, HasImage {
     var icon: UIImage?
     var searchName: String {
         return name
@@ -25,12 +23,17 @@ struct BMDiningHall: SearchItem, HasLocation, HasPhoneNumber,
     @Display var address: String?
     @Display var phoneNumber: String?
 
+    /// A private array of `String` representation of all the open time interval periods
+    private(set) var _hours: [String]
+    var hours: [DateInterval] {
+        return _hours.compactMap { $0.convertToDateInterval() }
+    }
+    
     var meals: [BMMeal.BMMealType: BMMeal]
-    var hours: [String]
 
     var latitude: Double?
     var longitude: Double?
-
+    
     init(
         name: String,
         address: String?,
@@ -46,7 +49,7 @@ struct BMDiningHall: SearchItem, HasLocation, HasPhoneNumber,
         self.phoneNumber = phoneNumber
         self.imageURL = URL(string: imageLink ?? "")
         self.meals = meals
-        self.hours = hours
+        self._hours = hours
         self.latitude = latitude
         self.longitude = longitude
         self.icon = UIImage(systemName: "fork.knife")
