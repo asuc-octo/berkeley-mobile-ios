@@ -70,6 +70,10 @@ class BMEventCalendarEntry: NSObject, NSCoding, Identifiable, BMCalendarEvent, H
             return BMColor.eventDefault
         }
     }
+    
+    var uniqueIdentifier: String {
+        return name + startDate.description + (end?.description ?? "")
+    }
 
     init(name: String, date: Date, end: Date? = nil, descriptionText: String? = nil, location: String? = nil, registerLink: String? = nil, imageURL: String? = nil, sourceLink: String? = nil, type: String? = nil) {
         self.name = name

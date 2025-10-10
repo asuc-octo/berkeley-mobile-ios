@@ -37,10 +37,11 @@ class EventScrapper: NSObject, ObservableObject {
         groupedEntries.flatMap { $0.1 }
     }
     
+    var type: EventScrapperType!
+    
     /// Allowed number of rescrapes until `EventScrapper` gives up on scrapping.
     private var allowedNumOfRescrapes = 5
     private var currNumOfRescrapes = 0
-    private var type: EventScrapperType!
     private var cachedSavedGroupedEvents: [Date: [BMEventCalendarEntry]] = [:]
     
     lazy private var webView: WKWebView = {
