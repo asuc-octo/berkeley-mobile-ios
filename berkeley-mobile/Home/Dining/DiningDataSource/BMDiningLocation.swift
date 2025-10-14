@@ -6,36 +6,152 @@
 //  Copyright © 2020 RJ Pimentel. All rights reserved.
 //
 
+import Firebase
+import FirebaseCore
 import UIKit
 
-class BMDiningLocation: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasImage, HasOpenTimes {
+/// `BMDiningHall` is the representation for a dining hall used throughout the app. We fetch the dining halls from Firebase as `BMDininghallDocument` and convert them into `BMDiningHall`.
+struct BMDiningHall: SearchItem, HasLocation, HasPhoneNumber,
+    HasImage
+{
     var icon: UIImage?
-    
-    var isFavorited: Bool = false
     var searchName: String {
         return name
     }
     
-    @Display var name: String
     let imageURL: URL?
+
+    @Display var name: String
     @Display var address: String?
     @Display var phoneNumber: String?
-    
-    var meals: MealMap
-    var weeklyHours: WeeklyHours?
-    
+
+    var meals: [BMMeal.BMMealType: BMMeal]
+    var hours: [String]
+
     var latitude: Double?
     var longitude: Double?
-    
-    init(name: String, address: String?, phoneNumber: String?, imageLink: String?, shifts: MealMap, hours: WeeklyHours?, latitude: Double?, longitude: Double?) {
+
+    init(
+        name: String,
+        address: String?,
+        phoneNumber: String?,
+        imageLink: String?,
+        meals: [BMMeal.BMMealType: BMMeal] = [:],
+        hours: [String],
+        latitude: Double?,
+        longitude: Double?
+    ) {
         self.name = name
         self.address = address
         self.phoneNumber = phoneNumber
         self.imageURL = URL(string: imageLink ?? "")
-        self.meals = shifts
-        self.weeklyHours = hours
+        self.meals = meals
+        self.hours = hours
         self.latitude = latitude
         self.longitude = longitude
         self.icon = UIImage(systemName: "fork.knife")
+    }
+}
+
+extension BMDiningHall: Hashable {
+    static func == (lhs: BMDiningHall, rhs: BMDiningHall) -> Bool {
+        lhs.name == rhs.name
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(name)
+    }
+}
+
+
+// MARK: - Firebase Decode Struct Representations
+
+struct BMDiningHallDocument: Codable, Identifiable {
+    @DocumentID var id: String?
+    let diningHall: BMDiningHallRepresentation
+    let scrapedAt: Timestamp?
+}
+
+struct BMDiningHallRepresentation: Codable {
+    let name: String
+    let status: String
+    let openHourPeriods: [String]
+    let serveDate: String
+    let meals: [BMMeal]
+    
+    enum CodingKeys: String, CodingKey {
+        case name = "locationName"
+        case status
+        case openHourPeriods = "timeSpans"
+        case serveDate
+        case meals
+    }
+    
+    func getMealsTypeDict() -> [BMMeal.BMMealType: BMMeal] {
+        var dict: [BMMeal.BMMealType: BMMeal] = [:]
+        meals.forEach { meal in
+            dict[meal.mealType] = meal
+        }
+        return dict
+    }
+}
+
+struct BMMeal: Codable {
+    enum BMMealType: String, Codable {
+        case breakfast = "Breakfast"
+        case lunch = "Lunch"
+        case dinner = "Dinner"
+        case other = "Other"
+    }
+
+    let mealType: BMMealType
+    let mealTypeName: String
+    let time: String?
+    let categoriesAndMenuItems: [BMMealCategory]
+    
+    enum CodingKeys: String, CodingKey {
+        case mealType = "meal"
+        case mealTypeName = "rawTitle"
+        case time
+        case categoriesAndMenuItems
+    }
+}
+
+struct BMMealCategory: Codable {
+    let categoryName: String
+    let menuItems: [BMMenuItem]
+}
+
+struct BMMenuItem: Codable {
+    let name: String
+    let icons: [BMMealIcon]
+    let menuId: String?
+    let itemId: String?
+    let dataLocation: String?
+}
+
+struct BMMealIcon: Codable {
+    let name: String
+    let iconURL: String
+}
+
+/// `BMDiningHallAdditionalData` includes static data not scrapable from the dining hall menus website
+struct BMDiningHallAdditionalData: Codable {
+    let name: String
+    let address: String
+    let pictureURL: String?
+    let latitude: Double
+    let longitude: Double
+    let description: String?
+    let phoneNumber: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case name
+        case address
+        case pictureURL = "picture"
+        case latitude
+        case longitude
+        case description
+        case phoneNumber = "phone"
     }
 }

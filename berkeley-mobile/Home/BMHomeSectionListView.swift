@@ -13,6 +13,8 @@ struct BMHomeSectionListView: View {
     var items: [SearchItem & HasLocation & HasImage]
     var mapViewController: MapViewController
     
+    var selectionHandler: ((SearchItem & HasLocation & HasImage) -> Void)?
+    
     var body: some View {
         VStack {
             if #unavailable(iOS 26.0) {
@@ -52,6 +54,7 @@ struct BMHomeSectionListView: View {
                     ForEach(items, id: \.name) { item in
                         Button(action: {
                             mapViewController.choosePlacemark(item: item)
+                            selectionHandler?(item)
                         }) {
                             HomeSectionListRowView(rowItem: item)
                                 .frame(width: 290)
@@ -70,6 +73,7 @@ struct BMHomeSectionListView: View {
             List(items, id: \.name) { item in
                 Button(action: {
                     mapViewController.choosePlacemark(item: item)
+                    selectionHandler?(item)
                 }) {
                     HomeSectionListRowView(rowItem: item)
                         .frame(width: 290)
@@ -85,7 +89,7 @@ struct BMHomeSectionListView: View {
 #Preview {
     let homeViewModel = HomeViewModel()
     let diningHalls = [
-        BMDiningLocation(name: "Cafe 3", address: "2436 Durant Ave, Berkeley, CA 94704", phoneNumber: nil, imageLink: "https://firebasestorage.googleapis.com/v0/b/berkeley-mobile.appspot.com/o/images%2FCafe3.jpg?alt=media&token=f1062476-2cb0-4ce9-9ac1-6109bf588aaa", shifts: MealMap(), hours: nil, latitude: nil, longitude: nil)
+        BMDiningHall(name: "Cafe 3", address: "2436 Durant Ave, Berkeley, CA 94704", phoneNumber: nil, imageLink: "https://firebasestorage.googleapis.com/v0/b/berkeley-mobile.appspot.com/o/images%2FCafe3.jpg?alt=media&token=f1062476-2cb0-4ce9-9ac1-6109bf588aaa", hours: [], latitude: nil, longitude: nil)
     ]
     
     BMHomeSectionListView(sectionType: .dining, items: diningHalls, mapViewController: MapViewController())

@@ -36,7 +36,7 @@ class GymDataSource: DataSource
     private static func parseGym(_ dict: [String: Any]) -> BMGym {
         let weeklyHours = BMGym.parseWeeklyHours(dict: dict["open_close_array"] as? [[String: Any]])
         
-        let gym = BMGym(name: dict["name"] as? String ?? "Unnamed",
+        var gym = BMGym(name: dict["name"] as? String ?? "Unnamed",
                       description: dict["description"] as? String,
                       address: dict["address"] as? String,
                       phoneNumber: dict["phone"] as? String,

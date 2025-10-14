@@ -12,9 +12,14 @@ struct HomeView: View {
     @EnvironmentObject private var homeViewModel: HomeViewModel
     
     @State private var tabSelectedIndex = 0
+    @State private var navigationPath = NavigationPath()
+    @State private var isPresentingDetailView = false
     @State private var selectedDetent: PresentationDetent = .fraction(0.45)
     
     private var mapViewController: MapViewController
+    
+    private let diningHallsViewModel = DiningHallsViewModel()
+    private let menuIconCacheManager = MenuItemIconCacheManager()
     
     init(mapViewController: MapViewController) {
         self.mapViewController = mapViewController
@@ -26,12 +31,8 @@ struct HomeView: View {
                 .ignoresSafeArea()
             VStack {
                 if homeViewModel.isShowingDrawer {
-                    BMDrawerView(drawerViewState: $homeViewModel.drawerViewState) {
-                        VStack {
-                            homeDrawerHeaderView
-                            homeDrawerContentView
-                        }
-                        .ignoresSafeArea()
+                    BMDrawerView(drawerViewState: $homeViewModel.drawerViewState, hPadding: 0, vPadding: 0) {
+                        homeDrawerContentView
                     }
                     .transition(AnyTransition.move(edge: .bottom).combined(with: .opacity))
                 }
@@ -51,69 +52,54 @@ struct HomeView: View {
         .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0))
     }
     
-    private var homeDrawerBackButton: some View {
-        Button(action: {
-            withAnimation {
-                homeViewModel.homeDrawerDetailViewInfo = nil
-                mapViewController.handleDrawerDismissal()
-            }
-        }) {
-            if #available(iOS 26.0, *) {
-                Image(systemName: "chevron.left.circle.fill")
-                    .font(.system(size: 40))
-                    .tint(.gray)
-                    .glassEffect(.regular.interactive(), in: .circle)
-            } else {
-                Image(systemName: "chevron.left.circle.fill")
-                    .font(.system(size: 40))
-                    .foregroundStyle(.gray)
-            }
-        }
-    }
-    
-    private var homeDrawerHeaderView: some View {
-        HStack {
-            if homeViewModel.homeDrawerDetailViewInfo != nil {
-                homeDrawerBackButton
-                    .padding(.leading)
-                Spacer()
-            } else {
-                segmentedControlHeader
-            }
-        }
-    }
-    
     private var homeDrawerContentView: some View {
-        Group {
-            if let detailViewInfo = homeViewModel.homeDrawerDetailViewInfo {
-                switch detailViewInfo.type {
-                case .dining:
-                    DiningDetailView(diningHall: detailViewInfo.item as! DiningHall)
-                case .fitness:
-                    GymDetailView(gym: detailViewInfo.item as! BMGym)
-                case .study:
-                    LibraryDetailView(library: detailViewInfo.item as! BMLibrary)
-                }
-            } else {
+        NavigationStack(path: $navigationPath) {
+            Group {
                 if homeViewModel.isFetching {
                     ProgressView("LOADING")
+                        .padding()
+                    Spacer()
                 } else {
+                    segmentedControlHeader
                     switch tabSelectedIndex {
                     case 0:
-                        BMHomeSectionListView(sectionType: .dining, items: homeViewModel.diningHalls, mapViewController: mapViewController)
-                            .onAppear {
-                                homeViewModel.logOpenedDiningHomeSectionAnalytics()
-                            }
+                        DiningHallsView(mapViewController: mapViewController) { selectedDiningHall in
+                            navigationPath.append(selectedDiningHall)
+                        }
+                        .environment(diningHallsViewModel)
+                        .onAppear {
+                            homeViewModel.logOpenedDiningHomeSectionAnalytics()
+                        }
                     case 1:
-                        FitnessView(mapViewController: mapViewController)
-                            .environmentObject(homeViewModel)
+                        FitnessView(mapViewController: mapViewController) { selectedGym in
+                            navigationPath.append(selectedGym)
+                        }
+                        .environmentObject(homeViewModel)
                     default:
-                        BMHomeSectionListView(sectionType: .study, items: homeViewModel.libraries, mapViewController: mapViewController)
+                        LibrariesView(mapViewController: mapViewController) { selectedLibrary in
+                            navigationPath.append(selectedLibrary)
+                        }
                     }
                 }
             }
+            .navigationBarTitleDisplayMode(.inline)
+            .containerBackground(.clear, for: .navigation)
+            .padding()
+            .navigationDestination(for: BMDiningHall.self) { diningHall in
+                DiningDetailView(diningHall: diningHall)
+                    .containerBackground(.clear, for: .navigation)
+                    .environment(diningHallsViewModel)
+                    .environment(\.menuIconCache, menuIconCacheManager)
+            }
+            .navigationDestination(for: BMGym.self) { gym in
+                GymDetailView(gym: gym)
+                    .containerBackground(.clear, for: .navigation)
+            }
+            .navigationDestination(for: BMLibrary.self) { library in
+                LibraryDetailView(library: library)
+                    .containerBackground(.clear, for: .navigation)
+            }
         }
-        .padding()
     }
 }
 
