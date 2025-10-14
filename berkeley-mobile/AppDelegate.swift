@@ -12,7 +12,6 @@ import FirebaseMessaging
 import GoogleSignIn
 import UIKit
 import UserNotifications
-import StoreKit
 
 
 @UIApplicationMain

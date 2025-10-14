@@ -7,22 +7,24 @@
 //
 
 import Foundation
-import SwiftUI
 import StoreKit
 import UIKit
 
 final class ReviewPrompter {
+    private let numLaunchesForReview: Int = 30
     static let shared = ReviewPrompter()
     func shouldPromptForReview() -> Bool {
         let launches = UserDefaults.standard.integer(forKey: UserDefaultsKeys.numAppLaunchForAppStoreReview)
-        if launches > 30 {
+        if launches > numLaunchesForReview {
             UserDefaults.standard.set(0, forKey: UserDefaultsKeys.numAppLaunchForAppStoreReview.rawValue)
             return true
         }
         return false
     }
     func presentReviewIfNeeded() {
-        guard shouldPromptForReview() else { return }
+        guard shouldPromptForReview() else {
+            return
+        }
         
         if let scene = UIApplication.shared.connectedScenes
             .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {

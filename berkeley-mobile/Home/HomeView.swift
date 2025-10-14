@@ -13,6 +13,7 @@ struct HomeView: View {
     
     @State private var tabSelectedIndex = 0
     @State private var selectedDetent: PresentationDetent = .fraction(0.45)
+    
     private var mapViewController: MapViewController
     
     init(mapViewController: MapViewController) {
@@ -38,9 +39,6 @@ struct HomeView: View {
             .animation(.default, value: homeViewModel.isShowingDrawer)
             .onChange(of: homeViewModel.isShowingDrawer) { _ in
                 homeViewModel.drawerViewState = .medium
-            }
-            .onAppear {
-                
             }
         }
     }

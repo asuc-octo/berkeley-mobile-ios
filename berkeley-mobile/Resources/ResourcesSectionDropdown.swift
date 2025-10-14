@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import StoreKit
 
 struct ResourcesSectionDropdown<Content: View>: View {
     let title: String
