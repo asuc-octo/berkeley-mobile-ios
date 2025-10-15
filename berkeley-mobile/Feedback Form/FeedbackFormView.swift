@@ -13,6 +13,8 @@ import SwiftUI
 struct FeedbackFormView: View {
     @Environment(\.dismiss) private var dismiss
     
+    var config: FeedbackFormConfig
+    
     @State private var email = ""
     @State private var selectedMostLikedFeatures = [String]()
     @State private var selectedWantedFeatures = [String]()
@@ -45,7 +47,7 @@ struct FeedbackFormView: View {
     var body: some View {
         NavigationView {
             Form {
-                Text("Please take 1-2 minutes to fill out this survey! We really appreciate the feedback! 🙏")
+                Text(config.instructionText)
                     .foregroundColor(.secondary)
                 emailSection
                 likeFeaturesSection
@@ -181,7 +183,8 @@ struct FeedbackFormView: View {
 
 struct FeedbackFormView_Previews: PreviewProvider {
     static var previews: some View {
-        FeedbackFormView()
+        let formConfig = FeedbackFormConfig(instructionText: "", sectionsAndQuestions: [], numOfAppLaunchesToShow: 20)
+        FeedbackFormView(config: formConfig)
     }
 }
 

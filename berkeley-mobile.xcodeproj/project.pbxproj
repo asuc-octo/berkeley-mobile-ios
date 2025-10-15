@@ -142,6 +142,7 @@
 		E8647F812E95AD9400A66820 /* LibrariesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8647F802E95AD9400A66820 /* LibrariesView.swift */; };
 		E8647FAD2E971ABA00A66820 /* Logger+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8647FAC2E971ABA00A66820 /* Logger+Ext.swift */; };
 		E8647FAF2E971C1000A66820 /* DiningDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8647FAE2E971C1000A66820 /* DiningDetailView.swift */; };
+		E88562952E9EAFC10062315A /* FeedbackFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88562942E9EAFC10062315A /* FeedbackFormViewModel.swift */; };
 		E889F75C2DA323C100202556 /* BMActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E889F75B2DA323C100202556 /* BMActionButton.swift */; };
 		E889F7FC2DAC4DEE00202556 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E889F7FB2DAC4DEE00202556 /* WidgetKit.framework */; };
 		E889F7FE2DAC4DEE00202556 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E889F7FD2DAC4DEE00202556 /* SwiftUI.framework */; };
@@ -355,6 +356,7 @@
 		E8647F802E95AD9400A66820 /* LibrariesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibrariesView.swift; sourceTree = "<group>"; };
 		E8647FAC2E971ABA00A66820 /* Logger+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Ext.swift"; sourceTree = "<group>"; };
 		E8647FAE2E971C1000A66820 /* DiningDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiningDetailView.swift; sourceTree = "<group>"; };
+		E88562942E9EAFC10062315A /* FeedbackFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackFormViewModel.swift; sourceTree = "<group>"; };
 		E889F75B2DA323C100202556 /* BMActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMActionButton.swift; sourceTree = "<group>"; };
 		E889F7FA2DAC4DEE00202556 /* BerkeleyMobileWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = BerkeleyMobileWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		E889F7FB2DAC4DEE00202556 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
@@ -740,7 +742,7 @@
 				306A54EB23613E3A00D59A7F /* SceneDelegate.swift */,
 				306A54FF23614C0000D59A7F /* MainContainerViewController.swift */,
 				556CCD2C23E79EC100F41BF9 /* TabBarController.swift */,
-				E83D87932AB3CD1E00C4113C /* FeedbackFormView.swift */,
+				E88562932E9EAE080062315A /* Feedback Form */,
 				13EA64CE2399D4A100FD8E13 /* Data */,
 				E89F204B2DF4011E00C488EF /* Home */,
 				133864A72404E857001F9048 /* Events */,
@@ -791,6 +793,15 @@
 				61D128E68A4FC209FFCDE60F /* Pods-berkeley-mobile.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		E88562932E9EAE080062315A /* Feedback Form */ = {
+			isa = PBXGroup;
+			children = (
+				E83D87932AB3CD1E00C4113C /* FeedbackFormView.swift */,
+				E88562942E9EAFC10062315A /* FeedbackFormViewModel.swift */,
+			);
+			path = "Feedback Form";
 			sourceTree = "<group>";
 		};
 		E8902E4A2B9A73770010F5F9 /* Frameworks */ = {
@@ -1189,6 +1200,7 @@
 				1336A320241D924300949F32 /* DiningItem.swift in Sources */,
 				E8912C2A2D869D6900C645B9 /* BMConstants.swift in Sources */,
 				13EA64CD2399CEDA00FD8E13 /* BMGym.swift in Sources */,
+				E88562952E9EAFC10062315A /* FeedbackFormViewModel.swift in Sources */,
 				E89F20492DF3F7B200C488EF /* FitnessView.swift in Sources */,
 				E89F20452DF2CD2E00C488EF /* BMHomeSectionListView.swift in Sources */,
 				1396013523865E2E005E4788 /* CardView.swift in Sources */,

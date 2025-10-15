@@ -20,7 +20,6 @@ class DiningHallsViewModel {
     var selectedDiningHall: BMDiningHall?
     var isFetching = false
     
-    private let db = Firestore.firestore()
     private let placesToOmit = ["Bear Market", "Den"]
     
     init() {

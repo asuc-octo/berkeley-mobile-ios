@@ -26,6 +26,8 @@ class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
     private var homeViewController: UIViewController!
     private var homeView: UIView!
     
+    private let feedbackFormViewModel = FeedbackFormViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -49,23 +51,29 @@ class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        attemptShowFeedbackForm()
+        
+        Task {
+            let formConfig = await feedbackFormViewModel.fetchFeedbackFormConfig()
+            attemptShowFeedbackForm(withConfig: formConfig)
+        }
     }
     
-    private func attemptShowFeedbackForm() {
+    private func attemptShowFeedbackForm(withConfig formConfig: FeedbackFormConfig?) {
+        guard let formConfig else {
+            return
+        }
+    
         let numAppLaunchForFeedbackForm = UserDefaults.standard.integer(forKey: .numAppLaunchForFeedbackForm)
         
-        guard numAppLaunchForFeedbackForm == 1 else {
-            if numAppLaunchForFeedbackForm == 0 {
-                UserDefaults.standard.set(1, forKey: .numAppLaunchForFeedbackForm)
-            }
+        guard numAppLaunchForFeedbackForm == formConfig.numOfAppLaunchesToShow else {
+            UserDefaults.standard.set(numAppLaunchForFeedbackForm + 1, forKey: .numAppLaunchForFeedbackForm)
             return
         }
         
         let feedbackFormVC = UIViewController()
         feedbackFormVC.view.backgroundColor = .red
         
-        let feedbackFormContentView = UIHostingController(rootView: FeedbackFormView())
+        let feedbackFormContentView = UIHostingController(rootView: FeedbackFormView(config: formConfig))
         feedbackFormVC.addChild(feedbackFormContentView)
         feedbackFormVC.view.addSubview(feedbackFormContentView.view)
 
