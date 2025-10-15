@@ -80,7 +80,7 @@ extension String {
         var calendar = Calendar.current
         calendar.timeZone = timeZone
 
-        func hm(_ s: String) -> (h: Int, m: Int)? {
+        func extractHoursandMinutes(_ s: String) -> (h: Int, m: Int)? {
             let dateFormat = s.contains(":") ? "h:mm a" : "h a"
             guard let d = s.convertToDate(dateFormat: dateFormat) else {
                 return nil
@@ -89,8 +89,8 @@ extension String {
             return (dateComponents.hour ?? 0, dateComponents.minute ?? 0)
         }
 
-        guard let (startHour, startMinute) = hm(String(parts[0])),
-              let (endHour, endMinute) = hm(String(parts[1])) else {
+        guard let (startHour, startMinute) = extractHoursandMinutes(String(parts[0])),
+              let (endHour, endMinute) = extractHoursandMinutes(String(parts[1])) else {
             return nil
         }
 
