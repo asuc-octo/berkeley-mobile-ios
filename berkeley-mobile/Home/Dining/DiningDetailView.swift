@@ -19,7 +19,7 @@ struct DiningDetailView: View {
     @State private var selectedTabIndex = 0
     
     private var allDayString: String? {
-        return diningHall.meals[BMMeal.BMMealType.allDay]?.categoriesAndMenuItems.first?.menuItems.first?.name
+        return diningHall.meals[BMMeal.BMMealType.other]?.categoriesAndMenuItems.first?.menuItems.first?.name
     }
     
     private var categoriesAndMenuItems: [BMMealCategory] {
