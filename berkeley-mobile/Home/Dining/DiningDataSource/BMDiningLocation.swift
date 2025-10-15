@@ -101,6 +101,7 @@ struct BMMeal: Codable {
         case breakfast = "Breakfast"
         case lunch = "Lunch"
         case dinner = "Dinner"
+        case allDay = "All Day"
         case other = "Other"
     }
 

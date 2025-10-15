@@ -8,7 +8,6 @@
 
 import Firebase
 import SwiftUI
-import MapKit
 
 // MARK: - DiningDetailView
 
@@ -19,7 +18,11 @@ struct DiningDetailView: View {
     
     @State private var selectedTabIndex = 0
     
-    private var categoriesAndMenuItems:  [BMMealCategory] {
+    private var allDayString: String? {
+        return diningHall.meals[BMMeal.BMMealType.allDay]?.categoriesAndMenuItems.first?.menuItems.first?.name
+    }
+    
+    private var categoriesAndMenuItems: [BMMealCategory] {
         switch selectedTabIndex {
         case 0:
             return diningHall.meals[BMMeal.BMMealType.breakfast]?.categoriesAndMenuItems ?? []
@@ -32,20 +35,30 @@ struct DiningDetailView: View {
     
     var body: some View {
         VStack {
-            BMSegmentedControlView(tabNames: ["Breakfast", "Lunch", "Dinner"], selectedTabIndex: $selectedTabIndex)
-            
-            if categoriesAndMenuItems.isEmpty {
-                Text("No Menu Items Available")
-                    .fontWeight(.semibold)
-                    .padding(.top, 25)
-                Spacer()
-            } else {
-                List {
-                    DiningItemsListView(categoriesAndMenuItems: categoriesAndMenuItems)
+            if let allDayString {
+                VStack {
+                    DiningDetailRowView {
+                        Text(allDayString)
+                            .font(Font(BMFont.regular(15)))
+                    }
+                    Spacer()
                 }
-                .listStyle(.plain)
-                .scrollContentBackground(.hidden)
-                .contentMargins(.top, 0)
+                .padding()
+            } else {
+                BMSegmentedControlView(tabNames: ["Breakfast", "Lunch", "Dinner"], selectedTabIndex: $selectedTabIndex)
+                if categoriesAndMenuItems.isEmpty {
+                    Text("No Menu Items Available")
+                        .fontWeight(.semibold)
+                        .padding(.top, 25)
+                    Spacer()
+                } else {
+                    List {
+                        DiningItemsListView(categoriesAndMenuItems: categoriesAndMenuItems)
+                    }
+                    .listStyle(.plain)
+                    .scrollContentBackground(.hidden)
+                    .contentMargins(.top, 0)
+                }
             }
         }
         .padding(.top, 10)
@@ -56,24 +69,17 @@ struct DiningDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItemGroup(placement: .topBarTrailing) {
-                if let lat = diningHall.latitude, let lng = diningHall.longitude {
+                if diningHall.hasCoordinate {
                     Button(action: {
-                        let coordinate = CLLocationCoordinate2DMake(lat, lng)
-                        let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: coordinate, addressDictionary:nil))
-                        mapItem.name = diningHall.name
-                        mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving])
+                        viewModel.openDiningHallInMaps(for: diningHall)
                     }) {
                         Image(systemName: "map")
                     }
                 }
                 
-                if let phoneNumber = diningHall.phoneNumber {
+                if diningHall.hasPhoneNumber {
                     Button(action: {
-                        guard let url = URL(string: "tel://\(phoneNumber)"),
-                            UIApplication.shared.canOpenURL(url) else {
-                            return
-                        }
-                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                        viewModel.callDiningHall(for: diningHall)
                     }) {
                         Image(systemName: "phone")
                     }
@@ -94,18 +100,11 @@ struct DiningItemsListView: View {
             ForEach(categoriesAndMenuItems, id: \.categoryName) { mealCategory in
                 Section {
                     ForEach(mealCategory.menuItems, id: \.itemId) { menuItem in
-                        HStack {
-                            VStack(alignment: .leading) {
-                                Text(menuItem.name)
-                                    .font(Font(BMFont.regular(15)))
-                                DiningMenuItemIconsView(menuItem: menuItem)
-                            }
-                            .padding(.horizontal)
-                            Spacer()
+                        DiningDetailRowView {
+                            Text(menuItem.name)
+                                .font(Font(BMFont.regular(15)))
+                            DiningMenuItemIconsView(menuItem: menuItem)
                         }
-                        .padding()
-                        .background(Color(BMColor.cardBackground))
-                        .clipShape(.capsule)
                     }
                 } header: {
                     HStack {
@@ -119,6 +118,27 @@ struct DiningItemsListView: View {
         }
         .listRowSeparator(.hidden)
         .listRowBackground(Color.clear)
+    }
+}
+
+
+// MARK: - DiningDetailRowView
+
+struct DiningDetailRowView<Content: View>: View {
+    
+    @ViewBuilder var content: () -> Content
+    
+    var body: some View {
+        HStack {
+            VStack(alignment: .leading) {
+                content()
+            }
+            .padding(.horizontal)
+            Spacer()
+        }
+        .padding()
+        .background(Color(BMColor.cardBackground))
+        .clipShape(.capsule)
     }
 }
 
