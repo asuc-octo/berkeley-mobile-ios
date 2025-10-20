@@ -71,7 +71,7 @@ struct DiningDetailView: View {
                         return "\(startTime) - \(endTime)"
                     }.joined(separator: "\n")
 
-                    return "Today\n\(periods)"
+                    return (periods)
                 }
             }()
 
