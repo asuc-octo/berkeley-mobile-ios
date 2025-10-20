@@ -18,6 +18,7 @@ struct DiningDetailView: View {
     var diningHall: BMDiningHall
     
     @State private var selectedTabIndex = 0
+    @State private var showAlert = false
     
     private var categoriesAndMenuItems:  [BMMealCategory] {
         switch selectedTabIndex {
@@ -54,8 +55,36 @@ struct DiningDetailView: View {
         }
         .navigationTitle(diningHall.name)
         .navigationBarTitleDisplayMode(.inline)
+        .alert("Hours", isPresented: $showAlert) {
+            Button("OK") { }
+        } message: {
+            let hoursText: String = {
+                if diningHall.hours.isEmpty {
+                    return "No hours available"
+                } else {
+                    let timeFormatter = DateFormatter()
+                    timeFormatter.timeStyle = .short
+
+                    let periods = diningHall.hours.map { interval in
+                        let startTime = timeFormatter.string(from: interval.start)
+                        let endTime = timeFormatter.string(from: interval.end)
+                        return "\(startTime) - \(endTime)"
+                    }.joined(separator: "\n")
+
+                    return "Today\n\(periods)"
+                }
+            }()
+
+            Text(hoursText)
+        }
         .toolbar {
             ToolbarItemGroup(placement: .topBarTrailing) {
+                Button(action: {
+                    showAlert = true
+                }) {
+                    Image(systemName: "info.circle")
+                }
+
                 if let lat = diningHall.latitude, let lng = diningHall.longitude {
                     Button(action: {
                         let coordinate = CLLocationCoordinate2DMake(lat, lng)
