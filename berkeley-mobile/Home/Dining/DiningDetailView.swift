@@ -55,7 +55,7 @@ struct DiningDetailView: View {
         }
         .navigationTitle(diningHall.name)
         .navigationBarTitleDisplayMode(.inline)
-        .alert("Hours", isPresented: $showAlert) {
+        .alert("\(diningHall.name)'s Hours", isPresented: $showAlert) {
             Button("OK") { }
         } message: {
             let hoursText: String = {
