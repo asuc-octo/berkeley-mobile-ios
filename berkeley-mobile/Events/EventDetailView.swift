@@ -72,9 +72,7 @@ struct EventDetailView: View {
     }
     
     private func presentLinkAlert(type: AlertType?) {
-        guard let type else {
-            return
-        }
+        guard let type else { return }
         
         var message = ""
         var url: URL!
@@ -97,7 +95,6 @@ struct EventDetailView: View {
     }
 }
 
-
 // MARK: - BMDetailHeaderView
 
 struct BMDetailHeaderView: View {
@@ -105,16 +102,33 @@ struct BMDetailHeaderView: View {
     
     var body: some View {
         ZStack {
-            BMCachedAsyncImageView(imageURL: event.imageURL, placeholderImage: BMConstants.doeGladeImage, aspectRatio: .fill, widthAndHeight: 330, cornerRadius: 10)
+            BMCachedAsyncImageView(
+                imageURL: event.imageURL,
+                placeholderImage: BMConstants.doeGladeImage,
+                aspectRatio: .fill,
+                widthAndHeight: 330,
+                cornerRadius: 10
+            )
             
             VStack(alignment: .leading, spacing: 8) {
                 Spacer()
-                BMCachedAsyncImageView(imageURL: event.imageURL, placeholderImage: BMConstants.doeGladeImage, aspectRatio: .fill, widthAndHeight: 130, cornerRadius: 10)
-                    .frame(maxWidth: .infinity, alignment: .center)
-                    .shadow(color: .gray, radius: 10)
+                BMCachedAsyncImageView(
+                    imageURL: event.imageURL,
+                    placeholderImage: BMConstants.doeGladeImage,
+                    aspectRatio: .fill,
+                    widthAndHeight: 130,
+                    cornerRadius: 10
+                )
+                .frame(maxWidth: .infinity, alignment: .center)
+                .shadow(color: .gray, radius: 10)
+                
                 eventNameView
-                timeView
-                locationView
+                VStack(alignment: .leading, spacing: 4) {
+                    dateView
+                    timeView
+                    locationView
+                }
+                
                 Spacer()
             }
             .padding()
@@ -133,25 +147,14 @@ struct BMDetailHeaderView: View {
         }
     }
     
+    private var dateView: some View {
+        let datePart = event.dateString.components(separatedBy: " / ").first ?? ""
+        return EventDetailRow(systemImageName: "calendar", text: datePart)
+    }
+    
     private var timeView: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            // Date line
-            HStack {
-                Image(systemName: "calendar")
-                    .font(.system(size: 16))
-                    .foregroundColor(.secondary)
-                Text(event.dateString)
-                    .font(Font(BMFont.regular(12)))
-            }
-            // Time line
-            HStack {
-                Image(systemName: "clock")
-                    .font(.system(size: 16))
-                    .foregroundColor(.secondary)
-                Text(event.timeString)
-                    .font(Font(BMFont.regular(12)))
-            }
-        }
+        let timePart = event.dateString.components(separatedBy: " / ").last ?? ""
+        return EventDetailRow(systemImageName: "clock", text: timePart)
     }
     
     @ViewBuilder
@@ -168,6 +171,19 @@ struct BMDetailHeaderView: View {
     }
 }
 
+struct EventDetailRow: View {
+    let systemImageName: String
+    let text: String
+
+    var body: some View {
+        HStack {
+            Image(systemName: systemImageName)
+                .font(.system(size: 16))
+            Text(text)
+                .font(Font(BMFont.regular(12)))
+        }
+    }
+}
 
 // MARK: - BMDetailDescriptionView
 
@@ -188,8 +204,12 @@ struct BMDetailDescriptionView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
     }
 }
-     
+
+// MARK: - Preview
+
 #Preview {
     EventDetailView(event: BMEventCalendarEntry.sampleEntry)
         .environmentObject(EventsViewModel())
 }
+
+

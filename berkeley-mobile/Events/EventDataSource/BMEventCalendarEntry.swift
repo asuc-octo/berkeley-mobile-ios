@@ -46,7 +46,7 @@ class BMEventCalendarEntry: NSObject, NSCoding, Identifiable, BMCalendarEvent, H
     
     // MARK: HasImage
     var imageURL: URL?
-
+    
     // MARK: Additional Fields
     /// The main category this event belongs to (e.g. Academic, Career) used to determine where it is displayed
     // FIXME: category should be more suited as an enum
@@ -57,7 +57,7 @@ class BMEventCalendarEntry: NSObject, NSCoding, Identifiable, BMCalendarEvent, H
     var sourceLink: URL?
     /// The subcategory for the event within the main category
     var type: String?
-
+    
     /// The color associated with this event's `type`.
     var color: UIColor {
         guard let type = type else { return BMColor.eventDefault }
@@ -70,7 +70,7 @@ class BMEventCalendarEntry: NSObject, NSCoding, Identifiable, BMCalendarEvent, H
             return BMColor.eventDefault
         }
     }
-
+    
     init(name: String, date: Date, end: Date? = nil, descriptionText: String? = nil, location: String? = nil, registerLink: String? = nil, imageURL: String? = nil, sourceLink: String? = nil, type: String? = nil) {
         self.name = name
         self.startDate = date
@@ -123,36 +123,10 @@ class BMEventCalendarEntry: NSObject, NSCoding, Identifiable, BMCalendarEvent, H
         self.type = coder.decodeObject(forKey: ArgumentNames.type) as? String
     }
     
-    var dateString: String {
-        let calendar = Calendar.current
-        let today = Date()
-        
-        if calendar.isDate(startDate, inSameDayAs: today) {
-            return "Today"
-        } else if let tomorrow = calendar.date(byAdding: .day, value: 1, to: today),
-                  calendar.isDate(startDate, inSameDayAs: tomorrow) {
-            return "Tomorrow"
-        } else {
-            let formatter = DateFormatter()
-            formatter.dateStyle = .medium
-            return formatter.string(from: startDate)
-        }
-    }
-    
-    var timeString: String {
-        let formatter = DateFormatter()
-        formatter.timeStyle = .short
-        if let endDate = end {
-            return "\(formatter.string(from: startDate)) - \(formatter.string(from: endDate))"
-        } else {
-            return formatter.string(from: startDate)
-        }
-    }
-
-
 }
 
 extension BMEventCalendarEntry {
+    
     static let sampleEntry = BMEventCalendarEntry(
         name: "Exhibit | A Storied Campus: Cal in Fiction",
         date: Date(),
