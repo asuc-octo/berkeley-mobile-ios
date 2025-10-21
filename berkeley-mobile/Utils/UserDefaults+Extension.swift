@@ -13,6 +13,7 @@ enum UserDefaultsKeys: String {
     case academicEventsLastSavedDate = "academicEventsLastSavedDate"
     case campuswideEventsLastSavedDate = "campuswideEventsLastSavedDate"
     case recentSearches = "recentSearches"
+    case openClosedStatusTimerEndDates = "openClosedStatusTimerEndDates"
 }
 
 extension UserDefaults {

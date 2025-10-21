@@ -18,7 +18,13 @@ struct HomeSectionListRowView: View {
                     .foregroundStyle(Color(BMColor.blackText))
                     .font(Font(BMFont.bold(18)))
                 Spacer()
-                distanceLabelView
+                HStack {
+                    Group {
+                        openClosedStatusView
+                        distanceLabelView
+                    }
+                    .applyHomeDrawerRowAttributesStyle()
+                }
             }
             .frame(height: 74)
             
@@ -30,15 +36,22 @@ struct HomeSectionListRowView: View {
         .shadowfy()
     }
     
+    @ViewBuilder
+    private var openClosedStatusView: some View {
+        if let itemWithOpenClosedStatus = rowItem as? (any HasOpenClosedStatus) {
+            OpenClosedStatusView(status: itemWithOpenClosedStatus.isOpen ? .open : .closed)
+        }
+    }
+    
     private var distanceLabelView: some View {
         HStack {
             Image(systemName: "figure.walk")
                 .foregroundStyle(Color(BMColor.blackText))
-                .font(.system(size: 14))
+                .font(.system(size: 12))
             
             Text("\(rowItem.distanceToUser ?? 0.0, specifier: "%.1f") mi")
                 .foregroundStyle(Color(BMColor.blackText))
-                .font(Font(BMFont.light(14)))
+                .font(Font(BMFont.light(12)))
         }
     }
     
