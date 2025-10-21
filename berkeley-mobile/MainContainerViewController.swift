@@ -50,9 +50,6 @@ class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         attemptShowFeedbackForm()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                ReviewPrompter.shared.presentReviewIfNeeded()
-        }
     }
     
     private func attemptShowFeedbackForm() {

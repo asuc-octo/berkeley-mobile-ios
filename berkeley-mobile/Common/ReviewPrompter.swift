@@ -10,25 +10,28 @@ import Foundation
 import StoreKit
 import UIKit
 
-final class ReviewPrompter {
-    private let numLaunchesForReview: Int = 30
-    static let shared = ReviewPrompter()
-    func shouldPromptForReview() -> Bool {
-        let launches = UserDefaults.standard.integer(forKey: UserDefaultsKeys.numAppLaunchForAppStoreReview)
-        if launches > numLaunchesForReview {
-            UserDefaults.standard.set(0, forKey: UserDefaultsKeys.numAppLaunchForAppStoreReview.rawValue)
+enum ReviewPrompter {
+    private static let numLaunchesForReview: Int = 30
+
+    private static func shouldPromptForReview() -> Bool {
+        let key = UserDefaultsKeys.numAppLaunchForAppStoreReview.rawValue
+        let launches = UserDefaults.standard.integer(forKey: key)
+        print("DEBUG: ",launches)
+        if launches == numLaunchesForReview {
+            UserDefaults.standard.set(0, forKey: key)
             return true
         }
         return false
     }
-    func presentReviewIfNeeded() {
-        guard shouldPromptForReview() else {
-            return
-        }
-        
+
+    @MainActor
+    static func presentReviewIfNeeded() {
+        guard shouldPromptForReview() else { return }
+
         if let scene = UIApplication.shared.connectedScenes
             .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
-            SKStoreReviewController.requestReview(in: scene)
+            AppStore.requestReview(in: scene)
+            
         }
     }
 }

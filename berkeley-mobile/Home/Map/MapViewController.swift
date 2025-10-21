@@ -141,7 +141,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
 
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 if self.mainContainer?.presentedViewController == nil {
-                    ReviewPrompter.shared.presentReviewIfNeeded()
+                    ReviewPrompter.presentReviewIfNeeded()
                 }
             }
         }
