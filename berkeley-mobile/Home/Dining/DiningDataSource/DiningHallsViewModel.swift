@@ -32,7 +32,7 @@ class DiningHallsViewModel {
         Task { @MainActor in
             let diningHallsAdditionalDataDict = await fetchDiningHallsAdditionalData()
             diningHalls = await fetchDiningHalls(withAdditionalData: diningHallsAdditionalDataDict)
-            diningHalls.forEach { openClosedStatusManager.registerTimer(for: $0) }
+            openClosedStatusManager.registerTimers(for: diningHalls)
             isFetching = false
         }
     }

@@ -14,89 +14,84 @@ protocol OpenClosedStatusManagerDelegate: AnyObject {
     func didTimerFire(for itemID: String, with timer: Timer)
 }
 
-/// `OpenClosedStatusTimerSaveInfo` contains the information for a timer when the app enters the background and is retrieved the next time the app enters the foreground.
- struct OpenClosedStatusTimerSaveInfo: Codable, Equatable {
-    let targetDate: Date
-    let itemID: String
-}
-
-/// `OpenClosedStatusManager` manages associated `Timer` objects and callbacks to Home Drawer row items that conform to `HasOpenClosedStatus` for observation.
+/// `OpenClosedStatusManager` manages associated `Timer` objects and callbacks to items that conform to `HasOpenClosedStatus` for observation.
 class OpenClosedStatusManager {
     private struct Constants {
-        static let timerUserInfoKey = "item"
+        static let timerUserInfoKey = "itemID"
     }
     
     weak var delegate: OpenClosedStatusManagerDelegate?
-
-    private var timers: [(timer: Timer, saveInfo: OpenClosedStatusTimerSaveInfo)] = []
-    private var timerSaveInfos: [OpenClosedStatusTimerSaveInfo] {
-        return timers.map { $0.saveInfo }
-    }
+    
+    private var timers: [(timer: Timer, itemID: String, fireDate: Date)] = []
+    private var hasOpenClosedStatusDict: [String: any HasOpenClosedStatus] = [:]
     
     init() {
         NotificationCenter.default.addObserver(self, selector: #selector(appWillEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(appDidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
     }
-    
-    func registerTimer(for item: any HasOpenClosedStatus) {
-        let startReps = item.hours.map { OpenClosedStatusTimerSaveInfo(targetDate: $0.start, itemID: item.id) }
-        let endReps = item.hours.map { OpenClosedStatusTimerSaveInfo(targetDate: $0.end, itemID: item.id) }
-        scheduleTimers(for: startReps + endReps)
+
+    func registerTimers(for items: [any HasOpenClosedStatus]) {
+        invalidateTimers()
+
+        let now = Date()
+        for item in items {
+            var didScheduleTimer = true
+            if let intervalContainingCurrentDate = item.hours.first(where: { $0.start >= now && $0.end <= now }) {
+                scheduleTimer(withInfo: (item.id, intervalContainingCurrentDate.end))
+            } else if let nearestStartInterval = item.hours.first(where: { $0.start >= now }) {
+                scheduleTimer(withInfo: (item.id, nearestStartInterval.start))
+            } else {
+                didScheduleTimer = false
+            }
+            
+            if didScheduleTimer {
+                hasOpenClosedStatusDict[item.id] = item
+            } else {
+                hasOpenClosedStatusDict.removeValue(forKey: item.id)
+            }
+        }
     }
     
-    @objc private func fireTimer(timer: Timer) {
-        guard let context = timer.userInfo as? [String: OpenClosedStatusTimerSaveInfo], let item = context[Constants.timerUserInfoKey] else {
-            return
-        }
-        delegate?.didTimerFire(for: item.itemID, with: timer)
+    
+    // MARK: - Private Methods
+
+    @objc private func fireTimer(_ timer: Timer) {
+        let itemID = (timer.userInfo as? [String: String])?[Constants.timerUserInfoKey] ?? ""
+        delegate?.didTimerFire(for: itemID, with: timer)
         timer.invalidate()
+        
+        if let item = hasOpenClosedStatusDict[itemID] {
+            registerTimers(for: [item])
+        }
     }
     
     @objc private func appWillEnterForeground() {
-        guard let decodedData = UserDefaults.standard.data(forKey: UserDefaultsKeys.openClosedStatusTimerEndDates) else {
-            return
-        }
-        
-        do {
-            let decodedInfos = try JSONDecoder().decode([OpenClosedStatusTimerSaveInfo].self, from: decodedData)
+        let hasOpenClosedStatusItems = Array(hasOpenClosedStatusDict.values)
+        registerTimers(for: hasOpenClosedStatusItems)
+    }
 
-            saveTimers(for: decodedInfos)
-            scheduleTimers(for: decodedInfos)
-        } catch {
-            Logger.openClosedStatusManager.error("Unable to retrieve timers: \(error)")
-        }
-    }
-    
     @objc private func appDidEnterBackground() {
-        let reps = timers.map { OpenClosedStatusTimerSaveInfo(targetDate: $0.timer.fireDate, itemID: $0.saveInfo.itemID) }
+        invalidateTimers()
+    }
+    
+    private func invalidateTimers() {
         timers.forEach { $0.timer.invalidate() }
-        saveTimers(for: reps)
+        timers.removeAll()
     }
     
-    private func saveTimers(for saveInfos: [OpenClosedStatusTimerSaveInfo]) {
-        let validSaveInfos = saveInfos.filter { $0.targetDate >= Date() }
-        
-        do {
-            let encodedData = try JSONEncoder().encode(validSaveInfos)
-            UserDefaults.standard.set(encodedData, forKey: UserDefaultsKeys.openClosedStatusTimerEndDates)
-            timers = []
-        } catch {
-            Logger.openClosedStatusManager.error("Unable to save timers: \(error)")
-        }
+    private func scheduleTimers(withInfos timerInfos: [(itemID: String, fireDate: Date)]) {
+        timerInfos.forEach { scheduleTimer(withInfo: $0) }
     }
     
-    private func scheduleTimers(for saveInfos: [OpenClosedStatusTimerSaveInfo]) {
-        let validSaveInfos = saveInfos.filter { $0.targetDate >= Date() }
-        
-        validSaveInfos.forEach {
-            let newSaveInfo = OpenClosedStatusTimerSaveInfo(targetDate: $0.targetDate, itemID: $0.itemID)
-            
-            if !timerSaveInfos.contains(newSaveInfo) {
-                let elapsed = $0.targetDate.timeIntervalSinceNow
-                let timer = Timer(timeInterval: elapsed, target: self, selector: #selector(fireTimer), userInfo: [Constants.timerUserInfoKey: newSaveInfo], repeats: false)
-                RunLoop.main.add(timer, forMode: .common)
-                timers.append((timer, newSaveInfo))
-            }
-        }
+    private func scheduleTimer(withInfo timerInfo: (itemID: String, fireDate: Date)) {
+        let (itemID, fireDate) = timerInfo
+        let t = Timer(timeInterval: max(0.01, fireDate.timeIntervalSinceNow),
+                      target: self,
+                      selector: #selector(fireTimer),
+                      userInfo: [Constants.timerUserInfoKey: itemID],
+                      repeats: false)
+        t.tolerance = 0.5
+        RunLoop.main.add(t, forMode: .common)
+        timers.append((t, itemID, fireDate))
     }
 }
