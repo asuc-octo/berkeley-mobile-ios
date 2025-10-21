@@ -72,7 +72,10 @@ struct EventDetailView: View {
     }
     
     private func presentLinkAlert(type: AlertType?) {
-        guard let type else { return }
+        guard let type else {
+                    return
+                }
+       
         
         var message = ""
         var url: URL!
@@ -102,25 +105,13 @@ struct BMDetailHeaderView: View {
     
     var body: some View {
         ZStack {
-            BMCachedAsyncImageView(
-                imageURL: event.imageURL,
-                placeholderImage: BMConstants.doeGladeImage,
-                aspectRatio: .fill,
-                widthAndHeight: 330,
-                cornerRadius: 10
-            )
+            BMCachedAsyncImageView(imageURL: event.imageURL, placeholderImage: BMConstants.doeGladeImage, aspectRatio: .fill, widthAndHeight: 330, cornerRadius: 10)
             
             VStack(alignment: .leading, spacing: 8) {
                 Spacer()
-                BMCachedAsyncImageView(
-                    imageURL: event.imageURL,
-                    placeholderImage: BMConstants.doeGladeImage,
-                    aspectRatio: .fill,
-                    widthAndHeight: 130,
-                    cornerRadius: 10
-                )
-                .frame(maxWidth: .infinity, alignment: .center)
-                .shadow(color: .gray, radius: 10)
+                BMCachedAsyncImageView(imageURL: event.imageURL, placeholderImage: BMConstants.doeGladeImage, aspectRatio: .fill, widthAndHeight: 130, cornerRadius: 10)
+                                    .frame(maxWidth: .infinity, alignment: .center)
+                                    .shadow(color: .gray, radius: 10)
                 
                 eventNameView
                 VStack(alignment: .leading, spacing: 4) {
@@ -204,8 +195,6 @@ struct BMDetailDescriptionView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
     }
 }
-
-// MARK: - Preview
 
 #Preview {
     EventDetailView(event: BMEventCalendarEntry.sampleEntry)
