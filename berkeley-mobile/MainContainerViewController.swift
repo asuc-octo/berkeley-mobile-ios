@@ -10,7 +10,7 @@ import UIKit
 import SwiftUI
 
 class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
-    
+
     // MainDrawerViewDelegate properties
     var drawerStack: [DrawerViewDelegate] = []
     var positions: [DrawerState?] = []
