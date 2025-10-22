@@ -31,12 +31,10 @@ class OpenClosedStatusManager {
     }
 
     func registerTimers(for items: [any HasOpenClosedStatus]) {
-        invalidateTimers()
-
         let now = Date()
         for item in items {
             var didScheduleTimer = true
-            if let intervalContainingCurrentDate = item.hours.first(where: { $0.start >= now && $0.end <= now }) {
+            if let intervalContainingCurrentDate = item.hours.first(where: { $0.contains(now) }) {
                 scheduleTimer(withInfo: (item.id, intervalContainingCurrentDate.end))
             } else if let nearestStartInterval = item.hours.first(where: { $0.start >= now }) {
                 scheduleTimer(withInfo: (item.id, nearestStartInterval.start))
@@ -61,7 +59,7 @@ class OpenClosedStatusManager {
         let itemID = (timer.userInfo as? [String: String])?[Constants.timerUserInfoKey] ?? ""
         delegate?.didTimerFire(for: itemID, with: timer)
         timer.invalidate()
-        
+
         if let item = hasOpenClosedStatusDict[itemID] {
             registerTimers(for: [item])
         }
@@ -93,7 +91,7 @@ class OpenClosedStatusManager {
                       userInfo: [Constants.timerUserInfoKey: itemID],
                       repeats: false)
         t.tolerance = 0.5
-        RunLoop.main.add(t, forMode: .common)
+        RunLoop.main.add(t, forMode: .default)
         timers.append((t, itemID, fireDate))
     }
 }
