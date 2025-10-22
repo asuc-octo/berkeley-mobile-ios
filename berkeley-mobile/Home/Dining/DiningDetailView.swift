@@ -36,14 +36,7 @@ struct DiningDetailView: View {
     var body: some View {
         VStack {
             if let allDayString {
-                VStack {
-                    DiningDetailRowView {
-                        Text(allDayString)
-                            .font(Font(BMFont.regular(15)))
-                    }
-                    Spacer()
-                }
-                .padding()
+                DiningAllDayView(allDayString: allDayString)
             } else {
                 BMSegmentedControlView(tabNames: ["Breakfast", "Lunch", "Dinner"], selectedTabIndex: $selectedTabIndex)
                 if categoriesAndMenuItems.isEmpty {
@@ -86,6 +79,24 @@ struct DiningDetailView: View {
                 }
             }
         }
+    }
+}
+
+
+// MARK: - DiningAllDayView
+
+struct DiningAllDayView: View {
+    let allDayString: String
+    
+    var body: some View {
+        VStack {
+            DiningDetailRowView {
+                Text(allDayString)
+                    .font(Font(BMFont.regular(15)))
+            }
+            Spacer()
+        }
+        .padding()
     }
 }
 
