@@ -73,10 +73,9 @@ struct EventDetailView: View {
     
     private func presentLinkAlert(type: AlertType?) {
         guard let type else {
-                    return
-                }
+            return
+        }
        
-        
         var message = ""
         var url: URL!
         
@@ -110,8 +109,8 @@ struct BMDetailHeaderView: View {
             VStack(alignment: .leading, spacing: 8) {
                 Spacer()
                 BMCachedAsyncImageView(imageURL: event.imageURL, placeholderImage: BMConstants.doeGladeImage, aspectRatio: .fill, widthAndHeight: 130, cornerRadius: 10)
-                                    .frame(maxWidth: .infinity, alignment: .center)
-                                    .shadow(color: .gray, radius: 10)
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .shadow(color: .gray, radius: 10)
                 
                 eventNameView
                 VStack(alignment: .leading, spacing: 4) {
@@ -162,6 +161,9 @@ struct BMDetailHeaderView: View {
     }
 }
 
+
+// MARK: - EventDetailRow
+
 struct EventDetailRow: View {
     let systemImageName: String
     let text: String
@@ -200,5 +202,3 @@ struct BMDetailDescriptionView: View {
     EventDetailView(event: BMEventCalendarEntry.sampleEntry)
         .environmentObject(EventsViewModel())
 }
-
-

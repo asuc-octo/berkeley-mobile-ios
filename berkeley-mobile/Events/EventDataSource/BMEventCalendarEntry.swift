@@ -122,7 +122,6 @@ class BMEventCalendarEntry: NSObject, NSCoding, Identifiable, BMCalendarEvent, H
         
         self.type = coder.decodeObject(forKey: ArgumentNames.type) as? String
     }
-    
 }
 
 extension BMEventCalendarEntry {
