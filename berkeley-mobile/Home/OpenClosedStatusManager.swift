@@ -40,6 +40,8 @@ class OpenClosedStatusManager {
                 scheduleTimer(withInfo: (item.id, intervalContainingCurrentDate.end))
             } else if let nearestStartInterval = item.hours.first(where: { $0.start >= now }) {
                 scheduleTimer(withInfo: (item.id, nearestStartInterval.start))
+            } else if let nearestEndInterval = item.hours.first(where: { $0.end >= now }) {
+                scheduleTimer(withInfo: (item.id, nearestEndInterval.end))
             } else {
                 didScheduleTimer = false
             }
@@ -93,5 +95,6 @@ class OpenClosedStatusManager {
         t.tolerance = 0.5
         RunLoop.main.add(t, forMode: .common)
         timers.append((t, itemID, fireDate))
+        print("timer scheduled for \(itemID) at \(fireDate.description(with: .current))")
     }
 }
