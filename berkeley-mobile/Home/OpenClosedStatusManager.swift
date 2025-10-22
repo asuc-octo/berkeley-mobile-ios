@@ -95,6 +95,5 @@ class OpenClosedStatusManager {
         t.tolerance = 0.5
         RunLoop.main.add(t, forMode: .common)
         timers.append((t, itemID, fireDate))
-        print("timer scheduled for \(itemID) at \(fireDate.description(with: .current))")
     }
 }
