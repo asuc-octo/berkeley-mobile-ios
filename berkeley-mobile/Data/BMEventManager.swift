@@ -10,10 +10,9 @@ import EventKit
 import Foundation
 
 class BMEventManager {
-    static let shared = BMEventManager()
     
     private let eventStore = EKEventStore()
-    private let queue = DispatchQueue(label: "com.yourapp.eventstore", qos: .userInitiated)
+    private let queue = DispatchQueue(label: "com.berkeleymobile.eventstore", qos: .userInitiated)
     
     /// A dictionary to keep track if events exist in Calendar. Keys are `BMEventCalendarEntry`'s `uniqueIdentifier`.
     private(set) var doesEventsExistInCalendarDict: [String: Bool] = [:]
@@ -55,7 +54,7 @@ class BMEventManager {
         let results: [(BMEventCalendarEntry, Bool)] = await withTaskGroup(of: (BMEventCalendarEntry, Bool).self) { group in
             for event in events {
                 group.addTask {
-                    let exists = await BMEventManager.shared.doesEventExists(for: event)
+                    let exists = await self.doesEventExists(for: event)
                     return (event, exists)
                 }
             }
@@ -88,9 +87,7 @@ class BMEventManager {
     
     private func _getMatchingEvents(for calendarEvent: BMCalendarEvent, completion: @escaping ([EKEvent]) -> Void) {
         guard let endDate = Calendar.current.date(byAdding: .year, value: 1, to: calendarEvent.startDate) else {
-            DispatchQueue.main.async {
-                completion([])
-            }
+            completion([])
             return
         }
         
@@ -98,9 +95,7 @@ class BMEventManager {
             let predicate = eventStore.predicateForEvents(withStart: calendarEvent.startDate, end: endDate, calendars: nil)
             let matchingEvents = eventStore.events(matching: predicate)
             
-            DispatchQueue.main.async {
-                completion(matchingEvents)
-            }
+            completion(matchingEvents)
         }
     }
     
