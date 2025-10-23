@@ -208,4 +208,3 @@ struct BMDetailDescriptionView: View {
     EventDetailView(event: BMEventCalendarEntry.sampleEntry)
         .environmentObject(EventsViewModel())
 }
-
