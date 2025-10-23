@@ -97,6 +97,7 @@ struct EventDetailView: View {
     }
 }
 
+
 // MARK: - BMDetailHeaderView
 
 struct BMDetailHeaderView: View {
@@ -177,6 +178,7 @@ struct EventDetailRow: View {
         }
     }
 }
+
 
 // MARK: - BMDetailDescriptionView
 
