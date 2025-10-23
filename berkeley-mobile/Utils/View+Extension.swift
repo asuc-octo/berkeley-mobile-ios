@@ -190,6 +190,15 @@ struct AlertPresentationViewModifier: ViewModifier {
     }
 }
 
+struct HomeDrawerRowAttributesViewModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .padding(4)
+            .background(.gray.opacity(0.15))
+            .clipShape(RoundedRectangle(cornerRadius: 5))
+    }
+}
+
 
 // MARK: - View Extension
 
@@ -216,5 +225,9 @@ extension View {
     
     func modify<Content>(@ViewBuilder _ transform: (Self) -> Content) -> Content {
         transform(self)
+    }
+    
+    func applyHomeDrawerRowAttributesStyle() -> some View {
+        modifier(HomeDrawerRowAttributesViewModifier())
     }
 }

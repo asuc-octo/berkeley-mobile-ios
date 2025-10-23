@@ -11,17 +11,15 @@ import FirebaseCore
 import UIKit
 
 /// `BMDiningHall` is the representation for a dining hall used throughout the app. We fetch the dining halls from Firebase as `BMDininghallDocument` and convert them into `BMDiningHall`.
-struct BMDiningHall: SearchItem, HasLocation, HasPhoneNumber, HasImage {
+struct BMDiningHall: SearchItem, HasLocation, HasPhoneNumber, HasImage, HasOpenClosedStatus, Equatable, Hashable, Identifiable {
+    var id: String = ""
     var icon: UIImage?
-    var searchName: String {
-        return name
-    }
-    
-    let imageURL: URL?
-
-    @Display var name: String
-    @Display var address: String?
-    @Display var phoneNumber: String?
+    var searchName: String { return name }
+    var imageURL: URL?
+    var name: String
+    var address: String?
+    var phoneNumber: String?
+    var isOpen = false
 
     /// A private array of `String` representation of all the open time interval periods
     private(set) var _hours: [String]
@@ -42,7 +40,8 @@ struct BMDiningHall: SearchItem, HasLocation, HasPhoneNumber, HasImage {
         meals: [BMMeal.BMMealType: BMMeal] = [:],
         hours: [String],
         latitude: Double?,
-        longitude: Double?
+        longitude: Double?,
+        documentID: String = ""
     ) {
         self.name = name
         self.address = address
@@ -53,16 +52,7 @@ struct BMDiningHall: SearchItem, HasLocation, HasPhoneNumber, HasImage {
         self.latitude = latitude
         self.longitude = longitude
         self.icon = UIImage(systemName: "fork.knife")
-    }
-}
-
-extension BMDiningHall: Hashable {
-    static func == (lhs: BMDiningHall, rhs: BMDiningHall) -> Bool {
-        lhs.name == rhs.name
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(name)
+        self.id = documentID
     }
 }
 
@@ -99,7 +89,7 @@ struct BMDiningHallRepresentation: Codable {
     }
 }
 
-struct BMMeal: Codable {
+struct BMMeal: Codable, Hashable {
     enum BMMealType: String, Codable {
         case breakfast = "Breakfast"
         case lunch = "Lunch"
@@ -120,12 +110,12 @@ struct BMMeal: Codable {
     }
 }
 
-struct BMMealCategory: Codable {
+struct BMMealCategory: Codable, Hashable {
     let categoryName: String
     let menuItems: [BMMenuItem]
 }
 
-struct BMMenuItem: Codable {
+struct BMMenuItem: Codable, Hashable {
     let name: String
     let icons: [BMMealIcon]
     let menuId: String?
@@ -133,7 +123,7 @@ struct BMMenuItem: Codable {
     let dataLocation: String?
 }
 
-struct BMMealIcon: Codable {
+struct BMMealIcon: Codable, Hashable {
     let name: String
     let iconURL: String
 }
