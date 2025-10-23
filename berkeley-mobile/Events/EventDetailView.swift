@@ -148,7 +148,7 @@ struct BMDetailHeaderView: View {
     @ViewBuilder
     private var timeView: some View {
         if let timePart = event.dateString.components(separatedBy: " / ").last {
-             EventDetailRow(systemImageName: "calendar", text: timePart)
+             EventDetailRow(systemImageName: "clock", text: timePart)
         }
     }
 
