@@ -115,7 +115,9 @@ struct EventsContextMenuModifier: ViewModifier {
     private var contextMenu: some View {
         if eventsViewModel.doesEventExists(for: event) {
             Button(action: {
-                eventsViewModel.deleteEvent(for: event)
+                Task {
+                    await eventsViewModel.deleteEvent(for: event)
+                }
             }) {
                 Label("Delete Event From Calendar", systemImage: "calendar.badge.minus")
             }
