@@ -25,6 +25,10 @@ class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
     private let homeViewModel = HomeViewModel()
     private var homeViewController: UIViewController!
     private var homeView: UIView!
+    private var hasAttemptedToShowFeedbackForm = false
+
+    
+    private let feedbackFormViewModel = FeedbackFormViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,38 +53,30 @@ class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        attemptShowFeedbackForm()
+        
+        guard !hasAttemptedToShowFeedbackForm else { return }
+        hasAttemptedToShowFeedbackForm = true
+        
+        Task {
+            let formConfig = await feedbackFormViewModel.fetchFeedbackFormConfig()
+            attemptShowFeedbackForm(withConfig: formConfig)
+        }
     }
     
-    private func attemptShowFeedbackForm() {
-        let numAppLaunchForFeedbackForm = UserDefaults.standard.integer(forKey: .numAppLaunchForFeedbackForm)
-        
-        guard numAppLaunchForFeedbackForm == 1 else {
-            if numAppLaunchForFeedbackForm == 0 {
-                UserDefaults.standard.set(1, forKey: .numAppLaunchForFeedbackForm)
-            }
+    private func attemptShowFeedbackForm(withConfig formConfig: FeedbackFormConfig?) {
+        guard let formConfig else {
             return
         }
+    
+        let numAppLaunchForFeedbackForm = UserDefaults.standard.integer(forKey: .numAppLaunchForFeedbackForm)
         
-        let feedbackFormVC = UIViewController()
-        feedbackFormVC.view.backgroundColor = .red
-        
-        let feedbackFormContentView = UIHostingController(rootView: FeedbackFormView())
-        feedbackFormVC.addChild(feedbackFormContentView)
-        feedbackFormVC.view.addSubview(feedbackFormContentView.view)
-
-        feedbackFormContentView.view.translatesAutoresizingMaskIntoConstraints = false
-
-        NSLayoutConstraint.activate([
-            feedbackFormContentView.view.topAnchor.constraint(equalTo: feedbackFormVC.view.topAnchor),
-            feedbackFormContentView.view.leadingAnchor.constraint(equalTo: feedbackFormVC.view.leadingAnchor),
-            feedbackFormContentView.view.trailingAnchor.constraint(equalTo: feedbackFormVC.view.trailingAnchor),
-            feedbackFormContentView.view.bottomAnchor.constraint(equalTo: feedbackFormVC.view.bottomAnchor)
-        ])
-        
-        feedbackFormVC.modalPresentationStyle = .fullScreen
-        feedbackFormVC.modalTransitionStyle = .coverVertical
-        present(feedbackFormVC, animated: true)
+        if numAppLaunchForFeedbackForm >= formConfig.numToShow {
+            let feedbackFormView = FeedbackFormView(config: formConfig)
+            let hostingController = UIHostingController(rootView: feedbackFormView)
+            hostingController.modalPresentationStyle = .fullScreen
+            hostingController.modalTransitionStyle = .coverVertical
+            present(hostingController, animated: true)
+        }
     }
 }
 
