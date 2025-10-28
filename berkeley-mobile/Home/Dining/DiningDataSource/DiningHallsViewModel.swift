@@ -13,6 +13,7 @@ import os
 
 fileprivate let kDiningHallAdditionalDataEndpoint = "Dining Halls"
 fileprivate let kDiningHallEndpoint = "Dining Halls V2"
+private let db = Firestore.firestore()
 
 @Observable
 class DiningHallsViewModel {

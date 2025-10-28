@@ -12,17 +12,17 @@ import Observation
 
 fileprivate let kFeedbackFormConfigEndpoint = "Feedback Form Config"
 fileprivate let kFeedbackFormConfigDocName = "config-data"
-
+fileprivate let kFeedbackResponsesCollection = "Feedback Responses"
 
 struct FeedbackFormConfig: Codable {
     var instructionText: String
     var sectionsAndQuestions: [FeedbackFormSectionQuestions]
-    var numOfAppLaunchesToShow: Int
+    var numToShow: Int
     
     enum CodingKeys: String, CodingKey {
         case instructionText
         case sectionsAndQuestions
-        case numOfAppLaunchesToShow = "numToShow"
+        case numToShow
     }
 }
 
@@ -33,7 +33,6 @@ struct FeedbackFormSectionQuestions: Codable {
 
 @Observable
 class FeedbackFormViewModel {
-    
     var config: FeedbackFormConfig?
     
     private let db = Firestore.firestore()
@@ -43,12 +42,58 @@ class FeedbackFormViewModel {
         
         do {
             let formConfig = try await docRef.getDocument(as: FeedbackFormConfig.self)
-            print(formConfig)
+            print("Successfully fetched form config")
             return formConfig
         } catch {
-           print("Error fetching form config: \(error)")
+            print("Error fetching form config: \(error)")
         }
         
         return nil
     }
+    
+    func submitFeedback(
+        email: String,
+        checkboxAnswers: [String: Bool],
+        textAnswers: [String: String],
+        config: FeedbackFormConfig
+    ) async {
+        var responses: [[String: Any]] = []
+        
+        for section in config.sectionsAndQuestions {
+            var sectionData: [String: Any] = [
+                "questionTitle": section.questionTitle,
+                "answers": [String]()
+            ]
+            
+            if section.questions.contains("") {
+                if let textResponse = textAnswers[section.questionTitle], !textResponse.isEmpty {
+                    sectionData["answers"] = [textResponse]
+                }
+            } else {
+                let selectedAnswers = section.questions.filter {
+                    checkboxAnswers[$0, default: false]
+                }
+                sectionData["answers"] = selectedAnswers
+            }
+            
+            responses.append(sectionData)
+        }
+        
+        let feedbackData: [String: Any] = [
+            "email": email,
+            "submittedAt": FieldValue.serverTimestamp(),
+            "responses": responses
+        ]
+        
+        do {
+            try await db.collection(kFeedbackResponsesCollection)
+                .document(email)
+                .setData(feedbackData)
+            
+            print("Feedback submitted successfully for \(email)")
+        } catch {
+            print("Error submitting feedback: \(error)")
+        }
+    }
+    
 }
