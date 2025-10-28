@@ -56,7 +56,9 @@ struct HomeSectionListRowView: View {
     }
     
     private var imageView: some View {
-        BMCachedAsyncImageView(imageURL: rowItem.imageURL, placeholderImage: BMConstants.doeGladeImage, aspectRatio: .fill, widthAndHeight: 80, cornerRadius: 12)
+        BMCachedAsyncImageView(imageURL: rowItem.imageURL, placeholderImage: BMConstants.doeGladeImage, aspectRatio: .fill)
+            .frame(maxWidth: 80, maxHeight: 80)
+            .clipShape(RoundedRectangle(cornerRadius: 12))
     }
 }
 

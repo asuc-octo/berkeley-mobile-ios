@@ -15,6 +15,11 @@ extension Logger {
         category: String(describing: DiningHallsViewModel.self)
     )
     
+    static let guidesViewModel = Logger(
+        subsystem: Bundle.main.bundleIdentifier!,
+        category: String(describing: GuidesViewModel.self)
+    )
+    
     static let openClosedStatusManager = Logger(
         subsystem: Bundle.main.bundleIdentifier!,
         category: String(describing: OpenClosedStatusManager.self)

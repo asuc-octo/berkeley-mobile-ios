@@ -34,7 +34,9 @@ struct EventRowView: View {
             
             Spacer()
             
-            BMCachedAsyncImageView(imageURL: event.imageURL, placeholderImage: BMConstants.doeGladeImage, aspectRatio: .fill, widthAndHeight: imageWidthAndHeight, cornerRadius: 12)
+            BMCachedAsyncImageView(imageURL: event.imageURL, placeholderImage: BMConstants.doeGladeImage, aspectRatio: .fill)
+                .frame(maxWidth: imageWidthAndHeight, maxHeight: imageWidthAndHeight)
+                .clipShape(RoundedRectangle(cornerRadius: 12))
                 .shadowfy()
                 .overlay(
                     BMAddedCalendarStatusOverlayView(event: event)

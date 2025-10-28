@@ -8,7 +8,6 @@
 
 import Firebase
 import Foundation
-import MapKit
 import Observation
 import os
 
@@ -21,10 +20,9 @@ class DiningHallsViewModel {
     var selectedDiningHall: BMDiningHall?
     var isFetching = false
     
-    private let openClosedStatusManager = OpenClosedStatusManager()
-    
     private let db = Firestore.firestore()
-    
+    private let openClosedStatusManager = OpenClosedStatusManager()
+    private let redirectionManager = RedirectionManager()
     
     init() {
         openClosedStatusManager.delegate = self
@@ -94,21 +92,11 @@ class DiningHallsViewModel {
     }
     
     func openDiningHallInMaps(for diningHall: BMDiningHall) {
-        guard let latitude = diningHall.latitude, let longitude = diningHall.longitude else {
-            return
-        }
-        let coordinate = CLLocationCoordinate2DMake(latitude, longitude)
-        let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: coordinate, addressDictionary:nil))
-        mapItem.name = diningHall.name
-        mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving])
+        redirectionManager.openInMaps(for: diningHall, withName: diningHall.name)
     }
     
     func callDiningHall(for diningHall: BMDiningHall) {
-        guard let phoneNumber = diningHall.phoneNumber, let url = URL(string: "tel://\(phoneNumber)"),
-            UIApplication.shared.canOpenURL(url) else {
-            return
-        }
-        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        redirectionManager.call(diningHall)
     }
 }
 
