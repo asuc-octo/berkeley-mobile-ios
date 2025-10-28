@@ -29,6 +29,10 @@ protocol HasLocation {
 }
 
 extension HasLocation {
+    
+    var hasCoordinate: Bool {
+        return latitude != nil && longitude != nil
+    }
 
     /// Returns the distance to the user in miles if possible, otherwise `nil`.
     var distanceToUser: Double? {

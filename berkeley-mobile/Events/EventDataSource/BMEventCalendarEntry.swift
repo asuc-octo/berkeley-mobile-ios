@@ -46,7 +46,7 @@ class BMEventCalendarEntry: NSObject, NSCoding, Identifiable, BMCalendarEvent, H
     
     // MARK: HasImage
     var imageURL: URL?
-
+    
     // MARK: Additional Fields
     /// The main category this event belongs to (e.g. Academic, Career) used to determine where it is displayed
     // FIXME: category should be more suited as an enum
@@ -57,7 +57,7 @@ class BMEventCalendarEntry: NSObject, NSCoding, Identifiable, BMCalendarEvent, H
     var sourceLink: URL?
     /// The subcategory for the event within the main category
     var type: String?
-
+    
     /// The color associated with this event's `type`.
     var color: UIColor {
         guard let type = type else { return BMColor.eventDefault }
@@ -69,6 +69,10 @@ class BMEventCalendarEntry: NSObject, NSCoding, Identifiable, BMCalendarEvent, H
         default:
             return BMColor.eventDefault
         }
+    }
+    
+    var uniqueIdentifier: String {
+        return name + startDate.description + (end?.description ?? "")
     }
 
     init(name: String, date: Date, end: Date? = nil, descriptionText: String? = nil, location: String? = nil, registerLink: String? = nil, imageURL: String? = nil, sourceLink: String? = nil, type: String? = nil) {
@@ -125,6 +129,7 @@ class BMEventCalendarEntry: NSObject, NSCoding, Identifiable, BMCalendarEvent, H
 }
 
 extension BMEventCalendarEntry {
+    
     static let sampleEntry = BMEventCalendarEntry(
         name: "Exhibit | A Storied Campus: Cal in Fiction",
         date: Date(),

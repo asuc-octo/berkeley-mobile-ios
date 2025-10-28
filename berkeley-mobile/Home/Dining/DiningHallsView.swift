@@ -12,7 +12,6 @@ struct DiningHallsView: View {
     @Environment(DiningHallsViewModel.self) private var viewModel
     
     let mapViewController: MapViewController
-    
     var selectionHandler: ((BMDiningHall) -> Void)?
     
     var body: some View {
