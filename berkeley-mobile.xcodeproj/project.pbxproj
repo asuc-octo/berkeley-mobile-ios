@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 70;
+	objectVersion = 77;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -387,7 +387,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		E889F80D2DAC4DEF00202556 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		E889F80D2DAC4DEF00202556 /* Exceptions for "BerkeleyMobileWidget" folder in "BerkeleyMobileWidgetExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -397,7 +397,14 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		E889F7FF2DAC4DEE00202556 /* BerkeleyMobileWidget */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (E889F80D2DAC4DEF00202556 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = BerkeleyMobileWidget; sourceTree = "<group>"; };
+		E889F7FF2DAC4DEE00202556 /* BerkeleyMobileWidget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				E889F80D2DAC4DEF00202556 /* Exceptions for "BerkeleyMobileWidget" folder in "BerkeleyMobileWidgetExtension" target */,
+			);
+			path = BerkeleyMobileWidget;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -936,7 +943,6 @@
 				};
 			};
 			buildConfigurationList = 306A54E123613E3A00D59A7F /* Build configuration list for PBXProject "berkeley-mobile" */;
-			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -947,6 +953,7 @@
 			packageReferences = (
 				E8FCD6822C374A81004B66A3 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
 			);
+			preferredProjectObjectVersion = 77;
 			productRefGroup = 306A54E723613E3A00D59A7F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1004,13 +1011,9 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-berkeley-mobile/Pods-berkeley-mobile-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-berkeley-mobile/Pods-berkeley-mobile-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

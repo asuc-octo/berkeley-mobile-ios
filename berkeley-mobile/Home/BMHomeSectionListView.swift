@@ -46,6 +46,17 @@ struct BMHomeSectionListView: View {
         .font(Font(BMFont.bold(20)))
     }
     
+    private var emptyView: some View {
+        
+        ContentUnavailableView {
+            Label("No Available Items", systemImage: "list.bullet.rectangle")
+        } description: {
+            Text("Check back later for available content.")
+        }
+        .offset(y: -60)
+        
+    }
+    
     @ViewBuilder
     private var listView: some View {
         if #available(iOS 26.0, *) {
@@ -69,6 +80,12 @@ struct BMHomeSectionListView: View {
             .listStyle(.plain)
             .scrollContentBackground(.hidden)
             .clipShape(RoundedRectangle(cornerRadius: 10))
+            .overlay {
+                if items.isEmpty {
+                    emptyView
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                }
+            }
         } else {
             List(items, id: \.name) { item in
                 Button(action: {
@@ -82,6 +99,12 @@ struct BMHomeSectionListView: View {
                 .listRowBackground(Color(BMColor.cardBackground))
             }
             .scrollContentBackground(.hidden)
+            .overlay {
+                if items.isEmpty {
+                    emptyView
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                }
+            }
         }
     }
 }
