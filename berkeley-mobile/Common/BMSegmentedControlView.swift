@@ -18,22 +18,13 @@ struct BMSegmentedControlView: View {
     }
     
     var tabNames: [String]
-    var tabVisibilityFilter: ((String) -> Bool)? = nil
     @Binding var selectedTabIndex: Int
-    
-    private var visibleTabs: [(offset: Int, element: String)] {
-        tabNames.enumerated().filter { _, name in
-            guard let tabVisibilityFilter else { return true }
-            return tabVisibilityFilter(name)
-        }
-    }
     
     @Namespace private var animation
 
     var body: some View {
         HStack(spacing: Constants.tabSpacing) {
-            ForEach(Array(visibleTabs.enumerated()), id: \.offset) { visible, tab in
-                let (index, tabName) = tab
+            ForEach(Array(tabNames.enumerated()), id: \.offset) { index, tabName in
                 Button(action: {
                     selectedTabIndex = index
                 }) {
@@ -50,7 +41,7 @@ struct BMSegmentedControlView: View {
                     }
                 }
                 
-                if visible != visibleTabs.count - 1 {
+                if index != tabNames.count - 1 {
                     Spacer()
                 }
             }
@@ -84,4 +75,3 @@ struct BMSegmentedControlView: View {
     }
     return PreviewWrapper()
 }
-
