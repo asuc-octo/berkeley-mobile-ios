@@ -9,8 +9,12 @@
 import FirebaseAnalytics
 import SwiftUI
 
+@MainActor
 class EventsViewModel: ObservableObject {
     @Published var alert: BMAlert?
+    
+    private(set) var didCacheEventsExistence = Set<EventScrapper.EventScrapperType>()
+    private let eventManager = BMEventManager()
     
     func logAcademicCalendarTabAnalytics() {
         Analytics.logEvent("opened_academic_calendar", parameters: nil)
@@ -28,17 +32,24 @@ class EventsViewModel: ObservableObject {
     
     func showDeleteEventFromCalendarAlert(_ event: BMEventCalendarEntry) {
         presentAlertWithoutAnimation(BMAlert(title: "Delete Event?", message: "Do you want to delete this event from your Calendar?", type: .action) {
-            self.deleteEvent(for: event)
+            Task {
+                await self.deleteEvent(for: event)
+            }
         })
     }
     
-    func doesEventExists(for event: BMEventCalendarEntry) -> Bool {
-        BMEventManager.shared.doesEventExists(for: event)
+    func cacheEventsExistence(for events: [BMEventCalendarEntry], scrapperType: EventScrapper.EventScrapperType) async {
+        await eventManager.processEventsExistenceInCalendar(for: events)
+        didCacheEventsExistence.insert(scrapperType)
     }
     
-    func deleteEvent(for event: BMEventCalendarEntry) {
+    func doesEventExists(for event: BMEventCalendarEntry) -> Bool {
+        return eventManager.doesEventsExistInCalendarDict[event.uniqueIdentifier] ?? false
+    }
+    
+    func deleteEvent(for event: BMEventCalendarEntry) async {
         do {
-            try BMEventManager.shared.deleteEvent(event)
+            try await eventManager.deleteEvent(event)
             presentAlertWithoutAnimation(BMAlert(title: "Successfully Deleted", message: "Event has been successfully deleted from your Calendar.", type: .notice))
         } catch {
             presentAlertWithoutAnimation(BMAlert(title: "Unable To Delete Event", message: error.localizedDescription, type: .notice))
@@ -48,7 +59,7 @@ class EventsViewModel: ObservableObject {
     func addAcademicEventToCalendar(_ event: BMEventCalendarEntry) {
         Task { @MainActor in
             do {
-                try await BMEventManager.shared.addEventToCalendar(calendarEvent: event)
+                try await eventManager.addEventToCalendar(calendarEvent: event)
                 presentAlertWithoutAnimation(BMAlert(title: "Event Added To Calendar", message: "Would you like to open this event in Calendar?", type: .action) {
                     let interval = event.startDate.timeIntervalSinceReferenceDate
                     let url = URL(string: "calshow:\(interval)")!

@@ -28,7 +28,7 @@ enum HomeDrawerViewType {
 
 class HomeViewModel: ObservableObject {
     @Published var isFetching = false
-    @Published var diningHalls: [BMDiningLocation] = []
+    @Published var diningHalls: [BMDiningHall] = []
     @Published var libraries: [BMLibrary] = []
     @Published var gyms: [BMGym] = []
     
@@ -45,7 +45,7 @@ class HomeViewModel: ObservableObject {
     
     func presentDetail(type: AnyClass, item: SearchItem) {
         withAnimation {
-            if type == DiningHall.self {
+            if type == BMDiningHall.self {
                 homeDrawerDetailViewInfo = (.dining, item)
             } else if type == BMGym.self {
                 homeDrawerDetailViewInfo = (.fitness, item)
@@ -54,7 +54,7 @@ class HomeViewModel: ObservableObject {
             } else {
                 return
             }
-            drawerViewState = .small
+            drawerViewState = .medium
         }
     }
     
@@ -66,12 +66,6 @@ class HomeViewModel: ObservableObject {
         let group = DispatchGroup()
         
         isFetching = true
-
-        group.enter()
-        DataManager.shared.fetch(source: DiningHallDataSource.self) { diningLocations in
-            self.diningHalls = diningLocations as? [BMDiningLocation] ?? []
-            group.leave()
-        }
 
         group.enter()
         DataManager.shared.fetch(source: LibraryDataSource.self) { libraries in

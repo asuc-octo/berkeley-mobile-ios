@@ -1,0 +1,129 @@
+//
+//  DiningHallsViewModel.swift
+//  berkeley-mobile
+//
+//  Created by Justin Wong on 10/7/25.
+//  Copyright © 2025 ASUC OCTO. All rights reserved.
+//
+
+import Firebase
+import Foundation
+import MapKit
+import Observation
+import os
+
+fileprivate let kDiningHallAdditionalDataEndpoint = "Dining Halls"
+fileprivate let kDiningHallEndpoint = "Dining Halls V2"
+
+@Observable
+class DiningHallsViewModel {
+    var diningHalls: [BMDiningHall] = []
+    var selectedDiningHall: BMDiningHall?
+    var isFetching = false
+    
+    private let openClosedStatusManager = OpenClosedStatusManager()
+    
+    private let db = Firestore.firestore()
+    
+    
+    init() {
+        openClosedStatusManager.delegate = self
+        isFetching = true
+        Task { @MainActor in
+            let diningHallsAdditionalDataDict = await fetchDiningHallsAdditionalData()
+            diningHalls = await fetchDiningHalls(withAdditionalData: diningHallsAdditionalDataDict)
+            openClosedStatusManager.registerTimers(for: diningHalls)
+            isFetching = false
+        }
+    }
+    
+    func fetchDiningHalls(withAdditionalData additionalDataDict: [String: BMDiningHallAdditionalData] = [:]) async -> [BMDiningHall] {
+        do {
+            let snap = try await db.collection(kDiningHallEndpoint).getDocuments()
+            let hallDocs: [BMDiningHallDocument] = try snap.documents.map {
+                try $0.data(as: BMDiningHallDocument.self)
+            }
+            let diningHalls = hallDocs.map {
+                let diningHallRep = $0.diningHall
+                let additionalData = additionalDataDict[diningHallRep.name]
+                var diningHall = BMDiningHall(name: diningHallRep.name,
+                             address: additionalData?.address,
+                             phoneNumber: additionalData?.phoneNumber,
+                             imageLink: additionalData?.pictureURL,
+                             meals: diningHallRep.getMealsTypeDict(),
+                             hours: diningHallRep.openHourPeriods,
+                             latitude: additionalData?.latitude,
+                             longitude: additionalData?.longitude,
+                             documentID: $0.id ?? "")
+                diningHall.updateIsOpenStatus(Date())
+                return diningHall
+            }
+            
+            return diningHalls
+        } catch {
+            Logger.diningHallsViewModel.error("\(error)")
+        }
+        
+        return []
+    }
+    
+    private func fetchDiningHallsAdditionalData() async -> [String: BMDiningHallAdditionalData] {
+        do {
+            let snap = try await db.collection(kDiningHallAdditionalDataEndpoint).getDocuments()
+            
+            let additionalDatas: [BMDiningHallAdditionalData] = try snap.documents.map {
+                try $0.data(as: BMDiningHallAdditionalData.self)
+            }
+            
+            var additionalDataDict: [String: BMDiningHallAdditionalData] = [:]
+            
+            for additionalData in additionalDatas {
+                additionalDataDict[additionalData.name] = additionalData
+            }
+            
+            return additionalDataDict
+        } catch {
+            Logger.diningHallsViewModel.error("\(error)")
+        }
+        
+        return [:]
+    }
+    
+    func logOpenedDiningDetailViewAnalytics(for diningHallName: String) {
+        Analytics.logEvent("opened_food", parameters: ["dining_location" : diningHallName])
+    }
+    
+    func openDiningHallInMaps(for diningHall: BMDiningHall) {
+        guard let latitude = diningHall.latitude, let longitude = diningHall.longitude else {
+            return
+        }
+        let coordinate = CLLocationCoordinate2DMake(latitude, longitude)
+        let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: coordinate, addressDictionary:nil))
+        mapItem.name = diningHall.name
+        mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving])
+    }
+    
+    func callDiningHall(for diningHall: BMDiningHall) {
+        guard let phoneNumber = diningHall.phoneNumber, let url = URL(string: "tel://\(phoneNumber)"),
+            UIApplication.shared.canOpenURL(url) else {
+            return
+        }
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
+}
+
+
+// MARK: - OpenClosedStatusManagerDelegate
+
+extension DiningHallsViewModel: OpenClosedStatusManagerDelegate {
+    func didTimerFire(for itemID: String, with timer: Timer) {
+        guard let diningHallToUpdateIndex = diningHalls.firstIndex(where: { $0.id == itemID }) else {
+            Logger.diningHallsViewModel.error("Unable to find dining hall update index with itemID: \(itemID)")
+            return
+        }
+        
+        var updatedDiningHall = diningHalls[diningHallToUpdateIndex]
+        updatedDiningHall.updateIsOpenStatus(Date())
+        diningHalls[diningHallToUpdateIndex] = updatedDiningHall
+    }
+}

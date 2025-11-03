@@ -15,6 +15,7 @@ enum BMDrawerViewState: Int {
 struct BMDrawerView<Content: View>: View {
     private let content: Content
     private let hPadding: CGFloat
+    private let vPadding: CGFloat
 
     @State private var startingOffset: CGFloat = UIScreen.main.bounds.height * 0.8 / 2
     @State private var currentOffset:CGFloat = 0
@@ -24,20 +25,26 @@ struct BMDrawerView<Content: View>: View {
     init(
         drawerViewState: Binding<BMDrawerViewState>,
         hPadding: CGFloat = 5.0,
+        vPadding: CGFloat = 10.0,
         @ViewBuilder content: () -> Content
     ) {
         self.content = content()
         self.hPadding = hPadding
+        self.vPadding = vPadding
         self._drawerViewState = drawerViewState
     }
 
     var body: some View {
         GeometryReader { geometry in
-            VStack {
-                indicator
+            ZStack {
+                VStack {
+                    indicator
+                    Spacer()
+                }
+                .padding(.vertical, 10)
                 self.content
+                    .padding(.top, vPadding)
             }
-            .padding(.vertical, 10)
             .padding(.horizontal, hPadding)
             // The multiplier to geometry.size.height prevents the bottommost content from being obscured by the tabbar
             .frame(width: geometry.size.width, height: geometry.size.height, alignment: .top)

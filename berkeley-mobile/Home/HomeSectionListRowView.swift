@@ -18,7 +18,13 @@ struct HomeSectionListRowView: View {
                     .foregroundStyle(Color(BMColor.blackText))
                     .font(Font(BMFont.bold(18)))
                 Spacer()
-                distanceLabelView
+                HStack {
+                    Group {
+                        openClosedStatusView
+                        distanceLabelView
+                    }
+                    .applyHomeDrawerRowAttributesStyle()
+                }
             }
             .frame(height: 74)
             
@@ -30,15 +36,22 @@ struct HomeSectionListRowView: View {
         .shadowfy()
     }
     
+    @ViewBuilder
+    private var openClosedStatusView: some View {
+        if let itemWithOpenClosedStatus = rowItem as? (any HasOpenClosedStatus) {
+            OpenClosedStatusView(status: itemWithOpenClosedStatus.isOpen ? .open : .closed)
+        }
+    }
+    
     private var distanceLabelView: some View {
         HStack {
             Image(systemName: "figure.walk")
                 .foregroundStyle(Color(BMColor.blackText))
-                .font(.system(size: 14))
+                .font(.system(size: 12))
             
             Text("\(rowItem.distanceToUser ?? 0.0, specifier: "%.1f") mi")
                 .foregroundStyle(Color(BMColor.blackText))
-                .font(Font(BMFont.light(14)))
+                .font(Font(BMFont.light(12)))
         }
     }
     
@@ -48,7 +61,7 @@ struct HomeSectionListRowView: View {
 }
 
 #Preview {
-    let foothillDiningHall = DiningHall(name: "Foothill", address: nil, phoneNumber: nil, imageLink: "https://firebasestorage.googleapis.com/v0/b/berkeley-mobile.appspot.com/o/images%2FFoothill.jpg?alt=media&token=b645d675-6f51-45ea-99f7-9b36576e14b7", shifts: MealMap(), hours: nil, latitude: 37.87538, longitude: -122.25612109999999)
+    let foothillDiningHall = BMDiningHall(name: "Foothill", address: nil, phoneNumber: nil, imageLink: "https://firebasestorage.googleapis.com/v0/b/berkeley-mobile.appspot.com/o/images%2FFoothill.jpg?alt=media&token=b645d675-6f51-45ea-99f7-9b36576e14b7", hours: [], latitude: 37.87538, longitude: -122.25612109999999)
     
     return HomeSectionListRowView(rowItem: foothillDiningHall)
         .padding(40)

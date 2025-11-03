@@ -15,10 +15,14 @@ struct FitnessView: View {
     
     var mapViewController: MapViewController
     
+    var selectionHandler: ((BMGym) -> Void)?
+    
     var body: some View {
         VStack(spacing: 15) {
             gymOccupancyGauges
-            BMHomeSectionListView(sectionType: .fitness, items: homeViewModel.gyms, mapViewController: mapViewController)
+            BMHomeSectionListView(sectionType: .fitness, items: homeViewModel.gyms, mapViewController: mapViewController) { selectedGym in
+                selectionHandler?(selectedGym as! BMGym)
+            }
         }
         .onAppear {
             WidgetCenter.shared.reloadTimelines(ofKind: "GymOccupancyWidget")

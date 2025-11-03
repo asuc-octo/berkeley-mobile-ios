@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BMGym: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasImage, HasOpenTimes {
+struct BMGym: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasImage, HasOpenTimes {
 
     // MARK: SearchIitem
 
@@ -63,3 +63,12 @@ class BMGym: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasImage, Has
     }
 }
 
+extension BMGym: Hashable {
+    static func == (lhs: BMGym, rhs: BMGym) -> Bool {
+        lhs.name == rhs.name
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(name)
+    }
+}
