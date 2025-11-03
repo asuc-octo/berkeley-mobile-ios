@@ -18,8 +18,6 @@ struct DiningDetailView: View {
     var diningHall: BMDiningHall
     
     @State private var selectedTabIndex = 0
-    @State private var showAlert = false
-    
     private var categoriesAndMenuItems:  [BMMealCategory] {
         switch selectedTabIndex {
         case 0:
@@ -33,7 +31,6 @@ struct DiningDetailView: View {
     
     var body: some View {
         VStack {
-            Text("IDEALLY WE WANT THE TIMES HERE")
             BMSegmentedControlView(tabNames: ["Breakfast", "Lunch", "Dinner"], selectedTabIndex: $selectedTabIndex)
             
             if categoriesAndMenuItems.isEmpty {
@@ -42,51 +39,25 @@ struct DiningDetailView: View {
                     .padding (.top, 25)
                 Spacer()
             } else {
-                List {
-                    DiningItemsListView(categoriesAndMenuItems: categoriesAndMenuItems)
+                VStack {
+                    List {
+                        DiningItemsListView(selectedTabIndex: $selectedTabIndex,
+                                            categoriesAndMenuItems: categoriesAndMenuItems,
+                        diningHall: diningHall)
+                    }
+                    .listStyle(.plain)
+                    .scrollContentBackground(.hidden)
+                    .contentMargins(.top, 0)
                 }
-                .listStyle(.plain)
-                .scrollContentBackground(.hidden)
-                .contentMargins(.top, 0)
             }
         }
-        .padding(.top, 10)
         .onAppear {
             viewModel.logOpenedDiningDetailViewAnalytics(for: diningHall.name)
         }
         .navigationTitle(diningHall.name)
         .navigationBarTitleDisplayMode(.inline)
-        .alert("\(diningHall.name)'s Hours", isPresented: $showAlert) {
-            Button("OK") { }
-        } message: {
-            let hoursText: String = {
-                if diningHall.hours.isEmpty {
-                    return "No hours available"
-                } else {
-                    // DO not need to format use _hours
-                    let timeFormatter = DateFormatter()
-                    timeFormatter.timeStyle = .short
-
-                    let periods = diningHall.hours.map { interval in
-                        let startTime = timeFormatter.string(from: interval.start)
-                        let endTime = timeFormatter.string(from: interval.end)
-                        return "\(startTime) - \(endTime)"
-                    }.joined(separator: "\n")
-
-                    return (periods)
-                }
-            }()
-
-            Text(hoursText)
-        }
         .toolbar {
             ToolbarItemGroup(placement: .topBarTrailing) {
-                Button(action: {
-                    showAlert = true
-                }) {
-                    Image(systemName: "info.circle")
-                }
-
                 if let lat = diningHall.latitude, let lng = diningHall.longitude {
                     Button(action: {
                         let coordinate = CLLocationCoordinate2DMake(lat, lng)
@@ -118,10 +89,17 @@ struct DiningDetailView: View {
 // MARK: - DiningItemsListView
 
 struct DiningItemsListView: View {
+    @Binding var selectedTabIndex: Int
     var categoriesAndMenuItems: [BMMealCategory]
+    var diningHall: BMDiningHall
     
     var body: some View {
         VStack(spacing: 20) {
+            if selectedTabIndex < diningHall._hours.count {
+                Text(diningHall._hours[selectedTabIndex])
+                    .fontWeight(.semibold)
+                    .padding(.top, 10)
+            }
             ForEach(categoriesAndMenuItems, id: \.categoryName) { mealCategory in
                 Section {
                     ForEach(mealCategory.menuItems, id: \.itemId) { menuItem in
