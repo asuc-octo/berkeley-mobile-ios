@@ -33,12 +33,13 @@ struct DiningDetailView: View {
     
     var body: some View {
         VStack {
+            Text("IDEALLY WE WANT THE TIMES HERE")
             BMSegmentedControlView(tabNames: ["Breakfast", "Lunch", "Dinner"], selectedTabIndex: $selectedTabIndex)
             
             if categoriesAndMenuItems.isEmpty {
                 Text("No Menu Items Available")
                     .fontWeight(.semibold)
-                    .padding(.top, 25)
+                    .padding (.top, 25)
                 Spacer()
             } else {
                 List {
@@ -62,6 +63,7 @@ struct DiningDetailView: View {
                 if diningHall.hours.isEmpty {
                     return "No hours available"
                 } else {
+                    // DO not need to format use _hours
                     let timeFormatter = DateFormatter()
                     timeFormatter.timeStyle = .short
 
