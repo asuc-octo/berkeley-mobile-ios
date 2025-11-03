@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import CoreLocation
 
 struct BMHomeSectionListView: View {
     var sectionType: HomeDrawerViewType
@@ -15,12 +16,23 @@ struct BMHomeSectionListView: View {
     
     var selectionHandler: ((SearchItem & HasLocation & HasImage) -> Void)?
     
+    // Sort items by proximity to user (ascending)
+    // utilizes the CLLocation.distanceFromUser() helper
+    // items without lat/lon sent to the bottom
+    private var sortedItems: [SearchItem & HasLocation & HasImage] {
+        items.sorted { a, b in
+            let d1 = a.distanceToUser ?? .greatestFiniteMagnitude
+            let d2 = b.distanceToUser ?? .greatestFiniteMagnitude
+            return d1 < d2
+        }
+    }
+    
     var body: some View {
         VStack {
             if #unavailable(iOS 26.0) {
                 sectionHeaderView
             }
-           
+            
             if #available(iOS 17.0, *) {
                 listView
                     .contentMargins(.top, 0)
@@ -46,16 +58,18 @@ struct BMHomeSectionListView: View {
         .font(Font(BMFont.bold(20)))
     }
     
+    // items -> sortedItems in both forEach calls
+    // displays all items as tappable rows
     @ViewBuilder
     private var listView: some View {
         if #available(iOS 26.0, *) {
             List {
                 Section {
-                    ForEach(items, id: \.name) { item in
-                        Button(action: {
+                    ForEach(sortedItems, id: \.name) { item in
+                        Button {
                             mapViewController.choosePlacemark(item: item)
                             selectionHandler?(item)
-                        }) {
+                        } label: {
                             HomeSectionListRowView(rowItem: item)
                                 .frame(width: 290)
                         }
@@ -70,11 +84,11 @@ struct BMHomeSectionListView: View {
             .scrollContentBackground(.hidden)
             .clipShape(RoundedRectangle(cornerRadius: 10))
         } else {
-            List(items, id: \.name) { item in
-                Button(action: {
+            List(sortedItems, id: \.name) { item in
+                Button {
                     mapViewController.choosePlacemark(item: item)
                     selectionHandler?(item)
-                }) {
+                } label: {
                     HomeSectionListRowView(rowItem: item)
                         .frame(width: 290)
                 }
@@ -89,8 +103,17 @@ struct BMHomeSectionListView: View {
 #Preview {
     let homeViewModel = HomeViewModel()
     let diningHalls = [
-        BMDiningHall(name: "Cafe 3", address: "2436 Durant Ave, Berkeley, CA 94704", phoneNumber: nil, imageLink: "https://firebasestorage.googleapis.com/v0/b/berkeley-mobile.appspot.com/o/images%2FCafe3.jpg?alt=media&token=f1062476-2cb0-4ce9-9ac1-6109bf588aaa", hours: [], latitude: nil, longitude: nil)
+        BMDiningHall(
+            name: "Cafe 3",
+            address: "2436 Durant Ave, Berkeley, CA 94704",
+            phoneNumber: nil,
+            imageLink: "https://firebasestorage.googleapis.com/v0/b/berkeley-mobile.appspot.com/o/images%2FCafe3.jpg?alt=media&token=f1062476-2cb0-4ce9-9ac1-6109bf588aaa",
+            hours: [],
+            latitude: 37.8688,
+            longitude: -122.2590
+        )
     ]
     
     BMHomeSectionListView(sectionType: .dining, items: diningHalls, mapViewController: MapViewController())
 }
+
