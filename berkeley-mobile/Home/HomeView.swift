@@ -41,6 +41,11 @@ struct HomeView: View {
             .onChange(of: homeViewModel.isShowingDrawer) { _ in
                 homeViewModel.drawerViewState = .medium
             }
+            // Deselect marker when user switches tab sections.
+            .onChange(of: tabSelectedIndex) { _ in
+                print("[MAP DEBUG] Requested a deselect!")
+                mapViewController.deselectSelectedMarker()
+            }
         }
     }
     
@@ -107,3 +112,4 @@ struct HomeView: View {
     HomeView(mapViewController: MapViewController())
         .environmentObject(HomeViewModel())
 }
+

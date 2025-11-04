@@ -109,6 +109,23 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         searchBarViewController.didMove(toParent: self)
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if let selected = mapView?.selectedAnnotations {
+            for annotation in selected {
+                if annotation.isKind(of: MapMarker.self) {
+                    mapView?.deselectAnnotation(annotation, animated: false)
+                }
+            }
+        }
+        markerDetail?.marker = nil
+        homeViewModel?.isShowingDrawer = true
+        if searchAnnotation != nil {
+            removeAnnotations(type: SearchAnnotation.self)
+            searchAnnotation = nil
+        }
+    }
+    
     private func setMapBoundsAndZoom() {
         mapView.cameraBoundary = MKMapView.CameraBoundary(coordinateRegion: BMConstants.mapBoundsRegion)
         let maximumZoom = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: BMConstants.mapMaxZoomDistance)
@@ -249,6 +266,22 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         mapUserLocationButtonTapped = true
         centerMapOnLocation(userLocation, mapView: mapView, animated: true)
         mapUserLocationButtonTapped = false
+    }
+    
+    func deselectSelectedMarker() {
+        if let selected = mapView?.selectedAnnotations {
+            for annotation in selected {
+                if annotation.isKind(of: MapMarker.self) {
+                    mapView?.deselectAnnotation(annotation, animated: false)
+                }
+            }
+        }
+        markerDetail?.marker = nil
+        homeViewModel?.isShowingDrawer = true
+        if searchAnnotation != nil {
+            removeAnnotations(type: SearchAnnotation.self)
+            searchAnnotation = nil
+        }
     }
     
     private func setupSubviews() {
@@ -535,3 +568,4 @@ extension MKMapView {
             }, completion: nil)
     }
 }
+
