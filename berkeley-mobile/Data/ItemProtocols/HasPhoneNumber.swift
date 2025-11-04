@@ -11,3 +11,12 @@ import Foundation
 protocol HasPhoneNumber {
     var phoneNumber: String? { get }
 }
+
+extension HasPhoneNumber {
+    var hasPhoneNumber: Bool {
+        guard let phoneNumber else {
+            return false
+        }
+        return !phoneNumber.isEmpty
+    }
+}

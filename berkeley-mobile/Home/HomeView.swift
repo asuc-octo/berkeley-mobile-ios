@@ -18,7 +18,7 @@ struct HomeView: View {
     
     private var mapViewController: MapViewController
     
-    private let diningHallsViewModel = DiningHallsViewModel()
+    @State private var diningHallsViewModel = DiningHallsViewModel()
     private let menuIconCacheManager = MenuItemIconCacheManager()
     
     init(mapViewController: MapViewController) {

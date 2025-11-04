@@ -142,6 +142,9 @@
 		E8647F812E95AD9400A66820 /* LibrariesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8647F802E95AD9400A66820 /* LibrariesView.swift */; };
 		E8647FAD2E971ABA00A66820 /* Logger+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8647FAC2E971ABA00A66820 /* Logger+Ext.swift */; };
 		E8647FAF2E971C1000A66820 /* DiningDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8647FAE2E971C1000A66820 /* DiningDetailView.swift */; };
+		E88562C42EA2E2AB0062315A /* OpenClosedStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88562C32EA2E2AB0062315A /* OpenClosedStatusView.swift */; };
+		E88562C62EA2E8890062315A /* HasOpenClosedStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88562C52EA2E8890062315A /* HasOpenClosedStatus.swift */; };
+		E88562C82EA37FBA0062315A /* OpenClosedStatusManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88562C72EA37FBA0062315A /* OpenClosedStatusManager.swift */; };
 		E889F75C2DA323C100202556 /* BMActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E889F75B2DA323C100202556 /* BMActionButton.swift */; };
 		E889F7FC2DAC4DEE00202556 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E889F7FB2DAC4DEE00202556 /* WidgetKit.framework */; };
 		E889F7FE2DAC4DEE00202556 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E889F7FD2DAC4DEE00202556 /* SwiftUI.framework */; };
@@ -355,6 +358,9 @@
 		E8647F802E95AD9400A66820 /* LibrariesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibrariesView.swift; sourceTree = "<group>"; };
 		E8647FAC2E971ABA00A66820 /* Logger+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Ext.swift"; sourceTree = "<group>"; };
 		E8647FAE2E971C1000A66820 /* DiningDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiningDetailView.swift; sourceTree = "<group>"; };
+		E88562C32EA2E2AB0062315A /* OpenClosedStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenClosedStatusView.swift; sourceTree = "<group>"; };
+		E88562C52EA2E8890062315A /* HasOpenClosedStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasOpenClosedStatus.swift; sourceTree = "<group>"; };
+		E88562C72EA37FBA0062315A /* OpenClosedStatusManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenClosedStatusManager.swift; sourceTree = "<group>"; };
 		E889F75B2DA323C100202556 /* BMActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMActionButton.swift; sourceTree = "<group>"; };
 		E889F7FA2DAC4DEE00202556 /* BerkeleyMobileWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = BerkeleyMobileWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		E889F7FB2DAC4DEE00202556 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
@@ -587,6 +593,7 @@
 		13B8E95724256E4F00E7FCBF /* ItemProtocols */ = {
 			isa = PBXGroup;
 			children = (
+				E88562C52EA2E8890062315A /* HasOpenClosedStatus.swift */,
 				13EA64C92399CE5B00FD8E13 /* SearchItem.swift */,
 				29061D40241C450E002BC9D9 /* HasLocation.swift */,
 				29345E2C24A7FFB600859A88 /* CanFavorite.swift */,
@@ -825,6 +832,8 @@
 				E83B6D9C2D72FD6F00AA9422 /* HomeView.swift */,
 				2EC165692D752A7300F88B60 /* HomeSectionListRowView.swift */,
 				E89F20442DF2CD2E00C488EF /* BMHomeSectionListView.swift */,
+				E88562C32EA2E2AB0062315A /* OpenClosedStatusView.swift */,
+				E88562C72EA37FBA0062315A /* OpenClosedStatusManager.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1110,6 +1119,7 @@
 				01B250282516AD4F00CBA459 /* IconPairView.swift in Sources */,
 				FDD7946C260FE09D00ABE60E /* Colors+AlertView.swift in Sources */,
 				E80330ED2CE7EBB100DC9574 /* NSCoding+Extension.swift in Sources */,
+				E88562C62EA2E8890062315A /* HasOpenClosedStatus.swift in Sources */,
 				2948155D25326D1400D113B6 /* ImageLoader.swift in Sources */,
 				13EA64CA2399CE5B00FD8E13 /* SearchItem.swift in Sources */,
 				13491DB8241E22130033F9AB /* Colors+Event.swift in Sources */,
@@ -1117,6 +1127,7 @@
 				E83B6DA72D7A85F200AA9422 /* GymOccupancyView.swift in Sources */,
 				2EC1656A2D752A7300F88B60 /* HomeSectionListRowView.swift in Sources */,
 				29345E2B24A7EC2B00859A88 /* HasImage.swift in Sources */,
+				E88562C82EA37FBA0062315A /* OpenClosedStatusManager.swift in Sources */,
 				2913595924B13DF200DE9AD6 /* OpenTimesCardView.swift in Sources */,
 				13135BB3241244370056B169 /* FilterViewCell.swift in Sources */,
 				13580AF62437D7E700D309AA /* LibraryDetailViewController.swift in Sources */,
@@ -1168,6 +1179,7 @@
 				01FA50F124E8B33100DCC490 /* BMLocationManager.swift in Sources */,
 				017C0B26251018BA00BFA80A /* Colors+MapMarker.swift in Sources */,
 				E83B6DA92D7A860E00AA9422 /* GymOccupancyViewModel.swift in Sources */,
+				E88562C42EA2E2AB0062315A /* OpenClosedStatusView.swift in Sources */,
 				29345E2724A7E76300859A88 /* OverviewCardView.swift in Sources */,
 				01D11B902504560700BDF660 /* GymDetailViewController.swift in Sources */,
 				55AF442D2453ACE600F13232 /* BMDiningLocation.swift in Sources */,
@@ -1358,7 +1370,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 11.10;
+				MARKETING_VERSION = 11.11;
 				PRODUCT_BUNDLE_IDENTIFIER = org.asuc.ASUC;
 				PRODUCT_NAME = Berkeley;
 				SWIFT_VERSION = 5.0;
@@ -1382,7 +1394,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 11.10;
+				MARKETING_VERSION = 11.11;
 				PRODUCT_BUNDLE_IDENTIFIER = org.asuc.ASUC;
 				PRODUCT_NAME = Berkeley;
 				PROVISIONING_PROFILE_SPECIFIER = "";

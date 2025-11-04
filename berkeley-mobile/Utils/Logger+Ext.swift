@@ -14,4 +14,9 @@ extension Logger {
         subsystem: Bundle.main.bundleIdentifier!,
         category: String(describing: DiningHallsViewModel.self)
     )
+    
+    static let openClosedStatusManager = Logger(
+        subsystem: Bundle.main.bundleIdentifier!,
+        category: String(describing: OpenClosedStatusManager.self)
+    )
 }

@@ -16,6 +16,8 @@ struct CalendarEventsListView<Content:View>: View {
     let proxy: ScrollViewProxy
     @ViewBuilder var content: (BMEventCalendarEntry) -> Content
     
+    @State private var isLoading = false
+    
     var body: some View {
         List {
             Group {
@@ -24,7 +26,7 @@ struct CalendarEventsListView<Content:View>: View {
                 }
                 .environmentObject(calendarViewModel)
                
-                if scrapper.isLoading {
+                if scrapper.isLoading || isLoading {
                     ProgressView()
                         .id(UUID())
                 } else {
@@ -51,6 +53,24 @@ struct CalendarEventsListView<Content:View>: View {
             .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 4, trailing: 0))
         }
         .listStyle(PlainListStyle())
+        .onAppear {
+            guard !eventsViewModel.didCacheEventsExistence.contains(scrapper.type) else {
+                return
+            }
+            
+            isLoading = true
+        }
+        .onChange(of: scrapper.groupedEntries) { groupedEntries in
+            guard !eventsViewModel.didCacheEventsExistence.contains(scrapper.type) else {
+                return
+            }
+            
+            let events = groupedEntries.values.flatMap { $0 }
+            Task {
+                await eventsViewModel.cacheEventsExistence(for: events, scrapperType: scrapper.type)
+                isLoading = false
+            }
+        }
     }
     
     private func scrollToEvent(day: Int, proxy: ScrollViewProxy) {
