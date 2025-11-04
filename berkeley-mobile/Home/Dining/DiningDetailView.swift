@@ -23,6 +23,16 @@ struct DiningDetailView: View {
         return diningHall.meals[BMMeal.BMMealType.other]?.categoriesAndMenuItems.first?.menuItems.first?.name
     }
     
+    private var categoriesAndMenuItems: [BMMealCategory] {
+        switch selectedTabIndex {
+        case 0:
+            return diningHall.meals[BMMeal.BMMealType.breakfast]?.categoriesAndMenuItems ?? []
+        case 1:
+            return diningHall.meals[BMMeal.BMMealType.lunch]?.categoriesAndMenuItems ?? []
+        default:
+            return diningHall.meals[BMMeal.BMMealType.dinner]?.categoriesAndMenuItems ?? []
+        }
+    }
     private var filteredTabNames: [String] {
         ["Breakfast", "Lunch", "Dinner"].filter { name in
             let mealType: BMMeal.BMMealType? = {
