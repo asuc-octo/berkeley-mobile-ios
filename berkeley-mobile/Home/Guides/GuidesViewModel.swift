@@ -32,8 +32,13 @@ class GuidesViewModel {
     func fetchGuides() async -> [Guide] {
         do {
             let snap = try await db.collection(kGuidesEndpoint).getDocuments()
-            let guides: [Guide] = try snap.documents.map {
-                try $0.data(as: Guide.self)
+            let guides: [Guide] = snap.documents.compactMap {
+                do {
+                    return try $0.data(as: Guide.self)
+                } catch {
+                    Logger.guidesViewModel.error("Failed to decode guide: \(error)")
+                    return nil
+                }
             }
             return guides
         } catch {
