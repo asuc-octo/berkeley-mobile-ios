@@ -15,7 +15,7 @@ struct GuidesView: View {
         if viewModel.isLoading {
             ProgressView()
         } else {
-            List(viewModel.guides, id: \.name) { guide in
+            List(viewModel.guides) { guide in
                 NavigationLink {
                     GuideDetailView(guide: guide)
                         .containerBackground(.clear, for: .navigation)

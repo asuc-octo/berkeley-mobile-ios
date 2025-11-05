@@ -14,7 +14,7 @@ struct GuideDetailView: View {
     var guide: Guide
     
     var body: some View {
-        List(guide.places, id: \.name) { place in
+        List(guide.places) { place in
             Section {
                 GuideDetailRowHeaderView(place: place)
                 Text(place.description)

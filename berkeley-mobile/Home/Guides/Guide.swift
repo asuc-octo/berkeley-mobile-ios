@@ -18,7 +18,9 @@ struct Guide: Codable, Identifiable {
     var places: [GuidePlace]
 }
 
-struct GuidePlace: Codable, HasImage, HasLocation, HasPhoneNumber, HasWebsite {
+struct GuidePlace: Codable, Identifiable, HasImage, HasLocation, HasPhoneNumber, HasWebsite {
+    var id = UUID()
+    
     var name: String
     var description: String
     
@@ -31,4 +33,14 @@ struct GuidePlace: Codable, HasImage, HasLocation, HasPhoneNumber, HasWebsite {
     var longitude: Double?
     
     var websiteURLString: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case name
+        case description
+        case imageURL
+        case phoneNumber
+        case address
+        case latitude
+        case longitude
+    }
 }
