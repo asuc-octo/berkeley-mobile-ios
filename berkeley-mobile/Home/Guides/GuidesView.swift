@@ -14,6 +14,12 @@ struct GuidesView: View {
     var body: some View {
         if viewModel.isLoading {
             ProgressView()
+            Spacer()
+        } else if viewModel.guides.isEmpty {
+            Text("No Guides Available")
+                .font(Font(BMFont.bold(20)))
+                .foregroundStyle(.gray)
+            Spacer()
         } else {
             List(viewModel.guides) { guide in
                 NavigationLink {
@@ -23,13 +29,13 @@ struct GuidesView: View {
                 } label: {
                     GuideRowView(guide: guide)
                 }
+                .disabled(guide.places.isEmpty)
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color.clear)
             }
             .listStyle(.plain)
             .scrollContentBackground(.hidden)
         }
-        Spacer()
     }
 }
 
@@ -58,9 +64,11 @@ struct GuideRowView: View {
                 }
                 .frame(width: proxy.size.width / (5 / 3.5))
                 
-                Image(systemName: "chevron.right")
-                    .fontWeight(.semibold)
-                    .foregroundStyle(.secondary)
+                if !guide.places.isEmpty {
+                    Image(systemName: "chevron.right")
+                        .fontWeight(.semibold)
+                        .foregroundStyle(.secondary)
+                }
             }
         }
         .frame(height: 200)
@@ -78,13 +86,20 @@ struct GuidePlacesStackedCollageView: View {
     
     var body: some View {
         ZStack {
-            let items = Array(guide.places.prefix(3).reversed())
-            ForEach(Array(zip(items, angles.prefix(items.count)).enumerated()), id: \.offset) { _, pair in
-                let (place, angle) = pair
-                BMCachedAsyncImageView(imageURL: place.imageURL, aspectRatio: .fill)
+            if guide.places.isEmpty {
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(.gray)
                     .frame(width: 80, height: 150)
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                    .rotationEffect(.degrees(angle))
+                    .rotationEffect(.degrees(0))
+            } else {
+                let items = Array(guide.places.prefix(3).reversed())
+                ForEach(Array(zip(items, angles.prefix(items.count)).enumerated()), id: \.offset) { _, pair in
+                    let (place, angle) = pair
+                    BMCachedAsyncImageView(imageURL: place.imageURL, aspectRatio: .fill)
+                        .frame(width: 80, height: 150)
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                        .rotationEffect(.degrees(angle))
+                }
             }
         }
     }
