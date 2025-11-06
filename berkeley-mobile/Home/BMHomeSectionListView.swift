@@ -16,22 +16,30 @@ struct BMHomeSectionListView: View {
     var selectionHandler: ((SearchItem & HasLocation & HasImage) -> Void)?
     
     var body: some View {
-        VStack {
-            if #unavailable(iOS 26.0) {
-                sectionHeaderView
-            }
-           
-            if #available(iOS 17.0, *) {
-                listView
-                    .contentMargins(.top, 0)
-                    .contentMargins([.leading, .trailing], 5)
-            } else {
-                listView
-            }
+        if items.isEmpty {
+            Text("No Available Items")
+                .font(Font(BMFont.bold(20)))
+                .foregroundStyle(.gray)
+            Spacer()
         }
-        .padding()
-        .background(Color(BMColor.cardBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 10))
+        else {
+            VStack {
+                if #unavailable(iOS 26.0) {
+                    sectionHeaderView
+                }
+                
+                if #available(iOS 17.0, *) {
+                    listView
+                        .contentMargins(.top, 0)
+                        .contentMargins([.leading, .trailing], 5)
+                } else {
+                    listView
+                }
+            }
+            .padding()
+            .background(Color(BMColor.cardBackground))
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+        }
     }
     
     private var sectionHeaderView: some View {
@@ -49,27 +57,28 @@ struct BMHomeSectionListView: View {
     @ViewBuilder
     private var listView: some View {
         if #available(iOS 26.0, *) {
-            List {
-                Section {
-                    ForEach(items, id: \.name) { item in
-                        Button(action: {
-                            mapViewController.choosePlacemark(item: item)
-                            selectionHandler?(item)
-                        }) {
-                            HomeSectionListRowView(rowItem: item)
-                                .frame(width: 290)
+                List {
+                    Section {
+                        ForEach(items, id: \.name) { item in
+                            Button(action: {
+                                mapViewController.choosePlacemark(item: item)
+                                selectionHandler?(item)
+                            }) {
+                                HomeSectionListRowView(rowItem: item)
+                                    .frame(width: 290)
+                            }
+                            .listRowSeparator(.hidden)
+                            .listRowBackground(Color(BMColor.cardBackground))
                         }
-                        .listRowSeparator(.hidden)
-                        .listRowBackground(Color(BMColor.cardBackground))
+                    } header: {
+                        sectionHeaderView
                     }
-                } header: {
-                    sectionHeaderView
                 }
+                .listStyle(.plain)
+                .scrollContentBackground(.hidden)
+                .clipShape(RoundedRectangle(cornerRadius: 10))
             }
-            .listStyle(.plain)
-            .scrollContentBackground(.hidden)
-            .clipShape(RoundedRectangle(cornerRadius: 10))
-        } else {
+         else {
             List(items, id: \.name) { item in
                 Button(action: {
                     mapViewController.choosePlacemark(item: item)
@@ -94,3 +103,4 @@ struct BMHomeSectionListView: View {
     
     BMHomeSectionListView(sectionType: .dining, items: diningHalls, mapViewController: MapViewController())
 }
+
