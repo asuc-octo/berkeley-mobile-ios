@@ -42,5 +42,6 @@ struct GuidePlace: Codable, Identifiable, HasImage, HasLocation, HasPhoneNumber,
         case address
         case latitude
         case longitude
+        case websiteURLString
     }
 }
