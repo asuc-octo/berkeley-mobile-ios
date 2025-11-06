@@ -50,7 +50,7 @@ struct BMHomeSectionListView: View {
     private var listView: some View {
         if #available(iOS 26.0, *) {
             if items.isEmpty {
-                Text("No Guides Available")
+                Text("No Available Items")
                     .font(Font(BMFont.bold(20)))
                     .foregroundStyle(.gray)
             } else {
