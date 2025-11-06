@@ -49,26 +49,32 @@ struct BMHomeSectionListView: View {
     @ViewBuilder
     private var listView: some View {
         if #available(iOS 26.0, *) {
-            List {
-                Section {
-                    ForEach(items, id: \.name) { item in
-                        Button(action: {
-                            mapViewController.choosePlacemark(item: item)
-                            selectionHandler?(item)
-                        }) {
-                            HomeSectionListRowView(rowItem: item)
-                                .frame(width: 290)
+            if items.isEmpty {
+                Text("No Available Items")
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .padding()
+            } else {
+                List {
+                    Section {
+                        ForEach(items, id: \.name) { item in
+                            Button(action: {
+                                mapViewController.choosePlacemark(item: item)
+                                selectionHandler?(item)
+                            }) {
+                                HomeSectionListRowView(rowItem: item)
+                                    .frame(width: 290)
+                            }
+                            .listRowSeparator(.hidden)
+                            .listRowBackground(Color(BMColor.cardBackground))
                         }
-                        .listRowSeparator(.hidden)
-                        .listRowBackground(Color(BMColor.cardBackground))
+                    } header: {
+                        sectionHeaderView
                     }
-                } header: {
-                    sectionHeaderView
                 }
+                .listStyle(.plain)
+                .scrollContentBackground(.hidden)
+                .clipShape(RoundedRectangle(cornerRadius: 10))
             }
-            .listStyle(.plain)
-            .scrollContentBackground(.hidden)
-            .clipShape(RoundedRectangle(cornerRadius: 10))
         } else {
             List(items, id: \.name) { item in
                 Button(action: {
@@ -94,3 +100,4 @@ struct BMHomeSectionListView: View {
     
     BMHomeSectionListView(sectionType: .dining, items: diningHalls, mapViewController: MapViewController())
 }
+
