@@ -50,9 +50,9 @@ struct BMHomeSectionListView: View {
     private var listView: some View {
         if #available(iOS 26.0, *) {
             if items.isEmpty {
-                Text("No Available Items")
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .padding()
+                Text("No Guides Available")
+                    .font(Font(BMFont.bold(20)))
+                    .foregroundStyle(.gray)
             } else {
                 List {
                     Section {
