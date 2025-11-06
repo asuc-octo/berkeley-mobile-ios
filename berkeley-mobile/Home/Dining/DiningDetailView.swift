@@ -12,6 +12,7 @@ import SwiftUI
 // MARK: - DiningDetailView
 
 struct DiningDetailView: View {
+    
     @Environment(DiningHallsViewModel.self) private var viewModel
     
     var diningHall: BMDiningHall
@@ -23,13 +24,15 @@ struct DiningDetailView: View {
     }
     
     private var categoriesAndMenuItems: [BMMealCategory] {
-        switch selectedTabIndex {
-        case 0:
-            return diningHall.meals[BMMeal.BMMealType.breakfast]?.categoriesAndMenuItems ?? []
-        case 1:
-            return diningHall.meals[BMMeal.BMMealType.lunch]?.categoriesAndMenuItems ?? []
-        default:
-            return diningHall.meals[BMMeal.BMMealType.dinner]?.categoriesAndMenuItems ?? []
+        let selectedTabMealType = BMMeal.BMMealType(rawValue: filteredTabNames[selectedTabIndex])!
+        return diningHall.getCategoriesAndMenuItems(for: selectedTabMealType)
+    }
+    
+    private var filteredTabNames: [String] {
+        return BMMeal.BMMealType.regularMealTypes.filter {
+            !diningHall.getCategoriesAndMenuItems(for: $0).isEmpty
+        }.map {
+            $0.rawValue
         }
     }
     
@@ -38,7 +41,10 @@ struct DiningDetailView: View {
             if let allDayString {
                 DiningAllDayView(allDayString: allDayString)
             } else {
-                BMSegmentedControlView(tabNames: ["Breakfast", "Lunch", "Dinner"], selectedTabIndex: $selectedTabIndex)
+                BMSegmentedControlView(
+                    tabNames: filteredTabNames,
+                    selectedTabIndex: $selectedTabIndex
+                )
                 if categoriesAndMenuItems.isEmpty {
                     Text("No Menu Items Available")
                         .fontWeight(.semibold)
