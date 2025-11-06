@@ -11,9 +11,7 @@ import SwiftUI
 struct BMCachedAsyncImageView: View {
     var imageURL: URL?
     var placeholderImage: UIImage?
-    var aspectRatio: ContentMode = .fit
-    var widthAndHeight: CGFloat
-    var cornerRadius: CGFloat = 0
+    var aspectRatio: ContentMode = .fill
     
     @State private var image: UIImage?
     
@@ -24,8 +22,6 @@ struct BMCachedAsyncImageView: View {
                 Image(uiImage: image)
                     .resizable()
                     .aspectRatio(contentMode: aspectRatio)
-                    .frame(maxWidth: widthAndHeight, maxHeight: widthAndHeight)
-                    .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
             }
         }
         .onAppear {
@@ -48,5 +44,5 @@ struct BMCachedAsyncImageView: View {
 }
 
 #Preview {
-    BMCachedAsyncImageView(imageURL: URL(string: "https://events.berkeley.edu/live/image/gid/84/width/200/height/200/crop/1/src_region/0,0,1080,1080/8428_NewEECSLogo-Livewhale.rev.1729531907.png"), widthAndHeight: 80, cornerRadius: 8)
+    BMCachedAsyncImageView(imageURL: URL(string: "https://events.berkeley.edu/live/image/gid/84/width/200/height/200/crop/1/src_region/0,0,1080,1080/8428_NewEECSLogo-Livewhale.rev.1729531907.png"))
 }
