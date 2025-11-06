@@ -24,28 +24,15 @@ struct DiningDetailView: View {
     }
     
     private var categoriesAndMenuItems: [BMMealCategory] {
-        switch selectedTabIndex {
-        case 0:
-            return diningHall.meals[BMMeal.BMMealType.breakfast]?.categoriesAndMenuItems ?? []
-        case 1:
-            return diningHall.meals[BMMeal.BMMealType.lunch]?.categoriesAndMenuItems ?? []
-        default:
-            return diningHall.meals[BMMeal.BMMealType.dinner]?.categoriesAndMenuItems ?? []
-        }
+        let selectedTabMealType = BMMeal.BMMealType(rawValue: filteredTabNames[selectedTabIndex])!
+        return diningHall.getCategoriesAndMenuItems(for: selectedTabMealType)
     }
+    
     private var filteredTabNames: [String] {
-        ["Breakfast", "Lunch", "Dinner"].filter { name in
-            let mealType: BMMeal.BMMealType? = {
-                switch name {
-                case "Breakfast": return .breakfast
-                case "Lunch":     return .lunch
-                case "Dinner":    return .dinner
-                default:          return nil
-                }
-            }()
-            guard let mealType else { return false }
-            let categories = diningHall.meals[mealType]?.categoriesAndMenuItems ?? []
-            return !categories.isEmpty
+        return BMMeal.BMMealType.regularMealTypes.filter {
+            !diningHall.getCategoriesAndMenuItems(for: $0).isEmpty
+        }.map {
+            $0.rawValue
         }
     }
     
