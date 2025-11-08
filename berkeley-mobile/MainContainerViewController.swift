@@ -26,7 +26,6 @@ class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
     private var homeViewController: UIViewController!
     private var homeView: UIView!
     private var hasAttemptedToShowFeedbackForm = false
-
     
     private let feedbackFormViewModel = FeedbackFormViewModel()
     
@@ -55,7 +54,7 @@ class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
         super.viewDidAppear(animated)
         
         guard !hasAttemptedToShowFeedbackForm else { return }
-        hasAttemptedToShowFeedbackForm = true
+//        hasAttemptedToShowFeedbackForm = true
         
         Task {
             let formConfig = await feedbackFormViewModel.fetchFeedbackFormConfig()

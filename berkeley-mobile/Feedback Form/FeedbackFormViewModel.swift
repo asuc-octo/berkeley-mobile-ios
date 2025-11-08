@@ -19,11 +19,6 @@ struct FeedbackFormConfig: Codable {
     var sectionsAndQuestions: [FeedbackFormSectionQuestions]
     var numToShow: Int
     
-    enum CodingKeys: String, CodingKey {
-        case instructionText
-        case sectionsAndQuestions
-        case numToShow
-    }
 }
 
 struct FeedbackFormSectionQuestions: Codable {
@@ -42,10 +37,8 @@ class FeedbackFormViewModel {
         
         do {
             let formConfig = try await docRef.getDocument(as: FeedbackFormConfig.self)
-            print("Successfully fetched form config")
             return formConfig
         } catch {
-            print("Error fetching form config: \(error)")
         }
         
         return nil
@@ -90,9 +83,7 @@ class FeedbackFormViewModel {
                 .document(email)
                 .setData(feedbackData)
             
-            print("Feedback submitted successfully for \(email)")
         } catch {
-            print("Error submitting feedback: \(error)")
         }
     }
     

@@ -12,17 +12,14 @@ import SwiftUI
 struct FeedbackFormView: View {
     @Environment(\.dismiss) private var dismiss
     
-    // NEW: Add ViewModel and simplified state
     @State private var viewModel = FeedbackFormViewModel()
     @State private var checkboxAnswers: [String: Bool] = [:]
     @State private var textAnswers: [String: String] = [:]
     @State private var email = ""
     @State private var isSubmitting = false
     
-    // KEEP: This stays the same
     var config: FeedbackFormConfig
     
-    // KEEP: This stays the same
     private var isEmailValid: Bool {
         return !email.isEmpty && email.contains("@berkeley.edu")
     }
@@ -30,27 +27,22 @@ struct FeedbackFormView: View {
     var body: some View {
         NavigationView {
             Form {
-                // Instruction text
                 Section {
                     Text(config.instructionText)
                         .foregroundColor(.secondary)
                 }
                 
-                // Email section
                 emailSection
                 
-                // Dynamic sections from config
                 ForEach(config.sectionsAndQuestions, id: \.questionTitle) { section in
                     Section(header: Text(section.questionTitle)) {
                         if section.questions.contains("") {
-                            // Empty string means open-ended text field
                             TextEditor(text: Binding(
                                 get: { textAnswers[section.questionTitle, default: ""] },
                                 set: { textAnswers[section.questionTitle] = $0 }
                             ))
                             .frame(minHeight: 100)
                         } else {
-                            // Checkbox options
                             ForEach(section.questions, id: \.self) { question in
                                 HStack {
                                     Text(question)
@@ -68,7 +60,6 @@ struct FeedbackFormView: View {
                     }
                 }
                 
-                // Submit button
                 submitButtonSection
             }
             .navigationBarTitle("We Want Your Feedback!", displayMode: .inline)
@@ -85,7 +76,6 @@ struct FeedbackFormView: View {
         }
     }
     
-    // NEW: Updated email section
     private var emailSection: some View {
         Section(
             header: Text("Berkeley Email \(!isEmailValid ? "(Required)" : "")")
@@ -102,7 +92,6 @@ struct FeedbackFormView: View {
         }
     }
     
-    // NEW: Updated submit button with loading state
     private var submitButtonSection: some View {
         Section {
             Button(action: submitFeedbackForm) {
@@ -122,12 +111,10 @@ struct FeedbackFormView: View {
                 .padding()
             }
             .buttonStyle(DepthButtonStyle(color: isEmailValid ? Color.green : Color.gray))
-            .disabled(!isEmailValid || isSubmitting)
         }
         .listRowBackground(Color.clear)
     }
     
-    // NEW: Simplified submit function using ViewModel
     private func submitFeedbackForm() {
         guard isEmailValid else { return }
         
@@ -145,10 +132,9 @@ struct FeedbackFormView: View {
         }
     }
     
-    // KEEP: This stays the same
     private func dismissForm() {
         dismiss()
-        UserDefaults.standard.set(2, forKey: .numAppLaunchForFeedbackForm)
+        UserDefaults.standard.set(0, forKey: .numAppLaunchForFeedbackForm)
     }
 }
 
