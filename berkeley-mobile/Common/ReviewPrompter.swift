@@ -16,7 +16,6 @@ enum ReviewPrompter {
     private static func shouldPromptForReview() -> Bool {
         let key = UserDefaultsKeys.numAppLaunchForAppStoreReview.rawValue
         let launches = UserDefaults.standard.integer(forKey: key)
-        print("DEBUG: ",launches)
         if launches == numLaunchesForReview {
             UserDefaults.standard.set(0, forKey: key)
             return true
@@ -26,7 +25,9 @@ enum ReviewPrompter {
 
     @MainActor
     static func presentReviewIfNeeded() {
-        guard shouldPromptForReview() else { return }
+        guard shouldPromptForReview() else {
+            return
+        }
 
         if let scene = UIApplication.shared.connectedScenes
             .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
