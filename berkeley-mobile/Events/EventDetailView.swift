@@ -105,11 +105,15 @@ struct BMDetailHeaderView: View {
 
     var body: some View {
         ZStack {
-            BMCachedAsyncImageView(imageURL: event.imageURL, placeholderImage: BMConstants.doeGladeImage, aspectRatio: .fill, widthAndHeight: 330, cornerRadius: 10)
+            BMCachedAsyncImageView(imageURL: event.imageURL, placeholderImage: BMConstants.doeGladeImage, aspectRatio: .fill)
+                .frame(maxWidth: 330, maxHeight: 330)
+                .clipShape(RoundedRectangle(cornerRadius: 10))
 
             VStack(alignment: .leading, spacing: 8) {
                 Spacer()
-                BMCachedAsyncImageView(imageURL: event.imageURL, placeholderImage: BMConstants.doeGladeImage, aspectRatio: .fill, widthAndHeight: 130, cornerRadius: 10)
+                BMCachedAsyncImageView(imageURL: event.imageURL, placeholderImage: BMConstants.doeGladeImage, aspectRatio: .fill)
+                    .frame(maxWidth: 130, maxHeight: 130)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
                     .frame(maxWidth: .infinity, alignment: .center)
                     .shadow(color: .gray, radius: 10)
 
