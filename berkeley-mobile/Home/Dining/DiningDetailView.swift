@@ -54,7 +54,8 @@ struct DiningDetailView: View {
                     List {
                         DiningItemsListView(selectedTabIndex: $selectedTabIndex,
                                             categoriesAndMenuItems: categoriesAndMenuItems,
-                        diningHall: diningHall)
+                                            diningHall: diningHall,
+                                            filteredTabNames: filteredTabNames)
                     }
                     .listStyle(.plain)
                     .scrollContentBackground(.hidden)
@@ -114,11 +115,18 @@ struct DiningItemsListView: View {
     @Binding var selectedTabIndex: Int
     var categoriesAndMenuItems: [BMMealCategory]
     var diningHall: BMDiningHall
-    
+    var filteredTabNames: [String]
+
+    private var currentMealTime: String? {
+        guard selectedTabIndex < filteredTabNames.count else { return nil }
+        let selectedTabMealType = BMMeal.BMMealType(rawValue: filteredTabNames[selectedTabIndex])
+        return diningHall.meals[selectedTabMealType ?? .breakfast]?.time
+    }
+
     var body: some View {
         VStack(spacing: 20) {
-            if selectedTabIndex < diningHall._hours.count {
-                Text(diningHall._hours[selectedTabIndex])
+            if let currentMealTime {
+                Text(currentMealTime)
                     .fontWeight(.semibold)
                     .padding(.top, 10)
             }
