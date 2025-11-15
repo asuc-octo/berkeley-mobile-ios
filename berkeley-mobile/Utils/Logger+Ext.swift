@@ -19,4 +19,9 @@ extension Logger {
         subsystem: Bundle.main.bundleIdentifier!,
         category: String(describing: OpenClosedStatusManager.self)
     )
+    
+    static let feedbackFormConfig = Logger(
+            subsystem: Bundle.main.bundleIdentifier!,
+            category: "FeedbackFormConfig"
+        )
 }

@@ -9,6 +9,7 @@
 import Firebase
 import Foundation
 import Observation
+import os
 
 fileprivate let kFeedbackFormConfigEndpoint = "Feedback Form Config"
 fileprivate let kFeedbackFormConfigDocName = "config-data"
@@ -29,6 +30,7 @@ struct FeedbackFormSectionQuestions: Codable {
 @Observable
 class FeedbackFormViewModel {
     var config: FeedbackFormConfig?
+    var isSubmitting = false
     
     private let db = Firestore.firestore()
     
@@ -39,17 +41,23 @@ class FeedbackFormViewModel {
             let formConfig = try await docRef.getDocument(as: FeedbackFormConfig.self)
             return formConfig
         } catch {
+            Logger.feedbackFormConfig.error("Failed to fetch feedback form config: \(error.localizedDescription)")
         }
-        
         return nil
     }
-    
-    func submitFeedback(
+    @MainActor
+    func submitFeedbackFromForm(
         email: String,
         checkboxAnswers: [String: Bool],
         textAnswers: [String: String],
-        config: FeedbackFormConfig
+        config: FeedbackFormConfig,
+        isEmailValid: Bool,
+        onDismiss: @escaping () -> Void
     ) async {
+        guard isEmailValid else { return }
+        
+        isSubmitting = true
+        
         var responses: [[String: Any]] = []
         
         for section in config.sectionsAndQuestions {
@@ -57,7 +65,6 @@ class FeedbackFormViewModel {
                 "questionTitle": section.questionTitle,
                 "answers": [String]()
             ]
-            
             if section.questions.contains("") {
                 if let textResponse = textAnswers[section.questionTitle], !textResponse.isEmpty {
                     sectionData["answers"] = [textResponse]
@@ -68,23 +75,23 @@ class FeedbackFormViewModel {
                 }
                 sectionData["answers"] = selectedAnswers
             }
-            
             responses.append(sectionData)
         }
-        
         let feedbackData: [String: Any] = [
-            "email": email,
+            "email": email.lowercased(),
             "submittedAt": FieldValue.serverTimestamp(),
             "responses": responses
         ]
-        
         do {
             try await db.collection(kFeedbackResponsesCollection)
-                .document(email)
+                .document(email.lowercased())
                 .setData(feedbackData)
-            
+            Logger.feedbackFormConfig.info("Successfully submitted feedback for \(email)")
         } catch {
+            Logger.feedbackFormConfig.error("Failed to submit for \(email): \(error.localizedDescription)")
         }
+        
+        isSubmitting = false
+        onDismiss()
     }
-    
 }

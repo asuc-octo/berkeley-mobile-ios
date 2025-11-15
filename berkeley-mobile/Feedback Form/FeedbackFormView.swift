@@ -16,7 +16,6 @@ struct FeedbackFormView: View {
     @State private var checkboxAnswers: [String: Bool] = [:]
     @State private var textAnswers: [String: String] = [:]
     @State private var email = ""
-    @State private var isSubmitting = false
     
     var config: FeedbackFormConfig
     
@@ -33,7 +32,6 @@ struct FeedbackFormView: View {
                 }
                 
                 emailSection
-                
                 ForEach(config.sectionsAndQuestions, id: \.questionTitle) { section in
                     Section(header: Text(section.questionTitle)) {
                         if section.questions.contains("") {
@@ -72,7 +70,7 @@ struct FeedbackFormView: View {
                     }
                 }
             }
-            .disabled(isSubmitting)
+            .disabled(viewModel.isSubmitting)
         }
     }
     
@@ -94,10 +92,21 @@ struct FeedbackFormView: View {
     
     private var submitButtonSection: some View {
         Section {
-            Button(action: submitFeedbackForm) {
+            Button(action: {
+                Task {
+                    await viewModel.submitFeedbackFromForm(
+                        email: email,
+                        checkboxAnswers: checkboxAnswers,
+                        textAnswers: textAnswers,
+                        config: config,
+                        isEmailValid: isEmailValid,
+                        onDismiss: dismissForm
+                    )
+                }
+            }) {
                 HStack {
                     Spacer()
-                    if isSubmitting {
+                    if viewModel.isSubmitting {
                         ProgressView()
                             .progressViewStyle(CircularProgressViewStyle(tint: .white))
                     } else {
@@ -114,24 +123,6 @@ struct FeedbackFormView: View {
         }
         .listRowBackground(Color.clear)
     }
-    
-    private func submitFeedbackForm() {
-        guard isEmailValid else { return }
-        
-        isSubmitting = true
-        
-        Task {
-            await viewModel.submitFeedback(
-                email: email.lowercased(),
-                checkboxAnswers: checkboxAnswers,
-                textAnswers: textAnswers,
-                config: config
-            )
-            
-            dismissForm()
-        }
-    }
-    
     private func dismissForm() {
         dismiss()
         UserDefaults.standard.set(0, forKey: .numAppLaunchForFeedbackForm)
