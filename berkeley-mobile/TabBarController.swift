@@ -29,14 +29,12 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         tabBar.tintColor = UIColor.label
         tabBar.isTranslucent = true
         
-        if #available(iOS 15.0, *) {
-            let appearance = UITabBarAppearance()
-            appearance.configureWithOpaqueBackground()
-            appearance.backgroundColor = BMColor.cardBackground
-            
-            tabBar.standardAppearance = appearance
-            tabBar.scrollEdgeAppearance = tabBar.standardAppearance
-        }
+        let appearance = UITabBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = BMColor.cardBackground
+
+        tabBar.standardAppearance = appearance
+        tabBar.scrollEdgeAppearance = tabBar.standardAppearance
         
         mapView.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "house"), tag: 0)
         calendarView.tabBarItem = UITabBarItem(title: "Events", image: UIImage(systemName: "calendar"), tag: 1)
