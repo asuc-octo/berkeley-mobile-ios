@@ -29,14 +29,8 @@ struct SafetyLogDetailView: View {
                 if let selectedSafetyLog = selectedSafetyLog {
                     let mapRegion = MKCoordinateRegion(center: selectedSafetyLog.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
                     Group {
-                        if #available(iOS 17.0, *) {
-                            Map(bounds: MapCameraBounds(centerCoordinateBounds: mapRegion, minimumDistance: 2000)) {
-                                SafetyMapMarker(safetyLog: selectedSafetyLog)
-                            }
-                        } else {
-                            Map(coordinateRegion: .constant(mapRegion), annotationItems: [selectedSafetyLog]) { safetyLog in
-                                MapPin(coordinate: safetyLog.coordinate)
-                            }
+                        Map(coordinateRegion: .constant(mapRegion), annotationItems: [selectedSafetyLog]) { safetyLog in
+                            MapPin(coordinate: safetyLog.coordinate)
                         }
                     }
                     .allowsHitTesting(false)

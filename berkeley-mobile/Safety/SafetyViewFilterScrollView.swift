@@ -52,11 +52,6 @@ struct SafetyViewFilterScrollView: View {
                 }
             }
         }
-        .modify {
-            if #available(iOS 17.0, *) {
-                $0.scrollClipDisabled()
-            }
-        }
         .scrollIndicators(.hidden)
     }
 }
