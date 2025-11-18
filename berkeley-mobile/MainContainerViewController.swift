@@ -69,6 +69,7 @@ class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
             hostingController.modalPresentationStyle = .fullScreen
             hostingController.modalTransitionStyle = .coverVertical
             present(hostingController, animated: true)
+            UserDefaults.standard.set(0, forKey: .numAppLaunchForFeedbackForm)
         }
     }
 }

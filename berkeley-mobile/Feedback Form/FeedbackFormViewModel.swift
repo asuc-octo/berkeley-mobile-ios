@@ -25,6 +25,9 @@ struct FeedbackFormConfig: Codable {
 struct FeedbackFormSectionQuestions: Codable {
     var questionTitle: String
     var questions: [String]
+    var isTextField: Bool {
+        return questions == [""]
+    }
 }
 
 @Observable
@@ -65,7 +68,7 @@ class FeedbackFormViewModel {
                 "questionTitle": section.questionTitle,
                 "answers": [String]()
             ]
-            if section.questions.contains("") {
+            if section.isTextField {
                 if let textResponse = textAnswers[section.questionTitle], !textResponse.isEmpty {
                     sectionData["answers"] = [textResponse]
                 }
