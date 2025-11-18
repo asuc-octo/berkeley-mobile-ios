@@ -118,7 +118,9 @@ struct DiningItemsListView: View {
     var filteredTabNames: [String]
 
     private var currentMealTime: String? {
-        guard selectedTabIndex < filteredTabNames.count else { return nil }
+        guard selectedTabIndex < filteredTabNames.count else {
+            return nil
+        }
         let selectedTabMealType = BMMeal.BMMealType(rawValue: filteredTabNames[selectedTabIndex])
         return diningHall.meals[selectedTabMealType ?? .breakfast]?.time
     }
