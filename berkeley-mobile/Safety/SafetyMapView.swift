@@ -18,16 +18,9 @@ struct SafetyMapView: View {
     var isPresentingDetailView: Bool
     
     var body: some View {
-        if #available(iOS 17.0, *) {
-            SafetyNewMapView(selectedSafetyLog: $selectedSafetyLog,
-                             isShowingLegend: $isShowingLegend,
-                             drawerViewState: $drawerViewState,
-                             isPresentingDetailView: isPresentingDetailView)
-        } else {
-            oldMapView
-        }
+        oldMapView
     }
-    
+
     private var oldMapView: some View {
         Map(coordinateRegion: .constant(BMConstants.mapBoundsRegion), showsUserLocation: true, annotationItems: safetyViewModel.filteredSafetyLogs) { safetyLog in
             MapPin(coordinate: safetyLog.coordinate)
@@ -39,7 +32,6 @@ struct SafetyMapView: View {
 
 // MARK: - SafetyNewMapView
 
-@available(iOS 17.0, *)
 struct SafetyNewMapView: View {
     @EnvironmentObject var safetyViewModel: SafetyViewModel
     
@@ -110,17 +102,8 @@ struct SafetyNewMapView: View {
                 HStack(alignment: .top, spacing: 10) {
                     if #unavailable(iOS 26.0) {
                         VStack {
-                            if #available(iOS 17.0, *) {
-                                mapLegendButton
-                                .contentTransition(
-                                    .symbolEffect(.replace)
-                                )
-                            } else {
-                                mapLegendButton
-                            }
-                            
+                            mapLegendButton
                             mapZoomInButton
-                                
                         }
                         .buttonStyle(BMControlButtonStyle())
                     }
@@ -203,7 +186,6 @@ struct SafetyNewMapView: View {
     }
 }
 
-@available(iOS 17.0, *)
 #Preview {
     @Previewable @State var drawerViewState = BMDrawerViewState.medium
     SafetyMapView(selectedSafetyLog: .constant(nil), drawerViewState: $drawerViewState, isPresentingDetailView: false)
