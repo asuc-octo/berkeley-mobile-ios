@@ -62,14 +62,14 @@ class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
         }
     
         let numAppLaunchForFeedbackForm = UserDefaults.standard.integer(forKey: .numAppLaunchForFeedbackForm)
-        
         if numAppLaunchForFeedbackForm >= formConfig.numToShow {
-            let feedbackFormView = FeedbackFormView(config: formConfig)
+            let feedbackFormView = FeedbackFormView(viewModel: feedbackFormViewModel, config: formConfig)
             let hostingController = UIHostingController(rootView: feedbackFormView)
             hostingController.modalPresentationStyle = .fullScreen
             hostingController.modalTransitionStyle = .coverVertical
             present(hostingController, animated: true)
-            UserDefaults.standard.set(0, forKey: .numAppLaunchForFeedbackForm)
+        } else {
+            UserDefaults.standard.set(numAppLaunchForFeedbackForm + 1, forKey: .numAppLaunchForFeedbackForm)
         }
     }
 }

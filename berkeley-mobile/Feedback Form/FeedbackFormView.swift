@@ -12,15 +12,20 @@ import SwiftUI
 struct FeedbackFormView: View {
     @Environment(\.dismiss) private var dismiss
     
-    @State private var viewModel = FeedbackFormViewModel()
     @State private var checkboxAnswers: [String: Bool] = [:]
     @State private var textAnswers: [String: String] = [:]
     @State private var email = ""
     
-    var config: FeedbackFormConfig
+    private var viewModel: FeedbackFormViewModel
+    private var config: FeedbackFormConfig
     
     private var isEmailValid: Bool {
         return !email.isEmpty && email.contains("@berkeley.edu")
+    }
+    
+    init(viewModel: FeedbackFormViewModel, config: FeedbackFormConfig) {
+        self.viewModel = viewModel
+        self.config = config
     }
     
     var body: some View {
@@ -62,11 +67,17 @@ struct FeedbackFormView: View {
             }
             .navigationBarTitle("We Want Your Feedback!", displayMode: .inline)
             .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button(action: dismissForm) {
-                        Image(systemName: "xmark.circle.fill")
-                            .font(.system(size: 20))
-                            .foregroundStyle(.gray)
+                ToolbarItem(placement: .cancellationAction) {
+                    if #available(iOS 26.0, *) {
+                        Button(role: .cancel) {
+                            dismissForm()
+                        }
+                    } else {
+                        Button(action: dismissForm) {
+                            Image(systemName: "xmark.circle.fill")
+                                .font(.system(size: 20))
+                                .foregroundStyle(.gray)
+                        }
                     }
                 }
             }
@@ -94,12 +105,10 @@ struct FeedbackFormView: View {
         Section {
             Button(action: {
                 Task {
-                    await viewModel.submitFeedbackFromForm(
-                        email: email,
+                    await viewModel.submitFeedbackForm(
+                        email: email.lowercased(),
                         checkboxAnswers: checkboxAnswers,
                         textAnswers: textAnswers,
-                        config: config,
-                        isEmailValid: isEmailValid,
                         onDismiss: dismissForm
                     )
                 }
@@ -123,29 +132,28 @@ struct FeedbackFormView: View {
         }
         .listRowBackground(Color.clear)
     }
+    
     private func dismissForm() {
         dismiss()
         UserDefaults.standard.set(0, forKey: .numAppLaunchForFeedbackForm)
     }
 }
 
-struct FeedbackFormView_Previews: PreviewProvider {
-    static var previews: some View {
-        let formConfig = FeedbackFormConfig(
-            instructionText: "Please share your thoughts about the Berkeley Mobile app!",
-            sectionsAndQuestions: [
-                FeedbackFormSectionQuestions(
-                    questionTitle: "What features do you like?",
-                    questions: ["Maps", "Dining", "Library"]
-                ),
-                FeedbackFormSectionQuestions(
-                    questionTitle: "Additional comments",
-                    questions: [""]
-                )
-            ],
-            numToShow: 20
-        )
-        FeedbackFormView(config: formConfig)
-    }
+#Preview {
+    let viewModel = FeedbackFormViewModel()
+    let formConfig = FeedbackFormConfig(
+        instructionText: "Please share your thoughts about the Berkeley Mobile app!",
+        sectionsAndQuestions: [
+            FeedbackFormSectionQuestions(
+                questionTitle: "What features do you like?",
+                questions: ["Maps", "Dining", "Library"]
+            ),
+            FeedbackFormSectionQuestions(
+                questionTitle: "Additional comments",
+                questions: [""]
+            )
+        ],
+        numToShow: 20
+    )
+    FeedbackFormView(viewModel: viewModel, config: formConfig)
 }
-

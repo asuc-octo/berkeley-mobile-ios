@@ -32,32 +32,36 @@ struct FeedbackFormSectionQuestions: Codable {
 
 @Observable
 class FeedbackFormViewModel {
-    var config: FeedbackFormConfig?
     var isSubmitting = false
     
     private let db = Firestore.firestore()
+    @ObservationIgnored
+    private var config: FeedbackFormConfig?
     
     func fetchFeedbackFormConfig() async -> FeedbackFormConfig? {
         let docRef = db.collection(kFeedbackFormConfigEndpoint).document(kFeedbackFormConfigDocName)
         
         do {
-            let formConfig = try await docRef.getDocument(as: FeedbackFormConfig.self)
-            return formConfig
+            config = try await docRef.getDocument(as: FeedbackFormConfig.self)
+            return config
         } catch {
             Logger.feedbackFormConfig.error("Failed to fetch feedback form config: \(error.localizedDescription)")
         }
         return nil
     }
+    
     @MainActor
-    func submitFeedbackFromForm(
+    func submitFeedbackForm(
         email: String,
         checkboxAnswers: [String: Bool],
         textAnswers: [String: String],
-        config: FeedbackFormConfig,
-        isEmailValid: Bool,
         onDismiss: @escaping () -> Void
     ) async {
-        guard isEmailValid else { return }
+        guard let config else {
+            Logger.feedbackFormConfig.error("Unable to get feedback form config.")
+            onDismiss()
+            return
+        }
         
         isSubmitting = true
         
@@ -80,14 +84,20 @@ class FeedbackFormViewModel {
             }
             responses.append(sectionData)
         }
+        
         let feedbackData: [String: Any] = [
-            "email": email.lowercased(),
+            "email": email,
             "submittedAt": FieldValue.serverTimestamp(),
             "responses": responses
         ]
+        
         do {
+            let currDate = Date.now
+            let currDateString = currDate.formatted(date: .abbreviated, time: .omitted)
+            let currTimeString = currDate.formatted(date: .omitted, time: .shortened)
+            let docID = "\(currDateString)/\(email)/\(currTimeString)"
             try await db.collection(kFeedbackResponsesCollection)
-                .document(email.lowercased())
+                .document(docID)
                 .setData(feedbackData)
             Logger.feedbackFormConfig.info("Successfully submitted feedback for \(email)")
         } catch {
