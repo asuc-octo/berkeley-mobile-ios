@@ -54,7 +54,7 @@ struct GuideDetailRowHeaderView: View {
     var body: some View {
         ZStack {
             BMCachedAsyncImageView(imageURL: place.imageURL, aspectRatio: .fill)
-                .frame(maxWidth: .infinity)
+                .frame(maxWidth: 370)
                 .frame(height: 220)
                 .clipped()
             VStack {
