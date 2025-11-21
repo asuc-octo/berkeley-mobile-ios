@@ -68,10 +68,10 @@ struct BMHomeSectionListView: View {
             List {
                 Section {
                     ForEach(sortedItems, id: \.name) { item in
-                        Button {
+                        Button(action: {
                             mapViewController.choosePlacemark(item: item)
                             selectionHandler?(item)
-                        } label: {
+                        }) {
                             HomeSectionListRowView(rowItem: item)
                                 .frame(width: 290)
                         }
@@ -87,10 +87,10 @@ struct BMHomeSectionListView: View {
             .clipShape(RoundedRectangle(cornerRadius: 10))
         } else {
             List(sortedItems, id: \.name) { item in
-                Button {
+                Button(action: {
                     mapViewController.choosePlacemark(item: item)
                     selectionHandler?(item)
-                } label: {
+                }) {
                     HomeSectionListRowView(rowItem: item)
                         .frame(width: 290)
                 }
@@ -103,7 +103,6 @@ struct BMHomeSectionListView: View {
 }
 
 #Preview {
-    let homeViewModel = HomeViewModel()
     let diningHalls = [
         BMDiningHall(
             name: "Cafe 3",
@@ -118,4 +117,3 @@ struct BMHomeSectionListView: View {
     
     BMHomeSectionListView(sectionType: .dining, items: diningHalls, mapViewController: MapViewController())
 }
-
