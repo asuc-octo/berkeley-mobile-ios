@@ -16,9 +16,6 @@ struct BMHomeSectionListView: View {
     
     var selectionHandler: ((SearchItem & HasLocation & HasImage) -> Void)?
     
-    // Sort items by proximity to user (ascending)
-    // utilizes the CLLocation.distanceFromUser() helper
-    // items without lat/lon sent to the bottom
     private var sortedItems: [SearchItem & HasLocation & HasImage] {
         items.sorted { a, b in
             let d1 = a.distanceToUser ?? .greatestFiniteMagnitude
@@ -28,22 +25,29 @@ struct BMHomeSectionListView: View {
     }
     
     var body: some View {
-        VStack {
-            if #unavailable(iOS 26.0) {
-                sectionHeaderView
+        if sortedItems.isEmpty {
+            Text("No Available Items")
+                .font(Font(BMFont.bold(20)))
+                .foregroundStyle(.gray)
+            Spacer()
+        } else {
+            VStack {
+                if #unavailable(iOS 26.0) {
+                    sectionHeaderView
+                }
+                
+                if #available(iOS 17.0, *) {
+                    listView
+                        .contentMargins(.top, 0)
+                        .contentMargins([.leading, .trailing], 5)
+                } else {
+                    listView
+                }
             }
-            
-            if #available(iOS 17.0, *) {
-                listView
-                    .contentMargins(.top, 0)
-                    .contentMargins([.leading, .trailing], 5)
-            } else {
-                listView
-            }
+            .padding()
+            .background(Color(BMColor.cardBackground))
+            .clipShape(RoundedRectangle(cornerRadius: 10))
         }
-        .padding()
-        .background(Color(BMColor.cardBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 10))
     }
     
     private var sectionHeaderView: some View {
@@ -58,8 +62,6 @@ struct BMHomeSectionListView: View {
         .font(Font(BMFont.bold(20)))
     }
     
-    // items -> sortedItems in both forEach calls
-    // displays all items as tappable rows
     @ViewBuilder
     private var listView: some View {
         if #available(iOS 26.0, *) {

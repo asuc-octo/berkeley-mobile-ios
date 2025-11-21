@@ -119,6 +119,8 @@
 		E80330ED2CE7EBB100DC9574 /* NSCoding+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80330EC2CE7EBB100DC9574 /* NSCoding+Extension.swift */; };
 		E80ECC312AFB02BA004604BA /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80ECC302AFB02BA004604BA /* Secrets.swift */; };
 		E81767582B9A516200599254 /* MapMarkersDropdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81767572B9A516200599254 /* MapMarkersDropdownView.swift */; };
+		E82E2A532ECD833F00785593 /* FeedbackFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82E2A512ECD833F00785593 /* FeedbackFormView.swift */; };
+		E82E2A552ECD835200785593 /* FeedbackFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82E2A542ECD835200785593 /* FeedbackFormViewModel.swift */; };
 		E83B6D972D6FC93400AA9422 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E83B6D962D6FC93400AA9422 /* GoogleService-Info.plist */; };
 		E83B6D992D7121D300AA9422 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B6D982D7121D300AA9422 /* View+Extension.swift */; };
 		E83B6D9B2D7123CB00AA9422 /* MapUserLocationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B6D9A2D7123CB00AA9422 /* MapUserLocationButton.swift */; };
@@ -130,7 +132,6 @@
 		E83B6DA92D7A860E00AA9422 /* GymOccupancyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B6DA82D7A860E00AA9422 /* GymOccupancyViewModel.swift */; };
 		E83C6CEB2B71D8C20085E277 /* ResourcesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83C6CEA2B71D8C20085E277 /* ResourcesView.swift */; };
 		E83C6CED2B71DF190085E277 /* SafariWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83C6CEC2B71DF190085E277 /* SafariWebView.swift */; };
-		E83D87942AB3CD1E00C4113C /* FeedbackFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83D87932AB3CD1E00C4113C /* FeedbackFormView.swift */; };
 		E8472AEC2DE2DB80005C24EA /* EventsDateSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8472AEB2DE2DB80005C24EA /* EventsDateSectionView.swift */; };
 		E8472B062DE453D6005C24EA /* BMAddedCalendarStatusOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8472B052DE453D6005C24EA /* BMAddedCalendarStatusOverlayView.swift */; };
 		E8472B382DE50F41005C24EA /* CalendarSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8472B372DE50F41005C24EA /* CalendarSectionView.swift */; };
@@ -145,6 +146,11 @@
 		E88562C42EA2E2AB0062315A /* OpenClosedStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88562C32EA2E2AB0062315A /* OpenClosedStatusView.swift */; };
 		E88562C62EA2E8890062315A /* HasOpenClosedStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88562C52EA2E8890062315A /* HasOpenClosedStatus.swift */; };
 		E88562C82EA37FBA0062315A /* OpenClosedStatusManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88562C72EA37FBA0062315A /* OpenClosedStatusManager.swift */; };
+		E885639A2EB00A4C0062315A /* GuidesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88563992EB00A4C0062315A /* GuidesView.swift */; };
+		E885639C2EB00A770062315A /* Guide.swift in Sources */ = {isa = PBXBuildFile; fileRef = E885639B2EB00A770062315A /* Guide.swift */; };
+		E885639E2EB02EFA0062315A /* GuidesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E885639D2EB02EFA0062315A /* GuidesViewModel.swift */; };
+		E88563A02EB046500062315A /* GuideDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E885639F2EB046500062315A /* GuideDetailView.swift */; };
+		E88563A42EB04D370062315A /* RedirectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88563A32EB04D370062315A /* RedirectionManager.swift */; };
 		E889F75C2DA323C100202556 /* BMActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E889F75B2DA323C100202556 /* BMActionButton.swift */; };
 		E889F7FC2DAC4DEE00202556 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E889F7FB2DAC4DEE00202556 /* WidgetKit.framework */; };
 		E889F7FE2DAC4DEE00202556 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E889F7FD2DAC4DEE00202556 /* SwiftUI.framework */; };
@@ -173,6 +179,7 @@
 		E891E2D92DD526FC006CA0F5 /* BMError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E891E2D82DD526FC006CA0F5 /* BMError.swift */; };
 		E891E2F32DD68536006CA0F5 /* BMNetworkingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E891E2F22DD68536006CA0F5 /* BMNetworkingManager.swift */; };
 		E891E2FD2DD86A91006CA0F5 /* SafetyMapMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E891E2FC2DD86A91006CA0F5 /* SafetyMapMarker.swift */; };
+		E89B8FF52EB181FA005BA590 /* HasWebsite.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89B8FF42EB181FA005BA590 /* HasWebsite.swift */; };
 		E89F20452DF2CD2E00C488EF /* BMHomeSectionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89F20442DF2CD2E00C488EF /* BMHomeSectionListView.swift */; };
 		E89F20472DF3F5DA00C488EF /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89F20462DF3F5DA00C488EF /* HomeViewModel.swift */; };
 		E89F20492DF3F7B200C488EF /* FitnessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89F20482DF3F7B200C488EF /* FitnessView.swift */; };
@@ -335,6 +342,8 @@
 		E80330EE2CE9A8EB00DC9574 /* berkeley-mobile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "berkeley-mobile.entitlements"; sourceTree = "<group>"; };
 		E80ECC302AFB02BA004604BA /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		E81767572B9A516200599254 /* MapMarkersDropdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMarkersDropdownView.swift; sourceTree = "<group>"; };
+		E82E2A512ECD833F00785593 /* FeedbackFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackFormView.swift; sourceTree = "<group>"; };
+		E82E2A542ECD835200785593 /* FeedbackFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackFormViewModel.swift; sourceTree = "<group>"; };
 		E83B6D962D6FC93400AA9422 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E83B6D982D7121D300AA9422 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		E83B6D9A2D7123CB00AA9422 /* MapUserLocationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapUserLocationButton.swift; sourceTree = "<group>"; };
@@ -346,7 +355,6 @@
 		E83B6DA82D7A860E00AA9422 /* GymOccupancyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymOccupancyViewModel.swift; sourceTree = "<group>"; };
 		E83C6CEA2B71D8C20085E277 /* ResourcesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcesView.swift; sourceTree = "<group>"; };
 		E83C6CEC2B71DF190085E277 /* SafariWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebView.swift; sourceTree = "<group>"; };
-		E83D87932AB3CD1E00C4113C /* FeedbackFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackFormView.swift; sourceTree = "<group>"; };
 		E8472AEB2DE2DB80005C24EA /* EventsDateSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsDateSectionView.swift; sourceTree = "<group>"; };
 		E8472B052DE453D6005C24EA /* BMAddedCalendarStatusOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMAddedCalendarStatusOverlayView.swift; sourceTree = "<group>"; };
 		E8472B372DE50F41005C24EA /* CalendarSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSectionView.swift; sourceTree = "<group>"; };
@@ -361,6 +369,11 @@
 		E88562C32EA2E2AB0062315A /* OpenClosedStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenClosedStatusView.swift; sourceTree = "<group>"; };
 		E88562C52EA2E8890062315A /* HasOpenClosedStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasOpenClosedStatus.swift; sourceTree = "<group>"; };
 		E88562C72EA37FBA0062315A /* OpenClosedStatusManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenClosedStatusManager.swift; sourceTree = "<group>"; };
+		E88563992EB00A4C0062315A /* GuidesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuidesView.swift; sourceTree = "<group>"; };
+		E885639B2EB00A770062315A /* Guide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Guide.swift; sourceTree = "<group>"; };
+		E885639D2EB02EFA0062315A /* GuidesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuidesViewModel.swift; sourceTree = "<group>"; };
+		E885639F2EB046500062315A /* GuideDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideDetailView.swift; sourceTree = "<group>"; };
+		E88563A32EB04D370062315A /* RedirectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedirectionManager.swift; sourceTree = "<group>"; };
 		E889F75B2DA323C100202556 /* BMActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMActionButton.swift; sourceTree = "<group>"; };
 		E889F7FA2DAC4DEE00202556 /* BerkeleyMobileWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = BerkeleyMobileWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		E889F7FB2DAC4DEE00202556 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
@@ -376,6 +389,7 @@
 		E891E2D82DD526FC006CA0F5 /* BMError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMError.swift; sourceTree = "<group>"; };
 		E891E2F22DD68536006CA0F5 /* BMNetworkingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMNetworkingManager.swift; sourceTree = "<group>"; };
 		E891E2FC2DD86A91006CA0F5 /* SafetyMapMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyMapMarker.swift; sourceTree = "<group>"; };
+		E89B8FF42EB181FA005BA590 /* HasWebsite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasWebsite.swift; sourceTree = "<group>"; };
 		E89F20442DF2CD2E00C488EF /* BMHomeSectionListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMHomeSectionListView.swift; sourceTree = "<group>"; };
 		E89F20462DF3F5DA00C488EF /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		E89F20482DF3F7B200C488EF /* FitnessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitnessView.swift; sourceTree = "<group>"; };
@@ -601,6 +615,7 @@
 				29345E2A24A7EC2B00859A88 /* HasImage.swift */,
 				29AB5BBE241D8766007C3ECA /* HasOpenTimes.swift */,
 				291B11E125044BDB00F737A8 /* HasName.swift */,
+				E89B8FF42EB181FA005BA590 /* HasWebsite.swift */,
 				016A56D5251AD38F00531A12 /* BMCalendarEvent.swift */,
 			);
 			path = ItemProtocols;
@@ -747,7 +762,7 @@
 				306A54EB23613E3A00D59A7F /* SceneDelegate.swift */,
 				306A54FF23614C0000D59A7F /* MainContainerViewController.swift */,
 				556CCD2C23E79EC100F41BF9 /* TabBarController.swift */,
-				E83D87932AB3CD1E00C4113C /* FeedbackFormView.swift */,
+				E82E2A522ECD833F00785593 /* FeedbackForm */,
 				13EA64CE2399D4A100FD8E13 /* Data */,
 				E89F204B2DF4011E00C488EF /* Home */,
 				133864A72404E857001F9048 /* Events */,
@@ -800,6 +815,26 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		E82E2A522ECD833F00785593 /* FeedbackForm */ = {
+			isa = PBXGroup;
+			children = (
+				E82E2A542ECD835200785593 /* FeedbackFormViewModel.swift */,
+				E82E2A512ECD833F00785593 /* FeedbackFormView.swift */,
+			);
+			path = FeedbackForm;
+			sourceTree = "<group>";
+		};
+		E88563982EB00A3B0062315A /* Guides */ = {
+			isa = PBXGroup;
+			children = (
+				E885639B2EB00A770062315A /* Guide.swift */,
+				E885639D2EB02EFA0062315A /* GuidesViewModel.swift */,
+				E88563992EB00A4C0062315A /* GuidesView.swift */,
+				E885639F2EB046500062315A /* GuideDetailView.swift */,
+			);
+			path = Guides;
+			sourceTree = "<group>";
+		};
 		E8902E4A2B9A73770010F5F9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -825,6 +860,7 @@
 			children = (
 				303F6AE6236A9C3D007E37DD /* Map */,
 				E89F20862DF6710F00C488EF /* Search */,
+				E88563982EB00A3B0062315A /* Guides */,
 				1336A31E241D90B800949F32 /* Dining */,
 				136DC9792398B43F009B1810 /* Fitness */,
 				13B39A8E23E6A1ED0039FBA2 /* Libraries */,
@@ -834,6 +870,7 @@
 				E89F20442DF2CD2E00C488EF /* BMHomeSectionListView.swift */,
 				E88562C32EA2E2AB0062315A /* OpenClosedStatusView.swift */,
 				E88562C72EA37FBA0062315A /* OpenClosedStatusManager.swift */,
+				E88563A32EB04D370062315A /* RedirectionManager.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1056,6 +1093,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E80ECC312AFB02BA004604BA /* Secrets.swift in Sources */,
+				E88563A02EB046500062315A /* GuideDetailView.swift in Sources */,
 				01FA50F324E8BA5400DCC490 /* LocationDetailView.swift in Sources */,
 				E8472AEC2DE2DB80005C24EA /* EventsDateSectionView.swift in Sources */,
 				1DB006AD2D71C8D6001CC870 /* ResourcesSectionDropdown.swift in Sources */,
@@ -1086,6 +1124,7 @@
 				E8472B382DE50F41005C24EA /* CalendarSectionView.swift in Sources */,
 				13B39A8B23E682850039FBA2 /* Date+Extension.swift in Sources */,
 				E83B6D9B2D7123CB00AA9422 /* MapUserLocationButton.swift in Sources */,
+				E82E2A552ECD835200785593 /* FeedbackFormViewModel.swift in Sources */,
 				E8647FAF2E971C1000A66820 /* DiningDetailView.swift in Sources */,
 				135D7F75243A9AB3003F8BD1 /* GymClassType.swift in Sources */,
 				29345E2924A7E7AC00859A88 /* HasPhoneNumber.swift in Sources */,
@@ -1094,6 +1133,7 @@
 				01C75E2E25292E5B00C25A32 /* DescriptionCardView.swift in Sources */,
 				13B39A8D23E689BC0039FBA2 /* DataSource.swift in Sources */,
 				E891E2FD2DD86A91006CA0F5 /* SafetyMapMarker.swift in Sources */,
+				E82E2A532ECD833F00785593 /* FeedbackFormView.swift in Sources */,
 				2948155F253274C500D113B6 /* ImageViewCell.swift in Sources */,
 				E81767582B9A516200599254 /* MapMarkersDropdownView.swift in Sources */,
 				E8BC7B652B96CB7F002BF46D /* ResourcesViewModel.swift in Sources */,
@@ -1101,9 +1141,11 @@
 				E889F75C2DA323C100202556 /* BMActionButton.swift in Sources */,
 				E83B6D992D7121D300AA9422 /* View+Extension.swift in Sources */,
 				E891E2852DCD3104006CA0F5 /* BMCachedAsyncImageView.swift in Sources */,
+				E89B8FF52EB181FA005BA590 /* HasWebsite.swift in Sources */,
 				E8EBE7622CEC2FD700A220BB /* SafetyLogDetailView.swift in Sources */,
 				13491DBC242098B30033F9AB /* AtomicDictionary.swift in Sources */,
 				E8C2BD302D8A457400165554 /* EventRowView.swift in Sources */,
+				E88563A42EB04D370062315A /* RedirectionManager.swift in Sources */,
 				E89F20472DF3F5DA00C488EF /* HomeViewModel.swift in Sources */,
 				01BC8EB024E8C3E3005B4969 /* DetailView.swift in Sources */,
 				E83B6D9D2D72FD6F00AA9422 /* HomeView.swift in Sources */,
@@ -1133,6 +1175,7 @@
 				13580AF62437D7E700D309AA /* LibraryDetailViewController.swift in Sources */,
 				135D7F77243A9BD1003F8BD1 /* Colors+GymClass.swift in Sources */,
 				297678892426D2C500FDD1EB /* SearchDrawerViewController.swift in Sources */,
+				E885639C2EB00A770062315A /* Guide.swift in Sources */,
 				E8647F7F2E94FA2F00A66820 /* DiningHallsViewModel.swift in Sources */,
 				55DCF79623723CF2001B01B8 /* UIView+Extensions.swift in Sources */,
 				291B11E225044BDB00F737A8 /* HasName.swift in Sources */,
@@ -1172,7 +1215,6 @@
 				E8647F812E95AD9400A66820 /* LibrariesView.swift in Sources */,
 				E83B6D9F2D780B4200AA9422 /* EventsView.swift in Sources */,
 				13B39A9A23E6A33C0039FBA2 /* LibraryDataSource.swift in Sources */,
-				E83D87942AB3CD1E00C4113C /* FeedbackFormView.swift in Sources */,
 				01D11B8E2504453B00BDF660 /* ScrollingStackView.swift in Sources */,
 				306A54EC23613E3A00D59A7F /* SceneDelegate.swift in Sources */,
 				E8B2738D2BD5C83F0009831A /* SafetyView.swift in Sources */,
@@ -1190,6 +1232,7 @@
 				13491DB6241E21740033F9AB /* Colors+TagView.swift in Sources */,
 				E8FCD6882C38AEC9004B66A3 /* String+Extension.swift in Sources */,
 				556CCD2223E7771800F41BF9 /* MapPlacemark.swift in Sources */,
+				E885639A2EB00A4C0062315A /* GuidesView.swift in Sources */,
 				297678872426B7BA00FDD1EB /* SearchAnnotation.swift in Sources */,
 				53C9FD012DB9C31E003A3178 /* EventDetailView.swift in Sources */,
 				01CDFF6A257C614900D9FBD6 /* Colors+Resource.swift in Sources */,
@@ -1202,6 +1245,7 @@
 				E8912C2A2D869D6900C645B9 /* BMConstants.swift in Sources */,
 				13EA64CD2399CEDA00FD8E13 /* BMGym.swift in Sources */,
 				E89F20492DF3F7B200C488EF /* FitnessView.swift in Sources */,
+				E885639E2EB02EFA0062315A /* GuidesViewModel.swift in Sources */,
 				E89F20452DF2CD2E00C488EF /* BMHomeSectionListView.swift in Sources */,
 				1396013523865E2E005E4788 /* CardView.swift in Sources */,
 				1336A322241D92F700949F32 /* MealType.swift in Sources */,
@@ -1370,7 +1414,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 11.11;
+				MARKETING_VERSION = 11.12;
 				PRODUCT_BUNDLE_IDENTIFIER = org.asuc.ASUC;
 				PRODUCT_NAME = Berkeley;
 				SWIFT_VERSION = 5.0;
@@ -1394,7 +1438,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 11.11;
+				MARKETING_VERSION = 11.12;
 				PRODUCT_BUNDLE_IDENTIFIER = org.asuc.ASUC;
 				PRODUCT_NAME = Berkeley;
 				PROVISIONING_PROFILE_SPECIFIER = "";

@@ -75,4 +75,3 @@ struct BMSegmentedControlView: View {
     }
     return PreviewWrapper()
 }
-
