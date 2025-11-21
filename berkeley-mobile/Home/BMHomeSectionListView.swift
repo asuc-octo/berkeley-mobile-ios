@@ -9,21 +9,25 @@
 import SwiftUI
 import CoreLocation
 
-struct BMHomeSectionListView: View {
+struct BMHomeSectionListView<T: SearchItem & HasLocation & HasImage>: View {
+
     var sectionType: HomeDrawerViewType
-    var items: [SearchItem & HasLocation & HasImage]
+    var items: [T]
     var mapViewController: MapViewController
-    
-    var selectionHandler: ((SearchItem & HasLocation & HasImage) -> Void)?
-    
-    private var sortedItems: [SearchItem & HasLocation & HasImage] {
-        items.sorted { a, b in
-            let d1 = a.distanceToUser ?? .greatestFiniteMagnitude
-            let d2 = b.distanceToUser ?? .greatestFiniteMagnitude
-            return d1 < d2
-        }
+
+    var selectionHandler: ((T) -> Void)?
+
+    // CHANGED — sorting state
+    @State private var sortOption: BMSortOption = .distanceAsc
+
+    // CHANGED — sorted using your generic engine
+    private var sortedItems: [T] {
+        sortItems(items, by: sortOption)
     }
-    
+    private var sortOptions: [BMSortOption] {
+        [.nameAsc, .nameDesc, .distanceAsc, .distanceDesc, .openFirst, .closedFirst]
+    }
+
     var body: some View {
         if sortedItems.isEmpty {
             Text("No Available Items")
@@ -31,11 +35,26 @@ struct BMHomeSectionListView: View {
                 .foregroundStyle(.gray)
             Spacer()
         } else {
-            VStack {
-                if #unavailable(iOS 26.0) {
-                    sectionHeaderView
+            VStack(alignment: .leading, spacing: 12) {
+
+                // header row
+                HStack {
+                    if #unavailable(iOS 26.0) {
+                        sectionHeaderView
+                    } else {
+                        Text(sectionType.getSectionInfo().title)
+                            .font(Font(BMFont.bold(20)))
+                    }
+
+                    Spacer()
+
+                    // CHANGED — sort menu
+                    BMSortMenuView(
+                        selected: $sortOption,
+                        options: sortOptions
+                    )
                 }
-                
+
                 if #available(iOS 17.0, *) {
                     listView
                         .contentMargins(.top, 0)
@@ -49,7 +68,7 @@ struct BMHomeSectionListView: View {
             .clipShape(RoundedRectangle(cornerRadius: 10))
         }
     }
-    
+
     private var sectionHeaderView: some View {
         HStack(spacing: 10) {
             Image(systemName: sectionType.getSectionInfo().systemName)
@@ -61,7 +80,7 @@ struct BMHomeSectionListView: View {
         }
         .font(Font(BMFont.bold(20)))
     }
-    
+
     @ViewBuilder
     private var listView: some View {
         if #available(iOS 26.0, *) {
@@ -114,6 +133,10 @@ struct BMHomeSectionListView: View {
             longitude: -122.2590
         )
     ]
-    
-    BMHomeSectionListView(sectionType: .dining, items: diningHalls, mapViewController: MapViewController())
+
+    BMHomeSectionListView(
+        sectionType: .dining,
+        items: diningHalls,
+        mapViewController: MapViewController()
+    )
 }

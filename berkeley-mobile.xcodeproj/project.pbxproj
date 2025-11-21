@@ -115,6 +115,9 @@
 		55DCF78923722CF1001B01B8 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF78823722CF1001B01B8 /* Fonts.swift */; };
 		55DCF79623723CF2001B01B8 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF79523723CF2001B01B8 /* UIView+Extensions.swift */; };
 		C14CCB612D9CC2730075FE69 /* BMFilterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14CCB602D9CC2680075FE69 /* BMFilterButton.swift */; };
+		C67BE4412ED12A6E0037005D /* BMSortOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67BE4402ED12A6E0037005D /* BMSortOption.swift */; };
+		C67BE4432ED12AFE0037005D /* BMSortMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67BE4422ED12AFB0037005D /* BMSortMenuView.swift */; };
+		C67BE4452ED12B730037005D /* BMSortEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67BE4442ED12B6E0037005D /* BMSortEngine.swift */; };
 		E80330EB2CE431C200DC9574 /* DepthButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80330EA2CE431C200DC9574 /* DepthButtonStyle.swift */; };
 		E80330ED2CE7EBB100DC9574 /* NSCoding+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80330EC2CE7EBB100DC9574 /* NSCoding+Extension.swift */; };
 		E80ECC312AFB02BA004604BA /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80ECC302AFB02BA004604BA /* Secrets.swift */; };
@@ -337,6 +340,9 @@
 		55DCF79523723CF2001B01B8 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		61D128E68A4FC209FFCDE60F /* Pods-berkeley-mobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeley-mobile.release.xcconfig"; path = "Target Support Files/Pods-berkeley-mobile/Pods-berkeley-mobile.release.xcconfig"; sourceTree = "<group>"; };
 		C14CCB602D9CC2680075FE69 /* BMFilterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMFilterButton.swift; sourceTree = "<group>"; };
+		C67BE4402ED12A6E0037005D /* BMSortOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMSortOption.swift; sourceTree = "<group>"; };
+		C67BE4422ED12AFB0037005D /* BMSortMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMSortMenuView.swift; sourceTree = "<group>"; };
+		C67BE4442ED12B6E0037005D /* BMSortEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMSortEngine.swift; sourceTree = "<group>"; };
 		E80330EA2CE431C200DC9574 /* DepthButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepthButtonStyle.swift; sourceTree = "<group>"; };
 		E80330EC2CE7EBB100DC9574 /* NSCoding+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSCoding+Extension.swift"; sourceTree = "<group>"; };
 		E80330EE2CE9A8EB00DC9574 /* berkeley-mobile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "berkeley-mobile.entitlements"; sourceTree = "<group>"; };
@@ -598,6 +604,9 @@
 		13B39AB123E777AC0039FBA2 /* FilterView */ = {
 			isa = PBXGroup;
 			children = (
+				C67BE4442ED12B6E0037005D /* BMSortEngine.swift */,
+				C67BE4422ED12AFB0037005D /* BMSortMenuView.swift */,
+				C67BE4402ED12A6E0037005D /* BMSortOption.swift */,
 				13B39AB323E777AC0039FBA2 /* FilterView.swift */,
 				13B39AB223E777AC0039FBA2 /* FilterViewCell.swift */,
 			);
@@ -1094,6 +1103,7 @@
 			files = (
 				E80ECC312AFB02BA004604BA /* Secrets.swift in Sources */,
 				E88563A02EB046500062315A /* GuideDetailView.swift in Sources */,
+				C67BE4452ED12B730037005D /* BMSortEngine.swift in Sources */,
 				01FA50F324E8BA5400DCC490 /* LocationDetailView.swift in Sources */,
 				E8472AEC2DE2DB80005C24EA /* EventsDateSectionView.swift in Sources */,
 				1DB006AD2D71C8D6001CC870 /* ResourcesSectionDropdown.swift in Sources */,
@@ -1146,10 +1156,12 @@
 				13491DBC242098B30033F9AB /* AtomicDictionary.swift in Sources */,
 				E8C2BD302D8A457400165554 /* EventRowView.swift in Sources */,
 				E88563A42EB04D370062315A /* RedirectionManager.swift in Sources */,
+				C67BE4432ED12AFE0037005D /* BMSortMenuView.swift in Sources */,
 				E89F20472DF3F5DA00C488EF /* HomeViewModel.swift in Sources */,
 				01BC8EB024E8C3E3005B4969 /* DetailView.swift in Sources */,
 				E83B6D9D2D72FD6F00AA9422 /* HomeView.swift in Sources */,
 				1346B9172420AA4500383399 /* DayOfWeek.swift in Sources */,
+				C67BE4412ED12A6E0037005D /* BMSortOption.swift in Sources */,
 				E8912BE52D7FE40500C645B9 /* SafetyMapView.swift in Sources */,
 				29345E2D24A7FFB600859A88 /* CanFavorite.swift in Sources */,
 				E8647FAD2E971ABA00A66820 /* Logger+Ext.swift in Sources */,
