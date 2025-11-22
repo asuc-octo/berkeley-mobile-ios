@@ -57,11 +57,22 @@ struct GuideDetailRowHeaderView: View {
                 .frame(maxWidth: 370)
                 .frame(height: 220)
                 .clipped()
+            
             VStack {
                 Spacer()
+                
                 HStack(spacing: 10) {
-                    Text(place.name)
-                        .font(Font(BMFont.bold(20)))
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(place.name)
+                            .font(Font(BMFont.bold(20)))
+                        
+                        if let d = place.distanceToUser {
+                            Text(String(format: "%.1f miles away", d))
+                                .font(Font(BMFont.regular(14)))
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+                    
                     Spacer()
                     
                     if place.hasWebsite {
@@ -75,7 +86,7 @@ struct GuideDetailRowHeaderView: View {
                             viewModel.call(place)
                         }
                     }
-                   
+                    
                     if place.hasCoordinate {
                         GuideDetailRowActionItemView(systemName: "map", backgroundColor: .blue) {
                             viewModel.openPlaceInMaps(for: place)
@@ -89,22 +100,19 @@ struct GuideDetailRowHeaderView: View {
             }
         }
         .fullScreenCover(isPresented: $isPresentingWebView) {
-            if let websiteURLString = place.websiteURLString, let url = URL(string: websiteURLString) {
+            if let urlString = place.websiteURLString,
+               let url = URL(string: urlString) {
                 SafariWebView(url: url)
             }
         }
     }
 }
 
-
 // MARK: - GuideDetailRowActionItemView
 
 struct GuideDetailRowActionItemView: View {
-    @Environment(GuidesViewModel.self) private var viewModel
-
     var systemName: String
     var backgroundColor: Color
-    
     var actionHandler: () -> Void
     
     var body: some View {
