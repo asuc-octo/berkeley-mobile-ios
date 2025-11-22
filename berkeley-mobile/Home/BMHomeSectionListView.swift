@@ -24,8 +24,23 @@ struct BMHomeSectionListView<T: SearchItem & HasLocation & HasImage>: View {
     private var sortedItems: [T] {
         sortItems(items, by: sortOption)
     }
+    private var supportsOpenClosedSorting: Bool {
+        items.first is any HasOpenClosedStatus
+    }
     private var sortOptions: [BMSortOption] {
-        [.nameAsc, .nameDesc, .distanceAsc, .distanceDesc, .openFirst, .closedFirst]
+        var options: [BMSortOption] = [
+            .nameAsc,
+            .nameDesc,
+            .distanceAsc,
+            .distanceDesc
+        ]
+
+        if supportsOpenClosedSorting {
+            options.append(.openFirst)
+            options.append(.closedFirst)
+        }
+
+        return options
     }
 
     var body: some View {
