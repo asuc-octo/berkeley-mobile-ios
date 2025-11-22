@@ -24,8 +24,8 @@ enum BMSortOption: String, CaseIterable, Identifiable {
         case .nameDesc: return "Name (Z → A)"
         case .distanceAsc: return "Closest"
         case .distanceDesc: return "Furthest"
-        case .openFirst: return "Open → Closed"
-        case .closedFirst: return "Closed → Open"
+        case .openFirst: return "Open Times"
+        case .closedFirst: return "Close Times"
         }
     }
 }
