@@ -96,12 +96,13 @@ struct BMDiningHallRepresentation: Codable {
 struct BMMeal: Codable, Hashable {
     enum BMMealType: String, Codable {
         case breakfast = "Breakfast"
+        case brunch = "Brunch"
         case lunch = "Lunch"
         case dinner = "Dinner"
         case other = "Other"
         
         static var regularMealTypes: [BMMealType] {
-            return [.breakfast, .lunch, .dinner]
+            return [.breakfast, .brunch, .lunch, .dinner]
         }
     }
 
