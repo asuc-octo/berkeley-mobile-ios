@@ -46,7 +46,7 @@ struct HomeView: View {
     
     private var segmentedControlHeader: some View {
         BMSegmentedControlView(
-            tabNames: ["Dining", "Fitness", "Study"],
+            tabNames: ["Dining", "Fitness", "Study", "Guides"],
             selectedTabIndex: $tabSelectedIndex
         )
         .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0))
@@ -75,10 +75,12 @@ struct HomeView: View {
                             navigationPath.append(selectedGym)
                         }
                         .environmentObject(homeViewModel)
-                    default:
+                    case 2:
                         LibrariesView(mapViewController: mapViewController) { selectedLibrary in
                             navigationPath.append(selectedLibrary)
                         }
+                    default:
+                        GuidesView()
                     }
                 }
             }

@@ -23,19 +23,16 @@ struct DiningDetailView: View {
         return diningHall.meals[BMMeal.BMMealType.other]?.categoriesAndMenuItems.first?.menuItems.first?.name
     }
     
+    private var categoriesAndMenuItems: [BMMealCategory] {
+        let selectedTabMealType = BMMeal.BMMealType(rawValue: filteredTabNames[selectedTabIndex])!
+        return diningHall.getCategoriesAndMenuItems(for: selectedTabMealType)
+    }
+    
     private var filteredTabNames: [String] {
-        ["Breakfast", "Lunch", "Dinner"].filter { name in
-            let mealType: BMMeal.BMMealType? = {
-                switch name {
-                case "Breakfast": return .breakfast
-                case "Lunch":     return .lunch
-                case "Dinner":    return .dinner
-                default:          return nil
-                }
-            }()
-            guard let mealType else { return false }
-            let categories = diningHall.meals[mealType]?.categoriesAndMenuItems ?? []
-            return !categories.isEmpty
+        return BMMeal.BMMealType.regularMealTypes.filter {
+            !diningHall.getCategoriesAndMenuItems(for: $0).isEmpty
+        }.map {
+            $0.rawValue
         }
     }
     
@@ -55,7 +52,10 @@ struct DiningDetailView: View {
                     Spacer()
                 } else {
                     List {
-                        DiningItemsListView(categoriesAndMenuItems: categoriesAndMenuItems)
+                        DiningItemsListView(selectedTabIndex: $selectedTabIndex,
+                                            categoriesAndMenuItems: categoriesAndMenuItems,
+                                            diningHall: diningHall,
+                                            filteredTabNames: filteredTabNames)
                     }
                     .listStyle(.plain)
                     .scrollContentBackground(.hidden)
@@ -63,7 +63,6 @@ struct DiningDetailView: View {
                 }
             }
         }
-        .padding(.top, 10)
         .onAppear {
             viewModel.logOpenedDiningDetailViewAnalytics(for: diningHall.name)
         }
@@ -113,10 +112,26 @@ struct DiningAllDayView: View {
 // MARK: - DiningItemsListView
 
 struct DiningItemsListView: View {
+    @Binding var selectedTabIndex: Int
     var categoriesAndMenuItems: [BMMealCategory]
-    
+    var diningHall: BMDiningHall
+    var filteredTabNames: [String]
+
+    private var currentMealTime: String? {
+        guard selectedTabIndex < filteredTabNames.count else {
+            return nil
+        }
+        let selectedTabMealType = BMMeal.BMMealType(rawValue: filteredTabNames[selectedTabIndex])
+        return diningHall.meals[selectedTabMealType ?? .breakfast]?.time
+    }
+
     var body: some View {
         VStack(spacing: 20) {
+            if let currentMealTime {
+                Text(currentMealTime)
+                    .fontWeight(.semibold)
+                    .padding(.top, 10)
+            }
             ForEach(categoriesAndMenuItems, id: \.categoryName) { mealCategory in
                 Section {
                     ForEach(mealCategory.menuItems, id: \.itemId) { menuItem in

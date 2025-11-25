@@ -100,8 +100,9 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         
         fetchFromMapDataSource()
         createMapLocationButton()
+        createMapMarkerDropdownButton()
         
-        self.view.addSubViews([mapView, mapUserLocationButton, markerDetail, searchResultsView, searchBar])
+        self.view.addSubViews([mapView, mapUserLocationButton, mapMarkersDropdownButton, markerDetail, searchResultsView, searchBar])
         setupSubviews()
         
         centerMapAtBerkeley()
@@ -135,8 +136,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
             
             self.mapMarkersDropdownViewModel.setMapMarkerTypes(with: types)
             self.mapMarkers = Array(markers.values)
-            
-            self.createMapMarkerDropdownButton()
+            self.mapMarkersDropdownButton.isHidden = false
             self.showSelectedMapMarkerTypeAnnotations(forType: types.first!)
         }
     }
@@ -198,16 +198,8 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
     
         mapMarkersDropdownButton = UIHostingController(rootView: mapMarkersDropdownButtonView.environmentObject(mapMarkersDropdownViewModel)).view
         mapMarkersDropdownButton.translatesAutoresizingMaskIntoConstraints = false
-        mapMarkersDropdownButton.isUserInteractionEnabled = true
+        mapMarkersDropdownButton.isHidden = true
         mapMarkersDropdownButton.backgroundColor = UIColor.clear
-        view.addSubview(self.mapMarkersDropdownButton)
-        
-        NSLayoutConstraint.activate([
-            mapMarkersDropdownButton.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
-            mapMarkersDropdownButton.widthAnchor.constraint(equalToConstant: BMControlButtonStyle.widthAndHeight),
-            mapMarkersDropdownButton.heightAnchor.constraint(equalToConstant: BMControlButtonStyle.widthAndHeight),
-            mapMarkersDropdownButton.topAnchor.constraint(equalTo: view.topAnchor, constant: Constants.mapBtnsTopMargin)
-        ])
     }
     
     private func centerMapOnLocation(_ location: CLLocation, mapView: MKMapView, animated: Bool) {
@@ -253,6 +245,11 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         let markerDetailBottomMargin: CGFloat = -96
         
         NSLayoutConstraint.activate([
+            mapMarkersDropdownButton.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
+            mapMarkersDropdownButton.widthAnchor.constraint(equalToConstant: BMControlButtonStyle.widthAndHeight),
+            mapMarkersDropdownButton.heightAnchor.constraint(equalToConstant: BMControlButtonStyle.widthAndHeight),
+            mapMarkersDropdownButton.topAnchor.constraint(equalTo: view.topAnchor, constant: Constants.mapBtnsTopMargin),
+            
             searchBar.topAnchor.constraint(equalTo: view.topAnchor, constant: searchBarTopMargin),
             searchBar.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
             searchBar.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),

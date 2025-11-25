@@ -54,6 +54,10 @@ struct BMDiningHall: SearchItem, HasLocation, HasPhoneNumber, HasImage, HasOpenC
         self.icon = UIImage(systemName: "fork.knife")
         self.id = documentID
     }
+    
+    func getCategoriesAndMenuItems(for mealType: BMMeal.BMMealType) -> [BMMealCategory] {
+        return meals[mealType]?.categoriesAndMenuItems ?? []
+    }
 }
 
 
@@ -92,9 +96,14 @@ struct BMDiningHallRepresentation: Codable {
 struct BMMeal: Codable, Hashable {
     enum BMMealType: String, Codable {
         case breakfast = "Breakfast"
+        case brunch = "Brunch"
         case lunch = "Lunch"
         case dinner = "Dinner"
         case other = "Other"
+        
+        static var regularMealTypes: [BMMealType] {
+            return [.breakfast, .brunch, .lunch, .dinner]
+        }
     }
 
     let mealType: BMMealType
