@@ -44,15 +44,7 @@ struct HomeSectionListRowView: View {
     }
     
     private var distanceLabelView: some View {
-        HStack {
-            Image(systemName: "figure.walk")
-                .foregroundStyle(Color(BMColor.blackText))
-                .font(.system(size: 12))
-            
-            Text("\(rowItem.distanceToUser ?? 0.0, specifier: "%.1f") mi")
-                .foregroundStyle(Color(BMColor.blackText))
-                .font(Font(BMFont.light(12)))
-        }
+        DistanceLabelView(distance: rowItem.distanceToUser)
     }
     
     private var imageView: some View {

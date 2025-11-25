@@ -66,11 +66,7 @@ struct GuideDetailRowHeaderView: View {
                         Text(place.name)
                             .font(Font(BMFont.bold(20)))
                         
-                        if let d = place.distanceToUser {
-                            Text(String(format: "%.1f miles away", d))
-                                .font(Font(BMFont.regular(14)))
-                                .foregroundStyle(.secondary)
-                        }
+                        DistanceLabelView(distance: place.distanceToUser)
                     }
                     
                     Spacer()
