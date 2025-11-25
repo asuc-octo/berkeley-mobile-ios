@@ -113,3 +113,4 @@ struct SearchResultsView: View {
     SearchResultsView()
         .environmentObject(SearchViewModel(chooseMapMarker: { _ in }) { _ in })
 }
+
