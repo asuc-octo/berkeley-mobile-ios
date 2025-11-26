@@ -17,6 +17,7 @@ struct DiningHallsView: View {
     var body: some View {
         if viewModel.isFetching {
             ProgressView("LOADING")
+            Spacer()
         } else {
             BMHomeSectionListView(sectionType: .dining, items: viewModel.diningHalls, mapViewController: mapViewController) { selectedDiningHall in
                 selectionHandler?(selectedDiningHall as! BMDiningHall)
