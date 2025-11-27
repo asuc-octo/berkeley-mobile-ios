@@ -9,7 +9,6 @@
 import MapKit
 import SwiftUI
 
-@available(iOS 17.0, *)
 struct SafetyMapMarker: MapContent {
     @EnvironmentObject var safetyViewModel: SafetyViewModel
     
@@ -25,10 +24,8 @@ struct SafetyMapMarker: MapContent {
 }
 
 #Preview {
-    if #available(iOS 17.0, *) {
-        Map {
-            SafetyMapMarker(safetyLog: SafetyViewModel.getSampleSafetyLog())
-        }
-        .environmentObject(SafetyViewModel())
+    Map {
+        SafetyMapMarker(safetyLog: SafetyViewModel.getSampleSafetyLog())
     }
+    .environmentObject(SafetyViewModel())
 }
