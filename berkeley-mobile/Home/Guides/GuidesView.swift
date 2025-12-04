@@ -78,32 +78,7 @@ struct GuideRowView: View {
 
 // MARK: - GuidePlacesStackedCollageView
 
-struct GuidePlacesStackedCollageView: View {
-    var guide: Guide
-    
-    // First angle corresponds to the furthest back image
-    private let angles: [CGFloat] = [-10.0, 10.0, 0.0]
-    
-    var body: some View {
-        ZStack {
-            if guide.places.isEmpty {
-                RoundedRectangle(cornerRadius: 10)
-                    .fill(.gray)
-                    .frame(width: 80, height: 150)
-                    .rotationEffect(.degrees(0))
-            } else {
-                let items = Array(guide.places.prefix(3).reversed())
-                ForEach(Array(zip(items, angles.prefix(items.count)).enumerated()), id: \.offset) { _, pair in
-                    let (place, angle) = pair
-                    BMCachedAsyncImageView(imageURL: place.imageURL, aspectRatio: .fill)
-                        .frame(width: 80, height: 150)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                        .rotationEffect(.degrees(angle))
-                }
-            }
-        }
-    }
-}
+
 
 #Preview {
     GuidesView()

@@ -136,6 +136,7 @@
 		E8472B062DE453D6005C24EA /* BMAddedCalendarStatusOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8472B052DE453D6005C24EA /* BMAddedCalendarStatusOverlayView.swift */; };
 		E8472B382DE50F41005C24EA /* CalendarSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8472B372DE50F41005C24EA /* CalendarSectionView.swift */; };
 		E8472B4A2DE5304A005C24EA /* CalendarEventsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8472B492DE5304A005C24EA /* CalendarEventsListView.swift */; };
+		E85D6EC22EE145CD00304188 /* GuidePlacesStackedCollageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E85D6EC12EE145CD00304188 /* GuidePlacesStackedCollageView.swift */; };
 		E8647F792E94AA0F00A66820 /* DiningHallsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8647F782E94AA0F00A66820 /* DiningHallsView.swift */; };
 		E8647F7B2E94F05300A66820 /* MenuItemIconCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8647F7A2E94F05300A66820 /* MenuItemIconCacheManager.swift */; };
 		E8647F7D2E94F37D00A66820 /* EnvironmentValues+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8647F7C2E94F37D00A66820 /* EnvironmentValues+Ext.swift */; };
@@ -359,6 +360,7 @@
 		E8472B052DE453D6005C24EA /* BMAddedCalendarStatusOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMAddedCalendarStatusOverlayView.swift; sourceTree = "<group>"; };
 		E8472B372DE50F41005C24EA /* CalendarSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSectionView.swift; sourceTree = "<group>"; };
 		E8472B492DE5304A005C24EA /* CalendarEventsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEventsListView.swift; sourceTree = "<group>"; };
+		E85D6EC12EE145CD00304188 /* GuidePlacesStackedCollageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuidePlacesStackedCollageView.swift; sourceTree = "<group>"; };
 		E8647F782E94AA0F00A66820 /* DiningHallsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiningHallsView.swift; sourceTree = "<group>"; };
 		E8647F7A2E94F05300A66820 /* MenuItemIconCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemIconCacheManager.swift; sourceTree = "<group>"; };
 		E8647F7C2E94F37D00A66820 /* EnvironmentValues+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EnvironmentValues+Ext.swift"; sourceTree = "<group>"; };
@@ -830,6 +832,7 @@
 				E885639B2EB00A770062315A /* Guide.swift */,
 				E885639D2EB02EFA0062315A /* GuidesViewModel.swift */,
 				E88563992EB00A4C0062315A /* GuidesView.swift */,
+				E85D6EC12EE145CD00304188 /* GuidePlacesStackedCollageView.swift */,
 				E885639F2EB046500062315A /* GuideDetailView.swift */,
 			);
 			path = Guides;
@@ -1183,6 +1186,7 @@
 				306A54EA23613E3A00D59A7F /* AppDelegate.swift in Sources */,
 				1336A31C241C400800949F32 /* GymClass.swift in Sources */,
 				E8B5975F2CA62D6F006DFBD5 /* BMSegmentedControlView.swift in Sources */,
+				E85D6EC22EE145CD00304188 /* GuidePlacesStackedCollageView.swift in Sources */,
 				13EA64C82399CE0800FD8E13 /* GymDataSource.swift in Sources */,
 				2E1C227D2D835A9D0021803C /* SearchBarView.swift in Sources */,
 				298EE26A25BB6C33002BAF0F /* Colors+StudyPact.swift in Sources */,
