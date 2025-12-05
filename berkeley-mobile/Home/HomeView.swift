@@ -16,9 +16,10 @@ struct HomeView: View {
     @State private var isPresentingDetailView = false
     @State private var selectedDetent: PresentationDetent = .fraction(0.45)
     
-    private var mapViewController: MapViewController
-    
     @State private var diningHallsViewModel = DiningHallsViewModel()
+    @State private var guidesViewModel = GuidesViewModel()
+
+    private var mapViewController: MapViewController
     private let menuIconCacheManager = MenuItemIconCacheManager()
     
     init(mapViewController: MapViewController) {
@@ -81,6 +82,7 @@ struct HomeView: View {
                         }
                     default:
                         GuidesView()
+                            .environment(guidesViewModel)
                     }
                 }
             }
