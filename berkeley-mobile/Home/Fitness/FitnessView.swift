@@ -22,7 +22,7 @@ struct FitnessView: View {
             gymOccupancyGauges
             BMHomeSectionListView(sectionType: .fitness, items: homeViewModel.gyms, mapViewController: mapViewController) { selectedGym in
                 selectionHandler?(selectedGym as! BMGym)
-            }
+            } swipeActionsContent: {_ in }
         }
         .onAppear {
             WidgetCenter.shared.reloadTimelines(ofKind: "GymOccupancyWidget")

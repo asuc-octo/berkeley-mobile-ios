@@ -11,8 +11,9 @@ import FirebaseCore
 import UIKit
 
 /// `BMDiningHall` is the representation for a dining hall used throughout the app. We fetch the dining halls from Firebase as `BMDininghallDocument` and convert them into `BMDiningHall`.
-struct BMDiningHall: SearchItem, HasLocation, HasPhoneNumber, HasImage, HasOpenClosedStatus, Equatable, Hashable, Identifiable {
+struct BMDiningHall: HomeDrawerSectionRowItemType, HasPhoneNumber, HasOpenClosedStatus, Hashable {
     var id: String = ""
+    var docID: String
     var icon: UIImage?
     var searchName: String { return name }
     var imageURL: URL?
@@ -52,7 +53,7 @@ struct BMDiningHall: SearchItem, HasLocation, HasPhoneNumber, HasImage, HasOpenC
         self.latitude = latitude
         self.longitude = longitude
         self.icon = UIImage(systemName: "fork.knife")
-        self.id = documentID
+        self.docID = documentID
     }
     
     func getCategoriesAndMenuItems(for mealType: BMMeal.BMMealType) -> [BMMealCategory] {

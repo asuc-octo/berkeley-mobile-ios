@@ -16,6 +16,7 @@ struct HomeView: View {
     @State private var isPresentingDetailView = false
     @State private var selectedDetent: PresentationDetent = .fraction(0.45)
     
+    @State private var homeDrawerPinViewModel = HomeDrawerPinViewModel()
     @State private var diningHallsViewModel = DiningHallsViewModel()
     @State private var guidesViewModel = GuidesViewModel()
 
@@ -68,6 +69,7 @@ struct HomeView: View {
                             navigationPath.append(selectedDiningHall)
                         }
                         .environment(diningHallsViewModel)
+                        .environment(homeDrawerPinViewModel)
                         .onAppear {
                             homeViewModel.logOpenedDiningHomeSectionAnalytics()
                         }
@@ -76,10 +78,12 @@ struct HomeView: View {
                             navigationPath.append(selectedGym)
                         }
                         .environmentObject(homeViewModel)
+                        .environment(homeDrawerPinViewModel)
                     case 2:
                         LibrariesView(mapViewController: mapViewController) { selectedLibrary in
                             navigationPath.append(selectedLibrary)
                         }
+                        .environment(homeDrawerPinViewModel)
                     default:
                         GuidesView()
                             .environment(guidesViewModel)

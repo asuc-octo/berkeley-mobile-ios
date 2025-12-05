@@ -137,6 +137,7 @@
 		E8472B382DE50F41005C24EA /* CalendarSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8472B372DE50F41005C24EA /* CalendarSectionView.swift */; };
 		E8472B4A2DE5304A005C24EA /* CalendarEventsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8472B492DE5304A005C24EA /* CalendarEventsListView.swift */; };
 		E85D6EC22EE145CD00304188 /* GuidePlacesStackedCollageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E85D6EC12EE145CD00304188 /* GuidePlacesStackedCollageView.swift */; };
+		E85D6EDD2EE2900500304188 /* HomeDrawerPinViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E85D6EDC2EE2900500304188 /* HomeDrawerPinViewModel.swift */; };
 		E8647F792E94AA0F00A66820 /* DiningHallsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8647F782E94AA0F00A66820 /* DiningHallsView.swift */; };
 		E8647F7B2E94F05300A66820 /* MenuItemIconCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8647F7A2E94F05300A66820 /* MenuItemIconCacheManager.swift */; };
 		E8647F7D2E94F37D00A66820 /* EnvironmentValues+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8647F7C2E94F37D00A66820 /* EnvironmentValues+Ext.swift */; };
@@ -362,6 +363,7 @@
 		E8472B372DE50F41005C24EA /* CalendarSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSectionView.swift; sourceTree = "<group>"; };
 		E8472B492DE5304A005C24EA /* CalendarEventsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEventsListView.swift; sourceTree = "<group>"; };
 		E85D6EC12EE145CD00304188 /* GuidePlacesStackedCollageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuidePlacesStackedCollageView.swift; sourceTree = "<group>"; };
+		E85D6EDC2EE2900500304188 /* HomeDrawerPinViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDrawerPinViewModel.swift; sourceTree = "<group>"; };
 		E8647F782E94AA0F00A66820 /* DiningHallsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiningHallsView.swift; sourceTree = "<group>"; };
 		E8647F7A2E94F05300A66820 /* MenuItemIconCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemIconCacheManager.swift; sourceTree = "<group>"; };
 		E8647F7C2E94F37D00A66820 /* EnvironmentValues+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EnvironmentValues+Ext.swift"; sourceTree = "<group>"; };
@@ -829,6 +831,16 @@
 			path = FeedbackForm;
 			sourceTree = "<group>";
 		};
+		E85D6EDB2EE28F6000304188 /* Home Drawer */ = {
+			isa = PBXGroup;
+			children = (
+				2EC165692D752A7300F88B60 /* HomeSectionListRowView.swift */,
+				E89F20442DF2CD2E00C488EF /* BMHomeSectionListView.swift */,
+				E85D6EDC2EE2900500304188 /* HomeDrawerPinViewModel.swift */,
+			);
+			path = "Home Drawer";
+			sourceTree = "<group>";
+		};
 		E88563982EB00A3B0062315A /* Guides */ = {
 			isa = PBXGroup;
 			children = (
@@ -870,10 +882,9 @@
 				1336A31E241D90B800949F32 /* Dining */,
 				136DC9792398B43F009B1810 /* Fitness */,
 				13B39A8E23E6A1ED0039FBA2 /* Libraries */,
+				E85D6EDB2EE28F6000304188 /* Home Drawer */,
 				E89F20462DF3F5DA00C488EF /* HomeViewModel.swift */,
 				E83B6D9C2D72FD6F00AA9422 /* HomeView.swift */,
-				2EC165692D752A7300F88B60 /* HomeSectionListRowView.swift */,
-				E89F20442DF2CD2E00C488EF /* BMHomeSectionListView.swift */,
 				E88562C32EA2E2AB0062315A /* OpenClosedStatusView.swift */,
 				E88562C72EA37FBA0062315A /* OpenClosedStatusManager.swift */,
 				E88563A32EB04D370062315A /* RedirectionManager.swift */,
@@ -1231,6 +1242,7 @@
 				E83B6DA92D7A860E00AA9422 /* GymOccupancyViewModel.swift in Sources */,
 				E88562C42EA2E2AB0062315A /* OpenClosedStatusView.swift in Sources */,
 				29345E2724A7E76300859A88 /* OverviewCardView.swift in Sources */,
+				E85D6EDD2EE2900500304188 /* HomeDrawerPinViewModel.swift in Sources */,
 				01D11B902504560700BDF660 /* GymDetailViewController.swift in Sources */,
 				55AF442D2453ACE600F13232 /* BMDiningLocation.swift in Sources */,
 				136DC97B2398B4D1009B1810 /* UIViewController+Extensions.swift in Sources */,

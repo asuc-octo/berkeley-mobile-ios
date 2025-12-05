@@ -9,7 +9,9 @@
 import SwiftUI
 
 struct HomeSectionListRowView: View {
-    var rowItem: SearchItem & HasLocation & HasImage
+    @Environment(HomeDrawerPinViewModel.self) private var homeDrawerPinViewModel
+    
+    var rowItem: any HomeDrawerSectionRowItemType
     
     var body: some View {
         HStack {
@@ -59,6 +61,16 @@ struct HomeSectionListRowView: View {
         BMCachedAsyncImageView(imageURL: rowItem.imageURL, placeholderImage: BMConstants.doeGladeImage, aspectRatio: .fill)
             .frame(maxWidth: 80, maxHeight: 80)
             .clipShape(RoundedRectangle(cornerRadius: 12))
+            .overlay(
+                Group {
+                    if homeDrawerPinViewModel.pinnedRowItemIDSet.contains(rowItem.docID) {
+                        Image(systemName: "pin.circle.fill")
+                            .foregroundStyle(.yellow)
+                            .padding(4)
+                    }
+                },
+                alignment: .topTrailing
+            )
     }
 }
 
