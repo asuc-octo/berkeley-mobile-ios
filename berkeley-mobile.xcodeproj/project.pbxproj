@@ -115,6 +115,10 @@
 		55DCF78923722CF1001B01B8 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF78823722CF1001B01B8 /* Fonts.swift */; };
 		55DCF79623723CF2001B01B8 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF79523723CF2001B01B8 /* UIView+Extensions.swift */; };
 		C14CCB612D9CC2730075FE69 /* BMFilterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14CCB602D9CC2680075FE69 /* BMFilterButton.swift */; };
+		C60EC4352ED5641B007195A0 /* DistanceLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60EC4342ED56412007195A0 /* DistanceLabelView.swift */; };
+		C67BE4412ED12A6E0037005D /* BMSortOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67BE4402ED12A6E0037005D /* BMSortOption.swift */; };
+		C67BE4432ED12AFE0037005D /* BMSortMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67BE4422ED12AFB0037005D /* BMSortMenuView.swift */; };
+		C67BE4452ED12B730037005D /* BMSortEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67BE4442ED12B6E0037005D /* BMSortEngine.swift */; };
 		E80330EB2CE431C200DC9574 /* DepthButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80330EA2CE431C200DC9574 /* DepthButtonStyle.swift */; };
 		E80330ED2CE7EBB100DC9574 /* NSCoding+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80330EC2CE7EBB100DC9574 /* NSCoding+Extension.swift */; };
 		E80ECC312AFB02BA004604BA /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80ECC302AFB02BA004604BA /* Secrets.swift */; };
@@ -341,6 +345,10 @@
 		55DCF79523723CF2001B01B8 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		61D128E68A4FC209FFCDE60F /* Pods-berkeley-mobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeley-mobile.release.xcconfig"; path = "Target Support Files/Pods-berkeley-mobile/Pods-berkeley-mobile.release.xcconfig"; sourceTree = "<group>"; };
 		C14CCB602D9CC2680075FE69 /* BMFilterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMFilterButton.swift; sourceTree = "<group>"; };
+		C60EC4342ED56412007195A0 /* DistanceLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceLabelView.swift; sourceTree = "<group>"; };
+		C67BE4402ED12A6E0037005D /* BMSortOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMSortOption.swift; sourceTree = "<group>"; };
+		C67BE4422ED12AFB0037005D /* BMSortMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMSortMenuView.swift; sourceTree = "<group>"; };
+		C67BE4442ED12B6E0037005D /* BMSortEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMSortEngine.swift; sourceTree = "<group>"; };
 		E80330EA2CE431C200DC9574 /* DepthButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepthButtonStyle.swift; sourceTree = "<group>"; };
 		E80330EC2CE7EBB100DC9574 /* NSCoding+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSCoding+Extension.swift"; sourceTree = "<group>"; };
 		E80330EE2CE9A8EB00DC9574 /* berkeley-mobile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "berkeley-mobile.entitlements"; sourceTree = "<group>"; };
@@ -685,6 +693,7 @@
 		2913595524B135B600DE9AD6 /* DetailView */ = {
 			isa = PBXGroup;
 			children = (
+				C60EC4342ED56412007195A0 /* DistanceLabelView.swift */,
 				01BC8EAF24E8C3E3005B4969 /* DetailView.swift */,
 				01FA50F224E8BA5400DCC490 /* LocationDetailView.swift */,
 				29345E2624A7E76300859A88 /* OverviewCardView.swift */,
@@ -1249,6 +1258,7 @@
 				E85D6EDD2EE2900500304188 /* HomeDrawerPinViewModel.swift in Sources */,
 				01D11B902504560700BDF660 /* GymDetailViewController.swift in Sources */,
 				55AF442D2453ACE600F13232 /* BMDiningLocation.swift in Sources */,
+				C60EC4352ED5641B007195A0 /* DistanceLabelView.swift in Sources */,
 				136DC97B2398B4D1009B1810 /* UIViewController+Extensions.swift in Sources */,
 				2913595724B136BE00DE9AD6 /* CollapsibleCardView.swift in Sources */,
 				E83C6CED2B71DF190085E277 /* SafariWebView.swift in Sources */,
