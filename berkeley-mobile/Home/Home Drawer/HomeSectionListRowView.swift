@@ -32,7 +32,7 @@ struct HomeSectionListRowView: View {
             
             Spacer()
             
-            imageView
+            HomeDrawerRowImageView(item: rowItem)
         }
         .padding()
         .shadowfy()
@@ -55,22 +55,6 @@ struct HomeSectionListRowView: View {
                 .foregroundStyle(Color(BMColor.blackText))
                 .font(Font(BMFont.light(12)))
         }
-    }
-    
-    private var imageView: some View {
-        BMCachedAsyncImageView(imageURL: rowItem.imageURL, placeholderImage: BMConstants.doeGladeImage, aspectRatio: .fill)
-            .frame(maxWidth: 80, maxHeight: 80)
-            .clipShape(RoundedRectangle(cornerRadius: 12))
-            .overlay(
-                Group {
-                    if homeDrawerPinViewModel.pinnedRowItemIDSet.contains(rowItem.docID) {
-                        Image(systemName: "pin.circle.fill")
-                            .foregroundStyle(.yellow)
-                            .padding(4)
-                    }
-                },
-                alignment: .topTrailing
-            )
     }
 }
 

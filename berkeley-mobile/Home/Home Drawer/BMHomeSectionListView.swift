@@ -18,10 +18,12 @@ struct BMHomeSectionListView<Content: View>: View {
     var selectionHandler: ((any HomeDrawerSectionRowItemType) -> Void)?
     @ViewBuilder var swipeActionsContent: ((any HomeDrawerSectionRowItemType) -> Content)
     
-    private var sortedItems: [any HomeDrawerSectionRowItemType] {
-        let pinned = items.filter { homeDrawerPinViewModel.pinnedRowItemIDSet.contains($0.docID) }
-        let nonPinned = items.filter { !homeDrawerPinViewModel.pinnedRowItemIDSet.contains($0.docID) }
-        return pinned + nonPinned
+    private var pinnedItems: [any HomeDrawerSectionRowItemType] {
+        return items.filter { homeDrawerPinViewModel.pinnedRowItemIDSet.contains($0.docID) }
+    }
+    
+    private var nonPinnedItems: [any HomeDrawerSectionRowItemType] {
+        return items.filter { !homeDrawerPinViewModel.pinnedRowItemIDSet.contains($0.docID) }
     }
     
     var body: some View {
@@ -65,44 +67,82 @@ struct BMHomeSectionListView<Content: View>: View {
     
     @ViewBuilder
     private var listView: some View {
+        pinnedDiningItemsGridView
         if #available(iOS 26.0, *) {
-                List {
-                    Section {
-                        ForEach(sortedItems, id: \.docID) { item in
-                            Button(action: {
-                                mapViewController.choosePlacemark(item: item)
-                                selectionHandler?(item)
-                            }) {
-                                HomeSectionListRowView(rowItem: item)
-                                    .frame(width: 290)
-                            }
-                            .listRowSeparator(.hidden)
-                            .listRowBackground(Color(BMColor.cardBackground))
-                            .swipeActions(allowsFullSwipe: true) {
-                               swipeActionsContent(item)
-                            }
-                        }
-                    } header: {
-                        sectionHeaderView
+            List {
+                Section {
+                    ForEach(nonPinnedItems, id: \.docID) { item in
+                        HomeDrawerRowItemButton(item: item, mapViewController: mapViewController, selectionHandler: selectionHandler, swipeActionsContent: swipeActionsContent)
                     }
+                } header: {
+                    sectionHeaderView
                 }
-                .listStyle(.plain)
-                .scrollContentBackground(.hidden)
-                .clipShape(RoundedRectangle(cornerRadius: 10))
             }
-         else {
-            List(sortedItems, id: \.docID) { item in
-                Button(action: {
-                    mapViewController.choosePlacemark(item: item)
-                    selectionHandler?(item)
-                }) {
-                    HomeSectionListRowView(rowItem: item)
-                        .frame(width: 290)
-                }
-                .listRowSeparator(.hidden)
-                .listRowBackground(Color(BMColor.cardBackground))
+            .listStyle(.plain)
+            .scrollContentBackground(.hidden)
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+        } else {
+            List(nonPinnedItems, id: \.docID) { item in
+                HomeDrawerRowItemButton(item: item, mapViewController: mapViewController, selectionHandler: selectionHandler, swipeActionsContent: swipeActionsContent)
             }
             .scrollContentBackground(.hidden)
+        }
+    }
+    
+    @ViewBuilder
+    private var pinnedDiningItemsGridView: some View {
+        let columns = [
+            GridItem(.flexible()),
+            GridItem(.flexible()),
+            GridItem(.flexible())
+        ]
+        LazyVGrid(columns: columns, spacing: 16) {
+            ForEach(pinnedItems, id: \.docID) { pinnedItem in
+                Button(action: {
+                    mapViewController.choosePlacemark(item: pinnedItem)
+                    selectionHandler?(pinnedItem)
+                }) {
+                    HomeDrawerRowImageView(item: pinnedItem)
+                        .contextMenu {
+                            Button(action: {
+                                withAnimation(.spring(response: 0.4, dampingFraction: 0.85)) {
+                                    homeDrawerPinViewModel.removePinnedRowItem(withID: pinnedItem.docID)
+                                }
+                            }) {
+                                Label("Unpin", systemImage: "pin.slash.fill")
+                                    .tint(.red)
+                            }
+                        }
+                }
+                .buttonStyle(.plain)
+                .transition(.scale)
+            }
+        }
+        .listRowBackground(Color(BMColor.cardBackground))
+    }
+}
+
+
+// MARK: - HomeDrawerRowItemButton
+
+struct HomeDrawerRowItemButton<Content: View>: View {
+    var item: any HomeDrawerSectionRowItemType
+    var mapViewController: MapViewController
+    var selectionHandler: ((any HomeDrawerSectionRowItemType) -> Void)?
+    @ViewBuilder var swipeActionsContent: ((any HomeDrawerSectionRowItemType) -> Content)
+    
+    var body: some View {
+        Button(action: {
+            mapViewController.choosePlacemark(item: item)
+            selectionHandler?(item)
+        }) {
+            HomeSectionListRowView(rowItem: item)
+                .frame(width: 290)
+        }
+        .listRowSeparator(.hidden)
+        .listRowBackground(Color(BMColor.cardBackground))
+        .swipeActions(allowsFullSwipe: true) {
+            swipeActionsContent(item)
         }
     }
 }
