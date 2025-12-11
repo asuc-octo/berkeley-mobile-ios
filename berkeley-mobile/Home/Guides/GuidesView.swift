@@ -33,7 +33,6 @@ struct GuidesView: View {
                     .listRowSeparator(.hidden)
                     .listRowBackground(Color.clear)
                 }
-                .listStyle(.plain)
                 .contentMargins(.top, 0)
                 .scrollContentBackground(.hidden)
             }
