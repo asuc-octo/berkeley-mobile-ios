@@ -23,9 +23,9 @@ class GymDataSource: DataSource
                 print("[Error @ GymDataSource.fetchGyms()]: \(err)")
                 return
             } else {
-                let gyms = querySnapshot!.documents.map { (document) -> BMGym in
-                    let dict = document.data()
-                    return parseGym(dict)
+                let gyms = querySnapshot!.documents.map { (doc) -> BMGym in
+                    let dict = doc.data()
+                    return parseGym(dict, docID: doc.documentID)
                 }
                 completion(gyms)
             }
@@ -33,7 +33,7 @@ class GymDataSource: DataSource
     }
     
     // Return a Gym object parsed from a dictionary.
-    private static func parseGym(_ dict: [String: Any]) -> BMGym {
+    private static func parseGym(_ dict: [String: Any], docID: String) -> BMGym {
         let weeklyHours = BMGym.parseWeeklyHours(dict: dict["open_close_array"] as? [[String: Any]])
         
         var gym = BMGym(name: dict["name"] as? String ?? "Unnamed",
@@ -42,7 +42,8 @@ class GymDataSource: DataSource
                       phoneNumber: dict["phone"] as? String,
                       imageLink: dict["picture"] as? String,
                       weeklyHours: weeklyHours,
-                      link: dict["link"] as? String)
+                      link: dict["link"] as? String,
+                      documentID: docID)
         
         gym.latitude = dict["latitude"] as? Double
         gym.longitude = dict["longitude"] as? Double

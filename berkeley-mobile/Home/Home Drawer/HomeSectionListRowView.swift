@@ -9,7 +9,9 @@
 import SwiftUI
 
 struct HomeSectionListRowView: View {
-    var rowItem: SearchItem & HasLocation & HasImage
+    @Environment(HomeDrawerPinViewModel.self) private var homeDrawerPinViewModel
+    
+    var rowItem: any HomeDrawerSectionRowItemType
     
     var body: some View {
         HStack {
@@ -30,7 +32,7 @@ struct HomeSectionListRowView: View {
             
             Spacer()
             
-            imageView
+            HomeDrawerRowImageView(item: rowItem)
         }
         .padding()
         .shadowfy()
@@ -53,12 +55,6 @@ struct HomeSectionListRowView: View {
                 .foregroundStyle(Color(BMColor.blackText))
                 .font(Font(BMFont.light(12)))
         }
-    }
-    
-    private var imageView: some View {
-        BMCachedAsyncImageView(imageURL: rowItem.imageURL, placeholderImage: BMConstants.doeGladeImage, aspectRatio: .fill)
-            .frame(maxWidth: 80, maxHeight: 80)
-            .clipShape(RoundedRectangle(cornerRadius: 12))
     }
 }
 

@@ -26,7 +26,12 @@ extension Logger {
     )
     
     static let feedbackFormConfig = Logger(
-            subsystem: Bundle.main.bundleIdentifier!,
-            category: String(describing: FeedbackFormViewModel.self)
-        )
+        subsystem: Bundle.main.bundleIdentifier!,
+        category: String(describing: FeedbackFormViewModel.self)
+    )
+    
+    static let homeDrawerPinViewModel = Logger(
+        subsystem: Bundle.main.bundleIdentifier!,
+        category: String(describing: HomeDrawerPinViewModel.self)
+    )
 }
