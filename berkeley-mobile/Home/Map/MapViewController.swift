@@ -138,6 +138,12 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
             self.mapMarkers = Array(markers.values)
             self.mapMarkersDropdownButton.isHidden = false
             self.showSelectedMapMarkerTypeAnnotations(forType: types.first!)
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                if self.mainContainer?.presentedViewController == nil {
+                    ReviewPrompter.presentReviewIfNeeded()
+                }
+            }
         }
     }
     

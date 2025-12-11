@@ -195,6 +195,8 @@
 		E8FCD6842C374A81004B66A3 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = E8FCD6832C374A81004B66A3 /* SwiftSoup */; };
 		E8FCD6882C38AEC9004B66A3 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8FCD6872C38AEC9004B66A3 /* String+Extension.swift */; };
 		E8FCD68A2C3A382F004B66A3 /* EventScrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8FCD6892C3A382F004B66A3 /* EventScrapper.swift */; };
+		FAFF001C2E84C62100551C44 /* ReviewPrompter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFF001B2E84C61B00551C44 /* ReviewPrompter.swift */; };
+		FD44FE6125EB0EAD00F713EB /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD44FE6025EB0EAD00F713EB /* AlertView.swift */; };
 		FDD7946C260FE09D00ABE60E /* Colors+AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD7946B260FE09D00ABE60E /* Colors+AlertView.swift */; };
 /* End PBXBuildFile section */
 
@@ -405,6 +407,8 @@
 		E8EBE7612CEC2FD700A220BB /* SafetyLogDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyLogDetailView.swift; sourceTree = "<group>"; };
 		E8FCD6872C38AEC9004B66A3 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		E8FCD6892C3A382F004B66A3 /* EventScrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventScrapper.swift; sourceTree = "<group>"; };
+		FAFF001B2E84C61B00551C44 /* ReviewPrompter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPrompter.swift; sourceTree = "<group>"; };
+		FD44FE6025EB0EAD00F713EB /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
 		FDD7946B260FE09D00ABE60E /* Colors+AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+AlertView.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -556,6 +560,7 @@
 		1396012D23865E2E005E4788 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				FAFF001B2E84C61B00551C44 /* ReviewPrompter.swift */,
 				2913595524B135B600DE9AD6 /* DetailView */,
 				13B39AB123E777AC0039FBA2 /* FilterView */,
 				29481560253274CA00D113B6 /* Images */,
@@ -1201,6 +1206,7 @@
 				E8C2BDA72D912B3A00165554 /* CalendarView.swift in Sources */,
 				E83B6DA52D7A85D500AA9422 /* GymOccupancyScrapper.swift in Sources */,
 				E8472B062DE453D6005C24EA /* BMAddedCalendarStatusOverlayView.swift in Sources */,
+				FAFF001C2E84C62100551C44 /* ReviewPrompter.swift in Sources */,
 				13EA64D02399D50C00FD8E13 /* DataManager.swift in Sources */,
 				E80330EB2CE431C200DC9574 /* DepthButtonStyle.swift in Sources */,
 				C14CCB612D9CC2730075FE69 /* BMFilterButton.swift in Sources */,
