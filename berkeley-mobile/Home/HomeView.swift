@@ -49,7 +49,7 @@ struct HomeView: View {
             tabNames: ["Dining", "Fitness", "Study", "Guides"],
             selectedTabIndex: $tabSelectedIndex
         )
-        .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0))
+        .padding(.top, 20)
     }
     
     private var homeDrawerContentView: some View {
@@ -57,7 +57,7 @@ struct HomeView: View {
             Group {
                 if homeViewModel.isFetching {
                     ProgressView("LOADING")
-                        .padding()
+                        .padding(.vertical, 20)
                     Spacer()
                 } else {
                     segmentedControlHeader
@@ -86,7 +86,7 @@ struct HomeView: View {
             }
             .navigationBarTitleDisplayMode(.inline)
             .containerBackground(.clear, for: .navigation)
-            .padding()
+            .padding(.horizontal)
             .navigationDestination(for: BMDiningHall.self) { diningHall in
                 DiningDetailView(diningHall: diningHall)
                     .containerBackground(.clear, for: .navigation)
