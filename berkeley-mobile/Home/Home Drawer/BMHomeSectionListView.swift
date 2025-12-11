@@ -153,6 +153,6 @@ struct HomeDrawerRowItemButton<Content: View>: View {
         BMDiningHall(name: "Cafe 3", address: "2436 Durant Ave, Berkeley, CA 94704", phoneNumber: nil, imageLink: "https://firebasestorage.googleapis.com/v0/b/berkeley-mobile.appspot.com/o/images%2FCafe3.jpg?alt=media&token=f1062476-2cb0-4ce9-9ac1-6109bf588aaa", hours: [], latitude: nil, longitude: nil)
     ]
     
-    BMHomeSectionListView(sectionType: .dining, items: diningHalls, mapViewController: MapViewController()) {_ in }
+    BMHomeSectionListView(sectionType: .dining, items: diningHalls, mapViewController: MapViewController()) { _ in }
 }
 

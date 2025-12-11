@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import os
 
 /// `HomeDrawerPinViewModel` keeps track of all the pinned row items in the Home Drawer
 @Observable
@@ -43,7 +44,7 @@ class HomeDrawerPinViewModel {
             let encodedData = try NSKeyedArchiver.archivedData(withRootObject: ids, requiringSecureCoding: false)
             UserDefaults.standard.set(encodedData, forKey: UserDefaultsKeys.homeDrawerPinnedItemIDs)
         } catch {
-            // TODO: Log error
+            Logger.homeDrawerPinViewModel.error("Failed to save pinned row item ids: \(error.localizedDescription)")
         }
     }
 }

@@ -18,6 +18,6 @@ struct LibrariesView: View {
     var body: some View {
         BMHomeSectionListView(sectionType: .study, items: homeViewModel.libraries, mapViewController: mapViewController) { selectedLibrary in
             selectionHandler?(selectedLibrary as! BMLibrary)
-        } swipeActionsContent: {_ in }
+        } swipeActionsContent: { _ in }
     }
 }

@@ -12,7 +12,7 @@ import UIKit
 
 /// `BMDiningHall` is the representation for a dining hall used throughout the app. We fetch the dining halls from Firebase as `BMDininghallDocument` and convert them into `BMDiningHall`.
 struct BMDiningHall: HomeDrawerSectionRowItemType, HasPhoneNumber, HasOpenClosedStatus, Hashable {
-    var id: String = ""
+    var id: String { docID }
     var docID: String
     var icon: UIImage?
     var searchName: String { return name }
