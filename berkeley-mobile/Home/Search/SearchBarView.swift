@@ -12,6 +12,7 @@ import SwiftUI
 struct SearchBarView: View {
     @EnvironmentObject var viewModel: SearchViewModel
     @FocusState private var isFocused: Bool
+    @State private var isPresentingFeedbackForm = false
     
     private var onSearchBarTap: ((Bool) -> Void)?
     
@@ -26,8 +27,26 @@ struct SearchBarView: View {
                     viewModel.searchLocations(viewModel.searchText)
                 }
             
-            if !viewModel.searchText.isEmpty {
-                clearTextIcon
+            if viewModel.searchText.isEmpty {
+                Button(action: {
+                    isPresentingFeedbackForm = true
+                }) {
+                    Image(systemName: "bubble.left.and.bubble.right")
+                        .foregroundStyle(Color(BMColor.searchBarIconColor))
+                        .fontWeight(.semibold)
+                        .frame(width: 30, alignment: .center)
+                }
+                .accessibilityLabel("Send Feedback")
+            } else {
+                Button(action: {
+                    viewModel.clearSearchText()
+                }) {
+                    Image(systemName: "xmark")
+                        .foregroundStyle(Color(BMColor.searchBarIconColor))
+                        .fontWeight(.semibold)
+                        .frame(width: 30, alignment: .center)
+                }
+                .accessibilityLabel("Clear search text")
             }
         }
         .padding()
@@ -63,6 +82,7 @@ struct SearchBarView: View {
             isFocused = newValue
             onSearchBarTap?(newValue)
         }
+        .sheet(isPresented: $isPresentingFeedbackForm) { FeedbackFormView() }
     }
     
     private var searchOrBackIcon: some View {
@@ -76,17 +96,6 @@ struct SearchBarView: View {
                 .foregroundStyle(Color(BMColor.searchBarIconColor))
                 .fontWeight(.semibold)
                 .frame(width: 20, alignment: .center) // So that changing an icon didn't move the TextField
-        }
-    }
-    
-    private var clearTextIcon: some View {
-        Button(action: {
-            viewModel.clearSearchText()
-        }) {
-            Image(systemName: "xmark")
-                .foregroundStyle(Color(BMColor.searchBarIconColor))
-                .fontWeight(.semibold)
-                .frame(width: 30, alignment: .center)
         }
     }
     
