@@ -9,32 +9,37 @@
 import SwiftUI
 
 struct GuidesView: View {
-    @State private var viewModel = GuidesViewModel()
+    @Environment(GuidesViewModel.self) private var viewModel
     
     var body: some View {
-        if viewModel.isLoading {
-            ProgressView()
-            Spacer()
-        } else if viewModel.guides.isEmpty {
-            Text("No Guides Available")
-                .font(Font(BMFont.bold(20)))
-                .foregroundStyle(.gray)
-            Spacer()
-        } else {
-            List(viewModel.guides) { guide in
-                NavigationLink {
-                    GuideDetailView(guide: guide)
-                        .containerBackground(.clear, for: .navigation)
-                        .environment(viewModel)
-                } label: {
-                    GuideRowView(guide: guide)
+        VStack {
+            if viewModel.isLoading {
+                ProgressView()
+                Spacer()
+            } else if viewModel.guides.isEmpty {
+                Text("No Guides Available")
+                    .font(Font(BMFont.bold(20)))
+                    .foregroundStyle(.gray)
+                Spacer()
+            } else {
+                List(viewModel.guides) { guide in
+                    NavigationLink {
+                        GuideDetailView(guide: guide)
+                            .containerBackground(.clear, for: .navigation)
+                    } label: {
+                        GuideRowView(guide: guide)
+                    }
+                    .disabled(guide.places.isEmpty)
+                    .listRowSeparator(.hidden)
+                    .listRowBackground(Color.clear)
                 }
-                .disabled(guide.places.isEmpty)
-                .listRowSeparator(.hidden)
-                .listRowBackground(Color.clear)
+                .listStyle(.plain)
+                .contentMargins(.top, 0)
+                .scrollContentBackground(.hidden)
             }
-            .contentMargins(.top, 0)
-            .scrollContentBackground(.hidden)
+        }
+        .onAppear {
+            viewModel.fetchGuides()
         }
     }
 }
