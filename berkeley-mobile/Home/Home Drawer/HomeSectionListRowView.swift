@@ -9,7 +9,9 @@
 import SwiftUI
 
 struct HomeSectionListRowView: View {
-    var rowItem: SearchItem & HasLocation & HasImage
+    @Environment(HomeDrawerPinViewModel.self) private var homeDrawerPinViewModel
+    
+    var rowItem: any HomeDrawerSectionRowItemType
     
     var body: some View {
         HStack {

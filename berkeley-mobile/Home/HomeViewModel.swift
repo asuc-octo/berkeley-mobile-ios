@@ -26,6 +26,10 @@ enum HomeDrawerViewType {
     }
 }
 
+protocol HomeDrawerSectionRowItemType: HasLocation, SearchItem, HasImage, Identifiable, Equatable {
+    var docID: String { get set }
+}
+
 class HomeViewModel: ObservableObject {
     @Published var isFetching = false
     @Published var diningHalls: [BMDiningHall] = []

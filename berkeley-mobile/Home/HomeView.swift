@@ -16,9 +16,11 @@ struct HomeView: View {
     @State private var isPresentingDetailView = false
     @State private var selectedDetent: PresentationDetent = .fraction(0.45)
     
-    private var mapViewController: MapViewController
-    
+    @State private var homeDrawerPinViewModel = HomeDrawerPinViewModel()
     @State private var diningHallsViewModel = DiningHallsViewModel()
+    @State private var guidesViewModel = GuidesViewModel()
+
+    private var mapViewController: MapViewController
     private let menuIconCacheManager = MenuItemIconCacheManager()
     
     init(mapViewController: MapViewController) {
@@ -49,7 +51,7 @@ struct HomeView: View {
             tabNames: ["Dining", "Fitness", "Study", "Guides"],
             selectedTabIndex: $tabSelectedIndex
         )
-        .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0))
+        .padding(.top, 20)
     }
     
     private var homeDrawerContentView: some View {
@@ -57,7 +59,7 @@ struct HomeView: View {
             Group {
                 if homeViewModel.isFetching {
                     ProgressView("LOADING")
-                        .padding()
+                        .padding(.vertical, 20)
                     Spacer()
                 } else {
                     segmentedControlHeader
@@ -67,6 +69,7 @@ struct HomeView: View {
                             navigationPath.append(selectedDiningHall)
                         }
                         .environment(diningHallsViewModel)
+                        .environment(homeDrawerPinViewModel)
                         .onAppear {
                             homeViewModel.logOpenedDiningHomeSectionAnalytics()
                         }
@@ -75,18 +78,21 @@ struct HomeView: View {
                             navigationPath.append(selectedGym)
                         }
                         .environmentObject(homeViewModel)
+                        .environment(homeDrawerPinViewModel)
                     case 2:
                         LibrariesView(mapViewController: mapViewController) { selectedLibrary in
                             navigationPath.append(selectedLibrary)
                         }
+                        .environment(homeDrawerPinViewModel)
                     default:
                         GuidesView()
+                            .environment(guidesViewModel)
                     }
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
             .containerBackground(.clear, for: .navigation)
-            .padding()
+            .padding(.horizontal)
             .navigationDestination(for: BMDiningHall.self) { diningHall in
                 DiningDetailView(diningHall: diningHall)
                     .containerBackground(.clear, for: .navigation)

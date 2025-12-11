@@ -9,32 +9,36 @@
 import SwiftUI
 
 struct GuidesView: View {
-    @State private var viewModel = GuidesViewModel()
+    @Environment(GuidesViewModel.self) private var viewModel
     
     var body: some View {
-        if viewModel.isLoading {
-            ProgressView()
-            Spacer()
-        } else if viewModel.guides.isEmpty {
-            Text("No Guides Available")
-                .font(Font(BMFont.bold(20)))
-                .foregroundStyle(.gray)
-            Spacer()
-        } else {
-            List(viewModel.guides) { guide in
-                NavigationLink {
-                    GuideDetailView(guide: guide)
-                        .containerBackground(.clear, for: .navigation)
-                        .environment(viewModel)
-                } label: {
-                    GuideRowView(guide: guide)
+        VStack {
+            if viewModel.isLoading {
+                ProgressView()
+                Spacer()
+            } else if viewModel.guides.isEmpty {
+                Text("No Guides Available")
+                    .font(Font(BMFont.bold(20)))
+                    .foregroundStyle(.gray)
+                Spacer()
+            } else {
+                List(viewModel.guides) { guide in
+                    NavigationLink {
+                        GuideDetailView(guide: guide)
+                            .containerBackground(.clear, for: .navigation)
+                    } label: {
+                        GuideRowView(guide: guide)
+                    }
+                    .disabled(guide.places.isEmpty)
+                    .listRowSeparator(.hidden)
+                    .listRowBackground(Color.clear)
                 }
-                .disabled(guide.places.isEmpty)
-                .listRowSeparator(.hidden)
-                .listRowBackground(Color.clear)
+                .contentMargins(.top, 0)
+                .scrollContentBackground(.hidden)
             }
-            .listStyle(.plain)
-            .scrollContentBackground(.hidden)
+        }
+        .onAppear {
+            viewModel.fetchGuides()
         }
     }
 }
@@ -78,32 +82,7 @@ struct GuideRowView: View {
 
 // MARK: - GuidePlacesStackedCollageView
 
-struct GuidePlacesStackedCollageView: View {
-    var guide: Guide
-    
-    // First angle corresponds to the furthest back image
-    private let angles: [CGFloat] = [-10.0, 10.0, 0.0]
-    
-    var body: some View {
-        ZStack {
-            if guide.places.isEmpty {
-                RoundedRectangle(cornerRadius: 10)
-                    .fill(.gray)
-                    .frame(width: 80, height: 150)
-                    .rotationEffect(.degrees(0))
-            } else {
-                let items = Array(guide.places.prefix(3).reversed())
-                ForEach(Array(zip(items, angles.prefix(items.count)).enumerated()), id: \.offset) { _, pair in
-                    let (place, angle) = pair
-                    BMCachedAsyncImageView(imageURL: place.imageURL, aspectRatio: .fill)
-                        .frame(width: 80, height: 150)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                        .rotationEffect(.degrees(angle))
-                }
-            }
-        }
-    }
-}
+
 
 #Preview {
     GuidesView()
