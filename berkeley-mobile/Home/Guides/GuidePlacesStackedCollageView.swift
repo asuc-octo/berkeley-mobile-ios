@@ -13,6 +13,9 @@ struct GuidePlacesStackedCollageView: View {
         static let maxVisible = 3
         static let maxDrag: CGFloat = 20
         static let commitThreshold: CGFloat = 35
+        
+        static let cardHeight: CGFloat = 150
+        static let cardWidth: CGFloat = 80
     }
     
     var guide: Guide
@@ -29,7 +32,7 @@ struct GuidePlacesStackedCollageView: View {
             if guide.places.isEmpty {
                 RoundedRectangle(cornerRadius: 10)
                     .fill(.gray)
-                    .frame(width: 80, height: 150)
+                    .frame(width: Constants.cardWidth, height: Constants.cardHeight)
             } else {
                 let places = guide.places
                 let total = places.count
@@ -42,7 +45,7 @@ struct GuidePlacesStackedCollageView: View {
                     let isFront = (depth == indices.count - 1)
                     
                     BMCachedAsyncImageView(imageURL: place.imageURL, aspectRatio: .fill)
-                        .frame(width: 80, height: 150)
+                        .frame(width: Constants.cardWidth, height: Constants.cardHeight)
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                         .rotationEffect(
                             .degrees(
