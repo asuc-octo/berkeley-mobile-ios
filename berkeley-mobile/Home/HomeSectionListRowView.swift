@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+
 struct HomeSectionListRowView: View {
     var rowItem: SearchItem & HasLocation & HasImage
     
