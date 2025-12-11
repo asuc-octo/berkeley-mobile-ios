@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-
 struct HomeSectionListRowView: View {
     var rowItem: SearchItem & HasLocation & HasImage
     
@@ -21,7 +20,7 @@ struct HomeSectionListRowView: View {
                 HStack {
                     Group {
                         openClosedStatusView
-                        distanceLabelView
+                        DistanceLabelView(distance: rowItem.distanceToUser)
                     }
                     .applyHomeDrawerRowAttributesStyle()
                 }
@@ -43,19 +42,27 @@ struct HomeSectionListRowView: View {
         }
     }
     
-    private var distanceLabelView: some View {
-        DistanceLabelView(distance: rowItem.distanceToUser)
-    }
-    
     private var imageView: some View {
-        BMCachedAsyncImageView(imageURL: rowItem.imageURL, placeholderImage: BMConstants.doeGladeImage, aspectRatio: .fill)
-            .frame(maxWidth: 80, maxHeight: 80)
-            .clipShape(RoundedRectangle(cornerRadius: 12))
+        BMCachedAsyncImageView(
+            imageURL: rowItem.imageURL,
+            placeholderImage: BMConstants.doeGladeImage,
+            aspectRatio: .fill
+        )
+        .frame(maxWidth: 80, maxHeight: 80)
+        .clipShape(RoundedRectangle(cornerRadius: 12))
     }
 }
 
 #Preview {
-    let foothillDiningHall = BMDiningHall(name: "Foothill", address: nil, phoneNumber: nil, imageLink: "https://firebasestorage.googleapis.com/v0/b/berkeley-mobile.appspot.com/o/images%2FFoothill.jpg?alt=media&token=b645d675-6f51-45ea-99f7-9b36576e14b7", hours: [], latitude: 37.87538, longitude: -122.25612109999999)
+    let foothillDiningHall = BMDiningHall(
+        name: "Foothill",
+        address: nil,
+        phoneNumber: nil,
+        imageLink: "https://firebasestorage.googleapis.com/v0/b/berkeley-mobile.appspot.com/o/images%2FFoothill.jpg?alt=media&token=b645d675-6f51-45ea-99f7-9b36576e14b7",
+        hours: [],
+        latitude: 37.87538,
+        longitude: -122.25612109999999
+    )
     
     return HomeSectionListRowView(rowItem: foothillDiningHall)
         .padding(40)
