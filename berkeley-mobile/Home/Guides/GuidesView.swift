@@ -34,10 +34,9 @@ struct GuidesView: View {
                     .listRowBackground(Color.clear)
                 }
                 .listStyle(.plain)
+                .contentMargins(.top, 0)
                 .scrollContentBackground(.hidden)
             }
-            .contentMargins(.top, 0)
-            .scrollContentBackground(.hidden)
         }
         .onAppear {
             viewModel.fetchGuides()
