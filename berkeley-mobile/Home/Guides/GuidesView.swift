@@ -26,6 +26,7 @@ struct GuidesView: View {
                     NavigationLink {
                         GuideDetailView(guide: guide)
                             .containerBackground(.clear, for: .navigation)
+                            .environment(viewModel)
                     } label: {
                         GuideRowView(guide: guide)
                     }
