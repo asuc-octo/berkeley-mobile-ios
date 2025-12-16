@@ -14,17 +14,20 @@ struct GuideDetailView: View {
     var guide: Guide
     
     var body: some View {
-        List(guide.places) { place in
-            Section {
-                GuideDetailRowHeaderView(place: place)
-                Text(place.description)
-                    .foregroundStyle(.secondary)
-                    .font(Font(BMFont.regular(15)))
-                    .padding()
+        List {
+            curatorView
+            ForEach(guide.places) { place in
+                Section {
+                    GuideDetailRowHeaderView(place: place)
+                    Text(place.description)
+                        .foregroundStyle(.secondary)
+                        .font(Font(BMFont.regular(15)))
+                        .padding()
+                }
+                .listRowSpacing(10)
+                .listRowInsets(EdgeInsets())
+                .listRowSeparator(.hidden)
             }
-            .listRowSpacing(10)
-            .listRowInsets(EdgeInsets())
-            .listRowSeparator(.hidden)
         }
         .scrollContentBackground(.hidden)
         .toolbar {
@@ -37,6 +40,14 @@ struct GuideDetailView: View {
                 }
                 .padding(.top, 10)
             }
+        }
+    }
+    
+    @ViewBuilder
+    private var curatorView: some View {
+        if let curator = guide.curator {
+            Text("Curated by \(curator)")
+                .font(.caption)
         }
     }
 }
