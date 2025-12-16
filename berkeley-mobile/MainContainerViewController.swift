@@ -25,7 +25,6 @@ class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
     private let homeViewModel = HomeViewModel()
     private var homeViewController: UIViewController!
     private var homeView: UIView!
-    private let feedbackFormViewModel = FeedbackFormViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,31 +45,6 @@ class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
             homeView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             homeView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        Task {
-            let formConfig = await feedbackFormViewModel.fetchFeedbackFormConfig()
-            attemptShowFeedbackForm(withConfig: formConfig)
-        }
-    }
-    
-    private func attemptShowFeedbackForm(withConfig formConfig: FeedbackFormConfig?) {
-        guard let formConfig else {
-            return
-        }
-    
-        let numAppLaunchForFeedbackForm = UserDefaults.standard.integer(forKey: .numAppLaunchForFeedbackForm)
-        if numAppLaunchForFeedbackForm >= formConfig.numToShow {
-            let feedbackFormView = FeedbackFormView(viewModel: feedbackFormViewModel, config: formConfig)
-            let hostingController = UIHostingController(rootView: feedbackFormView)
-            hostingController.modalPresentationStyle = .fullScreen
-            hostingController.modalTransitionStyle = .coverVertical
-            present(hostingController, animated: true)
-        } else {
-            UserDefaults.standard.set(numAppLaunchForFeedbackForm + 1, forKey: .numAppLaunchForFeedbackForm)
-        }
     }
 }
 

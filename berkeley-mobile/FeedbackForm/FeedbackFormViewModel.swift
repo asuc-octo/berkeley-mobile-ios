@@ -19,7 +19,6 @@ struct FeedbackFormConfig: Codable {
     var instructionText: String
     var sectionsAndQuestions: [FeedbackFormSectionQuestions]
     var numToShow: Int
-    
 }
 
 struct FeedbackFormSectionQuestions: Codable {

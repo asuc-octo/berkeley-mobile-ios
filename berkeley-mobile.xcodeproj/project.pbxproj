@@ -121,6 +121,9 @@
 		E81767582B9A516200599254 /* MapMarkersDropdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81767572B9A516200599254 /* MapMarkersDropdownView.swift */; };
 		E82E2A532ECD833F00785593 /* FeedbackFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82E2A512ECD833F00785593 /* FeedbackFormView.swift */; };
 		E82E2A552ECD835200785593 /* FeedbackFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82E2A542ECD835200785593 /* FeedbackFormViewModel.swift */; };
+		E83927EB2EF1222800CF2DF5 /* DebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83927EA2EF1222800CF2DF5 /* DebugView.swift */; };
+		E83927ED2EF1283300CF2DF5 /* DebugViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83927EC2EF1282F00CF2DF5 /* DebugViewModel.swift */; };
+		E83927EF2EF1296300CF2DF5 /* FeedbackFormPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83927EE2EF1295600CF2DF5 /* FeedbackFormPresenter.swift */; };
 		E83B6D972D6FC93400AA9422 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E83B6D962D6FC93400AA9422 /* GoogleService-Info.plist */; };
 		E83B6D992D7121D300AA9422 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B6D982D7121D300AA9422 /* View+Extension.swift */; };
 		E83B6D9B2D7123CB00AA9422 /* MapUserLocationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B6D9A2D7123CB00AA9422 /* MapUserLocationButton.swift */; };
@@ -348,6 +351,9 @@
 		E81767572B9A516200599254 /* MapMarkersDropdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMarkersDropdownView.swift; sourceTree = "<group>"; };
 		E82E2A512ECD833F00785593 /* FeedbackFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackFormView.swift; sourceTree = "<group>"; };
 		E82E2A542ECD835200785593 /* FeedbackFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackFormViewModel.swift; sourceTree = "<group>"; };
+		E83927EA2EF1222800CF2DF5 /* DebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugView.swift; sourceTree = "<group>"; };
+		E83927EC2EF1282F00CF2DF5 /* DebugViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugViewModel.swift; sourceTree = "<group>"; };
+		E83927EE2EF1295600CF2DF5 /* FeedbackFormPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackFormPresenter.swift; sourceTree = "<group>"; };
 		E83B6D962D6FC93400AA9422 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E83B6D982D7121D300AA9422 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		E83B6D9A2D7123CB00AA9422 /* MapUserLocationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapUserLocationButton.swift; sourceTree = "<group>"; };
@@ -780,6 +786,7 @@
 				303F6ADC236A9274007E37DD /* Drawer */,
 				1396012D23865E2E005E4788 /* Common */,
 				13E25E00238C9E1000B670B5 /* Utils */,
+				E83927E92EF1209000CF2DF5 /* Debug */,
 				306A54F223613E3D00D59A7F /* Assets.xcassets */,
 				306A54F423613E3D00D59A7F /* LaunchScreen.storyboard */,
 				306A54F723613E3D00D59A7F /* Info.plist */,
@@ -827,10 +834,20 @@
 		E82E2A522ECD833F00785593 /* FeedbackForm */ = {
 			isa = PBXGroup;
 			children = (
+				E83927EE2EF1295600CF2DF5 /* FeedbackFormPresenter.swift */,
 				E82E2A542ECD835200785593 /* FeedbackFormViewModel.swift */,
 				E82E2A512ECD833F00785593 /* FeedbackFormView.swift */,
 			);
 			path = FeedbackForm;
+			sourceTree = "<group>";
+		};
+		E83927E92EF1209000CF2DF5 /* Debug */ = {
+			isa = PBXGroup;
+			children = (
+				E83927EA2EF1222800CF2DF5 /* DebugView.swift */,
+				E83927EC2EF1282F00CF2DF5 /* DebugViewModel.swift */,
+			);
+			path = Debug;
 			sourceTree = "<group>";
 		};
 		E85D6EDB2EE28F6000304188 /* Home Drawer */ = {
@@ -1137,6 +1154,7 @@
 				133864A42404DCCA001F9048 /* MapMarker.swift in Sources */,
 				13491DBA241E23630033F9AB /* Colors+Text.swift in Sources */,
 				136DC97D2398B4F3009B1810 /* UIImage+Extensions.swift in Sources */,
+				E83927EB2EF1222800CF2DF5 /* DebugView.swift in Sources */,
 				13135BB22412442C0056B169 /* FilterView.swift in Sources */,
 				E8FCD68A2C3A382F004B66A3 /* EventScrapper.swift in Sources */,
 				306A54FE236142B800D59A7F /* DrawerViewController.swift in Sources */,
@@ -1243,6 +1261,7 @@
 				E8B2738D2BD5C83F0009831A /* SafetyView.swift in Sources */,
 				01FA50F124E8B33100DCC490 /* BMLocationManager.swift in Sources */,
 				017C0B26251018BA00BFA80A /* Colors+MapMarker.swift in Sources */,
+				E83927EF2EF1296300CF2DF5 /* FeedbackFormPresenter.swift in Sources */,
 				E83B6DA92D7A860E00AA9422 /* GymOccupancyViewModel.swift in Sources */,
 				E88562C42EA2E2AB0062315A /* OpenClosedStatusView.swift in Sources */,
 				29345E2724A7E76300859A88 /* OverviewCardView.swift in Sources */,
@@ -1253,6 +1272,7 @@
 				2913595724B136BE00DE9AD6 /* CollapsibleCardView.swift in Sources */,
 				E83C6CED2B71DF190085E277 /* SafariWebView.swift in Sources */,
 				01AA1B88253BB4AC003AB75A /* UIScrollView+GestureRecognizer.swift in Sources */,
+				E83927ED2EF1283300CF2DF5 /* DebugViewModel.swift in Sources */,
 				13491DB6241E21740033F9AB /* Colors+TagView.swift in Sources */,
 				E8FCD6882C38AEC9004B66A3 /* String+Extension.swift in Sources */,
 				556CCD2223E7771800F41BF9 /* MapPlacemark.swift in Sources */,
@@ -1456,6 +1476,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4HBETBULVA;
+				"EXCLUDED_SOURCE_FILE_NAMES[arch=*]" = "berkeley-mobile/Debug/*";
 				INFOPLIST_FILE = "berkeley-mobile/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
