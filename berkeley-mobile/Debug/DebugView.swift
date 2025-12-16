@@ -51,6 +51,9 @@ struct DebugView: View {
                     Text("Next launch in \(feedbackFormConfig.numToShow - debugViewModel.feedbackFormPresenter.currNumAppLaunchForFeedbackForm).")
                 }
                 .foregroundStyle(.secondary)
+            } else {
+                ProgressView()
+                    .controlSize(.mini)
             }
         }
         .onAppear {

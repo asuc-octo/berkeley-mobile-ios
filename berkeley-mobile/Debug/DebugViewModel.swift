@@ -24,6 +24,9 @@ class DebugViewModel {
     }
     
     func fetchFeedbackFormConfig() {
+        guard feedbackFormConfig == nil else {
+            return
+        }
         Task {
             feedbackFormConfig = await feedbackFormPresenter.feedbackFormViewModel.fetchFeedbackFormConfig()
         }
