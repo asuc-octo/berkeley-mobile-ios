@@ -13,9 +13,13 @@ protocol FeedbackFormPresenterDelegate: AnyObject {
 }
 
 class FeedbackFormPresenter {
-    private let feedbackFormViewModel = FeedbackFormViewModel()
+    private(set) var feedbackFormViewModel = FeedbackFormViewModel()
     
     weak var delegate: FeedbackFormPresenterDelegate?
+    
+    var currNumAppLaunchForFeedbackForm: Int {
+        return UserDefaults.standard.integer(forKey: .numAppLaunchForFeedbackForm)
+    }
     
     func attemptShowFeedbackForm(isForced: Bool = false) {
         Task {
@@ -29,14 +33,13 @@ class FeedbackFormPresenter {
             return
         }
     
-        let numAppLaunchForFeedbackForm = UserDefaults.standard.integer(forKey: .numAppLaunchForFeedbackForm)
-        if isForced || numAppLaunchForFeedbackForm >= formConfig.numToShow {
+        if isForced || currNumAppLaunchForFeedbackForm >= formConfig.numToShow {
             let feedbackFormView = FeedbackFormView(viewModel: feedbackFormViewModel, config: formConfig)
             DispatchQueue.main.async {
                 self.delegate?.presentFeedbackForm(withViewController: UIHostingController(rootView: feedbackFormView))
             }
         } else {
-            UserDefaults.standard.set(numAppLaunchForFeedbackForm + 1, forKey: .numAppLaunchForFeedbackForm)
+            UserDefaults.standard.set(currNumAppLaunchForFeedbackForm + 1, forKey: .numAppLaunchForFeedbackForm)
         }
     }
 }

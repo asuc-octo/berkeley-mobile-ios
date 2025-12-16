@@ -44,6 +44,17 @@ struct DebugView: View {
             }) {
                 Label("Present Feedback Form", systemImage: "questionmark.bubble")
             }
+        } footer: {
+            if let feedbackFormConfig = debugViewModel.feedbackFormConfig {
+                VStack(alignment: .leading) {
+                    Text("Show feedback form every \(feedbackFormConfig.numToShow) launches.")
+                    Text("Next launch in \(feedbackFormConfig.numToShow - debugViewModel.feedbackFormPresenter.currNumAppLaunchForFeedbackForm).")
+                }
+                .foregroundStyle(.secondary)
+            }
+        }
+        .onAppear {
+            debugViewModel.fetchFeedbackFormConfig()
         }
     }
 }

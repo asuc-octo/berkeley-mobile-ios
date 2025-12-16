@@ -6,11 +6,14 @@
 //  Copyright © 2025 ASUC OCTO. All rights reserved.
 //
 
-import Foundation
+import SwiftUI
 
+@Observable
 class DebugViewModel {
     
-    private let feedbackFormPresenter: FeedbackFormPresenter
+    var feedbackFormConfig: FeedbackFormConfig?
+    
+    private(set) var feedbackFormPresenter: FeedbackFormPresenter
     
     init(feedbackFormPresenter: FeedbackFormPresenter) {
         self.feedbackFormPresenter = feedbackFormPresenter
@@ -18,5 +21,11 @@ class DebugViewModel {
     
     func presentFeedbackForm() {
         feedbackFormPresenter.attemptShowFeedbackForm(isForced: true)
+    }
+    
+    func fetchFeedbackFormConfig() {
+        Task {
+            feedbackFormConfig = await feedbackFormPresenter.feedbackFormViewModel.fetchFeedbackFormConfig()
+        }
     }
 }

@@ -22,6 +22,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         super.viewDidLoad()
         setupTabbar()
         feedbackFormPresenter.delegate = self
+        feedbackFormPresenter.attemptShowFeedbackForm()
     }
     
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
