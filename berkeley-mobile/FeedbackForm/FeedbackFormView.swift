@@ -128,7 +128,9 @@ struct FeedbackFormView: View {
                 }
                 .padding()
             }
+            .disabled(!isEmailValid)
             .buttonStyle(DepthButtonStyle(color: isEmailValid ? Color.green : Color.gray))
+            .blur(radius: isEmailValid ? 0 : 3)
         }
         .listRowBackground(Color.clear)
     }
