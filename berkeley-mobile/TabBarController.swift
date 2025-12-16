@@ -74,7 +74,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
 // MARK: - FeedbackFormPresenterDelegate
 
 extension TabBarController: FeedbackFormPresenterDelegate {
-    func presentFeedbackForm(withViewController viewController: UIViewController) {
+    func feedbackFormDidPresent(withViewController viewController: UIViewController) {
         viewController.modalPresentationStyle = .fullScreen
         viewController.modalTransitionStyle = .coverVertical
         self.present(viewController, animated: true)

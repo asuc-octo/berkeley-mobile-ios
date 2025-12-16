@@ -9,7 +9,7 @@
 import SwiftUI
 
 protocol FeedbackFormPresenterDelegate: AnyObject {
-    func presentFeedbackForm(withViewController viewController: UIViewController)
+    func feedbackFormDidPresent(withViewController viewController: UIViewController)
 }
 
 class FeedbackFormPresenter {
@@ -36,7 +36,7 @@ class FeedbackFormPresenter {
         if isForced || currNumAppLaunchForFeedbackForm >= formConfig.numToShow {
             let feedbackFormView = FeedbackFormView(viewModel: feedbackFormViewModel, config: formConfig)
             DispatchQueue.main.async {
-                self.delegate?.presentFeedbackForm(withViewController: UIHostingController(rootView: feedbackFormView))
+                self.delegate?.feedbackFormDidPresent(withViewController: UIHostingController(rootView: feedbackFormView))
             }
         } else {
             UserDefaults.standard.set(currNumAppLaunchForFeedbackForm + 1, forKey: .numAppLaunchForFeedbackForm)
