@@ -125,12 +125,20 @@ struct BMMealCategory: Codable, Hashable {
     let menuItems: [BMMenuItem]
 }
 
+struct BMMenuItemDetail: Codable, Hashable {
+    let servingSize: String?
+    let nutrition: [String: String]?
+    let ingredients: String?
+    let allergens: [String]?
+}
+
 struct BMMenuItem: Codable, Hashable {
     let name: String
     let icons: [BMMealIcon]
     let menuId: String?
     let itemId: String?
     let dataLocation: String?
+    let BMMenuItemDetail: BMMenuItemDetail?
 }
 
 struct BMMealIcon: Codable, Hashable {

@@ -135,10 +135,12 @@ struct DiningItemsListView: View {
             ForEach(categoriesAndMenuItems, id: \.categoryName) { mealCategory in
                 Section {
                     ForEach(mealCategory.menuItems, id: \.itemId) { menuItem in
-                        DiningDetailRowView {
-                            Text(menuItem.name)
-                                .font(Font(BMFont.regular(15)))
-                            DiningMenuItemIconsView(menuItem: menuItem)
+                        NavigationLink(value: menuItem.name) {
+                            DiningDetailRowView {
+                                Text(menuItem.name)
+                                    .font(Font(BMFont.regular(15)))
+                                DiningMenuItemIconsView(menuItem: menuItem)
+                            }
                         }
                     }
                 } header: {
