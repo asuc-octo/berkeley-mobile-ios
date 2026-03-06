@@ -126,7 +126,6 @@ struct BMMealCategory: Codable, Hashable {
 }
 
 struct BMMenuItemDetail: Codable, Hashable {
-    let servingSize: String?
     let nutrition: [String: String]?
     let ingredients: String?
     let allergens: [String]?
@@ -138,7 +137,7 @@ struct BMMenuItem: Codable, Hashable {
     let menuId: String?
     let itemId: String?
     let dataLocation: String?
-    let BMMenuItemDetail: BMMenuItemDetail?
+    let recipeDetails: BMMenuItemDetail?
 }
 
 struct BMMealIcon: Codable, Hashable {

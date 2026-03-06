@@ -101,6 +101,11 @@ struct HomeView: View {
                 LibraryDetailView(library: library)
                     .containerBackground(.clear, for: .navigation)
             }
+            .navigationDestination(for: BMMenuItem.self) { menuItem in
+                DiningMenuItemDetailView(menuItem: menuItem)
+                    .containerBackground(.clear, for: .navigation)
+                    .environment(\.menuIconCache, menuIconCacheManager)
+            }
         }
     }
 }

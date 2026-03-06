@@ -135,7 +135,7 @@ struct DiningItemsListView: View {
             ForEach(categoriesAndMenuItems, id: \.categoryName) { mealCategory in
                 Section {
                     ForEach(mealCategory.menuItems, id: \.itemId) { menuItem in
-                        NavigationLink(value: menuItem.name) {
+                        NavigationLink(value: menuItem) {
                             DiningDetailRowView {
                                 Text(menuItem.name)
                                     .font(Font(BMFont.regular(15)))
@@ -203,5 +203,88 @@ struct DiningMenuItemIconsView: View {
                 menuItemIconImages = await menuItemIconCacheManager.fetchMenuIconImages(for: menuItem.icons.map { $0.iconURL })
             }
         }
+    }
+}
+
+// MARK: - DiningMenuItemDetailView
+
+struct DiningMenuItemDetailView: View {
+
+    var menuItem: BMMenuItem
+
+    var body: some View {
+        if let menuDetail = menuItem.recipeDetails {
+            List {
+                if let nutrition = menuDetail.nutrition, !nutrition.isEmpty {
+                    let servingSize = nutrition["Serving Size"]
+                    let remainingNutrition = nutrition.filter { $0.key != "Serving Size" }
+
+                    if let servingSize {
+                        Section {
+                            DiningDetailRowView {
+                                Text(servingSize)
+                                    .font(Font(BMFont.regular(15)))
+                            }
+                        } header: {
+                            Text("Serving Size")
+                                .font(Font(BMFont.bold(20)))
+                        }
+                    }
+
+                    if !remainingNutrition.isEmpty {
+                        Section {
+                            ForEach(remainingNutrition.sorted(by: { $0.key < $1.key }), id: \.key) { key, value in
+                                DiningDetailRowView {
+                                    HStack {
+                                        Text(key)
+                                            .font(Font(BMFont.regular(15)))
+                                        Spacer()
+                                        Text(value)
+                                            .font(Font(BMFont.medium(15)))
+                                    }
+                                }
+                            }
+                        } header: {
+                            Text("Nutrition Facts")
+                                .font(Font(BMFont.bold(20)))
+                        }
+                    }
+                }
+
+                if let ingredients = menuDetail.ingredients {
+                    Section {
+                        DiningDetailRowView {
+                            Text(ingredients)
+                                .font(Font(BMFont.regular(15)))
+                                .foregroundStyle(.secondary)
+                        }
+                    } header: {
+                        Text("Ingredients")
+                            .font(Font(BMFont.bold(20)))
+                    }
+                }
+
+                if let allergens = menuDetail.allergens, !allergens.isEmpty {
+                    Section {
+                        DiningDetailRowView {
+                            Text(allergens.joined(separator: ", "))
+                                .font(Font(BMFont.regular(15)))
+                        }
+                    } header: {
+                        Text("Allergens")
+                            .font(Font(BMFont.bold(20)))
+                    }
+                }
+            }
+            .listStyle(.plain)
+            .scrollContentBackground(.hidden)
+            .listRowSeparator(.hidden)
+            .listRowBackground(Color.clear)
+            .navigationTitle(menuItem.name)
+            .navigationBarTitleDisplayMode(.inline)
+        } else {
+            Text("No Recipe Details")
+        }
+        
     }
 }
