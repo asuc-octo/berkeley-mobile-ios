@@ -209,10 +209,8 @@ struct DiningMenuItemDetailView: View {
             VStack(alignment: .leading, spacing: 20) {
                 if let menuDetail = menuItem.recipeDetails {
                     if let nutrition = menuDetail.nutrition, !nutrition.isEmpty {
-                        let servingSize = nutrition["Serving Size"]
-                        let remainingNutrition = nutrition.filter { $0.key != "Serving Size" }
-
-                        if let servingSize {
+                        
+                        if let servingSize = menuDetail.servingSize {
                             VStack(alignment: .leading, spacing: 8) {
                                 Text("Serving Size")
                                     .font(Font(BMFont.bold(20)))
@@ -223,12 +221,12 @@ struct DiningMenuItemDetailView: View {
                             }
                         }
 
-                        if !remainingNutrition.isEmpty {
+                        if !nutrition.isEmpty {
                             VStack(alignment: .leading, spacing: 8) {
                                 Text("Nutrition Facts")
                                     .font(Font(BMFont.bold(20)))
                                 VStack(spacing: 8) {
-                                    ForEach(remainingNutrition.sorted(by: { $0.key < $1.key }), id: \.key) { key, value in
+                                    ForEach(nutrition.sorted(by: { $0.key < $1.key }), id: \.key) { key, value in
                                         DiningDetailRowView {
                                             HStack {
                                                 Text(key)
@@ -248,10 +246,12 @@ struct DiningMenuItemDetailView: View {
                         VStack(alignment: .leading, spacing: 8) {
                             Text("Ingredients")
                                 .font(Font(BMFont.bold(20)))
-                            DiningDetailRowView {
-                                Text(ingredients)
-                                    .font(Font(BMFont.regular(15)))
-                            }
+                            Text(ingredients)
+                                .font(Font(BMFont.regular(15)))
+                                .padding()
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .background(Color(BMColor.cardBackground))
+                                .clipShape(RoundedRectangle(cornerRadius: 16))
                         }
                     }
 
