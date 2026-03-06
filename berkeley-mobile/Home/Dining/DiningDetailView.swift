@@ -51,15 +51,12 @@ struct DiningDetailView: View {
                         .padding(.top, 25)
                     Spacer()
                 } else {
-                    List {
+                    ScrollView {
                         DiningItemsListView(selectedTabIndex: $selectedTabIndex,
                                             categoriesAndMenuItems: categoriesAndMenuItems,
                                             diningHall: diningHall,
                                             filteredTabNames: filteredTabNames)
                     }
-                    .listStyle(.plain)
-                    .scrollContentBackground(.hidden)
-                    .contentMargins(.top, 0)
                 }
             }
         }
@@ -133,28 +130,23 @@ struct DiningItemsListView: View {
                     .padding(.top, 10)
             }
             ForEach(categoriesAndMenuItems, id: \.categoryName) { mealCategory in
-                Section {
-                    ForEach(mealCategory.menuItems, id: \.itemId) { menuItem in
-                        NavigationLink(value: menuItem) {
-                            DiningDetailRowView {
-                                Text(menuItem.name)
-                                    .font(Font(BMFont.regular(15)))
-                                DiningMenuItemIconsView(menuItem: menuItem)
-                            }
+                HStack {
+                    Text(mealCategory.categoryName)
+                        .font(Font(BMFont.bold(20)))
+                    Spacer()
+                }
+                ForEach(mealCategory.menuItems, id: \.self) { menuItem in
+                    NavigationLink(value: menuItem) {
+                        DiningDetailRowView {
+                            Text(menuItem.name)
+                                .font(Font(BMFont.regular(15)))
+                            DiningMenuItemIconsView(menuItem: menuItem)
                         }
                     }
-                } header: {
-                    HStack {
-                        Text(mealCategory.categoryName)
-                            .font(Font(BMFont.bold(20)))
-                            .font(.headline)
-                        Spacer()
-                    }
+                    .buttonStyle(.plain)
                 }
             }
         }
-        .listRowSeparator(.hidden)
-        .listRowBackground(Color.clear)
     }
 }
 
@@ -213,78 +205,75 @@ struct DiningMenuItemDetailView: View {
     var menuItem: BMMenuItem
 
     var body: some View {
-        if let menuDetail = menuItem.recipeDetails {
-            List {
-                if let nutrition = menuDetail.nutrition, !nutrition.isEmpty {
-                    let servingSize = nutrition["Serving Size"]
-                    let remainingNutrition = nutrition.filter { $0.key != "Serving Size" }
+        ScrollView {
+            VStack(alignment: .leading, spacing: 20) {
+                if let menuDetail = menuItem.recipeDetails {
+                    if let nutrition = menuDetail.nutrition, !nutrition.isEmpty {
+                        let servingSize = nutrition["Serving Size"]
+                        let remainingNutrition = nutrition.filter { $0.key != "Serving Size" }
 
-                    if let servingSize {
-                        Section {
-                            DiningDetailRowView {
-                                Text(servingSize)
-                                    .font(Font(BMFont.regular(15)))
-                            }
-                        } header: {
-                            Text("Serving Size")
-                                .font(Font(BMFont.bold(20)))
-                        }
-                    }
-
-                    if !remainingNutrition.isEmpty {
-                        Section {
-                            ForEach(remainingNutrition.sorted(by: { $0.key < $1.key }), id: \.key) { key, value in
+                        if let servingSize {
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text("Serving Size")
+                                    .font(Font(BMFont.bold(20)))
                                 DiningDetailRowView {
-                                    HStack {
-                                        Text(key)
-                                            .font(Font(BMFont.regular(15)))
-                                        Spacer()
-                                        Text(value)
-                                            .font(Font(BMFont.medium(15)))
+                                    Text(servingSize)
+                                        .font(Font(BMFont.regular(15)))
+                                }
+                            }
+                        }
+
+                        if !remainingNutrition.isEmpty {
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text("Nutrition Facts")
+                                    .font(Font(BMFont.bold(20)))
+                                VStack(spacing: 8) {
+                                    ForEach(remainingNutrition.sorted(by: { $0.key < $1.key }), id: \.key) { key, value in
+                                        DiningDetailRowView {
+                                            HStack {
+                                                Text(key)
+                                                    .font(Font(BMFont.regular(15)))
+                                                Spacer()
+                                                Text(value)
+                                                    .font(Font(BMFont.medium(15)))
+                                            }
+                                        }
                                     }
                                 }
                             }
-                        } header: {
-                            Text("Nutrition Facts")
+                        }
+                    }
+
+                    if let ingredients = menuDetail.ingredients {
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text("Ingredients")
                                 .font(Font(BMFont.bold(20)))
+                            DiningDetailRowView {
+                                Text(ingredients)
+                                    .font(Font(BMFont.regular(15)))
+                            }
                         }
                     }
-                }
 
-                if let ingredients = menuDetail.ingredients {
-                    Section {
-                        DiningDetailRowView {
-                            Text(ingredients)
-                                .font(Font(BMFont.regular(15)))
-                                .foregroundStyle(.secondary)
+                    if let allergens = menuDetail.allergens, !allergens.isEmpty {
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text("Allergens")
+                                .font(Font(BMFont.bold(20)))
+                            DiningDetailRowView {
+                                Text(allergens.joined(separator: ", "))
+                                    .font(Font(BMFont.regular(15)))
+                            }
                         }
-                    } header: {
-                        Text("Ingredients")
-                            .font(Font(BMFont.bold(20)))
                     }
-                }
-
-                if let allergens = menuDetail.allergens, !allergens.isEmpty {
-                    Section {
-                        DiningDetailRowView {
-                            Text(allergens.joined(separator: ", "))
-                                .font(Font(BMFont.regular(15)))
-                        }
-                    } header: {
-                        Text("Allergens")
-                            .font(Font(BMFont.bold(20)))
-                    }
+                } else {
+                    Text("No Recipe Details")
+                        .font(Font(BMFont.regular(15)))
+                        .foregroundStyle(.secondary)
                 }
             }
-            .listStyle(.plain)
-            .scrollContentBackground(.hidden)
-            .listRowSeparator(.hidden)
-            .listRowBackground(Color.clear)
-            .navigationTitle(menuItem.name)
-            .navigationBarTitleDisplayMode(.inline)
-        } else {
-            Text("No Recipe Details")
+            .padding()
         }
-        
+        .navigationTitle(menuItem.name)
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
