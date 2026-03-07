@@ -119,6 +119,11 @@
 		E80330ED2CE7EBB100DC9574 /* NSCoding+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80330EC2CE7EBB100DC9574 /* NSCoding+Extension.swift */; };
 		E80ECC312AFB02BA004604BA /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80ECC302AFB02BA004604BA /* Secrets.swift */; };
 		E81767582B9A516200599254 /* MapMarkersDropdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81767572B9A516200599254 /* MapMarkersDropdownView.swift */; };
+		E82E2A532ECD833F00785593 /* FeedbackFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82E2A512ECD833F00785593 /* FeedbackFormView.swift */; };
+		E82E2A552ECD835200785593 /* FeedbackFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82E2A542ECD835200785593 /* FeedbackFormViewModel.swift */; };
+		E83927EB2EF1222800CF2DF5 /* DebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83927EA2EF1222800CF2DF5 /* DebugView.swift */; };
+		E83927ED2EF1283300CF2DF5 /* DebugViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83927EC2EF1282F00CF2DF5 /* DebugViewModel.swift */; };
+		E83927EF2EF1296300CF2DF5 /* FeedbackFormPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83927EE2EF1295600CF2DF5 /* FeedbackFormPresenter.swift */; };
 		E83B6D972D6FC93400AA9422 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E83B6D962D6FC93400AA9422 /* GoogleService-Info.plist */; };
 		E83B6D992D7121D300AA9422 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B6D982D7121D300AA9422 /* View+Extension.swift */; };
 		E83B6D9B2D7123CB00AA9422 /* MapUserLocationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B6D9A2D7123CB00AA9422 /* MapUserLocationButton.swift */; };
@@ -130,11 +135,12 @@
 		E83B6DA92D7A860E00AA9422 /* GymOccupancyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B6DA82D7A860E00AA9422 /* GymOccupancyViewModel.swift */; };
 		E83C6CEB2B71D8C20085E277 /* ResourcesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83C6CEA2B71D8C20085E277 /* ResourcesView.swift */; };
 		E83C6CED2B71DF190085E277 /* SafariWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83C6CEC2B71DF190085E277 /* SafariWebView.swift */; };
-		E83D87942AB3CD1E00C4113C /* FeedbackFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83D87932AB3CD1E00C4113C /* FeedbackFormView.swift */; };
 		E8472AEC2DE2DB80005C24EA /* EventsDateSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8472AEB2DE2DB80005C24EA /* EventsDateSectionView.swift */; };
 		E8472B062DE453D6005C24EA /* BMAddedCalendarStatusOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8472B052DE453D6005C24EA /* BMAddedCalendarStatusOverlayView.swift */; };
 		E8472B382DE50F41005C24EA /* CalendarSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8472B372DE50F41005C24EA /* CalendarSectionView.swift */; };
 		E8472B4A2DE5304A005C24EA /* CalendarEventsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8472B492DE5304A005C24EA /* CalendarEventsListView.swift */; };
+		E85D6EC22EE145CD00304188 /* GuidePlacesStackedCollageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E85D6EC12EE145CD00304188 /* GuidePlacesStackedCollageView.swift */; };
+		E85D6EDD2EE2900500304188 /* HomeDrawerPinViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E85D6EDC2EE2900500304188 /* HomeDrawerPinViewModel.swift */; };
 		E8647F792E94AA0F00A66820 /* DiningHallsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8647F782E94AA0F00A66820 /* DiningHallsView.swift */; };
 		E8647F7B2E94F05300A66820 /* MenuItemIconCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8647F7A2E94F05300A66820 /* MenuItemIconCacheManager.swift */; };
 		E8647F7D2E94F37D00A66820 /* EnvironmentValues+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8647F7C2E94F37D00A66820 /* EnvironmentValues+Ext.swift */; };
@@ -189,10 +195,12 @@
 		E8BC7B652B96CB7F002BF46D /* ResourcesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8BC7B642B96CB7F002BF46D /* ResourcesViewModel.swift */; };
 		E8C2BD302D8A457400165554 /* EventRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C2BD2F2D8A457400165554 /* EventRowView.swift */; };
 		E8C2BDA72D912B3A00165554 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C2BDA62D912B3A00165554 /* CalendarView.swift */; };
+		E8DED8852EEAA3B500933780 /* HomeDrawerRowImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8DED8842EEAA3B500933780 /* HomeDrawerRowImageView.swift */; };
 		E8EBE7622CEC2FD700A220BB /* SafetyLogDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EBE7612CEC2FD700A220BB /* SafetyLogDetailView.swift */; };
 		E8FCD6842C374A81004B66A3 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = E8FCD6832C374A81004B66A3 /* SwiftSoup */; };
 		E8FCD6882C38AEC9004B66A3 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8FCD6872C38AEC9004B66A3 /* String+Extension.swift */; };
 		E8FCD68A2C3A382F004B66A3 /* EventScrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8FCD6892C3A382F004B66A3 /* EventScrapper.swift */; };
+		FAFF001C2E84C62100551C44 /* ReviewPrompter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFF001B2E84C61B00551C44 /* ReviewPrompter.swift */; };
 		FDD7946C260FE09D00ABE60E /* Colors+AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD7946B260FE09D00ABE60E /* Colors+AlertView.swift */; };
 /* End PBXBuildFile section */
 
@@ -341,6 +349,11 @@
 		E80330EE2CE9A8EB00DC9574 /* berkeley-mobile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "berkeley-mobile.entitlements"; sourceTree = "<group>"; };
 		E80ECC302AFB02BA004604BA /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		E81767572B9A516200599254 /* MapMarkersDropdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMarkersDropdownView.swift; sourceTree = "<group>"; };
+		E82E2A512ECD833F00785593 /* FeedbackFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackFormView.swift; sourceTree = "<group>"; };
+		E82E2A542ECD835200785593 /* FeedbackFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackFormViewModel.swift; sourceTree = "<group>"; };
+		E83927EA2EF1222800CF2DF5 /* DebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugView.swift; sourceTree = "<group>"; };
+		E83927EC2EF1282F00CF2DF5 /* DebugViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugViewModel.swift; sourceTree = "<group>"; };
+		E83927EE2EF1295600CF2DF5 /* FeedbackFormPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackFormPresenter.swift; sourceTree = "<group>"; };
 		E83B6D962D6FC93400AA9422 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E83B6D982D7121D300AA9422 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		E83B6D9A2D7123CB00AA9422 /* MapUserLocationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapUserLocationButton.swift; sourceTree = "<group>"; };
@@ -352,11 +365,12 @@
 		E83B6DA82D7A860E00AA9422 /* GymOccupancyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymOccupancyViewModel.swift; sourceTree = "<group>"; };
 		E83C6CEA2B71D8C20085E277 /* ResourcesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcesView.swift; sourceTree = "<group>"; };
 		E83C6CEC2B71DF190085E277 /* SafariWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebView.swift; sourceTree = "<group>"; };
-		E83D87932AB3CD1E00C4113C /* FeedbackFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackFormView.swift; sourceTree = "<group>"; };
 		E8472AEB2DE2DB80005C24EA /* EventsDateSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsDateSectionView.swift; sourceTree = "<group>"; };
 		E8472B052DE453D6005C24EA /* BMAddedCalendarStatusOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMAddedCalendarStatusOverlayView.swift; sourceTree = "<group>"; };
 		E8472B372DE50F41005C24EA /* CalendarSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSectionView.swift; sourceTree = "<group>"; };
 		E8472B492DE5304A005C24EA /* CalendarEventsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEventsListView.swift; sourceTree = "<group>"; };
+		E85D6EC12EE145CD00304188 /* GuidePlacesStackedCollageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuidePlacesStackedCollageView.swift; sourceTree = "<group>"; };
+		E85D6EDC2EE2900500304188 /* HomeDrawerPinViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDrawerPinViewModel.swift; sourceTree = "<group>"; };
 		E8647F782E94AA0F00A66820 /* DiningHallsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiningHallsView.swift; sourceTree = "<group>"; };
 		E8647F7A2E94F05300A66820 /* MenuItemIconCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemIconCacheManager.swift; sourceTree = "<group>"; };
 		E8647F7C2E94F37D00A66820 /* EnvironmentValues+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EnvironmentValues+Ext.swift"; sourceTree = "<group>"; };
@@ -398,9 +412,11 @@
 		E8BC7B642B96CB7F002BF46D /* ResourcesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcesViewModel.swift; sourceTree = "<group>"; };
 		E8C2BD2F2D8A457400165554 /* EventRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRowView.swift; sourceTree = "<group>"; };
 		E8C2BDA62D912B3A00165554 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		E8DED8842EEAA3B500933780 /* HomeDrawerRowImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDrawerRowImageView.swift; sourceTree = "<group>"; };
 		E8EBE7612CEC2FD700A220BB /* SafetyLogDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyLogDetailView.swift; sourceTree = "<group>"; };
 		E8FCD6872C38AEC9004B66A3 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		E8FCD6892C3A382F004B66A3 /* EventScrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventScrapper.swift; sourceTree = "<group>"; };
+		FAFF001B2E84C61B00551C44 /* ReviewPrompter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPrompter.swift; sourceTree = "<group>"; };
 		FDD7946B260FE09D00ABE60E /* Colors+AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+AlertView.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -552,6 +568,7 @@
 		1396012D23865E2E005E4788 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				FAFF001B2E84C61B00551C44 /* ReviewPrompter.swift */,
 				2913595524B135B600DE9AD6 /* DetailView */,
 				13B39AB123E777AC0039FBA2 /* FilterView */,
 				29481560253274CA00D113B6 /* Images */,
@@ -760,7 +777,7 @@
 				306A54EB23613E3A00D59A7F /* SceneDelegate.swift */,
 				306A54FF23614C0000D59A7F /* MainContainerViewController.swift */,
 				556CCD2C23E79EC100F41BF9 /* TabBarController.swift */,
-				E83D87932AB3CD1E00C4113C /* FeedbackFormView.swift */,
+				E82E2A522ECD833F00785593 /* FeedbackForm */,
 				13EA64CE2399D4A100FD8E13 /* Data */,
 				E89F204B2DF4011E00C488EF /* Home */,
 				133864A72404E857001F9048 /* Events */,
@@ -769,6 +786,7 @@
 				303F6ADC236A9274007E37DD /* Drawer */,
 				1396012D23865E2E005E4788 /* Common */,
 				13E25E00238C9E1000B670B5 /* Utils */,
+				E83927E92EF1209000CF2DF5 /* Debug */,
 				306A54F223613E3D00D59A7F /* Assets.xcassets */,
 				306A54F423613E3D00D59A7F /* LaunchScreen.storyboard */,
 				306A54F723613E3D00D59A7F /* Info.plist */,
@@ -813,12 +831,43 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		E82E2A522ECD833F00785593 /* FeedbackForm */ = {
+			isa = PBXGroup;
+			children = (
+				E83927EE2EF1295600CF2DF5 /* FeedbackFormPresenter.swift */,
+				E82E2A542ECD835200785593 /* FeedbackFormViewModel.swift */,
+				E82E2A512ECD833F00785593 /* FeedbackFormView.swift */,
+			);
+			path = FeedbackForm;
+			sourceTree = "<group>";
+		};
+		E83927E92EF1209000CF2DF5 /* Debug */ = {
+			isa = PBXGroup;
+			children = (
+				E83927EA2EF1222800CF2DF5 /* DebugView.swift */,
+				E83927EC2EF1282F00CF2DF5 /* DebugViewModel.swift */,
+			);
+			path = Debug;
+			sourceTree = "<group>";
+		};
+		E85D6EDB2EE28F6000304188 /* Home Drawer */ = {
+			isa = PBXGroup;
+			children = (
+				2EC165692D752A7300F88B60 /* HomeSectionListRowView.swift */,
+				E89F20442DF2CD2E00C488EF /* BMHomeSectionListView.swift */,
+				E85D6EDC2EE2900500304188 /* HomeDrawerPinViewModel.swift */,
+				E8DED8842EEAA3B500933780 /* HomeDrawerRowImageView.swift */,
+			);
+			path = "Home Drawer";
+			sourceTree = "<group>";
+		};
 		E88563982EB00A3B0062315A /* Guides */ = {
 			isa = PBXGroup;
 			children = (
 				E885639B2EB00A770062315A /* Guide.swift */,
 				E885639D2EB02EFA0062315A /* GuidesViewModel.swift */,
 				E88563992EB00A4C0062315A /* GuidesView.swift */,
+				E85D6EC12EE145CD00304188 /* GuidePlacesStackedCollageView.swift */,
 				E885639F2EB046500062315A /* GuideDetailView.swift */,
 			);
 			path = Guides;
@@ -853,10 +902,9 @@
 				1336A31E241D90B800949F32 /* Dining */,
 				136DC9792398B43F009B1810 /* Fitness */,
 				13B39A8E23E6A1ED0039FBA2 /* Libraries */,
+				E85D6EDB2EE28F6000304188 /* Home Drawer */,
 				E89F20462DF3F5DA00C488EF /* HomeViewModel.swift */,
 				E83B6D9C2D72FD6F00AA9422 /* HomeView.swift */,
-				2EC165692D752A7300F88B60 /* HomeSectionListRowView.swift */,
-				E89F20442DF2CD2E00C488EF /* BMHomeSectionListView.swift */,
 				E88562C32EA2E2AB0062315A /* OpenClosedStatusView.swift */,
 				E88562C72EA37FBA0062315A /* OpenClosedStatusManager.swift */,
 				E88563A32EB04D370062315A /* RedirectionManager.swift */,
@@ -1106,6 +1154,7 @@
 				133864A42404DCCA001F9048 /* MapMarker.swift in Sources */,
 				13491DBA241E23630033F9AB /* Colors+Text.swift in Sources */,
 				136DC97D2398B4F3009B1810 /* UIImage+Extensions.swift in Sources */,
+				E83927EB2EF1222800CF2DF5 /* DebugView.swift in Sources */,
 				13135BB22412442C0056B169 /* FilterView.swift in Sources */,
 				E8FCD68A2C3A382F004B66A3 /* EventScrapper.swift in Sources */,
 				306A54FE236142B800D59A7F /* DrawerViewController.swift in Sources */,
@@ -1113,6 +1162,7 @@
 				E8472B382DE50F41005C24EA /* CalendarSectionView.swift in Sources */,
 				13B39A8B23E682850039FBA2 /* Date+Extension.swift in Sources */,
 				E83B6D9B2D7123CB00AA9422 /* MapUserLocationButton.swift in Sources */,
+				E82E2A552ECD835200785593 /* FeedbackFormViewModel.swift in Sources */,
 				E8647FAF2E971C1000A66820 /* DiningDetailView.swift in Sources */,
 				135D7F75243A9AB3003F8BD1 /* GymClassType.swift in Sources */,
 				29345E2924A7E7AC00859A88 /* HasPhoneNumber.swift in Sources */,
@@ -1121,6 +1171,7 @@
 				01C75E2E25292E5B00C25A32 /* DescriptionCardView.swift in Sources */,
 				13B39A8D23E689BC0039FBA2 /* DataSource.swift in Sources */,
 				E891E2FD2DD86A91006CA0F5 /* SafetyMapMarker.swift in Sources */,
+				E82E2A532ECD833F00785593 /* FeedbackFormView.swift in Sources */,
 				2948155F253274C500D113B6 /* ImageViewCell.swift in Sources */,
 				E81767582B9A516200599254 /* MapMarkersDropdownView.swift in Sources */,
 				E8BC7B652B96CB7F002BF46D /* ResourcesViewModel.swift in Sources */,
@@ -1170,6 +1221,7 @@
 				306A54EA23613E3A00D59A7F /* AppDelegate.swift in Sources */,
 				1336A31C241C400800949F32 /* GymClass.swift in Sources */,
 				E8B5975F2CA62D6F006DFBD5 /* BMSegmentedControlView.swift in Sources */,
+				E85D6EC22EE145CD00304188 /* GuidePlacesStackedCollageView.swift in Sources */,
 				13EA64C82399CE0800FD8E13 /* GymDataSource.swift in Sources */,
 				2E1C227D2D835A9D0021803C /* SearchBarView.swift in Sources */,
 				298EE26A25BB6C33002BAF0F /* Colors+StudyPact.swift in Sources */,
@@ -1184,6 +1236,7 @@
 				E8C2BDA72D912B3A00165554 /* CalendarView.swift in Sources */,
 				E83B6DA52D7A85D500AA9422 /* GymOccupancyScrapper.swift in Sources */,
 				E8472B062DE453D6005C24EA /* BMAddedCalendarStatusOverlayView.swift in Sources */,
+				FAFF001C2E84C62100551C44 /* ReviewPrompter.swift in Sources */,
 				13EA64D02399D50C00FD8E13 /* DataManager.swift in Sources */,
 				E80330EB2CE431C200DC9574 /* DepthButtonStyle.swift in Sources */,
 				C14CCB612D9CC2730075FE69 /* BMFilterButton.swift in Sources */,
@@ -1202,21 +1255,24 @@
 				E8647F812E95AD9400A66820 /* LibrariesView.swift in Sources */,
 				E83B6D9F2D780B4200AA9422 /* EventsView.swift in Sources */,
 				13B39A9A23E6A33C0039FBA2 /* LibraryDataSource.swift in Sources */,
-				E83D87942AB3CD1E00C4113C /* FeedbackFormView.swift in Sources */,
+				E8DED8852EEAA3B500933780 /* HomeDrawerRowImageView.swift in Sources */,
 				01D11B8E2504453B00BDF660 /* ScrollingStackView.swift in Sources */,
 				306A54EC23613E3A00D59A7F /* SceneDelegate.swift in Sources */,
 				E8B2738D2BD5C83F0009831A /* SafetyView.swift in Sources */,
 				01FA50F124E8B33100DCC490 /* BMLocationManager.swift in Sources */,
 				017C0B26251018BA00BFA80A /* Colors+MapMarker.swift in Sources */,
+				E83927EF2EF1296300CF2DF5 /* FeedbackFormPresenter.swift in Sources */,
 				E83B6DA92D7A860E00AA9422 /* GymOccupancyViewModel.swift in Sources */,
 				E88562C42EA2E2AB0062315A /* OpenClosedStatusView.swift in Sources */,
 				29345E2724A7E76300859A88 /* OverviewCardView.swift in Sources */,
+				E85D6EDD2EE2900500304188 /* HomeDrawerPinViewModel.swift in Sources */,
 				01D11B902504560700BDF660 /* GymDetailViewController.swift in Sources */,
 				55AF442D2453ACE600F13232 /* BMDiningLocation.swift in Sources */,
 				136DC97B2398B4D1009B1810 /* UIViewController+Extensions.swift in Sources */,
 				2913595724B136BE00DE9AD6 /* CollapsibleCardView.swift in Sources */,
 				E83C6CED2B71DF190085E277 /* SafariWebView.swift in Sources */,
 				01AA1B88253BB4AC003AB75A /* UIScrollView+GestureRecognizer.swift in Sources */,
+				E83927ED2EF1283300CF2DF5 /* DebugViewModel.swift in Sources */,
 				13491DB6241E21740033F9AB /* Colors+TagView.swift in Sources */,
 				E8FCD6882C38AEC9004B66A3 /* String+Extension.swift in Sources */,
 				556CCD2223E7771800F41BF9 /* MapPlacemark.swift in Sources */,
@@ -1402,7 +1458,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 11.12;
+				MARKETING_VERSION = 11.13.1;
 				PRODUCT_BUNDLE_IDENTIFIER = org.asuc.ASUC;
 				PRODUCT_NAME = Berkeley;
 				SWIFT_VERSION = 5.0;
@@ -1420,13 +1476,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4HBETBULVA;
+				"EXCLUDED_SOURCE_FILE_NAMES[arch=*]" = "berkeley-mobile/Debug/*";
 				INFOPLIST_FILE = "berkeley-mobile/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 11.12;
+				MARKETING_VERSION = 11.13.1;
 				PRODUCT_BUNDLE_IDENTIFIER = org.asuc.ASUC;
 				PRODUCT_NAME = Berkeley;
 				PROVISIONING_PROFILE_SPECIFIER = "";

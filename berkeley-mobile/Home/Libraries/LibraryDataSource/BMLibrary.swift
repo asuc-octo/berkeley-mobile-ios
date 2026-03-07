@@ -9,7 +9,10 @@
 import MapKit
 import UIKit
 
-struct BMLibrary: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasImage, HasOpenTimes {
+struct BMLibrary: HomeDrawerSectionRowItemType, CanFavorite, HasPhoneNumber, HasOpenTimes {
+    var id: String { docID }
+    var docID: String
+    
     var searchName: String {
         return name
     }
@@ -41,7 +44,16 @@ struct BMLibrary: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasImage
     var latitude: Double?
     var longitude: Double?
     
-    init(name: String, description: String?, address: String?, phoneNumber: String?, weeklyHours: WeeklyHours?, weeklyByAppointment:[Bool], imageLink: String?, latitude: Double?, longitude: Double?) {
+    init(name: String,
+         description: String?,
+         address: String?,
+         phoneNumber: String?,
+         weeklyHours: WeeklyHours?,
+         weeklyByAppointment:[Bool],
+         imageLink: String?, latitude: Double?,
+         longitude: Double?,
+         documentID: String = ""
+    ) {
         self.description = description
         self.address = address
         self.phoneNumber = phoneNumber
@@ -52,6 +64,7 @@ struct BMLibrary: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasImage
         self.name = name
         self.imageURL = URL(string: imageLink ?? "")
         self.icon = UIImage(systemName: "text.book.closed")
+        self.docID = documentID
     }
 }
 

@@ -26,9 +26,9 @@ class LibraryDataSource: DataSource {
                 print("Error getting documents: \(err)")
                 return
             } else {
-                let libraries = querySnapshot!.documents.map { (document) -> BMLibrary in
-                    let dict = document.data()
-                    return parseLibrary(dict)
+                let libraries = querySnapshot!.documents.map { (doc) -> BMLibrary in
+                    let dict = doc.data()
+                    return parseLibrary(dict, docID: doc.documentID)
                 }
                 completion(libraries)
             }
@@ -36,7 +36,7 @@ class LibraryDataSource: DataSource {
     }
     
     // Return a BMLibrary object parsed from a dictionary.
-    private static func parseLibrary(_ dict: [String: Any]) -> BMLibrary {
+    private static func parseLibrary(_ dict: [String: Any], docID: String) -> BMLibrary {
         let weeklyHours = BMLibrary.parseWeeklyHours(dict: dict["open_close_array"] as? [[String: Any]])
         let library = BMLibrary(name: dict["name"] as? String ?? "Unnamed",
                               description: dict["description"] as? String,
@@ -46,7 +46,8 @@ class LibraryDataSource: DataSource {
                               weeklyByAppointment: [],
                               imageLink: dict["picture"] as? String,
                               latitude: dict["latitude"] as? Double,
-                              longitude: dict["longitude"] as? Double)
+                              longitude: dict["longitude"] as? Double,
+                              documentID: docID)
         
         return library
     }

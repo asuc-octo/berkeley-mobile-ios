@@ -10,7 +10,7 @@ import UIKit
 import SwiftUI
 
 class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
-    
+
     // MainDrawerViewDelegate properties
     var drawerStack: [DrawerViewDelegate] = []
     var positions: [DrawerState?] = []
@@ -45,42 +45,6 @@ class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
             homeView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             homeView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        attemptShowFeedbackForm()
-    }
-    
-    private func attemptShowFeedbackForm() {
-        let numAppLaunchForFeedbackForm = UserDefaults.standard.integer(forKey: .numAppLaunchForFeedbackForm)
-        
-        guard numAppLaunchForFeedbackForm == 1 else {
-            if numAppLaunchForFeedbackForm == 0 {
-                UserDefaults.standard.set(1, forKey: .numAppLaunchForFeedbackForm)
-            }
-            return
-        }
-        
-        let feedbackFormVC = UIViewController()
-        feedbackFormVC.view.backgroundColor = .red
-        
-        let feedbackFormContentView = UIHostingController(rootView: FeedbackFormView())
-        feedbackFormVC.addChild(feedbackFormContentView)
-        feedbackFormVC.view.addSubview(feedbackFormContentView.view)
-
-        feedbackFormContentView.view.translatesAutoresizingMaskIntoConstraints = false
-
-        NSLayoutConstraint.activate([
-            feedbackFormContentView.view.topAnchor.constraint(equalTo: feedbackFormVC.view.topAnchor),
-            feedbackFormContentView.view.leadingAnchor.constraint(equalTo: feedbackFormVC.view.leadingAnchor),
-            feedbackFormContentView.view.trailingAnchor.constraint(equalTo: feedbackFormVC.view.trailingAnchor),
-            feedbackFormContentView.view.bottomAnchor.constraint(equalTo: feedbackFormVC.view.bottomAnchor)
-        ])
-        
-        feedbackFormVC.modalPresentationStyle = .fullScreen
-        feedbackFormVC.modalTransitionStyle = .coverVertical
-        present(feedbackFormVC, animated: true)
     }
 }
 
