@@ -29,8 +29,8 @@ struct SafetyLogDetailView: View {
                 if let selectedSafetyLog = selectedSafetyLog {
                     let mapRegion = MKCoordinateRegion(center: selectedSafetyLog.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
                     Group {
-                        Map(coordinateRegion: .constant(mapRegion), annotationItems: [selectedSafetyLog]) { safetyLog in
-                            MapPin(coordinate: safetyLog.coordinate)
+                        Map(bounds: MapCameraBounds(centerCoordinateBounds: mapRegion, minimumDistance: 2000)) {
+                            SafetyMapMarker(safetyLog: selectedSafetyLog)
                         }
                     }
                     .allowsHitTesting(false)

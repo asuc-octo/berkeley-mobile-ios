@@ -49,6 +49,9 @@ struct MapUserLocationButton: View {
             }
         }) {
             locationImage
+                .contentTransition (
+                    .symbolEffect(.replace)
+                )
         }
         .buttonStyle(BMControlButtonStyle())
     }

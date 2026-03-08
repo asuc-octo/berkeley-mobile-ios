@@ -28,6 +28,8 @@ struct BMHomeSectionListView: View {
                     sectionHeaderView
                 }
                 listView
+                    .contentMargins(.top, 0)
+                    .contentMargins([.leading, .trailing], 5)
             }
             .padding()
             .background(Color(BMColor.cardBackground))

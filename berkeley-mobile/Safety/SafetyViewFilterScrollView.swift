@@ -41,16 +41,11 @@ struct SafetyViewFilterScrollView: View {
                         }
                     }
                     .padding(8)
-                    .modify {
-                        if #available(iOS 26.0, *) {
-                            $0.glassEffect(.regular.tint(.gray).interactive(), in: .capsule)
-                        } else {
-                            $0.background(.gray.opacity(0.6))
-                            $0.clipShape(.capsule)
-                        }
-                    }
                 }
             }
+        }
+        .modify {
+            $0.scrollClipDisabled()
         }
         .scrollIndicators(.hidden)
     }

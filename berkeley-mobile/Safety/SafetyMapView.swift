@@ -18,7 +18,14 @@ struct SafetyMapView: View {
     var isPresentingDetailView: Bool
     
     var body: some View {
-        oldMapView
+        if #available(iOS 17.0, *) {
+            SafetyNewMapView(selectedSafetyLog: $selectedSafetyLog,
+                             isShowingLegend: $isShowingLegend,
+                             drawerViewState: $drawerViewState,
+                             isPresentingDetailView: isPresentingDetailView)
+        } else {
+            oldMapView
+        }
     }
 
     private var oldMapView: some View {
@@ -52,6 +59,9 @@ struct SafetyNewMapView: View {
                     if !isPresentingDetailView {
                         ToolbarItemGroup(placement: .topBarLeading) {
                             mapLegendButton
+                            .contentTransition(
+                                .symbolEffect(.replace)
+                            )
                             mapZoomInButton
                         }
                         ToolbarItemGroup(placement: .topBarTrailing) {
