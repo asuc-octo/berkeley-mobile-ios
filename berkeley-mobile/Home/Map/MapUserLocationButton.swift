@@ -48,14 +48,10 @@ struct MapUserLocationButton: View {
                 }
             }
         }) {
-            if #available(iOS 17.0, *) {
-                locationImage
-                    .contentTransition (
-                        .symbolEffect(.replace)
-                    )
-            } else {
-                locationImage
-            }
+            locationImage
+                .contentTransition (
+                    .symbolEffect(.replace)
+                )
         }
         .buttonStyle(BMControlButtonStyle())
     }

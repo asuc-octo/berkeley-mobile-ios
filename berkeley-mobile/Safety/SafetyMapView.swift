@@ -27,7 +27,7 @@ struct SafetyMapView: View {
             oldMapView
         }
     }
-    
+
     private var oldMapView: some View {
         Map(coordinateRegion: .constant(BMConstants.mapBoundsRegion), showsUserLocation: true, annotationItems: safetyViewModel.filteredSafetyLogs) { safetyLog in
             MapPin(coordinate: safetyLog.coordinate)
@@ -39,7 +39,6 @@ struct SafetyMapView: View {
 
 // MARK: - SafetyNewMapView
 
-@available(iOS 17.0, *)
 struct SafetyNewMapView: View {
     @EnvironmentObject var safetyViewModel: SafetyViewModel
     
@@ -60,6 +59,9 @@ struct SafetyNewMapView: View {
                     if !isPresentingDetailView {
                         ToolbarItemGroup(placement: .topBarLeading) {
                             mapLegendButton
+                            .contentTransition(
+                                .symbolEffect(.replace)
+                            )
                             mapZoomInButton
                         }
                         ToolbarItemGroup(placement: .topBarTrailing) {
@@ -110,17 +112,11 @@ struct SafetyNewMapView: View {
                 HStack(alignment: .top, spacing: 10) {
                     if #unavailable(iOS 26.0) {
                         VStack {
-                            if #available(iOS 17.0, *) {
-                                mapLegendButton
+                            mapLegendButton
                                 .contentTransition(
-                                    .symbolEffect(.replace)
-                                )
-                            } else {
-                                mapLegendButton
-                            }
-                            
+                                .symbolEffect(.replace)
+                            )
                             mapZoomInButton
-                                
                         }
                         .buttonStyle(BMControlButtonStyle())
                     }
@@ -203,7 +199,6 @@ struct SafetyNewMapView: View {
     }
 }
 
-@available(iOS 17.0, *)
 #Preview {
     @Previewable @State var drawerViewState = BMDrawerViewState.medium
     SafetyMapView(selectedSafetyLog: .constant(nil), drawerViewState: $drawerViewState, isPresentingDetailView: false)

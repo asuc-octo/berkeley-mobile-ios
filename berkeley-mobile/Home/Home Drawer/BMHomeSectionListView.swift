@@ -39,13 +39,9 @@ struct BMHomeSectionListView<Content: View>: View {
                     sectionHeaderView
                 }
                 
-                if #available(iOS 17.0, *) {
-                    listView
-                        .contentMargins(.top, 0)
-                        .contentMargins([.leading, .trailing], 5)
-                } else {
-                    listView
-                }
+                listView
+                    .contentMargins(.top, 0)
+                    .contentMargins([.leading, .trailing], 5)
             }
             .padding()
             .background(Color(BMColor.cardBackground))

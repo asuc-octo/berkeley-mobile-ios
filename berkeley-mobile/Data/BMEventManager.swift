@@ -18,11 +18,7 @@ class BMEventManager {
     private(set) var doesEventsExistInCalendarDict: [String: Bool] = [:]
 
     func addEventToCalendar(calendarEvent: BMCalendarEvent) async throws {
-        if #available(iOS 17.0, *) {
-            try await eventStore.requestFullAccessToEvents()
-        } else {
-            try await eventStore.requestAccess(to: .event)
-        }
+        try await eventStore.requestAccess(to: .event)
         
         try await saveEvent(calendarEvent)
         
@@ -110,11 +106,10 @@ class BMEventManager {
         
         do {
             try eventStore.save(event, span: .thisEvent)
-            if #available(iOS 17.0, *) {
-                let authStatus = EKEventStore.authorizationStatus(for: .event)
-                if authStatus == .writeOnly {
-                    throw BMError.mayExistedInCalendarAlready
-                }
+
+            let authStatus = EKEventStore.authorizationStatus(for: .event)
+            if authStatus == .writeOnly {
+                throw BMError.mayExistedInCalendarAlready
             }
         } catch {
             if let ekError = error as? EKError, ekError.errorCode == 1 {
