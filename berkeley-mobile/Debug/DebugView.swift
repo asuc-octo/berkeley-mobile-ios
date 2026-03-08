@@ -20,6 +20,7 @@ struct DebugView: View {
     var body: some View {
         NavigationStack {
             List {
+                appInfoSection
                 presentFeedbackFormSection
             }
             .navigationTitle("Debug")
@@ -33,6 +34,13 @@ struct DebugView: View {
                     }
                 }
             }
+        }
+    }
+    
+    private var appInfoSection: some View {
+        Section("App Info") {
+            LabeledContent("Version", value: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "N/A")
+            LabeledContent("Build", value: Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "N/A")
         }
     }
     
