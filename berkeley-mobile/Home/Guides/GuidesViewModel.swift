@@ -20,7 +20,10 @@ class GuidesViewModel {
     private let db = Firestore.firestore()
     private let redirectionManager = RedirectionManager()
     
-    init() {
+    func fetchGuides(force: Bool = false) {
+        guard guides.isEmpty || force else {
+            return
+        }
         Task { @MainActor in
             isLoading = true
             let guides = await fetchGuides()
@@ -28,8 +31,8 @@ class GuidesViewModel {
             isLoading = false
         }
     }
-    
-    func fetchGuides() async -> [Guide] {
+
+    private func fetchGuides() async -> [Guide] {
         do {
             let snap = try await db.collection(kGuidesEndpoint).getDocuments()
             let guides: [Guide] = snap.documents.compactMap {

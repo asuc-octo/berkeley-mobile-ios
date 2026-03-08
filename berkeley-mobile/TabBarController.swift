@@ -11,14 +11,39 @@ import SwiftUI
 
 class TabBarController: UITabBarController, UITabBarControllerDelegate {
     
-    let mapView = MainContainerViewController()
-    let calendarView = UIHostingController(rootView: EventsView())
-    let safetyView = UIHostingController(rootView: SafetyView())
-    let resourcesView = UIHostingController(rootView: ResourcesView())
-
+    private let mapView = MainContainerViewController()
+    private let calendarView = UIHostingController(rootView: EventsView())
+    private let safetyView = UIHostingController(rootView: SafetyView())
+    private let resourcesView = UIHostingController(rootView: ResourcesView())
+    
+    private let feedbackFormPresenter = FeedbackFormPresenter()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-                
+        setupTabbar()
+        feedbackFormPresenter.delegate = self
+        feedbackFormPresenter.attemptShowFeedbackForm()
+    }
+    
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        guard motion == .motionShake else {
+            return
+        }
+        
+        #if DEBUG
+        let debugViewModel = DebugViewModel(feedbackFormPresenter: feedbackFormPresenter)
+        let debugView = UIHostingController(rootView: DebugView(debugViewModel: debugViewModel))
+        present(debugView, animated: true)
+        #endif
+    }
+    
+    public func selectMainTab() {
+        if let mainIndex = self.viewControllers?.firstIndex(of: mapView) {
+            self.selectedIndex = mainIndex
+        }
+    }
+    
+    private func setupTabbar() {
         delegate = self
         tabBar.isTranslucent = false
         tabBar.tintColor = BMColor.blackText
@@ -29,14 +54,12 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         tabBar.tintColor = UIColor.label
         tabBar.isTranslucent = true
         
-        if #available(iOS 15.0, *) {
-            let appearance = UITabBarAppearance()
-            appearance.configureWithOpaqueBackground()
-            appearance.backgroundColor = BMColor.cardBackground
-            
-            tabBar.standardAppearance = appearance
-            tabBar.scrollEdgeAppearance = tabBar.standardAppearance
-        }
+        let appearance = UITabBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = BMColor.cardBackground
+
+        tabBar.standardAppearance = appearance
+        tabBar.scrollEdgeAppearance = tabBar.standardAppearance
         
         mapView.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "house"), tag: 0)
         calendarView.tabBarItem = UITabBarItem(title: "Events", image: UIImage(systemName: "calendar"), tag: 1)
@@ -45,10 +68,15 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         
         self.viewControllers = [mapView, calendarView, safetyView, resourcesView]
     }
-    
-    public func selectMainTab() {
-        if let mainIndex = self.viewControllers?.firstIndex(of: mapView) {
-            self.selectedIndex = mainIndex
-        }
+}
+
+
+// MARK: - FeedbackFormPresenterDelegate
+
+extension TabBarController: FeedbackFormPresenterDelegate {
+    func feedbackFormDidPresent(withViewController viewController: UIViewController) {
+        viewController.modalPresentationStyle = .fullScreen
+        viewController.modalTransitionStyle = .coverVertical
+        self.present(viewController, animated: true)
     }
 }

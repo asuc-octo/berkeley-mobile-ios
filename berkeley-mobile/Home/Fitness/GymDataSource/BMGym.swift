@@ -8,7 +8,10 @@
 
 import UIKit
 
-struct BMGym: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasImage, HasOpenTimes {
+struct BMGym: HomeDrawerSectionRowItemType, CanFavorite, HasPhoneNumber, HasOpenTimes {
+    
+    var id: String { docID }
+    var docID: String
 
     // MARK: SearchIitem
 
@@ -51,7 +54,15 @@ struct BMGym: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasImage, Ha
     /// A display-friendly string description of this Fitness location.
     @Display var description: String?
 
-    init(name: String, description: String?, address: String?, phoneNumber: String?, imageLink: String?, weeklyHours: WeeklyHours?, link: String?) {
+    init(name: String,
+         description: String?,
+         address: String?,
+         phoneNumber: String?,
+         imageLink: String?,
+         weeklyHours: WeeklyHours?,
+         link: String?,
+         documentID: String
+    ) {
         self.address = address?.trimmingCharacters(in: .whitespacesAndNewlines)
         self.description = description
         self.phoneNumber = phoneNumber
@@ -60,6 +71,7 @@ struct BMGym: SearchItem, HasLocation, CanFavorite, HasPhoneNumber, HasImage, Ha
         self.imageURL = URL(string: imageLink ?? "")
         self.icon = UIImage(systemName: "figure.walk")
         self.website = URL(string: link ?? "")
+        self.docID = documentID
     }
 }
 
