@@ -113,6 +113,9 @@ struct SafetyNewMapView: View {
                     if #unavailable(iOS 26.0) {
                         VStack {
                             mapLegendButton
+                                .contentTransition(
+                                .symbolEffect(.replace)
+                            )
                             mapZoomInButton
                         }
                         .buttonStyle(BMControlButtonStyle())
