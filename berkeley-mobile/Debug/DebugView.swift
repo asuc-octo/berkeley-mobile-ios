@@ -38,7 +38,7 @@ struct DebugView: View {
     }
     
     private var appInfoSection: some View {
-        Section("App Info") {
+        Section("App Information") {
             LabeledContent("Version", value: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "N/A")
             LabeledContent("Build", value: Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "N/A")
         }
