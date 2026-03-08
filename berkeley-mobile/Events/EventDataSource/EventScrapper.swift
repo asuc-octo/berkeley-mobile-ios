@@ -6,7 +6,6 @@
 //  Copyright © 2024 ASUC OCTO. All rights reserved.
 //
 
-import SwiftSoup
 import SwiftUI
 import WebKit
 
@@ -37,7 +36,7 @@ class EventScrapper: NSObject, ObservableObject {
         groupedEntries.flatMap { $0.1 }
     }
     
-    var type: EventScrapperType!
+    let type: EventScrapperType
     
     /// Allowed number of rescrapes until `EventScrapper` gives up on scrapping.
     private var allowedNumOfRescrapes = 5
@@ -46,16 +45,27 @@ class EventScrapper: NSObject, ObservableObject {
     
     lazy private var webView: WKWebView = {
         let prefs = WKPreferences()
+        prefs.javaScriptCanOpenWindowsAutomatically = true
         let config = WKWebViewConfiguration()
         config.preferences = prefs
         let webView = WKWebView(frame: .zero, configuration: config)
         return webView
     }()
     
+    /// JavaScript that extracts event data directly from the DOM using the browser's native querySelector APIs.
+    /// Loaded from EventExtraction.js bundle resource.
+    private static let eventExtractionJS: String = {
+        guard let url = Bundle.main.url(forResource: "EventExtraction", withExtension: "js"),
+              let js = try? String(contentsOf: url, encoding: .utf8) else {
+            fatalError("EventExtraction.js not found in bundle")
+        }
+        return js
+    }()
+    
     init(type: EventScrapperType, allowedNumOfRescrapes: Int = 5) {
-        super.init()
-        self.allowedNumOfRescrapes = allowedNumOfRescrapes
         self.type = type
+        self.allowedNumOfRescrapes = allowedNumOfRescrapes
+        super.init()
         webView.navigationDelegate = self
     }
     
@@ -122,32 +132,49 @@ extension EventScrapper: WKNavigationDelegate {
         }
         
         Task { @MainActor in
-            isLoading = true
-                        
             defer {
                 isLoading = false
             }
             
             do {
-                let result = try await webView.evaluateJavaScript("document.body.innerHTML")
-            
-                guard let htmlContent = result as? String else {
-                    alert = BMAlert(title: "Unable To Load Events", message: "Parsing website HTML content was unsuccessful. Please try again.", type: .notice)
-                    repopulateWithSavedGroupedEvents()
-                    return
+                // Poll for JS-rendered content. The didFinish callback fires before
+                // LiveWhale JS populates events, so we retry up to a max wait time.
+                let maxAttempts = 6
+                let pollInterval: UInt64 = 500_000_000 // 0.5 seconds
+                var events: [[String: Any]]?
+                
+                for _ in 0..<maxAttempts {
+                    try await Task.sleep(nanoseconds: pollInterval)
+                    
+                    let result = try await webView.evaluateJavaScript(Self.eventExtractionJS)
+                    
+                    if let jsonString = result as? String,
+                       let data = jsonString.data(using: .utf8),
+                       let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+                       let parsed = json["events"] as? [[String: Any]],
+                       !parsed.isEmpty {
+                        events = parsed
+                        break
+                    }
                 }
                 
-                let scrappedCalendarEntries = try parseWebsiteForEvents(html: htmlContent)
-
-                guard !scrappedCalendarEntries.isEmpty else {
+                guard let events, !events.isEmpty else {
                     currNumOfRescrapes += 1
-                    scrape()
+                    scrape(forceRescrape: true)
                     return
                 }
-                                
-                saveEventCalendarEntries(for: scrappedCalendarEntries)
                 
-                groupedEntries = groupEventsByDay(scrappedCalendarEntries)
+                let entries = convertJSEventsToBMEntries(events)
+                
+                guard !entries.isEmpty else {
+                    currNumOfRescrapes += 1
+                    scrape(forceRescrape: true)
+                    return
+                }
+                
+                currNumOfRescrapes = 0
+                saveEventCalendarEntries(for: entries)
+                groupedEntries = groupEventsByDay(entries)
             } catch {
                 alert = BMAlert(title: "Unable To Load Events", message: error.localizedDescription, type: .notice)
                 repopulateWithSavedGroupedEvents()
@@ -155,55 +182,145 @@ extension EventScrapper: WKNavigationDelegate {
         }
     }
     
-    private func parseWebsiteForEvents(html: String) throws -> [BMEventCalendarEntry] {
-        let doc = try SwiftSoup.parse(html)
-
-        let dateElements = try doc.select("div#lw_cal_events > h3")
-
-        var scrappedCalendarEntries = [BMEventCalendarEntry]()
-
-        for dateElement in dateElements {
-            let nextDiv = try dateElement.nextElementSibling()
-            let dateString = try dateElement.text()
-            let currentYear = Calendar.current.component(.year, from: Date())
-
-            if let eventsLink = try nextDiv?.getElementsByClass("lw_cal_event_info"), let dayDate = dateString.convertToDate(dateFormat: "EEEE, MMMM d"), let dateWithYear = Date.setYear(currentYear, to: dayDate) {
-                
-                for eventLink in eventsLink {
-                    let locationName = try eventLink.select("div.lw_events_location").text()
-                    
-                    let eventTimeElement = try eventLink.select("div.lw_events_time")
-                    let eventStartTime = try eventTimeElement.select("span.lw_start_time").text()
-                    let eventEndTime = try eventTimeElement.select("span.lw_end_time").text()
-                    
-                    var eventStartTimeDate = eventStartTime.convertTimeStringToDate(baseDate: dateWithYear, endTimeString: eventEndTime)
-                    var eventEndTimeDate = eventEndTime.convertTimeStringToDate(baseDate: dateWithYear)
-                    
-                    if try eventTimeElement.text().contains("All Day") {
-                        eventStartTimeDate = Date.getTodayShiftDate(for: dateWithYear, hourComponent: 0, minuteComponent: 0, secondComponent: 0)
-                        eventEndTimeDate = Date.getTodayShiftDate(for: dateWithYear, hourComponent: 11, minuteComponent: 59, secondComponent: 59)
-                    }
-                    
-                    let eventTitle = try eventLink.select("div.lw_events_title > a").text()
-                    let eventSummaryText = try eventLink.select("div.lw_events_summary").text()
-                    
-                    let eventLinkElement = try eventLink.select("span.lw_item_thumb > a")
-                    let eventLinkHrefString = try eventLinkElement.attr("href")
-                    let fullSourceLink = eventLinkHrefString.isEmpty ? nil : "https://events.berkeley.edu" + eventLinkHrefString
-                    
-                    let imageLink = try eventLinkElement.select("picture.lw_image > img").attr("src")
-                    
-                    if !eventTitle.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                        let newEventCalendarEntry = BMEventCalendarEntry(name: eventTitle, date: eventStartTimeDate ?? dateWithYear, end: eventEndTimeDate, descriptionText: eventSummaryText, location: locationName, imageURL: imageLink, sourceLink: fullSourceLink)
-                        scrappedCalendarEntries.append(newEventCalendarEntry)
-                    }
-                }
-            }
-        }
-        
-        return scrappedCalendarEntries
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        isLoading = false
+        alert = BMAlert(title: "Unable To Load Events", message: error.localizedDescription, type: .notice)
+        repopulateWithSavedGroupedEvents()
     }
     
+    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        isLoading = false
+        alert = BMAlert(title: "Unable To Load Events", message: error.localizedDescription, type: .notice)
+        repopulateWithSavedGroupedEvents()
+    }
+}
+
+
+// MARK: - Event Parsing
+
+extension EventScrapper {
+    
+    private static let baseURL = "https://events.berkeley.edu"
+    
+    private static let monthMap: [String: Int] = [
+        "Jan": 1, "Feb": 2, "Mar": 3, "Apr": 4,
+        "May": 5, "Jun": 6, "Jul": 7, "Aug": 8,
+        "Sep": 9, "Oct": 10, "Nov": 11, "Dec": 12
+    ]
+    
+    private func convertJSEventsToBMEntries(_ events: [[String: Any]]) -> [BMEventCalendarEntry] {
+        let currentYear = Calendar.current.component(.year, from: Date())
+        
+        return events.compactMap { event in
+            guard let title = event["title"] as? String, !title.isEmpty else { return nil }
+            
+            let source = event["source"] as? String ?? ""
+            let dateText = event["dateText"] as? String ?? ""
+            let timeText = event["time"] as? String ?? ""
+            let location = event["location"] as? String ?? ""
+            let summary = event["summary"] as? String ?? ""
+            let href = event["href"] as? String ?? ""
+            let imgSrc = event["imgSrc"] as? String ?? ""
+            
+            let eventDate = parseEventDate(dateText, source: source, year: currentYear)
+            let cleanedTime = source == "card"
+                ? timeText.replacingOccurrences(of: "Time:", with: "").trimmingCharacters(in: .whitespacesAndNewlines)
+                : timeText
+            let (startDate, endDate) = parseTimeText(cleanedTime, baseDate: eventDate)
+            
+            return BMEventCalendarEntry(
+                name: title,
+                date: startDate ?? eventDate,
+                end: endDate,
+                descriptionText: summary.isEmpty ? nil : summary,
+                location: location.isEmpty ? nil : location,
+                imageURL: Self.buildFullURL(href: imgSrc),
+                sourceLink: Self.buildFullURL(href: href)
+            )
+        }
+    }
+    
+    private func parseEventDate(_ dateText: String, source: String, year: Int) -> Date {
+        if source == "card" {
+            return parseCardDate(dateText, year: year) ?? Date()
+        }
+        
+        // LiveWhale format: "Sunday, March 1"
+        if let parsed = dateText.convertToDate(dateFormat: "EEEE, MMMM d"),
+           let withYear = Date.setYear(year, to: parsed) {
+            return withYear
+        }
+        
+        return Date()
+    }
+    
+    private func parseCardDate(_ text: String, year: Int) -> Date? {
+        let parts = text.trimmingCharacters(in: .whitespacesAndNewlines)
+            .components(separatedBy: .whitespaces)
+            .filter { !$0.isEmpty }
+        
+        guard parts.count == 2,
+              let month = Self.monthMap[parts[0]],
+              let day = Int(parts[1]) else { return nil }
+        
+        var components = DateComponents()
+        components.year = year
+        components.month = month
+        components.day = day
+        return Calendar.current.date(from: components)
+    }
+    
+    private func parseTimeText(_ timeText: String, baseDate: Date) -> (start: Date?, end: Date?) {
+        let cleaned = timeText.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        guard !cleaned.isEmpty else {
+            return (nil, nil)
+        }
+        
+        if cleaned.lowercased().contains("all day") {
+            let start = Date.getTodayShiftDate(for: baseDate, hourComponent: 0, minuteComponent: 0, secondComponent: 0)
+            let end = Date.getTodayShiftDate(for: baseDate, hourComponent: 23, minuteComponent: 59, secondComponent: 59)
+            return (start, end)
+        }
+        
+        let parts = cleaned.components(separatedBy: " - ")
+            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+        
+        guard let startPart = parts.first, !startPart.isEmpty else {
+            return (nil, nil)
+        }
+        
+        let endPart = parts.count > 1 ? parts[1] : nil
+        
+        // Strip date prefixes for multi-day events
+        let startTimeString = Self.stripDatePrefix(startPart)
+        let endTimeString = endPart.map { Self.stripDatePrefix($0) }
+        
+        let startDate = startTimeString.convertTimeStringToDate(baseDate: baseDate, endTimeString: endTimeString)
+        let endDate = endTimeString?.convertTimeStringToDate(baseDate: baseDate)
+        
+        return (startDate, endDate)
+    }
+    
+    /// Strips a date prefix like "Feb 28, " or "Mar 1, " from a time string.
+    private static func stripDatePrefix(_ text: String) -> String {
+        let pattern = "^[A-Z][a-z]{2}\\s+\\d{1,2},\\s*"
+        if let range = text.range(of: pattern, options: .regularExpression) {
+            return String(text[range.upperBound...])
+        }
+        return text
+    }
+    
+    private static func buildFullURL(href: String?) -> String? {
+        guard let href, !href.isEmpty else { return nil }
+        return href.hasPrefix("http") ? href : baseURL + href
+    }
+}
+
+
+// MARK: - Persistence
+
+extension EventScrapper {
     private func saveEventCalendarEntries(for entries: [BMEventCalendarEntry]) {
         if let encodedData = try? NSKeyedArchiver.archivedData(withRootObject: entries, requiringSecureCoding: false) {
             UserDefaults.standard.set(Date(), forKey: type.getInfo().lastRefreshDateKey)
