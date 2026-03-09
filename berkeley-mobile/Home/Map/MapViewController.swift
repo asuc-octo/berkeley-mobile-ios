@@ -42,7 +42,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         static let mapBtnsTopMargin: CGFloat = 141
     }
 
-    @Injected(\.homeViewModel) private var homeViewModel: HomeViewModel
+    @Injected(\.homeViewModel) private var homeViewModel
     @InjectedObject(\.mapMarkersDropdownViewModel) private var mapMarkersDropdownViewModel
     @InjectedObject(\.mapUserLocationButtonViewModel) private var mapUserLocationViewModel
 

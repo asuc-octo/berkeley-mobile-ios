@@ -12,7 +12,7 @@ import SwiftUI
 
 class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
 
-    @Injected(\.homeViewModel) private var homeViewModel: HomeViewModel
+    @Injected(\.homeViewModel) private var homeViewModel
 
     // MainDrawerViewDelegate properties
     var drawerStack: [DrawerViewDelegate] = []

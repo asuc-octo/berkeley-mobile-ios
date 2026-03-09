@@ -14,9 +14,9 @@ struct HomeView: View {
 
     @InjectedObservable(\.diningHallsViewModel) private var diningHallsViewModel
     @InjectedObservable(\.guidesViewModel) private var guidesViewModel
-    @InjectedObservable(\.homeDrawerPinViewModel) private var homeDrawerPinViewModel: HomeDrawerPinViewModel
+    @InjectedObservable(\.homeDrawerPinViewModel) private var homeDrawerPinViewModel
 
-    @InjectedObject(\.homeViewModel) private var homeViewModel: HomeViewModel
+    @InjectedObject(\.homeViewModel) private var homeViewModel
 
     @State private var tabSelectedIndex = 0
     @State private var navigationPath = NavigationPath()

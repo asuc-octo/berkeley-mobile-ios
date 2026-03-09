@@ -10,18 +10,18 @@ import FactoryKit
 import SwiftUI
 
 struct DiningHallsView: View {
-    @InjectedObservable(\.diningHallsViewModel) private var diningHallsViewModel
-    @InjectedObservable(\.homeDrawerPinViewModel) private var homeDrawerPinViewModel: HomeDrawerPinViewModel
-    
+    @InjectedObservable(\.diningHallsViewModel) private var viewModel
+    @InjectedObservable(\.homeDrawerPinViewModel) private var homeDrawerPinViewModel
+
     let mapViewController: MapViewController
     var selectionHandler: ((BMDiningHall) -> Void)?
     
     var body: some View {
-        if diningHallsViewModel.isFetching {
+        if viewModel.isFetching {
             ProgressView("LOADING")
             Spacer()
         } else {
-            BMHomeSectionListView(sectionType: .dining, items: diningHallsViewModel.diningHalls, mapViewController: mapViewController) { selectedDiningHall in
+            BMHomeSectionListView(sectionType: .dining, items: viewModel.diningHalls, mapViewController: mapViewController) { selectedDiningHall in
                 selectionHandler?(selectedDiningHall as! BMDiningHall)
             } swipeActionsContent: { diningHall in
                 if !homeDrawerPinViewModel.pinnedRowItemIDSet.contains(diningHall.docID) {

@@ -10,7 +10,7 @@ import FactoryKit
 import SwiftUI
 
 struct LibrariesView: View {
-    @InjectedObject(\.homeViewModel) private var homeViewModel: HomeViewModel
+    @InjectedObject(\.homeViewModel) private var homeViewModel
 
     let mapViewController: MapViewController
     

@@ -10,7 +10,7 @@ import FactoryKit
 import SwiftUI
 
 struct HomeSectionListRowView: View {
-    @InjectedObservable(\.homeDrawerPinViewModel) private var homeDrawerPinViewModel: HomeDrawerPinViewModel
+    @InjectedObservable(\.homeDrawerPinViewModel) private var homeDrawerPinViewModel
 
     var rowItem: any HomeDrawerSectionRowItemType
     

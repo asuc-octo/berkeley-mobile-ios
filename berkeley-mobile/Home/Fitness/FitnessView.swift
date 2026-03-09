@@ -12,7 +12,7 @@ import SwiftUI
 import WidgetKit
 
 struct FitnessView: View {
-    @InjectedObject(\.homeViewModel) private var homeViewModel: HomeViewModel
+    @InjectedObject(\.homeViewModel) private var homeViewModel
 
     // TODO: DI Resolve Here
     var mapViewController: MapViewController

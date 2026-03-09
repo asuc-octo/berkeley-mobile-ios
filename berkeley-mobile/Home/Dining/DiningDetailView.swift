@@ -13,7 +13,7 @@ import SwiftUI
 // MARK: - DiningDetailView
 
 struct DiningDetailView: View {
-    @InjectedObservable(\.diningHallsViewModel) private var diningHallsViewModel
+    @InjectedObservable(\.diningHallsViewModel) private var viewModel
 
     var diningHall: BMDiningHall
     
@@ -64,7 +64,7 @@ struct DiningDetailView: View {
             }
         }
         .onAppear {
-            diningHallsViewModel.logOpenedDiningDetailViewAnalytics(for: diningHall.name)
+            viewModel.logOpenedDiningDetailViewAnalytics(for: diningHall.name)
         }
         .navigationTitle(diningHall.name)
         .navigationBarTitleDisplayMode(.inline)
@@ -72,7 +72,7 @@ struct DiningDetailView: View {
             ToolbarItemGroup(placement: .topBarTrailing) {
                 if diningHall.hasCoordinate {
                     Button(action: {
-                        diningHallsViewModel.openDiningHallInMaps(for: diningHall)
+                        viewModel.openDiningHallInMaps(for: diningHall)
                     }) {
                         Image(systemName: "map")
                     }
@@ -80,7 +80,7 @@ struct DiningDetailView: View {
                 
                 if diningHall.hasPhoneNumber {
                     Button(action: {
-                        diningHallsViewModel.callDiningHall(for: diningHall)
+                        viewModel.callDiningHall(for: diningHall)
                     }) {
                         Image(systemName: "phone")
                     }
