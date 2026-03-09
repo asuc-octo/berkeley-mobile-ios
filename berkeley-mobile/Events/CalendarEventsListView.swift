@@ -60,7 +60,7 @@ struct CalendarEventsListView<Content:View>: View {
             
             isLoading = true
         }
-        .onChange(of: scrapper.groupedEntries) { groupedEntries in
+        .onChange(of: scrapper.groupedEntries) { _, groupedEntries in
             guard !eventsViewModel.didCacheEventsExistence.contains(scrapper.type) else {
                 return
             }

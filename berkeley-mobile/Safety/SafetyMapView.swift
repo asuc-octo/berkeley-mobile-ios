@@ -84,7 +84,7 @@ struct SafetyNewMapView: View {
             .mapControlVisibility(.hidden)
             mapHUD
         }
-        .onChange(of: selectedSafetyLog) { newLog in
+        .onChange(of: selectedSafetyLog) { _, newLog in
             guard let newLog else {
                 return
             }

@@ -41,7 +41,7 @@ struct EventDetailView: View {
                 }
             }
         }
-        .onChange(of: alertType) { type in
+        .onChange(of: alertType) { _, type in
             presentLinkAlert(type: type)
         }
     }
