@@ -16,7 +16,7 @@ enum DrawerState {
 }
 
 /// Handles all moving of drawers and user gestures related to drawers
-protocol DrawerViewDelegate: AnyObject {
+protocol DrawerViewDelegate: class {
     func handlePanGesture(gesture: UIPanGestureRecognizer)
     func handleDrawerDismissal()
     func moveDrawer(to state: DrawerState, duration: Double?)
