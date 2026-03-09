@@ -6,11 +6,12 @@
 //  Copyright © 2025 ASUC OCTO. All rights reserved.
 //
 
+import FactoryKit
 import SwiftUI
 
 struct LibrariesView: View {
-    @EnvironmentObject var homeViewModel: HomeViewModel
-    
+    @InjectedObject(\.homeViewModel) private var homeViewModel: HomeViewModel
+
     let mapViewController: MapViewController
     
     var selectionHandler: ((BMLibrary) -> Void)?

@@ -6,13 +6,15 @@
 //  Copyright © 2025 ASUC OCTO. All rights reserved.
 //
 
+import FactoryKit
 import MapKit
 import SwiftUI
 
 struct SearchBarView: View {
-    @EnvironmentObject var viewModel: SearchViewModel
+    @InjectedObject(\.searchViewModel) private var viewModel
+
     @FocusState private var isFocused: Bool
-    
+
     private var onSearchBarTap: ((Bool) -> Void)?
     
     var body: some View {
@@ -99,5 +101,4 @@ struct SearchBarView: View {
     SearchBarView()
         .padding()
         .ignoresSafeArea()
-        .environmentObject(SearchViewModel(chooseMapMarker: { _ in }) { _ in })
 }

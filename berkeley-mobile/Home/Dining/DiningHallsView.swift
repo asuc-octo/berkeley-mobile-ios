@@ -6,21 +6,22 @@
 //  Copyright © 2025 ASUC OCTO. All rights reserved.
 //
 
+import FactoryKit
 import SwiftUI
 
 struct DiningHallsView: View {
-    @Environment(HomeDrawerPinViewModel.self) private var homeDrawerPinViewModel
-    @Environment(DiningHallsViewModel.self) private var viewModel
+    @InjectedObservable(\.diningHallsViewModel) private var diningHallsViewModel
+    @InjectedObservable(\.homeDrawerPinViewModel) private var homeDrawerPinViewModel: HomeDrawerPinViewModel
     
     let mapViewController: MapViewController
     var selectionHandler: ((BMDiningHall) -> Void)?
     
     var body: some View {
-        if viewModel.isFetching {
+        if diningHallsViewModel.isFetching {
             ProgressView("LOADING")
             Spacer()
         } else {
-            BMHomeSectionListView(sectionType: .dining, items: viewModel.diningHalls, mapViewController: mapViewController) { selectedDiningHall in
+            BMHomeSectionListView(sectionType: .dining, items: diningHallsViewModel.diningHalls, mapViewController: mapViewController) { selectedDiningHall in
                 selectionHandler?(selectedDiningHall as! BMDiningHall)
             } swipeActionsContent: { diningHall in
                 if !homeDrawerPinViewModel.pinnedRowItemIDSet.contains(diningHall.docID) {

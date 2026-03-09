@@ -6,6 +6,7 @@
 //  Copyright © 2025 ASUC OCTO. All rights reserved.
 //
 
+import FactoryKit
 import SwiftUI
 
 class MapUserLocationButtonViewModel: ObservableObject {
@@ -30,7 +31,7 @@ class MapUserLocationButtonViewModel: ObservableObject {
 }
 
 struct MapUserLocationButton: View {
-    @EnvironmentObject var viewModel: MapUserLocationButtonViewModel
+    @InjectedObject(\.mapUserLocationButtonViewModel) private var viewModel
     
     var homeInUserLocationCompletionHandler: () -> Void
     
@@ -70,5 +71,4 @@ struct MapUserLocationButton: View {
 
 #Preview {
     MapUserLocationButton {}
-        .environmentObject(MapUserLocationButtonViewModel())
 }

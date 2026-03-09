@@ -6,11 +6,12 @@
 //  Copyright © 2025 ASUC OCTO. All rights reserved.
 //
 
+import FactoryKit
 import SwiftUI
 
 struct CalendarEventsListView<Content:View>: View {
-    @EnvironmentObject var eventsViewModel: EventsViewModel
-    @EnvironmentObject var calendarViewModel: CalendarViewModel
+    @InjectedObject(\.calendarViewModel) private var calendarViewModel
+    @InjectedObject(\.eventsViewModel) private var eventsViewModel
     
     let scrapper: EventScrapper
     let proxy: ScrollViewProxy
@@ -24,7 +25,6 @@ struct CalendarEventsListView<Content:View>: View {
                 CalendarSectionView(scrollProxy: proxy) { day in
                     scrollToEvent(day: day, proxy: proxy)
                 }
-                .environmentObject(calendarViewModel)
                
                 if scrapper.isLoading || isLoading {
                     ProgressView()
@@ -93,7 +93,5 @@ struct CalendarEventsListView<Content:View>: View {
             EventRowView(event: event)
                 .frame(width: 310)
         }
-        .environmentObject(EventsViewModel())
-        .environmentObject(CalendarViewModel())
     }
 }

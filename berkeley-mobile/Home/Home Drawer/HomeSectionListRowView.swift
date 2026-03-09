@@ -6,11 +6,12 @@
 //  Copyright © 2025 ASUC OCTO. All rights reserved.
 //
 
+import FactoryKit
 import SwiftUI
 
 struct HomeSectionListRowView: View {
-    @Environment(HomeDrawerPinViewModel.self) private var homeDrawerPinViewModel
-    
+    @InjectedObservable(\.homeDrawerPinViewModel) private var homeDrawerPinViewModel: HomeDrawerPinViewModel
+
     var rowItem: any HomeDrawerSectionRowItemType
     
     var body: some View {

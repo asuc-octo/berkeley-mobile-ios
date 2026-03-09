@@ -6,15 +6,15 @@
 //  Copyright © 2025 ASUC OCTO. All rights reserved.
 //
 
+import FactoryKit
 import Firebase
 import SwiftUI
 
 // MARK: - DiningDetailView
 
 struct DiningDetailView: View {
-    
-    @Environment(DiningHallsViewModel.self) private var viewModel
-    
+    @InjectedObservable(\.diningHallsViewModel) private var diningHallsViewModel
+
     var diningHall: BMDiningHall
     
     @State private var selectedTabIndex = 0
@@ -64,7 +64,7 @@ struct DiningDetailView: View {
             }
         }
         .onAppear {
-            viewModel.logOpenedDiningDetailViewAnalytics(for: diningHall.name)
+            diningHallsViewModel.logOpenedDiningDetailViewAnalytics(for: diningHall.name)
         }
         .navigationTitle(diningHall.name)
         .navigationBarTitleDisplayMode(.inline)
@@ -72,7 +72,7 @@ struct DiningDetailView: View {
             ToolbarItemGroup(placement: .topBarTrailing) {
                 if diningHall.hasCoordinate {
                     Button(action: {
-                        viewModel.openDiningHallInMaps(for: diningHall)
+                        diningHallsViewModel.openDiningHallInMaps(for: diningHall)
                     }) {
                         Image(systemName: "map")
                     }
@@ -80,7 +80,7 @@ struct DiningDetailView: View {
                 
                 if diningHall.hasPhoneNumber {
                     Button(action: {
-                        viewModel.callDiningHall(for: diningHall)
+                        diningHallsViewModel.callDiningHall(for: diningHall)
                     }) {
                         Image(systemName: "phone")
                     }
@@ -181,7 +181,7 @@ struct DiningDetailRowView<Content: View>: View {
 // MARK: - DiningMenuItemIconsView
 
 struct DiningMenuItemIconsView: View {
-    @Environment(\.menuIconCache) private var menuIconCache
+    @Injected(\.menuItemIconCacheManager) private var menuItemIconCacheManager
     
     var menuItem: BMMenuItem
     
@@ -198,7 +198,7 @@ struct DiningMenuItemIconsView: View {
         }
         .onAppear {
             Task {
-                menuItemIconImages = await menuIconCache.fetchMenuIconImages(for: menuItem.icons.map { $0.iconURL })
+                menuItemIconImages = await menuItemIconCacheManager.fetchMenuIconImages(for: menuItem.icons.map { $0.iconURL })
             }
         }
     }

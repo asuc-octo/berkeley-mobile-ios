@@ -6,6 +6,7 @@
 //  Copyright © 2019 RJ Pimentel. All rights reserved.
 //
 
+import FactoryKit
 import FirebaseAnalytics
 import MapKit
 import SwiftUI
@@ -41,6 +42,10 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         static let mapBtnsTopMargin: CGFloat = 141
     }
 
+    @Injected(\.homeViewModel) private var homeViewModel: HomeViewModel
+    @InjectedObject(\.mapMarkersDropdownViewModel) private var mapMarkersDropdownViewModel
+    @InjectedObject(\.mapUserLocationButtonViewModel) private var mapUserLocationViewModel
+
     // this allows the map to move the main drawer
     open var mainContainer: MainContainerViewController?
     var pinDelegate: SearchResultsViewDelegate?
@@ -69,12 +74,8 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
     private var previousPlaceMark: MKAnnotation?
     
     private var mapUserLocationButtonTapped = false
-    private let mapUserLocationViewModel = MapUserLocationButtonViewModel()
-    private let mapMarkersDropdownViewModel = MapMarkersDropdownViewModel()
     private var mapMarkers: [[MapMarker]] = []
     private var markerDetail: MapMarkerDetailView!
-    
-    var homeViewModel: HomeViewModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -153,23 +154,26 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         }) { placemark in
             self.choosePlacemark(placemark)
         }
-        
+        Container.shared.searchViewModel.register { @MainActor in
+            self.searchViewModel
+        }
+
         let searchBarView = SearchBarView(onSearchBarTap: { [weak self] isSearching in
             guard let self else {
                 return
             }
-            self.homeViewModel?.isShowingDrawer = !isSearching
+            self.homeViewModel.isShowingDrawer = !isSearching
             self.showSearchResultsView(isSearching)
         })
         
-        searchBarViewController = UIHostingController(rootView: searchBarView.environmentObject(searchViewModel))
+        searchBarViewController = UIHostingController(rootView: searchBarView)
         
         searchBar = searchBarViewController.view
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         searchBar.isUserInteractionEnabled = true
         searchBar.backgroundColor = .clear
         
-        searchResultsView = UIHostingController(rootView: SearchResultsView().environmentObject(searchViewModel)).view
+        searchResultsView = UIHostingController(rootView: SearchResultsView()).view
         searchResultsView.translatesAutoresizingMaskIntoConstraints = false
         searchResultsView.backgroundColor = .clear
         showSearchResultsView(false)
@@ -184,11 +188,11 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
     
     private func createMapLocationButton() {
         let mapUserLocationButtonView = MapUserLocationButton { [weak self] in
-            self?.homeViewModel?.drawerViewState = .small
+            self?.homeViewModel.drawerViewState = .small
             self?.jumpToUserLocation()
         }
         
-        mapUserLocationButton = UIHostingController(rootView: mapUserLocationButtonView.environmentObject(mapUserLocationViewModel)).view
+        mapUserLocationButton = UIHostingController(rootView: mapUserLocationButtonView).view
         mapUserLocationButton.translatesAutoresizingMaskIntoConstraints = false
         mapUserLocationButton.isUserInteractionEnabled = true
         mapUserLocationButton.backgroundColor = UIColor.clear
@@ -202,7 +206,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
             showSelectedMapMarkerTypeAnnotations(forType: selectedMapMarkerType)
         }
     
-        mapMarkersDropdownButton = UIHostingController(rootView: mapMarkersDropdownButtonView.environmentObject(mapMarkersDropdownViewModel)).view
+        mapMarkersDropdownButton = UIHostingController(rootView: mapMarkersDropdownButtonView).view
         mapMarkersDropdownButton.translatesAutoresizingMaskIntoConstraints = false
         mapMarkersDropdownButton.isHidden = true
         mapMarkersDropdownButton.backgroundColor = UIColor.clear
@@ -284,7 +288,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         } else {
             searchResultsView.isHidden = true
             DispatchQueue.main.async {
-                self.homeViewModel?.drawerViewState = .small
+                self.homeViewModel.drawerViewState = .small
             }
             mainContainer?.showTop()
         }
@@ -361,7 +365,7 @@ extension MapViewController: MKMapViewDelegate {
             Analytics.logEvent("point_of_interest_clicked", parameters: ["Place": annotation.title ?? "Unknown"])
             markerDetail.marker = annotation
             mainContainer?.hideTop()
-            homeViewModel?.isShowingDrawer = false
+            homeViewModel.isShowingDrawer = false
         }
     }
     
@@ -372,7 +376,7 @@ extension MapViewController: MKMapViewDelegate {
             })
             
             markerDetail.marker = nil
-            homeViewModel?.isShowingDrawer = true
+            homeViewModel.isShowingDrawer = true
 
             // if a marker is deselected wait to see if another marker was selected
             DispatchQueue.main.async {
@@ -398,7 +402,7 @@ extension MapViewController: MapMarkerDetailViewDelegate {
         mapView.selectedAnnotations.forEach { annotation in
             if annotation.isKind(of: MapMarker.self) {
                 mapView.deselectAnnotation(annotation, animated: true)
-                homeViewModel?.isShowingDrawer = true
+                homeViewModel.isShowingDrawer = true
             }
         }
     }
@@ -457,8 +461,8 @@ extension MapViewController: SearchResultsViewDelegate {
                 // otherwise: still dismiss any past detail views and show the drawer underneath
                 
                 if let type = type(of: item) as? AnyClass {
-                    homeViewModel?.isShowingDrawer = true
-                    homeViewModel?.presentDetail(type: type, item: item)
+                    homeViewModel.isShowingDrawer = true
+                    homeViewModel.presentDetail(type: type, item: item)
                 }
             }
         }
@@ -497,7 +501,7 @@ extension MapViewController: SearchResultsViewDelegate {
             mapView.selectAnnotation(mapMarker, animated: true)
             
             DispatchQueue.main.async { // Sth somewhere sets .isShowingDrawer back to true, asynchronously. might be animation, but this helps to set it correctly when MapMarker is chosen.
-                self.homeViewModel?.isShowingDrawer = false
+                self.homeViewModel.isShowingDrawer = false
             }
         }
     }

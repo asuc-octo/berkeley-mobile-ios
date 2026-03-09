@@ -6,10 +6,11 @@
 //  Copyright © 2025 ASUC OCTO. All rights reserved.
 //
 
+import FactoryKit
 import SwiftUI
 
 struct BMHomeSectionListView<Content: View>: View {
-    @Environment(HomeDrawerPinViewModel.self) private var homeDrawerPinViewModel
+    @InjectedObservable(\.homeDrawerPinViewModel) private var homeDrawerPinViewModel: HomeDrawerPinViewModel
     
     var sectionType: HomeDrawerViewType
     var items: [any HomeDrawerSectionRowItemType]
@@ -148,7 +149,6 @@ struct HomeDrawerRowItemButton<Content: View>: View {
 }
 
 #Preview {
-    let homeViewModel = HomeViewModel()
     let diningHalls = [
         BMDiningHall(name: "Cafe 3", address: "2436 Durant Ave, Berkeley, CA 94704", phoneNumber: nil, imageLink: "https://firebasestorage.googleapis.com/v0/b/berkeley-mobile.appspot.com/o/images%2FCafe3.jpg?alt=media&token=f1062476-2cb0-4ce9-9ac1-6109bf588aaa", hours: [], latitude: nil, longitude: nil)
     ]

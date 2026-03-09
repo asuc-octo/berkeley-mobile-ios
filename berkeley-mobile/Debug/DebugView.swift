@@ -6,16 +6,13 @@
 //  Copyright © 2025 ASUC OCTO. All rights reserved.
 //
 
+import FactoryKit
 import SwiftUI
 
 struct DebugView: View {
+    @InjectedObservable(\.debugViewModel) private var debugViewModel
+
     @Environment(\.dismiss) private var dismiss
-    
-    private let debugViewModel: DebugViewModel
-    
-    init(debugViewModel: DebugViewModel) {
-        self.debugViewModel = debugViewModel
-    }
     
     var body: some View {
         NavigationStack {
@@ -63,7 +60,5 @@ struct DebugView: View {
 }
 
 #Preview {
-    let feedbackFormPresenter = FeedbackFormPresenter()
-    let debugViewModel = DebugViewModel(feedbackFormPresenter: feedbackFormPresenter)
-    DebugView(debugViewModel: debugViewModel)
+    DebugView()
 }

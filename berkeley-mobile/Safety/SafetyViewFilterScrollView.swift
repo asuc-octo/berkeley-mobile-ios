@@ -6,10 +6,11 @@
 //  Copyright © 2025 ASUC OCTO. All rights reserved.
 //
 
+import FactoryKit
 import SwiftUI
 
 struct SafetyViewFilterScrollView: View {
-    @EnvironmentObject var safetyViewModel: SafetyViewModel
+    @InjectedObject(\.safetyViewModel) private var safetyViewModel
     
     @Binding var drawerViewState: BMDrawerViewState
     

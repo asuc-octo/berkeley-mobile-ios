@@ -6,10 +6,11 @@
 //  Copyright © 2025 ASUC OCTO. All rights reserved.
 //
 
+import FactoryKit
 import SwiftUI
 
 struct GuideDetailView: View {
-    @Environment(GuidesViewModel.self) private var viewModel
+    @InjectedObservable(\.guidesViewModel) private var viewModel
     
     var guide: Guide
     
@@ -111,7 +112,7 @@ struct GuideDetailRowHeaderView: View {
 // MARK: - GuideDetailRowActionItemView
 
 struct GuideDetailRowActionItemView: View {
-    @Environment(GuidesViewModel.self) private var viewModel
+    @InjectedObservable(\.guidesViewModel) private var viewModel
 
     var systemName: String
     var backgroundColor: Color

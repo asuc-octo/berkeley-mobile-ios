@@ -6,10 +6,11 @@
 //  Copyright © 2025 ASUC OCTO. All rights reserved.
 //
 
+import FactoryKit
 import SwiftUI
 
 struct BMAddedCalendarStatusOverlayView: View {
-    @EnvironmentObject var eventsViewModel: EventsViewModel
+    @InjectedObject(\.eventsViewModel) private var eventsViewModel
     
     let event: BMEventCalendarEntry
     

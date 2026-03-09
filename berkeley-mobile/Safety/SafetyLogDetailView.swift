@@ -6,11 +6,12 @@
 //  Copyright © 2024 ASUC OCTO. All rights reserved.
 //
 
+import FactoryKit
 import MapKit
 import SwiftUI
 
 struct SafetyLogDetailView: View {
-    @EnvironmentObject var safetyViewModel: SafetyViewModel
+    @InjectedObject(\.safetyViewModel) private var safetyViewModel
     
     @Binding var selectedSafetyLog: BMSafetyLog?
     @Binding var drawerViewState: BMDrawerViewState
@@ -71,8 +72,8 @@ struct SafetyLogDetailView: View {
 // MARK: - SafetyLogView
 
 struct SafetyLogView: View {
-    @EnvironmentObject private var viewModel: SafetyViewModel
-    
+    @InjectedObject(\.safetyViewModel) private var viewModel
+
     var safetyLog: BMSafetyLog
     var isPresentingFullScreen: Bool
     
@@ -150,11 +151,9 @@ struct SafetyLogView: View {
 #Preview("SafetyLogDetailView") {
     SafetyLogDetailView(selectedSafetyLog: .constant(SafetyViewModel.getSampleSafetyLog()), drawerViewState: .constant(.small))
         .padding()
-        .environmentObject(SafetyViewModel())
 }
 
 #Preview("SafetyLogView") {
     SafetyLogView(safetyLog: SafetyViewModel.getSampleSafetyLog(), isPresentingFullScreen: false)
         .padding()
-        .environmentObject(SafetyViewModel())
 }
