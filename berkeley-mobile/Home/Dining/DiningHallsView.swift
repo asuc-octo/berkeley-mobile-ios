@@ -6,12 +6,13 @@
 //  Copyright © 2025 ASUC OCTO. All rights reserved.
 //
 
+import FactoryKit
 import SwiftUI
 
 struct DiningHallsView: View {
-    @Environment(HomeDrawerPinViewModel.self) private var homeDrawerPinViewModel
-    @Environment(DiningHallsViewModel.self) private var viewModel
-    
+    @InjectedObservable(\.diningHallsViewModel) private var viewModel
+    @InjectedObservable(\.homeDrawerPinViewModel) private var homeDrawerPinViewModel
+
     let mapViewController: MapViewController
     var selectionHandler: ((BMDiningHall) -> Void)?
     

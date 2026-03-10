@@ -6,22 +6,24 @@
 //  Copyright © 2025 ASUC OCTO. All rights reserved.
 //
 
+import FactoryKit
 import SwiftUI
 
 struct HomeView: View {
-    @EnvironmentObject private var homeViewModel: HomeViewModel
-    
+    @Injected(\.menuItemIconCacheManager) private var menuItemIconCacheManager
+
+    @InjectedObservable(\.diningHallsViewModel) private var diningHallsViewModel
+    @InjectedObservable(\.guidesViewModel) private var guidesViewModel
+    @InjectedObservable(\.homeDrawerPinViewModel) private var homeDrawerPinViewModel
+
+    @InjectedObject(\.homeViewModel) private var homeViewModel
+
     @State private var tabSelectedIndex = 0
     @State private var navigationPath = NavigationPath()
     @State private var isPresentingDetailView = false
     @State private var selectedDetent: PresentationDetent = .fraction(0.45)
-    
-    @State private var homeDrawerPinViewModel = HomeDrawerPinViewModel()
-    @State private var diningHallsViewModel = DiningHallsViewModel()
-    @State private var guidesViewModel = GuidesViewModel()
 
     private var mapViewController: MapViewController
-    private let menuIconCacheManager = MenuItemIconCacheManager()
     
     init(mapViewController: MapViewController) {
         self.mapViewController = mapViewController
@@ -68,8 +70,6 @@ struct HomeView: View {
                         DiningHallsView(mapViewController: mapViewController) { selectedDiningHall in
                             navigationPath.append(selectedDiningHall)
                         }
-                        .environment(diningHallsViewModel)
-                        .environment(homeDrawerPinViewModel)
                         .onAppear {
                             homeViewModel.logOpenedDiningHomeSectionAnalytics()
                         }
@@ -77,16 +77,12 @@ struct HomeView: View {
                         FitnessView(mapViewController: mapViewController) { selectedGym in
                             navigationPath.append(selectedGym)
                         }
-                        .environmentObject(homeViewModel)
-                        .environment(homeDrawerPinViewModel)
                     case 2:
                         LibrariesView(mapViewController: mapViewController) { selectedLibrary in
                             navigationPath.append(selectedLibrary)
                         }
-                        .environment(homeDrawerPinViewModel)
                     default:
                         GuidesView()
-                            .environment(guidesViewModel)
                     }
                 }
             }
@@ -96,8 +92,6 @@ struct HomeView: View {
             .navigationDestination(for: BMDiningHall.self) { diningHall in
                 DiningDetailView(diningHall: diningHall)
                     .containerBackground(.clear, for: .navigation)
-                    .environment(diningHallsViewModel)
-                    .environment(\.menuIconCache, menuIconCacheManager)
             }
             .navigationDestination(for: BMGym.self) { gym in
                 GymDetailView(gym: gym)
@@ -113,5 +107,4 @@ struct HomeView: View {
 
 #Preview {
     HomeView(mapViewController: MapViewController())
-        .environmentObject(HomeViewModel())
 }

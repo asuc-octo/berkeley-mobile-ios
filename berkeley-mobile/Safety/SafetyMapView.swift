@@ -6,12 +6,13 @@
 //  Copyright © 2025 ASUC OCTO. All rights reserved.
 //
 
+import FactoryKit
 import MapKit
 import SwiftUI
 
 struct SafetyMapView: View {
-    @EnvironmentObject var safetyViewModel: SafetyViewModel
-    
+    @InjectedObject(\.safetyViewModel) private var safetyViewModel
+
     @State private var isShowingLegend = false
     @Binding var selectedSafetyLog: BMSafetyLog?
     @Binding var drawerViewState: BMDrawerViewState
@@ -41,8 +42,8 @@ struct SafetyMapView: View {
 
 @available(iOS 17.0, *)
 struct SafetyNewMapView: View {
-    @EnvironmentObject var safetyViewModel: SafetyViewModel
-    
+    @InjectedObject(\.safetyViewModel) private var safetyViewModel
+
     @State private var mapCameraPosition = MapCameraPosition.automatic
     @State private var isShowingAllMarkers = true
     @State private var isZoomIn = true
@@ -207,5 +208,4 @@ struct SafetyNewMapView: View {
 #Preview {
     @Previewable @State var drawerViewState = BMDrawerViewState.medium
     SafetyMapView(selectedSafetyLog: .constant(nil), drawerViewState: $drawerViewState, isPresentingDetailView: false)
-        .environmentObject(SafetyViewModel())
 }

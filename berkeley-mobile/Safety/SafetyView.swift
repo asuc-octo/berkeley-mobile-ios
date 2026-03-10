@@ -6,11 +6,13 @@
 //  Copyright © 2024 ASUC OCTO. All rights reserved.
 //
 
+import FactoryKit
 import MapKit
 import SwiftUI
 
 struct SafetyView: View {
-    @StateObject private var safetyViewModel = SafetyViewModel()
+    @InjectedObject(\.safetyViewModel) private var safetyViewModel
+
     @State private var selectedSafetyLog: BMSafetyLog?
     @State private var drawerViewState = BMDrawerViewState.medium
     
@@ -44,7 +46,6 @@ struct SafetyView: View {
                 SafetyMapView(selectedSafetyLog: $selectedSafetyLog,
                               drawerViewState: $drawerViewState,
                               isPresentingDetailView: isPresentingSafetyLogDetailView)
-                    .environmentObject(safetyViewModel)
                 drawerView
             }
             .allowsHitTesting(isPresentingSafetyLogDetailView ? false : true)
@@ -53,7 +54,6 @@ struct SafetyView: View {
             if isPresentingSafetyLogDetailView {
                 SafetyLogDetailView(selectedSafetyLog: $selectedSafetyLog, drawerViewState: $drawerViewState)
                     .padding()
-                    .environmentObject(safetyViewModel)
             }
         }
         .animation(.easeInOut, value: isPresentingSafetyLogDetailView)
@@ -78,7 +78,6 @@ struct SafetyView: View {
                                 .onTapGesture {
                                     selectedSafetyLog = safetyLog
                                 }
-                                .environmentObject(safetyViewModel)
                         }
                         .listStyle(PlainListStyle())
                         .scrollContentBackground(.hidden)
@@ -109,7 +108,6 @@ struct SafetyView: View {
                             .onTapGesture {
                                 selectedSafetyLog = safetyLog
                             }
-                            .environmentObject(safetyViewModel)
                     }
                     .listStyle(PlainListStyle())
                     .scrollContentBackground(.hidden)
@@ -146,7 +144,6 @@ struct SafetyView: View {
             if #unavailable(iOS 26.0) {
                 if !safetyViewModel.selectedSafetyLogFilterStates.isEmpty {
                     SafetyViewFilterScrollView(drawerViewState: $drawerViewState)
-                        .environmentObject(safetyViewModel)
                 }
             }
         }

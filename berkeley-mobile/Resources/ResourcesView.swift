@@ -6,10 +6,12 @@
 //  Copyright © 2024 ASUC OCTO. All rights reserved.
 //
 
+import FactoryKit
 import SwiftUI
 
 struct ResourcesView: View {
-    @StateObject private var resourcesViewModel = ResourcesViewModel()
+    @InjectedObject(\.resourcesViewModel) private var resourcesViewModel
+
     @State private var tabSelectedValue = 0
     
     init() {

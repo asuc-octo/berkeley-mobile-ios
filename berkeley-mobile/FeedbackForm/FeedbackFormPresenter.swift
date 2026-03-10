@@ -6,6 +6,7 @@
 //  Copyright © 2025 ASUC OCTO. All rights reserved.
 //
 
+import FactoryKit
 import SwiftUI
 
 protocol FeedbackFormPresenterDelegate: AnyObject {
@@ -13,14 +14,18 @@ protocol FeedbackFormPresenterDelegate: AnyObject {
 }
 
 class FeedbackFormPresenter {
-    private(set) var feedbackFormViewModel = FeedbackFormViewModel()
-    
+    private(set) var feedbackFormViewModel: FeedbackFormViewModel
+
     weak var delegate: FeedbackFormPresenterDelegate?
     
     var currNumAppLaunchForFeedbackForm: Int {
         return UserDefaults.standard.integer(forKey: .numAppLaunchForFeedbackForm)
     }
-    
+
+    init(feedbackFormViewModel: FeedbackFormViewModel) {
+        self.feedbackFormViewModel = feedbackFormViewModel
+    }
+
     func attemptShowFeedbackForm(isForced: Bool = false) {
         Task {
             let formConfig = await feedbackFormViewModel.fetchFeedbackFormConfig()
@@ -34,7 +39,7 @@ class FeedbackFormPresenter {
         }
     
         if isForced || currNumAppLaunchForFeedbackForm >= formConfig.numToShow {
-            let feedbackFormView = FeedbackFormView(viewModel: feedbackFormViewModel, config: formConfig)
+            let feedbackFormView = FeedbackFormView(config: formConfig)
             DispatchQueue.main.async {
                 self.delegate?.feedbackFormDidPresent(withViewController: UIHostingController(rootView: feedbackFormView))
             }

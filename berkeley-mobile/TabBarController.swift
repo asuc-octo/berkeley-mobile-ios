@@ -6,17 +6,18 @@
 //  Copyright © 2020 RJ Pimentel. All rights reserved.
 //
 
+import FactoryKit
 import UIKit
 import SwiftUI
 
 class TabBarController: UITabBarController, UITabBarControllerDelegate {
-    
+
+    @Injected(\.feedbackFormPresenter) private var feedbackFormPresenter
+
     private let mapView = MainContainerViewController()
     private let calendarView = UIHostingController(rootView: EventsView())
     private let safetyView = UIHostingController(rootView: SafetyView())
     private let resourcesView = UIHostingController(rootView: ResourcesView())
-    
-    private let feedbackFormPresenter = FeedbackFormPresenter()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,8 +32,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         }
         
         #if DEBUG
-        let debugViewModel = DebugViewModel(feedbackFormPresenter: feedbackFormPresenter)
-        let debugView = UIHostingController(rootView: DebugView(debugViewModel: debugViewModel))
+        let debugView = UIHostingController(rootView: DebugView())
         present(debugView, animated: true)
         #endif
     }

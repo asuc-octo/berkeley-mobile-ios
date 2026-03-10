@@ -6,13 +6,15 @@
 //  Copyright © 2025 ASUC OCTO. All rights reserved.
 //
 
+import FactoryKit
 import FirebaseAnalytics
 import SwiftUI
 import WidgetKit
 
 struct FitnessView: View {
-    @EnvironmentObject var homeViewModel: HomeViewModel
-    
+    @InjectedObject(\.homeViewModel) private var homeViewModel
+
+    // TODO: DI Resolve Here
     var mapViewController: MapViewController
     
     var selectionHandler: ((BMGym) -> Void)?
@@ -42,7 +44,6 @@ struct FitnessView: View {
 
 #Preview {
     FitnessView(mapViewController: MapViewController())
-        .environmentObject(HomeViewModel())
         .padding()
         .background(.blue.opacity(0.1))
 }

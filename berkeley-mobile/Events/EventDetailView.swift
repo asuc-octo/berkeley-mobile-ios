@@ -1,3 +1,4 @@
+import FactoryKit
 import SwiftUI
 
 struct EventDetailView: View {
@@ -6,7 +7,7 @@ struct EventDetailView: View {
         case register
     }
 
-    @EnvironmentObject var eventsViewModel: EventsViewModel
+    @InjectedObject(\.eventsViewModel) private var eventsViewModel
 
     let event: BMEventCalendarEntry
 
@@ -210,5 +211,4 @@ struct BMDetailDescriptionView: View {
 
 #Preview {
     EventDetailView(event: BMEventCalendarEntry.sampleEntry)
-        .environmentObject(EventsViewModel())
 }
