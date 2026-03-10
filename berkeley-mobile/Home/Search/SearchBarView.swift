@@ -40,7 +40,7 @@ struct SearchBarView: View {
         }
         .clipShape(.rect(cornerRadius: 15))
         .shadow(color: .black.opacity(0.3), radius: 8)
-        .onChange(of: isFocused) { _, newValue in // onChange syntax will need to change in later iOS
+        .onChange(of: isFocused) { _, newValue in
             switch viewModel.state {
             case .populated,
                     .idle where (!viewModel.recentSearches.isEmpty && viewModel.isSearching):
