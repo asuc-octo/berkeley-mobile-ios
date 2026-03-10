@@ -38,12 +38,12 @@ struct GenericEventsView: View {
             genericEventScrapper.scrape()
             eventsViewModel.logCampuswideTabAnalytics()
         }
-        .onChange(of: genericEventScrapper.alert) { alert in
+        .onChange(of: genericEventScrapper.alert) { _, alert in
             withoutAnimation {
                 eventsViewModel.alert = alert
             }
         }
-        .onChange(of: genericEventScrapper.groupedEntries) { entries in
+        .onChange(of: genericEventScrapper.groupedEntries) { _, entries in
             calendarViewModel.setEntries(entries)
         }
         .refreshable {

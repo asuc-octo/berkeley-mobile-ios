@@ -42,7 +42,7 @@ struct HomeView: View {
                 }
             }
             .animation(.default, value: homeViewModel.isShowingDrawer)
-            .onChange(of: homeViewModel.isShowingDrawer) { _ in
+            .onChange(of: homeViewModel.isShowingDrawer) {
                 homeViewModel.drawerViewState = .medium
             }
         }

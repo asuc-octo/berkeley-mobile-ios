@@ -83,8 +83,8 @@ struct BMDrawerView<Content: View>: View {
         }
         .edgesIgnoringSafeArea([.bottom, .horizontal])
         .shadow(color: Color(hue: 1.0, saturation: 0.0, brightness: 0.0, opacity: 0.08), radius: 12, y: -8)
-        .onChange(of: drawerViewState) { [drawerViewState] newState in
-            let diff = drawerViewState.rawValue - newState.rawValue
+        .onChange(of: drawerViewState) { oldState, newState in
+            let diff = oldState.rawValue - newState.rawValue
             
             withAnimation(.spring) {
                 if diff < 0 {
