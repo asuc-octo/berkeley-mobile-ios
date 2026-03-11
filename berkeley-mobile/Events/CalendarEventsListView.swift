@@ -12,7 +12,7 @@ struct CalendarEventsListView<Content:View>: View {
     @EnvironmentObject var eventsViewModel: EventsViewModel
     @EnvironmentObject var calendarViewModel: CalendarViewModel
     
-    let scrapper: EventScrapper
+    let dataSource: EventsDataSource
     let proxy: ScrollViewProxy
     @ViewBuilder var content: (BMEventCalendarEntry) -> Content
     
@@ -26,18 +26,18 @@ struct CalendarEventsListView<Content:View>: View {
                 }
                 .environmentObject(calendarViewModel)
                
-                if scrapper.isLoading || isLoading {
+                if dataSource.isLoading || isLoading {
                     ProgressView()
                         .id(UUID())
                 } else {
-                    if scrapper.groupedEntries.isEmpty {
+                    if dataSource.groupedEntries.isEmpty {
                         BMNoEventsView()
                     } else {
-                        Text("^[\(scrapper.allEntries.count) Event](inflect: true)")
+                        Text("^[\(dataSource.allEntries.count) Event](inflect: true)")
                             .font(Font(BMFont.medium(16)))
                         
-                        ForEach(Array(scrapper.groupedEntriesSortedKeys.enumerated()), id: \.offset) { index, date in
-                            if let events = scrapper.groupedEntries[date] {
+                        ForEach(Array(dataSource.groupedEntriesSortedKeys.enumerated()), id: \.offset) { index, date in
+                            if let events = dataSource.groupedEntries[date] {
                                 EventsDateSectionView(date: date, events: events) { event in
                                     content(event)
                                 }
@@ -54,27 +54,27 @@ struct CalendarEventsListView<Content:View>: View {
         }
         .listStyle(PlainListStyle())
         .onAppear {
-            guard !eventsViewModel.didCacheEventsExistence.contains(scrapper.type) else {
+            guard !eventsViewModel.didCacheEventsExistence.contains(dataSource.type) else {
                 return
             }
             
             isLoading = true
         }
-        .onChange(of: scrapper.groupedEntries) { groupedEntries in
-            guard !eventsViewModel.didCacheEventsExistence.contains(scrapper.type) else {
+        .onChange(of: dataSource.groupedEntries) { groupedEntries in
+            guard !eventsViewModel.didCacheEventsExistence.contains(dataSource.type) else {
                 return
             }
             
             let events = groupedEntries.values.flatMap { $0 }
             Task {
-                await eventsViewModel.cacheEventsExistence(for: events, scrapperType: scrapper.type)
+                await eventsViewModel.cacheEventsExistence(for: events, dataSourceType: dataSource.type)
                 isLoading = false
             }
         }
     }
     
     private func scrollToEvent(day: Int, proxy: ScrollViewProxy) {
-        guard let index = scrapper.groupedEntriesSortedKeys.map({ $0.get(.day)}).firstIndex(of: day) else {
+        guard let index = dataSource.groupedEntriesSortedKeys.map({ $0.get(.day)}).firstIndex(of: day) else {
             return
         }
         
@@ -85,11 +85,11 @@ struct CalendarEventsListView<Content:View>: View {
 }
 
 #Preview {
-    let scrapper = EventScrapper(type: .academic)
-    scrapper.scrape()
+    let dataSource = EventsDataSource(type: .academic)
+    dataSource.scrape()
     
     return ScrollViewReader { proxy in
-        CalendarEventsListView(scrapper: scrapper, proxy: proxy) { event in
+        CalendarEventsListView(dataSource: dataSource, proxy: proxy) { event in
             EventRowView(event: event)
                 .frame(width: 310)
         }

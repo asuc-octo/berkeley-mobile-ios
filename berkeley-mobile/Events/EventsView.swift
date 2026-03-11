@@ -10,17 +10,17 @@ import SwiftUI
 
 struct GenericEventsView: View {
     @EnvironmentObject var eventsViewModel: EventsViewModel
-    @StateObject private var genericEventScrapper: EventScrapper
+    @StateObject private var eventsDataSource: EventsDataSource
     @StateObject private var calendarViewModel = CalendarViewModel()
     
-    init(genericEventScrapper: EventScrapper) {
-        _genericEventScrapper = StateObject(wrappedValue: genericEventScrapper)
+    init(eventsDataSource: EventsDataSource) {
+        _eventsDataSource = StateObject(wrappedValue: eventsDataSource)
     }
     
     var body: some View {
         NavigationStack {
             ScrollViewReader { proxy in
-                CalendarEventsListView(scrapper: genericEventScrapper, proxy: proxy) { event in
+                CalendarEventsListView(dataSource: eventsDataSource, proxy: proxy) { event in
                     EventRowView(event: event)
                         .padding(.horizontal)
                         .background(
@@ -35,22 +35,22 @@ struct GenericEventsView: View {
             }
         }
         .onAppear {
-            genericEventScrapper.scrape()
+            eventsDataSource.scrape()
             eventsViewModel.logCampuswideTabAnalytics()
         }
-        .onChange(of: genericEventScrapper.alert) { alert in
+        .onChange(of: eventsDataSource.alert) { alert in
             withoutAnimation {
                 eventsViewModel.alert = alert
             }
         }
-        .onChange(of: genericEventScrapper.groupedEntries) { entries in
+        .onChange(of: eventsDataSource.groupedEntries) { entries in
             calendarViewModel.setEntries(entries)
         }
         .refreshable {
-            guard !genericEventScrapper.isLoading else {
+            guard !eventsDataSource.isLoading else {
                 return
             }
-            genericEventScrapper.scrape(forceRescrape: true)
+            eventsDataSource.scrape(forceRescrape: true)
         }
     }
 }
@@ -73,10 +73,10 @@ struct EventsView: View {
                     .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0))
     
                     TabView(selection: $tabSelectedIndex) {
-                        GenericEventsView(genericEventScrapper: EventScrapper(type: .academic))
+                        GenericEventsView(eventsDataSource: EventsDataSource(type: .academic))
                             .environmentObject(eventsViewModel)
                             .tag(0)
-                        GenericEventsView(genericEventScrapper: EventScrapper(type: .campuswide))
+                        GenericEventsView(eventsDataSource: EventsDataSource(type: .campuswide))
                             .environmentObject(eventsViewModel)
                             .tag(1)
                     }
