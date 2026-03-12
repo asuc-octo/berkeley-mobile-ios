@@ -41,11 +41,7 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
         static let kLayoutMarginsInset: CGFloat = 21
         static let mapBtnsTopMargin: CGFloat = 141
     }
-
-    @Injected(\.homeViewModel) private var homeViewModel
-    @InjectedObject(\.mapMarkersDropdownViewModel) private var mapMarkersDropdownViewModel
-    @InjectedObject(\.mapUserLocationButtonViewModel) private var mapUserLocationViewModel
-
+    
     // this allows the map to move the main drawer
     open var mainContainer: MainContainerViewController?
     var pinDelegate: SearchResultsViewDelegate?
@@ -76,6 +72,21 @@ class MapViewController: UIViewController, SearchDrawerViewDelegate {
     private var mapUserLocationButtonTapped = false
     private var mapMarkers: [[MapMarker]] = []
     private var markerDetail: MapMarkerDetailView!
+
+    private var homeViewModel: HomeViewModel
+    private var mapMarkersDropdownViewModel: MapMarkersDropdownViewModel
+    private var mapUserLocationViewModel: MapUserLocationButtonViewModel
+
+    init() {
+        homeViewModel = Container.shared.homeViewModel.resolve()
+        mapMarkersDropdownViewModel = Container.shared.mapMarkersDropdownViewModel.resolve()
+        mapUserLocationViewModel = Container.shared.mapUserLocationButtonViewModel.resolve()
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

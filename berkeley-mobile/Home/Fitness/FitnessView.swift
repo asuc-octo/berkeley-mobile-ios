@@ -13,8 +13,9 @@ import WidgetKit
 
 struct FitnessView: View {
     @InjectedObject(\.homeViewModel) private var homeViewModel
+    @InjectedObject(\.rsfOccupancyViewModel) private var rsfOccupancyViewModel
+    @InjectedObject(\.stadiumOccupancyViewModel) private var stadiumOccupancyViewModel
 
-    // TODO: DI Resolve Here
     var mapViewController: MapViewController
     
     var selectionHandler: ((BMGym) -> Void)?
@@ -35,9 +36,9 @@ struct FitnessView: View {
     private var gymOccupancyGauges: some View {
         HStack(spacing: 30){
             GymOccupancyView()
-                .environmentObject(homeViewModel.rsfOccupancyViewModel)
+                .environmentObject(rsfOccupancyViewModel)
             GymOccupancyView()
-                .environmentObject(homeViewModel.stadiumOccupancyViewModel)
+                .environmentObject(stadiumOccupancyViewModel)
         }
     }
 }

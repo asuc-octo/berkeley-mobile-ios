@@ -32,9 +32,6 @@ protocol HomeDrawerSectionRowItemType: HasLocation, SearchItem, HasImage, Identi
 }
 
 class HomeViewModel: ObservableObject {
-    @InjectedObject(\.rsfOccupancyViewModel) var rsfOccupancyViewModel
-    @InjectedObject(\.stadiumOccupancyViewModel) var stadiumOccupancyViewModel
-
     @Published var isFetching = false
     @Published var diningHalls: [BMDiningHall] = []
     @Published var libraries: [BMLibrary] = []
