@@ -51,12 +51,10 @@ struct DiningDetailView: View {
                         .padding(.top, 25)
                     Spacer()
                 } else {
-                    ScrollView {
-                        DiningItemsListView(selectedTabIndex: $selectedTabIndex,
-                                            categoriesAndMenuItems: categoriesAndMenuItems,
-                                            diningHall: diningHall,
-                                            filteredTabNames: filteredTabNames)
-                    }
+                    DiningItemsListView(selectedTabIndex: $selectedTabIndex,
+                                        categoriesAndMenuItems: categoriesAndMenuItems,
+                                        diningHall: diningHall,
+                                        filteredTabNames: filteredTabNames)
                 }
             }
         }
@@ -123,29 +121,41 @@ struct DiningItemsListView: View {
     }
 
     var body: some View {
-        VStack(spacing: 20) {
+        VStack(spacing: 0) {
             if let currentMealTime {
                 Text(currentMealTime)
                     .fontWeight(.semibold)
-                    .padding(.top, 10)
+                    .padding(.vertical, 10)
             }
-            ForEach(categoriesAndMenuItems, id: \.categoryName) { mealCategory in
-                HStack {
-                    Text(mealCategory.categoryName)
-                        .font(Font(BMFont.bold(20)))
-                    Spacer()
-                }
-                ForEach(mealCategory.menuItems, id: \.self) { menuItem in
-                    NavigationLink(value: menuItem) {
-                        DiningDetailRowView {
-                            Text(menuItem.name)
-                                .font(Font(BMFont.regular(15)))
-                            DiningMenuItemIconsView(menuItem: menuItem)
+            List {
+                ForEach(categoriesAndMenuItems, id: \.categoryName) { mealCategory in
+                    Section {
+                        ForEach(mealCategory.menuItems, id: \.itemId) { menuItem in
+                            NavigationLink(value: menuItem) {
+                                DiningDetailRowView {
+                                    Text(menuItem.name)
+                                        .font(Font(BMFont.regular(15)))
+                                    DiningMenuItemIconsView(menuItem: menuItem)
+                                }
+                            }
+                            .buttonStyle(.plain)
+                            .listRowBackground(Color.clear)
+                            .listRowSeparator(.hidden)
+                        }
+                    } header: {
+                        HStack {
+                            Text(mealCategory.categoryName)
+                                .font(Font(BMFont.bold(20)))
+                                .foregroundStyle(Color(BMColor.blackText))
+                                .textCase(nil)
+                            Spacer()
                         }
                     }
-                    .buttonStyle(.plain)
                 }
             }
+            .listStyle(.plain)
+            .scrollContentBackground(.hidden)
+            .contentMargins(.top, 0)
         }
     }
 }
