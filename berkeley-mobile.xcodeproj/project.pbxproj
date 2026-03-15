@@ -851,7 +851,7 @@
 				E8117D1A2F5FB8D10047CC89 /* TodayTileLayout.swift */,
 				E8117D1B2F5FB8D10047CC89 /* TodayTileView.swift */,
 				E8117D1C2F5FB8D10047CC89 /* TodayView.swift */,
-				E8117D352F5FBAEE0047CC89 /* TodayWeatherTileView.swift */,
+				E8B8879A2F67722E002B9632 /* Tiles */,
 			);
 			path = Today;
 			sourceTree = "<group>";
@@ -962,6 +962,14 @@
 				E88A61F92E6A253000D845DA /* SafetyViewFilterScrollView.swift */,
 			);
 			path = Safety;
+			sourceTree = "<group>";
+		};
+		E8B8879A2F67722E002B9632 /* Tiles */ = {
+			isa = PBXGroup;
+			children = (
+				E8117D352F5FBAEE0047CC89 /* TodayWeatherTileView.swift */,
+			);
+			path = Tiles;
 			sourceTree = "<group>";
 		};
 		E8BC7B632B96CB3B002BF46D /* Resources */ = {

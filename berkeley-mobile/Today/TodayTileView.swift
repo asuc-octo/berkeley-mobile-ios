@@ -2,24 +2,24 @@
 //  TodayTileView.swift
 //  berkeley-mobile
 //
-//  Created by Codex on 3/10/26.
-//
+//  Created by Justin Wong on 3/10/26.
+//  Copyright © 2026 ASUC OCTO. All rights reserved.
 
 import SwiftUI
 
 struct TodayTileView<Content: View>: View {
-    let tile: TodayTileAttributes
+    let tileAttributes: TodayTileAttributes
     private let content: Content
 
     init(attributes: TodayTileAttributes, @ViewBuilder content: () -> Content) {
-        self.tile = attributes
+        self.tileAttributes = attributes
         self.content = content()
     }
 
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 28, style: .continuous)
-                .fill(tile.style.gradient)
+                .fill(tileAttributes.displayedStyle.gradient)
                 .overlay(
                     RoundedRectangle(cornerRadius: 28, style: .continuous)
                         .strokeBorder(.white.opacity(0.15), lineWidth: 1)
@@ -33,31 +33,10 @@ struct TodayTileView<Content: View>: View {
     }
 }
 
-struct TodayMockTileContentView: View {
-    let tile: TodayTileAttributes
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            Spacer()
-
-            Text(tile.title)
-                .font(Font(BMFont.bold(24)))
-                .foregroundStyle(.white)
-
-            Text(tile.subtitle)
-                .font(Font(BMFont.regular(15)))
-                .foregroundStyle(.white.opacity(0.88))
-                .lineLimit(2)
-        }
+#Preview(traits: .sizeThatFitsLayout) {
+    TodayTileView(attributes: TodayTiles.weather.viewAttributes()) {
+        TodayTiles.weather.view()
     }
-}
-
-struct TodayTileView_Previews: PreviewProvider {
-    static var previews: some View {
-        TodayTileView(attributes: TodayTileAttributes.mockTiles[1]) {
-            TodayMockTileContentView(tile: TodayTileAttributes.mockTiles[1])
-        }
-            .frame(width: 160, height: 160)
-            .padding()
-    }
+    .frame(width: 160, height: 160)
+    .padding()
 }

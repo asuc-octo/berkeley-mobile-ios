@@ -2,16 +2,15 @@
 //  TodayView.swift
 //  berkeley-mobile
 //
-//  Created by Codex on 3/10/26.
-//
+//  Created by Justin Wong on 3/10/26.
+//  Copyright © 2026 ASUC OCTO. All rights reserved.
 
 import SwiftUI
 
 struct TodayView: View {
-    private let tiles: [TodayTileAttributes]
 
-    init(tiles: [TodayTileAttributes] = TodayTileAttributes.mockTiles) {
-        self.tiles = tiles
+    init() {
+        UINavigationBar.appearance().largeTitleTextAttributes = [.font : BMFont.bold(30)]
     }
 
     var body: some View {
@@ -35,17 +34,16 @@ struct TodayView: View {
             }
             .background(backgroundGradient.ignoresSafeArea())
             .navigationTitle("Today")
-            .navigationBarTitleDisplayMode(.large)
         }
     }
 
     private var headerView: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text("Your day at a glance")
-                .font(Font(BMFont.bold(28)))
+                .font(Font(BMFont.bold(22)))
                 .foregroundStyle(Color.primary)
 
-            Text("Mock widget tiles sized on a 4-column grid.")
+            Text("Tiles surface the key events and highlights of your day.")
                 .font(Font(BMFont.regular(16)))
                 .foregroundStyle(Color.primary.opacity(0.7))
         }
@@ -63,8 +61,6 @@ struct TodayView: View {
     }
 }
 
-struct TodayView_Previews: PreviewProvider {
-    static var previews: some View {
-        TodayView()
-    }
+#Preview {
+    TodayView()
 }

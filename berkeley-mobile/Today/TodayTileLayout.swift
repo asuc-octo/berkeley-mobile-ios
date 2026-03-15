@@ -2,8 +2,8 @@
 //  TodayTileLayout.swift
 //  berkeley-mobile
 //
-//  Created by Codex on 3/10/26.
-//
+//  Created by Justin Wong on 3/10/26.
+//  Copyright © 2026 ASUC OCTO. All rights reserved.
 
 import SwiftUI
 

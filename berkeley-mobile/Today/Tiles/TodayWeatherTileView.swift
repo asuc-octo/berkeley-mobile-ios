@@ -18,6 +18,7 @@ struct WeatherInfo {
 
 struct TodayWeatherTileView: View {
     let weatherInfo: WeatherInfo
+
     @State private var currTemperature: Int = 0
 
     var body: some View {
@@ -55,19 +56,9 @@ struct TodayWeatherTileView: View {
 }
 
 #Preview(traits: .sizeThatFitsLayout) {
-    let weatherTile = TodayTileAttributes(
-        title: "Weather",
-        subtitle: "Campus conditions",
-        span: .halfWidth,
-        style: TodayTileStyle(colors: [Color(red: 0.20, green: 0.52, blue: 0.87), Color(red: 0.50, green: 0.80, blue: 0.99)])
-    )
-    let weatherInfo = WeatherInfo(cityName: "Berkeley", currTemperature: "63", condition: "Sunny", highTemperature: "69", lowTemperature: "50")
-
-    TodayTileView(attributes: weatherTile) {
-        TodayWeatherTileView(weatherInfo: weatherInfo)
+    TodayTileView(attributes: TodayTiles.weather.viewAttributes()) {
+        TodayTiles.weather.view()
     }
-    .todayTileSpan(weatherTile.span)
     .frame(width: 170, height: 170)
     .padding()
-
 }
