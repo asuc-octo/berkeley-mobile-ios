@@ -6,20 +6,18 @@
 //  Copyright © 2025 ASUC OCTO. All rights reserved.
 //
 
+import FactoryKit
 import SwiftUI
 
 struct DebugView: View {
+    @InjectedObservable(\.debugViewModel) private var debugViewModel
+
     @Environment(\.dismiss) private var dismiss
-    
-    private let debugViewModel: DebugViewModel
-    
-    init(debugViewModel: DebugViewModel) {
-        self.debugViewModel = debugViewModel
-    }
     
     var body: some View {
         NavigationStack {
             List {
+                appInfoSection
                 presentFeedbackFormSection
             }
             .navigationTitle("Debug")
@@ -33,6 +31,13 @@ struct DebugView: View {
                     }
                 }
             }
+        }
+    }
+    
+    private var appInfoSection: some View {
+        Section("App Information") {
+            LabeledContent("Version", value: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "N/A")
+            LabeledContent("Build", value: Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "N/A")
         }
     }
     
@@ -63,7 +68,5 @@ struct DebugView: View {
 }
 
 #Preview {
-    let feedbackFormPresenter = FeedbackFormPresenter()
-    let debugViewModel = DebugViewModel(feedbackFormPresenter: feedbackFormPresenter)
-    DebugView(debugViewModel: debugViewModel)
+    DebugView()
 }

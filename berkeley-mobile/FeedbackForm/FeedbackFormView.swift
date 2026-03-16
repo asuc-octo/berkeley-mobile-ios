@@ -6,25 +6,26 @@
 //  Copyright © 2023 ASUC OCTO. All rights reserved.
 //
 
+import FactoryKit
 import Firebase
 import SwiftUI
 
 struct FeedbackFormView: View {
+    @InjectedObservable(\.feedbackFormViewModel) private var viewModel
+
     @Environment(\.dismiss) private var dismiss
     
     @State private var checkboxAnswers: [String: Bool] = [:]
     @State private var textAnswers: [String: String] = [:]
     @State private var email = ""
-    
-    private var viewModel: FeedbackFormViewModel
+
     private var config: FeedbackFormConfig
     
     private var isEmailValid: Bool {
         return !email.isEmpty && email.contains("@berkeley.edu")
     }
     
-    init(viewModel: FeedbackFormViewModel, config: FeedbackFormConfig) {
-        self.viewModel = viewModel
+    init(config: FeedbackFormConfig) {
         self.config = config
     }
     
@@ -142,7 +143,6 @@ struct FeedbackFormView: View {
 }
 
 #Preview {
-    let viewModel = FeedbackFormViewModel()
     let formConfig = FeedbackFormConfig(
         instructionText: "Please share your thoughts about the Berkeley Mobile app!",
         sectionsAndQuestions: [
@@ -157,5 +157,5 @@ struct FeedbackFormView: View {
         ],
         numToShow: 20
     )
-    FeedbackFormView(viewModel: viewModel, config: formConfig)
+    FeedbackFormView(config: formConfig)
 }

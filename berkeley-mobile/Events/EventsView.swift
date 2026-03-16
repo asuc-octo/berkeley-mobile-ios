@@ -6,12 +6,14 @@
 //  Copyright © 2025 ASUC OCTO. All rights reserved.
 //
 
+import FactoryKit
 import SwiftUI
 
 struct GenericEventsView: View {
-    @EnvironmentObject var eventsViewModel: EventsViewModel
-    @StateObject private var eventsDataSource: EventsDataSource
-    @StateObject private var calendarViewModel = CalendarViewModel()
+    @InjectedObject(\.calendarViewModel) private var calendarViewModel
+    @InjectedObject(\.eventsViewModel) private var eventsViewModel
+
+    @StateObject private var genericEventScrapper: EventScrapper
     
     init(eventsDataSource: EventsDataSource) {
         _eventsDataSource = StateObject(wrappedValue: eventsDataSource)
@@ -26,24 +28,22 @@ struct GenericEventsView: View {
                         .background(
                             NavigationLink("") {
                                 EventDetailView(event: event)
-                                    .environmentObject(eventsViewModel)
                             }
                             .opacity(0)
                         )
                 }
-                .environmentObject(calendarViewModel)
             }
         }
         .onAppear {
             eventsDataSource.scrape()
             eventsViewModel.logCampuswideTabAnalytics()
         }
-        .onChange(of: eventsDataSource.alert) { alert in
+        .onChange(of: genericEventScrapper.alert) { _, alert in
             withoutAnimation {
                 eventsViewModel.alert = alert
             }
         }
-        .onChange(of: eventsDataSource.groupedEntries) { entries in
+        .onChange(of: genericEventScrapper.groupedEntries) { _, entries in
             calendarViewModel.setEntries(entries)
         }
         .refreshable {
@@ -56,7 +56,7 @@ struct GenericEventsView: View {
 }
 
 struct EventsView: View {
-    @StateObject private var eventsViewModel = EventsViewModel()
+    @InjectedObject(\.eventsViewModel) private var eventsViewModel
     
     @State private var tabSelectedIndex = 0
     
@@ -73,11 +73,9 @@ struct EventsView: View {
                     .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0))
     
                     TabView(selection: $tabSelectedIndex) {
-                        GenericEventsView(eventsDataSource: EventsDataSource(type: .academic))
-                            .environmentObject(eventsViewModel)
+                        GenericEventsView(genericEventScrapper: EventScrapper(type: .academic))
                             .tag(0)
-                        GenericEventsView(eventsDataSource: EventsDataSource(type: .campuswide))
-                            .environmentObject(eventsViewModel)
+                        GenericEventsView(genericEventScrapper: EventScrapper(type: .campuswide))
                             .tag(1)
                     }
                     .tabViewStyle(.page(indexDisplayMode: .never))

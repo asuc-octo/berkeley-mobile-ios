@@ -6,13 +6,16 @@
 //  Copyright © 2025 ASUC OCTO. All rights reserved.
 //
 
+import FactoryKit
 import FirebaseAnalytics
 import SwiftUI
 import WidgetKit
 
 struct FitnessView: View {
-    @EnvironmentObject var homeViewModel: HomeViewModel
-    
+    @InjectedObject(\.homeViewModel) private var homeViewModel
+    @InjectedObject(\.rsfOccupancyViewModel) private var rsfOccupancyViewModel
+    @InjectedObject(\.stadiumOccupancyViewModel) private var stadiumOccupancyViewModel
+
     var mapViewController: MapViewController
     
     var selectionHandler: ((BMGym) -> Void)?
@@ -33,16 +36,15 @@ struct FitnessView: View {
     private var gymOccupancyGauges: some View {
         HStack(spacing: 30){
             GymOccupancyView()
-                .environmentObject(homeViewModel.rsfOccupancyViewModel)
+                .environmentObject(rsfOccupancyViewModel)
             GymOccupancyView()
-                .environmentObject(homeViewModel.stadiumOccupancyViewModel)
+                .environmentObject(stadiumOccupancyViewModel)
         }
     }
 }
 
 #Preview {
     FitnessView(mapViewController: MapViewController())
-        .environmentObject(HomeViewModel())
         .padding()
         .background(.blue.opacity(0.1))
 }

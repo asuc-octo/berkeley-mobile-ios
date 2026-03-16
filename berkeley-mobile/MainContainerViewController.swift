@@ -6,10 +6,13 @@
 //  Copyright © 2019 RJ Pimentel. All rights reserved.
 //
 
+import FactoryKit
 import UIKit
 import SwiftUI
 
 class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
+
+    @Injected(\.homeViewModel) private var homeViewModel
 
     // MainDrawerViewDelegate properties
     var drawerStack: [DrawerViewDelegate] = []
@@ -22,7 +25,6 @@ class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
     var initialGestureTranslation: CGPoint = CGPoint()
     var drawerStatePositions: [DrawerState: CGFloat] = [:]
     
-    private let homeViewModel = HomeViewModel()
     private var homeViewController: UIViewController!
     private var homeView: UIView!
     
@@ -30,8 +32,7 @@ class MainContainerViewController: UIViewController, MainDrawerViewDelegate {
         super.viewDidLoad()
         
         let mapVC = MapViewController()
-        mapVC.homeViewModel = homeViewModel
-        homeViewController = UIHostingController(rootView: HomeView(mapViewController: mapVC).environmentObject(homeViewModel))
+        homeViewController = UIHostingController(rootView: HomeView(mapViewController: mapVC))
         homeView = homeViewController.view!
         homeView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(homeView)
