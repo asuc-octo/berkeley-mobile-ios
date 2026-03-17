@@ -5,10 +5,11 @@
 //  Copyright © 2025 ASUC OCTO. All rights reserved.
 //
 
+import FactoryKit
 import SwiftUI
 
 struct ResourcesSearchResultsView: View {
-    @ObservedObject var viewModel: ResourcesViewModel
+    @InjectedObject(\.resourcesViewModel) private var viewModel
     @State private var isPresentingWebView = false
     @State private var presentedURL: URL?
 

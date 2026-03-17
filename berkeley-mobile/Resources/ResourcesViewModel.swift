@@ -63,7 +63,6 @@ class ResourcesViewModel: ObservableObject {
     @Published var searchResults = [BMResourceSearchResult]()
     @Published var recentVisitedResources = [BMResourceSearchResult]()
     
-    private static let recentVisitedKey = "ResourcesRecentVisited"
     private static let maxRecentVisited = 3
     
     var resourceCategoryNames: [String] {
@@ -129,12 +128,12 @@ class ResourcesViewModel: ObservableObject {
     private static func persistRecentVisited(_ resources: [BMResourceSearchResult]) {
         let codable = resources.map { CodableResourceSearchResult(from: $0) }
         if let data = try? JSONEncoder().encode(codable) {
-            UserDefaults.standard.set(data, forKey: recentVisitedKey)
+            UserDefaults.standard.set(data, forKey: .recentVisitedResources)
         }
     }
     
     private static func loadRecentVisitedResources() -> [BMResourceSearchResult] {
-        guard let data = UserDefaults.standard.data(forKey: recentVisitedKey),
+        guard let data = UserDefaults.standard.data(forKey: .recentVisitedResources),
               let codable = try? JSONDecoder().decode([CodableResourceSearchResult].self, from: data) else {
             return []
         }

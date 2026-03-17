@@ -15,6 +15,7 @@ enum UserDefaultsKeys: String {
     case campuswideEventsLastSavedDate = "campuswideEventsLastSavedDate"
     case recentSearches = "recentSearches"
     case homeDrawerPinnedItemIDs = "homeDrawerPinnedItemIDs"
+    case recentVisitedResources = "ResourcesRecentVisited"
 }
 
 extension UserDefaults {

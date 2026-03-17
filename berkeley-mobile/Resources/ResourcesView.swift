@@ -46,7 +46,7 @@ struct ResourcesView: View {
                         
                         if resourcesViewModel.isSearching {
                             // Search results replace the category content
-                            ResourcesSearchResultsView(viewModel: resourcesViewModel)
+                            ResourcesSearchResultsView()
                         } else {
                             // Segmented control + category pages
                             BMSegmentedControlView(

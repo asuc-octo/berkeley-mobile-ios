@@ -130,7 +130,7 @@ struct ResourceItemView: View {
     private var expandedContent: some View {
         VStack(alignment: .leading, spacing: 8) {
             Button(action: {
-                isPresentingWebView.toggle()
+                isPresentingWebView = true
                 onVisitWebsite?()
             }) {
                 HStack {
