@@ -120,6 +120,11 @@
 		E80ECC312AFB02BA004604BA /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80ECC302AFB02BA004604BA /* Secrets.swift */; };
 		E8117D012F5D39DC0047CC89 /* FactoryKit in Frameworks */ = {isa = PBXBuildFile; productRef = E8117D002F5D39DC0047CC89 /* FactoryKit */; };
 		E8117D032F5D3A310047CC89 /* BerkeleyMobile+Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8117D022F5D3A310047CC89 /* BerkeleyMobile+Injection.swift */; };
+		E8117D152F5FB8D10047CC89 /* TodayTileAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8117D192F5FB8D10047CC89 /* TodayTileAttributes.swift */; };
+		E8117D162F5FB8D10047CC89 /* TodayTileLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8117D1A2F5FB8D10047CC89 /* TodayTileLayout.swift */; };
+		E8117D172F5FB8D10047CC89 /* TodayTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8117D1B2F5FB8D10047CC89 /* TodayTileView.swift */; };
+		E8117D182F5FB8D10047CC89 /* TodayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8117D1C2F5FB8D10047CC89 /* TodayView.swift */; };
+		E8117D362F5FBAEE0047CC89 /* TodayWeatherTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8117D352F5FBAEE0047CC89 /* TodayWeatherTileView.swift */; };
 		E81767582B9A516200599254 /* MapMarkersDropdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81767572B9A516200599254 /* MapMarkersDropdownView.swift */; };
 		E82E2A532ECD833F00785593 /* FeedbackFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82E2A512ECD833F00785593 /* FeedbackFormView.swift */; };
 		E82E2A552ECD835200785593 /* FeedbackFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82E2A542ECD835200785593 /* FeedbackFormViewModel.swift */; };
@@ -350,6 +355,11 @@
 		E80330EE2CE9A8EB00DC9574 /* berkeley-mobile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "berkeley-mobile.entitlements"; sourceTree = "<group>"; };
 		E80ECC302AFB02BA004604BA /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		E8117D022F5D3A310047CC89 /* BerkeleyMobile+Injection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BerkeleyMobile+Injection.swift"; sourceTree = "<group>"; };
+		E8117D192F5FB8D10047CC89 /* TodayTileAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayTileAttributes.swift; sourceTree = "<group>"; };
+		E8117D1A2F5FB8D10047CC89 /* TodayTileLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayTileLayout.swift; sourceTree = "<group>"; };
+		E8117D1B2F5FB8D10047CC89 /* TodayTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayTileView.swift; sourceTree = "<group>"; };
+		E8117D1C2F5FB8D10047CC89 /* TodayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayView.swift; sourceTree = "<group>"; };
+		E8117D352F5FBAEE0047CC89 /* TodayWeatherTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayWeatherTileView.swift; sourceTree = "<group>"; };
 		E81767572B9A516200599254 /* MapMarkersDropdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMarkersDropdownView.swift; sourceTree = "<group>"; };
 		E82E2A512ECD833F00785593 /* FeedbackFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackFormView.swift; sourceTree = "<group>"; };
 		E82E2A542ECD835200785593 /* FeedbackFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackFormViewModel.swift; sourceTree = "<group>"; };
@@ -781,6 +791,7 @@
 				556CCD2C23E79EC100F41BF9 /* TabBarController.swift */,
 				E82E2A522ECD833F00785593 /* FeedbackForm */,
 				13EA64CE2399D4A100FD8E13 /* Data */,
+				E8117D142F5FB6EA0047CC89 /* Today */,
 				E89F204B2DF4011E00C488EF /* Home */,
 				133864A72404E857001F9048 /* Events */,
 				E8B273292BCF6A390009831A /* Safety */,
@@ -831,6 +842,18 @@
 				61D128E68A4FC209FFCDE60F /* Pods-berkeley-mobile.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		E8117D142F5FB6EA0047CC89 /* Today */ = {
+			isa = PBXGroup;
+			children = (
+				E8117D192F5FB8D10047CC89 /* TodayTileAttributes.swift */,
+				E8117D1A2F5FB8D10047CC89 /* TodayTileLayout.swift */,
+				E8117D1B2F5FB8D10047CC89 /* TodayTileView.swift */,
+				E8117D1C2F5FB8D10047CC89 /* TodayView.swift */,
+				E8B8879A2F67722E002B9632 /* Tiles */,
+			);
+			path = Today;
 			sourceTree = "<group>";
 		};
 		E82E2A522ECD833F00785593 /* FeedbackForm */ = {
@@ -939,6 +962,14 @@
 				E88A61F92E6A253000D845DA /* SafetyViewFilterScrollView.swift */,
 			);
 			path = Safety;
+			sourceTree = "<group>";
+		};
+		E8B8879A2F67722E002B9632 /* Tiles */ = {
+			isa = PBXGroup;
+			children = (
+				E8117D352F5FBAEE0047CC89 /* TodayWeatherTileView.swift */,
+			);
+			path = Tiles;
 			sourceTree = "<group>";
 		};
 		E8BC7B632B96CB3B002BF46D /* Resources */ = {
@@ -1267,6 +1298,10 @@
 				01FA50F124E8B33100DCC490 /* BMLocationManager.swift in Sources */,
 				017C0B26251018BA00BFA80A /* Colors+MapMarker.swift in Sources */,
 				E83927EF2EF1296300CF2DF5 /* FeedbackFormPresenter.swift in Sources */,
+				E8117D152F5FB8D10047CC89 /* TodayTileAttributes.swift in Sources */,
+				E8117D162F5FB8D10047CC89 /* TodayTileLayout.swift in Sources */,
+				E8117D172F5FB8D10047CC89 /* TodayTileView.swift in Sources */,
+				E8117D182F5FB8D10047CC89 /* TodayView.swift in Sources */,
 				E83B6DA92D7A860E00AA9422 /* GymOccupancyViewModel.swift in Sources */,
 				E88562C42EA2E2AB0062315A /* OpenClosedStatusView.swift in Sources */,
 				29345E2724A7E76300859A88 /* OverviewCardView.swift in Sources */,
@@ -1298,6 +1333,7 @@
 				1396013523865E2E005E4788 /* CardView.swift in Sources */,
 				1336A322241D92F700949F32 /* MealType.swift in Sources */,
 				018B982625327358004C3B26 /* ActionButton.swift in Sources */,
+				E8117D362F5FBAEE0047CC89 /* TodayWeatherTileView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
