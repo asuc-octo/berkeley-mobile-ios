@@ -6,6 +6,7 @@
 //  Copyright © 2025 ASUC OCTO. All rights reserved.
 //
 
+import FactoryKit
 import SwiftUI
 
 // MARK: - Global Functions
@@ -100,7 +101,7 @@ struct Shadowfy: ViewModifier {
 // MARK: - Other View Componments
 
 struct EventsContextMenuModifier: ViewModifier {
-    @EnvironmentObject var eventsViewModel: EventsViewModel
+    @InjectedObject(\.eventsViewModel) private var eventsViewModel
     
     let event: BMEventCalendarEntry
     

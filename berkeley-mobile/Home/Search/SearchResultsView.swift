@@ -6,11 +6,13 @@
 //  Copyright © 2025 ASUC OCTO. All rights reserved.
 //
 
+import FactoryKit
 import MapKit
 import SwiftUI
 
 struct SearchResultsView: View {
-    @EnvironmentObject var viewModel: SearchViewModel
+    @InjectedObject(\.searchViewModel) private var viewModel
+
     // top padding: 128 = SearchBarTopMargin (74) + SearchBarHeight (54)
     private let listPadding = EdgeInsets(top: 128, leading: 21, bottom: 96, trailing: 21)
     
@@ -111,6 +113,5 @@ struct SearchResultsView: View {
 
 #Preview {
     SearchResultsView()
-        .environmentObject(SearchViewModel(chooseMapMarker: { _ in }) { _ in })
 }
 

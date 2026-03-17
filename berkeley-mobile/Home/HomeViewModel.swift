@@ -6,6 +6,7 @@
 //  Copyright © 2025 ASUC OCTO. All rights reserved.
 //
 
+import FactoryKit
 import FirebaseAnalytics
 import SwiftUI
 
@@ -39,10 +40,7 @@ class HomeViewModel: ObservableObject {
     @Published var isShowingDrawer = true
     @Published var homeDrawerDetailViewInfo: (type: HomeDrawerViewType, item: SearchItem)? = nil
     @Published var drawerViewState = BMDrawerViewState.medium
-    
-    let rsfOccupancyViewModel = GymOccupancyViewModel(location: .rsf)
-    let stadiumOccupancyViewModel = GymOccupancyViewModel(location: .stadium)
-    
+
     init() {
         fetchHomeSectionsData()
     }

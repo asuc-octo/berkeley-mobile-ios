@@ -6,10 +6,11 @@
 //  Copyright © 2025 ASUC OCTO. All rights reserved.
 //
 
+import FactoryKit
 import SwiftUI
 
 struct CalendarSectionView: View {
-    @EnvironmentObject var calendarViewModel: CalendarViewModel
+    @InjectedObject(\.eventsViewModel) private var eventsViewModel
     
     var scrollProxy: ScrollViewProxy
     var tapCompletion: ((Int) -> Void)?
@@ -20,7 +21,6 @@ struct CalendarSectionView: View {
             CalendarView() { day in
                 tapCompletion?(day)
             }
-            .environmentObject(calendarViewModel)
             calendarDivider
         }
         .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0))
@@ -43,9 +43,10 @@ struct CalendarSectionView: View {
         tomorrow: [tomorrowSampleEntry]
     ]
     calendarViewModel.setEntries(entries)
-    
+
+    Container.shared.calendarViewModel.preview { calendarViewModel }
+
     return ScrollViewReader { proxy in
         CalendarSectionView(scrollProxy: proxy)
-            .environmentObject(calendarViewModel)
     }
 }
