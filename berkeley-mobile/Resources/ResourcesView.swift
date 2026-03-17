@@ -24,28 +24,57 @@ struct ResourcesView: View {
             ZStack {
                 BMTopBlobView(imageName: "BlobRight", xOffset: 30, width: 150, height: 150)
         
-                VStack {
+                VStack(spacing: 0) {
                     if resourcesViewModel.isLoading {
                         Spacer()
                         ProgressView()
                             .controlSize(.large)
+                        Spacer()
                     } else if resourcesViewModel.resourceCategories.isEmpty {
                         noResourcesAvailableView
                     } else {
-                        BMSegmentedControlView(
-                            tabNames: resourcesViewModel.resourceCategoryNames,
-                            selectedTabIndex: $tabSelectedValue
+                        // Search bar
+                        ResourcesSearchBarView(
+                            searchText: $resourcesViewModel.searchText,
+                            isSearching: $resourcesViewModel.isSearching
                         )
-                        .padding()
-                        
-                        TabView(selection: $tabSelectedValue) {
-                            ForEach(Array(resourcesViewModel.resourceCategories.enumerated()), id: \.offset) { idx, category in
-                                ResourcePageView(resourceSections: category.sections).tag(idx)
-                            }
+                        .padding(.horizontal, 20)
+                        .padding(.bottom, 14)
+                        .onChange(of: resourcesViewModel.searchText) {
+                            resourcesViewModel.performSearch(resourcesViewModel.searchText)
                         }
-                        .tabViewStyle(.page(indexDisplayMode: .never))
+                        
+                        if resourcesViewModel.isSearching {
+                            // Search results replace the category content
+                            ResourcesSearchResultsView(viewModel: resourcesViewModel)
+                        } else {
+                            // Segmented control + category pages
+                            BMSegmentedControlView(
+                                tabNames: resourcesViewModel.resourceCategoryNames,
+                                selectedTabIndex: $tabSelectedValue
+                            )
+                            .padding(.horizontal)
+                            .padding(.bottom, 4)
+                            
+                            TabView(selection: $tabSelectedValue) {
+                                ForEach(Array(resourcesViewModel.resourceCategories.enumerated()), id: \.offset) { idx, category in
+                                    ResourcePageView(
+                                        resourceSections: category.sections,
+                                        categoryName: category.name,
+                                        onVisitWebsite: { resource, sectionTitle in
+                                            let result = BMResourceSearchResult(
+                                                resource: resource,
+                                                sectionTitle: sectionTitle,
+                                                categoryName: category.name
+                                            )
+                                            resourcesViewModel.saveRecentVisitedResource(result)
+                                        }
+                                    ).tag(idx)
+                                }
+                            }
+                            .tabViewStyle(.page(indexDisplayMode: .never))
+                        }
                     }
-                    Spacer()
                 }
                 .navigationTitle("Resources")
             }
@@ -70,6 +99,8 @@ struct ResourcesView: View {
 
 struct ResourcePageView: View {
     var resourceSections: [BMResourceSection]
+    var categoryName: String
+    var onVisitWebsite: ((_ resource: BMResource, _ sectionTitle: String?) -> Void)?
 
     var body: some View {
         Group {
@@ -86,7 +117,9 @@ struct ResourcePageView: View {
                                     ResourcesSectionDropdown(title: sectionHeaderText, accentColor: .orange) {
                                         VStack(spacing: 0) {
                                             ForEach(resourceSection.resources, id: \.id) { resource in
-                                                ResourceItemView(resource: resource)
+                                                ResourceItemView(resource: resource, onVisitWebsite: {
+                                                    onVisitWebsite?(resource, resourceSection.title)
+                                                })
                                             }
                                         }
                                     }

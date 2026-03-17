@@ -66,6 +66,7 @@ struct ResourcesSectionDropdown<Content: View>: View {
 struct ResourceItemView: View {
     var resource: BMResource
     var accentColor: Color?
+    var onVisitWebsite: (() -> Void)?
 
     private static let colorPalette: [Color] = [
         .blue,
@@ -130,6 +131,7 @@ struct ResourceItemView: View {
         VStack(alignment: .leading, spacing: 8) {
             Button(action: {
                 isPresentingWebView.toggle()
+                onVisitWebsite?()
             }) {
                 HStack {
                     Image(systemName: "globe")

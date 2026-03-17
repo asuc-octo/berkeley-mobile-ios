@@ -201,6 +201,8 @@
 		E8FCD6842C374A81004B66A3 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = E8FCD6832C374A81004B66A3 /* SwiftSoup */; };
 		E8FCD6882C38AEC9004B66A3 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8FCD6872C38AEC9004B66A3 /* String+Extension.swift */; };
 		E8FCD68A2C3A382F004B66A3 /* EventScrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8FCD6892C3A382F004B66A3 /* EventScrapper.swift */; };
+		FAD8012D2F6876A800EDB3FE /* ResourcesSearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD8012C2F6876A800EDB3FE /* ResourcesSearchBarView.swift */; };
+		FAD8012F2F6876C900EDB3FE /* ResourcesSearchResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD8012E2F6876C900EDB3FE /* ResourcesSearchResultsView.swift */; };
 		FAFF001C2E84C62100551C44 /* ReviewPrompter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFF001B2E84C61B00551C44 /* ReviewPrompter.swift */; };
 		FDD7946C260FE09D00ABE60E /* Colors+AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD7946B260FE09D00ABE60E /* Colors+AlertView.swift */; };
 /* End PBXBuildFile section */
@@ -417,6 +419,8 @@
 		E8EBE7612CEC2FD700A220BB /* SafetyLogDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyLogDetailView.swift; sourceTree = "<group>"; };
 		E8FCD6872C38AEC9004B66A3 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		E8FCD6892C3A382F004B66A3 /* EventScrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventScrapper.swift; sourceTree = "<group>"; };
+		FAD8012C2F6876A800EDB3FE /* ResourcesSearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcesSearchBarView.swift; sourceTree = "<group>"; };
+		FAD8012E2F6876C900EDB3FE /* ResourcesSearchResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcesSearchResultsView.swift; sourceTree = "<group>"; };
 		FAFF001B2E84C61B00551C44 /* ReviewPrompter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPrompter.swift; sourceTree = "<group>"; };
 		FDD7946B260FE09D00ABE60E /* Colors+AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+AlertView.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -948,6 +952,8 @@
 				E83C6CEA2B71D8C20085E277 /* ResourcesView.swift */,
 				E83C6CEC2B71DF190085E277 /* SafariWebView.swift */,
 				E8BC7B642B96CB7F002BF46D /* ResourcesViewModel.swift */,
+				FAD8012C2F6876A800EDB3FE /* ResourcesSearchBarView.swift */,
+				FAD8012E2F6876C900EDB3FE /* ResourcesSearchResultsView.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1196,6 +1202,7 @@
 				E8912BE52D7FE40500C645B9 /* SafetyMapView.swift in Sources */,
 				29345E2D24A7FFB600859A88 /* CanFavorite.swift in Sources */,
 				E8647FAD2E971ABA00A66820 /* Logger+Ext.swift in Sources */,
+				FAD8012F2F6876C900EDB3FE /* ResourcesSearchResultsView.swift in Sources */,
 				1DB88F6D2D94DF78007713F7 /* OpenTimesCardSwiftUIView.swift in Sources */,
 				1396013623865E2E005E4788 /* TagView.swift in Sources */,
 				E8B273912BD5E5770009831A /* SafetyViewModel.swift in Sources */,
@@ -1215,6 +1222,7 @@
 				E88562C82EA37FBA0062315A /* OpenClosedStatusManager.swift in Sources */,
 				2913595924B13DF200DE9AD6 /* OpenTimesCardView.swift in Sources */,
 				13135BB3241244370056B169 /* FilterViewCell.swift in Sources */,
+				FAD8012D2F6876A800EDB3FE /* ResourcesSearchBarView.swift in Sources */,
 				13580AF62437D7E700D309AA /* LibraryDetailViewController.swift in Sources */,
 				135D7F77243A9BD1003F8BD1 /* Colors+GymClass.swift in Sources */,
 				297678892426D2C500FDD1EB /* SearchDrawerViewController.swift in Sources */,
