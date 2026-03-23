@@ -6,6 +6,7 @@
 //  Copyright © 2025 ASUC OCTO. All rights reserved.
 //
 
+import FactoryKit
 import SwiftUI
 
 typealias BMDateHasEntryPair = (date: Date, hasEntry: Bool)
@@ -59,8 +60,8 @@ class CalendarViewModel: ObservableObject {
 // MARK: - CalendarView
 
 struct CalendarView: View {
-    @EnvironmentObject var viewModel: CalendarViewModel
-    
+    @InjectedObject(\.calendarViewModel) private var viewModel
+
     var didSelectDay: ((Int) -> Void)?
     
     private let columns = Array(repeating: GridItem(.flexible(minimum: 30)), count: 7)
@@ -159,7 +160,8 @@ struct CalendarEntryButton: View {
         BMEventCalendarEntry(name: "", date: tomorrow, end: tomorrow, descriptionText: "", location: "", imageURL: "", sourceLink: "")
     ]]
     viewModel.setEntries(eventCalendarEntries)
-    
+
+    Container.shared.calendarViewModel.preview { viewModel }
+
     return CalendarView()
-        .environmentObject(viewModel)
 }

@@ -6,11 +6,12 @@
 //  Copyright © 2025 ASUC OCTO. All rights reserved.
 //
 
+import FactoryKit
 import SwiftUI
 
 struct GuidesView: View {
-    @Environment(GuidesViewModel.self) private var viewModel
-    
+    @InjectedObservable(\.guidesViewModel) private var viewModel
+
     var body: some View {
         VStack {
             if viewModel.isLoading {
@@ -26,7 +27,6 @@ struct GuidesView: View {
                     NavigationLink {
                         GuideDetailView(guide: guide)
                             .containerBackground(.clear, for: .navigation)
-                            .environment(viewModel)
                     } label: {
                         GuideRowView(guide: guide)
                     }

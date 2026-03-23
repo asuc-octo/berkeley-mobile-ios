@@ -6,12 +6,13 @@
 //  Copyright © 2025 ASUC OCTO. All rights reserved.
 //
 
+import FactoryKit
 import MapKit
 import SwiftUI
 
 @available(iOS 17.0, *)
 struct SafetyMapMarker: MapContent {
-    @EnvironmentObject var safetyViewModel: SafetyViewModel
+    @InjectedObject(\.safetyViewModel) private var safetyViewModel
     
     var safetyLog: BMSafetyLog
     
@@ -29,6 +30,5 @@ struct SafetyMapMarker: MapContent {
         Map {
             SafetyMapMarker(safetyLog: SafetyViewModel.getSampleSafetyLog())
         }
-        .environmentObject(SafetyViewModel())
     }
 }

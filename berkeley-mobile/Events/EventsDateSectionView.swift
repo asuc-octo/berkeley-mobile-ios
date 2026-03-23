@@ -6,11 +6,12 @@
 //  Copyright © 2025 ASUC OCTO. All rights reserved.
 //
 
+import FactoryKit
 import SwiftUI
 
 struct EventsDateSectionView<Content: View>: View {
-    @EnvironmentObject var eventsViewModel: EventsViewModel
-    
+    @InjectedObject(\.eventsViewModel) private var eventsViewModel
+
     var date: Date
     var events: [BMEventCalendarEntry]
     @ViewBuilder var content: (BMEventCalendarEntry) -> Content
@@ -38,7 +39,6 @@ struct EventsDateSectionView<Content: View>: View {
 }
 
 #Preview {
-    let eventsViewModel = EventsViewModel()
     Group {
         EventsDateSectionView(date: Date(), events: [BMEventCalendarEntry.sampleEntry]) { event in
             EventRowView(event: event)
@@ -56,5 +56,4 @@ struct EventsDateSectionView<Content: View>: View {
                 .frame(width: 310)
         }
     }
-    .environmentObject(eventsViewModel)
 }

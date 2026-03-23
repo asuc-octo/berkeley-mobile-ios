@@ -6,8 +6,8 @@
 //  Copyright © 2024 ASUC OCTO. All rights reserved.
 //
 
+import FactoryKit
 import SwiftUI
-
 
 class MapMarkersDropdownViewModel: ObservableObject {
     @Published var selectedFilterIndex = 0
@@ -23,7 +23,8 @@ class MapMarkersDropdownViewModel: ObservableObject {
 }
 
 struct MapMarkersDropdownButton: View {
-    @EnvironmentObject var viewModel: MapMarkersDropdownViewModel
+    @InjectedObject(\.mapMarkersDropdownViewModel) private var viewModel
+
     @State private var isPresentingMapMarkersDropdownView = false
 
     var selectedMapMakerTypeCompletionHandler: () -> Void
@@ -48,7 +49,8 @@ struct MapMarkersDropdownButton: View {
 // MARK: - MapMarkersDropdownView
 
 struct MapMarkersDropdownView: View {
-    @EnvironmentObject var viewModel: MapMarkersDropdownViewModel
+    @InjectedObject(\.mapMarkersDropdownViewModel) private var viewModel
+
     @Environment(\.dismiss) private var dismiss
   
     var selectedMapMakerTypeCompletionHandler: () -> Void
@@ -138,10 +140,8 @@ struct BMBackgroundBlurView: UIViewRepresentable {
 
 #Preview("MapMarkersDropdownView") {
     MapMarkersDropdownView(selectedMapMakerTypeCompletionHandler: { })
-        .environmentObject(MapMarkersDropdownViewModel())
 }
 
 #Preview("MapMarkersDropdownButton") {
     MapMarkersDropdownButton(selectedMapMakerTypeCompletionHandler: { })
-        .environmentObject(MapMarkersDropdownViewModel())
 }

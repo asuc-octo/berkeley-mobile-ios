@@ -118,6 +118,13 @@
 		E80330EB2CE431C200DC9574 /* DepthButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80330EA2CE431C200DC9574 /* DepthButtonStyle.swift */; };
 		E80330ED2CE7EBB100DC9574 /* NSCoding+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80330EC2CE7EBB100DC9574 /* NSCoding+Extension.swift */; };
 		E80ECC312AFB02BA004604BA /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80ECC302AFB02BA004604BA /* Secrets.swift */; };
+		E8117D012F5D39DC0047CC89 /* FactoryKit in Frameworks */ = {isa = PBXBuildFile; productRef = E8117D002F5D39DC0047CC89 /* FactoryKit */; };
+		E8117D032F5D3A310047CC89 /* BerkeleyMobile+Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8117D022F5D3A310047CC89 /* BerkeleyMobile+Injection.swift */; };
+		E8117D152F5FB8D10047CC89 /* TodayTileAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8117D192F5FB8D10047CC89 /* TodayTileAttributes.swift */; };
+		E8117D162F5FB8D10047CC89 /* TodayTileLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8117D1A2F5FB8D10047CC89 /* TodayTileLayout.swift */; };
+		E8117D172F5FB8D10047CC89 /* TodayTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8117D1B2F5FB8D10047CC89 /* TodayTileView.swift */; };
+		E8117D182F5FB8D10047CC89 /* TodayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8117D1C2F5FB8D10047CC89 /* TodayView.swift */; };
+		E8117D362F5FBAEE0047CC89 /* TodayWeatherTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8117D352F5FBAEE0047CC89 /* TodayWeatherTileView.swift */; };
 		E81767582B9A516200599254 /* MapMarkersDropdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81767572B9A516200599254 /* MapMarkersDropdownView.swift */; };
 		E82E2A532ECD833F00785593 /* FeedbackFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82E2A512ECD833F00785593 /* FeedbackFormView.swift */; };
 		E82E2A552ECD835200785593 /* FeedbackFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82E2A542ECD835200785593 /* FeedbackFormViewModel.swift */; };
@@ -143,7 +150,6 @@
 		E85D6EDD2EE2900500304188 /* HomeDrawerPinViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E85D6EDC2EE2900500304188 /* HomeDrawerPinViewModel.swift */; };
 		E8647F792E94AA0F00A66820 /* DiningHallsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8647F782E94AA0F00A66820 /* DiningHallsView.swift */; };
 		E8647F7B2E94F05300A66820 /* MenuItemIconCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8647F7A2E94F05300A66820 /* MenuItemIconCacheManager.swift */; };
-		E8647F7D2E94F37D00A66820 /* EnvironmentValues+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8647F7C2E94F37D00A66820 /* EnvironmentValues+Ext.swift */; };
 		E8647F7F2E94FA2F00A66820 /* DiningHallsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8647F7E2E94FA2F00A66820 /* DiningHallsViewModel.swift */; };
 		E8647F812E95AD9400A66820 /* LibrariesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8647F802E95AD9400A66820 /* LibrariesView.swift */; };
 		E8647FAD2E971ABA00A66820 /* Logger+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8647FAC2E971ABA00A66820 /* Logger+Ext.swift */; };
@@ -348,6 +354,12 @@
 		E80330EC2CE7EBB100DC9574 /* NSCoding+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSCoding+Extension.swift"; sourceTree = "<group>"; };
 		E80330EE2CE9A8EB00DC9574 /* berkeley-mobile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "berkeley-mobile.entitlements"; sourceTree = "<group>"; };
 		E80ECC302AFB02BA004604BA /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
+		E8117D022F5D3A310047CC89 /* BerkeleyMobile+Injection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BerkeleyMobile+Injection.swift"; sourceTree = "<group>"; };
+		E8117D192F5FB8D10047CC89 /* TodayTileAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayTileAttributes.swift; sourceTree = "<group>"; };
+		E8117D1A2F5FB8D10047CC89 /* TodayTileLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayTileLayout.swift; sourceTree = "<group>"; };
+		E8117D1B2F5FB8D10047CC89 /* TodayTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayTileView.swift; sourceTree = "<group>"; };
+		E8117D1C2F5FB8D10047CC89 /* TodayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayView.swift; sourceTree = "<group>"; };
+		E8117D352F5FBAEE0047CC89 /* TodayWeatherTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayWeatherTileView.swift; sourceTree = "<group>"; };
 		E81767572B9A516200599254 /* MapMarkersDropdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMarkersDropdownView.swift; sourceTree = "<group>"; };
 		E82E2A512ECD833F00785593 /* FeedbackFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackFormView.swift; sourceTree = "<group>"; };
 		E82E2A542ECD835200785593 /* FeedbackFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackFormViewModel.swift; sourceTree = "<group>"; };
@@ -373,7 +385,6 @@
 		E85D6EDC2EE2900500304188 /* HomeDrawerPinViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDrawerPinViewModel.swift; sourceTree = "<group>"; };
 		E8647F782E94AA0F00A66820 /* DiningHallsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiningHallsView.swift; sourceTree = "<group>"; };
 		E8647F7A2E94F05300A66820 /* MenuItemIconCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemIconCacheManager.swift; sourceTree = "<group>"; };
-		E8647F7C2E94F37D00A66820 /* EnvironmentValues+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EnvironmentValues+Ext.swift"; sourceTree = "<group>"; };
 		E8647F7E2E94FA2F00A66820 /* DiningHallsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiningHallsViewModel.swift; sourceTree = "<group>"; };
 		E8647F802E95AD9400A66820 /* LibrariesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibrariesView.swift; sourceTree = "<group>"; };
 		E8647FAC2E971ABA00A66820 /* Logger+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Ext.swift"; sourceTree = "<group>"; };
@@ -439,6 +450,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E8117D012F5D39DC0047CC89 /* FactoryKit in Frameworks */,
 				47E625C4AFB6802788C56FCC /* Pods_berkeley_mobile.framework in Frameworks */,
 				E8FCD6842C374A81004B66A3 /* SwiftSoup in Frameworks */,
 			);
@@ -656,7 +668,6 @@
 				E83B6D982D7121D300AA9422 /* View+Extension.swift */,
 				2EDE80982D90BE620037BA9F /* CLLocation+Extension.swift */,
 				2E76503C2DB773A0009B5551 /* UserDefaults+Extension.swift */,
-				E8647F7C2E94F37D00A66820 /* EnvironmentValues+Ext.swift */,
 				E8647FAC2E971ABA00A66820 /* Logger+Ext.swift */,
 			);
 			path = Utils;
@@ -772,6 +783,7 @@
 			children = (
 				E80330EE2CE9A8EB00DC9574 /* berkeley-mobile.entitlements */,
 				306A54E923613E3A00D59A7F /* AppDelegate.swift */,
+				E8117D022F5D3A310047CC89 /* BerkeleyMobile+Injection.swift */,
 				55DCF78523722CAE001B01B8 /* Assets */,
 				016A56D7251C930D00531A12 /* AppDelegate+Migration.swift */,
 				306A54EB23613E3A00D59A7F /* SceneDelegate.swift */,
@@ -779,6 +791,7 @@
 				556CCD2C23E79EC100F41BF9 /* TabBarController.swift */,
 				E82E2A522ECD833F00785593 /* FeedbackForm */,
 				13EA64CE2399D4A100FD8E13 /* Data */,
+				E8117D142F5FB6EA0047CC89 /* Today */,
 				E89F204B2DF4011E00C488EF /* Home */,
 				133864A72404E857001F9048 /* Events */,
 				E8B273292BCF6A390009831A /* Safety */,
@@ -829,6 +842,18 @@
 				61D128E68A4FC209FFCDE60F /* Pods-berkeley-mobile.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		E8117D142F5FB6EA0047CC89 /* Today */ = {
+			isa = PBXGroup;
+			children = (
+				E8117D192F5FB8D10047CC89 /* TodayTileAttributes.swift */,
+				E8117D1A2F5FB8D10047CC89 /* TodayTileLayout.swift */,
+				E8117D1B2F5FB8D10047CC89 /* TodayTileView.swift */,
+				E8117D1C2F5FB8D10047CC89 /* TodayView.swift */,
+				E8B8879A2F67722E002B9632 /* Tiles */,
+			);
+			path = Today;
 			sourceTree = "<group>";
 		};
 		E82E2A522ECD833F00785593 /* FeedbackForm */ = {
@@ -939,6 +964,14 @@
 			path = Safety;
 			sourceTree = "<group>";
 		};
+		E8B8879A2F67722E002B9632 /* Tiles */ = {
+			isa = PBXGroup;
+			children = (
+				E8117D352F5FBAEE0047CC89 /* TodayWeatherTileView.swift */,
+			);
+			path = Tiles;
+			sourceTree = "<group>";
+		};
 		E8BC7B632B96CB3B002BF46D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -972,6 +1005,7 @@
 			name = "berkeley-mobile";
 			packageProductDependencies = (
 				E8FCD6832C374A81004B66A3 /* SwiftSoup */,
+				E8117D002F5D39DC0047CC89 /* FactoryKit */,
 			);
 			productName = "bm-persona";
 			productReference = 306A54E623613E3A00D59A7F /* Berkeley.app */;
@@ -1029,6 +1063,7 @@
 			mainGroup = 306A54DD23613E3A00D59A7F;
 			packageReferences = (
 				E8FCD6822C374A81004B66A3 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
+				E8117CFF2F5D39DC0047CC89 /* XCRemoteSwiftPackageReference "Factory" */,
 			);
 			productRefGroup = 306A54E723613E3A00D59A7F /* Products */;
 			projectDirPath = "";
@@ -1155,6 +1190,7 @@
 				13491DBA241E23630033F9AB /* Colors+Text.swift in Sources */,
 				136DC97D2398B4F3009B1810 /* UIImage+Extensions.swift in Sources */,
 				E83927EB2EF1222800CF2DF5 /* DebugView.swift in Sources */,
+				E8117D032F5D3A310047CC89 /* BerkeleyMobile+Injection.swift in Sources */,
 				13135BB22412442C0056B169 /* FilterView.swift in Sources */,
 				E8FCD68A2C3A382F004B66A3 /* EventScrapper.swift in Sources */,
 				306A54FE236142B800D59A7F /* DrawerViewController.swift in Sources */,
@@ -1262,6 +1298,10 @@
 				01FA50F124E8B33100DCC490 /* BMLocationManager.swift in Sources */,
 				017C0B26251018BA00BFA80A /* Colors+MapMarker.swift in Sources */,
 				E83927EF2EF1296300CF2DF5 /* FeedbackFormPresenter.swift in Sources */,
+				E8117D152F5FB8D10047CC89 /* TodayTileAttributes.swift in Sources */,
+				E8117D162F5FB8D10047CC89 /* TodayTileLayout.swift in Sources */,
+				E8117D172F5FB8D10047CC89 /* TodayTileView.swift in Sources */,
+				E8117D182F5FB8D10047CC89 /* TodayView.swift in Sources */,
 				E83B6DA92D7A860E00AA9422 /* GymOccupancyViewModel.swift in Sources */,
 				E88562C42EA2E2AB0062315A /* OpenClosedStatusView.swift in Sources */,
 				29345E2724A7E76300859A88 /* OverviewCardView.swift in Sources */,
@@ -1284,7 +1324,6 @@
 				13741B6C2400D866003D1EEB /* MapDataSource.swift in Sources */,
 				E83B6DA12D781AF100AA9422 /* BMTopBlobView.swift in Sources */,
 				E891E2AF2DD05029006CA0F5 /* BMNoEventsView.swift in Sources */,
-				E8647F7D2E94F37D00A66820 /* EnvironmentValues+Ext.swift in Sources */,
 				1336A320241D924300949F32 /* DiningItem.swift in Sources */,
 				E8912C2A2D869D6900C645B9 /* BMConstants.swift in Sources */,
 				13EA64CD2399CEDA00FD8E13 /* BMGym.swift in Sources */,
@@ -1294,6 +1333,7 @@
 				1396013523865E2E005E4788 /* CardView.swift in Sources */,
 				1336A322241D92F700949F32 /* MealType.swift in Sources */,
 				018B982625327358004C3B26 /* ActionButton.swift in Sources */,
+				E8117D362F5FBAEE0047CC89 /* TodayWeatherTileView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1595,6 +1635,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		E8117CFF2F5D39DC0047CC89 /* XCRemoteSwiftPackageReference "Factory" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hmlongco/Factory.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.5.3;
+			};
+		};
 		E8FCD6822C374A81004B66A3 /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/scinfu/SwiftSoup";
@@ -1606,6 +1654,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		E8117D002F5D39DC0047CC89 /* FactoryKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E8117CFF2F5D39DC0047CC89 /* XCRemoteSwiftPackageReference "Factory" */;
+			productName = FactoryKit;
+		};
 		E889F8102DAC516100202556 /* SwiftSoup */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E8FCD6822C374A81004B66A3 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
