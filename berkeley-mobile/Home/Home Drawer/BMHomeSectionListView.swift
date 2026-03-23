@@ -18,13 +18,19 @@ struct BMHomeSectionListView<Content: View>: View {
     
     var selectionHandler: ((any HomeDrawerSectionRowItemType) -> Void)?
     @ViewBuilder var swipeActionsContent: ((any HomeDrawerSectionRowItemType) -> Content)
+	
+	private var sortedItems: [any HomeDrawerSectionRowItemType] {
+		items.sorted {
+			($0.distanceToUser ?? .infinity) < ($1.distanceToUser ?? .infinity)
+		}
+	}
     
     private var pinnedItems: [any HomeDrawerSectionRowItemType] {
-        return items.filter { homeDrawerPinViewModel.pinnedRowItemIDSet.contains($0.docID) }
+        return sortedItems.filter { homeDrawerPinViewModel.pinnedRowItemIDSet.contains($0.docID) }
     }
     
     private var nonPinnedItems: [any HomeDrawerSectionRowItemType] {
-        return items.filter { !homeDrawerPinViewModel.pinnedRowItemIDSet.contains($0.docID) }
+        return sortedItems.filter { !homeDrawerPinViewModel.pinnedRowItemIDSet.contains($0.docID) }
     }
     
     var body: some View {
