@@ -18,14 +18,12 @@ struct SafetyMapView: View {
     var isPresentingDetailView: Bool
     
     var body: some View {
-        if #available(iOS 17.0, *) {
-            SafetyNewMapView(selectedSafetyLog: $selectedSafetyLog,
-                             isShowingLegend: $isShowingLegend,
-                             drawerViewState: $drawerViewState,
-                             isPresentingDetailView: isPresentingDetailView)
-        } else {
-            oldMapView
-        }
+        SafetyNewMapView(selectedSafetyLog: $selectedSafetyLog,
+                         isShowingLegend: $isShowingLegend,
+                         drawerViewState: $drawerViewState,
+                         isPresentingDetailView: isPresentingDetailView)
+        
+        
     }
     
     private var oldMapView: some View {
