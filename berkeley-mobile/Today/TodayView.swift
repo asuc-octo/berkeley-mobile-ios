@@ -13,6 +13,8 @@ struct TodayView: View {
         UINavigationBar.appearance().largeTitleTextAttributes = [.font : BMFont.bold(30)]
     }
 
+    @State private var showingEvents = false
+
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -34,6 +36,15 @@ struct TodayView: View {
             }
             .background(backgroundGradient.ignoresSafeArea())
             .navigationTitle("Today")
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    NavigationLink {
+                        EventsView()
+                    } label: {
+                        Image(systemName: "calendar")
+                    }
+                }
+            }
         }
     }
 
