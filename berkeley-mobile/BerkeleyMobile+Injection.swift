@@ -81,4 +81,10 @@ extension Container {
     var stadiumOccupancyViewModel: Factory<GymOccupancyViewModel> {
         self { GymOccupancyViewModel(location: .stadium) }.singleton
     }
+
+    var weatherDataViewModel: Factory<WeatherDataViewModel> {
+        self { @MainActor in
+            WeatherDataViewModel()
+        }.shared
+    }
 }

@@ -34,4 +34,9 @@ extension Logger {
         subsystem: Bundle.main.bundleIdentifier!,
         category: String(describing: HomeDrawerPinViewModel.self)
     )
+
+    static let weatherDataViewModel = Logger(
+        subsystem: Bundle.main.bundleIdentifier!,
+        category: String(describing: WeatherDataViewModel.self)
+    )
 }
