@@ -14,7 +14,10 @@ struct SearchBarView: View {
     @InjectedObject(\.searchViewModel) private var viewModel
 
     @FocusState private var isFocused: Bool
-
+    @State private var isPresentingFeedbackForm = false
+    @State private var feedbackFormViewModel = FeedbackFormViewModel()
+    @State private var feedbackFormConfig: FeedbackFormConfig?
+    
     private var onSearchBarTap: ((Bool) -> Void)?
     
     var body: some View {
@@ -28,8 +31,10 @@ struct SearchBarView: View {
                     viewModel.searchLocations(viewModel.searchText)
                 }
             
-            if !viewModel.searchText.isEmpty {
-                clearTextIcon
+            if viewModel.searchText.isEmpty {
+                feedbackButton
+            } else {
+                clearTextButton
             }
         }
         .padding()
@@ -65,6 +70,42 @@ struct SearchBarView: View {
             isFocused = newValue
             onSearchBarTap?(newValue)
         }
+        .sheet(isPresented: $isPresentingFeedbackForm) {
+            Group {
+                if let config = feedbackFormConfig {
+                    FeedbackFormView(viewModel: feedbackFormViewModel, config: config)
+                }
+            }
+        }
+    }
+    
+    private var clearTextButton: some View {
+        Button(action: {
+            viewModel.clearSearchText()
+        }) {
+            Image(systemName: "xmark")
+                .foregroundStyle(Color(BMColor.searchBarIconColor))
+                .fontWeight(.semibold)
+                .frame(width: 30, alignment: .center)
+        }
+        .accessibilityLabel("Clear search text")
+    }
+    
+    private var feedbackButton: some View {
+        Button(action: {
+            Task {
+                feedbackFormConfig = await feedbackFormViewModel.fetchFeedbackFormConfig()
+                if feedbackFormConfig != nil {
+                    isPresentingFeedbackForm = true
+                }
+            }
+        }) {
+            Image(systemName: "bubble.left.and.bubble.right")
+                .foregroundStyle(Color(BMColor.searchBarIconColor))
+                .fontWeight(.semibold)
+                .frame(width: 30, alignment: .center)
+        }
+        .accessibilityLabel("Send Feedback")
     }
     
     private var searchOrBackIcon: some View {
@@ -78,17 +119,6 @@ struct SearchBarView: View {
                 .foregroundStyle(Color(BMColor.searchBarIconColor))
                 .fontWeight(.semibold)
                 .frame(width: 20, alignment: .center) // So that changing an icon didn't move the TextField
-        }
-    }
-    
-    private var clearTextIcon: some View {
-        Button(action: {
-            viewModel.clearSearchText()
-        }) {
-            Image(systemName: "xmark")
-                .foregroundStyle(Color(BMColor.searchBarIconColor))
-                .fontWeight(.semibold)
-                .frame(width: 30, alignment: .center)
         }
     }
     
