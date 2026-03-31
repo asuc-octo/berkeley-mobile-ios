@@ -25,13 +25,6 @@ struct SafetyMapView: View {
         
         
     }
-    
-    private var oldMapView: some View {
-        Map(coordinateRegion: .constant(BMConstants.mapBoundsRegion), showsUserLocation: true, annotationItems: safetyViewModel.filteredSafetyLogs) { safetyLog in
-            MapPin(coordinate: safetyLog.coordinate)
-        }
-        .edgesIgnoringSafeArea(.all)
-    }
 }
 
 
