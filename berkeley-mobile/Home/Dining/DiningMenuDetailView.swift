@@ -7,8 +7,6 @@
 //
 import SwiftUI
 
-// MARK: - DiningMenuItemDetailView
-
 struct DiningMenuItemDetailView: View {
 
     var menuItem: BMMenuItem
@@ -56,7 +54,7 @@ struct DiningMenuItemDetailView: View {
             VStack(alignment: .leading, spacing: 8) {
                 Text("Macronutrients")
                     .font(Font(BMFont.bold(20)))
-                VStack(alignment: .leading, spacing: 8) {
+                Group {
                     Text("Calories: \(String(format: "%.1f", menuDetail.calories))")
                         .font(Font(BMFont.regular(15)))
                     MacronutrientsCapsuleView(protein: menuDetail.protein, fat: menuDetail.fat, carb: menuDetail.carb)
