@@ -71,12 +71,7 @@ enum TodayTiles: CaseIterable {
     func view() -> some View {
         switch self {
         case .weather:
-            let weatherInfo = WeatherInfo(cityName: "Berkeley",
-                                          currTemperature: "63",
-                                          condition: "Sunny",
-                                          highTemperature: "69",
-                                          lowTemperature: "50")
-            return TodayWeatherTileView(weatherInfo: weatherInfo)
+            return TodayWeatherTileView()
         }
     }
 
