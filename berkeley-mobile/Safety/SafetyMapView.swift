@@ -44,6 +44,8 @@ struct SafetyNewMapView: View {
     
     private let bounds = MapCameraBounds(centerCoordinateBounds: BMConstants.mapBoundsRegion, maximumDistance: BMConstants.mapMaxZoomDistance)
     
+    //PR Check
+    
     var body: some View {
         if #available(iOS 26.0, *) {
             mapViewWithHUD
