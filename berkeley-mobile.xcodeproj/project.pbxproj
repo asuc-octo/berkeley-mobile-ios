@@ -207,7 +207,8 @@
 		E8EBE7622CEC2FD700A220BB /* SafetyLogDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EBE7612CEC2FD700A220BB /* SafetyLogDetailView.swift */; };
 		E8FCD6842C374A81004B66A3 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = E8FCD6832C374A81004B66A3 /* SwiftSoup */; };
 		E8FCD6882C38AEC9004B66A3 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8FCD6872C38AEC9004B66A3 /* String+Extension.swift */; };
-		E8FCD68A2C3A382F004B66A3 /* EventScrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8FCD6892C3A382F004B66A3 /* EventScrapper.swift */; };
+		E8FCD68A2C3A382F004B66A3 /* EventsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8FCD6892C3A382F004B66A3 /* EventsDataSource.swift */; };
+		FAC7ECB32F61E55600042199 /* reference.md in Resources */ = {isa = PBXBuildFile; fileRef = FAC7ECB22F61E55100042199 /* reference.md */; };
 		FAFF001C2E84C62100551C44 /* ReviewPrompter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFF001B2E84C61B00551C44 /* ReviewPrompter.swift */; };
 		FDD7946C260FE09D00ABE60E /* Colors+AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD7946B260FE09D00ABE60E /* Colors+AlertView.swift */; };
 /* End PBXBuildFile section */
@@ -430,7 +431,8 @@
 		E8DED8842EEAA3B500933780 /* HomeDrawerRowImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDrawerRowImageView.swift; sourceTree = "<group>"; };
 		E8EBE7612CEC2FD700A220BB /* SafetyLogDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyLogDetailView.swift; sourceTree = "<group>"; };
 		E8FCD6872C38AEC9004B66A3 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
-		E8FCD6892C3A382F004B66A3 /* EventScrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventScrapper.swift; sourceTree = "<group>"; };
+		E8FCD6892C3A382F004B66A3 /* EventsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsDataSource.swift; sourceTree = "<group>"; };
+		FAC7ECB22F61E55100042199 /* reference.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = reference.md; sourceTree = "<group>"; };
 		FAFF001B2E84C61B00551C44 /* ReviewPrompter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPrompter.swift; sourceTree = "<group>"; };
 		FDD7946B260FE09D00ABE60E /* Colors+AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+AlertView.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -720,8 +722,9 @@
 		2925D5F625293E9D00BBA266 /* EventDataSource */ = {
 			isa = PBXGroup;
 			children = (
+				FAC7ECB22F61E55100042199 /* reference.md */,
 				01B2502E2516C45800CBA459 /* BMEventCalendarEntry.swift */,
-				E8FCD6892C3A382F004B66A3 /* EventScrapper.swift */,
+				E8FCD6892C3A382F004B66A3 /* EventsDataSource.swift */,
 				E891E2982DCD4DA3006CA0F5 /* EventsViewModel.swift */,
 			);
 			path = EventDataSource;
@@ -1098,6 +1101,7 @@
 				306A54F623613E3D00D59A7F /* LaunchScreen.storyboard in Resources */,
 				306A54F323613E3D00D59A7F /* Assets.xcassets in Resources */,
 				01D269962544D86C000377B4 /* Apercu Bold Italic.otf in Resources */,
+				FAC7ECB32F61E55600042199 /* reference.md in Resources */,
 				01D269942544D86C000377B4 /* Apercu Italic.otf in Resources */,
 				E83B6D972D6FC93400AA9422 /* GoogleService-Info.plist in Resources */,
 				01D269992544D86C000377B4 /* Apercu Medium Italic.otf in Resources */,
@@ -1207,7 +1211,7 @@
 				E83927EB2EF1222800CF2DF5 /* DebugView.swift in Sources */,
 				E8117D032F5D3A310047CC89 /* BerkeleyMobile+Injection.swift in Sources */,
 				13135BB22412442C0056B169 /* FilterView.swift in Sources */,
-				E8FCD68A2C3A382F004B66A3 /* EventScrapper.swift in Sources */,
+				E8FCD68A2C3A382F004B66A3 /* EventsDataSource.swift in Sources */,
 				306A54FE236142B800D59A7F /* DrawerViewController.swift in Sources */,
 				2E76503D2DB773A0009B5551 /* UserDefaults+Extension.swift in Sources */,
 				E8472B382DE50F41005C24EA /* CalendarSectionView.swift in Sources */,

@@ -15,14 +15,14 @@ struct GenericEventsView: View {
 
     @StateObject private var genericEventScrapper: EventScrapper
     
-    init(genericEventScrapper: EventScrapper) {
-        _genericEventScrapper = StateObject(wrappedValue: genericEventScrapper)
+    init(eventsDataSource: EventsDataSource) {
+        _eventsDataSource = StateObject(wrappedValue: eventsDataSource)
     }
     
     var body: some View {
         NavigationStack {
             ScrollViewReader { proxy in
-                CalendarEventsListView(scrapper: genericEventScrapper, proxy: proxy) { event in
+                CalendarEventsListView(dataSource: eventsDataSource, proxy: proxy) { event in
                     EventRowView(event: event)
                         .padding(.horizontal)
                         .background(
@@ -35,7 +35,7 @@ struct GenericEventsView: View {
             }
         }
         .onAppear {
-            genericEventScrapper.scrape()
+            eventsDataSource.scrape()
             eventsViewModel.logCampuswideTabAnalytics()
         }
         .onChange(of: genericEventScrapper.alert) { _, alert in
@@ -47,10 +47,10 @@ struct GenericEventsView: View {
             calendarViewModel.setEntries(entries)
         }
         .refreshable {
-            guard !genericEventScrapper.isLoading else {
+            guard !eventsDataSource.isLoading else {
                 return
             }
-            genericEventScrapper.scrape(forceRescrape: true)
+            eventsDataSource.scrape(forceRescrape: true)
         }
     }
 }
