@@ -62,6 +62,12 @@ extension Container {
         self { MenuItemIconCacheManager() }.shared
     }
 
+    var newsDataViewModel: Factory<NewsDataViewModel> {
+        self { @MainActor in
+            NewsDataViewModel()
+        }.shared
+    }
+
     var resourcesViewModel: Factory<ResourcesViewModel> {
         self { ResourcesViewModel() }.shared
     }

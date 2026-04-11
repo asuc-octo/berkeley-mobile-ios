@@ -35,6 +35,11 @@ extension Logger {
         category: String(describing: HomeDrawerPinViewModel.self)
     )
 
+    static let newsDataViewModel = Logger(
+        subsystem: Bundle.main.bundleIdentifier!,
+        category: String(describing: NewsDataViewModel.self)
+    )
+
     static let weatherDataViewModel = Logger(
         subsystem: Bundle.main.bundleIdentifier!,
         category: String(describing: WeatherDataViewModel.self)
