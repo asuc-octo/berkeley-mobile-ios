@@ -40,9 +40,15 @@ class HomeViewModel: ObservableObject {
     @Published var isShowingDrawer = true
     @Published var homeDrawerDetailViewInfo: (type: HomeDrawerViewType, item: SearchItem)? = nil
     @Published var drawerViewState = BMDrawerViewState.medium
+    @Published var tabSelectedIndex: Int = 0
 
     init() {
         fetchHomeSectionsData()
+    }
+
+    func showDining() {
+        tabSelectedIndex = 0
+        isShowingDrawer = true
     }
     
     func presentDetail(type: AnyClass, item: SearchItem) {
