@@ -16,11 +16,13 @@ struct TodayDiningTileView: View {
     private static let nearestCount = 3
 
     private var nearestHalls: [BMDiningHall] {
-        Array(
-            viewModel.diningHalls
-                .sorted { ($0.distanceToUser ?? .infinity) < ($1.distanceToUser ?? .infinity) }
-                .prefix(Self.nearestCount)
-        )
+        let byDistance = viewModel.diningHalls.sorted {
+            ($0.distanceToUser ?? .infinity) < ($1.distanceToUser ?? .infinity)
+        }
+        // If none of the nearest halls are open, promote open halls to the front.
+        let allClosed = !byDistance.prefix(Self.nearestCount).contains(where: \.isOpen)
+        let ordered = allClosed ? byDistance.sorted { $0.isOpen && !$1.isOpen } : byDistance
+        return Array(ordered.prefix(Self.nearestCount))
     }
 
     private var shouldRedact: Bool {
