@@ -72,13 +72,15 @@ struct TodayDiningTileView: View {
                 .font(.caption)
                 .fontWeight(.semibold)
                 .lineLimit(1)
-            HStack(spacing: 6) {
+            HStack {
                 OpenClosedStatusView(status: hall.isOpen ? .open : .closed)
+                Spacer()
                 Text("\(hall.distanceToUser ?? 0.0, specifier: "%.1f") mi")
                     .font(Font(BMFont.light(10)))
                     .foregroundStyle(.white.opacity(0.9))
             }
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 
     private var placeholderRow: some View {
@@ -86,12 +88,14 @@ struct TodayDiningTileView: View {
             Text("Dining Hall")
                 .font(.caption)
                 .fontWeight(.semibold)
-            HStack(spacing: 6) {
+            HStack {
                 OpenClosedStatusView(status: .open)
+                Spacer()
                 Text("0.0 mi")
                     .font(Font(BMFont.light(10)))
             }
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 
     private func navigateToDiningInHome() {
