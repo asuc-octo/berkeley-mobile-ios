@@ -13,8 +13,6 @@ struct TodayView: View {
         UINavigationBar.appearance().largeTitleTextAttributes = [.font : BMFont.bold(30)]
     }
 
-    @State private var showingEvents = false
-
     var body: some View {
         NavigationStack {
             ScrollView {
