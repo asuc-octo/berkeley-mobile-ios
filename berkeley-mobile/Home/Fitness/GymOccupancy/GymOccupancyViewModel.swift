@@ -5,12 +5,13 @@
 //  Created by Justin Wong on 2/19/25.
 //  Copyright © 2025 ASUC OCTO. All rights reserved.
 //
-
+import Observation
 import SwiftUI
 
 typealias GymOccupancyLocation = GymOccupancyViewModel.GymOccupancyLocation
 
-class GymOccupancyViewModel: NSObject, ObservableObject {
+@Observable
+class GymOccupancyViewModel{
     
     enum GymOccupancyLocation: String {
         case rsf = "RSF Weight Rooms"
@@ -34,10 +35,10 @@ class GymOccupancyViewModel: NSObject, ObservableObject {
         static let highHighBound: CGFloat = 200
     }
     
-    @Published var occupancyPercentage: Double? = nil
-    @Published var isLoading = false
-    @Published var errorMessage: String? = nil
-    @Published var location: GymOccupancyLocation
+    var occupancyPercentage: Double? = nil
+    var isLoading = false
+    var errorMessage: String? = nil
+    var location: GymOccupancyLocation
     
     private var completionHandler: ((Double?) -> Void)?
     
@@ -46,7 +47,6 @@ class GymOccupancyViewModel: NSObject, ObservableObject {
     
     init(location: GymOccupancyLocation) {
         self.location = location
-        super.init()
         scrapper.delegate = self
     }
 
