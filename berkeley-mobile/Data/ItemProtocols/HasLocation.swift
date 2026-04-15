@@ -36,7 +36,7 @@ extension HasLocation {
 
     /// Returns the distance to the user in miles if possible, otherwise `nil`.
     var distanceToUser: Double? {
-        if let lat = latitude, let lon = longitude, lat != Double.nan, lon != Double.nan {
+        if let lat = latitude, let lon = longitude, !lat.isNaN, !lon.isNaN {
             let itemLocation = CLLocation(latitude: lat, longitude: lon)
             return itemLocation.distanceFromUser()
         }

@@ -440,7 +440,8 @@ extension MapViewController: SearchResultsViewDelegate {
             self.previousMapMarker = nil
         }
         
-        if let location = placemark.location, location.coordinate.latitude != Double.nan && location.coordinate.longitude != Double.nan {
+        if let location = placemark.location, !location.coordinate.latitude.isNaN,
+           !location.coordinate.longitude.isNaN {
             let regionRadius: CLLocationDistance = 250
             // center map on searched location
             let coordinateRegion = MKCoordinateRegion(center: location.coordinate,
@@ -495,7 +496,7 @@ extension MapViewController: SearchResultsViewDelegate {
         }
         
         let location = mapMarker.location
-        if location.0 != Double.nan && location.1 != Double.nan {
+        if !location.0.isNaN && !location.1.isNaN {
             let regionRadius: CLLocationDistance = 250
             // center map on searched location
             let coordinateLocation:CLLocationCoordinate2D = CLLocationCoordinate2DMake(location.0, location.1)
