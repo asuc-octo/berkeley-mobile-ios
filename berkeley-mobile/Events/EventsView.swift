@@ -61,29 +61,27 @@ struct EventsView: View {
     @State private var tabSelectedIndex = 0
     
     var body: some View {
-        NavigationStack {
-            ZStack {
-                BMTopBlobView(imageName: "BlobTopRight", xOffset: 50, yOffset: -45, width: 300, height: 150)
-                
-                VStack {
-                    BMSegmentedControlView(
-                        tabNames: ["Academic", "Campus-Wide"],
-                        selectedTabIndex: $tabSelectedIndex
-                    )
-                    .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0))
-    
-                    TabView(selection: $tabSelectedIndex) {
-                        GenericEventsView(genericEventScrapper: EventScrapper(type: .academic))
-                            .tag(0)
-                        GenericEventsView(genericEventScrapper: EventScrapper(type: .campuswide))
-                            .tag(1)
-                    }
-                    .tabViewStyle(.page(indexDisplayMode: .never))
+        ZStack {
+            BMTopBlobView(imageName: "BlobTopRight", xOffset: 50, yOffset: -45, width: 300, height: 150)
+            
+            VStack {
+                BMSegmentedControlView(
+                    tabNames: ["Academic", "Campus-Wide"],
+                    selectedTabIndex: $tabSelectedIndex
+                )
+                .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0))
+
+                TabView(selection: $tabSelectedIndex) {
+                    GenericEventsView(genericEventScrapper: EventScrapper(type: .academic))
+                        .tag(0)
+                    GenericEventsView(genericEventScrapper: EventScrapper(type: .campuswide))
+                        .tag(1)
                 }
-                .navigationTitle("Events")
+                .tabViewStyle(.page(indexDisplayMode: .never))
             }
-            .background(Color(BMColor.cardBackground))
+            .navigationTitle("Events")
         }
+        .background(Color(BMColor.cardBackground))
         .presentAlert(alert: $eventsViewModel.alert)
     }
 }
