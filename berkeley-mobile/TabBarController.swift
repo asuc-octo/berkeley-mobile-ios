@@ -62,7 +62,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         tabBar.scrollEdgeAppearance = tabBar.standardAppearance
         
         mapView.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "house"), tag: 0)
-        todayView.tabBarItem = UITabBarItem(title: "Today", image: UIImage(systemName: "sun.max.fill"), tag: 1)
+        todayView.tabBarItem = UITabBarItem(title: "Today", image: UIImage(systemName: "text.rectangle.page"), tag: 1)
         safetyView.tabBarItem = UITabBarItem(title: "Safety", image: UIImage(systemName: "exclamationmark.shield"), tag: 2)
         resourcesView.tabBarItem = UITabBarItem(title: "Resources", image: UIImage(systemName: "tray.full"), tag: 3)
         
