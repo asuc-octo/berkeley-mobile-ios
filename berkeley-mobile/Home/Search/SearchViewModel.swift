@@ -8,6 +8,7 @@
 
 import Foundation
 import MapKit
+import Observation
 
 // MARK: - SearchResultsViewDelegate protocol
 
@@ -39,14 +40,14 @@ enum SearchResultsState {
 
 // MARK: - SearchViewModel
 
-class SearchViewModel: ObservableObject {
-    @Published var searchText = ""
-    @Published var isSearching = false
-    @Published var state = SearchResultsState.idle
-    @Published var recentSearches: [CodableMapPlacemark]
+@Observable class SearchViewModel {
+    var searchText = ""
+    var isSearching = false
+    var state = SearchResultsState.idle
+    var recentSearches: [CodableMapPlacemark]
     
-    var chooseMapMarker: (MapMarker) -> Void
-    var choosePlacemark: (MapPlacemark) -> Void
+    @ObservationIgnored var chooseMapMarker: (MapMarker) -> Void
+    @ObservationIgnored var choosePlacemark: (MapPlacemark) -> Void
     
     init(chooseMapMarker: @escaping (MapMarker) -> Void, choosePlacemark: @escaping (MapPlacemark) -> Void) {
         self.chooseMapMarker = chooseMapMarker
