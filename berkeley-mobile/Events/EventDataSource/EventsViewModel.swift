@@ -13,7 +13,7 @@ import SwiftUI
 class EventsViewModel: ObservableObject {
     @Published var alert: BMAlert?
     
-    private(set) var didCacheEventsExistence = Set<EventScrapper.EventScrapperType>()
+    private(set) var didCacheEventsExistence = Set<EventsDataSource.EventCategory>()
     private let eventManager = BMEventManager()
     
     func logAcademicCalendarTabAnalytics() {
@@ -38,9 +38,9 @@ class EventsViewModel: ObservableObject {
         })
     }
     
-    func cacheEventsExistence(for events: [BMEventCalendarEntry], scrapperType: EventScrapper.EventScrapperType) async {
+    func cacheEventsExistence(for events: [BMEventCalendarEntry], dataSourceType: EventsDataSource.EventCategory) async {
         await eventManager.processEventsExistenceInCalendar(for: events)
-        didCacheEventsExistence.insert(scrapperType)
+        didCacheEventsExistence.insert(dataSourceType)
     }
     
     func doesEventExists(for event: BMEventCalendarEntry) -> Bool {
