@@ -10,7 +10,7 @@ import FactoryKit
 import SwiftUI
 
 struct CalendarSectionView: View {
-    @InjectedObject(\.eventsViewModel) private var eventsViewModel
+    @InjectedObservable(\.eventsViewModel) private var eventsViewModel
     
     var scrollProxy: ScrollViewProxy
     var tapCompletion: ((Int) -> Void)?

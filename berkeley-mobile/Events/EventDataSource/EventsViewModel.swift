@@ -6,16 +6,90 @@
 //  Copyright © 2025 ASUC OCTO. All rights reserved.
 //
 
+import Firebase
 import FirebaseAnalytics
 import SwiftUI
+import os
+
+fileprivate let kEventsDataServiceEndpoint = "Events"
+
+struct BerkeleyEventsDaySnapshot: Codable {
+    var date: Date?
+    var displayDate: String?
+    var scrapedAt: Date?
+    var events: [BerkeleyEvent]
+}
+
+struct BerkeleyEvent: Codable {
+    let startTime: Date?
+    let endTime: Date?
+    let eventName: String?
+    let eventDescription: String?
+    let eventRegisterLinkURL: URL?
+    let eventImageURL: URL?
+    let eventURL: URL?
+    let isAllDay: Bool?
+    let location: String?
+}
+
+class EventsDataService {
+    static var shared = EventsDataService()
+
+    private let db = Firestore.firestore()
+
+    func fetchEventsGroupedByDate() async -> [(Date, [BMEventCalendarEntry])] {
+        guard let snap = try? await db.collection(kEventsDataServiceEndpoint).getDocuments() else {
+            return []
+        }
+
+        var daySnapshots: [BerkeleyEventsDaySnapshot] = []
+        for doc in snap.documents {
+            do {
+                daySnapshots.append(try doc.data(as: BerkeleyEventsDaySnapshot.self))
+            } catch {
+                Logger.eventsDataService.error("Cannot decode BerkeleyEventsDaySnapshot: \(error.localizedDescription)")
+            }
+        }
+
+        var eventsPerDay: [(Date, [BMEventCalendarEntry])] = []
+
+        for daySnapshot in daySnapshots {
+            guard let date = daySnapshot.date else { continue }
+            let dayEvents = daySnapshot.events.map {
+                BMEventCalendarEntry(name: $0.eventName ?? "",
+                                     date: $0.startTime ?? Date().getStartOfDay(),
+                                     end: $0.endTime,
+                                     descriptionText: $0.eventDescription,
+                                     location: $0.location,
+                                     registerLink: $0.eventRegisterLinkURL?.absoluteString,
+                                     imageURL: $0.eventImageURL?.absoluteString,
+                                     sourceLink: $0.eventURL?.absoluteString)
+            }
+            eventsPerDay.append((date, dayEvents))
+        }
+
+        return eventsPerDay
+    }
+}
 
 @MainActor
-class EventsViewModel: ObservableObject {
-    @Published var alert: BMAlert?
-    
-    private(set) var didCacheEventsExistence = Set<EventScrapper.EventScrapperType>()
+@Observable
+class EventsViewModel {
+    var eventsGroupedByDate: [(Date, [BMEventCalendarEntry])] = []
+    var isProcessingEventsExistence = false
+    var alert: BMAlert?
+
     private let eventManager = BMEventManager()
-    
+
+    init() {
+        Task {
+            isProcessingEventsExistence = true
+            eventsGroupedByDate = await EventsDataService.shared.fetchEventsGroupedByDate()
+            await cacheEventsExistence(for: eventsGroupedByDate.flatMap { $0.1 } )
+            isProcessingEventsExistence = false
+        }
+    }
+
     func logAcademicCalendarTabAnalytics() {
         Analytics.logEvent("opened_academic_calendar", parameters: nil)
     }
@@ -38,9 +112,8 @@ class EventsViewModel: ObservableObject {
         })
     }
     
-    func cacheEventsExistence(for events: [BMEventCalendarEntry], scrapperType: EventScrapper.EventScrapperType) async {
+    func cacheEventsExistence(for events: [BMEventCalendarEntry]) async {
         await eventManager.processEventsExistenceInCalendar(for: events)
-        didCacheEventsExistence.insert(scrapperType)
     }
     
     func doesEventExists(for event: BMEventCalendarEntry) -> Bool {

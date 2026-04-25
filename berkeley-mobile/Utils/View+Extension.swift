@@ -101,7 +101,7 @@ struct Shadowfy: ViewModifier {
 // MARK: - Other View Componments
 
 struct EventsContextMenuModifier: ViewModifier {
-    @InjectedObject(\.eventsViewModel) private var eventsViewModel
+    @InjectedObservable(\.eventsViewModel) private var eventsViewModel
     
     let event: BMEventCalendarEntry
     
