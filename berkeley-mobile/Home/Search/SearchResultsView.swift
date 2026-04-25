@@ -11,7 +11,7 @@ import MapKit
 import SwiftUI
 
 struct SearchResultsView: View {
-    @InjectedObject(\.searchViewModel) private var viewModel
+    @InjectedObservable(\.searchViewModel) private var viewModel
 
     // top padding: 128 = SearchBarTopMargin (74) + SearchBarHeight (54)
     private let listPadding = EdgeInsets(top: 128, leading: 21, bottom: 96, trailing: 21)

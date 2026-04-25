@@ -11,7 +11,7 @@ import MapKit
 import SwiftUI
 
 struct SearchBarView: View {
-    @InjectedObject(\.searchViewModel) private var viewModel
+    @InjectedObservable(\.searchViewModel) private var viewModel
 
     @FocusState private var isFocused: Bool
 
