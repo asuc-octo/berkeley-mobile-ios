@@ -50,7 +50,7 @@ class BMEventManager {
         return eventAlreadyExists
     }
     
-    func  (for events: [BMEventCalendarEntry]) async {
+    func processEventsExistenceInCalendar(for events: [BMEventCalendarEntry]) async {
         let results: [(BMEventCalendarEntry, Bool)] = await withTaskGroup(of: (BMEventCalendarEntry, Bool).self) { group in
             for event in events {
                 group.addTask {
