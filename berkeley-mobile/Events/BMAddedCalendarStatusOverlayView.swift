@@ -10,12 +10,13 @@ import FactoryKit
 import SwiftUI
 
 struct BMAddedCalendarStatusOverlayView: View {
-    @InjectedObject(\.eventsViewModel) private var eventsViewModel
+    @InjectedObservable(\.eventsViewModel) private var eventsViewModel
     
     let event: BMEventCalendarEntry
     
     var body: some View {
-        if eventsViewModel.doesEventExists(for: event) {
+        if !eventsViewModel.isProcessingEventsExistence,
+            eventsViewModel.doesEventExists(for: event) {
             VStack {
                 Spacer()
                 HStack {

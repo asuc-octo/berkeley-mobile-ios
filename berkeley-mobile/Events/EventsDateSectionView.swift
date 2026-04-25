@@ -10,7 +10,7 @@ import FactoryKit
 import SwiftUI
 
 struct EventsDateSectionView<Content: View>: View {
-    @InjectedObject(\.eventsViewModel) private var eventsViewModel
+    @InjectedObservable(\.eventsViewModel) private var eventsViewModel
 
     var date: Date
     var events: [BMEventCalendarEntry]

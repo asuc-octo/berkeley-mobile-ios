@@ -7,7 +7,7 @@ struct EventDetailView: View {
         case register
     }
 
-    @InjectedObject(\.eventsViewModel) private var eventsViewModel
+    @InjectedObservable(\.eventsViewModel) private var eventsViewModel
 
     let event: BMEventCalendarEntry
 
