@@ -14,9 +14,11 @@ extension Container {
         self { CalendarViewModel() }.shared
     }
 
+    #if DEBUG
     var debugViewModel: Factory<DebugViewModel> {
         self { DebugViewModel(feedbackFormPresenter: self.feedbackFormPresenter()) }
     }
+    #endif
 
     var diningHallsViewModel: Factory<DiningHallsViewModel> {
         self { DiningHallsViewModel() }.singleton
