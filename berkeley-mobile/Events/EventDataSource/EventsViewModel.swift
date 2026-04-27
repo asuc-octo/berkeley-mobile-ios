@@ -63,7 +63,8 @@ class EventsDataService {
                                      location: $0.location,
                                      registerLink: $0.eventRegisterLinkURL?.absoluteString,
                                      imageURL: $0.eventImageURL?.absoluteString,
-                                     sourceLink: $0.eventURL?.absoluteString)
+                                     sourceLink: $0.eventURL?.absoluteString,
+                                     isAllDay: $0.isAllDay)
             }
             eventsPerDay.append((date, dayEvents))
         }
