@@ -57,7 +57,9 @@ class BMEventCalendarEntry: NSObject, NSCoding, Identifiable, BMCalendarEvent, H
     var sourceLink: URL?
     /// The subcategory for the event within the main category
     var type: String?
-    
+    /// Is this event "All Day"?
+    var isAllDay: Bool?
+
     /// The color associated with this event's `type`.
     var color: UIColor {
         guard let type = type else { return BMColor.eventDefault }
@@ -75,7 +77,7 @@ class BMEventCalendarEntry: NSObject, NSCoding, Identifiable, BMCalendarEvent, H
         return name + startDate.description + (end?.description ?? "")
     }
 
-    init(name: String, date: Date, end: Date? = nil, descriptionText: String? = nil, location: String? = nil, registerLink: String? = nil, imageURL: String? = nil, sourceLink: String? = nil, type: String? = nil) {
+    init(name: String, date: Date, end: Date? = nil, descriptionText: String? = nil, location: String? = nil, registerLink: String? = nil, imageURL: String? = nil, sourceLink: String? = nil, type: String? = nil, isAllDay: Bool? = false) {
         self.name = name
         self.startDate = date
         self.end = end 
@@ -85,6 +87,7 @@ class BMEventCalendarEntry: NSObject, NSCoding, Identifiable, BMCalendarEvent, H
         self.imageURL = URL(string: imageURL ?? "")
         self.sourceLink = URL(string: sourceLink ?? "")
         self.type = type
+        self.isAllDay = isAllDay
     }
     
     func encode(with coder: NSCoder) {
