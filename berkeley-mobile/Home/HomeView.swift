@@ -10,8 +10,6 @@ import FactoryKit
 import SwiftUI
 
 struct HomeView: View {
-    @Injected(\.menuItemIconCacheManager) private var menuItemIconCacheManager
-
     @InjectedObservable(\.diningHallsViewModel) private var diningHallsViewModel
     @InjectedObservable(\.guidesViewModel) private var guidesViewModel
     @InjectedObservable(\.homeDrawerPinViewModel) private var homeDrawerPinViewModel
@@ -99,6 +97,10 @@ struct HomeView: View {
             }
             .navigationDestination(for: BMLibrary.self) { library in
                 LibraryDetailView(library: library)
+                    .containerBackground(.clear, for: .navigation)
+            }
+            .navigationDestination(for: BMMenuItem.self) { menuItem in
+                DiningMenuItemDetailView(menuItem: menuItem)
                     .containerBackground(.clear, for: .navigation)
             }
         }

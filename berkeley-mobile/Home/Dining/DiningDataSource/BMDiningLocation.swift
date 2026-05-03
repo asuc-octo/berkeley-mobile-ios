@@ -125,12 +125,41 @@ struct BMMealCategory: Codable, Hashable {
     let menuItems: [BMMenuItem]
 }
 
+struct BMMenuRecipeDetail: Codable, Hashable {
+    let servingSize: String?
+    let nutrition: [String: String]?
+    let ingredients: String?
+    let allergens: [String]?
+
+    var calories: Double {
+        Double(nutrition?["Calories (kcal)"] ?? "0") ?? 0
+    }
+
+    var remainingNutrition: [String: String] {
+        nutrition?.filter { $0.key != "Calories (kcal)" } ?? [:]
+    }
+
+    var protein: Int {
+        Int(nutrition?["Protein (g)"]?.filter { $0.isNumber } ?? "0") ?? 0
+    }
+
+    var carb: Int {
+        Int(nutrition?["Carbohydrate (g)"]?.filter { $0.isNumber } ?? "0") ?? 0
+    }
+
+    var fat: Int {
+        (Int(nutrition?["Total Lipid/Fat (g)"]?.filter { $0.isNumber } ?? "0") ?? 0) +
+        (Int(nutrition?["Trans Fat (g)"]?.filter { $0.isNumber } ?? "0") ?? 0)
+    }
+}
+
 struct BMMenuItem: Codable, Hashable {
     let name: String
     let icons: [BMMealIcon]
     let menuId: String?
     let itemId: String?
     let dataLocation: String?
+    let recipeDetails: BMMenuRecipeDetail?
 }
 
 struct BMMealIcon: Codable, Hashable {
