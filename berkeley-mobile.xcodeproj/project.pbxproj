@@ -134,7 +134,6 @@
 		E83927ED2EF1283300CF2DF5 /* DebugViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83927EC2EF1282F00CF2DF5 /* DebugViewModel.swift */; };
 		E83927EF2EF1296300CF2DF5 /* FeedbackFormPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83927EE2EF1295600CF2DF5 /* FeedbackFormPresenter.swift */; };
 		E83B6D972D6FC93400AA9422 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E83B6D962D6FC93400AA9422 /* GoogleService-Info.plist */; };
-		E8D2E7A92FA5A55500B1F511 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E83B6D962D6FC93400AA9422 /* GoogleService-Info.plist */; };
 		E83B6D992D7121D300AA9422 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B6D982D7121D300AA9422 /* View+Extension.swift */; };
 		E83B6D9B2D7123CB00AA9422 /* MapUserLocationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B6D9A2D7123CB00AA9422 /* MapUserLocationButton.swift */; };
 		E83B6D9D2D72FD6F00AA9422 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B6D9C2D72FD6F00AA9422 /* HomeView.swift */; };
@@ -169,7 +168,6 @@
 		E889F7FC2DAC4DEE00202556 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E889F7FB2DAC4DEE00202556 /* WidgetKit.framework */; };
 		E889F7FE2DAC4DEE00202556 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E889F7FD2DAC4DEE00202556 /* SwiftUI.framework */; };
 		E889F8092DAC4DEF00202556 /* BerkeleyMobileWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E889F7FA2DAC4DEE00202556 /* BerkeleyMobileWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		E889F8112DAC516100202556 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = E889F8102DAC516100202556 /* SwiftSoup */; };
 		E889F8122DAC664E00202556 /* GymOccupancyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B6DA82D7A860E00AA9422 /* GymOccupancyViewModel.swift */; };
 		E889F82E2DAC9FC100202556 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF78823722CF1001B01B8 /* Fonts.swift */; };
 		E889F82F2DACA02C00202556 /* Apercu Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 01D2698A2544D86B000377B4 /* Apercu Light.otf */; };
@@ -206,9 +204,9 @@
 		E8C2BDA72D912B3A00165554 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C2BDA62D912B3A00165554 /* CalendarView.swift */; };
 		E8C5AC202FA0414B0025D702 /* AllDayEventBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C5AC1F2FA0414B0025D702 /* AllDayEventBannerView.swift */; };
 		E8C5AC512FA6BB6D0025D702 /* TimeInterval+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B6D49D2F7A196A002719AF /* TimeInterval+Ext.swift */; };
+		E8D2E7A92FA5A55500B1F511 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E83B6D962D6FC93400AA9422 /* GoogleService-Info.plist */; };
 		E8DED8852EEAA3B500933780 /* HomeDrawerRowImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8DED8842EEAA3B500933780 /* HomeDrawerRowImageView.swift */; };
 		E8EBE7622CEC2FD700A220BB /* SafetyLogDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EBE7612CEC2FD700A220BB /* SafetyLogDetailView.swift */; };
-		E8FCD6842C374A81004B66A3 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = E8FCD6832C374A81004B66A3 /* SwiftSoup */; };
 		E8FCD6882C38AEC9004B66A3 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8FCD6872C38AEC9004B66A3 /* String+Extension.swift */; };
 		FAFF001C2E84C62100551C44 /* ReviewPrompter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFF001B2E84C61B00551C44 /* ReviewPrompter.swift */; };
 		FDD7946C260FE09D00ABE60E /* Colors+AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD7946B260FE09D00ABE60E /* Colors+AlertView.swift */; };
@@ -459,7 +457,6 @@
 				E8117D012F5D39DC0047CC89 /* FactoryKit in Frameworks */,
 				47E625C4AFB6802788C56FCC /* Pods_berkeley_mobile.framework in Frameworks */,
 				E8875DF32F8B05FB004D50EC /* Glur in Frameworks */,
-				E8FCD6842C374A81004B66A3 /* SwiftSoup in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -469,7 +466,6 @@
 			files = (
 				E889F7FE2DAC4DEE00202556 /* SwiftUI.framework in Frameworks */,
 				E889F7FC2DAC4DEE00202556 /* WidgetKit.framework in Frameworks */,
-				E889F8112DAC516100202556 /* SwiftSoup in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1029,7 +1025,6 @@
 			);
 			name = "berkeley-mobile";
 			packageProductDependencies = (
-				E8FCD6832C374A81004B66A3 /* SwiftSoup */,
 				E8117D002F5D39DC0047CC89 /* FactoryKit */,
 				E8875DF22F8B05FB004D50EC /* Glur */,
 			);
@@ -1054,7 +1049,6 @@
 			);
 			name = BerkeleyMobileWidgetExtension;
 			packageProductDependencies = (
-				E889F8102DAC516100202556 /* SwiftSoup */,
 			);
 			productName = BerkeleyMobileWidgetExtension;
 			productReference = E889F7FA2DAC4DEE00202556 /* BerkeleyMobileWidgetExtension.appex */;
@@ -1088,7 +1082,6 @@
 			);
 			mainGroup = 306A54DD23613E3A00D59A7F;
 			packageReferences = (
-				E8FCD6822C374A81004B66A3 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
 				E8117CFF2F5D39DC0047CC89 /* XCRemoteSwiftPackageReference "Factory" */,
 				E8875DF12F8B0478004D50EC /* XCRemoteSwiftPackageReference "Glur" */,
 			);
@@ -1683,14 +1676,6 @@
 				minimumVersion = 1.1.0;
 			};
 		};
-		E8FCD6822C374A81004B66A3 /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/scinfu/SwiftSoup";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.7.2;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1703,16 +1688,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E8875DF12F8B0478004D50EC /* XCRemoteSwiftPackageReference "Glur" */;
 			productName = Glur;
-		};
-		E889F8102DAC516100202556 /* SwiftSoup */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E8FCD6822C374A81004B66A3 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
-			productName = SwiftSoup;
-		};
-		E8FCD6832C374A81004B66A3 /* SwiftSoup */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E8FCD6822C374A81004B66A3 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
-			productName = SwiftSoup;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
