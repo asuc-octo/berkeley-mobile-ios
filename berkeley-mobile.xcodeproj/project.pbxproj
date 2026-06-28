@@ -134,12 +134,12 @@
 		E83927ED2EF1283300CF2DF5 /* DebugViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83927EC2EF1282F00CF2DF5 /* DebugViewModel.swift */; };
 		E83927EF2EF1296300CF2DF5 /* FeedbackFormPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83927EE2EF1295600CF2DF5 /* FeedbackFormPresenter.swift */; };
 		E83B6D972D6FC93400AA9422 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E83B6D962D6FC93400AA9422 /* GoogleService-Info.plist */; };
+		E8D2E7A92FA5A55500B1F511 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E83B6D962D6FC93400AA9422 /* GoogleService-Info.plist */; };
 		E83B6D992D7121D300AA9422 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B6D982D7121D300AA9422 /* View+Extension.swift */; };
 		E83B6D9B2D7123CB00AA9422 /* MapUserLocationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B6D9A2D7123CB00AA9422 /* MapUserLocationButton.swift */; };
 		E83B6D9D2D72FD6F00AA9422 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B6D9C2D72FD6F00AA9422 /* HomeView.swift */; };
 		E83B6D9F2D780B4200AA9422 /* EventsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B6D9E2D780B4200AA9422 /* EventsView.swift */; };
 		E83B6DA12D781AF100AA9422 /* BMTopBlobView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B6DA02D781AF100AA9422 /* BMTopBlobView.swift */; };
-		E83B6DA52D7A85D500AA9422 /* GymOccupancyScrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B6DA42D7A85D500AA9422 /* GymOccupancyScrapper.swift */; };
 		E83B6DA72D7A85F200AA9422 /* GymOccupancyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B6DA62D7A85F200AA9422 /* GymOccupancyView.swift */; };
 		E83B6DA92D7A860E00AA9422 /* GymOccupancyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B6DA82D7A860E00AA9422 /* GymOccupancyViewModel.swift */; };
 		E83C6CEB2B71D8C20085E277 /* ResourcesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83C6CEA2B71D8C20085E277 /* ResourcesView.swift */; };
@@ -169,7 +169,6 @@
 		E889F7FC2DAC4DEE00202556 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E889F7FB2DAC4DEE00202556 /* WidgetKit.framework */; };
 		E889F7FE2DAC4DEE00202556 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E889F7FD2DAC4DEE00202556 /* SwiftUI.framework */; };
 		E889F8092DAC4DEF00202556 /* BerkeleyMobileWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E889F7FA2DAC4DEE00202556 /* BerkeleyMobileWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		E889F80F2DAC4FAE00202556 /* GymOccupancyScrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B6DA42D7A85D500AA9422 /* GymOccupancyScrapper.swift */; };
 		E889F8112DAC516100202556 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = E889F8102DAC516100202556 /* SwiftSoup */; };
 		E889F8122DAC664E00202556 /* GymOccupancyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B6DA82D7A860E00AA9422 /* GymOccupancyViewModel.swift */; };
 		E889F82E2DAC9FC100202556 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF78823722CF1001B01B8 /* Fonts.swift */; };
@@ -206,6 +205,7 @@
 		E8C2BD302D8A457400165554 /* EventRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C2BD2F2D8A457400165554 /* EventRowView.swift */; };
 		E8C2BDA72D912B3A00165554 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C2BDA62D912B3A00165554 /* CalendarView.swift */; };
 		E8C5AC202FA0414B0025D702 /* AllDayEventBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C5AC1F2FA0414B0025D702 /* AllDayEventBannerView.swift */; };
+		E8C5AC512FA6BB6D0025D702 /* TimeInterval+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B6D49D2F7A196A002719AF /* TimeInterval+Ext.swift */; };
 		E8DED8852EEAA3B500933780 /* HomeDrawerRowImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8DED8842EEAA3B500933780 /* HomeDrawerRowImageView.swift */; };
 		E8EBE7622CEC2FD700A220BB /* SafetyLogDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EBE7612CEC2FD700A220BB /* SafetyLogDetailView.swift */; };
 		E8FCD6842C374A81004B66A3 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = E8FCD6832C374A81004B66A3 /* SwiftSoup */; };
@@ -378,7 +378,6 @@
 		E83B6D9C2D72FD6F00AA9422 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		E83B6D9E2D780B4200AA9422 /* EventsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsView.swift; sourceTree = "<group>"; };
 		E83B6DA02D781AF100AA9422 /* BMTopBlobView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMTopBlobView.swift; sourceTree = "<group>"; };
-		E83B6DA42D7A85D500AA9422 /* GymOccupancyScrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymOccupancyScrapper.swift; sourceTree = "<group>"; };
 		E83B6DA62D7A85F200AA9422 /* GymOccupancyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymOccupancyView.swift; sourceTree = "<group>"; };
 		E83B6DA82D7A860E00AA9422 /* GymOccupancyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymOccupancyViewModel.swift; sourceTree = "<group>"; };
 		E83C6CEA2B71D8C20085E277 /* ResourcesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcesView.swift; sourceTree = "<group>"; };
@@ -928,7 +927,6 @@
 		E89F204A2DF3FE2800C488EF /* GymOccupancy */ = {
 			isa = PBXGroup;
 			children = (
-				E83B6DA42D7A85D500AA9422 /* GymOccupancyScrapper.swift */,
 				E83B6DA62D7A85F200AA9422 /* GymOccupancyView.swift */,
 				E83B6DA82D7A860E00AA9422 /* GymOccupancyViewModel.swift */,
 			);
@@ -1128,6 +1126,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E8D2E7A92FA5A55500B1F511 /* GoogleService-Info.plist in Resources */,
 				E889F82F2DACA02C00202556 /* Apercu Light.otf in Resources */,
 				E889F8302DACA02C00202556 /* Apercu Medium.otf in Resources */,
 				E889F8312DACA02C00202556 /* Apercu Medium Italic.otf in Resources */,
@@ -1300,7 +1299,6 @@
 				E8C5AC202FA0414B0025D702 /* AllDayEventBannerView.swift in Sources */,
 				29B1D307254E1C8700BAD88F /* BMEventManager.swift in Sources */,
 				E8C2BDA72D912B3A00165554 /* CalendarView.swift in Sources */,
-				E83B6DA52D7A85D500AA9422 /* GymOccupancyScrapper.swift in Sources */,
 				E8137C3D2F84A4950098396F /* NewsTileView.swift in Sources */,
 				E8472B062DE453D6005C24EA /* BMAddedCalendarStatusOverlayView.swift in Sources */,
 				FAFF001C2E84C62100551C44 /* ReviewPrompter.swift in Sources */,
@@ -1374,8 +1372,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				E889F8122DAC664E00202556 /* GymOccupancyViewModel.swift in Sources */,
+				E8C5AC512FA6BB6D0025D702 /* TimeInterval+Ext.swift in Sources */,
 				E889F82E2DAC9FC100202556 /* Fonts.swift in Sources */,
-				E889F80F2DAC4FAE00202556 /* GymOccupancyScrapper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1566,6 +1564,7 @@
 		};
 		E889F80B2DAC4DEF00202556 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0EF369A28DCE41D7C2C6F336 /* Pods-berkeley-mobile.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1601,6 +1600,7 @@
 		};
 		E889F80C2DAC4DEF00202556 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 61D128E68A4FC209FFCDE60F /* Pods-berkeley-mobile.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

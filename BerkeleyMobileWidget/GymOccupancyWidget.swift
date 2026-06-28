@@ -20,24 +20,11 @@ struct GymOccupancyEntry: TimelineEntry {
     let stadiumOccupancyPercentages: GymOccupancyChange
 }
 
-class GymOccupancyEntryCache {
-    var entry: GymOccupancyEntry?
-}
-
 
 // MARK: - GymOccupancyProvider
 
 struct GymOccupancyProvider: TimelineProvider {
-    private let rsfGymOccupancyViewModel = GymOccupancyViewModel(location: .rsf)
-    private let stadiumGymOccupancyViewModel = GymOccupancyViewModel(location: .stadium)
-    private let entryCache = GymOccupancyEntryCache()
-    
-    private var priorRSFOccupancy: Double?  {
-        entryCache.entry?.rsfOccupancyPercentages.current
-    }
-    private var priorStadiumOccupancy: Double? {
-        entryCache.entry?.stadiumOccupancyPercentages.current
-    }
+    private let gymOccupancyViewModel = GymOccupancyViewModel()
     
     func placeholder(in context: Context) -> GymOccupancyEntry {
         GymOccupancyEntry(
@@ -48,9 +35,7 @@ struct GymOccupancyProvider: TimelineProvider {
     }
 
     func getSnapshot(in context: Context, completion: @escaping (GymOccupancyEntry) -> ()) {
-        let areOccupancyPercentagesUnavailable = rsfGymOccupancyViewModel.occupancyPercentage == nil && stadiumGymOccupancyViewModel.occupancyPercentage == nil
-        
-        if context.isPreview && areOccupancyPercentagesUnavailable {
+        if context.isPreview {
             let entry = GymOccupancyEntry(
                 date: Date(),
                 rsfOccupancyPercentages: GymOccupancyEntry.defaultRSFOccupancyPercentages,
@@ -58,34 +43,36 @@ struct GymOccupancyProvider: TimelineProvider {
             )
             completion(entry)
         } else {
-            let entry = GymOccupancyEntry(date: Date(),
-                                          rsfOccupancyPercentages: (priorRSFOccupancy, rsfGymOccupancyViewModel.occupancyPercentage ?? 0),
-                                          stadiumOccupancyPercentages: ( priorStadiumOccupancy,stadiumGymOccupancyViewModel.occupancyPercentage ?? 0))
-            completion(entry)
+            Task {
+                let results = await gymOccupancyViewModel.fetchOccupancyPercentages()
+                let entry = makeEntry(
+                    rsfOccupancy: results[.rsf] ?? 0.0,
+                    stadiumOccupancy: results[.stadium] ?? 0.0
+                )
+                completion(entry)
+            }
         }
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-        fetchGymOccupancies { currRSFOccupancy, currStadiumOccupancy in
-            let entry = GymOccupancyEntry(
-                date: Date(),
-                rsfOccupancyPercentages: (priorRSFOccupancy, currRSFOccupancy),
-                stadiumOccupancyPercentages: (priorStadiumOccupancy, currStadiumOccupancy)
+        Task {
+            let results = await gymOccupancyViewModel.fetchOccupancyPercentages()
+            let entry = makeEntry(
+                rsfOccupancy: results[.rsf] ?? 0.0,
+                stadiumOccupancy: results[.stadium] ?? 0.0
             )
-            
-            entryCache.entry = entry
-            
-            let timeline = Timeline(entries: [entry], policy: .atEnd)
+            let nextRefreshDate = Date().addingTimeInterval(GymOccupancyViewModel.Constants.refreshIntervalSecs)
+            let timeline = Timeline(entries: [entry], policy: .after(nextRefreshDate))
             completion(timeline)
         }
     }
-    
-    private func fetchGymOccupancies(completion: @escaping (Double, Double) -> Void) {
-        rsfGymOccupancyViewModel.refreshWithCompletionHandler { RSFOccupancy in
-            stadiumGymOccupancyViewModel.refreshWithCompletionHandler { stadiumOccupancy in
-               completion(RSFOccupancy ?? 0, stadiumOccupancy ?? 0)
-            }
-        }
+
+    private func makeEntry(rsfOccupancy: Double, stadiumOccupancy: Double) -> GymOccupancyEntry {
+        GymOccupancyEntry(
+            date: Date(),
+            rsfOccupancyPercentages: (nil, rsfOccupancy),
+            stadiumOccupancyPercentages: (nil, stadiumOccupancy)
+        )
     }
 }
 

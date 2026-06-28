@@ -6,26 +6,50 @@
 //  Copyright © 2025 ASUC OCTO. All rights reserved.
 //
 
+import FactoryKit
+import FirebaseFirestore
 import SwiftUI
 
 typealias GymOccupancyLocation = GymOccupancyViewModel.GymOccupancyLocation
 
-class GymOccupancyViewModel: NSObject, ObservableObject {
+struct GymOccupancyLocationData: Codable, Identifiable, Hashable {
+    var id: String
+    var gymName: String
+    var occupancyPercentage: Int
+    var sourcePageURL: URL
+    var scrapedTimestamp: Date
+
+    enum CodingKeys: String, CodingKey {
+        case id = "gymId"
+        case gymName
+        case occupancyPercentage
+        case sourcePageURL = "sourcePageUrl"
+        case scrapedTimestamp = "scrapedAt"
+    }
+}
+
+@Observable
+class GymOccupancyViewModel: NSObject {
     
-    enum GymOccupancyLocation: String {
+    enum GymOccupancyLocation: String, CaseIterable {
         case rsf = "RSF Weight Rooms"
         case stadium = "CMS Fitness Center"
-        
-        func getURLString() -> String {
-            self == .rsf ? Constants.rsfURLString : Constants.stadiumURLString
+
+        var documentName: String {
+            return switch self {
+            case .rsf: Constants.rsfWeightRoomDocName
+            case .stadium: Constants.csmFitnessCenterDocName
+            }
         }
     }
     
     struct Constants {
-        static let rsfURLString = "https://safe.density.io/#/displays/dsp_956223069054042646?token=shr_o69HxjQ0BYrY2FPD9HxdirhJYcFDCeRolEd744Uj88e&share&qr"
-        static let stadiumURLString = "https://safe.density.io/#/displays/dsp_1160333760881754703?token=shr_CPp9qbE0jN351cCEQmtDr4R90r3SIjZASSY8GU5O3gR&share&qr"
-        static let refreshIntervalSecs = 30.0
-        
+        static let refreshIntervalSecs: TimeInterval = 15 * 60
+
+        static let gymOccupancyCollectionName = "Gym Occupancy Meters"
+        static let csmFitnessCenterDocName = "cms-fitness"
+        static let rsfWeightRoomDocName = "rsf-weight-room"
+
         static let minOccupancy: CGFloat = 0
         static let maxOccupancy: CGFloat = 100
         
@@ -33,27 +57,22 @@ class GymOccupancyViewModel: NSObject, ObservableObject {
         static let mediumHighBound: CGFloat = 90
         static let highHighBound: CGFloat = 200
     }
-    
-    @Published var occupancyPercentage: Double? = nil
-    @Published var isLoading = false
-    @Published var errorMessage: String? = nil
-    @Published var location: GymOccupancyLocation
-    
-    private var completionHandler: ((Double?) -> Void)?
-    
-    private let scrapper = GymOccupancyScrapper()
+
+    var occupancyPercentages: [GymOccupancyLocation: Double] = [:]
+    var isLoading = false
+    var errorMessage: String? = nil
+
+    @ObservationIgnored
+    private var completionHandler: (([GymOccupancyLocation: Double]) -> Void)?
+    @ObservationIgnored
     private var timer: Timer?
-    
-    init(location: GymOccupancyLocation) {
-        self.location = location
-        super.init()
-        scrapper.delegate = self
-    }
 
     func startAutoRefresh() {
         refreshOccupancy()
-        timer = Timer.scheduledTimer(withTimeInterval: Constants.refreshIntervalSecs, repeats: true)  { [weak self] _ in
-            self?.refreshOccupancy()
+        timer = Timer.scheduledTimer(withTimeInterval: Constants.refreshIntervalSecs, repeats: true) { _ in
+            Task { @MainActor [weak self] in
+                self?.refreshOccupancy()
+            }
         }
     }
 
@@ -65,13 +84,42 @@ class GymOccupancyViewModel: NSObject, ObservableObject {
     private func refreshOccupancy() {
         isLoading = true
         errorMessage = nil
-        scrapper.scrape(at: location.getURLString())
+
+        Task {
+            let results = await fetchOccupancyPercentages()
+
+            completionHandler?(results)
+            self.occupancyPercentages = results
+            isLoading = false
+        }
+    }
+
+    func fetchOccupancyPercentages() async -> [GymOccupancyLocation: Double] {
+        let db = Firestore.firestore()
+
+        return await withTaskGroup(of: (location: GymOccupancyLocation, percentage: Double).self, returning: [GymOccupancyLocation: Double].self) { taskGroup in
+            for gymLocation in GymOccupancyLocation.allCases {
+                taskGroup.addTask {
+                    let docRef = db.collection(Constants.gymOccupancyCollectionName).document(gymLocation.documentName)
+                    do {
+                        let data: GymOccupancyLocationData = try await docRef.getDocument(as: GymOccupancyLocationData.self)
+                        return (gymLocation, Double(data.occupancyPercentage))
+                    } catch {
+                        return (gymLocation, 0.0)
+                    }
+                }
+            }
+
+            return await taskGroup.reduce(into: [GymOccupancyLocation: Double]()) { result, item in
+                result[item.location] = item.percentage
+            }
+        }
     }
     
     /// An alternative to get updated occupancy percentage from `GymOccupancyScrapperDelegate` via a completion handler
-    func refreshWithCompletionHandler(completionHandler: @escaping ((Double?) -> Void)) {
-        refreshOccupancy()
+    func refreshWithCompletionHandler(completionHandler: @escaping (([GymOccupancyLocation: Double]) -> Void)) {
         self.completionHandler = completionHandler
+        refreshOccupancy()
     }
     
     static func getOccupancyColor(percentage: Double) -> Color {
@@ -84,32 +132,4 @@ class GymOccupancyViewModel: NSObject, ObservableObject {
             return .green
         }
     }
-    
-}
-
-
-// MARK: - GymOccupancyScrapperDelegate
-
-extension GymOccupancyViewModel: GymOccupancyScrapperDelegate {
-    
-    func scrapperDidFinishScrapping(result: String?) {
-        DispatchQueue.main.async {
-            self.isLoading = false
-            if let result, let occupancy = result.split(separator: "%").first {
-                self.occupancyPercentage = Double(String(occupancy))
-                self.completionHandler?(Double(String(occupancy)))
-                self.errorMessage = nil
-            } else {
-                self.errorMessage = "Failed to parse occupancy data."
-            }
-        }
-    }
-
-    func scrapperDidError(with errorDescription: String) {
-        DispatchQueue.main.async {
-            self.isLoading = false
-            self.errorMessage = errorDescription
-        }
-    }
-    
 }

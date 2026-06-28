@@ -13,8 +13,6 @@ import WidgetKit
 
 struct FitnessView: View {
     @InjectedObject(\.homeViewModel) private var homeViewModel
-    @InjectedObject(\.rsfOccupancyViewModel) private var rsfOccupancyViewModel
-    @InjectedObject(\.stadiumOccupancyViewModel) private var stadiumOccupancyViewModel
 
     var mapViewController: MapViewController
     
@@ -35,10 +33,8 @@ struct FitnessView: View {
     
     private var gymOccupancyGauges: some View {
         HStack(spacing: 30){
-            GymOccupancyView()
-                .environmentObject(rsfOccupancyViewModel)
-            GymOccupancyView()
-                .environmentObject(stadiumOccupancyViewModel)
+            GymOccupancyView(location: .rsf)
+            GymOccupancyView(location: .stadium)
         }
     }
 }

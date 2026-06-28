@@ -42,6 +42,12 @@ extension Container {
         self { GuidesViewModel() }.singleton
     }
 
+    var gymOccupancyViewModel: Factory<GymOccupancyViewModel> {
+        self { @MainActor in
+            GymOccupancyViewModel()
+        }.singleton
+    }
+
     var homeDrawerPinViewModel: Factory<HomeDrawerPinViewModel> {
         self { HomeDrawerPinViewModel() }.shared
     }
@@ -74,20 +80,12 @@ extension Container {
         self { ResourcesViewModel() }.shared
     }
 
-    var rsfOccupancyViewModel: Factory<GymOccupancyViewModel> {
-        self { GymOccupancyViewModel(location: .rsf) }.singleton
-    }
-
     var safetyViewModel: Factory<SafetyViewModel> {
         self { SafetyViewModel() }.shared
     }
 
     var searchViewModel: Factory<SearchViewModel> {
         self { SearchViewModel { _ in } choosePlacemark: { _ in } }.shared
-    }
-
-    var stadiumOccupancyViewModel: Factory<GymOccupancyViewModel> {
-        self { GymOccupancyViewModel(location: .stadium) }.singleton
     }
 
     var weatherDataViewModel: Factory<WeatherDataViewModel> {

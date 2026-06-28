@@ -14,4 +14,9 @@ target 'berkeley-mobile' do
   pod 'GoogleSignIn'
 end
 
+target 'BerkeleyMobileWidgetExtension' do
+  use_frameworks!
+
+  pod 'Firebase/Firestore'
+end
 
