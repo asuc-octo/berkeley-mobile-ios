@@ -36,6 +36,19 @@ struct DiningDetailView: View {
         }
     }
     
+    private var toolbarOpenClosedStatusView: some View {
+        let isOpen = diningHall.isOpen
+        let indicatorColor = (isOpen ? Color.green : Color.red).opacity(0.8)
+        return HStack(spacing: 8) {
+            Circle()
+                .fill(indicatorColor)
+                .frame(width: 8, height: 8)
+            Text(isOpen ? "Open" : "Closed")
+                .foregroundStyle(Color(BMColor.blackText))
+                .font(Font(BMFont.light(12)))
+        }
+    }
+    
     var body: some View {
         VStack {
             if let allDayString {
@@ -66,9 +79,16 @@ struct DiningDetailView: View {
         .onAppear {
             viewModel.logOpenedDiningDetailViewAnalytics(for: diningHall.name)
         }
-        .navigationTitle(diningHall.name)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
+            ToolbarItem(placement: .principal) {
+                VStack(spacing: 4) {
+                    Text(diningHall.name)
+                        .font(.headline)
+                    toolbarOpenClosedStatusView
+                }
+            }
+            
             ToolbarItemGroup(placement: .topBarTrailing) {
                 if diningHall.hasCoordinate {
                     Button(action: {
