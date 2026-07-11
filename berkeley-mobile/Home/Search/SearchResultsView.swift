@@ -114,3 +114,4 @@ struct SearchResultsView: View {
 #Preview {
     SearchResultsView()
 }
+
