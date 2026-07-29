@@ -1,0 +1,14 @@
+{
+  "name": "berkeley-mobile-gym-scraper",
+  "description": "Firebase Cloud Functions that scrape Berkeley gym crowd meters and write occupancy data to Firestore.",
+  "private": true,
+  "engines": {
+    "node": "18"
+  },
+  "dependencies": {
+    "axios": "^1.5.0",
+    "cheerio": "^1.0.0-rc.12",
+    "firebase-admin": "^11.10.0",
+    "firebase-functions": "^4.5.0"
+  }
+}
