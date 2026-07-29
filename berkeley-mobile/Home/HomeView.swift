@@ -60,9 +60,11 @@ struct HomeView: View {
         NavigationStack(path: $navigationPath) {
             Group {
                 if homeViewModel.isFetching {
-                    ProgressView("LOADING")
-                        .padding(.vertical, 20)
-                    Spacer()
+                    VStack(alignment: .leading, spacing: 0) {
+                        ProgressView("LOADING")
+                            .padding(.vertical, 20)
+                        Spacer()
+                    }
                 } else {
                     segmentedControlHeader
                     switch tabSelectedIndex {
@@ -86,6 +88,7 @@ struct HomeView: View {
                     }
                 }
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             .navigationBarTitleDisplayMode(.inline)
             .containerBackground(.clear, for: .navigation)
             .padding(.horizontal)
