@@ -45,6 +45,11 @@ extension Logger {
         category: String(describing: NewsDataViewModel.self)
     )
 
+    static let sportsDataViewModel = Logger(
+        subsystem: Bundle.main.bundleIdentifier!,
+        category: String(describing: SportsDataViewModel.self)
+    )
+
     static let weatherDataViewModel = Logger(
         subsystem: Bundle.main.bundleIdentifier!,
         category: String(describing: WeatherDataViewModel.self)
