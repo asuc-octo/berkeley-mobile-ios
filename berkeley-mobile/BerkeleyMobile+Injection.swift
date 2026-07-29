@@ -76,6 +76,12 @@ extension Container {
         }.shared
     }
 
+    var sportsDataViewModel: Factory<SportsDataViewModel> {
+        self { @MainActor in
+            SportsDataViewModel()
+        }.shared
+    }
+
     var resourcesViewModel: Factory<ResourcesViewModel> {
         self { ResourcesViewModel() }.shared
     }
