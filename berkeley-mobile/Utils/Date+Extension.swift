@@ -100,15 +100,21 @@ extension Date {
         return sameTime(on: Date())
     }
     
-    /// Returns soonest date with (weekday:hour:min) of this Date.
+    /// Returns soonest date with (weekday:hour:min) of this Date, searching from yesterday.
+    ///
+    /// The search starts at the beginning of yesterday rather than the beginning of today so that
+    /// an occurrence which began yesterday and may still be running stays in the current week
+    /// instead of being pushed a week ahead. Occurrences from today onwards are unaffected.
     func sameDayThisWeek() -> Date? {
         let calendar = Calendar.current
         
         let components = calendar.dateComponents([.hour, .minute, .weekday], from: self)
-        if self == calendar.startOfDay(for: Date()) {
+        let startOfToday = calendar.startOfDay(for: Date())
+        if self == startOfToday {
             return self
         }
-        return calendar.nextDate(after: calendar.startOfDay(for: Date()), matching: components, matchingPolicy: .nextTime, repeatedTimePolicy: .first, direction: .forward)
+        let searchStart = calendar.date(byAdding: .day, value: -1, to: startOfToday) ?? startOfToday
+        return calendar.nextDate(after: searchStart, matching: components, matchingPolicy: .nextTime, repeatedTimePolicy: .first, direction: .forward)
     }
     
     /// Returns a date with this date's hour and minute component only.

@@ -42,12 +42,18 @@ extension HasOpenTimes {
         return weeklyHours.isEmpty ? nil : weeklyHours
     }
     
-    // TODO: Fixme, Dining halls may have open/close times that overlap multiple days.
+    /// Intervals are filed under the weekday they start on and may run past midnight, so an
+    /// interval opened yesterday can still be the one covering `date`.
+    private func intervalsCovering(_ date: Date, in weeklyHours: WeeklyHours) -> DailyHoursType {
+        let today = DayOfWeek.weekday(date)
+        let yesterday = today.adding(num: 6)
+        return weeklyHours.hoursForWeekday(yesterday) + weeklyHours.hoursForWeekday(today)
+    }
+
     var isOpen: Bool? {
         guard let weeklyHours = weeklyHours else { return nil }
         let now = Date()
-        let today = DayOfWeek.weekday(now)
-        let intervals = weeklyHours.hoursForWeekday(today)
+        let intervals = intervalsCovering(now, in: weeklyHours)
         return intervals.contains { interval in
             interval.contains(now)
         }
@@ -57,7 +63,7 @@ extension HasOpenTimes {
     func nextOpenInterval() -> HoursInterval? {
         guard let weeklyHours = self.weeklyHours else { return nil }
         let date = Date()
-        let intervals = weeklyHours.hoursForWeekday(DayOfWeek.weekday(date))
+        let intervals = intervalsCovering(date, in: weeklyHours)
         var nextOpenInterval: HoursInterval?
         for interval in intervals {
             if interval.contains(date) {
