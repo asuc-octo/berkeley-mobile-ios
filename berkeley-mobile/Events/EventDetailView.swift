@@ -152,7 +152,13 @@ struct BMDetailHeaderView: View {
     
     @ViewBuilder
     private var timeView: some View {
-        if let timePart = event.dateString.components(separatedBy: " / ").last {
+        if event.isAllDay == true {
+            HStack {
+                Image(systemName: "clock")
+                    .font(.system(size: 16))
+                AllDayCapsuleView()
+            }
+        } else if let timePart = event.dateString.components(separatedBy: " / ").last {
              EventDetailRow(systemImageName: "clock", text: timePart)
         }
     }
@@ -189,6 +195,19 @@ struct EventDetailRow: View {
 }
 
 
+// MARK: - AllDayCapsuleView
+
+struct AllDayCapsuleView: View {
+    var body: some View {
+        Text("All Day")
+            .font(Font(BMFont.bold(12)))
+            .padding(.horizontal, 10)
+            .padding(.vertical, 4)
+            .background(Capsule().fill(.gray.opacity(0.5)))
+    }
+}
+
+
 // MARK: - BMDetailDescriptionView
 
 struct BMDetailDescriptionView: View {
@@ -211,4 +230,11 @@ struct BMDetailDescriptionView: View {
 
 #Preview {
     EventDetailView(event: BMEventCalendarEntry.sampleEntry)
+}
+
+#Preview("All Day") {
+    EventDetailView(event: BMEventCalendarEntry(name: "Exhibit | A Storied Campus: Cal in Fiction",
+                                                date: Date().getStartOfDay(),
+                                                location: "The Rowell Exhibition Cases, Doe Library, 2nd floor",
+                                                isAllDay: true))
 }
