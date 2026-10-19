@@ -41,20 +41,19 @@ class HomeViewModel: ObservableObject {
     @Published var homeDrawerDetailViewInfo: (type: HomeDrawerViewType, item: SearchItem)? = nil
     @Published var drawerViewState = BMDrawerViewState.medium
     @Published var tabSelectedIndex: Int = 0
+    @Published private(set) var diningNavigationRequestID = UUID()
 
     init() {
         fetchHomeSectionsData()
     }
 
     func showDining() {
+        diningNavigationRequestID = UUID()
         tabSelectedIndex = 0
         isShowingDrawer = true
 		
         // Hop a runloop tick so .large lands after
         // HomeView's .onChange resets to .medium.
-        // Known issue: no-ops on first launch before Home
-        // has been shown — BMDrawerView has no initial-offset
-        // logic on .onAppear.
         DispatchQueue.main.async { [weak self] in
             self?.drawerViewState = .large
         }

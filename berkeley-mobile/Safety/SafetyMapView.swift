@@ -19,21 +19,12 @@ struct SafetyMapView: View {
     var isPresentingDetailView: Bool
     
     var body: some View {
-        if #available(iOS 17.0, *) {
-            SafetyNewMapView(selectedSafetyLog: $selectedSafetyLog,
-                             isShowingLegend: $isShowingLegend,
-                             drawerViewState: $drawerViewState,
-                             isPresentingDetailView: isPresentingDetailView)
-        } else {
-            oldMapView
-        }
-    }
-    
-    private var oldMapView: some View {
-        Map(coordinateRegion: .constant(BMConstants.mapBoundsRegion), showsUserLocation: true, annotationItems: safetyViewModel.filteredSafetyLogs) { safetyLog in
-            MapPin(coordinate: safetyLog.coordinate)
-        }
-        .edgesIgnoringSafeArea(.all)
+        SafetyNewMapView(selectedSafetyLog: $selectedSafetyLog,
+                         isShowingLegend: $isShowingLegend,
+                         drawerViewState: $drawerViewState,
+                         isPresentingDetailView: isPresentingDetailView)
+        
+        
     }
 }
 

@@ -14,7 +14,12 @@ extension Logger {
         subsystem: Bundle.main.bundleIdentifier!,
         category: String(describing: DiningHallsViewModel.self)
     )
-    
+
+    static let eventsDataService = Logger(
+        subsystem: Bundle.main.bundleIdentifier!,
+        category: String(describing: EventsDataService.self)
+    )
+
     static let guidesViewModel = Logger(
         subsystem: Bundle.main.bundleIdentifier!,
         category: String(describing: GuidesViewModel.self)
@@ -33,6 +38,11 @@ extension Logger {
     static let homeDrawerPinViewModel = Logger(
         subsystem: Bundle.main.bundleIdentifier!,
         category: String(describing: HomeDrawerPinViewModel.self)
+    )
+
+    static let newsDataViewModel = Logger(
+        subsystem: Bundle.main.bundleIdentifier!,
+        category: String(describing: NewsDataViewModel.self)
     )
 
     static let weatherDataViewModel = Logger(

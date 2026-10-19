@@ -1,5 +1,5 @@
 {
-  "originHash" : "f5c42674b458f1e5b87e3e931438c72ee99aefa6632ee2ccc753bfe0632a1de1",
+  "originHash" : "a4d6cb2cecfe6939fbae3a06d78a4e71849492dabc9b1496bdfe5dfd56c2e32b",
   "pins" : [
     {
       "identity" : "factory",
@@ -11,12 +11,12 @@
       }
     },
     {
-      "identity" : "swiftsoup",
+      "identity" : "glur",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/scinfu/SwiftSoup",
+      "location" : "https://github.com/joogps/Glur.git",
       "state" : {
-        "revision" : "028487d4a8a291b2fe1b4392b5425b6172056148",
-        "version" : "2.7.2"
+        "revision" : "178af6499ed7957c7f91187fdee2b09d322f5b87",
+        "version" : "1.1.0"
       }
     }
   ],

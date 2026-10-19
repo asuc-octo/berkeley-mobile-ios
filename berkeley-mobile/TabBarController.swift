@@ -16,7 +16,6 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
 
     private let todayView = UIHostingController(rootView: TodayView())
     private let mapView = MainContainerViewController()
-    private let calendarView = UIHostingController(rootView: EventsView())
     private let safetyView = UIHostingController(rootView: SafetyView())
     private let resourcesView = UIHostingController(rootView: ResourcesView())
     
@@ -61,14 +60,13 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
 
         tabBar.standardAppearance = appearance
         tabBar.scrollEdgeAppearance = tabBar.standardAppearance
-
-        todayView.tabBarItem = UITabBarItem(title: "Today", image: UIImage(systemName: "text.rectangle.page"), tag: 0)
-        mapView.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "house"), tag: 1)
-        calendarView.tabBarItem = UITabBarItem(title: "Events", image: UIImage(systemName: "calendar"), tag: 2)
-        safetyView.tabBarItem = UITabBarItem(title: "Safety", image: UIImage(systemName: "exclamationmark.shield"), tag: 3)
-        resourcesView.tabBarItem = UITabBarItem(title: "Resources", image: UIImage(systemName: "tray.full"), tag: 4)
-
-        self.viewControllers = [todayView, mapView, calendarView, safetyView, resourcesView]
+        
+        mapView.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "house"), tag: 0)
+        todayView.tabBarItem = UITabBarItem(title: "Today", image: UIImage(systemName: "text.rectangle.page"), tag: 1)
+        safetyView.tabBarItem = UITabBarItem(title: "Safety", image: UIImage(systemName: "exclamationmark.shield"), tag: 2)
+        resourcesView.tabBarItem = UITabBarItem(title: "Resources", image: UIImage(systemName: "tray.full"), tag: 3)
+        
+        self.viewControllers = [mapView, todayView, safetyView, resourcesView]
     }
 }
 

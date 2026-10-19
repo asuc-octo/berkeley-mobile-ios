@@ -45,6 +45,9 @@ struct HomeView: View {
                 homeViewModel.drawerViewState = .medium
             }
         }
+        .onReceive(homeViewModel.$diningNavigationRequestID) { _ in
+            navigationPath = NavigationPath()
+        }
     }
     
     private var segmentedControlHeader: some View {
@@ -69,6 +72,7 @@ struct HomeView: View {
                         DiningHallsView(mapViewController: mapViewController) { selectedDiningHall in
                             navigationPath.append(selectedDiningHall)
                         }
+                        .id(homeViewModel.diningNavigationRequestID)
                         .onAppear {
                             homeViewModel.logOpenedDiningHomeSectionAnalytics()
                         }

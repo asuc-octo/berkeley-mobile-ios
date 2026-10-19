@@ -34,6 +34,15 @@ struct TodayView: View {
             }
             .background(backgroundGradient.ignoresSafeArea())
             .navigationTitle("Today")
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    NavigationLink {
+                        EventsView()
+                    } label: {
+                        Image(systemName: "calendar")
+                    }
+                }
+            }
         }
     }
 

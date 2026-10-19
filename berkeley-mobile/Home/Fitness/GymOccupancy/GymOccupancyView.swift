@@ -10,21 +10,24 @@ import FactoryKit
 import SwiftUI
 
 struct GymOccupancyView: View {
-    @EnvironmentObject var viewModel: GymOccupancyViewModel
-    
+    @InjectedObservable(\.gymOccupancyViewModel) var viewModel
+
+    let location: GymOccupancyLocation
+
     var body: some View {
         VStack {
-            if let occupancy = viewModel.occupancyPercentage {
-                GymOccupancyGaugeView(occupancy: occupancy, gymName: viewModel.location.rawValue)
+            let gymName = location.rawValue
+            if let occupancy = viewModel.occupancyPercentages[location] {
+                GymOccupancyGaugeView(occupancy: occupancy, gymName: gymName)
             } else {
-                GymRedactedOccupancyGaugeView(gymLocationName: viewModel.location.rawValue)
+                GymRedactedOccupancyGaugeView(gymName: gymName)
             }
             
-            Text(viewModel.location.rawValue)
+            Text(location.rawValue)
                 .font(Font(BMFont.regular(9)))
         }
         .onAppear {
-            if viewModel.occupancyPercentage == nil {
+            if viewModel.occupancyPercentages[location] == nil {
                 viewModel.startAutoRefresh()
             }
         }
@@ -35,8 +38,6 @@ struct GymOccupancyView: View {
 // MARK: - GymOccupancyGaugeView
 
 struct GymOccupancyGaugeView: View {
-    @EnvironmentObject var viewModel: GymOccupancyViewModel
-    
     var occupancy: Double
     var gymName: String
     
@@ -61,10 +62,10 @@ struct GymOccupancyGaugeView: View {
 // MARK: - GymRedactedOccupancyGaugeView
 
 struct GymRedactedOccupancyGaugeView: View {
-    var gymLocationName: String
+    var gymName: String
     
     var body: some View {
-        GymOccupancyGaugeView(occupancy: 0, gymName: gymLocationName)
+        GymOccupancyGaugeView(occupancy: 0, gymName: gymName)
             .redacted(reason: .placeholder)
             .overlay(
                 Circle()
@@ -81,8 +82,6 @@ struct GymRedactedOccupancyGaugeView: View {
 #Preview {
     Group {
         GymOccupancyGaugeView(occupancy: 78, gymName: "RSF Weight Rooms")
-            .environmentObject(GymOccupancyViewModel(location: .rsf))
-        GymRedactedOccupancyGaugeView(gymLocationName: "CMS Fitness Center")
-            .environmentObject(GymOccupancyViewModel(location: .stadium))
+        GymRedactedOccupancyGaugeView(gymName: "CMS Fitness Center")
     }
 }

@@ -15,6 +15,7 @@ struct TodayTile: Identifiable {
 struct TodayTileAttributes: Identifiable {
     let id = UUID()
     let span: TodayTileSpan
+    let contentPadding: CGFloat
     let displayedStyleName: TodayTileStyle.Name
     let styles: [TodayTileStyle.Name: TodayTileStyle]
 
@@ -66,12 +67,15 @@ struct TodayTileStyle {
 }
 
 enum TodayTiles: CaseIterable {
+    case news
     case weather
     case dining
 
     @ViewBuilder
     func view() -> some View {
         switch self {
+        case .news:
+            NewsTileView()
         case .weather:
             TodayWeatherTileView()
         case .dining:
@@ -81,9 +85,18 @@ enum TodayTiles: CaseIterable {
 
     func viewAttributes(for displayedStyleName: TodayTileStyle.Name = TodayTileStyle.Name.defaultName) -> TodayTileAttributes {
         return switch self {
+        case .news:
+            TodayTileAttributes(
+                span: .halfWidth,
+                contentPadding: 0,
+                displayedStyleName: displayedStyleName,
+                styles: [TodayTileStyle.Name.defaultName: TodayTileStyle(colors: [
+                    Color(red: 1, green: 1, blue: 1)])]
+            )
         case .weather:
             TodayTileAttributes(
                 span: .halfWidth,
+                contentPadding: 20,
                 displayedStyleName: displayedStyleName,
                 styles: [TodayTileStyle.Name.defaultName: TodayTileStyle(colors: [
                     Color(red: 0.20, green: 0.52, blue: 0.87),
@@ -92,6 +105,7 @@ enum TodayTiles: CaseIterable {
         case .dining:
             TodayTileAttributes(
                 span: .halfWidth,
+                contentPadding: 20,
                 displayedStyleName: displayedStyleName,
                 styles: [TodayTileStyle.Name.defaultName: TodayTileStyle(colors: [
                     Color(red: 0.95, green: 0.45, blue: 0.20),

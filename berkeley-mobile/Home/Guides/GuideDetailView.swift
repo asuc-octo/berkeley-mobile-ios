@@ -10,8 +10,6 @@ import FactoryKit
 import SwiftUI
 
 struct GuideDetailView: View {
-    @InjectedObservable(\.guidesViewModel) private var viewModel
-    
     var guide: Guide
     
     var body: some View {
@@ -57,8 +55,8 @@ struct GuideDetailView: View {
 // MARK: - GuideDetailRowHeaderView
 
 struct GuideDetailRowHeaderView: View {
-    @Environment(GuidesViewModel.self) private var viewModel
-    
+    @InjectedObservable(\.guidesViewModel) private var viewModel
+
     var place: GuidePlace
     
     @State private var isPresentingWebView = false

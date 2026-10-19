@@ -14,9 +14,11 @@ extension Container {
         self { CalendarViewModel() }.shared
     }
 
+    #if DEBUG
     var debugViewModel: Factory<DebugViewModel> {
         self { DebugViewModel(feedbackFormPresenter: self.feedbackFormPresenter()) }
     }
+    #endif
 
     var diningHallsViewModel: Factory<DiningHallsViewModel> {
         self { DiningHallsViewModel() }.singleton
@@ -38,6 +40,12 @@ extension Container {
 
     var guidesViewModel: Factory<GuidesViewModel> {
         self { GuidesViewModel() }.singleton
+    }
+
+    var gymOccupancyViewModel: Factory<GymOccupancyViewModel> {
+        self { @MainActor in
+            GymOccupancyViewModel()
+        }.singleton
     }
 
     var homeDrawerPinViewModel: Factory<HomeDrawerPinViewModel> {
@@ -62,12 +70,14 @@ extension Container {
         self { MenuItemIconCacheManager() }.shared
     }
 
-    var resourcesViewModel: Factory<ResourcesViewModel> {
-        self { ResourcesViewModel() }.shared
+    var newsDataViewModel: Factory<NewsDataViewModel> {
+        self { @MainActor in
+            NewsDataViewModel()
+        }.shared
     }
 
-    var rsfOccupancyViewModel: Factory<GymOccupancyViewModel> {
-        self { GymOccupancyViewModel(location: .rsf) }.singleton
+    var resourcesViewModel: Factory<ResourcesViewModel> {
+        self { ResourcesViewModel() }.shared
     }
 
     var safetyViewModel: Factory<SafetyViewModel> {
@@ -76,10 +86,6 @@ extension Container {
 
     var searchViewModel: Factory<SearchViewModel> {
         self { SearchViewModel { _ in } choosePlacemark: { _ in } }.shared
-    }
-
-    var stadiumOccupancyViewModel: Factory<GymOccupancyViewModel> {
-        self { GymOccupancyViewModel(location: .stadium) }.singleton
     }
 
     var weatherDataViewModel: Factory<WeatherDataViewModel> {

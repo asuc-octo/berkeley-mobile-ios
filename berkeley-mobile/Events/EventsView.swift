@@ -9,82 +9,47 @@
 import FactoryKit
 import SwiftUI
 
-struct GenericEventsView: View {
-    @InjectedObject(\.calendarViewModel) private var calendarViewModel
-    @InjectedObject(\.eventsViewModel) private var eventsViewModel
-
-    @StateObject private var genericEventScrapper: EventScrapper
-    
-    init(genericEventScrapper: EventScrapper) {
-        _genericEventScrapper = StateObject(wrappedValue: genericEventScrapper)
-    }
-    
-    var body: some View {
-        NavigationStack {
-            ScrollViewReader { proxy in
-                CalendarEventsListView(scrapper: genericEventScrapper, proxy: proxy) { event in
-                    EventRowView(event: event)
-                        .padding(.horizontal)
-                        .background(
-                            NavigationLink("") {
-                                EventDetailView(event: event)
-                            }
-                            .opacity(0)
-                        )
-                }
-            }
-        }
-        .onAppear {
-            genericEventScrapper.scrape()
-            eventsViewModel.logCampuswideTabAnalytics()
-        }
-        .onChange(of: genericEventScrapper.alert) { _, alert in
-            withoutAnimation {
-                eventsViewModel.alert = alert
-            }
-        }
-        .onChange(of: genericEventScrapper.groupedEntries) { _, entries in
-            calendarViewModel.setEntries(entries)
-        }
-        .refreshable {
-            guard !genericEventScrapper.isLoading else {
-                return
-            }
-            genericEventScrapper.scrape(forceRescrape: true)
-        }
-    }
-}
-
 struct EventsView: View {
-    @InjectedObject(\.eventsViewModel) private var eventsViewModel
-    
-    @State private var tabSelectedIndex = 0
+    @InjectedObservable(\.eventsViewModel) private var eventsViewModel
     
     var body: some View {
-        NavigationStack {
-            ZStack {
-                BMTopBlobView(imageName: "BlobTopRight", xOffset: 50, yOffset: -45, width: 300, height: 150)
-                
-                VStack {
-                    BMSegmentedControlView(
-                        tabNames: ["Academic", "Campus-Wide"],
-                        selectedTabIndex: $tabSelectedIndex
-                    )
-                    .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0))
-    
-                    TabView(selection: $tabSelectedIndex) {
-                        GenericEventsView(genericEventScrapper: EventScrapper(type: .academic))
-                            .tag(0)
-                        GenericEventsView(genericEventScrapper: EventScrapper(type: .campuswide))
-                            .tag(1)
+        ZStack {
+            BMTopBlobView(imageName: "BlobTopRight", xOffset: 50, yOffset: -45, width: 300, height: 150)
+            NavigationStack {
+                if eventsViewModel.eventsGroupedByDate.isEmpty {
+                    BMContentUnavailableView(iconName: "", title: "No Events Available", subtitle: "Please try again.")
+                } else {
+                    List(eventsViewModel.eventsGroupedByDate, id: \.0) { dayEvents in
+                        EventsDateSectionView(date: dayEvents.0, events: dayEvents.1) { event in
+                            Group {
+                                if event.isAllDay == true {
+                                    AllDayEventBannerView(event: event)
+                                } else {
+                                    EventRowView(event: event)
+                                        .padding(.horizontal)
+
+                                }
+                            }
+                            .background(
+                                NavigationLink("") {
+                                    EventDetailView(event: event)
+                                        .presentAlert(alert: $eventsViewModel.alert)
+                                }
+                                .opacity(0)
+                            )
+                        }
+                        .listRowSeparator(.hidden)
+                        .listRowBackground(Color.clear)
                     }
-                    .tabViewStyle(.page(indexDisplayMode: .never))
+                    .scrollContentBackground(.hidden)
                 }
-                .navigationTitle("Events")
             }
-            .background(Color(BMColor.cardBackground))
+            .onAppear {
+                eventsViewModel.logCampuswideTabAnalytics()
+            }
         }
-        .presentAlert(alert: $eventsViewModel.alert)
+        .navigationTitle("Events")
+        .background(Color(BMColor.cardBackground))
     }
 }
 

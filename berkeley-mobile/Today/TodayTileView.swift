@@ -10,6 +10,7 @@ import SwiftUI
 struct TodayTileView<Content: View>: View {
     let tileAttributes: TodayTileAttributes
     private let content: Content
+    private let tileShape = RoundedRectangle(cornerRadius: 28, style: .continuous)
 
     init(attributes: TodayTileAttributes, @ViewBuilder content: () -> Content) {
         self.tileAttributes = attributes
@@ -18,17 +19,18 @@ struct TodayTileView<Content: View>: View {
 
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 28, style: .continuous)
+            tileShape
                 .fill(tileAttributes.displayedStyle.gradient)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 28, style: .continuous)
-                        .strokeBorder(.white.opacity(0.15), lineWidth: 1)
-                )
 
             content
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                .padding(20)
+                .padding(tileAttributes.contentPadding)
         }
+        .clipShape(tileShape)
+        .overlay(
+            tileShape
+                .strokeBorder(.white.opacity(0.15), lineWidth: 1)
+        )
         .shadow(color: .black.opacity(0.16), radius: 14, x: 0, y: 8)
     }
 }
