@@ -40,9 +40,23 @@ class HomeViewModel: ObservableObject {
     @Published var isShowingDrawer = true
     @Published var homeDrawerDetailViewInfo: (type: HomeDrawerViewType, item: SearchItem)? = nil
     @Published var drawerViewState = BMDrawerViewState.medium
+    @Published var tabSelectedIndex: Int = 0
+    @Published private(set) var diningNavigationRequestID = UUID()
 
     init() {
         fetchHomeSectionsData()
+    }
+
+    func showDining() {
+        diningNavigationRequestID = UUID()
+        tabSelectedIndex = 0
+        isShowingDrawer = true
+		
+        // Hop a runloop tick so .large lands after
+        // HomeView's .onChange resets to .medium.
+        DispatchQueue.main.async { [weak self] in
+            self?.drawerViewState = .large
+        }
     }
     
     func presentDetail(type: AnyClass, item: SearchItem) {
