@@ -1,0 +1,6 @@
+framework module openssl_grpc {
+  umbrella header "BoringSSL-GRPC-iOS17.0-umbrella.h"
+
+  export *
+  module * { export * }
+}

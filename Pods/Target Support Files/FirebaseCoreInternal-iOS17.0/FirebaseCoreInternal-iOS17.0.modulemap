@@ -1,0 +1,6 @@
+framework module FirebaseCoreInternal {
+  umbrella header "FirebaseCoreInternal-iOS17.0-umbrella.h"
+
+  export *
+  module * { export * }
+}

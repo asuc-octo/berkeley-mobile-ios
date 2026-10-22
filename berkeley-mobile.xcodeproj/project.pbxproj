@@ -114,6 +114,7 @@
 		55DCF78723722CBD001B01B8 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF78623722CBD001B01B8 /* Colors.swift */; };
 		55DCF78923722CF1001B01B8 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF78823722CF1001B01B8 /* Fonts.swift */; };
 		55DCF79623723CF2001B01B8 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF79523723CF2001B01B8 /* UIView+Extensions.swift */; };
+		96DA150D6985DFA4A21A8F04 /* Pods_BerkeleyMobileWidgetExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88752E0CFB767D9ED1F864D5 /* Pods_BerkeleyMobileWidgetExtension.framework */; };
 		C14CCB612D9CC2730075FE69 /* BMFilterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14CCB602D9CC2680075FE69 /* BMFilterButton.swift */; };
 		E80330EB2CE431C200DC9574 /* DepthButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80330EA2CE431C200DC9574 /* DepthButtonStyle.swift */; };
 		E80330ED2CE7EBB100DC9574 /* NSCoding+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80330EC2CE7EBB100DC9574 /* NSCoding+Extension.swift */; };
@@ -350,8 +351,11 @@
 		55DCF78623722CBD001B01B8 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		55DCF78823722CF1001B01B8 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		55DCF79523723CF2001B01B8 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		593E0D702BF6610A864841FE /* Pods-BerkeleyMobileWidgetExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BerkeleyMobileWidgetExtension.debug.xcconfig"; path = "Target Support Files/Pods-BerkeleyMobileWidgetExtension/Pods-BerkeleyMobileWidgetExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		61D128E68A4FC209FFCDE60F /* Pods-berkeley-mobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeley-mobile.release.xcconfig"; path = "Target Support Files/Pods-berkeley-mobile/Pods-berkeley-mobile.release.xcconfig"; sourceTree = "<group>"; };
+		88752E0CFB767D9ED1F864D5 /* Pods_BerkeleyMobileWidgetExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BerkeleyMobileWidgetExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C14CCB602D9CC2680075FE69 /* BMFilterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMFilterButton.swift; sourceTree = "<group>"; };
+		D76E540ABD59EB782AAA514F /* Pods-BerkeleyMobileWidgetExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BerkeleyMobileWidgetExtension.release.xcconfig"; path = "Target Support Files/Pods-BerkeleyMobileWidgetExtension/Pods-BerkeleyMobileWidgetExtension.release.xcconfig"; sourceTree = "<group>"; };
 		E80330EA2CE431C200DC9574 /* DepthButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepthButtonStyle.swift; sourceTree = "<group>"; };
 		E80330EC2CE7EBB100DC9574 /* NSCoding+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSCoding+Extension.swift"; sourceTree = "<group>"; };
 		E80330EE2CE9A8EB00DC9574 /* berkeley-mobile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "berkeley-mobile.entitlements"; sourceTree = "<group>"; };
@@ -466,6 +470,7 @@
 			files = (
 				E889F7FE2DAC4DEE00202556 /* SwiftUI.framework in Frameworks */,
 				E889F7FC2DAC4DEE00202556 /* WidgetKit.framework in Frameworks */,
+				96DA150D6985DFA4A21A8F04 /* Pods_BerkeleyMobileWidgetExtension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -842,6 +847,8 @@
 			children = (
 				0EF369A28DCE41D7C2C6F336 /* Pods-berkeley-mobile.debug.xcconfig */,
 				61D128E68A4FC209FFCDE60F /* Pods-berkeley-mobile.release.xcconfig */,
+				593E0D702BF6610A864841FE /* Pods-BerkeleyMobileWidgetExtension.debug.xcconfig */,
+				D76E540ABD59EB782AAA514F /* Pods-BerkeleyMobileWidgetExtension.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -916,6 +923,7 @@
 				009098AE14DA5A91CB4733A6 /* Pods_berkeley_mobile.framework */,
 				E889F7FB2DAC4DEE00202556 /* WidgetKit.framework */,
 				E889F7FD2DAC4DEE00202556 /* SwiftUI.framework */,
+				88752E0CFB767D9ED1F864D5 /* Pods_BerkeleyMobileWidgetExtension.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1036,6 +1044,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E889F80E2DAC4DEF00202556 /* Build configuration list for PBXNativeTarget "BerkeleyMobileWidgetExtension" */;
 			buildPhases = (
+				AB88325316E373F92B4122AA /* [CP] Check Pods Manifest.lock */,
 				E889F7F62DAC4DEE00202556 /* Sources */,
 				E889F7F72DAC4DEE00202556 /* Frameworks */,
 				E889F7F82DAC4DEE00202556 /* Resources */,
@@ -1172,6 +1181,28 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-berkeley-mobile-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AB88325316E373F92B4122AA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BerkeleyMobileWidgetExtension-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1557,7 +1588,7 @@
 		};
 		E889F80B2DAC4DEF00202556 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0EF369A28DCE41D7C2C6F336 /* Pods-berkeley-mobile.debug.xcconfig */;
+			baseConfigurationReference = 593E0D702BF6610A864841FE /* Pods-BerkeleyMobileWidgetExtension.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1593,7 +1624,7 @@
 		};
 		E889F80C2DAC4DEF00202556 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 61D128E68A4FC209FFCDE60F /* Pods-berkeley-mobile.release.xcconfig */;
+			baseConfigurationReference = D76E540ABD59EB782AAA514F /* Pods-BerkeleyMobileWidgetExtension.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
