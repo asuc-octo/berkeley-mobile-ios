@@ -11,7 +11,7 @@ import MapKit
 import SwiftUI
 
 struct SafetyView: View {
-    @InjectedObject(\.safetyViewModel) private var safetyViewModel
+    @InjectedObservable(\.safetyViewModel) private var safetyViewModel
 
     @State private var selectedSafetyLog: BMSafetyLog?
     @State private var drawerViewState = BMDrawerViewState.medium
