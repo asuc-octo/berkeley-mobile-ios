@@ -114,6 +114,8 @@
 		55DCF78723722CBD001B01B8 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF78623722CBD001B01B8 /* Colors.swift */; };
 		55DCF78923722CF1001B01B8 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF78823722CF1001B01B8 /* Fonts.swift */; };
 		55DCF79623723CF2001B01B8 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DCF79523723CF2001B01B8 /* UIView+Extensions.swift */; };
+		A8EA64B02FA0562300FED6F3 /* LibrariesTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8EA64AF2FA0562300FED6F3 /* LibrariesTileView.swift */; };
+		A8EA64B82FA062CD00FED6F3 /* LibraryImageMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8EA64B72FA062CD00FED6F3 /* LibraryImageMapper.swift */; };
 		C14CCB612D9CC2730075FE69 /* BMFilterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14CCB602D9CC2680075FE69 /* BMFilterButton.swift */; };
 		E80330EB2CE431C200DC9574 /* DepthButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80330EA2CE431C200DC9574 /* DepthButtonStyle.swift */; };
 		E80330ED2CE7EBB100DC9574 /* NSCoding+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80330EC2CE7EBB100DC9574 /* NSCoding+Extension.swift */; };
@@ -351,6 +353,8 @@
 		55DCF78823722CF1001B01B8 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		55DCF79523723CF2001B01B8 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		61D128E68A4FC209FFCDE60F /* Pods-berkeley-mobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-berkeley-mobile.release.xcconfig"; path = "Target Support Files/Pods-berkeley-mobile/Pods-berkeley-mobile.release.xcconfig"; sourceTree = "<group>"; };
+		A8EA64AF2FA0562300FED6F3 /* LibrariesTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibrariesTileView.swift; sourceTree = "<group>"; };
+		A8EA64B72FA062CD00FED6F3 /* LibraryImageMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryImageMapper.swift; sourceTree = "<group>"; };
 		C14CCB602D9CC2680075FE69 /* BMFilterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMFilterButton.swift; sourceTree = "<group>"; };
 		E80330EA2CE431C200DC9574 /* DepthButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepthButtonStyle.swift; sourceTree = "<group>"; };
 		E80330EC2CE7EBB100DC9574 /* NSCoding+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSCoding+Extension.swift"; sourceTree = "<group>"; };
@@ -837,6 +841,15 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		A8EA64B62FA0569C00FED6F3 /* Libraries Tile */ = {
+			isa = PBXGroup;
+			children = (
+				A8EA64AF2FA0562300FED6F3 /* LibrariesTileView.swift */,
+				A8EA64B72FA062CD00FED6F3 /* LibraryImageMapper.swift */,
+			);
+			path = "Libraries Tile";
+			sourceTree = "<group>";
+		};
 		D7D8E5ACD8A49B3560D555D9 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -987,6 +1000,7 @@
 		E8B8879A2F67722E002B9632 /* Tiles */ = {
 			isa = PBXGroup;
 			children = (
+				A8EA64B62FA0569C00FED6F3 /* Libraries Tile */,
 				E8137C392F84A1DA0098396F /* News Tile */,
 				E8B6D49A2F7A160D002719AF /* Weather Tile */,
 			);
@@ -1214,6 +1228,7 @@
 				E83927EB2EF1222800CF2DF5 /* DebugView.swift in Sources */,
 				E8117D032F5D3A310047CC89 /* BerkeleyMobile+Injection.swift in Sources */,
 				13135BB22412442C0056B169 /* FilterView.swift in Sources */,
+				A8EA64B82FA062CD00FED6F3 /* LibraryImageMapper.swift in Sources */,
 				306A54FE236142B800D59A7F /* DrawerViewController.swift in Sources */,
 				2E76503D2DB773A0009B5551 /* UserDefaults+Extension.swift in Sources */,
 				E8472B382DE50F41005C24EA /* CalendarSectionView.swift in Sources */,
@@ -1295,6 +1310,7 @@
 				E8137C3D2F84A4950098396F /* NewsTileView.swift in Sources */,
 				E8472B062DE453D6005C24EA /* BMAddedCalendarStatusOverlayView.swift in Sources */,
 				FAFF001C2E84C62100551C44 /* ReviewPrompter.swift in Sources */,
+				A8EA64B02FA0562300FED6F3 /* LibrariesTileView.swift in Sources */,
 				13EA64D02399D50C00FD8E13 /* DataManager.swift in Sources */,
 				E80330EB2CE431C200DC9574 /* DepthButtonStyle.swift in Sources */,
 				C14CCB612D9CC2730075FE69 /* BMFilterButton.swift in Sources */,
