@@ -127,6 +127,9 @@
 		E8117D362F5FBAEE0047CC89 /* TodayWeatherTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8117D352F5FBAEE0047CC89 /* TodayWeatherTileView.swift */; };
 		E8137C3B2F84A1F90098396F /* NewsDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8137C3A2F84A1F90098396F /* NewsDataViewModel.swift */; };
 		E8137C3D2F84A4950098396F /* NewsTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8137C3C2F84A4950098396F /* NewsTileView.swift */; };
+		A1B2C3D4E5F601230098396F /* SportGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F601240098396F /* SportGame.swift */; };
+		A1B2C3D4E5F601250098396F /* SportsDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F601260098396F /* SportsDataViewModel.swift */; };
+		A1B2C3D4E5F601270098396F /* SportsTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F601280098396F /* SportsTileView.swift */; };
 		E81767582B9A516200599254 /* MapMarkersDropdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81767572B9A516200599254 /* MapMarkersDropdownView.swift */; };
 		E82E2A532ECD833F00785593 /* FeedbackFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82E2A512ECD833F00785593 /* FeedbackFormView.swift */; };
 		E82E2A552ECD835200785593 /* FeedbackFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82E2A542ECD835200785593 /* FeedbackFormViewModel.swift */; };
@@ -364,6 +367,9 @@
 		E8117D352F5FBAEE0047CC89 /* TodayWeatherTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayWeatherTileView.swift; sourceTree = "<group>"; };
 		E8137C3A2F84A1F90098396F /* NewsDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDataViewModel.swift; sourceTree = "<group>"; };
 		E8137C3C2F84A4950098396F /* NewsTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTileView.swift; sourceTree = "<group>"; };
+		A1B2C3D4E5F601240098396F /* SportGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportGame.swift; sourceTree = "<group>"; };
+		A1B2C3D4E5F601260098396F /* SportsDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsDataViewModel.swift; sourceTree = "<group>"; };
+		A1B2C3D4E5F601280098396F /* SportsTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsTileView.swift; sourceTree = "<group>"; };
 		E81767572B9A516200599254 /* MapMarkersDropdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMarkersDropdownView.swift; sourceTree = "<group>"; };
 		E82E2A512ECD833F00785593 /* FeedbackFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackFormView.swift; sourceTree = "<group>"; };
 		E82E2A542ECD835200785593 /* FeedbackFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackFormViewModel.swift; sourceTree = "<group>"; };
@@ -984,11 +990,22 @@
 			path = "Weather Tile";
 			sourceTree = "<group>";
 		};
+		A1B2C3D4E5F601290098396F /* Sports Tile */ = {
+			isa = PBXGroup;
+			children = (
+				A1B2C3D4E5F601240098396F /* SportGame.swift */,
+				A1B2C3D4E5F601280098396F /* SportsTileView.swift */,
+				A1B2C3D4E5F601260098396F /* SportsDataViewModel.swift */,
+			);
+			path = "Sports Tile";
+			sourceTree = "<group>";
+		};
 		E8B8879A2F67722E002B9632 /* Tiles */ = {
 			isa = PBXGroup;
 			children = (
 				E8137C392F84A1DA0098396F /* News Tile */,
 				E8B6D49A2F7A160D002719AF /* Weather Tile */,
+				A1B2C3D4E5F601290098396F /* Sports Tile */,
 			);
 			path = Tiles;
 			sourceTree = "<group>";
@@ -1194,6 +1211,7 @@
 				306A550023614C0000D59A7F /* MainContainerViewController.swift in Sources */,
 				29F11EC72516C150007DCFD7 /* BarView.swift in Sources */,
 				E8137C3B2F84A1F90098396F /* NewsDataViewModel.swift in Sources */,
+				A1B2C3D4E5F601250098396F /* SportsDataViewModel.swift in Sources */,
 				55DCF78723722CBD001B01B8 /* Colors.swift in Sources */,
 				29B3D7862453984A006762E5 /* DrawerViewDelegate.swift in Sources */,
 				559AF6E0251EAA2800463E2A /* DetailTapGestureRecognizer.swift in Sources */,
@@ -1293,6 +1311,7 @@
 				29B1D307254E1C8700BAD88F /* BMEventManager.swift in Sources */,
 				E8C2BDA72D912B3A00165554 /* CalendarView.swift in Sources */,
 				E8137C3D2F84A4950098396F /* NewsTileView.swift in Sources */,
+				A1B2C3D4E5F601270098396F /* SportsTileView.swift in Sources */,
 				E8472B062DE453D6005C24EA /* BMAddedCalendarStatusOverlayView.swift in Sources */,
 				FAFF001C2E84C62100551C44 /* ReviewPrompter.swift in Sources */,
 				13EA64D02399D50C00FD8E13 /* DataManager.swift in Sources */,
@@ -1351,6 +1370,7 @@
 				13EA64CD2399CEDA00FD8E13 /* BMGym.swift in Sources */,
 				E89F20492DF3F7B200C488EF /* FitnessView.swift in Sources */,
 				E8875DF52F8B069F004D50EC /* NewsArticle.swift in Sources */,
+				A1B2C3D4E5F601230098396F /* SportGame.swift in Sources */,
 				E885639E2EB02EFA0062315A /* GuidesViewModel.swift in Sources */,
 				E89F20452DF2CD2E00C488EF /* BMHomeSectionListView.swift in Sources */,
 				1396013523865E2E005E4788 /* CardView.swift in Sources */,
