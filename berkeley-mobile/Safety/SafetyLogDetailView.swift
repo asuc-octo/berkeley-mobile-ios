@@ -11,7 +11,7 @@ import MapKit
 import SwiftUI
 
 struct SafetyLogDetailView: View {
-    @InjectedObject(\.safetyViewModel) private var safetyViewModel
+    @InjectedObservable(\.safetyViewModel) private var safetyViewModel
     
     @Binding var selectedSafetyLog: BMSafetyLog?
     @Binding var drawerViewState: BMDrawerViewState
@@ -72,7 +72,7 @@ struct SafetyLogDetailView: View {
 // MARK: - SafetyLogView
 
 struct SafetyLogView: View {
-    @InjectedObject(\.safetyViewModel) private var viewModel
+    @InjectedObservable(\.safetyViewModel) private var viewModel
 
     var safetyLog: BMSafetyLog
     var isPresentingFullScreen: Bool

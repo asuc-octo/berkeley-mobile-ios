@@ -10,7 +10,7 @@ import FactoryKit
 import SwiftUI
 
 struct SafetyViewFilterScrollView: View {
-    @InjectedObject(\.safetyViewModel) private var safetyViewModel
+    @InjectedObservable(\.safetyViewModel) private var safetyViewModel
     
     @Binding var drawerViewState: BMDrawerViewState
     
