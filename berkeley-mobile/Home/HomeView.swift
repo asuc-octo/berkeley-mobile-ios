@@ -18,7 +18,6 @@ struct HomeView: View {
 
     @InjectedObject(\.homeViewModel) private var homeViewModel
 
-    @State private var tabSelectedIndex = 0
     @State private var navigationPath = NavigationPath()
     @State private var isPresentingDetailView = false
     @State private var selectedDetent: PresentationDetent = .fraction(0.45)
@@ -46,12 +45,15 @@ struct HomeView: View {
                 homeViewModel.drawerViewState = .medium
             }
         }
+        .onReceive(homeViewModel.$diningNavigationRequestID) { _ in
+            navigationPath = NavigationPath()
+        }
     }
     
     private var segmentedControlHeader: some View {
         BMSegmentedControlView(
             tabNames: ["Dining", "Fitness", "Study", "Guides"],
-            selectedTabIndex: $tabSelectedIndex
+            selectedTabIndex: $homeViewModel.tabSelectedIndex
         )
         .padding(.top, 20)
     }
@@ -65,11 +67,12 @@ struct HomeView: View {
                     Spacer()
                 } else {
                     segmentedControlHeader
-                    switch tabSelectedIndex {
+                    switch homeViewModel.tabSelectedIndex {
                     case 0:
                         DiningHallsView(mapViewController: mapViewController) { selectedDiningHall in
                             navigationPath.append(selectedDiningHall)
                         }
+                        .id(homeViewModel.diningNavigationRequestID)
                         .onAppear {
                             homeViewModel.logOpenedDiningHomeSectionAnalytics()
                         }
