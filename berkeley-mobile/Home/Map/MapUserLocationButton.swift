@@ -9,9 +9,10 @@
 import FactoryKit
 import SwiftUI
 
-class MapUserLocationButtonViewModel: ObservableObject {
-    @Published var isHomingInOnUserLocation = false
-    @Published var isUserLocationAvailable = false
+@Observable
+class MapUserLocationButtonViewModel {
+    var isHomingInOnUserLocation = false
+    var isUserLocationAvailable = false
     
     init() {
         BMLocationManager.notificationCenter.addObserver(
@@ -31,7 +32,7 @@ class MapUserLocationButtonViewModel: ObservableObject {
 }
 
 struct MapUserLocationButton: View {
-    @InjectedObject(\.mapUserLocationButtonViewModel) private var viewModel
+    @InjectedObservable(\.mapUserLocationButtonViewModel) private var viewModel
     
     var homeInUserLocationCompletionHandler: () -> Void
     
