@@ -125,6 +125,7 @@
 		E8117D172F5FB8D10047CC89 /* TodayTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8117D1B2F5FB8D10047CC89 /* TodayTileView.swift */; };
 		E8117D182F5FB8D10047CC89 /* TodayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8117D1C2F5FB8D10047CC89 /* TodayView.swift */; };
 		E8117D362F5FBAEE0047CC89 /* TodayWeatherTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8117D352F5FBAEE0047CC89 /* TodayWeatherTileView.swift */; };
+		B7D1A6012FB0E10000C0FFEE /* DiningHallsTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D1A6022FB0E10000C0FFEE /* DiningHallsTileView.swift */; };
 		E8137C3B2F84A1F90098396F /* NewsDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8137C3A2F84A1F90098396F /* NewsDataViewModel.swift */; };
 		E8137C3D2F84A4950098396F /* NewsTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8137C3C2F84A4950098396F /* NewsTileView.swift */; };
 		E81767582B9A516200599254 /* MapMarkersDropdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81767572B9A516200599254 /* MapMarkersDropdownView.swift */; };
@@ -362,6 +363,7 @@
 		E8117D1B2F5FB8D10047CC89 /* TodayTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayTileView.swift; sourceTree = "<group>"; };
 		E8117D1C2F5FB8D10047CC89 /* TodayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayView.swift; sourceTree = "<group>"; };
 		E8117D352F5FBAEE0047CC89 /* TodayWeatherTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayWeatherTileView.swift; sourceTree = "<group>"; };
+		B7D1A6022FB0E10000C0FFEE /* DiningHallsTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiningHallsTileView.swift; sourceTree = "<group>"; };
 		E8137C3A2F84A1F90098396F /* NewsDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDataViewModel.swift; sourceTree = "<group>"; };
 		E8137C3C2F84A4950098396F /* NewsTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTileView.swift; sourceTree = "<group>"; };
 		E81767572B9A516200599254 /* MapMarkersDropdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMarkersDropdownView.swift; sourceTree = "<group>"; };
@@ -975,6 +977,14 @@
 			path = Safety;
 			sourceTree = "<group>";
 		};
+		B7D1A6032FB0E10000C0FFEE /* Dining Tile */ = {
+			isa = PBXGroup;
+			children = (
+				B7D1A6022FB0E10000C0FFEE /* DiningHallsTileView.swift */,
+			);
+			path = "Dining Tile";
+			sourceTree = "<group>";
+		};
 		E8B6D49A2F7A160D002719AF /* Weather Tile */ = {
 			isa = PBXGroup;
 			children = (
@@ -988,6 +998,7 @@
 			isa = PBXGroup;
 			children = (
 				E8137C392F84A1DA0098396F /* News Tile */,
+				B7D1A6032FB0E10000C0FFEE /* Dining Tile */,
 				E8B6D49A2F7A160D002719AF /* Weather Tile */,
 			);
 			path = Tiles;
@@ -1357,6 +1368,7 @@
 				1336A322241D92F700949F32 /* MealType.swift in Sources */,
 				018B982625327358004C3B26 /* ActionButton.swift in Sources */,
 				E8117D362F5FBAEE0047CC89 /* TodayWeatherTileView.swift in Sources */,
+				B7D1A6012FB0E10000C0FFEE /* DiningHallsTileView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
