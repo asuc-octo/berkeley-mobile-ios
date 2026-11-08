@@ -31,7 +31,7 @@ struct OpenTimesCardSwiftUIView: View {
             }
         }
         .background(Color(BMColor.cardBackground))
-        .cornerRadius(15)
+        .clipShape(.rect(cornerRadius: 15))
         .shadow(color: .black.opacity(0.05), radius: 3, x: 0, y: 1)
         .animation(.spring(response: 0.4, dampingFraction: 1.0), value: isExpanded)
         .padding(.bottom, 8) 
@@ -82,8 +82,8 @@ struct OpenTimesCardSwiftUIView: View {
                 .padding(.horizontal, 12) 
                 .padding(.vertical, 4) 
                 .background(isOpen ? Color.green : Color.red) 
-                .foregroundColor(.white)
-                .cornerRadius(12)
+                .foregroundStyle(.white)
+                .clipShape(.rect(cornerRadius: 12))
                 .frame(width: 80, alignment: .leading)
         }
     }

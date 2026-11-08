@@ -28,7 +28,7 @@ struct ResourcesSectionDropdown<Content: View>: View {
             HStack {
                 Text(title)
                     .font(Font(BMFont.bold(25)))
-                    .foregroundColor(Color.primary)
+                    .foregroundStyle(Color.primary)
                     .padding(.vertical, 16)
                     .multilineTextAlignment(.leading)
                 
@@ -97,7 +97,7 @@ struct ResourceItemView: View {
         Rectangle()
             .fill(colorForResource)
             .frame(width: 8)
-            .cornerRadius(3)
+            .clipShape(.rect(cornerRadius: 3))
     }
     
     private var headerButton: some View {
@@ -110,7 +110,7 @@ struct ResourceItemView: View {
                 Text(resource.name)
                     .font(Font(BMFont.regular(17)))
                     .bold()
-                    .foregroundColor(.primary)
+                    .foregroundStyle(.primary)
                     .padding(.leading, 16)
                     .padding(.vertical, 8)
                     .multilineTextAlignment(.leading)
@@ -170,7 +170,7 @@ struct ResourceItemView: View {
             RoundedRectangle(cornerRadius: 10)
                 .stroke(Color.gray.opacity(0.3), lineWidth: 1.8)
         )
-        .cornerRadius(10)
+        .clipShape(.rect(cornerRadius: 10))
         .padding(.vertical, 4)
         .fullScreenCover(isPresented: $isPresentingWebView) {
             websiteView

@@ -34,7 +34,7 @@ struct FeedbackFormView: View {
             Form {
                 Section {
                     Text(config.instructionText)
-                        .foregroundColor(.secondary)
+                        .foregroundStyle(.secondary)
                 }
                 
                 emailSection
@@ -56,7 +56,7 @@ struct FeedbackFormView: View {
                                     }) {
                                         Image(systemName: checkboxAnswers[question, default: false] ? "checkmark.square.fill" : "square")
                                             .font(.system(size: 25))
-                                            .foregroundColor(checkboxAnswers[question, default: false] ? .blue : .gray)
+                                            .foregroundStyle(checkboxAnswers[question, default: false] ? .blue : .gray)
                                     }
                                 }
                             }
@@ -89,7 +89,7 @@ struct FeedbackFormView: View {
     private var emailSection: some View {
         Section(
             header: Text("Berkeley Email \(!isEmailValid ? "(Required)" : "")")
-                .foregroundColor(!isEmailValid ? .red : Color.gray)
+                .foregroundStyle(!isEmailValid ? .red : Color.gray)
         ) {
             TextField("your.email@berkeley.edu", text: $email)
                 .textInputAutocapitalization(.never)
@@ -121,7 +121,7 @@ struct FeedbackFormView: View {
                             .progressViewStyle(CircularProgressViewStyle(tint: .white))
                     } else {
                         Text("Submit")
-                            .foregroundColor(.white)
+                            .foregroundStyle(.white)
                             .bold()
                             .font(.system(size: 25))
                     }
