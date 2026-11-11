@@ -24,7 +24,7 @@ class LibraryDataSource: DataSource {
         db.collection(kLibrariesEndpoint).getDocuments() { (querySnapshot, err) in
             if let err = err {
                 print("Error getting documents: \(err)")
-                return
+                completion([])
             } else {
                 let libraries = querySnapshot!.documents.map { (doc) -> BMLibrary in
                     let dict = doc.data()

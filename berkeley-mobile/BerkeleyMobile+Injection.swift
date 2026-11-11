@@ -58,7 +58,13 @@ extension Container {
         }.singleton
     }
 
-    var mapMarkersDropdownViewModel: Factory<MapMarkersDropdownViewModel> {
+    var librariesTileViewModel: Factory<LibrariesTileViewModel> {
+        self { @MainActor in
+            LibrariesTileViewModel()
+        }.shared
+    }
+
+    var mapMarkersDropdownViewModel:Factory<MapMarkersDropdownViewModel> {
         self { MapMarkersDropdownViewModel() }.shared
     }
 

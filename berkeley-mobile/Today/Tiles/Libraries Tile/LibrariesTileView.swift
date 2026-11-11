@@ -6,62 +6,32 @@
 //  Copyright © 2026 ASUC OCTO. All rights reserved.
 //
 
-import CoreLocation
 import FactoryKit
 import Glur
 import SwiftUI
 
 struct LibrariesTileView: View {
-    @InjectedObject(\.homeViewModel) private var homeViewModel
-
-    // Local copies of BMLocationManager state so SwiftUI re-renders on `.locationUpdated`.
-    // Distances still come from `distanceToUser`, which reads the same singleton value.
-    @State private var userLocation = BMLocationManager.shared.userLocation
-    @State private var authorizationStatus = BMLocationManager.shared.authorizationStatus
-
-    private static let distanceFormatter: MeasurementFormatter = {
-        let formatter = MeasurementFormatter()
-        formatter.unitOptions = .providedUnit
-        return formatter
-    }()
-
-    private var nearestLibraries: [LibraryDistance] {
-        guard userLocation != nil else {
-            return []
-        }
-
-        return homeViewModel.libraries
-            .filter(LibraryImageMapper.isListedOnHoursPage)
-            .compactMap { library in
-                guard let distance = library.distanceToUser else {
-                    return nil
-                }
-                return LibraryDistance(library: library, distance: distance)
-            }
-            .sorted { $0.distance < $1.distance }
-            .prefix(3)
-            .map { $0 }
-    }
+    @InjectedObservable(\.librariesTileViewModel) private var viewModel
 
     var body: some View {
         Group {
-            if homeViewModel.isFetching {
+            if viewModel.isFetching {
                 progressView
-            } else if homeViewModel.libraries.isEmpty {
+            } else if viewModel.libraries.isEmpty {
                 noLibrariesView
-            } else if authorizationStatus == .denied || authorizationStatus == .notDetermined {
+            } else if viewModel.isLocationAuthorizationRequestable {
                 Button {
-                    BMLocationManager.shared.handleLocationAuthorization()
+                    viewModel.requestLocationAuthorization()
                 } label: {
                     locationPromptView
                 }
                 .buttonStyle(.plain)
-            } else if authorizationStatus == .restricted {
+            } else if viewModel.isLocationRestricted {
                 locationPromptView
-            } else if userLocation == nil {
+            } else if viewModel.userLocation == nil {
                 progressView
             } else {
-                let libraries = nearestLibraries
+                let libraries = viewModel.nearestLibraries
                 if let closestLibrary = libraries.first {
                     GeometryReader { proxy in
                         ZStack {
@@ -80,16 +50,11 @@ struct LibrariesTileView: View {
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .onReceive(BMLocationManager.notificationCenter.publisher(for: .locationUpdated)) { _ in
-            userLocation = BMLocationManager.shared.userLocation
-            authorizationStatus = BMLocationManager.shared.authorizationStatus
-        }
     }
 
     @ViewBuilder
     private func backgroundImageView(for library: BMLibrary, proxy: GeometryProxy) -> some View {
-        // Use LibraryImageMapper to get the correct image URL from the Berkeley Library website
-        if let imageURL = LibraryImageMapper.imageURL(for: library) {
+        if let imageURL = library.imageURL {
             AsyncImage(url: imageURL) { phase in
                 switch phase {
                 case .success(let image):
@@ -150,24 +115,9 @@ struct LibrariesTileView: View {
                 .lineLimit(1)
                 .minimumScaleFactor(0.85)
 
-            Text(formatDistance(distance))
+            Text("\(distance, specifier: "%.1f") mi")
                 .font(Font(BMFont.regular(11)))
                 .opacity(0.8)
-        }
-    }
-
-    private func formatDistance(_ miles: Double) -> String {
-        let formatter = Self.distanceFormatter
-
-        // Show feet for short distances, miles otherwise
-        if miles < 0.1 {
-            formatter.numberFormatter.maximumFractionDigits = 0
-            let feet = Measurement(value: miles * 5280, unit: UnitLength.feet)
-            return formatter.string(from: feet)
-        } else {
-            formatter.numberFormatter.maximumFractionDigits = 1
-            let measurement = Measurement(value: miles, unit: UnitLength.miles)
-            return formatter.string(from: measurement)
         }
     }
 
@@ -231,12 +181,6 @@ private extension BMLibrary {
         }
         return Self.tileShortNames[trimmedName.lowercased()] ?? trimmedName
     }
-}
-
-private struct LibraryDistance {
-    let library: BMLibrary
-    /// Distance to the user in miles.
-    let distance: Double
 }
 
 #Preview {
