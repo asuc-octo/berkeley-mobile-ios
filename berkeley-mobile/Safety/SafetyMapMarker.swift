@@ -12,7 +12,7 @@ import SwiftUI
 
 @available(iOS 17.0, *)
 struct SafetyMapMarker: MapContent {
-    @InjectedObject(\.safetyViewModel) private var safetyViewModel
+    @InjectedObservable(\.safetyViewModel) private var safetyViewModel
     
     var safetyLog: BMSafetyLog
     
