@@ -7,6 +7,7 @@
 //
 
 import Firebase
+import FirebaseAuth
 import FirebaseCore
 import FirebaseMessaging
 import GoogleSignIn
@@ -31,6 +32,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UNUserNotificationCenter.current().requestAuthorization(options: authOptions, completionHandler: {_, _ in})
         application.registerForRemoteNotifications()
         
+        return true
+    }
+
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+        MeetupsAuthManager.shared.handleIncomingLink(url) { result in
+            switch result {
+            case .success(let user):
+                print("Meetups sign-in succeeded for \(user.email ?? "unknown")")
+            case .failure(let error):
+                print("Meetups sign-in failed: \(error.localizedDescription)")
+            }
+        }
         return true
     }
 
