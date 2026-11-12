@@ -18,8 +18,12 @@ struct DiningHallsTileView: View {
     @State private var userLocation = BMLocationManager.shared.userLocation
     @State private var authorizationStatus = BMLocationManager.shared.authorizationStatus
     @State private var selectedDiningHall: BMDiningHall?
+    /// Set when no location fix arrives within `locationTimeout`, so the tile stops waiting and
+    /// lists halls without distances. Distances fill in if a fix arrives later.
+    @State private var locationTimedOut = false
 
     private static let maxDisplayedHalls = 3
+    private static let locationTimeout: Duration = .seconds(10)
 
     // One formatter per precision: MeasurementFormatter does not reliably pick up changes to
     // `numberFormatter` after its first use, so a shared formatter shows "0 mi" for short distances.
@@ -55,8 +59,18 @@ struct DiningHallsTileView: View {
                 .buttonStyle(.plain)
             } else if authorizationStatus == .restricted {
                 locationPromptView
-            } else if userLocation == nil {
+            } else if userLocation == nil && !locationTimedOut {
+                // Location updates can stop without an error (indoors, airplane mode), so wait
+                // only so long before showing the halls without distances.
                 progressView
+                    .task {
+                        do {
+                            try await Task.sleep(for: Self.locationTimeout)
+                            locationTimedOut = true
+                        } catch {
+                            // Cancelled because the view went away or the location arrived.
+                        }
+                    }
             } else {
                 // Re-evaluate every minute so "Now: Lunch" and "Opens 5:00 PM" stay current between
                 // the open/closed timer updates in DiningHallsViewModel.
@@ -78,16 +92,20 @@ struct DiningHallsTileView: View {
         }
         .sheet(item: $selectedDiningHall) { diningHall in
             NavigationStack {
-                DiningDetailView(diningHall: diningHall, initialMealType: diningHall.currentMealType(at: Date()))
+                DiningDetailView(diningHall: diningHall, initialMealType: diningHall.mealTypeToShow(at: Date()))
             }
             .presentationDragIndicator(.visible)
         }
     }
 
-    /// The nearest dining halls, open ones first, each group sorted by distance.
+    /// The nearest dining halls, open ones first, each group sorted by distance. Without a user
+    /// location, each group is sorted by name instead.
     private func nearestDiningHalls(at date: Date) -> [DiningHallStatus] {
+        let hasUserLocation = userLocation != nil
         let halls = viewModel.diningHalls.compactMap { diningHall -> DiningHallStatus? in
-            guard let distance = diningHall.distanceToUser else {
+            let distance = diningHall.distanceToUser
+            // With a location, a hall without coordinates can't be ranked by distance.
+            if hasUserLocation && distance == nil {
                 return nil
             }
             return DiningHallStatus(diningHall: diningHall, distance: distance, date: date)
@@ -98,7 +116,10 @@ struct DiningHallsTileView: View {
                 if $0.isOpen != $1.isOpen {
                     return $0.isOpen
                 }
-                return $0.distance < $1.distance
+                if let lhs = $0.distance, let rhs = $1.distance {
+                    return lhs < rhs
+                }
+                return $0.diningHall.name.localizedStandardCompare($1.diningHall.name) == .orderedAscending
             }
             .prefix(Self.maxDisplayedHalls)
             .map { $0 }
@@ -145,8 +166,10 @@ struct DiningHallsTileView: View {
                     .lineLimit(1)
                     .minimumScaleFactor(0.85)
                 Spacer(minLength: 4)
-                Text(formatDistance(hallStatus.distance))
-                    .opacity(0.8)
+                if let distance = hallStatus.distance {
+                    Text(formatDistance(distance))
+                        .opacity(0.8)
+                }
             }
             .font(Font(BMFont.regular(11)))
         }
@@ -216,13 +239,13 @@ struct DiningHallsTileView: View {
 
 private struct DiningHallStatus {
     let diningHall: BMDiningHall
-    /// Distance to the user in miles.
-    let distance: Double
+    /// Distance to the user in miles, or `nil` when the user's location is unknown.
+    let distance: Double?
     let isOpen: Bool
     let currentMealType: BMMeal.BMMealType?
     let nextOpening: Date?
 
-    init(diningHall: BMDiningHall, distance: Double, date: Date) {
+    init(diningHall: BMDiningHall, distance: Double?, date: Date) {
         self.diningHall = diningHall
         self.distance = distance
         // Computed from `hours` instead of `diningHall.isOpen` so the status matches `date`.
@@ -236,11 +259,28 @@ private struct DiningHallStatus {
 private extension BMDiningHall {
     /// The regular meal being served at `date`, if its serving time can be parsed.
     func currentMealType(at date: Date) -> BMMeal.BMMealType? {
-        return BMMeal.BMMealType.regularMealTypes.first { mealType in
+        return mealIntervals(on: date).first { $0.interval.contains(date) }?.mealType
+    }
+
+    /// The meal tab to open the menu on: the meal being served at `date`, otherwise the next
+    /// meal later that day. `nil` after the last meal, so the menu opens on its first tab.
+    func mealTypeToShow(at date: Date) -> BMMeal.BMMealType? {
+        if let currentMealType = currentMealType(at: date) {
+            return currentMealType
+        }
+        return mealIntervals(on: date)
+            .filter { $0.interval.start > date }
+            .min { $0.interval.start < $1.interval.start }?
+            .mealType
+    }
+
+    /// Serving times for each regular meal on `date`, skipping meals whose time can't be parsed.
+    private func mealIntervals(on date: Date) -> [(mealType: BMMeal.BMMealType, interval: DateInterval)] {
+        return BMMeal.BMMealType.regularMealTypes.compactMap { mealType in
             guard let interval = meals[mealType]?.time?.convertToDateInterval(on: date) else {
-                return false
+                return nil
             }
-            return interval.contains(date)
+            return (mealType, interval)
         }
     }
 }
