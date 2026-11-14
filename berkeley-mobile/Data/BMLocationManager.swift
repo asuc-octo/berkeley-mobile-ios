@@ -90,6 +90,9 @@ class BMLocationManager: NSObject {
 extension BMLocationManager: CLLocationManagerDelegate {
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         handleLocationAuthorization(fromDelegate: true)
+        // Post on every authorization change, including grants, so observers update their state
+        // even if no location fix arrives.
+        BMLocationManager.notificationCenter.post(name: .locationUpdated, object: userLocation)
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

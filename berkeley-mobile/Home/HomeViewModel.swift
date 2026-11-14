@@ -9,6 +9,7 @@
 import FactoryKit
 import FirebaseAnalytics
 import SwiftUI
+import Observation
 
 enum HomeDrawerViewType {
     case dining
@@ -31,15 +32,15 @@ protocol HomeDrawerSectionRowItemType: HasLocation, SearchItem, HasImage, Identi
     var docID: String { get set }
 }
 
-class HomeViewModel: ObservableObject {
-    @Published var isFetching = false
-    @Published var diningHalls: [BMDiningHall] = []
-    @Published var libraries: [BMLibrary] = []
-    @Published var gyms: [BMGym] = []
+@Observable class HomeViewModel {
+    var isFetching = false
+    var diningHalls: [BMDiningHall] = []
+    var libraries: [BMLibrary] = []
+    var gyms: [BMGym] = []
     
-    @Published var isShowingDrawer = true
-    @Published var homeDrawerDetailViewInfo: (type: HomeDrawerViewType, item: SearchItem)? = nil
-    @Published var drawerViewState = BMDrawerViewState.medium
+    var isShowingDrawer = true
+    var homeDrawerDetailViewInfo: (type: HomeDrawerViewType, item: SearchItem)? = nil
+    var drawerViewState = BMDrawerViewState.medium
 
     init() {
         fetchHomeSectionsData()

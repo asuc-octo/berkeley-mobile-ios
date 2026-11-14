@@ -17,8 +17,24 @@ struct DiningDetailView: View {
 
     var diningHall: BMDiningHall
     
-    @State private var selectedTabIndex = 0
-    
+    @State private var selectedTabIndex: Int
+
+    /// - Parameter initialMealType: The meal tab to show first. Falls back to the first tab when
+    ///   `nil` or when the dining hall has no menu for that meal.
+    init(diningHall: BMDiningHall, initialMealType: BMMeal.BMMealType? = nil) {
+        self.diningHall = diningHall
+        let initialTabIndex = initialMealType.flatMap {
+            Self.tabMealTypes(for: diningHall).firstIndex(of: $0)
+        }
+        _selectedTabIndex = State(initialValue: initialTabIndex ?? 0)
+    }
+
+    private static func tabMealTypes(for diningHall: BMDiningHall) -> [BMMeal.BMMealType] {
+        return BMMeal.BMMealType.regularMealTypes.filter {
+            !diningHall.getCategoriesAndMenuItems(for: $0).isEmpty
+        }
+    }
+
     private var allDayString: String? {
         return diningHall.meals[BMMeal.BMMealType.other]?.categoriesAndMenuItems.first?.menuItems.first?.name
     }
@@ -29,11 +45,7 @@ struct DiningDetailView: View {
     }
     
     private var filteredTabNames: [String] {
-        return BMMeal.BMMealType.regularMealTypes.filter {
-            !diningHall.getCategoriesAndMenuItems(for: $0).isEmpty
-        }.map {
-            $0.rawValue
-        }
+        return Self.tabMealTypes(for: diningHall).map { $0.rawValue }
     }
     
     var body: some View {

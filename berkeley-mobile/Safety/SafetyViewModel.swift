@@ -8,6 +8,7 @@
 
 import MapKit
 import SwiftUI
+import Observation
 
 struct BMSafetyLog: Identifiable, Codable, Hashable {
     var id = UUID()
@@ -54,19 +55,19 @@ extension BMSafetyLogFilterState: Identifiable {
 
 // MARK: - SafetyViewManager
 
-final class SafetyViewModel: NSObject, ObservableObject {
+@Observable final class SafetyViewModel: NSObject {
     struct BMCrimeInfo {
         var color: Color
         var count: Int
     }
     
-    @Published var region = BMConstants.berkeleyRegion
-    @Published var safetyLogs = [BMSafetyLog]()
-    @Published var filteredSafetyLogs = [BMSafetyLog]()
-    @Published var crimeInfos = [BMSafetyLogFilterState: BMCrimeInfo]()
-    @Published var isLoading = false
-    @Published var alert: BMAlert?
-    @Published var selectedSafetyLogFilterStates: [BMSafetyLogFilterState] = [] {
+    var region = BMConstants.berkeleyRegion
+    var safetyLogs = [BMSafetyLog]()
+    var filteredSafetyLogs = [BMSafetyLog]()
+    var crimeInfos = [BMSafetyLogFilterState: BMCrimeInfo]()
+    var isLoading = false
+    var alert: BMAlert?
+    var selectedSafetyLogFilterStates: [BMSafetyLogFilterState] = [] {
         didSet {
             updateFilterState()
         }

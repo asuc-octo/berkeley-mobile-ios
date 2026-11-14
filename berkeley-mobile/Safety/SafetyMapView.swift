@@ -11,7 +11,7 @@ import MapKit
 import SwiftUI
 
 struct SafetyMapView: View {
-    @InjectedObject(\.safetyViewModel) private var safetyViewModel
+    @InjectedObservable(\.safetyViewModel) private var safetyViewModel
 
     @State private var isShowingLegend = false
     @Binding var selectedSafetyLog: BMSafetyLog?
@@ -33,7 +33,7 @@ struct SafetyMapView: View {
 
 @available(iOS 17.0, *)
 struct SafetyNewMapView: View {
-    @InjectedObject(\.safetyViewModel) private var safetyViewModel
+    @InjectedObservable(\.safetyViewModel) private var safetyViewModel
 
     @State private var mapCameraPosition = MapCameraPosition.automatic
     @State private var isShowingAllMarkers = true

@@ -12,7 +12,7 @@ import SwiftUI
 import WidgetKit
 
 struct FitnessView: View {
-    @InjectedObject(\.homeViewModel) private var homeViewModel
+    @InjectedObservable(\.homeViewModel) private var homeViewModel
 
     var mapViewController: MapViewController
     

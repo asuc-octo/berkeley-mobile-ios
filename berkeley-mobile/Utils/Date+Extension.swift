@@ -6,18 +6,7 @@ import Foundation
  */
 extension Date {
     
-    
     // MARK: - Static Methods
-    
-    /// Returns true if this Date is earlier or equal to given other.
-    static func <= (_ this: inout Date, _ other: Date) -> Bool {
-        return (this < other) || (this == other)
-    }
-    
-    /// Returns true if this Date is later or equal to given other.
-    static func >= (_ this: inout Date, _ other: Date) -> Bool {
-        return (this > other) || (this == other)
-    }
     
     /// Returns true if the Date is before noon.
     static func isBeforeNoon(_ date: Date) -> Bool {
