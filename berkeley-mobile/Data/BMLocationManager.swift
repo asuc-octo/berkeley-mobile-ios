@@ -34,6 +34,11 @@ class BMLocationManager: NSObject {
     /// The most-updated location for the current user. `nil` if no location data has ever been recieved.
     open var userLocation: CLLocation?
 
+    /// The app's current location authorization status.
+    var authorizationStatus: CLAuthorizationStatus {
+        return locationManager.authorizationStatus
+    }
+
     override init() {
         super.init()
 
@@ -57,7 +62,7 @@ class BMLocationManager: NSObject {
         let authStatus = locationManager.authorizationStatus
         
         switch authStatus {
-        case .authorizedWhenInUse:
+        case .authorizedWhenInUse, .authorizedAlways:
             locationManager.startUpdatingLocation()
         case .notDetermined:
             locationManager.requestWhenInUseAuthorization()
@@ -72,7 +77,7 @@ class BMLocationManager: NSObject {
             break
         }
         
-        if authStatus != .authorizedWhenInUse {
+        if authStatus != .authorizedWhenInUse && authStatus != .authorizedAlways {
             userLocation = nil
             BMLocationManager.notificationCenter.post(name: .locationUpdated, object: nil)
         }
@@ -85,6 +90,9 @@ class BMLocationManager: NSObject {
 extension BMLocationManager: CLLocationManagerDelegate {
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         handleLocationAuthorization(fromDelegate: true)
+        // Post on every authorization change, including grants, so observers update their state
+        // even if no location fix arrives.
+        BMLocationManager.notificationCenter.post(name: .locationUpdated, object: userLocation)
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
