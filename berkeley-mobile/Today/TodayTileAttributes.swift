@@ -70,6 +70,7 @@ enum TodayTiles: CaseIterable {
     case news
     case weather
     case dining
+    case libraries
 
     func view() -> AnyView {
         switch self {
@@ -79,6 +80,8 @@ enum TodayTiles: CaseIterable {
             return AnyView(TodayWeatherTileView())
         case .dining:
             return AnyView(DiningHallsTileView())
+        case .libraries:
+            return AnyView(LibrariesTileView())
         }
     }
 
@@ -109,6 +112,15 @@ enum TodayTiles: CaseIterable {
                 styles: [TodayTileStyle.Name.defaultName: TodayTileStyle(colors: [
                     Color(red: 0.10, green: 0.29, blue: 0.32),
                     Color(red: 0.18, green: 0.44, blue: 0.45)])]
+            )
+        case .libraries:
+            TodayTileAttributes(
+                span: .halfWidth,
+                contentPadding: 0,
+                displayedStyleName: displayedStyleName,
+                styles: [TodayTileStyle.Name.defaultName: TodayTileStyle(colors: [
+                    Color(red: 0.15, green: 0.25, blue: 0.45),
+                    Color(red: 0.25, green: 0.40, blue: 0.65)])]
             )
         }
     }
